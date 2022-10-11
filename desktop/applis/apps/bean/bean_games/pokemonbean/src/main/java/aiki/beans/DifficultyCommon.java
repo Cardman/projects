@@ -1,15 +1,15 @@
 package aiki.beans;
 
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.AbsMap;
 import code.util.StringMap;
-import code.util.TreeMap;
 
 public final class DifficultyCommon {
     private boolean allowCatchingKo;
@@ -20,9 +20,9 @@ public final class DifficultyCommon {
     private Rate winTrainerExp;
     private StringMap<String> damageRates;
     private String damageRatePlayer;
-    private TreeMap<Rate,Rate> damageRatePlayerTable;
+    private DictionaryComparator<Rate,Rate> damageRatePlayerTable;
     private String damageRateLawFoe;
-    private TreeMap<Rate,Rate> damageRateFoeTable;
+    private DictionaryComparator<Rate,Rate> damageRateFoeTable;
     private boolean endFightIfOneTeamKo;
     private Rate rateWinMoneyBase;
     private Rate rateLooseMoneyWin;
@@ -63,13 +63,13 @@ public final class DifficultyCommon {
         skipLearningMovesWhileNotGrowingLevel = _diff.isSkipLearningMovesWhileNotGrowingLevel();
         damageRatePlayer = _diff.getDamageRatePlayer().getModelName();
         damageRateLawFoe = _diff.getDamageRateLawFoe().getModelName();
-        damageRatePlayerTable = new TreeMap<Rate, Rate>(new ComparatorRate());
+        damageRatePlayerTable = DictionaryComparatorUtil.buildRateRate();
         MonteCarloNumber law_;
         law_ = _data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
         for (Rate e: law_.events()) {
             damageRatePlayerTable.put(e, law_.normalizedRate(e));
         }
-        damageRateFoeTable = new TreeMap<Rate, Rate>(new ComparatorRate());
+        damageRateFoeTable = DictionaryComparatorUtil.buildRateRate();
         law_ = _data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
         for (Rate e: law_.events()) {
             damageRateFoeTable.put(e, law_.normalizedRate(e));
@@ -232,7 +232,7 @@ public final class DifficultyCommon {
         damageRatePlayer = _damageRatePlayer;
     }
 
-    public TreeMap<Rate,Rate> getDamageRatePlayerTable() {
+    public DictionaryComparator<Rate,Rate> getDamageRatePlayerTable() {
         return damageRatePlayerTable;
     }
 
@@ -244,7 +244,7 @@ public final class DifficultyCommon {
         damageRateLawFoe = _damageRateLawFoe;
     }
 
-    public TreeMap<Rate,Rate> getDamageRateFoeTable() {
+    public DictionaryComparator<Rate,Rate> getDamageRateFoeTable() {
         return damageRateFoeTable;
     }
 

@@ -1,13 +1,16 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.facade.comparators.ComparatorCategoryMult;
+import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.util.CategoryMult;
 import code.maths.Rate;
-import code.util.*;
+import code.util.AbsMap;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.ints.Listable;
 
 public class EffectTeamBean extends EffectBean {
@@ -16,7 +19,7 @@ public class EffectTeamBean extends EffectBean {
     private StringList unusableMoves;
     private StringList cancelChgtStatFoeTeam;
     private StringList cancelChgtStatTeam;
-    private TreeMap<CategoryMult, Rate> multDamage;
+    private DictionaryComparator<CategoryMult, Rate> multDamage;
     private NatStringTreeMap< Rate> multStatistic;
     private NatStringTreeMap< Rate> multStatisticFoe;
     private StringList protectAgainstLowStat;
@@ -72,8 +75,8 @@ public class EffectTeamBean extends EffectBean {
             multStatisticFoe_.put(translatedStatistics_.getVal(s), effect_.getMultStatisticFoe().getVal(s));
         }
         multStatisticFoe = multStatisticFoe_;
-        TreeMap<CategoryMult, Rate> multDamage_;
-        multDamage_ = new TreeMap<CategoryMult, Rate>(new ComparatorCategoryMult());
+        DictionaryComparator<CategoryMult, Rate> multDamage_;
+        multDamage_ = DictionaryComparatorUtil.buildCategoryMult();
         for (CategoryMult c: effect_.getMultDamage().getKeys()) {
             CategoryMult cat_ = new CategoryMult();
             cat_.setCategory(translatedCategories_.getVal(c.getCategory()));
@@ -104,6 +107,7 @@ public class EffectTeamBean extends EffectBean {
         disableFoeTeamStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         disableFoeTeamStatus = disableFoeTeamStatus_;
     }
+
     public String clickStatus(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         String st_ = getProtectAgainstStatus(effect_).get(_index);
@@ -228,7 +232,7 @@ public class EffectTeamBean extends EffectBean {
         return multStatisticFoe;
     }
 
-    public TreeMap<CategoryMult,Rate> getMultDamage() {
+    public DictionaryComparator<CategoryMult,Rate> getMultDamage() {
         return multDamage;
     }
 

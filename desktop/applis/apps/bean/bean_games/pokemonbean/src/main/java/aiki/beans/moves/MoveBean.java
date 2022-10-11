@@ -2,10 +2,12 @@ package aiki.beans.moves;
 
 import aiki.beans.CommonBean;
 import aiki.beans.items.ItemsBean;
-import aiki.comparators.*;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.items.*;
+import aiki.fight.items.Item;
+import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
@@ -15,7 +17,6 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.util.LevelMove;
-import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
@@ -70,7 +71,7 @@ public class MoveBean extends CommonBean {
     private Ints effects;
     private short nbPrepaRound;
     private boolean disappearBeforeUse;
-    private TreeMap<LgInt,Rate> repeatRoundLaw;
+    private DictionaryComparator<LgInt,Rate> repeatRoundLaw;
     private short rankIncrementNbRound;
     private boolean rechargeRound;
     private boolean constUserChoice;
@@ -137,8 +138,8 @@ public class MoveBean extends CommonBean {
             effects_.add(i);
         }
         effects = effects_;
-        TreeMap<LgInt, Rate> repeatRoundLaw_;
-        repeatRoundLaw_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
+        DictionaryComparator<LgInt, Rate> repeatRoundLaw_;
+        repeatRoundLaw_ = DictionaryComparatorUtil.buildIntRate();
         for (Rate r: moveData_.getRepeatRoundLaw().events()) {
             repeatRoundLaw_.put(r.intPart(), moveData_.getRepeatRoundLaw().normalizedRate(r));
         }
@@ -1121,7 +1122,7 @@ public class MoveBean extends CommonBean {
         return rankIncrementNbRound;
     }
 
-    public TreeMap<LgInt,Rate> getRepeatRoundLaw() {
+    public DictionaryComparator<LgInt,Rate> getRepeatRoundLaw() {
         return repeatRoundLaw;
     }
 

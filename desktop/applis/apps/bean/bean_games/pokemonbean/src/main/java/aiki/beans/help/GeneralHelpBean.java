@@ -2,11 +2,11 @@ package aiki.beans.help;
 
 import aiki.beans.CommonBean;
 import aiki.beans.items.ItemsBean;
-import aiki.comparators.ComparatorMiniMapCoords;
+import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
-import aiki.fight.items.*;
+import aiki.fight.items.Item;
 import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
@@ -16,14 +16,16 @@ import aiki.map.util.MiniMapCoordsTileInts;
 import code.images.BaseSixtyFourUtil;
 import code.images.ConverterBufferedImage;
 import code.maths.Rate;
-import code.util.*;
+import code.util.AbsMap;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class GeneralHelpBean extends CommonBean {
     private MiniMapCoordsTileInts miniMap;
 
-    private TreeMap<MiniMapCoords, String> namesPlaces;
+    private DictionaryComparator<MiniMapCoords, String> namesPlaces;
     private String unlockedCity;
     private String begin;
 
@@ -51,7 +53,7 @@ public class GeneralHelpBean extends CommonBean {
         miniMap = data_.getMap().getImages(data_);
         begin = data_.getMap().getPlace(data_.getMap().getBegin().getNumberPlace()).getName();
         firstPokemon = data_.getMap().getFirstPokemon();
-        namesPlaces = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+        namesPlaces = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoords m: miniMap.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
         }
@@ -305,9 +307,9 @@ public class GeneralHelpBean extends CommonBean {
         return begin;
     }
 
-    public TreeMap<MiniMapCoords,String> getMiniMap() {
+    public DictionaryComparator<MiniMapCoords,String> getMiniMap() {
         DataBase data_ = getDataBase();
-        TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+        DictionaryComparator<MiniMapCoords, String> map_ = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
             map_.put(m_.getMiniMapCoords(), BaseSixtyFourUtil.getStringByImage(image_));

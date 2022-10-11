@@ -1,7 +1,6 @@
 package aiki.beans.items;
 
 import aiki.beans.EndRoundCommon;
-import aiki.beans.facade.comparators.ComparatorStatisticPokemon;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -14,7 +13,10 @@ import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.*;
+import code.util.AbsMap;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 
 public class ItemForBattleBean extends ItemBean {
     static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
@@ -47,7 +49,7 @@ public class ItemForBattleBean extends ItemBean {
     private Rate multDrainedHp;
     private Rate damageRecoil;
     private DictionaryComparator<Statistic, Byte> multStatRank;
-    private TreeMap<StatisticPokemon, Byte> multStatPokemonRank;
+    private DictionaryComparator<StatisticPokemon, Byte> multStatPokemonRank;
     private DictionaryComparator<Statistic,String> multStat;
     private DictionaryComparator<String, Short> increasingMaxNbRoundGlobalMove;
     private DictionaryComparator<String, Short> increasingMaxNbRoundTeamMove;
@@ -140,8 +142,8 @@ public class ItemForBattleBean extends ItemBean {
             multStatRank_.put(s, item_.getMultStatRank().getVal(s));
         }
         multStatRank = multStatRank_;
-        TreeMap<StatisticPokemon, Byte> multStatPokemonRank_;
-        multStatPokemonRank_ = new TreeMap<StatisticPokemon, Byte>(new ComparatorStatisticPokemon(data_, getLanguage()));
+        DictionaryComparator<StatisticPokemon, Byte> multStatPokemonRank_;
+        multStatPokemonRank_ = DictionaryComparatorUtil.buildStatPk(data_, getLanguage());
         for (StatisticPokemon s: item_.getMultStatPokemonRank().getKeys()) {
             multStatPokemonRank_.put(s, item_.getMultStatPokemonRank().getVal(s));
         }
@@ -581,7 +583,7 @@ public class ItemForBattleBean extends ItemBean {
         return multStatRank;
     }
 
-    public TreeMap<StatisticPokemon,Byte> getMultStatPokemonRank() {
+    public DictionaryComparator<StatisticPokemon,Byte> getMultStatPokemonRank() {
         return multStatPokemonRank;
     }
 

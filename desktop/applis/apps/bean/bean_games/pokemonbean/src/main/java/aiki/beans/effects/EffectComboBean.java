@@ -7,13 +7,11 @@ import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.moves.effects.EffectEndRound;
-import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
-import code.util.TreeMap;
 
 public class EffectComboBean extends CommonBean {
     private ComboDto combos;
@@ -21,7 +19,7 @@ public class EffectComboBean extends CommonBean {
     private StringList moves;
 
     private Rate multEvtRateSecEff;
-    private TreeMap<LgInt,Rate> repeatedRoundsLaw;
+    private DictionaryComparator<LgInt,Rate> repeatedRoundsLaw;
     private short rankIncrementNbRound;
     private boolean endRound;
     private int endRoundRank;
@@ -59,8 +57,8 @@ public class EffectComboBean extends CommonBean {
         }
         multEvtRateSecEff = e_.getMultEvtRateSecEff();
         rankIncrementNbRound = e_.getRankIncrementNbRound();
-        TreeMap<LgInt,Rate> repeatedRoundsLaw_;
-        repeatedRoundsLaw_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
+        DictionaryComparator<LgInt,Rate> repeatedRoundsLaw_;
+        repeatedRoundsLaw_ = DictionaryComparatorUtil.buildIntRate();
         for (Rate e: e_.getRepeatedRoundsLaw().events()) {
             repeatedRoundsLaw_.put(e.intPart(), e_.getRepeatedRoundsLaw().normalizedRate(e));
         }
@@ -119,7 +117,7 @@ public class EffectComboBean extends CommonBean {
         return rankIncrementNbRound;
     }
 
-    public TreeMap<LgInt,Rate> getRepeatedRoundsLaw() {
+    public DictionaryComparator<LgInt,Rate> getRepeatedRoundsLaw() {
         return repeatedRoundsLaw;
     }
 

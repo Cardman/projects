@@ -1,8 +1,8 @@
 package aiki.beans.game;
 
 import aiki.beans.CommonSingleBean;
-import aiki.beans.facade.comparators.ComparatorPlaceNumber;
 import aiki.comparators.ComparatorTrainerPlaceNames;
+import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.facade.FacadeGame;
 import aiki.fight.pokemon.TrainerPlaceNames;
@@ -13,7 +13,6 @@ import code.maths.LgInt;
 import code.util.CustList;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
-import code.util.TreeMap;
 
 public class GameProgressionBean extends CommonSingleBean {
     private String heroImage;
@@ -27,7 +26,7 @@ public class GameProgressionBean extends CommonSingleBean {
     private NatStringTreeMap<CustList<StringList>> fullFamiliesBase;
     private CustList<TrainerPlaceNames> beatenImportantTrainers;
     private CustList<TrainerPlaceNames> unBeatenImportantTrainers;
-    private TreeMap<Short,Integer> remainingOtherTrainerPlaces;
+    private DictionaryComparator<Short,Integer> remainingOtherTrainerPlaces;
     private StringList visitedPlaces;
     private StringList unVisitedPlaces;
     private LgInt money;
@@ -53,7 +52,7 @@ public class GameProgressionBean extends CommonSingleBean {
         unBeatenImportantTrainers.sortElts(new ComparatorTrainerPlaceNames());
         beatenImportantTrainers = progression_.getBeatenImportantTrainers();
         beatenImportantTrainers.sortElts(new ComparatorTrainerPlaceNames());
-        remainingOtherTrainerPlaces = new TreeMap<Short, Integer>(new ComparatorPlaceNumber(facade_.getMap()));
+        remainingOtherTrainerPlaces = DictionaryComparatorUtil.buildPlaces(facade_.getMap());
         remainingOtherTrainerPlaces.putAllMap(progression_.getRemainingOtherTrainerPlaces());
         visitedPlaces = progression_.getVisitedPlaces();
         visitedPlaces.sort();
@@ -215,7 +214,7 @@ public class GameProgressionBean extends CommonSingleBean {
         return beatenImportantTrainers;
     }
 
-    public TreeMap<Short,Integer> getRemainingOtherTrainerPlaces() {
+    public DictionaryComparator<Short,Integer> getRemainingOtherTrainerPlaces() {
         return remainingOtherTrainerPlaces;
     }
 

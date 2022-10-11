@@ -1,8 +1,9 @@
 package aiki.beans.fight;
 
 import aiki.beans.facade.comparators.ComparatorKeyHypothesis;
-import aiki.beans.facade.comparators.ComparatorMoveTarget;
 import aiki.beans.facade.fight.KeyHypothesis;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
@@ -17,7 +18,7 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 
 public class FightCalculationBean extends CommonFightBean {
-    private TreeMap<MoveTarget, MoveTarget> allyChoice;
+    private DictionaryComparator<MoveTarget, MoveTarget> allyChoice;
     private ByteTreeMap<MoveTarget> foeChoices;
 
     private ByteTreeMap<BoolVal> foeChoicesTargets;
@@ -43,8 +44,8 @@ public class FightCalculationBean extends CommonFightBean {
         StringMap<String> translationsMoves_;
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         Fight fight_ = dataBaseFight_.getGame().getFight();
-        TreeMap<MoveTarget, MoveTarget> allyChoice_;
-        allyChoice_ = new TreeMap<MoveTarget, MoveTarget>(new ComparatorMoveTarget());
+        DictionaryComparator<MoveTarget, MoveTarget> allyChoice_;
+        allyChoice_ = DictionaryComparatorUtil.buildMoveTarget();
         for (MoveTarget m: fight_.getAllyChoiceSet()) {
             MoveTarget key_;
             key_ = new MoveTarget();
@@ -178,7 +179,7 @@ public class FightCalculationBean extends CommonFightBean {
         return damage;
     }
 
-    public TreeMap<MoveTarget,MoveTarget> getAllyChoice() {
+    public DictionaryComparator<MoveTarget,MoveTarget> getAllyChoice() {
         return allyChoice;
     }
 

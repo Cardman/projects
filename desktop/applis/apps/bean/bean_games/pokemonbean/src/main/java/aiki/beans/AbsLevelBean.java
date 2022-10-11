@@ -1,6 +1,7 @@
 package aiki.beans;
 
-import aiki.beans.facade.comparators.ComparatorPoint;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -10,11 +11,10 @@ import aiki.util.CommonParam;
 import aiki.util.Point;
 import aiki.util.Points;
 import code.images.BaseSixtyFourUtil;
-import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
 public abstract class AbsLevelBean extends CommonBean {
-    private TreeMap<Point,String> tiles;
+    private DictionaryComparator<Point,String> tiles;
     private String placeName;
     private int levelIndex;
     private boolean outside;
@@ -25,7 +25,7 @@ public abstract class AbsLevelBean extends CommonBean {
 
     protected void initTiles() {
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
-        tiles = new TreeMap<Point, String>(new ComparatorPoint());
+        tiles = DictionaryComparatorUtil.buildPointString();
         DataBase data_ = getDataBase();
         possibleMultiLayer = false;
         road = false;
@@ -107,7 +107,7 @@ public abstract class AbsLevelBean extends CommonBean {
         return pokemonCenter;
     }
 
-    public TreeMap<Point, String> getTiles() {
+    public DictionaryComparator<Point, String> getTiles() {
         return tiles;
     }
 }

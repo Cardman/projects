@@ -2,7 +2,8 @@ package aiki.beans.abilities;
 
 import aiki.beans.CommonBean;
 import aiki.beans.EndRoundCommon;
-import aiki.beans.facade.comparators.*;
+import aiki.beans.facade.comparators.ComparatorStatusStatistic;
+import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -84,11 +85,11 @@ public class AbilityBean extends CommonBean {
     private DictionaryComparator<Statistic, Byte> multStatIfLowStat;
     private DictionaryComparator<Statistic, String> multStat;
     private DictionaryComparator<Statistic, Rate> multStatAlly;
-    private TreeMap<StatisticCategory, Byte> multStatIfDamageCat;
-    private TreeMap<StatisticCategory, Rate> multStatIfCat;
-    private TreeMap<StatisticStatus, Byte> multStatIfStatutRank;
-    private TreeMap<StatisticType, Byte> multStatIfDamgeType;
-    private TreeMap<WeatherType, Rate> healHpByTypeIfWeather;
+    private DictionaryComparator<StatisticCategory, Byte> multStatIfDamageCat;
+    private DictionaryComparator<StatisticCategory, Rate> multStatIfCat;
+    private DictionaryComparator<StatisticStatus, Byte> multStatIfStatutRank;
+    private DictionaryComparator<StatisticType, Byte> multStatIfDamgeType;
+    private DictionaryComparator<WeatherType, Rate> healHpByTypeIfWeather;
     private DictionaryComparator<String, TypeDamageBoost> changingBoostTypes;
     private DictionaryComparator<String, Short> increasedPrio;
     private DictionaryComparator<String, Short> increasedPrioTypes;
@@ -260,8 +261,8 @@ public class AbilityBean extends CommonBean {
             healHpByWeather_.put(c, ability_.getHealHpByWeather().getVal(c));
         }
         healHpByWeather = healHpByWeather_;
-        TreeMap<WeatherType, Rate> healHpByTypeIfWeather_;
-        healHpByTypeIfWeather_ = new TreeMap<WeatherType, Rate>(new ComparatorWeatherType(data_, getLanguage()));
+        DictionaryComparator<WeatherType, Rate> healHpByTypeIfWeather_;
+        healHpByTypeIfWeather_ = DictionaryComparatorUtil.buildWeatherType(data_, getLanguage());
         for (WeatherType w: ability_.getHealHpByTypeIfWeather().getKeys()) {
             healHpByTypeIfWeather_.put(w, ability_.getHealHpByTypeIfWeather().getVal(w));
         }
@@ -272,19 +273,19 @@ public class AbilityBean extends CommonBean {
             changingBoostTypes_.put(w, ability_.getChangingBoostTypes().getVal(w));
         }
         changingBoostTypes = changingBoostTypes_;
-        TreeMap<StatisticCategory, Byte> multStatIfDamageCat_;
-        multStatIfDamageCat_ = new TreeMap<StatisticCategory, Byte>(new ComparatorStatisticCategory(data_, getLanguage()));
+        DictionaryComparator<StatisticCategory, Byte> multStatIfDamageCat_;
+        multStatIfDamageCat_ = DictionaryComparatorUtil.buildStatisticCategoryByte(data_,getLanguage());
         for (StatisticCategory w: ability_.getMultStatIfDamageCat().getKeys()) {
             multStatIfDamageCat_.put(w, ability_.getMultStatIfDamageCat().getVal(w));
         }
         multStatIfDamageCat = multStatIfDamageCat_;
-        TreeMap<StatisticCategory, Rate> multStatIfCat_;
-        multStatIfCat_ = new TreeMap<StatisticCategory, Rate>(new ComparatorStatisticCategory(data_, getLanguage()));
+        DictionaryComparator<StatisticCategory, Rate> multStatIfCat_;
+        multStatIfCat_ = DictionaryComparatorUtil.buildStatisticCategoryRate(data_,getLanguage());
         for (StatisticCategory w: ability_.getMultStatIfCat().getKeys()) {
             multStatIfCat_.put(w, ability_.getMultStatIfCat().getVal(w));
         }
         multStatIfCat = multStatIfCat_;
-        TreeMap<StatisticType, Byte> multStatIfDamgeType_;
+        DictionaryComparator<StatisticType, Byte> multStatIfDamgeType_;
 //        multStatIfDamgeType_ = new TreeMap<new>(new NaturalComparator<StatisticType>() {
 //            @Override
 //            public int compare(StatisticType _o1, StatisticType _o2) {
@@ -300,13 +301,13 @@ public class AbilityBean extends CommonBean {
 //                return ComparatorTrString.compare(translatedCategoriesCmp_, _o1.getType(), _o2.getType());
 //            }
 //        });
-        multStatIfDamgeType_ = new TreeMap<StatisticType, Byte>(new ComparatorStatisticType(data_, getLanguage()));
+        multStatIfDamgeType_ = DictionaryComparatorUtil.buildStatisTypeByte(data_, getLanguage());
         for (StatisticType w: ability_.getMultStatIfDamgeType().getKeys()) {
             multStatIfDamgeType_.put(w, ability_.getMultStatIfDamgeType().getVal(w));
         }
         multStatIfDamgeType = multStatIfDamgeType_;
-        TreeMap<StatisticStatus, Byte> multStatIfStatutRank_;
-        multStatIfStatutRank_ = new TreeMap<StatisticStatus, Byte>(new ComparatorStatusStatistic(data_, getLanguage()));
+        DictionaryComparator<StatisticStatus, Byte> multStatIfStatutRank_;
+        multStatIfStatutRank_ = DictionaryComparatorUtil.buildStatisticStatus(data_, getLanguage());
         for (StatisticStatus w: ability_.getMultStatIfStatutRank().getKeys()) {
             multStatIfStatutRank_.put(w, ability_.getMultStatIfStatutRank().getVal(w));
         }
@@ -418,7 +419,7 @@ public class AbilityBean extends CommonBean {
 //                return ComparatorTrString.compare(translatedTypesCmp_, _o1.getPokemonType(), _o2.getPokemonType());
 //            }
 //        });
-        breakFoeImmune_.sortElts(new ComparatorTypesDuo(data_, getLanguage(), false));
+        breakFoeImmune_.sortElts(new ComparatorTypesDuo(data_, getLanguage(), false,false));
         return breakFoeImmune_;
     }
 
@@ -1469,7 +1470,7 @@ public class AbilityBean extends CommonBean {
         return healHpByWeather;
     }
 
-    public TreeMap<WeatherType,Rate> getHealHpByTypeIfWeather() {
+    public DictionaryComparator<WeatherType,Rate> getHealHpByTypeIfWeather() {
         return healHpByTypeIfWeather;
     }
 
@@ -1525,19 +1526,19 @@ public class AbilityBean extends CommonBean {
         return multStat;
     }
 
-    public TreeMap<StatisticCategory,Byte> getMultStatIfDamageCat() {
+    public DictionaryComparator<StatisticCategory,Byte> getMultStatIfDamageCat() {
         return multStatIfDamageCat;
     }
 
-    public TreeMap<StatisticType,Byte> getMultStatIfDamgeType() {
+    public DictionaryComparator<StatisticType,Byte> getMultStatIfDamgeType() {
         return multStatIfDamgeType;
     }
 
-    public TreeMap<StatisticCategory,Rate> getMultStatIfCat() {
+    public DictionaryComparator<StatisticCategory,Rate> getMultStatIfCat() {
         return multStatIfCat;
     }
 
-    public TreeMap<StatisticStatus,Byte> getMultStatIfStatutRank() {
+    public DictionaryComparator<StatisticStatus,Byte> getMultStatIfStatutRank() {
         return multStatIfStatutRank;
     }
 

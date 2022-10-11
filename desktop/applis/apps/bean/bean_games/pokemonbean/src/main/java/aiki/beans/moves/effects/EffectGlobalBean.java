@@ -1,7 +1,5 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.facade.comparators.ComparatorStatisticType;
-import aiki.beans.facade.comparators.ComparatorTypesDuo;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -11,7 +9,10 @@ import aiki.fight.moves.effects.*;
 import aiki.fight.util.StatisticType;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
-import code.util.*;
+import code.util.AbsMap;
+import code.util.NatStringTreeMap;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.ints.Comparing;
 import code.util.ints.Listable;
 
@@ -19,7 +20,7 @@ public class EffectGlobalBean extends EffectBean {
     private EffectGlobalCore effectGlobalCore;
     private StringList preventStatus;
     private StringList immuneTypes;
-    private TreeMap<TypesDuo, Rate> efficiencyMoves;
+    private DictionaryComparator<TypesDuo, Rate> efficiencyMoves;
     private StringList disableImmuAgainstTypes;
     private StringList cancelProtectingAbilities;
     private StringList unusableMoves;
@@ -27,7 +28,7 @@ public class EffectGlobalBean extends EffectBean {
     private StringList movesUsedByTargetedFighters;
     private Rate multEffectLovingAlly;
     private DictionaryComparator<String, Rate> multPowerMoves;
-    private TreeMap<StatisticType, Rate> multStatIfContainsType;
+    private DictionaryComparator<StatisticType, Rate> multStatIfContainsType;
     private StringList cancelEffects;
     private NatStringTreeMap< Rate> multDamageTypesMoves;
     private StringList cancelChgtStat;
@@ -58,8 +59,8 @@ public class EffectGlobalBean extends EffectBean {
 //                return _o1.getPokemonType().compareTo(_o2.getPokemonType());
 //            }
 //        });
-        TreeMap<TypesDuo, Rate> efficiencyMoves_;
-        efficiencyMoves_ = new TreeMap<TypesDuo, Rate>(new ComparatorTypesDuo(data_, getLanguage(), true));
+        DictionaryComparator<TypesDuo, Rate> efficiencyMoves_;
+        efficiencyMoves_ = DictionaryComparatorUtil.buildTypesDuoRate(data_, getLanguage(), true,false);
         for (TypesDuo t: effect_.getEfficiencyMoves().getKeys()) {
             TypesDuo t_ = new TypesDuo();
             t_.setDamageType(translatedTypes_.getVal(t.getDamageType()));
@@ -98,7 +99,7 @@ public class EffectGlobalBean extends EffectBean {
         StringList invokingMovesChangingTypes_ = invokingMovesChangingTypes(data_);
         invokingMovesChangingTypes_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         invokingMovesChangingTypes = invokingMovesChangingTypes_;
-        TreeMap<StatisticType, Rate> multStatIfContainsType_;
+        DictionaryComparator<StatisticType, Rate> multStatIfContainsType_;
 //        multStatIfContainsType_ = new TreeMap<new>(new NaturalComparator<Pair<String,String>>() {
 //            @Override
 //            public int compare(Pair<String, String> _o1,
@@ -110,7 +111,7 @@ public class EffectGlobalBean extends EffectBean {
 //                return _o1.getSecond().compareTo(_o2.getSecond());
 //            }
 //        });
-        multStatIfContainsType_ = new TreeMap<StatisticType, Rate>(new ComparatorStatisticType(data_, getLanguage()));
+        multStatIfContainsType_ = DictionaryComparatorUtil.buildStatisTypeRate(data_,getLanguage());
         for (StatisticType s: effect_.getMultStatIfContainsType().getKeys()) {
 //            StatisticType key_ = new StatisticType();
 //            key_.setFirst(translatedStatistics_.getVal(s.getStatistic()));
@@ -351,7 +352,7 @@ public class EffectGlobalBean extends EffectBean {
         return immuneTypes;
     }
 
-    public TreeMap<TypesDuo,Rate> getEfficiencyMoves() {
+    public DictionaryComparator<TypesDuo,Rate> getEfficiencyMoves() {
         return efficiencyMoves;
     }
 
@@ -399,7 +400,7 @@ public class EffectGlobalBean extends EffectBean {
         return invokingMovesChangingTypes;
     }
 
-    public TreeMap<StatisticType,Rate> getMultStatIfContainsType() {
+    public DictionaryComparator<StatisticType,Rate> getMultStatIfContainsType() {
         return multStatIfContainsType;
     }
 

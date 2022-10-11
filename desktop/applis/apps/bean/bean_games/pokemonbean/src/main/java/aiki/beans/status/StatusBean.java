@@ -1,7 +1,6 @@
 package aiki.beans.status;
 
 import aiki.beans.CommonBean;
-
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -14,7 +13,6 @@ import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import code.images.BaseSixtyFourUtil;
-import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
@@ -38,7 +36,7 @@ public class StatusBean extends CommonBean {
     private NatStringTreeMap<String> mapVarsFailEndRound;
     private Rate rateForUsingAMove;
     private boolean notAttack;
-    private TreeMap<LgInt,Rate> lawForUsingAMoveNbRound;
+    private DictionaryComparator<LgInt,Rate> lawForUsingAMoveNbRound;
     private Rate rateForUsingAMoveIfFoe;
     private boolean notAttackFoe;
     private Rate rateForFullHealIfMove;
@@ -96,8 +94,8 @@ public class StatusBean extends CommonBean {
         if (status_ instanceof StatusBeginRound) {
             StatusBeginRound statusBegin_ = (StatusBeginRound) status_;
             rates(statusBegin_);
-            TreeMap<LgInt,Rate> lawForUsingAMoveNbRound_;
-            lawForUsingAMoveNbRound_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
+            DictionaryComparator<LgInt,Rate> lawForUsingAMoveNbRound_;
+            lawForUsingAMoveNbRound_ = DictionaryComparatorUtil.buildIntRate();
             for (Rate e: statusBegin_.getLawForUsingAMoveNbRound().events()) {
                 lawForUsingAMoveNbRound_.put(e.intPart(), statusBegin_.getLawForUsingAMoveNbRound().normalizedRate(e));
             }
@@ -115,7 +113,7 @@ public class StatusBean extends CommonBean {
             rateForUsingAMove = Rate.zero();
             rateForUsingAMoveIfFoe = Rate.zero();
             rateForFullHealIfMove = Rate.zero();
-            lawForUsingAMoveNbRound = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
+            lawForUsingAMoveNbRound = DictionaryComparatorUtil.buildIntRate();
             power = Rate.zero();
         }
     }
@@ -238,7 +236,7 @@ public class StatusBean extends CommonBean {
         return rateForFullHealIfMove;
     }
 
-    public TreeMap<LgInt,Rate> getLawForUsingAMoveNbRound() {
+    public DictionaryComparator<LgInt,Rate> getLawForUsingAMoveNbRound() {
         return lawForUsingAMoveNbRound;
     }
 

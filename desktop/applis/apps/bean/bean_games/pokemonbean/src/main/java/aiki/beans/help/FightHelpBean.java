@@ -3,7 +3,7 @@ package aiki.beans.help;
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorStringList;
-import aiki.beans.facade.comparators.ComparatorTypesDuo;
+import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
@@ -27,7 +27,6 @@ import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.images.BaseSixtyFourUtil;
-import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
@@ -183,7 +182,7 @@ public class FightHelpBean extends CommonBean {
     private StringList itemsTypesDef;
     private final LongTreeMap<Rate> boosts = new LongTreeMap<Rate>();
     private final LongTreeMap<Rate> boostsCh = new LongTreeMap<Rate>();
-    private TreeMap<TypesDuo,Rate> efficiency;
+    private DictionaryComparator<TypesDuo,Rate> efficiency;
     private StringList types;
     private Rate minHpNotKo;
     private Rate wonHappinessPointsLevel;
@@ -299,7 +298,7 @@ public class FightHelpBean extends CommonBean {
 //                return _o1.getDamageType().compareTo(_o2.getDamageType());
 //            }
 //        });
-        efficiency = new TreeMap<TypesDuo, Rate>(new ComparatorTypesDuo(data_, getLanguage(), true, true));
+        efficiency = DictionaryComparatorUtil.buildTypesDuoRate(data_, getLanguage(), true, true);
         types = new StringList();
         for (TypesDuo t: data_.getTableTypes().getKeys()) {
             TypesDuo t_ = new TypesDuo();
@@ -1780,7 +1779,7 @@ public class FightHelpBean extends CommonBean {
         }
         lawsRates = new StringMap<AbsBasicTreeMap<Rate, Rate>>();
         for (DifficultyModelLaw d: data_.getLawsDamageRate().getKeys()) {
-            TreeMap<Rate,Rate> tree_ = new TreeMap<Rate, Rate>(new ComparatorRate());
+            DictionaryComparator<Rate,Rate> tree_ = DictionaryComparatorUtil.buildRateRate();
             MonteCarloNumber law_ = data_.getLawsDamageRate().getVal(d).getLaw();
             for (Rate e: law_.events()) {
                 tree_.put(e, law_.normalizedRate(e));
@@ -4793,7 +4792,7 @@ public class FightHelpBean extends CommonBean {
         return types;
     }
 
-    public TreeMap<TypesDuo,Rate> getEfficiency() {
+    public DictionaryComparator<TypesDuo,Rate> getEfficiency() {
         return efficiency;
     }
 

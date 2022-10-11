@@ -1,15 +1,15 @@
 package aiki.beans.endround;
 
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import code.maths.ComparatorLgInt;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.LongTreeMap;
-import code.util.TreeMap;
 
 public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
     private LongTreeMap< Rate> rateDamageFunctionOfNbRounds;
-    private TreeMap<LgInt, Rate> lawForEnablingEffect;
+    private DictionaryComparator<LgInt, Rate> lawForEnablingEffect;
 
     @Override
     public void beforeDisplaying() {
@@ -21,8 +21,8 @@ public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
             rateDamageFunctionOfNbRounds_.put(k, effect_.getRateDamageFunctionOfNbRounds().getVal(k));
         }
         rateDamageFunctionOfNbRounds = rateDamageFunctionOfNbRounds_;
-        TreeMap<LgInt, Rate> lawForEnablingEffect_;
-        lawForEnablingEffect_ = new TreeMap<LgInt, Rate>(new ComparatorLgInt());
+        DictionaryComparator<LgInt, Rate> lawForEnablingEffect_;
+        lawForEnablingEffect_ = DictionaryComparatorUtil.buildIntRate();
         for (Rate k: effect_.getLawForEnablingEffect().events()) {
             lawForEnablingEffect_.put(k.intPart(), effect_.getLawForEnablingEffect().normalizedRate(k));
         }
@@ -33,7 +33,7 @@ public class EffectEndRoundSingleRelationBean extends EffectEndRoundBean {
         return rateDamageFunctionOfNbRounds;
     }
 
-    public TreeMap<LgInt,Rate> getLawForEnablingEffect() {
+    public DictionaryComparator<LgInt,Rate> getLawForEnablingEffect() {
         return lawForEnablingEffect;
     }
 }

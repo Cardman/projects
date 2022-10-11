@@ -5,7 +5,6 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectDamage;
-import code.maths.ComparatorRate;
 import code.maths.Rate;
 import code.util.*;
 
@@ -14,7 +13,7 @@ public class EffectDamageBean extends EffectBean {
     private boolean constDamage;
     private NatStringTreeMap< Rate> damageLaw;
     private NatStringTreeMap< Rate> multDamageAgainst;
-    private TreeMap<Rate, Rate> chLaw;
+    private DictionaryComparator<Rate, Rate> chLaw;
     private LongTreeMap< Rate> hitsLaw;
     private long nbHits;
     private String power;
@@ -90,8 +89,8 @@ public class EffectDamageBean extends EffectBean {
             hitsLaw = new LongTreeMap< Rate>();
         }
         chRate = effect_.getChRate();
-        TreeMap<Rate, Rate> chLaw_;
-        chLaw_ = new TreeMap<Rate, Rate>(new ComparatorRate());
+        DictionaryComparator<Rate, Rate> chLaw_;
+        chLaw_ = DictionaryComparatorUtil.buildRateRate();
         for (Rate e: effect_.getChLaw().events()) {
             chLaw_.put(e, effect_.getChLaw().normalizedRate(e));
         }
@@ -204,7 +203,7 @@ public class EffectDamageBean extends EffectBean {
         return chRate;
     }
 
-    public TreeMap<Rate,Rate> getChLaw() {
+    public DictionaryComparator<Rate,Rate> getChLaw() {
         return chLaw;
     }
 

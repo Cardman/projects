@@ -1,15 +1,26 @@
 package aiki.comparators;
 
+import aiki.beans.facade.comparators.*;
+import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
-import aiki.fight.util.BoostHpRate;
-import aiki.fight.util.EfficiencyRate;
-import aiki.fight.util.TypeDamageBoost;
+import aiki.fight.util.*;
+import aiki.game.fight.ActivityOfMove;
+import aiki.game.fight.MoveTeamPosition;
+import aiki.game.fight.util.AffectedMove;
+import aiki.game.fight.util.MoveTarget;
+import aiki.map.DataMap;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
+import aiki.map.util.MiniMapCoords;
+import aiki.util.Point;
+import code.maths.ComparatorLgInt;
+import code.maths.ComparatorRate;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.BoolVal;
 
 public final class DictionaryComparatorUtil {
     private DictionaryComparatorUtil() {
@@ -128,6 +139,54 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,String>(translated_);
     }
 
+    public static DictionaryComparator<MoveTeamPosition,Short> buildMoveTeamPositionShort() {
+        return new DictionaryComparator<MoveTeamPosition, Short>(new ComparatorMoveTeamPosition());
+    }
+
+    public static DictionaryComparator<MoveTeamPosition,String> buildMoveTeamPositionString() {
+        return new DictionaryComparator<MoveTeamPosition, String>(new ComparatorMoveTeamPosition());
+    }
+
+    public static DictionaryComparator<MoveTeamPosition, ActivityOfMove> buildMoveTeamPositionActivityOfMove() {
+        return new DictionaryComparator<MoveTeamPosition, ActivityOfMove>(new ComparatorMoveTeamPosition());
+    }
+
+    public static DictionaryComparator<MoveTeamPosition, AffectedMove> buildMoveTeamPositionAffectedMove() {
+        return new DictionaryComparator<MoveTeamPosition, AffectedMove>(new ComparatorMoveTeamPosition());
+    }
+
+    public static DictionaryComparator<MoveTeamPosition, BoolVal> buildMoveTeamPositionBoolVal() {
+        return new DictionaryComparator<MoveTeamPosition, BoolVal>(new ComparatorMoveTeamPosition());
+    }
+
+    public static DictionaryComparator<MiniMapCoords,String> buildMiniMapCoords() {
+        return new DictionaryComparator<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+    }
+
+    public static DictionaryComparator<TypesDuo,Rate> buildTypesDuoRate(DataBase _data, String _language, boolean _translate, boolean _reverse) {
+        return new DictionaryComparator<TypesDuo, Rate>(new ComparatorTypesDuo(_data, _language,_translate,_reverse));
+    }
+
+    public static DictionaryComparator<StatisticCategory,Rate> buildStatisticCategoryRate(DataBase _data, String _language) {
+        return new DictionaryComparator<StatisticCategory, Rate>(new ComparatorStatisticCategory(_data, _language));
+    }
+
+    public static DictionaryComparator<StatisticCategory,Byte> buildStatisticCategoryByte(DataBase _data, String _language) {
+        return new DictionaryComparator<StatisticCategory, Byte>(new ComparatorStatisticCategory(_data, _language));
+    }
+
+    public static DictionaryComparator<Rate,Rate> buildRateRate() {
+        return new DictionaryComparator<Rate,Rate>(new ComparatorRate());
+    }
+
+    public static DictionaryComparator<LgInt,Rate> buildIntRate() {
+        return new DictionaryComparator<LgInt,Rate>(new ComparatorLgInt());
+    }
+
+    public static DictionaryComparator<LanguageElementStringKey,String> buildTrs(StringMap<StringMap<String>> _translatorCurrentLanguage, String _language, StringList _sortedLg) {
+        return new DictionaryComparator<LanguageElementStringKey,String>(new ComparatorLanguageString(_translatorCurrentLanguage, _language, _sortedLg));
+    }
+
     public static DictionaryComparator<String,String> buildEnvStr(DataBase _data, String _language) {
         StringMap<String> translated_ = trEnvs(_data, _language);
         return new DictionaryComparator<String,String>(translated_);
@@ -169,5 +228,44 @@ public final class DictionaryComparatorUtil {
 
     public static ComparatorTr<String> cmpTypes(DataBase _data, String _language) {
         return new ComparatorTr<String>(_data.getTranslatedTypes().getVal(_language));
+    }
+
+    public static DictionaryComparator<Point, String> buildPointString() {
+        return new DictionaryComparator<Point, String>(new ComparatorPoint());
+    }
+
+    public static DictionaryComparator<MoveTarget, MoveTarget> buildMoveTarget() {
+        return new DictionaryComparator<MoveTarget, MoveTarget>(new ComparatorMoveTarget());
+    }
+
+    public static DictionaryComparator<CategoryMult, Rate> buildCategoryMult() {
+        return new DictionaryComparator<CategoryMult, Rate>(new ComparatorCategoryMult());
+    }
+
+    public static DictionaryComparator<StatisticType, Rate> buildStatisTypeRate(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticType, Rate>(new ComparatorStatisticType(_data, _lg));
+    }
+    public static DictionaryComparator<StatisticType, Byte> buildStatisTypeByte(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticType, Byte>(new ComparatorStatisticType(_data, _lg));
+    }
+
+    public static DictionaryComparator<StatisticStatus, Byte> buildStatisticStatus(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticStatus, Byte>(new ComparatorStatusStatistic(_data, _lg));
+    }
+
+    public static DictionaryComparator<WeatherType, Rate> buildWeatherType(DataBase _data, String _lg) {
+        return new DictionaryComparator<WeatherType, Rate>(new ComparatorWeatherType(_data, _lg));
+    }
+
+    public static DictionaryComparator<StringList, ActivityOfMove> buildActivities(DataBase _data, String _lg) {
+        return new DictionaryComparator<StringList, ActivityOfMove>(new ComparatorStringList(_data, _lg, true));
+    }
+
+    public static DictionaryComparator<Short, Integer> buildPlaces(DataMap _map) {
+        return new DictionaryComparator<Short, Integer>(new ComparatorPlaceNumber(_map));
+    }
+
+    public static DictionaryComparator<StatisticPokemon, Byte> buildStatPk(DataBase _data, String _lg) {
+        return new DictionaryComparator<StatisticPokemon, Byte>(new ComparatorStatisticPokemon(_data, _lg));
     }
 }

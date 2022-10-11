@@ -8,22 +8,18 @@ import code.util.ints.Comparing;
 
 public final class ComparatorTypesDuo implements Comparing<TypesDuo> {
 
-    private boolean translate;
+    private final boolean translate;
 
-    private DataBase data;
+    private final DataBase data;
 
-    private String language;
+    private final String language;
 
-    private boolean reverse;
+    private final boolean reverse;
 
-    public ComparatorTypesDuo(DataBase _data, String _language, boolean _translate) {
+    public ComparatorTypesDuo(DataBase _data, String _language, boolean _translate, boolean _reverse) {
         data = _data;
         language = _language;
         translate = _translate;
-    }
-
-    public ComparatorTypesDuo(DataBase _data, String _language, boolean _translate, boolean _reverse) {
-        this(_data, _language, _translate);
         reverse = _reverse;
     }
 

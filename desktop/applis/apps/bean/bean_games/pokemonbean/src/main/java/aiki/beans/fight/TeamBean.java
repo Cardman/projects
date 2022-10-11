@@ -1,6 +1,7 @@
 package aiki.beans.fight;
 
-import aiki.beans.facade.comparators.ComparatorStringList;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
@@ -10,7 +11,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class TeamBean extends CommonFightBean {
-    private TreeMap<StringList,ActivityOfMove> enabledMovesByGroup;
+    private DictionaryComparator<StringList,ActivityOfMove> enabledMovesByGroup;
     private NatStringTreeMap<ActivityOfMove> enabledMoves;
     private NatStringTreeMap<LgInt> enabledMovesWhileSendingFoeUses;
     private NatStringTreeMap<Integer> nbUsesMoves;
@@ -46,7 +47,7 @@ public class TeamBean extends CommonFightBean {
             nbUsesMoves_.put(translationsMoves_.getVal(m), team_.getNbUsesMoves().getVal(m));
         }
         nbUsesMoves = nbUsesMoves_;
-        TreeMap<StringList,ActivityOfMove> enabledMovesByGroup_;
+        DictionaryComparator<StringList,ActivityOfMove> enabledMovesByGroup_;
 //        enabledMovesByGroup_ = new TreeMap<new>(new NaturalComparator<StringList>(){
 //            public int compare(StringList _key1, StringList _key2) {
 //                int lenOne_ = _key1.size();
@@ -65,7 +66,7 @@ public class TeamBean extends CommonFightBean {
 //                return 0;
 //            }
 //        });
-        enabledMovesByGroup_ = new TreeMap<StringList, ActivityOfMove>(new ComparatorStringList(data_, getLanguage(), true));
+        enabledMovesByGroup_ = DictionaryComparatorUtil.buildActivities(data_, getLanguage());
         for (StringList s: team_.getEnabledMovesByGroup().getKeys()) {
             StringList key_ = new StringList();
             for (String m: s) {
@@ -207,7 +208,7 @@ public class TeamBean extends CommonFightBean {
         return enabledMoves;
     }
 
-    public TreeMap<StringList,ActivityOfMove> getEnabledMovesByGroup() {
+    public DictionaryComparator<StringList,ActivityOfMove> getEnabledMovesByGroup() {
         return enabledMovesByGroup;
     }
 

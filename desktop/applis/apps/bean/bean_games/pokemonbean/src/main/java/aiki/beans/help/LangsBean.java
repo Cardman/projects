@@ -1,7 +1,8 @@
 package aiki.beans.help;
 
 import aiki.beans.CommonBean;
-import aiki.beans.facade.comparators.ComparatorLanguageString;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
@@ -13,20 +14,20 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public class LangsBean extends CommonBean {
-    private TreeMap<LanguageElementStringKey,String> translatedCategories;
-    private TreeMap<LanguageElementStringKey,String> translatedEnvironment;
-    private TreeMap<LanguageElementStringKey,String> translatedBooleans;
-    private TreeMap<LanguageElementStringKey,String> translatedGenders;
-    private TreeMap<LanguageElementStringKey,String> translatedStatistics;
-    private TreeMap<LanguageElementStringKey,String> translatedTargets;
-    private TreeMap<LanguageElementStringKey,String> translatedTypes;
-    private TreeMap<LanguageElementStringKey,String> translatedPokemon;
-    private TreeMap<LanguageElementStringKey,String> translatedMoves;
-    private TreeMap<LanguageElementStringKey,String> translatedItems;
-    private TreeMap<LanguageElementStringKey,String> translatedAbilities;
-    private TreeMap<LanguageElementStringKey,String> translatedStatus;
-    private TreeMap<LanguageElementStringKey,String> translatedClassesDescriptions;
-    private TreeMap<LanguageElementStringKey,String> translatedFctMath;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedCategories;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedEnvironment;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedBooleans;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedGenders;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedStatistics;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedTargets;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedTypes;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedPokemon;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedMoves;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedItems;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedAbilities;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedStatus;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedClassesDescriptions;
+    private DictionaryComparator<LanguageElementStringKey,String> translatedFctMath;
     private StringList languages;
 
     @Override
@@ -42,20 +43,20 @@ public class LangsBean extends CommonBean {
             }
             languages.add(l);
         }
-        translatedCategories = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedCategories(), curLg_, languages));
-        translatedEnvironment = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedEnvironment(), curLg_, languages));
-        translatedBooleans = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedBooleans(), curLg_, languages));
-        translatedGenders = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedGenders(), curLg_, languages));
-        translatedStatistics = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedStatistics(), curLg_, languages));
-        translatedTargets = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(translatedTargets(), curLg_, languages));
-        translatedTypes = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedTypes(), curLg_, languages));
-        translatedPokemon = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedPokemon(), curLg_, languages));
-        translatedMoves = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedMoves(), curLg_, languages));
-        translatedItems = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedItems(), curLg_, languages));
-        translatedAbilities = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedAbilities(), curLg_, languages));
-        translatedStatus = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedStatus(), curLg_, languages));
-        translatedClassesDescriptions = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedClassesDescriptions(), curLg_, languages));
-        translatedFctMath = new TreeMap<LanguageElementStringKey, String>(new ComparatorLanguageString(data_.getTranslatedFctMath(), curLg_, languages));
+        translatedCategories = DictionaryComparatorUtil.buildTrs(data_.getTranslatedCategories(), curLg_, languages);
+        translatedEnvironment = DictionaryComparatorUtil.buildTrs(translatedEnvironment(), curLg_, languages);
+        translatedBooleans = DictionaryComparatorUtil.buildTrs(translatedBooleans(), curLg_, languages);
+        translatedGenders = DictionaryComparatorUtil.buildTrs(translatedGenders(), curLg_, languages);
+        translatedStatistics = DictionaryComparatorUtil.buildTrs(translatedStatistics(), curLg_, languages);
+        translatedTargets = DictionaryComparatorUtil.buildTrs(translatedTargets(), curLg_, languages);
+        translatedTypes = DictionaryComparatorUtil.buildTrs(data_.getTranslatedTypes(), curLg_, languages);
+        translatedPokemon = DictionaryComparatorUtil.buildTrs(data_.getTranslatedPokemon(), curLg_, languages);
+        translatedMoves = DictionaryComparatorUtil.buildTrs(data_.getTranslatedMoves(), curLg_, languages);
+        translatedItems = DictionaryComparatorUtil.buildTrs(data_.getTranslatedItems(), curLg_, languages);
+        translatedAbilities = DictionaryComparatorUtil.buildTrs(data_.getTranslatedAbilities(), curLg_, languages);
+        translatedStatus = DictionaryComparatorUtil.buildTrs(data_.getTranslatedStatus(), curLg_, languages);
+        translatedClassesDescriptions = DictionaryComparatorUtil.buildTrs(data_.getTranslatedClassesDescriptions(), curLg_, languages);
+        translatedFctMath = DictionaryComparatorUtil.buildTrs(data_.getTranslatedFctMath(), curLg_, languages);
         for (String l:lgs_) {
             loopLgs(l);
         }
@@ -302,7 +303,7 @@ public class LangsBean extends CommonBean {
 //        }
 //        return null;
 //    }
-    private static StringList getStringKeys(TreeMap<LanguageElementStringKey,String> _treeMap) {
+    private static StringList getStringKeys(DictionaryComparator<LanguageElementStringKey,String> _treeMap) {
         StringList list_ = new StringList();
         for (LanguageElementStringKey k: _treeMap.getKeys()) {
             list_.add(k.getKey());
@@ -311,7 +312,7 @@ public class LangsBean extends CommonBean {
         return list_;
     }
 
-    private static StringList getRowByStringKey(StringList _languages,TreeMap<LanguageElementStringKey,String> _treeMap,int _index) {
+    private static StringList getRowByStringKey(StringList _languages,DictionaryComparator<LanguageElementStringKey,String> _treeMap,int _index) {
         StringList list_ = new StringList();
         int nbLangs_ = _languages.size();
         int begin_ = _index * nbLangs_;

@@ -37,7 +37,7 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
 //                return ComparatorTrString.compare(translatedTypesCmp_, _arg0.getPokemonType(), _arg1.getPokemonType());
 //            }
 //        });
-        types_.sortElts(new ComparatorTypesDuo(data_, getLanguage(), false));
+        types_.sortElts(new ComparatorTypesDuo(data_, getLanguage(), false,false));
         types = types_;
         StringList disableImmuAgainstTypes_;
         disableImmuAgainstTypes_ = new StringList();

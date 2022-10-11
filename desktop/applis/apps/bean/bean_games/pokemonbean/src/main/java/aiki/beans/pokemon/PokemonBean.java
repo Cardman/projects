@@ -3,7 +3,7 @@ package aiki.beans.pokemon;
 import aiki.beans.CommonBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.map.MapBean;
-import aiki.comparators.ComparatorMiniMapCoords;
+import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
@@ -65,7 +65,7 @@ public class PokemonBean extends CommonBean {
     private CustList<PlaceIndex> places;
     private MiniMapCoordsTileInts images;
 
-    private TreeMap<MiniMapCoords, String> namesPlaces;
+    private DictionaryComparator<MiniMapCoords, String> namesPlaces;
 
     private Shorts placesAppears;
 
@@ -80,7 +80,7 @@ public class PokemonBean extends CommonBean {
 //            }
 //        });
         images = data_.getMap().getImages(data_);
-        namesPlaces = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+        namesPlaces = DictionaryComparatorUtil.buildMiniMapCoords();
         placesAppears = new Shorts();
         for (MiniMapCoords m: images.getKeys()) {
             namesPlaces.put(m, data_.getMap().getName(m.getXcoords(), m.getYcoords()));
@@ -492,9 +492,9 @@ public class PokemonBean extends CommonBean {
         return places;
     }
 
-    public TreeMap<MiniMapCoords,String> getImages() {
+    public DictionaryComparator<MiniMapCoords,String> getImages() {
         DataBase data_ = getDataBase();
-        TreeMap<MiniMapCoords, String> map_ = new TreeMap<MiniMapCoords, String>(new ComparatorMiniMapCoords());
+        DictionaryComparator<MiniMapCoords, String> map_ = DictionaryComparatorUtil.buildMiniMapCoords();
         for (MiniMapCoordsTile m_: data_.getMap().getMiniMap().entryList()) {
             int[][] image_ = data_.getMiniMap(m_.getTileMap().getFile());
             map_.put(m_.getMiniMapCoords(), BaseSixtyFourUtil.getStringByImage(image_));
