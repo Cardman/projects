@@ -631,9 +631,9 @@ public class SimulationBean extends CommonBean {
         difficulty.validate(data_);
         simulation = new FightSimulation(difficulty, data_);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         stepNumber++;
         if (freeTeams) {
-            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
             environments = DictionaryComparatorUtil.buildEnvStr(data_,getLanguage());
             environments.addAllEntries(DictionaryComparatorUtil.trEnvs(data_,getLanguage()));
             selectedFoePk = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -683,6 +683,7 @@ public class SimulationBean extends CommonBean {
         indexTeam=0;
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
@@ -892,6 +893,7 @@ public class SimulationBean extends CommonBean {
         indexTeam=0;
         getForms().removeKey(CST_POKEMON_INDEX_EDIT);
         getForms().removeKey(CST_POKEMON_ADDED);
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber++;
     }
@@ -1034,6 +1036,7 @@ public class SimulationBean extends CommonBean {
         ok = true;
         team.clear();
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.FOE);
         stepNumber--;
     }
@@ -1043,6 +1046,7 @@ public class SimulationBean extends CommonBean {
         getForms().removeKey(CST_POKEMON_INDEX_EDIT);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.name();
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber--;
     }
@@ -1118,6 +1122,7 @@ public class SimulationBean extends CommonBean {
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         if (!enableEvolutions) {
             simulation.cancelEvolutions();
+            getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
             getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
             stepNumber--;
             stepNumber--;
@@ -1556,6 +1561,7 @@ public class SimulationBean extends CommonBean {
         simulation.getTeam().addAllElts(teamAfterFight);
         simulation.nextFight();
         indexTeam++;
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         getForms().put(CST_SIMULATION_STATE, SimulationSteps.TEAM);
         stepNumber = 2;
     }
