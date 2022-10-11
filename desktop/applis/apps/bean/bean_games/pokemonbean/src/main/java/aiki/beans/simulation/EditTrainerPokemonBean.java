@@ -6,7 +6,6 @@ import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.moves.MovesBean;
-import aiki.comparators.DictionaryComparator;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.map.pokemon.enums.Gender;
@@ -176,26 +175,6 @@ public class EditTrainerPokemonBean extends CommonBean {
 
     public CrudPkCommon getCommon() {
         return common;
-    }
-
-    public DictionaryComparator<String,String> getGenders() {
-        return getCommon().getGenders();
-    }
-
-    public String getGender() {
-        return getCommon().getGender();
-    }
-
-    public void setGender(String _gender) {
-        getCommon().setGender(_gender);
-    }
-
-    public void setLevel(int _level) {
-        getCommon().setLevel(_level);
-    }
-
-    public int getLevel() {
-        return getCommon().getLevel();
     }
 
     public boolean getAdd() {

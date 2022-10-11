@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class ItemForBattleBeanEndRoundRankGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (ItemForBattleBean) ((PokemonBeanStruct)_instance).getInstance()).getEndRoundRank());
+        return new IntStruct(((ItemForBattleBean) ((PokemonBeanStruct) _instance).getInstance()).getEndRoundCommon().getEndRoundRank());
     }
 }

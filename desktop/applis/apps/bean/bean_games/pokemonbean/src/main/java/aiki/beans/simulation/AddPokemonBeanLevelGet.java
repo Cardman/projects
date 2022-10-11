@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class AddPokemonBeanLevelGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getLevel());
+        return new IntStruct(((AddPokemonBean) ((PokemonBeanStruct) _instance).getInstance()).getCommon().getLevel());
     }
 }

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class ItemForBattleBeanEndRoundGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (ItemForBattleBean) ((PokemonBeanStruct)_instance).getInstance()).getEndRound());
+        return BooleanStruct.of(((ItemForBattleBean) ((PokemonBeanStruct) _instance).getInstance()).getEndRoundCommon().getEndRound());
     }
 }

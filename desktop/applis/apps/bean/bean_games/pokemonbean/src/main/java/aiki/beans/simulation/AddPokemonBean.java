@@ -111,23 +111,4 @@ public class AddPokemonBean extends WithFilterBean {
         return common;
     }
 
-    public DictionaryComparator<String,String> getGenders() {
-        return getCommon().getGenders();
-    }
-
-    public String getGender() {
-        return getCommon().getGender();
-    }
-
-    public void setGender(String _gender) {
-        getCommon().setGender(_gender);
-    }
-
-    public void setLevel(int _level) {
-        getCommon().setLevel(_level);
-    }
-
-    public int getLevel() {
-        return getCommon().getLevel();
-    }
 }

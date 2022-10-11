@@ -1242,22 +1242,6 @@ public class AbilityBean extends CommonBean {
         return displayName;
     }
 
-    public boolean getEndRound() {
-        return getEndRoundCommon().getEndRound();
-    }
-
-    public int getEndRoundRank() {
-        return getEndRoundCommon().getEndRoundRank();
-    }
-
-    public StringList getReasonsEndRound() {
-        return getEndRoundCommon().getReasonsEndRound();
-    }
-
-    public NatStringTreeMap<String> getMapVarsFailEndRound() {
-        return getEndRoundCommon().getMapVarsFailEndRound();
-    }
-
     public boolean getSending() {
         return sending;
     }

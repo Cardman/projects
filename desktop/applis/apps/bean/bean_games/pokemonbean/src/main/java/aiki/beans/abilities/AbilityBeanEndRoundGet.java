@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class AbilityBeanEndRoundGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getEndRound());
+        return BooleanStruct.of(((AbilityBean) ((PokemonBeanStruct) _instance).getInstance()).getEndRoundCommon().getEndRound());
     }
 }

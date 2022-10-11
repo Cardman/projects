@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class EditTrainerPokemonBeanLevelSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).setLevel(NumParsers.convertToNumber(_args[0]).intStruct());
+        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getCommon().setLevel(NumParsers.convertToNumber(_args[0]).intStruct());
         return NullStruct.NULL_VALUE;
     }
 }

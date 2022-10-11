@@ -17,10 +17,8 @@ public class RateValidator implements Validator {
     }
 
     private static Message procRate(Rate _value) {
-        if (_value.isZeroOrGt()) {
-            if (!_value.isZero()) {
-                return null;
-            }
+        if (_value.isZeroOrGt() && !_value.isZero()) {
+            return null;
         }
         Message message_ = new Message();
         message_.setArgs(_value.toNumberString());

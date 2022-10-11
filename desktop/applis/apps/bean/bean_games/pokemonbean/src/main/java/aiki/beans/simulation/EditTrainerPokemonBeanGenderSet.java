@@ -8,7 +8,7 @@ import code.expressionlanguage.structs.Struct;
 public class EditTrainerPokemonBeanGenderSet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).setGender(NumParsers.getString(_args[0]).getInstance());
+        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getCommon().setGender(NumParsers.getString(_args[0]).getInstance());
         return NullStruct.NULL_VALUE;
     }
 }

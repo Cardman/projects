@@ -483,22 +483,6 @@ public class ItemForBattleBean extends ItemBean {
         return ((ItemForBattle)getItem()).getEffectSending().first();
     }
 
-    public boolean getEndRound() {
-        return getEndRoundCommon().getEndRound();
-    }
-
-    public int getEndRoundRank() {
-        return getEndRoundCommon().getEndRoundRank();
-    }
-
-    public StringList getReasonsEndRound() {
-        return getEndRoundCommon().getReasonsEndRound();
-    }
-
-    public NatStringTreeMap<String> getMapVarsFailEndRound() {
-        return getEndRoundCommon().getMapVarsFailEndRound();
-    }
-
     public boolean getSending() {
         return sending;
     }
