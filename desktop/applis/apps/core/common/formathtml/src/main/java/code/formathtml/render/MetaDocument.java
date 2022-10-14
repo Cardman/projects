@@ -7,13 +7,7 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.IndexButtons;
 import code.sml.*;
-import code.util.CollCapacity;
-import code.util.CustList;
-import code.util.EntryCust;
 import code.util.*;
-import code.util.Ints;
-import code.util.StringList;
-import code.util.StringMap;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
@@ -38,7 +32,7 @@ public final class MetaDocument {
     private final CustList<BoolVal> ordered;
     private final CustList<MetaContainer> dynamicNewLines = new CustList<MetaContainer>();
     private final Longs formIndex = new Longs();
-    private final StringMap<MetaAnchorLabel> anchorsRef = new StringMap<MetaAnchorLabel>();
+    private final StringMap<MetaSearchableLabel> anchorsRef = new StringMap<MetaSearchableLabel>();
     private final StringMap<String> classesCssStyles = new StringMap<String>();
     private final StringMap<String> tagsCssStyles = new StringMap<String>();
     private final StringMap<String> tagsClassesCssStyles = new StringMap<String>();
@@ -50,6 +44,7 @@ public final class MetaDocument {
     private int indexTagClass;
     private String title;
     private Element anchor;
+    private String name="";
     private int bold;
     private int italic;
     private boolean pre;
@@ -545,6 +540,7 @@ public final class MetaDocument {
         String text_ = realText_.trim();
         title = MetaComponent.EMPTY_STRING;
         anchor = null;
+        name = "";
         Element par_ = _txt.getParentNode();
         bold = 0;
         italic = 0;
@@ -577,11 +573,10 @@ public final class MetaDocument {
             if (anchor == null) {
                 label_ = new MetaPlainLabel(currentParent, text_, title, partGroup, rowGroup);
             } else {
-                String name_ = anchor.getAttribute(_rend.getAttrName());
                 label_ = new MetaAnchorLabel(currentParent, text_, title, anchor, partGroup, rowGroup, _rend);
-                if (!name_.isEmpty()) {
-                    anchorsRef.put(name_, (MetaAnchorLabel) label_);
-                }
+            }
+            if (!name.isEmpty()) {
+                anchorsRef.put(name, label_);
             }
             label_.setStyle(_styleLoc);
             currentParent.appendChild(label_);
@@ -598,6 +593,9 @@ public final class MetaDocument {
         if (StringUtil.quickEq(tagName_, _rend.getKeyWordAnchor()) && anchor == null) {
             anchor = _par;
         }
+        if (!_par.getAttribute(_rend.getAttrName()).isEmpty() && name.isEmpty()) {
+            name = _par.getAttribute(_rend.getAttrName());
+        }
         if (StringUtil.quickEq(tagName_, _rend.getKeyWordBold())) {
             bold = 1;
         }
@@ -607,6 +605,11 @@ public final class MetaDocument {
         if (StringUtil.quickEq(tagName_, _rend.getKeyWordPre())) {
             pre = true;
         }
+        title(_rend, _par);
+    }
+
+    private void title(RendKeyWords _rend, Element _par) {
+        String tagName_ = _par.getTagName();
         if (ht != null) {
             return;
         }
@@ -639,10 +642,8 @@ public final class MetaDocument {
     private void pre(RendKeyWords _rend, MetaStyle _style, boolean _li, String _real) {
         StringList strings_ = StringUtil.splitStrings(_real, LF, CRLF);
         int nbLines_ = strings_.size();
-        int indLine_ = 0;
-        for (String l: strings_) {
-            linePre(_rend, _style, _li, _real, nbLines_, indLine_, l);
-            indLine_++;
+        for (int i = 0; i < nbLines_; i++) {
+            linePre(_rend, _style, _li, _real, nbLines_, i, strings_.get(i));
         }
         rowGroup--;
     }
@@ -663,11 +664,10 @@ public final class MetaDocument {
         if (anchor == null) {
             label_ = new MetaPlainLabel(currentParent, text_, title, partGroup, rowGroup);
         } else {
-            String name_ = anchor.getAttribute(_rend.getAttrName());
             label_ = new MetaAnchorLabel(currentParent, text_, title, anchor, partGroup, rowGroup, _rend);
-            if (!name_.isEmpty()) {
-                anchorsRef.put(name_, (MetaAnchorLabel) label_);
-            }
+        }
+        if (!name.isEmpty()) {
+            anchorsRef.put(name, label_);
         }
         rowGroup++;
         label_.setStyle(_style);
@@ -1018,7 +1018,7 @@ public final class MetaDocument {
         }
         return StringUtil.quickEq(tagName_, _rend.getKeyWordHOne()) || StringUtil.quickEq(tagName_, _rend.getKeyWordHTwo()) || StringUtil.quickEq(tagName_, _rend.getKeyWordHThree()) || StringUtil.quickEq(tagName_, _rend.getKeyWordHFour()) || StringUtil.quickEq(tagName_, _rend.getKeyWordHFive()) || StringUtil.quickEq(tagName_, _rend.getKeyWordHSix());
     }
-    public StringMap<MetaAnchorLabel> getAnchorsRef() {
+    public StringMap<MetaSearchableLabel> getAnchorsRef() {
         return anchorsRef;
     }
     private void unstack(String _last, RendKeyWords _rend) {
