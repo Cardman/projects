@@ -1,14 +1,13 @@
 package code.bean.nat.analyze;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
-import code.util.CustList;
-import code.util.Ints;
-import code.util.StringList;
+import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
@@ -107,7 +106,10 @@ public final class NatResultText {
         if (pref_.indexOf('(') < 0) {
             pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
         }
+        String bean_ = _read.getOwnerDocument().getDocumentElement().getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrBean()));
+        String tmp_ = bean_+'.'+BeanNatCommonLgNames.methName(pref_);
         r_.opExpAnchorRoot = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
+        _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()),tmp_);
         for (String v:varNames_) {
             _page.getInfosVars().removeKey(v);
         }

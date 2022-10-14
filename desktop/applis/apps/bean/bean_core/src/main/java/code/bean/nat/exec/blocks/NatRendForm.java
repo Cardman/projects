@@ -12,19 +12,16 @@ import code.util.CustList;
 import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class NatRendForm extends NatRendElement implements RendElem {
     private final CustList<NatExecOperationNode> opForm;
 
     private final StringList varNames;
-    private final NatExecTextPart textPart;
 
-    public NatRendForm(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, CustList<NatExecOperationNode> _opForm, StringList _varNames, NatExecTextPart _textPart) {
+    public NatRendForm(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, CustList<NatExecOperationNode> _opForm, StringList _varNames) {
         super(_read, _execAttributes, _execAttributesText);
         this.opForm = _opForm;
         this.varNames = _varNames;
-        this.textPart = _textPart;
     }
 
     void form(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
@@ -39,12 +36,12 @@ public final class NatRendForm extends NatRendElement implements RendElem {
 //            procCstRef(_cont, elt_, _rendStack.getFormParts());
 //            return;
 //        }
-        StringList alt_ = NatRenderingText.renderAltListNat(textPart, _rendStack);
+//        StringList alt_ = NatRenderingText.renderAltListNat(textPart, _rendStack);
         StringList arg_ = new StringList();
-        String render_ = StringUtil.join(alt_,"");
+//        String render_ = StringUtil.join(alt_,"");
         _rendStack.getFormParts().getFormsArgs().add(arg_);
-        String beanName_ = _rendStack.getLastPage().getBeanName();
-        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(RendBlockHelp.CALL_METHOD,beanName_, RendBlockHelp.DOT,render_));
+//        String beanName_ = _rendStack.getLastPage().getBeanName();
+//        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(RendBlockHelp.CALL_METHOD,beanName_, RendBlockHelp.DOT,render_));
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), RendBlockHelp.EMPTY_STRING);
         currentForm_ = _rendStack.getFormParts().getCurrentForm();
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));

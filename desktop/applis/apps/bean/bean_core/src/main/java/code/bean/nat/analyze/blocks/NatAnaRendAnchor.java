@@ -2,43 +2,22 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
-import code.bean.nat.analyze.opers.NatOperationNode;
 import code.sml.Element;
-import code.util.CustList;
 import code.util.StringList;
 
 public final class NatAnaRendAnchor extends NatAnaRendElement {
-    private NatOperationNode root;
-
-    private StringList texts = new StringList();
-    private StringList varNames = new StringList();
-    private CustList<NatOperationNode> roots;
+    private NatResultText resultText;
 
     NatAnaRendAnchor(Element _elt) {
         super(_elt);
     }
 
     void anchor(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        NatResultText res_ = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
-        varNames = res_.getVarNames();
-        root = res_.getOpExpAnchorRoot();
-        roots = res_.getOpExpRoot();
-        texts = res_.getTexts();
+        resultText = NatResultText.buildAnchor(_read, _list, _anaDoc, _page);
     }
 
-    public StringList getVarNames() {
-        return varNames;
+    public NatResultText getResultText() {
+        return resultText;
     }
 
-    public NatOperationNode getRoot() {
-        return root;
-    }
-
-    public CustList<NatOperationNode> getRoots() {
-        return roots;
-    }
-
-    public StringList getTexts() {
-        return texts;
-    }
 }

@@ -63,8 +63,6 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
     public static final String TYPE_LG_INT = "li";
     public static final String IS_EMPTY = "isEmpty";
     protected static final char BEGIN_ARGS = '(';
-    protected static final char SEP_ARGS = ',';
-    protected static final char END_ARGS = ')';
 
     private static final String REF_TAG = "#";
 
@@ -116,16 +114,6 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         _rendStackCall.setMainBean(bean_);
         NatRendImport.beforeDisp(bean_);
         return RendBlockHelp.res(_rend, _conf, _rendStackCall, beanName_, bean_);
-    }
-
-    protected static boolean isPartOfArgument(char _char) {
-        if (_char == SEP_ARGS) {
-            return false;
-        }
-        if (_char == BEGIN_ARGS) {
-            return false;
-        }
-        return _char != END_ARGS;
     }
 
     public void build() {
@@ -421,16 +409,13 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
-        String action_ = actionCommand_
-                .substring(indexPoint_ + 1);
-        String methodName_ = methName(action_);
-        String suffix_ = suff(action_);
         String beanName_ = actionCommand_
                 .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1, indexPoint_);
         Struct bean_ = getBeanOrNull(beanName_);
         setGlobalArgumentStruct(bean_, _rendStack);
         Struct return_ = redirect(natPage,bean_, _rendStack);
-        String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, BeanLgNames.DOT, methodName_, suffix_));
+        String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), actionCommand_
+                .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1));
         proc(_nav, _rendStack, urlDest_, bean_, beanName_);
     }
 
@@ -460,18 +445,6 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         navigation = _navigation;
     }
 
-    public static String suff(String _action) {
-        String suffix_;
-        if (_action.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            suffix_ = BeanLgNames.EMPTY_STRING;
-        } else {
-            suffix_ = _action.substring(_action.indexOf(BEGIN_ARGS));
-            StringBuilder str_ = getStringBuilder(suffix_);
-            suffix_ = str_.toString();
-        }
-        return suffix_;
-    }
-
     public static String methName(String _action) {
         String methodName_;
         if (_action.indexOf(BEGIN_ARGS) == IndexConstants.INDEX_NOT_FOUND_ELT) {
@@ -496,17 +469,6 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
             }
         }
         return urlDest_;
-    }
-
-    private static StringBuilder getStringBuilder(String _suf) {
-        StringBuilder str_ = new StringBuilder();
-        for (char c: _suf.toCharArray()) {
-            if (isPartOfArgument(c)) {
-                continue;
-            }
-            str_.append(c);
-        }
-        return str_;
     }
 
     protected abstract InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack);

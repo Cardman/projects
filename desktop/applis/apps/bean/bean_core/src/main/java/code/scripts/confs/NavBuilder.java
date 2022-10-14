@@ -1,5 +1,6 @@
 package code.scripts.confs;
 
+import code.bean.nat.BeanNatCommonLgNames;
 import code.formathtml.structs.BeanInfo;
 import code.util.CollCapacity;
 import code.util.StringMap;
@@ -11,7 +12,7 @@ public final class NavBuilder {
         for (EntryNav e: _redirects) {
             n_.addEntry(e.getNavCase(),e.getRedirect());
         }
-        _nav.addEntry(_key,n_);
+        _nav.addEntry(BeanNatCommonLgNames.methName(_key),n_);
     }
     public static void buildBeans(StringMap<BeanInfo> _nav, String _key, String _value) {
         BeanInfo b_ = new BeanInfo();

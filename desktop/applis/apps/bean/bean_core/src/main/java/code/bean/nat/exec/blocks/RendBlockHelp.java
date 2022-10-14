@@ -360,9 +360,9 @@ public final class RendBlockHelp {
         StringList alt_ = NatRenderingText.renderAltListNat(_textPart, _rendStackCall);
         StringList arg_ = arg(alt_);
         _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);
-        String render_ = StringUtil.join(alt_,"");
-        String beanName_ = _rendStackCall.getLastPage().getBeanName();
-        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
+//        String render_ = StringUtil.join(alt_,"");
+//        String beanName_ = _rendStackCall.getLastPage().getBeanName();
+//        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNbNonCont(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
     }

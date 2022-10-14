@@ -129,9 +129,9 @@ public final class NatRendForwardInfos {
             NatAnaRendAnchor f_ = (NatAnaRendAnchor) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
-            NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
-            return new NatRendAnchor(f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
+            NatExecTextPart partSub_ = toExecPartExt(f_.getResultText().getOpExpRoot(), f_.getResultText().getTexts());
+            CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getResultText().getOpExpAnchorRoot());
+            return new NatRendAnchor(f_.getRead(),part_,partText_,op_, f_.getResultText().getVarNames(),partSub_);
         }
         if (_current instanceof NatAnaRendInactiveAnchor){
             NatAnaRendInactiveAnchor f_ = (NatAnaRendInactiveAnchor) _current;
@@ -163,8 +163,7 @@ public final class NatRendForwardInfos {
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
             CustList<NatExecOperationNode> opForm_ = getExecutableNodes(f_.getRoot());
-            NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            return new NatRendForm(f_.getRead(),part_,partText_,opForm_,f_.getVarNames(),partSub_);
+            return new NatRendForm(f_.getRead(),part_,partText_,opForm_,f_.getVarNames());
         }
         if (_current instanceof NatAnaRendMessage){
             NatAnaRendMessage f_ = (NatAnaRendMessage) _current;
@@ -221,9 +220,9 @@ public final class NatRendForwardInfos {
             NatAnaRendTitledAnchor f_ = (NatAnaRendTitledAnchor) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
             StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
-            NatExecTextPart partSub_ = toExecPartExt(f_.getRoots(),f_.getTexts());
-            CustList<NatExecOperationNode> opAnc_ = getExecutableNodes(f_.getRoot());
-            return new NatRendTitledAnchor(f_.getRead(),part_,partText_,opAnc_,f_.getVarNames(), f_.getPreformatted(),partSub_);
+            NatExecTextPart partSub_ = toExecPartExt(f_.getResultText().getOpExpRoot(), f_.getResultText().getTexts());
+            CustList<NatExecOperationNode> opAnc_ = getExecutableNodes(f_.getResultText().getOpExpAnchorRoot());
+            return new NatRendTitledAnchor(f_.getRead(),part_,partText_,opAnc_, f_.getResultText().getVarNames(), f_.getPreformatted(),partSub_);
         }
         if (_current instanceof NatAnaRendEmptyInstruction){
             return new NatRendEmptyInstruction();
