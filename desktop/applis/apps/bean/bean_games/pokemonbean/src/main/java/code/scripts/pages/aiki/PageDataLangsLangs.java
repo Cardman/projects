@@ -9,7 +9,7 @@ private static final String C_P_131_2="msg_lang,title";
 private static final String C_P_131_3="web/css/pokedex.css";
 private static final String C_P_131_4="stylesheet";
 private static final String C_P_131_5="text/css";
-private static final String C_P_131_6="web/html/index.html";
+private static final String C_P_131_6=GO_TO_IND;
 private static final String C_P_131_7="";
 private static final String C_P_131_8="msg_lang,index";
 private static final String C_P_131_9="begin";
@@ -154,7 +154,7 @@ private static final String C_P_131_147="getRowDesc(([k]))";
 private static final String C_P_131_148="s";
 private static final String C_P_131_149="java.lang.String";
 private static final String C_P_131_150="{s}";
-private static final String C_P_131_151="web/html/langs/langs.html#begin";
+private static final String C_P_131_151="$b";
 private static final String C_P_131_152="";
 private static final String C_P_131_153="msg_lang,return_begin";
 private PageDataLangsLangs(){}

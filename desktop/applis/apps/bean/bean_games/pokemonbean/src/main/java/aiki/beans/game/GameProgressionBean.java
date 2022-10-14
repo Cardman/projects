@@ -37,7 +37,7 @@ public class GameProgressionBean extends CommonSingleBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         heroImage = facade_.getFrontChosenHeros();
         heroImageOppositeSex = facade_.getFrontChosenHerosOppositeSex();
         GameProgression progression_ = facade_.getGameProgression();
@@ -129,41 +129,41 @@ public class GameProgressionBean extends CommonSingleBean {
         }
     }
     public String getRemainingOtherTrainersPlaceName(int _index) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         short key_ = remainingOtherTrainerPlaces.getKey(_index);
         DataMap dataMap_ = facade_.getMap();
         return dataMap_.getPlace(key_).getName();
     }
     public String getTrPokemonNotAll(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getTrPokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
     public String getImagePokemonNotAll(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getImagePokemon(facade_, notAtAllFamiliesBase, _key, _indexList, _indexElt);
     }
     public String getTrPokemonPartialNot(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getTrPokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
     public String getImagePokemonPartialNot(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getImagePokemon(facade_, partialFamiliesBaseNotCaught, _key, _indexList, _indexElt);
     }
     public String getTrPokemonPartial(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getTrPokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
     public String getImagePokemonPartial(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getImagePokemon(facade_, partialFamiliesBaseCaught, _key, _indexList, _indexElt);
     }
     public String getTrPokemonFull(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getTrPokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
     public String getImagePokemonFull(int _key, int _indexList, int _indexElt) {
-        FacadeGame facade_ = getDataBase();
+        FacadeGame facade_ = facade();
         return getImagePokemon(facade_, fullFamiliesBase, _key, _indexList, _indexElt);
     }
     public StringList getKeyPokemon(int _key, int _indexList) {

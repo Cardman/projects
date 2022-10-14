@@ -17,7 +17,7 @@ private static final String C_P_127_10="$intern.name=name";
 private static final String C_P_127_11="endRound";
 private static final String C_P_127_12="msg_effendround,rank";
 private static final String C_P_127_13="endRoundRank";
-private static final String C_P_127_14="web/html/endround/endround.html";
+private static final String C_P_127_14=GO_TO_ENDROUND;
 private static final String C_P_127_15="";
 private static final String C_P_127_16="msg_itemforbattle,endRound";
 private static final String C_P_127_17="!reasonsEndRound.isEmpty()";

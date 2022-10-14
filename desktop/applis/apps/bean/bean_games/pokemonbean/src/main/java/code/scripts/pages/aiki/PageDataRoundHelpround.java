@@ -3,12 +3,12 @@ import code.sml.*;
 import code.util.*;
 
 final class PageDataRoundHelpround extends PageAikiCommon{
-private static final String LK_END_ROUND="web/html/endround/endround.html";
-private static final String LK_END_ROUND_USER="web/html/round/helpround.html#endrounduser";
-private static final String LK_ADDON_FORMULA="web/html/round/helpround.html#addonformula";
-private static final String LK_ADDON_FORMULA_4="web/html/round/helpround.html#addonformula4";
-private static final String LK_SWITCH_ROUND="web/html/round/helpround.html#switchround";
-private static final String LK_SEND_BEGIN_FIGHT="web/html/round/helpround.html#sendbeginfight";
+private static final String LK_END_ROUND=GO_TO_ENDROUND;
+private static final String LK_END_ROUND_USER="$e";
+private static final String LK_ADDON_FORMULA="$a";
+private static final String LK_ADDON_FORMULA_4="$f";
+private static final String LK_SWITCH_ROUND="$w";
+private static final String LK_SEND_BEGIN_FIGHT="$s";
 private static final String LK_CMD="$clickDefaultMove";
 private static final String C_P_192_0="javahtml";
 private static final String C_P_192_1="help_fight";
@@ -16,7 +16,7 @@ private static final String C_P_192_2="msg_helpround,title";
 private static final String C_P_192_3="web/css/pokedex.css";
 private static final String C_P_192_4="stylesheet";
 private static final String C_P_192_5="text/css";
-private static final String C_P_192_6="web/html/index.html";
+private static final String C_P_192_6=GO_TO_IND;
 private static final String C_P_192_7="";
 private static final String C_P_192_8="msg_helpround,index";
 private static final String C_P_192_9="begin";
@@ -1551,7 +1551,7 @@ private static final String C_P_192_1526="{getTrStatistic(([s]))}";
 private static final String C_P_192_1527="{getAnimStatistic(([s]))}";
 private static final String C_P_192_1528="msg_helpround,round_process_add_on_14_1";
 private static final String C_P_192_1529="{getAnimAbsorb()}";
-private static final String C_P_192_1530="web/html/round/helpround.html#begin";
+private static final String C_P_192_1530="$b";
 private static final String C_P_192_1531="";
 private static final String C_P_192_1532="msg_helpround,return_begin";
 private PageDataRoundHelpround(){}

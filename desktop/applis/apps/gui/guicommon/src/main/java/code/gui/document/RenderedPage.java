@@ -3,9 +3,9 @@ package code.gui.document;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
-import code.formathtml.render.MetaAnchorLabel;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
+import code.formathtml.render.MetaSearchableLabel;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.WithPageInfos;
 import code.gui.*;
@@ -144,6 +144,11 @@ public final class RenderedPage implements ProcessingSession {
 //        if (!(getStandards() instanceof BeanCustLgNames)) {
 //            return;
 //        }
+        if (dialog == null) {
+            timer = gene.getThreadFactory().newScheduledExecutorService();
+            processing.set(true);
+            return;
+        }
         dialog.init(gene.getThreadFactory(),this,frame, process);
         timer = gene.getThreadFactory().newScheduledExecutorService();
         taskTimer = timer.scheduleAtFixedRate(new TaskPaintingLabel(dialog),0,DELTA);
@@ -152,7 +157,7 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     void finish() {
-        if (taskTimer == null) {
+        if (taskTimer == null || dialog == null) {
             return;
         }
         dialog.stopAnimation();
@@ -176,7 +181,7 @@ public final class RenderedPage implements ProcessingSession {
         }
         String ref_ = navigation.getReferenceScroll();
         if (!ref_.isEmpty()) {
-            MetaAnchorLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
+            MetaSearchableLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
             DualComponent c_ = getRefs().getVal(lab_);
             DualComponent r_ = page;
             int x_ = 0;

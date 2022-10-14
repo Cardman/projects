@@ -103,6 +103,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private static final String HAS_MORE_THAN_ONE = "hasMoreThanOne";
     private static final String INVOKE_METHOD = "invokeMethod";
     private static final String GO_TO_PAGE = "goToPage";
+    private static final String GO_TO_PAGE3 = "goToPage3";
+    private static final String GO_TO_PAGE1 = "goToPage1";
     private static final String GO_TO_NULL_PAGE = "goToNullPage";
     private static final String GET_DOUBLE = "getDouble";
     private static final String GET_LIST = "getList";
@@ -255,6 +257,10 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         fields_.add(new StandardField(STRINGS, TYPE_STRING_LIST, false, false,null,null));
         fields_.add(new StandardField(STRINGS_SEC, TYPE_STRING_LIST_SEC, false, false,null,null));
         //params_ = new StringList(PRIM_INTEGER);
+        method_ = new SpecNatMethod(GO_TO_PAGE3, STRING, false, MethodModifier.NORMAL, new CstNatCaller("page3.html"));
+        methods_.add( method_);
+        method_ = new SpecNatMethod(GO_TO_PAGE1, STRING, false, MethodModifier.NORMAL, new CstNatCaller("page1.html"));
+        methods_.add( method_);
         method_ = new SpecNatMethod(GET_LIST, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
         //params_ = new StringList(PRIM_LONG);

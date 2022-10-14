@@ -14,7 +14,6 @@ import code.util.core.StringUtil;
 
 public final class NatResultText {
 
-    private static final String CALL_METHOD = "$";
     private static final char LEFT_EL = '{';
     private static final char QUOTE = 39;
     private CustList<NatOperationNode> opExpRoot;
@@ -85,34 +84,32 @@ public final class NatResultText {
         NatResultText r_ = new NatResultText();
         r_.opExpRoot = new CustList<NatOperationNode>();
         r_.texts = new StringList();
-        if (href_.startsWith(CALL_METHOD)) {
-            String lk_ = href_.substring(1);
-            r_.buildAna(lk_, _anaDoc, _page);
-            CustList<NatOperationNode> opExpRoot_ = r_.getOpExpRoot();
-            int l_ = opExpRoot_.size();
-            StringList formArg_ = new StringList();
-            StringList varNames_ = new StringList();
-            for (int i = 0; i< l_; i++) {
-                String varLoc_ = AnaRendBlockHelp.lookForVar(varNames_);
-                varNames_.add(varLoc_);
-            }
-            r_.varNames = varNames_;
-            int i_ = 0;
-            for (String v:varNames_) {
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(opExpRoot_.get(i_).getNames());
-                _page.getInfosVars().addEntry(v,lv_);
-                formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
-                i_++;
-            }
-            String pref_ = r_.quickRender(lk_, formArg_);
-            if (pref_.indexOf('(') < 0) {
-                pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-            }
-            r_.opExpAnchorRoot = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
-            for (String v:varNames_) {
-                _page.getInfosVars().removeKey(v);
-            }
+        String lk_ = href_.substring(1);
+        r_.buildAna(lk_, _anaDoc, _page);
+        CustList<NatOperationNode> opExpRoot_ = r_.getOpExpRoot();
+        int l_ = opExpRoot_.size();
+        StringList formArg_ = new StringList();
+        StringList varNames_ = new StringList();
+        for (int i = 0; i< l_; i++) {
+            String varLoc_ = AnaRendBlockHelp.lookForVar(varNames_);
+            varNames_.add(varLoc_);
+        }
+        r_.varNames = varNames_;
+        int i_ = 0;
+        for (String v:varNames_) {
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(opExpRoot_.get(i_).getNames());
+            _page.getInfosVars().addEntry(v,lv_);
+            formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
+            i_++;
+        }
+        String pref_ = r_.quickRender(lk_, formArg_);
+        if (pref_.indexOf('(') < 0) {
+            pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
+        }
+        r_.opExpAnchorRoot = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
+        for (String v:varNames_) {
+            _page.getInfosVars().removeKey(v);
         }
         return r_;
     }

@@ -27,18 +27,18 @@ public final class NatRendForm extends NatRendElement implements RendElem {
         this.textPart = _textPart;
     }
 
-    void form(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    void form(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         NatFormParts formParts_ = _rendStack.getFormParts();
         formParts_.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
         formParts_.getCallsFormExps().add(opForm);
         incrForm(varNames, formParts_);
         long currentForm_;
-        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
+//        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()));
         Element elt_ = (Element) _nextWrite;
-        if (!href_.startsWith(RendBlockHelp.CALL_METHOD)) {
-            procCstRef(_cont, elt_, _rendStack.getFormParts());
-            return;
-        }
+//        if (!href_.startsWith(RendBlockHelp.CALL_METHOD)) {
+//            procCstRef(_cont, elt_, _rendStack.getFormParts());
+//            return;
+//        }
         StringList alt_ = NatRenderingText.renderAltListNat(textPart, _rendStack);
         StringList arg_ = new StringList();
         String render_ = StringUtil.join(alt_,"");
@@ -50,15 +50,15 @@ public final class NatRendForm extends NatRendElement implements RendElem {
         elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 
-    public static void procCstRef(Configuration _cont, Element _elt, NatFormParts _formParts) {
-        long currentForm_;
-        _formParts.getFormsArgs().add(new StringList());
-        if (_elt.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
-            _elt.setAttribute(_cont.getRendKeyWords().getAttrAction(), "");
-        }
-        currentForm_ = _formParts.getCurrentForm();
-        _elt.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
-    }
+//    public static void procCstRef(Configuration _cont, Element _elt, NatFormParts _formParts) {
+//        long currentForm_;
+//        _formParts.getFormsArgs().add(new StringList());
+//        if (_elt.hasAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()))) {
+//            _elt.setAttribute(_cont.getRendKeyWords().getAttrAction(), "");
+//        }
+//        currentForm_ = _formParts.getCurrentForm();
+//        _elt.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+//    }
     public static void incrForm(StringList _varNames, NatFormParts _formParts) {
         _formParts.getFormatIdMapStack().add(new StringList());
         long currentForm_ = _formParts.getCurrentForm();

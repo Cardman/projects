@@ -2,10 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansSimulationStd{
@@ -246,6 +243,9 @@ public final class AikiBeansSimulationStd{
     private static final String POKEMON_CENTER = "pokemonCenter";
     private static final String NO_FIGHT = "noFight";
     private static final String TILES = "tiles";
+    private static final String GS = "gs";
+    private static final String GSL = "l";
+
     private AikiBeansSimulationStd(){}
     public static void build(PokemonStandards _std) {
         buildAddPokemonBean(_std);
@@ -560,6 +560,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(VALIDATE_MOVES_ABILITY_AFTER_FIGHT, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new SimulationBeanValidateMovesAbilityAfterFight()));
         methods_.add( new SpecNatMethod(CHANGE_FIGHT_WHILE_END, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new SimulationBeanChangeFightWhileEnd()));
         methods_.add( new SpecNatMethod(VALIDATE_MOVES_AFTER_FIGHT, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new SimulationBeanValidateMovesAfterFight()));
+        methods_.add( new SpecNatMethod(GS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/simulation/simulation.html")));
         _std.getStds().addEntry(TYPE_SIMULATION_BEAN, type_);
     }
     private static void buildSimulationLevelBean(PokemonStandards _std){
@@ -579,6 +580,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new SimulationLevelBeanGetMapWidth()));
         methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationLevelBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(CLICK_TILE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SimulationLevelBeanClickTile()));
+        methods_.add( new SpecNatMethod(GSL, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/simulation/simulationlevel.html")));
         _std.getStds().addEntry(TYPE_SIMULATION_LEVEL_BEAN, type_);
     }
 }

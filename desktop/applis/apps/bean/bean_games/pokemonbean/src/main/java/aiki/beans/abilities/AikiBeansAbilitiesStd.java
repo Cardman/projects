@@ -2,10 +2,7 @@ package aiki.beans.abilities;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansAbilitiesStd{
@@ -200,6 +197,8 @@ public final class AikiBeansAbilitiesStd{
     private static final String MAP_VARS = "mapVars";
     private static final String HEALED_HP_RATE_BY_SWITCH = "healedHpRateBySwitch";
     private static final String POKEMON = "pokemon";
+    private static final String GA = "a";
+
     private AikiBeansAbilitiesStd(){}
     public static void build(PokemonStandards _std) {
         buildAbilitiesBean(_std);
@@ -404,6 +403,7 @@ public final class AikiBeansAbilitiesStd{
         methods_.add( new SpecNatMethod(GET_TR_FAIL_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AbilityBeanGetTrFailStatus()));
         methods_.add( new SpecNatMethod(CLICK_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AbilityBeanClickPokemon()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AbilityBeanGetTrPokemon()));
+        methods_.add( new SpecNatMethod(GA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/ability/abilities.html")));
         _std.getStds().addEntry(TYPE_ABILITY_BEAN, type_);
     }
 }

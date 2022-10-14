@@ -1,10 +1,7 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansGameStd{
@@ -143,6 +140,10 @@ public final class AikiBeansGameStd{
         methods_.add( new SpecNatMethod(GET_KEY_POKEMON, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new GameProgressionBeanGetKeyPokemon()));
         methods_.add( new SpecNatMethod(GET_IMAGE_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetImagePokemonPartial()));
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_PARTIAL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GameProgressionBeanGetTrPokemonPartial()));
+        methods_.add( new SpecNatMethod("n", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_prog/html/gameprognotatall.html")));
+        methods_.add( new SpecNatMethod("p", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_prog/html/gameprogpart.html")));
+        methods_.add( new SpecNatMethod("a", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_prog/html/gameprogall.html")));
+        methods_.add( new SpecNatMethod("g", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_prog/html/gameprog.html")));
         _std.getStds().addEntry(TYPE_GAME_PROGRESSION_BEAN, type_);
     }
     public static void buildPokemonPlayerBean(PokemonStandards _std){

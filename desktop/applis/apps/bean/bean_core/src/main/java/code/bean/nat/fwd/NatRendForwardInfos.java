@@ -133,6 +133,12 @@ public final class NatRendForwardInfos {
             CustList<NatExecOperationNode> op_ = getExecutableNodes(f_.getRoot());
             return new NatRendAnchor(f_.getRead(),part_,partText_,op_, f_.getVarNames(),partSub_);
         }
+        if (_current instanceof NatAnaRendInactiveAnchor){
+            NatAnaRendInactiveAnchor f_ = (NatAnaRendInactiveAnchor) _current;
+            StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());
+            StringMap<NatExecTextPart> partText_ = toExecPartExt(f_.getAttributesText());
+            return new NatRendInactiveAnchor(f_.getRead(),part_,partText_);
+        }
         if (_current instanceof NatAnaRendImg){
             NatAnaRendImg f_ = (NatAnaRendImg) _current;
             StringMap<NatExecTextPart> part_ = toExecPartExt(f_.getAttributes());

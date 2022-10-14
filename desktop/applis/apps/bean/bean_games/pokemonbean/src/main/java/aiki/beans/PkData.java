@@ -264,7 +264,7 @@ public final class PkData extends PokemonStandards {
         getBeansStruct().setValue(71,bean(new EndRoundBean(), AikiBeansEndroundStd.TYPE_END_ROUND_BEAN, _language));
         getBeansStruct().setValue(72,bean(new EffectEndRoundBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN, _language));
         getBeansStruct().setValue(73,bean(new EffectEndRoundIndividualBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_INDIVIDUAL_BEAN, _language));
-        getBeansStruct().setValue(74,bean(new EffectEndRoundStatusBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN, _language));
+        getBeansStruct().setValue(74,bean(new EffectEndRoundSingleStatusBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_BEAN, _language));
         getBeansStruct().setValue(75,bean(new EffectEndRoundStatusRelationBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_STATUS_RELATION_BEAN, _language));
         getBeansStruct().setValue(76,bean(new EffectEndRoundSingleRelationBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_SINGLE_RELATION_BEAN, _language));
         getBeansStruct().setValue(77,bean(new EffectEndRoundGlobalBean(), AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_GLOBAL_BEAN, _language));

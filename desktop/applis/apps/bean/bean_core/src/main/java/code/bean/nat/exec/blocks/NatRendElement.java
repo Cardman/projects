@@ -42,11 +42,11 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
             created_.setAttribute(e.getKey(),txt_);
         }
         if (this instanceof NatRendAnchor) {
-            ((NatRendAnchor)this).anchor(_cont, created_, read, _rendStack);
+            ((NatRendAnchor)this).anchor(_cont, created_, _rendStack);
         } else if (this instanceof NatRendEscImg) {
             ((NatRendEscImg)this).escImg(_cont, created_);
         } else if (this instanceof NatRendForm) {
-            ((NatRendForm)this).form(_cont, created_, read, _rendStack);
+            ((NatRendForm)this).form(_cont, created_, _rendStack);
         } else if (this instanceof NatRendImg) {
             ((NatRendImg)this).img(_cont, created_, _rendStack);
         } else if (this instanceof NatRendInput) {
@@ -58,7 +58,9 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
         } else if (this instanceof NatRendSubmit) {
             ((NatRendSubmit)this).submit(_cont, created_);
         } else if (this instanceof NatRendTitledAnchor) {
-            ((NatRendTitledAnchor)this).titled(_cont, created_, read, _rendStack);
+            ((NatRendTitledAnchor)this).titled(_cont, created_, _rendStack);
+        } else if (this instanceof NatRendInactiveAnchor) {
+            ownerDocument_.renameNode(created_, _cont.getRendKeyWords().getKeyWordSpan());
         }
         for (EntryCust<String, NatExecTextPart> e: natAttributes.entryList()) {
             NatExecTextPart res_ = e.getValue();

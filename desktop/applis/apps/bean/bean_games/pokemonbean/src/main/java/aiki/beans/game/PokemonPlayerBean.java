@@ -40,7 +40,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
 
     @Override
     public void beforeDisplaying() {
-        FacadeGame facadeGame_ = getDataBase();
+        FacadeGame facadeGame_ = facade();
         DataBase data_ = facadeGame_.getData();
         StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         StringMap<String> translatedAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
@@ -126,14 +126,14 @@ public class PokemonPlayerBean extends CommonSingleBean {
     }
     public String getEvo(int _index) {
         String evo_ = evolutions.getKey(_index);
-        FacadeGame facadeGame_ = getDataBase();
+        FacadeGame facadeGame_ = facade();
         DataBase data_ = facadeGame_.getData();
         StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translatedPokemon_.getVal(evo_);
     }
 
     Rate numberNecessaryPointsForGrowingLevel(String _name){
-        FacadeGame facadeGame_ = getDataBase();
+        FacadeGame facadeGame_ = facade();
         DataBase data_ = facadeGame_.getData();
         Rate diff_ = FightFacade.numberNecessaryPointsForGrowingLevel(_name,level+1L,data_);
         diff_.removeNb(wonExpSinceLastLevel);

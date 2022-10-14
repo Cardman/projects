@@ -9,7 +9,7 @@ private static final String C_P_113_2="msg_generalhelp,title";
 private static final String C_P_113_3="web/css/pokedex.css";
 private static final String C_P_113_4="stylesheet";
 private static final String C_P_113_5="text/css";
-private static final String C_P_113_6="web/html/index.html";
+private static final String C_P_113_6=GO_TO_IND;
 private static final String C_P_113_7="";
 private static final String C_P_113_8="msg_generalhelp,index";
 private static final String C_P_113_9="msg_generalhelp,goal_0";
@@ -124,7 +124,7 @@ private static final String C_P_113_117="t";
 private static final String C_P_113_118="{getTrType(([t]))}";
 private static final String C_P_113_119="{getImageType(([t]))}";
 private static final String C_P_113_120="{getColorType(([t]))}";
-private static final String C_P_113_121="web/html/index.html";
+private static final String C_P_113_121=GO_TO_IND;
 private static final String C_P_113_122="";
 private static final String C_P_113_123="msg_generalhelp,index";
 private PageDataGeneralGeneral(){}

@@ -9,7 +9,7 @@ private static final String C_P_180_2="msg_moves,title";
 private static final String C_P_180_3="web/css/moves.css";
 private static final String C_P_180_4="stylesheet";
 private static final String C_P_180_5="text/css";
-private static final String C_P_180_6="web/html/index.html";
+private static final String C_P_180_6=GO_TO_IND;
 private static final String C_P_180_7="";
 private static final String C_P_180_8="msg_moves,index";
 private static final String C_P_180_9="";
@@ -69,7 +69,7 @@ private static final String C_P_180_62="MoveLineBean";
 private static final String C_P_180_63="$intern.index=([d])";
 private static final String C_P_180_64="$intern.moveLine=d";
 private static final String C_P_180_65="$intern.sortedMoves=sortedMoves";
-private static final String C_P_180_66="web/html/index.html";
+private static final String C_P_180_66=GO_TO_IND;
 private static final String C_P_180_67="";
 private static final String C_P_180_68="msg_moves,index";
 private PageDataMovesMoves(){}

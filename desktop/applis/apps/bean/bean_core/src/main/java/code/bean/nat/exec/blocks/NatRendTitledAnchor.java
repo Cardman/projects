@@ -28,7 +28,7 @@ public final class NatRendTitledAnchor extends NatRendElement {
         this.textPart = _textPart;
     }
 
-    void titled(Configuration _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
+    void titled(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
@@ -41,7 +41,7 @@ public final class NatRendTitledAnchor extends NatRendElement {
         curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
         ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
         RendBlockHelp.feed(varNames, opExpAnch, _rendStack);
-        RendBlockHelp.processLink(_cont, curWr_, _read, textPart, _rendStack);
+        RendBlockHelp.processLink(_cont, curWr_, textPart, _rendStack);
     }
 
 }

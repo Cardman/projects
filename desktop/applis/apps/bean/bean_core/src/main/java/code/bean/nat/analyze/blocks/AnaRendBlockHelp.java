@@ -189,6 +189,10 @@ public final class AnaRendBlockHelp {
             return new NatAnaRendSubmit(_elt);
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordAnchor())) {
+            String href_ = _elt.getAttribute(StringUtil.concat(_prefix,_rendKeyWords.getAttrCommand()));
+            if (href_.isEmpty()) {
+                return new NatAnaRendInactiveAnchor(_elt);
+            }
             return new NatAnaRendAnchor(_elt);
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordImg())) {

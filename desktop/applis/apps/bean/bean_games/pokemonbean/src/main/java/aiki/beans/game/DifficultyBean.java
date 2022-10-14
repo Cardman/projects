@@ -10,13 +10,13 @@ public class DifficultyBean extends CommonSingleBean {
     private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     @Override
     public void beforeDisplaying() {
-        FacadeGame facadeGame_ = getDataBase();
+        FacadeGame facadeGame_ = facade();
         DataBase data_ = facadeGame_.getData();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
         difficultyCommon.init(data_,getLanguage(),diff_);
     }
     public void change() {
-        FacadeGame facadeGame_ = getDataBase();
+        FacadeGame facadeGame_ = facade();
         Difficulty diff_ = facadeGame_.getGame().getDifficulty();
         difficultyCommon.apply(facadeGame_.getData(),diff_);
     }

@@ -26,17 +26,15 @@ public final class NatAnaRendForm extends NatAnaRendElement {
         roots = new CustList<NatOperationNode>();
         String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
         NatResultText r_ = new NatResultText();
-        if (href_.startsWith(AnaRendBlockHelp.CALL_METHOD)) {
-            String lk_ = href_.substring(1);
-            r_.buildAna(lk_, _anaDoc, _page);
-            texts = r_.getTexts();
-            roots = r_.getOpExpRoot();
-            StringList formArg_ = new StringList();
-            varNames = new StringList();
-            String pref_ = r_.quickRender(lk_, formArg_);
-            pref_ = StringUtil.concat(pref_, AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-            root = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
-        }
+        String lk_ = href_.substring(1);
+        r_.buildAna(lk_, _anaDoc, _page);
+        texts = r_.getTexts();
+        roots = r_.getOpExpRoot();
+        StringList formArg_ = new StringList();
+        varNames = new StringList();
+        String pref_ = r_.quickRender(lk_, formArg_);
+        pref_ = StringUtil.concat(pref_, AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
+        root = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
     }
 
     public StringList getTexts() {

@@ -2,13 +2,13 @@ package aiki.beans.map.elements;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMapElementsStd{
+    public static final String GM = "gm";
+    public static final String WEB_HTML_MAP_MAP_HTML = "web/html/map/map.html";
+    public static final String ELTS = "Elts";
     public static final String TYPE_AREA_BEAN = "aiki.beans.map.elements.AreaBean";
     public static final String TYPE_LEGENDARY_POKEMON_BEAN = "aiki.beans.map.elements.LegendaryPokemonBean";
     private static final String GET_IMAGE = "getImage";
@@ -35,15 +35,26 @@ public final class AikiBeansMapElementsStd{
     private static final String GET_LEVEL = "getLevel";
     private static final String AREA = "area";
     private static final String POKEMON = "pokemon";
+    private static final String GL = "gl";
+
     private AikiBeansMapElementsStd(){}
     public static void build(PokemonStandards _std) {
+        buildEltsBean(_std);
         buildAreaBean(_std);
         buildLegendaryPokemonBean(_std);
+    }
+    private static void buildEltsBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(ELTS, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        methods_.add( new SpecNatMethod(GM, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_MAP_MAP_HTML)));
+        methods_.add( new SpecNatMethod(GL, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/map/level.html")));
+        _std.getStds().addEntry(ELTS, type_);
     }
     private static void buildAreaBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_AREA_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_AREA_BEAN, fields_, methods_, ELTS);
         fields_.add(new StandardField(AREA,PokemonStandards.TYPE_AREA_APPARITION,false,false,new AreaBeanAreaGet(),null));
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetImage()));
         methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickName()));
@@ -71,7 +82,7 @@ public final class AikiBeansMapElementsStd{
     private static void buildLegendaryPokemonBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_LEGENDARY_POKEMON_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_LEGENDARY_POKEMON_BEAN, fields_, methods_, ELTS);
         fields_.add(new StandardField(POKEMON,PokemonStandards.TYPE_WILD_PK,false,false,new LegendaryPokemonBeanPokemonGet(),null));
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetName()));
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new LegendaryPokemonBeanGetImage()));

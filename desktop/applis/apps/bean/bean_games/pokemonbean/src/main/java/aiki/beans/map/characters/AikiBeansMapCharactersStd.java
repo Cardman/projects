@@ -2,6 +2,7 @@ package aiki.beans.map.characters;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
+import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
@@ -67,7 +68,7 @@ public final class AikiBeansMapCharactersStd{
     private static void buildDealerBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_DEALER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_DEALER_BEAN, fields_, methods_, AikiBeansMapElementsStd.ELTS);
         methods_.add( new SpecNatMethod(GET_ITEMS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new DealerBeanGetItems()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new DealerBeanClickItem()));
         methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new DealerBeanGetItem()));
@@ -79,7 +80,7 @@ public final class AikiBeansMapCharactersStd{
     private static void buildDualFightBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_DUAL_FIGHT_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_DUAL_FIGHT_BEAN, fields_, methods_, AikiBeansMapElementsStd.ELTS);
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageMiniGet(),null));
         fields_.add(new StandardField(IMAGE_MINI_SECOND,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageMiniSecondGet(),null));
@@ -92,7 +93,7 @@ public final class AikiBeansMapCharactersStd{
     private static void buildSellerBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_SELLER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_SELLER_BEAN, fields_, methods_, AikiBeansMapElementsStd.ELTS);
         methods_.add( new SpecNatMethod(GET_ITEMS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new SellerBeanGetItems()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SellerBeanClickItem()));
         methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SellerBeanGetItem()));
@@ -104,7 +105,7 @@ public final class AikiBeansMapCharactersStd{
     private static void buildTrainerBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER_BEAN, fields_, methods_, AikiBeansMapElementsStd.ELTS);
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanImageMiniGet(),null));
         fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanPageTeamGet(),null));

@@ -55,10 +55,10 @@ public final class TeamPanel {
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
         renderer = render_;
+        nbRemainPlaces = render_.getFact().getCompoFactory().newPlainLabel("");
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
-        nbRemainPlaces = render_.getFact().getCompoFactory().newPlainLabel("");
         translate(_mess);
         container.add(nbRemainPlaces,GuiConstants.BORDER_LAYOUT_SOUTH);
         container.setPreferredSize(new MetaDimension(getDeltaName(_team) * 2 + side_ * 2,side_*2*_nb));

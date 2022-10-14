@@ -1,23 +1,10 @@
 package aiki.beans;
 
 import aiki.facade.FacadeGame;
-import code.bean.Bean;
 
-public abstract class CommonSingleBean extends Bean implements WithFacade {
+public abstract class CommonSingleBean extends CommonBean {
 
-    private FacadeGame dataBase;
-
-    public FacadeGame getDataBase() {
+    public FacadeGame facade() {
         return db();
-    }
-
-    @Override
-    public FacadeGame db() {
-        return dataBase;
-    }
-
-    @Override
-    public void setDataBase(FacadeGame _dataBase) {
-        dataBase = _dataBase;
     }
 }

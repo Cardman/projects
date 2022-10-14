@@ -349,14 +349,14 @@ public final class RendBlockHelp {
         return BeanNatCommonLgNames.processString(new Argument(_instance));
     }
 
-    public static void processLink(Configuration _cont, Element _nextWrite, Element _read, NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {
-        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()));
-        if (!href_.startsWith(CALL_METHOD)) {
-            _rendStackCall.getFormParts().getAnchorsArgs().add(new StringList());
-            RendBlock.hideLink(_cont, _nextWrite);
-            incrAncNbNonCont(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
-            return;
-        }
+    public static void processLink(Configuration _cont, Element _nextWrite, NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {
+//        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()));
+//        if (!href_.startsWith(CALL_METHOD)) {
+//            _rendStackCall.getFormParts().getAnchorsArgs().add(new StringList());
+//            RendBlock.hideLink(_cont, _nextWrite);
+//            incrAncNbNonCont(_cont, _nextWrite, _rendStackCall.getFormParts().getIndexes());
+//            return;
+//        }
         StringList alt_ = NatRenderingText.renderAltListNat(_textPart, _rendStackCall);
         StringList arg_ = arg(alt_);
         _rendStackCall.getFormParts().getAnchorsArgs().add(arg_);

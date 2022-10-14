@@ -66,6 +66,8 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
     protected static final char SEP_ARGS = ',';
     protected static final char END_ARGS = ')';
 
+    private static final String REF_TAG = "#";
+
     private final StringMap<String> iterables = new StringMap<String>();
     private final StringMap<Validator> validators = new StringMap<Validator>();
     private final StringMap<Struct> beansStruct = new StringMap<Struct>();
@@ -97,35 +99,6 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
             res_ = StringUtil.concatNbs(ret_, _nb);
         }
         return res_;
-    }
-
-    public static Message err(Struct _value) {
-        if (!(_value instanceof StringStruct)) {
-            //Long or Boolean
-            Message message_ = new Message();
-//            if (_value instanceof BooleanStruct) {
-//                message_.setArgs("");
-//            } else {
-//                message_.setArgs(Long.toString(NumParsers.convertToNumber(_value).longStruct()));
-//            }
-            message_.setArgs(Long.toString(NumParsers.convertToNumber(_value).longStruct()));
-            message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
-            return message_;
-        }
-        Message message_ = new Message();
-        message_.setArgs(((StringStruct) _value).getInstance());
-        message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
-        return message_;
-//        if (!Rate.isValid(((StringStruct) _value).getInstance())) {
-//            Message message_ = new Message();
-//            message_.setArgs(((StringStruct) _value).getInstance());
-//            message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
-//            return message_;
-//        }
-//        Message message_ = new Message();
-//        message_.setArgs(((StringStruct) _value).getInstance());
-//        message_.setContent(StringUtil.simpleStringsFormat("{0} is unacceptable", message_.getArgs()));
-//        return message_;
     }
 
     public void execute(boolean _form, Element _elt, Navigation _navigation) {
@@ -444,26 +417,21 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         }
         Configuration session_ = _nav.getSession();
         String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(session_.getPrefix(),session_.getRendKeyWords().getAttrCommand()));
-        if (actionCommand_.contains(BeanLgNames.CALL_METHOD)) {
-            _rendStack.clearPages();
-            NatImportingPage ip_ = new NatImportingPage();
-            _rendStack.addPage(ip_);
-            int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
-            String action_ = actionCommand_
-                    .substring(indexPoint_ + 1);
-            String methodName_ = methName(action_);
-            String suffix_ = suff(action_);
-            String beanName_ = actionCommand_
-                    .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1, indexPoint_);
-            Struct bean_ = getBeanOrNull(beanName_);
-            setGlobalArgumentStruct(bean_, _rendStack);
-            Struct return_ = redirect(natPage,bean_, _rendStack);
-            String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, BeanLgNames.DOT, methodName_, suffix_));
-            proc(_nav, _rendStack, urlDest_, bean_, beanName_);
-            return;
-        }
-        Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
-        proc(_nav, _rendStack, actionCommand_, bean_, _nav.getCurrentBeanName());
+        _rendStack.clearPages();
+        NatImportingPage ip_ = new NatImportingPage();
+        _rendStack.addPage(ip_);
+        int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
+        String action_ = actionCommand_
+                .substring(indexPoint_ + 1);
+        String methodName_ = methName(action_);
+        String suffix_ = suff(action_);
+        String beanName_ = actionCommand_
+                .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1, indexPoint_);
+        Struct bean_ = getBeanOrNull(beanName_);
+        setGlobalArgumentStruct(bean_, _rendStack);
+        Struct return_ = redirect(natPage,bean_, _rendStack);
+        String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), StringUtil.concat(beanName_, BeanLgNames.DOT, methodName_, suffix_));
+        proc(_nav, _rendStack, urlDest_, bean_, beanName_);
     }
 
     private void proc(Navigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
@@ -517,13 +485,12 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
     public static String getString(Struct _ret, String _currentUrl, StringMap<StringMap<String>> _navigation, String _concat) {
         String urlDest_ = _currentUrl;
         if (_ret != NullStruct.NULL_VALUE) {
-            String result_ = null;
             StringMap<String> cases_ = _navigation.getVal(_concat);
-            if (cases_ != null) {
-                String case_ = BeanNatCommonLgNames.processString(new Argument(_ret));
-                result_ = cases_.getVal(case_);
+            String ca_ = BeanNatCommonLgNames.processString(_ret);
+            if (cases_ == null) {
+                return ca_;
             }
-            urlDest_ = result_;
+            urlDest_ = cases_.getVal(ca_);
             if (urlDest_ == null) {
                 urlDest_ = _currentUrl;
             }
@@ -631,14 +598,14 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         return beansStruct;
     }
     public NatDocumentBlock getRender(String _one, String _two) {
-        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_one);
+        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(StringUtil.getFirstToken(_one, REF_TAG));
         if (rendDocumentBlock_ != null) {
             return rendDocumentBlock_;
         }
         return getRenders().getVal(_two);
     }
     public String getDest(String _one, String _two) {
-        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_one);
+        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(StringUtil.getFirstToken(_one, REF_TAG));
         if (rendDocumentBlock_ != null) {
             return _one;
         }
@@ -708,14 +675,18 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
 
     public static String processString(Argument _arg) {
         Struct struct_ = _arg.getStruct();
-        if (struct_ instanceof NumberStruct) {
-            return Long.toString(((NumberStruct)struct_).longStruct());
+        return processString(struct_);
+    }
+
+    public static String processString(Struct _struct) {
+        if (_struct instanceof NumberStruct) {
+            return Long.toString(((NumberStruct) _struct).longStruct());
         }
-        if (struct_ instanceof StringStruct) {
-            return ((StringStruct)struct_).getInstance();
+        if (_struct instanceof StringStruct) {
+            return ((StringStruct) _struct).getInstance();
         }
-        if (struct_ instanceof NatDisplayableStruct) {
-            return ((NatDisplayableStruct)struct_).getDisplayedString().getInstance();
+        if (_struct instanceof NatDisplayableStruct) {
+            return ((NatDisplayableStruct) _struct).getDisplayedString().getInstance();
         }
         return CST_NULL_STRING;
     }

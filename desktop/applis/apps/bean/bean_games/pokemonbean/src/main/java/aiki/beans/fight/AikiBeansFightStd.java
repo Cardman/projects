@@ -1,10 +1,7 @@
 package aiki.beans.fight;
 
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansFightStd{
@@ -134,6 +131,10 @@ public final class AikiBeansFightStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_COMMON_FIGHT_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
+        methods_.add( new SpecNatMethod("f", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_fight/html/fight.html")));
+        methods_.add( new SpecNatMethod("d", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_fight/html/fightdetail.html")));
+        methods_.add( new SpecNatMethod("e", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_fight/html/fighter.html")));
+        methods_.add( new SpecNatMethod("t", BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web_fight/html/team.html")));
         _std.getStds().addEntry(TYPE_COMMON_FIGHT_BEAN, type_);
     }
     private static void buildFightBean(PokemonStandards _std){

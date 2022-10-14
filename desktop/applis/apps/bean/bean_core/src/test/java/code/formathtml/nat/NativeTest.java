@@ -581,7 +581,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one={0}";
-        String html_ = "<html c:bean='bean_one'><body><form><input type='radio' name='composite.integer' c:varValue='composite.integer1'/><input type='radio' name='composite.integer' c:varValue='composite.integer0'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command='$goToPage1'><input type='radio' name='composite.integer' c:varValue='composite.integer1'/><input type='radio' name='composite.integer' c:varValue='composite.integer0'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -589,7 +589,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        assertEq("<html><body><form n-f=\"0\"><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"1\"/></form></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><form c:command=\"$bean_one.goToPage1\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"1\"/></form></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
     public void process_3_Rd_Test() {
@@ -597,7 +597,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one={0}";
-        String html_ = "<html c:bean='bean_one'><body><form><input type='radio' name='composite.integer' c:varValue='composite.integer1'/><input type='radio' name='composite.integer' c:varValue='composite.integer0'/><input type='radio' name='composite.integer2' c:varValue='composite.integer1'/><input type='radio' name='composite.integer2' c:varValue='composite.integer0'/></form></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><form c:command='$goToPage1'><input type='radio' name='composite.integer' c:varValue='composite.integer1'/><input type='radio' name='composite.integer' c:varValue='composite.integer0'/><input type='radio' name='composite.integer2' c:varValue='composite.integer1'/><input type='radio' name='composite.integer2' c:varValue='composite.integer0'/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -605,7 +605,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        assertEq("<html><body><form n-f=\"0\"><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"1\"/><input type=\"radio\" name=\"bean_one.composite.integer2\" n-i=\"1\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer2\" n-i=\"1\" value=\"1\"/></form></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><form c:command=\"$bean_one.goToPage1\" action=\"\" n-f=\"0\"><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer\" n-i=\"0\" value=\"1\"/><input type=\"radio\" name=\"bean_one.composite.integer2\" n-i=\"1\" value=\"5\" checked=\"checked\"/><input type=\"radio\" name=\"bean_one.composite.integer2\" n-i=\"1\" value=\"1\"/></form></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
     public void process2_Sub_Spec_Test() {
@@ -629,7 +629,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Click";
-        String html_ = "<html c:bean='bean_one'><body><c:a value='msg_example,one'/></body></html>";
+        String html_ = "<html c:bean='bean_one'><body><a title='Click'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -637,7 +637,23 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        assertEq("<html><body><a title=\"Click\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><span title=\"Click\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+    }
+    @Test
+    public void process2_Tit_Spec__Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Click";
+        String html_ = "<html c:bean='bean_one'><body><c:a value='msg_example,one' c:command='$goToPage1'/></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        SampleBeanStruct v_ = init(bean_);
+        getStrings(v_).add("FIRST");
+        getStrings(v_).add("SECOND");
+        setInteger(v_);
+        assertEq("<html><body><a c:command=\"$bean_one.goToPage1\" title=\"Click\" href=\"\" n-a=\"0\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
     public void process1ImgTest() {
@@ -783,8 +799,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
@@ -805,7 +821,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        n_.setFiles(files_);
 //        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         init(lgNames_, n_);
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_two.go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
     @Test
@@ -814,8 +830,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page3.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToPage3\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
@@ -837,7 +853,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         init(lgNames_, n_);
         lgNames_.execute(false,DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_two.go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
     @Test
@@ -846,8 +862,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToPage1\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
@@ -868,7 +884,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         init(lgNames_, n_);
         lgNames_.execute(false,DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_two.go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
     }
 
     @Test
@@ -877,8 +893,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToPage1\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
@@ -901,7 +917,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         init(lgNames_, n_);
         lgNames_.getNatPage().setUrl(0);
         lgNames_.execute(false,DocumentBuilder.getFirstElementByAttribute(n_.getDocument(), n_.getSession().getRendKeyWords().getAttrNa(), Long.toString(lgNames_.getNatPage().getUrl())), n_);
-        assertEq("<html><body>HEAD<a c:command=\"page1.html\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
+        assertEq("<html><body>HEAD<a c:command=\"$bean_one.goToPage1\" href=\"\" n-a=\"0\"/></body></html>", n_.getHtmlText());
     }
 
     @Test
@@ -910,7 +926,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"page1.html\" href=\"\"/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToPage1\" href=\"\"/></body></html>";
         String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a c:command=\"$go3\">_</a></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
@@ -946,8 +962,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description two\nthree=desc &lt;{0}&gt;";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"composite.string\" c:varValue=\"composite.string\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"composite.string\" c:varValue=\"composite.string\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         CustBeanLgNames lgNames_ = new CustBeanLgNames();
@@ -968,7 +984,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        n_.setFiles(files_);
 //        lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), d_);
         init(lgNames_, n_);
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_two.go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.composite.string\" n-i=\"0\" value=\"\"/></form></body></html>", n_.getHtmlText());
     }
 
 //    @Test
@@ -1005,8 +1021,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<Document> docs_ = new StringMap<Document>();
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
@@ -1036,7 +1052,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), dual_);
         init(lgNames_, n_);
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_two.go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
     }
 
@@ -1051,8 +1067,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"goToNullPage\" href=\"\"/></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body>HEAD<a c:command=\"$goToNullPage\" href=\"\"/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$go\"><input type='text' name=\"typedString\" c:varValue=\"typedString\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         StringMap<Document> docs_ = new StringMap<Document>();
@@ -1082,7 +1098,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         n_.setFiles(files_);
         lgNames_.setupAll(docs_,n_, n_.getSession(), new DefNatBlockBuilder(), dual_);
         init(lgNames_, n_);
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_two.go\" n-f=\"0\"><input type=\"text\" name=\"bean_two.typedString\" n-i=\"0\" value=\"TYPED_STRING\"/></form></body></html>", n_.getHtmlText());
         assertEq("page2.html", n_.getCurrentUrl());
     }
 
@@ -1250,7 +1266,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"$go\">{typedString}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1278,7 +1294,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean2(html_, htmlTwo_, v1_, v2_, config_, analyzingDoc_, lgNames_, init_, dual_);
-        assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a></body></html>", getSampleRes(rendDocumentBlock_, config_, lgNames_));
+        assertEq("<html><body><a href=\"\" c:command=\"$bean_two.go\" n-a=\"0\">Test {0}2</a></body></html>", getSampleRes(rendDocumentBlock_, config_, lgNames_));
 //        assertEq(1, beanTwo_.getForms().size());
 //        assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", v2_.getForms().getValStr("key"));
@@ -1291,7 +1307,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a c:command=\"$go\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
         String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\" keepfields=\"y\"><c:package name=\"code.formathtml.classes\"><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString=message\"></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"$go\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1318,7 +1334,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         NatDocumentBlock rendDocumentBlock_ = buildRendWithTwoNativeBean2(html_, htmlTwo_, v1_, v2_, configuration_, analyzingDoc_, lgNames_, init_, dual_);
         String render_ = getSampleRes(rendDocumentBlock_, configuration_, lgNames_);
-        assertEq("<html><body><a href=\"\" c:command=\"go\" n-a=\"0\">Test {0}2</a>Description &lt;a c:command=\"$go\"&gt;two&lt;/a&gt;</body></html>", render_);
+        assertEq("<html><body><a href=\"\" c:command=\"$bean_two.go\" n-a=\"0\">Test {0}2</a>Description &lt;a c:command=\"$go\"&gt;two&lt;/a&gt;</body></html>", render_);
 //        assertEq(1, beanTwo_.getForms().size());
 //        assertEq("key", beanTwo_.getForms().getKeys().first());
         assertEq("sample_value", v2_.getForms().getValStr("key"));
@@ -1569,7 +1585,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><c:select id=\"combo\" default=\"\" name=\"selectedString\" varValue=\"selectedString\" map=\"map\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goToPage1\"><c:select id=\"combo\" default=\"\" name=\"selectedString\" varValue=\"selectedString\" map=\"map\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page2.html", htmlTwo_);
@@ -1593,7 +1609,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_one.goToPage1\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
 
@@ -2267,7 +2283,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"go\"><c:select id=\"combo\" default=\"\" name=\"chosenNumber\" varValue=\"chosenNumber\" map=\"map\"/></form></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form action=\"DELETE\" name=\"myform\" c:command=\"$goToPage1\"><c:select id=\"combo\" default=\"\" name=\"chosenNumber\" varValue=\"chosenNumber\" map=\"map\"/></form></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page2.html", htmlTwo_);
@@ -2291,7 +2307,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"go\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"$bean_one.goToPage1\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
 //    @Test

@@ -9,7 +9,7 @@ private static final String C_P_128_2="msg_items,title";
 private static final String C_P_128_3="web/css/items.css";
 private static final String C_P_128_4="stylesheet";
 private static final String C_P_128_5="text/css";
-private static final String C_P_128_6="web/html/index.html";
+private static final String C_P_128_6=GO_TO_IND;
 private static final String C_P_128_7="";
 private static final String C_P_128_8="msg_items,index";
 private static final String C_P_128_9="";
@@ -44,7 +44,7 @@ private static final String C_P_128_37="";
 private static final String C_P_128_38="{d.displayName}";
 private static final String C_P_128_39="{d.price}";
 private static final String C_P_128_40="{d.descriptionClass}";
-private static final String C_P_128_41="web/html/index.html";
+private static final String C_P_128_41=GO_TO_IND;
 private static final String C_P_128_42="";
 private static final String C_P_128_43="msg_items,index";
 private PageDataItemsItems(){}

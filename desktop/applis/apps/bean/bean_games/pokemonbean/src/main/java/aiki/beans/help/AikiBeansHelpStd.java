@@ -2,10 +2,7 @@ package aiki.beans.help;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansHelpStd{
@@ -633,6 +630,13 @@ public final class AikiBeansHelpStd{
     private static final String FLEEING_FORMULA = "fleeingFormula";
     private static final String VAR_FLEEING_FORMULA = "varFleeingFormula";
     private static final String STATISTIC_ANIM = "statisticAnim";
+    private static final String GO_TO_SEND_BEGIN_FIGHT = "s";
+    private static final String GO_TO_END_ROUND_USER = "e";
+    private static final String GO_TO_ADD_1 = "a";
+    private static final String GO_TO_ADD_2 = "f";
+    private static final String GO_TO_SWITCH_ROUND = "w";
+    private static final String GO_TO_BEGIN = "b";
+
     private AikiBeansHelpStd(){}
     public static void build(PokemonStandards _std) {
         buildFightHelpBean(_std);
@@ -1187,6 +1191,12 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(GET_TR_STATISTIC,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrStatistic()));
         methods_.add( new SpecNatMethod(GET_ANIM_STATISTIC,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetAnimStatistic()));
         methods_.add( new SpecNatMethod(GET_ANIM_ABSORB,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetAnimAbsorb()));
+        methods_.add( new SpecNatMethod(GO_TO_SEND_BEGIN_FIGHT, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html#sendbeginfight")));
+        methods_.add( new SpecNatMethod(GO_TO_END_ROUND_USER, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html#endrounduser")));
+        methods_.add( new SpecNatMethod(GO_TO_ADD_1, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html#addonformula")));
+        methods_.add( new SpecNatMethod(GO_TO_ADD_2, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html#addonformula4")));
+        methods_.add( new SpecNatMethod(GO_TO_SWITCH_ROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html#switchround")));
+        methods_.add( new SpecNatMethod(GO_TO_BEGIN, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html#begin")));
         _std.getStds().addEntry(TYPE_FIGHT_HELP_BEAN, type_);
     }
     private static void buildGeneralHelpBean(PokemonStandards _std){
@@ -1275,6 +1285,7 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(GET_ROW_MATH, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LangsBeanGetRowMath()));
         methods_.add( new SpecNatMethod(GET_KEYS_DESC, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LangsBeanGetKeysDesc()));
         methods_.add( new SpecNatMethod(GET_ROW_DESC, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new LangsBeanGetRowDesc()));
+        methods_.add( new SpecNatMethod(GO_TO_BEGIN, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/langs/langs.html#begin")));
         _std.getStds().addEntry(TYPE_LANGS_BEAN, type_);
     }
 }

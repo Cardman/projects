@@ -15,7 +15,7 @@ private static final String C_P_155_8="$intern.index=index";
 private static final String C_P_155_9="$intern.move=move";
 private static final String C_P_155_10="msg_effendround,rank";
 private static final String C_P_155_11="endRoundRank";
-private static final String C_P_155_12="web/html/endround/endround.html";
+private static final String C_P_155_12=GO_TO_ENDROUND;
 private static final String C_P_155_13="";
 private static final String C_P_155_14="msg_effendround,endRound";
 private static final String C_P_155_15="!reasonsEndRound.isEmpty()";
