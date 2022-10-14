@@ -66,6 +66,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanNatCommonLgNames.processString(new Argument(struct_));
         NatRendImport.beforeDisp(null);
         BeanNatCommonLgNames.methName("(0,1)");
+        BeanNatCommonLgNames.methName("");
         BeanNatCommonLgNames.getString(new StringStruct(""),"",new StringMap<StringMap<String>>(),"_");
         StringMap<StringMap<String>> navigation_ = new StringMap<StringMap<String>>();
         navigation_.addEntry("", new StringMap<String>());
