@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultText;
@@ -31,7 +30,7 @@ public final class NatAnaRendForm extends NatAnaRendElement {
         pref_ = StringUtil.concat(pref_, AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
         String bean_ = _read.getOwnerDocument().getDocumentElement().getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrBean()));
         root = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
-        String tmp_ = bean_+'.'+BeanNatCommonLgNames.methName(pref_);
+        String tmp_ = bean_+'.'+lk_;
         _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()),tmp_);
     }
 

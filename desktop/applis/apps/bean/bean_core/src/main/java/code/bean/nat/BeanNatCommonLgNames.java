@@ -410,12 +410,11 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         _rendStack.addPage(ip_);
         int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
         String beanName_ = actionCommand_
-                .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1, indexPoint_);
+                .substring(0, indexPoint_);
         Struct bean_ = getBeanOrNull(beanName_);
         setGlobalArgumentStruct(bean_, _rendStack);
         Struct return_ = redirect(natPage,bean_, _rendStack);
-        String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), actionCommand_
-                .substring(actionCommand_.indexOf(BeanLgNames.CALL_METHOD) + 1));
+        String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), actionCommand_);
         proc(_nav, _rendStack, urlDest_, bean_, beanName_);
     }
 
