@@ -188,10 +188,10 @@ public final class Fight {
     public static final String POWER="POWER";
     static final String ZERO = "0";
     static final String ONE = "1";
-    static final String BASE_CAPT_PK = "BASE_CAPT_PK";
-    static final String RATE_BALL_STATUS = "RATE_BALL_STATUS";
-    static final String FOE_PK_MAX_HP = "FOE_PK_MAX_HP";
-    static final String FOE_PK_REMOTE_HP = "FOE_PK_REMOTE_HP";
+    static final String BASE_CAPT_PK = "VAR__BASE_CAPT_PK";
+    static final String RATE_BALL_STATUS = "VAR__RATE_BALL_STATUS";
+    static final String FOE_PK_MAX_HP = "VAR__FOE_PK_MAX_HP";
+    static final String FOE_PK_REMOTE_HP = "VAR__FOE_PK_REMOTE_HP";
 
     static final String ERR_SUBSTITUTE = "errSubstitute";
     static final String ERR_BACK_MOVE = "errBackMove";

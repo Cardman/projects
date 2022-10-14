@@ -53,7 +53,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
         _data.addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE, new Rate("256"));
         _data.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
         initDefaultConsts(POKE_BALL,
-                "caracdroiteferme(div(FOE_PK_MAX_HP,FOE_PK_REMOTE_HP),2)",
+                "caracdroiteferme(div(VAR__FOE_PK_MAX_HP,VAR__FOE_PK_REMOTE_HP),2)",
                 "caracdroiteferme(div(VAR__PK_UT_VITESSE,VAR__PK_SAUVAGE_VITESSE),1)",
                 "div(2*caracgaucheouvert(VAR__BOOST,0),max(2-VAR__BOOST,1))+div((2+VAR__BOOST)*caracdroiteferme(VAR__BOOST,0),2)",
                 "puis(2,VAR__BOOST-4)",
