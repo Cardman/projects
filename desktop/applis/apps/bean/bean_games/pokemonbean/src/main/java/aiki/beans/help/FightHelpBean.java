@@ -32,7 +32,6 @@ import code.maths.litteralcom.MathExpUtil;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
@@ -1759,8 +1758,6 @@ public class FightHelpBean extends CommonBean {
         DataBase data_ = getDataBase();
 
         String catchingFormulaCopy_ = data_.getRateCatching();
-        StringBuilder str_ = getStringBuilder(catchingFormulaCopy_);
-        catchingFormulaCopy_ = str_.toString();
         catchingFormula = data_.getFormula(catchingFormulaCopy_, getLanguage());
         varCatchingFormula = new NatStringTreeMap<String>();
         varCatchingFormula.putAllMap(data_.getDescriptions(catchingFormulaCopy_, getLanguage()));
@@ -1787,43 +1784,6 @@ public class FightHelpBean extends CommonBean {
             lawsRates.put(d.getModelName(), tree_);
         }
         statisticAnim = Statistic.getStatisticsWithBoost();
-    }
-
-    private static StringBuilder getStringBuilder(String _catchingFormula) {
-        StringBuilder str_ = new StringBuilder();
-        int len_ = _catchingFormula.length();
-        int i_ = 0;
-        while (i_ < len_) {
-            char cur_ = _catchingFormula.charAt(i_);
-            if (MathExpUtil.isWordChar(cur_)) {
-                boolean dig_ = cur_ >= '0' && cur_ <= '9';
-                int j_ = incrNext(_catchingFormula, i_, cur_);
-                String word_ = _catchingFormula.substring(i_, j_);
-                if (!dig_) {
-                    String next_ = _catchingFormula.substring(j_).trim();
-                    if (next_.isEmpty() || next_.charAt(0) != CST_LEFT_PAR) {
-                        str_.append(DataBase.VAR_PREFIX);
-                    }
-                }
-                str_.append(word_);
-                i_ = NumberUtil.max(j_,i_+1);
-                continue;
-            }
-            str_.append(cur_);
-            i_++;
-        }
-        return str_;
-    }
-
-    private static int incrNext(String _catchingFormula, int _i, char _c) {
-        char cur_ = _c;
-        int len_ = _catchingFormula.length();
-        int j_ = _i;
-        while (MathExpUtil.isWordChar(cur_)&&j_< len_) {
-            cur_ = _catchingFormula.charAt(j_);
-            j_++;
-        }
-        return j_;
     }
 
     public String getTrStatistic(int _index) {
