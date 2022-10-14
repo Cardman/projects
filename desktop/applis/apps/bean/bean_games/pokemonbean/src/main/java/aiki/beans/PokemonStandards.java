@@ -43,7 +43,6 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Point;
 import aiki.util.TeamPositionList;
-import code.bean.Bean;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
@@ -233,16 +232,12 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         return Instances.newPokemonPlayer();
     }
 
-    protected PokemonBeanStruct bean(Bean _bean, String _name, String _lg) {
+    protected PokemonBeanStruct bean(CommonBean _bean, String _name, String _lg) {
         _bean.setClassName(_name);
-        PokemonBeanStruct res_ = new PokemonBeanStruct(_bean);
-        Bean bean_ = res_.getBean();
-        res_.setDataBase(dataBase);
-        if (bean_ instanceof WithForms) {
-            ((WithForms)bean_).setForms(new StringMapObject());
-        }
-        bean_.setLanguage(_lg);
-        return res_;
+        _bean.setDataBase(dataBase);
+        _bean.setForms(new StringMapObject());
+        _bean.setLanguage(_lg);
+        return new PokemonBeanStruct(_bean);
     }
 
     public static ArrayStruct getBigByAn(AbsMap<String, ByteTreeMap<Anticipation>> _map) {
