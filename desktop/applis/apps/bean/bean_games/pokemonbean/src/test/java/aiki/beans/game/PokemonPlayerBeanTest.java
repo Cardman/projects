@@ -13,7 +13,7 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
     static final String NICKNAME = "CARDTEAM";
     @Test
     public void getName() {
-        DataBase init_ = InitDbBean.one();
+        DataBase init_ = one();
         FacadeGame fac_ = new FacadeGame();
         fac_.setLanguages(new StringList(EN));
         StringMap<String> displayLanguages_ = new StringMap<String>();
