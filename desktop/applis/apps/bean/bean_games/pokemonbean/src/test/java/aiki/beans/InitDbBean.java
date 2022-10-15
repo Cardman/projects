@@ -35,6 +35,8 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String PIKACHU = "PIKACHU";
     protected static final String PIKACHU_TR = "PIKA";
+    protected static final String FOSSIL = "FOS";
+    protected static final String FOSSIL_TR = "SIL";
     private static final String PIKACHU2 = "PIKACHU2";
     private static final String PIKACHU3 = "PIKACHU3";
     private static final String PIKACHU4 = "PIKACHU4";
