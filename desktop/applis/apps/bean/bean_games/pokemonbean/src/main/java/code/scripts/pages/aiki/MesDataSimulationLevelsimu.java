@@ -28,6 +28,7 @@ private static final String C_P_85_6="Select a name of pokemon\n";
 private static final String C_P_85_7="Data of the place {0} - level {1}\n";
 private static final String C_P_85_8="Data of the road {0}\n";
 private static final String C_P_85_9="Data of the outside level of the city {0}\n";
+private static final String C_P_85_28="OK\n";
 private static final String M_P_85_CANCEL="cancel";
 private static final String M_P_85_NO_FIGHT="no_fight";
 private static final String M_P_85_TITLE_ADD_POKEMON="title_add_pokemon";
@@ -42,6 +43,7 @@ private static final String M_P_85_TITLE_SEARCH_MOVES="title_search_moves";
 private static final String M_P_85_TITLE_SELECT_ABILITY="title_select_ability";
 private static final String M_P_85_TITLE_SELECT_ITEM="title_select_item";
 private static final String M_P_85_TITLE_SELECT_PK="title_select_pk";
+private static final String M_P_85_OK="ok";
 private static final char SEP='=';
 private MesDataSimulationLevelsimu(){}
 static String en(){
@@ -59,6 +61,7 @@ f+=M_P_85_TITLE_GYM+SEP+C_P_85_10;
 f+=M_P_85_TITLE_PK_CENTER+SEP+C_P_85_11;
 f+=M_P_85_NO_FIGHT+SEP+C_P_85_12;
 f+=M_P_85_CANCEL+SEP+C_P_85_13;
+f+=M_P_85_OK+SEP+C_P_85_28;
 return f;
 }
 static String fr(){
@@ -76,6 +79,7 @@ f+=M_P_85_TITLE_GYM+SEP+C_P_85_24;
 f+=M_P_85_TITLE_PK_CENTER+SEP+C_P_85_25;
 f+=M_P_85_NO_FIGHT+SEP+C_P_85_26;
 f+=M_P_85_CANCEL+SEP+C_P_85_27;
+f+=M_P_85_OK+SEP+C_P_85_28;
 return f;
 }
 }

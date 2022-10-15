@@ -21,8 +21,7 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
 
     @Override
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        NatResultInput r_ = new NatResultInput();
-        r_.build(elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
+        NatResultInput r_ = new NatResultInput(elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();
         resultInput = r_;

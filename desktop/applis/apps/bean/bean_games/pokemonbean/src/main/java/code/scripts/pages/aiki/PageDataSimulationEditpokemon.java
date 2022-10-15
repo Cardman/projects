@@ -124,8 +124,7 @@ private static final String C_P_195_117="text";
 private static final String C_P_195_118="id{([s])}";
 private static final String C_P_195_119="errormessage";
 private static final String C_P_195_120="msg_simulation,short_issue";
-private static final String C_P_195_121="submit";
-private static final String C_P_195_122="OK";
+private static final String C_P_195_122="msg_levelsimu,ok";
 private PageDataSimulationEditpokemon(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -577,10 +576,9 @@ ad(elt72_,elt75_);
 ad(elt51_,elt72_);
 Element elt76_=el(_doc100,BR);
 ad(elt51_,elt76_);
-Element elt77_=el(_doc100,INPUT);
-CustList<Attr> attrs46_=al(2);
-attrs46_.add(at(TYPE,C_P_195_121));
-attrs46_.add(at(VALUE,C_P_195_122));
+Element elt77_=el(_doc100,C_SUBMIT);
+CustList<Attr> attrs46_=al(1);
+attrs46_.add(at(MESSAGE,C_P_195_122));
 at(elt77_,attrs46_);
 ad(elt51_,elt77_);
 ad(elt0_,elt51_);

@@ -500,8 +500,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one={0}";
-        String html_ = "<html c:bean='bean_one'><body><input type='submit' value='OK'/></body></html>";
+        String content_ = "one={0}\nok=OK";
+        String html_ = "<html c:bean='bean_one'><body><c:submit message='msg_example,ok'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -509,15 +509,15 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        assertEq("<html><body><input type=\"submit\" value=\"OK\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><input value=\"OK\" type=\"submit\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
     public void process2_Id_quote_Test() {
         String locale_ = "en";
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String content_ = "one={0}";
-        String html_ = "<html c:bean='bean_one'><body><input type='submit' c:groupId=\"{composite.integer}\" value='OK'/></body></html>";
+        String content_ = "one={0}\nok=OK";
+        String html_ = "<html c:bean='bean_one'><body><c:submit c:groupId=\"{composite.integer}\" message='msg_example,ok'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         BeanOne bean_ = new BeanOne();
@@ -525,7 +525,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         getStrings(v_).add("FIRST");
         getStrings(v_).add("SECOND");
         setInteger(v_);
-        assertEq("<html><body><input type=\"submit\" c:groupId=\"5\" value=\"OK\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+        assertEq("<html><body><input c:groupId=\"5\" value=\"OK\" type=\"submit\"/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
     public void process2_Id_quote2_Test() {

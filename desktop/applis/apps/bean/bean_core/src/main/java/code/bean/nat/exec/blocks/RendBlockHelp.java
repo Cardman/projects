@@ -214,9 +214,9 @@ public final class RendBlockHelp {
     }
 
     static Argument fetchName(Configuration _cont, Element _read, Element _write, NatFieldUpdates _f, NatRendStackCall _rendStackCall) {
-        if (_f.getOpsWrite() == null) {
-            return Argument.createVoid();
-        }
+//        if (_f.getOpsWrite() == null) {
+//            return Argument.createVoid();
+//        }
         CustList<NatExecOperationNode> opsRead_ = _f.getOpsRead();
         IdMap<NatExecOperationNode, NatArgumentsPair> args_ = BeanNatCommonLgNames.getAllArgs(opsRead_, _rendStackCall);
         NatExecOperationNode root_ = args_.lastKey();
@@ -280,10 +280,10 @@ public final class RendBlockHelp {
     }
 
     static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<NatExecOperationNode> _ops, NatRendStackCall _rendStackCall) {
-        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
-        if (name_.isEmpty()) {
-            return;
-        }
+//        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
+//        if (name_.isEmpty()) {
+//            return;
+//        }
 //        if (_ops.isEmpty()) {
 //            return;
 //        }

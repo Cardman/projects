@@ -96,8 +96,7 @@ private static final String C_P_197_89="msg_simulation,ally_pk";
 private static final String C_P_197_90="allyPk";
 private static final String C_P_197_91="allyPk";
 private static final String C_P_197_92="checkbox";
-private static final String C_P_197_93="submit";
-private static final String C_P_197_94="OK";
+private static final String C_P_197_94="msg_levelsimu,ok";
 private PageDataSimulationEditpokemontrainer(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -485,10 +484,9 @@ ad(elt14_,elt16_);
 Element elt17_=el(_doc102,BR);
 ad(elt14_,elt17_);
 ad(elt1_,elt14_);
-Element elt18_=el(_doc102,INPUT);
-CustList<Attr> attrs11_=al(2);
-attrs11_.add(at(TYPE,C_P_197_93));
-attrs11_.add(at(VALUE,C_P_197_94));
+Element elt18_=el(_doc102,C_SUBMIT);
+CustList<Attr> attrs11_=al(1);
+attrs11_.add(at(MESSAGE,C_P_197_94));
 at(elt18_,attrs11_);
 ad(elt1_,elt18_);
 ad(elt0_,elt1_);

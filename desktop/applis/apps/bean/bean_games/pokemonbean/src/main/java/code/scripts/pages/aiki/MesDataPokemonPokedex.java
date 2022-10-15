@@ -38,6 +38,7 @@ private static final String C_P_82_6="Type\n";
 private static final String C_P_82_7="Whole word for one of the types\n";
 private static final String C_P_82_8="Searching mode of type\n";
 private static final String C_P_82_9="Ability\n";
+private static final String C_P_82_38="OK\n";
 private static final String M_P_82_CONTENT_ABILITY="content_ability";
 private static final String M_P_82_CONTENT_ABILITY_MODE="content_ability_mode";
 private static final String M_P_82_CONTENT_MOVE="content_move";
@@ -57,6 +58,7 @@ private static final String M_P_82_NB_EVOS="nb_evos";
 private static final String M_P_82_POKEDEX="pokedex";
 private static final String M_P_82_TITLE="title";
 private static final String M_P_82_TYPES="types";
+private static final String M_P_82_OK="ok";
 private static final char SEP='=';
 private MesDataPokemonPokedex(){}
 static String en(){
@@ -79,6 +81,7 @@ f+=M_P_82_IMAGE+SEP+C_P_82_15;
 f+=M_P_82_EVOS+SEP+C_P_82_16;
 f+=M_P_82_LEG+SEP+C_P_82_17;
 f+=M_P_82_INDEX+SEP+C_P_82_18;
+f+=M_P_82_OK+SEP+C_P_82_38;
 return f;
 }
 static String fr(){
@@ -101,6 +104,7 @@ f+=M_P_82_IMAGE+SEP+C_P_82_34;
 f+=M_P_82_EVOS+SEP+C_P_82_35;
 f+=M_P_82_LEG+SEP+C_P_82_36;
 f+=M_P_82_INDEX+SEP+C_P_82_37;
+f+=M_P_82_OK+SEP+C_P_82_38;
 return f;
 }
 }

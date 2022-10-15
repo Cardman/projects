@@ -20,6 +20,7 @@ private static final String C_P_29_6="Image\n";
 private static final String C_P_29_7="Name\n";
 private static final String C_P_29_8="Description\n";
 private static final String C_P_29_9="Return to the index\n";
+private static final String C_P_29_20="OK\n";
 private static final String M_P_29_CONTENT="content";
 private static final String M_P_29_CONTENT_NAME="content_name";
 private static final String M_P_29_DESCRIPTION="description";
@@ -30,6 +31,7 @@ private static final String M_P_29_NAME="name";
 private static final String M_P_29_PRICE="price";
 private static final String M_P_29_PRICE_DOT="price_dot";
 private static final String M_P_29_TITLE="title";
+private static final String M_P_29_OK="ok";
 private static final char SEP='=';
 private MesDataItemsItems(){}
 static String en(){
@@ -43,6 +45,7 @@ f+=M_P_29_IMAGE+SEP+C_P_29_6;
 f+=M_P_29_NAME+SEP+C_P_29_7;
 f+=M_P_29_DESCRIPTION+SEP+C_P_29_8;
 f+=M_P_29_INDEX+SEP+C_P_29_9;
+f+=M_P_29_OK+SEP+C_P_29_20;
 return f;
 }
 static String fr(){
@@ -56,6 +59,7 @@ f+=M_P_29_IMAGE+SEP+C_P_29_16;
 f+=M_P_29_NAME+SEP+C_P_29_17;
 f+=M_P_29_DESCRIPTION+SEP+C_P_29_18;
 f+=M_P_29_INDEX+SEP+C_P_29_19;
+f+=M_P_29_OK+SEP+C_P_29_20;
 return f;
 }
 }

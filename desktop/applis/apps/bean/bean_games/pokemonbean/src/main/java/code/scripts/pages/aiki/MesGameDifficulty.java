@@ -44,6 +44,7 @@ private static final String C_P_93_6="{0} is not a valid rate.\n";
 private static final String C_P_93_7="{0} is not a valid integer.\n";
 private static final String C_P_93_8="End of fight if a team is ko.\n";
 private static final String C_P_93_9="Iv of your pokemon\n";
+private static final String C_P_93_44="OK\n";
 private static final String M_P_93_ALLOW_CATCHING_KO="allow_catching_ko";
 private static final String M_P_93_ALLOW_SWITCH_PLACES="allow_switch_places";
 private static final String M_P_93_CLOSING="closing";
@@ -66,6 +67,7 @@ private static final String M_P_93_TITLE="title";
 private static final String M_P_93_WINNING_EXP_PTS_FIGHT="winning_exp_pts_fight";
 private static final String M_P_93_WIN_PTS="win_pts";
 private static final String M_P_93_WIN_TRAINER_EXP="win_trainer_exp";
+private static final String M_P_93_OK="ok";
 private static final char SEP='=';
 private MesGameDifficulty(){}
 static String en(){
@@ -91,6 +93,7 @@ f+=M_P_93_LAW_CHOICE_PLAYER+SEP+C_P_93_18;
 f+=M_P_93_LAW_CHOICE_FOE+SEP+C_P_93_19;
 f+=M_P_93_RATE_DAMAGE_EV+SEP+C_P_93_20;
 f+=M_P_93_RATE_DAMAGE+SEP+C_P_93_21;
+f+=M_P_93_OK+SEP+C_P_93_44;
 return f;
 }
 static String fr(){
@@ -116,6 +119,7 @@ f+=M_P_93_LAW_CHOICE_PLAYER+SEP+C_P_93_40;
 f+=M_P_93_LAW_CHOICE_FOE+SEP+C_P_93_41;
 f+=M_P_93_RATE_DAMAGE_EV+SEP+C_P_93_42;
 f+=M_P_93_RATE_DAMAGE+SEP+C_P_93_43;
+f+=M_P_93_OK+SEP+C_P_93_44;
 return f;
 }
 }

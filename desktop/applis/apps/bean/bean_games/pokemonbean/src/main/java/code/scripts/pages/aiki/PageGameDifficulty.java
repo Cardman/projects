@@ -133,8 +133,7 @@ private static final String C_P_210_126="r";
 private static final String C_P_210_127="r";
 private static final String C_P_210_128="{e}";
 private static final String C_P_210_129="{r}";
-private static final String C_P_210_130="submit";
-private static final String C_P_210_131="ok";
+private static final String C_P_210_131="msg_difficulty,ok";
 private PageGameDifficulty(){}
 static Document build(){
 FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
@@ -554,10 +553,9 @@ ad(elt78_,elt79_);
 ad(elt77_,elt78_);
 ad(elt70_,elt77_);
 ad(elt0_,elt70_);
-Element elt82_=el(_doc115,INPUT);
-CustList<Attr> attrs47_=al(2);
-attrs47_.add(at(TYPE,C_P_210_130));
-attrs47_.add(at(VALUE,C_P_210_131));
+Element elt82_=el(_doc115,C_SUBMIT);
+CustList<Attr> attrs47_=al(1);
+attrs47_.add(at(MESSAGE,C_P_210_131));
 at(elt82_,attrs47_);
 ad(elt0_,elt82_);
 ad(_body,elt0_);

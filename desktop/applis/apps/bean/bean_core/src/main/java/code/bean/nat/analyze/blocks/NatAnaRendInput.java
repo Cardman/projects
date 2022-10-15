@@ -39,8 +39,7 @@ public final class NatAnaRendInput extends NatAnaRendElement {
     }
 
     void processAnaInput(Element _read, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        NatResultInput r_ = new NatResultInput();
-        r_.build(_read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
+        NatResultInput r_ = new NatResultInput(_read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
         resultInput = r_;
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();

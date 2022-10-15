@@ -238,10 +238,7 @@ public final class NatRendForwardInfos {
 
     static NatCaller buildWritePart(NatResultInput _resultInput) {
         NatOperationNode settable_ = _resultInput.getSettable();
-        if (settable_ instanceof SettableFieldNatOperation) {
-            return ((SettableFieldNatOperation)settable_).getSettableFieldContent().getField().getCallerSet();
-        }
-        return null;
+        return ((SettableFieldNatOperation)settable_).getSettableFieldContent().getField().getCallerSet();
     }
 
     private static StringMap<NatExecTextPart> toExecPartExt(StringMap<NatResultText> _texts) {
@@ -270,9 +267,6 @@ public final class NatRendForwardInfos {
     }
 
     private static CustList<NatExecOperationNode> getExecutableNodes(NatOperationNode _root) {
-        if (_root == null){
-            return new CustList<NatExecOperationNode>();
-        }
         return getExecutableNodesStd(_root);
     }
 
