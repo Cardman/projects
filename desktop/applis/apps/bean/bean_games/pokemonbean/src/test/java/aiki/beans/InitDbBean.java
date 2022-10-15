@@ -30,10 +30,11 @@ import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
 
-public final class InitDbBean {
-    private static final String LANGUAGE = "en";
-    private static final String NULL_REF = DataBase.EMPTY_STRING;
-    private static final String PIKACHU = "PIKACHU";
+public abstract class InitDbBean extends BeanPokemonCommonTs {
+    protected static final String LANGUAGE = EN;
+    protected static final String NULL_REF = DataBase.EMPTY_STRING;
+    protected static final String PIKACHU = "PIKACHU";
+    protected static final String PIKACHU_TR = "PIKA";
     private static final String PIKACHU2 = "PIKACHU2";
     private static final String PIKACHU3 = "PIKACHU3";
     private static final String PIKACHU4 = "PIKACHU4";
@@ -141,7 +142,7 @@ public final class InitDbBean {
         tar_.addEntry(TargetChoice.UNIQUE_IMPORTE,"UNIQUE_IMPORTE");
         data_.getTranslatedTargets().addEntry(LANGUAGE, tar_);
         data_.getTranslatedTypes().addEntry(LANGUAGE,tr(ELECTRICK,ELECTRICK));
-        data_.getTranslatedPokemon().addEntry(LANGUAGE,tr(PIKACHU,PIKACHU));
+        data_.getTranslatedPokemon().addEntry(LANGUAGE,tr(PIKACHU,PIKACHU_TR));
         data_.getTranslatedItems().addEntry(LANGUAGE,tr(POKE_BALL,POKE_BALL));
         data_.getTranslatedAbilities().addEntry(LANGUAGE,tr(PARATONNERRE,PARATONNERRE));
         StringMap<String> trMov_ = tr(LUTTE, LUTTE);

@@ -1,6 +1,5 @@
 package aiki.beans.game;
 
-import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.InitDbBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -10,7 +9,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class PokemonPlayerBeanTest extends BeanPokemonCommonTs {
+public final class PokemonPlayerBeanTest extends InitDbBean {
     static final String NICKNAME = "CARDTEAM";
     @Test
     public void getName() {
@@ -33,6 +32,6 @@ public final class PokemonPlayerBeanTest extends BeanPokemonCommonTs {
         fac_.setGame(game_);
         fac_.openMenu();
         fac_.setChosenTeamPokemon((short) 0);
-        assertEq("PIKACHU",callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
+        assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
     }
 }
