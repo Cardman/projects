@@ -15,7 +15,7 @@ private static final String C_P_120_8="aiki.beans.items";
 private static final String C_P_120_9="ItemBean";
 private static final String C_P_120_10="$intern.name=name";
 private static final String C_P_120_11="msg_fossil,fossil";
-private static final String C_P_120_12_LK="$clickPokemon";
+private static final String C_P_120_12_LK="$clickPokemon()";
 private static final String C_P_120_12="{getTrPokemon()}";
 private static final String C_P_120_13="level";
 private PageDataItemsFossil(){}

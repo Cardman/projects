@@ -154,7 +154,7 @@ private static final String C_P_131_147="getRowDesc(([k]))";
 private static final String C_P_131_148="s";
 private static final String C_P_131_149="java.lang.String";
 private static final String C_P_131_150="{s}";
-private static final String C_P_131_151="$b";
+private static final String C_P_131_151="$b()";
 private static final String C_P_131_152="";
 private static final String C_P_131_153="msg_lang,return_begin";
 private PageDataLangsLangs(){}

@@ -29,7 +29,7 @@ private static final String C_P_140_22="aiki.beans.map.pokemon";
 private static final String C_P_140_23="PokemonTeamBean";
 private static final String C_P_140_24="$intern.trainer=trainer";
 private static final String C_P_140_25="!isEmpty(move)";
-private static final String C_P_140_26="$clickMove";
+private static final String C_P_140_26="$clickMove()";
 private static final String C_P_140_27="{getTrMove()}";
 private PageDataMapElementsTrainerOneFight(){}
 static Document build(){

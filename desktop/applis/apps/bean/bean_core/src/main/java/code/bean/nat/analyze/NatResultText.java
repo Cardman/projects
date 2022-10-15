@@ -104,14 +104,8 @@ public final class NatResultText {
             i_++;
         }
         String pref_ = r_.quickRender(lk_, formArg_);
-        String right_;
-        int left_ = pref_.indexOf('(');
-        if (left_ < 0) {
-            right_ = pref_;
-            pref_ = StringUtil.concat(pref_,AnaRendBlock.LEFT_PAR,AnaRendBlock.RIGHT_PAR);
-        } else {
-            right_ = pref_.substring(0, left_);
-        }
+        int left_ = lk_.indexOf('(');
+        String right_ = lk_.substring(0, left_);
         String bean_ = _read.getOwnerDocument().getDocumentElement().getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrBean()));
         String tmp_ = bean_+'.'+right_;
         r_.opExpAnchorRoot = NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page);
