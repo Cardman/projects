@@ -4,5 +4,5 @@ import code.expressionlanguage.structs.Struct;
 
 public interface AbstractNatImpLgNames {
     void setBeanForms(Struct _mainBean,
-                      String _beanName);
+                      Struct _called);
 }

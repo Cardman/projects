@@ -36,7 +36,7 @@ public final class NatRendImport extends NatParentBlock {
         Struct newBean_ = ((BeanNatCommonLgNames)natImpLgNames).getBeansStruct().getVal(beanName_);
         Struct mainBean_ = _rendStack.getMainBean();
         natImpLgNames.setBeanForms(mainBean_,
-                beanName_);
+                newBean_);
         for (CustList<NatExecOperationNode> l:fields) {
             ip_.setInternGlobal(newBean_);
             BeanNatCommonLgNames.getAllArgs(l, _rendStack);

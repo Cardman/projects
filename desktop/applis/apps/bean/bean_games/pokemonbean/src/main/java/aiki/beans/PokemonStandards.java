@@ -177,25 +177,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
     }
 
     @Override
-    public void setBeanForms(Struct _mainBean, String _beanName) {
-        beanForms(_mainBean, _beanName);
-    }
-
-    private void beanForms(Struct _mainBean,
-                           String _beanName) {
-        if (_mainBean == null) {
-            return;
-        }
-        Struct bean_ = getBeansStruct().getVal(_beanName);
-        if (bean_ == null) {
-            return;
-        }
-        gearFw(_mainBean, bean_);
-    }
-
-    void gearFw(Struct _mainBean, Struct _bean) {
-        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct)_bean).getBean()).getForms();
-        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct)_mainBean).getBean()).getForms();
+    public void setBeanForms(Struct _mainBean, Struct _called) {
+        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct) _called).getBean()).getForms();
+        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct) _mainBean).getBean()).getForms();
         forms_.putAllMap(formsMap_);
     }
 

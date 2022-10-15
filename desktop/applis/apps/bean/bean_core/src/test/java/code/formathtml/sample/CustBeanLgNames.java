@@ -837,9 +837,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     }
 
     @Override
-    public void setBeanForms(Struct _mainBean, String _beanName) {
-        Struct bean_ = getBeansStruct().getVal(_beanName);
-        StringMapObjectBase forms_ = ((SampleBeanStruct)bean_).getForms();
+    public void setBeanForms(Struct _mainBean, Struct _called) {
+        StringMapObjectBase forms_ = ((SampleBeanStruct)_called).getForms();
         StringMapObjectBase formsMap_ = ((SampleBeanStruct)_mainBean).getForms();
         forms_.putAllMapBase(formsMap_);
     }
