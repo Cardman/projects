@@ -5,8 +5,14 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.Fossil;
 import aiki.game.Game;
+import aiki.game.HostPokemonDuo;
+import aiki.game.UsesOfMove;
 import aiki.game.params.Difficulty;
 import aiki.instances.Instances;
+import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.enums.Gender;
+import aiki.util.Coords;
+import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -33,6 +39,45 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         fac_.checkLinePokemonFirstBox(0);
         assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
     }
+    @Test
+    public void getName3() {
+        DataBase init_ = one();
+        setAbilities(init_);
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.initTrading();
+        PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, PARATONNERRE, Gender.NO_GENDER, NULL_REF);
+        fac_.receivePokemonPlayer(pk_);
+        assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getName4() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        addHost(fac_.getGame());
+        fac_.setHostedPokemon(true,newCoords(0,0,0,0));
+        assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getUsedBallCatching1() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(NULL_REF,callPokemonPlayerBeanUsedBallCatchingGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getUsedBallCatching2() {
+        DataBase init_ = one();
+        setAbilities(init_);
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.initTrading();
+        PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, PARATONNERRE, Gender.NO_GENDER, NULL_REF);
+        fac_.receivePokemonPlayer(pk_);
+        assertEq(POKE_BALL_TR,callPokemonPlayerBeanUsedBallCatchingGet(displaying(beanPk(EN, fac_))));
+    }
+
     private void revive(FacadeGame _fac) {
         Game game_ = _fac.getGame();
         game_.getPlayer().getItem(FOSSIL);
@@ -44,6 +89,19 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         fo_.setLevel((short) 2);
         fo_.setPokemon(PIKACHU);
         _db.completeMembers(FOSSIL, fo_);
+    }
+
+
+    private void setAbilities(DataBase _db) {
+        _db.getPokemon(PIKACHU).setAbilities(new StringList(PARATONNERRE));
+        _db.completeMembers(PARATONNERRE,Instances.newAbilityData());
+    }
+
+    private void addHost(Game _game) {
+        HostPokemonDuo h_ = Instances.newHostPokemonDuo();
+        h_.setFirstPokemon((PokemonPlayer) _game.getPlayer().getTeam().get(0));
+        h_.setSecondPokemon((PokemonPlayer) _game.getPlayer().getTeam().get(0));
+        _game.getHostedPk().addEntry(newCoords(0,0,0,0), h_);
     }
 
     private Game game(DataBase _init) {
@@ -67,5 +125,21 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         fac_.setLanguage(EN);
         fac_.setGame(game(_init));
         return fac_;
+    }
+
+
+    private static PokemonPlayer newPokemonPlayer(String _name, String _ability, Gender _gender, String _item) {
+        PokemonPlayer sent_ = new PokemonPlayer();
+        sent_.setName(_name);
+        sent_.setLevel((short) 1);
+        sent_.setAbility(_ability);
+        sent_.setItem(_item);
+        sent_.setGender(_gender);
+        sent_.setMoves(new StringMap<UsesOfMove>());
+        sent_.getMoves().put(CHARGE, new UsesOfMove((short) 10));
+        sent_.setHappiness((short) 70);
+        sent_.setWonExpSinceLastLevel(Rate.one());
+        sent_.setUsedBallCatching(POKE_BALL);
+        return sent_;
     }
 }

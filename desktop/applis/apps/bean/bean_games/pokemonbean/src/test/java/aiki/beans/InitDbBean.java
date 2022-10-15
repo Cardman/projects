@@ -37,20 +37,22 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String PIKACHU_TR = "PIKA";
     protected static final String FOSSIL = "FOS";
     protected static final String FOSSIL_TR = "SIL";
+    protected static final String CHARGE = "CHARGE";
+    protected static final String POKE_BALL = "POKE_BALL";
+    protected static final String POKE_BALL_TR = "BALL";
+    protected static final String PARATONNERRE = "PARATONNERRE";
+    protected static final String PARATONNERRE_TR = "PARRA";
     private static final String PIKACHU2 = "PIKACHU2";
     private static final String PIKACHU3 = "PIKACHU3";
     private static final String PIKACHU4 = "PIKACHU4";
     private static final String ECLAIR = "ECLAIR";
-    private static final String POKE_BALL = "POKE_BALL";
     private static final String LUTTE = "LUTTE";
-    private static final String CHARGE = "CHARGE";
     private static final String CHARGE2 = "CHARGE2";
     private static final String CHARGE3 = "CHARGE3";
     private static final String CHARGE4 = "CHARGE4";
     private static final String TREMPETTE = "TREMPETTE";
     private static final String TREMPETTE2 = "TREMPETTE2";
     private static final String TREMPETTE3 = "TREMPETTE3";
-    private static final String PARATONNERRE = "PARATONNERRE";
     private static final String ELECTRICK = "ELECTRICK";
     public static DataBase one() {
         DataBase data_ = newData();
@@ -145,8 +147,8 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         data_.getTranslatedTargets().addEntry(LANGUAGE, tar_);
         data_.getTranslatedTypes().addEntry(LANGUAGE,tr(ELECTRICK,ELECTRICK));
         data_.getTranslatedPokemon().addEntry(LANGUAGE,tr(PIKACHU,PIKACHU_TR));
-        data_.getTranslatedItems().addEntry(LANGUAGE,tr(POKE_BALL,POKE_BALL));
-        data_.getTranslatedAbilities().addEntry(LANGUAGE,tr(PARATONNERRE,PARATONNERRE));
+        data_.getTranslatedItems().addEntry(LANGUAGE,tr(POKE_BALL,POKE_BALL_TR));
+        data_.getTranslatedAbilities().addEntry(LANGUAGE,tr(PARATONNERRE,PARATONNERRE_TR));
         StringMap<String> trMov_ = tr(LUTTE, LUTTE);
         trMov_.addAllEntries(tr(ECLAIR,ECLAIR));
         trMov_.addAllEntries(tr(CHARGE,CHARGE));
@@ -592,7 +594,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _data.getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1/2");
     }
 
-    private static Coords newCoords(int _place, int _level, int _x, int _y) {
+    protected static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
         begin_.setLevel(new LevelPoint());
@@ -601,7 +603,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         return begin_;
     }
 
-    private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
+    protected static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
         begin_.setInsideBuilding(newPoint(_xi, _yi));
@@ -611,7 +613,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         return begin_;
     }
 
-    private static Point newPoint(int _x, int _y) {
+    protected static Point newPoint(int _x, int _y) {
         return new Point((short)_x, (short)_y);
     }
 
