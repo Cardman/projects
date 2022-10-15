@@ -157,7 +157,7 @@ public final class FacadeGameInventoryTest extends InitializationDataBase {
         assertEq(PIERRE_LUNE,facadeGame_.getPlayer().getSelectedObject());
         facadeGame_.openMenu();
         facadeGame_.selectPokemon((short) 2);
-        assertNotNull(facadeGame_.getSelectedPkTeam());
+        assertNotNull(facadeGame_.getPlayer().getSelectedPkTeam());
         assertTrue(facadeGame_.usedObjectForEvolving());
         assertEq(4, facadeGame_.getKeptMovesToEvo().size());
         assertEq(1, facadeGame_.getUnKeptMovesToEvo().size());

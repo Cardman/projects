@@ -88,9 +88,8 @@ public final class FacadeGamePokemonPlayerTest extends InitializationDataBase {
         assertEq(1, facadeGame_.getRenderedFirstBox().size());
         assertEq(0, facadeGame_.getNumberPageFirstBox());
         assertEq(0, facadeGame_.getLineFirstBox());
-        assertTrue(facadeGame_.isSelectedBoxPokemon());
+        assertNotNull(facadeGame_.getDisplayed());
         assertTrue(!facadeGame_.isSelectedTeamPokemon());
-        assertTrue(!facadeGame_.isSelectedOtherPokemon());
         facadeGame_.newSearchPokemonFirstBox();
         facadeGame_.checkLinePokemonFirstBox(0);
         assertTrue(!facadeGame_.enabledNextFirstBox());

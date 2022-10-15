@@ -109,9 +109,9 @@ public final class FacadeGameHostTest extends InitializationDataBase {
         Coords coords_ = facadeGame_.closestTile();
         assertEq(1024,facadeGame_.getRemaingingSteps(coords_));
         facadeGame_.setHostedPokemon(false,coords_);
-        assertNotNull(facadeGame_.getHostedPokemon());
+        assertNotNull(facadeGame_.getDisplayed());
         facadeGame_.setHostedPokemon(true,coords_);
-        assertNotNull(facadeGame_.getHostedPokemon());
+        assertNotNull(facadeGame_.getDisplayed());
     }
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();

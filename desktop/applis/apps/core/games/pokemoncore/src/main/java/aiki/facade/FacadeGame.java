@@ -83,17 +83,13 @@ public class FacadeGame {
 
     private boolean givingObject;
 
-    private boolean selectedBoxPokemon;
-
-    private boolean selectedOtherPokemon;
-
     private boolean selectedTeamPokemon;
 
     private boolean changeToFightScene;
 
     private boolean enabledMovingHero;
 
-    private PokemonPlayer hostedPokemon;
+    private PokemonPlayer displayed;
 
     private ExchangedData exchangeData;
 
@@ -551,9 +547,10 @@ public class FacadeGame {
 
     public void checkLinePokemonFirstBox(int _numberLine) {
         firstPaginationPk.checkLine(_numberLine);
-        if (getSelectedPokemonFirstBox() != null) {
+        PokemonPlayer sel_ = getSelectedPokemonFirstBox();
+        if (sel_ != null) {
             selectedTeamPokemon = false;
-            selectedBoxPokemon = true;
+            displayed = sel_;
         }
     }
 
@@ -575,10 +572,6 @@ public class FacadeGame {
 
     public PokemonPlayer getSelectedPokemonFirstBox() {
         return firstPaginationPk.currentObject();
-    }
-
-    public UsablePokemon getSelectedPkTeam() {
-        return game.getPlayer().getSelectedPkTeam();
     }
 
     public boolean enabledPreviousFirstBox() {
@@ -910,20 +903,8 @@ public class FacadeGame {
         return selectedTeamPokemon;
     }
 
-    public boolean isSelectedBoxPokemon() {
-        return selectedBoxPokemon;
-    }
-
-    public boolean isSelectedOtherPokemon() {
-        return selectedOtherPokemon;
-    }
-
-    public void setSelectedOtherPokemon(boolean _selectedOtherPokemon) {
-        selectedOtherPokemon = _selectedOtherPokemon;
-    }
-
     public void setHostedPokemon(boolean _first, Coords _coords) {
-        hostedPokemon = getHostedPokemon(_first, _coords);
+        displayed = getHostedPokemon(_first, _coords);
     }
 
     PokemonPlayer getHostedPokemon(boolean _first, Coords _coords) {
@@ -934,8 +915,8 @@ public class FacadeGame {
         return host_.getSecondPokemon();
     }
 
-    public PokemonPlayer getHostedPokemon() {
-        return hostedPokemon;
+    public PokemonPlayer getDisplayed() {
+        return displayed;
     }
 
     public MiniMapCoordsTileInts getImages() {
@@ -1005,10 +986,6 @@ public class FacadeGame {
         exchangeData = new ExchangedData(data);
     }
 
-    public PokemonPlayer getReceivedPokemon() {
-        return exchangeData.getPokemon();
-    }
-
     public void setIndexTeamTrading(int _indexTeam) {
         exchangeData.setIndexTeam(_indexTeam);
     }
@@ -1025,13 +1002,13 @@ public class FacadeGame {
     public void receivePokemonPlayer(PokemonPlayer _pkPlayerOtherPlayer) {
         exchangeData.setPokemon(_pkPlayerOtherPlayer);
         exchangeData.check();
-        if (exchangeData.getPokemon() == null) {
+        PokemonPlayer pk_ = exchangeData.getPokemon();
+        if (pk_ == null) {
             return;
         }
+        displayed = pk_;
         _pkPlayerOtherPlayer.initilializeFromExchange(data);
-        setSelectedOtherPokemon(true);
         selectedTeamPokemon = false;
-        selectedBoxPokemon = false;
     }
 
     public void applyTrading() {
@@ -1040,7 +1017,7 @@ public class FacadeGame {
 
     public void closeTrading() {
         exchangeData = null;
-        setSelectedOtherPokemon(false);
+        displayed = null;
     }
 
     public ExchangedData getExchangeData() {
@@ -1054,7 +1031,9 @@ public class FacadeGame {
     public void setChosenTeamPokemon(short _chosenPokemon) {
         game.getPlayer().setChosenTeamPokemon(_chosenPokemon);
         selectedTeamPokemon = game.getPlayer().isValidPkPlayerChoice();
-        selectedBoxPokemon = false;
+        if (selectedTeamPokemon) {
+            displayed = (PokemonPlayer) game.getPlayer().getSelectedPkTeam();
+        }
     }
 
     public void switchTeamOrder(short _chosenOtherPokemon) {

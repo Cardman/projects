@@ -11,7 +11,6 @@ import aiki.game.params.Difficulty;
 import aiki.instances.Instances;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
-import aiki.util.Coords;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;

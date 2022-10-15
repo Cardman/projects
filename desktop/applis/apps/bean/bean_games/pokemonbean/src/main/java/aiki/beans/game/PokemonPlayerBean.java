@@ -52,16 +52,7 @@ public class PokemonPlayerBean extends CommonSingleBean {
         translationsGenders_ = data_.getTranslatedGenders().getVal(getLanguage());
         AbsMap<Statistic,String> translationsStatistics_;
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
-        PokemonPlayer pkPlayer_;
-        if (facadeGame_.isSelectedTeamPokemon()) {
-            pkPlayer_ = (PokemonPlayer) facadeGame_.getSelectedPkTeam();
-        } else if (facadeGame_.isSelectedBoxPokemon()) {
-            pkPlayer_ = facadeGame_.getSelectedPokemonFirstBox();
-        } else if (facadeGame_.isSelectedOtherPokemon()) {
-            pkPlayer_ = facadeGame_.getReceivedPokemon();
-        } else {
-            pkPlayer_ = facadeGame_.getHostedPokemon();
-        }
+        PokemonPlayer pkPlayer_ = facadeGame_.getDisplayed();
         nickname = pkPlayer_.getNickname();
         name = translatedPokemon_.getVal(pkPlayer_.getName());
         if (pkPlayer_.getUsedBallCatching().isEmpty()) {

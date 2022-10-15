@@ -45,7 +45,7 @@ public final class FacadeGameTradeTest extends InitializationDataBase {
         assertEq(2,facadeGame_.getPlayer().getPokemonPlayerList().size());
         assertNotNull(facadeGame_.getExchangeData());
         assertNotNull(facadeGame_.getSentPokemon());
-        assertNotNull(facadeGame_.getReceivedPokemon());
+        assertNotNull(facadeGame_.getDisplayed());
     }
 
     @Test
