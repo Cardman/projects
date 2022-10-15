@@ -58,6 +58,14 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
     }
     @Test
+    public void getName5() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        addHost(fac_.getGame());
+        fac_.setHostedPokemon(false,newCoords(0,0,0,0));
+        assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
     public void getUsedBallCatching1() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
@@ -75,6 +83,51 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         PokemonPlayer pk_ = newPokemonPlayer(PIKACHU, PARATONNERRE, Gender.NO_GENDER, NULL_REF);
         fac_.receivePokemonPlayer(pk_);
         assertEq(POKE_BALL_TR,callPokemonPlayerBeanUsedBallCatchingGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getLevel() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.getPlayer().getPokemonPlayerList().getValue(0).setLevel((short) 10);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(10,callPokemonPlayerBeanLevelGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getGender() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.getPlayer().getPokemonPlayerList().getValue(0).setGender(Gender.NO_GENDER);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(NO_G,callPokemonPlayerBeanGenderGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getAbility() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.getPlayer().getPokemonPlayerList().getValue(0).setAbility(PARATONNERRE);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(PARATONNERRE_TR,callPokemonPlayerBeanAbilityGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getItem1() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.getPlayer().getPokemonPlayerList().getValue(0).setItem(NULL_REF);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(NULL_REF,callPokemonPlayerBeanItemGet(displaying(beanPk(EN, fac_))));
+    }
+    @Test
+    public void getItem2() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.getPlayer().getPokemonPlayerList().getValue(0).setItem(POKE_BALL);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(POKE_BALL_TR,callPokemonPlayerBeanItemGet(displaying(beanPk(EN, fac_))));
     }
 
     private void revive(FacadeGame _fac) {

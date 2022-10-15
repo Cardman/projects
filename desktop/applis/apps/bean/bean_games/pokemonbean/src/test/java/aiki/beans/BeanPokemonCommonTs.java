@@ -1,7 +1,6 @@
 package aiki.beans;
 
-import aiki.beans.game.PokemonPlayerBeanNameGet;
-import aiki.beans.game.PokemonPlayerBeanUsedBallCatchingGet;
+import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
@@ -18,6 +17,22 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static Struct callPokemonPlayerBeanUsedBallCatchingGet(Struct _str, long... _args) {
         return callLongs(new PokemonPlayerBeanUsedBallCatchingGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanLevelGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanLevelGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanGenderGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanGenderGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanAbilityGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanAbilityGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanItemGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanItemGet(),_str,_args);
     }
     public static Struct beanPk(String _language, FacadeGame _dataBase) {
         PkInd stds_ = new PkInd();

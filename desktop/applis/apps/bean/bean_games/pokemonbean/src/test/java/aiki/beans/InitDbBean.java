@@ -42,18 +42,20 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String POKE_BALL_TR = "BALL";
     protected static final String PARATONNERRE = "PARATONNERRE";
     protected static final String PARATONNERRE_TR = "PARRA";
-    private static final String PIKACHU2 = "PIKACHU2";
-    private static final String PIKACHU3 = "PIKACHU3";
-    private static final String PIKACHU4 = "PIKACHU4";
-    private static final String ECLAIR = "ECLAIR";
-    private static final String LUTTE = "LUTTE";
-    private static final String CHARGE2 = "CHARGE2";
-    private static final String CHARGE3 = "CHARGE3";
-    private static final String CHARGE4 = "CHARGE4";
-    private static final String TREMPETTE = "TREMPETTE";
-    private static final String TREMPETTE2 = "TREMPETTE2";
-    private static final String TREMPETTE3 = "TREMPETTE3";
-    private static final String ELECTRICK = "ELECTRICK";
+    protected static final String PIKACHU2 = "PIKACHU2";
+    protected static final String PIKACHU3 = "PIKACHU3";
+    protected static final String PIKACHU4 = "PIKACHU4";
+    protected static final String ECLAIR = "ECLAIR";
+    protected static final String LUTTE = "LUTTE";
+    protected static final String CHARGE2 = "CHARGE2";
+    protected static final String CHARGE3 = "CHARGE3";
+    protected static final String CHARGE4 = "CHARGE4";
+    protected static final String TREMPETTE = "TREMPETTE";
+    protected static final String TREMPETTE2 = "TREMPETTE2";
+    protected static final String TREMPETTE3 = "TREMPETTE3";
+    protected static final String ELECTRICK = "ELECTRICK";
+    protected static final String NO_G = "NO_G";
+
     public static DataBase one() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
@@ -85,9 +87,9 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         data_.getMaxiPkBack().addEntry(PIKACHU,new int[1][1]);
         data_.getMaxiPkFront().addEntry(PIKACHU,new int[1][1]);
         IdMap<Gender, String> gdrs_ = new IdMap<Gender, String>();
-        gdrs_.addEntry(Gender.NO_GENDER,"NO_GENDER");
-        gdrs_.addEntry(Gender.FEMALE,"FEMALE");
-        gdrs_.addEntry(Gender.MALE,"MALE");
+        gdrs_.addEntry(Gender.NO_GENDER, NO_G);
+        gdrs_.addEntry(Gender.FEMALE,"FE");
+        gdrs_.addEntry(Gender.MALE,"MA");
         data_.getTranslatedGenders().addEntry(LANGUAGE, gdrs_);
         IdMap<SelectedBoolean, String> bools_ = new IdMap<SelectedBoolean, String>();
         bools_.addEntry(SelectedBoolean.NO,"NO");
