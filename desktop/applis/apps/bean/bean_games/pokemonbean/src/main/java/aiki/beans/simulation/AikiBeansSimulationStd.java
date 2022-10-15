@@ -2,6 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
+import aiki.beans.facade.simulation.enums.TeamCrud;
 import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
@@ -420,8 +421,8 @@ public final class AikiBeansSimulationStd{
         fields_.add(new StandardField(NB_TEAMS,BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanNbTeamsGet(),new SimulationBeanNbTeamsSet()));
         fields_.add(new StandardField(INDEX_TEAM,BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanIndexTeamGet(),new SimulationBeanIndexTeamSet()));
         fields_.add(new StandardField(NUMBERS,BeanNatCommonLgNames.TYPE_LIST,false,false,new SimulationBeanNumbers(),null));
-        fields_.add(new StandardField(EDIT_CST,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanEditCst(),null));
-        fields_.add(new StandardField(REMOVE_CST,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanRemoveCst(),null));
+        fields_.add(new StandardField(EDIT_CST,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(TeamCrud.EDIT.getTeamCrudString()),null));
+        fields_.add(new StandardField(REMOVE_CST,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(TeamCrud.REMOVE.getTeamCrudString()),null));
         fields_.add(new StandardField(MULTIPLICITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanMultiplicityGet(),new SimulationBeanMultiplicitySet()));
         fields_.add(new StandardField(ENVIRONMENTS, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanEnvironmentsGet(),null));
         fields_.add(new StandardField(ENVIRONMENT,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanEnvironmentGet(),new SimulationBeanEnvironmentSet()));
