@@ -33,9 +33,12 @@ import code.util.*;
 public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String LANGUAGE = EN;
     protected static final String RAI = "RAI";
+    protected static final String RAI2 = "RAI2";
     protected static final String RAI_TR = "RE";
+    protected static final String RAI2_TR = "2RE";
     protected static final String MAX_PIKA = "AAABAACO";
     protected static final String MAX_RAI = "AAABAACP";
+    protected static final String MAX_RAI2 = "AAABAACQ";
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String PIKACHU = "PIKACHU";
     protected static final String PIKACHU_TR = "PIKA";

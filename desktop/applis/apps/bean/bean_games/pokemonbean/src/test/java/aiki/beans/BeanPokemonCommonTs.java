@@ -14,6 +14,8 @@ import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.Longs;
 
 public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
+
+    public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
 
     public static Struct callPokemonPlayerBeanNameGet(Struct _str, long... _args) {

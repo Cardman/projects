@@ -1,6 +1,8 @@
 package aiki.beans.game;
 
+import aiki.beans.DetPkGameInit;
 import aiki.beans.InitDbBean;
+import aiki.beans.PkInd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -14,10 +16,16 @@ import aiki.game.params.Difficulty;
 import aiki.instances.Instances;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
+import code.formathtml.Navigation;
+import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
+import code.scripts.pages.aiki.CssInit;
+import code.scripts.pages.aiki.MessagesInit;
+import code.scripts.pages.aiki.PagesInit;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 import org.junit.Test;
 
 public final class PokemonPlayerBeanTest extends InitDbBean {
@@ -428,6 +436,47 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         fac_.setChosenTeamPokemon((short) 0);
         assertEq(RAI_TR,callPokemonPlayerBeanGetEvo(displaying(beanPk(EN, fac_)),0));
     }
+    @Test
+    public void init() {
+        DataBase init_ = one();
+        evos2(init_);
+        moves(init_);
+        FacadeGame fac_ = fac(init_);
+        first(fac_).getEv().set(Statistic.SPEED, (short) 2);
+        first(fac_).getIv().set(Statistic.SPEED, (short) 5);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        StringMap<String> builtMessages_ = MessagesInit.ms();
+        AnaRendBlock.adjust(builtMessages_);
+        StringMap<String> builtOther_ = CssInit.ms();
+        PkInd pk_ = new PkInd();
+        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        pk_.setDataBase(fac_);
+        pk_.initializeRendSessionDoc(nav_);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the pokemon PIKA</title><link href=\"web_pk/css/pokemon.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "</style></head><body>The name of the pokemon is PIKA.<img src=\"AAABAAAA\"/><br/>The possible evolutions of the pokemon are:<ul><li>2RE<img src=\"AAABAACQ\"/></li><li>RE<img src=\"AAABAACP\"/></li></ul>The level of the pokemon is 7.The gender of the pokemon is NO_G.The ability of the pokemon is PARRA.The pokemon has no item.The pokemon has 1931/100 health points being about 1.0E2 % of its full life (1931/100).The nickname of the pokemon is PIKACHU.The pokemon won 0 experience points since its last growth of level.The nombre of necessary points for growing level is 15.The happiness level is 1.The number of walked steps at the heading is 0.The types of the pokemon are the following one:<ul><li>ELECTRICK_TR</li></ul>The moves of the pokemon are the following one:<table><thead><tr><th>Move</th><th>Curent pp</th><th>Full pp</th></tr></thead><tbody><tr><td>ECLA</td><td>15</td><td>15</td></tr><tr><td>TANK</td><td>20</td><td>20</td></tr></tbody></table>The statistics of the pokemon are the following one:<table><thead><tr><th>Statistic</th><th>Ev</th><th>Iv</th><th>Value</th></tr></thead><tbody><tr><td>ATTACK</td><td>0</td><td>31</td><td>731/100</td></tr><tr><td>DEFENSE</td><td>0</td><td>31</td><td>731/100</td></tr><tr><td>HP</td><td>0</td><td>31</td><td>1931/100</td></tr><tr><td>SPECIAL_ATTACK</td><td>0</td><td>31</td><td>731/100</td></tr><tr><td>SPECIAL_DEFENSE</td><td>0</td><td>31</td><td>731/100</td></tr><tr><td>ZZ</td><td>2</td><td>5</td><td>221/40</td></tr></tbody></table></body></html>",nav_.getHtmlText());
+    }
     private void evos(DataBase _init) {
         PokemonData ev_ = Instances.newPokemonData();
         ev_.setBaseEvo(PIKACHU);
@@ -435,6 +484,20 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
         _init.getMaxiPkFront().put(RAI, BaseSixtyFourUtil.getImageByString(MAX_RAI));
         _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
+    }
+    private void evos2(DataBase _init) {
+        PokemonData ev_ = Instances.newPokemonData();
+        ev_.setBaseEvo(PIKACHU);
+        _init.completeMembers(RAI, ev_);
+        PokemonData ev2_ = Instances.newPokemonData();
+        ev2_.setBaseEvo(PIKACHU);
+        _init.completeMembers(RAI2, ev2_);
+        _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
+        _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI2,Instances.newEvolutionHappiness());
+        _init.getMaxiPkFront().put(RAI, BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        _init.getMaxiPkFront().put(RAI2, BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
+        _init.getTranslatedPokemon().getVal(EN).addEntry(RAI2,RAI2_TR);
     }
     private void types(DataBase _init) {
         _init.getPokemon(PIKACHU).setTypes(new StringList(ELECTRICK));
