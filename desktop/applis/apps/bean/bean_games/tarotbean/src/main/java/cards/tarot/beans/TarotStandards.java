@@ -9,7 +9,6 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -150,71 +149,71 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     }
 
 
-    public static ArrayStruct getSumDeclaringPlayerArray(CustList<TarotSumDeclaringPlayer> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_SUM_DECLARING_PLAYER));
+    public static NatArrayStruct getSumDeclaringPlayerArray(CustList<TarotSumDeclaringPlayer> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (TarotSumDeclaringPlayer s:_ls) {
-            arr_.set(j_,new TarotSumDeclaringPlayerStruct(s, TYPE_SUM_DECLARING_PLAYER));
+            arr_.set(j_,new TarotSumDeclaringPlayerStruct(s));
             j_++;
         }
         return arr_;
     }
 
-    public static ArrayStruct getScoresPlayersArray(CustList<ScoresPlayers> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_SCORES_PLAYERS));
+    public static NatArrayStruct getScoresPlayersArray(CustList<ScoresPlayers> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (ScoresPlayers s:_ls) {
-            arr_.set(j_,new ScoresPlayersStruct(s, TYPE_SCORES_PLAYERS));
+            arr_.set(j_,new ScoresPlayersStruct(s));
             j_++;
         }
         return arr_;
     }
 
-    public static ArrayStruct getRankingPlayerVariantGameArray(CustList<RankingPlayerVariantGame> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_RANKING_PLAYER_VARIANT_GAME));
+    public static NatArrayStruct getRankingPlayerVariantGameArray(CustList<RankingPlayerVariantGame> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (RankingPlayerVariantGame s:_ls) {
-            arr_.set(j_,new RankingPlayerVariantGameStruct(s, TYPE_RANKING_PLAYER_VARIANT_GAME));
+            arr_.set(j_,new RankingPlayerVariantGameStruct(s));
             j_++;
         }
         return arr_;
     }
 
-    public static ArrayStruct getPointsPlayerVariantGameArray(CustList<PointsPlayerVariantGame> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_POINTS_PLAYER_VARIANT_GAME));
+    public static NatArrayStruct getPointsPlayerVariantGameArray(CustList<PointsPlayerVariantGame> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (PointsPlayerVariantGame s:_ls) {
-            arr_.set(j_,new PointsPlayerVariantGameStruct(s, TYPE_POINTS_PLAYER_VARIANT_GAME));
+            arr_.set(j_,new PointsPlayerVariantGameStruct(s));
             j_++;
         }
         return arr_;
     }
 
-    public static ArrayStruct getBonusesPlayersArray(CustList<BonusesPlayers> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_BONUSES_PLAYERS));
+    public static NatArrayStruct getBonusesPlayersArray(CustList<BonusesPlayers> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (BonusesPlayers s:_ls) {
-            arr_.set(j_,new BonusesPlayersStruct(s, TYPE_BONUSES_PLAYERS));
+            arr_.set(j_,new BonusesPlayersStruct(s));
             j_++;
         }
         return arr_;
     }
 
-    public static ArrayStruct getStringShortTree(StringMap<Short> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(OBJECT));
+    public static NatArrayStruct getStringShortTree(StringMap<Short> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String, Short> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
         return arr_;
     }
-    public static ArrayStruct getStringIntegerTree(StringMap<Integer> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(),StringExpUtil.getPrettyArrayType(OBJECT));
+    public static NatArrayStruct getStringIntegerTree(StringMap<Integer> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String, Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }

@@ -2,6 +2,7 @@ package cards.consts.beans;
 
 import cards.consts.LineDeal;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.NatArrayStruct;
 import code.bean.nat.NatCaller;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.*;
@@ -14,7 +15,7 @@ public abstract class EquallableCardConstBeanUtil {
 
     public static Struct lineDeal(int _nb, long... _scores) {
         LineDeal ls_ = base(_nb, _scores);
-        return new LineDealStruct(ls_,LineDealStruct.TYPE_LINE_DEAL);
+        return new LineDealStruct(ls_);
     }
     public static CustList<LineDeal> two(LineDeal _one, LineDeal _two) {
         CustList<LineDeal> ls_ = new CustList<LineDeal>();
@@ -59,25 +60,25 @@ public abstract class EquallableCardConstBeanUtil {
         assertSame(BooleanStruct.of(false),_value);
     }
     public static void assertSizeEq(int _exp, Struct _result) {
-        assertEq(_exp,(((ArrayStruct)_result).getLength()));
+        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }
     public static void assertSizeEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
+        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
     }
      public static void assertNumberEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
+        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
     }
     public static void assertEq(String _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(Rate _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(long _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(long _exp, Struct _result, int _index, int _second) {
-        assertEq(_exp,((LineDealStruct)(((ArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
+        assertEq(_exp,((LineDealStruct)(((NatArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
     }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);

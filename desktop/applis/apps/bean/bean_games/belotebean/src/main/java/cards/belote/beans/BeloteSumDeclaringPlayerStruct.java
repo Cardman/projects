@@ -1,12 +1,11 @@
 package cards.belote.beans;
 
-import code.bean.nat.CommNatStruct;
+import code.expressionlanguage.structs.AbNullStruct;
 
-public final class BeloteSumDeclaringPlayerStruct extends CommNatStruct {
+public final class BeloteSumDeclaringPlayerStruct extends AbNullStruct {
     private final BeloteSumDeclaringPlayer sumDeclaringPlayer;
 
-    public BeloteSumDeclaringPlayerStruct(BeloteSumDeclaringPlayer _sumDeclaringPlayer, String _className) {
-        super(_className);
+    public BeloteSumDeclaringPlayerStruct(BeloteSumDeclaringPlayer _sumDeclaringPlayer) {
         this.sumDeclaringPlayer = _sumDeclaringPlayer;
     }
 

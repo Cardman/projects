@@ -1,12 +1,12 @@
 package code.bean.nat;
 
 import code.bean.Bean;
+import code.expressionlanguage.structs.AbNullStruct;
 
-public abstract class BeanStruct extends CommNatStruct {
+public abstract class BeanStruct extends AbNullStruct {
     private final Bean bean;
 
     protected BeanStruct(Bean _bean) {
-        super(_bean.getClassName());
         bean = _bean;
     }
 

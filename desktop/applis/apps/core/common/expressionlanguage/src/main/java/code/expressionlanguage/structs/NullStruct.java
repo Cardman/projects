@@ -3,7 +3,7 @@ package code.expressionlanguage.structs;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 
-public final class NullStruct extends WithoutParentIdStruct implements DisplayableStruct,AnaDisplayableStruct {
+public final class NullStruct extends AbNullStruct implements DisplayableStruct,AnaDisplayableStruct {
 
     public static final NullStruct NULL_VALUE = new NullStruct();
 
@@ -20,10 +20,6 @@ public final class NullStruct extends WithoutParentIdStruct implements Displayab
         return new StringStruct(_an.getDisplayedStrings().getNullString());
     }
 
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return "";
-    }
     @Override
     public long randCode() {
         return 0;

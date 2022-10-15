@@ -3,8 +3,8 @@ package aiki.beans;
 import aiki.map.pokemon.Pokemon;
 
 public final class PkStruct extends ParamNatStruct<Pokemon> {
-    public PkStruct(Pokemon _wildPk, String _className) {
-        super(_wildPk,_className);
+    public PkStruct(Pokemon _wildPk) {
+        super(_wildPk);
     }
 
     public Pokemon getWildPk() {

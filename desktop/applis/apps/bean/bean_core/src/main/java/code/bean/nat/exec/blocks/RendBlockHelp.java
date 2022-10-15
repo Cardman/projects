@@ -6,7 +6,6 @@ import code.bean.nat.exec.opers.NatAbstractAffectOperation;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.opers.NatSettableFieldOperation;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -312,11 +311,6 @@ public final class RendBlockHelp {
         return new Argument(o_);
     }
 
-    static Argument iteratorMultTable(Struct _arg) {
-        ArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
-        return new Argument(new SimpleItrStruct(StringUtil.concat(BeanNatCommonLgNames.TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, BeanNatCommonLgNames.TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN, "?,?",StringExpUtil.TEMPLATE_END,StringExpUtil.TEMPLATE_END),array_));
-    }
-
     static Argument nasNextCom(Struct _arg) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
         return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
@@ -341,8 +335,8 @@ public final class RendBlockHelp {
     }
 
     static Argument iterator(Struct _arg) {
-        ArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
-        return new Argument(new SimpleItrStruct(StringUtil.concat(BeanNatCommonLgNames.TYPE_ITERATOR, StringExpUtil.TEMPLATE_BEGIN,"?",StringExpUtil.TEMPLATE_END),array_));
+        NatArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
+        return new Argument(new SimpleItrStruct(array_));
     }
 
     static String getStringKey(Struct _instance) {

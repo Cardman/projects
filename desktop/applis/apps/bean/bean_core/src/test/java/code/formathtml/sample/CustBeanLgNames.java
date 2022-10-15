@@ -9,7 +9,6 @@ import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.stds.StandardConstructor;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.*;
@@ -863,7 +862,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         return new DefNatBlockBuilder();
     }
 
-    public static ArrayStruct getTree(AbsMap<String, Integer> _tree) {
+    public static NatArrayStruct getTree(AbsMap<String, Integer> _tree) {
         return getStrInteger(_tree);
     }
 }

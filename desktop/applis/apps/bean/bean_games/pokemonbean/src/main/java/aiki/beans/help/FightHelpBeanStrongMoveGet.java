@@ -1,13 +1,12 @@
 package aiki.beans.help;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatCaller;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
 public class FightHelpBeanStrongMoveGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new RateStruct(( (FightHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getStrongMove(),BeanNatCommonLgNames.TYPE_RATE);
+        return new RateStruct(( (FightHelpBean) ((PokemonBeanStruct)_instance).getInstance()).getStrongMove());
     }
 }

@@ -2,10 +2,7 @@ package aiki.beans;
 
 import aiki.beans.game.PokemonPlayerBeanNameGet;
 import aiki.facade.FacadeGame;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanStruct;
-import code.bean.nat.NatCaller;
-import code.bean.nat.RateStruct;
+import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
@@ -41,10 +38,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
     public static void assertSizeLongsEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)((ArrayStruct)_result).get(_index)).getLength()));
+        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
     }
     public static void assertLongsEq(long _exp, Struct _result, int _index, int _second) {
-        assertEq(_exp,((ArrayStruct)(((ArrayStruct)_result).get(_index))).get(_second));
+        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
     }
 
     public static void assertEq(String _exp, Struct _result) {
@@ -63,18 +60,18 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         assertSame(BooleanStruct.of(false),_value);
     }
     public static void assertSizeEq(int _exp, Struct _result) {
-        assertEq(_exp,(((ArrayStruct)_result).getLength()));
+        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }
     public static void assertEq(String _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(Rate _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(long _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static Struct elt(Struct _arr, int _index) {
-        return ((ArrayStruct)_arr).get(_index);
+        return ((NatArrayStruct)_arr).get(_index);
     }
 }

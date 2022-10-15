@@ -1,13 +1,13 @@
 package code.bean.nat;
 
+import code.expressionlanguage.structs.AbNullStruct;
 import code.expressionlanguage.structs.Struct;
 
-public final class PairStruct extends CommNatStruct {
+public final class PairStruct extends AbNullStruct {
     private final Struct first;
     private final Struct second;
 
-    public PairStruct(String _className, Struct _first, Struct _second) {
-        super(_className);
+    public PairStruct(Struct _first, Struct _second) {
         this.first = _first;
         this.second = _second;
     }

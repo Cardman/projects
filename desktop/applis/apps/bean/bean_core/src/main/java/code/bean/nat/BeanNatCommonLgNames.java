@@ -19,7 +19,6 @@ import code.bean.validator.Validator;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -161,7 +160,7 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
     public static Struct getStructToBeValidated(StringList _values, String _className) {
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
             String value_ = BeanLgNames.oneElt(_values);
-            return new RateStruct(RateStruct.convertToRate(str(value_)),TYPE_RATE);
+            return new RateStruct(RateStruct.convertToRate(str(value_)));
         }
         if (StringUtil.quickEq(_className, STRING)) {
             return BeanLgNames.wrapStd(_values);
@@ -172,7 +171,7 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         if (!Rate.isValid(_value)) {
             return NullStruct.NULL_VALUE;
         }
-        return new RateStruct(new Rate(_value),TYPE_RATE);
+        return new RateStruct(new Rate(_value));
     }
 
     protected Struct getBeanOrNull(String _currentBeanName) {
@@ -478,12 +477,12 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
 //    }
 
 
-    public static ArrayStruct getStringArray(StringList _ls) {
-        return getArray(_ls,STRING);
+    public static NatArrayStruct getStringArray(StringList _ls) {
+        return getArray(_ls);
     }
 
-    public static ArrayStruct getLongsArray(CustList<Longs> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_LIST));
+    public static NatArrayStruct getLongsArray(CustList<Longs> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (Longs s:_ls) {
             arr_.set(j_,getLongArray(s));
@@ -492,8 +491,8 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         return arr_;
     }
 
-    public static ArrayStruct getLongArray(Longs _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(PRIM_LONG));
+    public static NatArrayStruct getLongArray(Longs _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (Long s:_ls) {
             arr_.set(j_,new LongStruct(s));
@@ -502,8 +501,8 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         return arr_;
     }
 
-    public static ArrayStruct getArray(StringList _ls, String _cl) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(_cl));
+    public static NatArrayStruct getArray(StringList _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (String s:_ls) {
             arr_.set(j_,new StringStruct(StringUtil.nullToEmpty(s)));
@@ -511,11 +510,11 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         }
         return arr_;
     }
-    public static ArrayStruct getStrInteger(AbsMap<String, Integer> _map) {
-        ArrayStruct arr_ = new ArrayStruct(_map.size(), StringExpUtil.getPrettyArrayType(OBJECT));
+    public static NatArrayStruct getStrInteger(AbsMap<String, Integer> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String,Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(OBJECT,new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
@@ -585,24 +584,23 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         if (_arg instanceof PairStruct) {
             return (PairStruct)_arg;
         }
-        return new PairStruct(StringUtil.concat(TYPE_ENTRY,StringExpUtil.TEMPLATE_BEGIN,OBJECT,",",OBJECT,StringExpUtil.TEMPLATE_END),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
+        return new PairStruct(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
     }
 
     public static SimpleItrStruct getSimpleItrStruct(Struct _arg) {
         if (_arg instanceof SimpleItrStruct) {
             return (SimpleItrStruct)_arg;
         }
-        ArrayStruct array_ = getArray(_arg);
-        return new SimpleItrStruct(StringUtil.concat(TYPE_ITERATOR,StringExpUtil.TEMPLATE_BEGIN, OBJECT,StringExpUtil.TEMPLATE_END),array_);
+        NatArrayStruct array_ = getArray(_arg);
+        return new SimpleItrStruct(array_);
     }
 
-    public static ArrayStruct getArray(Struct _arg) {
-        ArrayStruct array_;
-        if (_arg instanceof ArrayStruct) {
-            array_ = (ArrayStruct) _arg;
+    public static NatArrayStruct getArray(Struct _arg) {
+        NatArrayStruct array_;
+        if (_arg instanceof NatArrayStruct) {
+            array_ = (NatArrayStruct) _arg;
         } else {
-            String arr_ = StringExpUtil.getPrettyArrayType(OBJECT);
-            array_ = new ArrayStruct(0, arr_);
+            array_ = new NatArrayStruct(0);
         }
         return array_;
     }

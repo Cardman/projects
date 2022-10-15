@@ -17,7 +17,6 @@ import code.bean.nat.fwd.AdvNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
@@ -55,14 +54,14 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setFirst(conf_, lgNames_.getRenders());
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null));
         assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(null));
-        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(new ArrayStruct(0,"")));
+        assertNotNull(BeanNatCommonLgNames.getSimpleItrStruct(new NatArrayStruct(0)));
         assertNotNull(BeanNatCommonLgNames.getLongsArray(new CustList<Longs>(Longs.newList(0L))));
         NatRendStackCall stack_ = new NatRendStackCall();
         stack_.addPage(new NatImportingPage());
         RendBlockHelp.processElse(null,stack_);
         RendBlockHelp.processElseIf(null,stack_);
         NatStdRefVariableOperation.getValue(null);
-        PairStruct struct_ = new PairStruct("", NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
+        PairStruct struct_ = new PairStruct(NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
         BeanNatCommonLgNames.processString(new Argument(struct_));
         NatRendImport.beforeDisp(null);
         BeanNatCommonLgNames.methName("(0,1)");
@@ -2038,9 +2037,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        assertEq(8, getBeanTwo(conf_, "bean_two").getForms().size());
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
-        init(beanTwo_).getClassName(null);
+        assertEq("",new NatArrayStruct(0).getClassName());
 //        assertNotNull(new SampleBeanStruct(beanTwo_).getInstance());
-        assertEq("0",new LgIntStruct(LgInt.zero(),"").getDisplayedString().getInstance());
+        assertEq("0",new LgIntStruct(LgInt.zero()).getDisplayedString().getInstance());
     }
 //    @Test
 //    public void processNav15Test() {
@@ -2508,7 +2507,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setupNative2(_folder, _relative, dual_);
         putBean("bean_one", _v, lgNames_);
         StringMap<BeanInfo> beansInfos_ = config_.getBeansInfos();
-        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, config_);
+        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, config_,"code.formathtml.classes.BeanOne");
         setLocalFiles(analyzingDoc_, initNat_, config_, dual_);
         StringMap<NatAnaRendDocumentBlock> d_ = analyze(config_, analyzingDoc_, beansInfos_, lgNames_, initNat_, config_, dual_, _html);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
@@ -2527,7 +2526,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setupNative2(_folder, _relative, dual_);
         putBean("bean_one", _v, lgNames_);
         StringMap<BeanInfo> beansInfos_ = con_.getBeansInfos();
-        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, con_);
+        addBeanInfo(lgNames_,"bean_one", _v, beansInfos_, con_,"code.formathtml.classes.BeanOne");
         NatAnalyzingDoc analyzingDo_ = new NatAnalyzingDoc();
         setLocalFiles(analyzingDo_, init_, con_, dual_);
         StringMap<NatAnaRendDocumentBlock> d_ = analyze(con_, analyzingDo_, beansInfos_, lgNames_, init_, con_, dual_, _html);
@@ -2557,8 +2556,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     private static NatDocumentBlock buildRendWithTwoNativeBean2(String _html, String _htmlTwo, SampleBeanStruct _v1, SampleBeanStruct _v2, Configuration _configuration, NatAnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
         StringMap<BeanInfo> beansInfos_ = _configuration.getBeansInfos();
-        addBeanInfo(_adv,"bean_one", _v1, beansInfos_, _configuration);
-        addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration);
+        addBeanInfo(_adv,"bean_one", _v1, beansInfos_, _configuration,"code.formathtml.classes.BeanOne");
+        addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration,"code.formathtml.classes.BeanTwo");
         StringMap<NatAnaRendDocumentBlock> d_ = analyze2(_configuration, _analyzingDoc, beansInfos_, _adv, _analyzing, _configuration, _dual, _html, _htmlTwo);
         IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(_analyzingDoc, d_, _adv.getRenders());
@@ -2600,10 +2599,9 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         return _renders.getVal("page1.html");
     }
 
-    private static void addBeanInfo(CustBeanLgNames _adv,String _id, Struct _str, StringMap<BeanInfo> _beansInfos, Configuration _configuration) {
+    private static void addBeanInfo(CustBeanLgNames _adv,String _id, Struct _str, StringMap<BeanInfo> _beansInfos, Configuration _configuration, String _clName) {
         BeanInfo b_ = new BeanInfo();
-        String cl_ = _str.getClassName(null);
-        clName(b_,cl_);
+        clName(b_,_clName);
         _beansInfos.addEntry(_id,b_);
         _adv.getBeansStruct().addEntry(_id,_str);
     }

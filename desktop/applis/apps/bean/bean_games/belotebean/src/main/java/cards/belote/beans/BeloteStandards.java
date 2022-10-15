@@ -9,9 +9,7 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.formathtml.Configuration;
 import code.util.CustList;
 
@@ -83,20 +81,20 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
         return new InvokedPageOutput(_dest,res_);
     }
 
-    public static ArrayStruct getSumDeclaringPlayerArray(CustList<BeloteSumDeclaringPlayer> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_SUM_DECLARING_PLAYER));
+    public static NatArrayStruct getSumDeclaringPlayerArray(CustList<BeloteSumDeclaringPlayer> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (BeloteSumDeclaringPlayer s:_ls) {
-            arr_.set(j_,new BeloteSumDeclaringPlayerStruct(s, TYPE_SUM_DECLARING_PLAYER));
+            arr_.set(j_,new BeloteSumDeclaringPlayerStruct(s));
             j_++;
         }
         return arr_;
     }
-    public static ArrayStruct getDeclaringPlayerValueArray(CustList<DeclaringPlayerValue> _ls) {
-        ArrayStruct arr_ = new ArrayStruct(_ls.size(), StringExpUtil.getPrettyArrayType(TYPE_DECLARING_PLAYER_VALUE));
+    public static NatArrayStruct getDeclaringPlayerValueArray(CustList<DeclaringPlayerValue> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (DeclaringPlayerValue s:_ls) {
-            arr_.set(j_,new DeclaringPlayerValueStruct(s, TYPE_DECLARING_PLAYER_VALUE));
+            arr_.set(j_,new DeclaringPlayerValueStruct(s));
             j_++;
         }
         return arr_;

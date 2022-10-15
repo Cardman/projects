@@ -1,9 +1,10 @@
 package aiki.beans.moves;
+
 import aiki.beans.CommonBean;
 import aiki.beans.facade.dto.MoveLine;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.NatArrayStruct;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 
@@ -83,10 +84,11 @@ public class MoveLineBean extends CommonBean {
     }
 
     private static StringList arr(Struct _val) {
-        ArrayStruct arr_ = BeanNatCommonLgNames.getArray(_val);
+        NatArrayStruct arr_ = BeanNatCommonLgNames.getArray(_val);
         StringList elts_ = new StringList();
-        for (Struct s: arr_.list()) {
-            elts_.add(NumParsers.getString(s).getInstance());
+        int len_ = arr_.getLength();
+        for (int i = 0; i < len_; i++) {
+            elts_.add(NumParsers.getString(arr_.get(i)).getInstance());
         }
         return elts_;
     }

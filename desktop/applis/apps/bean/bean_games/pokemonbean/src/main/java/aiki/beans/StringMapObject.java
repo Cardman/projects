@@ -28,7 +28,7 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<PokemonPlayerDto> mapPokemonPlayerDto = new StringMap<PokemonPlayerDto>();
 
     public void put(String _key, AreaApparition _v) {
-        getBeansOthers().put(_key,new AreaApparitionStruct(_v,PokemonStandards.TYPE_AREA_APPARITION));
+        getBeansOthers().put(_key,new AreaApparitionStruct(_v));
     }
 
     public void put(String _key, Ally _v) {

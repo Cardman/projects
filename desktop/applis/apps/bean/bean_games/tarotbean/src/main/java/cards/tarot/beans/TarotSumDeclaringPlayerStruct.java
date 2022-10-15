@@ -1,12 +1,11 @@
 package cards.tarot.beans;
 
-import code.bean.nat.CommNatStruct;
+import code.expressionlanguage.structs.AbNullStruct;
 
-public final class TarotSumDeclaringPlayerStruct extends CommNatStruct {
+public final class TarotSumDeclaringPlayerStruct extends AbNullStruct {
     private final TarotSumDeclaringPlayer sumDeclaringPlayer;
 
-    public TarotSumDeclaringPlayerStruct(TarotSumDeclaringPlayer _sumDeclaringPlayer, String _className) {
-        super(_className);
+    public TarotSumDeclaringPlayerStruct(TarotSumDeclaringPlayer _sumDeclaringPlayer) {
         this.sumDeclaringPlayer = _sumDeclaringPlayer;
     }
 

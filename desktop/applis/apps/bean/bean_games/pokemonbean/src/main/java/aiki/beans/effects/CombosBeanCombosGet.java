@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class CombosBeanCombosGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new ComboDtoStruct(( (CombosBean) ((PokemonBeanStruct)_instance).getInstance()).getCombos(),AikiBeansEffectsStd.TYPE_COMBO_DTO);
+        return new ComboDtoStruct(( (CombosBean) ((PokemonBeanStruct)_instance).getInstance()).getCombos());
     }
 }

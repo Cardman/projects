@@ -42,7 +42,7 @@ public final class NatRendForEachTable extends NatParentBlock {
         }
         Struct its_ = processLoopTable(_rendStack);
         long length_ = IndexConstants.INDEX_NOT_FOUND_ELT;
-        Argument arg_ = RendBlockHelp.iteratorMultTable(its_);
+        Argument arg_ = RendBlockHelp.iterator(its_);
         NatLoopBlockStack l_ = addedStack(ip_, its_, length_, arg_, this);
         StringMap<LoopVariable> varsLoop_ = ip_.getVars();
         LoopVariable lv_ = new LoopVariable();

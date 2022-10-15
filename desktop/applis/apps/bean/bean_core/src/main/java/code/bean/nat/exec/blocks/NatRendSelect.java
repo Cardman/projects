@@ -58,7 +58,7 @@ public final class NatRendSelect extends NatParentBlock {
     private static void processOptionsMapEnumName(Configuration _conf, Struct _extractedMap,
                                                   Document _docSelect, Element _docElementSelect, Struct _returnedVarValue) {
         CustList<Struct> obj_ = values(_returnedVarValue);
-        Argument arg_ = RendBlockHelp.iteratorMultTable(_extractedMap);
+        Argument arg_ = RendBlockHelp.iterator(_extractedMap);
         Struct l_;
         l_ = arg_.getStruct();
         processOptions(_conf, _docSelect, _docElementSelect, obj_, l_);

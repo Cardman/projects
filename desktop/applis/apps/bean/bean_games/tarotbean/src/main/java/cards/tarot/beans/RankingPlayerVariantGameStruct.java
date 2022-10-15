@@ -1,12 +1,11 @@
 package cards.tarot.beans;
 
-import code.bean.nat.CommNatStruct;
+import code.expressionlanguage.structs.AbNullStruct;
 
-public final class RankingPlayerVariantGameStruct extends CommNatStruct {
+public final class RankingPlayerVariantGameStruct extends AbNullStruct {
     private final RankingPlayerVariantGame rankingPlayerVariantGame;
 
-    public RankingPlayerVariantGameStruct(RankingPlayerVariantGame _rankingPlayerVariantGame, String _className) {
-        super(_className);
+    public RankingPlayerVariantGameStruct(RankingPlayerVariantGame _rankingPlayerVariantGame) {
         this.rankingPlayerVariantGame = _rankingPlayerVariantGame;
     }
 

@@ -1,11 +1,10 @@
 package aiki.beans;
 
-import code.bean.nat.CommNatStruct;
+import code.expressionlanguage.structs.AbNullStruct;
 
-public abstract class ParamNatStruct<T> extends CommNatStruct {
+public abstract class ParamNatStruct<T> extends AbNullStruct {
     private final T instance;
-    protected ParamNatStruct(T _instance,String _className) {
-        super(_className);
+    protected ParamNatStruct(T _instance) {
         instance = _instance;
     }
 

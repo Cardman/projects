@@ -1,12 +1,11 @@
 package cards.belote.beans;
 
-import code.bean.nat.CommNatStruct;
+import code.expressionlanguage.structs.AbNullStruct;
 
-public final class DeclaringPlayerValueStruct extends CommNatStruct {
+public final class DeclaringPlayerValueStruct extends AbNullStruct {
     private final DeclaringPlayerValue declaringPlayerValue;
 
-    public DeclaringPlayerValueStruct(DeclaringPlayerValue _declaringPlayerValue, String _className) {
-        super(_className);
+    public DeclaringPlayerValueStruct(DeclaringPlayerValue _declaringPlayerValue) {
         this.declaringPlayerValue = _declaringPlayerValue;
     }
 

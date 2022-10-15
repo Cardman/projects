@@ -1,8 +1,8 @@
 package cards.consts.beans;
 
 import cards.consts.LineDeal;
+import code.bean.nat.NatArrayStruct;
 import code.bean.nat.SpecialNatClass;
-import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.StringMap;
@@ -22,7 +22,7 @@ public final class LineDealStructTest extends EquallableCardConstBeanUtil {
     }
     @Test
     public void getLineDealArray() {
-        ArrayStruct res_ = LineDealStruct.getLineDealArray(two(base(4, 51, 49,7), base(3, 55, 91,6,42)));
+        NatArrayStruct res_ = LineDealStruct.getLineDealArray(two(base(4, 51, 49,7), base(3, 55, 91,6,42)));
         assertSizeEq(2,res_);
         assertSizeEq(3,res_,0);
         assertNumberEq(4,res_,0);

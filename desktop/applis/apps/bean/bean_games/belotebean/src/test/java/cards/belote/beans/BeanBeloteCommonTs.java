@@ -3,10 +3,7 @@ package cards.belote.beans;
 import cards.belote.ResultsBelote;
 import cards.belote.RulesBelote;
 import cards.consts.beans.LineDealStruct;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.BeanStruct;
-import code.bean.nat.NatCaller;
-import code.bean.nat.RateStruct;
+import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
 import code.maths.Rate;
 import code.scripts.confs.EquallableBeloteBeanUtil;
@@ -190,20 +187,20 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
     }
 
     public static void assertSizeEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
+        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getScores().size()));
     }
 
     public static void assertSizeLongsEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)((ArrayStruct)_result).get(_index)).getLength()));
+        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
     }
     public static void assertNumberEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((LineDealStruct)((ArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
+        assertEq(_exp,(((LineDealStruct)((NatArrayStruct)_result).get(_index)).getLineDeal().getNumber()));
     }
     public static void assertEq(long _exp, Struct _result, int _index, int _second) {
-        assertEq(_exp,((LineDealStruct)(((ArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
+        assertEq(_exp,((LineDealStruct)(((NatArrayStruct)_result).get(_index))).getLineDeal().getScores().get(_second));
     }
     public static void assertLongsEq(long _exp, Struct _result, int _index, int _second) {
-        assertEq(_exp,((ArrayStruct)(((ArrayStruct)_result).get(_index))).get(_second));
+        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
     }
 
     public static void assertEq(String _exp, Struct _result) {
@@ -222,18 +219,18 @@ public abstract class BeanBeloteCommonTs extends EquallableBeloteBeanUtil {
         assertSame(BooleanStruct.of(false),_value);
     }
     public static void assertSizeEq(int _exp, Struct _result) {
-        assertEq(_exp,(((ArrayStruct)_result).getLength()));
+        assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }
     public static void assertEq(String _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(Rate _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static void assertEq(long _exp, Struct _result, int _index) {
-        assertEq(_exp,(((ArrayStruct)_result).get(_index)));
+        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
     }
     public static Struct elt(Struct _arr, int _index) {
-        return ((ArrayStruct)_arr).get(_index);
+        return ((NatArrayStruct)_arr).get(_index);
     }
 }

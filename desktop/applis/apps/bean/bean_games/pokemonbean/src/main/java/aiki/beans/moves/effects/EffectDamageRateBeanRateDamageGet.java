@@ -1,13 +1,12 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatCaller;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
 public class EffectDamageRateBeanRateDamageGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new RateStruct(( (EffectDamageRateBean) ((PokemonBeanStruct)_instance).getInstance()).getRateDamage(),BeanNatCommonLgNames.TYPE_RATE);
+        return new RateStruct(( (EffectDamageRateBean) ((PokemonBeanStruct)_instance).getInstance()).getRateDamage());
     }
 }
