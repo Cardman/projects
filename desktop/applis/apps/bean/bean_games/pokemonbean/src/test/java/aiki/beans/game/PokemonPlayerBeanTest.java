@@ -3,8 +3,10 @@ package aiki.beans.game;
 import aiki.beans.InitDbBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import aiki.fight.items.Fossil;
 import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.pokemon.PokemonData;
 import aiki.game.Game;
 import aiki.game.HostPokemonDuo;
 import aiki.game.UsesOfMove;
@@ -337,6 +339,103 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         assertEq(7,callUsesOfMoveGetCurrent(second(elt(callPokemonPlayerBeanMovesGet(displaying(beanPk(EN, fac_))),1))));
     }
 
+    @Test
+    public void stats1() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertSizeEq(6,callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))));
+    }
+
+    @Test
+    public void stats2() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        first(fac_).getEv().set(Statistic.SPEED, (short) 3);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(SPEED_TR,callStatisticInfoPkPlayerGetName(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
+    }
+
+    @Test
+    public void stats3() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        first(fac_).getEv().set(Statistic.SPEED, (short) 3);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(3,callStatisticInfoPkPlayerGetEv(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
+    }
+
+    @Test
+    public void stats4() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        first(fac_).getIv().set(Statistic.SPEED, (short) 4);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(4,callStatisticInfoPkPlayerGetIv(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
+    }
+
+    @Test
+    public void stats5() {
+        DataBase init_ = one();
+        FacadeGame fac_ = fac(init_);
+        first(fac_).getEv().set(Statistic.SPEED, (short) 2);
+        first(fac_).getIv().set(Statistic.SPEED, (short) 5);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(Rate.newRate("221/40"),callStatisticInfoPkPlayerGetRate(elt(callPokemonPlayerBeanStatisticsGet(displaying(beanPk(EN, fac_))),Statistic.getStatisticsWithBase().indexOfObj(Statistic.SPEED))));
+    }
+
+    @Test
+    public void evos1() {
+        DataBase init_ = one();
+        evos(init_);
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertSizeEq(1,callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))));
+    }
+
+    @Test
+    public void evos2() {
+        DataBase init_ = one();
+        evos(init_);
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(RAI,first(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
+    }
+
+    @Test
+    public void evos3() {
+        DataBase init_ = one();
+        evos(init_);
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(MAX_RAI,second(elt(callPokemonPlayerBeanEvolutionsGet(displaying(beanPk(EN, fac_))),0)));
+    }
+
+    @Test
+    public void evos4() {
+        DataBase init_ = one();
+        evos(init_);
+        FacadeGame fac_ = fac(init_);
+        fac_.openMenu();
+        fac_.setChosenTeamPokemon((short) 0);
+        assertEq(RAI_TR,callPokemonPlayerBeanGetEvo(displaying(beanPk(EN, fac_)),0));
+    }
+    private void evos(DataBase _init) {
+        PokemonData ev_ = Instances.newPokemonData();
+        ev_.setBaseEvo(PIKACHU);
+        _init.completeMembers(RAI, ev_);
+        _init.getPokemon(PIKACHU).getEvolutions().addEntry(RAI,Instances.newEvolutionHappiness());
+        _init.getMaxiPkFront().put(RAI, BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        _init.getTranslatedPokemon().getVal(EN).addEntry(RAI,RAI_TR);
+    }
     private void types(DataBase _init) {
         _init.getPokemon(PIKACHU).setTypes(new StringList(ELECTRICK));
     }

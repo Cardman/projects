@@ -32,7 +32,10 @@ import code.util.*;
 
 public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String LANGUAGE = EN;
+    protected static final String RAI = "RAI";
+    protected static final String RAI_TR = "RE";
     protected static final String MAX_PIKA = "AAABAACO";
+    protected static final String MAX_RAI = "AAABAACP";
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String PIKACHU = "PIKACHU";
     protected static final String PIKACHU_TR = "PIKA";
@@ -62,6 +65,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String STATUE_TR = "eSTi";
     protected static final String NO_G = "NO_G";
     protected static final String DEF_MAX_ATT = "DEF_MAX_ATT";
+    protected static final String SPEED_TR = "ZZ";
 
     public static DataBase one() {
         DataBase data_ = newData();
@@ -132,7 +136,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         stats_.addEntry(Statistic.SPECIAL_ATTACK,"SPECIAL_ATTACK");
         stats_.addEntry(Statistic.DEFENSE,"DEFENSE");
         stats_.addEntry(Statistic.SPECIAL_DEFENSE,"SPECIAL_DEFENSE");
-        stats_.addEntry(Statistic.SPEED,"SPEED");
+        stats_.addEntry(Statistic.SPEED, SPEED_TR);
         stats_.addEntry(Statistic.ACCURACY,"ACCURACY");
         stats_.addEntry(Statistic.EVASINESS,"EVASINESS");
         stats_.addEntry(Statistic.HP,"HP");
@@ -408,7 +412,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         data_.getAnimStatis().addEntry("DEFENSE",new int[1][1]);
         data_.getAnimStatis().addEntry("SPECIAL_ATTACK",new int[1][1]);
         data_.getAnimStatis().addEntry("SPECIAL_DEFENSE",new int[1][1]);
-        data_.getAnimStatis().addEntry("SPEED",new int[1][1]);
+        data_.getAnimStatis().addEntry(SPEED_TR,new int[1][1]);
         data_.getAnimStatis().addEntry("ACCURACY",new int[1][1]);
         data_.getAnimStatis().addEntry("EVASINESS",new int[1][1]);
         data_.getAnimStatis().addEntry("CRITICAL_HIT",new int[1][1]);
@@ -488,7 +492,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         stats_.addEntry(Statistic.SPECIAL_ATTACK,"SPECIAL_ATTACK");
         stats_.addEntry(Statistic.DEFENSE,"DEFENSE");
         stats_.addEntry(Statistic.SPECIAL_DEFENSE,"SPECIAL_DEFENSE");
-        stats_.addEntry(Statistic.SPEED,"SPEED");
+        stats_.addEntry(Statistic.SPEED, SPEED_TR);
         stats_.addEntry(Statistic.ACCURACY,"ACCURACY");
         stats_.addEntry(Statistic.EVASINESS,"EVASINESS");
         stats_.addEntry(Statistic.HP,"HP");

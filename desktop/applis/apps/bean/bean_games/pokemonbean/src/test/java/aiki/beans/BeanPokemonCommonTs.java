@@ -1,5 +1,9 @@
 package aiki.beans;
 
+import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetEv;
+import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetIv;
+import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetName;
+import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetRate;
 import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
@@ -40,6 +44,28 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return callLongs(new PokemonPlayerBeanImageGet(),_str,_args);
     }
 
+    public static Struct callPokemonPlayerBeanGetEvo(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanGetEvo(),_str,_args);
+    }
+    public static Struct callPokemonPlayerBeanEvolutionsGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanEvolutionsGet(),_str,_args);
+    }
+    public static Struct callStatisticInfoPkPlayerGetEv(Struct _str, long... _args) {
+        return callLongs(new StatisticInfoPkPlayerGetEv(),_str,_args);
+    }
+    public static Struct callStatisticInfoPkPlayerGetIv(Struct _str, long... _args) {
+        return callLongs(new StatisticInfoPkPlayerGetIv(),_str,_args);
+    }
+    public static Struct callStatisticInfoPkPlayerGetName(Struct _str, long... _args) {
+        return callLongs(new StatisticInfoPkPlayerGetName(),_str,_args);
+    }
+    public static Struct callStatisticInfoPkPlayerGetRate(Struct _str, long... _args) {
+        return callLongs(new StatisticInfoPkPlayerGetRate(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanStatisticsGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanStatisticsGet(),_str,_args);
+    }
     public static Struct callUsesOfMoveGetCurrent(Struct _str, long... _args) {
         return callLongs(new UsesOfMoveGetCurrent(),_str,_args);
     }
