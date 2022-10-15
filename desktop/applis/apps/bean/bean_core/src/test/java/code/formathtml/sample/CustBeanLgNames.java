@@ -818,7 +818,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         NatImportingPage ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         StringMapObjectBase forms_ = new StringMapObjectBase();
-        forms_.put("typedShort",0);
+//        forms_.put("typedShort",0);
 //        forms_.put("typedInt2",0);
         forms_.putAllMapBase(_bean);
         String currentBeanName_;
@@ -852,7 +852,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
 
     private SampleBeanStruct bean(Bean _bean) {
         _bean.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
-        _bean.getBaseForms().put("typedShort",0);
+//        _bean.getBaseForms().put("typedShort",0);
 //        _bean.getBaseForms().put("typedInt2",0);
         return (new SampleBeanStruct(_bean));
     }

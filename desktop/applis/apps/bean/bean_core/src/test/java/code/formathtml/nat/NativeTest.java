@@ -751,7 +751,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setInteger(v_);
         v_.getMap().put("ONE", 1);
         v_.getMap().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>typedShort</td><td>0</td></tr><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
     }
 
     @Test
@@ -770,7 +770,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setInteger(v_);
         v_.getMap().put("ONE", 1);
         v_.getMap().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>typedShort</td><td>0</td></tr><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
     }
 
     @Test
@@ -789,7 +789,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setInteger(v_);
         v_.getMap().put("ONE", 1);
         v_.getMap().put("TWO", 2);
-        assertEq("<html><body><table><tr><td>typedShort</td><td>0</td><td>typedShort</td><td>0</td></tr><tr><td>typedShort</td><td>0</td><td>ONE</td><td>1</td></tr><tr><td>typedShort</td><td>0</td><td>TWO</td><td>2</td></tr><tr><td>ONE</td><td>1</td><td>typedShort</td><td>0</td></tr><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>typedShort</td><td>0</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
+        assertEq("<html><body><table><tr><td>ONE</td><td>1</td><td>ONE</td><td>1</td></tr><tr><td>ONE</td><td>1</td><td>TWO</td><td>2</td></tr><tr><td>TWO</td><td>2</td><td>ONE</td><td>1</td></tr><tr><td>TWO</td><td>2</td><td>TWO</td><td>2</td></tr></table></body></html>", getNatRes(folder_, relative_, html_, v_));
     }
 
     @Test
@@ -1608,7 +1608,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"bean_one.goToPage1\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"bean_one.goToPage1\" n-f=\"0\"><select name=\"bean_one.selectedString\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
 
@@ -2306,7 +2306,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         dual_.getRenderFiles().add("page2.html");
         initSessionNat(nav_, lgNames_, dual_);
         assertEq("page2.html", nav_.getCurrentUrl());
-        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"bean_one.goToPage1\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"typedShort\">0</option><option value=\"typedShort\">0</option><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
+        assertEq("<html><body><form action=\"\" name=\"myform\" c:command=\"bean_one.goToPage1\" n-f=\"0\"><select name=\"bean_one.chosenNumber\" n-i=\"0\"><option value=\"ONE\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
 
     }
 //    @Test
@@ -2744,14 +2744,14 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
     private SampleBeanStruct init(BeanOne _b) {
         _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
-        _b.getBaseForms().put("typedShort",0);
+//        _b.getBaseForms().put("typedShort",0);
 //        _b.getBaseForms().put("typedInt2",0);
         return new SampleBeanStruct(_b);
     }
 
     private SampleBeanStruct init(BeanTwo _b) {
         _b.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
-        _b.getBaseForms().put("typedShort",0);
+//        _b.getBaseForms().put("typedShort",0);
 //        _b.getBaseForms().put("typedInt2",0);
         return new SampleBeanStruct(_b);
     }
