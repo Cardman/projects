@@ -4,6 +4,7 @@ import aiki.beans.InitDbBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
+import aiki.game.params.Difficulty;
 import org.junit.Test;
 
 public final class DifficultyBeanTest extends InitDbBean {
@@ -11,15 +12,19 @@ public final class DifficultyBeanTest extends InitDbBean {
     @Test
     public void getAllowCatchingKo1() {
         FacadeGame fac_ = fac(2);
-        fac_.getGame().getDifficulty().setAllowCatchingKo(true);
+        diff(fac_).setAllowCatchingKo(true);
         assertTrue(callDifficultyBeanAllowCatchingKoGet(displaying(beanDiff(EN, fac_))));
     }
 
     @Test
     public void getAllowCatchingKo2() {
         FacadeGame fac_ = fac(2);
-        fac_.getGame().getDifficulty().setAllowCatchingKo(false);
+        diff(fac_).setAllowCatchingKo(false);
         assertFalse(callDifficultyBeanAllowCatchingKoGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    private Difficulty diff(FacadeGame _fac) {
+        return _fac.getGame().getDifficulty();
     }
 
     private FacadeGame fac(int _iv) {
