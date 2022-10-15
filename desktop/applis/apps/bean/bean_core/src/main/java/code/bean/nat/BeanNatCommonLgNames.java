@@ -79,25 +79,6 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
     protected BeanNatCommonLgNames() {
     }
 
-    public static IntStruct sum(Struct[] _args) {
-        int s_ = 0;
-        for (Struct s: _args) {
-            s_ += NumParsers.convertToNumber(s).intStruct();
-        }
-        return new IntStruct(s_);
-    }
-
-    public static String safe(String _ret, String _def, int _nb) {
-        String ret_ = StringUtil.nullToEmpty(_ret);
-        String res_;
-        if (ret_.isEmpty()) {
-            res_ = StringUtil.nullToEmpty(_def);
-        } else {
-            res_ = StringUtil.concatNbs(ret_, _nb);
-        }
-        return res_;
-    }
-
     public void execute(boolean _form, Element _elt, Navigation _navigation) {
         if (_form) {
             processRendFormRequest(_navigation, _elt);

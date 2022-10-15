@@ -81,6 +81,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private static final String GO3 = "go3";
     private static final String GET_CHOSEN_NUMBERS = "getChosenNumbers";
     private static final String TYPED_STRING = "typedString";
+    private static final String TYPED_STRING2 = "typedString2";
     private static final String TYPED_INT = "typedInt";
     private static final String TYPED_INT2 = "typedInt2";
     private static final String TYPED_SHORT = "typedShort";
@@ -336,6 +337,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         fields_.add(new StandardField(TYPED_INT2, PRIM_INTEGER,false,false,new SampleBeanTwoTypedInt(),new SampleBeanTwoTypedIntSet()));
         fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));
         fields_.add(new StandardField(TYPED_STRING, STRING,false,false, new SampleBeanTwoTypedString(),new SampleBeanTwoTypedStringSet()));
+        fields_.add(new StandardField(TYPED_STRING2, STRING,false,false, new SampleBeanTwoTypedString2(),new SampleBeanTwoTypedStringSet2()));
         //params_ = new StringList();
         method_ = new SpecNatMethod(GET_CHOSEN_NUMBERS, TYPE_LIST, false, MethodModifier.NORMAL, null);
         methods_.add( method_);

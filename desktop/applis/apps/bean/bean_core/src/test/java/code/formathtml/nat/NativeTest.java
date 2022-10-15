@@ -1264,8 +1264,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a href=\"\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"$go()\">{typedString}</a></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\"><a/><c:package name=\"code.formathtml.classes\"><a/><c:class name=\"BeanTwo\"><a/><c:field prepare=\"$intern.typedString2=message\"><a/></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"$go()\">{typedString2}</a></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1278,7 +1278,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setBaseForms(new StringMapObjectBase());
         SampleBeanStruct v2_ = init(beanTwo_);
-        v2_.setTypedString("TITLE");
+        v2_.setTypedString2("TITLE");
         CustBeanLgNames lgNames_ = stds();
         Configuration config_ = conf_("c:");
         NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
@@ -1305,8 +1305,8 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         String folder_ = "messages";
         String relative_ = "sample/file";
         String content_ = "one=Description one\ntwo=Description <a c:command=\"$go\">two</a>\nthree=desc &lt;{0}&gt;\nfour=''asp''";
-        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\" keepfields=\"y\"><c:package name=\"code.formathtml.classes\"><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString=message\"></c:field></c:class></c:package></c:import></body></html>";
-        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"$go()\">{typedString}</a><c:message value='msg_example,two'/></body></html>";
+        String html_ = "<html c:bean=\"bean_one\"><body><c:import page=\"page2.html\" keepfields=\"y\"><c:package name=\"code.formathtml.classes\"><c:class name=\"BeanTwo\"><c:field prepare=\"$intern.typedString2=message\"></c:field></c:class></c:package></c:import></body></html>";
+        String htmlTwo_ = "<html c:bean=\"bean_two\"><body><a href=\"DELETE\" c:command=\"$go()\">{typedString2}</a><c:message value='msg_example,two'/></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
         files_.put("page1.html", html_);
@@ -1320,7 +1320,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
         beanTwo_.setBaseForms(new StringMapObjectBase());
         SampleBeanStruct v2_ = init(beanTwo_);
-        v2_.setTypedString("TITLE");
+        v2_.setTypedString2("TITLE");
         CustBeanLgNames lgNames_ = stds();
         NatAnalyzedCode init_ = init(lgNames_);
         //new Forwards(lgNames_, null, new Options()).generate();

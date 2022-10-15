@@ -1,7 +1,6 @@
 package code.formathtml.sample;
 
 import code.bean.Bean;
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanStruct;
 import code.bean.nat.StringMapObjectBase;
 import code.expressionlanguage.structs.Struct;
@@ -12,6 +11,7 @@ public final class SampleBeanStruct extends BeanStruct {
 
     public static final String NULLABLE_INT = "nullableInt";
     public static final String TYPED_STRING = "typedString";
+    public static final String TYPED_STRING2 = "typedString2";
     public static final String CHECKED = "checked";
     public static final String TYPED_SHORT = "typedShort";
     public static final String TYPED_INT2 = "typedInt2";
@@ -24,14 +24,15 @@ public final class SampleBeanStruct extends BeanStruct {
     }
 
     static void spec(Bean _bean) {
-        String retr_ = _bean.getBaseForms().getValStr(TYPED_STRING);
-        String res_ = BeanNatCommonLgNames.safe(retr_, "TYPED_STRING", 2);
-        _bean.getBaseForms().put(TYPED_STRING,res_);
+        String retr_ = _bean.getBaseForms().getValStr(TYPED_STRING2);
+        _bean.getBaseForms().put(TYPED_STRING,"TYPED_STRING");
+        _bean.getBaseForms().put(TYPED_STRING2,retr_+"2");
     }
 
     public String go() {
         getForms().put(CHECKED, getBean().getBaseForms().getValBool(CHECKED));
         getForms().put(TYPED_STRING, getBean().getBaseForms().getValStr(TYPED_STRING));
+        getForms().put(TYPED_STRING2, getBean().getBaseForms().getValStr(TYPED_STRING2));
         getForms().put(NULLABLE_INT, getBean().getBaseForms().getValRate(NULLABLE_INT));
         return "change";
     }
@@ -59,6 +60,10 @@ public final class SampleBeanStruct extends BeanStruct {
         return getBean().getBaseForms().getValStr(TYPED_STRING);
     }
 
+    public String getTypedString2() {
+        return getBean().getBaseForms().getValStr(TYPED_STRING2);
+    }
+
     public boolean isChecked() {
         return getBean().getBaseForms().getValBool(CHECKED);
     }
@@ -69,6 +74,10 @@ public final class SampleBeanStruct extends BeanStruct {
 
     public void setTypedString(String _v) {
         getBean().getBaseForms().put(TYPED_STRING,_v);
+    }
+
+    public void setTypedString2(String _v) {
+        getBean().getBaseForms().put(TYPED_STRING2,_v);
     }
 
 
