@@ -68,7 +68,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String STATUE_TR = "eSTi";
     protected static final String NO_G = "NO_G";
     protected static final String DEF_MAX_ATT = "DEF_MAX_ATT";
-    protected static final String SPEED_TR = "ZZ";
+    protected static final String SPEED_TR = "vit";
 
     public static DataBase one() {
         DataBase data_ = newData();
@@ -705,4 +705,26 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _data.getMap().setPlaces(new CustList<Place>());
     }
 
+    protected static DataBase diff(int _iv) {
+        DataBase data_ = newData();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        IdMap<DifficultyWinPointsFight, String> wfn_ = new IdMap<DifficultyWinPointsFight, String>();
+        wfn_.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE,"TRES_DIFFICILE");
+        wfn_.addEntry(DifficultyWinPointsFight.DIFFICILE,"DIFFICILE");
+        wfn_.addEntry(DifficultyWinPointsFight.FACILE,"FACILE");
+        wfn_.addEntry(DifficultyWinPointsFight.TRES_FACILE,"TRES_FACILE");
+        data_.getTranslatedDiffWinPts().addEntry(LANGUAGE, wfn_);
+        IdMap<DifficultyModelLaw, String> ml_ = new IdMap<DifficultyModelLaw, String>();
+        ml_.addEntry(DifficultyModelLaw.CONSTANT_MIN,"CONSTANT_MIN");
+        ml_.addEntry(DifficultyModelLaw.CROISSANT,"CROISSANT");
+        ml_.addEntry(DifficultyModelLaw.UNIFORME,"UNIFORME");
+        ml_.addEntry(DifficultyModelLaw.DECROISSANT,"DECROISSANT");
+        ml_.addEntry(DifficultyModelLaw.CONSTANT_MAX,"CONSTANT_MAX");
+        data_.getTranslatedDiffModelLaw().addEntry(LANGUAGE, ml_);
+        initRandomLaws(data_);
+        data_.addConstNumTest(DataBase.MAX_IV,Rate.newRate(Long.toString(_iv)));
+        return data_;
+    }
 }
