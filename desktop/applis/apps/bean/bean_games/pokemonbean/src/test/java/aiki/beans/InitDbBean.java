@@ -32,12 +32,14 @@ import code.util.*;
 
 public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String LANGUAGE = EN;
+    protected static final String MAX_PIKA = "AAABAACO";
     protected static final String NULL_REF = DataBase.EMPTY_STRING;
     protected static final String PIKACHU = "PIKACHU";
     protected static final String PIKACHU_TR = "PIKA";
     protected static final String FOSSIL = "FOS";
     protected static final String FOSSIL_TR = "SIL";
     protected static final String CHARGE = "CHARGE";
+    protected static final String CHARGE_TR = "TANK";
     protected static final String POKE_BALL = "POKE_BALL";
     protected static final String POKE_BALL_TR = "BALL";
     protected static final String PARATONNERRE = "PARATONNERRE";
@@ -46,6 +48,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String PIKACHU3 = "PIKACHU3";
     protected static final String PIKACHU4 = "PIKACHU4";
     protected static final String ECLAIR = "ECLAIR";
+    protected static final String ECLAIR_TR = "ECLA";
     protected static final String LUTTE = "LUTTE";
     protected static final String CHARGE2 = "CHARGE2";
     protected static final String CHARGE3 = "CHARGE3";
@@ -54,7 +57,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String TREMPETTE2 = "TREMPETTE2";
     protected static final String TREMPETTE3 = "TREMPETTE3";
     protected static final String ELECTRICK = "ELECTRICK";
+    protected static final String ELECTRICK_TR = "ELECTRICK_TR";
+    protected static final String STATUE = "STAUTE";
+    protected static final String STATUE_TR = "eSTi";
     protected static final String NO_G = "NO_G";
+    protected static final String DEF_MAX_ATT = "DEF_MAX_ATT";
 
     public static DataBase one() {
         DataBase data_ = newData();
@@ -147,13 +154,13 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         tar_.addEntry(TargetChoice.PSEUDO_GLOBALE,"PSEUDO_GLOBALE");
         tar_.addEntry(TargetChoice.UNIQUE_IMPORTE,"UNIQUE_IMPORTE");
         data_.getTranslatedTargets().addEntry(LANGUAGE, tar_);
-        data_.getTranslatedTypes().addEntry(LANGUAGE,tr(ELECTRICK,ELECTRICK));
+        data_.getTranslatedTypes().addEntry(LANGUAGE,tr(ELECTRICK,ELECTRICK_TR));
         data_.getTranslatedPokemon().addEntry(LANGUAGE,tr(PIKACHU,PIKACHU_TR));
         data_.getTranslatedItems().addEntry(LANGUAGE,tr(POKE_BALL,POKE_BALL_TR));
         data_.getTranslatedAbilities().addEntry(LANGUAGE,tr(PARATONNERRE,PARATONNERRE_TR));
         StringMap<String> trMov_ = tr(LUTTE, LUTTE);
-        trMov_.addAllEntries(tr(ECLAIR,ECLAIR));
-        trMov_.addAllEntries(tr(CHARGE,CHARGE));
+        trMov_.addAllEntries(tr(ECLAIR,ECLAIR_TR));
+        trMov_.addAllEntries(tr(CHARGE,CHARGE_TR));
         trMov_.addAllEntries(tr(CHARGE2,CHARGE2));
         data_.getTranslatedMoves().addEntry(LANGUAGE, trMov_);
         data_.getTranslatedStatus().addEntry(LANGUAGE,new StringMap<String>());
@@ -544,7 +551,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     private static void initConstants(DataBase _data) {
         _data.addConstNumTest(DataBase.MAX_EV, new Rate(20));
         _data.addConstNumTest(DataBase.MAX_IV, new Rate(31));
-        _data.addConstNumTest("DEF_MAX_ATT", new Rate(4));
+        _data.addConstNumTest(DEF_MAX_ATT, new Rate(4));
         _data.addConstNumTest(DataBase.DEF_PKEQ, new Rate(6));
         _data.addConstNumTest(DataBase.ARGENT, new Rate(3000));
         _data.addConstNumTest(DataBase.NIVEAU_PK_ECLOSION, new Rate(1));

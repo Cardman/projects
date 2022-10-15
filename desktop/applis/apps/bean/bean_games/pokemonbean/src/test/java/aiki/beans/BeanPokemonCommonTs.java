@@ -4,6 +4,7 @@ import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
 import code.util.Longs;
@@ -33,6 +34,63 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static Struct callPokemonPlayerBeanItemGet(Struct _str, long... _args) {
         return callLongs(new PokemonPlayerBeanItemGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanImageGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanImageGet(),_str,_args);
+    }
+
+    public static Struct callUsesOfMoveGetCurrent(Struct _str, long... _args) {
+        return callLongs(new UsesOfMoveGetCurrent(),_str,_args);
+    }
+
+    public static Struct callUsesOfMoveGetMax(Struct _str, long... _args) {
+        return callLongs(new UsesOfMoveGetMax(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanMovesGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanMovesGet(),_str,_args);
+    }
+
+
+    public static Struct callPokemonPlayerBeanStatusGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanStatusGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanTypesGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanTypesGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanNbStepsTeamLeadGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanNbStepsTeamLeadGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanHappinessGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanHappinessGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanWonExpSinceLastLevelGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanWonExpSinceLastLevelGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanNecessaryPointsNextLevelGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanNecessaryPointsNextLevelGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanFullHpGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanFullHpGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanNicknameGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanNicknameGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanRemainingHpGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanRemainingHpGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerBeanRemainingHpPerCentGet(Struct _str, long... _args) {
+        return callLongs(new PokemonPlayerBeanRemainingHpPerCentGet(),_str,_args);
     }
     public static Struct beanPk(String _language, FacadeGame _dataBase) {
         PkInd stds_ = new PkInd();
@@ -67,7 +125,12 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static void assertEq(String _exp, Struct _result) {
         assertEq(_exp,((StringStruct)_result).getInstance());
     }
+    public static void assertEq(LgInt _exp, Struct _result) {
+        assertEq(_exp.toNumberString(),((LgIntStruct)_result).getInstance().toNumberString());
+        assertTrue(_exp.eq(((LgIntStruct)_result).getInstance()));
+    }
     public static void assertEq(Rate _exp, Struct _result) {
+        assertEq(_exp.toNumberString(),((RateStruct)_result).getInstance().toNumberString());
         assertTrue(_exp.eq(((RateStruct)_result).getInstance()));
     }
     public static void assertEq(long _exp, Struct _result) {
@@ -93,5 +156,11 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
     public static Struct elt(Struct _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
+    }
+    public static Struct first(Struct _arr) {
+        return ((PairStruct)_arr).getFirst();
+    }
+    public static Struct second(Struct _arr) {
+        return ((PairStruct)_arr).getSecond();
     }
 }
