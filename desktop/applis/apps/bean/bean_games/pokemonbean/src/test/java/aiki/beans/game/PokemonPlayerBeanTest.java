@@ -17,7 +17,6 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
     public void getName1() {
         DataBase init_ = one();
         FacadeGame fac_ = fac(init_);
-        fac_.setGame(game(init_));
         fac_.openMenu();
         fac_.setChosenTeamPokemon((short) 0);
         assertEq(PIKACHU_TR,callPokemonPlayerBeanNameGet(displaying(beanPk(EN, fac_))));
@@ -28,7 +27,6 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         DataBase init_ = one();
         addFossile(init_);
         FacadeGame fac_ = fac(init_);
-        fac_.setGame(game(init_));
         revive(fac_);
         fac_.openMenu();
         fac_.searchPokemonFirstBox();
@@ -67,6 +65,7 @@ public final class PokemonPlayerBeanTest extends InitDbBean {
         fac_.setZipName("");
         fac_.setData(_init);
         fac_.setLanguage(EN);
+        fac_.setGame(game(_init));
         return fac_;
     }
 }
