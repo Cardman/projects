@@ -33,6 +33,18 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return callLongs(new FightBeanIsStillEnabled(),_str,_args);
     }
 
+    public static Struct callFightBeanWinningMoneyGet(Struct _str, long... _args) {
+        return callLongs(new FightBeanWinningMoneyGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanNbRoundsGet(Struct _str, long... _args) {
+        return callLongs(new FightBeanNbRoundsGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanNbFleeAttemptGet(Struct _str, long... _args) {
+        return callLongs(new FightBeanNbFleeAttemptGet(),_str,_args);
+    }
+
     public static Struct callActivityOfMoveGetNbTurn(Struct _str, long... _args) {
         return callLongs(new ActivityOfMoveGetNbTurn(),_str,_args);
     }

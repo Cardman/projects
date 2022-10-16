@@ -2,6 +2,8 @@ package aiki.beans.fight;
 
 import aiki.beans.InitDbFight;
 import aiki.game.fight.ActivityOfMove;
+import code.maths.LgInt;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class FightBeanTest extends InitDbFight {
@@ -65,5 +67,20 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void still2() {
         assertTrue(callFightBeanIsStillEnabled(displaying(beanFight(EN,facade(db()))),1));
+    }
+
+    @Test
+    public void roundsCount() {
+        assertEq(LgInt.zero(),callFightBeanNbRoundsGet(displaying(beanFight(EN,facade(db())))));
+    }
+
+    @Test
+    public void winningMoney() {
+        assertEq(Rate.zero(),callFightBeanWinningMoneyGet(displaying(beanFight(EN,facade(db())))));
+    }
+
+    @Test
+    public void nbFlees() {
+        assertEq(0,callFightBeanNbFleeAttemptGet(displaying(beanFight(EN,facade(db())))));
     }
 }
