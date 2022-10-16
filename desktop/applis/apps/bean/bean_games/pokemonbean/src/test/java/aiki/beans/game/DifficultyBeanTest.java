@@ -307,6 +307,48 @@ public final class DifficultyBeanTest extends InitDbBean {
         assertEq("M5",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),4)));
     }
 
+    @Test
+    public void getDamageRatePlayerTable1() {
+        FacadeGame fac_ = facTr();
+        diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
+        assertSizeEq(1,callDifficultyBeanDamageRatePlayerTableGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getDamageRatePlayerTable2() {
+        FacadeGame fac_ = facTr();
+        diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
+        assertEq(fac_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MIN).getLaw().getEvent(0),first(elt(callDifficultyBeanDamageRatePlayerTableGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getDamageRatePlayerTable3() {
+        FacadeGame fac_ = facTr();
+        diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MIN);
+        assertEq(Rate.one(),second(elt(callDifficultyBeanDamageRatePlayerTableGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getDamageRateLawFoe1() {
+        FacadeGame fac_ = facTr();
+        diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
+        assertSizeEq(1,callDifficultyBeanDamageRateFoeTableGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getDamageRateLawFoe2() {
+        FacadeGame fac_ = facTr();
+        diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
+        assertEq(fac_.getData().getLawsDamageRate().getVal(DifficultyModelLaw.CONSTANT_MIN).getLaw().getEvent(0),first(elt(callDifficultyBeanDamageRateFoeTableGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getDamageRateLawFoe3() {
+        FacadeGame fac_ = facTr();
+        diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
+        assertEq(Rate.one(),second(elt(callDifficultyBeanDamageRateFoeTableGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
     private Rate rt() {
         return Rate.newRate("2");
     }
