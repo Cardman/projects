@@ -19,6 +19,18 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String EN = "en";
 
 
+    public static Struct callGameProgressionBeanGetKeyPokemon(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetKeyPokemon(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetImagePokemonPartial(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetImagePokemonPartial(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetTrPokemonPartial(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetTrPokemonPartial(),_str,_args);
+    }
+
     public static Struct callGameProgressionBeanGetRemainingOtherTrainersPlaceName(Struct _str, long... _args) {
         return callLongs(new GameProgressionBeanGetRemainingOtherTrainersPlaceName(),_str,_args);
     }

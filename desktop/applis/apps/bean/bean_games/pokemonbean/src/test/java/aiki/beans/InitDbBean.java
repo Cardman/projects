@@ -43,6 +43,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String H_3 = "AAABAAFO";
     protected static final String H_4 = "AAABAAGO";
     protected static final String H_5 = "AAABAAHO";
+    protected static final String PR_IMG_1 = "AAABAAD1";
+    protected static final String PR_IMG_2 = "AAABAAD2";
+    protected static final String PR_IMG_3 = "AAABAAD3";
+    protected static final String PR_IMG_4 = "AAABAAD4";
+    protected static final String PR_IMG_5 = "AAABAAD5";
+    protected static final String PR_IMG_6 = "AAABAAD6";
     protected static final String MAX_PIKA = "AAABAACO";
     protected static final String MAX_RAI = "AAABAACP";
     protected static final String MAX_RAI2 = "AAABAACQ";
@@ -198,6 +204,12 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pks_.addEntry(PROG_PK5,PROG_PK_TR5);
         pks_.addEntry(PROG_PK6,PROG_PK_TR6);
         data_.getTranslatedPokemon().addEntry(LANGUAGE, pks_);
+        data_.getMaxiPkFront().addEntry(PROG_PK1,BaseSixtyFourUtil.getImageByString(PR_IMG_1));
+        data_.getMaxiPkFront().addEntry(PROG_PK2,BaseSixtyFourUtil.getImageByString(PR_IMG_2));
+        data_.getMaxiPkFront().addEntry(PROG_PK3,BaseSixtyFourUtil.getImageByString(PR_IMG_3));
+        data_.getMaxiPkFront().addEntry(PROG_PK4,BaseSixtyFourUtil.getImageByString(PR_IMG_4));
+        data_.getMaxiPkFront().addEntry(PROG_PK5,BaseSixtyFourUtil.getImageByString(PR_IMG_5));
+        data_.getMaxiPkFront().addEntry(PROG_PK6,BaseSixtyFourUtil.getImageByString(PR_IMG_6));
         return data_;
     }
     public static DataBase one() {

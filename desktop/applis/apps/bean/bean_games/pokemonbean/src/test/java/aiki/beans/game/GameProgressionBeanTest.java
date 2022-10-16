@@ -468,6 +468,45 @@ public final class GameProgressionBeanTest extends InitDbBean {
         assertEq(RO_1,callGameProgressionBeanGetRemainingOtherTrainersPlaceName(displaying(beanProg(EN, visit(progressOrdTrainers(),BOY,Sex.BOY))),0));
     }
 
+    @Test
+    public void keyPk1() {
+        assertSizeEq(1,callGameProgressionBeanGetKeyPokemon(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,0));
+    }
+
+    @Test
+    public void keyPk2() {
+        assertSizeEq(1,callGameProgressionBeanGetKeyPokemon(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0));
+    }
+
+    @Test
+    public void keyPk3() {
+        assertEq(PROG_PK1,elt(callGameProgressionBeanGetKeyPokemon(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,0),0));
+    }
+
+    @Test
+    public void keyPk4() {
+        assertEq(PROG_PK1,elt(callGameProgressionBeanGetKeyPokemon(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0),0));
+    }
+
+    @Test
+    public void trPart1() {
+        assertEq(PROG_PK_TR1,callGameProgressionBeanGetTrPokemonPartial(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,0,0));
+    }
+
+    @Test
+    public void trPart2() {
+        assertEq(PROG_PK_TR1,callGameProgressionBeanGetTrPokemonPartial(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0,0));
+    }
+
+    @Test
+    public void imgPart1() {
+        assertEq(PR_IMG_1,callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,0,0));
+    }
+
+    @Test
+    public void imgPart2() {
+        assertEq(PR_IMG_1,callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0,0));
+    }
     private FacadeGame trainer(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = visit(_init, _nickname, _s);
         facadeGame_.getGame().beatGymLeader(newCoords(0,0,0,0,0,0));
