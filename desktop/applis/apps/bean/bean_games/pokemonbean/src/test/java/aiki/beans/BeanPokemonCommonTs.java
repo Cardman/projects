@@ -22,6 +22,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     protected static final String NO_TEAM = "no_team";
     private static final String FIGHT="fight";
     private static final char NAV_SEP='.';
+    private static final String M_CLICK_FOE="clickFoe";
     private static final String M_CLICK_PLAYER="clickPlayer";
 
     public static String navigateFightPlayer(Struct _str, long... _args) {
@@ -29,7 +30,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
     public static String navigateFightFoe(Struct _str, long... _args) {
-        return navigateFight(new FightBeanClickFoe(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
+        return navigateFight(new FightBeanClickFoe(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_FOE,_str,_args);
     }
     public static String navigateFight(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
         return navigate(_caller,_url,PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
