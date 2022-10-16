@@ -461,6 +461,18 @@ public final class DifficultyBeanTest extends InitDbBean {
     public void setIvPlayer() {
         assertEq(1,result(callDifficultyBeanIvPlayerSet(displaying(beanDiff(EN, fac())),1)).getIvPlayer());
     }
+    @Test
+    public void setDiffWinningExpPtsFight() {
+        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),result(callDifficultyBeanDiffWinningExpPtsFightSet(displaying(beanDiff(EN, fac())),DifficultyWinPointsFight.FACILE.getWinName())).getDiffWinningExpPtsFight());
+    }
+    @Test
+    public void setDamageRateLawFoe() {
+        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),result(callDifficultyBeanDamageRateLawFoeSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MIN.getModelName())).getDamageRateLawFoe());
+    }
+    @Test
+    public void setDamageRatePlayer() {
+        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),result(callDifficultyBeanDamageRatePlayerSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MAX.getModelName())).getDamageRatePlayer());
+    }
     private DifficultyCommon result(Struct _str) {
         return ((DifficultyBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
     }
