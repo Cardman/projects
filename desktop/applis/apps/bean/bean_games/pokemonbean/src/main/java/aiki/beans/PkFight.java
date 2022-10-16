@@ -122,10 +122,10 @@ public final class PkFight extends PokemonStandards {
     @Override
     public void initBeans(Configuration _conf, String _language) {
 //        super.initBeans(_conf, _language);
-        getBeansStruct().setValue(0,bean(new FighterBean(), AikiBeansFightStd.TYPE_FIGHTER_BEAN,_language));
-        getBeansStruct().setValue(1,bean(new TeamBean(), AikiBeansFightStd.TYPE_TEAM_BEAN,_language));
-        getBeansStruct().setValue(2,bean(new FightBean(), AikiBeansFightStd.TYPE_FIGHT_BEAN,_language));
-        getBeansStruct().setValue(3,bean(new FightCalculationBean(), AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN,_language));
+        getBeansStruct().setValue(0,beanFighter(_language));
+        getBeansStruct().setValue(1,beanTeam(_language));
+        getBeansStruct().setValue(2,beanFight(_language));
+        getBeansStruct().setValue(3,beanFightCalculation(_language));
         /*
         NavBuilder.buildBeans(beans_,FIGHTER,AIKI_BEANS_FIGHT_FIGHTER_BEAN);
         NavBuilder.buildBeans(beans_,TEAM,AIKI_BEANS_FIGHT_TEAM_BEAN);
@@ -149,5 +149,21 @@ public final class PkFight extends PokemonStandards {
             return bean(new FightCalculationBean(), AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN, _lg);
 
         }*/
+    }
+
+    public PokemonBeanStruct beanFighter(String _language) {
+        return bean(new FighterBean(), AikiBeansFightStd.TYPE_FIGHTER_BEAN, _language);
+    }
+
+    public PokemonBeanStruct beanTeam(String _language) {
+        return bean(new TeamBean(), AikiBeansFightStd.TYPE_TEAM_BEAN, _language);
+    }
+
+    public PokemonBeanStruct beanFight(String _language) {
+        return bean(new FightBean(), AikiBeansFightStd.TYPE_FIGHT_BEAN, _language);
+    }
+
+    public PokemonBeanStruct beanFightCalculation(String _language) {
+        return bean(new FightCalculationBean(), AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN, _language);
     }
 }

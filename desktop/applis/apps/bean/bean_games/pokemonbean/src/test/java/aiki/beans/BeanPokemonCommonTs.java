@@ -1,8 +1,10 @@
 package aiki.beans;
 
 import aiki.beans.facade.game.dto.*;
+import aiki.beans.fight.*;
 import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
+import aiki.game.fight.ActivityOfMove;
 import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
@@ -18,6 +20,47 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
 
+
+    public static Struct callFightBeanMultGet(Struct _str, long... _args) {
+        return callLongs(new FightBeanMultGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanEnabledMovesGet(Struct _str, long... _args) {
+        return callLongs(new FightBeanEnabledMovesGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanIsStillEnabled(Struct _str, long... _args) {
+        return callLongs(new FightBeanIsStillEnabled(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveGetNbTurn(Struct _str, long... _args) {
+        return callLongs(new ActivityOfMoveGetNbTurn(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveIsEnabled(Struct _str, long... _args) {
+        return callLongs(new ActivityOfMoveIsEnabled(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveIsIncrementCount(Struct _str, long... _args) {
+        return callLongs(new ActivityOfMoveIsIncrementCount(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveGetNbTurn(ActivityOfMove _str, long... _args) {
+        return callLongs(new ActivityOfMoveGetNbTurn(),new ActivityOfMoveStruct(_str),_args);
+    }
+
+    public static Struct callActivityOfMoveIsEnabled(ActivityOfMove _str, long... _args) {
+        return callLongs(new ActivityOfMoveIsEnabled(),new ActivityOfMoveStruct(_str),_args);
+    }
+
+    public static Struct callActivityOfMoveIsIncrementCount(ActivityOfMove _str, long... _args) {
+        return callLongs(new ActivityOfMoveIsIncrementCount(),new ActivityOfMoveStruct(_str),_args);
+    }
+    public static Struct beanFight(String _language, FacadeGame _dataBase) {
+        PkFight stds_ = new PkFight();
+        stds_.setDataBase(_dataBase);
+        return stds_.beanFight(_language);
+    }
 
     public static Struct callGameProgressionBeanGetKeyPokemon(Struct _str, long... _args) {
         return callLongs(new GameProgressionBeanGetKeyPokemon(),_str,_args);

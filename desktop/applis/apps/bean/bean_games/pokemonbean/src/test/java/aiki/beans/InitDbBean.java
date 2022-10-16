@@ -70,6 +70,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String ECLAIR_TR = "ECLA";
     protected static final String LUTTE = "LUTTE";
     protected static final String CHARGE2 = "CHARGE2";
+    protected static final String CHARGE_TR2 = "CHA2";
     protected static final String CHARGE3 = "CHARGE3";
     protected static final String CHARGE4 = "CHARGE4";
     protected static final String TREMPETTE = "TREMPETTE";
@@ -323,7 +324,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         return data_;
     }
 
-    private static void statBase(PokemonData _pk) {
+    protected static void statBase(PokemonData _pk) {
         _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
         _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
         _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
@@ -679,7 +680,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         data_.getLitterals().addEntry(LANGUAGE,new StringMap<String>());
         return data_;
     }
-    private static StringMap<String> tr(String _k, String _v) {
+    protected static StringMap<String> tr(String _k, String _v) {
         StringMap<String> t_ = new StringMap<String>();
         t_.addEntry(_k, _v);
         return t_;
@@ -839,7 +840,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _data.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(monteCarloNumber_,(short)5));
     }
 
-    private static DataBase newData() {
+    protected static DataBase newData() {
         return new DataBase(new DefaultGenerator());
     }
 
