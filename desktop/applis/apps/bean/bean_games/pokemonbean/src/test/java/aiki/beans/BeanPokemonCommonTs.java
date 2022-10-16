@@ -18,6 +18,30 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
 
+    public static Struct callGameProgressionBeanNbRemainingNotMaxLevelGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanNbRemainingNotMaxLevelGet(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanNbRemainingNotMaxHappinessGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanNbRemainingNotMaxHappinessGet(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanNbRemainingEggsGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanNbRemainingEggsGet(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanMoneyGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanMoneyGet(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanRemainStepsRepelGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanRemainStepsRepelGet(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanEndGameImageGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanEndGameImageGet(),_str,_args);
+    }
+
     public static Struct callGameProgressionBeanFinishedGameGet(Struct _str, long... _args) {
         return callLongs(new GameProgressionBeanFinishedGameGet(),_str,_args);
     }

@@ -6,7 +6,10 @@ import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
+import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
@@ -15,6 +18,7 @@ import org.junit.Test;
 public final class GameProgressionBeanTest extends InitDbBean {
     static final String GIRL = "G";
     static final String BOY = "B";
+    static final String MONEY_REM = "20";
 
     @Test
     public void nickname1() {
@@ -66,6 +70,74 @@ public final class GameProgressionBeanTest extends InitDbBean {
         assertTrue(callGameProgressionBeanFinishedGameGet(displaying(beanProg(EN, finish(progress(),BOY, Sex.BOY)))));
     }
 
+    @Test
+    public void endGameImage1() {
+        assertEq(H_5, callGameProgressionBeanEndGameImageGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void endGameImage2() {
+        assertEq(H_5, callGameProgressionBeanEndGameImageGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void repel1() {
+        assertEq(15, callGameProgressionBeanRemainStepsRepelGet(displaying(beanProg(EN, incomplete(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void repel2() {
+        assertEq(15, callGameProgressionBeanRemainStepsRepelGet(displaying(beanProg(EN, incomplete(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void money1() {
+        assertEq(LgInt.newLgInt(MONEY_REM), callGameProgressionBeanMoneyGet(displaying(beanProg(EN, incomplete(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void money2() {
+        assertEq(LgInt.newLgInt(MONEY_REM), callGameProgressionBeanMoneyGet(displaying(beanProg(EN, incomplete(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void eggs1() {
+        assertEq(1, callGameProgressionBeanNbRemainingEggsGet(displaying(beanProg(EN, incomplete(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void eggs2() {
+        assertEq(1, callGameProgressionBeanNbRemainingEggsGet(displaying(beanProg(EN, incomplete(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void nbRemainingNotMaxLevel1() {
+        assertEq(1, callGameProgressionBeanNbRemainingNotMaxLevelGet(displaying(beanProg(EN, incomplete(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void nbRemainingNotMaxLevel2() {
+        assertEq(1, callGameProgressionBeanNbRemainingNotMaxLevelGet(displaying(beanProg(EN, incomplete(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void nbRemainingNotMaxHappiness1() {
+        assertEq(1, callGameProgressionBeanNbRemainingNotMaxHappinessGet(displaying(beanProg(EN, incomplete(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void nbRemainingNotMaxHappiness2() {
+        assertEq(1, callGameProgressionBeanNbRemainingNotMaxHappinessGet(displaying(beanProg(EN, incomplete(progress(),BOY, Sex.BOY)))));
+    }
+    private FacadeGame incomplete(DataBase _init, String _nickname,Sex _s) {
+        _init.addConstNumTest(DataBase.NIVEAU_PK_MAX, Rate.newRate("10"));
+        _init.addConstNumTest(DataBase.MAX_BONHEUR, Rate.newRate("128"));
+        FacadeGame fac_ = fac(_init, _nickname, _s);
+        fac_.getGame().getPlayer().setRemainingRepelSteps(15);
+        fac_.getGame().getPlayer().setMoney(LgInt.newLgInt(MONEY_REM));
+        fac_.getGame().getPlayer().recupererOeufPensions(Egg.newEgg(PROG_PK1));
+        return fac_;
+    }
     private FacadeGame finish(DataBase _init, String _nickname,Sex _s) {
         FacadeGame fac_ = fac(_init, _nickname, _s);
         fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK1, BoolVal.TRUE);
