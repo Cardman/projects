@@ -15,6 +15,30 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
 
+    public static Struct callDifficultyBeanIvFoeGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanIvFoeGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanIvPlayerGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanIvPlayerGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRateLooseMoneyWinGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanRateLooseMoneyWinGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRateWinMoneyBaseGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanRateWinMoneyBaseGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRateWinningExpPtsFightGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanRateWinningExpPtsFightGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanWinTrainerExpGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanWinTrainerExpGet(),_str,_args);
+    }
+
     public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(Struct _str, long... _args) {
         return callLongs(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),_str,_args);
     }

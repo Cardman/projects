@@ -5,6 +5,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.params.Difficulty;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class DifficultyBeanTest extends InitDbBean {
@@ -119,6 +120,51 @@ public final class DifficultyBeanTest extends InitDbBean {
         FacadeGame fac_ = fac();
         diff(fac_).setSkipLearningMovesWhileNotGrowingLevel(false);
         assertFalse(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRateLooseMoneyWin() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRateLooseMoneyWin(rt());
+        assertEq(rt(),callDifficultyBeanRateLooseMoneyWinGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getWinTrainerExp() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setWinTrainerExp(rt());
+        assertEq(rt(),callDifficultyBeanWinTrainerExpGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRateWinningExpPtsFight() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRateWinningExpPtsFight(rt());
+        assertEq(rt(),callDifficultyBeanRateWinningExpPtsFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRateWinMoneyBase() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRateWinMoneyBase(rt());
+        assertEq(rt(),callDifficultyBeanRateWinMoneyBaseGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getIvFoe() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setIvFoe((short) 1);
+        assertEq(1,callDifficultyBeanIvFoeGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getIvPlayer() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setIvPlayer((short) 1);
+        assertEq(1,callDifficultyBeanIvPlayerGet(displaying(beanDiff(EN, fac_))));
+    }
+    private Rate rt() {
+        return Rate.newRate("2");
     }
 
     private Difficulty diff(FacadeGame _fac) {
