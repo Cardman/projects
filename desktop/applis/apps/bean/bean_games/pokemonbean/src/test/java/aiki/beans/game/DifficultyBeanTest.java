@@ -5,6 +5,8 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.params.Difficulty;
+import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -162,6 +164,27 @@ public final class DifficultyBeanTest extends InitDbBean {
         FacadeGame fac_ = fac();
         diff(fac_).setIvPlayer((short) 1);
         assertEq(1,callDifficultyBeanIvPlayerGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getDiffWinningExpPtsFight() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setDiffWinningExpPtsFight(DifficultyWinPointsFight.FACILE);
+        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),callDifficultyBeanDiffWinningExpPtsFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getDamageRateLawFoe() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MIN);
+        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),callDifficultyBeanDamageRateLawFoeGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getDamageRatePlayer() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
+        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),callDifficultyBeanDamageRatePlayerGet(displaying(beanDiff(EN, fac_))));
     }
     private Rate rt() {
         return Rate.newRate("2");
