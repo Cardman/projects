@@ -26,6 +26,7 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.*;
+import code.images.BaseSixtyFourUtil;
 import code.maths.*;
 import code.maths.montecarlo.*;
 import code.util.*;
@@ -36,6 +37,11 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String RAI2 = "RAI2";
     protected static final String RAI_TR = "RE";
     protected static final String RAI2_TR = "2RE";
+    protected static final String H_1 = "AAABAADO";
+    protected static final String H_2 = "AAABAAEO";
+    protected static final String H_3 = "AAABAAFO";
+    protected static final String H_4 = "AAABAAGO";
+    protected static final String H_5 = "AAABAAHO";
     protected static final String MAX_PIKA = "AAABAACO";
     protected static final String MAX_RAI = "AAABAACP";
     protected static final String MAX_RAI2 = "AAABAACQ";
@@ -70,6 +76,81 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String DEF_MAX_ATT = "DEF_MAX_ATT";
     protected static final String SPEED_TR = "vit";
 
+    protected static final String PROG_PK1="PK_1";
+    protected static final String PROG_PK2="PK_2";
+    protected static final String PROG_PK3="PK_3";
+    protected static final String PROG_PK4="PK_4";
+    protected static final String PROG_PK5="PK_5";
+    protected static final String PROG_PK6="PK_6";
+
+    protected static final String PROG_PK_TR1="P_1";
+    protected static final String PROG_PK_TR2="P_2";
+    protected static final String PROG_PK_TR3="P_3";
+    protected static final String PROG_PK_TR4="P_4";
+    protected static final String PROG_PK_TR5="P_5";
+    protected static final String PROG_PK_TR6="P_6";
+
+    public static DataBase progress() {
+        DataBase data_ = newData();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        PokemonData one_ = Instances.newPokemonData();
+        statBase(one_);
+        one_.setBaseEvo(PROG_PK1);
+        data_.completeMembers(PROG_PK1,one_);
+        PokemonData two_ = Instances.newPokemonData();
+        two_.setBaseEvo(PROG_PK1);
+        data_.completeMembers(PROG_PK2,two_);
+        PokemonData three_ = Instances.newPokemonData();
+        three_.setBaseEvo(PROG_PK3);
+        data_.completeMembers(PROG_PK3,three_);
+        PokemonData four_ = Instances.newPokemonData();
+        four_.setBaseEvo(PROG_PK3);
+        data_.completeMembers(PROG_PK4,four_);
+        PokemonData five_ = Instances.newPokemonData();
+        five_.setBaseEvo(PROG_PK5);
+        data_.completeMembers(PROG_PK5,five_);
+        PokemonData six_ = Instances.newPokemonData();
+        six_.setBaseEvo(PROG_PK5);
+        data_.completeMembers(PROG_PK6,six_);
+
+        CustList<StringList> first_ = new CustList<StringList>();
+        first_.add(new StringList(PROG_PK1));
+        first_.add(new StringList(PROG_PK2));
+        data_.getFamilies().addEntry(PROG_PK1,new PokemonFamily(first_));
+        CustList<StringList> second_ = new CustList<StringList>();
+        second_.add(new StringList(PROG_PK3));
+        second_.add(new StringList(PROG_PK4));
+        data_.getFamilies().addEntry(PROG_PK3,new PokemonFamily(second_));
+        CustList<StringList> third_ = new CustList<StringList>();
+        third_.add(new StringList(PROG_PK5));
+        third_.add(new StringList(PROG_PK6));
+        data_.getFamilies().addEntry(PROG_PK5,new PokemonFamily(third_));
+
+        WildPk pkm_ = new WildPk();
+        pkm_.setName(PROG_PK1);
+        pkm_.setAbility(PARATONNERRE);
+        pkm_.setGender(Gender.NO_GENDER);
+        pkm_.setItem(NULL_REF);
+        pkm_.setLevel((short) 7);
+        data_.getMap().setFirstPokemon(pkm_);
+        data_.getMap().setBegin(newCoords(0, 0, 0, 1));
+        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL), BaseSixtyFourUtil.getImageByString(H_1));
+        data_.getFrontHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY),BaseSixtyFourUtil.getImageByString(H_2));
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.GIRL),BaseSixtyFourUtil.getImageByString(H_3));
+        data_.getBackHeros().addEntry(new ImageHeroKey(EnvironmentType.ROAD, Sex.BOY),BaseSixtyFourUtil.getImageByString(H_4));
+        data_.setEndGameImage(BaseSixtyFourUtil.getImageByString(H_5));
+        StringMap<String> pks_ = new StringMap<String>();
+        pks_.addEntry(PROG_PK1,PROG_PK_TR1);
+        pks_.addEntry(PROG_PK2,PROG_PK_TR2);
+        pks_.addEntry(PROG_PK3,PROG_PK_TR3);
+        pks_.addEntry(PROG_PK4,PROG_PK_TR4);
+        pks_.addEntry(PROG_PK5,PROG_PK_TR5);
+        pks_.addEntry(PROG_PK6,PROG_PK_TR6);
+        data_.getTranslatedPokemon().addEntry(LANGUAGE, pks_);
+        return data_;
+    }
     public static DataBase one() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
@@ -79,12 +160,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkData_.setBaseEvo(PIKACHU);
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
-        pkData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+        statBase(pkData_);
         pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
         pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
         pkData_.setExpRate(1);
@@ -185,6 +261,16 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         initExpPoints(data_);
         return data_;
     }
+
+    private static void statBase(PokemonData _pk) {
+        _pk.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
+        _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+    }
+
     private static DataBase init() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
@@ -251,12 +337,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         pkData_.setBaseEvo(PIKACHU);
         pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
         pkData_.setTypes(new StringList(ELECTRICK));
-        pkData_.getStatistics().addEntry(Statistic.ATTACK,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.DEFENSE,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.SPECIAL_ATTACK,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.SPECIAL_DEFENSE,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)0));
-        pkData_.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)0));
+        statBase(pkData_);
         pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
         pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
         pkData_.setExpRate(1);

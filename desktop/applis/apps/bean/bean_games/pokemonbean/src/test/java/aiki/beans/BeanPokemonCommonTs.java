@@ -18,6 +18,14 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
 
+    public static Struct callGameProgressionBeanNicknameGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanNicknameGet(),_str,_args);
+    }
+    public static Struct beanProg(String _language, FacadeGame _dataBase) {
+        PkProg stds_ = new PkProg();
+        stds_.setDataBase(_dataBase);
+        return stds_.initProg(_language);
+    }
     public static String navigateDiffChange(Struct _str, long... _args) {
         return navigateDiff(new DifficultyBeanChange(),CommonBean.DEST_WEB_GAME_HTML_DIFFICULTY_HTML,"",_str,_args);
     }
