@@ -170,6 +170,204 @@ public final class GameProgressionBeanTest extends InitDbBean {
         assertEq(CI_1,elt(callGameProgressionBeanVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),BOY,Sex.BOY)))),0));
     }
 
+    @Test
+    public void partial1() {
+        assertSizeEq(1,callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void partial2() {
+        assertSizeEq(1,callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void partial3() {
+        assertEq(PROG_PK_TR1,first(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void partial4() {
+        assertEq(PROG_PK_TR1,first(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void partial5() {
+        assertSizeEq(2,second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void partial6() {
+        assertSizeEq(2,second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void partial7() {
+        assertSizeEq(0,elt(second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),0));
+    }
+
+    @Test
+    public void partial8() {
+        assertSizeEq(0,elt(second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),0));
+    }
+
+    @Test
+    public void partial9() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),1));
+    }
+
+    @Test
+    public void partial10() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),1));
+    }
+
+    @Test
+    public void partial11() {
+        assertEq(PROG_PK2,elt(elt(second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),1),0));
+    }
+
+    @Test
+    public void partial12() {
+        assertEq(PROG_PK2,elt(elt(second(elt(callGameProgressionBeanPartialFamiliesBaseNotCaughtGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),1),0));
+    }
+
+    @Test
+    public void not1() {
+        assertSizeEq(2,callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void not2() {
+        assertSizeEq(2,callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void not3() {
+        assertEq(PROG_PK_TR3,first(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void not4() {
+        assertEq(PROG_PK_TR3,first(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void not5() {
+        assertSizeEq(2,second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void not6() {
+        assertSizeEq(2,second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void not7() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),0));
+    }
+
+    @Test
+    public void not8() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),0));
+    }
+
+    @Test
+    public void not9() {
+        assertEq(PROG_PK3,elt(elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),0),0));
+    }
+
+    @Test
+    public void not10() {
+        assertEq(PROG_PK3,elt(elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),0),0));
+    }
+    @Test
+    public void not11() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),1));
+    }
+
+    @Test
+    public void not12() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),1));
+    }
+
+    @Test
+    public void not13() {
+        assertEq(PROG_PK4,elt(elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))),0)),1),0));
+    }
+
+    @Test
+    public void not14() {
+        assertEq(PROG_PK4,elt(elt(second(elt(callGameProgressionBeanNotAtAllFamiliesBaseGet(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY)))),0)),1),0));
+    }
+
+    @Test
+    public void all1() {
+        assertSizeEq(3,callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void all2() {
+        assertSizeEq(3,callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void all3() {
+        assertEq(PROG_PK_TR1,first(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void all4() {
+        assertEq(PROG_PK_TR1,first(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void all5() {
+        assertSizeEq(2,second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void all6() {
+        assertSizeEq(2,second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void all7() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))),0)),0));
+    }
+
+    @Test
+    public void all8() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)),0));
+    }
+
+    @Test
+    public void all9() {
+        assertEq(PROG_PK1,elt(elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))),0)),0),0));
+    }
+
+    @Test
+    public void all10() {
+        assertEq(PROG_PK1,elt(elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)),0),0));
+    }
+    @Test
+    public void all11() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))),0)),1));
+    }
+
+    @Test
+    public void all12() {
+        assertSizeEq(1,elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)),1));
+    }
+
+    @Test
+    public void all13() {
+        assertEq(PROG_PK2,elt(elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))),0)),1),0));
+    }
+
+    @Test
+    public void all14() {
+        assertEq(PROG_PK2,elt(elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)),1),0));
+    }
+
     private FacadeGame visit(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = common(_init);
         Game game_ = new Game(_init);
