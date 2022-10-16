@@ -23,6 +23,30 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return callLongs(new GameProgressionBeanGetKeyPokemon(),_str,_args);
     }
 
+    public static Struct callGameProgressionBeanGetImagePokemonFull(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetImagePokemonFull(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetTrPokemonFull(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetTrPokemonFull(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetImagePokemonNotAll(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetImagePokemonNotAll(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetTrPokemonNotAll(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetTrPokemonNotAll(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetImagePokemonPartialNot(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetImagePokemonPartialNot(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanGetTrPokemonPartialNot(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetTrPokemonPartialNot(),_str,_args);
+    }
+
     public static Struct callGameProgressionBeanGetImagePokemonPartial(Struct _str, long... _args) {
         return callLongs(new GameProgressionBeanGetImagePokemonPartial(),_str,_args);
     }

@@ -507,6 +507,66 @@ public final class GameProgressionBeanTest extends InitDbBean {
     public void imgPart2() {
         assertEq(PR_IMG_1,callGameProgressionBeanGetImagePokemonPartial(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,0,0));
     }
+
+    @Test
+    public void trPartNot1() {
+        assertEq(PROG_PK_TR2,callGameProgressionBeanGetTrPokemonPartialNot(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
+    }
+
+    @Test
+    public void trPartNot2() {
+        assertEq(PROG_PK_TR2,callGameProgressionBeanGetTrPokemonPartialNot(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
+    }
+
+    @Test
+    public void imgPartNot1() {
+        assertEq(PR_IMG_2,callGameProgressionBeanGetImagePokemonPartialNot(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
+    }
+
+    @Test
+    public void imgPartNot2() {
+        assertEq(PR_IMG_2,callGameProgressionBeanGetImagePokemonPartialNot(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
+    }
+
+    @Test
+    public void trNotAll1() {
+        assertEq(PROG_PK_TR4,callGameProgressionBeanGetTrPokemonNotAll(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
+    }
+
+    @Test
+    public void trNotAll2() {
+        assertEq(PROG_PK_TR4,callGameProgressionBeanGetTrPokemonNotAll(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
+    }
+
+    @Test
+    public void imgNotAll1() {
+        assertEq(PR_IMG_4,callGameProgressionBeanGetImagePokemonNotAll(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL))),0,1,0));
+    }
+
+    @Test
+    public void imgNotAll2() {
+        assertEq(PR_IMG_4,callGameProgressionBeanGetImagePokemonNotAll(displaying(beanProg(EN, fac(progress(),BOY,Sex.BOY))),0,1,0));
+    }
+
+    @Test
+    public void trAll1() {
+        assertEq(PROG_PK_TR1,callGameProgressionBeanGetTrPokemonFull(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL))),0,0,0));
+    }
+
+    @Test
+    public void trAll2() {
+        assertEq(PROG_PK_TR1,callGameProgressionBeanGetTrPokemonFull(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY))),0,0,0));
+    }
+
+    @Test
+    public void imgAll1() {
+        assertEq(PR_IMG_1,callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL))),0,0,0));
+    }
+
+    @Test
+    public void imgAll2() {
+        assertEq(PR_IMG_1,callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY))),0,0,0));
+    }
     private FacadeGame trainer(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = visit(_init, _nickname, _s);
         facadeGame_.getGame().beatGymLeader(newCoords(0,0,0,0,0,0));
