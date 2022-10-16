@@ -1,9 +1,6 @@
 package aiki.beans;
 
-import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetEv;
-import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetIv;
-import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetName;
-import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetRate;
+import aiki.beans.facade.game.dto.*;
 import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
@@ -17,6 +14,34 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
+
+    public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanStillPossibleFleeGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanStillPossibleFleeGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRandomWildFightGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanRandomWildFightGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanEnabledClosingGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanEnabledClosingGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRestoredMovesEndFightGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanRestoredMovesEndFightGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanAllowedSwitchPlacesEndRoundGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanEndFightIfOneTeamKoGet(Struct _str, long... _args) {
+        return callLongs(new DifficultyBeanEndFightIfOneTeamKoGet(),_str,_args);
+    }
 
     public static Struct callDifficultyBeanAllowCatchingKoGet(Struct _str, long... _args) {
         return callLongs(new DifficultyBeanAllowCatchingKoGet(),_str,_args);

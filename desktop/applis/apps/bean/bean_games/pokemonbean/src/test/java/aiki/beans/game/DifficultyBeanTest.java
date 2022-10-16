@@ -11,24 +11,122 @@ public final class DifficultyBeanTest extends InitDbBean {
 
     @Test
     public void getAllowCatchingKo1() {
-        FacadeGame fac_ = fac(2);
+        FacadeGame fac_ = fac();
         diff(fac_).setAllowCatchingKo(true);
         assertTrue(callDifficultyBeanAllowCatchingKoGet(displaying(beanDiff(EN, fac_))));
     }
 
     @Test
     public void getAllowCatchingKo2() {
-        FacadeGame fac_ = fac(2);
+        FacadeGame fac_ = fac();
         diff(fac_).setAllowCatchingKo(false);
         assertFalse(callDifficultyBeanAllowCatchingKoGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getEndFightIfOneTeamKo1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setEndFightIfOneTeamKo(true);
+        assertTrue(callDifficultyBeanEndFightIfOneTeamKoGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getEndFightIfOneTeamKo2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setEndFightIfOneTeamKo(false);
+        assertFalse(callDifficultyBeanEndFightIfOneTeamKoGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getAllowedSwitchPlacesEndRound1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setAllowedSwitchPlacesEndRound(true);
+        assertTrue(callDifficultyBeanAllowedSwitchPlacesEndRoundGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getAllowedSwitchPlacesEndRound2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setAllowedSwitchPlacesEndRound(false);
+        assertFalse(callDifficultyBeanAllowedSwitchPlacesEndRoundGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRestoredMovesEndFight1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRestoredMovesEndFight(true);
+        assertTrue(callDifficultyBeanRestoredMovesEndFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRestoredMovesEndFight2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRestoredMovesEndFight(false);
+        assertFalse(callDifficultyBeanRestoredMovesEndFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getEnabledClosing1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setEnabledClosing(true);
+        assertTrue(callDifficultyBeanEnabledClosingGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getEnabledClosing2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setEnabledClosing(false);
+        assertFalse(callDifficultyBeanEnabledClosingGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRandomWildFight1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRandomWildFight(true);
+        assertTrue(callDifficultyBeanRandomWildFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getRandomWildFight2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setRandomWildFight(false);
+        assertFalse(callDifficultyBeanRandomWildFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getStillPossibleFlee1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setStillPossibleFlee(true);
+        assertTrue(callDifficultyBeanStillPossibleFleeGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getStillPossibleFlee2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setStillPossibleFlee(false);
+        assertFalse(callDifficultyBeanStillPossibleFleeGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getSkipLearningMovesWhileNotGrowingLevel1() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setSkipLearningMovesWhileNotGrowingLevel(true);
+        assertTrue(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getSkipLearningMovesWhileNotGrowingLevel2() {
+        FacadeGame fac_ = fac();
+        diff(fac_).setSkipLearningMovesWhileNotGrowingLevel(false);
+        assertFalse(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(displaying(beanDiff(EN, fac_))));
     }
 
     private Difficulty diff(FacadeGame _fac) {
         return _fac.getGame().getDifficulty();
     }
 
-    private FacadeGame fac(int _iv) {
-        DataBase di_ = diff(_iv);
+    private FacadeGame fac() {
+        DataBase di_ = diff(2);
         FacadeGame f_ = new FacadeGame();
         f_.setData(di_);
         f_.setGame(new Game());
