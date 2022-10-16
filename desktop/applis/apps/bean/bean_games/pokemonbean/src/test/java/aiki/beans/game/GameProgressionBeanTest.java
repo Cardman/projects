@@ -427,6 +427,47 @@ public final class GameProgressionBeanTest extends InitDbBean {
     public void beat6() {
         assertEq(CI_1,callTrainerPlaceNamesGetPlace(elt(callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))),0)));
     }
+
+    @Test
+    public void ord1() {
+        assertSizeEq(1,callGameProgressionBeanRemainingOtherTrainerPlacesGet(displaying(beanProg(EN, visit(progressOrdTrainers(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void ord2() {
+        assertSizeEq(1,callGameProgressionBeanRemainingOtherTrainerPlacesGet(displaying(beanProg(EN, visit(progressOrdTrainers(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void ord3() {
+        assertEq(2,first(elt(callGameProgressionBeanRemainingOtherTrainerPlacesGet(displaying(beanProg(EN, visit(progressOrdTrainers(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void ord4() {
+        assertEq(2,first(elt(callGameProgressionBeanRemainingOtherTrainerPlacesGet(displaying(beanProg(EN, visit(progressOrdTrainers(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void ord5() {
+        assertEq(1,second(elt(callGameProgressionBeanRemainingOtherTrainerPlacesGet(displaying(beanProg(EN, visit(progressOrdTrainers(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void ord6() {
+        assertEq(1,second(elt(callGameProgressionBeanRemainingOtherTrainerPlacesGet(displaying(beanProg(EN, visit(progressOrdTrainers(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void pl1() {
+        assertEq(RO_1,callGameProgressionBeanGetRemainingOtherTrainersPlaceName(displaying(beanProg(EN, visit(progressOrdTrainers(),GIRL,Sex.GIRL))),0));
+    }
+
+    @Test
+    public void pl2() {
+        assertEq(RO_1,callGameProgressionBeanGetRemainingOtherTrainersPlaceName(displaying(beanProg(EN, visit(progressOrdTrainers(),BOY,Sex.BOY))),0));
+    }
+
     private FacadeGame trainer(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = visit(_init, _nickname, _s);
         facadeGame_.getGame().beatGymLeader(newCoords(0,0,0,0,0,0));

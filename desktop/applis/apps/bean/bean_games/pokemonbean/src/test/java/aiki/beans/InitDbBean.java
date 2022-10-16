@@ -11,6 +11,7 @@ import aiki.fight.moves.enums.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.pokemon.enums.*;
 import aiki.fight.util.*;
+import aiki.game.NbFightCoords;
 import aiki.game.params.enums.*;
 import aiki.game.player.enums.*;
 import aiki.instances.*;
@@ -93,7 +94,17 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String CI_2 = "CI_2";
     protected static final String FIRST_TRAINER = "P";
     protected static final String SECOND_TRAINER = "O";
+    protected static final String RO_1 = "RO_1";
 
+    public static DataBase progressOrdTrainers() {
+        DataBase pr_ = progressPlaces();
+        Road r_ = Instances.newRoad();
+        r_.setName(RO_1);
+        r_.getLevelRoad().getCharacters().addEntry(newPoint(0,0), Instances.newTrainerMultiFights());
+        pr_.getMap().addPlace(r_);
+        pr_.getMap().getBeatTrainer().add(new NbFightCoords(newCoords(2,0,0,0),0));
+        return pr_;
+    }
     public static DataBase progressTrainers() {
         DataBase pr_ = progressPlaces();
         City plOne_ = (City) pr_.getMap().getPlaces().get(0);

@@ -19,6 +19,13 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String EN = "en";
 
 
+    public static Struct callGameProgressionBeanGetRemainingOtherTrainersPlaceName(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanGetRemainingOtherTrainersPlaceName(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanRemainingOtherTrainerPlacesGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanRemainingOtherTrainerPlacesGet(),_str,_args);
+    }
     public static Struct callTrainerPlaceNamesGetPlace(Struct _str, long... _args) {
         return callLongs(new TrainerPlaceNamesGetPlace(),_str,_args);
     }
