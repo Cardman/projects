@@ -20,7 +20,7 @@ public final class DictionaryComparatorUtilTest extends InitDbBean {
     private static final String FRC3="8/21";
     private static final String FRC4="5/21";
     @Test
-    public void group() {
+    public void group1() {
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(Rate.newRate(EV3), LgInt.newLgInt(FR3));
         law_.addQuickEvent(Rate.newRate(EV2), LgInt.newLgInt(FR2));
@@ -36,5 +36,15 @@ public final class DictionaryComparatorUtilTest extends InitDbBean {
         assertEq(Rate.newRate(FRC1),map_.getValue(2));
         assertEq(Rate.newRate(EV4),map_.getKey(3));
         assertEq(Rate.newRate(FRC4),map_.getValue(3));
+    }
+    @Test
+    public void group2() {
+        MonteCarloNumber law_ = new MonteCarloNumber();
+        law_.addQuickEvent(Rate.newRate(EV3), LgInt.newLgInt(FR3));
+        law_.addQuickEvent(Rate.newRate(EV3), LgInt.newLgInt(FR2));
+        DictionaryComparator<Rate, Rate> map_ = DictionaryComparatorUtil.feedRateRate(law_);
+        assertEq(1, map_.size());
+        assertEq(Rate.newRate(EV3),map_.getKey(0));
+        assertEq(Rate.one(),map_.getValue(0));
     }
 }
