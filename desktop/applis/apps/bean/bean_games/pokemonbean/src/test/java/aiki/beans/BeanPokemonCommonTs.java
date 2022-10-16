@@ -14,6 +14,23 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
+
+    public static Struct callDifficultyBeanRateLooseMoneyWinSet(Struct _str, Rate _args) {
+        return callRate(new DifficultyBeanRateLooseMoneyWinSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRateWinMoneyBaseSet(Struct _str, Rate _args) {
+        return callRate(new DifficultyBeanRateWinMoneyBaseSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRateWinningExpPtsFightSet(Struct _str, Rate _args) {
+        return callRate(new DifficultyBeanRateWinningExpPtsFightSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanWinTrainerExpSet(Struct _str, Rate _args) {
+        return callRate(new DifficultyBeanWinTrainerExpSet(),_str,_args);
+    }
+
     public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(Struct _str, boolean _args) {
         return callBool(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(),_str,_args);
     }
@@ -246,6 +263,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return _caller.re(_str,getLongArray(_args));
     }
 
+    public static Struct callRate(NatCaller _caller, Struct _str, Rate _args) {
+        _caller.re(_str,new Struct[]{new RateStruct(_args)});
+        return _str;
+    }
     public static Struct callBool(NatCaller _caller, Struct _str, boolean _args) {
         _caller.re(_str,new Struct[]{BooleanStruct.of(_args)});
         return _str;
@@ -274,12 +295,18 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         assertEq(_exp,((StringStruct)_result).getInstance());
     }
     public static void assertEq(LgInt _exp, Struct _result) {
-        assertEq(_exp.toNumberString(),((LgIntStruct)_result).getInstance().toNumberString());
-        assertTrue(_exp.eq(((LgIntStruct)_result).getInstance()));
+        assertEq(_exp,((LgIntStruct)_result).getInstance());
     }
     public static void assertEq(Rate _exp, Struct _result) {
-        assertEq(_exp.toNumberString(),((RateStruct)_result).getInstance().toNumberString());
-        assertTrue(_exp.eq(((RateStruct)_result).getInstance()));
+        assertEq(_exp,((RateStruct)_result).getInstance());
+    }
+    public static void assertEq(LgInt _exp, LgInt _result) {
+        assertEq(_exp.toNumberString(),_result.toNumberString());
+        assertTrue(_exp.eq(_result));
+    }
+    public static void assertEq(Rate _exp, Rate _result) {
+        assertEq(_exp.toNumberString(),_result.toNumberString());
+        assertTrue(_exp.eq(_result));
     }
     public static void assertEq(long _exp, Struct _result) {
         assertEq(_exp,(((NumberStruct)_result).longStruct()));

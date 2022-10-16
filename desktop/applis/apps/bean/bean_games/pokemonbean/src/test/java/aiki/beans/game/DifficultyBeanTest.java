@@ -432,6 +432,25 @@ public final class DifficultyBeanTest extends InitDbBean {
         assertFalse(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),false)).getSkipLearningMovesWhileNotGrowingLevel());
     }
 
+    @Test
+    public void setWinTrainerExp() {
+        assertEq(rt(),result(callDifficultyBeanWinTrainerExpSet(displaying(beanDiff(EN, fac())),rt())).getWinTrainerExp());
+    }
+
+    @Test
+    public void setRateWinningExpPtsFight() {
+        assertEq(rt(),result(callDifficultyBeanRateWinningExpPtsFightSet(displaying(beanDiff(EN, fac())),rt())).getRateWinningExpPtsFight());
+    }
+
+    @Test
+    public void setRateWinMoneyBase() {
+        assertEq(rt(),result(callDifficultyBeanRateWinMoneyBaseSet(displaying(beanDiff(EN, fac())),rt())).getRateWinMoneyBase());
+    }
+
+    @Test
+    public void setRateLooseMoneyWin() {
+        assertEq(rt(),result(callDifficultyBeanRateLooseMoneyWinSet(displaying(beanDiff(EN, fac())),rt())).getRateLooseMoneyWin());
+    }
     private DifficultyCommon result(Struct _str) {
         return ((DifficultyBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
     }
