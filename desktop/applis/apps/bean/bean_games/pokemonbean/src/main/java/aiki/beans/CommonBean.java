@@ -13,6 +13,7 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class CommonBean extends Bean implements WithFacade,WithForms {
+    public static final String DEST_WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
     protected static final String CST_ABILITIES = "abilities";
     protected static final String CST_ABILITIES_SET = "abilities_set";
     protected static final String CST_ABILITY = "ability";

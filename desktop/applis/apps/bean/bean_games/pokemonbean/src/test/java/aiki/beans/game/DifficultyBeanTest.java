@@ -1,5 +1,6 @@
 package aiki.beans.game;
 
+import aiki.beans.CommonBean;
 import aiki.beans.DifficultyCommon;
 import aiki.beans.InitDbBean;
 import aiki.beans.PokemonBeanStruct;
@@ -473,6 +474,13 @@ public final class DifficultyBeanTest extends InitDbBean {
     public void setDamageRatePlayer() {
         assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),result(callDifficultyBeanDamageRatePlayerSet(displaying(beanDiff(EN, fac())),DifficultyModelLaw.CONSTANT_MAX.getModelName())).getDamageRatePlayer());
     }
+    @Test
+    public void change() {
+        FacadeGame fac_ = fac();
+        assertEq(CommonBean.DEST_WEB_GAME_HTML_DIFFICULTY_HTML,navigateDiffChange(callDifficultyBeanDiffWinningExpPtsFightSet(displaying(beanDiff(EN, fac_)),DifficultyWinPointsFight.FACILE.getWinName())));
+        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),diff(fac_).getDiffWinningExpPtsFight().getWinName());
+    }
+
     private DifficultyCommon result(Struct _str) {
         return ((DifficultyBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
     }

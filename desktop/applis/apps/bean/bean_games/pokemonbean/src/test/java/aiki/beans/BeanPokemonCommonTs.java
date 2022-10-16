@@ -5,15 +5,31 @@ import aiki.beans.game.*;
 import aiki.facade.FacadeGame;
 import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
+import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
+import code.scripts.confs.PkScriptPagesInit;
 import code.util.Longs;
+import code.util.StringMap;
 
 public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
+
+    public static String navigateDiffChange(Struct _str, long... _args) {
+        return navigateDiff(new DifficultyBeanChange(),CommonBean.DEST_WEB_GAME_HTML_DIFFICULTY_HTML,"",_str,_args);
+    }
+
+    public static String navigateDiff(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
+        return navigate(_caller,_url,PkScriptPagesInit.initConfDiff(new Configuration()),_concat,_str,_args);
+    }
+
+    public static String navigate(NatCaller _caller, String _url, StringMap<StringMap<String>> _navigation, String _concat, Struct _str, long... _args) {
+        Struct res_ = callLongs(_caller, _str, _args);
+        return BeanNatCommonLgNames.getString(res_,_url,_navigation,_concat);
+    }
 
     public static Struct callDifficultyBeanDamageRateLawFoeSet(Struct _str, String _args) {
         return callString(new DifficultyBeanDamageRateLawFoeSet(),_str,_args);
