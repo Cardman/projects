@@ -1,6 +1,8 @@
 package aiki.beans.game;
 
 import aiki.beans.InitDbBean;
+import aiki.beans.PkProg;
+import aiki.beans.ProgGameInit;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
@@ -8,10 +10,18 @@ import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
+import code.formathtml.Navigation;
+import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.scripts.pages.aiki.CssInit;
+import code.scripts.pages.aiki.MessagesInit;
+import code.scripts.pages.aiki.PagesInit;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.consts.Constants;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
@@ -567,6 +577,262 @@ public final class GameProgressionBeanTest extends InitDbBean {
     public void imgAll2() {
         assertEq(PR_IMG_1,callGameProgressionBeanGetImagePokemonFull(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY))),0,0,0));
     }
+
+    @Test
+    public void nav1() {
+        StringMap<String> builtMessages_ = MessagesInit.ms();
+        AnaRendBlock.adjust(builtMessages_);
+        StringMap<String> builtOther_ = CssInit.ms();
+        PkProg pk_ = new PkProg();
+        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        pk_.setDataBase(fac(progress(),GIRL,Sex.GIRL));
+        pk_.initializeRendSessionDoc(nav_);
+        String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body>nickname: G<img src=\"AAABAADO\"/><br/><a c:command=\"progressing.n\" href=\"\" n-a=\"0\">Pokemon families without caught pokemon</a><br/><a c:command=\"progressing.p\" href=\"\" n-a=\"1\">Pokemon families with caught pokemon and uncaught pokemon</a><br/><a c:command=\"progressing.a\" href=\"\" n-a=\"2\">Pokemon families without uncaught pokemon</a><br/>Not beaten important trainers<ul/><br/>Beaten important trainers<ul/><br/><table><caption>Remaining trainers to be beaten</caption><thead><tr><th>Place where to find</th><th>Number of remaining trainers at this place</th></tr></thead><tbody/></table><br/>Not visited places<ul/><br/>Visited places<ul/><br/>number remaining pokemon to set to the maximum level: 0<br/>number remaining pokemon to set to the maximum happiness: 0<br/>number remaining eggs: 0<br/>remaining steps repel: 0<br/>money: 0<br/></body></html>";
+        assertEq(firstPage_,nav_.getHtmlText());
+
+        goToPage(pk_, nav_, 0);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without caught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_3<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD3\"/>P_3<br/></td><td><img src=\"AAABAAD4\"/>P_4<br/></td></tr></tbody></table><br/>P_5<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD5\"/>P_5<br/></td><td><img src=\"AAABAAD6\"/>P_6<br/></td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+        goToPage(pk_, nav_, 0);
+        goToPage(pk_, nav_, 1);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families with caught pokemon and uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_1<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td/><td><img src=\"AAABAAD2\"/>P_2<br/></td></tr><tr><td>caught pokemon among the current family</td><td><img src=\"AAABAAD1\"/>P_1<br/></td><td/></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+        goToPage(pk_, nav_, 0);
+        goToPage(pk_, nav_, 2);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/></body></html>",nav_.getHtmlText());
+        goToPage(pk_, nav_, 0);
+        assertEq(firstPage_,nav_.getHtmlText());
+    }
+
+    @Test
+    public void nav2() {
+        StringMap<String> builtMessages_ = MessagesInit.ms();
+        AnaRendBlock.adjust(builtMessages_);
+        StringMap<String> builtOther_ = CssInit.ms();
+        PkProg pk_ = new PkProg();
+        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        pk_.setDataBase(fac(progress(),BOY,Sex.BOY));
+        pk_.initializeRendSessionDoc(nav_);
+        String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body>nickname: B<img src=\"AAABAAEO\"/><br/><a c:command=\"progressing.n\" href=\"\" n-a=\"0\">Pokemon families without caught pokemon</a><br/><a c:command=\"progressing.p\" href=\"\" n-a=\"1\">Pokemon families with caught pokemon and uncaught pokemon</a><br/><a c:command=\"progressing.a\" href=\"\" n-a=\"2\">Pokemon families without uncaught pokemon</a><br/>Not beaten important trainers<ul/><br/>Beaten important trainers<ul/><br/><table><caption>Remaining trainers to be beaten</caption><thead><tr><th>Place where to find</th><th>Number of remaining trainers at this place</th></tr></thead><tbody/></table><br/>Not visited places<ul/><br/>Visited places<ul/><br/>number remaining pokemon to set to the maximum level: 0<br/>number remaining pokemon to set to the maximum happiness: 0<br/>number remaining eggs: 0<br/>remaining steps repel: 0<br/>money: 0<br/></body></html>";
+        assertEq(firstPage_,nav_.getHtmlText());
+
+        goToPage(pk_, nav_, 0);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without caught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_3<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD3\"/>P_3<br/></td><td><img src=\"AAABAAD4\"/>P_4<br/></td></tr></tbody></table><br/>P_5<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td><img src=\"AAABAAD5\"/>P_5<br/></td><td><img src=\"AAABAAD6\"/>P_6<br/></td></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+        goToPage(pk_, nav_, 0);
+        goToPage(pk_, nav_, 1);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families with caught pokemon and uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/>P_1<br/><table><tbody><tr><td>remaining pokemon to be caught among the current family</td><td/><td><img src=\"AAABAAD2\"/>P_2<br/></td></tr><tr><td>caught pokemon among the current family</td><td><img src=\"AAABAAD1\"/>P_1<br/></td><td/></tr></tbody></table><br/></body></html>",nav_.getHtmlText());
+        goToPage(pk_, nav_, 0);
+        goToPage(pk_, nav_, 2);
+        assertEq("<html xmlns:c=\"javahtml\"><head><title>Pokemon families without uncaught pokemon</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
+                "\ttext-indent:25px;\n" +
+                "}\n" +
+                "body{\n" +
+                "\ttext-align:justify;\n" +
+                "}\n" +
+                "td{\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "th{\n" +
+                "\tbackground: yellow;\n" +
+                "\tborder:1px solid black;\n" +
+                "}\n" +
+                "table{\n" +
+                "\tborder-spacing:0;\n" +
+                "}\n" +
+                "h1{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "h2{\n" +
+                "\tcolor:blue;\n" +
+                "}\n" +
+                "span.errormessage{\n" +
+                "\tcolor:red;\n" +
+                "}\n" +
+                "</style></head><body><a c:command=\"progressing.g\" href=\"\" n-a=\"0\">Return to the summary</a><br/></body></html>",nav_.getHtmlText());
+        goToPage(pk_, nav_, 0);
+        assertEq(firstPage_,nav_.getHtmlText());
+    }
+
+    private void goToPage(PkProg _pk, Navigation _nav, int _nb) {
+        _pk.getNatPage().setUrl(_nb);
+        Element elt_ = DocumentBuilder.getFirstElementByAttribute(_nav.getDocument(), _nav.getSession().getRendKeyWords().getAttrNa(), Long.toString(_pk.getNatPage().getUrl()));
+        _pk.execute(false,elt_, _nav);
+    }
+
+
     private FacadeGame trainer(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = visit(_init, _nickname, _s);
         facadeGame_.getGame().beatGymLeader(newCoords(0,0,0,0,0,0));
