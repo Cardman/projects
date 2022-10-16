@@ -451,6 +451,16 @@ public final class DifficultyBeanTest extends InitDbBean {
     public void setRateLooseMoneyWin() {
         assertEq(rt(),result(callDifficultyBeanRateLooseMoneyWinSet(displaying(beanDiff(EN, fac())),rt())).getRateLooseMoneyWin());
     }
+
+    @Test
+    public void setIvFoe() {
+        assertEq(1,result(callDifficultyBeanIvFoeSet(displaying(beanDiff(EN, fac())),1)).getIvFoe());
+    }
+
+    @Test
+    public void setIvPlayer() {
+        assertEq(1,result(callDifficultyBeanIvPlayerSet(displaying(beanDiff(EN, fac())),1)).getIvPlayer());
+    }
     private DifficultyCommon result(Struct _str) {
         return ((DifficultyBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
     }
