@@ -19,6 +19,7 @@ import code.maths.ComparatorLgInt;
 import code.maths.ComparatorRate;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 import code.util.core.BoolVal;
 
@@ -175,6 +176,13 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<StatisticCategory, Byte>(new ComparatorStatisticCategory(_data, _language));
     }
 
+    public static DictionaryComparator<Rate,Rate> feedRateRate(MonteCarloNumber _law) {
+        DictionaryComparator<Rate, Rate> r_ = buildRateRate();
+        for (Rate e: _law.events()) {
+            r_.put(e, _law.normalizedRate(e));
+        }
+        return r_;
+    }
     public static DictionaryComparator<Rate,Rate> buildRateRate() {
         return new DictionaryComparator<Rate,Rate>(new ComparatorRate());
     }

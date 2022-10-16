@@ -7,7 +7,6 @@ import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.maths.Rate;
-import code.maths.montecarlo.MonteCarloNumber;
 import code.util.AbsMap;
 import code.util.StringMap;
 
@@ -63,17 +62,8 @@ public final class DifficultyCommon {
         skipLearningMovesWhileNotGrowingLevel = _diff.isSkipLearningMovesWhileNotGrowingLevel();
         damageRatePlayer = _diff.getDamageRatePlayer().getModelName();
         damageRateLawFoe = _diff.getDamageRateLawFoe().getModelName();
-        damageRatePlayerTable = DictionaryComparatorUtil.buildRateRate();
-        MonteCarloNumber law_;
-        law_ = _data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw();
-        for (Rate e: law_.events()) {
-            damageRatePlayerTable.put(e, law_.normalizedRate(e));
-        }
-        damageRateFoeTable = DictionaryComparatorUtil.buildRateRate();
-        law_ = _data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw();
-        for (Rate e: law_.events()) {
-            damageRateFoeTable.put(e, law_.normalizedRate(e));
-        }
+        damageRatePlayerTable = DictionaryComparatorUtil.feedRateRate(_data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRatePlayer)).getLaw());
+        damageRateFoeTable = DictionaryComparatorUtil.feedRateRate(_data.getLawsDamageRate().getVal(PokemonStandards.getModelByName(damageRateLawFoe)).getLaw());
     }
     public void apply(DataBase _data, Difficulty _diff) {
         _diff.setDiffWinningExpPtsFight(PokemonStandards.getDiffWonPtsByName(diffWinningExpPtsFight));
