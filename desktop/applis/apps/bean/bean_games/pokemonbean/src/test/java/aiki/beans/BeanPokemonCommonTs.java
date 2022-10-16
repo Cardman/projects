@@ -14,7 +14,37 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
+    public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(),_str,_args);
+    }
 
+    public static Struct callDifficultyBeanStillPossibleFleeSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanStillPossibleFleeSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRandomWildFightSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanRandomWildFightSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanEnabledClosingSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanEnabledClosingSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanRestoredMovesEndFightSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanRestoredMovesEndFightSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanAllowedSwitchPlacesEndRoundSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanAllowedSwitchPlacesEndRoundSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanEndFightIfOneTeamKoSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanEndFightIfOneTeamKoSet(),_str,_args);
+    }
+
+    public static Struct callDifficultyBeanAllowCatchingKoSet(Struct _str, boolean _args) {
+        return callBool(new DifficultyBeanAllowCatchingKoSet(),_str,_args);
+    }
     public static Struct callDifficultyBeanDamageRatePlayerTableGet(Struct _str, long... _args) {
         return callLongs(new DifficultyBeanDamageRatePlayerTableGet(),_str,_args);
     }
@@ -214,6 +244,11 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static Struct callLongs(NatCaller _caller, Struct _str, long... _args) {
         return _caller.re(_str,getLongArray(_args));
+    }
+
+    public static Struct callBool(NatCaller _caller, Struct _str, boolean _args) {
+        _caller.re(_str,new Struct[]{BooleanStruct.of(_args)});
+        return _str;
     }
 
     public Struct displaying(Struct _b) {

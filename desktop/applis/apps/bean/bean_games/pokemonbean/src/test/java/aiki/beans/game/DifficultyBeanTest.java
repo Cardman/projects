@@ -1,12 +1,15 @@
 package aiki.beans.game;
 
+import aiki.beans.DifficultyCommon;
 import aiki.beans.InitDbBean;
+import aiki.beans.PokemonBeanStruct;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -349,6 +352,89 @@ public final class DifficultyBeanTest extends InitDbBean {
         assertEq(Rate.one(),second(elt(callDifficultyBeanDamageRateFoeTableGet(displaying(beanDiff(EN, fac_))),0)));
     }
 
+    @Test
+    public void setAllowCatchingKo1() {
+        assertTrue(result(callDifficultyBeanAllowCatchingKoSet(displaying(beanDiff(EN, fac())),true)).getAllowCatchingKo());
+    }
+
+    @Test
+    public void setAllowCatchingKo2() {
+        assertFalse(result(callDifficultyBeanAllowCatchingKoSet(displaying(beanDiff(EN, fac())),false)).getAllowCatchingKo());
+    }
+
+    @Test
+    public void setEndFightIfOneTeamKo1() {
+        assertTrue(result(callDifficultyBeanEndFightIfOneTeamKoSet(displaying(beanDiff(EN, fac())),true)).getEndFightIfOneTeamKo());
+    }
+
+    @Test
+    public void setEndFightIfOneTeamKo2() {
+        assertFalse(result(callDifficultyBeanEndFightIfOneTeamKoSet(displaying(beanDiff(EN, fac())),false)).getEndFightIfOneTeamKo());
+    }
+
+    @Test
+    public void setAllowedSwitchPlacesEndRound1() {
+        assertTrue(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(displaying(beanDiff(EN, fac())),true)).getAllowedSwitchPlacesEndRound());
+    }
+
+    @Test
+    public void setAllowedSwitchPlacesEndRound2() {
+        assertFalse(result(callDifficultyBeanAllowedSwitchPlacesEndRoundSet(displaying(beanDiff(EN, fac())),false)).getAllowedSwitchPlacesEndRound());
+    }
+
+    @Test
+    public void setRestoredMovesEndFight1() {
+        assertTrue(result(callDifficultyBeanRestoredMovesEndFightSet(displaying(beanDiff(EN, fac())),true)).getRestoredMovesEndFight());
+    }
+
+    @Test
+    public void setRestoredMovesEndFight2() {
+        assertFalse(result(callDifficultyBeanRestoredMovesEndFightSet(displaying(beanDiff(EN, fac())),false)).getRestoredMovesEndFight());
+    }
+
+    @Test
+    public void setEnabledClosing1() {
+        assertTrue(result(callDifficultyBeanEnabledClosingSet(displaying(beanDiff(EN, fac())),true)).getEnabledClosing());
+    }
+
+    @Test
+    public void setEnabledClosing2() {
+        assertFalse(result(callDifficultyBeanEnabledClosingSet(displaying(beanDiff(EN, fac())),false)).getEnabledClosing());
+    }
+
+    @Test
+    public void setRandomWildFight1() {
+        assertTrue(result(callDifficultyBeanRandomWildFightSet(displaying(beanDiff(EN, fac())),true)).getRandomWildFight());
+    }
+
+    @Test
+    public void setRandomWildFight2() {
+        assertFalse(result(callDifficultyBeanRandomWildFightSet(displaying(beanDiff(EN, fac())),false)).getRandomWildFight());
+    }
+
+    @Test
+    public void setStillPossibleFlee1() {
+        assertTrue(result(callDifficultyBeanStillPossibleFleeSet(displaying(beanDiff(EN, fac())),true)).getStillPossibleFlee());
+    }
+
+    @Test
+    public void setStillPossibleFlee2() {
+        assertFalse(result(callDifficultyBeanStillPossibleFleeSet(displaying(beanDiff(EN, fac())),false)).getStillPossibleFlee());
+    }
+
+    @Test
+    public void setSkipLearningMovesWhileNotGrowingLevel1() {
+        assertTrue(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),true)).getSkipLearningMovesWhileNotGrowingLevel());
+    }
+
+    @Test
+    public void setSkipLearningMovesWhileNotGrowingLevel2() {
+        assertFalse(result(callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(displaying(beanDiff(EN, fac())),false)).getSkipLearningMovesWhileNotGrowingLevel());
+    }
+
+    private DifficultyCommon result(Struct _str) {
+        return ((DifficultyBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
+    }
     private Rate rt() {
         return Rate.newRate("2");
     }
