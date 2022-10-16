@@ -6,8 +6,10 @@ import aiki.facade.FacadeGame;
 import aiki.game.Game;
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
+import aiki.map.pokemon.PokemonPlayer;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class GameProgressionBeanTest extends InitDbBean {
@@ -44,6 +46,39 @@ public final class GameProgressionBeanTest extends InitDbBean {
         assertEq(H_1, callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
     }
 
+    @Test
+    public void finish1() {
+        assertFalse(callGameProgressionBeanFinishedGameGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void finish2() {
+        assertFalse(callGameProgressionBeanFinishedGameGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void finish3() {
+        assertTrue(callGameProgressionBeanFinishedGameGet(displaying(beanProg(EN, finish(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void finish4() {
+        assertTrue(callGameProgressionBeanFinishedGameGet(displaying(beanProg(EN, finish(progress(),BOY, Sex.BOY)))));
+    }
+
+    private FacadeGame finish(DataBase _init, String _nickname,Sex _s) {
+        FacadeGame fac_ = fac(_init, _nickname, _s);
+        fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK1, BoolVal.TRUE);
+        fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK2, BoolVal.TRUE);
+        fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK3, BoolVal.TRUE);
+        fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK4, BoolVal.TRUE);
+        fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK5, BoolVal.TRUE);
+        fac_.getGame().getPlayer().getCaughtPk().set(PROG_PK6, BoolVal.TRUE);
+        PokemonPlayer pk_ = fac_.getGame().getPlayer().getPokemonPlayerList().getValue(0);
+        pk_.setLevel((short) fac_.getData().getMaxLevel());
+        pk_.setHappiness((short) fac_.getData().getHappinessMax());
+        return fac_;
+    }
     private FacadeGame fac(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = new FacadeGame();
         facadeGame_.setData(_init);
