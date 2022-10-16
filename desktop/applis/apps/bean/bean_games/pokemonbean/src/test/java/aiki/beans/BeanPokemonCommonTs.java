@@ -19,7 +19,25 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
+    protected static final String NO_TEAM = "no_team";
+    private static final String FIGHT="fight";
+    private static final char NAV_SEP='.';
+    private static final String M_CLICK_PLAYER="clickPlayer";
 
+    public static String navigateFightPlayer(Struct _str, long... _args) {
+        return navigateFight(new FightBeanClickPlayer(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
+    }
+
+    public static String navigateFightFoe(Struct _str, long... _args) {
+        return navigateFight(new FightBeanClickFoe(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
+    }
+    public static String navigateFight(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
+        return navigate(_caller,_url,PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
+    }
+
+    public StringMapObject forms(Struct _str) {
+        return ((CommonBean)((PokemonBeanStruct)_str).getInstance()).getForms();
+    }
 
     public static Struct callFightBeanMultGet(Struct _str, long... _args) {
         return callLongs(new FightBeanMultGet(),_str,_args);

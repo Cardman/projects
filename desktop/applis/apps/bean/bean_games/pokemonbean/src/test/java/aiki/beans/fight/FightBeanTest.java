@@ -1,7 +1,10 @@
 package aiki.beans.fight;
 
+import aiki.beans.CommonBean;
 import aiki.beans.InitDbFight;
 import aiki.game.fight.ActivityOfMove;
+import aiki.game.fight.Fight;
+import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -82,5 +85,19 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void nbFlees() {
         assertEq(0,callFightBeanNbFleeAttemptGet(displaying(beanFight(EN,facade(db())))));
+    }
+
+    @Test
+    public void clickPlayer() {
+        Struct fBean_ = displaying(beanFight(EN, facade(db())));
+        assertEq(CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
+        assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
+    }
+
+    @Test
+    public void clickFoe() {
+        Struct fBean_ = displaying(beanFight(EN, facade(db())));
+        assertEq(CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
+        assertEq(Fight.CST_FOE,forms(fBean_).getValInt(NO_TEAM));
     }
 }
