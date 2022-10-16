@@ -129,6 +129,55 @@ public final class GameProgressionBeanTest extends InitDbBean {
     public void nbRemainingNotMaxHappiness2() {
         assertEq(1, callGameProgressionBeanNbRemainingNotMaxHappinessGet(displaying(beanProg(EN, incomplete(progress(),BOY, Sex.BOY)))));
     }
+
+    @Test
+    public void unvisitedPlaces1() {
+        assertSizeEq(1,callGameProgressionBeanUnVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void unvisitedPlaces2() {
+        assertSizeEq(1,callGameProgressionBeanUnVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void unvisitedPlaces3() {
+        assertEq(CI_2,elt(callGameProgressionBeanUnVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),GIRL,Sex.GIRL)))),0));
+    }
+
+    @Test
+    public void unvisitedPlaces4() {
+        assertEq(CI_2,elt(callGameProgressionBeanUnVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),BOY,Sex.BOY)))),0));
+    }
+
+    @Test
+    public void visitedPlaces1() {
+        assertSizeEq(1,callGameProgressionBeanVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void visitedPlaces2() {
+        assertSizeEq(1,callGameProgressionBeanVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void visitedPlaces3() {
+        assertEq(CI_1,elt(callGameProgressionBeanVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),GIRL,Sex.GIRL)))),0));
+    }
+
+    @Test
+    public void visitedPlaces4() {
+        assertEq(CI_1,elt(callGameProgressionBeanVisitedPlacesGet(displaying(beanProg(EN, visit(progressPlaces(),BOY,Sex.BOY)))),0));
+    }
+
+    private FacadeGame visit(DataBase _init, String _nickname,Sex _s) {
+        FacadeGame facadeGame_ = common(_init);
+        Game game_ = new Game(_init);
+        game_.initUserInteract(_nickname, _s, game_.getDifficulty(), _init);
+        game_.setPlayerOrientation(Direction.UP);
+        facadeGame_.setGame(game_);
+        return facadeGame_;
+    }
     private FacadeGame incomplete(DataBase _init, String _nickname,Sex _s) {
         _init.addConstNumTest(DataBase.NIVEAU_PK_MAX, Rate.newRate("10"));
         _init.addConstNumTest(DataBase.MAX_BONHEUR, Rate.newRate("128"));
@@ -152,6 +201,15 @@ public final class GameProgressionBeanTest extends InitDbBean {
         return fac_;
     }
     private FacadeGame fac(DataBase _init, String _nickname,Sex _s) {
+        FacadeGame facadeGame_ = common(_init);
+        Game game_ = new Game(_init);
+        game_.initUtilisateur(_nickname, _s, game_.getDifficulty(), _init);
+        game_.setPlayerOrientation(Direction.UP);
+        facadeGame_.setGame(game_);
+        return facadeGame_;
+    }
+
+    private FacadeGame common(DataBase _init) {
         FacadeGame facadeGame_ = new FacadeGame();
         facadeGame_.setData(_init);
         StringMap<String> displayLanguages_ = new StringMap<String>();
@@ -163,10 +221,6 @@ public final class GameProgressionBeanTest extends InitDbBean {
         facadeGame_.setLanguages(new StringList(EN));
         _init.setMessages(facadeGame_.getData());
         facadeGame_.setLoadedData(true);
-        Game game_ = new Game(_init);
-        game_.initUtilisateur(_nickname, _s, game_.getDifficulty(), _init);
-        game_.setPlayerOrientation(Direction.UP);
-        facadeGame_.setGame(game_);
         return facadeGame_;
     }
 }

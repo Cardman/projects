@@ -89,7 +89,23 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String PROG_PK_TR4="P_4";
     protected static final String PROG_PK_TR5="P_5";
     protected static final String PROG_PK_TR6="P_6";
+    protected static final String CI_1 = "CI_1";
+    protected static final String CI_2 = "CI_2";
 
+    public static DataBase progressPlaces() {
+        DataBase pr_ = progress();
+        initPlaces(pr_);
+        City one_ = Instances.newCity();
+        one_.setName(CI_1);
+        pr_.getMap().getPlaces().add(one_);
+        pr_.getMap().getCities().add(newCoords(0,0,0,0));
+        City two_ = Instances.newCity();
+        two_.setName(CI_2);
+        pr_.getMap().getPlaces().add(two_);
+        pr_.getMap().getCities().add(newCoords(1,0,0,0));
+        pr_.getMap().getAccessibility().addEntry(newCoords(1,0,0,0),Condition.newList(newCoords(0,0,0,0)));
+        return pr_;
+    }
     public static DataBase progress() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
