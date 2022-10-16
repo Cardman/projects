@@ -368,6 +368,71 @@ public final class GameProgressionBeanTest extends InitDbBean {
         assertEq(PROG_PK2,elt(elt(second(elt(callGameProgressionBeanFullFamiliesBaseGet(displaying(beanProg(EN, finish(progress(),BOY,Sex.BOY)))),0)),1),0));
     }
 
+    @Test
+    public void unbeat1() {
+        assertSizeEq(1,callGameProgressionBeanUnBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void unbeat2() {
+        assertSizeEq(1,callGameProgressionBeanUnBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void unbeat3() {
+        assertEq(SECOND_TRAINER,callTrainerPlaceNamesGetTrainer(elt(callGameProgressionBeanUnBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void unbeat4() {
+        assertEq(SECOND_TRAINER,callTrainerPlaceNamesGetTrainer(elt(callGameProgressionBeanUnBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void unbeat5() {
+        assertEq(CI_2,callTrainerPlaceNamesGetPlace(elt(callGameProgressionBeanUnBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void unbeat6() {
+        assertEq(CI_2,callTrainerPlaceNamesGetPlace(elt(callGameProgressionBeanUnBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void beat1() {
+        assertSizeEq(1,callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void beat2() {
+        assertSizeEq(1,callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))));
+    }
+
+    @Test
+    public void beat3() {
+        assertEq(FIRST_TRAINER,callTrainerPlaceNamesGetTrainer(elt(callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void beat4() {
+        assertEq(FIRST_TRAINER,callTrainerPlaceNamesGetTrainer(elt(callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))),0)));
+    }
+
+    @Test
+    public void beat5() {
+        assertEq(CI_1,callTrainerPlaceNamesGetPlace(elt(callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),GIRL,Sex.GIRL)))),0)));
+    }
+
+    @Test
+    public void beat6() {
+        assertEq(CI_1,callTrainerPlaceNamesGetPlace(elt(callGameProgressionBeanBeatenImportantTrainersGet(displaying(beanProg(EN, trainer(progressTrainers(),BOY,Sex.BOY)))),0)));
+    }
+    private FacadeGame trainer(DataBase _init, String _nickname,Sex _s) {
+        FacadeGame facadeGame_ = visit(_init, _nickname, _s);
+        facadeGame_.getGame().beatGymLeader(newCoords(0,0,0,0,0,0));
+        return facadeGame_;
+    }
+
     private FacadeGame visit(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = common(_init);
         Game game_ = new Game(_init);

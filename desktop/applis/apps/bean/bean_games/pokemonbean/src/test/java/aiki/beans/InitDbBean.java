@@ -91,7 +91,29 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String PROG_PK_TR6="P_6";
     protected static final String CI_1 = "CI_1";
     protected static final String CI_2 = "CI_2";
+    protected static final String FIRST_TRAINER = "P";
+    protected static final String SECOND_TRAINER = "O";
 
+    public static DataBase progressTrainers() {
+        DataBase pr_ = progressPlaces();
+        City plOne_ = (City) pr_.getMap().getPlaces().get(0);
+        Gym gOne_ = Instances.newGym();
+        GymLeader one_ = Instances.newGymLeader();
+        one_.setName(FIRST_TRAINER);
+        gOne_.getIndoor().setGymLeader(one_);
+        gOne_.getIndoor().setGymLeaderCoords(newPoint(0,0));
+        plOne_.getBuildings().addEntry(newPoint(0,0), gOne_);
+        City plTwo_ = (City) pr_.getMap().getPlaces().get(1);
+        Gym gTwo_ = Instances.newGym();
+        GymLeader two_ = Instances.newGymLeader();
+        two_.setName(SECOND_TRAINER);
+        gTwo_.getIndoor().setGymLeader(two_);
+        gTwo_.getIndoor().setGymLeaderCoords(newPoint(0,0));
+        plTwo_.getBuildings().addEntry(newPoint(0,0), gTwo_);
+        pr_.getMap().getBeatGymLeader().add(newCoords(0,0,0,0,0,0));
+        pr_.getMap().getBeatGymLeader().add(newCoords(1,0,0,0,0,0));
+        return pr_;
+    }
     public static DataBase progressPlaces() {
         DataBase pr_ = progress();
         initPlaces(pr_);
