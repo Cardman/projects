@@ -186,6 +186,127 @@ public final class DifficultyBeanTest extends InitDbBean {
         diff(fac_).setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),callDifficultyBeanDamageRatePlayerGet(displaying(beanDiff(EN, fac_))));
     }
+
+    @Test
+    public void getWinPointsFight1() {
+        FacadeGame fac_ = facTr();
+        assertSizeEq(4,callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getWinPointsFight2() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyWinPointsFight.TRES_FACILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getWinPointsFight3() {
+        FacadeGame fac_ = facTr();
+        assertEq("W1",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getWinPointsFight4() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyWinPointsFight.FACILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),1)));
+    }
+
+    @Test
+    public void getWinPointsFight5() {
+        FacadeGame fac_ = facTr();
+        assertEq("W2",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),1)));
+    }
+
+    @Test
+    public void getWinPointsFight6() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyWinPointsFight.DIFFICILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),2)));
+    }
+
+    @Test
+    public void getWinPointsFight7() {
+        FacadeGame fac_ = facTr();
+        assertEq("W3",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),2)));
+    }
+
+    @Test
+    public void getWinPointsFight8() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyWinPointsFight.TRES_DIFFICILE.getWinName(),first(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),3)));
+    }
+
+    @Test
+    public void getWinPointsFight9() {
+        FacadeGame fac_ = facTr();
+        assertEq("W4",second(elt(callDifficultyBeanWinPointsFightGet(displaying(beanDiff(EN, fac_))),3)));
+    }
+
+    @Test
+    public void getDamageRates1() {
+        FacadeGame fac_ = facTr();
+        assertSizeEq(5,callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))));
+    }
+
+    @Test
+    public void getDamageRates2() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyModelLaw.CONSTANT_MIN.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getDamageRates3() {
+        FacadeGame fac_ = facTr();
+        assertEq("M1",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),0)));
+    }
+
+    @Test
+    public void getDamageRates4() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyModelLaw.CROISSANT.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),1)));
+    }
+
+    @Test
+    public void getDamageRates5() {
+        FacadeGame fac_ = facTr();
+        assertEq("M2",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),1)));
+    }
+
+    @Test
+    public void getDamageRates6() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyModelLaw.UNIFORME.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),2)));
+    }
+
+    @Test
+    public void getDamageRates7() {
+        FacadeGame fac_ = facTr();
+        assertEq("M3",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),2)));
+    }
+
+    @Test
+    public void getDamageRates8() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyModelLaw.DECROISSANT.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),3)));
+    }
+
+    @Test
+    public void getDamageRates9() {
+        FacadeGame fac_ = facTr();
+        assertEq("M4",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),3)));
+    }
+
+    @Test
+    public void getDamageRates10() {
+        FacadeGame fac_ = facTr();
+        assertEq(DifficultyModelLaw.CONSTANT_MAX.getModelName(),first(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),4)));
+    }
+
+    @Test
+    public void getDamageRates11() {
+        FacadeGame fac_ = facTr();
+        assertEq("M5",second(elt(callDifficultyBeanDamageRatesGet(displaying(beanDiff(EN, fac_))),4)));
+    }
+
     private Rate rt() {
         return Rate.newRate("2");
     }
@@ -194,10 +315,29 @@ public final class DifficultyBeanTest extends InitDbBean {
         return _fac.getGame().getDifficulty();
     }
 
+    private FacadeGame facTr() {
+        DataBase di_ = diff(2);
+        di_.getTranslatedDiffWinPts().getVal(EN).clear();
+        di_.getTranslatedDiffWinPts().getVal(EN).addEntry(DifficultyWinPointsFight.TRES_FACILE,"W1");
+        di_.getTranslatedDiffWinPts().getVal(EN).addEntry(DifficultyWinPointsFight.FACILE,"W2");
+        di_.getTranslatedDiffWinPts().getVal(EN).addEntry(DifficultyWinPointsFight.DIFFICILE,"W3");
+        di_.getTranslatedDiffWinPts().getVal(EN).addEntry(DifficultyWinPointsFight.TRES_DIFFICILE,"W4");
+        di_.getTranslatedDiffModelLaw().getVal(EN).clear();
+        di_.getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.CONSTANT_MIN,"M1");
+        di_.getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.CROISSANT,"M2");
+        di_.getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.UNIFORME,"M3");
+        di_.getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.DECROISSANT,"M4");
+        di_.getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.CONSTANT_MAX,"M5");
+        return fac(di_);
+    }
     private FacadeGame fac() {
         DataBase di_ = diff(2);
+        return fac(di_);
+    }
+
+    private FacadeGame fac(DataBase _di) {
         FacadeGame f_ = new FacadeGame();
-        f_.setData(di_);
+        f_.setData(_di);
         f_.setGame(new Game());
         return f_;
     }
