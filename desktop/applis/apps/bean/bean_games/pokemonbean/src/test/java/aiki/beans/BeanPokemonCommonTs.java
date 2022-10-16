@@ -18,6 +18,14 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
 
+    public static Struct callGameProgressionBeanHeroImageOppositeSexGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanHeroImageOppositeSexGet(),_str,_args);
+    }
+
+    public static Struct callGameProgressionBeanHeroImageGet(Struct _str, long... _args) {
+        return callLongs(new GameProgressionBeanHeroImageGet(),_str,_args);
+    }
+
     public static Struct callGameProgressionBeanNicknameGet(Struct _str, long... _args) {
         return callLongs(new GameProgressionBeanNicknameGet(),_str,_args);
     }

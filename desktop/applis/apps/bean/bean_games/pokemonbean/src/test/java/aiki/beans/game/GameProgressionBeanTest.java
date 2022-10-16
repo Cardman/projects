@@ -24,6 +24,26 @@ public final class GameProgressionBeanTest extends InitDbBean {
         assertEq(BOY, callGameProgressionBeanNicknameGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
     }
 
+    @Test
+    public void heroImage1() {
+        assertEq(H_1, callGameProgressionBeanHeroImageGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void heroImage2() {
+        assertEq(H_2, callGameProgressionBeanHeroImageGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+    }
+
+    @Test
+    public void heroImageOppositeSex1() {
+        assertEq(H_2, callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),GIRL,Sex.GIRL)))));
+    }
+
+    @Test
+    public void heroImageOppositeSex2() {
+        assertEq(H_1, callGameProgressionBeanHeroImageOppositeSexGet(displaying(beanProg(EN, fac(progress(),BOY, Sex.BOY)))));
+    }
+
     private FacadeGame fac(DataBase _init, String _nickname,Sex _s) {
         FacadeGame facadeGame_ = new FacadeGame();
         facadeGame_.setData(_init);
