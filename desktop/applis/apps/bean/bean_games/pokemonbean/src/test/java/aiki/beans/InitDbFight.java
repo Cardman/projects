@@ -121,6 +121,14 @@ public abstract class InitDbFight extends InitDbBean {
     public static Struct callTeamBeanGetKey(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanGetKey(),_str,_args);
     }
+
+    public static Struct callTeamBeanEnabledMovesWhileSendingFoeUsesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanEnabledMovesWhileSendingFoeUsesGet(),_str,_args);
+    }
+
+    public static Struct callTeamBeanNbUsesMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanNbUsesMovesGet(),_str,_args);
+    }
     public static Struct callTeamBeanGetTrPokemonLink(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanGetTrPokemonLink(),_str,_args);
     }
@@ -408,6 +416,9 @@ public abstract class InitDbFight extends InitDbBean {
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 1);
+        fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(true);
+        fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(true);
         return fac_;
     }
     protected FacadeGame facade(DataBase _data) {

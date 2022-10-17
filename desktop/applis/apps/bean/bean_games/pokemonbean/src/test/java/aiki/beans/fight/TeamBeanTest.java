@@ -6,6 +6,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
 import org.junit.Test;
 
 public final class TeamBeanTest extends InitDbFight {
@@ -413,7 +414,30 @@ public final class TeamBeanTest extends InitDbFight {
     public void getKey() {
         assertEq(M_TEAM_TR+ DataBase.SEPARATOR_MOVES +M_TEAM_SEND_TR,callTeamBeanGetKey(playerPath(),0));
     }
-
+    @Test
+    public void nbUses1() {
+        assertSizeEq(1,callTeamBeanNbUsesMovesGet(playerPath()));
+    }
+    @Test
+    public void nbUses2() {
+        assertEq(M_USE_TR,first(elt(callTeamBeanNbUsesMovesGet(playerPath()),0)));
+    }
+    @Test
+    public void nbUses3() {
+        assertEq(0,second(elt(callTeamBeanNbUsesMovesGet(playerPath()),0)));
+    }
+    @Test
+    public void sendFoe1() {
+        assertSizeEq(1,callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()));
+    }
+    @Test
+    public void sendFoe2() {
+        assertEq(M_TEAM_SEND_TR,first(elt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
+    }
+    @Test
+    public void sendFoe3() {
+        assertEq(LgInt.zero(),second(elt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
+    }
     private Struct foePath() {
         return beanTeam(clickFoeCaller());
     }
