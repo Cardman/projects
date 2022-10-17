@@ -1,5 +1,7 @@
 package aiki.beans;
 
+import aiki.beans.fight.*;
+import aiki.beans.game.InitDbPkBean;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -7,15 +9,19 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.LevelMove;
+import aiki.fight.util.ListEffectCombo;
 import aiki.fight.util.ListEffectCombos;
 import aiki.game.Game;
+import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import aiki.game.fight.FightFacade;
+import aiki.game.fight.Team;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -27,7 +33,11 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.CoordsLists;
+import code.bean.nat.NatCaller;
+import code.expressionlanguage.structs.Struct;
+import code.formathtml.Configuration;
 import code.maths.Rate;
+import code.scripts.confs.PkScriptPagesInit;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
@@ -35,8 +45,143 @@ import code.util.StringMap;
 
 public abstract class InitDbFight extends InitDbBean {
 
+    protected static final String M_TEAM_TR = "team_move";
+    protected static final String M_TEAM_SEND_TR = "team_move_send";
+    protected static final String M_USE_TR = "use_move";
+    protected static final String M_STACK_TR = "stack_move";
+    protected static final String M_ANT_TR = "ant_move";
+    protected static final String NO_TEAM = "no_team";
+    protected static final String M_TEAM = "M_TEAM";
+    protected static final String M_TEAM_SEND = "M_TEAM_SEND";
+    protected static final String M_USE = "M_USE";
+    protected static final String M_STACK = "M_STACK";
+    protected static final String M_ANT = "M_ANT";
     static final String NICKNAME = "CARDTEAM";
+    private static final String FIGHT="fight";
+    private static final String M_CLICK_FOE="clickFoe";
+    private static final String M_CLICK_PLAYER="clickPlayer";
+
+    public static Struct beanFight(String _language, FacadeGame _dataBase) {
+        return beanFight(new PkFight(),_language,_dataBase);
+    }
+
+    public static Struct beanFight(PkFight _stds,String _language, FacadeGame _dataBase) {
+        _stds.setDataBase(_dataBase);
+        return _stds.beanFight(_language);
+    }
+
+    public static Struct beanTeam(PkFight _stds,String _language, FacadeGame _dataBase) {
+        _stds.setDataBase(_dataBase);
+        return _stds.beanTeam(_language);
+    }
+
+    public static String navigateFightPlayer(Struct _str, long... _args) {
+        return navigateFight(clickPlayerCaller(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
+    }
+
+    public static String navigateFightFoe(Struct _str, long... _args) {
+        return navigateFight(clickFoeCaller(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_FOE,_str,_args);
+    }
+
+    public static NatCaller clickPlayerCaller() {
+        return new FightBeanClickPlayer();
+    }
+
+    public static NatCaller clickFoeCaller() {
+        return new FightBeanClickFoe();
+    }
+
+    public static String navigateFight(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
+        return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
+    }
+
+    public static Struct callTeamBeanFoeTeamGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanFoeTeamGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanMultGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightBeanMultGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanEnabledMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightBeanEnabledMovesGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanIsStillEnabled(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightBeanIsStillEnabled(),_str,_args);
+    }
+
+    public static Struct callFightBeanWinningMoneyGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightBeanWinningMoneyGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanNbRoundsGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightBeanNbRoundsGet(),_str,_args);
+    }
+
+    public static Struct callFightBeanNbFleeAttemptGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightBeanNbFleeAttemptGet(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveGetNbTurn(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new ActivityOfMoveGetNbTurn(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveIsEnabled(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new ActivityOfMoveIsEnabled(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveIsIncrementCount(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new ActivityOfMoveIsIncrementCount(),_str,_args);
+    }
+
+    public static Struct callActivityOfMoveGetNbTurn(ActivityOfMove _str, long... _args) {
+        return InitDbPkBean.callLongs(new ActivityOfMoveGetNbTurn(),new ActivityOfMoveStruct(_str),_args);
+    }
+
+    public static Struct callActivityOfMoveIsEnabled(ActivityOfMove _str, long... _args) {
+        return InitDbPkBean.callLongs(new ActivityOfMoveIsEnabled(),new ActivityOfMoveStruct(_str),_args);
+    }
+
+    public static Struct callActivityOfMoveIsIncrementCount(ActivityOfMove _str, long... _args) {
+        return InitDbPkBean.callLongs(new ActivityOfMoveIsIncrementCount(),new ActivityOfMoveStruct(_str),_args);
+    }
+
+    protected DataBase dbTeam() {
+        DataBase data_ = dbBase();
+        StatusMoveData mteam_ = Instances.newStatusMoveData();
+        mteam_.getEffects().add(Instances.newEffectTeam());
+        data_.completeMembers(M_TEAM, mteam_);
+        StatusMoveData send_ = Instances.newStatusMoveData();
+        send_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
+        data_.completeMembers(M_TEAM_SEND, send_);
+        DamagingMoveData used_ = Instances.newDamagingMoveData();
+        EffectDamage dam_ = Instances.newEffectDamage();
+        dam_.setPower(DataBase.VAR_PREFIX+Team.EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+M_USE);
+        used_.getEffects().add(dam_);
+        data_.completeMembers(M_USE, used_);
+        StatusMoveData heal_ = Instances.newStatusMoveData();
+        heal_.getEffects().add(Instances.newEffectEndRoundPositionRelation());
+        data_.completeMembers(M_STACK,heal_);
+        StatusMoveData ant_ = Instances.newStatusMoveData();
+        ant_.getEffects().add(Instances.newEffectEndRoundPositionTargetRelation());
+        data_.completeMembers(M_ANT,ant_);
+        data_.getTranslatedMoves().getVal(LANGUAGE).addEntry(M_TEAM, M_TEAM_TR);
+        data_.getTranslatedMoves().getVal(LANGUAGE).addEntry(M_TEAM_SEND, M_TEAM_SEND_TR);
+        data_.getTranslatedMoves().getVal(LANGUAGE).addEntry(M_USE, M_USE_TR);
+        data_.getTranslatedMoves().getVal(LANGUAGE).addEntry(M_STACK, M_STACK_TR);
+        data_.getTranslatedMoves().getVal(LANGUAGE).addEntry(M_ANT, M_ANT_TR);
+        data_.getCombos().getEffects().add(new ListEffectCombo(new StringList(M_TEAM,M_TEAM_SEND),Instances.newEffectCombo()));
+        data_.completeVariables();
+        return data_;
+    }
     protected DataBase db() {
+        DataBase data_ = dbBase();
+        data_.completeVariables();
+        return data_;
+    }
+
+    private DataBase dbBase() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
@@ -155,9 +300,30 @@ public abstract class InitDbFight extends InitDbBean {
         map_.setFirstPokemon(pkm_);
         map_.setBegin(newCoords(0, 0, 0, 1));
         data_.getCombos().setEffects(new ListEffectCombos());
-        data_.completeVariables();
         pts(data_);
         return data_;
+    }
+
+    protected FacadeGame facadeEnMoves(DataBase _data) {
+        FacadeGame f_ = facade(_data);
+        Fight fight_ = f_.getFight();
+        ActivityOfMove ever_ = new ActivityOfMove(false);
+        ever_.setEnabled(true);
+        fight_.getEnabledMoves().set(CHARGE2, ever_);
+        ActivityOfMove some_ = new ActivityOfMove(true);
+        some_.setEnabled(false);
+        fight_.getEnabledMoves().set(CHARGE, some_);
+        return f_;
+    }
+
+    protected FacadeGame facadeEnMovesAct(DataBase _data) {
+        FacadeGame f_ = facadeEnMoves(_data);
+        Fight fight_ = f_.getFight();
+        ActivityOfMove some_ = new ActivityOfMove(true);
+        some_.setEnabled(true);
+        some_.setNbTurn((short) 1);
+        fight_.getEnabledMoves().set(CHARGE, some_);
+        return f_;
     }
     protected FacadeGame facade(DataBase _data) {
         FacadeGame fac_ = new FacadeGame();

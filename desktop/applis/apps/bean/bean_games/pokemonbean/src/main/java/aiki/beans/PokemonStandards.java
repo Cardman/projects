@@ -163,12 +163,14 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         NatDocumentBlock rendDocumentBlock_ = getRender(_dest,_curUrl);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
-        if (bean_ instanceof PokemonBeanStruct&& ((PokemonBeanStruct) bean_).getBean() instanceof WithForms) {
-            ((WithForms) ((PokemonBeanStruct) bean_).getBean()).setForms(stringMapObject_);
-        }
+        setForms(stringMapObject_, bean_);
         _rendStack.clearPages();
         String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
         return new InvokedPageOutput(getDest(_dest,_curUrl),res_);
+    }
+
+    public void setForms(StringMapObject _forms, Struct _bean) {
+        ((WithForms) ((PokemonBeanStruct) _bean).getBean()).setForms(_forms);
     }
 
     @Override

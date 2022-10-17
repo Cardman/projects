@@ -100,4 +100,30 @@ public final class FightBeanTest extends InitDbFight {
         assertEq(CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
         assertEq(Fight.CST_FOE,forms(fBean_).getValInt(NO_TEAM));
     }
+
+    @Test
+    public void enMovesAdv1() {
+        assertFalse(callActivityOfMoveIsIncrementCount(second(elt(callFightBeanEnabledMovesGet(displaying(beanFight(EN,facadeEnMoves(db())))),0))));
+    }
+
+    @Test
+    public void enMovesAdv2() {
+        assertTrue(callActivityOfMoveIsIncrementCount(second(elt(callFightBeanEnabledMovesGet(displaying(beanFight(EN,facadeEnMoves(db())))),1))));
+    }
+
+    @Test
+    public void enMovesAdv3() {
+        assertTrue(callActivityOfMoveIsEnabled(second(elt(callFightBeanEnabledMovesGet(displaying(beanFight(EN,facadeEnMoves(db())))),0))));
+    }
+
+    @Test
+    public void enMovesAdv4() {
+        assertFalse(callActivityOfMoveIsEnabled(second(elt(callFightBeanEnabledMovesGet(displaying(beanFight(EN,facadeEnMoves(db())))),1))));
+    }
+
+    @Test
+    public void enMovesAdv5() {
+        assertEq(1,callActivityOfMoveGetNbTurn(second(elt(callFightBeanEnabledMovesGet(displaying(beanFight(EN,facadeEnMovesAct(db())))),1))));
+    }
+
 }

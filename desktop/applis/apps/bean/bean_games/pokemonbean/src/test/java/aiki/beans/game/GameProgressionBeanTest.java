@@ -1,6 +1,5 @@
 package aiki.beans.game;
 
-import aiki.beans.InitDbBean;
 import aiki.beans.PkProg;
 import aiki.beans.ProgGameInit;
 import aiki.db.DataBase;
@@ -25,7 +24,7 @@ import code.util.consts.Constants;
 import code.util.core.BoolVal;
 import org.junit.Test;
 
-public final class GameProgressionBeanTest extends InitDbBean {
+public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
     static final String GIRL = "G";
     static final String BOY = "B";
     static final String MONEY_REM = "20";

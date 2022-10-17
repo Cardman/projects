@@ -22,7 +22,7 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import org.junit.Test;
 
-public final class DifficultyBeanTest extends InitDbBean {
+public final class DifficultyBeanTest extends InitDbDifficultyBean {
 
     @Test
     public void getAllowCatchingKo1() {

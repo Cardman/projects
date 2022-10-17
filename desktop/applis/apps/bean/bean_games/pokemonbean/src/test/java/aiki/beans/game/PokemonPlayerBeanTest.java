@@ -1,7 +1,6 @@
 package aiki.beans.game;
 
 import aiki.beans.DetPkGameInit;
-import aiki.beans.InitDbBean;
 import aiki.beans.PkInd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -28,7 +27,7 @@ import code.util.StringMap;
 import code.util.consts.Constants;
 import org.junit.Test;
 
-public final class PokemonPlayerBeanTest extends InitDbBean {
+public final class PokemonPlayerBeanTest extends InitDbPkBean {
     static final String NICKNAME = "CARDTEAM";
 
     @Test
