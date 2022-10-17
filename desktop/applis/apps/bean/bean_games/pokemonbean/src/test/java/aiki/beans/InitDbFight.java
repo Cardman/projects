@@ -122,6 +122,22 @@ public abstract class InitDbFight extends InitDbBean {
         return InitDbPkBean.callLongs(new TeamBeanGetKey(),_str,_args);
     }
 
+    public static Struct callStacksOfUsesGetNbRounds(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StacksOfUsesGetNbRounds(),_str,_args);
+    }
+
+    public static Struct callStacksOfUsesIsFirstStacked(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StacksOfUsesIsFirstStacked(),_str,_args);
+    }
+
+    public static Struct callStacksOfUsesIsLastStacked(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StacksOfUsesIsLastStacked(),_str,_args);
+    }
+
+    public static Struct callTeamBeanTeamBeanHealAfterGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanHealAfterGet(),_str,_args);
+    }
+
     public static Struct callTeamBeanEnabledMovesWhileSendingFoeUsesGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanEnabledMovesWhileSendingFoeUsesGet(),_str,_args);
     }
@@ -174,18 +190,6 @@ public abstract class InitDbFight extends InitDbBean {
 
     public static Struct callActivityOfMoveIsIncrementCount(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new ActivityOfMoveIsIncrementCount(),_str,_args);
-    }
-
-    public static Struct callActivityOfMoveGetNbTurn(ActivityOfMove _str, long... _args) {
-        return InitDbPkBean.callLongs(new ActivityOfMoveGetNbTurn(),new ActivityOfMoveStruct(_str),_args);
-    }
-
-    public static Struct callActivityOfMoveIsEnabled(ActivityOfMove _str, long... _args) {
-        return InitDbPkBean.callLongs(new ActivityOfMoveIsEnabled(),new ActivityOfMoveStruct(_str),_args);
-    }
-
-    public static Struct callActivityOfMoveIsIncrementCount(ActivityOfMove _str, long... _args) {
-        return InitDbPkBean.callLongs(new ActivityOfMoveIsIncrementCount(),new ActivityOfMoveStruct(_str),_args);
     }
 
     protected DataBase dbTeam() {

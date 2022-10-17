@@ -2,7 +2,6 @@ package aiki.beans.fight;
 
 import aiki.beans.CommonBean;
 import aiki.beans.InitDbFight;
-import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.Fight;
 import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
@@ -19,37 +18,6 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void enMoves() {
         assertSizeEq(2,callFightBeanEnabledMovesGet(displaying(beanFight(EN,facade(db())))));
-    }
-
-    @Test
-    public void activityIncr1() {
-        assertTrue(callActivityOfMoveIsIncrementCount(new ActivityOfMove(true)));
-    }
-
-    @Test
-    public void activityIncr2() {
-        assertFalse(callActivityOfMoveIsIncrementCount(new ActivityOfMove(false)));
-    }
-
-    @Test
-    public void activityEn1() {
-        ActivityOfMove ac_ = new ActivityOfMove();
-        ac_.setEnabled(true);
-        assertTrue(callActivityOfMoveIsEnabled(ac_));
-    }
-
-    @Test
-    public void activityEn2() {
-        ActivityOfMove ac_ = new ActivityOfMove();
-        ac_.setEnabled(false);
-        assertFalse(callActivityOfMoveIsEnabled(ac_));
-    }
-
-    @Test
-    public void activityRd() {
-        ActivityOfMove ac_ = new ActivityOfMove();
-        ac_.setNbTurn((short) 1);
-        assertEq(1,callActivityOfMoveGetNbTurn(ac_));
     }
 
     @Test

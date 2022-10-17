@@ -438,6 +438,62 @@ public final class TeamBeanTest extends InitDbFight {
     public void sendFoe3() {
         assertEq(LgInt.zero(),second(elt(callTeamBeanEnabledMovesWhileSendingFoeUsesGet(playerPath()),0)));
     }
+    @Test
+    public void heal1() {
+        assertSizeEq(1,callTeamBeanTeamBeanHealAfterGet(playerPath()));
+    }
+    @Test
+    public void heal2() {
+        assertSizeEq(1,callTeamBeanTeamBeanHealAfterGet(foePath()));
+    }
+    @Test
+    public void heal3() {
+        assertEq(M_STACK_TR,first(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)));
+    }
+    @Test
+    public void heal4() {
+        assertEq(M_STACK_TR,first(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)));
+    }
+    @Test
+    public void heal5() {
+        assertSizeEq(4,second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)));
+    }
+    @Test
+    public void heal6() {
+        assertSizeEq(4,second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)));
+    }
+    @Test
+    public void heal7() {
+        assertEq(0,first(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0)));
+    }
+    @Test
+    public void heal8() {
+        assertEq(0,first(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0)));
+    }
+    @Test
+    public void heal9() {
+        assertEq(1,callStacksOfUsesGetNbRounds(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void heal10() {
+        assertEq(0,callStacksOfUsesGetNbRounds(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+    }
+    @Test
+    public void heal11() {
+        assertTrue(callStacksOfUsesIsFirstStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void heal12() {
+        assertFalse(callStacksOfUsesIsFirstStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+    }
+    @Test
+    public void heal13() {
+        assertTrue(callStacksOfUsesIsLastStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void heal14() {
+        assertFalse(callStacksOfUsesIsLastStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+    }
     private Struct foePath() {
         return beanTeam(clickFoeCaller());
     }
