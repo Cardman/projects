@@ -623,6 +623,9 @@ public final class Team {
         }
     }
 
+    Bytes fightersAtCurrentPlace(TargetCoords _place){
+        return fightersAtCurrentPlace(_place.getPosition());
+    }
     Bytes fightersAtCurrentPlace(short _place){
         Bytes cbts_ = new Bytes();
         for (EntryCust<Byte,Fighter> e: fightersListAtCurrentPlace(_place).entryList()) {
@@ -631,6 +634,9 @@ public final class Team {
         return cbts_;
     }
 
+    ByteMap<Fighter> fightersListAtCurrentPlace(TargetCoords _place){
+        return fightersListAtCurrentPlace(_place.getPosition());
+    }
     ByteMap<Fighter> fightersListAtCurrentPlace(short _place){
         ByteMap<Fighter> cbts_ = new ByteMap<Fighter>();
         for(byte c:members.getKeys()){

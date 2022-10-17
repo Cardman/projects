@@ -308,7 +308,7 @@ final class FightOrder {
     }
 
     private static boolean cibleDerLanceur(TeamPosition _target, Team _equipeCbt, Fighter _creature) {
-        return !_creature.getChosenTargets().isEmpty() && _equipeCbt.fightersAtCurrentPlace(_creature.getChosenTargets().first().getPosition()).containsObj(_target.getPosition());
+        return !_creature.getChosenTargets().isEmpty() && _equipeCbt.fightersAtCurrentPlace(_creature.getChosenTargets().first()).containsObj(_target.getPosition());
     }
 
     static TeamPositionList fighters(Fight _fight){
@@ -468,7 +468,7 @@ final class FightOrder {
             //existence partenaire non ko de la cible initial vise. ce partenaire utilise PAR_ICI ou POUDREFUREUR
             return closestFoeFighterProc(_fight, _lanceur, _import, ciblesChoisies_);
         }
-        Bytes cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
+        Bytes cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first());
         if(cbtsEq_.isEmpty()){
             return new TeamPositionList();
         }
@@ -501,7 +501,7 @@ final class FightOrder {
             }
             return cbts_;
         }
-        Bytes cbtsEq_=foeTeam_.fightersAtCurrentPlace(_ciblesChoisies.first().getPosition());
+        Bytes cbtsEq_=foeTeam_.fightersAtCurrentPlace(_ciblesChoisies.first());
         TeamPositionList cbts_ = new TeamPositionList();
         if(cbtsEq_.isEmpty()){
             cbts_=closestFoeFighter(_fight, _lanceur);
@@ -595,7 +595,7 @@ final class FightOrder {
         if(ciblesChoisies_.isEmpty()){
             return cbts_;
         }
-        Bytes cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first().getPosition());
+        Bytes cbtsEq_=equipe_.fightersAtCurrentPlace(ciblesChoisies_.first());
         if(cbtsEq_.isEmpty()){
             return cbts_;
         }

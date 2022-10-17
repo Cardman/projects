@@ -583,7 +583,7 @@ public final class Fight {
 
     public TeamPosition getFighterKey(TargetCoords _targetCoords) {
         Team team_ = teams.getVal((byte) _targetCoords.getTeam());
-        Bytes keys_ = team_.fightersAtCurrentPlace(_targetCoords.getPosition());
+        Bytes keys_ = team_.fightersAtCurrentPlace(_targetCoords);
         if (!keys_.isEmpty()) {
             return new TeamPosition((byte) _targetCoords.getTeam(), keys_.first());
         }

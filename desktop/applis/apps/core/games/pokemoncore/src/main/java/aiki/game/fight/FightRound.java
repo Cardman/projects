@@ -1231,7 +1231,7 @@ final class FightRound {
         }
         TargetCoords targetCoords_ = creature_.getChosenTargets().first();
         Team equipeCbt_=_fight.getTeams().getVal((byte) targetCoords_.getTeam());
-        Bytes ciblesEquipe_=equipeCbt_.fightersAtCurrentPlace(targetCoords_.getPosition());
+        Bytes ciblesEquipe_=equipeCbt_.fightersAtCurrentPlace(targetCoords_);
         TeamPositionList fighters_ = new TeamPositionList();
         fighters_.addAllElts(FightOrder.fightersHavingToAct(_fight, false, _import));
         fighters_.addAllElts(FightOrder.fightersHavingToAct(_fight, true, _import));

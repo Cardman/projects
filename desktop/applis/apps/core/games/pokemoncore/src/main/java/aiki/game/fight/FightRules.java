@@ -641,7 +641,7 @@ final class FightRules {
         if(fAtt_.getTargetChoice() == TargetChoice.ADJ_UNIQ){
             byte noTeam_ = (byte) first_.getTeam();
             Team equipeCible_= _fight.getTeams().getVal(noTeam_);
-            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(first_.getPosition());
+            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(first_);
             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                 _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
                 return true;
@@ -662,7 +662,7 @@ final class FightRules {
         if (fAtt_.getTargetChoice() == TargetChoice.AUTRE_UNIQ) {
             byte noTeam_ = (byte) first_.getTeam();
             Team equipeCible_= _fight.getTeams().getVal(noTeam_);
-            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(first_.getPosition());
+            Bytes cbts_=equipeCible_.fightersAtCurrentPlace(first_);
             if(cbts_.size() != DataBase.ONE_POSSIBLE_CHOICE){
                 _fight.addMessage(_import,Fight.ERR_NO_CHOSEN_TARGET, moveName_, name_);
                 return true;

@@ -120,7 +120,7 @@ final class FightArtificialIntelligence {
             }
             // notKoFoeFighters_.size() == 1
             // koFoeFighters_.isEmpty() == 1
-            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(_fighters.getNotKoFoeFighters().first().getPosition());
+            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(_fighters.getNotKoFoeFighters().first());
             for (byte f: foeFighers_) {
                 TeamPosition c2_ = Fight.toFoeFighter(f);
                 if (koFoeFighter(_fight, _fighters.getPartner(), m2_, c2_, _diff, _import)) {
@@ -154,7 +154,7 @@ final class FightArtificialIntelligence {
             TargetCoordssRate remainingTargetHp_ = remainingFoeTargetHp(_fight, _f, m, _diff, _import);
             remoteHp_.put(m, remainingTargetHp_);
             for (TargetCoords t: remainingTargetHp_.getKeys()) {
-                Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
+                Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t);
                 for (byte f2_: foeFighers_) {
                     TeamPosition c2_ = Fight.toFoeFighter(f2_);
                     if (Rate.strLower(remainingTargetHp_.getVal(t), _fight.getFighter(c2_).getRemainingHp())) {
@@ -298,7 +298,7 @@ final class FightArtificialIntelligence {
     static TargetCoordsList koFoeFighters(Fight _fight, TeamPosition _thrower, String _move, StringMap<TargetCoordsList> _possibleChoicesAlly, Difficulty _diff, DataBase _import) {
         TargetCoordsList kos_ = new TargetCoordsList();
         for (TargetCoords t: _possibleChoicesAlly.getVal(_move)) {
-            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t.getPosition());
+            Bytes foeFighers_ = _fight.getFoeTeam().fightersAtCurrentPlace(t);
             for (byte p:foeFighers_) {
                 TeamPosition c2_ = Fight.toFoeFighter(p);
                 if (koFoeFighter(_fight, _thrower, _move, c2_, _diff, _import)) {

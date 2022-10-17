@@ -1896,7 +1896,7 @@ public final class FightFacade {
                 TargetCoordssRate mapTargets_ = FightArtificialIntelligence.remainingFoeTargetHp(_fight, f, m, _diff, _import);
                 for (TargetCoords t: mapTargets_.getKeys()) {
                     Team team_ = _fight.getTeams().getVal((byte) t.getTeam());
-                    for (byte f2_: team_.fightersAtCurrentPlace(t.getPosition())) {
+                    for (byte f2_: team_.fightersAtCurrentPlace(t)) {
                         fighters_.put(new TeamPosition((byte) t.getTeam(), f2_), mapTargets_.getVal(t));
                     }
                 }

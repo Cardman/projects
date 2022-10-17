@@ -970,7 +970,7 @@ final class FightEndRound {
     private static boolean effectEndRoundPositionTargetRelationExit(Fight _fight, TeamPosition _combattant, String _attaque, Difficulty _diff, DataBase _import, Fighter _creatureLanceur, Anticipation _attaqueAnticipe) {
         TargetCoords target_ = _attaqueAnticipe.getTargetPosition();
         Team equipeCible_= _fight.getTeams().getVal((byte) target_.getTeam());
-        for(EntryCust<Byte, Fighter> e:equipeCible_.fightersListAtCurrentPlace(target_.getPosition()).entryList()){
+        for(EntryCust<Byte, Fighter> e:equipeCible_.fightersListAtCurrentPlace(target_).entryList()){
             _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition((byte) target_.getTeam(), e.getKey()), _combattant, _import);
             Fighter creatureCible_=e.getValue();
             AnimationEffect animation_;
