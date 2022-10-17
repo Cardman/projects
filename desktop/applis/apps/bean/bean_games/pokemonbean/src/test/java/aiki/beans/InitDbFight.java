@@ -110,6 +110,17 @@ public abstract class InitDbFight extends InitDbBean {
         return InitDbPkBean.callLongs(new TeamBeanGetFoeFigtherAgainstFoe(),_str,_args);
     }
 
+    public static Struct callTeamBeanEnabledMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanEnabledMovesGet(),_str,_args);
+    }
+
+    public static Struct callTeamBeanEnabledMovesByGroupGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanEnabledMovesByGroupGet(),_str,_args);
+    }
+
+    public static Struct callTeamBeanGetKey(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanGetKey(),_str,_args);
+    }
     public static Struct callTeamBeanGetTrPokemonLink(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanGetTrPokemonLink(),_str,_args);
     }

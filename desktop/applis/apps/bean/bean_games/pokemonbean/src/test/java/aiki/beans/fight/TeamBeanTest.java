@@ -2,6 +2,7 @@ package aiki.beans.fight;
 
 import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
@@ -383,6 +384,34 @@ public final class TeamBeanTest extends InitDbFight {
     @Test
     public void pkFoeName16() {
         assertEq(PIKA_TR_2+" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),3,3));
+    }
+    @Test
+    public void enMoves1() {
+        assertSizeEq(1,callTeamBeanEnabledMovesGet(playerPath()));
+    }
+    @Test
+    public void enMoves2() {
+        assertEq(M_TEAM_TR,first(elt(callTeamBeanEnabledMovesGet(playerPath()),0)));
+    }
+    @Test
+    public void enMovesGr1() {
+        assertSizeEq(1,callTeamBeanEnabledMovesByGroupGet(playerPath()));
+    }
+    @Test
+    public void enMovesGr2() {
+        assertSizeEq(2,first(elt(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)));
+    }
+    @Test
+    public void enMovesGr3() {
+        assertEq(M_TEAM_TR,elt(first(elt(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)),0));
+    }
+    @Test
+    public void enMovesGr4() {
+        assertEq(M_TEAM_SEND_TR,elt(first(elt(callTeamBeanEnabledMovesByGroupGet(playerPath()),0)),1));
+    }
+    @Test
+    public void getKey() {
+        assertEq(M_TEAM_TR+ DataBase.SEPARATOR_MOVES +M_TEAM_SEND_TR,callTeamBeanGetKey(playerPath(),0));
     }
 
     private Struct foePath() {
