@@ -4,9 +4,11 @@ import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.game.fight.Fighter;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class TeamBeanTest extends InitDbFight {
@@ -493,6 +495,70 @@ public final class TeamBeanTest extends InitDbFight {
     @Test
     public void heal14() {
         assertFalse(callStacksOfUsesIsLastStacked(second(elt(second(elt(callTeamBeanTeamBeanHealAfterGet(foePath()),0)),0))));
+    }
+    @Test
+    public void ant1() {
+        assertSizeEq(1,callTeamBeanMovesAnticipationGet(playerPath()));
+    }
+    @Test
+    public void ant2() {
+        assertSizeEq(1,callTeamBeanMovesAnticipationGet(foePath()));
+    }
+    @Test
+    public void ant3() {
+        assertEq(M_ANT_TR,first(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)));
+    }
+    @Test
+    public void ant4() {
+        assertEq(M_ANT_TR,first(elt(callTeamBeanMovesAnticipationGet(foePath()),0)));
+    }
+    @Test
+    public void ant5() {
+        assertSizeEq(4,second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)));
+    }
+    @Test
+    public void ant6() {
+        assertSizeEq(4,second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)));
+    }
+    @Test
+    public void ant7() {
+        assertEq(0,first(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0)));
+    }
+    @Test
+    public void ant8() {
+        assertEq(0,first(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0)));
+    }
+    @Test
+    public void ant9() {
+        assertEq(1,callAnticipationGetNbRounds(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void ant10() {
+        assertEq(0,callAnticipationGetNbRounds(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+    }
+    @Test
+    public void ant11() {
+        assertTrue(callAnticipationIsIncrementing(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void ant12() {
+        assertFalse(callAnticipationIsIncrementing(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+    }
+    @Test
+    public void ant13() {
+        assertEq(Fighter.BACK,callAnticipationGetTargetPositionValue(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void ant14() {
+        assertEq(0,callAnticipationGetTargetPositionValue(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+    }
+    @Test
+    public void ant15() {
+        assertEq(Rate.one(),callAnticipationGetDamage(second(elt(second(elt(callTeamBeanMovesAnticipationGet(playerPath()),0)),0))));
+    }
+    @Test
+    public void ant16() {
+        assertEq(Rate.zero(),callAnticipationGetDamage(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
     }
     private Struct foePath() {
         return beanTeam(clickFoeCaller());

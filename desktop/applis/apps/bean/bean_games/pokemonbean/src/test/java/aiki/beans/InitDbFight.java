@@ -19,10 +19,7 @@ import aiki.fight.util.LevelMove;
 import aiki.fight.util.ListEffectCombo;
 import aiki.fight.util.ListEffectCombos;
 import aiki.game.Game;
-import aiki.game.fight.ActivityOfMove;
-import aiki.game.fight.Fight;
-import aiki.game.fight.FightFacade;
-import aiki.game.fight.Team;
+import aiki.game.fight.*;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
@@ -134,6 +131,25 @@ public abstract class InitDbFight extends InitDbBean {
         return InitDbPkBean.callLongs(new StacksOfUsesIsLastStacked(),_str,_args);
     }
 
+    public static Struct callAnticipationGetTargetPositionValue(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TargetCoordsGetPosition(),InitDbPkBean.callLongs(new AnticipationGetTargetPosition(),_str,_args));
+    }
+
+    public static Struct callAnticipationGetDamage(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new AnticipationGetDamage(),_str,_args);
+    }
+
+    public static Struct callAnticipationGetNbRounds(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new AnticipationGetNbRounds(),_str,_args);
+    }
+
+    public static Struct callAnticipationIsIncrementing(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new AnticipationIsIncrementing(),_str,_args);
+    }
+
+    public static Struct callTeamBeanMovesAnticipationGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanMovesAnticipationGet(),_str,_args);
+    }
     public static Struct callTeamBeanTeamBeanHealAfterGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanHealAfterGet(),_str,_args);
     }
@@ -423,6 +439,17 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 1);
         fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(true);
         fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(true);
+        fight_.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 0);
+        fight_.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(false);
+        fight_.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(false);
+        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(true);
+        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 1);
+        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.one());
+        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords(Fighter.BACK,Fighter.BACK));
+        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(false);
+        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 0);
+        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.zero());
+        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(TargetCoords.toFoeTarget((short) 0));
         return fac_;
     }
     protected FacadeGame facade(DataBase _data) {
