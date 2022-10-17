@@ -595,11 +595,7 @@ public final class TeamBeanTest extends InitDbFight {
     }
 
     private Struct beanTeam(NatCaller _caller) {
-        FacadeGame facade_ = facadeBigTeams(dbTeam());
         PkFight stds_ = new PkFight();
-        Struct bFigtht_ = beanFight(stds_,EN, facade_);
-        Struct bTeam_ = beanTeam(stds_,EN, facade_);
-        transit(stds_, _caller,displaying(bFigtht_),bTeam_);
-        return bTeam_;
+        return beanTeam(stds_,_caller);
     }
 }

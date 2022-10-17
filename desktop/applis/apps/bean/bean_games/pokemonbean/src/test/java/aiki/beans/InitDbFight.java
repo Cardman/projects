@@ -81,6 +81,24 @@ public abstract class InitDbFight extends InitDbBean {
         return _stds.beanTeam(_language);
     }
 
+    public static Struct beanFighter(PkFight _stds,String _language, FacadeGame _dataBase) {
+        _stds.setDataBase(_dataBase);
+        return _stds.beanFighter(_language);
+    }
+
+
+    protected Struct beanTeam(PkFight _pkFight,NatCaller _caller) {
+        FacadeGame facade_ = facadeBigTeams(dbTeam());
+        return beanTeam(_pkFight, _caller, facade_);
+    }
+
+    protected Struct beanTeam(PkFight _pkFight, NatCaller _caller, FacadeGame _facade) {
+        Struct bFigtht_ = beanFight(_pkFight,EN, _facade);
+        Struct bTeam_ = beanTeam(_pkFight,EN, _facade);
+        transit(_pkFight, _caller,displaying(bFigtht_),bTeam_);
+        return bTeam_;
+    }
+
     public static String navigateFightPlayer(Struct _str, long... _args) {
         return navigateFight(clickPlayerCaller(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
     }
@@ -108,6 +126,9 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callFighterBeanNameGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNameGet(),_str,_args);
+    }
     public static Struct callTeamBeanPlayerFightersAgainstFoeGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanPlayerFightersAgainstFoeGet(),_str,_args);
     }
@@ -229,28 +250,19 @@ public abstract class InitDbFight extends InitDbBean {
         return InitDbPkBean.callLongs(new ActivityOfMoveIsIncrementCount(),_str,_args);
     }
 
+    protected DataBase dbFighter() {
+        DataBase data_ = dbBase();
+        secondPk(data_);
+        StatusMoveData mteam_ = Instances.newStatusMoveData();
+        mteam_.getEffects().add(Instances.newEffectTeam());
+        data_.completeMembers(M_TEAM, mteam_);
+        data_.getTranslatedMoves().getVal(LANGUAGE).addEntry(M_TEAM, M_TEAM_TR);
+        data_.completeVariables();
+        return data_;
+    }
     protected DataBase dbTeam() {
         DataBase data_ = dbBase();
-        PokemonData pkData_ = Instances.newPokemonData();
-        pkData_.setBaseEvo(PIKA_2);
-        pkData_.setEggGroups(new StringList(data_.getDefaultEggGroup()));
-        pkData_.setTypes(new StringList(ELECTRICK));
-        statBase(pkData_);
-        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
-        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
-        pkData_.setExpRate(1);
-        pkData_.setHeight(Rate.one());
-        pkData_.setWeight(Rate.one());
-        pkData_.setCatchingRate((short) 1);
-        pkData_.setHappiness((short) 1);
-        pkData_.setHappinessHatch((short) 1);
-        pkData_.setAbilities(new StringList(PARATONNERRE));
-        data_.completeMembers(PIKA_2,pkData_);
-        StringMap<String> trPks_ = new StringMap<String>();
-        trPks_.addEntry(PIKACHU,PIKACHU_TR);
-        trPks_.addEntry(PIKA_2,PIKA_TR_2);
-        data_.getTranslatedPokemon().clear();
-        data_.getTranslatedPokemon().addEntry(LANGUAGE,trPks_);
+        secondPk(data_);
         StatusMoveData mteam_ = Instances.newStatusMoveData();
         mteam_.getEffects().add(Instances.newEffectTeam());
         data_.completeMembers(M_TEAM, mteam_);
@@ -277,6 +289,30 @@ public abstract class InitDbFight extends InitDbBean {
         data_.completeVariables();
         return data_;
     }
+
+    private void secondPk(DataBase _data) {
+        PokemonData pkData_ = Instances.newPokemonData();
+        pkData_.setBaseEvo(PIKA_2);
+        pkData_.setEggGroups(new StringList(_data.getDefaultEggGroup()));
+        pkData_.setTypes(new StringList(ELECTRICK));
+        statBase(pkData_);
+        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.setExpRate(1);
+        pkData_.setHeight(Rate.one());
+        pkData_.setWeight(Rate.one());
+        pkData_.setCatchingRate((short) 1);
+        pkData_.setHappiness((short) 1);
+        pkData_.setHappinessHatch((short) 1);
+        pkData_.setAbilities(new StringList(PARATONNERRE));
+        _data.completeMembers(PIKA_2,pkData_);
+        StringMap<String> trPks_ = new StringMap<String>();
+        trPks_.addEntry(PIKACHU,PIKACHU_TR);
+        trPks_.addEntry(PIKA_2,PIKA_TR_2);
+        _data.getTranslatedPokemon().clear();
+        _data.getTranslatedPokemon().addEntry(LANGUAGE,trPks_);
+    }
+
     protected DataBase db() {
         DataBase data_ = dbBase();
         data_.completeVariables();
@@ -457,21 +493,57 @@ public abstract class InitDbFight extends InitDbBean {
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
-        fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 1);
-        fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(true);
-        fight_.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(true);
-        fight_.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 0);
-        fight_.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(false);
-        fight_.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(false);
-        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(true);
-        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 1);
-        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.one());
-        fight_.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords(Fighter.BACK,Fighter.BACK));
-        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(false);
-        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 0);
-        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.zero());
-        fight_.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(TargetCoords.toFoeTarget((short) 0));
+        updateMoves(fight_);
         return fac_;
+    }
+
+    protected FacadeGame facadeFighters(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
+        TrainerLeague trainer_ = Instances.newTrainerLeague();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 4);
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        return fac_;
+    }
+    private void updateMoves(Fight _fight) {
+        _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 1);
+        _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(true);
+        _fight.getUserTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(true);
+        _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setNbRounds((byte) 0);
+        _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setLastStacked(false);
+        _fight.getFoeTeam().getHealAfter().getVal(M_STACK).getValue(0).setFirstStacked(false);
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(true);
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 1);
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.one());
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords(Fighter.BACK,Fighter.BACK));
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(false);
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 0);
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.zero());
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(TargetCoords.toFoeTarget((short) 0));
     }
     protected FacadeGame facade(DataBase _data) {
         FacadeGame fac_ = initFacade(_data);
