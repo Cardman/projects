@@ -660,32 +660,27 @@ public final class FightFacade {
     }
 
     static boolean validAllyChoices(Fight _fight, DataBase _data) {
-        Bytes noTeams_ = new Bytes();
-        noTeams_.add(Fight.CST_PLAYER);
-        noTeams_.add(Fight.CST_FOE);
-        if (_fight.getAllyChoiceSet().size() != DataBase.ONE_POSSIBLE_CHOICE) {
-            for (MoveTarget p: _fight.getAllyChoiceSet()) {
-                if (!_data.getMoves().contains(p.getMove()) || koTargetByAlly(_fight, p.getTarget(), noTeams_)) {
-                    return false;
-                }
+        for (MoveTarget p: _fight.getAllyChoiceSet()) {
+            if (!p.getMove().isEmpty() && (!_data.getMoves().contains(p.getMove()) || koTargetByAlly(_fight, p.getTarget()))) {
+                return false;
             }
         }
         for (MoveTarget p: _fight.getAllyChoiceValuesSet()) {
-            if (!p.getMove().isEmpty() && (!_data.getMoves().contains(p.getMove()) || _data.getMove(p.getMove()).getTargetChoice().isWithChoice() && koTargetByAlly(_fight, p.getTarget(), noTeams_))) {
+            if (!p.getMove().isEmpty() && (!_data.getMoves().contains(p.getMove()) || _data.getMove(p.getMove()).getTargetChoice().isWithChoice() && koTargetByAlly(_fight, p.getTarget()))) {
                 return false;
             }
         }
         return true;
     }
 
-    private static boolean koTargetByAlly(Fight _fight, TargetCoords _target, Bytes _noTeams) {
+    private static boolean koTargetByAlly(Fight _fight, TargetCoords _target) {
         if (_target.getPosition() == Fighter.BACK) {
             return true;
         }
         if (_target.getPosition() < 0) {
             return true;
         }
-        if (!_noTeams.containsObj((byte) _target.getTeam())) {
+        if (TargetCoords.koTeam(_target.getTeam())) {
             return true;
         }
         return _target.getPosition() >= _fight.getMult();
@@ -1935,9 +1930,7 @@ public final class FightFacade {
     }
 
     public static TeamPositionList sortedFightersBeginRound(Fight _fight, DataBase _data) {
-        if (!_fight.getAllyChoiceSet().isEmpty()) {
-            FightRound.setAllyChoices(_fight, _data);
-        }
+        FightRound.setAllyChoices(_fight, _data);
         fightersSortMove(_fight, _data);
         cancelActions(_fight, FightOrder.fightersBelongingToUser(_fight, false));
         return _fight.getOrderedFighters();
@@ -1964,9 +1957,7 @@ public final class FightFacade {
     public static TeamPositionActionMoveMap
             sortedFightersUsingMoveDependingOnPlayerChoices(
                     Fight _fight, DataBase _data) {
-        if (!_fight.getAllyChoiceSet().isEmpty()) {
-            FightRound.setAllyChoices(_fight, _data);
-        }
+        FightRound.setAllyChoices(_fight, _data);
         TeamPositionList fightersUsingMove_ = sortFighters(_fight, _data);
         TeamPositionActionMoveMap tree_;
         tree_ = new TeamPositionActionMoveMap(new SortedFighterActsComparator(_fight));

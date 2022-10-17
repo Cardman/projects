@@ -58,6 +58,7 @@ import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
+import code.util.ints.Listable;
 
 final class FightRound {
 
@@ -73,6 +74,11 @@ final class FightRound {
     }
 
     static void setAllyChoices(Fight _fight,DataBase _import) {
+        Listable<MoveTarget> values_ = _fight.getAllyChoiceValuesSet();
+        if (values_.isEmpty()) {
+            return;
+        }
+        MoveTarget choice_ = values_.first();
         for (TeamPosition partner_: FightOrder.notKoFrontFightersBelongingToUser(_fight,false)) {
             TeamPositionList playerList_ = FightOrder.notKoFrontFightersBelongingToUser(_fight, true);
             boolean foundCombo_ = foundComboSpecTarget(_fight, _import, partner_, playerList_);
@@ -80,7 +86,6 @@ final class FightRound {
                 foundCombo_ = foundComboGeneTarget(_fight, _import, partner_, playerList_);
             }
             if (!foundCombo_) {
-                MoveTarget choice_ = _fight.getAllyChoiceValuesSet().first();
                 String move_ = choice_.getMove();
                 if (move_.isEmpty()) {
                     continue;
@@ -104,10 +109,8 @@ final class FightRound {
         if (_playerList.isEmpty()) {
             return false;
         }
-        TeamPosition found_ = _playerList.first();
-        Fighter fighter_ = _fight.getFighter(found_);
-        String move_ = fighter_.getFirstChosenMove();
-        if (!StringUtil.quickEq(move_, _p.getMove())) {
+        Fighter fighter_ = _fight.getFighter(_playerList.first());
+        if (!StringUtil.quickEq(fighter_.getFirstChosenMove(), _p.getMove())) {
             return false;
         }
         String allyMove_ = _fight.getAllyChoiceVal(_p).getMove();
@@ -132,8 +135,7 @@ final class FightRound {
         if (_playerList.isEmpty()) {
             return false;
         }
-        TeamPosition found_ = _playerList.first();
-        Fighter fighter_ = _fight.getFighter(found_);
+        Fighter fighter_ = _fight.getFighter(_playerList.first());
         if (!StringUtil.quickEq(fighter_.getFirstChosenMove(), _p.getMove())) {
             return false;
         }
@@ -247,9 +249,7 @@ final class FightRound {
         _fight.setKeepRound(true);
         _fight.getEffects().clear();
         if(_fight.getBeginRound()){
-            if (!_fight.getAllyChoiceSet().isEmpty()) {
-                setAllyChoices(_fight, _import);
-            }
+            setAllyChoices(_fight, _import);
             initRound(_fight);
         }else{
             TeamPosition currentUser_ = _fight.getCurrentUser();

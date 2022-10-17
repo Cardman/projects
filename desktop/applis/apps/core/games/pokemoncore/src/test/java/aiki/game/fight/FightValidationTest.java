@@ -331,6 +331,24 @@ public class FightValidationTest extends InitializationDataBase {
         assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
     }
     @Test
+    public void validAllyChoices29Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual1(Sex.GIRL, diff_, data_);
+        game_.getFight().getAllyChoice().clear();
+        game_.getFight().getAllyChoice().put(new MoveTarget(NULL_REF, POKEMON_FOE_TARGET_ZERO), new MoveTarget(BROUHAHA, POKEMON_FOE_TARGET_ZERO));
+        assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
+    }
+    @Test
+    public void validAllyChoices30Test(){
+        DataBase data_ = initDb();
+        Difficulty diff_ = new Difficulty();
+        Game game_ = newGameInFightTrainerDual1(Sex.BOY, diff_, data_);
+        game_.getFight().getAllyChoice().clear();
+        game_.getFight().getAllyChoice().put(new MoveTarget(NULL_REF, POKEMON_FOE_TARGET_ZERO), new MoveTarget(BROUHAHA, POKEMON_FOE_TARGET_ZERO));
+        assertTrue(FightFacade.validAllyChoices(game_.getFight(), data_));
+    }
+    @Test
     public void validPlacesSubst1Test(){
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();

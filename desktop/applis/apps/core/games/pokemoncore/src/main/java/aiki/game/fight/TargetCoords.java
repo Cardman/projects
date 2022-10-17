@@ -30,8 +30,13 @@ public final class TargetCoords {
     }
 
     public static boolean ko(TargetCoords _pos) {
-        return !NumberUtil.eq(_pos.getTeam(),Fight.CST_PLAYER)&&!NumberUtil.eq(_pos.getTeam(),Fight.CST_FOE) ||koPosition(_pos.getPosition());
+        return koTeam(_pos.getTeam()) ||koPosition(_pos.getPosition());
     }
+
+    public static boolean koTeam(short _team) {
+        return !NumberUtil.eq(_team, Fight.CST_PLAYER) && !NumberUtil.eq(_team, Fight.CST_FOE);
+    }
+
     public static boolean koPosition(short _pos) {
         return !NumberUtil.eq(_pos, Fighter.BACK) && _pos < 0;
     }
