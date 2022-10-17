@@ -1,9 +1,11 @@
 package aiki.beans.fight;
 
+import aiki.beans.CommonBean;
 import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
@@ -559,6 +561,30 @@ public final class TeamBeanTest extends InitDbFight {
     @Test
     public void ant16() {
         assertEq(Rate.zero(),callAnticipationGetDamage(second(elt(second(elt(callTeamBeanMovesAnticipationGet(foePath()),0)),0))));
+    }
+    @Test
+    public void ant17() {
+        assertTrue(callTeamBeanIsBackMovesAnticipationTeam(playerPath(),0,0));
+    }
+    @Test
+    public void ant18() {
+        assertFalse(callTeamBeanIsBackMovesAnticipationTeam(foePath(),0,0));
+    }
+    @Test
+    public void ant19() {
+        assertFalse(callTeamBeanIsFoeMovesAnticipationTeam(playerPath(),0,0));
+    }
+    @Test
+    public void ant20() {
+        assertTrue(callTeamBeanIsFoeMovesAnticipationTeam(foePath(),0,0));
+    }
+
+    @Test
+    public void clickFighter() {
+        Struct fBean_ = playerPath();
+        assertEq(CommonBean.DEST_WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
+        assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
+        assertEq(1,forms(fBean_).getValInt(NO_FIGHTER));
     }
     private Struct foePath() {
         return beanTeam(clickFoeCaller());

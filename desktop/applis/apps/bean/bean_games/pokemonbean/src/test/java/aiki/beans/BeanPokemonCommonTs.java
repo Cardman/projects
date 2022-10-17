@@ -28,7 +28,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
     public static String navigate(NatCaller _caller, String _url, StringMap<StringMap<String>> _navigation, String _concat, Struct _str, long... _args) {
         Struct res_ = InitDbPkBean.callLongs(_caller, _str, _args);
-        return BeanNatCommonLgNames.getString(res_,_url,_navigation,_concat);
+        return BeanNatCommonLgNames.getString(res_,_url,_navigation,BeanNatCommonLgNames.methName(_concat));
     }
 
     public static Struct callUsesOfMoveGetMax(Struct _str, long... _args) {

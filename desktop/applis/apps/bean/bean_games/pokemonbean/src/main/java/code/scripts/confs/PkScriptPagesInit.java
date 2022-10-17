@@ -314,7 +314,7 @@ private static final String M_CLICK_ENTRY_HAZARD_1="clickEntryHazard()";
 private static final String M_CLICK_EVO_1="clickEvo()";
 private static final String M_CLICK_FAIL_STATUS_1="clickFailStatus()";
 private static final String M_CLICK_FIGHTER_1="clickFighter()";
-private static final String M_CLICK_FIGHTER_2="clickFighter(,)";
+//private static final String M_CLICK_FIGHTER_2="clickFighter(,)";
 private static final String M_CLICK_FOE="clickFoe";
 private static final String M_CLICK_FORWARD_STATUS_KEY_1="clickForwardStatusKey()";
 private static final String M_CLICK_FORWARD_STATUS_VALUE_1="clickForwardStatusValue()";
@@ -1133,7 +1133,7 @@ private static final char NAV_SEP='.';
         NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_PLAYER,new EntryNav(TEAM,WEB_FIGHT_HTML_TEAM_HTML));
         NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_FOE,new EntryNav(TEAM,WEB_FIGHT_HTML_TEAM_HTML));
         NavBuilder.buildNav(nav_,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
-        NavBuilder.buildNav(nav_,FIGHTER+NAV_SEP+M_CLICK_FIGHTER_2,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
+//        NavBuilder.buildNav(nav_,FIGHTER+NAV_SEP+M_CLICK_FIGHTER_2,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
         return nav_;
     }
     public static StringMap<StringMap<String>> initConfDiff(Configuration _configuration){

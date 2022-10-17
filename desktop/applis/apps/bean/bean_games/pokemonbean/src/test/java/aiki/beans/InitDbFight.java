@@ -43,12 +43,14 @@ import code.util.StringMap;
 
 public abstract class InitDbFight extends InitDbBean {
 
+    protected static final String NO_TEAM = "no_team";
+    protected static final String NO_FIGHTER = "no_fighter";
+
     protected static final String M_TEAM_TR = "team_move";
     protected static final String M_TEAM_SEND_TR = "team_move_send";
     protected static final String M_USE_TR = "use_move";
     protected static final String M_STACK_TR = "stack_move";
     protected static final String M_ANT_TR = "ant_move";
-    protected static final String NO_TEAM = "no_team";
     protected static final String M_TEAM = "M_TEAM";
     protected static final String M_TEAM_SEND = "M_TEAM_SEND";
     protected static final String M_USE = "M_USE";
@@ -57,9 +59,13 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String PIKA_2 = "PIKACHU2";
     protected static final String PIKA_TR_2 = "PIKACHU_TR2";
     static final String NICKNAME = "CARDTEAM";
+
     private static final String FIGHT="fight";
+    private static final String TEAM="team";
     private static final String M_CLICK_FOE="clickFoe";
     private static final String M_CLICK_PLAYER="clickPlayer";
+    private static final String M_CLICK_FIGHTER_1="clickFighter()";
+    //private static final String M_CLICK_FIGHTER_2="clickFighter(,)";
 
     public static Struct beanFight(String _language, FacadeGame _dataBase) {
         return beanFight(new PkFight(),_language,_dataBase);
@@ -83,6 +89,10 @@ public abstract class InitDbFight extends InitDbBean {
         return navigateFight(clickFoeCaller(),CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_FOE,_str,_args);
     }
 
+    public static String navigateTeamFighter(Struct _str, long... _args) {
+        return navigateFight(clickTeamFighterCaller(),CommonBean.DEST_WEB_FIGHT_HTML_FIGHTER_HTML,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,_str,_args);
+    }
+
     public static NatCaller clickPlayerCaller() {
         return new FightBeanClickPlayer();
     }
@@ -91,6 +101,9 @@ public abstract class InitDbFight extends InitDbBean {
         return new FightBeanClickFoe();
     }
 
+    public static NatCaller clickTeamFighterCaller() {
+        return new TeamBeanClickFighter();
+    }
     public static String navigateFight(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
@@ -149,6 +162,14 @@ public abstract class InitDbFight extends InitDbBean {
 
     public static Struct callTeamBeanMovesAnticipationGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanMovesAnticipationGet(),_str,_args);
+    }
+
+    public static Struct callTeamBeanIsBackMovesAnticipationTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanIsBackMovesAnticipationTeam(),_str,_args);
+    }
+
+    public static Struct callTeamBeanIsFoeMovesAnticipationTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanIsFoeMovesAnticipationTeam(),_str,_args);
     }
     public static Struct callTeamBeanTeamBeanHealAfterGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanHealAfterGet(),_str,_args);

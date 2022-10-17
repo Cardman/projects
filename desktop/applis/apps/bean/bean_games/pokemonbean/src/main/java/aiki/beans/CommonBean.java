@@ -15,6 +15,7 @@ import code.util.core.StringUtil;
 public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public static final String DEST_WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
     public static final String DEST_WEB_FIGHT_HTML_TEAM_HTML="web_fight/html/team.html";
+    public static final String DEST_WEB_FIGHT_HTML_FIGHTER_HTML="web_fight/html/fighter.html";
     protected static final String CST_ABILITIES = "abilities";
     protected static final String CST_ABILITIES_SET = "abilities_set";
     protected static final String CST_ABILITY = "ability";
