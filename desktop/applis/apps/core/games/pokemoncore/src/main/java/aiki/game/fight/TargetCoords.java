@@ -29,6 +29,9 @@ public final class TargetCoords {
         position = (short) NumberUtil.parseInt(elts_.last());
     }
 
+    public static boolean ko(TargetCoords _pos) {
+        return !NumberUtil.eq(_pos.getTeam(),Fight.CST_PLAYER)&&!NumberUtil.eq(_pos.getTeam(),Fight.CST_FOE) ||koPosition(_pos.getPosition());
+    }
     public static boolean koPosition(short _pos) {
         return !NumberUtil.eq(_pos, Fighter.BACK) && _pos < 0;
     }

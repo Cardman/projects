@@ -430,7 +430,7 @@ public final class Team {
         }
         for (ByteMap<Anticipation> k: movesAnticipation.values()) {
             for (Anticipation s: k.values()) {
-                if (!s.isValid() || TargetCoords.koPosition(s.getTargetPosition().getPosition())) {
+                if (!s.isValid() || TargetCoords.ko(s.getTargetPosition())) {
                     return true;
                 }
             }

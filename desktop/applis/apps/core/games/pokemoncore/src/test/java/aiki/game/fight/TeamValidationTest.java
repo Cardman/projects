@@ -1123,6 +1123,55 @@ public class TeamValidationTest extends InitializationDataBase {
         team_.getMovesAnticipation().clear();
         assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
     }
+    @Test
+    public void validate127Test(){
+        DataBase data_ = initDb();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, data_);
+        Team team_ = game_.getFight().getUserTeam();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        map_.getVal((byte) 0).setTargetPosition(new TargetCoords((short) 2,(byte) 0));
+        team_.getMovesAnticipation().put(PRESCIENCE, map_);
+        assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate128Test(){
+        DataBase data_ = initDb();
+        Game game_ = newGameInFightTrainer(Sex.BOY, data_);
+        Team team_ = game_.getFight().getUserTeam();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        map_.getVal((byte) 0).setTargetPosition(new TargetCoords((short) 2,(byte) 0));
+        team_.getMovesAnticipation().put(PRESCIENCE, map_);
+        assertTrue(!team_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
+    }
+    @Test
+    public void validate129Test(){
+        DataBase data_ = initDb();
+        Game game_ = newGameInFightTrainer(Sex.GIRL, data_);
+        Team team_ = game_.getFight().getFoeTeam();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        map_.getVal((byte) 0).setTargetPosition(new TargetCoords((short) 2,(byte) 0));
+        team_.getMovesAnticipation().put(PRESCIENCE, map_);
+        assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
+    }
+    @Test
+    public void validate130Test(){
+        DataBase data_ = initDb();
+        Game game_ = newGameInFightTrainer(Sex.BOY, data_);
+        Team team_ = game_.getFight().getFoeTeam();
+        ByteMap<Anticipation> map_;
+        map_ = new ByteMap<Anticipation>();
+        map_.put((byte) 0, new Anticipation());
+        map_.getVal((byte) 0).setTargetPosition(new TargetCoords((short) 2,(byte) 0));
+        team_.getMovesAnticipation().put(PRESCIENCE, map_);
+        assertTrue(!team_.validate(data_, Fight.CST_FOE, game_.getFight()));
+    }
+
     private static Game newGameInFightTrainer2(Sex _sex, DataBase _data) {
         return newGameInFightTrainer2(_sex, new Difficulty(), _data);
     }
