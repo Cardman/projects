@@ -6,10 +6,7 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fight;
-import aiki.game.fight.Fighter;
-import aiki.game.fight.Team;
-import aiki.game.fight.TeamPosition;
+import aiki.game.fight.*;
 import aiki.game.fight.util.MoveTarget;
 import aiki.util.TeamPositionList;
 import aiki.util.TeamPositionsStringMapTeamPositionsRate;
@@ -71,16 +68,17 @@ public class FightCalculationBean extends CommonFightBean {
         ByteTreeMap<BoolVal> foeChoicesTargets_;
         foeChoicesTargets_ = new ByteTreeMap<BoolVal>();
         for (byte k: fight_.getFoeTeam().getMembers().getKeys()) {
-            MoveTarget value_;
-            value_ = new MoveTarget();
             Fighter f_ = fight_.getFoeTeam().getMembers().getVal(k);
             String move_ = f_.getFirstChosenMove();
             if (move_.isEmpty()) {
                 continue;
             }
+            MoveTarget value_ = new MoveTarget();
             value_.setMove(translationsMoves_.getVal(move_));
             if (!f_.getChosenTargets().isEmpty()) {
                 value_.setTarget(f_.getChosenTargets().first());
+            } else {
+                value_.setTarget(new TargetCoords((short) -1,Fighter.BACK));
             }
             foeChoices_.put(k, value_);
             foeChoicesTargets_.put(k, ComparatorBoolean.of(!f_.getChosenTargets().isEmpty()));
