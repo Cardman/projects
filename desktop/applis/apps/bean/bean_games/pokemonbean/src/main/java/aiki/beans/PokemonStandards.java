@@ -3,7 +3,10 @@ package aiki.beans;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.beans.facade.dto.MoveLine;
 import aiki.beans.facade.dto.PokemonLine;
-import aiki.beans.facade.fight.*;
+import aiki.beans.facade.fight.KeyHypothesis;
+import aiki.beans.facade.fight.MultPowerMoves;
+import aiki.beans.facade.fight.StatisticInfo;
+import aiki.beans.facade.fight.SufferedDamageCategory;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.*;
@@ -29,11 +32,13 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.instances.Instances;
 import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.pokemon.*;
+import aiki.map.pokemon.PkTrainer;
+import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.PokemonTeam;
+import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceLevel;
@@ -80,13 +85,13 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
     public static final String TYPE_EFFECT_WHILE_SENDING = "aiki.fight.effects.EffectWhileSending";
     public static final String TYPE_ALLY = "aiki.map.characters.Ally";
     public static final String TYPE_TEMP_TRAINER = "aiki.map.characters.TempTrainer";
-    public static final String TYPE_TRAINER_ONE_FIGHT = "aiki.map.characters.TrainerOneFight";
+//    public static final String TYPE_TRAINER_ONE_FIGHT = "aiki.map.characters.TrainerOneFight";
     public static final String TYPE_TRAINER = "aiki.map.characters.Trainer";
-    public static final String TYPE_PERSON = "aiki.map.characters.Person";
-    public static final String TYPE_FULL_RATE_VALIDATOR = "aiki.beans.validators.RateValidator";
-    public static final String TYPE_FULL_POSITIVE_RATE_VALIDATOR = "aiki.beans.validators.PositiveRateValidator";
-    public static final String TYPE_FULL_SHORT_VALIDATOR = "aiki.beans.validators.ShortValidator";
-    public static final String TYPE_FULL_UNSELECTED_RADIO = "aiki.beans.validators.UnselectedRadio";
+//    public static final String TYPE_PERSON = "aiki.map.characters.Person";
+//    public static final String TYPE_FULL_RATE_VALIDATOR = "aiki.beans.validators.RateValidator";
+//    public static final String TYPE_FULL_POSITIVE_RATE_VALIDATOR = "aiki.beans.validators.PositiveRateValidator";
+//    public static final String TYPE_FULL_SHORT_VALIDATOR = "aiki.beans.validators.ShortValidator";
+//    public static final String TYPE_FULL_UNSELECTED_RADIO = "aiki.beans.validators.UnselectedRadio";
     public static final String TYPE_RATE_VALIDATOR = "RateValidator";
     public static final String TYPE_POSITIVE_RATE_VALIDATOR = "PositiveRateValidator";
     public static final String TYPE_SHORT_VALIDATOR = "ShortValidator";
@@ -180,38 +185,38 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         forms_.putAllMap(formsMap_);
     }
 
-    public static PkTrainer toPkTrainer(Struct _inst) {
-        if (!(_inst instanceof PkStruct)) {
-            return Instances.newPkTrainer();
-        }
-        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
-        if (instance_ instanceof PkTrainer) {
-            return (PkTrainer) instance_;
-        }
-        return Instances.newPkTrainer();
-    }
-
-    public static WildPk toWildPk(Struct _inst) {
-        if (!(_inst instanceof PkStruct)) {
-            return Instances.newWildPk();
-        }
-        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
-        if (instance_ instanceof WildPk) {
-            return (WildPk) instance_;
-        }
-        return Instances.newWildPk();
-    }
-
-    public static PokemonPlayer toPokemonPlayer(Struct _inst) {
-        if (!(_inst instanceof PkStruct)) {
-            return Instances.newPokemonPlayer();
-        }
-        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
-        if (instance_ instanceof PokemonPlayer) {
-            return (PokemonPlayer) instance_;
-        }
-        return Instances.newPokemonPlayer();
-    }
+//    public static PkTrainer toPkTrainer(Struct _inst) {
+//        if (!(_inst instanceof PkStruct)) {
+//            return Instances.newPkTrainer();
+//        }
+//        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+//        if (instance_ instanceof PkTrainer) {
+//            return (PkTrainer) instance_;
+//        }
+//        return Instances.newPkTrainer();
+//    }
+//
+//    public static WildPk toWildPk(Struct _inst) {
+//        if (!(_inst instanceof PkStruct)) {
+//            return Instances.newWildPk();
+//        }
+//        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+//        if (instance_ instanceof WildPk) {
+//            return (WildPk) instance_;
+//        }
+//        return Instances.newWildPk();
+//    }
+//
+//    public static PokemonPlayer toPokemonPlayer(Struct _inst) {
+//        if (!(_inst instanceof PkStruct)) {
+//            return Instances.newPokemonPlayer();
+//        }
+//        Pokemon instance_ = ((PkStruct)_inst).getWildPk();
+//        if (instance_ instanceof PokemonPlayer) {
+//            return (PokemonPlayer) instance_;
+//        }
+//        return Instances.newPokemonPlayer();
+//    }
 
     protected PokemonBeanStruct bean(CommonBean _bean, String _name, String _lg) {
         _bean.setClassName(_name);
@@ -832,12 +837,12 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         return arr_;
     }
     public static Struct newMoveLine(MoveLine _s) {
-        if (_s instanceof SelectLineMove) {
-            return new MvLineStruct(_s);
-        }
-        if (_s instanceof RadioLineMove) {
-            return new MvLineStruct(_s);
-        }
+//        if (_s instanceof SelectLineMove) {
+//            return new MvLineStruct(_s);
+//        }
+//        if (_s instanceof RadioLineMove) {
+//            return new MvLineStruct(_s);
+//        }
         return new MvLineStruct(_s);
     }
     public static NatArrayStruct getEffPartStat(CustList<EffectPartnerStatus> _ls) {

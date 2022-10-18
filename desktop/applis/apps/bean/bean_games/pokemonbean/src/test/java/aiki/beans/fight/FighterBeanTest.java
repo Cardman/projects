@@ -111,6 +111,60 @@ public final class FighterBeanTest extends InitDbFight {
     public void needRec2() {
         assertFalse(callFighterBeanNeedingToRechargeGet(foePath(0)));
     }
+    @Test
+    public void enAlly1() {
+        assertSizeEq(1,callFighterBeanEnabledMovesForAllyGet(playerPath(0)));
+    }
+
+    @Test
+    public void enAlly2() {
+        assertSizeEq(1,callFighterBeanEnabledMovesForAllyGet(foePath(0)));
+    }
+    @Test
+    public void enAlly3() {
+        assertEq(M_ALLY_TR,first(elt(callFighterBeanEnabledMovesForAllyGet(playerPath(0)),0)));
+    }
+
+    @Test
+    public void enAlly4() {
+        assertEq(M_ALLY_TR,first(elt(callFighterBeanEnabledMovesForAllyGet(foePath(0)),0)));
+    }
+    @Test
+    public void enAlly5() {
+        assertTrue(second(elt(callFighterBeanEnabledMovesForAllyGet(playerPath(0)),0)));
+    }
+
+    @Test
+    public void enAlly6() {
+        assertFalse(second(elt(callFighterBeanEnabledMovesForAllyGet(foePath(0)),0)));
+    }
+    @Test
+    public void enAcc1() {
+        assertSizeEq(16,callFighterBeanIncrUserAccuracyGet(playerPath(0)));
+    }
+
+    @Test
+    public void enAcc2() {
+        assertSizeEq(16,callFighterBeanIncrUserAccuracyGet(foePath(0)));
+    }
+    @Test
+    public void enAcc3() {
+        assertEq(M_ACC_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanIncrUserAccuracyGet(playerPath(0)),0))));
+    }
+
+    @Test
+    public void enAcc4() {
+        assertEq(M_ACC_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanIncrUserAccuracyGet(foePath(0)),8))));
+    }
+    @Test
+    public void enAcc5() {
+        assertTrue(second(elt(callFighterBeanIncrUserAccuracyGet(playerPath(0)),8)));
+    }
+
+    @Test
+    public void enAcc6() {
+        assertFalse(second(elt(callFighterBeanIncrUserAccuracyGet(foePath(0)),0)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
