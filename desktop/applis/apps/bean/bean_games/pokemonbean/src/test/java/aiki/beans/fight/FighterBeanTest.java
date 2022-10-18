@@ -327,6 +327,38 @@ public final class FighterBeanTest extends InitDbFight {
     public void necessary() {
         assertEq(Rate.newRate("7"),callFighterBeanNecessaryPointsNextLevelGet(playerPath(0)));
     }
+    @Test
+    public void types1() {
+        assertSizeEq(1,callFighterBeanTypesGet(playerPath(0)));
+    }
+    @Test
+    public void types2() {
+        assertEq(ELECTRICK_TR,elt(callFighterBeanTypesGet(playerPath(0)),0));
+    }
+    @Test
+    public void alreadyInvokedMoves1() {
+        assertSizeEq(1,callFighterBeanAlreadyInvokedMovesRoundGet(playerPath(0)));
+    }
+    @Test
+    public void alreadyInvokedMoves2() {
+        assertEq(M_TEAM_TR,elt(callFighterBeanAlreadyInvokedMovesRoundGet(playerPath(0)),0));
+    }
+    @Test
+    public void typesProt1() {
+        assertSizeEq(1,callFighterBeanProtectedAgainstMoveTypesGet(playerPath(0)));
+    }
+    @Test
+    public void typesProt2() {
+        assertEq(ELECTRICK_TR,elt(callFighterBeanProtectedAgainstMoveTypesGet(playerPath(0)),0));
+    }
+    @Test
+    public void sufMovesTypes1() {
+        assertSizeEq(1,callFighterBeanLastSufferedMoveTypesGet(playerPath(0)));
+    }
+    @Test
+    public void sufMovesTypes2() {
+        assertEq(ELECTRICK_TR,elt(callFighterBeanLastSufferedMoveTypesGet(playerPath(0)),0));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
