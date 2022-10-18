@@ -159,13 +159,13 @@ public final class FightFacade {
         if (_fight.getState() == FightState.SWITCH_APRES_ATTAQUE) {
             return validSwitchAfterUsingMove(_fight, _data);
         } else if (_fight.getState() == FightState.APPRENDRE_EVOLUER) {
-            return validLearnEvolve(_fight, _diff);
+            return validLearnEvolve(_fight,_data, _diff);
         } else if (_fight.getState() == FightState.ATTAQUES) {
             return validAttaques(_fight, _data, _diff);
         } else if (_fight.getState() == FightState.SWITCH_WHILE_KO_USER) {
-            return validSwitchWhileKoPlayer(_fight);
+            return validSwitchWhileKoPlayer(_fight,_data);
         } else if (_fight.getState() == FightState.SWITCH_PROPOSE) {
-            return validSwitchPropose(_fight);
+            return validSwitchPropose(_fight,_data);
         } else if (_fight.getState() == FightState.SURNOM) {
             return validSurnom(_fight, _data);
         } else if (_fight.getState() == FightState.CAPTURE_KO) {
@@ -194,12 +194,15 @@ public final class FightFacade {
         return _fight.getKos().getVal(Fight.CST_PLAYER) != BoolVal.TRUE;
     }
 
-    private static boolean validSwitchPropose(Fight _fight) {
+    private static boolean validSwitchPropose(Fight _fight, DataBase _data) {
         _fight.getChoices().clear();
         if (koTeam(_fight)) {
             return false;
         }
         if (!FightEndRound.proponedSwitch(_fight)) {
+            return false;
+        }
+        if (!validAllyChoices(_fight, _data)) {
             return false;
         }
         if (!_fight.getFightType().isWild()) {
@@ -208,7 +211,7 @@ public final class FightFacade {
         return true;
     }
 
-    private static boolean validSwitchWhileKoPlayer(Fight _fight) {
+    private static boolean validSwitchWhileKoPlayer(Fight _fight, DataBase _data) {
         _fight.getChoices().clear();
         for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
             if (!_fight.getFighter(f).estKo()) {
@@ -216,6 +219,9 @@ public final class FightFacade {
             }
         }
         if(koTeam(_fight)){
+            return false;
+        }
+        if (!validAllyChoices(_fight, _data)) {
             return false;
         }
         if (FightEndRound.proponedSwitchWhileKoPlayer(_fight)) {
@@ -259,7 +265,7 @@ public final class FightFacade {
         return true;
     }
 
-    private static boolean validLearnEvolve(Fight _fight, Difficulty _diff) {
+    private static boolean validLearnEvolve(Fight _fight, DataBase _data, Difficulty _diff) {
         if (_fight.getChoices().isEmpty()) {
             return false;
         }
@@ -271,6 +277,9 @@ public final class FightFacade {
             if (invalidChoice(_fight, b)) {
                 return false;
             }
+        }
+        if (!validAllyChoices(_fight, _data)) {
+            return false;
         }
         return FightFacade.win(_fight) || !FightKo.endedFight(_fight, _diff);
     }
