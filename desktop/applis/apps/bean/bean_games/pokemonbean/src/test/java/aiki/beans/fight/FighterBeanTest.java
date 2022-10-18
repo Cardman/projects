@@ -10,8 +10,13 @@ import org.junit.Test;
 public final class FighterBeanTest extends InitDbFight {
 
     @Test
-    public void name() {
+    public void name1() {
         assertEq(PIKACHU_TR,callFighterBeanNameGet(playerPath(0)));
+    }
+
+    @Test
+    public void name2() {
+        assertEq(PIKACHU_TR,callFighterBeanNameGet(foePath(0)));
     }
 
     private Struct foePath(long..._args) {
