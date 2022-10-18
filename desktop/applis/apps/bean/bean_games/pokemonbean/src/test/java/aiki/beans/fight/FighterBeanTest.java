@@ -359,6 +359,59 @@ public final class FighterBeanTest extends InitDbFight {
     public void sufMovesTypes2() {
         assertEq(ELECTRICK_TR,elt(callFighterBeanLastSufferedMoveTypesGet(playerPath(0)),0));
     }
+    @Test
+    public void moves1() {
+        assertSizeEq(2,callFighterBeanMovesGet(playerPath(0)));
+    }
+
+    @Test
+    public void moves2() {
+        assertSizeEq(2,callFighterBeanCurrentMovesGet(playerPath(0)));
+    }
+    @Test
+    public void moves3() {
+        assertEq(CHARGE_TR2,first(elt(callFighterBeanMovesGet(playerPath(0)),0)));
+    }
+
+    @Test
+    public void moves4() {
+        assertEq(CHARGE_TR2,first(elt(callFighterBeanCurrentMovesGet(playerPath(0)),0)));
+    }
+    @Test
+    public void moves5() {
+        assertEq(CHARGE_TR,first(elt(callFighterBeanMovesGet(playerPath(0)),1)));
+    }
+
+    @Test
+    public void moves6() {
+        assertEq(CHARGE_TR,first(elt(callFighterBeanCurrentMovesGet(playerPath(0)),1)));
+    }
+
+    @Test
+    public void nbUses1() {
+        assertSizeEq(1,callFighterBeanNbUsesMovesGet(playerPath(0)));
+    }
+    @Test
+    public void nbUses2() {
+        assertEq(M_NB_FIGHTER_TR,first(elt(callFighterBeanNbUsesMovesGet(playerPath(0)),0)));
+    }
+    @Test
+    public void nbUses3() {
+        assertEq(0,second(elt(callFighterBeanNbUsesMovesGet(playerPath(0)),0)));
+    }
+
+    @Test
+    public void status1() {
+        assertSizeEq(1,callFighterBeanStatusGet(playerPath(0)));
+    }
+    @Test
+    public void status2() {
+        assertEq(S_SIMPLE_TR,first(elt(callFighterBeanStatusGet(playerPath(0)),0)));
+    }
+    @Test
+    public void status3() {
+        assertEq(0,second(elt(callFighterBeanStatusGet(playerPath(0)),0)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }

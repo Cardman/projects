@@ -168,6 +168,21 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+
+    public static Struct callFighterBeanStatusGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanStatusGet(),_str,_args);
+    }
+    public static Struct callFighterBeanNbUsesMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNbUsesMovesGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanMovesGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanCurrentMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCurrentMovesGet(),_str,_args);
+    }
     public static Struct callFighterBeanLastSufferedMoveTypesGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanLastSufferedMoveTypesGet(),_str,_args);
     }
