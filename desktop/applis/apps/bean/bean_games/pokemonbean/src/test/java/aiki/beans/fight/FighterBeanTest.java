@@ -597,6 +597,46 @@ public final class FighterBeanTest extends InitDbFight {
     public void stats14() {
         assertEq(Rate.one(),callStatisticInfoGetStatisBase(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
+    @Test
+    public void isFoeIncr1() {
+        assertTrue(callFighterBeanIsFoeIncrUserAccuracyTeam(playerPath(0),8));
+    }
+    @Test
+    public void isFoeIncr2() {
+        assertFalse(callFighterBeanIsFoeIncrUserAccuracyTeam(foePath(0),0));
+    }
+    @Test
+    public void isFoePr1() {
+        assertTrue(callFighterBeanIsFoePrivateMovesTeam(playerPath(0),8));
+    }
+    @Test
+    public void isFoePr2() {
+        assertFalse(callFighterBeanIsFoePrivateMovesTeam(foePath(0),0));
+    }
+    @Test
+    public void isFoeSt1() {
+        assertTrue(callFighterBeanIsFoeStatusRelatTeam(playerPath(0),8));
+    }
+    @Test
+    public void isFoeSt2() {
+        assertFalse(callFighterBeanIsFoeStatusRelatTeam(foePath(0),0));
+    }
+    @Test
+    public void isFoeTk1() {
+        assertTrue(callFighterBeanIsFoeTrackingMovesTeam(playerPath(0),8));
+    }
+    @Test
+    public void isFoeTk2() {
+        assertFalse(callFighterBeanIsFoeTrackingMovesTeam(foePath(0),0));
+    }
+    @Test
+    public void isFoeTp1() {
+        assertTrue(callFighterBeanIsFoeTrappingMovesTeam(playerPath(0),8));
+    }
+    @Test
+    public void isFoeTp2() {
+        assertFalse(callFighterBeanIsFoeTrappingMovesTeam(foePath(0),0));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
