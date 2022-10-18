@@ -210,6 +210,41 @@ public final class FighterBeanTest extends InitDbFight {
     public void nickname() {
         assertEq(NICK_NA,callFighterBeanNicknameGet(playerPath(0)));
     }
+
+    @Test
+    public void item() {
+        assertEq(I_SAMPLE_TR,callFighterBeanItemGet(playerPath(0)));
+    }
+
+    @Test
+    public void lastItem() {
+        assertEq(I_SAMPLE_TR,callFighterBeanLastUsedItemGet(playerPath(0)));
+    }
+
+    @Test
+    public void expItem() {
+        assertEq(I_SAMPLE_TR,callFighterBeanExpItemGet(playerPath(0)));
+    }
+
+    @Test
+    public void lastSuf() {
+        assertEq(M_TEAM_TR,callFighterBeanLastSufferedMoveGet(playerPath(0)));
+    }
+
+    @Test
+    public void lastUsed() {
+        assertEq(M_TEAM_TR,callFighterBeanLastUsedMoveGet(playerPath(0)));
+    }
+
+    @Test
+    public void lastSucc() {
+        assertEq(M_TEAM_TR,callFighterBeanLastSuccessfulMoveGet(playerPath(0)));
+    }
+
+    @Test
+    public void usedMove() {
+        assertEq(M_TEAM_TR,callFighterBeanUsedMoveLastRoundGet(playerPath(0)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }

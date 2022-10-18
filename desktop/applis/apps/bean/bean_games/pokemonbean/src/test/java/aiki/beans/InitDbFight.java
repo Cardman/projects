@@ -168,6 +168,32 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callFighterBeanLastUsedMoveGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanLastUsedMoveGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanUsedMoveLastRoundGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanUsedMoveLastRoundGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanLastSufferedMoveGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanLastSufferedMoveGet(),_str,_args);
+    }
+    public static Struct callFighterBeanLastSuccessfulMoveGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanLastSuccessfulMoveGet(),_str,_args);
+    }
+    public static Struct callFighterBeanLastUsedItemGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanLastUsedItemGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanExpItemGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanExpItemGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanItemGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanItemGet(),_str,_args);
+    }
+
     public static Struct callFighterBeanAbilityGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanAbilityGet(),_str,_args);
     }
