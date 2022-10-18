@@ -46,6 +46,7 @@ import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public abstract class InitDbFight extends InitDbBean {
 
@@ -177,6 +178,30 @@ public abstract class InitDbFight extends InitDbBean {
     }
     public static Struct callFighterBeanIsEnabled(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanIsEnabled(),_str,_args);
+    }
+
+    public static Struct callFighterBeanChangedGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanChangedGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanActedGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanActedGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanSuccessfulMoveGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanSuccessfulMoveGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanUsingItemGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanUsingItemGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanDisappearedGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanDisappearedGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanNeedingToRechargeGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNeedingToRechargeGet(),_str,_args);
     }
     public static Struct callFighterBeanNameGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanNameGet(),_str,_args);
@@ -659,6 +684,8 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getList().get(0).getValue().setMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().getList().get(0).setValue(new StringList(M_TEAM));
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setMove(M_TEAM);
+        fight_.getUserTeam().getMembers().getValue(0).getIncrUserAccuracy().getList().get(0).setValue(BoolVal.TRUE);
+        fight_.getUserTeam().getMembers().getValue(0).getEnabledMovesForAlly().setValue(0, BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getAlreadyInvokedMovesRound().add(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).setLastSufferedMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).setLastUsedMove(M_TEAM);
@@ -672,6 +699,12 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).setLastUsedItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setUsedBallCatching(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().getList().get(0).setValue((short) 1);
+        fight_.getUserTeam().getMembers().getValue(0).setChanged(true);
+        fight_.getUserTeam().getMembers().getValue(0).setActed(true);
+        fight_.getUserTeam().getMembers().getValue(0).setUsingItem(true);
+        fight_.getUserTeam().getMembers().getValue(0).setSuccessfulMove(true);
+        fight_.getUserTeam().getMembers().getValue(0).setDisappeared(true);
+        fight_.getUserTeam().getMembers().getValue(0).setNeedingToRecharge(true);
         return fac_;
     }
     private void updateMoves(Fight _fight) {

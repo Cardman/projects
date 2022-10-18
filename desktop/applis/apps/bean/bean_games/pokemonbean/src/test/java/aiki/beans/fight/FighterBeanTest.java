@@ -56,6 +56,61 @@ public final class FighterBeanTest extends InitDbFight {
     public void enStMove2() {
         assertFalse(callFighterBeanIsEnabled(playerPath(1),0));
     }
+
+    @Test
+    public void changed1() {
+        assertTrue(callFighterBeanChangedGet(playerPath(0)));
+    }
+
+    @Test
+    public void changed2() {
+        assertFalse(callFighterBeanChangedGet(foePath(0)));
+    }
+    @Test
+    public void acted1() {
+        assertTrue(callFighterBeanActedGet(playerPath(0)));
+    }
+
+    @Test
+    public void acted2() {
+        assertFalse(callFighterBeanActedGet(foePath(0)));
+    }
+    @Test
+    public void sucMove1() {
+        assertTrue(callFighterBeanSuccessfulMoveGet(playerPath(0)));
+    }
+
+    @Test
+    public void sucMove2() {
+        assertFalse(callFighterBeanSuccessfulMoveGet(foePath(0)));
+    }
+    @Test
+    public void useItem1() {
+        assertTrue(callFighterBeanUsingItemGet(playerPath(0)));
+    }
+
+    @Test
+    public void useItem2() {
+        assertFalse(callFighterBeanUsingItemGet(foePath(0)));
+    }
+    @Test
+    public void disappeared1() {
+        assertTrue(callFighterBeanDisappearedGet(playerPath(0)));
+    }
+
+    @Test
+    public void disappeared2() {
+        assertFalse(callFighterBeanDisappearedGet(foePath(0)));
+    }
+    @Test
+    public void needRec1() {
+        assertTrue(callFighterBeanNeedingToRechargeGet(playerPath(0)));
+    }
+
+    @Test
+    public void needRec2() {
+        assertFalse(callFighterBeanNeedingToRechargeGet(foePath(0)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
