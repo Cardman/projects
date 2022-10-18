@@ -412,6 +412,87 @@ public final class FighterBeanTest extends InitDbFight {
     public void status3() {
         assertEq(0,second(elt(callFighterBeanStatusGet(playerPath(0)),0)));
     }
+
+    @Test
+    public void enMoves1() {
+        assertSizeEq(7,callFighterBeanEnabledMovesGet(playerPath(0)));
+    }
+    @Test
+    public void enMoves2() {
+        assertEq(M_COUNTER_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),0)));
+    }
+    @Test
+    public void enMoves3() {
+        assertEq(M_CST_CHOICE_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),1)));
+    }
+    @Test
+    public void enMoves4() {
+        assertEq(M_END_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),2)));
+    }
+    @Test
+    public void enMoves5() {
+        assertEq(M_PROT_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),3)));
+    }
+    @Test
+    public void enMoves6() {
+        assertEq(M_SWITCH_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),4)));
+    }
+    @Test
+    public void enMoves7() {
+        assertEq(M_TEAM_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),5)));
+    }
+    @Test
+    public void enMoves8() {
+        assertEq(M_UNPROT_TR,first(elt(callFighterBeanEnabledMovesGet(playerPath(0)),6)));
+    }
+    @Test
+    public void stRel1() {
+        assertSizeEq(16,callFighterBeanStatusRelatGet(playerPath(0)));
+    }
+    @Test
+    public void stRel2() {
+        assertEq(S_RELATION_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanStatusRelatGet(playerPath(0)),0))));
+    }
+    @Test
+    public void stRel3() {
+        assertEq(1,second(elt(callFighterBeanStatusRelatGet(playerPath(0)),8)));
+    }
+    @Test
+    public void pr1() {
+        assertSizeEq(16,callFighterBeanPrivateMovesGet(playerPath(0)));
+    }
+    @Test
+    public void pr2() {
+        assertEq(M_CST_CHOICE_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanPrivateMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void pr3() {
+        assertEq(M_TEAM_TR,second(elt(callFighterBeanPrivateMovesGet(playerPath(0)),8)));
+    }
+    @Test
+    public void trapp1() {
+        assertSizeEq(16,callFighterBeanTrappingMovesGet(playerPath(0)));
+    }
+    @Test
+    public void trapp2() {
+        assertEq(M_TRACK_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanTrappingMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void track1() {
+        assertSizeEq(16,callFighterBeanTrckingMovesGet(playerPath(0)));
+    }
+    @Test
+    public void track2() {
+        assertEq(M_USE_ACTION_TR,callMoveTeamPositionGetMove(first(elt(callFighterBeanTrckingMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void track3() {
+        assertEq(M_TEAM_TR,callAffectedMoveGetMove(second(elt(callFighterBeanTrckingMovesGet(playerPath(0)),8))));
+    }
+    @Test
+    public void track4() {
+        assertTrue(callActivityOfMoveIsEnabled(callAffectedMoveGetActivity(second(elt(callFighterBeanTrckingMovesGet(playerPath(0)),8)))));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }

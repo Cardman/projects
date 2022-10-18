@@ -168,7 +168,29 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callAffectedMoveGetActivity(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new AffectedMoveGetActivity(),_str,_args);
+    }
 
+    public static Struct callAffectedMoveGetMove(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new AffectedMoveGetMove(),_str,_args);
+    }
+    public static Struct callFighterBeanTrckingMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanTrackingMovesGet(),_str,_args);
+    }
+    public static Struct callFighterBeanTrappingMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanTrappingMovesGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanPrivateMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanPrivateMovesGet(),_str,_args);
+    }
+    public static Struct callFighterBeanStatusRelatGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanStatusRelatGet(),_str,_args);
+    }
+    public static Struct callFighterBeanEnabledMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanEnabledMovesGet(),_str,_args);
+    }
     public static Struct callFighterBeanStatusGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanStatusGet(),_str,_args);
     }
@@ -845,6 +867,7 @@ public abstract class InitDbFight extends InitDbBean {
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getList().get(0).getValue().getActivity().setEnabled(true);
         fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getList().get(0).getValue().setMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().getList().get(0).setValue(new StringList(M_TEAM));
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setMove(M_TEAM);
