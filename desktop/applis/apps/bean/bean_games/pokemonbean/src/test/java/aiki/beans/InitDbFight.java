@@ -173,6 +173,25 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callFighterBeanGetStatusRelatTeamm(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGetStatusRelatTeam(),_str,_args);
+    }
+    public static Struct callFighterBeanGetIncrTrappingMovesTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGetIncrTrappingMovesTeam(),_str,_args);
+    }
+
+    public static Struct callFighterBeanGetIncrTrackingMovesTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGetIncrTrackingMovesTeam(),_str,_args);
+    }
+
+    public static Struct callFighterBeanGetIncrPrivateMovesTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGetIncrPrivateMovesTeam(),_str,_args);
+    }
+
+    public static Struct callFighterBeanGetIncrUserAccuracyTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGetIncrUserAccuracyTeam(),_str,_args);
+    }
+
     public static Struct callFighterBeanIsFoeTrappingMovesTeam(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanIsFoeTrappingMovesTeam(),_str,_args);
     }

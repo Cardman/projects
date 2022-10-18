@@ -27,26 +27,44 @@ public abstract class CommonFightBean extends CommonBean {
     protected static String getFighterAtPosition(FacadeGame _facade, TeamPosition _teamPosition) {
         DataBase data_ = _facade.getData();
         Team team_ = _facade.getGame().getFight().getTeams().getVal(_teamPosition.getTeam());
+//        return number(team_,_teamPosition.getPosition(),_teamPosition.getPosition(),membersIndex_);
         Fighter fighter_ = _facade.getGame().getFight().getFighter(_teamPosition);
         Bytes membersIndex_ = getMembers(_facade,_teamPosition.getTeam());
+//        byte i_ = IndexConstants.FIRST_INDEX;
+        byte nb_ = number(team_,_teamPosition.getPosition(),_teamPosition.getPosition(),membersIndex_);
+//        byte nb_ = IndexConstants.FIRST_INDEX;
+//        while (i_ < membersIndex_.size()) {
+//            byte iTmp_ = membersIndex_.get(i_);
+//            if (iTmp_ >= _teamPosition.getPosition()) {
+//                break;
+//            }
+//            Fighter current_ = team_.getMembers().getVal(iTmp_);
+//            //fighter_ != current_
+//            if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
+//                nb_++;
+//            }
+//            i_++;
+//        }
+        if (nb_ == IndexConstants.FIRST_INDEX) {
+            return data_.translatePokemon(fighter_.getName());
+        }
+        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+    }
+
+    protected static byte number(Team _team, byte _indexOne, int _index, Bytes _members) {
+        Fighter fighter_ = _team.getMembers().getVal(_indexOne);
         byte i_ = IndexConstants.FIRST_INDEX;
         byte nb_ = IndexConstants.FIRST_INDEX;
-        while (i_ < membersIndex_.size()) {
-            byte iTmp_ = membersIndex_.get(i_);
-            if (iTmp_ >= _teamPosition.getPosition()) {
-                break;
-            }
-            Fighter current_ = team_.getMembers().getVal(iTmp_);
+        while (i_ < _index) {
+            byte iTmp_ = _members.get(i_);
+            Fighter current_ = _team.getMembers().getVal(iTmp_);
             //fighter_ != current_
             if (StringUtil.quickEq(fighter_.getName(), current_.getName())) {
                 nb_++;
             }
             i_++;
         }
-        if (nb_ == IndexConstants.FIRST_INDEX) {
-            return data_.translatePokemon(fighter_.getName());
-        }
-        return StringUtil.concat(data_.translatePokemon(fighter_.getName()),SPACE,Long.toString(nb_));
+        return nb_;
     }
 
     protected static Bytes getMembers(FacadeGame _facade, int _noTeam) {

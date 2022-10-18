@@ -637,6 +637,86 @@ public final class FighterBeanTest extends InitDbFight {
     public void isFoeTp2() {
         assertFalse(callFighterBeanIsFoeTrappingMovesTeam(foePath(0),0));
     }
+    @Test
+    public void getFoeIncr1() {
+        assertEq(PIKACHU_TR,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),0));
+    }
+    @Test
+    public void getFoeIncr2() {
+        assertEq(PIKA_TR_2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),1));
+    }
+    @Test
+    public void getFoeIncr3() {
+        assertEq(PIKACHU_TR+" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),2));
+    }
+    @Test
+    public void getFoeIncr4() {
+        assertEq(PIKA_TR_2+" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),3));
+    }
+    @Test
+    public void getFoeIncr5() {
+        assertEq(PIKACHU_TR+" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),4));
+    }
+    @Test
+    public void getFoeIncr6() {
+        assertEq(PIKA_TR_2+" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),5));
+    }
+    @Test
+    public void getFoeIncr7() {
+        assertEq(PIKACHU_TR+" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),6));
+    }
+    @Test
+    public void getFoeIncr8() {
+        assertEq(PIKA_TR_2+" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),7));
+    }
+    @Test
+    public void getFoeIncr9() {
+        assertEq(PIKACHU_TR,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),8));
+    }
+    @Test
+    public void getFoeIncr10() {
+        assertEq(PIKA_TR_2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),9));
+    }
+    @Test
+    public void getFoeIncr11() {
+        assertEq(PIKACHU_TR+" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),10));
+    }
+    @Test
+    public void getFoeIncr12() {
+        assertEq(PIKA_TR_2+" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),11));
+    }
+    @Test
+    public void getFoeIncr13() {
+        assertEq(PIKACHU_TR+" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),12));
+    }
+    @Test
+    public void getFoeIncr14() {
+        assertEq(PIKA_TR_2+" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),13));
+    }
+    @Test
+    public void getFoeIncr15() {
+        assertEq(PIKACHU_TR+" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),14));
+    }
+    @Test
+    public void getFoeIncr16() {
+        assertEq(PIKA_TR_2+" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),15));
+    }
+    @Test
+    public void getFoePr() {
+        assertEq(PIKACHU_TR,callFighterBeanGetIncrPrivateMovesTeam(playerPath(0),0));
+    }
+    @Test
+    public void getFoeTk() {
+        assertEq(PIKACHU_TR,callFighterBeanGetIncrTrackingMovesTeam(playerPath(0),0));
+    }
+    @Test
+    public void getFoeTp() {
+        assertEq(PIKACHU_TR,callFighterBeanGetIncrTrappingMovesTeam(playerPath(0),0));
+    }
+    @Test
+    public void getFoeSt() {
+        assertEq(PIKACHU_TR,callFighterBeanGetStatusRelatTeamm(playerPath(0),0));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
