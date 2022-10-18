@@ -24,24 +24,29 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.ListEffectCombo;
 import aiki.fight.util.ListEffectCombos;
+import aiki.fight.util.TypesDuo;
 import aiki.game.Game;
 import aiki.game.fight.*;
+import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.Player;
 import aiki.instances.Instances;
 import aiki.map.DataMap;
+import aiki.map.characters.DualFight;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.CoordsLists;
+import aiki.util.LawNumber;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloNumber;
 import code.scripts.confs.PkScriptPagesInit;
 import code.util.CustList;
 import code.util.IdMap;
@@ -118,6 +123,18 @@ public abstract class InitDbFight extends InitDbBean {
         return beanFight(new PkFight(),_language,_dataBase);
     }
 
+    public static Struct callFightCalculationBeanDamageGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanDamageGet(),_str,_args);
+    }
+    public Struct beanFightCalculation(FacadeGame _dataBase) {
+        return displaying(beanFightCalculation(new PkFight(),EN,_dataBase));
+    }
+
+    public static Struct beanFightCalculation(PkFight _stds,String _language, FacadeGame _dataBase) {
+        _stds.setDataBase(_dataBase);
+        return _stds.beanFightCalculation(_language);
+    }
+
     public static Struct beanFight(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
         return _stds.beanFight(_language);
@@ -173,7 +190,7 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
-    public static Struct callFighterBeanGetStatusRelatTeamm(Struct _str, long... _args) {
+    public static Struct callFighterBeanGetStatusRelatTeam(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanGetStatusRelatTeam(),_str,_args);
     }
     public static Struct callFighterBeanGetIncrTrappingMovesTeam(Struct _str, long... _args) {
@@ -772,6 +789,77 @@ public abstract class InitDbFight extends InitDbBean {
         return data_;
     }
 
+    protected DataBase dbBaseCalc() {
+        DataBase data_ = newData();
+        data_.setLanguage(LANGUAGE);
+        data_.setLanguages(new StringList(LANGUAGE));
+        data_.initializeMembers();
+        data_.completeMembers(ECLAIR, damMoveAcc(TargetChoice.ANY_FOE, "40"));
+        data_.completeMembers(CHARGE, damMoveAcc(TargetChoice.TOUS_ADV, "20"));
+        data_.completeMembers(M_TEAM, damMoveAcc(TargetChoice.ADJ_ADV, "15"));
+        data_.completeMembers(CHARGE2, damMoveAcc(TargetChoice.TOUS_ADV, "25"));
+        data_.getTypes().add(ELECTRICK);
+        data_.completeMembers(PIKACHU,pkData(data_, PIKACHU));
+        data_.completeMembers(PIKA_2,pkData(data_, PIKA_2));
+        data_.completeMembers(PARATONNERRE,Instances.newAbilityData());
+        data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
+        data_.addConstNumTest(DataBase.PP_MAX,Rate.newRate("256"));
+        data_.getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedPokemon().getVal(EN).addEntry(PIKACHU,PIKACHU_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(PIKA_2,PIKA_TR_2);
+        data_.getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedMoves().getVal(EN).addEntry(ECLAIR,ECLAIR_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(CHARGE,CHARGE_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(CHARGE2,CHARGE_TR2);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_TEAM,M_TEAM_TR);
+        data_.getCombos().setEffects(new ListEffectCombos());
+        data_.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN,new LawNumber(law(),(short)1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.CROISSANT,new LawNumber(law(),(short)1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.UNIFORME,new LawNumber(law(),(short)1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT,new LawNumber(law(),(short)1));
+        data_.getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX,new LawNumber(law(),(short)5));
+        data_.completeVariables();
+        return data_;
+    }
+
+    private MonteCarloNumber law() {
+        MonteCarloNumber monteCarloNumber_ = new MonteCarloNumber();
+        monteCarloNumber_.addQuickEvent(new Rate("1"),new LgInt("1"));
+        return monteCarloNumber_;
+    }
+
+    private PokemonData pkData(DataBase _data, String _base) {
+        PokemonData pkData_ = Instances.newPokemonData();
+        pkData_.setBaseEvo(_base);
+        pkData_.setEggGroups(new StringList(_data.getDefaultEggGroup()));
+        pkData_.setTypes(new StringList(ELECTRICK));
+        statBase(pkData_);
+        pkData_.getLevMoves().add(new LevelMove((short)1,ECLAIR));
+        pkData_.getLevMoves().add(new LevelMove((short)1,CHARGE));
+        pkData_.setExpRate(1);
+        pkData_.setHeight(Rate.one());
+        pkData_.setWeight(Rate.one());
+        pkData_.setCatchingRate((short) 1);
+        pkData_.setHappiness((short) 1);
+        pkData_.setHappinessHatch((short) 1);
+        pkData_.setAbilities(new StringList(PARATONNERRE));
+        return pkData_;
+    }
+
+    private DamagingMoveData damMoveAcc(TargetChoice _target, String _power) {
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        move_.setPp((short) 20);
+        move_.setCategory(SPEC);
+        move_.setAccuracy("1");
+        move_.setTypes(new StringList(ELECTRICK));
+        move_.setTargetChoice(_target);
+        EffectDamage one_ = Instances.newEffectDamage();
+        one_.setPower(_power);
+        one_.setTargetChoice(_target);
+        move_.getEffects().add(one_);
+        return move_;
+    }
+
     private DataBase dbBase() {
         DataBase data_ = newData();
         data_.setLanguage(LANGUAGE);
@@ -916,6 +1004,158 @@ public abstract class InitDbFight extends InitDbBean {
         some_.setNbTurn((short) 1);
         fight_.getEnabledMoves().set(CHARGE, some_);
         return f_;
+    }
+    protected FacadeGame facadeCalculation(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
+        TrainerLeague trainer_ = Instances.newTrainerLeague();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 4);
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
+        return fac_;
+    }
+    protected FacadeGame facadeCalculation2(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR)));
+        TrainerLeague trainer_ = Instances.newTrainerLeague();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 4);
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
+        return fac_;
+    }
+    protected FacadeGame facadeCalculation3(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
+        DualFight trainer_ = Instances.newDualFight();
+        trainer_.getFoeTrainer().setTeam(foeTeam_);
+        trainer_.getFoeTrainer().setReward((short) 200);
+        trainer_.getAlly().setTeam(allyTeam_);
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
+        return fac_;
+    }
+    protected FacadeGame facadeCalculation4(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,6),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,7),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,8),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,9),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,10),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR,M_TEAM)));
+        allyTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,3),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,4),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,5),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,6),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,7),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,8),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKACHU,9),new StringList(ECLAIR,M_TEAM)));
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,10),new StringList(ECLAIR,M_TEAM)));
+        DualFight trainer_ = Instances.newDualFight();
+        trainer_.getFoeTrainer().setTeam(foeTeam_);
+        trainer_.getFoeTrainer().setReward((short) 200);
+        trainer_.getAlly().setTeam(allyTeam_);
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
+        fight_.getAllyChoice().clear();
+        fight_.getAllyChoice().addEntry(new MoveTarget(NULL_REF,new TargetCoords()),new MoveTarget(NULL_REF,new TargetCoords()));
+        return fac_;
     }
     protected FacadeGame facadeBigTeams(DataBase _data) {
         FacadeGame fac_ = initFacade(_data);

@@ -715,7 +715,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeSt() {
-        assertEq(PIKACHU_TR,callFighterBeanGetStatusRelatTeamm(playerPath(0),0));
+        assertEq(PIKACHU_TR, callFighterBeanGetStatusRelatTeam(playerPath(0),0));
     }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
