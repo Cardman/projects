@@ -168,6 +168,62 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callFighterFighterBeanHappinessGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanHappinessGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanCloneStrGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCloneStrGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanCloneGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCloneGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanHeightStrGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanHeightStrGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanHeightGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanHeightGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanWeightStrGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanWeightStrGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanWeightGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanWeightGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanRemainingHpStrGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanRemainingHpStrGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanRemainingHpGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanRemainingHpGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanRemainingHpStrPerCentGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanRemainingHpStrPerCentGet(),_str,_args);
+    }
+    public static Struct callFighterBeanLevelGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanLevelGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanNbPrepaRoundGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNbPrepaRoundGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanNbRoundsGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNbRoundsGet(),_str,_args);
+    }
+
+
+    public static Struct callFighterBeanNbRepeatingSuccessfulMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNbRepeatingSuccessfulMovesGet(),_str,_args);
+    }
+
     public static Struct callFighterBeanLastUsedMoveGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanLastUsedMoveGet(),_str,_args);
     }

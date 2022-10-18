@@ -5,6 +5,8 @@ import aiki.beans.PkFight;
 import aiki.facade.FacadeGame;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class FighterBeanTest extends InitDbFight {
@@ -245,6 +247,77 @@ public final class FighterBeanTest extends InitDbFight {
     public void usedMove() {
         assertEq(M_TEAM_TR,callFighterBeanUsedMoveLastRoundGet(playerPath(0)));
     }
+
+    @Test
+    public void prepaRounds() {
+        assertEq(0,callFighterBeanNbPrepaRoundGet(playerPath(0)));
+    }
+
+    @Test
+    public void nbRounds() {
+        assertEq(LgInt.zero(),callFighterBeanNbRoundsGet(playerPath(0)));
+    }
+
+    @Test
+    public void repeated() {
+        assertEq(LgInt.zero(),callFighterBeanNbRepeatingSuccessfulMovesGet(playerPath(0)));
+    }
+
+    @Test
+    public void level() {
+        assertEq(3,callFighterBeanLevelGet(playerPath(0)));
+    }
+
+    @Test
+    public void happiness() {
+        assertEq(1,callFighterFighterBeanHappinessGet(playerPath(0)));
+    }
+
+    @Test
+    public void weStr() {
+        assertEq("1.0E0",callFighterBeanWeightStrGet(playerPath(0)));
+    }
+
+    @Test
+    public void we() {
+        assertEq(Rate.one(),callFighterBeanWeightGet(playerPath(0)));
+    }
+
+    @Test
+    public void heStr() {
+        assertEq("1.0E0",callFighterBeanHeightStrGet(playerPath(0)));
+    }
+
+    @Test
+    public void he() {
+        assertEq(Rate.one(),callFighterBeanHeightGet(playerPath(0)));
+    }
+
+    @Test
+    public void clStr() {
+        assertEq("0",callFighterBeanCloneStrGet(playerPath(0)));
+    }
+
+    @Test
+    public void cl() {
+        assertEq(Rate.zero(),callFighterBeanCloneGet(playerPath(0)));
+    }
+
+    @Test
+    public void reStr() {
+        assertEq("1.3E1",callFighterBeanRemainingHpStrGet(playerPath(0)));
+    }
+
+    @Test
+    public void re() {
+        assertEq(Rate.newRate("1399/100"),callFighterBeanRemainingHpGet(playerPath(0)));
+    }
+
+    @Test
+    public void rePerStr() {
+        assertEq("1.0E2",callFighterBeanRemainingHpStrPerCentGet(playerPath(0)));
+    }
+
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
