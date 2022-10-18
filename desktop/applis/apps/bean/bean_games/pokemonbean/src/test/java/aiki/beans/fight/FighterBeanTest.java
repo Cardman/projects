@@ -318,6 +318,15 @@ public final class FighterBeanTest extends InitDbFight {
         assertEq("1.0E2",callFighterBeanRemainingHpStrPerCentGet(playerPath(0)));
     }
 
+    @Test
+    public void wonExp() {
+        assertEq(Rate.newRate("0"),callFighterBeanWonExpSinceLastLevelGet(playerPath(0)));
+    }
+
+    @Test
+    public void necessary() {
+        assertEq(Rate.newRate("7"),callFighterBeanNecessaryPointsNextLevelGet(playerPath(0)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
