@@ -123,6 +123,14 @@ public abstract class InitDbFight extends InitDbBean {
         return beanFight(new PkFight(),_language,_dataBase);
     }
 
+    public static Struct callKeyHypothesisGetNumberPlayer(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetNumberPlayer(),_str,_args);
+    }
+
+    public static Struct callKeyHypothesisGetNumberTarget(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetNumberTarget(),_str,_args);
+    }
+
     public static Struct callFightCalculationBeanDamageGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FightCalculationBeanDamageGet(),_str,_args);
     }

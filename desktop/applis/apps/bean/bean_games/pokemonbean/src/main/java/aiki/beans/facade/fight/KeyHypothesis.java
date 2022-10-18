@@ -48,6 +48,10 @@ public final class KeyHypothesis {
         return str_.toString();
     }
 
+    public int getNumberPlayer() {
+        return numberPlayer;
+    }
+
     public String getMove() {
         return move;
     }
@@ -55,6 +59,7 @@ public final class KeyHypothesis {
     public String getTargetPokemon() {
         StringBuilder str_ = new StringBuilder(targetPokemon);
         str_.append(SEPARATOR);
+        str_.append(numberTarget);
         return str_.toString();
     }
 
@@ -117,26 +122,31 @@ public final class KeyHypothesis {
         if (res_ != 0) {
             return res_;
         }
-//        res_ = Boolean.compare(belongsToUser, _o.belongsToUser);
-        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
+        res_ = NumberUtil.compareLg(numberTarget, _o.numberTarget);
         if (res_ != 0) {
             return res_;
         }
-        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
+        return  ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
+////        res_ = Boolean.compare(belongsToUser, _o.belongsToUser);
+//        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
+//        if (res_ != 0) {
+//            return res_;
+//        }
+//        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
     }
 
-    public String display() {
-        StringBuilder str_ = new StringBuilder(getPlayerPokemon());
-        str_.append(SEPARATOR);
-        str_.append(getMove());
-        str_.append(SEPARATOR);
-        str_.append(getTargetPokemon());
-        str_.append(SEPARATOR);
-        str_.append(isBelongsToUser());
-        str_.append(SEPARATOR);
-        str_.append(getNumberTarget());
-        return str_.toString();
-    }
+//    public String display() {
+//        StringBuilder str_ = new StringBuilder(getPlayerPokemon());
+//        str_.append(SEPARATOR);
+//        str_.append(getMove());
+//        str_.append(SEPARATOR);
+//        str_.append(getTargetPokemon());
+//        str_.append(SEPARATOR);
+//        str_.append(isBelongsToUser());
+//        str_.append(SEPARATOR);
+//        str_.append(getNumberTarget());
+//        return str_.toString();
+//    }
 
 
 }

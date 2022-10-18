@@ -16,7 +16,7 @@ public final class AikiBeansFacadeFightStd{
     private static final String GET_MOVE = "getMove";
     private static final String GET_TARGET_POKEMON = "getTargetPokemon";
     private static final String IS_BELONGS_TO_USER = "isBelongsToUser";
-    private static final String GET_NUMBER_TARGET = "getNumberTarget";
+//    private static final String GET_NUMBER_TARGET = "getNumberTarget";
     private static final String GET_DAMAGE = "getDamage";
     private static final String GET_DISPLAY_STATISTIC = "getDisplayStatistic";
     private static final String IS_BASE = "isBase";
@@ -44,7 +44,7 @@ public final class AikiBeansFacadeFightStd{
         methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new KeyHypothesisGetMove()));
         methods_.add( new SpecNatMethod(GET_TARGET_POKEMON,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new KeyHypothesisGetTargetPokemon()));
         methods_.add( new SpecNatMethod(IS_BELONGS_TO_USER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new KeyHypothesisIsBelongsToUser()));
-        methods_.add( new SpecNatMethod(GET_NUMBER_TARGET, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new KeyHypothesisGetNumberTarget()));
+//        methods_.add( new SpecNatMethod(GET_NUMBER_TARGET, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new KeyHypothesisGetNumberTarget()));
         methods_.add( new SpecNatMethod(GET_DAMAGE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new KeyHypothesisGetDamage()));
         _std.getStds().addEntry(TYPE_KEY_HYPOTHESIS, type_);
     }
