@@ -493,6 +493,110 @@ public final class FighterBeanTest extends InitDbFight {
     public void track4() {
         assertTrue(callActivityOfMoveIsEnabled(callAffectedMoveGetActivity(second(elt(callFighterBeanTrckingMovesGet(playerPath(0)),8)))));
     }
+    @Test
+    public void cpMoves1() {
+        assertSizeEq(1,callFighterBeanCopiedMovesGet(playerPath(0)));
+    }
+    @Test
+    public void cpMoves2() {
+        assertEq(M_COPY_TR,first(elt(callFighterBeanCopiedMovesGet(playerPath(0)),0)));
+    }
+    @Test
+    public void cpMoves3() {
+        assertEq(M_TEAM_TR,callCopiedMoveGetMove(second(elt(callFighterBeanCopiedMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void cpMoves4() {
+        assertEq(3,callCopiedMoveGetPp(second(elt(callFighterBeanCopiedMovesGet(playerPath(0)),0))));
+    }
+    @Test
+    public void multMoves1() {
+        assertSizeEq(3,callFighterBeanDamageRateByTypeGet(playerPath(0)));
+    }
+    @Test
+    public void multMoves2() {
+        assertEq(ELECTRICK_TR,first(elt(callFighterBeanDamageRateByTypeGet(playerPath(0)),0)));
+    }
+    @Test
+    public void multMoves3() {
+        assertEq(Rate.one(),callMultPowerMovesGetMultInflicted(second(elt(callFighterBeanDamageRateByTypeGet(playerPath(0)),0))));
+    }
+    @Test
+    public void multMoves4() {
+        assertEq(Rate.one(),callMultPowerMovesGetMultSuffering(second(elt(callFighterBeanDamageRateByTypeGet(playerPath(0)),0))));
+    }
+    @Test
+    public void sufCat1() {
+        assertSizeEq(1,callFighterBeanDamageSufferedCategGet(playerPath(0)));
+    }
+    @Test
+    public void sufCat2() {
+        assertEq(SPEC_TR,first(elt(callFighterBeanDamageSufferedCategGet(playerPath(0)),0)));
+    }
+    @Test
+    public void sufCat3() {
+        assertEq(Rate.zero(),callSufferedDamageCategoryGetRound(second(elt(callFighterBeanDamageSufferedCategGet(playerPath(0)),0))));
+    }
+    @Test
+    public void sufCat4() {
+        assertEq(Rate.zero(),callSufferedDamageCategoryGetUsing(second(elt(callFighterBeanDamageSufferedCategGet(playerPath(0)),0))));
+    }
+    @Test
+    public void stats1() {
+        assertSizeEq(9,callFighterBeanStatisticsGet(playerPath(0)));
+    }
+    @Test
+    public void stats2() {
+        assertEq(SPEED_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
+    @Test
+    public void stats3() {
+        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
+    @Test
+    public void stats4() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
+    @Test
+    public void stats5() {
+        assertFalse(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),7)));
+    }
+    @Test
+    public void stats6() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),7)));
+    }
+    @Test
+    public void stats7() {
+        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),6)));
+    }
+    @Test
+    public void stats8() {
+        assertFalse(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),6)));
+    }
+    @Test
+    public void stats9() {
+        assertEq(CRIT_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),7)));
+    }
+    @Test
+    public void stats10() {
+        assertEq(HP_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),6)));
+    }
+    @Test
+    public void stats11() {
+        assertEq(0,callStatisticInfoGetEv(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
+    @Test
+    public void stats12() {
+        assertEq(31,callStatisticInfoGetIv(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
+    @Test
+    public void stats13() {
+        assertEq(0,callStatisticInfoGetStatisBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
+    @Test
+    public void stats14() {
+        assertEq(Rate.one(),callStatisticInfoGetStatisBase(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }

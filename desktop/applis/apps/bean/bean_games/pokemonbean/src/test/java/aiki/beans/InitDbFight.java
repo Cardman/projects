@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.facade.fight.*;
 import aiki.beans.fight.*;
 import aiki.beans.game.InitDbPkBean;
 import aiki.db.DataBase;
@@ -49,6 +50,9 @@ import code.util.StringMap;
 import code.util.core.BoolVal;
 
 public abstract class InitDbFight extends InitDbBean {
+    protected static final String SPEC = "SPEC";
+    protected static final String HP_TR = "tit";
+    protected static final String CRIT_TR = "uit";
 
     protected static final String NO_TEAM = "no_team";
     protected static final String NO_FIGHTER = "no_fighter";
@@ -75,6 +79,7 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String M_ANT_TR = "ant_move";
     protected static final String S_SIMPLE_TR = "st_simple";
     protected static final String S_RELATION_TR = "st_relation";
+    protected static final String SPEC_TR = "spectre";
     protected static final String I_SAMPLE_TR = "item_cust";
 
     protected static final String M_TEAM = "M_TEAM";
@@ -166,6 +171,70 @@ public abstract class InitDbFight extends InitDbBean {
     }
     public static String navigateFight(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
+    }
+
+    public static Struct callStatisticInfoGetEv(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoGetEv(),_str,_args);
+    }
+
+    public static Struct callStatisticInfoGetIv(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoGetIv(),_str,_args);
+    }
+
+    public static Struct callStatisticInfoGetDisplayStatistic(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoGetDisplayStatistic(),_str,_args);
+    }
+
+    public static Struct callStatisticInfoGetStatisBoost(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoGetStatisBoost(),_str,_args);
+    }
+
+    public static Struct callStatisticInfoGetStatisBase(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoGetStatisBase(),_str,_args);
+    }
+
+    public static Struct callStatisticInfoIsBase(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoIsBase(),_str,_args);
+    }
+
+    public static Struct callStatisticInfoIsBoost(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new StatisticInfoIsBoost(),_str,_args);
+    }
+    public static Struct callFighterBeanStatisticsGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanStatisticsGet(),_str,_args);
+    }
+    public static Struct callCopiedMoveGetMove(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new CopiedMoveGetMove(),_str,_args);
+    }
+
+    public static Struct callCopiedMoveGetPp(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new CopiedMoveGetPp(),_str,_args);
+    }
+
+    public static Struct callMultPowerMovesGetMultSuffering(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new MultPowerMovesGetMultSuffering(),_str,_args);
+    }
+
+    public static Struct callMultPowerMovesGetMultInflicted(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new MultPowerMovesGetMultInflicted(),_str,_args);
+    }
+
+    public static Struct callSufferedDamageCategoryGetUsing(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new SufferedDamageCategoryGetUsing(),_str,_args);
+    }
+
+    public static Struct callSufferedDamageCategoryGetRound(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new SufferedDamageCategoryGetRound(),_str,_args);
+    }
+
+    public static Struct callFighterBeanDamageRateByTypeGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanDamageRateByTypeGet(),_str,_args);
+    }
+    public static Struct callFighterBeanCopiedMovesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCopiedMovesGet(),_str,_args);
+    }
+    public static Struct callFighterBeanDamageSufferedCategGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanDamageSufferedCategGet(),_str,_args);
     }
 
     public static Struct callAffectedMoveGetActivity(Struct _str, long... _args) {
@@ -521,6 +590,7 @@ public abstract class InitDbFight extends InitDbBean {
         DataBase data_ = dbBase();
         secondPk(data_);
         DamagingMoveData damage_ = Instances.newDamagingMoveData();
+        damage_.setCategory(SPEC);
         EffectDamage effDam_ = Instances.newEffectDamage();
         effDam_.setPower(DataBase.VAR_PREFIX+Fighter.LANCEUR_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+ M_NB_FIGHTER);
         damage_.getEffects().add(effDam_);
@@ -594,6 +664,10 @@ public abstract class InitDbFight extends InitDbBean {
         data_.getTranslatedItems().getVal(LANGUAGE).addEntry(I_SAMPLE, I_SAMPLE_TR);
         data_.getTranslatedStatus().getVal(LANGUAGE).addEntry(S_SIMPLE, S_SIMPLE_TR);
         data_.getTranslatedStatus().getVal(LANGUAGE).addEntry(S_RELATION, S_RELATION_TR);
+        data_.getTranslatedCategories().getVal(LANGUAGE).clear();
+        data_.getTranslatedCategories().getVal(LANGUAGE).addEntry(SPEC, SPEC_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.HP, HP_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.CRITICAL_HIT, CRIT_TR);
         data_.getTypes().add(NULL_REF);
         data_.getTypes().add(SAMPLE_TYPE);
         data_.getTypes().add(ELECTRICK);
@@ -610,6 +684,7 @@ public abstract class InitDbFight extends InitDbBean {
         send_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
         data_.completeMembers(M_TEAM_SEND, send_);
         DamagingMoveData used_ = Instances.newDamagingMoveData();
+        used_.setCategory(SPEC);
         EffectDamage dam_ = Instances.newEffectDamage();
         dam_.setPower(DataBase.VAR_PREFIX+Team.EQUIPE_NB_UTILISATION+DataBase.SEP_BETWEEN_KEYS+M_USE);
         used_.getEffects().add(dam_);
@@ -666,6 +741,7 @@ public abstract class InitDbFight extends InitDbBean {
         data_.initializeMembers();
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         move_.setPp((short) 20);
+        move_.setCategory(SPEC);
         data_.completeMembers(ECLAIR, move_);
         StatusMoveData sta_ = Instances.newStatusMoveData();
         EffectGlobal egl_ = Instances.newEffectGlobal();
@@ -766,7 +842,7 @@ public abstract class InitDbFight extends InitDbBean {
         trMov_.addAllEntries(tr(CHARGE2,CHARGE_TR2));
         data_.getTranslatedMoves().addEntry(LANGUAGE, trMov_);
         data_.getTranslatedStatus().addEntry(LANGUAGE,new StringMap<String>());
-        data_.getTranslatedCategories().addEntry(LANGUAGE,tr("SPEC","SPEC"));
+        data_.getTranslatedCategories().addEntry(LANGUAGE,tr(SPEC, SPEC));
         DataMap map_ = data_.getMap();
         map_.setAccessCondition(new CoordsLists());
         WildPk pkm_ = new WildPk();
@@ -871,6 +947,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).getTrackingMoves().getList().get(0).getValue().setMove(M_TEAM);
         fight_.getUserTeam().getMembers().getValue(0).getPrivateMoves().getList().get(0).setValue(new StringList(M_TEAM));
         fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setMove(M_TEAM);
+        fight_.getUserTeam().getMembers().getValue(0).getCopiedMoves().getValue(0).setPp((short) 3);
         fight_.getUserTeam().getMembers().getValue(0).getIncrUserAccuracy().getList().get(0).setValue(BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getEnabledMovesForAlly().setValue(0, BoolVal.TRUE);
         fight_.getUserTeam().getMembers().getValue(0).getAlreadyInvokedMovesRound().add(M_TEAM);

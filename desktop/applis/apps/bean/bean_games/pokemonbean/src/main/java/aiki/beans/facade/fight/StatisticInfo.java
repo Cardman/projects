@@ -12,10 +12,6 @@ public final class StatisticInfo {
     private Rate statisBase;
     private byte statisBoost;
 
-    public Statistic getStatistic() {
-        return statistic;
-    }
-
     public void setStatistic(Statistic _statistic) {
         statistic = _statistic;
     }
