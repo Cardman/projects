@@ -708,13 +708,12 @@ public final class Game {
     public int[][] getMiniHeros(DataBase _data) {
         DataMap map_ = _data.getMap();
         EnvironmentType currentEnv_ = map_.currentBlock(playerCoords).getType();
-        Sex sex_ = player.getSex();
         ImageHeroKey key_;
-        key_ = new ImageHeroKey(currentEnv_, playerOrientation, sex_);
+        key_ = ImageHeroKey.direct(currentEnv_, playerOrientation, player);
         if (_data.getOverWorldHeros().contains(key_)) {
             return _data.getOverWorldHeros().getVal(key_);
         }
-        key_ = new ImageHeroKey(EnvironmentType.ROAD, playerOrientation, sex_);
+        key_ = ImageHeroKey.direct(EnvironmentType.ROAD, playerOrientation, player);
         return _data.getOverWorldHeros().getVal(key_);
     }
 
@@ -733,12 +732,11 @@ public final class Game {
     public int[][] getBackHerosSexOpposite(DataBase _data) {
         ImageHeroKey key_;
         EnvironmentType currentEnv_ = _data.getMap().currentBlock(playerCoords).getType();
-        Sex sex_ = player.getOppositeSex();
-        key_ = new ImageHeroKey(currentEnv_, sex_);
+        key_ = ImageHeroKey.opposite(currentEnv_, player);
         if (_data.getBackHeros().contains(key_)) {
             return _data.getBackHeros().getVal(key_);
         }
-        key_ = new ImageHeroKey(EnvironmentType.ROAD, sex_);
+        key_ = ImageHeroKey.opposite(EnvironmentType.ROAD, player);
         return _data.getBackHeros().getVal(key_);
     }
 

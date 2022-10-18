@@ -38,6 +38,13 @@ public enum Sex {
         return GIRL;
     }
 
+    public static Gender getGender(Sex _s) {
+        if (_s == null) {
+            return Gender.NO_GENDER;
+        }
+        return _s.getGender();
+    }
+
     public Gender getGender() {
         return gender;
     }

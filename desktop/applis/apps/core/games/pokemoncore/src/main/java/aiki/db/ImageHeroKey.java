@@ -1,29 +1,39 @@
 package aiki.db;
 
+import aiki.game.player.Player;
 import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.levels.enums.EnvironmentType;
 
 public final class ImageHeroKey {
 
-    private EnvironmentType type;
+    private final EnvironmentType type;
 
-    private Direction direction;
+    private final Direction direction;
 
-    private Sex sex;
-
-    public ImageHeroKey() {
-    }
+    private final Sex sex;
 
     public ImageHeroKey(EnvironmentType _type, Sex _sex) {
-        type = _type;
-        sex = _sex;
+        this(_type,null,_sex);
     }
 
     public ImageHeroKey(EnvironmentType _type, Direction _direction, Sex _sex) {
         type = _type;
         direction = _direction;
         sex = _sex;
+    }
+
+    public static ImageHeroKey direct(EnvironmentType _type, Player _pl) {
+        return new ImageHeroKey(_type,_pl.getSex());
+    }
+
+    public static ImageHeroKey opposite(EnvironmentType _type, Player _pl) {
+        return new ImageHeroKey(_type,_pl.getOppositeSex());
+    }
+
+
+    public static ImageHeroKey direct(EnvironmentType _type, Direction _direction, Player _pl) {
+        return new ImageHeroKey(_type,_direction,_pl.getSex());
     }
 
     public boolean eq(ImageHeroKey _obj) {
@@ -40,23 +50,12 @@ public final class ImageHeroKey {
         return type;
     }
 
-    public void setType(EnvironmentType _type) {
-        type = _type;
-    }
-
     public Direction getDirection() {
         return direction;
-    }
-
-    public void setDirection(Direction _direction) {
-        direction = _direction;
     }
 
     public Sex getSex() {
         return sex;
     }
 
-    public void setSex(Sex _sex) {
-        sex = _sex;
-    }
 }

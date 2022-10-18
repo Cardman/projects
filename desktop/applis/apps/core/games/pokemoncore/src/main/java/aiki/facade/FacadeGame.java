@@ -115,15 +115,14 @@ public class FacadeGame {
 
     public String getFrontChosenHeros() {
         ImageHeroKey i_;
-        i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex());
+        i_ = ImageHeroKey.direct(EnvironmentType.ROAD, game.getPlayer());
         return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(
                 i_));
     }
 
     public String getFrontChosenHerosOppositeSex() {
         ImageHeroKey i_;
-        i_ = new ImageHeroKey(EnvironmentType.ROAD, game.getPlayer().getSex()
-                .getOppositeSex());
+        i_ = ImageHeroKey.opposite(EnvironmentType.ROAD, game.getPlayer());
         return BaseSixtyFourUtil.getStringByImage(data.getFrontHeros().getVal(
                 i_));
     }

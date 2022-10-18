@@ -1527,13 +1527,14 @@ public final class Player {
     }
 
     public Gender getOppositeGenderForPokemon() {
-        if (sex == null) {
-            return Gender.NO_GENDER;
-        }
-        return sex.getOppositeSex().getGender();
+        Sex opp_ = getOppositeSex();
+        return Sex.getGender(opp_);
     }
 
     public Sex getOppositeSex() {
+        if (sex == null) {
+            return null;
+        }
         return sex.getOppositeSex();
     }
 

@@ -207,10 +207,7 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq(0,data_.getLanguages().size());
         data_.getEndGameImage();
         data_.getAnimAbsorb();
-        ImageHeroKey i_ = new ImageHeroKey();
-        i_.setDirection(Direction.UP);
-        i_.setSex(null);
-        i_.setType(EnvironmentType.NOTHING);
+        ImageHeroKey i_ = new ImageHeroKey(EnvironmentType.NOTHING,Direction.UP,null);
         assertEq(Direction.UP,i_.getDirection());
         assertNull(i_.getSex());
         assertEq(EnvironmentType.NOTHING,i_.getType());
