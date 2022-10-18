@@ -19,6 +19,43 @@ public final class FighterBeanTest extends InitDbFight {
         assertEq(PIKACHU_TR,callFighterBeanNameGet(foePath(0)));
     }
 
+    @Test
+    public void belong1() {
+        assertTrue(callFighterBeanBelongingToPlayerGet(playerPath(0)));
+    }
+
+    @Test
+    public void belong2() {
+        assertFalse(callFighterBeanBelongingToPlayerGet(foePath(0)));
+    }
+
+    @Test
+    public void back1() {
+        assertTrue(callFighterBeanIsBack(playerPath(4)));
+    }
+
+    @Test
+    public void back2() {
+        assertFalse(callFighterBeanIsBack(playerPath(0)));
+    }
+    @Test
+    public void backSubs1() {
+        assertTrue(callFighterBeanIsBackSubst(playerPath(4)));
+    }
+
+    @Test
+    public void backSubs2() {
+        assertFalse(callFighterBeanIsBackSubst(playerPath(0)));
+    }
+    @Test
+    public void enStMove1() {
+        assertTrue(callFighterBeanIsEnabled(playerPath(0),8));
+    }
+
+    @Test
+    public void enStMove2() {
+        assertFalse(callFighterBeanIsEnabled(playerPath(1),0));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }

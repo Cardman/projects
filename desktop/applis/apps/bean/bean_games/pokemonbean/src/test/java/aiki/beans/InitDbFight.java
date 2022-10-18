@@ -166,6 +166,18 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callFighterBeanBelongingToPlayerGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanBelongingToPlayerGet(),_str,_args);
+    }
+    public static Struct callFighterBeanIsBackSubst(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanIsBackSubst(),_str,_args);
+    }
+    public static Struct callFighterBeanIsBack(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanIsBack(),_str,_args);
+    }
+    public static Struct callFighterBeanIsEnabled(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanIsEnabled(),_str,_args);
+    }
     public static Struct callFighterBeanNameGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new FighterBeanNameGet(),_str,_args);
     }
@@ -659,6 +671,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).setExpItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setLastUsedItem(I_SAMPLE);
         fight_.getUserTeam().getMembers().getValue(0).setUsedBallCatching(I_SAMPLE);
+        fight_.getUserTeam().getMembers().getValue(0).getStatusRelat().getList().get(0).setValue((short) 1);
         return fac_;
     }
     private void updateMoves(Fight _fight) {
