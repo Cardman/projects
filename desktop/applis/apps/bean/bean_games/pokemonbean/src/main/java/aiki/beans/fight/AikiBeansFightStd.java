@@ -43,6 +43,7 @@ public final class AikiBeansFightStd{
     private static final String GET_TR_POKEMON_LINK = "getTrPokemonLink";
     private static final String GET_KEY = "getKey";
     private static final String IS_FOE_MOVES_ANTICIPATION_TEAM = "isFoeMovesAnticipationTeam";
+    private static final String IS_PLAYER_MOVES_ANTICIPATION_TEAM = "isPlayerMovesAnticipationTeam";
     private static final String IS_BACK_MOVES_ANTICIPATION_TEAM = "isBackMovesAnticipationTeam";
     private static final String GET_PLAYER_FIGTHER_AGAINST_FOE = "getPlayerFigtherAgainstFoe";
     private static final String GET_FOE_FIGTHER_AGAINST_FOE = "getFoeFigtherAgainstFoe";
@@ -269,6 +270,7 @@ public final class AikiBeansFightStd{
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TeamBeanGetTrPokemonLink()));
         methods_.add( new SpecNatMethod(GET_KEY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TeamBeanGetKey()));
         methods_.add( new SpecNatMethod(IS_FOE_MOVES_ANTICIPATION_TEAM,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new TeamBeanIsFoeMovesAnticipationTeam()));
+        methods_.add( new SpecNatMethod(IS_PLAYER_MOVES_ANTICIPATION_TEAM,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new TeamBeanIsPlayerMovesAnticipationTeam()));
         methods_.add( new SpecNatMethod(IS_BACK_MOVES_ANTICIPATION_TEAM,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new TeamBeanIsBackMovesAnticipationTeam()));
         methods_.add( new SpecNatMethod(GET_PLAYER_FIGTHER_AGAINST_FOE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TeamBeanGetPlayerFigtherAgainstFoe()));
         methods_.add( new SpecNatMethod(GET_FOE_FIGTHER_AGAINST_FOE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TeamBeanGetFoeFigtherAgainstFoe()));

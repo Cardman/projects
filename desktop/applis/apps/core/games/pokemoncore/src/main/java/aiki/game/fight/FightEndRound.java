@@ -957,7 +957,7 @@ final class FightEndRound {
         Fighter creatureLanceur_ = equipeLanceur_.refPartMembres(_combattant.getPosition());
         for(byte c:equipeLanceur_.getMovesAnticipationSet(_attaque)){
             Anticipation attaqueAnticipe_=equipeLanceur_.getMovesAnticipationVal(_attaque, c);
-            if(NumberUtil.eq(attaqueAnticipe_.getTargetPosition().getPosition(),Fighter.BACK)){
+            if(!attaqueAnticipe_.isEnabled()){
                 continue;
             }
             attaqueAnticipe_.increment();
@@ -996,7 +996,7 @@ final class FightEndRound {
             }
             _fight.getEffects().add(animation_);
             _attaqueAnticipe.getDamage().affectZero();
-            _attaqueAnticipe.setTargetPosition(new TargetCoords((short) 0,Fighter.BACK));
+            _attaqueAnticipe.setTargetPosition(new TargetCoords((short) -1,Fighter.BACK));
         }
         return false;
     }

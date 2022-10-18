@@ -192,6 +192,10 @@ public abstract class InitDbFight extends InitDbBean {
     public static Struct callTeamBeanIsFoeMovesAnticipationTeam(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanIsFoeMovesAnticipationTeam(),_str,_args);
     }
+
+    public static Struct callTeamBeanIsPlayerMovesAnticipationTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TeamBeanIsPlayerMovesAnticipationTeam(),_str,_args);
+    }
     public static Struct callTeamBeanTeamBeanHealAfterGet(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new TeamBeanHealAfterGet(),_str,_args);
     }
@@ -539,11 +543,15 @@ public abstract class InitDbFight extends InitDbBean {
         _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(true);
         _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 1);
         _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.one());
-        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords(Fighter.BACK,Fighter.BACK));
+        _fight.getUserTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(new TargetCoords((short) -1,Fighter.BACK));
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setIncrementing(false);
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setNbRounds((byte) 0);
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setDamage(Rate.zero());
         _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(0).setTargetPosition(TargetCoords.toFoeTarget((short) 0));
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setIncrementing(false);
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setNbRounds((byte) 0);
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setDamage(Rate.zero());
+        _fight.getFoeTeam().getMovesAnticipation().getVal(M_ANT).getValue(1).setTargetPosition(TargetCoords.toUserTarget((short) 0));
     }
     protected FacadeGame facade(DataBase _data) {
         FacadeGame fac_ = initFacade(_data);

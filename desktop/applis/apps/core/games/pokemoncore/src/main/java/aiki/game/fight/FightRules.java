@@ -110,7 +110,7 @@ final class FightRules {
         boolean lance_=false;
         for (ByteMap<Anticipation> m: _equipe.getMovesAnticipationValues()) {
             for (byte p: m.getKeys()) {
-                if (NumberUtil.eq(_creatureCbt.getGroundPlace(), p) && !NumberUtil.eq(m.getVal(p).getTargetPosition().getPosition(), Fighter.BACK)) {
+                if (NumberUtil.eq(_creatureCbt.getGroundPlace(), p) && m.getVal(p).isEnabled()) {
                     lance_ = true;
                     break;
                 }

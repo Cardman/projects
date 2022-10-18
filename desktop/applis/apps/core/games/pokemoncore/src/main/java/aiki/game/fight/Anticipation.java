@@ -9,6 +9,7 @@ import code.util.ints.Displayable;
 public final class Anticipation implements Displayable{
 
     private static final char SEPARATOR=',';
+    private static final int DISABLED = -1;
 
     private Rate damage;
 
@@ -20,7 +21,7 @@ public final class Anticipation implements Displayable{
 
     public Anticipation() {
         damage = Rate.zero();
-        targetPosition = new TargetCoords();
+        targetPosition = new TargetCoords((short) DISABLED,Fighter.BACK);
     }
 
     public Anticipation(String _value) {
@@ -66,6 +67,10 @@ public final class Anticipation implements Displayable{
 
     public void setNbRounds(byte _nbRounds) {
         nbRounds = _nbRounds;
+    }
+
+    public boolean isEnabled() {
+        return targetPosition.getTeam() != DISABLED;
     }
 
     public TargetCoords getTargetPosition() {

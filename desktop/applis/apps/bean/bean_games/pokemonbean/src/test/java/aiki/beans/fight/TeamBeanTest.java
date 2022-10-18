@@ -4,7 +4,6 @@ import aiki.beans.CommonBean;
 import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
 import aiki.db.DataBase;
-import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
 import code.bean.nat.NatCaller;
@@ -577,6 +576,14 @@ public final class TeamBeanTest extends InitDbFight {
     @Test
     public void ant20() {
         assertTrue(callTeamBeanIsFoeMovesAnticipationTeam(foePath(),0,0));
+    }
+    @Test
+    public void ant21() {
+        assertFalse(callTeamBeanIsPlayerMovesAnticipationTeam(playerPath(),0,0));
+    }
+    @Test
+    public void ant22() {
+        assertTrue(callTeamBeanIsPlayerMovesAnticipationTeam(foePath(),0,1));
     }
 
     @Test

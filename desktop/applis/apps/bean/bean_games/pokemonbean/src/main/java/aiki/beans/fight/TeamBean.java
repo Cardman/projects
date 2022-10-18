@@ -148,8 +148,11 @@ public class TeamBean extends CommonFightBean {
     public boolean isFoeMovesAnticipationTeam(int _indexOne,int _indexTwo) {
         return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getTeam() == Fight.CST_FOE;
     }
+    public boolean isPlayerMovesAnticipationTeam(int _indexOne,int _indexTwo) {
+        return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getTeam() == Fight.CST_PLAYER;
+    }
     public boolean isBackMovesAnticipationTeam(int _indexOne,int _indexTwo) {
-        return movesAnticipation.getValue(_indexOne).getValue(_indexTwo).getTargetPosition().getPosition() == Fighter.BACK;
+        return !movesAnticipation.getValue(_indexOne).getValue(_indexTwo).isEnabled();
     }
     public String getPlayerFigtherAgainstFoe(int _index) {
         byte key_ = playerFightersAgainstFoe.getKey(_index);

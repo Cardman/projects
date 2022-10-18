@@ -257,7 +257,7 @@ public final class Team {
             map_ = new ByteMap<Anticipation>();
             for(byte i = IndexConstants.FIRST_INDEX; i< _mult; i++){
                 Anticipation ant_ = new Anticipation();
-                ant_.setTargetPosition(new TargetCoords((short) 0, Fighter.BACK));
+                ant_.setTargetPosition(new TargetCoords((short) -1, Fighter.BACK));
                 map_.put(i,ant_);
             }
             movesAnticipation.put(e, map_);
@@ -430,12 +430,16 @@ public final class Team {
         }
         for (ByteMap<Anticipation> k: movesAnticipation.values()) {
             for (Anticipation s: k.values()) {
-                if (!s.isValid() || TargetCoords.ko(s.getTargetPosition())) {
+                if (!s.isValid() || koEnabled(s)) {
                     return true;
                 }
             }
         }
         return false;
+    }
+
+    private boolean koEnabled(Anticipation _s) {
+        return _s.isEnabled() && TargetCoords.ko(_s.getTargetPosition());
     }
 
     private boolean koHealAfter(DataBase _data, Bytes _keysMovesLatter) {
