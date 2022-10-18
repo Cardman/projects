@@ -99,6 +99,7 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String I_SAMPLE = "I_SAMPLE";
     protected static final String PIKA_2 = "PIKACHU2";
     protected static final String PIKA_TR_2 = "PIKACHU_TR2";
+    protected static final String NICK_NA = "NICK_NA";
     static final String NICKNAME = "CARDTEAM";
 
     private static final String FIGHT="fight";
@@ -167,6 +168,41 @@ public abstract class InitDbFight extends InitDbBean {
         return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
     }
 
+    public static Struct callFighterBeanAbilityGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanAbilityGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanCurrentAbilityGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCurrentAbilityGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanCurrentNameGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCurrentNameGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanCurrentGenderGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanCurrentGenderGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanGenderGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGenderGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanGroundPlaceSubstGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGroundPlaceSubstGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanGroundPlaceGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanGroundPlaceGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanUsedBallCatchingGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanUsedBallCatchingGet(),_str,_args);
+    }
+
+    public static Struct callFighterBeanNicknameGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FighterBeanNicknameGet(),_str,_args);
+    }
     public static Struct callMoveTeamPositionGetMove(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new MoveTeamPositionGetMove(),_str,_args);
     }
@@ -714,6 +750,7 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getUserTeam().getMembers().getValue(0).setSuccessfulMove(true);
         fight_.getUserTeam().getMembers().getValue(0).setDisappeared(true);
         fight_.getUserTeam().getMembers().getValue(0).setNeedingToRecharge(true);
+        fight_.getUserTeam().getMembers().getValue(0).setNickname(NICK_NA);
         return fac_;
     }
     private void updateMoves(Fight _fight) {

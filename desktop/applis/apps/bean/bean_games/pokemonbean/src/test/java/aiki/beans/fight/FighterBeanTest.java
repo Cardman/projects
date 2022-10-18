@@ -165,6 +165,51 @@ public final class FighterBeanTest extends InitDbFight {
     public void enAcc6() {
         assertFalse(second(elt(callFighterBeanIncrUserAccuracyGet(foePath(0)),0)));
     }
+
+    @Test
+    public void curName() {
+        assertEq(PIKACHU_TR,callFighterBeanCurrentNameGet(playerPath(0)));
+    }
+
+    @Test
+    public void curGender() {
+        assertEq(NO_G,callFighterBeanCurrentGenderGet(playerPath(0)));
+    }
+
+    @Test
+    public void gender() {
+        assertEq(NO_G,callFighterBeanGenderGet(playerPath(0)));
+    }
+
+    @Test
+    public void curAbility() {
+        assertEq(PARATONNERRE_TR,callFighterBeanCurrentAbilityGet(playerPath(1)));
+    }
+
+    @Test
+    public void ability() {
+        assertEq(PARATONNERRE_TR,callFighterBeanAbilityGet(playerPath(0)));
+    }
+
+    @Test
+    public void ball() {
+        assertEq(I_SAMPLE_TR,callFighterBeanUsedBallCatchingGet(playerPath(0)));
+    }
+
+    @Test
+    public void ground() {
+        assertEq(0,callFighterBeanGroundPlaceGet(playerPath(0)));
+    }
+
+    @Test
+    public void groundSubst() {
+        assertEq(0,callFighterBeanGroundPlaceSubstGet(playerPath(0)));
+    }
+
+    @Test
+    public void nickname() {
+        assertEq(NICK_NA,callFighterBeanNicknameGet(playerPath(0)));
+    }
     private Struct foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
