@@ -42,6 +42,7 @@ import aiki.game.fight.util.NextUsers;
 import aiki.game.fight.util.RandomBoolResults;
 import aiki.game.params.Difficulty;
 import aiki.game.player.Player;
+import aiki.util.CommonParam;
 import aiki.util.TargetCoordsList;
 import aiki.util.TeamPositionList;
 import code.maths.LgInt;
@@ -98,14 +99,14 @@ final class FightRound {
     }
 
     private static boolean foundComboGeneTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList) {
-        for (MoveTarget p: _fight.getAllyChoiceSet()) {
-            if (foundComboGeneTarget(_fight, _import, _partner, _playerList,p)) {
+        for (CommonParam<MoveTarget, MoveTarget> p: _fight.getAllyChoice().entryList()) {
+            if (foundComboGeneTarget(_fight, _import, _partner, _playerList,p.getKey(), p.getValue())) {
                 return true;
             }
         }
         return false;
     }
-    private static boolean foundComboGeneTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList, MoveTarget _p) {
+    private static boolean foundComboGeneTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList, MoveTarget _p, MoveTarget _v) {
         if (_playerList.isEmpty()) {
             return false;
         }
@@ -113,25 +114,25 @@ final class FightRound {
         if (!StringUtil.quickEq(fighter_.getFirstChosenMove(), _p.getMove())) {
             return false;
         }
-        String allyMove_ = _fight.getAllyChoiceVal(_p).getMove();
+        String allyMove_ = _v.getMove();
         if (allyMove_.isEmpty()) {
             return false;
         }
-        TargetCoords allyTarget_ = _fight.getAllyChoiceVal(_p).getTarget();
+        TargetCoords allyTarget_ = _v.getTarget();
         FightArtificialIntelligence.setFirstChosenMoveAlly(_fight, _partner, allyMove_, allyTarget_, _import);
         FightArtificialIntelligence.setBatonPassAlly(_fight, _partner, allyMove_, _import);
         return true;
     }
 
     private static boolean foundComboSpecTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList) {
-        for (MoveTarget p: _fight.getAllyChoiceSet()) {
-            if (foundComboSpecTarget(_fight, _import, _partner, _playerList,p)) {
+        for (CommonParam<MoveTarget, MoveTarget> p: _fight.getAllyChoice().entryList()) {
+            if (foundComboSpecTarget(_fight, _import, _partner, _playerList,p.getKey(), p.getValue())) {
                 return true;
             }
         }
         return false;
     }
-    private static boolean foundComboSpecTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList, MoveTarget _p) {
+    private static boolean foundComboSpecTarget(Fight _fight, DataBase _import, TeamPosition _partner, TeamPositionList _playerList, MoveTarget _p, MoveTarget _v) {
         if (_playerList.isEmpty()) {
             return false;
         }
@@ -143,11 +144,11 @@ final class FightRound {
         if (list_.isEmpty() || !TargetCoords.eq(list_.first(), _p.getTarget())) {
             return false;
         }
-        String allyMove_ = _fight.getAllyChoiceVal(_p).getMove();
+        String allyMove_ = _v.getMove();
         if (allyMove_.isEmpty()) {
             return false;
         }
-        TargetCoords allyTarget_ = _fight.getAllyChoiceVal(_p).getTarget();
+        TargetCoords allyTarget_ = _v.getTarget();
         FightArtificialIntelligence.setFirstChosenMoveAlly(_fight, _partner, allyMove_, allyTarget_, _import);
         FightArtificialIntelligence.setBatonPassAlly(_fight, _partner, allyMove_, _import);
         return true;

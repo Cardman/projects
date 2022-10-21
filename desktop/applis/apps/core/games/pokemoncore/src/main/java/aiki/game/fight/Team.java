@@ -257,7 +257,7 @@ public final class Team {
             map_ = new ByteMap<Anticipation>();
             for(byte i = IndexConstants.FIRST_INDEX; i< _mult; i++){
                 Anticipation ant_ = new Anticipation();
-                ant_.setTargetPosition(new TargetCoords((short) -1, Fighter.BACK));
+                ant_.setTargetPosition(TargetCoords.def());
                 map_.put(i,ant_);
             }
             movesAnticipation.put(e, map_);

@@ -42,23 +42,17 @@ public class FightCalculationBean extends CommonFightBean {
         Fight fight_ = dataBaseFight_.getGame().getFight();
         DictionaryComparator<MoveTarget, MoveTarget> allyChoice_;
         allyChoice_ = DictionaryComparatorUtil.buildMoveTarget();
-        for (MoveTarget m: fight_.getAllyChoiceSet()) {
-            MoveTarget key_;
-            key_ = new MoveTarget();
-            String move_ = m.getMove();
+        for (CommonParam<MoveTarget, MoveTarget> m: fight_.getAllyChoice().entryList()) {
+            String move_ = m.getKey().getMove();
             if (!move_.isEmpty()) {
                 move_ = translationsMoves_.getVal(move_);
             }
-            key_.setMove(move_);
-            key_.setTarget(m.getTarget());
-            MoveTarget value_;
-            value_ = new MoveTarget();
-            move_ = fight_.getAllyChoiceVal(m).getMove();
+            MoveTarget key_ = new MoveTarget(move_, m.getKey().getTarget());
+            move_ = m.getValue().getMove();
             if (!move_.isEmpty()) {
                 move_ = translationsMoves_.getVal(move_);
             }
-            value_.setMove(move_);
-            value_.setTarget(fight_.getAllyChoiceVal(m).getTarget());
+            MoveTarget value_ = new MoveTarget(move_, m.getValue().getTarget());
             allyChoice_.put(key_, value_);
         }
         allyChoice = allyChoice_;
@@ -72,12 +66,11 @@ public class FightCalculationBean extends CommonFightBean {
             if (move_.isEmpty()) {
                 continue;
             }
-            MoveTarget value_ = new MoveTarget();
-            value_.setMove(translationsMoves_.getVal(move_));
+            MoveTarget value_;
             if (!f_.getChosenTargets().isEmpty()) {
-                value_.setTarget(f_.getChosenTargets().first());
+                value_ = new MoveTarget(translationsMoves_.getVal(move_),f_.getChosenTargets().first());
             } else {
-                value_.setTarget(new TargetCoords((short) -1,Fighter.BACK));
+                value_ = new MoveTarget(translationsMoves_.getVal(move_),TargetCoords.def());
             }
             foeChoices_.put(k, value_);
             foeChoicesTargets_.put(k, ComparatorBoolean.of(!f_.getChosenTargets().isEmpty()));

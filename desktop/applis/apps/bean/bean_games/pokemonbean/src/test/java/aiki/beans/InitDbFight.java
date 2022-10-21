@@ -1165,7 +1165,7 @@ public abstract class InitDbFight extends InitDbBean {
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
         FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(NULL_REF,new TargetCoords()),new MoveTarget(NULL_REF,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(MoveTarget.def(),MoveTarget.def());
         return fac_;
     }
     protected FacadeGame facadeCalculation5(DataBase _data) {

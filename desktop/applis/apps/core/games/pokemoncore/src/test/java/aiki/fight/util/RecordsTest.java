@@ -272,7 +272,7 @@ public final class RecordsTest extends EquallablePkUtil {
     @Test
     public void test40() {
         TargetCoordssRate m_ = new TargetCoordssRate();
-        assertNotNull(m_.getVal(new TargetCoords()));
+        assertNotNull(m_.getVal(TargetCoords.def()));
     }
     @Test
     public void test41() {

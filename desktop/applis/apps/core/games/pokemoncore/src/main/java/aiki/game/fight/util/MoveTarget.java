@@ -1,5 +1,6 @@
 package aiki.game.fight.util;
 
+import aiki.db.DataBase;
 import aiki.game.fight.TargetCoords;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -8,12 +9,9 @@ public final class MoveTarget {
 
     private static final char SEPARATOR = ',';
 
-    private String move;
+    private final String move;
 
-    private TargetCoords target;
-
-    public MoveTarget() {
-    }
+    private final TargetCoords target;
 
     public MoveTarget(String _str) {
         StringList list_ = StringUtil.splitChars(_str, SEPARATOR);
@@ -22,10 +20,12 @@ public final class MoveTarget {
     }
 
     public MoveTarget(String _move, TargetCoords _target) {
-        setMove(_move);
-        setTarget(_target);
+        move = _move;
+        target = _target;
     }
-    
+    public static MoveTarget def() {
+        return new MoveTarget(DataBase.EMPTY_STRING,TargetCoords.def());
+    }
     public static MoveTarget newMoveTarget(String _string) {
         return new MoveTarget(_string);
     }
@@ -41,16 +41,8 @@ public final class MoveTarget {
         return move;
     }
 
-    public void setMove(String _move) {
-        move = _move;
-    }
-
     public TargetCoords getTarget() {
         return target;
-    }
-
-    public void setTarget(TargetCoords _target) {
-        target = _target;
     }
 
     public String display() {

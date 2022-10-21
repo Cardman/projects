@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import code.util.StringList;
-import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -9,14 +8,10 @@ public final class TargetCoords {
 
     private static final char SEPARATOR=';';
 
+    private static final int DISABLED = -1;
     private final short team;
 
     private final short position;
-
-    public TargetCoords() {
-        team = IndexConstants.SIZE_EMPTY;
-        position = IndexConstants.SIZE_EMPTY;
-    }
 
     public TargetCoords(short _team,short _position) {
         team = _team;
@@ -27,6 +22,9 @@ public final class TargetCoords {
         StringList elts_ = StringUtil.splitChars(_value, SEPARATOR);
         team = (short) NumberUtil.parseInt(elts_.first());
         position = (short) NumberUtil.parseInt(elts_.last());
+    }
+    public static TargetCoords def() {
+        return new TargetCoords((short) DISABLED,Fighter.BACK);
     }
 
     public static boolean ko(TargetCoords _pos) {
@@ -64,6 +62,9 @@ public final class TargetCoords {
         return NumberUtil.eq(getPosition(), _obj.getPosition());
     }
 
+    public boolean isEnabled() {
+        return getTeam() != DISABLED;
+    }
     public short getTeam() {
         return team;
     }

@@ -159,7 +159,7 @@ final class FightArtificialIntelligence {
                 for (byte f2_: foeFighers_) {
                     TeamPosition c2_ = Fight.toFoeFighter(f2_);
                     if (Rate.strLower(remainingTargetHp_.getVal(t), _fight.getFighter(c2_).getRemainingHp())) {
-                        _fight.getAllyChoice().put(new MoveTarget(m,t), new MoveTarget(DataBase.EMPTY_STRING, new TargetCoords(Fighter.BACK,Fighter.BACK)));
+                        _fight.getAllyChoice().put(new MoveTarget(m,t), MoveTarget.def());
                     }
                 }
             }
@@ -560,7 +560,7 @@ final class FightArtificialIntelligence {
             // notKoFoeFighters_.size() == 0
             TargetCoordsList kos_ = koFoeFighters(_fight, _partner, m2_, _possibleChoicesAlly, _diff, _import);
             if (kos_.size() == _fight.getMult()) {
-                _fight.getAllyChoice().put(new MoveTarget(DataBase.EMPTY_STRING,new TargetCoords()), new MoveTarget(m2_,kos_.first()));
+                _fight.getAllyChoice().put(MoveTarget.def(), new MoveTarget(m2_,kos_.first()));
                 chosen_ = true;
                 break;
             }
@@ -574,7 +574,7 @@ final class FightArtificialIntelligence {
                 // notKoFoeFighters_.size() == 0
                 TargetCoordsList kos_ = koFoeFighters(_fight, _partner, m2_, _possibleChoicesAlly, _diff, _import);
                 if (!kos_.isEmpty()) {
-                    _fight.getAllyChoice().put(new MoveTarget(DataBase.EMPTY_STRING, new TargetCoords()), new MoveTarget(m2_, kos_.first()));
+                    _fight.getAllyChoice().put(MoveTarget.def(), new MoveTarget(m2_, kos_.first()));
                     chosen_ = true;
                     break;
                 }
@@ -586,7 +586,7 @@ final class FightArtificialIntelligence {
         if (!_possibleChoicesAlly.isEmpty()) {
             String m2_ = _possibleChoicesAlly.firstKey();
             CustList<TargetCoords> v2_ = _possibleChoicesAlly.firstValue();
-            _fight.getAllyChoice().put(new MoveTarget(DataBase.EMPTY_STRING,new TargetCoords()), new MoveTarget(m2_,v2_.first()));
+            _fight.getAllyChoice().put(MoveTarget.def(), new MoveTarget(m2_,v2_.first()));
         }
     }
 

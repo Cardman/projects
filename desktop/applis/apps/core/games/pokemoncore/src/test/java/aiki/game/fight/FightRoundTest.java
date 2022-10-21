@@ -6652,7 +6652,7 @@ public class FightRoundTest extends InitializationDataBase {
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
-        fight_.getAllyChoice().put(new MoveTarget(NULL_REF,new TargetCoords()), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fight_.getAllyChoice().put(MoveTarget.def(), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         Fighter fighter_ = fight_.getFighter(ally_);
@@ -6755,7 +6755,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = nextFightersSending4(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMove(SEISME);
-        fight_.getAllyChoice().put(new MoveTarget(SEISME,new TargetCoords()), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
+        fight_.getAllyChoice().put(new MoveTarget(SEISME,TargetCoords.def()), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
         fight_.getAllyChoice().put(new MoveTarget(TORGNOLES,POKEMON_FOE_TARGET_ZERO), new MoveTarget(DETECTION,POKEMON_FOE_TARGET_ZERO));
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);

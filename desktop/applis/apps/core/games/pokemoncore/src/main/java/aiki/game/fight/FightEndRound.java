@@ -996,7 +996,7 @@ final class FightEndRound {
             }
             _fight.getEffects().add(animation_);
             _attaqueAnticipe.getDamage().affectZero();
-            _attaqueAnticipe.setTargetPosition(new TargetCoords((short) -1,Fighter.BACK));
+            _attaqueAnticipe.setTargetPosition(TargetCoords.def());
         }
         return false;
     }

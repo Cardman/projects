@@ -2139,8 +2139,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2179,8 +2179,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2219,8 +2219,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
-        assertEq(SIPHON,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getTarget());
+        assertEq(SIPHON,choices_.getVal(MoveTarget.def()).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2258,8 +2258,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
-        assertEq(SIPHON,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
-        assertEq(POKEMON_FOE_TARGET_ONE,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getTarget());
+        assertEq(SIPHON,choices_.getVal(MoveTarget.def()).getMove());
+        assertEq(POKEMON_FOE_TARGET_ONE,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test
@@ -2873,8 +2873,8 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         MoveTargets choices_;
         choices_ = fight_.getAllyChoice();
         assertEq(1, choices_.size());
-        assertEq(COUPE_VENT,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getMove());
-        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(new MoveTarget(NULL_REF,new TargetCoords())).getTarget());
+        assertEq(COUPE_VENT,choices_.getVal(MoveTarget.def()).getMove());
+        assertEq(POKEMON_FOE_TARGET_ZERO,choices_.getVal(MoveTarget.def()).getTarget());
     }
 
     @Test

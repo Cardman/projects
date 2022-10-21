@@ -843,10 +843,6 @@ public final class Fight {
         return allyChoice.getKeys();
     }
 
-    public MoveTarget getAllyChoiceVal(MoveTarget _key) {
-        return allyChoice.getVal(_key);
-    }
-
     public Listable<MoveTarget> getAllyChoiceValuesSet() {
         return allyChoice.values();
     }

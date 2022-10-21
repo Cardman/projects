@@ -6236,7 +6236,7 @@ public class FightValidationTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,new TargetCoords()),new MoveTarget(INVALID_DATA_KEY,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6295,7 +6295,7 @@ public class FightValidationTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         //invalid data_
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,new TargetCoords()),new MoveTarget(INVALID_DATA_KEY,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6323,7 +6323,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,new TargetCoords()),new MoveTarget(INVALID_DATA_KEY,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -6351,7 +6351,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.setEvolution(TETARTE);
         //invalid data_
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,new TargetCoords()),new MoveTarget(INVALID_DATA_KEY,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(game_.getFight(), data_, player_, diff_));
     }
     @Test
@@ -6375,7 +6375,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,new TargetCoords()),new MoveTarget(INVALID_DATA_KEY,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
     @Test
@@ -6399,7 +6399,7 @@ public class FightValidationTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, false);
         //invalid data_
         fight_.getAllyChoice().clear();
-        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,new TargetCoords()),new MoveTarget(INVALID_DATA_KEY,new TargetCoords()));
+        fight_.getAllyChoice().addEntry(new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()),new MoveTarget(INVALID_DATA_KEY,TargetCoords.def()));
         assertTrue(!FightFacade.validate(fight_, data_, player_, diff_));
     }
 

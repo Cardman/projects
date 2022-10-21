@@ -1,13 +1,15 @@
 package aiki.game.fight.util;
 
 import aiki.db.EquallablePkUtil;
+import aiki.game.fight.Fighter;
+import aiki.game.fight.TargetCoords;
 import org.junit.Test;
 
 public class MoveTargetTest extends EquallablePkUtil {
     @Test
     public void new_MoveTarget_1_test() {
-        MoveTarget mt_ = new MoveTarget();
-        assertNull(mt_.getTarget());
+        MoveTarget mt_ = new MoveTarget("",new TargetCoords((short) -1, Fighter.BACK));
+        assertNotNull(mt_.getTarget());
     }
     @Test
     public void new_MoveTarget_2_test() {
