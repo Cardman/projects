@@ -117,9 +117,4 @@ public abstract class CommonMap<K,V> {
         list.clear();
     }
 
-    public void putAllMap(CommonMap<K,V> _map) {
-        for (CommonParam<K,V> e: _map.list) {
-            put(e.getKey(),e.getValue());
-        }
-    }
 }

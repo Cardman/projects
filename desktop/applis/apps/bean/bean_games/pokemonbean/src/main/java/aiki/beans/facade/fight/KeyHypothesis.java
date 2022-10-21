@@ -27,6 +27,7 @@ public final class KeyHypothesis {
     private final int numberTarget;
 
     private Rate damage;
+    private Rate damageSecond;
 
     public KeyHypothesis(FacadeGame _facade, TeamPosition _playerPk, String _move, TeamPosition _targetPk) {
         DataBase data_ = _facade.getData();
@@ -79,6 +80,13 @@ public final class KeyHypothesis {
         damage = _damage;
     }
 
+    public Rate getDamageSecond() {
+        return damageSecond;
+    }
+
+    public void setDamageSecond(Rate _d) {
+        this.damageSecond = _d;
+    }
 //    public boolean eq(KeyHypothesis _g) {
 //        int res_ = StringUtil.compareStrings(playerPokemon,_g.getPlayerPokemon());
 //        if (res_ != 0) {
@@ -106,7 +114,7 @@ public final class KeyHypothesis {
 //    }
 
     public int cmp(KeyHypothesis _o) {
-        int res_ = StringUtil.compareStrings(playerPokemon,_o.getPlayerPokemon());
+        int res_ = StringUtil.compareStrings(playerPokemon,_o.playerPokemon);
         if (res_ != 0) {
             return res_;
         }
@@ -114,19 +122,19 @@ public final class KeyHypothesis {
         if (res_ != 0) {
             return res_;
         }
-        res_ = StringUtil.compareStrings(move,_o.getMove());
+        res_ = StringUtil.compareStrings(move,_o.move);
         if (res_ != 0) {
             return res_;
         }
-        res_ = StringUtil.compareStrings(targetPokemon,_o.getTargetPokemon());
+        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
         if (res_ != 0) {
             return res_;
         }
-        res_ = NumberUtil.compareLg(numberTarget, _o.numberTarget);
+        res_ = StringUtil.compareStrings(targetPokemon,_o.targetPokemon);
         if (res_ != 0) {
             return res_;
         }
-        return  ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
+        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
 ////        res_ = Boolean.compare(belongsToUser, _o.belongsToUser);
 //        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
 //        if (res_ != 0) {

@@ -9,6 +9,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.enums.FightType;
 import aiki.game.fight.enums.UsefulValueLaw;
 import aiki.game.fight.util.MoveTarget;
+import aiki.game.fight.util.PairListsFighters;
 import aiki.game.fight.util.StatisticsDamageMove;
 import aiki.game.params.Difficulty;
 import aiki.util.*;
@@ -187,9 +188,10 @@ final class FightArtificialIntelligence {
     }
 
     static TargetCoordssRate remainingFoeTargetHp(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
-        MoveData fAtt_ = _import.getMove(_move);
-        int index_ = fAtt_.indexOfPrimaryEffect();
-        StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
+        MoveDataTypesEffect md_ = new MoveDataTypesEffect(_fight, _thrower, _move, _import);
+//        MoveData fAtt_ = _import.getMove(_move);
+//        int index_ = fAtt_.indexOfPrimaryEffect();
+//        StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
         TargetCoordssRate remoteHpLoc_ = new TargetCoordssRate();
         int mult_ = _fight.getMult();
         _fight.setSending(false);
@@ -199,23 +201,48 @@ final class FightArtificialIntelligence {
                 continue;
             }
             TeamPosition f_ = Fight.toFoeFighter(fighters_.first());
-            Fighter foe_ = _fight.getFighter(f_);
-            Rate remoteHpFoe_ = foe_.getRemainingHp();
-            short pos_ = foe_.getGroundPlace();
-            TargetCoords t_ = TargetCoords.toFoeTarget(pos_);
-            if (!reachable(_fight, _thrower, f_, _diff, _import, (DamagingMoveData) fAtt_) || Rate.strLower(FightSuccess.accuracy(_fight, _thrower, f_, _move, _import), DataBase.determinatedRate()) || !FightSuccess.successfulMove(_fight, _thrower, f_, _move, index_, false, _import).isSuccessful() || inaffectFighter(_fight, _thrower, f_, _import, types_)) {
-                remoteHpLoc_.put(t_, remoteHpFoe_);
-            } else {
-                IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f_, _move, _diff, _import);
-                Rate delta_ = positive(Rate.minus(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI)));
-                remoteHpLoc_.put(t_, delta_);
-            }
+//            Fighter foe_ = _fight.getFighter(f_);
+//            Rate remoteHpFoe_ = foe_.getRemainingHp();
+//            short pos_ = foe_.getGroundPlace();
+            TargetCoords t_ = TargetCoords.toFoeTarget(_fight.getFighter(f_).getGroundPlace());
+            remoteHpLoc_.put(t_,remainingFoe(_fight,_thrower,_move,_diff,_import,f_,md_).getFront());
+//            if (!reachable(_fight, _thrower, f_, _diff, _import, (DamagingMoveData) fAtt_) || Rate.strLower(FightSuccess.accuracy(_fight, _thrower, f_, _move, _import), DataBase.determinatedRate()) || !FightSuccess.successfulMove(_fight, _thrower, f_, _move, index_, false, _import).isSuccessful() || inaffectFighter(_fight, _thrower, f_, _import, types_)) {
+//                remoteHpLoc_.put(t_, remoteHpFoe_);
+//            } else {
+//                IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f_, _move, _diff, _import);
+//                Rate delta_ = positive(Rate.minus(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI)));
+//                remoteHpLoc_.put(t_, delta_);
+//            }
+        }
+        return remoteHpLoc_;
+    }
+    static TeamPositionsPairRates remainingFoeTargetHpAll(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
+        MoveDataTypesEffect md_ = new MoveDataTypesEffect(_fight, _thrower, _move, _import);
+        TeamPositionsPairRates remoteHpLoc_ = new TeamPositionsPairRates();
+        for(TeamPosition f: FightOrder.fighters(_fight, Fight.CST_FOE)){
+            remoteHpLoc_.put(f,remainingFoe(_fight,_thrower,_move,_diff,_import,f,md_));
         }
         return remoteHpLoc_;
     }
 
-    static TeamPositionsRate remainingPartnerTargetHp(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
-        TeamPositionsRate remoteHpLoc_ = new TeamPositionsRate();
+    private static PairRates remainingFoe(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import, TeamPosition _tp, MoveDataTypesEffect _md) {
+        MoveData fAtt_ = _md.getAtt();
+        Fighter foe_ = _fight.getFighter(_tp);
+        Rate remoteHpFoe_ = foe_.getRemainingHp();
+        if (Rate.strLower(FightSuccess.accuracy(_fight, _thrower, _tp, _move, _import), DataBase.determinatedRate()) || immu(_md,_fight, _thrower, _move, _import, _tp)) {
+            return new PairRates(remoteHpFoe_,remoteHpFoe_);
+        }
+        IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, _tp, _move, _diff, _import);
+        Rate diff_ = positive(Rate.minus(remoteHpFoe_, statistiquesLoc_.getVal(UsefulValueLaw.MINI)));
+        if (unreachable(_fight.getFighterId(_tp),_fight,_thrower, fAtt_,_diff,_import)) {
+            return new PairRates(remoteHpFoe_,diff_);
+        } else {
+            return new PairRates(diff_,diff_);
+        }
+    }
+
+    static TeamPositionsPairRates remainingPartnerTargetHp(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
+        TeamPositionsPairRates remoteHpLoc_ = new TeamPositionsPairRates();
         for(TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)){
             Fighter partner_ = _fight.getFighter(f);
             Rate remoteHpPartner_ = partner_.getRemainingHp();
@@ -230,13 +257,22 @@ final class FightArtificialIntelligence {
 //                }
 //            });
 //            rates_.sort();
-            if (acc_.isZeroOrLt() || untouchablePartners(_fight, _thrower, _move, _diff, _import).containsObj(f)) {
-                remoteHpLoc_.put(f, remoteHpPartner_);
-                continue;
+            if (acc_.isZeroOrLt()){
+                remoteHpLoc_.put(f, new PairRates(remoteHpPartner_,remoteHpPartner_));
+            } else {
+                PairListsFighters pair_ = untouchablePartners(_fight, _thrower, _move, _diff, _import);
+                if (pair_.getFront().containsObj(f)) {
+                    remoteHpLoc_.put(f, new PairRates(remoteHpPartner_,remoteHpPartner_));
+                } else {
+                    IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f, _move, _diff, _import);
+                    Rate delta_ = positive(Rate.minus(remoteHpPartner_, statistiquesLoc_.getVal(UsefulValueLaw.MAXI)));
+                    if (pair_.getBack().containsObj(f)) {
+                        remoteHpLoc_.put(f, new PairRates(remoteHpPartner_,delta_));
+                    } else {
+                        remoteHpLoc_.put(f, new PairRates(delta_,delta_));
+                    }
+                }
             }
-            IdMap<UsefulValueLaw, Rate> statistiquesLoc_ = FightEffects.calculateMinMaxAvgVarForDamage(_fight, _thrower, f, _move, _diff, _import);
-            Rate delta_ = positive(Rate.minus(remoteHpPartner_, statistiquesLoc_.getVal(UsefulValueLaw.MAXI)));
-            remoteHpLoc_.put(f, delta_);
         }
         return remoteHpLoc_;
     }
@@ -255,15 +291,15 @@ final class FightArtificialIntelligence {
         if (damageMove_.getTargetChoice().isWithChoice()) {
             usableMove_ = _chooseMove;
         } else {
-            usableMove_ = untouchablePartners(_fight, _thrower, _move, _diff, _import).containsObj(_target);
+            usableMove_ = untouchablePartners(_fight, _thrower, _move, _diff, _import).getBack().containsObj(_target);
         }
         return usableMove_;
     }
 
-    static boolean reachable(Fight _fight, TeamPosition _thrower, TeamPosition _target, Difficulty _diff, DataBase _import, DamagingMoveData _move) {
+    static boolean reachable(Fight _fight, TeamPosition _thrower, TeamPosition _target, Difficulty _diff, DataBase _import, MoveData _move) {
         int index_ = _move.indexOfPrimaryEffect();
         if (!_move.getTargetChoice().isWithChoice()) {
-            EffectDamage effetDeg_=(EffectDamage) _move.getEffet(index_);
+            Effect effetDeg_= _move.getEffet(index_);
             return FightOrder.targetsEffect(_fight, _thrower, effetDeg_, _diff, _import).containsObj(_target);
         }
         if (_move.getTargetChoice() == TargetChoice.ADJ_UNIQ) {
@@ -272,27 +308,37 @@ final class FightArtificialIntelligence {
         return true;
     }
 
-    static TeamPositionList untouchablePartners(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
-        MoveData damageMove_ = _import.getMove(_move);
+    static PairListsFighters untouchablePartners(Fight _fight, TeamPosition _thrower, String _move, Difficulty _diff, DataBase _import) {
+        MoveDataTypesEffect md_ = new MoveDataTypesEffect(_fight, _thrower, _move, _import);
+        MoveData damageMove_ = md_.getAtt();
         if (damageMove_.getTargetChoice().isWithChoice() || damageMove_.getTargetChoice() == TargetChoice.ADJ_ADV || damageMove_.getTargetChoice() == TargetChoice.TOUS_ADV) {
-            return FightOrder.fighters(_fight, Fight.CST_PLAYER);
+            TeamPositionList team_ = FightOrder.fighters(_fight, Fight.CST_PLAYER);
+            return new PairListsFighters(team_,team_);
         }
         TeamPositionList untouchablePartners_ = new TeamPositionList();
-        int index_ = damageMove_.indexOfPrimaryEffect();
-        StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
-        int mult_ = _fight.getMult();
-        for (byte f = IndexConstants.FIRST_INDEX; f < mult_; f++) {
-            Bytes places_ = _fight.getUserTeam().fightersAtCurrentPlace(f);
-            if (places_.isEmpty()) {
-                continue;
+        TeamPositionList untouchablePartnersBack_ = new TeamPositionList();
+        for(TeamPosition f: FightOrder.fighters(_fight, Fight.CST_PLAYER)){
+            if (unreachable(_fight.getFighterId(f),_fight, _thrower, damageMove_, _diff, _import) || selfOrImmu(_fight, _thrower, _move, _import, md_, f)) {
+                untouchablePartnersBack_.add(f);
             }
-            byte pos_ = places_.first();
-            TeamPosition f_ = Fight.toUserFighter(pos_);
-            if (f == _fight.getFighter(_thrower).getGroundPlace() || !reachable(_fight, _thrower, f_, _diff, _import, (DamagingMoveData) damageMove_) || !FightSuccess.successfulMove(_fight, _thrower, f_, _move, index_, false, _import).isSuccessful() || inaffectFighter(_fight, _thrower, f_, _import, types_)) {
-                untouchablePartners_.add(f_);
+            if (selfOrImmu(_fight, _thrower, _move, _import, md_, f)) {
+                untouchablePartners_.add(f);
             }
         }
-        return untouchablePartners_;
+        return new PairListsFighters(untouchablePartners_,untouchablePartnersBack_);
+    }
+    private static boolean unreachable(FighterId _fi,Fight _fight, TeamPosition _thrower, MoveData _move, Difficulty _diff, DataBase _import) {
+        return _fi.getFighter().estArriere() ||!reachable(_fight, _thrower, _fi.getId(), _diff, _import, _move);
+    }
+
+    private static boolean selfOrImmu(Fight _fight, TeamPosition _thrower, String _move, DataBase _import, MoveDataTypesEffect _md, TeamPosition _f) {
+        return TeamPosition.eq(_f, _thrower) || immu(_md, _fight, _thrower, _move, _import, _f);
+    }
+
+    private static boolean immu(MoveDataTypesEffect _md, Fight _fight, TeamPosition _thrower, String _move, DataBase _import, TeamPosition _fi) {
+        int index_ = _md.getIndex();
+        StringList types_ = _md.getTypes();
+        return !FightSuccess.successfulMove(_fight, _thrower, _fi, _move, index_, false, _import).isSuccessful() || inaffectFighter(_fight, _thrower, _fi, _import, types_);
     }
 
     static TargetCoordsList koFoeFighters(Fight _fight, TeamPosition _thrower, String _move, StringMap<TargetCoordsList> _possibleChoicesAlly, Difficulty _diff, DataBase _import) {

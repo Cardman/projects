@@ -18,6 +18,7 @@ public final class AikiBeansFacadeFightStd{
     private static final String IS_BELONGS_TO_USER = "isBelongsToUser";
 //    private static final String GET_NUMBER_TARGET = "getNumberTarget";
     private static final String GET_DAMAGE = "getDamage";
+    private static final String GET_DAMAGE_SECOND = "getDamageSecond";
     private static final String GET_DISPLAY_STATISTIC = "getDisplayStatistic";
     private static final String IS_BASE = "isBase";
     private static final String GET_STATIS_BASE = "getStatisBase";
@@ -46,6 +47,7 @@ public final class AikiBeansFacadeFightStd{
         methods_.add( new SpecNatMethod(IS_BELONGS_TO_USER,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new KeyHypothesisIsBelongsToUser()));
 //        methods_.add( new SpecNatMethod(GET_NUMBER_TARGET, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new KeyHypothesisGetNumberTarget()));
         methods_.add( new SpecNatMethod(GET_DAMAGE,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new KeyHypothesisGetDamage()));
+        methods_.add( new SpecNatMethod(GET_DAMAGE_SECOND,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new KeyHypothesisGetDamageSecond()));
         _std.getStds().addEntry(TYPE_KEY_HYPOTHESIS, type_);
     }
     private static void buildMultPowerMoves(PokemonStandards _std){

@@ -2,9 +2,9 @@ package aiki.util;
 
 import code.util.StringMap;
 
-public final class TeamPositionsStringMapTeamPositionsRate extends TeamPositions<StringMap<TeamPositionsRate>> {
+public final class TeamPositionsStringMapTeamPositionsRate extends TeamPositions<StringMap<TeamPositionsPairRatesPair>> {
     @Override
-    protected StringMap<TeamPositionsRate> def() {
-        return new StringMap<TeamPositionsRate>();
+    protected StringMap<TeamPositionsPairRatesPair> def() {
+        return new StringMap<TeamPositionsPairRatesPair>();
     }
 }

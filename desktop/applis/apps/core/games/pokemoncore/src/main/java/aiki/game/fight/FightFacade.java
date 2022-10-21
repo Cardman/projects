@@ -1896,22 +1896,20 @@ public final class FightFacade {
         map_ = new TeamPositionsStringMapTeamPositionsRate();
         for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
             StringList moves_ = allowedMovesNotEmpty(_fight, f, _import);
-            StringMap<TeamPositionsRate> mapMovesTargets_ = new StringMap<TeamPositionsRate>();
+            StringMap<TeamPositionsPairRatesPair> mapMovesTargets_ = new StringMap<TeamPositionsPairRatesPair>();
             for (String m: moves_) {
                 if (!(_import.getMove(m) instanceof DamagingMoveData)) {
                     continue;
                 }
-                TeamPositionsRate fighters_ = new TeamPositionsRate();
-                TargetCoordssRate mapTargets_ = FightArtificialIntelligence.remainingFoeTargetHp(_fight, f, m, _diff, _import);
-                for (TargetCoords t: mapTargets_.getKeys()) {
-                    Team team_ = _fight.getTeams().getVal((byte) t.getTeam());
-                    for (byte f2_: team_.fightersAtCurrentPlace(t)) {
-                        fighters_.put(new TeamPosition((byte) t.getTeam(), f2_), mapTargets_.getVal(t));
-                    }
-                }
-                TeamPositionsRate mapFighters_ = FightArtificialIntelligence.remainingPartnerTargetHp(_fight, f, m, _diff, _import);
-                fighters_.putAllMap(mapFighters_);
-                mapMovesTargets_.put(m, fighters_);
+                TeamPositionsPairRates fighters_ = FightArtificialIntelligence.remainingFoeTargetHpAll(_fight, f, m, _diff, _import);
+//                for (TargetCoords t: mapTargets_.getKeys()) {
+//                    Team team_ = _fight.getTeams().getVal((byte) t.getTeam());
+//                    for (byte f2_: team_.fightersAtCurrentPlace(t)) {
+//                        fighters_.put(new TeamPosition((byte) t.getTeam(), f2_), mapTargets_.getVal(t));
+//                    }
+//                }
+                TeamPositionsPairRates mapFighters_ = FightArtificialIntelligence.remainingPartnerTargetHp(_fight, f, m, _diff, _import);
+                mapMovesTargets_.put(m, new TeamPositionsPairRatesPair(fighters_,mapFighters_));
             }
             map_.put(f, mapMovesTargets_);
         }

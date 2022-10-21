@@ -8,6 +8,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
 import aiki.game.fight.util.MoveTarget;
+import aiki.util.PairRates;
 import aiki.util.TeamPositionList;
 import aiki.util.TeamPositionsStringMapTeamPositionsRate;
 import code.util.*;
@@ -93,10 +94,20 @@ public class FightCalculationBean extends CommonFightBean {
         damage = new CustList<KeyHypothesis>();
         for (TeamPosition p: resTh_.getKeys()) {
             for (String m: resTh_.getVal(p).getKeys()) {
-                for (TeamPosition t: resTh_.getVal(p).getVal(m).getKeys()) {
+                for (TeamPosition t: resTh_.getVal(p).getVal(m).getFoe().getKeys()) {
                     KeyHypothesis key_;
                     key_ = new KeyHypothesis(_dataBaseFight, p, m, t);
-                    key_.setDamage(resTh_.getVal(p).getVal(m).getVal(t));
+                    PairRates pair_ = resTh_.getVal(p).getVal(m).getFoe().getVal(t);
+                    key_.setDamage(pair_.getFront());
+                    key_.setDamageSecond(pair_.getBack());
+                    damage.add(key_);
+                }
+                for (TeamPosition t: resTh_.getVal(p).getVal(m).getPlayer().getKeys()) {
+                    KeyHypothesis key_;
+                    key_ = new KeyHypothesis(_dataBaseFight, p, m, t);
+                    PairRates pair_ = resTh_.getVal(p).getVal(m).getPlayer().getVal(t);
+                    key_.setDamage(pair_.getFront());
+                    key_.setDamageSecond(pair_.getBack());
                     damage.add(key_);
                 }
             }

@@ -380,6 +380,12 @@ public final class RecordsTest extends EquallablePkUtil {
     public void test66() {
         assertSame(ExpType.M, ExpType.getExpTypeByName(""));
     }
+    @Test
+    public void test67() {
+        TeamPositionsPairRates  m_ = new TeamPositionsPairRates();
+        assertNotNull(m_.getVal(new TeamPosition("")).getFront());
+        assertNotNull(m_.getVal(new TeamPosition("")).getBack());
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);

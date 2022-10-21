@@ -590,6 +590,11 @@ public final class Fight {
         return new TeamPosition();
     }
 
+    public FighterId getFighterId(TeamPosition _teamPosition) {
+        Fighter f_ = getFighter(_teamPosition);
+        return new FighterId(f_,_teamPosition);
+    }
+
     public Fighter getFighter(TeamPosition _teamPosition) {
         return teams.getVal(_teamPosition.getTeam()).getMembers().getVal(_teamPosition.getPosition());
     }
