@@ -37,7 +37,9 @@ import aiki.map.DataMap;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.TrainerLeague;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.pokemon.*;
+import aiki.map.pokemon.PkTrainer;
+import aiki.map.pokemon.PokemonPlayer;
+import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.CoordsLists;
 import aiki.util.LawNumber;
@@ -812,6 +814,7 @@ public abstract class InitDbFight extends InitDbBean {
         data_.completeMembers(PARATONNERRE,Instances.newAbilityData());
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.addConstNumTest(DataBase.PP_MAX,Rate.newRate("256"));
+        data_.addConstNumTest("DEF_MAX_ATT",Rate.newRate("2"));
         data_.getTranslatedPokemon().addEntry(EN,new StringMap<String>());
         data_.getTranslatedPokemon().getVal(EN).addEntry(PIKACHU,PIKACHU_TR);
         data_.getTranslatedPokemon().getVal(EN).addEntry(PIKA_2,PIKA_TR_2);
@@ -1165,6 +1168,19 @@ public abstract class InitDbFight extends InitDbBean {
         fight_.getAllyChoice().addEntry(new MoveTarget(NULL_REF,new TargetCoords()),new MoveTarget(NULL_REF,new TargetCoords()));
         return fac_;
     }
+    protected FacadeGame facadeCalculation5(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, toWildPk(new NameLevel(PIKACHU,3)), _data);
+        FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
+        return fac_;
+    }
     protected FacadeGame facadeBigTeams(DataBase _data) {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
@@ -1363,6 +1379,16 @@ public abstract class InitDbFight extends InitDbBean {
         pk_.setAbility(PARATONNERRE);
         pk_.setItem(NULL_REF);
         pk_.setMoves(_moves);
+        pk_.setGender(Gender.NO_GENDER);
+        return pk_;
+    }
+
+    private static WildPk toWildPk(NameLevel _nameLevel) {
+        WildPk pk_ = Instances.newWildPk();
+        pk_.setName(_nameLevel.getName());
+        pk_.setLevel(_nameLevel.getLevel());
+        pk_.setAbility(PARATONNERRE);
+        pk_.setItem(NULL_REF);
         pk_.setGender(Gender.NO_GENDER);
         return pk_;
     }

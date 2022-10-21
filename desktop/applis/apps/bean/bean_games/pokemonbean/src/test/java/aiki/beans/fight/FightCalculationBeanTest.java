@@ -21,6 +21,10 @@ public final class FightCalculationBeanTest extends InitDbFight {
         assertSizeEq(384, callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation4(dbBaseCalc()))));
     }
     @Test
+    public void damage5() {
+        assertSizeEq(4, callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation5(dbBaseCalc()))));
+    }
+    @Test
     public void tmp1() {
         assertEq(0,callKeyHypothesisGetNumberPlayer(elt(callFightCalculationBeanDamageGet(beanFightCalculation(facadeCalculation(dbBaseCalc()))),0)));
     }
