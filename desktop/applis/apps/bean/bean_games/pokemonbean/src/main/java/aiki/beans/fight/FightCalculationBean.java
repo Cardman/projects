@@ -113,11 +113,7 @@ public class FightCalculationBean extends CommonFightBean {
         for (CommonParam<TeamPosition, PairRates> t: _g.entryList()) {
             String tarName_ = fight_.getFighter(t.getKey()).getName();
             FighterNameId idTar_ = new FighterNameId(tarName_, t.getKey().getPosition());
-            KeyHypothesis key_ = new KeyHypothesis(_dataBaseFight, _idPl, _m, idTar_, _bel);
-            PairRates pair_ = t.getValue();
-            key_.setDamage(pair_.getFront());
-            key_.setDamageSecond(pair_.getBack());
-            player_.put(idTar_,key_);
+            player_.put(idTar_,new KeyHypothesis(_dataBaseFight, _idPl, _m, idTar_, _bel, t.getValue()));
         }
         return player_;
     }
