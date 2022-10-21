@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class KeyHypothesisGetDamageSecond implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new RateStruct(( ((KeyHypothesisStruct) _instance).getInstance()).getDamage());
+        return new RateStruct(( ((KeyHypothesisStruct) _instance).getInstance()).getDamageSecond());
     }
 }

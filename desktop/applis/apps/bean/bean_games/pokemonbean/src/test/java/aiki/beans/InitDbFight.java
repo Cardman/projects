@@ -124,6 +124,30 @@ public abstract class InitDbFight extends InitDbBean {
         return beanFight(new PkFight(),_language,_dataBase);
     }
 
+    public static Struct callKeyHypothesisIsBelongsToUser(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisIsBelongsToUser(),_str,_args);
+    }
+
+    public static Struct callKeyHypothesisGetMove(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetMove(),_str,_args);
+    }
+
+    public static Struct callKeyHypothesisGetDamage(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetDamage(),_str,_args);
+    }
+
+    public static Struct callKeyHypothesisGetDamageSecond(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetDamageSecond(),_str,_args);
+    }
+
+    public static Struct callKeyHypothesisGetPlayerPokemon(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetPlayerPokemon(),_str,_args);
+    }
+
+    public static Struct callKeyHypothesisGetTargetPokemon(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new KeyHypothesisGetTargetPokemon(),_str,_args);
+    }
+
     public static Struct callKeyHypothesisGetNumberPlayer(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new KeyHypothesisGetNumberPlayer(),_str,_args);
     }
