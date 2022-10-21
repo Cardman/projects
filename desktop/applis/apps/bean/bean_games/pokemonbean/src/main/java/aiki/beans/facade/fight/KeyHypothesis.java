@@ -2,10 +2,7 @@ package aiki.beans.facade.fight;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.game.fight.Fight;
-import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.core.NumberUtil;
 
 
 public final class KeyHypothesis {
@@ -27,16 +24,16 @@ public final class KeyHypothesis {
     private Rate damage;
     private Rate damageSecond;
 
-    public KeyHypothesis(FacadeGame _facade, TeamPosition _playerPk, String _namePlayer, String _move, TeamPosition _targetPk, String _nameTarget) {
+    public KeyHypothesis(FacadeGame _facade, FighterNameId _idPl, String _move, FighterNameId _idTar, boolean _bel) {
         DataBase data_ = _facade.getData();
-        String name_ = _namePlayer;
+        String name_ = _idPl.getName();
         playerPokemon = data_.translatePokemon(name_);
-        numberPlayer = _playerPk.getPosition();
+        numberPlayer = _idPl.getPosition();
         move = data_.translateMove(_move);
-        name_ = _nameTarget;
+        name_ = _idTar.getName();
         targetPokemon = data_.translatePokemon(name_);
-        belongsToUser = NumberUtil.eq(_targetPk.getTeam(), Fight.CST_PLAYER);
-        numberTarget = _targetPk.getPosition();
+        belongsToUser = _bel;
+        numberTarget = _idTar.getPosition();
     }
 
     public String getPlayerPokemon() {

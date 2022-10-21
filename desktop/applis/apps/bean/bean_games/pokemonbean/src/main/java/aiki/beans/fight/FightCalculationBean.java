@@ -8,10 +8,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.*;
 import aiki.game.fight.util.MoveTarget;
-import aiki.util.PairRates;
-import aiki.util.TeamPositionList;
-import aiki.util.TeamPositionsPairRates;
-import aiki.util.TeamPositionsStringMapTeamPositionsRate;
+import aiki.util.*;
 import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
@@ -96,16 +93,17 @@ public class FightCalculationBean extends CommonFightBean {
         all_ = DictionaryComparatorUtil.buildCalcAll(_dataBaseFight.getData(),getLanguage());
         Fight fight_ = _dataBaseFight.getFight();
         damage = new CustList<KeyHypothesis>();
-        for (TeamPosition p: resTh_.getKeys()) {
+        for (CommonParam<TeamPosition, StringMap<TeamPositionsPairRatesPair>> p: resTh_.entryList()) {
             DictionaryComparator<String, IdMap<FighterNameId, KeyHypothesis>> moves_ = DictionaryComparatorUtil.buildCalcMoves(_dataBaseFight.getData(), getLanguage());
-            String plName_ = fight_.getFighter(p).getName();
-            for (String m: resTh_.getVal(p).getKeys()) {
+            String plName_ = fight_.getFighter(p.getKey()).getName();
+            FighterNameId id_ = new FighterNameId(plName_, p.getKey().getPosition());
+            for (EntryCust<String, TeamPositionsPairRatesPair> m: p.getValue().entryList()) {
                 IdMap<FighterNameId, KeyHypothesis> group_ = new IdMap<FighterNameId, KeyHypothesis>();
-                group_.addAllEntries(build(_dataBaseFight, p, plName_, m, resTh_.getVal(p).getVal(m).getFoe()));
-                group_.addAllEntries(build(_dataBaseFight, p, plName_, m, resTh_.getVal(p).getVal(m).getPlayer()));
-                moves_.put(m,group_);
+                group_.addAllEntries(build(_dataBaseFight,id_, m.getKey(), false, m.getValue().getFoe(), getLanguage()));
+                group_.addAllEntries(build(_dataBaseFight,id_, m.getKey(), true, m.getValue().getPlayer(), getLanguage()));
+                moves_.put(m.getKey(),group_);
             }
-            all_.put(new FighterNameId(plName_,p.getPosition()),moves_);
+            all_.put(id_,moves_);
         }
         for (EntryCust<FighterNameId,DictionaryComparator<String, IdMap<FighterNameId, KeyHypothesis>>> e:all_.entryList()) {
             for (EntryCust<String, IdMap<FighterNameId, KeyHypothesis>> f:e.getValue().entryList()) {
@@ -116,17 +114,17 @@ public class FightCalculationBean extends CommonFightBean {
         }
     }
 
-    private DictionaryComparator<FighterNameId, KeyHypothesis> build(FacadeGame _dataBaseFight, TeamPosition _p, String _plName, String _m, TeamPositionsPairRates _g) {
+    private static DictionaryComparator<FighterNameId, KeyHypothesis> build(FacadeGame _dataBaseFight, FighterNameId _idPl, String _m, boolean _bel, TeamPositionsPairRates _g, String _lg) {
         Fight fight_ = _dataBaseFight.getFight();
-        DictionaryComparator<FighterNameId, KeyHypothesis> player_ = DictionaryComparatorUtil.buildCalcLoc(_dataBaseFight.getData(), getLanguage());
-        for (TeamPosition t: _g.getKeys()) {
-            KeyHypothesis key_;
-            String tarName_ = fight_.getFighter(t).getName();
-            key_ = new KeyHypothesis(_dataBaseFight, _p, _plName, _m, t, tarName_);
-            PairRates pair_ = _g.getVal(t);
+        DictionaryComparator<FighterNameId, KeyHypothesis> player_ = DictionaryComparatorUtil.buildCalcLoc(_dataBaseFight.getData(), _lg);
+        for (CommonParam<TeamPosition, PairRates> t: _g.entryList()) {
+            String tarName_ = fight_.getFighter(t.getKey()).getName();
+            FighterNameId idTar_ = new FighterNameId(tarName_, t.getKey().getPosition());
+            KeyHypothesis key_ = new KeyHypothesis(_dataBaseFight, _idPl, _m, idTar_, _bel);
+            PairRates pair_ = t.getValue();
             key_.setDamage(pair_.getFront());
             key_.setDamageSecond(pair_.getBack());
-            player_.put(new FighterNameId(tarName_,t.getPosition()),key_);
+            player_.put(idTar_,key_);
         }
         return player_;
     }
