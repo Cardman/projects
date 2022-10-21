@@ -5,9 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.game.fight.Fight;
 import aiki.game.fight.TeamPosition;
 import code.maths.Rate;
-import code.util.comparators.ComparatorBoolean;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 
 public final class KeyHypothesis {
@@ -29,14 +27,13 @@ public final class KeyHypothesis {
     private Rate damage;
     private Rate damageSecond;
 
-    public KeyHypothesis(FacadeGame _facade, TeamPosition _playerPk, String _move, TeamPosition _targetPk) {
+    public KeyHypothesis(FacadeGame _facade, TeamPosition _playerPk, String _namePlayer, String _move, TeamPosition _targetPk, String _nameTarget) {
         DataBase data_ = _facade.getData();
-        Fight fight_ = _facade.getGame().getFight();
-        String name_ = fight_.getFighter(_playerPk).getName();
+        String name_ = _namePlayer;
         playerPokemon = data_.translatePokemon(name_);
         numberPlayer = _playerPk.getPosition();
         move = data_.translateMove(_move);
-        name_ = fight_.getFighter(_targetPk).getName();
+        name_ = _nameTarget;
         targetPokemon = data_.translatePokemon(name_);
         belongsToUser = NumberUtil.eq(_targetPk.getTeam(), Fight.CST_PLAYER);
         numberTarget = _targetPk.getPosition();
@@ -113,35 +110,35 @@ public final class KeyHypothesis {
 //        return res_ == 0;
 //    }
 
-    public int cmp(KeyHypothesis _o) {
-        int res_ = StringUtil.compareStrings(playerPokemon,_o.playerPokemon);
-        if (res_ != 0) {
-            return res_;
-        }
-        res_ = NumberUtil.compareLg(numberPlayer, _o.numberPlayer);
-        if (res_ != 0) {
-            return res_;
-        }
-        res_ = StringUtil.compareStrings(move,_o.move);
-        if (res_ != 0) {
-            return res_;
-        }
-        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
-        if (res_ != 0) {
-            return res_;
-        }
-        res_ = StringUtil.compareStrings(targetPokemon,_o.targetPokemon);
-        if (res_ != 0) {
-            return res_;
-        }
-        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
-////        res_ = Boolean.compare(belongsToUser, _o.belongsToUser);
+//    public int cmp(KeyHypothesis _o) {
+//        int res_ = StringUtil.compareStrings(playerPokemon,_o.playerPokemon);
+//        if (res_ != 0) {
+//            return res_;
+//        }
+//        res_ = NumberUtil.compareLg(numberPlayer, _o.numberPlayer);
+//        if (res_ != 0) {
+//            return res_;
+//        }
+//        res_ = StringUtil.compareStrings(move,_o.move);
+//        if (res_ != 0) {
+//            return res_;
+//        }
 //        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
 //        if (res_ != 0) {
 //            return res_;
 //        }
+//        res_ = StringUtil.compareStrings(targetPokemon,_o.targetPokemon);
+//        if (res_ != 0) {
+//            return res_;
+//        }
 //        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
-    }
+//////        res_ = Boolean.compare(belongsToUser, _o.belongsToUser);
+////        res_ = ComparatorBoolean.cmp(belongsToUser, _o.belongsToUser);
+////        if (res_ != 0) {
+////            return res_;
+////        }
+////        return NumberUtil.compareLg(numberTarget, _o.numberTarget);
+//    }
 
 //    public String display() {
 //        StringBuilder str_ = new StringBuilder(getPlayerPokemon());

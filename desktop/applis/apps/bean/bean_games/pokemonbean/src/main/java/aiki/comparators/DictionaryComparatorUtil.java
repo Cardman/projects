@@ -1,6 +1,8 @@
 package aiki.comparators;
 
 import aiki.beans.facade.comparators.*;
+import aiki.beans.facade.fight.FighterNameId;
+import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
@@ -119,6 +121,15 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> buildTypesTypeDic(DataBase _data, String _language) {
         return new DictionaryComparator<String,DictionaryComparator<Statistic, Byte>>(_data.getTranslatedTypes().getVal(_language));
+    }
+    public static DictionaryComparator<FighterNameId,DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>> buildCalcAll(DataBase _data, String _language) {
+        return new DictionaryComparator<FighterNameId,DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>>(new ComparatorFighterId(_data,_language));
+    }
+    public static DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>> buildCalcMoves(DataBase _data, String _language) {
+        return new DictionaryComparator<String,IdMap<FighterNameId, KeyHypothesis>>(_data.getTranslatedMoves().getVal(_language));
+    }
+    public static DictionaryComparator<FighterNameId, KeyHypothesis> buildCalcLoc(DataBase _data, String _language) {
+        return new DictionaryComparator<FighterNameId, KeyHypothesis>(new ComparatorFighterId(_data,_language));
     }
     public static DictionaryComparator<String,String> buildBoolStr(DataBase _data, String _language) {
         AbsMap<SelectedBoolean,String> translatedBooleans_;
