@@ -1,5 +1,6 @@
 package aiki.beans.game;
 
+import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.CommonBean;
 import aiki.beans.InitDbBean;
 import aiki.beans.PkDiff;
@@ -88,87 +89,87 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerTableGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanDamageRatePlayerTableGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRatePlayerTableGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanDamageRateFoeTableGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanDamageRateFoeTableGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRateFoeTableGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanDamageRatesGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanDamageRatesGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRatesGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanWinPointsFightGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanWinPointsFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanWinPointsFightGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanDamageRateLawFoeGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanDamageRateLawFoeGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRateLawFoeGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanDamageRatePlayerGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRatePlayerGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanDiffWinningExpPtsFightGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanDiffWinningExpPtsFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDiffWinningExpPtsFightGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanIvFoeGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanIvFoeGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanIvFoeGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanIvPlayerGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanIvPlayerGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanIvPlayerGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanRateLooseMoneyWinGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanRateLooseMoneyWinGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRateLooseMoneyWinGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanRateWinMoneyBaseGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanRateWinMoneyBaseGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRateWinMoneyBaseGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanRateWinningExpPtsFightGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanRateWinningExpPtsFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRateWinningExpPtsFightGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanWinTrainerExpGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanWinTrainerExpGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanWinTrainerExpGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanStillPossibleFleeGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanStillPossibleFleeGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanStillPossibleFleeGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanRandomWildFightGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanRandomWildFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRandomWildFightGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanEnabledClosingGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanEnabledClosingGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanEnabledClosingGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanRestoredMovesEndFightGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanRestoredMovesEndFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRestoredMovesEndFightGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanAllowedSwitchPlacesEndRoundGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanEndFightIfOneTeamKoGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanEndFightIfOneTeamKoGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanEndFightIfOneTeamKoGet(),_str,_args);
     }
 
     public static Struct callDifficultyBeanAllowCatchingKoGet(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new DifficultyBeanAllowCatchingKoGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyBeanAllowCatchingKoGet(),_str,_args);
     }
 
     public static Struct beanDiff(String _language, FacadeGame _dataBase) {

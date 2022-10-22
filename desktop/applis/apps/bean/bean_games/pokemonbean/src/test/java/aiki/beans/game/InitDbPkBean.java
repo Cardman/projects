@@ -8,7 +8,6 @@ import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetIv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetName;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetRate;
 import aiki.facade.FacadeGame;
-import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbPkBean extends InitDbBean {
@@ -122,7 +121,4 @@ public abstract class InitDbPkBean extends InitDbBean {
         return callLongs(new UsesOfMoveGetCurrent(),_str,_args);
     }
 
-    public static Struct callLongs(NatCaller _caller, Struct _str, long... _args) {
-        return _caller.re(_str,getLongArray(_args));
-    }
 }

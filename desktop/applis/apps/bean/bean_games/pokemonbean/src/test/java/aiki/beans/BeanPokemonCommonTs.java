@@ -1,6 +1,5 @@
 package aiki.beans;
 
-import aiki.beans.game.InitDbPkBean;
 import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
 import code.maths.LgInt;
@@ -16,7 +15,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     protected static final char NAV_SEP='.';
 
     public static void transit(PokemonStandards _stds, NatCaller _caller, Struct _first, Struct _second, long... _args) {
-        InitDbPkBean.callLongs(_caller, _first, _args);
+        callLongs(_caller, _first, _args);
         setFormsBy(_stds,_second,_first);
         beforeDisplaying(_second);
     }
@@ -27,12 +26,12 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
 
     public static String navigate(NatCaller _caller, String _url, StringMap<StringMap<String>> _navigation, String _concat, Struct _str, long... _args) {
-        Struct res_ = InitDbPkBean.callLongs(_caller, _str, _args);
+        Struct res_ = callLongs(_caller, _str, _args);
         return BeanNatCommonLgNames.getString(res_,_url,_navigation,BeanNatCommonLgNames.methName(_concat));
     }
 
     public static Struct callUsesOfMoveGetMax(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new UsesOfMoveGetMax(),_str,_args);
+        return callLongs(new UsesOfMoveGetMax(),_str,_args);
     }
 
 
@@ -51,6 +50,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static Struct callString(NatCaller _caller, Struct _str, String _args) {
         _caller.re(_str,new Struct[]{new StringStruct(_args)});
         return _str;
+    }
+
+    public static Struct callLongs(NatCaller _caller, Struct _str, long... _args) {
+        return _caller.re(_str,getLongArray(_args));
     }
 
     public Struct displaying(Struct _b) {
