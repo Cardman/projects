@@ -36,6 +36,9 @@ public abstract class InitDbMoves extends InitDbConstr {
     public static void fwdMoveSet(Struct _update, Struct _use) {
         callMoveLineBeanSortedMovesSet(_update,callMovesBeanSortedMovesGet(_use));
     }
+    public static Struct callMovesBeanMovesBeanGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MovesBeanMovesBeanGet(),_str,_args);
+    }
 
     public static Struct callMoveLineBeanClickMove(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(clickMoveLineBeanMove(),_str,_args);
