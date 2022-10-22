@@ -3,6 +3,7 @@ package aiki.beans.game;
 import aiki.beans.InitDbBean;
 import aiki.beans.PkInd;
 import aiki.beans.UsesOfMoveGetCurrent;
+import aiki.beans.UsesOfMoveGetMax;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetEv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetIv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetName;
@@ -121,4 +122,7 @@ public abstract class InitDbPkBean extends InitDbBean {
         return callLongs(new UsesOfMoveGetCurrent(),_str,_args);
     }
 
+    public static Struct callUsesOfMoveGetMax(Struct _str, long... _args) {
+        return callLongs(new UsesOfMoveGetMax(),_str,_args);
+    }
 }

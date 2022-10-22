@@ -30,10 +30,6 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return BeanNatCommonLgNames.getString(res_,_url,_navigation,BeanNatCommonLgNames.methName(_concat));
     }
 
-    public static Struct callUsesOfMoveGetMax(Struct _str, long... _args) {
-        return callLongs(new UsesOfMoveGetMax(),_str,_args);
-    }
-
 
     public static Struct callRate(NatCaller _caller, Struct _str, Rate _args) {
         _caller.re(_str,new Struct[]{new RateStruct(_args)});
