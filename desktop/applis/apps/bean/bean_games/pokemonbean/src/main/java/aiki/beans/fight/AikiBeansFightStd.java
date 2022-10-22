@@ -1,9 +1,24 @@
 package aiki.beans.fight;
 
 import aiki.beans.PokemonStandards;
+import aiki.beans.facade.fight.KeyHypothesis;
+import aiki.beans.facade.fight.MultPowerMoves;
+import aiki.beans.facade.fight.StatisticInfo;
+import aiki.beans.facade.fight.SufferedDamageCategory;
+import aiki.game.fight.*;
+import aiki.game.fight.util.AffectedMove;
+import aiki.game.fight.util.CopiedMove;
+import aiki.game.fight.util.MoveTarget;
+import aiki.util.TeamPositionList;
 import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
-import code.util.CustList;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.ByteStruct;
+import code.expressionlanguage.structs.ShortStruct;
+import code.expressionlanguage.structs.StringStruct;
+import code.util.*;
+import code.util.core.BoolVal;
+
 public final class AikiBeansFightStd{
     public static final String TYPE_COMMON_FIGHT_BEAN = "aiki.beans.fight.CommonFightBean";
     public static final String TYPE_FIGHT_BEAN = "aiki.beans.fight.FightBean";
@@ -275,5 +290,216 @@ public final class AikiBeansFightStd{
         methods_.add( new SpecNatMethod(GET_PLAYER_FIGTHER_AGAINST_FOE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TeamBeanGetPlayerFigtherAgainstFoe()));
         methods_.add( new SpecNatMethod(GET_FOE_FIGTHER_AGAINST_FOE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new TeamBeanGetFoeFigtherAgainstFoe()));
         _std.getStds().addEntry(TYPE_TEAM_BEAN, type_);
+    }
+
+    public static NatArrayStruct getMvTars(AbsMap<MoveTarget, MoveTarget> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<MoveTarget, MoveTarget> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTargetStruct(e.getKey()),new MoveTargetStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getMvTar(AbsMap<Byte, MoveTarget> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<Byte, MoveTarget> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new MoveTargetStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getStaInf(CustList<StatisticInfo> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+        int j_ = 0;
+        for (StatisticInfo s:_ls) {
+            arr_.set(j_,new StatisticInfoStruct(s));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getKeyHyp(CustList<KeyHypothesis> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+        int j_ = 0;
+        for (KeyHypothesis s:_ls) {
+            arr_.set(j_,new KeyHypothesisStruct(s));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getBigNatMapLs(AbsMap<String, TeamPositionList> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, TeamPositionList> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()), getTeamPos(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+    public static NatArrayStruct getTeamPos(CustList<TeamPosition> _map) {
+        int len_ = _map.size();
+        return PokemonStandards.arrId(len_);
+    }
+
+    public static NatArrayStruct getBigByAn(AbsMap<String, ByteTreeMap<Anticipation>> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, ByteTreeMap<Anticipation>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getByAn(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getBigBySt(AbsMap<String, ByteTreeMap<StacksOfUses>> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, ByteTreeMap<StacksOfUses>> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getBySt(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getByAn(AbsMap<Byte, Anticipation> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<Byte, Anticipation> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new AnticipationStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getBySt(AbsMap<Byte, StacksOfUses> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<Byte, StacksOfUses> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new StacksOfUsesStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getWcMvTp(AbsMap<MoveTeamPosition, AffectedMove> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, AffectedMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new AffectedMoveStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getWcMvAm(AbsMap<MoveTeamPosition, ActivityOfMove> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Short> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, Short> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new ShortStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getWcMvTpBool(AbsMap<MoveTeamPosition, BoolVal> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, BoolVal> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()), BooleanStruct.of(e.getValue() == BoolVal.TRUE));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getMvTpStr(AbsMap<MoveTeamPosition, String> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<MoveTeamPosition, String> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new StringStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getCpStr(AbsMap<String, CopiedMove> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, CopiedMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new CopiedMoveStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getStrAct(AbsMap<StringList, ActivityOfMove> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<StringList, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(BeanNatCommonLgNames.getStringArray(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getSuffCatStr(AbsMap<String, SufferedDamageCategory> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, SufferedDamageCategory> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new SufferedDamageCategoryStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getActMove(AbsMap<String, ActivityOfMove> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, ActivityOfMove> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getMultPowStr(AbsMap<String, MultPowerMoves> _map) {
+        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+        int j_ = 0;
+        for (EntryCust<String, MultPowerMoves> e:_map.entryList()) {
+            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new MultPowerMovesStruct(e.getValue()));
+            arr_.set(j_,p_);
+            j_++;
+        }
+        return arr_;
     }
 }

@@ -1,6 +1,6 @@
 package aiki.beans.facade.fight;
 
-import aiki.beans.SufferedDamageCategoryStruct;
+import aiki.beans.fight.SufferedDamageCategoryStruct;
 import code.bean.nat.NatCaller;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;

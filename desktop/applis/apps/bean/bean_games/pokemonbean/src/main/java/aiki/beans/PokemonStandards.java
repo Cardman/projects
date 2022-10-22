@@ -3,11 +3,6 @@ package aiki.beans;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.beans.facade.dto.MoveLine;
 import aiki.beans.facade.dto.PokemonLine;
-import aiki.beans.facade.fight.KeyHypothesis;
-import aiki.beans.facade.fight.MultPowerMoves;
-import aiki.beans.facade.fight.StatisticInfo;
-import aiki.beans.facade.fight.SufferedDamageCategory;
-import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.PlaceTrainerDto;
@@ -22,14 +17,8 @@ import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.enums.Statistic;
-import aiki.fight.pokemon.TrainerPlaceNames;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.*;
-import aiki.game.UsesOfMove;
-import aiki.game.fight.*;
-import aiki.game.fight.util.AffectedMove;
-import aiki.game.fight.util.CopiedMove;
-import aiki.game.fight.util.MoveTarget;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.enums.Direction;
@@ -43,7 +32,6 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.map.util.MiniMapCoords;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Point;
-import aiki.util.TeamPositionList;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
@@ -226,57 +214,6 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         return new PokemonBeanStruct(_bean);
     }
 
-    public static NatArrayStruct getBigByAn(AbsMap<String, ByteTreeMap<Anticipation>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, ByteTreeMap<Anticipation>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getByAn(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getBigBySt(AbsMap<String, ByteTreeMap<StacksOfUses>> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, ByteTreeMap<StacksOfUses>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getBySt(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getByAn(AbsMap<Byte, Anticipation> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Byte, Anticipation> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new AnticipationStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getBySt(AbsMap<Byte, StacksOfUses> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Byte, StacksOfUses> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new StacksOfUsesStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getBigNatMapLs(AbsMap<String, TeamPositionList> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, TeamPositionList> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getTeamPos(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-
     public static NatArrayStruct getBigNatMap(AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -297,16 +234,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getStrAct(AbsMap<StringList, ActivityOfMove> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<StringList, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(getStringArray(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getStaBoost(AbsMap<Statistic, BoostHpRate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -317,46 +245,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getWcMvTp(AbsMap<MoveTeamPosition, AffectedMove> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MoveTeamPosition, AffectedMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new AffectedMoveStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWcMvAm(AbsMap<MoveTeamPosition, ActivityOfMove> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MoveTeamPosition, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWcMvTpNb(AbsMap<MoveTeamPosition, Short> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MoveTeamPosition, Short> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new ShortStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getWcMvTpBool(AbsMap<MoveTeamPosition, BoolVal> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MoveTeamPosition, BoolVal> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),BooleanStruct.of(e.getValue() == BoolVal.TRUE));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getWcStr(AbsMap<MiniMapCoords, String> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -377,46 +266,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getMvTpStr(AbsMap<MoveTeamPosition, String> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MoveTeamPosition, String> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new StringStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getCpStr(AbsMap<String, CopiedMove> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, CopiedMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new CopiedMoveStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getMultPowStr(AbsMap<String, MultPowerMoves> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, MultPowerMoves> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new MultPowerMovesStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getSuffCatStr(AbsMap<String, SufferedDamageCategory> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, SufferedDamageCategory> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new SufferedDamageCategoryStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getEffRateStr(AbsMap<String, EfficiencyRate> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -427,16 +277,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getUsesStr(AbsMap<String, UsesOfMove> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, UsesOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new UsesOfMoveStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getWcByteMap(AbsMap<StatisticPokemon, Byte> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -588,26 +429,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getMvTars(AbsMap<MoveTarget, MoveTarget> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<MoveTarget, MoveTarget> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTargetStruct(e.getKey()),new MoveTargetStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getMvTar(AbsMap<Byte, MoveTarget> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<Byte, MoveTarget> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new MoveTargetStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getStrTpDam(AbsMap<String, TypeDamageBoost> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -618,16 +440,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getActMove(AbsMap<String, ActivityOfMove> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int j_ = 0;
-        for (EntryCust<String, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
-            arr_.set(j_,p_);
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getPlLevWildPkDto(AbsMap<PlaceLevel, CustList<WildPokemonDto>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
@@ -674,42 +487,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getStaInf(CustList<StatisticInfo> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (StatisticInfo s:_ls) {
-            arr_.set(j_,new StatisticInfoStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getKeyHyp(CustList<KeyHypothesis> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (KeyHypothesis s:_ls) {
-            arr_.set(j_,new KeyHypothesisStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getStPkPl(CustList<StatisticInfoPkPlayer> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (StatisticInfoPkPlayer s:_ls) {
-            arr_.set(j_,new StatisticInfoPkPlayerStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getTrPlNa(CustList<TrainerPlaceNames> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (TrainerPlaceNames s:_ls) {
-            arr_.set(j_,new TrainerPlaceNamesStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+
     public static NatArrayStruct getLvMv(CustList<LevelMove> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
@@ -1056,12 +834,8 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         int len_ = _map.size();
         return arrId(len_);
     }
-    public static NatArrayStruct getTeamPos(CustList<TeamPosition> _map) {
-        int len_ = _map.size();
-        return arrId(len_);
-    }
 
-    private static NatArrayStruct arrId(int _len) {
+    public static NatArrayStruct arrId(int _len) {
         NatArrayStruct arr_ = new NatArrayStruct(_len);
         for (int i = 0; i < _len; i++) {
             arr_.set(i,NullStruct.NULL_VALUE);

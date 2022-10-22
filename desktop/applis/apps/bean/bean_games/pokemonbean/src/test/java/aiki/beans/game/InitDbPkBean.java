@@ -2,8 +2,8 @@ package aiki.beans.game;
 
 import aiki.beans.InitDbBean;
 import aiki.beans.PkInd;
-import aiki.beans.UsesOfMoveGetCurrent;
-import aiki.beans.UsesOfMoveGetMax;
+import aiki.beans.facade.UsesOfMoveGetCurrent;
+import aiki.beans.facade.UsesOfMoveGetMax;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetEv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetIv;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayerGetName;

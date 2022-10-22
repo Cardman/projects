@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.facade.*;
 import aiki.beans.facade.fight.AikiBeansFacadeFightStd;
 import aiki.beans.fight.AikiBeansFightStd;
 import aiki.beans.fight.*;

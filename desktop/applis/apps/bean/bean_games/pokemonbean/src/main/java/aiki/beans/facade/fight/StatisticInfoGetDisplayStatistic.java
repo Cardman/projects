@@ -1,6 +1,6 @@
 package aiki.beans.facade.fight;
 
-import aiki.beans.StatisticInfoStruct;
+import aiki.beans.fight.StatisticInfoStruct;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;

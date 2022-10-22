@@ -2,6 +2,8 @@ package aiki.beans;
 
 import aiki.beans.game.AikiBeansGameStd;
 import aiki.beans.game.GameProgressionBean;
+import aiki.beans.game.TrainerPlaceNamesGetPlace;
+import aiki.beans.game.TrainerPlaceNamesGetTrainer;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;

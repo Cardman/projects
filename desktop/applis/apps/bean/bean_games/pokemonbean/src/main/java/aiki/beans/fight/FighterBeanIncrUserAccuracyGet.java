@@ -1,12 +1,11 @@
 package aiki.beans.fight;
 
 import aiki.beans.PokemonBeanStruct;
-import aiki.beans.PokemonStandards;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
 public class FighterBeanIncrUserAccuracyGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return PokemonStandards.getWcMvTpBool(( (FighterBean) ((PokemonBeanStruct)_instance).getInstance()).getIncrUserAccuracy());
+        return AikiBeansFightStd.getWcMvTpBool(( (FighterBean) ((PokemonBeanStruct)_instance).getInstance()).getIncrUserAccuracy());
     }
 }

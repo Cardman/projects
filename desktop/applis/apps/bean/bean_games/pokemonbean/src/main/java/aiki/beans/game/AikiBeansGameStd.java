@@ -1,6 +1,8 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonStandards;
+import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
+import aiki.fight.pokemon.TrainerPlaceNames;
 import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
@@ -172,5 +174,25 @@ public final class AikiBeansGameStd{
         fields_.add(new StandardField(STATISTICS, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonPlayerBeanStatisticsGet(),null));
         methods_.add( new SpecNatMethod(GET_EVO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonPlayerBeanGetEvo()));
         _std.getStds().addEntry(TYPE_POKEMON_PLAYER_BEAN, type_);
+    }
+
+    public static NatArrayStruct getStPkPl(CustList<StatisticInfoPkPlayer> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+        int j_ = 0;
+        for (StatisticInfoPkPlayer s:_ls) {
+            arr_.set(j_,new StatisticInfoPkPlayerStruct(s));
+            j_++;
+        }
+        return arr_;
+    }
+
+    public static NatArrayStruct getTrPlNa(CustList<TrainerPlaceNames> _ls) {
+        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+        int j_ = 0;
+        for (TrainerPlaceNames s:_ls) {
+            arr_.set(j_,new TrainerPlaceNamesStruct(s));
+            j_++;
+        }
+        return arr_;
     }
 }

@@ -1,6 +1,6 @@
 package aiki.beans.facade.game.dto;
 
-import aiki.beans.StatisticInfoPkPlayerStruct;
+import aiki.beans.game.StatisticInfoPkPlayerStruct;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
