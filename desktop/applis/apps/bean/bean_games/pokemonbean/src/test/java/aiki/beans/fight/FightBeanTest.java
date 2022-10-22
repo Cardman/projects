@@ -1,6 +1,5 @@
 package aiki.beans.fight;
 
-import aiki.beans.CommonBean;
 import aiki.beans.FightGameInit;
 import aiki.beans.PkFight;
 import aiki.game.fight.Fight;
@@ -66,14 +65,14 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void clickPlayer() {
         Struct fBean_ = displaying(beanFight(EN, facade(db())));
-        assertEq(CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
+        assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
         assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
     }
 
     @Test
     public void clickFoe() {
         Struct fBean_ = displaying(beanFight(EN, facade(db())));
-        assertEq(CommonBean.DEST_WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
+        assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
         assertEq(Fight.CST_FOE,forms(fBean_).getValInt(NO_TEAM));
     }
 

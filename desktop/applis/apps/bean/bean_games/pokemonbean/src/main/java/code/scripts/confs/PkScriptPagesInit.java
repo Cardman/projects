@@ -1,5 +1,6 @@
 package code.scripts.confs;
 
+import aiki.beans.fight.*;
 import code.formathtml.Configuration;
 import code.formathtml.structs.BeanInfo;
 import code.util.CollCapacity;
@@ -554,9 +555,6 @@ private static final String TRAINER_FIGHT="trainer_fight";
 private static final String TRAINER_MULTI_FIGHT="trainer_multi_fight";
 private static final String TRAINER_ONE_FIGHT="trainer_one_fight";
 private static final String VALIDATE_TRAINER_PK="validate_trainer_pk";
-private static final String WEB_FIGHT_HTML_FIGHTER_HTML="web_fight/html/fighter.html";
-private static final String WEB_FIGHT_HTML_FIGHT_HTML="web_fight/html/fight.html";
-private static final String WEB_FIGHT_HTML_TEAM_HTML="web_fight/html/team.html";
 private static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
 private static final String WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
 private static final String WEB_HTML_ABILITY_DATA_HTML="web/html/ability/data.html";
@@ -1121,7 +1119,7 @@ private static final char NAV_SEP='.';
         return nav_;
     }
     public static StringMap<StringMap<String>> initConfFight(Configuration _configuration){
-        _configuration.setFirstUrl(WEB_FIGHT_HTML_FIGHT_HTML);
+        _configuration.setFirstUrl(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHT_HTML);
         _configuration.setPrefix(PREF);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(4));
         NavBuilder.buildBeans(beans_,FIGHTER,AIKI_BEANS_FIGHT_FIGHTER_BEAN);
@@ -1130,9 +1128,9 @@ private static final char NAV_SEP='.';
         NavBuilder.buildBeans(beans_,FIGHT_DETAIL,AIKI_BEANS_FIGHT_FIGHT_CALCULATION_BEAN);
         _configuration.setBeansInfos(beans_);
         StringMap<StringMap<String>> nav_ = new StringMap<StringMap<String>>(new CollCapacity(4));
-        NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_PLAYER,new EntryNav(TEAM,WEB_FIGHT_HTML_TEAM_HTML));
-        NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_FOE,new EntryNav(TEAM,WEB_FIGHT_HTML_TEAM_HTML));
-        NavBuilder.buildNav(nav_,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
+        NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_PLAYER,new EntryNav(TEAM,AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML));
+        NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_FOE,new EntryNav(TEAM,AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML));
+        NavBuilder.buildNav(nav_,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,new EntryNav(FIGHTER,AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML));
 //        NavBuilder.buildNav(nav_,FIGHTER+NAV_SEP+M_CLICK_FIGHTER_2,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
         return nav_;
     }

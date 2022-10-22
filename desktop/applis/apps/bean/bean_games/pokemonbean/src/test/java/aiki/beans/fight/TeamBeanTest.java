@@ -588,7 +588,7 @@ public final class TeamBeanTest extends InitDbFight {
     @Test
     public void clickFighter() {
         Struct fBean_ = playerPath();
-        assertEq(CommonBean.DEST_WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
+        assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
         assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
         assertEq(1,forms(fBean_).getValInt(NO_FIGHTER));
     }

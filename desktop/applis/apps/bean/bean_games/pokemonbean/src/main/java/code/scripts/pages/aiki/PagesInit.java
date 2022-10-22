@@ -1,7 +1,9 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
+import aiki.beans.fight.*;
 public final class PagesInit{
+public static final String PREFIX="resources_pk/rom/";
 private PagesInit(){}
 public static StringMap<Document> buildInd(){
 StringMap<Document> m_ = new StringMap<Document>();
@@ -15,10 +17,10 @@ return m_;
 }
 public static StringMap<Document> buildFight(){
 StringMap<Document> m_ = new StringMap<Document>();
-m_.addEntry("resources_pk/rom/web_fight/html/fight.html",PageFightFight.build());
-m_.addEntry("resources_pk/rom/web_fight/html/fightdetail.html",PageFightFightdetail.build());
-m_.addEntry("resources_pk/rom/web_fight/html/fighter.html",PageFightFighter.build());
-m_.addEntry("resources_pk/rom/web_fight/html/team.html",PageFightTeam.build());
+m_.addEntry(PREFIX+AikiBeansFightStd.WEB_FIGHT_HTML_FIGHT_HTML,PageFightFight.build());
+m_.addEntry(PREFIX+AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTDETAIL_HTML,PageFightFightdetail.build());
+m_.addEntry(PREFIX+AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML,PageFightFighter.build());
+m_.addEntry(PREFIX+AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,PageFightTeam.build());
 return m_;
 }
 public static StringMap<Document> buildProg(){
