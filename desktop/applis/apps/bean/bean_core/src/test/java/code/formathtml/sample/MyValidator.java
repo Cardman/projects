@@ -1,14 +1,13 @@
 package code.formathtml.sample;
 
-import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.validator.Validator;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
+import code.util.StringList;
 import code.util.core.StringUtil;
 
 public class MyValidator implements Validator {
 
-    public static Message err(Struct _value) {
+    public static Message err(StringList _values) {
 //        if (!(_value instanceof StringStruct)) {
 //            Long or Boolean
 //            Message message_ = new Message();
@@ -22,7 +21,7 @@ public class MyValidator implements Validator {
 //            return message_;
 //        }
         Message message_ = new Message();
-        message_.setArgs(BeanNatCommonLgNames.processString(_value));
+        message_.setArgs(_values.first());
 //        message_.setArgs(((StringStruct) _value).getInstance());
         message_.setContent(StringUtil.simpleStringsFormat("{0} is not a no zero rate", message_.getArgs()));
         return message_;
@@ -39,8 +38,8 @@ public class MyValidator implements Validator {
     }
 
     @Override
-    public Message validate(Struct _value) {
-        return err(_value);
+    public Message validate(StringList _values) {
+        return err(_values);
     }
 
 }

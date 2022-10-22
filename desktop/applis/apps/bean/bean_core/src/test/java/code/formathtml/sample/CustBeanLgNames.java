@@ -276,11 +276,11 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         method_ = new SpecNatMethod("length2", PRIM_INTEGER, false, MethodModifier.NORMAL, new SampleBeanOneLen());
         methods_.add( method_);
         //params_ = new StringList();
-        method_ = new SpecNatMethod(GO_TO_PAGE, STRING, false, MethodModifier.NORMAL, null);
+        method_ = new SpecNatMethod(GO_TO_PAGE, STRING, false, MethodModifier.NORMAL, new CstNatCaller("page1.html"));
         methods_.add( method_);
         //params_ = new StringList(PRIM_LONG);
-        method_ = new SpecNatMethod(GO_TO_PAGE, STRING, false, MethodModifier.NORMAL, null);
-        methods_.add( method_);
+//        method_ = new SpecNatMethod(GO_TO_PAGE, STRING, false, MethodModifier.NORMAL, null);
+//        methods_.add( method_);
         //params_ = new StringList(PRIM_INTEGER);
         method_ = new SpecNatMethod(INVOKE_METHOD, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);

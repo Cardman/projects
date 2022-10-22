@@ -1,10 +1,14 @@
 package code.scripts.confs;
 
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.structs.Message;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {
 
+    public static void assertNull(Message _value) {
+        Assert.assertNull(_value);
+    }
     public static void assertNotNull(Object _value) {
         Assert.assertNotNull(_value);
     }

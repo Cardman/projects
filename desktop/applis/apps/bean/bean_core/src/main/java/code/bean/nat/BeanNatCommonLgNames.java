@@ -296,10 +296,7 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
             return null;
         }
         StringList v_ = _cont.getValue();
-        NodeInformations nInfos_ = _cont.getNodeInformation();
-        String className_ = nInfos_.getInputClass();
-        Struct resError_ = getStructToBeValidated(v_, className_);
-        return validator_.validate(resError_);
+        return validator_.validate(v_);
     }
 
     public static IdMap<NatExecOperationNode, NatArgumentsPair> getAllArgs(CustList<NatExecOperationNode> _nodes, NatRendStackCall _rendStackCall) {

@@ -1,10 +1,10 @@
 package code.bean.validator;
 
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
+import code.util.StringList;
 
 public interface Validator {
 
-    Message validate(Struct _value);
+    Message validate(StringList _values);
 
 }

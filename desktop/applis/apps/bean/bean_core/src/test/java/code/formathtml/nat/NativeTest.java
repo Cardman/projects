@@ -1394,6 +1394,59 @@ public final class NativeTest extends EquallableBeanCoreUtil {
     }
 
     @Test
+    public void processNav4_Test() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "err={0} is not a no zero rate";
+        String htmlTwo_ = "<html c:bean=\"bean_one\"><body><form c:command=\"$goToPage\"><input id=\"txt\" type=\"text\" name=\"selectedString\" c:varValue=\"selectedString\"/></form></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        files_.put("page1.html", htmlTwo_);
+        BeanOne beanTwo_ = new BeanOne();
+        CustBeanLgNames lgNames_ = stds();
+        NatDualConfigurationContext dual_ = new NatDualConfigurationContext();
+        //new Forwards(lgNames_, null, new Options()).generate();
+        Configuration config_ = conf_("c:");
+
+
+        putBean("bean_one", init(beanTwo_), lgNames_);
+        setupVal(folder_, relative_, config_, dual_, lgNames_);
+        dual_.setNavigation(new StringMap<StringMap<String>>());
+        dual_.getNavigation().put("bean_one.go", new StringMap<String>());
+        dual_.getNavigation().getVal("bean_one.go").put("no_change", "page2.html");
+        Navigation nav_ = newNavigation(config_);
+        nav_.setLanguage(locale_);
+        nav_.setFiles(files_);
+        dual_.getRenderFiles().add("page1.html");
+        initSessionNat(nav_, lgNames_, dual_);
+        NatHtmlPage htmlPage_ = (NatHtmlPage)lgNames_.getNatPage();
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
+        containersMap_ = htmlPage_.getContainers();
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(0L);
+        NodeContainer nc_;
+        NodeInformations ni_;
+        StringList values_;
+        nc_ = containers_.getVal(0L);
+        nc_.setEnabled(true);
+        ni_ = nc_.getNodeInformation();
+        values_ = new StringList();
+        values_.add("ONE_TWO");
+        ni_.setValue(values_);
+        lgNames_.getNatPage().setUrl(0);
+        form(lgNames_, nav_);
+        assertEq("page1.html", nav_.getCurrentUrl());
+        assertEq("bean_one", nav_.getCurrentBeanName());
+        assertEq("<html><body><form c:command=\"bean_one.goToPage\" action=\"\" n-f=\"0\"><input id=\"txt\" type=\"text\" name=\"bean_one.selectedString\" n-i=\"0\" value=\"ONE\"/></form></body></html>", nav_.getHtmlText());
+//        beanTwo_ = getBean(conf_, "bean_one");
+//        StringMapObjectSample map_ = beanTwo_.getForms();
+//        assertEq(0, map_.size());
+//        assertEq(0, getBean(conf_, "bean_one").getForms().size());
+        assertEq("",nav_.getTitle());
+        assertEq("",nav_.getReferenceScroll());
+
+    }
+    @Test
     public void processNav5Test() {
         String locale_ = "en";
         String folder_ = "messages";

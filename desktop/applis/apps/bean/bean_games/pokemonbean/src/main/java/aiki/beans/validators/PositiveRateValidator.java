@@ -1,27 +1,34 @@
 package aiki.beans.validators;
 
-import code.bean.nat.RateStruct;
 import code.bean.validator.Validator;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
+import code.formathtml.util.BeanLgNames;
 import code.maths.Rate;
+import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class PositiveRateValidator implements Validator {
 
     @Override
-    public Message validate(Struct _value) {
-        if (_value instanceof RateStruct) {
-            return procRate(((RateStruct) _value).getInstance());
-        }
-        return null;
+    public Message validate(StringList _values) {
+        String value_ = StringUtil.nullToEmpty(BeanLgNames.oneElt(_values));
+        return procRate(value_);
     }
 
-    private static Message procRate(Rate _value) {
-        if (_value.isZeroOrGt()) {
+    private static Message procRate(String _v) {
+        if (!Rate.isValid(_v))  {
+            Message message_ = new Message();
+            message_.setContent("");
+            message_.setArgs(_v);
+            return message_;
+        }
+        Rate r_ = Rate.newRate(_v);
+        if (r_.isZeroOrGt()) {
             return null;
         }
         Message message_ = new Message();
-        message_.setArgs(_value.toNumberString());
+        message_.setContent("");
+        message_.setArgs(r_.toNumberString());
         return message_;
     }
 

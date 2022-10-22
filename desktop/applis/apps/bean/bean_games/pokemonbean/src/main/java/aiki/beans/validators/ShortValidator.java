@@ -3,27 +3,28 @@ package aiki.beans.validators;
 import code.bean.validator.Validator;
 import code.expressionlanguage.common.LongInfo;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.NumberStruct;
-import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
+import code.formathtml.util.BeanLgNames;
+import code.util.StringList;
+import code.util.core.StringUtil;
 
 public class ShortValidator implements Validator {
 
     @Override
-    public Message validate(Struct _value) {
-        NumberStruct n_ = NumParsers.convertToNumber(_value);
-        long val_ = n_.longStruct();
-        LongInfo nb_ = parseShort(new LongInfo(val_));
-        return procInfo(val_, nb_);
+    public Message validate(StringList _values) {
+        String value_ = StringUtil.nullToEmpty(BeanLgNames.oneElt(_values));
+        LongInfo nb_ = parseShort(NumParsers.parseLong(value_,10));
+        return procInfo(nb_,value_);
     }
 
-    private static Message procInfo(long _value, LongInfo _nb) {
+    private static Message procInfo(LongInfo _nb,String _v) {
         if (_nb.isValid() && _nb.getValue() >= 0) {
             return null;
         }
         Message message_;
         message_ = new Message();
-        message_.setArgs(Long.toString(_value));
+        message_.setContent("");
+        message_.setArgs(_v);
         return message_;
     }
 
