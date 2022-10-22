@@ -3,6 +3,7 @@ package aiki.game.fight;
 import aiki.db.DataBase;
 import aiki.db.EquallablePkUtil;
 import aiki.db.PerCent;
+import aiki.facade.SexListImpl;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
@@ -893,7 +894,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         data_.setCheckTranslation(false);
         CheckNumericStringsFight.validateNumericBooleanStrings(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        data_.validateImages(new SexListImpl());
         data_.setupPseudoImages();
         data_.validateTranslations();
         return data_;

@@ -38,7 +38,7 @@ public class GameTest extends InitializationDataBase {
     public void closestTile1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -49,7 +49,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -61,7 +61,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -73,7 +73,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -85,7 +85,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -97,7 +97,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -109,7 +109,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -128,7 +128,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -140,7 +140,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -152,7 +152,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -165,7 +165,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -178,7 +178,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -191,7 +191,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -203,7 +203,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 0, 0));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -215,7 +215,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -227,7 +227,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction15Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 0, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -238,7 +238,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction16Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 0, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -249,7 +249,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction17Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 8, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -260,7 +260,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction18Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -271,7 +271,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction19Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -282,7 +282,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction20Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 6));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -293,7 +293,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction21Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -304,7 +304,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction22Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -315,7 +315,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction23Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -326,7 +326,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction24Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -338,7 +338,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction25Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
@@ -350,7 +350,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction26Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -362,7 +362,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction27Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
@@ -374,7 +374,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction28Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -387,7 +387,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction29Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -401,7 +401,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction30Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -418,7 +418,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction31Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -435,7 +435,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction32Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -453,7 +453,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction33Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 6, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -464,7 +464,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction34Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -475,7 +475,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction35Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 8, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -486,7 +486,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction36Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 6, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.takenObjects(newCoords(2, 0, 6, 5));
@@ -498,7 +498,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction37Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.takenObjects(newCoords(2, 0, 7, 5));
@@ -510,7 +510,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction38Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 8, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.takenObjects(newCoords(2, 0, 8, 5));
@@ -522,7 +522,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction39Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -535,7 +535,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction40Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -549,7 +549,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction41Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.DOWN);
         //newCoords(0, 0, 0, 6) is in this data invalid
@@ -561,7 +561,7 @@ public class GameTest extends InitializationDataBase {
     public void directInteraction42Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.LEFT);
         //newCoords(0, 0, 0, 6) is in this data invalid
@@ -573,7 +573,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -584,7 +584,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -595,7 +595,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -606,7 +606,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -617,7 +617,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -635,7 +635,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -646,7 +646,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -657,7 +657,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -669,7 +669,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -681,7 +681,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -693,7 +693,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -705,7 +705,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -717,7 +717,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 5, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -729,7 +729,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 6, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -740,7 +740,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty15Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         assertTrue(!game_.isEmpty(data_.getMap(), newCoords(2, 0, 7, 5)));
@@ -750,7 +750,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty16Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 8, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         assertTrue(!game_.isEmpty(data_.getMap(), newCoords(2, 0, 8, 5)));
@@ -760,7 +760,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty17Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 6, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.takenObjects(newCoords(2, 0, 6, 5));
@@ -771,7 +771,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty18Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.takenObjects(newCoords(2, 0, 7, 5));
@@ -782,7 +782,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty19Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 8, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.takenObjects(newCoords(2, 0, 8, 5));
@@ -793,7 +793,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty20Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -804,7 +804,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty21Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 0, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -815,7 +815,7 @@ public class GameTest extends InitializationDataBase {
     public void isEmpty22Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -826,7 +826,7 @@ public class GameTest extends InitializationDataBase {
     public void takeObject1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 6, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -842,7 +842,7 @@ public class GameTest extends InitializationDataBase {
     public void takeObject2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -858,7 +858,7 @@ public class GameTest extends InitializationDataBase {
     public void takeObject3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 8, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -874,7 +874,7 @@ public class GameTest extends InitializationDataBase {
     public void takeObject4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -891,7 +891,7 @@ public class GameTest extends InitializationDataBase {
     public void healTeamWithoutUsingObjectTest() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -922,7 +922,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -957,7 +957,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -994,7 +994,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1032,7 +1032,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1069,7 +1069,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1108,7 +1108,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1149,7 +1149,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1192,7 +1192,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1234,7 +1234,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1276,7 +1276,7 @@ public class GameTest extends InitializationDataBase {
     public void roundAllThrowers10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1316,7 +1316,7 @@ public class GameTest extends InitializationDataBase {
     public void endRoundFightBasic1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1354,7 +1354,7 @@ public class GameTest extends InitializationDataBase {
     public void endRoundFightBasic2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1394,7 +1394,7 @@ public class GameTest extends InitializationDataBase {
     public void endRoundFightBasic3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1433,7 +1433,7 @@ public class GameTest extends InitializationDataBase {
     public void learnAndEvolve1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1464,7 +1464,7 @@ public class GameTest extends InitializationDataBase {
     public void learnAndEvolve2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1495,7 +1495,7 @@ public class GameTest extends InitializationDataBase {
     public void learnAndEvolve3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1534,7 +1534,7 @@ public class GameTest extends InitializationDataBase {
     public void learnAndEvolve4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(EAU_FRAICHE);
@@ -1573,7 +1573,7 @@ public class GameTest extends InitializationDataBase {
     public void sendSubstitutes1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1606,7 +1606,7 @@ public class GameTest extends InitializationDataBase {
     public void sendSubstitutes2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1645,7 +1645,7 @@ public class GameTest extends InitializationDataBase {
     public void sendSubstitutes3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1677,7 +1677,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 4));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1691,7 +1691,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(4, 0, 2, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1705,7 +1705,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1719,7 +1719,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1733,7 +1733,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1747,7 +1747,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 7));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1761,7 +1761,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 7, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1775,7 +1775,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1789,7 +1789,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(4, 0, 0, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1803,7 +1803,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1817,7 +1817,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 7, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -1831,7 +1831,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 7, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.movingHero(data_);
@@ -1844,7 +1844,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 7, 3));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.movingHero(data_);
@@ -1857,7 +1857,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.movingHero(data_);
@@ -1870,7 +1870,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero15Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(4, 0, 1, 3));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.movingHero(data_);
@@ -1883,7 +1883,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero16Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(4, 0, 1, 3));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -1902,7 +1902,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero17Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         //map game_.setPlayerCoords(newCoords(4, 0, 4, 4));
         game_.setPlayerCoords(newCoords(4, 0, 5, 3));
         game_.setPlayerOrientation(Direction.DOWN);
@@ -1922,7 +1922,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero18Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(6, 0, 4, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -1941,7 +1941,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero19Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(6, 0, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -1960,7 +1960,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero20Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(6, 0, 4, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -1979,7 +1979,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero21Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(6, 0, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -1999,7 +1999,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero22Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(6, 1, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -2019,7 +2019,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero23Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(6, 1, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
@@ -2039,7 +2039,7 @@ public class GameTest extends InitializationDataBase {
     public void movingHero24Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.movingHero(data_);
@@ -2052,7 +2052,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -2066,7 +2066,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 0, 3));
         game_.setPlayerOrientation(Direction.UP);
@@ -2086,7 +2086,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 1, 2));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -2106,7 +2106,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 3, 0));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -2120,7 +2120,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -2134,7 +2134,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(2, 0, 3, 2));
         game_.setPlayerOrientation(Direction.UP);
@@ -2148,7 +2148,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(4, 0, 5, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -2162,7 +2162,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -2179,7 +2179,7 @@ public class GameTest extends InitializationDataBase {
     public void processWalkingAreaApparition9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3076,7 +3076,7 @@ public class GameTest extends InitializationDataBase {
     public void incrementStepsToLayEggs1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3091,7 +3091,7 @@ public class GameTest extends InitializationDataBase {
     public void incrementStepsToLayEggs2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3121,7 +3121,7 @@ public class GameTest extends InitializationDataBase {
     public void incrementStepsToLayEggs3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3152,7 +3152,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3178,7 +3178,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3205,7 +3205,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3232,7 +3232,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3259,7 +3259,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3286,7 +3286,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3313,7 +3313,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3340,7 +3340,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3367,7 +3367,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3394,7 +3394,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3421,7 +3421,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3448,7 +3448,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3475,7 +3475,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3502,7 +3502,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3529,7 +3529,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost15Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3556,7 +3556,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost16Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3583,7 +3583,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost17Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3610,7 +3610,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost18Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3637,7 +3637,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost19Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3664,7 +3664,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost20Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3691,7 +3691,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost21Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3718,7 +3718,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost22Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3745,7 +3745,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost23Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3772,7 +3772,7 @@ public class GameTest extends InitializationDataBase {
     public void canStoreThesePokemonToHost24Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3799,7 +3799,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3823,7 +3823,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3847,7 +3847,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3871,7 +3871,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3895,7 +3895,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3919,7 +3919,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3943,7 +3943,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3967,7 +3967,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -3991,7 +3991,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4015,7 +4015,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4039,7 +4039,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4063,7 +4063,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4087,7 +4087,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4111,7 +4111,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4135,7 +4135,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost15Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4159,7 +4159,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost16Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4183,7 +4183,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost17Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4207,7 +4207,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost18Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4231,7 +4231,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost19Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4255,7 +4255,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost20Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4279,7 +4279,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost21Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4303,7 +4303,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost22Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4327,7 +4327,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost23Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4351,7 +4351,7 @@ public class GameTest extends InitializationDataBase {
     public void canStorePokemonToHost24Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4375,7 +4375,7 @@ public class GameTest extends InitializationDataBase {
     public void storePokemonToHost1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4405,7 +4405,7 @@ public class GameTest extends InitializationDataBase {
     public void storePokemonToHost2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4435,7 +4435,7 @@ public class GameTest extends InitializationDataBase {
     public void attemptForStoringPokemonToHost1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4455,7 +4455,7 @@ public class GameTest extends InitializationDataBase {
     public void attemptForStoringPokemonToHost2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4481,7 +4481,7 @@ public class GameTest extends InitializationDataBase {
     public void attemptForStoringPokemonToHost3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4514,7 +4514,7 @@ public class GameTest extends InitializationDataBase {
     public void attemptForStoringPokemonToHost4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4547,7 +4547,7 @@ public class GameTest extends InitializationDataBase {
     public void nbRemainingSteps1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4576,7 +4576,7 @@ public class GameTest extends InitializationDataBase {
     public void nbRemainingSteps2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4605,7 +4605,7 @@ public class GameTest extends InitializationDataBase {
     public void canGetEgg1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4616,7 +4616,7 @@ public class GameTest extends InitializationDataBase {
     public void canGetEgg2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4643,7 +4643,7 @@ public class GameTest extends InitializationDataBase {
     public void canGetEgg3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4671,7 +4671,7 @@ public class GameTest extends InitializationDataBase {
     public void lawForProductedEgg1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4701,7 +4701,7 @@ public class GameTest extends InitializationDataBase {
     public void lawForProductedEgg2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4732,7 +4732,7 @@ public class GameTest extends InitializationDataBase {
     public void lawForProductedEgg3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4762,7 +4762,7 @@ public class GameTest extends InitializationDataBase {
     public void lawForProductedEgg4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4792,7 +4792,7 @@ public class GameTest extends InitializationDataBase {
     public void lawForProductedEgg5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4822,7 +4822,7 @@ public class GameTest extends InitializationDataBase {
     public void lawForProductedEgg6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4852,7 +4852,7 @@ public class GameTest extends InitializationDataBase {
     public void productedEgg1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4882,7 +4882,7 @@ public class GameTest extends InitializationDataBase {
     public void takeProductedEgg1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4914,7 +4914,7 @@ public class GameTest extends InitializationDataBase {
     public void takePokemonFromHost1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4945,7 +4945,7 @@ public class GameTest extends InitializationDataBase {
     public void takablePokemonFromHost1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -4981,7 +4981,7 @@ public class GameTest extends InitializationDataBase {
     public void takablePokemonFromHost2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5018,7 +5018,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveOnlyEgg1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5044,7 +5044,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveOnlyEgg2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5073,7 +5073,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveOnlyEgg3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5113,7 +5113,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveOnlyEgg4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5149,7 +5149,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveOnlyEgg5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5184,7 +5184,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveEggOrParents1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5214,7 +5214,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveEggOrParents2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5252,7 +5252,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveEggOrParents3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5292,7 +5292,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveEggOrParents5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5321,7 +5321,7 @@ public class GameTest extends InitializationDataBase {
     public void receiveEggOrParents6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(true);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5359,7 +5359,7 @@ public class GameTest extends InitializationDataBase {
     public void moving1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5376,7 +5376,7 @@ public class GameTest extends InitializationDataBase {
     public void moving2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 7, 4));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -5393,7 +5393,7 @@ public class GameTest extends InitializationDataBase {
     public void moving3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -5410,7 +5410,7 @@ public class GameTest extends InitializationDataBase {
     public void moving4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5427,7 +5427,7 @@ public class GameTest extends InitializationDataBase {
     public void moving5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 0, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
@@ -5444,7 +5444,7 @@ public class GameTest extends InitializationDataBase {
     public void moving6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(3, 0, 3, 2));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -5472,7 +5472,7 @@ public class GameTest extends InitializationDataBase {
     public void moving7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(3, 0, 4, 2));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -5500,7 +5500,7 @@ public class GameTest extends InitializationDataBase {
     public void moving8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getDifficulty().setRandomWildFight(false);
         game_.setPlayerCoords(newCoords(3, 0, 4, 2));
         game_.setPlayerOrientation(Direction.LEFT);
@@ -5538,7 +5538,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
         assertTrue(!game_.isFrontOfTrainer(data_));
@@ -5548,7 +5548,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5560,7 +5560,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5572,7 +5572,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5584,7 +5584,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5596,7 +5596,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5608,7 +5608,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 5, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5620,7 +5620,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 3));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5632,7 +5632,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 4, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -5644,7 +5644,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 3));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -5655,7 +5655,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -5666,7 +5666,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 6));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.directInteraction(game_.closestTile(data_.getMap()), data_.getMap());
@@ -5677,7 +5677,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -5694,7 +5694,7 @@ public class GameTest extends InitializationDataBase {
     public void isFrontOfTrainer14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -5711,7 +5711,7 @@ public class GameTest extends InitializationDataBase {
     public void doRevivingFossil1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getItem(LAVA);
@@ -5724,7 +5724,7 @@ public class GameTest extends InitializationDataBase {
     public void nickname1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         PokemonPlayer pkUserTeam_ = (PokemonPlayer) game_.getTeam().get(0);
@@ -5739,7 +5739,7 @@ public class GameTest extends InitializationDataBase {
     public void initIv1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         Player player_ = game_.getPlayer();
@@ -5781,7 +5781,7 @@ public class GameTest extends InitializationDataBase {
     public void initIv2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         Player player_ = game_.getPlayer();
@@ -5855,7 +5855,7 @@ public class GameTest extends InitializationDataBase {
     public void clearMessages1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getItem(LAVA);
@@ -5869,7 +5869,7 @@ public class GameTest extends InitializationDataBase {
     public void addMessageGymLeader1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getItem(LAVA);

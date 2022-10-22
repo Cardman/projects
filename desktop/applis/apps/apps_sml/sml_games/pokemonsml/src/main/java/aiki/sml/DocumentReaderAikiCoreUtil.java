@@ -1,6 +1,7 @@
 package aiki.sml;
 import aiki.db.*;
 import aiki.facade.FacadeGame;
+import aiki.facade.SexListInt;
 import aiki.facade.enums.SearchingMode;
 import aiki.fight.Combos;
 import aiki.fight.abilities.AbilityData;
@@ -908,7 +909,7 @@ public final class DocumentReaderAikiCoreUtil {
         if (!_l.get()) {
             return;
         }
-        data_.validate(_p, _l);
+        data_.validate(_p, _l,_f.getSexList());
         if (!_l.get() || data_.isError()) {
             if (data_.isError()) {
                 _f.setLoadedData(false);
@@ -935,7 +936,7 @@ public final class DocumentReaderAikiCoreUtil {
         data_.setDisplayLanguages(_f.getDisplayLanguages());
         _l.set(true);
         data_.setLanguage(_f.getLanguage());
-        loadRom(data_,_files,_p);
+        loadRom(data_,_files,_p,_f.getSexList());
         if (data_.isError()) {
             return null;
         }
@@ -962,7 +963,7 @@ public final class DocumentReaderAikiCoreUtil {
         String loadedResourcesMessages_ = _map.getVal(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
-    public static void loadRom(DataBase _d,StringMap<String> _files, PerCent _perCentLoading) {
+    public static void loadRom(DataBase _d, StringMap<String> _files, PerCent _perCentLoading, SexListInt _sexList) {
         if (_files == null) {
             _d.setError(true);
             return;
@@ -1177,7 +1178,7 @@ public final class DocumentReaderAikiCoreUtil {
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getFrontHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1194,7 +1195,7 @@ public final class DocumentReaderAikiCoreUtil {
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getBackHeros().put(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -1213,7 +1214,7 @@ public final class DocumentReaderAikiCoreUtil {
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
                     .get(IndexConstants.SECOND_INDEX));
-            Sex sex_ = getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getOverWorldHeros().put(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(infos_.last()));
         }
@@ -5651,7 +5652,7 @@ public final class DocumentReaderAikiCoreUtil {
         return WeatherType.newWeatherType(_elt.getAttribute(ATTR_VALUE));
     }
 
-    public static Game getGame(String _string) {
+    public static Game getGame(String _string, SexListInt _sexListInt) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         if (doc_ == null) {
             return null;
@@ -5660,10 +5661,10 @@ public final class DocumentReaderAikiCoreUtil {
         if (StringUtil.quickEq(tagName_,"LoadingGame")) {
             return null;
         }
-        return getGame(doc_.getDocumentElement());
+        return getGame(doc_.getDocumentElement(),_sexListInt);
     }
 
-    public static Game getGameOrNull(String _string) {
+    public static Game getGameOrNull(String _string, SexListInt _sexList) {
         Document doc_ = DocumentBuilder.parseNoTextDocument(_string);
         if (doc_ == null) {
             return null;
@@ -5672,25 +5673,25 @@ public final class DocumentReaderAikiCoreUtil {
         if (!StringUtil.quickEq(tagName_,"Game")) {
             return null;
         }
-        return getGame(doc_.getDocumentElement());
+        return getGame(doc_.getDocumentElement(),_sexList);
     }
 
-    private static Game getGame(Element _element) {
+    private static Game getGame(Element _element, SexListInt _sexList) {
         ElementList childElements_ = _element.getChildElements();
         Game object_ = Instances.newGame();
         for (Element c: childElements_) {
-            getGame(object_,c.getAttribute(ATTR_FIELD),c);
+            getGame(object_,c.getAttribute(ATTR_FIELD),c,_sexList);
         }
         return object_;
     }
 
-    private static void getGame(Game _object, String _fieldName, Element _element) {
+    private static void getGame(Game _object, String _fieldName, Element _element, SexListInt _sexList) {
         if (StringUtil.quickEq(_fieldName, FIELD_ZIPPED_ROM)) {
             _object.setZippedRom(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_PLAYER)) {
-            _object.setPlayer(getPlayer(_element));
+            _object.setPlayer(getPlayer(_element,_sexList));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_RANK_LEAGUE)) {
@@ -6596,22 +6597,22 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
-    private static Player getPlayer(Element _element) {
+    private static Player getPlayer(Element _element, SexListInt _sexList) {
         ElementList childElements_ = _element.getChildElements();
         Player object_ = Instances.newPlayer();
         for (Element c: childElements_) {
-            getPlayer(object_,c.getAttribute(ATTR_FIELD),c);
+            getPlayer(object_,c.getAttribute(ATTR_FIELD),c,_sexList);
         }
         return object_;
     }
 
-    private static void getPlayer(Player _object, String _fieldName, Element _element) {
+    private static void getPlayer(Player _object, String _fieldName, Element _element, SexListInt _sexList) {
         if (StringUtil.quickEq(_fieldName, FIELD_NICKNAME)) {
             _object.setNickname(DocumentReaderCoreUtil.getString(_element));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_SEX)) {
-            _object.setSex(getSex(_element));
+            _object.setSex(getSex(_element,_sexList));
             return;
         }
         if (StringUtil.quickEq(_fieldName, FIELD_TEAM)) {
@@ -6639,14 +6640,8 @@ public final class DocumentReaderAikiCoreUtil {
         }
     }
 
-    private static Sex getSex(Element _elt) {
-        Sex[] values_ = Sex.values();
-        for (Sex e: values_) {
-            if (StringUtil.quickEq(e.name(),_elt.getAttribute(ATTR_VALUE))) {
-                return e;
-            }
-        }
-        return values_[0];
+    private static Sex getSex(Element _elt, SexListInt _sexList) {
+        return Sex.getSexByName(_elt.getAttribute(ATTR_VALUE),_sexList);
     }
 
     public static DataMap getDataMap(String _string) {
@@ -9126,8 +9121,8 @@ public final class DocumentReaderAikiCoreUtil {
         return DifficultyWinPointsFight.getDiffWonPtsByName(_env);
     }
 
-    public static Sex getSexByName(String _env) {
-        return Sex.getSexByName(_env);
+    public static Sex getSexByName(String _env, SexListInt _sexList) {
+        return Sex.getSexByName(_env,_sexList);
     }
 
     public static ExpType getExpTypeByName(String _env) {

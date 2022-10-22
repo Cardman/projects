@@ -4,6 +4,7 @@ import aiki.db.DataBase;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
+import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
@@ -15,7 +16,7 @@ public final class FacadeGameFishTest extends InitializationDataBase {
     public static FacadeGame initTests() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);

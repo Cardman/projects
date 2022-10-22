@@ -1033,7 +1033,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         Pokemon pk_ = new WildPk();
@@ -1155,7 +1155,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PTITARD);
         player_.recupererOeufPensions(egg_);
         assertEq(2, player_.getTeam().size());
@@ -1167,7 +1167,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
         pokemonDonne_.setLevel((short) 1);
@@ -1191,7 +1191,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         assertEq(0, player_.nouveauxNes(data_).size());
     }
 
@@ -1200,7 +1200,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         assertEq(0, player_.nouveauxNes(data_).size());
     }
@@ -1210,7 +1210,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 200);
         player_.getTeam().add(egg_);
@@ -1224,7 +1224,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.eclosionOeuf(diff_, data_);
         assertEq(0, player_.getEggsList().size());
         assertEq(1, player_.getPokemonPlayerList().size());
@@ -1238,7 +1238,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         player_.eclosionOeuf(diff_, data_);
         assertEq(1, player_.getEggsList().size());
@@ -1256,7 +1256,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(MELOFEE);
         egg_.versEclosion((short) 200);
         player_.getTeam().add(egg_);
@@ -1321,7 +1321,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         assertTrue(!player_.estAttrape(LIMAGMA));
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
@@ -1391,7 +1391,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -1467,7 +1467,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         assertEq(LgInt.one(), player_.getInventory().getNumber(REPOUSSE));
     }
@@ -1477,7 +1477,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getHm((short) 1);
         assertEq(1, player_.getInventory().gotHm().size());
         assertTrue(player_.getInventory().gotHm().containsObj((short)1));
@@ -1488,7 +1488,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTm((short) 2);
         assertEq(1, player_.getInventory().gotTm().size());
         assertTrue(player_.getInventory().gotTm().containsObj((short)2));
@@ -1499,7 +1499,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.useInInventory(REPOUSSE);
         assertEq(LgInt.zero(), player_.getInventory().getNumber(REPOUSSE));
@@ -1510,7 +1510,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.chooseObject(REPOUSSE);
         assertEq(NULL_REF, player_.getSelectedObject());
     }
@@ -1520,7 +1520,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(LAVA);
         player_.chooseObject(REPOUSSE);
         assertEq(NULL_REF, player_.getSelectedObject());
@@ -1531,7 +1531,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         assertEq(REPOUSSE, player_.getSelectedObject());
@@ -1542,7 +1542,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.cancelUseObject();
@@ -1556,7 +1556,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         player_.getItem(MULTI_EXP);
         player_.chooseObject(MULTI_EXP);
@@ -1570,7 +1570,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setAbility(STATIK);
@@ -1590,7 +1590,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(MULTI_EXP);
         player_.chooseObject(MULTI_EXP);
         player_.setPokemonAbleToHoldObject();
@@ -1606,7 +1606,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(MULTI_EXP);
         player_.getItem(BAIE_ORAN);
         player_.chooseObject(MULTI_EXP);
@@ -1627,7 +1627,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.activerRepousse(data_);
@@ -1642,7 +1642,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
@@ -1660,7 +1660,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -1681,7 +1681,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.activerRepousse(data_);
@@ -1695,7 +1695,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
@@ -1713,7 +1713,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.setRemainingRepelSteps(1);
         player_.deplacement(diff_, data_);
         assertTrue(!player_.getRepousseActif());
@@ -1725,7 +1725,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.moveLoop(0, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(70, pk_.getHappiness());
@@ -1739,7 +1739,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.moveLoop(3, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(70, pk_.getHappiness());
@@ -1753,7 +1753,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.moveLoop(12, diff_, data_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().first();
         assertEq(71, pk_.getHappiness());
@@ -1767,7 +1767,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.moveLoop(12, diff_, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
@@ -1791,7 +1791,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(MELOFEE);
         player_.getTeam().add(egg_);
         player_.moveLoop(10, diff_, data_);
@@ -1804,7 +1804,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -1824,7 +1824,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -1868,7 +1868,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.activerRepousse(data_);
@@ -1882,7 +1882,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.activerRepousse(data_);
@@ -1896,7 +1896,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         assertTrue(!player_.enabledSwitchObjectsTeamBox());
     }
 
@@ -1905,7 +1905,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledSwitchObjectsTeamBox());
     }
@@ -1915,7 +1915,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -1945,7 +1945,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -1997,7 +1997,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(LIMAGMA);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2050,7 +2050,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2107,7 +2107,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2164,7 +2164,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2253,7 +2253,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.doRevivingFossil(LAVA, diff_, data_);
         assertEq(new LgInt("0"), player_.getInventory().getNumber(LAVA));
         assertEq(1, player_.getTeam().size());
@@ -2264,7 +2264,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(LAVA);
         player_.doRevivingFossil(LAVA, diff_, data_);
         assertEq(new LgInt("0"), player_.getInventory().getNumber(LAVA));
@@ -2276,7 +2276,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(LAVA);
@@ -2291,7 +2291,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(LAVA);
         player_.getItem(LAVA);
         assertEq(1, player_.getTeam().size());
@@ -2306,7 +2306,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.recevoirPokemon(data_.getMap().getFirstPokemon(), diff_, data_);
         player_.recevoirPokemon(data_.getMap().getFirstPokemon(), diff_, data_);
         player_.recevoirPokemon(data_.getMap().getFirstPokemon(), diff_, data_);
@@ -2324,7 +2324,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2386,7 +2386,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2448,7 +2448,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -2510,7 +2510,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.enabledSwitchPokemonBoxTeam());
     }
@@ -2520,7 +2520,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledSwitchPokemonBoxTeam());
@@ -2531,7 +2531,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.enabledSwitchPokemonBoxTeam());
     }
@@ -2541,7 +2541,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledSwitchPokemonBoxTeam());
@@ -2552,7 +2552,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
@@ -2573,7 +2573,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTeam().add(new Egg(LIMAGMA));
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
@@ -2595,7 +2595,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.enabledStorePokemonBox());
     }
@@ -2605,7 +2605,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledStorePokemonBox());
@@ -2616,7 +2616,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertEq(5, player_.getTeam().size());
@@ -2633,7 +2633,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTeam().add(new Egg(LIMAGMA));
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 1);
@@ -2651,7 +2651,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertEq(3, player_.getBox().size());
@@ -2664,7 +2664,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
@@ -2688,7 +2688,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUserBox_ = (PokemonPlayer) player_.getBox().get(1);
@@ -2704,7 +2704,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUserBox_ = (PokemonPlayer) player_.getBox().get(1);
@@ -2721,7 +2721,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pk_ = new PokemonPlayer(data_.getMap().getFirstPokemon(), data_);
         player_.getTeam().add(pk_);
@@ -2740,7 +2740,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.enabledTakeObjectTeam());
     }
@@ -2750,7 +2750,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledTakeObjectTeam());
@@ -2761,7 +2761,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 1);
         PokemonPlayer pkUserBox_ = (PokemonPlayer) player_.getTeam().get(1);
@@ -2778,7 +2778,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 2);
         PokemonPlayer pkUserBox_ = (PokemonPlayer) player_.getTeam().get(2);
@@ -2793,7 +2793,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 1);
         player_.switchTeamOrder((short) 3);
@@ -2810,7 +2810,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
         assertEq(LIMAGMA, pkUserTeam_.getNickname());
@@ -2827,7 +2827,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUserTeam_ = (PokemonPlayer) player_.getTeam().get(2);
         assertEq(LIMAGMA, pkUserTeam_.getNickname());
@@ -2842,7 +2842,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(!player_.enabledSwitchTeamOrder());
     }
@@ -2852,7 +2852,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.enabledSwitchTeamOrder());
     }
@@ -2862,7 +2862,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledSwitchTeamOrder());
@@ -2873,7 +2873,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         UsablePokemon usablePkFirstBefore_ = player_.getTeam().first();
@@ -2891,7 +2891,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         UsablePokemon usablePkFirstBefore_ = player_.getTeam().first();
@@ -2909,7 +2909,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(!player_.enabledSwitchObjectsTeam());
     }
@@ -2919,7 +2919,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.enabledSwitchObjectsTeam());
     }
@@ -2929,7 +2929,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         assertTrue(player_.enabledSwitchObjectsTeam());
@@ -2940,7 +2940,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         player_.setChosenTeamPokemon((short) 1);
         assertTrue(!player_.isValidPkPlayerChoice());
@@ -2952,7 +2952,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         player_.switchObjectsTeam((short) 0);
@@ -2968,7 +2968,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.setChosenTeamPokemon((short) 0);
         player_.switchObjectsTeam((short) 1);
@@ -2984,7 +2984,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         player_.setChosenTeamPokemon((short) 0);
@@ -2999,7 +2999,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUserBox_ = (PokemonPlayer) player_.getBox().get(1);
@@ -3014,7 +3014,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getBox().add(new Egg(PIKACHU));
@@ -3027,7 +3027,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         Pokemon pk_ = new WildPk();
@@ -3046,7 +3046,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUserBox_ = (PokemonPlayer) player_.getBox().get(1);
@@ -3063,7 +3063,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getBox().add(new Egg(PIKACHU));
@@ -3078,7 +3078,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         Pokemon pk_ = new WildPk();
@@ -3099,7 +3099,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         addPokemonToUser1(player_, diff_, data_);
         Pokemon pk_ = new WildPk();
@@ -3120,7 +3120,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         PokemonPlayer pkPlayer_;
@@ -3151,7 +3151,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getTeam().add(new Egg(PIKACHU));
         player_.getItem(CENDRESACREE);
@@ -3181,7 +3181,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usedObjectForRepel(data_));
     }
@@ -3191,7 +3191,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(ELIXIR);
         player_.chooseObject(ELIXIR);
         addPokemonToUser1(player_, diff_, data_);
@@ -3203,7 +3203,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         addPokemonToUser1(player_, diff_, data_);
@@ -3215,7 +3215,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usedObjectForHealing(data_));
     }
@@ -3225,7 +3225,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(CENDRESACREE);
         player_.chooseObject(CENDRESACREE);
@@ -3237,7 +3237,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PP_PLUS);
         player_.chooseObject(PP_PLUS);
@@ -3249,7 +3249,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(RASP_BERRY);
         player_.chooseObject(RASP_BERRY);
@@ -3261,7 +3261,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkPlayer_;
         pkPlayer_ = (PokemonPlayer) player_.getTeam().get(0);
@@ -3295,7 +3295,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(POTION);
         player_.chooseObject(POTION);
@@ -3314,7 +3314,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(RASP_BERRY);
         player_.chooseObject(RASP_BERRY);
@@ -3333,7 +3333,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usedObjectForHealingAmove(data_));
     }
@@ -3343,7 +3343,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(HUILE);
         player_.chooseObject(HUILE);
@@ -3355,7 +3355,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(HUILE_MAX);
         player_.chooseObject(HUILE_MAX);
@@ -3367,7 +3367,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(ELIXIR);
         player_.chooseObject(ELIXIR);
@@ -3379,7 +3379,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PP_PLUS);
         player_.chooseObject(PP_PLUS);
@@ -3391,7 +3391,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(BAIE_ORAN);
         player_.chooseObject(BAIE_ORAN);
@@ -3403,7 +3403,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(BAIE_MEPO);
         player_.chooseObject(BAIE_MEPO);
@@ -3415,7 +3415,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usedObjectForEvolving(data_));
     }
@@ -3425,7 +3425,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PP_PLUS);
         player_.chooseObject(PP_PLUS);
@@ -3437,7 +3437,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -3449,7 +3449,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usedObjectForBoosting(data_));
     }
@@ -3459,7 +3459,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PP_PLUS);
         player_.chooseObject(PP_PLUS);
@@ -3471,7 +3471,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -3483,7 +3483,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usedObjectForBoostingMove(data_));
     }
@@ -3493,7 +3493,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PP_PLUS);
         player_.chooseObject(PP_PLUS);
@@ -3505,7 +3505,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -3517,7 +3517,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MUSCLE);
         player_.chooseObject(MUSCLE);
@@ -3530,7 +3530,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         assertTrue(!player_.usableObject(data_));
     }
@@ -3540,7 +3540,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
@@ -3552,7 +3552,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MUSCLE);
         player_.chooseObject(MUSCLE);
@@ -3564,7 +3564,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -3576,7 +3576,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(ELIXIR);
         player_.chooseObject(ELIXIR);
@@ -3588,7 +3588,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -3608,7 +3608,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(POTION);
         player_.chooseObject(POTION);
@@ -3627,7 +3627,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -3648,7 +3648,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
@@ -3671,7 +3671,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
@@ -3694,7 +3694,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -3714,7 +3714,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getStatus().add(SOMMEIL);
@@ -3734,7 +3734,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(REVEIL);
         player_.chooseObject(REVEIL);
@@ -3752,7 +3752,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MAX_ELIXIR);
         player_.chooseObject(MAX_ELIXIR);
@@ -3772,7 +3772,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getStatus().add(PARALYSIE);
@@ -3794,7 +3794,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(BAIE_ORAN);
         player_.chooseObject(BAIE_ORAN);
@@ -3814,7 +3814,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -3836,7 +3836,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -3858,7 +3858,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -3880,7 +3880,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(RAPPEL);
         player_.chooseObject(RAPPEL);
@@ -3900,7 +3900,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(HUILE_MAX);
         player_.chooseObject(HUILE_MAX);
@@ -3921,7 +3921,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(HUILE_MAX);
         player_.chooseObject(HUILE_MAX);
@@ -3941,7 +3941,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(HUILE);
         player_.chooseObject(HUILE);
@@ -3956,7 +3956,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
@@ -3979,7 +3979,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4002,7 +4002,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4022,7 +4022,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4045,7 +4045,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4068,7 +4068,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4088,7 +4088,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4108,7 +4108,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         //player_.getTeam().add(new Egg())
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
@@ -4129,7 +4129,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4153,7 +4153,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4177,7 +4177,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setCurrent((short) 0);
@@ -4201,7 +4201,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MUSCLE);
         player_.chooseObject(MUSCLE);
@@ -4219,7 +4219,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MUSCLE);
         player_.chooseObject(MUSCLE);
@@ -4242,7 +4242,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getEv().put(Statistic.ATTACK, (short) 20);
@@ -4268,7 +4268,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getEv().put(Statistic.SPEED, (short) 20);
@@ -4293,7 +4293,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setMax((short) data_.getMaxPp());
@@ -4313,7 +4313,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) 78);
@@ -4337,7 +4337,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4359,7 +4359,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4381,7 +4381,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4407,7 +4407,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4433,7 +4433,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4460,7 +4460,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4489,7 +4489,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setMax((short) data_.getMaxPp());
@@ -4515,7 +4515,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_GLACE);
         player_.chooseObject(PIERRE_GLACE);
@@ -4529,7 +4529,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4544,7 +4544,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4560,7 +4560,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(REPOUSSE);
         player_.chooseObject(REPOUSSE);
         player_.useObject(data_);
@@ -4576,7 +4576,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkPlayer_;
         pkPlayer_ = (PokemonPlayer) player_.getTeam().get(0);
@@ -4609,7 +4609,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pkPlayer_;
         pkPlayer_ = (PokemonPlayer) player_.getTeam().get(0);
         pkPlayer_.setRemainingHp(Rate.one());
@@ -4628,7 +4628,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pkPlayer_;
         pkPlayer_ = (PokemonPlayer) player_.getTeam().get(0);
         pkPlayer_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
@@ -4647,7 +4647,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MUSCLE);
         player_.chooseObject(MUSCLE);
@@ -4667,7 +4667,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PP_PLUS);
         player_.chooseObject(PP_PLUS);
@@ -4687,7 +4687,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_GLACE);
         player_.chooseObject(PIERRE_GLACE);
@@ -4703,7 +4703,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4720,7 +4720,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4736,7 +4736,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4756,7 +4756,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -4784,7 +4784,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -4808,7 +4808,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(JACKPOT).setCurrent((short) 0);
@@ -4832,7 +4832,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.setRemainingHp(Rate.zero());
@@ -4852,7 +4852,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4872,7 +4872,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         PokemonPlayer pkUser_ = (PokemonPlayer) player_.getTeam().first();
         pkUser_.getMoves().getVal(OEIL_MIRACLE).setMax((short) data_.getMaxPp());
@@ -4893,7 +4893,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(MUSCLE);
         player_.chooseObject(MUSCLE);
@@ -4917,7 +4917,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4939,7 +4939,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -4966,7 +4966,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         addPokemonToUser1(player_, diff_, data_);
         player_.getItem(PIERRE_LUNE);
         player_.chooseObject(PIERRE_LUNE);
@@ -4985,7 +4985,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -5011,7 +5011,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -5037,7 +5037,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon givPk_ = new WildPk();
         givPk_.setName(MELOFEE);
         givPk_.setGender(Gender.NO_GENDER);
@@ -5063,7 +5063,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         Pokemon pk_ = data_.getMap().getFirstPokemon();
@@ -5085,7 +5085,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
@@ -5104,7 +5104,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
@@ -5116,7 +5116,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
@@ -5138,7 +5138,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
@@ -5154,7 +5154,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
@@ -5183,7 +5183,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
@@ -5217,7 +5217,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
@@ -5247,7 +5247,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
@@ -5283,7 +5283,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
@@ -5325,7 +5325,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
@@ -5362,7 +5362,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.chooseMoveByObject(JACKPOT, data_);
         assertEq(0, player_.getIndexesOfPokemonTeam().size());
         assertEq(0, player_.getIndexesOfPokemonTeamMoves().size());
@@ -5374,7 +5374,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.chooseMoveByObject(TONNERRE, data_);
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(0));
@@ -5388,7 +5388,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.chooseMoveByObject(ECLAIR, data_);
         assertEq(1, player_.getIndexesOfPokemonTeam().size());
         assertTrue(player_.getIndexesOfPokemonTeam().contains(0));
@@ -5402,7 +5402,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.NO_GENDER);
@@ -5426,7 +5426,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_ = (PokemonPlayer) player_.getTeam().first();
         pk_.getMoves().put(ECLAIR, new UsesOfMove((short) 15));
         assertEq(4, pk_.getMoves().size());
@@ -5441,7 +5441,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(DEMANTA);
         pk_.setGender(Gender.NO_GENDER);
@@ -5463,7 +5463,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(DEMANTA);
         pk_.setGender(Gender.NO_GENDER);
@@ -5485,7 +5485,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         player_.getTeam().add(new Egg(DEMANTA));
         Pokemon pk_ = new WildPk();
         pk_.setName(DEMANTA);
@@ -5508,7 +5508,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         player_.getTeam().add(new Egg(DEMANTA));
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
@@ -5533,7 +5533,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.chooseMoveByObject(ECLAIR, data_);
         player_.choosePokemonForLearningMove((byte) 0, data_);
         PokemonPlayer pkPl_ = (PokemonPlayer) player_.getTeam().first();
@@ -5554,7 +5554,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.NO_GENDER);
@@ -5585,7 +5585,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         player_.getTeam().add(new Egg(PTITARD));
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
@@ -5617,7 +5617,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.NO_GENDER);
@@ -5654,7 +5654,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.NO_GENDER);
@@ -5685,7 +5685,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         player_.getTeam().add(new Egg(PTITARD));
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
@@ -5717,7 +5717,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.NO_GENDER);
@@ -5744,7 +5744,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.choosePokemonForMoveTutors((byte) 0, data_);
         player_.cancelLearningMoveOnPokemon();
         assertEq(0, player_.getIndexesOfPokemonTeam().size());
@@ -5759,7 +5759,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_ = new Egg(PIKACHU);
         player_.getTeam().add(egg_);
         player_.choosePokemonForMoveTutors((short) 0, data_);
@@ -5781,7 +5781,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PIKACHU);
         pk_.setGender(Gender.NO_GENDER);
@@ -5815,7 +5815,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, false, data_);
+        Player player_ = Player.build(NICKNAME, diff_, false, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setGender(Gender.NO_GENDER);
@@ -5846,7 +5846,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.chooseMoveByObject(ECLAIR, data_);
         player_.cancelLearningMove();
         PokemonPlayer pkPl_ = (PokemonPlayer) player_.getTeam().first();
@@ -5866,7 +5866,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         StringMap<LgInt> objects_ = new StringMap<LgInt>();
         objects_.put(GRELOT, new LgInt(250));
         objects_.put(LAVA, new LgInt(10));
@@ -5878,7 +5878,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         StringMap<LgInt> objects_ = new StringMap<LgInt>();
         objects_.put(GRELOT, new LgInt(1));
         objects_.put(LAVA, new LgInt(1));
@@ -5890,7 +5890,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Shorts tm_ = new Shorts();
         tm_.add((short)2);
         assertTrue(!player_.canBeBought(tm_, data_));
@@ -5901,7 +5901,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Shorts tm_ = new Shorts();
         tm_.add((short)3);
         assertTrue(player_.canBeBought(tm_, data_));
@@ -5912,7 +5912,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Shorts tm_ = new Shorts();
         tm_.add((short)4);
         assertTrue(player_.canBeBought(tm_, data_));
@@ -5923,7 +5923,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         StringMap<LgInt> objects_ = new StringMap<LgInt>();
         objects_.put(GRELOT, new LgInt(2));
         objects_.put(LAVA, new LgInt(1));
@@ -5938,7 +5938,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         StringMap<LgInt> objects_ = new StringMap<LgInt>();
         objects_.put(GRELOT, new LgInt(180));
         objects_.put(LAVA, new LgInt(10));
@@ -5953,7 +5953,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(GRELOT);
         player_.getItem(GRELOT);
         StringMap<LgInt> objects_ = new StringMap<LgInt>();
@@ -5970,7 +5970,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTm((short) 4);
         player_.achatCt((short) 4, data_);
         assertEq(new LgInt("3000"), player_.getMoney());
@@ -5981,7 +5981,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTm((short) 4);
         player_.achatCt((short) 3, data_);
         assertEq(new LgInt("1000"), player_.getMoney());
@@ -5992,7 +5992,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getTm((short) 4);
         Shorts tm_ = new Shorts();
         tm_.add((short) 3);
@@ -6005,7 +6005,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
         pokemonDonne_.setLevel((short) 1);
@@ -6045,7 +6045,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(PTITARD);
         pokemonDonne_.setLevel((short) 1);
@@ -6085,7 +6085,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         assertTrue(!player_.existBall(data_));
     }
 
@@ -6094,7 +6094,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(BAIE_ORAN);
         assertTrue(!player_.existBall(data_));
     }
@@ -6104,7 +6104,7 @@ public class PlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getItem(MASTER_BALL);
         assertTrue(player_.existBall(data_));
     }
@@ -6115,7 +6115,7 @@ public class PlayerTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         ExchangedData ex_ = new ExchangedData(data_);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(LIMAGMA);
         pk_.setGender(Gender.NO_GENDER);

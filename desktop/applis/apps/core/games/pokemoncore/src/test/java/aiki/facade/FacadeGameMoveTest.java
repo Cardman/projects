@@ -6,6 +6,7 @@ import aiki.facade.enums.SelectedBoolean;
 import aiki.game.Game;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
+import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import org.junit.Test;
@@ -16,7 +17,7 @@ public final class FacadeGameMoveTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
         game_.getPlayer().getItem(LAVA);

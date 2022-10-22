@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -28,7 +29,7 @@ public class FightInvokeTest extends InitializationDataBase {
     private static Fight invokableMoves(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -619,7 +620,7 @@ public class FightInvokeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -693,7 +694,7 @@ public class FightInvokeTest extends InitializationDataBase {
     }
 
     private static Fight processInvokingMove(Difficulty _diff, byte _mult, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);

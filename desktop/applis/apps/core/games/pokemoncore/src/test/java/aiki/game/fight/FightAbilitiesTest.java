@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAllStatusByEnabledWeather1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -57,7 +58,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAllStatusByEnabledWeather2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -85,7 +86,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAllStatusByEnabledWeather3Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -112,7 +113,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAllStatusByEnabledWeather4Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -139,7 +140,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void disableAllStatusByEnabledWeather5Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -166,7 +167,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbilityByWeather1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -193,7 +194,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbilityByWeather2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -219,7 +220,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbilityByWeather3Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -248,7 +249,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbilityByWeather4Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -276,7 +277,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
     public void enableAbilityByWeather5Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -304,7 +305,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
 
     private static Fight ignoreTargetAbility(DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -391,7 +392,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
 
     private static Fight enableAbility(String _firstAbility, String _secondAbility, byte _mult, DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -573,7 +574,7 @@ public class FightAbilitiesTest extends InitializationDataBase {
 
     private static Fight disableAbility(String _firstAbility, String _secondAbility, byte _mult, DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);

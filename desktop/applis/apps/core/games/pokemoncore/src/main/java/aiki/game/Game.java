@@ -244,6 +244,9 @@ public final class Game {
         }
     }
 
+    public void initUserInteract(String _pseudo,Difficulty _diff,DataBase _import){
+        initUserInteract(_pseudo,Sex.NO, _diff, _import);
+    }
     public void initUserInteract(String _pseudo,Sex _sexeHeros,Difficulty _diff,DataBase _import){
         initUtilisateur(_pseudo, _sexeHeros, _diff, _import);
         visitFirstPlaces(_import);
@@ -251,12 +254,16 @@ public final class Game {
         directInteraction(d_);
     }
 
+    public void initUtilisateur(String _pseudo,Difficulty _diff,DataBase _import){
+        initUtilisateur(_pseudo,Sex.NO,_diff,_import);
+    }
+
     public void initUtilisateur(String _pseudo,Sex _sexeHeros,Difficulty _diff,DataBase _import){
         player=new Player(_pseudo,_sexeHeros,_diff,true,_import);
     }
 
-    public void initUtilisateurSimulation(String _pseudo,Sex _sexeHeros,Difficulty _diff,DataBase _import){
-        player=new Player(_pseudo,_sexeHeros,_diff,false,_import);
+    public void initUtilisateurSimulation(String _pseudo, Difficulty _diff, DataBase _import){
+        player=Player.build(_pseudo,_diff,false,_import);
     }
 
     public boolean validate(DataBase _data) {

@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -39,7 +40,7 @@ public class FightSuccessTest extends InitializationDataBase {
     private static Fight random(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -131,7 +132,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void forbiddenStatus1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -175,7 +176,7 @@ public class FightSuccessTest extends InitializationDataBase {
     public void forbiddenStatus2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -750,7 +751,7 @@ public class FightSuccessTest extends InitializationDataBase {
     private static Fight isProtectedAgainstMove(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1583,7 +1584,7 @@ public class FightSuccessTest extends InitializationDataBase {
     private static Fight successfulEffectWhileIfTargetIsNotThrower(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1951,7 +1952,7 @@ public class FightSuccessTest extends InitializationDataBase {
     private static Fight rateEffAgainstTargetMove(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3315,7 +3316,7 @@ public class FightSuccessTest extends InitializationDataBase {
 
     private static Fight canUseDirectlyMove(DataBase _data) {
         Difficulty diff_ = new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);

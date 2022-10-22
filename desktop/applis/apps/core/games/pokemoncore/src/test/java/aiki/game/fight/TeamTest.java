@@ -138,7 +138,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -176,7 +176,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -214,7 +214,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -258,7 +258,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -325,7 +325,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -537,7 +537,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer pokemon_ = new PkTrainer();
         pokemon_.setName(PIKACHU);
@@ -572,7 +572,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer pokemon_ = new PkTrainer();
         pokemon_.setName(ARTIKODIN);
@@ -605,7 +605,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer pokemon_ = new PkTrainer();
         pokemon_.setName(PIKACHU);
@@ -646,7 +646,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(PIKACHU);
         pokemon_.setItem(MAGNET);
@@ -678,7 +678,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         WildPk pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -708,7 +708,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -757,7 +757,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -789,7 +789,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -821,7 +821,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -851,7 +851,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -883,7 +883,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -922,7 +922,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -961,7 +961,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1003,7 +1003,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1042,7 +1042,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1085,7 +1085,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1122,7 +1122,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1159,7 +1159,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1199,7 +1199,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1240,7 +1240,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1277,7 +1277,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1312,7 +1312,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1344,7 +1344,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1376,7 +1376,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1408,7 +1408,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1439,7 +1439,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1471,7 +1471,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1507,7 +1507,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -1554,7 +1554,7 @@ public class TeamTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         Team team_ = new Team(data_);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);

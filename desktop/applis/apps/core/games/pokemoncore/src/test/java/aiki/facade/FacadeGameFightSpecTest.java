@@ -9,6 +9,7 @@ import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.player.Player;
+import aiki.game.player.enums.Sex;
 import aiki.map.characters.Ally;
 import aiki.map.characters.DualFight;
 import aiki.map.characters.TempTrainer;
@@ -30,7 +31,7 @@ public final class FacadeGameFightSpecTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setSkipLearningMovesWhileNotGrowingLevel(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false, data_);
+        Player player_ = Player.build(NICKNAME,diff_,false, data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);

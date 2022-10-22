@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.items.ItemForBattle;
+import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import org.junit.Test;
 
@@ -39,7 +40,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fighters1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -86,7 +87,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fighters2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -131,7 +132,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void frontFighters1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(MAGNET);
@@ -175,7 +176,7 @@ public class FightOrderTest extends InitializationDataBase {
 
     private static Fight lastToUseMove(byte _mult, DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -396,7 +397,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void speed1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -446,7 +447,7 @@ public class FightOrderTest extends InitializationDataBase {
 
     private static Fight sortFightersHavingToActAmongList(DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1263,7 +1264,7 @@ public class FightOrderTest extends InitializationDataBase {
 
     private static Fight sortFightersByWornBerry(DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1455,7 +1456,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersUsingMoveWithBerry1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1528,7 +1529,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersUsingMoveWithBerry2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1600,7 +1601,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersUsingMove1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1674,7 +1675,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersSwitching1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1747,7 +1748,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersBeingHealed1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1820,7 +1821,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void indexOfRemoving1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1908,7 +1909,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void randomFigtherHavingToAct1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1992,7 +1993,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void randomFigtherHavingToAct2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2075,7 +2076,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void randomFigtherHavingToAct3Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2155,7 +2156,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void randomFigtherHavingToAct1FailTest() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2228,7 +2229,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void randomFigtherHavingToAct1FailSimulationTest() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2307,7 +2308,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void randomFigtherHavingToAct2FailSimulationTest() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2386,7 +2387,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersWearingExpObject1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2474,7 +2475,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersBelongingToUser1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2528,7 +2529,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersBelongingToUserHavingBeaten1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2576,7 +2577,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void fightersBelongingToUserHavingBeaten2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -2624,7 +2625,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFightersAmongList1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2670,7 +2671,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFightersAmongList2Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2718,7 +2719,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFightersAmongList3Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2766,7 +2767,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFightersAmongList4Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2814,7 +2815,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFightersAmongList5Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2900,7 +2901,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFightersAmongList6Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -2955,7 +2956,7 @@ public class FightOrderTest extends InitializationDataBase {
     public void closestFoeFighter1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,data_);
+        Player player_ = Player.build(NICKNAME,diff_,true,data_);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
         PkTrainer foePokemon_ = new PkTrainer();
         foePokemon_.setName(PIKACHU);
@@ -3005,7 +3006,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3056,7 +3057,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3109,7 +3110,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3189,7 +3190,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3246,7 +3247,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3305,7 +3306,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3343,7 +3344,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3411,7 +3412,7 @@ public class FightOrderTest extends InitializationDataBase {
     }
 
     private static Fight chosenTargets(byte _mult, Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3810,7 +3811,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3875,7 +3876,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3938,7 +3939,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -4001,7 +4002,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -4049,7 +4050,7 @@ public class FightOrderTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -4430,7 +4431,7 @@ public class FightOrderTest extends InitializationDataBase {
     }
 
     private Fight sortedFightersAmongListEndRound2(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -4442,7 +4443,7 @@ public class FightOrderTest extends InitializationDataBase {
     }
 
     private Fight sortedFightersAmongListEndRound1(DataBase _data, Difficulty _diff, StringMap<Short> _moves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();

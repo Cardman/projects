@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class FightKoTest extends InitializationDataBase {
     private static final String PIKA = "PIKA";
 
     private static Fight rateWonPoint(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -110,7 +111,7 @@ public class FightKoTest extends InitializationDataBase {
     }
 
     private static Fight addExp(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -237,7 +238,7 @@ public class FightKoTest extends InitializationDataBase {
     }
 
     private static Fight addEv(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -357,7 +358,7 @@ public class FightKoTest extends InitializationDataBase {
     public void pointsFoe1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -432,7 +433,7 @@ public class FightKoTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -487,7 +488,7 @@ public class FightKoTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setDiffWinningExpPtsFight(DifficultyWinPointsFight.DIFFICILE);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -562,7 +563,7 @@ public class FightKoTest extends InitializationDataBase {
     }
 
     private static Fight setKo(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -803,7 +804,7 @@ public class FightKoTest extends InitializationDataBase {
     }
 
     private static Fight moveTeams(Difficulty _diff, byte _mult, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);

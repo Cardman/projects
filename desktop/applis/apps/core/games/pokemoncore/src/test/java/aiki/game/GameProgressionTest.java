@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import code.util.CustList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -29,7 +30,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
         assertEq(NICKNAME, gameProgression_.getNickname());
@@ -144,7 +145,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setAbility(ATTENTION);
@@ -267,7 +268,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 0));
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
@@ -383,7 +384,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 0));
         game_.beatTrainer(new NbFightCoords(newCoords(0, 0, 1, 1), 1));
         GameProgression gameProgression_ = new GameProgression(data_,game_);
@@ -499,7 +500,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatTrainer(new NbFightCoords(newCoords(5, 0, 1, 5), 0));
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
@@ -615,7 +616,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
@@ -731,7 +732,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         Pokemon pk_ = new WildPk();
         pk_.setName(PTITARD);
         pk_.setAbility(ATTENTION);
@@ -856,7 +857,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         game_.getPlayer().getBox().add(new Egg(PTITARD));
         GameProgression gameProgression_ = new GameProgression(data_,game_);
         assertTrue(!gameProgression_.isFinishedGame());
@@ -972,7 +973,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
         pkPlayer_.setLevel((short) 100);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
@@ -1089,7 +1090,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
         pkPlayer_.setHappiness((short) 170);
         GameProgression gameProgression_ = new GameProgression(data_,game_);
@@ -1206,7 +1207,7 @@ public class GameProgressionTest extends InitializationDataBase {
     public void new_GameProgression_DataBase_Game_11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUserInteract(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUserInteract(NICKNAME, game_.getDifficulty(), data_);
         PokemonPlayer pkPlayer_ = (PokemonPlayer) game_.getPlayer().getTeam().get(0);
         pkPlayer_.setHappiness((short) 170);
         pkPlayer_.setLevel((short) 100);

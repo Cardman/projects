@@ -5,6 +5,7 @@ import aiki.game.Game;
 import aiki.game.fight.EvolutionChoiceMap;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
+import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
@@ -25,7 +26,7 @@ public final class FacadeGameFightKoThreeTest extends InitializationDataBase {
     public static FacadeGame initTests() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(5, 0, 1, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         Pokemon pk_ = new WildPk();

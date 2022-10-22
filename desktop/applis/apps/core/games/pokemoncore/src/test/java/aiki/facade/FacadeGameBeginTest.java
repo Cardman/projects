@@ -26,10 +26,14 @@ public final class FacadeGameBeginTest extends InitializationDataBase {
     }
 
     @Test
+    public void sexList() {
+        assertEq(2,initTests().getSexList().all().size());
+    }
+    @Test
     public void act1Test() {
         FacadeGame facadeGame_ = initTests();
         facadeGame_.clearGame();
-        facadeGame_.newGame("",null);
+        facadeGame_.newGame("",Sex.NO);
         assertEq(1, facadeGame_.getPlayer().getPokemonPlayerList().size());
         facadeGame_.initIv();
         assertTrue(!facadeGame_.isShowEndGame());

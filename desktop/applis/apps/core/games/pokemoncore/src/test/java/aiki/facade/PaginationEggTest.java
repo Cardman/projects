@@ -1,6 +1,7 @@
 package aiki.facade;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
@@ -776,7 +777,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -842,7 +843,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -914,7 +915,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -988,7 +989,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1035,7 +1036,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1090,7 +1091,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1163,7 +1164,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1208,7 +1209,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1254,7 +1255,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1300,7 +1301,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1375,7 +1376,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1451,7 +1452,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1527,7 +1528,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1571,7 +1572,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1616,7 +1617,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1661,7 +1662,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1705,7 +1706,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1750,7 +1751,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1795,7 +1796,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1839,7 +1840,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1884,7 +1885,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1928,7 +1929,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -1972,7 +1973,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2017,7 +2018,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2061,7 +2062,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2106,7 +2107,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2152,7 +2153,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2202,7 +2203,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2250,7 +2251,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2296,7 +2297,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2343,7 +2344,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2391,7 +2392,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2455,7 +2456,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2508,7 +2509,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2563,7 +2564,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2626,7 +2627,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2674,7 +2675,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);
@@ -2724,7 +2725,7 @@ public class PaginationEggTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         Egg egg_;
         egg_ = new Egg(PIKACHU);
         egg_.versEclosion((short) 15);

@@ -1,6 +1,7 @@
 package aiki.game.player;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import org.junit.Test;
 
 import aiki.fight.enums.Statistic;
@@ -48,7 +49,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
@@ -115,7 +116,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
@@ -167,7 +168,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
@@ -235,7 +236,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
@@ -260,7 +261,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
@@ -285,7 +286,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -340,7 +341,7 @@ public class PlayerEndFightTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         diff_.setRestoredMovesEndFight(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);

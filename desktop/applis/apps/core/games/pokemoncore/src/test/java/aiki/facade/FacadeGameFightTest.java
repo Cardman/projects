@@ -6,6 +6,7 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.actions.ActionHeal;
 import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
+import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
@@ -20,7 +21,7 @@ public final class FacadeGameFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);

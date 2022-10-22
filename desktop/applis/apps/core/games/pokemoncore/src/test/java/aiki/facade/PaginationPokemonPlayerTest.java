@@ -1,6 +1,7 @@
 package aiki.facade;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import code.util.core.IndexConstants;
 import org.junit.Test;
 
@@ -807,7 +808,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -912,7 +913,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -958,7 +959,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1035,7 +1036,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
@@ -1137,7 +1138,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
@@ -1196,7 +1197,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1299,7 +1300,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1339,7 +1340,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1395,7 +1396,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1435,7 +1436,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
@@ -1474,7 +1475,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
         player_.getBox().add(pk_);
@@ -1512,7 +1513,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1552,7 +1553,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         player_.getBox().add(new Egg(PIKACHU));
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,LIMAGMA, Gender.NO_GENDER, 2, FOUR, BAIE_MEPO);
@@ -1591,7 +1592,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1630,7 +1631,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1669,7 +1670,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1725,7 +1726,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1785,7 +1786,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1845,7 +1846,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1896,7 +1897,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -1948,7 +1949,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -2007,7 +2008,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);
@@ -2085,7 +2086,7 @@ public class PaginationPokemonPlayerTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
-        Player player_ = new Player(NICKNAME, null, diff_, true, data_);
+        Player player_ = Player.build(NICKNAME, diff_, true, data_);
         PokemonPlayer pk_;
         pk_ = newPokemonPlayer(data_,PIKACHU, Gender.NO_GENDER, 2, STATIK, NULL_REF);
         player_.getBox().add(pk_);

@@ -102,6 +102,11 @@ public class FacadeGame {
 
     private String zipName = DataBase.EMPTY_STRING;
 
+    private SexListInt sexList;
+
+    public FacadeGame() {
+        setSexList(new SexListImpl());
+    }
     // New game option
     public void newGame(String _pseudo, Sex _sexeHeros) {
         game = new Game(data);
@@ -2635,5 +2640,13 @@ public class FacadeGame {
 
     public void setDisplayLanguages(StringMap<String> _displayLanguages) {
         displayLanguages = _displayLanguages;
+    }
+
+    public SexListInt getSexList() {
+        return sexList;
+    }
+
+    public void setSexList(SexListInt _i) {
+        this.sexList = _i;
     }
 }

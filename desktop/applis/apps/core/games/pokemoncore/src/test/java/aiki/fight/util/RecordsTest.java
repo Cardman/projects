@@ -1,6 +1,7 @@
 package aiki.fight.util;
 
 import aiki.db.EquallablePkUtil;
+import aiki.facade.SexListImpl;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
@@ -294,15 +295,15 @@ public final class RecordsTest extends EquallablePkUtil {
     }
     @Test
     public void test45() {
-        assertSame(Sex.GIRL,Sex.getSexByName("GIRL"));
+        assertSame(Sex.GIRL,Sex.getSexByName("GIRL",new SexListImpl()));
     }
     @Test
     public void test46() {
-        assertSame(Sex.BOY,Sex.getSexByName("BOY"));
+        assertSame(Sex.BOY,Sex.getSexByName("BOY",new SexListImpl()));
     }
     @Test
     public void test47() {
-        assertNotNull(Sex.getSexByName(""));
+        assertNotNull(Sex.getSexByName("",new SexListImpl()));
     }
     @Test
     public void test48() {

@@ -6,6 +6,7 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.game.player.enums.Sex;
 import aiki.map.DataMap;
 import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelWithWildPokemon;
@@ -27,7 +28,7 @@ public final class FacadeGameBallTest extends InitializationDataBase {
         diff_.setDamageRateLawFoe(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setAllowCatchingKo(false);
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         game_.setDifficulty(diff_);
         game_.getPlayer().getItem(HYPER_BALL);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));

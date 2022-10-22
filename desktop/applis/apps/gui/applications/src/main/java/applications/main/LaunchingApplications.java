@@ -1,5 +1,6 @@
 package applications.main;
 
+import aiki.facade.SexListImpl;
 import aiki.game.Game;
 import aiki.main.AikiFactory;
 import aiki.main.LaunchingPokemon;
@@ -75,7 +76,7 @@ public class LaunchingApplications extends SoftApplicationCore {
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
-            Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_);
+            Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,new SexListImpl());
             LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
             if (loadingGameOrNull_ != null || gameOrNull_ != null) {
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory);

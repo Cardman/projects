@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import aiki.util.TargetCoordsList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -41,7 +42,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -106,7 +107,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -171,7 +172,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -236,7 +237,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -301,7 +302,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -367,7 +368,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -433,7 +434,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -498,7 +499,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -596,7 +597,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -722,7 +723,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setAllowCatchingKo(false);
 //        diff_.setAllowedSwitchPlacesEndRound(false);
         diff_.setAllowedSwitchPlacesEndRound(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -820,7 +821,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -886,7 +887,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -984,7 +985,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1118,7 +1119,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1252,7 +1253,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1386,7 +1387,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1521,7 +1522,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1630,7 +1631,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
         diff_.setAllowedSwitchPlacesEndRound(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1728,7 +1729,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         diff_.setIvPlayer((short) 20);
         diff_.setIvFoe((short) 15);
         diff_.setAllowCatchingKo(false);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);

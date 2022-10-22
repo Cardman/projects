@@ -102,7 +102,7 @@ public final class Player {
     private String nickname;
 
     /**sexe du heros*/
-    private Sex sex;
+    private Sex sex = Sex.NO;
 
     /**Ensemble des pokemon et des oeufs presents dans l'equipe. (maximum 6)
     equipe de l'utilisateur autre que les oeufs (maximum 6)*/
@@ -149,7 +149,7 @@ public final class Player {
     public Player(String _pseudo,Sex _sexeHeros,Difficulty _diff,boolean _avecPkIni,DataBase _import){
         nickname=_pseudo;
         if (nickname.isEmpty()) {
-            if (_sexeHeros == null) {
+            if (_sexeHeros == Sex.NO) {
                 nickname = DEFAULT_NICKNAME_PREFIX;
             } else {
                 nickname = StringUtil.concat(DEFAULT_NICKNAME_PREFIX, _sexeHeros.getSexName());
@@ -166,6 +166,12 @@ public final class Player {
         setMoney(_import.getDefaultMoney().intPart());
         setInventory(new Inventory(_import));
         remainingRepelSteps=0;
+    }
+    public static Player build(Difficulty _diff,boolean _avecPkIni,DataBase _import) {
+        return build(DataBase.EMPTY_STRING,_diff,_avecPkIni,_import);
+    }
+    public static Player build(String _nickname,Difficulty _diff,boolean _avecPkIni,DataBase _import) {
+        return new Player(_nickname,Sex.NO,_diff,_avecPkIni,_import);
     }
 
     void initTeam(Sex _sexeHeros,Difficulty _diff, WildPk _firstPk,DataBase _import){
@@ -213,7 +219,7 @@ public final class Player {
     }
 
     public boolean validate(DataBase _data) {
-        if (badTeamCount(_data)) {
+        if (badSexTeamCount(_data)) {
             return false;
         }
         int nbPkPlayers_ = IndexConstants.SIZE_EMPTY;
@@ -246,6 +252,14 @@ public final class Player {
             return false;
         }
         return remainingRepelSteps >= 0;
+    }
+
+    private boolean badSexTeamCount(DataBase _data) {
+        return badSex() || badTeamCount(_data);
+    }
+
+    private boolean badSex() {
+        return sex != Sex.GIRL && sex != Sex.BOY;
     }
 
     private boolean badTeamCount(DataBase _data) {
@@ -1532,9 +1546,6 @@ public final class Player {
     }
 
     public Sex getOppositeSex() {
-        if (sex == null) {
-            return null;
-        }
         return sex.getOppositeSex();
     }
 

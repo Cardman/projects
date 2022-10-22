@@ -1,6 +1,7 @@
 package aiki.db;
 
 import aiki.comparators.ComparatorEndRoundMainElements;
+import aiki.facade.SexListInt;
 import aiki.fight.Combos;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.abilities.AbilityData;
@@ -567,7 +568,7 @@ public class DataBase {
         trainers.put(_fileName, _img);
     }
 
-    public void validate(PerCent _perCentLoading, LoadFlag _loading) {
+    public void validate(PerCent _perCentLoading, LoadFlag _loading,SexListInt _sexListInt) {
         for (LawNumber v : lawsDamageRate.values()) {
             if (v.getLaw().events().isEmpty()) {
                 setError(true);
@@ -611,7 +612,7 @@ public class DataBase {
         if (!_loading.get()) {
             return;
         }
-        validateImages();
+        validateImages(_sexListInt);
         _perCentLoading.setPercent(90);
         if (!_loading.get()) {
             return;
@@ -1112,7 +1113,7 @@ public class DataBase {
         }
     }
 
-    public void validateImages() {
+    public void validateImages(SexListInt _sexListInt) {
         DataInfoChecker.checkStringListContains(animStatus.getKeys(),status.getKeys(),this);
         StringList statisNames_ = statisNames();
         DataInfoChecker.checkStringListContains(animStatis.getKeys(),statisNames_,this);
@@ -1132,7 +1133,7 @@ public class DataBase {
         checkInners(people.values());
         notEmptyImages(trainers.values());
         for (Direction d : Direction.all()) {
-            for (Sex s : Sex.all()) {
+            for (Sex s : _sexListInt.all()) {
                 ImageHeroKey key_;
                 key_ = new ImageHeroKey(EnvironmentType.ROAD, d, s);
                 if (!overWorldHeros.contains(key_)) {
@@ -1141,8 +1142,8 @@ public class DataBase {
             }
         }
         checkInners(overWorldHeros.values());
-        checkHeros(frontHeros);
-        checkHeros(backHeros);
+        checkHeros(frontHeros,_sexListInt);
+        checkHeros(backHeros,_sexListInt);
         notEmptyImages(frontHeros.values());
         notEmptyImages(backHeros.values());
         boundsPk();
@@ -1199,8 +1200,8 @@ public class DataBase {
         }
     }
 
-    private void checkHeros(ImageHeroKeys _images) {
-        for (Sex s : Sex.all()) {
+    private void checkHeros(ImageHeroKeys _images, SexListInt _sexListInt) {
+        for (Sex s : _sexListInt.all()) {
             ImageHeroKey key_;
             key_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             if (!_images.contains(key_)) {

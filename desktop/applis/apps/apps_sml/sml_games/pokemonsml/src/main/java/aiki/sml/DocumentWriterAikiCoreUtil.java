@@ -3424,7 +3424,7 @@ public final class DocumentWriterAikiCoreUtil {
     private static Element setSex(Sex _object, String _fieldName, Document _document) {
         Element elt_ = _document.createElement(TYPE_SEX);
         DocumentWriterCoreUtil.setFieldName(elt_, _fieldName);
-        elt_.setAttribute(ATTR_VALUE,_object.name());
+        elt_.setAttribute(ATTR_VALUE,_object.getSexName());
         return elt_;
     }
 

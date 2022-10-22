@@ -37,13 +37,13 @@ public final class ImageHeroKey {
     }
 
     public boolean eq(ImageHeroKey _obj) {
-        if (type != _obj.type) {
+        if (getType() != _obj.getType()) {
             return false;
         }
-        if (direction != _obj.direction) {
+        if (getDirection() != _obj.getDirection()) {
             return false;
         }
-        return sex == _obj.sex;
+        return getSex() == _obj.getSex();
     }
 
     public EnvironmentType getType() {

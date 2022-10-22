@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -30,7 +31,7 @@ public class FightValuesTest extends InitializationDataBase {
 
     private static Fight calculateValuesFighter(DataBase _data) {
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1133,7 +1134,7 @@ public class FightValuesTest extends InitializationDataBase {
     private static Fight calculateBasicBooleanValues(byte _mult, DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -3028,7 +3029,7 @@ public class FightValuesTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);

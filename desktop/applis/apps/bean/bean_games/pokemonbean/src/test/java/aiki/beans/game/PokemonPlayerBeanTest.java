@@ -553,7 +553,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
     private Game game(DataBase _init) {
         Game game_ = new Game(_init);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, _init);
+        game_.initUtilisateur(NICKNAME, diff_, _init);
         return game_;
     }
 

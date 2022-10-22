@@ -1129,7 +1129,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1162,7 +1162,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1195,7 +1195,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1237,7 +1237,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1281,7 +1281,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         g_.setPlayer(player_);
         fac_.setGame(g_);
@@ -1294,7 +1294,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1327,7 +1327,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         g_.setPlayer(player_);
         fac_.setGame(g_);
@@ -1346,7 +1346,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1380,7 +1380,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        Player player_ = Player.build(diff_,false,_data);
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKA_2,4),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
         player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,5),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
@@ -1459,7 +1459,7 @@ public abstract class InitDbFight extends InitDbBean {
         FacadeGame fac_ = initFacade(_data);
         Game g_ = new Game();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,true,_data);
+        Player player_ = Player.build(diff_,true,_data);
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
 //        PkTrainer foePokemon_ = Instances.newPkTrainer();
 //        foePokemon_.setName(PIKACHU);

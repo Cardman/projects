@@ -1,5 +1,6 @@
 package aiki.game.fight;
 
+import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionsMonteCarloNumber;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -950,7 +951,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private static Fight rateDamageInvokedMove(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2335,7 +2336,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2446,7 +2447,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private static Fight remainingHp(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -4205,7 +4206,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private static Fight enableBoostEffectWhileKoTarget(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);

@@ -1,6 +1,7 @@
 package aiki.game;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import code.maths.montecarlo.EventFreq;
 import code.maths.montecarlo.MonteCarloList;
 import code.util.CustList;
@@ -32,7 +33,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void lawCopy1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -61,7 +62,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void lawCopy2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -84,7 +85,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void lawCopy3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -110,7 +111,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
         pokemonDonne_.setLevel((short) 1);
@@ -138,7 +139,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
         pokemonDonne_.setLevel((short) 1);
@@ -176,7 +177,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
         pokemonDonne_.setLevel((short) 1);
@@ -212,7 +213,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void newRandomPokemon2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -230,7 +231,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void newIndex1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -248,7 +249,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void newIndex2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -266,7 +267,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void newIndex3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -284,7 +285,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void newIndex4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -304,7 +305,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
         pokemonDonne_.setLevel((short) 1);
@@ -332,7 +333,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
         pokemonDonne_.setLevel((short) 1);
@@ -365,7 +366,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
         Difficulty diff_ = new Difficulty();
-        game_.initUtilisateur(NICKNAME, null, diff_, data_);
+        game_.initUtilisateur(NICKNAME, diff_, data_);
         Pokemon pokemonDonne_ = new WildPk();
         pokemonDonne_.setName(ARTIKODIN);
         pokemonDonne_.setLevel((short) 1);
@@ -397,7 +398,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void incrementPeriod1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -416,7 +417,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void incrementPeriod2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         DataMap map_ = data_.getMap();
         Campaign pl_ = (Campaign) map_.getPlace((short) 0);
         Coords current_ = game_.getPlayerCoords();
@@ -440,7 +441,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initFishing1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -453,7 +454,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initFishing2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -467,7 +468,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initFishing3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -480,7 +481,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initFishing4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 3));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(true);
@@ -494,7 +495,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initLegendaryPokemonFight1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.initLegendaryPokemonFight(data_);
@@ -507,7 +508,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -524,7 +525,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -542,7 +543,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -561,7 +562,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 10, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -578,7 +579,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 10, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -597,7 +598,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 2, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -611,7 +612,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 3, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -625,7 +626,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 1, 8));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -639,7 +640,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -655,7 +656,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -674,7 +675,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(1, 7));
         game_.getBeatGymTrainer().getVal((short) 1).add(newPoint(7, 7));
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
@@ -694,7 +695,7 @@ public class GameInitializeFightTest extends InitializationDataBase {
     public void initTrainerFight12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, game_.getDifficulty(), data_);
+        game_.initUtilisateur(NICKNAME, game_.getDifficulty(), data_);
         //[1;5,1;0_4,1, 3;4,1;0_4,1, 2;0_4,0, 5;0_2,0, 2;0_2,0, 6;0_4,8]
         game_.beatGymLeader(newCoords(1, 0, 5, 1, 4, 1));
         game_.beatGymLeader(newCoords(3, 0, 4, 1, 4, 1));

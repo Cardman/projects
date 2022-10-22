@@ -51,12 +51,12 @@ public final class LoadRes{
         DataBase data_ = _loading.loadResource(_gene, _p, _l);
         LoadRes.postLoad(_f, data_);
     }
-    public static DataBase loadResource(AbstractGenerator _gene, PerCent _p, LoadFlag _l, StringList _languages, StringMap<String> _displayLanguages) {
+    public static DataBase loadResource(AbstractGenerator _gene, PerCent _p, LoadFlag _l, StringList _languages, StringMap<String> _displayLanguages, SexListInt _sexList) {
         DataBase data_ = new DataBase(_gene);
         data_.setLanguages(_languages);
         data_.setDisplayLanguages(_displayLanguages);
         _l.set(true);
-        loadResources(data_, _p);
+        loadResources(data_, _p,_sexList);
         return data_;
     }
 
@@ -70,7 +70,7 @@ public final class LoadRes{
         _f.setZipName(DataBase.EMPTY_STRING);
     }
 
-    public static void loadResources(DataBase _d, PerCent _perCentLoading) {
+    public static void loadResources(DataBase _d, PerCent _perCentLoading, SexListInt _sexList) {
         int delta_ = (100 - _perCentLoading.getPercent()) / 6;
 
         _d.initializeMembers();
@@ -91,7 +91,7 @@ public final class LoadRes{
             StringList keyStrings_ = StringUtil.splitStrings(e.getKey(),
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_.first());
-            Sex sex_ = getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getFrontHeros().addEntry(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
@@ -102,7 +102,7 @@ public final class LoadRes{
                     SEPARATOR_KEY_HEROS);
             EnvironmentType env_ = getEnvByName(keyStrings_
                     .first());
-            Sex sex_ = getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getBackHeros().addEntry(new ImageHeroKey(env_, sex_),
                     BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
@@ -115,7 +115,7 @@ public final class LoadRes{
                     .first());
             Direction dir_ = Direction.getDirectionByName(keyStrings_
                     .get(IndexConstants.SECOND_INDEX));
-            Sex sex_ = getSexByName(keyStrings_.last());
+            Sex sex_ = getSexByName(keyStrings_.last(),_sexList);
             _d.getOverWorldHeros().addEntry(new ImageHeroKey(env_, dir_, sex_),
                     BaseSixtyFourUtil.getImageByString(e.getValue()));
         }
@@ -572,8 +572,8 @@ public final class LoadRes{
     public static EnvironmentType getEnvByName(String _env) {
         return EnvironmentType.getEnvByName(_env);
     }
-	public static Sex getSexByName(String _env) {
-        return Sex.getSexByName(_env);
+	public static Sex getSexByName(String _env, SexListInt _sexList) {
+        return Sex.getSexByName(_env,_sexList);
     }
 	public static Gender getGenderByName(String _env) {
         return Gender.getGenderByName(_env);

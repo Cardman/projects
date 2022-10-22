@@ -17,5 +17,45 @@
 			<artifactId>int_gui</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>pokemoncore</groupId>
+			<artifactId>pokemoncore</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>belote</groupId>
+			<artifactId>belote</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>president</groupId>
+			<artifactId>president</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>tarot</groupId>
+			<artifactId>tarot</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>pokemonbean</groupId>
+			<artifactId>pokemonbean</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>belotebean</groupId>
+			<artifactId>belotebean</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>presidentbean</groupId>
+			<artifactId>presidentbean</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>tarotbean</groupId>
+			<artifactId>tarotbean</artifactId>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
     </dependencies>
 </project>

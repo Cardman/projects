@@ -1,5 +1,6 @@
 package aiki.db;
 
+import aiki.facade.SexListImpl;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
@@ -82,7 +83,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -110,7 +111,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -238,7 +239,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -293,7 +294,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         data_.initializeWildPokemon();
         assertTrue(data_.isError());
     }
@@ -355,7 +356,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         data_.initializeWildPokemon();
         assertTrue(data_.isError());
         ShortMap<CustList<PlaceInterConnect>> v_ = new ShortMap<CustList<PlaceInterConnect>>();
@@ -412,7 +413,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -455,7 +456,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -498,7 +499,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -563,7 +564,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -615,7 +616,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -668,7 +669,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -726,7 +727,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -789,7 +790,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -846,7 +847,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -902,7 +903,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -966,7 +967,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -994,7 +995,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1024,7 +1025,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
         assertTrue(data_.getMap().getAreaByCoords(new Coords()).isVirtual());
     }
@@ -1092,7 +1093,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1159,7 +1160,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1225,7 +1226,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1270,7 +1271,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1319,7 +1320,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1401,7 +1402,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1474,7 +1475,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1572,7 +1573,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1672,7 +1673,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1737,7 +1738,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1802,7 +1803,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1867,7 +1868,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1922,7 +1923,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -1976,7 +1977,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2031,7 +2032,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2050,7 +2051,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2071,7 +2072,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2092,7 +2093,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2112,7 +2113,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2132,7 +2133,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2152,7 +2153,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2172,7 +2173,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2192,7 +2193,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2236,7 +2237,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         initExpPoints(data_);
         data_.getMap().validate(data_);
-        data_.validateImages();
+        validateImages(data_);
         assertTrue(data_.isError());
     }
 
@@ -2598,4 +2599,9 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         DataBase data_ = newData();
         assertEq(0, data_.getImageTile("tile",new ScreenCoords()).length);
     }
+
+    private void validateImages(DataBase _data) {
+        _data.validateImages(new SexListImpl());
+    }
+
 }

@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -48,7 +49,7 @@ public class FightRoundTest extends InitializationDataBase {
     public void initRound1Test() {
         DataBase data_ = initDb();
         Difficulty diff_= new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(GRELOT_ZEN);
@@ -120,7 +121,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private static Fight autoDamage(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -316,7 +317,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private static Fight effectBeginRoundAttack(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(YANMA);
         pokemon_.setItem(NULL_REF);
@@ -1062,7 +1063,7 @@ public class FightRoundTest extends InitializationDataBase {
     public void takers1Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1124,7 +1125,7 @@ public class FightRoundTest extends InitializationDataBase {
     public void takers2Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1185,7 +1186,7 @@ public class FightRoundTest extends InitializationDataBase {
     public void takers3Test() {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1243,7 +1244,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private static Fight pressure(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1358,7 +1359,7 @@ public class FightRoundTest extends InitializationDataBase {
 
     private static Fight effectWhileFail(Difficulty _diff, DataBase _data) {
         _diff.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1667,7 +1668,7 @@ public class FightRoundTest extends InitializationDataBase {
     private static Fight healPartner(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5532,7 +5533,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5590,7 +5591,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5648,7 +5649,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5709,7 +5710,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5766,7 +5767,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5818,7 +5819,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5871,7 +5872,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(VIVE_GRIFFE);
@@ -5924,7 +5925,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5952,7 +5953,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5982,7 +5983,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6012,7 +6013,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NINGALE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6042,7 +6043,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NINGALE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6067,7 +6068,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(NINGALE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6093,7 +6094,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6120,7 +6121,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6148,7 +6149,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6175,7 +6176,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6202,7 +6203,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6230,7 +6231,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6261,7 +6262,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6295,7 +6296,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6332,7 +6333,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6374,7 +6375,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6407,7 +6408,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6443,7 +6444,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6482,7 +6483,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6528,7 +6529,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(VIVE_GRIFFE);
@@ -6583,7 +6584,7 @@ public class FightRoundTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         diff_.setIvPlayer((short) 0);
         diff_.setIvFoe((short) 0);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TARTARD);
         pokemon_.setItem(VIVE_GRIFFE);
@@ -6638,7 +6639,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6670,7 +6671,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6704,7 +6705,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6738,7 +6739,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6774,7 +6775,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6817,7 +6818,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6856,7 +6857,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6892,7 +6893,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -6954,7 +6955,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7016,7 +7017,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7091,7 +7092,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7164,7 +7165,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7211,7 +7212,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7287,7 +7288,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7328,7 +7329,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7365,7 +7366,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7401,7 +7402,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7435,7 +7436,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7506,7 +7507,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7568,7 +7569,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7642,7 +7643,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7710,7 +7711,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7743,7 +7744,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7801,7 +7802,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7866,7 +7867,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7896,7 +7897,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7927,7 +7928,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -7957,7 +7958,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8010,7 +8011,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8084,7 +8085,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8157,7 +8158,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8203,7 +8204,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(TETARTE);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8251,7 +8252,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8345,7 +8346,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8408,7 +8409,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8442,7 +8443,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8477,7 +8478,7 @@ public class FightRoundTest extends InitializationDataBase {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(PTITARD);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -8616,7 +8617,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight calculateCatchingRate1(DataBase _data, Difficulty _diff, StringMap<Short> _moves, String _name, int _level) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short) 3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short) 4, _moves));
         WildPk foePokemon_ = new WildPk();
@@ -8632,7 +8633,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets14(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -8643,7 +8644,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets13(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -8657,7 +8658,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets12(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(pkTrainer((short)3, _partnerMoves));
@@ -8667,7 +8668,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets11(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -8679,7 +8680,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets10(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         allyTeam_.add(pkTrainer((short)3, _partnerMoves));
@@ -8690,7 +8691,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets9(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -8702,7 +8703,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets8(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
@@ -8714,7 +8715,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets7(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)100, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
@@ -8728,7 +8729,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets6(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
@@ -8740,7 +8741,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets5(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();
         CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
@@ -8750,7 +8751,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets4(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
@@ -8768,7 +8769,7 @@ public class FightRoundTest extends InitializationDataBase {
     }
 
     private Fight processEffectTargets1(DataBase _data, Difficulty _diff, StringMap<Short> _moves, StringList _partnerMoves, StringList _foeMoves) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         player_.getTeam().add(pkPlayer(_diff, _data, (short)3, _moves));
         player_.getTeam().add(pkPlayer(_diff, _data, (short)4, _moves));
         CustList<PkTrainer> allyTeam_ = new CustList<PkTrainer>();

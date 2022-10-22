@@ -1,5 +1,6 @@
 package aiki.db;
 
+import aiki.facade.SexListImpl;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
@@ -174,7 +175,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.getPeople().addEntry(TREMPETTE2,new int[1][1]);
         data_.getLinks().addEntry(TREMPETTE,new int[0][0]);
         data_.getLinks().addEntry(TREMPETTE2,new int[1][1]);
-        data_.validateImages();
+        data_.validateImages(new SexListImpl());
         assertTrue(data_.isError());
     }
 
@@ -2481,7 +2482,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2494,7 +2496,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2515,7 +2518,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initConstants(data_);
         initExpPoints(data_);
         initRandomLaws(data_);
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2541,7 +2545,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2566,7 +2571,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2590,7 +2596,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2610,7 +2617,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2624,7 +2632,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.completeVariables();
         LoadFlagSampleOne loading_ = new LoadFlagSampleOne();
-        data_.validate(loading_.getLoadFlag(), loading_);
+        validate(data_, loading_.getLoadFlag(), loading_);
         assertTrue(!loading_.get());
     }
     @Test
@@ -2638,7 +2646,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.completeVariables();
         LoadFlagSampleTwo loading_ = new LoadFlagSampleTwo();
-        data_.validate(loading_.getLoadFlag(), loading_);
+        validate(data_, loading_.getLoadFlag(), loading_);
         assertTrue(!loading_.get());
     }
     @Test
@@ -2652,7 +2660,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.completeVariables();
         LoadFlagSampleThree loading_ = new LoadFlagSampleThree();
-        data_.validate(loading_.getLoadFlag(), loading_);
+        validate(data_, loading_.getLoadFlag(), loading_);
         assertTrue(!loading_.get());
     }
     @Test
@@ -2666,7 +2674,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.completeVariables();
         LoadFlagSampleFour loading_ = new LoadFlagSampleFour();
-        data_.validate(loading_.getLoadFlag(), loading_);
+        validate(data_, loading_.getLoadFlag(), loading_);
         assertTrue(!loading_.get());
     }
     @Test
@@ -2680,7 +2688,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.completeVariables();
         LoadFlagSampleFive loading_ = new LoadFlagSampleFive();
-        data_.validate(loading_.getLoadFlag(), loading_);
+        validate(data_, loading_.getLoadFlag(), loading_);
         assertTrue(!loading_.get());
     }
     @Test
@@ -2694,7 +2702,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.completeVariables();
         LoadFlagSampleSix loading_ = new LoadFlagSampleSix();
-        data_.validate(loading_.getLoadFlag(), loading_);
+        validate(data_, loading_.getLoadFlag(), loading_);
         assertTrue(!loading_.get());
     }
     @Test
@@ -2723,7 +2731,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2753,7 +2762,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2802,7 +2812,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2851,7 +2862,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2899,7 +2911,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initExpPoints(data_);
         initRandomLaws(data_);
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2913,7 +2926,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.getLawsDamageRate().lastValue().getLaw().getEvents().clear();
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -2985,7 +2999,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,PARATONNERRE),Rate.one());
         data_.getTableTypes().addEntry(new TypesDuo(PARATONNERRE,PARATONNERRE),Rate.one());
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -3035,7 +3050,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -3080,7 +3096,8 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         initRandomLaws(data_);
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.completeVariables();
-        data_.validate(new TstsPerCentImpl(),new LoadFlagSample());
+        final LoadFlagSample l = new LoadFlagSample();
+        validate(data_, new TstsPerCentImpl(), l);
         assertTrue(data_.isError());
     }
     @Test
@@ -3092,4 +3109,10 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         l_.getLoadFlag().addPercent(1);
         assertEq(1,l_.getLoadFlag().getPercent());
     }
+
+    private void validate(DataBase _data, PerCent _per, LoadFlag _l) {
+        _data.validate(_per, _l,new SexListImpl());
+    }
+
+
 }

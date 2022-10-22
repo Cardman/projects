@@ -1,6 +1,7 @@
 package aiki.main;
 
 import aiki.db.DataBase;
+import aiki.facade.SexListImpl;
 import aiki.sml.Resources;
 import aiki.game.Game;
 import aiki.sml.LoadingGame;
@@ -46,7 +47,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
         if (!args_.isEmpty()) {
             gameSavePath_ = args_.first();
             String file_ = StreamTextFile.contentsOfFile(gameSavePath_, getFrames().getFileCoreStream(), getFrames().getStreams());
-            Game g_ = DocumentReaderAikiCoreUtil.getGame(file_);
+            Game g_ = DocumentReaderAikiCoreUtil.getGame(file_,new SexListImpl());
             if (g_ != null) {
                 zip_ = g_.getZippedRom();
                 if (zip_ == null) {

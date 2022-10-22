@@ -8,16 +8,7 @@ import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectCombo;
-import aiki.fight.moves.effects.EffectCommonStatistics;
-import aiki.fight.moves.effects.EffectCounterAttack;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectFullHpRate;
-import aiki.fight.moves.effects.EffectStatistic;
-import aiki.fight.moves.effects.EffectStatus;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
+import aiki.fight.moves.effects.*;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.status.Status;
@@ -92,7 +83,7 @@ public final class CheckNumericStringsFight {
         // String varRegExp_ = StringList.BOUNDS+DataBase.VAR_PREFIX;
         checkExpGrowth(_data);
         Difficulty diff_ = new Difficulty();
-        Player user_ = new Player(DataBase.EMPTY_STRING, null, diff_, false,
+        Player user_ = Player.build(diff_, false,
                 _data);
         WildPk pk_ = new WildPk();
         pk_.setName(_data.getPokedex().firstKey());

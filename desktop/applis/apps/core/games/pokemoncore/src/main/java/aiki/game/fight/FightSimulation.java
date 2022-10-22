@@ -152,7 +152,7 @@ public class FightSimulation {
 
     public FightSimulation(Difficulty _diff, DataBase _import) {
         game = new Game(_import);
-        game.initUtilisateurSimulation(DataBase.EMPTY_STRING, null, _diff, _import);
+        game.initUtilisateurSimulation(DataBase.EMPTY_STRING, _diff, _import);
         team = new CustList<PokemonPlayer>();
         items = new CustList<StringList>();
         evolutions = new CustList<CustList<NameLevel>>();

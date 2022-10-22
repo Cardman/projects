@@ -5,6 +5,7 @@ import aiki.game.Game;
 import aiki.game.enums.InterfaceType;
 import aiki.game.fight.InitializationDataBase;
 import aiki.game.params.Difficulty;
+import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
@@ -17,7 +18,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -36,7 +37,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact2Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -55,7 +56,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact3Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 2, 1));
         game_.setPlayerOrientation(Direction.LEFT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -71,7 +72,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact4Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 2));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -88,7 +89,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact5Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 11, 1));
         game_.setPlayerOrientation(Direction.DOWN);
         game_.getDifficulty().setRandomWildFight(false);
@@ -104,7 +105,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact6Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 4, 1));
         game_.setPlayerOrientation(Direction.UP);
         game_.getDifficulty().setRandomWildFight(false);
@@ -120,7 +121,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact7Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 0, 5));
         game_.setPlayerOrientation(Direction.UP);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -135,7 +136,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact8Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 0, 5));
         game_.setPlayerOrientation(Direction.UP);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -150,7 +151,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact9Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 8, 5));
         game_.setPlayerOrientation(Direction.UP);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -165,7 +166,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact10Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 4));
         game_.setPlayerOrientation(Direction.RIGHT);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -180,7 +181,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact11Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 5));
         game_.setPlayerOrientation(Direction.RIGHT);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -195,7 +196,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact12Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 1, 1, 7, 6));
         game_.setPlayerOrientation(Direction.RIGHT);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -210,7 +211,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact13Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(1, 0, 5, 1, 4, 2));
         game_.setPlayerOrientation(Direction.UP);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -225,7 +226,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact14Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(2, 0, 6, 4));
         game_.setPlayerOrientation(Direction.DOWN);
         FacadeGame facadeGame_ = new FacadeGame();
@@ -240,7 +241,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact15Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(3, 0, 2, 1, 0, 5));
         game_.setPlayerOrientation(Direction.UP);
         game_.getPlayer().getItem(LAVA);
@@ -256,7 +257,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact16Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.DOWN);
         //newCoords(0, 0, 0, 6) is in this data invalid
@@ -273,7 +274,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact17Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.DOWN);
         //newCoords(0, 0, 0, 6) is in this data invalid
@@ -291,7 +292,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void interact18Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 3, 2));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.getDifficulty().setRandomWildFight(false);
@@ -309,7 +310,7 @@ public final class FacadeGameInteractTest extends InitializationDataBase {
     public void nicknameTest() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
-        game_.initUtilisateur(NICKNAME, null, new Difficulty(), data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
         game_.setPlayerCoords(newCoords(0, 0, 0, 5));
         game_.setPlayerOrientation(Direction.DOWN);
         //newCoords(0, 0, 0, 6) is in this data invalid

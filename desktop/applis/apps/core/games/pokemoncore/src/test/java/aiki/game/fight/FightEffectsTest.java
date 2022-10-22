@@ -2,6 +2,7 @@ package aiki.game.fight;
 
 import aiki.fight.moves.effects.*;
 import aiki.game.fight.animations.*;
+import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -45,7 +46,7 @@ public class FightEffectsTest extends InitializationDataBase {
     private static final String VAR_FAIL_SYNCHRONIZING_STATUS = "VAR__EXISTE_GENRE_ASSEXUE|VAR__GENRES_EGAUX|VAR__CIBLE_POSSEDE_STATUT_RELATION__AMOUR";
 
     private static Fight disableStatus(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null,_diff,false, _data);
+        Player player_ = Player.build(NICKNAME,_diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -678,7 +679,7 @@ public class FightEffectsTest extends InitializationDataBase {
     private static Fight effectUnprotectFromMoveTypes(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -1682,7 +1683,7 @@ public class FightEffectsTest extends InitializationDataBase {
     private static Fight effectCommonStatistics(DataBase _data) {
         Difficulty diff_= new Difficulty();
         diff_.setEnabledClosing(true);
-        Player player_ = new Player(NICKNAME,null,diff_,false, _data);
+        Player player_ = Player.build(NICKNAME,diff_,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -2534,7 +2535,7 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight synchronizeStatus(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -4328,7 +4329,7 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight effectBatonPass(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5010,7 +5011,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5055,7 +5056,7 @@ public class FightEffectsTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
-        Player player_ = new Player(NICKNAME,null,diff_,false,data_);
+        Player player_ = Player.build(NICKNAME,diff_,false,data_);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5095,7 +5096,7 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight effectDamageRate(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);
@@ -5937,7 +5938,7 @@ public class FightEffectsTest extends InitializationDataBase {
     }
 
     private static Fight processEffectTarget(Difficulty _diff, DataBase _data) {
-        Player player_ = new Player(NICKNAME,null, _diff,false, _data);
+        Player player_ = Player.build(NICKNAME, _diff,false, _data);
         Pokemon pokemon_ = new WildPk();
         pokemon_.setName(ARTIKODIN);
         pokemon_.setItem(PLAQUE_DRACO);

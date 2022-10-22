@@ -6,6 +6,7 @@ package aiki.gui;
 
 
 import aiki.db.*;
+import aiki.facade.SexListInt;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
@@ -187,7 +188,8 @@ public final class WindowAiki extends NetGroupFrame {
 
     private AbsTextField nickname;
 
-    private Sex chosenSex;
+    private boolean chosenSexAct;
+    private Sex chosenSex = Sex.NO;
 
     private final Clock time;
 
@@ -488,7 +490,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         beginGame.removeAll();
         AbsPanel heros_ = getCompoFactory().newLineBox();
-        for (Sex s: Sex.values()) {
+        for (Sex s: facade.getSexList().all()) {
             ImageHeroKey i_;
             i_ = new ImageHeroKey(EnvironmentType.ROAD, s);
             int[][] imgTxt_ = facade.getData().getFrontHeros().getVal(i_);
@@ -524,13 +526,14 @@ public final class WindowAiki extends NetGroupFrame {
 
     public void changeSex(Sex _sex) {
         chosenSex = _sex;
+        chosenSexAct = true;
         herosLabels.getVal(_sex).setSelected(true);
         herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
         beginGame.repaintSecondChildren(getImageFactory());
     }
 
     private void newGame() {
-        if (chosenSex == null) {
+        if (!chosenSexAct) {
             return;
         }
         facade.newGame(nickname.getText(), chosenSex);
@@ -593,7 +596,7 @@ public final class WindowAiki extends NetGroupFrame {
         Game g_ = null;
         if (!_files.isEmpty()){
             String file_ = StreamTextFile.contentsOfFile(_files.first(), getFrames().getFileCoreStream(), getFrames().getStreams());
-            g_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_);
+            g_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,facade.getSexList());
         }
         if (g_ != null) {
             if (!facade.checkAndSetGame(g_)) {
@@ -613,7 +616,7 @@ public final class WindowAiki extends NetGroupFrame {
             }
             path_ = StringUtil.replaceBackSlash(path_);
             DataBase db_ = facade.getData();
-            Game game_ = load(path_, db_,getFileCoreStream(),getStreams());
+            Game game_ = load(path_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
             if (game_ == null) {
                 loadFlag.set(false);
                 if (_param) {
@@ -816,7 +819,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
         loadFlag.set(true);
-        LoadingThread load_ = new LoadingThread(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages()));
+        LoadingThread load_ = new LoadingThread(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages(), facade.getSexList()));
         getThreadFactory().newStartedThread(load_);
     }
 
@@ -849,7 +852,7 @@ public final class WindowAiki extends NetGroupFrame {
         }
         boolean error_ = false;
         DataBase db_ = facade.getData();
-        Game game_ = load(fileName_, db_,getFileCoreStream(),getStreams());
+        Game game_ = load(fileName_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
         if (game_ != null) {
             facade.load(game_);
             MenuItemUtils.setEnabledMenu(gameSave,true);
@@ -867,8 +870,8 @@ public final class WindowAiki extends NetGroupFrame {
         }
     }
 
-    public static Game load(String _fileName, DataBase _data, AbstractFileCoreStream _fact, TechStreams _streams) {
-        Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName,_fact,_streams));
+    public static Game load(String _fileName, DataBase _data, AbstractFileCoreStream _fact, TechStreams _streams, SexListInt _sexList) {
+        Game game_ = DocumentReaderAikiCoreUtil.getGame(StreamTextFile.contentsOfFile(_fileName,_fact,_streams),_sexList);
         if (game_ == null) {
             return null;
         }
