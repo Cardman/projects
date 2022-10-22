@@ -5,11 +5,38 @@ import aiki.beans.db.InitDbConstr;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbMoves extends InitDbConstr {
+
+    public static String clickLine(Struct _update, Struct _use, int _index) {
+        fwdLine(_update, _use, _index);
+        return navigateData(clickMoveLineBeanMove(),"","",_update,_index);
+    }
+    public static void fwdLine(Struct _update, Struct _use, int _index) {
+        callMoveLineBeanIndexSet(_update,_index);
+        fwdLine(_update, _use);
+    }
+
+    public static void fwdLine(Struct _update, Struct _use) {
+        fwdMoveLine(_update, _use);
+        fwdMoveSet(_update, _use);
+    }
+
     public static void fwdMoveLine(Struct _update, Struct _use) {
         callMoveLineBeanMoveLineSet(_update,callMoveLineBeanMoveLineGet(_use));
     }
     public static void fwdMoveSet(Struct _update, Struct _use) {
         callMoveLineBeanSortedMovesSet(_update,callMovesBeanSortedMovesGet(_use));
+    }
+
+    public static Struct callMoveLineBeanClickMove(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(clickMoveLineBeanMove(),_str,_args);
+    }
+
+    private static MoveLineBeanClickMove clickMoveLineBeanMove() {
+        return new MoveLineBeanClickMove();
+    }
+
+    public static Struct callMoveLineBeanIndexSet(Struct _str, int _args) {
+        return BeanPokemonCommonTs.callInt(new MoveLineBeanIndexSet(),_str,_args);
     }
     public static Struct callMoveLineBeanMoveLineGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineBeanMoveLineGet(),_str,_args);
