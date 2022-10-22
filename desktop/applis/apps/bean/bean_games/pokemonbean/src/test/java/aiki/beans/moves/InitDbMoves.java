@@ -6,10 +6,11 @@ import aiki.beans.PokemonBeanStruct;
 import aiki.beans.StringMapObject;
 import aiki.beans.db.InitDbConstr;
 import code.expressionlanguage.structs.Struct;
+import code.util.StringMap;
 
 public abstract class InitDbMoves extends InitDbConstr {
 
-    public static String clickLine(Struct _use, int _index) {
+    public static String clickLine(Struct _use, StringMap<Struct> _all, int _index) {
         MoveLineBean bean_ = new MoveLineBean();
         CommonBean c_ = (CommonBean) ((PokemonBeanStruct) _use).getBean();
         bean_.setLanguage(c_.getLanguage());
