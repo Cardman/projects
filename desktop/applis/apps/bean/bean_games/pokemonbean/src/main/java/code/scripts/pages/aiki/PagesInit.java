@@ -1,4 +1,5 @@
 package code.scripts.pages.aiki;
+import aiki.beans.game.AikiBeansGameStd;
 import code.sml.*;
 import code.util.*;
 import aiki.beans.fight.*;
@@ -12,7 +13,7 @@ return m_;
 }
 public static StringMap<Document> buildDiff(){
 StringMap<Document> m_ = new StringMap<Document>();
-m_.addEntry("resources_pk/rom/web_game/html/difficulty.html",PageGameDifficulty.build());
+m_.addEntry(PREFIX+AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML,PageGameDifficulty.build());
 return m_;
 }
 public static StringMap<Document> buildFight(){

@@ -7,6 +7,7 @@ import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansGameStd{
+    public static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
     public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
     public static final String TYPE_GAME_PROGRESSION_BEAN = "aiki.beans.game.GameProgressionBean";
     public static final String TYPE_POKEMON_PLAYER_BEAN = "aiki.beans.game.PokemonPlayerBean";

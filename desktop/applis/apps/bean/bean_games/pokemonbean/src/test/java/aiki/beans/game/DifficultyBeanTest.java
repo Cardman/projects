@@ -485,7 +485,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     @Test
     public void change() {
         FacadeGame fac_ = fac();
-        assertEq(CommonBean.DEST_WEB_GAME_HTML_DIFFICULTY_HTML,navigateDiffChange(callDifficultyBeanDiffWinningExpPtsFightSet(displaying(beanDiff(EN, fac_)),DifficultyWinPointsFight.FACILE.getWinName())));
+        assertEq(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML,navigateDiffChange(callDifficultyBeanDiffWinningExpPtsFightSet(displaying(beanDiff(EN, fac_)),DifficultyWinPointsFight.FACILE.getWinName())));
         assertEq(DifficultyWinPointsFight.FACILE.getWinName(),diff(fac_).getDiffWinningExpPtsFight().getWinName());
     }
     @Test

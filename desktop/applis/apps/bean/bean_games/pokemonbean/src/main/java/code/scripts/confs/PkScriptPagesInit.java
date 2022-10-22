@@ -1,6 +1,7 @@
 package code.scripts.confs;
 
 import aiki.beans.fight.*;
+import aiki.beans.game.*;
 import code.formathtml.Configuration;
 import code.formathtml.structs.BeanInfo;
 import code.util.CollCapacity;
@@ -555,7 +556,6 @@ private static final String TRAINER_FIGHT="trainer_fight";
 private static final String TRAINER_MULTI_FIGHT="trainer_multi_fight";
 private static final String TRAINER_ONE_FIGHT="trainer_one_fight";
 private static final String VALIDATE_TRAINER_PK="validate_trainer_pk";
-private static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
 private static final String WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
 private static final String WEB_HTML_ABILITY_DATA_HTML="web/html/ability/data.html";
 private static final String WEB_HTML_COMBO_COMBOS_HTML="web/html/combo/combos.html";
@@ -1135,7 +1135,7 @@ private static final char NAV_SEP='.';
         return nav_;
     }
     public static StringMap<StringMap<String>> initConfDiff(Configuration _configuration){
-        _configuration.setFirstUrl(WEB_GAME_HTML_DIFFICULTY_HTML);
+        _configuration.setFirstUrl(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
         _configuration.setPrefix(PREF);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
