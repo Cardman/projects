@@ -8,6 +8,7 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     public static String clickLine(Struct _update, Struct _use, int _index) {
         fwdLine(_update, _use, _index);
+        beforeDisplaying(_update);
         return navigateData(clickMoveLineBeanMove(),"","",_update,_index);
     }
     public static void fwdLine(Struct _update, Struct _use, int _index) {
