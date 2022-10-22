@@ -6,6 +6,7 @@ import aiki.game.player.enums.Sex;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
+import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -27,7 +28,10 @@ public final class FacadeGameBeginTest extends InitializationDataBase {
 
     @Test
     public void sexList() {
-        assertEq(2,initTests().getSexList().all().size());
+        CustList<Sex> real_ = initTests().getSexList().all();
+        assertEq(2, real_.size());
+        assertSame(Sex.GIRL,real_.get(0));
+        assertSame(Sex.BOY,real_.get(1));
     }
     @Test
     public void act1Test() {
