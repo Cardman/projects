@@ -42,10 +42,6 @@ public enum Sex {
         return GIRL;
     }
 
-    public static Gender getGender(Sex _s) {
-        return _s.getGender();
-    }
-
     public Gender getGender() {
         return gender;
     }

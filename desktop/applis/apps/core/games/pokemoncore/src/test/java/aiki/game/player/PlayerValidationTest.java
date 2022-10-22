@@ -1,5 +1,6 @@
 package aiki.game.player;
 
+import aiki.facade.SexListImpl;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -24,7 +25,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
-        assertTrue(player_.validate(data_));
+        assertTrue(validate(player_, data_));
     }
     @Test
     public void validate2Test(){
@@ -32,7 +33,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
-        assertTrue(player_.validate(data_));
+        assertTrue(validate(player_, data_));
     }
     @Test
     public void validate3Test(){
@@ -41,7 +42,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getBox().add(pokemonPlayer(data_, (short) 2));
-        assertTrue(player_.validate(data_));
+        assertTrue(validate(player_, data_));
     }
     @Test
     public void validate4Test(){
@@ -50,7 +51,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getBox().add(pokemonPlayer(data_, (short) 2));
-        assertTrue(player_.validate(data_));
+        assertTrue(validate(player_, data_));
     }
     @Test
     public void validate5Test(){
@@ -59,7 +60,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getTeam().clear();
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate6Test(){
@@ -68,7 +69,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getTeam().clear();
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate7Test(){
@@ -78,7 +79,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getTeam().clear();
         player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate8Test(){
@@ -88,7 +89,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getTeam().clear();
         player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate9Test(){
@@ -97,7 +98,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getTeam().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate10Test(){
@@ -106,7 +107,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getTeam().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate11Test(){
@@ -115,7 +116,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
-        assertTrue(player_.validate(data_));
+        assertTrue(validate(player_, data_));
     }
     @Test
     public void validate12Test(){
@@ -124,7 +125,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getTeam().add(new Egg(StringUtil.concat(PIKACHU,";10")));
-        assertTrue(player_.validate(data_));
+        assertTrue(validate(player_, data_));
     }
     @Test
     public void validate13Test(){
@@ -133,7 +134,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getBox().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate14Test(){
@@ -142,7 +143,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getBox().add(new Egg(StringUtil.concat(INVALID_DATA_KEY,";10")));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate15Test(){
@@ -153,7 +154,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_, (short) 2);
         pk_.setItem(INVALID_DATA_KEY);
         player_.getBox().add(pk_);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate16Test(){
@@ -164,7 +165,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_, (short) 2);
         pk_.setItem(INVALID_DATA_KEY);
         player_.getBox().add(pk_);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate17Test(){
@@ -175,7 +176,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_, (short) 2);
         pk_.setName(INVALID_DATA_KEY);
         player_.getTeam().add(pk_);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate18Test(){
@@ -186,7 +187,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         PokemonPlayer pk_ = pokemonPlayer(data_, (short) 2);
         pk_.setName(INVALID_DATA_KEY);
         player_.getTeam().add(pk_);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate19Test(){
@@ -195,7 +196,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getTm((short) -1);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate20Test(){
@@ -204,7 +205,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getTm((short) -1);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate21Test(){
@@ -213,7 +214,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getCaughtPk().put(INVALID_DATA_KEY, BoolVal.FALSE);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate22Test(){
@@ -222,7 +223,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getCaughtPk().put(INVALID_DATA_KEY,  BoolVal.FALSE);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate23Test(){
@@ -231,7 +232,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getCaughtPk().clear();
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate24Test(){
@@ -240,7 +241,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getCaughtPk().clear();
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate25Test(){
@@ -249,7 +250,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.getMoney().removeNb(new LgInt("10000"));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate26Test(){
@@ -258,7 +259,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.getMoney().removeNb(new LgInt("10000"));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate27Test(){
@@ -267,7 +268,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.GIRL, diff_, true, data_);
         player_.setRemainingRepelSteps(-1);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate28Test(){
@@ -276,7 +277,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         diff_.setIvPlayer((byte) 31);
         Player player_ = new Player(NICKNAME, Sex.BOY, diff_, true, data_);
         player_.setRemainingRepelSteps(-1);
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate29Test(){
@@ -297,7 +298,7 @@ public class PlayerValidationTest extends InitializationDataBase {
         player_.getTeam().add(pokemonPlayer(data_, (short) 2));
         player_.getTeam().add(pokemonPlayer(data_, (short) 2));
         player_.getTeam().add(pokemonPlayer(data_, (short) 2));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
     }
     @Test
     public void validate30Test(){
@@ -318,7 +319,11 @@ public class PlayerValidationTest extends InitializationDataBase {
         player_.getTeam().add(pokemonPlayer(data_, (short) 2));
         player_.getTeam().add(pokemonPlayer(data_, (short) 2));
         player_.getTeam().add(pokemonPlayer(data_, (short) 2));
-        assertTrue(!player_.validate(data_));
+        assertTrue(!validate(player_, data_));
+    }
+
+    private boolean validate(Player _player, DataBase _data) {
+        return _player.validate(_data,new SexListImpl());
     }
 
 

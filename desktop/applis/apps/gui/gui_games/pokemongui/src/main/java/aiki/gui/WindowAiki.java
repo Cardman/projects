@@ -875,7 +875,7 @@ public final class WindowAiki extends NetGroupFrame {
         if (game_ == null) {
             return null;
         }
-        if (!game_.checkAndInitialize(_data)) {
+        if (!game_.checkAndInitialize(_data,_sexList)) {
             return null;
         }
         return game_;

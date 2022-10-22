@@ -2,6 +2,7 @@ package aiki.game;
 import aiki.comments.Comment;
 import aiki.db.DataBase;
 import aiki.db.ImageHeroKey;
+import aiki.facade.SexListInt;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.enums.InterfaceType;
@@ -266,9 +267,9 @@ public final class Game {
         player=Player.build(_pseudo,_diff,false,_import);
     }
 
-    public boolean validate(DataBase _data) {
+    public boolean validate(DataBase _data, SexListInt _sexList) {
         visitFirstPlaces(_data);
-        if (!player.validate(_data)) {
+        if (!player.validate(_data,_sexList)) {
             return false;
         }
         boolean existNonKoNonEggPok_ = existNonKoNonEggPok();
@@ -2429,13 +2430,13 @@ public final class Game {
         }
     }
 
-    public boolean checkAndInitialize(DataBase _data) {
+    public boolean checkAndInitialize(DataBase _data, SexListInt _sexList) {
         initIv(_data);
         FightFacade.initializeFromSavedGame(fight, difficulty, player, _data);
         if (zippedRom == null) {
             zippedRom = DataBase.EMPTY_STRING;
         }
-        if (!validate(_data)) {
+        if (!validate(_data,_sexList)) {
             return false;
         }
         DataMap d_ = _data.getMap();

@@ -113,7 +113,7 @@ public final class PokemonPlayer extends Pokemon implements UsablePokemon {
     }
 
     public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import,Sex _sex) {
-        this(_pokemonDonne,_import,Sex.getGender(_sex));
+        this(_pokemonDonne,_import, _sex.getGender());
     }
     public PokemonPlayer(Pokemon _pokemonDonne,DataBase _import,Gender _sex) {
         this(_pokemonDonne,_import);

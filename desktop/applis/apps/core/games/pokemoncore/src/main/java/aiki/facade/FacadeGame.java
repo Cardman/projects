@@ -174,7 +174,7 @@ public class FacadeGame {
     }
 
     public boolean checkAndSetGame(Game _game) {
-        if (!_game.checkAndInitialize(data)) {
+        if (!_game.checkAndInitialize(data,getSexList())) {
             return false;
         }
         load(_game);

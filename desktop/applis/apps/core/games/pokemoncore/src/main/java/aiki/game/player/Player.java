@@ -2,6 +2,7 @@ package aiki.game.player;
 import aiki.comments.Comment;
 import aiki.db.DataBase;
 import aiki.db.ExchangedData;
+import aiki.facade.SexListInt;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -218,8 +219,8 @@ public final class Player {
         }
     }
 
-    public boolean validate(DataBase _data) {
-        if (badSexTeamCount(_data)) {
+    public boolean validate(DataBase _data, SexListInt _sexList) {
+        if (badSexTeamCount(_data,_sexList)) {
             return false;
         }
         int nbPkPlayers_ = IndexConstants.SIZE_EMPTY;
@@ -254,12 +255,19 @@ public final class Player {
         return remainingRepelSteps >= 0;
     }
 
-    private boolean badSexTeamCount(DataBase _data) {
-        return badSex() || badTeamCount(_data);
+    private boolean badSexTeamCount(DataBase _data, SexListInt _sexList) {
+        return badSex(_sexList) || badTeamCount(_data);
     }
 
-    private boolean badSex() {
-        return sex != Sex.GIRL && sex != Sex.BOY;
+    private boolean badSex(SexListInt _sexList) {
+        boolean ok_ = false;
+        for (Sex s: _sexList.all()) {
+            if (s == sex) {
+                ok_ = true;
+                break;
+            }
+        }
+        return !ok_;
     }
 
     private boolean badTeamCount(DataBase _data) {
@@ -1542,7 +1550,7 @@ public final class Player {
 
     public Gender getOppositeGenderForPokemon() {
         Sex opp_ = getOppositeSex();
-        return Sex.getGender(opp_);
+        return opp_.getGender();
     }
 
     public Sex getOppositeSex() {
