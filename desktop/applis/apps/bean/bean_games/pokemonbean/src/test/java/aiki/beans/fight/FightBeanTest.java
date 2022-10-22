@@ -2,7 +2,6 @@ package aiki.beans.fight;
 
 import aiki.beans.CommonBean;
 import aiki.beans.FightGameInit;
-import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
 import aiki.game.fight.Fight;
 import code.expressionlanguage.structs.Struct;

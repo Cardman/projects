@@ -1,6 +1,5 @@
 package aiki.beans.fight;
 
-import aiki.beans.InitDbFight;
 import aiki.game.fight.Fighter;
 import code.maths.Rate;
 import org.junit.Test;

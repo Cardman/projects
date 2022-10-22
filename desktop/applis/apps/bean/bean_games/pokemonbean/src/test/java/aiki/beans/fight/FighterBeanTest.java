@@ -1,6 +1,5 @@
 package aiki.beans.fight;
 
-import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
 import aiki.facade.FacadeGame;
 import code.bean.nat.NatCaller;

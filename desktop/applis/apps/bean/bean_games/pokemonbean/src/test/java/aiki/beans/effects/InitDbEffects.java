@@ -1,11 +1,11 @@
 package aiki.beans.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.InitDbBean;
+import aiki.beans.db.InitDbConstr;
 import code.expressionlanguage.structs.Struct;
 
-public abstract class InitDbEffects extends InitDbBean {
-    public void fwdComboDto(Struct _update, Struct _use) {
+public abstract class InitDbEffects extends InitDbConstr {
+    public static void fwdComboDto(Struct _update, Struct _use) {
         callEffectComboBeanCombosSet(_update,callCombosBeanCombosGet(_use));
     }
 

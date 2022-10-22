@@ -1,7 +1,6 @@
 package aiki.beans.fight;
 
 import aiki.beans.CommonBean;
-import aiki.beans.InitDbFight;
 import aiki.beans.PkFight;
 import aiki.db.DataBase;
 import aiki.game.fight.Fight;
