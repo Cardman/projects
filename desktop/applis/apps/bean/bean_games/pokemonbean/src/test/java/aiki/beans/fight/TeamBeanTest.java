@@ -103,11 +103,11 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void trLink3() {
-        assertEq(PIKA_TR_2,callTeamBeanGetTrPokemonLink(playerPath(),1));
+        assertEq(PIKA_2_TR,callTeamBeanGetTrPokemonLink(playerPath(),1));
     }
     @Test
     public void trLink4() {
-        assertEq(PIKA_TR_2,callTeamBeanGetTrPokemonLink(foePath(),1));
+        assertEq(PIKA_2_TR,callTeamBeanGetTrPokemonLink(foePath(),1));
     }
     @Test
     public void trLink5() {
@@ -119,11 +119,11 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void trLink7() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetTrPokemonLink(playerPath(),3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetTrPokemonLink(playerPath(),3));
     }
     @Test
     public void trLink8() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetTrPokemonLink(foePath(),3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetTrPokemonLink(foePath(),3));
     }
     @Test
     public void trLink9() {
@@ -135,11 +135,11 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void trLink11() {
-        assertEq(PIKA_TR_2+" "+2,callTeamBeanGetTrPokemonLink(playerPath(),5));
+        assertEq(PIKA_2_TR +" "+2,callTeamBeanGetTrPokemonLink(playerPath(),5));
     }
     @Test
     public void trLink12() {
-        assertEq(PIKA_TR_2+" "+2,callTeamBeanGetTrPokemonLink(foePath(),5));
+        assertEq(PIKA_2_TR +" "+2,callTeamBeanGetTrPokemonLink(foePath(),5));
     }
     @Test
     public void trLink13() {
@@ -151,11 +151,11 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void trLink15() {
-        assertEq(PIKA_TR_2+" "+3,callTeamBeanGetTrPokemonLink(playerPath(),7));
+        assertEq(PIKA_2_TR +" "+3,callTeamBeanGetTrPokemonLink(playerPath(),7));
     }
     @Test
     public void trLink16() {
-        assertEq(PIKA_TR_2+" "+3,callTeamBeanGetTrPokemonLink(foePath(),7));
+        assertEq(PIKA_2_TR +" "+3,callTeamBeanGetTrPokemonLink(foePath(),7));
     }
     @Test
     public void againstFoe1() {
@@ -299,7 +299,7 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void pkPlName2() {
-        assertEq(PIKA_TR_2,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),1));
+        assertEq(PIKA_2_TR,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),1));
     }
     @Test
     public void pkPlName3() {
@@ -307,7 +307,7 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void pkPlName4() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),3));
     }
     @Test
     public void pkPlName5() {
@@ -315,7 +315,7 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void pkPlName6() {
-        assertEq(PIKA_TR_2+" "+2,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),5));
+        assertEq(PIKA_2_TR +" "+2,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),5));
     }
     @Test
     public void pkPlName7() {
@@ -323,7 +323,7 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void pkPlName8() {
-        assertEq(PIKA_TR_2+" "+3,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),7));
+        assertEq(PIKA_2_TR +" "+3,callTeamBeanGetPlayerFigtherAgainstFoe(playerPath(),7));
     }
     @Test
     public void pkFoeName1() {
@@ -343,19 +343,19 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void pkFoeName5() {
-        assertEq(PIKA_TR_2,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),0,1));
+        assertEq(PIKA_2_TR,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),0,1));
     }
     @Test
     public void pkFoeName6() {
-        assertEq(PIKA_TR_2,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),1,1));
+        assertEq(PIKA_2_TR,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),1,1));
     }
     @Test
     public void pkFoeName7() {
-        assertEq(PIKA_TR_2,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),2,1));
+        assertEq(PIKA_2_TR,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),2,1));
     }
     @Test
     public void pkFoeName8() {
-        assertEq(PIKA_TR_2,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),3,1));
+        assertEq(PIKA_2_TR,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),3,1));
     }
     @Test
     public void pkFoeName9() {
@@ -375,19 +375,19 @@ public final class TeamBeanTest extends InitDbFight {
     }
     @Test
     public void pkFoeName13() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),0,3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),0,3));
     }
     @Test
     public void pkFoeName14() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),1,3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),1,3));
     }
     @Test
     public void pkFoeName15() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),2,3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),2,3));
     }
     @Test
     public void pkFoeName16() {
-        assertEq(PIKA_TR_2+" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),3,3));
+        assertEq(PIKA_2_TR +" "+1,callTeamBeanGetFoeFigtherAgainstFoe(playerPath(),3,3));
     }
     @Test
     public void enMoves1() {

@@ -643,7 +643,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr2() {
-        assertEq(PIKA_TR_2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),1));
+        assertEq(PIKA_2_TR,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),1));
     }
     @Test
     public void getFoeIncr3() {
@@ -651,7 +651,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr4() {
-        assertEq(PIKA_TR_2+" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),3));
+        assertEq(PIKA_2_TR +" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),3));
     }
     @Test
     public void getFoeIncr5() {
@@ -659,7 +659,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr6() {
-        assertEq(PIKA_TR_2+" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),5));
+        assertEq(PIKA_2_TR +" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),5));
     }
     @Test
     public void getFoeIncr7() {
@@ -667,7 +667,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr8() {
-        assertEq(PIKA_TR_2+" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),7));
+        assertEq(PIKA_2_TR +" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),7));
     }
     @Test
     public void getFoeIncr9() {
@@ -675,7 +675,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr10() {
-        assertEq(PIKA_TR_2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),9));
+        assertEq(PIKA_2_TR,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),9));
     }
     @Test
     public void getFoeIncr11() {
@@ -683,7 +683,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr12() {
-        assertEq(PIKA_TR_2+" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),11));
+        assertEq(PIKA_2_TR +" "+1,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),11));
     }
     @Test
     public void getFoeIncr13() {
@@ -691,7 +691,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr14() {
-        assertEq(PIKA_TR_2+" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),13));
+        assertEq(PIKA_2_TR +" "+2,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),13));
     }
     @Test
     public void getFoeIncr15() {
@@ -699,7 +699,7 @@ public final class FighterBeanTest extends InitDbFight {
     }
     @Test
     public void getFoeIncr16() {
-        assertEq(PIKA_TR_2+" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),15));
+        assertEq(PIKA_2_TR +" "+3,callFighterBeanGetIncrUserAccuracyTeam(playerPath(0),15));
     }
     @Test
     public void getFoePr() {

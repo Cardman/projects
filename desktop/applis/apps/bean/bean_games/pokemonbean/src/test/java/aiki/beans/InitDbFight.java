@@ -109,7 +109,7 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String S_RELATION = "S_RELATION";
     protected static final String I_SAMPLE = "I_SAMPLE";
     protected static final String PIKA_2 = "PIKACHU2";
-    protected static final String PIKA_TR_2 = "PIKACHU_TR2";
+    protected static final String PIKA_2_TR = "PIKACHU_TR2";
     protected static final String NICK_NA = "NICK_NA";
     static final String NICKNAME = "CARDTEAM";
 
@@ -124,6 +124,71 @@ public abstract class InitDbFight extends InitDbBean {
         return beanFight(new PkFight(),_language,_dataBase);
     }
 
+    public static Struct callFightCalculationBeanGetFighterWildFight(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanGetFighterWildFight(),_str,_args);
+    }
+    public static Struct callFightCalculationBeanGetFighter(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanGetFighter(),_str,_args);
+    }
+    public static Struct callFightCalculationBeanSortedFightersWildFightGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanSortedFightersWildFightGet(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanSortedFightersGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanSortedFightersGet(),_str,_args);
+    }
+    public static Struct callFightCalculationBeanGetTargetNameAllyChoice(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanGetTargetNameAllyChoice(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanGetTargetNameAllyChoiceCondition(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanGetTargetNameAllyChoiceCondition(),_str,_args);
+    }
+    public static Struct callFightCalculationBeanIsFoeTargetChoiceTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanIsFoeTargetChoiceTeam(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanIsFoeTargetTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanIsFoeTargetTeam(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanIsBackTargetChoiceTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanIsBackTargetChoiceTeam(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanIsBackTargetTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanIsBackTargetTeam(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanAllyChoiceGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanAllyChoiceGet(),_str,_args);
+    }
+    public static Struct callFightCalculationBeanGetTargetNameFoeChoice(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanGetTargetNameFoeChoice(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanGetFoeFighterName(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanGetFoeFighterName(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanIsChosenTarget(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanIsChosenTarget(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanIsFoeTargetChTeam(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanIsFoeTargetChTeam(),_str,_args);
+    }
+    public static Struct callMoveTargetGetTarget(Struct _str, long... _args) {
+        return callTargetCoordsGetPosition(InitDbPkBean.callLongs(new MoveTargetGetTarget(),_str,_args));
+    }
+
+    public static Struct callMoveTargetGetMove(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new MoveTargetGetMove(),_str,_args);
+    }
+
+    public static Struct callFightCalculationBeanFoeChoicesGet(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new FightCalculationBeanFoeChoicesGet(),_str,_args);
+    }
     public static Struct callKeyHypothesisIsBelongsToUser(Struct _str, long... _args) {
         return InitDbPkBean.callLongs(new KeyHypothesisIsBelongsToUser(),_str,_args);
     }
@@ -586,7 +651,11 @@ public abstract class InitDbFight extends InitDbBean {
     }
 
     public static Struct callAnticipationGetTargetPositionValue(Struct _str, long... _args) {
-        return InitDbPkBean.callLongs(new TargetCoordsGetPosition(),InitDbPkBean.callLongs(new AnticipationGetTargetPosition(),_str,_args));
+        return callTargetCoordsGetPosition(InitDbPkBean.callLongs(new AnticipationGetTargetPosition(),_str,_args));
+    }
+
+    public static Struct callTargetCoordsGetPosition(Struct _str, long... _args) {
+        return InitDbPkBean.callLongs(new TargetCoordsGetPosition(),_str,_args);
     }
 
     public static Struct callAnticipationGetDamage(Struct _str, long... _args) {
@@ -811,7 +880,7 @@ public abstract class InitDbFight extends InitDbBean {
         _data.completeMembers(PIKA_2,pkData_);
         StringMap<String> trPks_ = new StringMap<String>();
         trPks_.addEntry(PIKACHU,PIKACHU_TR);
-        trPks_.addEntry(PIKA_2,PIKA_TR_2);
+        trPks_.addEntry(PIKA_2, PIKA_2_TR);
         _data.getTranslatedPokemon().clear();
         _data.getTranslatedPokemon().addEntry(LANGUAGE,trPks_);
     }
@@ -859,7 +928,7 @@ public abstract class InitDbFight extends InitDbBean {
         data_.addConstNumTest("DEF_MAX_ATT",Rate.newRate("2"));
         data_.getTranslatedPokemon().addEntry(EN,new StringMap<String>());
         data_.getTranslatedPokemon().getVal(EN).addEntry(PIKACHU,PIKACHU_TR);
-        data_.getTranslatedPokemon().getVal(EN).addEntry(PIKA_2,PIKA_TR_2);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(PIKA_2, PIKA_2_TR);
         data_.getTranslatedMoves().addEntry(EN,new StringMap<String>());
         data_.getTranslatedMoves().getVal(EN).addEntry(ECLAIR,ECLAIR_TR);
         data_.getTranslatedMoves().getVal(EN).addEntry(CHARGE,CHARGE_TR);
@@ -1218,7 +1287,7 @@ public abstract class InitDbFight extends InitDbBean {
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
-        FightFacade.initFight(fight_, player_, diff_, toWildPk(new NameLevel(PIKACHU,3)), _data);
+        FightFacade.initFight(fight_, player_, diff_, toWildPk(new NameLevel(PIKA_2,3)), _data);
         FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
         return fac_;
     }
@@ -1251,6 +1320,25 @@ public abstract class InitDbFight extends InitDbBean {
         g_.setPlayer(player_);
         fac_.setGame(g_);
         Fight fight_ = g_.getFight();
+        FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
+        FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
+        return fac_;
+    }
+    protected FacadeGame facadeCalculation7(DataBase _data) {
+        FacadeGame fac_ = initFacade(_data);
+        Game g_ = new Game();
+        Difficulty diff_= new Difficulty();
+        Player player_ = new Player(NICKNAME,null,diff_,false,_data);
+        player_.getTeam().add(pkPlayer(new NameLevel(PIKACHU,3),move(move(new StringMap<Short>(),CHARGE,8),CHARGE2,5),diff_,_data));
+        g_.setPlayer(player_);
+        fac_.setGame(g_);
+        Fight fight_ = g_.getFight();
+        CustList<PkTrainer> foeTeam_ = new CustList<PkTrainer>();
+        foeTeam_.add(toPkTrainer(new NameLevel(PIKA_2,3),new StringList(M_TEAM)));
+        TrainerLeague trainer_ = Instances.newTrainerLeague();
+        trainer_.setTeam(foeTeam_);
+        trainer_.setReward((short) 200);
+        trainer_.setMultiplicityFight((byte) 1);
         FightFacade.initFight(fight_, player_, diff_, trainer_, _data);
         FightFacade.initTypeEnv(fight_,EnvironmentType.ROAD,diff_,_data);
         return fac_;
