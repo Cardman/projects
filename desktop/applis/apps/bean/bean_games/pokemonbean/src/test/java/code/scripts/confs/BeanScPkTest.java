@@ -13,13 +13,10 @@ public final class BeanScPkTest extends EquallablePkBeanUtil {
         Configuration configuration_ = new Configuration();
         NatDualConfigurationContext d_ = new NatDualConfigurationContext();
         d_.setNavigation(PkScriptPagesInit.initConfData(configuration_));
-        d_.setNavigation(PkScriptPagesInit.initConfFight(configuration_));
         assertNotNull(configuration_.getBeansInfos());
         PkScriptPages.initAnaData(d_);
-        PkScriptPages.initAnaFight(d_);
         assertNotNull(d_.getMessagesFolder());
         assertNotNull(PagesInit.build());
-        assertNotNull(PagesInit.buildFight());
         assertNotNull(MessagesInit.ms());
         assertNotNull(CssInit.ms());
         assertNotNull(new BeanPageAikiSample().self());
