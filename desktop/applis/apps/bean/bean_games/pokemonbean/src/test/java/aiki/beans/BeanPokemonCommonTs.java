@@ -55,6 +55,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static Struct callLongs(NatCaller _caller, Struct _str, long... _args) {
         return _caller.re(_str,getLongArray(_args));
     }
+    public static Struct callStruct(NatCaller _caller, Struct _str, Struct _args) {
+        _caller.re(_str,new Struct[]{_args});
+        return _str;
+    }
 
     public Struct displaying(Struct _b) {
         beforeDisplaying(_b);
