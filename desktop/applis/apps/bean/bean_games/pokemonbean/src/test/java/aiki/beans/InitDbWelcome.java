@@ -13,6 +13,21 @@ import code.util.StringMap;
 
 public abstract class InitDbWelcome extends InitDbConstr {
 
+    public static String navigateAbilities(Struct _str) {
+        return navigateData(new WelcomeBeanClickAbilities(),"","",_str);
+    }
+    public static String navigateItems(Struct _str) {
+        return navigateData(new WelcomeBeanClickItems(),"","",_str);
+    }
+    public static String navigatePokedex(Struct _str) {
+        return navigateData(new WelcomeBeanClickPokedex(),"","",_str);
+    }
+    public static String navigateSimulation(Struct _str) {
+        return navigateData(new WelcomeBeanClickSimulation(),"","",_str);
+    }
+    public static String navigateStatus(Struct _str) {
+        return navigateData(new WelcomeBeanClickStatus(),"","",_str);
+    }
     public static String navigateAllMoves(Struct _str) {
         return navigateData(new WelcomeBeanSeeAllMoves(),"","",_str);
     }

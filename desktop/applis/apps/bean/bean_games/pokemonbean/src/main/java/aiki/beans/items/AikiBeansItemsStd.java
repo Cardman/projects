@@ -9,6 +9,7 @@ import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansItemsStd{
+    public static final String WEB_HTML_ITEMS_ITEMS_HTML="web/html/items/items.html";
     public static final String TYPE_BALL_BEAN = "aiki.beans.items.BallBean";
     public static final String TYPE_BERRY_BEAN = "aiki.beans.items.BerryBean";
     public static final String TYPE_BOOST_BEAN = "aiki.beans.items.BoostBean";

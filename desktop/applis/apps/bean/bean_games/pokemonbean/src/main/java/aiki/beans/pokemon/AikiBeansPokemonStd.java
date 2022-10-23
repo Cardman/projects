@@ -9,6 +9,7 @@ import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansPokemonStd{
+    public static final String WEB_HTML_POKEMON_POKEDEX_HTML="web/html/pokemon/pokedex.html";
     public static final String TYPE_POKEDEX_BEAN = "aiki.beans.pokemon.PokedexBean";
     public static final String TYPE_POKEMON_BEAN = "aiki.beans.pokemon.PokemonBean";
     private static final String CLICK_POKEDEX = "clickPokedex";

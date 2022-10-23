@@ -1,5 +1,6 @@
 package code.scripts.confs;
 
+import aiki.beans.facade.simulation.enums.SimulationSteps;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
 import org.junit.Assert;
@@ -22,6 +23,9 @@ public abstract class EquallablePkBeanUtil {
         Assert.assertFalse(_value);
     }
     public static void assertSame(Struct _expected, Struct _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(SimulationSteps _expected, SimulationSteps _result) {
         Assert.assertSame(_expected, _result);
     }
 

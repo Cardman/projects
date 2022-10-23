@@ -7,6 +7,7 @@ import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansSimulationStd{
+    public static final String WEB_HTML_SIMULATION_SIMULATION_HTML="web/html/simulation/simulation.html";
     public static final String TYPE_ADD_POKEMON_BEAN = "aiki.beans.simulation.AddPokemonBean";
     public static final String TYPE_EDIT_POKEMON_BEAN = "aiki.beans.simulation.EditPokemonBean";
     public static final String TYPE_EDIT_POKEMON_MOVES_BEAN = "aiki.beans.simulation.EditPokemonMovesBean";
@@ -561,7 +562,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(VALIDATE_MOVES_ABILITY_AFTER_FIGHT, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new SimulationBeanValidateMovesAbilityAfterFight()));
         methods_.add( new SpecNatMethod(CHANGE_FIGHT_WHILE_END, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new SimulationBeanChangeFightWhileEnd()));
         methods_.add( new SpecNatMethod(VALIDATE_MOVES_AFTER_FIGHT, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new SimulationBeanValidateMovesAfterFight()));
-        methods_.add( new SpecNatMethod(GS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/simulation/simulation.html")));
+        methods_.add( new SpecNatMethod(GS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_SIMULATION_SIMULATION_HTML)));
         _std.getStds().addEntry(TYPE_SIMULATION_BEAN, type_);
     }
     private static void buildSimulationLevelBean(PokemonStandards _std){
