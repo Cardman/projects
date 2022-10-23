@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class ErrorsZTest extends ProcessMethodCommon {
+public final class Errors1Test extends ProcessMethodCommon {
 
     @Test
     public void report648Test() {

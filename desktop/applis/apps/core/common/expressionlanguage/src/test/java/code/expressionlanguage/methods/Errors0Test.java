@@ -3,7 +3,7 @@ package code.expressionlanguage.methods;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class ErrorsTest extends ProcessMethodCommon {
+public final class Errors0Test extends ProcessMethodCommon {
     @Test
     public void report0Test() {
         StringMap<String> files_ = new StringMap<String>();

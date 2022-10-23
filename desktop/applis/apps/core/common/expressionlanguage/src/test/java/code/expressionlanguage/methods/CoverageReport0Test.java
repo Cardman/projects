@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class CoverageReportTest extends ProcessMethodCommon {
+public final class CoverageReport0Test extends ProcessMethodCommon {
     private static final String CUST_ITER_PATH = "src/pkg/CustIter";
     private static final String CUST_LIST_PATH = "src/pkg/CustList";
     private static final String CUST_ITER_TABLE_PATH = "src/pkg/CustIterTable";

@@ -7,7 +7,7 @@ import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class CoverageReportZTest extends ProcessMethodCommon {
+public final class CoverageReport1Test extends ProcessMethodCommon {
 
     @Test
     public void coverage399Test() {
