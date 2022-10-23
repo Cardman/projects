@@ -17,7 +17,9 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
+import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
+import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
 import aiki.game.fight.enums.IssueSimulation;
@@ -603,7 +605,7 @@ public class SimulationBean extends CommonBean {
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, true);
-            getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+            getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
             getForms().put(CST_POKEMON_INDEX_EDIT, selectedFoePk);
             getForms().put(CST_POKEMON_NAME_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getName());
             getForms().put(CST_POKEMON_LEVEL_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getLevel());
@@ -676,7 +678,7 @@ public class SimulationBean extends CommonBean {
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, false);
-            getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+            getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
             getForms().put(CST_POKEMON_INDEX_EDIT, selectedAllyPk);
             getForms().put(CST_POKEMON_NAME_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getName());
             getForms().put(CST_POKEMON_LEVEL_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getLevel());
@@ -709,7 +711,7 @@ public class SimulationBean extends CommonBean {
         getForms().put(CST_POKEMON_MOVES_EDIT, moves_);
         getForms().put(CST_POKEMON_ABILITY_EDIT, pk_.getAbility());
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
-        getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+        getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
         return CST_POKEMON_EDIT;
     }
     public void validateFoeChoiceFree() {
@@ -778,7 +780,7 @@ public class SimulationBean extends CommonBean {
             return DataBase.EMPTY_STRING;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
-            getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+            getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
             getForms().put(CST_POKEMON_INDEX_EDIT, selectedPk);
             getForms().put(CST_POKEMON_NAME_EDIT, team.get(selectedPk).getPokemon().getName());
             getForms().put(CST_POKEMON_LEVEL_EDIT, team.get(selectedPk).getPokemon().getLevel());
@@ -806,7 +808,7 @@ public class SimulationBean extends CommonBean {
         return DataBase.EMPTY_STRING;
     }
     public String add() {
-        getForms().put(CST_POKEMON_SET_SIMU, new StringList());
+        getForms().putPokedex(CST_POKEMON_SET_SIMU, new StringMap<PokemonData>());
         return CST_ADD_POKEMON_PLAYER;
     }
     public String getImage(int _index) {

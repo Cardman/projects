@@ -704,7 +704,7 @@ public class AbilityBean extends CommonBean {
     }
     public String clickIndex() {
         if (!getForms().contains(CST_ABILITIES_SET)) {
-            getForms().put(CST_ABILITIES_SET, new StringList());
+            getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());
         }
         return CST_ABILITIES;
     }

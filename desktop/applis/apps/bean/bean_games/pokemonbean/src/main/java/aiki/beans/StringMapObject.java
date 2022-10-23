@@ -3,6 +3,11 @@ package aiki.beans;
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.fight.abilities.AbilityData;
+import aiki.fight.items.Item;
+import aiki.fight.moves.MoveData;
+import aiki.fight.pokemon.PokemonData;
+import aiki.fight.status.Status;
 import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
 import aiki.map.levels.AreaApparition;
@@ -11,6 +16,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
 import aiki.util.Point;
 import code.bean.nat.StringMapObjectBase;
+import code.util.AbsMap;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 
@@ -26,6 +32,11 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<Gender> mapGender = new StringMap<Gender>();
     private final StringMap<BoolVal> mapDirection = new StringMap<BoolVal>();
     private final StringMap<PokemonPlayerDto> mapPokemonPlayerDto = new StringMap<PokemonPlayerDto>();
+    private final StringMap<AbsMap<String,MoveData>> mapMoves = new StringMap<AbsMap<String,MoveData>>();
+    private final StringMap<AbsMap<String,PokemonData>> mapPokedex = new StringMap<AbsMap<String,PokemonData>>();
+    private final StringMap<AbsMap<String,Item>> mapItems = new StringMap<AbsMap<String,Item>>();
+    private final StringMap<AbsMap<String,AbilityData>> mapAbilities = new StringMap<AbsMap<String,AbilityData>>();
+    private final StringMap<AbsMap<String,Status>> mapStatus = new StringMap<AbsMap<String,Status>>();
 
     public void put(String _key, AreaApparition _v) {
         getBeansOthers().put(_key,new AreaApparitionStruct(_v));
@@ -43,6 +54,25 @@ public final class StringMapObject extends StringMapObjectBase {
         mapPokemonPlayerDto.put(_key, _v);
     }
 
+    public void putMoves(String _key, AbsMap<String,MoveData> _v) {
+        mapMoves.put(_key, _v);
+    }
+
+    public void putPokedex(String _key, AbsMap<String,PokemonData> _v) {
+        mapPokedex.put(_key, _v);
+    }
+
+    public void putAbilities(String _key, AbsMap<String,AbilityData> _v) {
+        mapAbilities.put(_key, _v);
+    }
+
+    public void putItems(String _key, AbsMap<String,Item> _v) {
+        mapItems.put(_key, _v);
+    }
+
+    public void putStatus(String _key, AbsMap<String,Status> _v) {
+        mapStatus.put(_key, _v);
+    }
     public void put(String _key, Person _v) {
         mapPerson.put(_key, _v);
     }
@@ -78,11 +108,31 @@ public final class StringMapObject extends StringMapObjectBase {
                 mapTeamCrud.contains(_key)||
                 mapGender.contains(_key)||
                 mapPokemonPlayerDto.contains(_key)||
+                mapMoves.contains(_key)||
+                mapPokedex.contains(_key)||
+                mapItems.contains(_key)||
+                mapAbilities.contains(_key)||
+                mapStatus.contains(_key)||
                 mapDirection.contains(_key);
     }
 
     public PokemonPlayerDto getVal(String _key) {
         return mapPokemonPlayerDto.getVal(_key);
+    }
+    public AbsMap<String,MoveData> getValMoveData(String _key) {
+        return mapMoves.getVal(_key);
+    }
+    public AbsMap<String,PokemonData> getValPokemonData(String _key) {
+        return mapPokedex.getVal(_key);
+    }
+    public AbsMap<String,AbilityData> getValAbilityData(String _key) {
+        return mapAbilities.getVal(_key);
+    }
+    public AbsMap<String,Item> getValItemData(String _key) {
+        return mapItems.getVal(_key);
+    }
+    public AbsMap<String,Status> getValStatusData(String _key) {
+        return mapStatus.getVal(_key);
     }
     public TeamCrud getValTeamCrud(String _key) {
         return mapTeamCrud.getVal(_key);
@@ -130,6 +180,11 @@ public final class StringMapObject extends StringMapObjectBase {
         mapTeamCrud.putAllMap(_m.mapTeamCrud);
         mapGender.putAllMap(_m.mapGender);
         mapPokemonPlayerDto.putAllMap(_m.mapPokemonPlayerDto);
+        mapMoves.putAllMap(_m.mapMoves);
+        mapPokedex.putAllMap(_m.mapPokedex);
+        mapItems.putAllMap(_m.mapItems);
+        mapAbilities.putAllMap(_m.mapAbilities);
+        mapStatus.putAllMap(_m.mapStatus);
         mapDirection.putAllMap(_m.mapDirection);
     }
 
@@ -144,6 +199,11 @@ public final class StringMapObject extends StringMapObjectBase {
         mapTeamCrud.removeKey(_key);
         mapGender.removeKey(_key);
         mapPokemonPlayerDto.removeKey(_key);
+        mapMoves.removeKey(_key);
+        mapPokedex.removeKey(_key);
+        mapItems.removeKey(_key);
+        mapAbilities.removeKey(_key);
+        mapStatus.removeKey(_key);
         mapDirection.removeKey(_key);
     }
 

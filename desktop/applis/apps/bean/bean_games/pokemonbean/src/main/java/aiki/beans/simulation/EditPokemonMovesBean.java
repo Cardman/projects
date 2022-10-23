@@ -7,9 +7,7 @@ import aiki.beans.moves.MovesBean;
 import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.game.fight.FightSimulation;
-import code.util.CustList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public class EditPokemonMovesBean extends WithFilterBean {
     private final CustList<SelectLineMove> moves = new CustList<SelectLineMove>();
@@ -30,8 +28,8 @@ public class EditPokemonMovesBean extends WithFilterBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
-        for (String k: getForms().getValList(CST_MOVES_SET)) {
-            MoveData moveData_ = data_.getMoves().getVal(k);
+        for (EntryCust<String, MoveData> k: getForms().getValMoveData(CST_MOVES_SET).entryList()) {
+            MoveData moveData_ = k.getValue();
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(k);
 //            line_.setDisplayName(translationsMoves_.getVal(k));
@@ -52,12 +50,12 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //            line_.setPriority(moveData_.getPriority());
 //            line_.setSelected(false);
 //            moves.add(line_);
-            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_));
+            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k.getKey(),moveData_));
         }
         moves.sortElts(new ComparatorMoves());
     }
     public String cancel() {
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         if (player) {
             return CST_EDIT_POKEMON_PLAYER;
         }
@@ -83,7 +81,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
 //        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringList moves_;
+        AbsMap<String,MoveData> moves_;
 //        StringMap<String> translationsTypes_;
 //        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
 //        moves_ = new StringList();
@@ -114,7 +112,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //            }
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        getForms().put(CST_MOVES_SET, moves_);
+        getForms().putMoves(CST_MOVES_SET, moves_);
     }
 
     public StringMap<String> getCategories() {

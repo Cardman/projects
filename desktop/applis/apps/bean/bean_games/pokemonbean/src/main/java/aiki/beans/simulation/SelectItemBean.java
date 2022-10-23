@@ -5,8 +5,8 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
+import code.util.AbsMap;
 import code.util.EntryCust;
-import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -22,7 +22,7 @@ public class SelectItemBean extends WithFilterBean {
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        StringList sortedItems_ = getForms().getValList(CST_ITEMS_SET_EDIT);
+        AbsMap<String, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET_EDIT);
         itemInit(sortedItems_);
 //        getItems().clear();
 //        StringMap<String> translationsClasses_;
@@ -55,10 +55,10 @@ public class SelectItemBean extends WithFilterBean {
         return CST_POKEMON_EDIT;
     }
     public String search() {
-        StringList sortedItems_ = sortedItems(getDataBase());
-        getForms().put(CST_ITEMS_SET_EDIT, sortedItems_);
+        AbsMap<String, Item> sortedItems_ = sortedItems(getDataBase());
+        getForms().putItems(CST_ITEMS_SET_EDIT, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            item = sortedItems_.first();
+            item = sortedItems_.firstKey();
             getForms().put(CST_ITEM_EDIT, item);
             if (player) {
                 return CST_EDIT_POKEMON_PLAYER;
@@ -68,8 +68,8 @@ public class SelectItemBean extends WithFilterBean {
         return DataBase.EMPTY_STRING;
     }
 
-    public static StringList sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
-        StringList sortedItems_ = new StringList();
+    public static AbsMap<String,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
+        AbsMap<String,Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData(_data,_language);
         StringMap<String> translationsItems_;
         translationsItems_ = _data.getTranslatedItems().getVal(_language);
         StringMap<String> translationsClasses_;
@@ -79,7 +79,7 @@ public class SelectItemBean extends WithFilterBean {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 if (StringUtil.match(display_, _typedName) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.add(i.getKey());
+                    sortedItems_.put(i.getKey(),i.getValue());
                 }
             }
         } else {
@@ -88,11 +88,11 @@ public class SelectItemBean extends WithFilterBean {
                 String display_ = translationsItems_.getVal(i.getKey());
                 //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
                 if (StringUtil.match(display_, _typedName) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.add(i.getKey());
+                    sortedItems_.put(i.getKey(),i.getValue());
                 }
             }
         }
-        sortedItems_.sortElts(DictionaryComparatorUtil.cmpItems(_data, _language));
+//        sortedItems_.sortElts(DictionaryComparatorUtil.cmpItems(_data, _language));
         return sortedItems_;
     }
 

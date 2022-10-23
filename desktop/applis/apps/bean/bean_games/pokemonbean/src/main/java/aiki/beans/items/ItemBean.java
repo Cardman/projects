@@ -1,11 +1,11 @@
 package aiki.beans.items;
+
 import aiki.beans.CommonBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
-import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class ItemBean extends CommonBean {
@@ -63,7 +63,7 @@ public abstract class ItemBean extends CommonBean {
 
     public String clickItems() {
         if (!getForms().contains(CST_ITEMS_SET)) {
-            getForms().put(CST_ITEMS_SET, new StringList());
+            getForms().putItems(CST_ITEMS_SET, new StringMap<Item>());
         }
         return CST_ITEMS;
     }

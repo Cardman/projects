@@ -235,7 +235,7 @@ public class PokemonBean extends CommonBean {
     }
     public String clickPokedex() {
         if (!getForms().contains(CST_POKEMON_SET)) {
-            getForms().put(CST_POKEMON_SET, new StringList());
+            getForms().putPokedex(CST_POKEMON_SET, new StringMap<PokemonData>());
         }
         return CST_POKEMON_SET;
     }

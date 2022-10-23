@@ -7,7 +7,10 @@ import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.moves.MovesBean;
 import aiki.db.DataBase;
+import aiki.fight.abilities.AbilityData;
+import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
+import aiki.fight.pokemon.PokemonData;
 import aiki.map.pokemon.enums.Gender;
 import code.util.*;
 
@@ -88,21 +91,21 @@ public class EditTrainerPokemonBean extends CommonBean {
         return CST_SIMULATION;
     }
     public String chooseAbility() {
-        getForms().put(CST_ABILITIES_SET, new StringList());
+        getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());
         return CST_POKEMON_EDIT;
     }
     public String chooseItem() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+        getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
         return CST_POKEMON_EDIT;
     }
     public String chooseName() {
-        getForms().put(CST_POKEMON_SET, new StringList());
+        getForms().putPokedex(CST_POKEMON_SET, new StringMap<PokemonData>());
         return CST_POKEMON_EDIT;
     }
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         return CST_POKEMON_EDIT;
     }
     public void deleteMoves() {

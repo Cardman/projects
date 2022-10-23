@@ -6,7 +6,12 @@ import aiki.beans.facade.fight.KeyHypothesis;
 import aiki.beans.help.LanguageElementStringKey;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
+import aiki.fight.items.Item;
+import aiki.fight.moves.MoveData;
+import aiki.fight.pokemon.PokemonData;
+import aiki.fight.status.Status;
 import aiki.fight.util.*;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.MoveTeamPosition;
@@ -43,6 +48,9 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<Statistic, BoostHpRate> buildStatisBoostHpRate(DataBase _data, String _language) {
         return new DictionaryComparator<Statistic,BoostHpRate>(_data.getTranslatedStatistics().getVal(_language));
     }
+    public static DictionaryComparator<String,AbilityData> buildAbilitiesData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,AbilityData>(_data.getTranslatedAbilities().getVal(_language));
+    }
     public static DictionaryComparator<String,String> buildAbilities(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedAbilities().getVal(_language));
     }
@@ -56,12 +64,20 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,Short>(_data.getTranslatedItems().getVal(_language));
     }
 
+    public static DictionaryComparator<String,Item> buildItemsData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,Item>(_data.getTranslatedItems().getVal(_language));
+    }
+
     public static DictionaryComparator<String,String> buildItemsStr(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedItems().getVal(_language));
     }
 
     public static DictionaryComparator<String,Ints> buildItemsLs(DataBase _data, String _language) {
         return new DictionaryComparator<String,Ints>(_data.getTranslatedItems().getVal(_language));
+    }
+
+    public static DictionaryComparator<String,MoveData> buildMovesData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,MoveData>(_data.getTranslatedMoves().getVal(_language));
     }
 
     public static DictionaryComparator<String,Short> buildMovesShort(DataBase _data, String _language) {
@@ -79,8 +95,16 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<String,Rate>(_data.getTranslatedMoves().getVal(_language));
     }
 
+    public static DictionaryComparator<String,PokemonData> buildPkData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,PokemonData>(_data.getTranslatedPokemon().getVal(_language));
+    }
+
     public static DictionaryComparator<String,String> buildPkStr(DataBase _data, String _language) {
         return new DictionaryComparator<String,String>(_data.getTranslatedPokemon().getVal(_language));
+    }
+
+    public static DictionaryComparator<String,Status> buildStatusData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,Status>(_data.getTranslatedStatus().getVal(_language));
     }
 
     public static DictionaryComparator<String,Rate> buildStatusRate(DataBase _data, String _language) {
