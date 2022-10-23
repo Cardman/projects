@@ -2,6 +2,7 @@ package aiki.beans.db;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.InitDbBean;
+import aiki.beans.PkData;
 import aiki.beans.effects.EffectWhileSendingBeanEffectSet;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -321,4 +322,11 @@ public abstract class InitDbConstr extends InitDbBean {
         _pk.getStatistics().addEntry(Statistic.SPEED,new StatBaseEv((short)1,(short)1));
         _pk.getStatistics().addEntry(Statistic.HP,new StatBaseEv((short)1,(short)1));
     }
+
+    public static PkData pkDataByFacade(FacadeGame _dataBase) {
+        PkData pk_ = new PkData();
+        pk_.setDataBase(_dataBase);
+        return pk_;
+    }
+
 }

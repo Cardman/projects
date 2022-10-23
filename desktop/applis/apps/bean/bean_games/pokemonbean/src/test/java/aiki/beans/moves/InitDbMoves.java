@@ -1,7 +1,12 @@
 package aiki.beans.moves;
 
-import aiki.beans.*;
+import aiki.beans.AikiBeansStd;
+import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.PkData;
+import aiki.beans.WelcomeBeanSeeAllMoves;
 import aiki.beans.db.InitDbConstr;
+import aiki.facade.FacadeGame;
+import code.bean.nat.BeanNatCommonLgNames;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -115,13 +120,22 @@ public abstract class InitDbMoves extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new MoveLineBeanTypesGet(),_str,_args);
     }
 
+    public static String goToLine(FacadeGame _fac, int _index) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToMoves(pk_);
+        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        navigateData(new WelcomeBeanSeeAllMoves(),"","",welcome_);
+        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        beforeDisplaying(moves_);
+        callMovesBeanSearch(moves_);
+        return clickLine(all_,_index);
+    }
+    public static String clickLine(StringMap<Struct> _all, int _index) {
+        return clickLine(_all.getVal(AikiBeansMovesStd.BEAN_MOVES),_all,_index);
+    }
     public static String clickLine(Struct _use, StringMap<Struct> _all, int _index) {
-        MoveLineBean bean_ = new MoveLineBean();
-        CommonBean c_ = (CommonBean) ((PokemonBeanStruct) _use).getBean();
-        bean_.setLanguage(c_.getLanguage());
-        bean_.setDataBase(c_.db());
-        bean_.setForms(new StringMapObject());
-        PokemonBeanStruct moveline_ = new PokemonBeanStruct(bean_);
+        Struct moveline_ = _all.getVal(mappingToMoves().getVal(BeanNatCommonLgNames.processString(callMovesBeanMovesBeanGet(_use))));
         fwdLine(moveline_, _use, _index);
         beforeDisplaying(moveline_);
         return navigateData(clickMoveLineBeanMove(),"","",moveline_,_index);
@@ -168,6 +182,13 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
     public static Struct callMoveLineBeanSortedMovesSet(Struct _str, Struct _args) {
         return BeanPokemonCommonTs.callStruct(new MoveLineBeanSortedMovesSet(),_str,_args);
+    }
+    public static StringMap<Struct> beanToMoves(PkData _pk) {
+        StringMap<Struct> map_ = new StringMap<Struct>();
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
+        map_.addEntry(AikiBeansMovesStd.BEAN_MOVES,_pk.beanMovesBean(EN));
+        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
+        return map_;
     }
     public static StringMap<String> mappingToMoves() {
         StringMap<String> map_ = new StringMap<String>();

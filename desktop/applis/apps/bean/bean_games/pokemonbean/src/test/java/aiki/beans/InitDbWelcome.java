@@ -40,8 +40,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
         return navigateData(new WelcomeBeanSeeNotLearntMoves(),"","",_str);
     }
     public static Struct beanWelcome(FacadeGame _dataBase) {
-        PkData pk_ = new PkData();
-        pk_.setDataBase(_dataBase);
+        PkData pk_ = pkDataByFacade(_dataBase);
         return pk_.beanWelcomeBean(EN);
     }
     public static Struct callWelcomeBeanClickAbilities(Struct _str, long... _args) {
