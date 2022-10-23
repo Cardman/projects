@@ -31,6 +31,9 @@ import code.scripts.confs.PkScriptPagesInit;
 import code.util.*;
 
 public abstract class InitDbConstr extends InitDbBean {
+    protected static final String CST_LEARNT = "learnt";
+    protected static final String CST_LEARNT_MOVES = "learnt_moves";
+    protected static final String CST_MOVES_SET = "moves_set";
     protected static final String A_ABILITY="A_ABILITY";
     protected static final String P_POKEMON="P_POKEMON";
     protected static final String M_DAM="M_DAM";
