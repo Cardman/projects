@@ -12,10 +12,8 @@ import code.util.core.StringUtil;
 
 public abstract class CommonFightBean extends CommonBean {
 
-    protected static final String FIGHTER = "fighter";
     protected static final String NO_FIGHTER = "no_fighter";
     protected static final String NO_TEAM = "no_team";
-    protected static final String TEAM = "team";
 
     protected static final String MOVES_SEPARATOR = ";";
     protected static final String SPACE = " ";
