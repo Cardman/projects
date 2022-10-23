@@ -83,6 +83,38 @@ public abstract class InitDbMoves extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new MovesBeanWholeWordGet(),_str,_args);
     }
 
+    public static Struct callMoveLineBeanAccuracyGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanAccuracyGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanCategoryGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanCategoryGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanDisplayNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanDisplayNameGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanIndexGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanPowerGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanPowerGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanPpGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanPpGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanPriorityGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanPriorityGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineBeanTypesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineBeanTypesGet(),_str,_args);
+    }
+
     public static String clickLine(Struct _use, StringMap<Struct> _all, int _index) {
         MoveLineBean bean_ = new MoveLineBean();
         CommonBean c_ = (CommonBean) ((PokemonBeanStruct) _use).getBean();
