@@ -455,7 +455,7 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
 //    }
 
 
-    public static NatArrayStruct getStringArray(StringList _ls) {
+    public static NatArrayStruct getStringArray(CustList<String> _ls) {
         return getArray(_ls);
     }
 
@@ -479,7 +479,7 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         return arr_;
     }
 
-    public static NatArrayStruct getArray(StringList _ls) {
+    public static NatArrayStruct getArray(CustList<String> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (String s:_ls) {

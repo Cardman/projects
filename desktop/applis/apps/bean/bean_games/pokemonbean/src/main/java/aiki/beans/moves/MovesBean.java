@@ -8,10 +8,7 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.EffectDamage;
 import code.maths.Rate;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public class MovesBean extends WithFilterBean {
@@ -33,17 +30,18 @@ public class MovesBean extends WithFilterBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         if (!getForms().contains(CST_LEARNT)) {
-            StringList moves_ = getForms().getValList(CST_MOVES_SET);
-            for (String k: moves_) {
-                MoveData moveData_ = data_.getMoves().getVal(k);
-                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k, moveData_);
+            AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
+            for (EntryCust<String, MoveData> k: moves_.entryList()) {
+                MoveData moveData_ = k.getValue();
+                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_);
                 moves.add(line_);
             }
         } else {
             boolean selectedLearn_ = getForms().getValBool(CST_LEARNT);
-            StringList learntMoves_ = getForms().getValList(CST_LEARNT_MOVES);
+            AbsMap<String,MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
+            CustList<String> list_ = learntMoves_.getKeys();
             for (EntryCust<String, MoveData> k: data_.getMoves().entryList()) {
-                if (StringUtil.contains(learntMoves_, k.getKey()) && !selectedLearn_ || !StringUtil.contains(learntMoves_, k.getKey()) && selectedLearn_) {
+                if (StringUtil.contains(list_, k.getKey()) && !selectedLearn_ || !StringUtil.contains(list_, k.getKey()) && selectedLearn_) {
                     continue;
                 }
                 MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), k.getValue());
@@ -103,7 +101,7 @@ public class MovesBean extends WithFilterBean {
         DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
 //        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        StringList moves_;
+        AbsMap<String,MoveData> moves_;
 //        StringMap<String> translationsTypes_;
 //        translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         moves_ = movesAmong(data_.getMoves());
@@ -118,9 +116,9 @@ public class MovesBean extends WithFilterBean {
 //            }
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        getForms().put(CST_MOVES_SET, moves_);
+        getForms().putMoves(CST_MOVES_SET, moves_);
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(CST_MOVE, moves_.first());
+            getForms().put(CST_MOVE, moves_.firstKey());
             return CST_MOVE;
         }
         return CST_MOVES;

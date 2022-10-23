@@ -1,9 +1,15 @@
 package aiki.beans;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.db.DataBase;
+import aiki.fight.abilities.AbilityData;
+import aiki.fight.items.Item;
+import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
+import aiki.fight.status.Status;
 import aiki.fight.util.LevelMove;
+import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 
 public class WelcomeBean extends CommonBean {
 
@@ -15,8 +21,8 @@ public class WelcomeBean extends CommonBean {
             StringList learntMoves_ = new StringList();
 //            StringList notLearntMoves_ = new StringList();
             DataBase data_ = getDataBase();
-            for (String p: data_.getPokedex().getKeys()) {
-                PokemonData pkData_ = data_.getPokemon(p);
+            for (EntryCust<String, PokemonData> p: data_.getPokedex().entryList()) {
+                PokemonData pkData_ = p.getValue();
                 for (LevelMove l: pkData_.getLevMoves()) {
                     learntMoves_.add(l.getMove());
                 }
@@ -31,39 +37,49 @@ public class WelcomeBean extends CommonBean {
                 }
             }
             learntMoves_.removeDuplicates();
-            getForms().put(CST_LEARNT_MOVES, learntMoves_);
+            StringMap<MoveData> moveData_ = moves(learntMoves_, data_);
+            getForms().putMoves(CST_LEARNT_MOVES, moveData_);
             moves.addAllElts(data_.getMoves().getKeys());
         }
     }
+
+    private StringMap<MoveData> moves(StringList _learntMoves, DataBase _data) {
+        StringMap<MoveData> moveData_ = new StringMap<MoveData>();
+        for (String m: _learntMoves) {
+            moveData_.addEntry(m, _data.getMove(m));
+        }
+        return moveData_;
+    }
+
     public String seeAllMoves() {
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         getForms().removeKey(CST_LEARNT);
         return CST_MOVES;
     }
     public String seeLearntMoves() {
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         getForms().put(CST_LEARNT, true);
         return CST_MOVES;
     }
     public String seeNotLearntMoves() {
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         getForms().put(CST_LEARNT, false);
         return CST_MOVES;
     }
     public String clickAbilities() {
-        getForms().put(CST_ABILITIES_SET, new StringList());
+        getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());
         return CST_ABILITIES;
     }
     public String clickStatus() {
-        getForms().put(CST_STATUS_SET, new StringList());
+        getForms().putStatus(CST_STATUS_SET, new StringMap<Status>());
         return CST_STATUS_SET;
     }
     public String clickItems() {
-        getForms().put(CST_ITEMS_SET, new StringList());
+        getForms().putItems(CST_ITEMS_SET, new StringMap<Item>());
         return CST_ITEMS;
     }
     public String clickPokedex() {
-        getForms().put(CST_POKEMON_SET, new StringList());
+        getForms().putPokedex(CST_POKEMON_SET, new StringMap<PokemonData>());
         return CST_POKEMON_SET;
     }
     public String clickSimulation() {

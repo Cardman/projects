@@ -11,6 +11,7 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
+import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import code.maths.Rate;
 import code.util.*;
@@ -87,7 +88,7 @@ public class EditPokemonBean extends CommonBean {
     }
     public String chooseItem() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
-        getForms().put(CST_ITEMS_SET_EDIT, new StringList());
+        getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
         return CST_POKEMON_EDIT;
     }
     public String translateName() {
@@ -110,7 +111,7 @@ public class EditPokemonBean extends CommonBean {
     }
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         return CST_POKEMON_EDIT;
     }
     public String getTranslatedStatistic(int _index) {

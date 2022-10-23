@@ -7,7 +7,7 @@ public class SelectPokemonBean extends WithFilterBean {
     @Override
     public void beforeDisplaying() {
         bools();
-        setupPokedex(getForms().getValList(CST_POKEMON_SET));
+        setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET));
     }
     public static String cancel() {
         return CST_POKEMON;

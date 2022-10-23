@@ -434,7 +434,7 @@ public class MoveBean extends CommonBean {
     }
 
     public String clickMoves() {
-        getForms().put(CST_MOVES_SET, new StringList());
+        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         return CST_MOVES;
     }
 

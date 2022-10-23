@@ -4,13 +4,13 @@ import aiki.beans.WithFilterBean;
 import aiki.db.DataBase;
 import aiki.fight.items.*;
 import code.images.BaseSixtyFourUtil;
-import code.util.StringList;
+import code.util.AbsMap;
 
 public class ItemsBean extends WithFilterBean {
 
     @Override
     public void beforeDisplaying() {
-        StringList sortedItems_ = getForms().getValList(CST_ITEMS_SET);
+        AbsMap<String, Item> sortedItems_ = getForms().getValItemData(CST_ITEMS_SET);
         itemInit(sortedItems_);
     }
 
@@ -21,7 +21,7 @@ public class ItemsBean extends WithFilterBean {
 //        } else {
 //            price_ = null;
 //        }
-        StringList sortedItems_ = sortedItems(getDataBase());
+        AbsMap<String,Item> sortedItems_ = sortedItems(getDataBase());
 //        DataBase data_ = getDataBase();
 //        StringMap<String> translationsItems_;
 //        translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
@@ -60,10 +60,10 @@ public class ItemsBean extends WithFilterBean {
 //            }
 //        }
 //        sortedItems_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        getForms().put(CST_ITEMS_SET, sortedItems_);
+        getForms().putItems(CST_ITEMS_SET, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(CST_ITEM, sortedItems_.first());
-            Item it_ = getDataBase().getItem(sortedItems_.first());
+            getForms().put(CST_ITEM, sortedItems_.firstKey());
+            Item it_ = sortedItems_.firstValue();
             return switchItem(it_);
         }
         return CST_ITEMS;

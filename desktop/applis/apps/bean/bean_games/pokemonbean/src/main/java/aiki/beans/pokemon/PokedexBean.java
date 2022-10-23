@@ -11,7 +11,7 @@ public class PokedexBean extends WithFilterBean {
     @Override
     public void beforeDisplaying() {
         bools();
-        setupPokedex(getForms().getValList(CST_POKEMON_SET));
+        setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET));
     }
     public String search() {
         return search(CST_PK);

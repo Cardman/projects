@@ -142,7 +142,7 @@ public class StatusBean extends CommonBean {
     }
     public String clickIndex() {
         if (!getForms().contains(CST_STATUS_SET)) {
-            getForms().put(CST_STATUS_SET, new StringList());
+            getForms().putStatus(CST_STATUS_SET, new StringMap<Status>());
         }
         return CST_STATUS_SET;
     }
