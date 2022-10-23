@@ -1,9 +1,6 @@
 package aiki.beans.moves;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.CommonBean;
-import aiki.beans.PokemonBeanStruct;
-import aiki.beans.StringMapObject;
+import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
@@ -139,5 +136,12 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
     public static Struct callMoveLineBeanSortedMovesSet(Struct _str, Struct _args) {
         return BeanPokemonCommonTs.callStruct(new MoveLineBeanSortedMovesSet(),_str,_args);
+    }
+    public static StringMap<String> mappingToMoves() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,AikiBeansMovesStd.BEAN_MOVES);
+        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML,AikiBeansMovesStd.BEAN_MOVE_LINE);
+        return map_;
     }
 }

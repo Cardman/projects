@@ -1,10 +1,10 @@
 package code.scripts.pages.aiki;
+import aiki.beans.moves.AikiBeansMovesStd;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesMoves extends PageAikiCommon{
 private static final String C_P_180_0="javahtml";
-private static final String C_P_180_1="moves";
+private static final String C_P_180_1= AikiBeansMovesStd.BEAN_MOVES;
 private static final String C_P_180_2="msg_moves,title";
 private static final String C_P_180_3="web/css/moves.css";
 private static final String C_P_180_4="stylesheet";

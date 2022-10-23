@@ -1,10 +1,10 @@
 package code.scripts.pages.aiki;
+import aiki.beans.moves.AikiBeansMovesStd;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesMoveline extends PageAikiCommon{
 private static final String C_P_179_0="javahtml";
-private static final String C_P_179_1="move_line";
+private static final String C_P_179_1=AikiBeansMovesStd.BEAN_MOVE_LINE;
 private static final String C_P_179_2="web/css/moves.css";
 private static final String C_P_179_3="stylesheet";
 private static final String C_P_179_4="text/css";

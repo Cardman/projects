@@ -5,6 +5,8 @@ import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansStd{
+    public static final String WEB_HTML_INDEX_HTML="web/html/index.html";
+    public static final String BEAN_WELCOME = "welcome";
     public static final String TYPE_COMMON_BEAN = "aiki.beans.CommonBean";
     public static final String TYPE_WELCOME_BEAN = "aiki.beans.WelcomeBean";
     private static final String CLICK_POKEDEX = "clickPokedex";
@@ -32,7 +34,7 @@ public final class AikiBeansStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_COMMON_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/index.html")));
+        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_INDEX_HTML)));
         methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/endround/endround.html")));
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
     }

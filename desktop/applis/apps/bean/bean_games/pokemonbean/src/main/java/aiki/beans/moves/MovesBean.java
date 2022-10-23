@@ -12,7 +12,7 @@ import code.util.*;
 import code.util.core.StringUtil;
 
 public class MovesBean extends WithFilterBean {
-    static final String MOVES_BEAN="web/html/moves/moveline.html";
+    static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
     private final CustList<MoveLine> moves = new CustList<MoveLine>();
     private final StringList sortedMoves = new StringList();
     private final StringMap<String> categories = new StringMap<String>();
