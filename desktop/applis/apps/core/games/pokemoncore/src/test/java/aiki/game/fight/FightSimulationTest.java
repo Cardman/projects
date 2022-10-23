@@ -769,7 +769,7 @@ public class FightSimulationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         String name_ = PTITARD;
         short level_ = 3;
-        StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data_);
+        CustList<String> list_ = possiblesInitialMoves(name_, level_, data_);
         assertEq(25, list_.size());
         assertTrue(StringUtil.contains(list_, BALL_GLACE));
         assertTrue(StringUtil.contains(list_, BLABLA_DODO));
@@ -803,7 +803,7 @@ public class FightSimulationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         String name_ = TETARTE;
         short level_ = 24;
-        StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data_);
+        CustList<String> list_ = possiblesInitialMoves(name_, level_, data_);
         assertEq(36, list_.size());
         assertTrue(StringUtil.contains(list_, BALL_GLACE));
         assertTrue(StringUtil.contains(list_, BLABLA_DODO));
@@ -848,7 +848,7 @@ public class FightSimulationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         String name_ = TETARTE;
         short level_ = 25;
-        StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data_);
+        CustList<String> list_ = possiblesInitialMoves(name_, level_, data_);
         assertEq(37, list_.size());
         assertTrue(StringUtil.contains(list_, BALL_GLACE));
         assertTrue(StringUtil.contains(list_, BLABLA_DODO));
@@ -894,7 +894,7 @@ public class FightSimulationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         String name_ = TETARTE;
         short level_ = 100;
-        StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data_);
+        CustList<String> list_ = possiblesInitialMoves(name_, level_, data_);
         assertEq(41, list_.size());
         assertTrue(StringUtil.contains(list_, BALL_GLACE));
         assertTrue(StringUtil.contains(list_, BLABLA_DODO));
@@ -944,7 +944,7 @@ public class FightSimulationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         String name_ = PTITARD;
         short level_ = 100;
-        StringList list_ = FightSimulation.possiblesInitialMoves(name_, level_, data_);
+        CustList<String> list_ = possiblesInitialMoves(name_, level_, data_);
         assertEq(34, list_.size());
         assertTrue(StringUtil.contains(list_, BALL_GLACE));
         assertTrue(StringUtil.contains(list_, BLABLA_DODO));
@@ -5930,6 +5930,10 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(1, 0, 1, BULLES_D_O, POKEMON_FOE_TARGET_ZERO, data_);
         fightSimulation_.chooseMove(1, 1, 2, BALL_OMBRE, POKEMON_FOE_TARGET_ZERO, data_);
         assertTrue(fightSimulation_.validChoicesMoves());
+    }
+
+    private CustList<String> possiblesInitialMoves(String _name, short _level, DataBase _data) {
+        return FightSimulation.possiblesInitialMoves(_name, _level, _data).getKeys();
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

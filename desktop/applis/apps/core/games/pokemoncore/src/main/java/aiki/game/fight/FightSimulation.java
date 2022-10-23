@@ -395,7 +395,7 @@ public class FightSimulation {
 //        return list_.isValidIndex(index_);
     }
 
-    public static StringList possiblesInitialMoves(String _name, short _level, DataBase _import) {
+    public static StringMap<MoveData> possiblesInitialMoves(String _name, short _level, DataBase _import) {
         PokemonData data_ = _import.getPokemon(_name);
         String basePk_ = data_.getBaseEvo();
         StringMap<Short> evos_ = PokemonPlayer.getAllEvolutions(basePk_, _level, true, _import);
@@ -405,7 +405,7 @@ public class FightSimulation {
         if (res_.isEmpty() || _level < evos_.getVal(res_.first())) {
             feedPossiblesInitialMoves(data_, _level, moves_, _import);
             moves_.removeDuplicates();
-            return moves_;
+            return expand(moves_,_import);
         }
         StringList path_ = StringUtil.splitStrings(res_.first(), PokemonPlayer.SEPARATOR);
         int index_ = IndexConstants.FIRST_INDEX;
@@ -419,9 +419,16 @@ public class FightSimulation {
         }
         feedPossiblesInitialMoves(data_, _level, moves_, _import);
         moves_.removeDuplicates();
-        return moves_;
+        return expand(moves_,_import);
     }
 
+    private static StringMap<MoveData> expand(CustList<String> _moves, DataBase _import) {
+        StringMap<MoveData> moves_ = new StringMap<MoveData>();
+        for (String m: _moves) {
+            moves_.addEntry(m,_import.getMove(m));
+        }
+        return moves_;
+    }
     private static void feedPossiblesInitialMoves(PokemonData _data, short _level, StringList _moves, DataBase _import) {
         for (LevelMove p: _data.getLevMoves()) {
             if (p.getLevel() > _level) {
