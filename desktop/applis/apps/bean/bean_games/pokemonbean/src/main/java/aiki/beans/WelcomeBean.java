@@ -1,5 +1,6 @@
 package aiki.beans;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
@@ -54,7 +55,7 @@ public class WelcomeBean extends CommonBean {
     public String seeAllMoves() {
         getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         getForms().removeKey(CST_LEARNT);
-        return CST_MOVES;
+        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
     }
     public String seeLearntMoves() {
         getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());

@@ -190,7 +190,7 @@ public final class PkData extends PokemonStandards {
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
-        getBeansStruct().setValue(0,bean(new WelcomeBean(), AikiBeansStd.TYPE_WELCOME_BEAN, _language));
+        getBeansStruct().setValue(0, beanWelcomeBean(_language));
         getBeansStruct().setValue(1,bean(new PokedexBean(), AikiBeansPokemonStd.TYPE_POKEDEX_BEAN, _language));
         getBeansStruct().setValue(2,bean(new PokemonBean(), AikiBeansPokemonStd.TYPE_POKEMON_BEAN, _language));
         getBeansStruct().setValue(3,bean(new EvolutionHappinessBean(), AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_HAPPINESS_BEAN, _language));
@@ -298,5 +298,9 @@ public final class PkData extends PokemonStandards {
         getBeansStruct().setValue(105,bean(new SelectPokemonBean(), AikiBeansSimulationStd.TYPE_SELECT_POKEMON_BEAN, _language));
         getBeansStruct().setValue(106,bean(new GeneralHelpBean(), AikiBeansHelpStd.TYPE_GENERAL_HELP_BEAN, _language));
         getBeansStruct().setValue(107,bean(new LangsBean(), AikiBeansHelpStd.TYPE_LANGS_BEAN, _language));
+    }
+
+    public PokemonBeanStruct beanWelcomeBean(String _language) {
+        return bean(new WelcomeBean(), AikiBeansStd.TYPE_WELCOME_BEAN, _language);
     }
 }

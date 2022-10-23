@@ -10,6 +10,7 @@ import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMovesStd{
+    public static final String WEB_HTML_MOVES_MOVES_HTML="web/html/moves/moves.html";
     public static final String TYPE_MOVE_BEAN = "aiki.beans.moves.MoveBean";
     public static final String TYPE_MOVE_LINE_BEAN = "aiki.beans.moves.MoveLineBean";
     public static final String TYPE_MOVES_BEAN = "aiki.beans.moves.MovesBean";

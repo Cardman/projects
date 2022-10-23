@@ -70,6 +70,7 @@ public final class FightBeanTest extends InitDbFight {
         assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
     }
 
+
     @Test
     public void clickFoe() {
         Struct fBean_ = displaying(beanFight(EN, facade(db())));
