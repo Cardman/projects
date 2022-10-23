@@ -141,8 +141,7 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         return new InvokedPageOutput(_dest,res_);
     }
 
-    protected TarotBeanStruct bean(TarotBean _bean, String _name, String _lg) {
-        _bean.setClassName(_name);
+    protected TarotBeanStruct bean(TarotBean _bean, String _lg) {
         _bean.setDataBase(dataBase,dataBaseRules);
         _bean.setLanguage(_lg);
         return (new TarotBeanStruct(_bean));

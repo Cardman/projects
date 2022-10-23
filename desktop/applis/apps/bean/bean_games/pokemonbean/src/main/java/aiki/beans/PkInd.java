@@ -18,6 +18,6 @@ public final class PkInd extends PokemonStandards{
     }
 
     public PokemonBeanStruct beanPk(String _language) {
-        return bean(new PokemonPlayerBean(), AikiBeansGameStd.TYPE_POKEMON_PLAYER_BEAN, _language);
+        return bean(new PokemonPlayerBean(), _language);
     }
 }

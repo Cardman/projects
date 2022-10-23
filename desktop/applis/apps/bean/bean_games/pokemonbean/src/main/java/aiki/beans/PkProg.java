@@ -37,6 +37,6 @@ public final class PkProg extends PokemonStandards {
     }
 
     public PokemonBeanStruct initProg(String _language) {
-        return bean(new GameProgressionBean(), AikiBeansGameStd.TYPE_GAME_PROGRESSION_BEAN, _language);
+        return bean(new GameProgressionBean(), _language);
     }
 }

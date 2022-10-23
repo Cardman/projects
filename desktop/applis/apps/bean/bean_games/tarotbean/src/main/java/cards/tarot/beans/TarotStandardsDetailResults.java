@@ -59,6 +59,6 @@ public final class TarotStandardsDetailResults extends TarotStandards {
     }
 
     Struct beanDetailResults(String _language) {
-        return bean(new DetailsResultsTarotBean(),TYPE_DETAILS_RESULTS_TAROT_BEAN,_language);
+        return bean(new DetailsResultsTarotBean(), _language);
     }
 }

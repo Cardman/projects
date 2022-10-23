@@ -44,7 +44,7 @@ public final class BeloteStandardsRules extends BeloteStandards {
     }
 
     BeloteBeanStruct beanRules(String _language) {
-        return bean(new RulesBeloteBean(), TYPE_RULES_BELOTE_BEAN, _language);
+        return bean(new RulesBeloteBean(), _language);
     }
 
 }

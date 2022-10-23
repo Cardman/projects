@@ -66,7 +66,7 @@ public final class BeloteStandardsResults extends BeloteStandards {
     }
 
     BeloteBeanStruct beanResults(String _language) {
-        return bean(new ResultsBeloteBean(), TYPE_RESULTS_BELOTE_BEAN, _language);
+        return bean(new ResultsBeloteBean(), _language);
     }
 
 }

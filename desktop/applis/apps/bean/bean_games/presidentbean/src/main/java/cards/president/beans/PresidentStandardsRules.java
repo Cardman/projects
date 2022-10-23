@@ -54,7 +54,7 @@ public final class PresidentStandardsRules extends PresidentStandards {
     }
 
     PresidentBeanStruct beanRules(String _language) {
-        PresidentBeanStruct b_ = bean(new RulesPresidentBean(), TYPE_RULES_PRESIDENT_BEAN);
+        PresidentBeanStruct b_ = bean(new RulesPresidentBean());
         Bean bean_ = b_.getBean();
         ((RulesPresidentBean)bean_).setDataBase(getDataBaseRules());
         bean_.setLanguage(_language);

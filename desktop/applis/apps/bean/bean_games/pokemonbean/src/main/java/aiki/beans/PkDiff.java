@@ -17,6 +17,6 @@ public final class PkDiff extends PokemonStandards {
     }
 
     public PokemonBeanStruct beanDiff(String _language) {
-        return bean(new DifficultyBean(), AikiBeansGameStd.TYPE_DIFFICULTY_BEAN, _language);
+        return bean(new DifficultyBean(), _language);
     }
 }

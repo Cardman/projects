@@ -29,8 +29,7 @@ public abstract class PresidentStandards extends BeanNatCommonLgNames {
         return new InvokedPageOutput(_dest,res_);
     }
 
-    protected static PresidentBeanStruct bean(Bean _bean, String _name) {
-        _bean.setClassName(_name);
+    protected static PresidentBeanStruct bean(Bean _bean) {
         return (new PresidentBeanStruct(_bean));
     }
 

@@ -45,6 +45,6 @@ public final class TarotStandardsRules extends TarotStandards {
     }
 
     TarotBeanStruct beanRules(String _language) {
-        return bean(new RulesTarotBean(), TYPE_RULES_TAROT_BEAN, _language);
+        return bean(new RulesTarotBean(), _language);
     }
 }

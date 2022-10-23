@@ -8,14 +8,12 @@ import code.util.StringList;
 public class BeanThree extends Bean {
 
     public BeanThree() {
-        setClassName("code.formathtml.classes.BeanTwo");
         setBaseForms(new StringMapObjectBase());
         getBaseForms().put("integer",0);
         getBaseForms().put("strings",new StringList());
     }
     @Override
     public void beforeDisplaying() {
-        setClassName("code.formathtml.classes.BeanTwo");
         SampleBeanStruct.spec(this);
     }
 

@@ -100,8 +100,7 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
         return arr_;
     }
 
-    protected BeloteBeanStruct bean(BeloteBean _bean, String _name, String _lg) {
-        _bean.setClassName(_name);
+    protected BeloteBeanStruct bean(BeloteBean _bean, String _lg) {
         _bean.setDataBase(dataBase,dataBaseRules);
         _bean.setLanguage(_lg);
         return (new BeloteBeanStruct(_bean));

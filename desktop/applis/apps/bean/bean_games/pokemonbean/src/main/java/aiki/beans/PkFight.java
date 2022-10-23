@@ -153,18 +153,18 @@ public final class PkFight extends PokemonStandards {
     }
 
     public PokemonBeanStruct beanFighter(String _language) {
-        return bean(new FighterBean(), AikiBeansFightStd.TYPE_FIGHTER_BEAN, _language);
+        return bean(new FighterBean(), _language);
     }
 
     public PokemonBeanStruct beanTeam(String _language) {
-        return bean(new TeamBean(), AikiBeansFightStd.TYPE_TEAM_BEAN, _language);
+        return bean(new TeamBean(), _language);
     }
 
     public PokemonBeanStruct beanFight(String _language) {
-        return bean(new FightBean(), AikiBeansFightStd.TYPE_FIGHT_BEAN, _language);
+        return bean(new FightBean(), _language);
     }
 
     public PokemonBeanStruct beanFightCalculation(String _language) {
-        return bean(new FightCalculationBean(), AikiBeansFightStd.TYPE_FIGHT_CALCULATION_BEAN, _language);
+        return bean(new FightCalculationBean(), _language);
     }
 }

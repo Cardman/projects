@@ -206,8 +206,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
 //        return Instances.newPokemonPlayer();
 //    }
 
-    protected PokemonBeanStruct bean(CommonBean _bean, String _name, String _lg) {
-        _bean.setClassName(_name);
+    protected PokemonBeanStruct bean(CommonBean _bean, String _lg) {
         _bean.setDataBase(dataBase);
         _bean.setForms(new StringMapObject());
         _bean.setLanguage(_lg);
