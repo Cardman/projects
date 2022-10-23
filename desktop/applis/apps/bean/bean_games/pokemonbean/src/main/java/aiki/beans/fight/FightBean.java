@@ -47,11 +47,11 @@ public class FightBean extends CommonFightBean {
     }
     public String clickPlayer() {
         getForms().put(NO_TEAM, Fight.CST_PLAYER);
-        return TEAM;
+        return AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML;
     }
     public String clickFoe() {
         getForms().put(NO_TEAM, Fight.CST_FOE);
-        return TEAM;
+        return AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML;
     }
 
     public byte getMult() {

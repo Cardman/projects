@@ -265,15 +265,15 @@ public abstract class InitDbFight extends InitDbBean {
     }
 
     public static String navigateFightPlayer(Struct _str, long... _args) {
-        return navigateFight(clickPlayerCaller(),AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
+        return navigateFight(clickPlayerCaller(),"",FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
     }
 
     public static String navigateFightFoe(Struct _str, long... _args) {
-        return navigateFight(clickFoeCaller(),AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,FIGHT+NAV_SEP+M_CLICK_FOE,_str,_args);
+        return navigateFight(clickFoeCaller(),"",FIGHT+NAV_SEP+M_CLICK_FOE,_str,_args);
     }
 
     public static String navigateTeamFighter(Struct _str, long... _args) {
-        return navigateFight(clickTeamFighterCaller(),AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,_str,_args);
+        return navigateFight(clickTeamFighterCaller(),"",TEAM+NAV_SEP+M_CLICK_FIGHTER_1,_str,_args);
     }
 
     public static NatCaller clickPlayerCaller() {

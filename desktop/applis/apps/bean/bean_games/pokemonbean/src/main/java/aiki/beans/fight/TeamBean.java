@@ -140,7 +140,7 @@ public class TeamBean extends CommonFightBean {
     }
     public String clickFighter(int _index) {
         getForms().put(NO_FIGHTER, _index);
-        return FIGHTER;
+        return AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML;
     }
     public String getKey(int _index) {
         return StringUtil.join(enabledMovesByGroup.getKey(_index), MOVES_SEPARATOR);
