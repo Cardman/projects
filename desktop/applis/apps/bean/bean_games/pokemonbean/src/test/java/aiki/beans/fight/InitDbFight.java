@@ -116,11 +116,11 @@ public abstract class InitDbFight extends InitDbBean {
     protected static final String NICK_NA = "NICK_NA";
     static final String NICKNAME = "CARDTEAM";
 
-    private static final String FIGHT="fight";
-    private static final String TEAM="team";
-    private static final String M_CLICK_FOE="clickFoe";
-    private static final String M_CLICK_PLAYER="clickPlayer";
-    private static final String M_CLICK_FIGHTER_1="clickFighter()";
+//    private static final String FIGHT="fight";
+//    private static final String TEAM="team";
+//    private static final String M_CLICK_FOE="clickFoe";
+//    private static final String M_CLICK_PLAYER="clickPlayer";
+//    private static final String M_CLICK_FIGHTER_1="clickFighter()";
     //private static final String M_CLICK_FIGHTER_2="clickFighter(,)";
 
     public static Struct beanFight(String _language, FacadeGame _dataBase) {
@@ -265,15 +265,15 @@ public abstract class InitDbFight extends InitDbBean {
     }
 
     public static String navigateFightPlayer(Struct _str, long... _args) {
-        return navigateFight(clickPlayerCaller(),"",FIGHT+NAV_SEP+M_CLICK_PLAYER,_str,_args);
+        return navigateFight(clickPlayerCaller(),"","",_str,_args);
     }
 
     public static String navigateFightFoe(Struct _str, long... _args) {
-        return navigateFight(clickFoeCaller(),"",FIGHT+NAV_SEP+M_CLICK_FOE,_str,_args);
+        return navigateFight(clickFoeCaller(),"","",_str,_args);
     }
 
     public static String navigateTeamFighter(Struct _str, long... _args) {
-        return navigateFight(clickTeamFighterCaller(),"",TEAM+NAV_SEP+M_CLICK_FIGHTER_1,_str,_args);
+        return navigateFight(clickTeamFighterCaller(),"","",_str,_args);
     }
 
     public static NatCaller clickPlayerCaller() {
