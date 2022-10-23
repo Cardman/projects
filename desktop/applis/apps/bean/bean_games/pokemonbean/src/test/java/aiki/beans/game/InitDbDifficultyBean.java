@@ -12,7 +12,7 @@ import code.scripts.confs.PkScriptPagesInit;
 
 public abstract class InitDbDifficultyBean extends InitDbBean {
     public static String navigateDiffChange(Struct _str, long... _args) {
-        return navigateDiff(new DifficultyBeanChange(), AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML,"",_str,_args);
+        return navigateDiff(new DifficultyBeanChange(), "","",_str,_args);
     }
 
     public static String navigateDiff(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
