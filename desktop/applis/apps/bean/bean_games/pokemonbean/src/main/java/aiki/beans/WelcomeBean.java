@@ -60,12 +60,12 @@ public class WelcomeBean extends CommonBean {
     public String seeLearntMoves() {
         getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         getForms().put(CST_LEARNT, true);
-        return CST_MOVES;
+        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
     }
     public String seeNotLearntMoves() {
         getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
         getForms().put(CST_LEARNT, false);
-        return CST_MOVES;
+        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
     }
     public String clickAbilities() {
         getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());

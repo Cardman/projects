@@ -16,6 +16,14 @@ public abstract class InitDbWelcome extends InitDbConstr {
     public static String navigateAllMoves(Struct _str) {
         return navigateData(new WelcomeBeanSeeAllMoves(),"","",_str);
     }
+
+    public static String navigateLearntMoves(Struct _str) {
+        return navigateData(new WelcomeBeanSeeLearntMoves(),"","",_str);
+    }
+
+    public static String navigateNotLearntMoves(Struct _str) {
+        return navigateData(new WelcomeBeanSeeNotLearntMoves(),"","",_str);
+    }
     public static Struct beanWelcome(FacadeGame _dataBase) {
         PkData pk_ = new PkData();
         pk_.setDataBase(_dataBase);
