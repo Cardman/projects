@@ -422,10 +422,13 @@ public class FightSimulation {
         return expand(moves_,_import);
     }
 
-    private static StringMap<MoveData> expand(CustList<String> _moves, DataBase _import) {
+    public static StringMap<MoveData> expand(CustList<String> _moves, DataBase _import) {
         StringMap<MoveData> moves_ = new StringMap<MoveData>();
         for (String m: _moves) {
-            moves_.addEntry(m,_import.getMove(m));
+            MoveData v_ = _import.getMove(m);
+            if (v_ != null) {
+                moves_.addEntry(m, v_);
+            }
         }
         return moves_;
     }

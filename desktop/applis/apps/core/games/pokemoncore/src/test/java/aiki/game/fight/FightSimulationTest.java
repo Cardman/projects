@@ -765,6 +765,13 @@ public class FightSimulationTest extends InitializationDataBase {
     }
 
     @Test
+    public void possiblesInitialMoves0Test() {
+        DataBase data_ = initDb();
+        StringList str_ = new StringList();
+        str_.add(NULL_REF);
+        assertTrue(FightSimulation.expand(str_,data_).isEmpty());
+    }
+    @Test
     public void possiblesInitialMoves1Test() {
         DataBase data_ = initDb();
         String name_ = PTITARD;

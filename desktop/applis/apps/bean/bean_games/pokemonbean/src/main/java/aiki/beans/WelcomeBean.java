@@ -13,6 +13,7 @@ import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.status.Status;
 import aiki.fight.util.LevelMove;
+import aiki.game.fight.FightSimulation;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
@@ -44,21 +45,10 @@ public class WelcomeBean extends CommonBean {
                 }
             }
             learntMoves_.removeDuplicates();
-            StringMap<MoveData> moveData_ = moves(learntMoves_, data_);
+            StringMap<MoveData> moveData_ = FightSimulation.expand(learntMoves_,data_);
             getForms().putMoves(CST_LEARNT_MOVES, moveData_);
             moves.addAllElts(data_.getMoves().getKeys());
         }
-    }
-
-    private StringMap<MoveData> moves(StringList _learntMoves, DataBase _data) {
-        StringMap<MoveData> moveData_ = new StringMap<MoveData>();
-        for (String m: _learntMoves) {
-            MoveData v_ = _data.getMove(m);
-            if (v_ != null) {
-                moveData_.addEntry(m, v_);
-            }
-        }
-        return moveData_;
     }
 
     public String seeAllMoves() {
