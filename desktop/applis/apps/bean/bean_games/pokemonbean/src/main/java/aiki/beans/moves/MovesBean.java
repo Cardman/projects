@@ -6,7 +6,6 @@ import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
-import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -76,17 +75,9 @@ public class MovesBean extends WithFilterBean {
         _line.setDirect(direct(_moveData));
         _line.setPriority(_moveData.getPriority());
         String accuracy_ = _moveData.getAccuracy();
-        if (Rate.isValid(accuracy_)) {
-            _line.setAccuracy(accuracy_);
-        } else {
-            _line.setAccuracy(DataBase.EMPTY_STRING);
-        }
+        _line.setAccuracy(validOrEmpty(accuracy_));
         String power_ = power(_moveData);
-        if (Rate.isValid(power_)) {
-            _line.setPower(power_);
-        } else {
-            _line.setPower(DataBase.EMPTY_STRING);
-        }
+        _line.setPower(validOrEmpty(power_));
     }
 
     public String search() {

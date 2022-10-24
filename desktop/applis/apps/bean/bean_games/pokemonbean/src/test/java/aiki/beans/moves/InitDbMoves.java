@@ -2,12 +2,15 @@ package aiki.beans.moves;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.MoveData;
+import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
@@ -214,10 +217,18 @@ public abstract class InitDbMoves extends InitDbConstr {
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
         MoveData dam_ = moveDam(TargetChoice.ANY_FOE);
-        EffectDamage ef_ = Instances.newEffectDamage();
-        ef_.setTargetChoice(dam_.getTargetChoice());
-        dam_.getEffects().add(ef_);
+        target(dam_, Instances.newEffectDamage());
         facade_.getData().completeMembers(M_DAM, dam_);
+        MoveData dam2_ = moveDam(TargetChoice.ANY_FOE);
+        dam2_.setAccuracy(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        target(dam2_, ef_);
+        facade_.getData().completeMembers(M_DAM_VAR, dam2_);
+        MoveData damBad_ = moveDam(TargetChoice.ADJ_ADV);
+        damBad_.getEffects().add(Instances.newEffectDamage());
+        facade_.getData().completeMembers(M_DAM_BAD, damBad_);
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, moveDam(TargetChoice.ADJ_UNIQ));
         facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
         facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
         facade_.getData().completeMembers(I_ITEM,ball());
@@ -235,8 +246,11 @@ public abstract class InitDbMoves extends InitDbConstr {
         facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEM,I_ITEM_TR);
         facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
         facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
         facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_WEA,M_WEA_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VERY_BAD,M_DAM_VERY_BAD_TR);
         facade_.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POKEMON,P_POKEMON_TR);
         facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
@@ -253,5 +267,10 @@ public abstract class InitDbMoves extends InitDbConstr {
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
         return facade_;
+    }
+
+    private static void target(MoveData _dam, Effect _ef) {
+        _ef.setTargetChoice(_dam.getTargetChoice());
+        _dam.getEffects().add(_ef);
     }
 }

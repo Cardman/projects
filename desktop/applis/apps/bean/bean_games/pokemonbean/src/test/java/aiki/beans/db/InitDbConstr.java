@@ -121,6 +121,9 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String A_ABILITY="A_ABILITY";
     protected static final String P_POKEMON="P_POKEMON";
     protected static final String M_DAM="M_DAM";
+    protected static final String M_DAM_VAR="M_DAM_VAR";
+    protected static final String M_DAM_BAD="M_DAM_BAD";
+    protected static final String M_DAM_VERY_BAD="M_DAM_VERY_BAD";
     protected static final String M_STA="M_STA";
     protected static final String M_WEA="M_WEA";
     protected static final String T_TYPE="T_TYPE";
@@ -130,7 +133,11 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String S_STA_REL="S_STA_REL";
     protected static final String A_ABILITY_TR="A_ABILITY_TR";
     protected static final String P_POKEMON_TR="P_POKEMON_TR";
+
     protected static final String M_DAM_TR="M_DAM_TR";
+    protected static final String M_DAM_VAR_TR="M_DAM_VAR_TR";
+    protected static final String M_DAM_BAD_TR="M_DAM_BAD_TR";
+    protected static final String M_DAM_VERY_BAD_TR="M_DAM_VERY_BAD_TR";
     protected static final String M_STA_TR="M_STA_TR";
     protected static final String M_WEA_TR="M_WEA_TR";
     protected static final String T_TYPE_TR="T_TYPE_TR";

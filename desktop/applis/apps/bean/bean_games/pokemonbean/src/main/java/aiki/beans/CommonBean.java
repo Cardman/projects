@@ -207,4 +207,10 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         return reasons_;
     }
 
+    protected static String validOrEmpty(String _str) {
+        if (Rate.isValid(_str)) {
+            return _str;
+        }
+        return DataBase.EMPTY_STRING;
+    }
 }
