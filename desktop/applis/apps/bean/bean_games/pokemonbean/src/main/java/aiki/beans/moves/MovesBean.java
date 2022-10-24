@@ -6,7 +6,6 @@ import aiki.beans.facade.simulation.dto.SelectLineMove;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.EffectDamage;
 import code.maths.Rate;
 import code.util.*;
 import code.util.core.StringUtil;
@@ -73,16 +72,8 @@ public class MovesBean extends WithFilterBean {
         _line.setTypes(types_);
         _line.setPp(_moveData.getPp());
         _line.setCategory(_translationsCategories.getVal(_moveData.getCategory()));
-        String power_ = DataBase.EMPTY_STRING;
-        if (_moveData instanceof DamagingMoveData) {
-            DamagingMoveData damag_ = (DamagingMoveData) _moveData;
-            _line.setDirect(damag_.isDirect());
-            EffectDamage eff_ = (EffectDamage) damag_.getEffet(damag_.indexOfPrimaryEffect());
-            power_ = eff_.getPower();
-            _line.setDamageMove(true);
-        } else {
-            _line.setDamageMove(false);
-        }
+        _line.setDamageMove(_moveData instanceof DamagingMoveData);
+        _line.setDirect(direct(_moveData));
         _line.setPriority(_moveData.getPriority());
         String accuracy_ = _moveData.getAccuracy();
         if (Rate.isValid(accuracy_)) {
@@ -90,6 +81,7 @@ public class MovesBean extends WithFilterBean {
         } else {
             _line.setAccuracy(DataBase.EMPTY_STRING);
         }
+        String power_ = power(_moveData);
         if (Rate.isValid(power_)) {
             _line.setPower(power_);
         } else {

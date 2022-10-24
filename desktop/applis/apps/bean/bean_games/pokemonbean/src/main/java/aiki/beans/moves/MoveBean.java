@@ -1,6 +1,7 @@
 package aiki.beans.moves;
 
 import aiki.beans.CommonBean;
+import aiki.beans.WithFilterBean;
 import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -502,8 +503,7 @@ public class MoveBean extends CommonBean {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
-        DamagingMoveData damaging_ = (DamagingMoveData) moveData_;
-        return damaging_.isDirect();
+        return WithFilterBean.direct(moveData_);
     }
     public boolean isZeroPriority() {
         return priority == 0;

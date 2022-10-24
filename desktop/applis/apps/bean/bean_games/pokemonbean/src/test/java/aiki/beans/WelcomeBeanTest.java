@@ -14,6 +14,24 @@ import org.junit.Test;
 
 public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
+    public void display1() {
+        Struct bean_ = beanWelcome(feedDb());
+        displaying(bean_);
+        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        assertEq(2,keys_.size());
+        assertTrue(StringUtil.contains(keys_,M_DAM));
+        assertTrue(StringUtil.contains(keys_,M_STA));
+    }
+    @Test
+    public void display2() {
+        Struct bean_ = beanWelcome(feedDbBase());
+        displaying(bean_);
+        CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
+        assertEq(2,keys_.size());
+        assertTrue(StringUtil.contains(keys_,M_DAM));
+        assertTrue(StringUtil.contains(keys_,M_STA));
+    }
+    @Test
     public void allMoves1() {
         Struct bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(bean_)));

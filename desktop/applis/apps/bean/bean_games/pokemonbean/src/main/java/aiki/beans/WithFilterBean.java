@@ -13,12 +13,14 @@ import aiki.fight.abilities.AbilityData;
 import aiki.fight.items.Item;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
+import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
@@ -167,20 +169,33 @@ public abstract class WithFilterBean extends CommonBean {
             if (!(_move instanceof DamagingMoveData)) {
                 return true;
             }
-            DamagingMoveData damage_ = (DamagingMoveData) _move;
-            EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
             Rate power_ = new Rate(getMinPower());
-            if (!power_.isZeroOrLt() && (!Rate.isValid(eff_.getPower()) || !Rate.greaterEq(new Rate(eff_.getPower()), power_))) {
+            String p_ = power(_move);
+            if (!power_.isZeroOrLt() && (!Rate.isValid(p_) || !Rate.greaterEq(new Rate(p_), power_))) {
                 return true;
             }
         }
         if (Rate.isValid(getMaxPower()) && _move instanceof DamagingMoveData) {
-            DamagingMoveData damage_ = (DamagingMoveData) _move;
-            EffectDamage eff_ = (EffectDamage) damage_.getEffet(damage_.indexOfPrimaryEffect());
             Rate power_ = new Rate(getMaxPower());
-            return Rate.isValid(eff_.getPower()) && !Rate.lowerEq(new Rate(eff_.getPower()), power_);
+            String p_ = power(_move);
+            return Rate.isValid(p_) && !Rate.lowerEq(new Rate(p_), power_);
         }
         return false;
+    }
+    public static boolean direct(MoveData _move) {
+        return _move instanceof DamagingMoveData && ((DamagingMoveData)_move).isDirect();
+    }
+
+    protected static String power(MoveData _move) {
+        int pr_ = _move.indexOfPrimaryEffect();
+        if (pr_ == IndexConstants.INDEX_NOT_FOUND_ELT) {
+            return "";
+        }
+        Effect eff_ = _move.getEffet(pr_);
+        if (!(eff_ instanceof EffectDamage)) {
+            return "";
+        }
+        return ((EffectDamage)eff_).getPower();
     }
 
     protected String searchAbility(String _k) {

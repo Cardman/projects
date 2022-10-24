@@ -16,6 +16,7 @@ import aiki.fight.util.LevelMove;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class WelcomeBean extends CommonBean {
 
@@ -36,10 +37,10 @@ public class WelcomeBean extends CommonBean {
                     learntMoves_.add(m);
                 }
                 for (Short hm_: pkData_.getHiddenMoves()) {
-                    learntMoves_.add(data_.getHm().getVal(hm_));
+                    learntMoves_.add(StringUtil.nullToEmpty(data_.getHm().getVal(hm_)));
                 }
                 for (Short tm_: pkData_.getTechnicalMoves()) {
-                    learntMoves_.add(data_.getTm().getVal(tm_));
+                    learntMoves_.add(StringUtil.nullToEmpty(data_.getTm().getVal(tm_)));
                 }
             }
             learntMoves_.removeDuplicates();
@@ -52,7 +53,10 @@ public class WelcomeBean extends CommonBean {
     private StringMap<MoveData> moves(StringList _learntMoves, DataBase _data) {
         StringMap<MoveData> moveData_ = new StringMap<MoveData>();
         for (String m: _learntMoves) {
-            moveData_.addEntry(m, _data.getMove(m));
+            MoveData v_ = _data.getMove(m);
+            if (v_ != null) {
+                moveData_.addEntry(m, v_);
+            }
         }
         return moveData_;
     }

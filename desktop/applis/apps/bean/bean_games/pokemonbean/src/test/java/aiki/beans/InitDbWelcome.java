@@ -76,6 +76,20 @@ public abstract class InitDbWelcome extends InitDbConstr {
     }
 
     protected static FacadeGame feedDb() {
+        FacadeGame facade_ = dbBaseWelcome();
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    protected static FacadeGame feedDbBase() {
+        FacadeGame facade_ = dbBaseWelcome();
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    protected static FacadeGame dbBaseWelcome() {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(M_DAM,moveDam(TargetChoice.ANY_FOE));
         facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
@@ -109,9 +123,6 @@ public abstract class InitDbWelcome extends InitDbConstr {
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
-        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
-        feedHm(facade_.getData().getHm());
-        facade_.getData().completeVariables();
         return facade_;
     }
 }
