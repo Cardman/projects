@@ -13,6 +13,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
 import code.bean.nat.BeanNatCommonLgNames;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.StringList;
@@ -145,7 +146,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         Struct moveline_ = _all.getVal(mappingToMoves().getVal(BeanNatCommonLgNames.processString(callMovesBeanMovesBeanGet(_use))));
         fwdLineFull(moveline_, _use, _index);
         beforeDisplaying(moveline_);
-        return navigateData(clickMoveLineBeanMove(),"","",moveline_,_index);
+        return navigateData(clickMoveLineBeanMove(),"","",moveline_, NumParsers.convertToNumber(callMoveLineBeanIndexGet(moveline_)).intStruct());
     }
     public static void fwdLineFull(Struct _update, Struct _use, int _index) {
         callMoveLineBeanIndexSet(_update,_index);
