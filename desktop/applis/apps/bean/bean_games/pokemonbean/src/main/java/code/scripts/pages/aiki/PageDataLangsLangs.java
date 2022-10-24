@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataLangsLangs extends PageAikiCommon{
+final class PageDataLangsLangs extends PageCardsCommon{
 private static final String C_P_131_0="javahtml";
 private static final String C_P_131_1="langs";
 private static final String C_P_131_2="msg_lang,title";

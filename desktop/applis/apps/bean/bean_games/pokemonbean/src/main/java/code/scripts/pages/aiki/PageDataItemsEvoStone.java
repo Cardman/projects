@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataItemsEvoStone extends PageAikiCommon{
+final class PageDataItemsEvoStone extends PageCardsCommon{
 private static final String C_P_119_0="javahtml";
 private static final String C_P_119_1="evostone";
 private static final String C_P_119_2="msg_item,title";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataItemsHealingpp extends PageAikiCommon{
+final class PageDataItemsHealingpp extends PageCardsCommon{
 private static final String C_P_124_0="javahtml";
 private static final String C_P_124_1="healingpp";
 private static final String C_P_124_2="msg_item,title";

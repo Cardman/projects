@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import aiki.beans.moves.AikiBeansMovesStd;
 import code.sml.*;
 import code.util.*;
-final class PageDataMovesMoveline extends PageAikiCommon{
+final class PageDataMovesMoveline extends PageCardsCommon{
 private static final String C_P_179_0="javahtml";
 private static final String C_P_179_1=AikiBeansMovesStd.BEAN_MOVE_LINE;
 private static final String C_P_179_2="web/css/moves.css";

@@ -1,4 +1,5 @@
 package code.scripts.pages.cards;
+import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
 
@@ -448,8 +449,5 @@ ad(elt9_,elt10_);
 ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 ad(_body,elt0_);
-}
-static void br(Element _belote,Document _doc){
-ad(_belote,el(_doc,BR));
 }
 }

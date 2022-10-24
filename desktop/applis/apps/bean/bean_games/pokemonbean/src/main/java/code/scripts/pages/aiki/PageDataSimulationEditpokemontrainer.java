@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataSimulationEditpokemontrainer extends PageAikiCommon{
+final class PageDataSimulationEditpokemontrainer extends PageCardsCommon{
 private static final String C_P_197_0="javahtml";
 private static final String C_P_197_1="edittrainerpokemon";
 private static final String C_P_197_2="msg_levelsimu,title_edit_pokemon_tr";

@@ -1,7 +1,7 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-public abstract class PageAikiCommon{
+public abstract class PageCardsCommon{
 protected static final String A="a";
 protected static final String ACTION="action";
 protected static final String B="b";
@@ -84,26 +84,26 @@ protected static final String GO_TO_IND="$gi()";
 protected static final String GO_TO_LEVEL = "$gl()";
 protected static final String GO_TO_MAP = "$gm()";
 protected static final String GO_TO_SIMULATION = "$gs()";
-protected PageAikiCommon(){}
-static Attr at(String _name,String _value){
+protected PageCardsCommon(){}
+public static Attr at(String _name,String _value){
 return CoreDocument.createAttribute(_name,_value);
 }
-static void at(Element _elt,CustList<Attr> _ls){
+public static void at(Element _elt,CustList<Attr> _ls){
 _elt.setAttributes(new NamedNodeMap(_ls));
 }
-static CustList<Attr> al(int _len){
+public static CustList<Attr> al(int _len){
 return new CustList<Attr>(new CollCapacity(_len));
 }
-static Text tx(Document _doc0,String _valuePk){
-return _doc0.createEscapedTextNode(_valuePk);
+public static Text tx(Document _doc,String _v){
+return _doc.createEscapedTextNode(_v);
 }
-static Element el(Document _doc0,String _value){
-return _doc0.createElement(_value);
+public static Element el(Document _doc,String _value){
+return _doc.createElement(_value);
 }
-static void ad(Element _elt,Node _value){
+public static void ad(Element _elt,Node _value){
 _elt.appendChild(_value);
 }
-static void br(Element _elt,Document _doc){
+public static void br(Element _elt,Document _doc){
 _elt.appendChild(_doc.createElement(BR));
 }
 }

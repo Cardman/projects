@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataItemsItemforbattle extends PageAikiCommon{
+final class PageDataItemsItemforbattle extends PageCardsCommon{
 private static final String C_P_127_0="javahtml";
 private static final String C_P_127_1="itemforbattle";
 private static final String C_P_127_2="msg_item,title";

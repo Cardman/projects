@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataEndroundPositiontarget extends PageAikiCommon{
+final class PageDataEndroundPositiontarget extends PageCardsCommon{
 private static final String C_P_108_0="javahtml";
 private static final String C_P_108_1="end_positiontarget";
 private static final String C_P_108_2="web/css/abilities.css";

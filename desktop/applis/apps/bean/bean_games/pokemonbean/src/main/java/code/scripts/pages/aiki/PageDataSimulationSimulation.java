@@ -1,7 +1,7 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-final class PageDataSimulationSimulation extends PageAikiCommon{
+final class PageDataSimulationSimulation extends PageCardsCommon{
 private static final String C_P_201_0="javahtml";
 private static final String C_P_201_1="simulation";
 private static final String C_P_201_2="msg_simulation,title_param";

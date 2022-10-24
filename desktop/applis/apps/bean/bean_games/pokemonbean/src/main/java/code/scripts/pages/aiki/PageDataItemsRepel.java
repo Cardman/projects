@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataItemsRepel extends PageAikiCommon{
+final class PageDataItemsRepel extends PageCardsCommon{
 private static final String C_P_129_0="javahtml";
 private static final String C_P_129_1="repel";
 private static final String C_P_129_2="msg_item,title";

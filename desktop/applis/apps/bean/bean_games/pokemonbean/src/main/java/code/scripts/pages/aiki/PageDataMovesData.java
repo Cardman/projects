@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMovesData extends PageAikiCommon{
+final class PageDataMovesData extends PageCardsCommon{
 private static final String C_P_143_0="javahtml";
 private static final String C_P_143_1="move";
 private static final String C_P_143_2="msg_movedata,title";

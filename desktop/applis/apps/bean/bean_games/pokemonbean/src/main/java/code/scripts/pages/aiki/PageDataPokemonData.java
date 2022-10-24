@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataPokemonData extends PageAikiCommon{
+final class PageDataPokemonData extends PageCardsCommon{
 private static final String C_P_181_0="javahtml";
 private static final String C_P_181_1="pokemon";
 private static final String C_P_181_2="msg_pkdata,title";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataStatusStatus extends PageAikiCommon{
+final class PageDataStatusStatus extends PageCardsCommon{
 private static final String C_P_205_0="javahtml";
 private static final String C_P_205_1="status_set";
 private static final String C_P_205_2="msg_statusset,title";

@@ -1,4 +1,5 @@
 package code.scripts.pages.cards;
+import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
 final class PagePresidentRules extends PageCardsCommon{

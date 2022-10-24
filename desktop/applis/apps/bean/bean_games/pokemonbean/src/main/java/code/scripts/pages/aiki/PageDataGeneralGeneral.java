@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataGeneralGeneral extends PageAikiCommon{
+final class PageDataGeneralGeneral extends PageCardsCommon{
 private static final String C_P_113_0="javahtml";
 private static final String C_P_113_1="gereral_data";
 private static final String C_P_113_2="msg_generalhelp,title";

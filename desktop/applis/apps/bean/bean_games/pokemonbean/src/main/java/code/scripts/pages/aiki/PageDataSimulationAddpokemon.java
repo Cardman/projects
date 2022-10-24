@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataSimulationAddpokemon extends PageAikiCommon{
+final class PageDataSimulationAddpokemon extends PageCardsCommon{
 private static final String C_P_194_0="javahtml";
 private static final String C_P_194_1="addpokemon";
 private static final String C_P_194_2="msg_levelsimu,title_add_pokemon";

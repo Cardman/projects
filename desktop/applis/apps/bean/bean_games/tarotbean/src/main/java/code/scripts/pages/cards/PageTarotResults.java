@@ -1,4 +1,5 @@
 package code.scripts.pages.cards;
+import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
 final class PageTarotResults extends PageCardsCommon{
@@ -529,8 +530,5 @@ ad(elt9_,elt10_);
 ad(elt8_,elt9_);
 ad(elt0_,elt8_);
 ad(_body,elt0_);
-}
-static void br(Element _tarot,Document _doc){
-ad(_tarot,el(_doc,BR));
 }
 }

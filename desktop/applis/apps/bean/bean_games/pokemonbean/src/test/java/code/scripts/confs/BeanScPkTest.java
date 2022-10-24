@@ -19,6 +19,5 @@ public final class BeanScPkTest extends EquallablePkBeanUtil {
         assertNotNull(PagesInit.build());
         assertNotNull(MessagesInit.ms());
         assertNotNull(CssInit.ms());
-        assertNotNull(new BeanPageAikiSample().self());
     }
 }

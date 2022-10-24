@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataSimulationSimulationlevel extends PageAikiCommon{
+final class PageDataSimulationSimulationlevel extends PageCardsCommon{
 private static final String C_P_202_0="javahtml";
 private static final String C_P_202_1="level_simu";
 private static final String C_P_202_2="web/css/simulation.css";

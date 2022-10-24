@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageFightTeam extends PageAikiCommon{
+final class PageFightTeam extends PageCardsCommon{
 private static final String C_P_209_0="javahtml";
 private static final String C_P_209_1="team";
 private static final String C_P_209_2="web_fight/css/fight.css";

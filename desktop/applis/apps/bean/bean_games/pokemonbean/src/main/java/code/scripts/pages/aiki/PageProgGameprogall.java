@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageProgGameprogall extends PageAikiCommon{
+final class PageProgGameprogall extends PageCardsCommon{
 private static final String C_P_213_0="javahtml";
 private static final String C_P_213_1="progressing";
 private static final String C_P_213_2="msg_prog,titleFull";

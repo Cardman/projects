@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataEndroundPositionrelation extends PageAikiCommon{
+final class PageDataEndroundPositionrelation extends PageCardsCommon{
 private static final String C_P_107_0="javahtml";
 private static final String C_P_107_1="end_positionrelation";
 private static final String C_P_107_2="web/css/abilities.css";

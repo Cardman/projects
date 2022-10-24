@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataAbilityAbilities extends PageAikiCommon{
+final class PageDataAbilityAbilities extends PageCardsCommon{
 private static final String C_P_96_0="javahtml";
 private static final String C_P_96_1="abilities";
 private static final String C_P_96_2="msg_abilities,title";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMapElementsAlly extends PageAikiCommon{
+final class PageDataMapElementsAlly extends PageCardsCommon{
 private static final String C_P_132_0="javahtml";
 private static final String C_P_132_1="ally";
 private static final String C_P_132_2="msg_pokemon_npc,ally_team";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataComboCombo extends PageAikiCommon{
+final class PageDataComboCombo extends PageCardsCommon{
 private static final String C_P_99_0="javahtml";
 private static final String C_P_99_1="eff_combo";
 private static final String C_P_99_2="web/css/abilities.css";

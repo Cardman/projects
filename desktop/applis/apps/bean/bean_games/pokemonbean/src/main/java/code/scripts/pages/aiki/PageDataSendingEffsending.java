@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataSendingEffsending extends PageAikiCommon{
+final class PageDataSendingEffsending extends PageCardsCommon{
 private static final String C_P_193_0="javahtml";
 private static final String C_P_193_1="effsending";
 private static final String C_P_193_2="web/css/moves.css";

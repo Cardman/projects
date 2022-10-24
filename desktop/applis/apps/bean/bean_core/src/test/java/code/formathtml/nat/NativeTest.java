@@ -31,7 +31,7 @@ import code.formathtml.util.NodeInformations;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.BeanPageCardsSample;
-import code.scripts.pages.cards.PageCardsCommon;
+import code.scripts.pages.aiki.PageCardsCommon;
 import code.sml.*;
 import code.util.*;
 import org.junit.Test;
@@ -83,6 +83,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         PageCardsCommon.el(fullDocument_,"");
         PageCardsCommon.ad(element_,fullDocument_.createElement(""));
         PageCardsCommon.tx(fullDocument_,"");
+        PageCardsCommon.br(element_,fullDocument_);
         StringMapObjectBase s_ = new StringMapObjectBase();
         s_.put("0",0);
         s_.put("1",false);

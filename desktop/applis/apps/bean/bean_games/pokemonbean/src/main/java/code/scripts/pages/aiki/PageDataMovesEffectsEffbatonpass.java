@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMovesEffectsEffbatonpass extends PageAikiCommon{
+final class PageDataMovesEffectsEffbatonpass extends PageCardsCommon{
 private static final String C_P_147_0="javahtml";
 private static final String C_P_147_1="eff_batonpass";
 private static final String C_P_147_2="web/css/moves.css";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataEndroundFoe extends PageAikiCommon{
+final class PageDataEndroundFoe extends PageCardsCommon{
 private static final String C_P_103_0="javahtml";
 private static final String C_P_103_1="end_foe";
 private static final String C_P_103_2="web/css/abilities.css";

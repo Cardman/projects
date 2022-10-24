@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMapMap extends PageAikiCommon{
+final class PageDataMapMap extends PageCardsCommon{
 private static final String C_P_142_0="javahtml";
 private static final String C_P_142_1="game_map";
 private static final String C_P_142_2="msg_levelmap,title_map";

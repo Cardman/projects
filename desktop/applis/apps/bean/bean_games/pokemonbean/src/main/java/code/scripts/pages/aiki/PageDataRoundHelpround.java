@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 
-final class PageDataRoundHelpround extends PageAikiCommon{
+final class PageDataRoundHelpround extends PageCardsCommon{
 private static final String LK_END_ROUND=GO_TO_ENDROUND;
 private static final String LK_END_ROUND_USER="$e()";
 private static final String LK_ADDON_FORMULA="$a()";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataSimulationSelectability extends PageAikiCommon{
+final class PageDataSimulationSelectability extends PageCardsCommon{
 private static final String C_P_198_0="javahtml";
 private static final String C_P_198_1="selectability";
 private static final String C_P_198_2="msg_levelsimu,title_select_ability";

@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataPokemonEvolutionsEvohappy extends PageAikiCommon{
+final class PageDataPokemonEvolutionsEvohappy extends PageCardsCommon{
 private static final String C_P_182_0="javahtml";
 private static final String C_P_182_1="evo_happy";
 private static final String C_P_182_2="web/css/pokedex.css";

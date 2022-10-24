@@ -2,7 +2,7 @@ package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
-final class PageDataMapElementsTrainerMultiFight extends PageAikiCommon{
+final class PageDataMapElementsTrainerMultiFight extends PageCardsCommon{
 private static final String C_P_139_0="javahtml";
 private static final String C_P_139_1="trainer_fight";
 private static final String C_P_139_2="web/css/pokedex.css";
