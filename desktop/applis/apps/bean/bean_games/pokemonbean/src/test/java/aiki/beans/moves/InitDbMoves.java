@@ -217,13 +217,15 @@ public abstract class InitDbMoves extends InitDbConstr {
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
         MoveData dam_ = moveDam(TargetChoice.ANY_FOE);
-        target(dam_, Instances.newEffectDamage());
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower("1");
+        target(dam_, ef_);
         facade_.getData().completeMembers(M_DAM, dam_);
         MoveData dam2_ = moveDam(TargetChoice.ANY_FOE);
         dam2_.setAccuracy(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        EffectDamage ef_ = Instances.newEffectDamage();
-        ef_.setPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
-        target(dam2_, ef_);
+        EffectDamage ef2_ = Instances.newEffectDamage();
+        ef2_.setPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        target(dam2_, ef2_);
         facade_.getData().completeMembers(M_DAM_VAR, dam2_);
         MoveData damBad_ = moveDam(TargetChoice.ADJ_ADV);
         damBad_.getEffects().add(Instances.newEffectDamage());
