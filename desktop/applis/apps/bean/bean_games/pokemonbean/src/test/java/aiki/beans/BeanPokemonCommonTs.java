@@ -1,6 +1,7 @@
 package aiki.beans;
 
 import code.bean.nat.*;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -54,6 +55,18 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static Struct callStruct(NatCaller _caller, Struct _str, Struct _args) {
         _caller.re(_str,new Struct[]{_args});
         return _str;
+    }
+
+    public static int toInt(Struct _str) {
+        return NumParsers.convertToNumber(_str).intStruct();
+    }
+
+    public static Struct byStr(StringMap<Struct> _all, StringMap<String> _mapping, Struct _resultAsString) {
+        return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
+    }
+
+    private static String toStr(Struct _resultAsString) {
+        return BeanNatCommonLgNames.processString(_resultAsString);
     }
 
     public Struct displaying(Struct _b) {

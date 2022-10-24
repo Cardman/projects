@@ -9,8 +9,6 @@ import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 import code.util.StringList;
@@ -127,6 +125,11 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     public static String goToLine(FacadeGame _fac, int _index) {
+        Struct moveline_ = disp(_fac, _index);
+        return navigateData(clickMoveLineBeanMove(),"","",moveline_, toInt(callMoveLineBeanIndexGet(moveline_)));
+    }
+
+    private static Struct disp(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToMoves(pk_);
         Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
@@ -134,18 +137,19 @@ public abstract class InitDbMoves extends InitDbConstr {
         Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
         transit(pk_,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
         transit(pk_,new MovesBeanSearch(),moves_,moves_);
-        return clickLine(all_,_index);
+        return displayMoveLine(all_, _index);
     }
-    public static String clickLine(StringMap<Struct> _all, int _index) {
+
+    private static Struct displayMoveLine(StringMap<Struct> _all, int _index) {
         Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
         Struct moveline_ = byString(_all, callMovesBeanMovesBeanGet(moves_));
         fwdLineFull(moveline_, moves_, _index);
         beforeDisplaying(moveline_);
-        return navigateData(clickMoveLineBeanMove(),"","",moveline_, NumParsers.convertToNumber(callMoveLineBeanIndexGet(moveline_)).intStruct());
+        return moveline_;
     }
 
     public static Struct byString(StringMap<Struct> _all, Struct _resultAsString) {
-        return _all.getVal(mappingToMoves().getVal(BeanNatCommonLgNames.processString(_resultAsString)));
+        return byStr(_all, mappingToMoves(), _resultAsString);
     }
 
     public static void fwdLineFull(Struct _update, Struct _use, int _index) {
