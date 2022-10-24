@@ -74,6 +74,8 @@ private static final String C_P_141_67="$clickTileOnMap({([p])})";
 private static final String C_P_141_68="msg_levelmap,title_mt";
 private static final String C_P_141_69="0";
 private static final String C_P_141_70="{b}";
+private static final String C_P_141_70_2="areas";
+private static final String C_P_141_70_3="$clickArea({([d])})";
 private static final String C_P_141_71="proponeTile";
 private static final String C_P_141_72="$clickTile()";
 private static final String C_P_141_73="msg_levelmap,click_tile";
@@ -85,6 +87,7 @@ private static final String C_P_141_78="$seeArea()";
 private static final String C_P_141_79="msg_levelmap,see_area";
 private static final String C_P_141_80="!dirs.isEmpty()";
 private static final String C_P_141_81="d";
+private static final String C_P_141_81_2="{([d])}";
 private static final String C_P_141_82="java.lang.Object";
 private static final String C_P_141_83="java.lang.Object";
 private static final String C_P_141_84="dirs";
@@ -403,6 +406,20 @@ ad(_body,elt0_);
 static void build3(Element _body,Document _doc46){
 Element elt0_=el(_doc46,BR);
 ad(_body,elt0_);
+Element elt1_=el(_doc46,C_FOR);
+CustList<Attr> attrs1_=al(2);
+attrs1_.add(at(VAR,C_P_141_81));
+attrs1_.add(at(LIST,C_P_141_70_2));
+at(elt1_,attrs1_);
+Element elt22_=el(_doc46,A);
+CustList<Attr> attrs22_=al(1);
+attrs22_.add(at(C_COMMAND,C_P_141_70_3));
+at(elt22_,attrs22_);
+ad(elt22_,tx(_doc46,C_P_141_81_2));
+ad(elt1_,elt22_);
+ad(elt1_,el(_doc46,BR));
+ad(_body,elt1_);
+ad(_body,el(_doc46,BR));
 }
 static void build4(Element _body,Document _doc46){
 Element elt0_=el(_doc46,C_IF);

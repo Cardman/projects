@@ -4,6 +4,8 @@ import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.InitDbBean;
 import aiki.beans.PkData;
 import aiki.beans.effects.EffectWhileSendingBeanEffectSet;
+import aiki.beans.map.MapLevelBeanAreas;
+import aiki.beans.map.MapLevelBeanClickArea;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -335,5 +337,10 @@ public abstract class InitDbConstr extends InitDbBean {
         pk_.setDataBase(_dataBase);
         return pk_;
     }
-
+    public static Struct callMapLevelBeanClickArea(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_args);
+    }
+    public static Struct callMapLevelBeanAreas(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanAreas(),_str,_args);
+    }
 }

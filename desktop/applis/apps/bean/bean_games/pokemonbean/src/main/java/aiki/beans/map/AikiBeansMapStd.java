@@ -24,6 +24,8 @@ public final class AikiBeansMapStd{
     private static final String SEE_AREA = "seeArea";
     private static final String IS_UP = "isUp";
     private static final String CLICK_DIRECTED_LINK = "clickDirectedLink";
+    private static final String CLICK_AREA = "clickArea";
+    private static final String AREAS = "areas";
     private static final String IS_DOWN = "isDown";
     private static final String IS_LEFT = "isLeft";
     private static final String IS_RIGHT = "isRight";
@@ -75,6 +77,7 @@ public final class AikiBeansMapStd{
         fields_.add(new StandardField(PROPONE_LINK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanProponeLinkGet(),null));
         fields_.add(new StandardField(SEE_AREA,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanSeeAreaGet(),null));
         fields_.add(new StandardField(DIRS, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanDirsGet(),null));
+        fields_.add(new StandardField(AREAS,BeanNatCommonLgNames.TYPE_LIST, false, false,new MapLevelBeanAreas(),null));
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new MapLevelBeanGetMapWidth()));
         methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(WITHOUT_TITLE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanWithoutTitle()));
@@ -90,6 +93,7 @@ public final class AikiBeansMapStd{
         methods_.add( new SpecNatMethod(SEE_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanSeeArea()));
         methods_.add( new SpecNatMethod(IS_UP,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsUp()));
         methods_.add( new SpecNatMethod(CLICK_DIRECTED_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickDirectedLink()));
+        methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickArea()));
         methods_.add( new SpecNatMethod(IS_DOWN,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsDown()));
         methods_.add( new SpecNatMethod(IS_LEFT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsLeft()));
         methods_.add( new SpecNatMethod(IS_RIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsRight()));

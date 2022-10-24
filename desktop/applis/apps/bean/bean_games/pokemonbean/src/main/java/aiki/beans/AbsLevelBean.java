@@ -6,11 +6,16 @@ import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
+import aiki.map.levels.AreaApparition;
+import aiki.map.levels.Level;
+import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
 import aiki.util.CommonParam;
+import aiki.util.Coords;
 import aiki.util.Point;
 import aiki.util.Points;
 import code.images.BaseSixtyFourUtil;
+import code.util.CustList;
 import code.util.core.IndexConstants;
 
 public abstract class AbsLevelBean extends CommonBean {
@@ -22,6 +27,7 @@ public abstract class AbsLevelBean extends CommonBean {
     private boolean pokemonCenter;
     private boolean gym;
     private boolean possibleMultiLayer;
+    private CustList<AreaApparition> wildPokemonAreas = new CustList<AreaApparition>();
 
     protected void initTiles() {
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -55,6 +61,13 @@ public abstract class AbsLevelBean extends CommonBean {
             }
             road = place_ instanceof Road;
             levelIndex = lev_;
+            Coords c_ = new Coords();
+            c_.setNumberPlace((short) pl_);
+            c_.getLevel().setLevelIndex((byte) lev_);
+            Level level_ = data_.getMap().getLevelByCoords(c_);
+            if (level_ instanceof LevelWithWildPokemon) {
+                wildPokemonAreas = ((LevelWithWildPokemon) level_).getWildPokemonAreas();
+            }
             feedImages(data_.getLevelImage((short) pl_, (byte) lev_));
         }
     }
@@ -63,6 +76,10 @@ public abstract class AbsLevelBean extends CommonBean {
         for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
             tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
         }
+    }
+    public String clickArea(int _index) {
+        getForms().put(CST_AREA,getWildPokemonAreas().get(_index));
+        return CST_AREA;
     }
 
     public int getMapWidth() {
@@ -105,6 +122,10 @@ public abstract class AbsLevelBean extends CommonBean {
 
     public boolean getPokemonCenter() {
         return pokemonCenter;
+    }
+
+    public CustList<AreaApparition> getWildPokemonAreas() {
+        return wildPokemonAreas;
     }
 
     public DictionaryComparator<Point, String> getTiles() {
