@@ -373,6 +373,7 @@ public final class RendBlockHelp {
     public static void feed(StringList _varNames, CustList<NatExecOperationNode> _anc, NatRendStackCall _rendStackCall) {
         _rendStackCall.getFormParts().getCallsExps().add(_anc);
         _rendStackCall.getFormParts().getAnchorsVars().add(_varNames);
+        _rendStackCall.getFormParts().getStructsAnc().add(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
     }
 
     public static void setupOverrides(StringMap<SpecialNatClass> _standardsTypes) {

@@ -40,6 +40,7 @@ public final class NatRendForm extends NatRendElement implements RendElem {
         StringList arg_ = new StringList();
 //        String render_ = StringUtil.join(alt_,"");
         _rendStack.getFormParts().getFormsArgs().add(arg_);
+        _rendStack.getFormParts().getStructsForm().add(_rendStack.getLastPage().getGlobalArgument().getStruct());
 //        String beanName_ = _rendStack.getLastPage().getBeanName();
 //        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(RendBlockHelp.CALL_METHOD,beanName_, RendBlockHelp.DOT,render_));
         elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), RendBlockHelp.EMPTY_STRING);

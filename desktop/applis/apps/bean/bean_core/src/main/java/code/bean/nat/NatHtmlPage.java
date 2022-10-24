@@ -3,6 +3,7 @@ package code.bean.nat;
 import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.opers.NatExecOperationNode;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.HtmlPage;
 import code.formathtml.util.NodeContainer;
 import code.util.CustList;
@@ -22,11 +23,15 @@ public final class NatHtmlPage extends HtmlPage {
 
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
+    private CustList<Struct> structsAnc = new CustList<Struct>();
+    private CustList<Struct> structsForm = new CustList<Struct>();
 
     public void set(NatFormParts _form) {
         setBase(_form);
         setAnchorsArgs(_form.getAnchorsArgs());
         setAnchorsVars(_form.getAnchorsVars());
+        setStructsAnc(_form.getStructsAnc());
+        setStructsForm(_form.getStructsForm());
         setContainers(_form.getContainersMap());
         setCallsExps(_form.getCallsExps());
         setCallsFormExps(_form.getCallsFormExps());
@@ -64,6 +69,22 @@ public final class NatHtmlPage extends HtmlPage {
 
     public void setFormsVars(CustList<StringList> _formsVars) {
         formsVars = _formsVars;
+    }
+
+    public CustList<Struct> getStructsForm() {
+        return structsForm;
+    }
+
+    public void setStructsForm(CustList<Struct> _s) {
+        this.structsForm = _s;
+    }
+
+    public CustList<Struct> getStructsAnc() {
+        return structsAnc;
+    }
+
+    public void setStructsAnc(CustList<Struct> _s) {
+        this.structsAnc = _s;
     }
 
     public CustList<CustList<NatExecOperationNode>> getCallsExps() {

@@ -1,6 +1,7 @@
 package code.bean.nat.exec;
 
 import code.bean.nat.exec.opers.NatExecOperationNode;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.FormParts;
 import code.util.CustList;
 import code.util.LongMap;
@@ -16,6 +17,8 @@ public final class NatFormParts extends FormParts {
     private CustList<StringList> anchorsVars = new CustList<StringList>();
     private CustList<StringList> formsArgs = new CustList<StringList>();
     private CustList<StringList> formsVars = new CustList<StringList>();
+    private CustList<Struct> structsAnc = new CustList<Struct>();
+    private CustList<Struct> structsForm = new CustList<Struct>();
 
     public void initFormsSpec() {
         initForms();
@@ -27,6 +30,8 @@ public final class NatFormParts extends FormParts {
         containersMap = new LongMap<LongTreeMap<NatNodeContainer>>();
         containersMapStack = new CustList<LongTreeMap<NatNodeContainer>>();
         callsFormExps = new CustList<CustList<NatExecOperationNode>>();
+        structsAnc = new CustList<Struct>();
+        structsForm = new CustList<Struct>();
     }
     public LongMap<LongTreeMap<NatNodeContainer>> getContainersMap() {
         return containersMap;
@@ -60,4 +65,11 @@ public final class NatFormParts extends FormParts {
         return formsVars;
     }
 
+    public CustList<Struct> getStructsAnc() {
+        return structsAnc;
+    }
+
+    public CustList<Struct> getStructsForm() {
+        return structsForm;
+    }
 }

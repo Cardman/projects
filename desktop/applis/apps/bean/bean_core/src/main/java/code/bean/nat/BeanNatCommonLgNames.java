@@ -256,22 +256,32 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         NatCaller wr_ = _nodeContainer.getOpsWrite();
         wr_.re(obj_,new Struct[]{_attribute});
     }
-    public static Struct redirect(NatHtmlPage _htmlPage, Struct _bean, NatRendStackCall _rendStack){
+    public static Struct redirect(NatHtmlPage _htmlPage, NatRendStackCall _rendStack, Struct _gl){
         Struct ret_;
         if (_htmlPage.isForm()) {
             int url_ = (int)_htmlPage.getUrl();
             StringList varNames_ = _htmlPage.getFormsVars().get(url_);
             CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsFormExps().get(url_);
             StringList args_ = _htmlPage.getFormsArgs().get(url_);
-            ret_ = redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
+            ret_ = redir(new Argument(_gl), varNames_, exps_, args_, _rendStack);
         } else {
             int url_ = (int)_htmlPage.getUrl();
             StringList varNames_ = _htmlPage.getAnchorsVars().get(url_);
             CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsExps().get(url_);
             StringList args_ = _htmlPage.getAnchorsArgs().get(url_);
-            ret_= redir(new Argument(_bean), varNames_, exps_, args_, _rendStack);
+            ret_= redir(new Argument(_gl), varNames_, exps_, args_, _rendStack);
         }
         return ret_;
+    }
+
+    private static Struct used(NatHtmlPage _htmlPage) {
+        if (_htmlPage.isForm()) {
+            int url_ = (int)_htmlPage.getUrl();
+            return _htmlPage.getStructsForm().get(url_);
+        } else {
+            int url_ = (int)_htmlPage.getUrl();
+            return _htmlPage.getStructsAnc().get(url_);
+        }
     }
 
     public static Struct redir(Argument _bean, StringList _varNames, CustList<NatExecOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
@@ -388,11 +398,12 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
         int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
         String beanName_ = actionCommand_
                 .substring(0, indexPoint_);
-        Struct bean_ = getBeanOrNull(beanName_);
-        setGlobalArgumentStruct(bean_, _rendStack);
-        Struct return_ = redirect(natPage,bean_, _rendStack);
+//        Struct bean_ = getBeanOrNull(beanName_);
+//        setGlobalArgumentStruct(bean_, _rendStack);
+        Struct gl_ = used(natPage);
+        Struct return_ = redirect(natPage, _rendStack, gl_);
         String urlDest_ = getString(return_, _nav.getCurrentUrl(), getNavigation(), actionCommand_);
-        proc(_nav, _rendStack, urlDest_, bean_, beanName_);
+        proc(_nav, _rendStack, urlDest_, gl_, beanName_);
     }
 
     private void proc(Navigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean, String _currentBeanName) {
