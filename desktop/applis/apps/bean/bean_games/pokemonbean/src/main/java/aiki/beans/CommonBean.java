@@ -213,4 +213,19 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         }
         return DataBase.EMPTY_STRING;
     }
+    protected String tryRedirectAb(String _key, String _name, String _target) {
+        return AbsRedirect.tryRedirect(this,new RedirectAb(_name),_key,_target);
+    }
+    protected String tryRedirectIt(String _key, String _name, String _target) {
+        return AbsRedirect.tryRedirect(this,new RedirectIt(_name),_key,_target);
+    }
+    protected String tryRedirectMv(String _key, String _name, String _target) {
+        return AbsRedirect.tryRedirect(this,new RedirectMv(_name),_key,_target);
+    }
+    protected String tryRedirectPk(String _key, String _name, String _target) {
+        return AbsRedirect.tryRedirect(this,new RedirectPk(_name),_key,_target);
+    }
+    protected String tryRedirectSt(String _key, String _name, String _target) {
+        return AbsRedirect.tryRedirect(this,new RedirectSt(_name),_key,_target);
+    }
 }
