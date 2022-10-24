@@ -168,8 +168,12 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
 
     @Override
     public void setBeanForms(Struct _mainBean, Struct _called) {
-        StringMapObject forms_ = ((WithForms) ((PokemonBeanStruct) _called).getBean()).getForms();
-        StringMapObject formsMap_ = ((WithForms) ((PokemonBeanStruct) _mainBean).getBean()).getForms();
+        fwd((PokemonBeanStruct) _mainBean, (PokemonBeanStruct) _called);
+    }
+
+    public static void fwd(PokemonBeanStruct _mainBean, PokemonBeanStruct _called) {
+        StringMapObject forms_ = ((WithForms) _called.getBean()).getForms();
+        StringMapObject formsMap_ = ((WithForms) _mainBean.getBean()).getForms();
         forms_.putAllMap(formsMap_);
     }
 

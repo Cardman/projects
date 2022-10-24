@@ -1,9 +1,6 @@
 package aiki.beans.moves;
 
-import aiki.beans.AikiBeansStd;
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
-import aiki.beans.WelcomeBeanSeeAllMoves;
+import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -140,15 +137,19 @@ public abstract class InitDbMoves extends InitDbConstr {
         return clickLine(all_,_index);
     }
     public static String clickLine(StringMap<Struct> _all, int _index) {
-        return clickLine(_all.getVal(AikiBeansMovesStd.BEAN_MOVES),_all,_index);
-    }
-    public static String clickLine(Struct _use, StringMap<Struct> _all, int _index) {
-        Struct moveline_ = _all.getVal(mappingToMoves().getVal(BeanNatCommonLgNames.processString(callMovesBeanMovesBeanGet(_use))));
-        fwdLineFull(moveline_, _use, _index);
+        Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        Struct moveline_ = byString(_all, callMovesBeanMovesBeanGet(moves_));
+        fwdLineFull(moveline_, moves_, _index);
         beforeDisplaying(moveline_);
         return navigateData(clickMoveLineBeanMove(),"","",moveline_, NumParsers.convertToNumber(callMoveLineBeanIndexGet(moveline_)).intStruct());
     }
+
+    public static Struct byString(StringMap<Struct> _all, Struct _resultAsString) {
+        return _all.getVal(mappingToMoves().getVal(BeanNatCommonLgNames.processString(_resultAsString)));
+    }
+
     public static void fwdLineFull(Struct _update, Struct _use, int _index) {
+        PokemonStandards.fwd((PokemonBeanStruct) _use, (PokemonBeanStruct) _update);
         callMoveLineBeanIndexSet(_update,_index);
         fwdLine(_update, _use,_index);
     }
