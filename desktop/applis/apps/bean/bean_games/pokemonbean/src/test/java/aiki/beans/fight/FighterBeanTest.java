@@ -597,6 +597,78 @@ public final class FighterBeanTest extends InitDbFight {
         assertEq(Rate.one(),callStatisticInfoGetStatisBase(elt(callFighterBeanStatisticsGet(playerPath(0)),8)));
     }
     @Test
+    public void stats15() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),0)));
+    }
+    @Test
+    public void stats16() {
+        assertFalse(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),0)));
+    }
+    @Test
+    public void stats17() {
+        assertEq(ACC_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),0)));
+    }
+    @Test
+    public void stats18() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),1)));
+    }
+    @Test
+    public void stats19() {
+        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),1)));
+    }
+    @Test
+    public void stats20() {
+        assertEq(ATT_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),1)));
+    }
+    @Test
+    public void stats21() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),2)));
+    }
+    @Test
+    public void stats22() {
+        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),2)));
+    }
+    @Test
+    public void stats23() {
+        assertEq(SPE_DEF_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),2)));
+    }
+    @Test
+    public void stats24() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),3)));
+    }
+    @Test
+    public void stats25() {
+        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),3)));
+    }
+    @Test
+    public void stats26() {
+        assertEq(SPE_ATT_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),3)));
+    }
+    @Test
+    public void stats27() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),4)));
+    }
+    @Test
+    public void stats28() {
+        assertTrue(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),4)));
+    }
+    @Test
+    public void stats29() {
+        assertEq(DEF_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),4)));
+    }
+    @Test
+    public void stats30() {
+        assertTrue(callStatisticInfoIsBoost(elt(callFighterBeanStatisticsGet(playerPath(0)),5)));
+    }
+    @Test
+    public void stats31() {
+        assertFalse(callStatisticInfoIsBase(elt(callFighterBeanStatisticsGet(playerPath(0)),5)));
+    }
+    @Test
+    public void stats32() {
+        assertEq(EVA_TR,callStatisticInfoGetDisplayStatistic(elt(callFighterBeanStatisticsGet(playerPath(0)),5)));
+    }
+    @Test
     public void isFoeIncr1() {
         assertTrue(callFighterBeanIsFoeIncrUserAccuracyTeam(playerPath(0),8));
     }

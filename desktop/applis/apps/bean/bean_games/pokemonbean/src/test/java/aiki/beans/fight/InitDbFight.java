@@ -58,6 +58,12 @@ import code.util.core.BoolVal;
 
 public abstract class InitDbFight extends InitDbBean {
     protected static final String SPEC = "SPEC";
+    protected static final String ACC_TR = "agda";
+    protected static final String ATT_TR = "aie";
+    protected static final String SPE_DEF_TR = "iche";
+    protected static final String SPE_ATT_TR = "io";
+    protected static final String DEF_TR = "je";
+    protected static final String EVA_TR = "ri";
     protected static final String HP_TR = "tit";
     protected static final String CRIT_TR = "uit";
 
@@ -826,6 +832,12 @@ public abstract class InitDbFight extends InitDbBean {
         data_.getTranslatedStatus().getVal(LANGUAGE).addEntry(S_RELATION, S_RELATION_TR);
         data_.getTranslatedCategories().getVal(LANGUAGE).clear();
         data_.getTranslatedCategories().getVal(LANGUAGE).addEntry(SPEC, SPEC_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.ATTACK, ATT_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.DEFENSE, DEF_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.SPECIAL_ATTACK, SPE_ATT_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.SPECIAL_DEFENSE, SPE_DEF_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.EVASINESS, EVA_TR);
+        data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.ACCURACY, ACC_TR);
         data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.HP, HP_TR);
         data_.getTranslatedStatistics().getVal(LANGUAGE).set(Statistic.CRITICAL_HIT, CRIT_TR);
         data_.getTypes().add(NULL_REF);

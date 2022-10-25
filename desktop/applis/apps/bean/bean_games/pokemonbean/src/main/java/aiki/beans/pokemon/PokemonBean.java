@@ -134,10 +134,7 @@ public class PokemonBean extends CommonBean {
         translationsStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         statisticsEnum = new IdList<Statistic>();
         statistics = new StringList();
-        for (Statistic s: Statistic.all()) {
-            if (!s.isWithBaseStatistic()) {
-                continue;
-            }
+        for (Statistic s: Statistic.getStatisticsWithBase()) {
             statisticsEnum.add(s);
             statistics.add(translationsStatistics_.getVal(s));
         }
