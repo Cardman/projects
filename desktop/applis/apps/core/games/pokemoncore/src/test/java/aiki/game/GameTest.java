@@ -2049,6 +2049,19 @@ public class GameTest extends InitializationDataBase {
     }
 
     @Test
+    public void processWalkingAreaApparition0Test() {
+        DataBase data_ = initDb();
+        Game game_ = new Game(data_);
+        game_.initUtilisateur(NICKNAME, new Difficulty(), data_);
+        game_.getDifficulty().setRandomWildFight(false);
+        game_.setPlayerCoords(newCoords(0, 0, 0, 0));
+        game_.setPlayerOrientation(Direction.RIGHT);
+        game_.movingHero(data_);
+        game_.forceFight(data_);
+        assertTrue(game_.getFight().getFightType().isWild());
+        assertEq(InterfaceType.COMBAT_PK_SAUV, game_.getInterfaceType());
+    }
+    @Test
     public void processWalkingAreaApparition1Test() {
         DataBase data_ = initDb();
         Game game_ = new Game(data_);
