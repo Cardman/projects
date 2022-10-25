@@ -453,7 +453,7 @@ public final class FightFacade {
         if (!NumberUtil.equalsSetBytes(_fight.getTeams().getKeys(), noTeams_)) {
             return true;
         }
-        if (_fight.getFightType().isWild() && !NumberUtil.eq(_fight.getFoeTeam().getMembers().size(), DataBase.ONE_POSSIBLE_CHOICE)) {
+        if (_fight.getFightType().isWild() && !NumberUtil.eq(_fight.getFoeTeam().getMembers().size(), _fight.getMult())) {
             return true;
         }
         for (byte t: _fight.getTeams().getKeys()) {
