@@ -435,12 +435,8 @@ public class MoveBean extends CommonBean {
     }
 
     public String clickMoves() {
-        if (!getForms().contains(CST_MOVES_SET)) {
-            getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
-        }
-        if (!getForms().contains(CST_LEARNT_MOVES)) {
-            getForms().putMoves(CST_LEARNT_MOVES, new StringMap<MoveData>());
-        }
+        getForms().safeMoves(CST_MOVES_SET);
+        getForms().safeMoves(CST_LEARNT_MOVES);
         return CST_MOVES;
     }
 

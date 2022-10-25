@@ -54,10 +54,20 @@ public final class StringMapObject extends StringMapObjectBase {
         mapPokemonPlayerDto.put(_key, _v);
     }
 
+    public void safeMoves(String _key) {
+        if (!contains(_key)) {
+            putMoves(_key, new StringMap<MoveData>());
+        }
+    }
     public void putMoves(String _key, AbsMap<String,MoveData> _v) {
         mapMoves.put(_key, _v);
     }
 
+    public void safePokedex(String _key) {
+        if (!contains(_key)) {
+            putPokedex(_key, new StringMap<PokemonData>());
+        }
+    }
     public void putPokedex(String _key, AbsMap<String,PokemonData> _v) {
         mapPokedex.put(_key, _v);
     }
