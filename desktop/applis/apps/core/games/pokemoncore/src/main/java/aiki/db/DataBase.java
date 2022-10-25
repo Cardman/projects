@@ -3512,44 +3512,44 @@ public class DataBase {
     }
 
     public String translatePokemon(String _pokemon) {
-        return translatedPokemon.getVal(language).getVal(
-                _pokemon);
+        return StringUtil.nullToEmpty(translatedPokemon.getVal(language).getVal(
+                _pokemon));
     }
 
     public String translateMove(String _move) {
-        return translatedMoves.getVal(language).getVal(_move);
+        return StringUtil.nullToEmpty(translatedMoves.getVal(language).getVal(_move));
     }
 
     public String translateItem(String _item) {
-        return translatedItems.getVal(language).getVal(_item);
+        return StringUtil.nullToEmpty(translatedItems.getVal(language).getVal(_item));
     }
 
     public String translateAbility(String _ability) {
-        return translatedAbilities.getVal(language).getVal(
-                _ability);
+        return StringUtil.nullToEmpty(translatedAbilities.getVal(language).getVal(
+                _ability));
     }
 
     public String translateStatus(String _status) {
-        return translatedStatus.getVal(language).getVal(_status);
+        return StringUtil.nullToEmpty(translatedStatus.getVal(language).getVal(_status));
     }
 
     public String translateType(String _type) {
-        return translatedTypes.getVal(language).getVal(_type);
+        return StringUtil.nullToEmpty(translatedTypes.getVal(language).getVal(_type));
     }
 
     public String translateStatistics(Statistic _statistic) {
-        return translatedStatistics.getVal(language).getVal(
-                _statistic);
+        return StringUtil.nullToEmpty(translatedStatistics.getVal(language).getVal(
+                _statistic));
     }
 
     public String translatedTargets(TargetChoice _target) {
-        return translatedTargets.getVal(language)
-                .getVal(_target);
+        return StringUtil.nullToEmpty(translatedTargets.getVal(language)
+                .getVal(_target));
     }
 
     public String translateGenders(Gender _gender) {
-        return translatedGenders.getVal(language)
-                .getVal(_gender);
+        return StringUtil.nullToEmpty(translatedGenders.getVal(language)
+                .getVal(_gender));
     }
 
     public StringMap<StringMap<String>> getTranslatedStatus() {
