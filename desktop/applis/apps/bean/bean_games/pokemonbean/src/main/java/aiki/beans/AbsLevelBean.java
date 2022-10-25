@@ -30,6 +30,7 @@ public abstract class AbsLevelBean extends CommonBean {
     private CustList<AreaApparition> wildPokemonAreas = new CustList<AreaApparition>();
 
     protected void initTiles() {
+        wildPokemonAreas = new CustList<AreaApparition>();
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = DictionaryComparatorUtil.buildPointString();
         DataBase data_ = getDataBase();
