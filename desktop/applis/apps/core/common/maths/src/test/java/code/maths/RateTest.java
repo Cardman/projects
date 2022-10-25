@@ -1,5 +1,6 @@
 package code.maths;
 
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 import code.util.CustList;
@@ -2178,7 +2179,7 @@ public class RateTest extends EquallableMathUtil {
     }
 
     private boolean isValid(String _v) {
-        new StringBuilder(_v);
+        new StringBuilder(StringUtil.nullToEmpty(_v));
         return Rate.isValid(_v);
     }
 

@@ -4,6 +4,7 @@ import code.maths.montecarlo.EventFreq;
 import code.util.*;
 import code.util.CustList;
 import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 
@@ -2844,7 +2845,7 @@ public class LgIntTest extends EquallableMathUtil {
     }
 
     private boolean isValid(String _v) {
-        new StringBuilder(_v);
+        new StringBuilder(StringUtil.nullToEmpty(_v));
         return LgInt.isValid(_v);
     }
 
