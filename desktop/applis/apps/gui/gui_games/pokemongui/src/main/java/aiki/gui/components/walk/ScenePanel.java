@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
+import aiki.gui.components.walk.events.*;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -12,41 +13,6 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
-import aiki.gui.components.walk.events.AddTmEvent;
-import aiki.gui.components.walk.events.BuyItemsEvent;
-import aiki.gui.components.walk.events.BuyOrSellEvent;
-import aiki.gui.components.walk.events.BuyTmEvent;
-import aiki.gui.components.walk.events.CancelMtEvent;
-import aiki.gui.components.walk.events.ChangeItemListEvent;
-import aiki.gui.components.walk.events.ChangeNicknameEvent;
-import aiki.gui.components.walk.events.ChoosePlaceEvent;
-import aiki.gui.components.walk.events.ConsultEggEvent;
-import aiki.gui.components.walk.events.ConsultHostEvent;
-import aiki.gui.components.walk.events.ConsultPokemonEvent;
-import aiki.gui.components.walk.events.EvolvePokemonEvent;
-import aiki.gui.components.walk.events.ExitInteractionEvent;
-import aiki.gui.components.walk.events.ExitTradeEvent;
-import aiki.gui.components.walk.events.FishingEvent;
-import aiki.gui.components.walk.events.GearStorageEvent;
-import aiki.gui.components.walk.events.HealPokemonEvent;
-import aiki.gui.components.walk.events.HostPokemonEvent;
-import aiki.gui.components.walk.events.InteractSceneEvent;
-import aiki.gui.components.walk.events.ManageNetworkEvent;
-import aiki.gui.components.walk.events.ManageTeamEvent;
-import aiki.gui.components.walk.events.ReadyEventAiki;
-import aiki.gui.components.walk.events.ReceiveFromHostEvent;
-import aiki.gui.components.walk.events.RemoveTmEvent;
-import aiki.gui.components.walk.events.SeePokemonDetailEvent;
-import aiki.gui.components.walk.events.SelectEggBoxEvent;
-import aiki.gui.components.walk.events.SelectItemForListEvent;
-import aiki.gui.components.walk.events.SelectItemForPokemonEvent;
-import aiki.gui.components.walk.events.SelectPokemonBoxEvent;
-import aiki.gui.components.walk.events.SelectTmToLearnEvent;
-import aiki.gui.components.walk.events.SetPlacesEvent;
-import aiki.gui.components.walk.events.ShowGameProgressingEvent;
-import aiki.gui.components.walk.events.TakeItemFromTeamEvent;
-import aiki.gui.components.walk.events.ValidateMtEvent;
-import aiki.gui.components.walk.events.ValidateTradingEvent;
 import aiki.gui.dialogs.DialogHtmlData;
 import aiki.gui.dialogs.DialogServerAiki;
 import aiki.gui.dialogs.SelectEgg;
@@ -252,6 +218,7 @@ public class ScenePanel {
 
     private AbsPlainButton server;
 
+    private final AbsPlainButton attract;
     private AbsPanel movesLearnt;
 
     private AbsPanel abilities;
@@ -337,6 +304,8 @@ public class ScenePanel {
 
     public ScenePanel(WindowAiki _window, FacadeGame _facade) {
         compoFactory = _window.getCompoFactory();
+        attract = compoFactory.newPlainButton("OK");
+        attract.addActionListener(new AttractEvent(this));
         endGame = compoFactory.newPlainLabel("");
         component = compoFactory.newLineBox();
         paintingScene = _window.getThreadFactory().newAtomicBoolean();
@@ -835,6 +804,7 @@ public class ScenePanel {
         fish = window.getCompoFactory().newPlainButton(messages.getVal(CST_FISH));
         fish.addActionListener(new FishingEvent(this));
         interaction.add(fish);
+        interaction.add(attract);
     }
 
     public void interactScene() {
@@ -852,13 +822,21 @@ public class ScenePanel {
         window.pack();
     }
 
+    public void attract() {
+        facade.attract();
+        after();
+    }
     public void fishing() {
         if (facade.isFishArea()) {
             facade.initFishing();
-            if (facade.isChangeToFightScene()) {
-                window.setSavedGame(false);
-                window.setFight(true, true);
-            }
+            after();
+        }
+    }
+
+    private void after() {
+        if (facade.isChangeToFightScene()) {
+            window.setSavedGame(false);
+            window.setFight(true, true);
         }
     }
 

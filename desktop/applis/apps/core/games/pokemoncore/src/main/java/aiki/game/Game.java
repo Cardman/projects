@@ -1964,14 +1964,14 @@ public final class Game {
             directInteractionValid(_coords, d_);
             return;
         }
-        forceFight(_coords, _d);
+        attract(_coords, _d);
     }
-    void forceFight(DataBase _d) {
+    public void attract(DataBase _d) {
         Coords voisin_ = closestTile(_d.getMap());
-        forceFight(voisin_,_d);
+        attract(voisin_,_d);
     }
 
-    private void forceFight(Coords _coords, DataBase _d) {
+    private void attract(Coords _coords, DataBase _d) {
         DataMap d_ = _d.getMap();
         AreaApparition area_ = d_.getAreaByCoords(playerCoords);
         if (area_.isVirtual()) {

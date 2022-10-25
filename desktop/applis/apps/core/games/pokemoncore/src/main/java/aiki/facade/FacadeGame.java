@@ -336,6 +336,13 @@ public class FacadeGame {
         return game.getTrainerImage(data);
     }
 
+    public void attract() {
+        comment.clearMessages();
+        game.attract(data);
+        setupMovingHeros();
+        comment.addComment(game.getCommentGame());
+    }
+
     public void initFishing() {
         comment.clearMessages();
         game.initFishing(data);

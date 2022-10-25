@@ -2057,7 +2057,7 @@ public class GameTest extends InitializationDataBase {
         game_.setPlayerCoords(newCoords(0, 0, 0, 0));
         game_.setPlayerOrientation(Direction.RIGHT);
         game_.movingHero(data_);
-        game_.forceFight(data_);
+        game_.attract(data_);
         assertTrue(game_.getFight().getFightType().isWild());
         assertEq(InterfaceType.COMBAT_PK_SAUV, game_.getInterfaceType());
     }

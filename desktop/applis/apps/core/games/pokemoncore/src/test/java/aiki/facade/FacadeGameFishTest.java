@@ -39,6 +39,14 @@ public final class FacadeGameFishTest extends InitializationDataBase {
         assertTrue(facadeGame_.getFight().getFightType().isWild());
     }
 
+    @Test
+    public void act2Test() {
+        FacadeGame facadeGame_ = initTests();
+        facadeGame_.attract();
+        assertTrue(!facadeGame_.isErrorFight());
+        assertTrue(facadeGame_.getFight().getFightType().isExisting());
+        assertTrue(facadeGame_.getFight().getFightType().isWild());
+    }
     private static Coords newCoords(int _place, int _level, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
