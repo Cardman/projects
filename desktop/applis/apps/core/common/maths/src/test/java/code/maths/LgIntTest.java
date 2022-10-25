@@ -8,14 +8,14 @@ import org.junit.Test;
 
 
 public class LgIntTest extends EquallableMathUtil {
-    @Test
-    public void base1(){
-        assertEq(1000000000, LgInt.base());
-    }
-    @Test
-    public void logBase1(){
-        assertEq(9, LgInt.logBase());
-    }
+//    @Test
+//    public void base1(){
+//        assertEq(1000000000, LgInt.base());
+//    }
+//    @Test
+//    public void logBase1(){
+//        assertEq(9, LgInt.logBase());
+//    }
     @Test
     public void new_LgInt_1(){
         LgInt entier_ = LgInt.zero();

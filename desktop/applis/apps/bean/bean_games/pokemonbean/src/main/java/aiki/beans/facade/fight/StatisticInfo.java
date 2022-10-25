@@ -17,13 +17,24 @@ public final class StatisticInfo {
     }
 
     public boolean isBoost() {
-        return statistic.isBoost();
+        return isBoost(statistic);
     }
 
     public boolean isBase() {
-        return statistic.isWithBaseStatistic();
+        return isBase(statistic);
     }
 
+    public static boolean isBoost(Statistic _st) {
+        return _st == Statistic.ATTACK || _st == Statistic.DEFENSE||
+                _st == Statistic.SPECIAL_ATTACK || _st == Statistic.SPECIAL_DEFENSE||
+                _st == Statistic.SPEED || _st == Statistic.ACCURACY || _st == Statistic.EVASINESS || _st == Statistic.CRITICAL_HIT;
+    }
+
+    public static boolean isBase(Statistic _st) {
+        return _st == Statistic.ATTACK || _st == Statistic.DEFENSE||
+                _st == Statistic.SPECIAL_ATTACK || _st == Statistic.SPECIAL_DEFENSE||
+                _st == Statistic.SPEED || _st == Statistic.HP;
+    }
     public String getDisplayStatistic() {
         return displayStatistic;
     }

@@ -1254,8 +1254,12 @@ public class DataBase {
     }
 
     public static StringList statisNames() {
+        return st(Statistic.getStatisticsWithBoost());
+    }
+
+    public static StringList st(CustList<Statistic> _ls) {
         StringList statisNames_ = new StringList();
-        for (Statistic s : Statistic.getStatisticsWithBoost()) {
+        for (Statistic s : _ls) {
             statisNames_.add(s.getStatName());
         }
         return statisNames_;

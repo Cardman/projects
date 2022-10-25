@@ -79,14 +79,34 @@ public final class RulesBelote {
 
     public static Ints getPoints() {
         Ints list_ = new Ints();
-        int sum_ = HandBelote.pointsTotauxDixDeDer();
-        int min_ = sum_ / 2;
-        min_ = (min_ / DIVISIONS) * DIVISIONS;
-        while (min_ < sum_) {
-            list_.add(min_);
-            min_ += DIVISIONS;
-        }
-        list_.add(sum_);
+//        int sum_ = HandBelote.pointsTotauxDixDeDer();
+//        int min_ = sum_ / 2;
+//        min_ = (min_ / DIVISIONS) * DIVISIONS;
+//        while (min_ < sum_) {
+//            list_.add(min_);
+//            min_ += DIVISIONS;
+//        }
+        list_.add(80);
+        list_.add(90);
+        list_.add(100);
+        list_.add(110);
+        list_.add(120);
+        list_.add(130);
+        list_.add(140);
+        list_.add(150);
+        list_.add(160);
+        list_.add(162);
+//        assert list_.size() == 10;
+//        assert list_.get(0) == 80;
+//        assert list_.get(1) == 90;
+//        assert list_.get(2) == 100;
+//        assert list_.get(3) == 110;
+//        assert list_.get(4) == 120;
+//        assert list_.get(5) == 130;
+//        assert list_.get(6) == 140;
+//        assert list_.get(7) == 150;
+//        assert list_.get(8) == 160;
+//        assert list_.get(9) == 162;
         return list_;
     }
 

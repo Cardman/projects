@@ -41,12 +41,13 @@ public final class LoadRes{
     private LoadRes(){}
 
     public static StringMap<String> dis() {
-        StringMap<String> displayLanguages_ = new StringMap<String>();
-        for (String s: Constants.getAvailableLanguages()) {
-            displayLanguages_.put(s, Constants.getDisplayLanguage(s));
-        }
-        return displayLanguages_;
+//        StringMap<String> displayLanguages_ = new StringMap<String>();
+//        for (String s: _lgs) {
+//            displayLanguages_.put(s, Constants.getDisplayLanguages(s));
+//        }
+        return Constants.getDisplayLanguages();
     }
+
     public static void loadResources(AbstractGenerator _gene, FacadeGame _f, PerCent _p, LoadFlag _l, LoadingData _loading) {
         DataBase data_ = _loading.loadResource(_gene, _p, _l);
         LoadRes.postLoad(_f, data_);

@@ -506,10 +506,10 @@ public class FighterBean extends CommonFightBean {
             StatisticInfo stat_;
             stat_ = new StatisticInfo();
             stat_.setStatistic(s);
-            if (s.isBoost()) {
+            if (StatisticInfo.isBoost(s)) {
                 stat_.setStatisBoost(_fighter.getStatisBoost().getVal(s));
             }
-            if (s.isWithBaseStatistic()) {
+            if (StatisticInfo.isBase(s)) {
                 stat_.setStatisBase(_fighter.getStatisBase().getVal(s));
                 stat_.setEv(_fighter.getEv().getVal(s));
                 stat_.setIv(_fighter.getIv().getVal(s));

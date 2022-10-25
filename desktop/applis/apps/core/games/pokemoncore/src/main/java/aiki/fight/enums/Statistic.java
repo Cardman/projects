@@ -5,23 +5,19 @@ import code.util.core.StringUtil;
 import code.util.ints.Listable;
 
 public enum Statistic {
-    HP(true,false,true, "HP"),
-    ATTACK(true,true,false, "ATTACK"),
-    DEFENSE(true,true,false, "DEFENSE"),
-    SPECIAL_ATTACK(true,true,false, "SPECIAL_ATTACK"),
-    SPECIAL_DEFENSE(true,true,false, "SPECIAL_DEFENSE"),
-    SPEED(true,true,true, "SPEED"),
-    ACCURACY(false,true,true, "ACCURACY"),
-    EVASINESS(false,true,true, "EVASINESS"),
-    CRITICAL_HIT(false,true,false, "CRITICAL_HIT"),
-    PV_RESTANTS(false,false,true, "PV_RESTANTS");
-    private final boolean withBaseStatistic;
-    private final boolean boost;
+    HP(true, "HP"),
+    ATTACK(false, "ATTACK"),
+    DEFENSE(false, "DEFENSE"),
+    SPECIAL_ATTACK(false, "SPECIAL_ATTACK"),
+    SPECIAL_DEFENSE(false, "SPECIAL_DEFENSE"),
+    SPEED(true, "SPEED"),
+    ACCURACY(true, "ACCURACY"),
+    EVASINESS(true, "EVASINESS"),
+    CRITICAL_HIT(false, "CRITICAL_HIT"),
+    PV_RESTANTS(true, "PV_RESTANTS");
     private final boolean special;
     private final String statName;
-    Statistic(boolean _withBaseStatistic, boolean _boost, boolean _special, String _s) {
-        withBaseStatistic = _withBaseStatistic;
-        boost = _boost;
+    Statistic(boolean _special, String _s) {
         special = _special;
         statName = _s;
     }
@@ -57,24 +53,20 @@ public enum Statistic {
 
     public static IdList<Statistic> getStatisticsWithBase() {
         IdList<Statistic> list_ = new IdList<Statistic>();
-        for (Statistic s: all()) {
-            if (!s.isWithBaseStatistic()) {
-                continue;
-            }
-            list_.add(s);
-        }
+        base(list_);
         return list_;
     }
     public static IdList<Statistic> getStatisticsWithBoost() {
         IdList<Statistic> list_ = new IdList<Statistic>();
-        for (Statistic s: all()) {
-            if (!s.isBoost()) {
-                continue;
-            }
-            list_.add(s);
-        }
+        boost(list_);
         return list_;
     }
+
+    private static void boost(IdList<Statistic> _ls) {
+        boostBase(_ls);
+        boostNonBase(_ls);
+    }
+
     public static Statistic getStatisticByName(String _env) {
         for (Statistic e: all()) {
             if (StringUtil.quickEq(e.statName, _env)) {
@@ -85,23 +77,29 @@ public enum Statistic {
     }
     public static CustList<Statistic> all() {
         CustList<Statistic> ls_ = new CustList<Statistic>();
-        ls_.add(HP);
-        ls_.add(ATTACK);
-        ls_.add(DEFENSE);
-        ls_.add(SPECIAL_ATTACK);
-        ls_.add(SPECIAL_DEFENSE);
-        ls_.add(SPEED);
-        ls_.add(ACCURACY);
-        ls_.add(EVASINESS);
-        ls_.add(CRITICAL_HIT);
+        base(ls_);
+        boostNonBase(ls_);
         ls_.add(PV_RESTANTS);
         return ls_;
     }
-    public boolean isWithBaseStatistic() {
-        return withBaseStatistic;
+
+    private static void boostNonBase(CustList<Statistic> _ls) {
+        _ls.add(ACCURACY);
+        _ls.add(EVASINESS);
+        _ls.add(CRITICAL_HIT);
     }
-    public boolean isBoost() {
-        return boost;
+
+    private static void base(CustList<Statistic> _ls) {
+        _ls.add(HP);
+        boostBase(_ls);
+    }
+
+    private static void boostBase(CustList<Statistic> _ls) {
+        _ls.add(ATTACK);
+        _ls.add(DEFENSE);
+        _ls.add(SPECIAL_ATTACK);
+        _ls.add(SPECIAL_DEFENSE);
+        _ls.add(SPEED);
     }
 
     public boolean isSpecial() {

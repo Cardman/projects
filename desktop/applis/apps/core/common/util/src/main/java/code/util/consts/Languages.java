@@ -14,17 +14,15 @@ EN("en","English"),FR("fr","Fran\u00E7ais");
 
     static StringList getLanguages() {
         StringList lgs_ = new StringList();
-        for (Languages l: values()) {
-            lgs_.add(l.key);
-        }
+        lgs_.add(EN.key);
+        lgs_.add(FR.key);
         return lgs_;
     }
 
     static StringMap<String> getDisplayLanguages() {
         StringMap<String> m_ = new StringMap<String>();
-        for (Languages l: values()) {
-            m_.put(l.key, l.display);
-        }
+        m_.addEntry(EN.key,EN.display);
+        m_.addEntry(FR.key,FR.display);
         return m_;
     }
 }

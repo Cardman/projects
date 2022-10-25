@@ -182,24 +182,27 @@ public final class LgInt implements Displayable {
     </ul>
     */
     public static LgInt getMaxLongPlusOne() {
-        LgInt l_ = new LgInt();
-        l_.grDigits = new Longs();
+        return greatest(new LgInt());
+    }
+
+    private static LgInt greatest(LgInt _lgi) {
+        _lgi.grDigits = new Longs();
         long nombre_ = Long.MAX_VALUE;
         long quotient_;
         long reste_;
         quotient_ = nombre_ / BASE;
         reste_ = nombre_ - quotient_ * BASE;
-        l_.grDigits.add(reste_ + 1);
+        _lgi.grDigits.add(reste_ + 1);
         while (quotient_ > BASE) {
             nombre_ = quotient_;
             quotient_ = nombre_ / BASE;
             reste_ = nombre_ - quotient_ * BASE;
-            l_.grDigits.add(IndexConstants.FIRST_INDEX, reste_);
+            _lgi.grDigits.add(IndexConstants.FIRST_INDEX, reste_);
         }
-        l_.grDigits.add(IndexConstants.FIRST_INDEX, quotient_);
-        l_.removeBeginningZeros();
-        l_.signum = SIGNE_POSITIF;
-        return l_;
+        _lgi.grDigits.add(IndexConstants.FIRST_INDEX, quotient_);
+        _lgi.removeBeginningZeros();
+        _lgi.signum = SIGNE_POSITIF;
+        return _lgi;
     }
 
     /**@return the integer -1*/
@@ -805,28 +808,28 @@ public final class LgInt implements Displayable {
         return !_two.isZeroOrGt();
     }
 
-    static long base() {
-        long max_ = Long.MAX_VALUE;
-        long copieBase_ = 1;
-        long div_ = (long)BASE_NUMER * BASE_NUMER;
-        long copieBaseBis_ = 1;
-        while (max_ > 0) {
-            max_ /= div_;
-            copieBase_ = copieBaseBis_;
-            copieBaseBis_ *= BASE_NUMER;
-        }
-        return copieBase_;
-    }
+//    private static long base() {
+//        long max_ = Long.MAX_VALUE;
+//        long copieBase_ = 1;
+//        long div_ = (long)BASE_NUMER * BASE_NUMER;
+//        long copieBaseBis_ = 1;
+//        while (max_ > 0) {
+//            max_ /= div_;
+//            copieBase_ = copieBaseBis_;
+//            copieBaseBis_ *= BASE_NUMER;
+//        }
+//        return copieBase_;
+//    }
 
-    static int logBase() {
-        int powerTen_ = 0;
-        long copieBase_ = 1;
-        while (copieBase_ < BASE) {
-            copieBase_ *= BASE_NUMER;
-            powerTen_++;
-        }
-        return powerTen_;
-    }
+//    static int logBase() {
+//        int powerTen_ = 0;
+//        long copieBase_ = 1;
+//        while (copieBase_ < BASE) {
+//            copieBase_ *= BASE_NUMER;
+//            powerTen_++;
+//        }
+//        return powerTen_;
+//    }
 
     private static String chaineValeurAbsolue(String _chaine) {
         if (_chaine.startsWith(MINUS)) {

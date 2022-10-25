@@ -47,14 +47,20 @@ public final class HandBelote implements Iterable<CardBelote> {
 
     public static int pointsTotauxDixDeDer() {
         int min_ = Integer.MAX_VALUE;
-        for (Suit s: Suit.couleursOrdinaires()) {
-            BidBeloteSuit bid_;
-            bid_ = new BidBeloteSuit();
-            bid_.setSuit(s);
-            bid_.setBid(BidBelote.SUIT);
-            min_ = NumberUtil.min(pointsTotauxDixDeDer(bid_), min_);
-        }
+        min_ = NumberUtil.min(pts(Suit.HEART), min_);
+        min_ = NumberUtil.min(pts(Suit.SPADE), min_);
+        min_ = NumberUtil.min(pts(Suit.DIAMOND), min_);
+        min_ = NumberUtil.min(pts(Suit.CLUB), min_);
+//        assert min_ == 162;
         return min_;
+    }
+
+    private static int pts(Suit _s) {
+        BidBeloteSuit bid_;
+        bid_ = new BidBeloteSuit();
+        bid_.setSuit(_s);
+        bid_.setBid(BidBelote.SUIT);
+        return pointsTotauxDixDeDer(bid_);
     }
 
     public static int pointsTotauxDixDeDer(BidBeloteSuit _enchere) {
