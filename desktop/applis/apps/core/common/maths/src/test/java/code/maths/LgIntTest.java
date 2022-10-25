@@ -2598,39 +2598,39 @@ public class LgIntTest extends EquallableMathUtil {
     }
     @Test
     public void isValid1Test() {
-        assertTrue(!LgInt.isValid(""));
+        assertTrue(!isValid(""));
     }
     @Test
     public void isValid2Test() {
-        assertTrue(!LgInt.isValid(null));
+        assertTrue(!isValid(null));
     }
     @Test
     public void isValid3Test() {
-        assertTrue(LgInt.isValid("0"));
+        assertTrue(isValid("0"));
     }
     @Test
     public void isValid4Test() {
-        assertTrue(LgInt.isValid("1"));
+        assertTrue(isValid("1"));
     }
     @Test
     public void isValid5Test() {
-        assertTrue(LgInt.isValid("-1"));
+        assertTrue(isValid("-1"));
     }
     @Test
     public void isValid6Test() {
-        assertTrue(!LgInt.isValid("a"));
+        assertTrue(!isValid("a"));
     }
     @Test
     public void isValid7Test() {
-        assertTrue(!LgInt.isValid("-a"));
+        assertTrue(!isValid("-a"));
     }
     @Test
     public void isValid8Test() {
-        assertTrue(!LgInt.isValid("1a"));
+        assertTrue(!isValid("1a"));
     }
     @Test
     public void isValid9Test() {
-        assertTrue(!LgInt.isValid("-"));
+        assertTrue(!isValid("-"));
     }
     @Test
     public void isPrime1Test() {
@@ -2842,4 +2842,10 @@ public class LgIntTest extends EquallableMathUtil {
     public void cmp3() {
         assertEq(0, new ComparatorLgInt().compare(new LgInt("1"),new LgInt("1")));
     }
+
+    private boolean isValid(String _v) {
+        new StringBuilder(_v);
+        return LgInt.isValid(_v);
+    }
+
 }
