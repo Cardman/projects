@@ -141,9 +141,7 @@ public class StatusBean extends CommonBean {
         return statusType == StatusType.INDIVIDUEL;
     }
     public String clickIndex() {
-        if (!getForms().contains(CST_STATUS_SET)) {
-            getForms().putStatus(CST_STATUS_SET, new StringMap<Status>());
-        }
+        getForms().safeStatus(CST_STATUS_SET);
         return CST_STATUS_SET;
     }
     public boolean incrementEndRoundInt() {

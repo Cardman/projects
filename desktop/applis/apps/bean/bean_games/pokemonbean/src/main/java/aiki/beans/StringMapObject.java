@@ -72,14 +72,29 @@ public final class StringMapObject extends StringMapObjectBase {
         mapPokedex.put(_key, _v);
     }
 
+    public void safeAbilities(String _key) {
+        if (!contains(_key)) {
+            putAbilities(_key, new StringMap<AbilityData>());
+        }
+    }
     public void putAbilities(String _key, AbsMap<String,AbilityData> _v) {
         mapAbilities.put(_key, _v);
     }
 
+    public void safeItems(String _key) {
+        if (!contains(_key)) {
+            putItems(_key, new StringMap<Item>());
+        }
+    }
     public void putItems(String _key, AbsMap<String,Item> _v) {
         mapItems.put(_key, _v);
     }
 
+    public void safeStatus(String _key) {
+        if (!contains(_key)) {
+            putStatus(_key, new StringMap<Status>());
+        }
+    }
     public void putStatus(String _key, AbsMap<String,Status> _v) {
         mapStatus.put(_key, _v);
     }

@@ -62,9 +62,7 @@ public abstract class ItemBean extends CommonBean {
 
 
     public String clickItems() {
-        if (!getForms().contains(CST_ITEMS_SET)) {
-            getForms().putItems(CST_ITEMS_SET, new StringMap<Item>());
-        }
+        getForms().safeItems(CST_ITEMS_SET);
         return CST_ITEMS;
     }
 

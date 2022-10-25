@@ -703,9 +703,7 @@ public class AbilityBean extends CommonBean {
         return translatedMoves_.getVal(type_);
     }
     public String clickIndex() {
-        if (!getForms().contains(CST_ABILITIES_SET)) {
-            getForms().putAbilities(CST_ABILITIES_SET, new StringMap<AbilityData>());
-        }
+        getForms().safeAbilities(CST_ABILITIES_SET);
         return CST_ABILITIES;
     }
     public String clickImmuMove(int _index) {
