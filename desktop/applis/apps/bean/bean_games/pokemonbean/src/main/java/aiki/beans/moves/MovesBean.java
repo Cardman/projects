@@ -3,6 +3,8 @@ package aiki.beans.moves;
 import aiki.beans.WithFilterBean;
 import aiki.beans.facade.dto.MoveLine;
 import aiki.beans.facade.simulation.dto.SelectLineMove;
+import aiki.comparators.DictionaryComparator;
+import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -23,9 +25,10 @@ public class MovesBean extends WithFilterBean {
         translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translationsCategories_;
-        translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        categories.putAllMap(translationsCategories_);
+        DictionaryComparator<String,String> sort_ = DictionaryComparatorUtil.buildCatsData(data_,getLanguage());
+        StringMap<String> translationsCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
+        sort_.putAllMap(translationsCategories_);
+        categories.putAllMap(sort_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         if (!getForms().contains(CST_LEARNT)) {
             AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);

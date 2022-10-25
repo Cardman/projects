@@ -145,7 +145,8 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String M_WEA_TR="M_WEA_TR";
     protected static final String T_TYPE_TR="T_TYPE_TR";
     protected static final String I_ITEM_TR="I_ITEM_TR";
-    protected static final String C_CAT_TR="C_CAT_TR";
+    protected static final String C_CAT1_TR="C_CAT1_TR";
+    protected static final String C_CAT2_TR="C_CAT2_TR";
     protected static final String S_STA_SIM_TR="S_STA_SIM_TR";
     protected static final String S_STA_REL_TR="S_STA_REL_TR";
     protected static final String ST_ATT_TR="ST_ATT_TR";

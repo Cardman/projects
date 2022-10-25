@@ -57,6 +57,10 @@ public final class DictionaryComparatorUtil {
     public static DictionaryComparator<String,Rate> buildCatsRate(DataBase _data, String _language) {
         return new DictionaryComparator<String,Rate>(_data.getTranslatedCategories().getVal(_language));
     }
+
+    public static DictionaryComparator<String,String> buildCatsData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,String>(_data.getTranslatedCategories().getVal(_language));
+    }
     public static DictionaryComparator<String,Short> buildCatsShort(DataBase _data, String _language) {
         return new DictionaryComparator<String,Short>(_data.getTranslatedCategories().getVal(_language));
     }

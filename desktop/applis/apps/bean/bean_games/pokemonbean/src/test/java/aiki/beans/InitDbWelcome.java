@@ -104,7 +104,7 @@ public abstract class InitDbWelcome extends InitDbConstr {
         facade_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE,T_TYPE_TR);
         facade_.getData().getTranslatedCategories().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT,C_CAT_TR);
+        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT, C_CAT1_TR);
         facade_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEM,I_ITEM_TR);
         facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
