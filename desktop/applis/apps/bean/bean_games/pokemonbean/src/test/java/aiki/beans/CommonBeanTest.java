@@ -9,6 +9,11 @@ public final class CommonBeanTest extends InitDbWelcome {
     public static final String DEF_DIR = "___";
     public static final String DIRECT = "__";
     public static final String KEY = "_";
+    public static final String A = "a";
+    public static final String I = "i";
+    public static final String M = "m";
+    public static final String P = "p";
+    public static final String S = "s";
 
     @Test
     public void redirect1() {
@@ -88,6 +93,26 @@ public final class CommonBeanTest extends InitDbWelcome {
         StringMapObject forms_ = new StringMapObject();
         assertEq(DEF_DIR,AbsRedirect.tryRedirect(new RedirectSt(NULL_REF,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
+    }
+
+    @Test
+    public void feed() {
+        StringMapObject forms_ = new StringMapObject();
+        forms_.safeAbilities(A);
+        forms_.safeItems(I);
+        forms_.safeMoves(M);
+        forms_.safePokedex(P);
+        forms_.safeStatus(S);
+        forms_.safeAbilities(A);
+        forms_.safeItems(I);
+        forms_.safeMoves(M);
+        forms_.safePokedex(P);
+        forms_.safeStatus(S);
+        assertTrue(forms_.getValAbilityData(A).isEmpty());
+        assertTrue(forms_.getValItemData(I).isEmpty());
+        assertTrue(forms_.getValMoveData(M).isEmpty());
+        assertTrue(forms_.getValPokemonData(P).isEmpty());
+        assertTrue(forms_.getValStatusData(S).isEmpty());
     }
 
     private String value(StringMapObject _forms) {
