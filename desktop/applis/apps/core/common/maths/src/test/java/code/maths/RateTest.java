@@ -319,59 +319,59 @@ public class RateTest extends EquallableMathUtil {
     }
     @Test
     public void isValid1(){
-        assertTrue(Rate.isValid("1"));
+        assertTrue(isValid("1"));
     }
     @Test
     public void isValid2(){
-        assertTrue(Rate.isValid("1/2"));
+        assertTrue(isValid("1/2"));
     }
     @Test
     public void isValid3(){
-        assertTrue(Rate.isValid("1.2"));
+        assertTrue(isValid("1.2"));
     }
     @Test
     public void isValid4(){
-        assertTrue(!Rate.isValid("1/0"));
+        assertTrue(!isValid("1/0"));
     }
     @Test
     public void isValid5(){
-        assertTrue(!Rate.isValid(""));
+        assertTrue(!isValid(""));
     }
     @Test
     public void isValid6(){
-        assertTrue(!Rate.isValid(null));
+        assertTrue(!isValid(null));
     }
     @Test
     public void isValid7(){
-        assertTrue(Rate.isValid("-1"));
+        assertTrue(isValid("-1"));
     }
     @Test
     public void isValid8(){
-        assertTrue(!Rate.isValid("1/1a"));
+        assertTrue(!isValid("1/1a"));
     }
     @Test
     public void isValid9(){
-        assertTrue(!Rate.isValid("1/-a"));
+        assertTrue(!isValid("1/-a"));
     }
     @Test
     public void isValid10(){
-        assertTrue(!Rate.isValid("1/"));
+        assertTrue(!isValid("1/"));
     }
     @Test
     public void isValid11(){
-        assertTrue(!Rate.isValid("1.a"));
+        assertTrue(!isValid("1.a"));
     }
     @Test
     public void isValid12(){
-        assertTrue(!Rate.isValid("1#"));
+        assertTrue(!isValid("1#"));
     }
     @Test
     public void isValid13(){
-        assertTrue(!Rate.isValid(".a"));
+        assertTrue(!isValid(".a"));
     }
     @Test
     public void isValid14(){
-        assertTrue(!Rate.isValid("-"));
+        assertTrue(!isValid("-"));
     }
     @Test
     public void toString1Test(){
@@ -2176,4 +2176,11 @@ public class RateTest extends EquallableMathUtil {
     public void cmp3() {
         assertEq(0, new ComparatorRate().compare(new Rate("1"),new Rate("1")));
     }
+
+    private boolean isValid(String _v) {
+        new StringBuilder(_v);
+        return Rate.isValid(_v);
+    }
+
+
 }
