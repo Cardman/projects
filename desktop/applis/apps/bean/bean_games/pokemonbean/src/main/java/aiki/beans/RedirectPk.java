@@ -4,8 +4,8 @@ import aiki.db.DataBase;
 import code.util.CustList;
 
 public final class RedirectPk extends AbsRedirectAdv {
-    public RedirectPk(String _n) {
-        super(_n);
+    public RedirectPk(String _n, String _def) {
+        super(_n,_def);
     }
 
     @Override

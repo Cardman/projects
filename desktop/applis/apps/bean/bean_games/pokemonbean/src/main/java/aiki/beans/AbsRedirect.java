@@ -6,9 +6,11 @@ import code.util.core.StringUtil;
 
 public abstract class AbsRedirect {
     private final String name;
+    private final String def;
 
-    protected AbsRedirect(String _n) {
+    protected AbsRedirect(String _n, String _d) {
         this.name = _n;
+        this.def = _d;
     }
 
     public static String tryRedirect(CommonBean _common, AbsRedirect _red, String _key, String _target) {
@@ -20,7 +22,7 @@ public abstract class AbsRedirect {
             _red.manage(_key, _data, _forms);
             return _target;
         }
-        return "";
+        return _red.def;
     }
 
     public abstract CustList<String> keys(DataBase _data);
