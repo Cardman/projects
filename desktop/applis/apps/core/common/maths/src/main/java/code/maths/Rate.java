@@ -141,10 +141,7 @@ public final class Rate implements Displayable {
     }
 
     public static boolean isValid(String _string) {
-        if (_string == null) {
-            return false;
-        }
-        return matchesRate(_string);
+        return matchesRate(StringUtil.nullToEmpty(_string));
     }
 
     private static boolean matchesRate(String _input) {

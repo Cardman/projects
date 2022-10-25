@@ -7,6 +7,7 @@ import code.util.*;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.SortConstants;
+import code.util.core.StringUtil;
 import code.util.ints.Displayable;
 
 /**
@@ -214,13 +215,10 @@ public final class LgInt implements Displayable {
     }
 
     public static boolean isValid(String _string) {
-        if (_string == null) {
-            return false;
-        }
 //        if (!Pattern.matches(REG_EXP_INT, _string)) {
 //            return false;
 //        }
-        return matchesLgInt(_string);
+        return matchesLgInt(StringUtil.nullToEmpty(_string));
     }
 
     private static boolean matchesLgInt(String _input) {
