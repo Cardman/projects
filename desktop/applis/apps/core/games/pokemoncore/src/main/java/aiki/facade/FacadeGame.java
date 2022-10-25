@@ -346,8 +346,7 @@ public class FacadeGame {
     public void initFishing() {
         comment.clearMessages();
         game.initFishing(data);
-        changeToFightScene = true;
-        enabledMovingHero = false;
+        setupMovingHeros();
         comment.addComment(game.getCommentGame());
     }
 
