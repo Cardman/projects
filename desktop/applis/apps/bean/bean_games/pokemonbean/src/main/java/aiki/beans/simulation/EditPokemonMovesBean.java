@@ -28,7 +28,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         categories.putAllMap(translationsCategories_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
         moves.clear();
-        for (EntryCust<String, MoveData> k: getForms().getValMoveData(CST_MOVES_SET).entryList()) {
+        for (EntryCust<String, MoveData> k: getForms().getValMoveData(CST_MOVES_EDIT_SET).entryList()) {
             MoveData moveData_ = k.getValue();
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(k);
@@ -55,7 +55,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         moves.sortElts(new ComparatorMoves());
     }
     public String cancel() {
-        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
         if (player) {
             return CST_EDIT_POKEMON_PLAYER;
         }
@@ -109,7 +109,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //            }
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        getForms().putMoves(CST_MOVES_SET, moves_);
+        getForms().putMoves(CST_MOVES_EDIT_SET, moves_);
     }
 
     public StringMap<String> getCategories() {

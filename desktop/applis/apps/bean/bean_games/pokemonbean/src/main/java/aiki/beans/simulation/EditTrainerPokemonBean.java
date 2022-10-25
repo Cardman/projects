@@ -105,7 +105,7 @@ public class EditTrainerPokemonBean extends CommonBean {
     }
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, false);
-        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
         return CST_POKEMON_EDIT;
     }
     public void deleteMoves() {

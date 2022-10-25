@@ -139,8 +139,38 @@ public abstract class InitDbMoves extends InitDbConstr {
         beforeDisplaying(welcome_);
         Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
         transit(pk_,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
-        transit(pk_,new MovesBeanSearch(),moves_,moves_);
+//        transit(pk_,new MovesBeanSearch(),moves_,moves_);
         return displayMoveLine(all_, _index);
+    }
+
+    protected static Struct dispLearntMoves(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToMoves(pk_);
+        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        transit(pk_,new WelcomeBeanSeeLearntMoves(),welcome_,moves_);
+        return moves_;
+    }
+
+    protected static Struct dispNotLearntMoves(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToMoves(pk_);
+        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        transit(pk_,new WelcomeBeanSeeNotLearntMoves(),welcome_,moves_);
+        return moves_;
+    }
+    protected static Struct dispAllMoves(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToMoves(pk_);
+        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        transit(pk_,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+//        transit(pk_,new MovesBeanSearch(),moves_,moves_);
+        return moves_;
     }
 
     private static Struct displayMoveLine(StringMap<Struct> _all, int _index) {

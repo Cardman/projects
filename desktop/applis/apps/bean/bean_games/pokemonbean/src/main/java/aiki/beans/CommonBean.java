@@ -52,6 +52,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_MOVE = "move";
     protected static final String CST_MOVES = "moves";
     protected static final String CST_MOVES_SET = "moves_set";
+    protected static final String CST_MOVES_EDIT_SET = "moves_edit_set";
     protected static final String CST_OTHER_ITEM = "other_item";
     protected static final String CST_OTHER_WEATHER = "other_weather";
     protected static final String CST_PK = "pk";

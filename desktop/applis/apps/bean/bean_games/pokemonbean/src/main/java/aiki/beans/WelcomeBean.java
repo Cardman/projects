@@ -52,7 +52,7 @@ public class WelcomeBean extends CommonBean {
     }
 
     public String seeAllMoves() {
-        getForms().putMoves(CST_MOVES_SET, new StringMap<MoveData>());
+        getForms().putMoves(CST_MOVES_SET, getDataBase().getMoves());
         getForms().removeKey(CST_LEARNT);
         return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
     }
