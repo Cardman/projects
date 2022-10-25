@@ -6,6 +6,7 @@ import aiki.beans.PkData;
 import aiki.beans.effects.EffectWhileSendingBeanEffectSet;
 import aiki.beans.map.MapLevelBeanAreas;
 import aiki.beans.map.MapLevelBeanClickArea;
+import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
@@ -342,5 +343,8 @@ public abstract class InitDbConstr extends InitDbBean {
     }
     public static Struct callMapLevelBeanAreas(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanAreas(),_str,_args);
+    }
+    public static Struct callSimulationBeanSelectedTeamNumberGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
     }
 }

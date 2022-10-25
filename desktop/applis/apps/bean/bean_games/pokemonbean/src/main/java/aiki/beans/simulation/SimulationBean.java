@@ -1458,6 +1458,10 @@ public class SimulationBean extends CommonBean {
         }
     }
 
+    public int selectedTeamNumber() {
+        return indexTeam+1;
+    }
+
     public int getIndexTeam() {
         return indexTeam;
     }
