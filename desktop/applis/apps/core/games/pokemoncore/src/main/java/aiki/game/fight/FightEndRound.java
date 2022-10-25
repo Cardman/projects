@@ -225,8 +225,7 @@ final class FightEndRound {
         }
         for(byte c:_fight.getTeams().getKeys()){
             Team equipe_=_fight.getTeams().getVal(c);
-            equipe_.useItemsEndRound(_import);
-            _fight.addComment(equipe_.getComment());
+            equipe_.useItemsEndRound(_import,_fight.getTemp());
         }
     }
 
@@ -523,11 +522,11 @@ final class FightEndRound {
             incrementNumberRoundsTeam(_fight, c, move_, _import);
         }
         incrementNumberRoundsGlobal(_fight, move_, _import);
-        return !_fight.getAcceptableChoices();
+        return !_fight.getTemp().getAcceptableChoices();
     }
 
     private static boolean exitEndRound(Difficulty _diff, Fight _fight) {
-        return !_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff);
+        return !_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff);
     }
 
     static void incrementNumberRounds(Fight _fight,TeamPosition _fighter, String _move, DataBase _import) {
@@ -551,18 +550,18 @@ final class FightEndRound {
             for (MoveTeamPosition m: creature_.getTrackingMoves().getKeys()) {
                 if (StringUtil.quickEq(m.getMove(), _move)) {
                     activity_ = creature_.getTrackingMoves().getVal(m).getActivity();
-                    _fight.setCurrentActivity(activity_);
+                    _fight.getTemp().setCurrentActivity(activity_);
                     processActivity(_fight, _fighter, _move, m.getTeamPosition(), true, _import);
                 }
             }
             return;
         }
-        _fight.setCurrentActivity(activity_);
+        _fight.getTemp().setCurrentActivity(activity_);
         processActivity(_fight, _fighter, _move, _fighter, false, _import);
     }
 
     static void processActivity(Fight _fight, TeamPosition _fighter, String _move, TeamPosition _other, boolean _relation, DataBase _import) {
-        ActivityOfMove activity_ = _fight.getCurrentActivity();
+        ActivityOfMove activity_ = _fight.getTemp().getCurrentActivity();
         if (!activity_.isEnabled() || !activity_.isIncrementCount()) {
             return;
         }
@@ -674,7 +673,7 @@ final class FightEndRound {
             return;
         }
         Team equipe_=_fight.getTeams().getVal(_combattant.getTeam());
-        boolean testPositif_= _fight.getSimulation();
+        boolean testPositif_= _fight.getTemp().getSimulation();
         if(testPositif_||FightSuccess.tirage(_import, _effet.getDeleteAllStatusAlly())){
             for(byte c:equipe_.getMembers().getKeys()){
                 if(NumberUtil.eq(c,_combattant.getPosition())){
@@ -699,7 +698,7 @@ final class FightEndRound {
     }
 
     private static boolean effectEndRoundTeamExit(Fight _fight, TeamPosition _combattant) {
-        return _fight.getSimulation() && NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER);
+        return _fight.getTemp().getSimulation() && NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER);
     }
 
     static void effectEndRoundGlobal(Fight _fight,String _attaqueClimat,Difficulty _diff,DataBase _import){
@@ -782,8 +781,8 @@ final class FightEndRound {
 
     private static boolean varLeftHp(Fighter _creature, Rate _varPv, Fight _fight, TeamPosition _c, DataBase _import, Difficulty _diff) {
         if (Rate.strGreater(_creature.getRemainingHp(), _varPv)) {
-            _creature.variationLeftHp(_varPv.opposNb());
-            _fight.addHpMessage(_c, _import);
+            Rate r_ = _creature.variationLeftHp(_varPv.opposNb());
+            _fight.addHpMessage(_c, _import,r_);
         } else {
             return exitWhenKo(_fight, _c, _import, _diff);
         }
@@ -797,9 +796,9 @@ final class FightEndRound {
     }
 
     private static boolean exitAfterKo(Fight _fight, TeamPosition _c, Difficulty _diff) {
-        if(NumberUtil.eq(_c.getTeam(),Fight.CST_PLAYER)&& _fight.getSimulation()){
-            _fight.setAcceptableChoices(false);
-            _fight.setIssue(IssueSimulation.KO_PLAYER);
+        if(NumberUtil.eq(_c.getTeam(),Fight.CST_PLAYER)&& _fight.getTemp().getSimulation()){
+            _fight.getTemp().setAcceptableChoices(false);
+            _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
             return true;
         }
         return FightKo.endedFight(_fight, _diff);
@@ -810,7 +809,7 @@ final class FightEndRound {
         //BAILLEMENT
         //ATTERRISSAGE
         Rate varPv_ = varPvIndiv(_effet, _import, creature_);
-        if(_fight.getSimulation()){
+        if(_fight.getTemp().getSimulation()){
             if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
                 for(String c:creature_.getStatusSet()){
                     creature_.supprimerStatut(c);
@@ -830,14 +829,14 @@ final class FightEndRound {
         Rate sum_ = Rate.plus(varPv_, creature_.getRemainingHp());
         _fight.addAnimationHealthPoints(_combattant, varPv_);
         if (sum_.isZeroOrGt()) {
-            creature_.variationLeftHp(varPv_);
-            _fight.addHpMessage(_combattant, _import);
+            Rate r_ = creature_.variationLeftHp(varPv_);
+            _fight.addHpMessage(_combattant, _import,r_);
         } else {
             FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
             _fight.addAnimationKoFighter(_combattant);
-            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
+            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)&& _fight.getTemp().getSimulation()){
+                _fight.getTemp().setAcceptableChoices(false);
+                _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
             }
         }
     }
@@ -932,10 +931,10 @@ final class FightEndRound {
                     soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
                 }
                 Rate varPv_=Rate.multiply(partenaire_.pvMax(), _effet.getHealHp());
-                partenaire_.variationLeftHp(varPv_);
+                Rate r_ = partenaire_.variationLeftHp(varPv_);
                 _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e.getKey()), varPv_);
                 _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(_combattant.getTeam(), e.getKey()), _combattant, _import);
-                _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import);
+                _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import,r_);
             }else if(soinApres_.isFirstStacked()){
                 if(soinApres_.getNbRounds()<1){
                     soinApres_.setNbRounds((byte) (soinApres_.getNbRounds()+1));
@@ -943,10 +942,10 @@ final class FightEndRound {
                     soinApres_.setFirstStacked(false);
                     soinApres_.setNbRounds((byte) 0);
                     Rate varPv_=Rate.multiply(partenaire_.pvMax(), _effet.getHealHp());
-                    partenaire_.variationLeftHp(varPv_);
+                    Rate r_ = partenaire_.variationLeftHp(varPv_);
                     _fight.addAnimationHealthPoints(new TeamPosition(_combattant.getTeam(), e.getKey()), varPv_);
                     _fight.addMoveEndRoundRelMessage(_attaque, new TeamPosition(_combattant.getTeam(), e.getKey()), _combattant, _import);
-                    _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import);
+                    _fight.addHpMessage(new TeamPosition(_combattant.getTeam(), e.getKey()), _import,r_);
                 }
             }
         }
@@ -987,8 +986,8 @@ final class FightEndRound {
                         return true;
                     }
                 }else{
-                    creatureCible_.variationLeftHp(_attaqueAnticipe.getDamage().opposNb());
-                    _fight.addHpMessage(new TeamPosition((byte) target_.getTeam(), e.getKey()), _import);
+                    Rate r_ = creatureCible_.variationLeftHp(_attaqueAnticipe.getDamage().opposNb());
+                    _fight.addHpMessage(new TeamPosition((byte) target_.getTeam(), e.getKey()), _import,r_);
                 }
             }else{
                 creatureCible_.infligerDegatsClone(_attaqueAnticipe.getDamage());
@@ -1098,8 +1097,8 @@ final class FightEndRound {
 ////                    }
 //                return false;
             }
-            creatureCible_.variationLeftHp(Rate.multiply(tauxDeg_, creatureCible_.pvMax()).opposNb());
-            _fight.addHpMessage(k_.getTeamPosition(), _import);
+            Rate r_ = creatureCible_.variationLeftHp(Rate.multiply(tauxDeg_, creatureCible_.pvMax()).opposNb());
+            _fight.addHpMessage(k_.getTeamPosition(), _import,r_);
         }else{
             Rate cloneDamage_ = Rate.multiply(tauxDeg_, creatureCible_.pvMax());
             creatureCible_.infligerDegatsClone(cloneDamage_);
@@ -1156,8 +1155,8 @@ final class FightEndRound {
 //            }
         } else {
             _fight.addEffectRecoil(_combattant);
-            creature_.variationLeftHp(lostHp_.opposNb());
-            _fight.addHpMessage(_combattant, _import);
+            Rate r_ = creature_.variationLeftHp(lostHp_.opposNb());
+            _fight.addHpMessage(_combattant, _import,r_);
         }
     }
 
@@ -1215,15 +1214,15 @@ final class FightEndRound {
         if(Rate.greaterEq(Rate.multiply(taux_, creature_.pvMax()), creature_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
             _fight.addAnimationKoFighter(_combattant);
-            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
+            if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)&& _fight.getTemp().getSimulation()){
+                _fight.getTemp().setAcceptableChoices(false);
+                _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
             }
         }else{
             Rate var_ = Rate.multiply(taux_, creature_.pvMax()).opposNb();
             _fight.addAnimationHealthPoints(_combattant, var_);
-            creature_.variationLeftHp(var_);
-            _fight.addHpMessage(_combattant, _import);
+            Rate r_ = creature_.variationLeftHp(var_);
+            _fight.addHpMessage(_combattant, _import,r_);
         }
     }
 
@@ -1263,7 +1262,7 @@ final class FightEndRound {
         MonteCarloBoolean loiSachant_= _loi.knowingGreater(new Rate(_nbTour));
         LgInt maxRd_ = _import.getMaxRd();
         boolean resterActif_;
-        if(_fight.getSimulation()){
+        if(_fight.getTemp().getSimulation()){
             if(loiSachant_.events().size()==1){
                 resterActif_= FightSuccess.tr(loiSachant_.editNumber(maxRd_, _import.getGenerator()));
             }else{
@@ -1307,8 +1306,8 @@ final class FightEndRound {
 //                    return;
 //                }
             }else{
-                creature_.variationLeftHp(Rate.multiply(taux_,creature_.pvMax()).opposNb());
-                _fight.addHpMessage(_cible, _import);
+                Rate r_ = creature_.variationLeftHp(Rate.multiply(taux_, creature_.pvMax()).opposNb());
+                _fight.addHpMessage(_cible, _import,r_);
                 _fight.addEffectRecoil(_cible);
             }
             return;
@@ -1331,8 +1330,8 @@ final class FightEndRound {
 //                    return;
 //                }
         }else{
-            creature_.variationLeftHp(Rate.multiply(tauxAbs_.absNb(), creature_.pvMax()).opposNb());
-            _fight.addHpMessage(_cible, _import);
+            Rate r_ = creature_.variationLeftHp(Rate.multiply(tauxAbs_.absNb(), creature_.pvMax()).opposNb());
+            _fight.addHpMessage(_cible, _import,r_);
         }
         AnimationEffect animation_;
         animation_ = new AnimationEffect(EffectKind.ABSORB);
@@ -1344,8 +1343,8 @@ final class FightEndRound {
             //target hp absorbed to user hp
             animation_.setKoFromFighter(creature_.estKo());
             _fight.getEffects().add(animation_);
-            creatureLanceur_.variationLeftHp(varPv_);
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = creatureLanceur_.variationLeftHp(varPv_);
+            _fight.addHpMessage(_lanceur, _import,r_);
         }else if(Rate.lowerEq(creatureLanceur_.getRemainingHp(),varPv_)){
             _fight.addEffectRecoil(_cible);
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
@@ -1363,8 +1362,8 @@ final class FightEndRound {
 //                    return;
 //                }
         }else{
-            creatureLanceur_.variationLeftHp(varPv_.opposNb());
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = creatureLanceur_.variationLeftHp(varPv_.opposNb());
+            _fight.addHpMessage(_lanceur, _import,r_);
             _fight.addEffectRecoil(_cible);
             _fight.addEffectRecoil(_lanceur);
         }
@@ -1457,8 +1456,7 @@ final class FightEndRound {
             if (!f.isBelongingToPlayer()) {
                 continue;
             }
-            f.calculateNewLevel(_diff,_import,pkNames_);
-            _fight.addComment(f.getComment());
+            f.calculateNewLevel(_diff,_import,pkNames_,_fight.getTemp());
         }
     }
 
@@ -1488,11 +1486,11 @@ final class FightEndRound {
             } else if (fighter_.getMovesAbilitiesEvos().getVal(choice_.getName()).getAbilities().size() <= DataBase.ONE_POSSIBLE_CHOICE) {
                 _fight.getCaughtEvolutions().add(choice_.getName());
                 _fight.addFightEvolutionMessage(Fight.toUserFighter(k), choice_.getName(), _import);
-                fighter_.evoluerSansApprendreCapacite(choice_.getName(), choice_.getKeptMoves(), _import);
+                fighter_.evoluerSansApprendreCapacite(choice_.getName(), choice_.getKeptMoves(), _import,_fight);
             } else {
                 _fight.getCaughtEvolutions().add(choice_.getName());
                 _fight.addFightEvolutionMessage(Fight.toUserFighter(k), choice_.getName(), _import);
-                fighter_.evoluer(choice_.getName(), choice_.getAbility(), choice_.getKeptMoves(), _import);
+                fighter_.evoluer(choice_.getName(), choice_.getAbility(), choice_.getKeptMoves(), _import,_fight);
             }
             fighter_.reinitAttaquesEvosCapacites();
         }

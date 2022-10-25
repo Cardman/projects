@@ -35,7 +35,7 @@ public class TargetsPanel {
 //        teamPl_.putAllMap(_facade.getUnionFrontTeam());
         int i_;
         i_ = IndexConstants.FIRST_INDEX;
-        CustList<ChosableTargetName> chosablePl_ = _facade.getFight().getChosablePlayerTargets();
+        CustList<ChosableTargetName> chosablePl_ = _facade.getFight().getTemp().getChosablePlayerTargets();
         for (ChosableTargetName k: chosablePl_) {
             MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
             target_.set(_facade,_battle, k.getName(), i_);
@@ -50,7 +50,7 @@ public class TargetsPanel {
         //TreeMap<Byte,Fighter> teamFoe_ = _facade.getFoeFrontTeam();
         i_ = IndexConstants.FIRST_INDEX;
 //        ByteTreeMap<Fighter> teamFoe_ = _facade.getFoeFrontTeam();
-        CustList<ChosableTargetName> chosableFoe_ = _facade.getFight().getChosableFoeTargets();
+        CustList<ChosableTargetName> chosableFoe_ = _facade.getFight().getTemp().getChosableFoeTargets();
         for (ChosableTargetName k: chosableFoe_) {
             MiniTargetLabel target_ = new MiniTargetLabel(compoFactory);
             target_.set(_facade,_battle, k.getName(), i_);

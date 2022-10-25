@@ -9,7 +9,6 @@ import aiki.game.fight.actions.ActionSwitch;
 import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.WildPk;
@@ -101,11 +100,11 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         AbstractAction action_;
         action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertNull(action_);
-        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexBack());
-        assertEq(0, facadeGame_.getFight().getChosenIndexFront());
-        assertEq(ActionType.SWITCH, facadeGame_.getFight().getSelectedActionCurFighter());
-        assertEq(0, facadeGame_.getFight().getChosableFoeTargets().size());
-        assertEq(0, facadeGame_.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexBack());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.SWITCH, facadeGame_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosablePlayerTargets().size());
     }
 
     @Test
@@ -117,11 +116,11 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         AbstractAction action_;
         action_ = facadeGame_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
-        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexFront());
-        assertEq(ActionType.NOTHING, facadeGame_.getFight().getSelectedActionCurFighter());
-        assertEq(0, facadeGame_.getFight().getChosableFoeTargets().size());
-        assertEq(0, facadeGame_.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexBack());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.NOTHING, facadeGame_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, facadeGame_.getFight().getTemp().getChosablePlayerTargets().size());
     }
 
     @Test
@@ -142,8 +141,8 @@ public final class FacadeGameFightKoTwoTest extends InitializationDataBase {
         facadeGame_.setSubstituteEndRound(Fighter.BACK);
         facadeGame_.chooseBackFighter((byte) 0);
         facadeGame_.setSubstituteEndRound((byte) 0);
-        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, facadeGame_.getFight().getChosenIndexFront());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexBack());
+        assertEq(Fighter.BACK, facadeGame_.getFight().getTemp().getChosenIndexFront());
         assertEq(Fighter.BACK, facadeGame_.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(0, facadeGame_.getFight().getFirstPositPlayerFighters().getVal((byte) 1));
     }

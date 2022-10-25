@@ -73,8 +73,8 @@ final class FightInitialization {
 
     static void initDefaultFight(Fight _fight) {
         _fight.setWinningMoney(Rate.zero());
-        _fight.setSimulation(false);
-        _fight.setAcceptableChoices(false);
+        _fight.getTemp().setSimulation(false);
+        _fight.getTemp().setAcceptableChoices(false);
         _fight.setFightType(FightType.NOTHING);
         _fight.setUsedItemsWhileRound(new StringMap<Short>());
         _fight.setChoices(new ByteMap<ChoiceOfEvolutionAndMoves>());
@@ -134,18 +134,18 @@ final class FightInitialization {
 
     static void initMultiplicity(Fight _fight,byte _multiplicity) {
         _fight.setTeams(new ByteMap<Team>());
-        _fight.setSimulation(false);
-        _fight.setAcceptableChoices(true);
-        _fight.setIssue(IssueSimulation.NOTHING);
+        _fight.getTemp().setSimulation(false);
+        _fight.getTemp().setAcceptableChoices(true);
+        _fight.getTemp().setIssue(IssueSimulation.NOTHING);
         _fight.setLostObjects(new StringList());
         _fight.setCurrentUser(new TeamPosition((byte) 0, Fighter.BACK));
-        _fight.setLettingUserAttackWithStatus(true);
-        _fight.setFullHealing(false);
-        _fight.setEndRound(false);
+        _fight.getTemp().setLettingUserAttackWithStatus(true);
+        _fight.getTemp().setFullHealing(false);
+        _fight.getTemp().setEndRound(false);
         _fight.setState(FightState.ATTAQUES);
-        _fight.setKos(new ByteMap<BoolVal>());
-        _fight.getKos().put(Fight.CST_PLAYER,BoolVal.FALSE);
-        _fight.getKos().put(Fight.CST_FOE,BoolVal.FALSE);
+        _fight.getTemp().setKos(new ByteMap<BoolVal>());
+        _fight.getTemp().getKos().put(Fight.CST_PLAYER,BoolVal.FALSE);
+        _fight.getTemp().getKos().put(Fight.CST_FOE,BoolVal.FALSE);
         _fight.setNbFleeAttempt((short) 0);
         _fight.setNbRounds(LgInt.zero());
         _fight.setCatchingBall(DataBase.EMPTY_STRING);

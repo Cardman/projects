@@ -1,5 +1,5 @@
 package aiki.game.fight;
-import aiki.comments.Comment;
+
 import aiki.comparators.ComparatorGroundPlaceKey;
 import aiki.db.DataBase;
 import aiki.fight.abilities.AbilityData;
@@ -14,11 +14,7 @@ import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.WildPk;
 import aiki.util.TeamPositionList;
 import code.maths.LgInt;
-import code.util.CustList;
-import code.util.EntryCust;
 import code.util.*;
-import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
@@ -79,7 +75,7 @@ public final class Team {
     private StringList successfulMovesRound;
 
     /***/
-    private Comment comment = new Comment();
+//    private Comment comment = new Comment();
 
     public Team(){
 
@@ -588,7 +584,7 @@ public final class Team {
         return ok_;
     }
 
-    void useItemsEndRound(DataBase _import) {
+    void useItemsEndRound(DataBase _import, TransientFight _temp) {
         boolean cancelUsingItems_ = false;
         for (byte f_: members.getKeys()) {
             Fighter fighter_= refPartMembres(f_);
@@ -606,11 +602,11 @@ public final class Team {
             String name_ = _import.translatePokemon(creature_.getName());
             if (!cancelUsingItems_) {
                 if (creature_.isUsingItem()) {
-                    comment.addMessage(mess_.getVal(USE_ITEM), name_);
+                    _temp.addMessage(mess_.getVal(USE_ITEM), name_);
                 }
                 creature_.tossLastUsedObject();
             } else {
-                comment.addMessage(mess_.getVal(CANCEL_USE_ITEM), name_);
+                _temp.addMessage(mess_.getVal(CANCEL_USE_ITEM), name_);
             }
             creature_.setUsingItem(false);
         }
@@ -827,14 +823,6 @@ public final class Team {
 
     public Fighter refPartMembres(byte _position) {
         return members.getVal(_position);
-    }
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    void setComment(Comment _comment) {
-        comment = _comment;
     }
 
     public ListActivityOfMoves getEnabledMovesByGroup() {

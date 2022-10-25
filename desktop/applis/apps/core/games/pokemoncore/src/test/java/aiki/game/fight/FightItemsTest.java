@@ -2,7 +2,6 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.items.Berry;
-import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -699,7 +698,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.backUpObject(NULL_REF);
         FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data_);
         assertEq(Rate.one(), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getTemp().getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -713,7 +712,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_MEPO);
         FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data_);
         assertEq(Rate.one(), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getTemp().getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -726,7 +725,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_ENIGMA);
         FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data_);
         assertEq(new Rate("2338/25"), fighter_.getRemainingHp());
-        assertTrue(!fight_.getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
+        assertTrue(!fight_.getTemp().getSuccessfulEffects().contains(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(!fighter_.isUsingItem());
     }
 
@@ -740,7 +739,7 @@ public class FightItemsTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_ENIGMA);
         FightItems.enableBerryHpWhileSuperEffectiveMove(fight_, fighterCoords_, IndexConstants.FIRST_INDEX, data_);
         assertEq(new Rate("1219/50"), fighter_.getRemainingHp());
-        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(IndexConstants.FIRST_INDEX, fighterCoords_)));
         assertTrue(fighter_.isUsingItem());
     }
 

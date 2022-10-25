@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -612,7 +611,7 @@ public class FightInvokeTest extends InitializationDataBase {
         StringList invokedMoves_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAlreadyInvokedMovesRound();
         assertEq(1, invokedMoves_.size());
         assertTrue(StringUtil.contains(invokedMoves_, JACKPOT));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -675,7 +674,7 @@ public class FightInvokeTest extends InitializationDataBase {
         trainer_.setMultiplicityFight((byte) 1);
         Fight fight_ = FightFacade.newFight();
         FightFacade.initFight(fight_,player_, diff_, trainer_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.setEnvType(EnvironmentType.ROAD);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMove(JACKPOT);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(METRONOME, POKEMON_FOE_TARGET_ZERO);
@@ -690,7 +689,7 @@ public class FightInvokeTest extends InitializationDataBase {
         FightInvoke.effectInvoke(fight_,POKEMON_PLAYER_FIGHTER_ZERO,POKEMON_FOE_FIGHTER_ZERO, effet_, data_);
         StringList invokedMoves_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAlreadyInvokedMovesRound();
         assertEq(0, invokedMoves_.size());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     private static Fight processInvokingMove(Difficulty _diff, byte _mult, DataBase _data) {
@@ -766,9 +765,9 @@ public class FightInvokeTest extends InitializationDataBase {
         assertEq(SEISME, list_.get(0));
         assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getLastUsedMove());
         assertEq(SEISME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -786,9 +785,9 @@ public class FightInvokeTest extends InitializationDataBase {
         assertEq(JACKPOT,list_.get(1));
         assertEq(JACKPOT, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getLastUsedMove());
         assertEq(JACKPOT, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -805,9 +804,9 @@ public class FightInvokeTest extends InitializationDataBase {
         assertEq(MIMIQUE,list_.get(0));
         assertEq(MIMIQUE, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getLastUsedMove());
         assertEq(MIMIQUE, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(!fight_.isSuccessfulInvokation());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(!fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -824,9 +823,9 @@ public class FightInvokeTest extends InitializationDataBase {
         assertEq(ASSISTANCE_BIS,list_.get(0));
         assertEq(ASSISTANCE_BIS, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getLastUsedMove());
         assertEq(ASSISTANCE_BIS, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(!fight_.isSuccessfulInvokation());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(!fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -834,7 +833,7 @@ public class FightInvokeTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = processInvokingMove(diff_, (byte) 1, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setLastSufferedMove(JACKPOT);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(METRONOME, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
@@ -844,9 +843,9 @@ public class FightInvokeTest extends InitializationDataBase {
         assertEq(METRONOME,list_.get(0));
         assertEq(METRONOME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getLastUsedMove());
         assertEq(METRONOME, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getFinalChosenMove());
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     private StringList invokableMoves(Fight _fight, EffectInvoke _eff, DataBase _data) {

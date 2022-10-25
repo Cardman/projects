@@ -1615,7 +1615,7 @@ public final class Game {
 
     public void endRoundFightKoUser(DataBase _import) {
         commentGame.clearMessages();
-        if (fight.isEndRoundFightKoPlayer()) {
+        if (fight.getTemp().isEndRoundFightKoPlayer()) {
             FightFacade.endRoundFightBasic(fight, difficulty, player, _import);
         }
         //fight.setState(FightState.SWITCH_WHILE_KO_USER);
@@ -1719,23 +1719,23 @@ public final class Game {
     }
 
     public byte getChosenIndex() {
-        return fight.getChosenIndex();
+        return fight.getTemp().getChosenIndex();
     }
 
     public NatStringTreeMap<BoolVal> getMoves() {
-        return fight.getMoves();
+        return fight.getTemp().getMoves();
     }
 
     public EvolutionChoiceMap getEvolutions() {
-        return fight.getEvolutions();
+        return fight.getTemp().getEvolutions();
     }
 
     public StringList getAbilities() {
-        return fight.getAbilities();
+        return fight.getTemp().getAbilities();
     }
 
     public String getAbility() {
-        return fight.getAbility();
+        return fight.getTemp().getAbility();
     }
 
     public void addOrForgetMove(String _move) {

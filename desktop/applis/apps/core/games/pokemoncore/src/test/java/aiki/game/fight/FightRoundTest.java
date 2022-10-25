@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -190,7 +189,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = autoDamage(diff_, data_);
         FightRound.autoDamage(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("1"), Statistic.ATTACK, Statistic.DEFENSE, diff_, data_);
         assertEq(new Rate("12724889/136625"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -200,7 +199,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = autoDamage(diff_, data_);
         FightRound.autoDamage(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("1000"), Statistic.ATTACK, Statistic.DEFENSE, diff_, data_);
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -212,7 +211,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(HYPER_BALL);
         FightRound.autoDamage(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("1000"), Statistic.ATTACK, Statistic.DEFENSE, diff_, data_);
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -224,7 +223,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BOUE_NOIRE);
         FightRound.autoDamage(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("1000"), Statistic.ATTACK, Statistic.DEFENSE, diff_, data_);
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -235,7 +234,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(POUDRE_ATTAQUE);
         FightRound.autoDamage(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("1000"), Statistic.ATTACK, Statistic.DEFENSE, diff_, data_);
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -243,10 +242,10 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = autoDamage(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightRound.autoDamage(fight_,POKEMON_PLAYER_FIGHTER_ZERO, new Rate("1000"), Statistic.ATTACK, Statistic.DEFENSE, diff_, data_);
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).estKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -293,7 +292,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = autoDamage(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         MonteCarloBoolean law_ = new MonteCarloBoolean();
         law_.addQuickEvent(BoolVal.TRUE, LgInt.one());
@@ -307,7 +306,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = autoDamage(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(POISON_GRAVE);
         MonteCarloBoolean law_ = new MonteCarloBoolean();
         law_.addQuickEvent(BoolVal.TRUE, LgInt.one());
@@ -388,9 +387,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(TROUILLE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, TROUILLE, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(TROUILLE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -402,9 +401,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PEUR);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PEUR, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(TROUILLE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -416,9 +415,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(LONGUE_CONFUSION_SANS_DOMMAGE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_SANS_DOMMAGE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(LONGUE_CONFUSION_SANS_DOMMAGE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -430,9 +429,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(LONGUE_CONFUSION_DOMMAGE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(LONGUE_CONFUSION_DOMMAGE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -447,9 +446,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(LONGUE_CONFUSION_DOMMAGE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(LONGUE_CONFUSION_DOMMAGE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(LONGUE_CONFUSION_DOMMAGE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -461,9 +460,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO,AMOUR_FOU);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, AMOUR_FOU, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU, POKEMON_FOE_FIGHTER_ZERO)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -476,9 +475,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PEUR);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(PEUR);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PEUR, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PEUR));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -494,9 +493,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(LONGUE_CONFUSION_DOMMAGE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).incrementRoundsStatus(LONGUE_CONFUSION_DOMMAGE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(LONGUE_CONFUSION_DOMMAGE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -508,9 +507,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(ERE_GEL);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, ERE_GEL, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(ERE_GEL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -522,9 +521,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(FEU_GEL);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, FEU_GEL, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(FEU_GEL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -536,9 +535,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO,AMOUR_MOU);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, AMOUR_MOU, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(AMOUR_MOU, POKEMON_FOE_FIGHTER_ZERO)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -550,9 +549,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PARALYSIE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -565,9 +564,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(GARDE_MAGIK);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PARALYSIE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -580,9 +579,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PARALYSIE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -594,9 +593,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(ERE_GEL);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, ERE_GEL, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(ERE_GEL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -608,9 +607,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE_FORTE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PARALYSIE_FORTE, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE_FORTE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -623,9 +622,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(GARDE_MAGIK);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE_FORTE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PARALYSIE_FORTE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE_FORTE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -638,9 +637,9 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(PARALYSIE_FORTE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, PARALYSIE_FORTE, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(PARALYSIE_FORTE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -652,9 +651,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SOMMEIL, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -666,9 +665,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SOMMEIL, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -680,9 +679,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SOMMEIL, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -701,12 +700,12 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -725,14 +724,14 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, PRISE_DE_TETE, diff_, data_);
         assertEq(2, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(PRISE_DE_TETE, POKEMON_PLAYER_FIGHTER_ZERO)));
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(new Rate("42756/2675"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -755,14 +754,14 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, PRISE_DE_TETE, diff_, data_);
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(PRISE_DE_TETE, POKEMON_PLAYER_FIGHTER_ZERO)));
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(new Rate("42756/2675"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -781,14 +780,14 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(BROUHAHA);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, PRISE_DE_TETE, diff_, data_);
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(PRISE_DE_TETE, POKEMON_PLAYER_FIGHTER_ZERO)));
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(new Rate("92/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -796,7 +795,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
@@ -811,14 +810,14 @@ public class FightRoundTest extends InitializationDataBase {
         //fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusRelat().put(new MoveTeamPosition(COUP_DE_BEC, POKEMON_PLAYER_FIGHTER_ZERO), (short)3);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, COUP_DE_BEC, diff_, data_);
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(COUP_DE_BEC, POKEMON_PLAYER_FIGHTER_ZERO)));
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(new Rate("92/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -826,7 +825,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(NULL_REF);
@@ -842,14 +841,14 @@ public class FightRoundTest extends InitializationDataBase {
 //        fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusRelat().put(new MoveTeamPosition(COUP_DE_BEC, POKEMON_FOE_FIGHTER_ZERO), (short)3);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, COUP_DE_BEC, diff_, data_);
         assertEq(4, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(COUP_DE_BEC, POKEMON_FOE_FIGHTER_ZERO)));
         assertTrue(!FightKo.endedFight(fight_, diff_));
         assertEq(new Rate("2137186/27325"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -857,15 +856,15 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(LONGUE_CONFUSION_SANS_DOMMAGE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_SANS_DOMMAGE, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(LONGUE_CONFUSION_SANS_DOMMAGE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -873,7 +872,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(CRAN);
@@ -885,12 +884,12 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -898,15 +897,15 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterStatut(LONGUE_CONFUSION_SANS_DOMMAGE);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, LONGUE_CONFUSION_SANS_DOMMAGE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusNbRound(LONGUE_CONFUSION_SANS_DOMMAGE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -914,14 +913,14 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_FOE_FIGHTER_ZERO,AMOUR_FOU);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, AMOUR_FOU, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU, POKEMON_FOE_FIGHTER_ZERO)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -929,14 +928,14 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ZERO,AMOUR_FOU);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, AMOUR_FOU, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
         assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatusRelatNbRound(new MoveTeamPosition(AMOUR_FOU, POKEMON_PLAYER_FIGHTER_ZERO)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -944,7 +943,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(CRAN);
@@ -956,10 +955,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.effectBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
     }
@@ -972,12 +971,12 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(RONFLEMENT, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.statusBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SOMMEIL, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -988,12 +987,12 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(BRULURE);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.statusBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, BRULURE, diff_, data_);
-        assertTrue(fight_.getLettingUserAttackWithStatus());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().getLettingUserAttackWithStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(BRULURE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1004,12 +1003,12 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL_REPOS);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.statusBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, SOMMEIL_REPOS, diff_, data_);
-        assertTrue(!fight_.getLettingUserAttackWithStatus());
-        assertTrue(!fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().getLettingUserAttackWithStatus());
+        assertTrue(!fight_.getTemp().isKeepStatus());
         assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL_REPOS));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1028,10 +1027,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.statusBeginRoundAttack(fight_,POKEMON_FOE_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
     }
@@ -1041,7 +1040,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectBeginRoundAttack(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setCurrentAbility(CRAN);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BOUE_NOIRE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(LONGUE_CONFUSION_DOMMAGE);
@@ -1051,10 +1050,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setFirstChosenMoveTarget(ROUE_DE_FEU, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         //fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterStatut(SOMMEIL);
-        fight_.setKeepStatus(true);
+        fight_.getTemp().setKeepStatus(true);
         FightRound.statusBeginRoundAttack(fight_,POKEMON_PLAYER_FIGHTER_ZERO, LONGUE_CONFUSION_DOMMAGE, diff_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
 //        assertTrue(!fight_.isKeepStatus());
 //        assertEq(2, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatusNbRound(SOMMEIL));
     }
@@ -1420,7 +1419,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setCurrentAbility(PARATONNERRE);
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TONNERRE, diff_, data_);
         assertEq(1, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1433,7 +1432,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TONNERRE, diff_, data_);
         assertEq(new Rate("46/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1447,7 +1446,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, BROUHAHA, diff_, data_);
         assertEq(new Rate("46/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1461,7 +1460,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TONNERRE, diff_, data_);
         assertEq(new Rate("69/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1475,7 +1474,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TONNERRE, diff_, data_);
         assertEq(new Rate("69/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1489,7 +1488,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TONNERRE, diff_, data_);
         assertEq(new Rate("92/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1503,7 +1502,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, TONNERRE, diff_, data_);
         assertEq(new Rate("46/5"), fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1518,7 +1517,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("5619/400"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1533,7 +1532,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, COMBO_GRIFFE, diff_, data_);
         assertEq(-1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(new Rate("1873/100"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1548,7 +1547,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, COMBO_GRIFFE, diff_, data_);
         assertEq(new Rate("5619/400"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1564,7 +1563,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("1873/200"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1580,7 +1579,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, COMBO_GRIFFE, diff_, data_);
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(new Rate("1873/100"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1596,7 +1595,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1612,7 +1611,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
 
@@ -1629,7 +1628,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1645,7 +1644,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1653,7 +1652,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = effectWhileFail(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO).setFirstChosenMove(NUEE_DE_POUDRE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(new Rate("1"));
         FightRound.initRound(fight_);
@@ -1662,7 +1661,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.effectWhileFail(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, ROUE_DE_FEU, diff_, data_);
         assertEq(new Rate("0"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getStatisBoost().getVal(Statistic.ATTACK));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     private static Fight healPartner(DataBase _data) {
@@ -1725,7 +1724,7 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = healPartner(data_);
         FightRound.healPartner(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, Rate.one(), data_);
-        assertTrue(!fight_.isEnabledHealingPartner());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
     }
 
     @Test
@@ -1735,7 +1734,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, AMOUR);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
         FightRound.healPartner(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, Rate.one(), data_);
-        assertTrue(fight_.isEnabledHealingPartner());
+        assertTrue(fight_.getTemp().isEnabledHealingPartner());
         assertEq(new Rate("1873/100"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp());
     }
 
@@ -1746,7 +1745,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, AMOUR_FOU);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
         FightRound.healPartner(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, Rate.one(), data_);
-        assertTrue(!fight_.isEnabledHealingPartner());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
         assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp());
     }
 
@@ -1757,7 +1756,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).affecterPseudoStatut(POKEMON_PLAYER_FIGHTER_ONE, CAUCHEMAR);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
         FightRound.healPartner(fight_,POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ONE, Rate.one(), data_);
-        assertTrue(!fight_.isEnabledHealingPartner());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
         assertEq(new Rate("1"), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getRemainingHp());
     }
 
@@ -1841,8 +1840,8 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
         FightRound.processAccurracy(fight_,ABIME, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(!fight_.isSuccessfulUse());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isSuccessfulUse());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1850,9 +1849,9 @@ public class FightRoundTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
         FightRound.processAccurracy(fight_,TONNERRE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
         assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1861,9 +1860,9 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = effectWhileFail(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BAIE_MICLE);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
         assertTrue(fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1873,10 +1872,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BAIE_MICLE);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
         assertSame(BoolVal.FALSE,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
         assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1885,9 +1884,9 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = effectWhileFail(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(BAIE_MICLE);
         FightRound.processAccurracy(fight_,TONNERRE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
         assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1897,10 +1896,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).backUpObject(NULL_REF);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
         assertSame(BoolVal.FALSE,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
         assertTrue(!fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1909,29 +1908,29 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = effectWhileFail(data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO), BoolVal.TRUE);
         FightRound.processAccurracy(fight_,TONNERRE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
         assertSame(BoolVal.TRUE,fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getIncrUserAccuracy().getVal(new MoveTeamPosition(LIRE_ESPRIT,POKEMON_FOE_FIGHTER_ZERO)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
     public void processAccurracy1SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_PLAYER_FIGHTER_ZERO, POKEMON_FOE_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
     public void processAccurracy2SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = effectWhileFail(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         FightRound.processAccurracy(fight_,BERCEUSE, POKEMON_FOE_FIGHTER_ZERO, POKEMON_PLAYER_FIGHTER_ZERO, data_);
-        assertTrue(fight_.isSuccessfulUse());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().isSuccessfulUse());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1960,8 +1959,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1991,8 +1990,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2022,8 +2021,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2054,8 +2053,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2089,10 +2088,10 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertEq(2, fight_.getDamageByCurrentUser().size());
-        assertEq(new Rate("14288/1575"), fight_.getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ZERO));
-        assertEq(new Rate("14288/1575"), fight_.getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ONE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(2, fight_.getTemp().getDamageByCurrentUser().size());
+        assertEq(new Rate("14288/1575"), fight_.getTemp().getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("14288/1575"), fight_.getTemp().getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ONE));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2126,8 +2125,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("1"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2158,8 +2157,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2191,8 +2190,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertTrue(!fighter_.getEnabledMoves().getVal(move_).isEnabled());
         assertEq(new Rate("46/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2222,8 +2221,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2254,8 +2253,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2288,8 +2287,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
         assertTrue(fighter_.isUsingItem());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2321,8 +2320,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2352,10 +2351,10 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("28114/1625"),fighter_.getRemainingHp());
-        assertEq(new Rate("1786/1625"),fight_.getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("1786/1625"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
         processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2381,13 +2380,13 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         processEffectTargets(fight_, target_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertTrue(fighter_.isSuccessfulMove());
-        fight_.getSuccessfulEffects().clear();
+        fight_.getTemp().getSuccessfulEffects().clear();
         TeamPositionList list_ = FightRound.takers(fight_,thrower_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(target_));
         processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertEq(2, fighter_.getStatisBoost().getVal(Statistic.DEFENSE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2414,14 +2413,14 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         processEffectTargets(fight_, target_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertTrue(fighter_.isSuccessfulMove());
-        fight_.getSuccessfulEffects().clear();
+        fight_.getTemp().getSuccessfulEffects().clear();
         TeamPositionList list_ = FightRound.takers(fight_,thrower_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(target_));
-        fight_.setChangeThrower(true);
+        fight_.getTemp().setChangeThrower(true);
         processEffectTargets(fight_, thrower_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertEq(0, fighter_.getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2455,10 +2454,10 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(10, fighter_.powerPointsMove(move_));
-        assertEq(2, fight_.getDamageByCurrentUser().size());
-        assertEq(new Rate("14288/1575"), fight_.getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ZERO));
-        assertEq(new Rate("14288/1575"), fight_.getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ONE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(2, fight_.getTemp().getDamageByCurrentUser().size());
+        assertEq(new Rate("14288/1575"), fight_.getTemp().getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("14288/1575"), fight_.getTemp().getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ONE));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2484,11 +2483,11 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         processEffectTargets(fight_, target_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertTrue(fighter_.isSuccessfulMove());
-        fight_.getSuccessfulEffects().clear();
+        fight_.getTemp().getSuccessfulEffects().clear();
         assertEq(PointViewChangementType.MIRROR_AGAINST_THROWER, FightOrder.getPointViewChangementType(moveTarget_, data_));
         processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2516,11 +2515,11 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         fighter_.getIncrUserAccuracy().put(new MoveTeamPosition(LIRE_ESPRIT, target_), BoolVal.TRUE);
-        fight_.getSuccessfulEffects().clear();
+        fight_.getTemp().getSuccessfulEffects().clear();
         assertEq(PointViewChangementType.MIRROR_AGAINST_THROWER, FightOrder.getPointViewChangementType(moveTarget_, data_));
         processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertEq(1, fighter_.getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2546,7 +2545,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(target_);
         assertEq(1, fighter_.getStatusNbRound(SOMMEIL));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2579,11 +2578,11 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("1933/100"),fighter_.getRemainingHp());
-        assertTrue(!fight_.isEnabledHealingPartner());
-        assertEq(2, fight_.getDamageByCurrentUser().size());
-        assertEq(new Rate("7144/1575"), fight_.getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ZERO));
-        assertEq(new Rate("7144/1575"), fight_.getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ONE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
+        assertEq(2, fight_.getTemp().getDamageByCurrentUser().size());
+        assertEq(new Rate("7144/1575"), fight_.getTemp().getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(new Rate("7144/1575"), fight_.getTemp().getDamageByCurrentUser().getVal(POKEMON_FOE_FIGHTER_ONE));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2609,11 +2608,11 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         processEffectTargets(fight_, target_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertTrue(fighter_.isSuccessfulMove());
-        fight_.getSuccessfulEffects().clear();
+        fight_.getTemp().getSuccessfulEffects().clear();
         TeamPositionList list_ = FightRound.takers(fight_,thrower_, data_);
         assertEq(1, list_.size());
         assertTrue(list_.containsObj(target_));
-        fight_.setChangeThrower(true);
+        fight_.getTemp().setChangeThrower(true);
         processEffectTargets(fight_, thrower_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         fighter_ = fight_.getFighter(target_);
         StringList fobiddenMoves_ = fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF, POKEMON_PLAYER_FIGHTER_THREE));
@@ -2622,10 +2621,10 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(StringUtil.contains(fobiddenMoves_, JACKPOT));
         fobiddenMoves_ = fighter_.getPrivateMoves().getVal(new MoveTeamPosition(POSSESSIF, POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(0, fobiddenMoves_.size());
-        assertEq(2, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_ZERO)));
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_THREE)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(2, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.FALSE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_ZERO)));
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, POKEMON_PLAYER_FIGHTER_THREE)));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2650,8 +2649,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setRemainedHp(Rate.one());
         FightRound.initRound(fight_);
         processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
-        assertEq(1, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertEq(1, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertTrue(fighter_.isSuccessfulMove());
@@ -2659,11 +2658,11 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertEq(new Rate("1"),fight_.getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("1"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
         processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
-        assertEq(1, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(1, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2697,19 +2696,19 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.isEnabledHealingPartner());
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertEq(2, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertEq(2, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
         processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
-        assertEq(3, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(1, thrower_)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(3, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(1, thrower_)));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(LgInt.zero(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
     }
 
@@ -2745,16 +2744,16 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.isEnabledHealingPartner());
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertEq(1, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertEq(1, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.FALSE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
         processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
-        assertEq(1, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.FALSE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(1, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.FALSE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(PICOTS));
     }
 
@@ -2781,7 +2780,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
         fighter_.successUsingMove();
-        fight_.setChangeThrower(true);
+        fight_.getTemp().setChangeThrower(true);
         processEffectTargets(fight_, thrower_, target_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
         assertTrue(!FightKo.endedFight(fight_, diff_));
         fighter_ = fight_.getFighter(thrower_);
@@ -2790,9 +2789,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.isEnabledHealingPartner());
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isEnabledHealingPartner());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2824,8 +2823,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("0"),fighter_.getRemainingHp());
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2860,8 +2859,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("0"),fighter_.getRemainingHp());
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2893,8 +2892,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(10, fighter_.powerPointsMove(COUP_D_MAIN));
         fighter_ = fight_.getFighter(target_);
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2922,21 +2921,21 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.successUsingMove();
         fighter_.enableCounteringMoves(NUEE_DE_POUDRE);
         processEffectTargets(fight_, thrower_, thrower_, true, IndexConstants.FIRST_INDEX, new Ints(), diff_, data_);
-        assertEq(2, fight_.getSuccessfulEffects().size());
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
-        assertSame(BoolVal.TRUE,fight_.getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
+        assertEq(2, fight_.getTemp().getSuccessfulEffects().size());
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, target_)));
+        assertSame(BoolVal.TRUE, fight_.getTemp().getSuccessfulEffects().getVal(new NbEffectFighterCoords(0, thrower_)));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(10, fighter_.powerPointsMove(VAMPIPOING));
         fighter_ = fight_.getFighter(target_);
-        assertEq(new Rate("7144/1625"),fight_.getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("7144/1625"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(new Rate("1"), fighter_.getRemainingHp());
         processEffectTargets(fight_, thrower_, thrower_, false, IndexConstants.SECOND_INDEX, Ints.newList(0), diff_, data_);
         fighter_ = fight_.getFighter(thrower_);
         assertEq(new Rate("5197/1625"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2950,7 +2949,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(SEISME, (short) 10);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2967,8 +2966,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2982,7 +2981,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(SEISME, (short) 10);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -2998,8 +2997,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"),fighter_.getRemainingHp());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3013,7 +3012,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(SEISME, (short) 10);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(DRACO_RAGE, PAR_ICI, COPIE));
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3029,8 +3028,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3044,7 +3043,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(SEISME, (short) 10);
         Fight fight_ = processEffectTargets5(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE));
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -3066,8 +3065,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("0"),fighter_.getRemainingHp());
         assertEq(10, fighter_.powerPointsMove(move_));
         fighter_ = fight_.getFighter(target_);
-        assertTrue(!fight_.getDamageByCurrentUser().contains(target_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamageByCurrentUser().contains(target_));
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3093,7 +3092,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
     }
@@ -3121,7 +3120,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(fighter_.isNeedingToRecharge());
     }
@@ -3150,7 +3149,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
     }
@@ -3180,7 +3179,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
     }
@@ -3211,7 +3210,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
     }
@@ -3242,7 +3241,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
     }
@@ -3274,7 +3273,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.zero(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
     }
@@ -3305,7 +3304,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertTrue(StringUtil.contains(successfulMoves_, move_));
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPEED));
@@ -3334,7 +3333,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.endRoundThrower(fight_, thrower_, move_, true, data_);
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(0, successfulMoves_.size());
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.zero(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPEED));
@@ -3363,7 +3362,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.endRoundThrower(fight_, thrower_, move_, true, data_);
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(0, successfulMoves_.size());
-        assertEq(0,fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.zero(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
         assertEq(10, fighter_.powerPointsMove(move_));
@@ -3393,7 +3392,7 @@ public class FightRoundTest extends InitializationDataBase {
         StringList successfulMoves_ = fight_.getUserTeam().getSuccessfulMovesRound();
         assertEq(1, successfulMoves_.size());
         assertEq(1, fight_.getUserTeam().getNbUsesMoves().getVal(CASSE));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(LgInt.one(), fighter_.getNbRepeatingSuccessfulMoves());
         assertTrue(!fighter_.isNeedingToRecharge());
         assertEq(10, fighter_.powerPointsMove(move_));
@@ -3421,9 +3420,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(1, fighter_.getStatusNbRound(ERE_GEL));
-        assertTrue(!fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3448,10 +3447,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(0, fighter_.getStatusNbRound(FEU_GEL));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
@@ -3459,8 +3458,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("28114/1625"),fighter_.getRemainingHp());
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3485,7 +3484,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, fighter_.getNbPrepaRound());
         assertTrue(fighter_.isDisappeared());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3512,7 +3511,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(0, fighter_.getNbPrepaRound());
         assertTrue(!fighter_.isDisappeared());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3538,15 +3537,15 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(0, fighter_.getStatusNbRound(FEU_GEL));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isNeedingToRecharge());
         assertTrue(!fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPEED));
         assertEq(10, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3573,7 +3572,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(0, fighter_.getStatusNbRound(FEU_GEL));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isNeedingToRecharge());
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
@@ -3582,8 +3581,8 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("10607/625"),fighter_.getRemainingHp());
         assertEq(-1, fighter_.getStatisBoost().getVal(Statistic.ACCURACY));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3607,14 +3606,14 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3637,13 +3636,13 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(move_, POKEMON_FOE_TARGET_ZERO);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(!fight_.isSuccessfulInvokation());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(!fight_.getTemp().isSuccessfulInvokation());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(10, fighter_.powerPointsMove(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3672,15 +3671,15 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(10, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
         assertEq(new LgInt("2"), fighter_.getNbRepeatingSuccessfulMoves());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3702,11 +3701,11 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(move_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3728,11 +3727,11 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(move_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3755,15 +3754,15 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(move_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3793,15 +3792,15 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.isSuccessfulMove());
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         fighter_ = fight_.getFighter(thrower_);
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3827,14 +3826,14 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("238956/13375"),fighter_.getRemainingHp());
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3864,14 +3863,14 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("238956/13375"),fighter_.getRemainingHp());
         assertEq(1, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, thrower_)));
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3900,14 +3899,14 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("238956/13375"),fighter_.getRemainingHp());
         assertEq(0, fighter_.getStatusRelatNbRound(new MoveTeamPosition(AMOUR, thrower_)));
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3934,15 +3933,15 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(move_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3969,15 +3968,15 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMove(move_);
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
-        assertTrue(!fight_.isInvokedMove());
-        assertTrue(fight_.isSuccessfulInvokation());
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isInvokedMove());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
         fighter_ = fight_.getFighter(thrower_);
         assertEq(0, fighter_.getStatusNbRound(BRULURE));
         assertEq(9, fighter_.powerPointsMove(move_));
-        assertEq(0, fight_.getDamageByCurrentUser().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(0, fight_.getTemp().getDamageByCurrentUser().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4001,9 +4000,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(1, fighter_.getTypes().size());
         assertTrue(StringUtil.contains(fighter_.getTypes(), DRAGON));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4027,9 +4026,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(1, fighter_.getTypes().size());
         assertTrue(StringUtil.contains(fighter_.getTypes(), ELECTRIQUE));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4054,9 +4053,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, fighter_.getTypes().size());
         assertTrue(!fighter_.isDisappeared());
         assertTrue(StringUtil.contains(fighter_.getTypes(), ELECTRIQUE));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4081,9 +4080,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, fighter_.getTypes().size());
         assertTrue(!fighter_.isDisappeared());
         assertTrue(StringUtil.contains(fighter_.getTypes(), ELECTRIQUE));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4097,7 +4096,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(SEISME, (short) 10);
         Fight fight_ = processEffectTargets2(data_, diff_, moves_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4108,9 +4107,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(1, fighter_.getStatusNbRound(ERE_GEL));
-        assertTrue(!fight_.isKeepStatus());
+        assertTrue(!fight_.getTemp().isKeepStatus());
         assertTrue(!fighter_.isSuccessfulMove());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4125,7 +4124,7 @@ public class FightRoundTest extends InitializationDataBase {
         moves_.put(COPIE, (short) 10);
         moves_.put(SEISME, (short) 10);
         Fight fight_ = processEffectTargets4(data_, diff_, moves_, new StringList(JACKPOT, PAR_ICI, COPIE), new StringList(DRACO_RAGE, PAR_ICI, COPIE));
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
         fighter_.setCurrentAbility(NULL_REF);
@@ -4136,9 +4135,9 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         FightRound.roundThrowerMove(fight_, thrower_, diff_, data_);
         assertEq(0, fighter_.getStatusNbRound(ERE_GEL));
-        assertTrue(fight_.isKeepStatus());
+        assertTrue(fight_.getTemp().isKeepStatus());
         assertTrue(fighter_.isSuccessfulMove());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     /*@Test
@@ -5580,7 +5579,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, p_.getNextFighters().size());
         assertTrue(p_.getNextFighters().containsObj(ally_));
         assertEq(0, p_.getItemUsers().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5638,7 +5637,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, p_.getNextFighters().size());
         assertTrue(p_.getNextFighters().containsObj(userPk_));
         assertEq(0, p_.getItemUsers().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5699,7 +5698,7 @@ public class FightRoundTest extends InitializationDataBase {
         p_ = FightRound.nextFighters(fight_, new TeamPositionList(), data_);
         assertEq(0, p_.getNextFighters().size());
         assertEq(0, p_.getItemUsers().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5756,7 +5755,7 @@ public class FightRoundTest extends InitializationDataBase {
         p_ = FightRound.nextFighters(fight_, new TeamPositionList(), data_);
         assertEq(0, p_.getNextFighters().size());
         assertEq(0, p_.getItemUsers().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5808,7 +5807,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, p_.getNextFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, p_.getNextFighters().first());
         assertEq(0, p_.getItemUsers().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5861,7 +5860,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(1, p_.getNextFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ONE, p_.getNextFighters().first());
         assertEq(0, p_.getItemUsers().size());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5901,7 +5900,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -5916,7 +5915,7 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(BULLES_D_O, POKEMON_PLAYER_TARGET_ONE);
         FightRound.initRound(fight_);
         FightRound.nextFighters(fight_, new TeamPositionList(), data_);
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5944,7 +5943,7 @@ public class FightRoundTest extends InitializationDataBase {
         Fight fight_ = nextFightersSending3(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5974,7 +5973,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6004,7 +6003,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6034,7 +6033,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6059,7 +6058,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertEq(FightState.SWITCH_WHILE_KO_USER, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6085,7 +6084,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(FightFacade.loose(fight_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6112,7 +6111,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(FightFacade.loose(fight_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6140,7 +6139,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(FightFacade.win(fight_));
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6167,7 +6166,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(FightFacade.win(fight_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6194,7 +6193,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
 //        assertEq(FightState.ATTAQUES, fight_.getState());
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6216,13 +6215,13 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DETECTION), 3);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).setRemainedHp(Rate.one());
         fight_.enableGlobalMove(TEMPETESABLE);
         FightRound.endRoundShowActions(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
         assertTrue(FightFacade.loose(fight_));
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6250,10 +6249,10 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(1, fight_.getRemainingFighters().size());
-        assertTrue(fight_.getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO,fight_.getCurrentUser());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6282,12 +6281,12 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_CHERIM);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(1, fight_.getRemainingFighters().size());
-        assertTrue(fight_.getRemainingFighters().containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getRemainingFighters().containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertEq(POKEMON_FOE_FIGHTER_ZERO,fight_.getCurrentUser());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         assertTrue(fighter_.isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6317,14 +6316,14 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.backUpObject(BAIE_CHERIM);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(1, fight_.getRemainingFighters().size());
-        assertTrue(fight_.getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO,fight_.getCurrentUser());
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6360,13 +6359,13 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(foePk_);
         fighter_.setActed(true);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(0, fight_.getRemainingFighters().size());
+        assertEq(0, fight_.getTemp().getRemainingFighters().size());
         fighter_ = fight_.getFighter(userPk_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(foePk_);
         assertTrue(!fighter_.isUsingItem());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6393,13 +6392,13 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(1, fight_.getRemainingFighters().size());
-        assertTrue(fight_.getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO,fight_.getCurrentUser());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -6427,15 +6426,15 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         fighter_.backUpObject(BAIE_CHERIM);
         FightRound.initRound(fight_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(1, fight_.getRemainingFighters().size());
-        assertTrue(fight_.getRemainingFighters().containsObj(POKEMON_FOE_FIGHTER_ZERO));
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getRemainingFighters().containsObj(POKEMON_FOE_FIGHTER_ZERO));
         assertEq(POKEMON_FOE_FIGHTER_ZERO,fight_.getCurrentUser());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         assertTrue(fighter_.isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -6464,17 +6463,17 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         fighter_.backUpObject(BAIE_CHERIM);
         FightRound.initRound(fight_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(1, fight_.getRemainingFighters().size());
-        assertTrue(fight_.getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getRemainingFighters().containsObj(POKEMON_PLAYER_FIGHTER_ZERO));
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO,fight_.getCurrentUser());
         fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         assertTrue(!fighter_.isUsingItem());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -6509,16 +6508,16 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setActed(true);
         fighter_ = fight_.getFighter(foePk_);
         fighter_.setActed(true);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertEq(0, fight_.getRemainingFighters().size());
+        assertEq(0, fight_.getTemp().getRemainingFighters().size());
         fighter_ = fight_.getFighter(userPk_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(foePk_);
         assertTrue(!fighter_.isUsingItem());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -6558,7 +6557,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -6573,7 +6572,7 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(BULLES_D_O, POKEMON_PLAYER_TARGET_ONE);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -6613,7 +6612,7 @@ public class FightRoundTest extends InitializationDataBase {
         lasPk_.initPvRestants(data_);
         player_.getTeam().add(lasPk_);
         Fight fight_ = nextFighters2(data_, diff_, player_, new StringList(BULLES_D_O));
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition ally_ = POKEMON_PLAYER_FIGHTER_ONE;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
@@ -6627,10 +6626,10 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(foePkBis_);
         fighter_.setFirstChosenMoveTarget(BULLES_D_O, POKEMON_PLAYER_TARGET_ONE);
         FightRound.initRound(fight_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -6880,11 +6879,11 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -6922,7 +6921,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, fight_.getCurrentUser());
         fighter_ = fight_.getFighter(userPk_);
@@ -6943,9 +6942,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("92/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -6986,7 +6985,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, fight_.getCurrentUser());
         fighter_ = fight_.getFighter(userPk_);
@@ -7006,8 +7005,8 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        assertTrue(!fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(!fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -7048,19 +7047,19 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         fight_.getFighter(userPk_).setSubstitute((byte) 1);
         TeamPosition currentUser_ = fight_.getCurrentUser();
         FightRound.roundThrowerSwitch(fight_, currentUser_, diff_, data_);
         fight_.setState(FightState.ATTAQUES);
         TeamPositionList cbts_=FightRound.selectTargetHavingToPlayAfterThrower(fight_,currentUser_,data_);
-        fight_.getOrderedFighters().clear();
-        fight_.getOrderedFighters().addAllElts(cbts_);
+        fight_.getTemp().getOrderedFighters().clear();
+        fight_.getTemp().getOrderedFighters().addAllElts(cbts_);
         FightOrder.sortFightersUsingMoveAmongList(fight_,data_);
-        cbts_ = fight_.getOrderedFighters();
+        cbts_ = fight_.getTemp().getOrderedFighters();
         FightRound.calculateNextFighters(fight_, cbts_, data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, fight_.getCurrentUser());
         fighter_ = fight_.getFighter(userPk_);
@@ -7080,9 +7079,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -7123,17 +7122,17 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         fight_.setState(FightState.ATTAQUES);
         TeamPosition currentUser_ = fight_.getCurrentUser();
         TeamPositionList cbts_=FightRound.selectTargetHavingToPlayAfterThrower(fight_,currentUser_,data_);
-        fight_.getOrderedFighters().clear();
-        fight_.getOrderedFighters().addAllElts(cbts_);
+        fight_.getTemp().getOrderedFighters().clear();
+        fight_.getTemp().getOrderedFighters().addAllElts(cbts_);
         FightOrder.sortFightersUsingMoveAmongList(fight_,data_);
-        cbts_ = fight_.getOrderedFighters();
+        cbts_ = fight_.getTemp().getOrderedFighters();
         FightRound.calculateNextFighters(fight_, cbts_, data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, fight_.getCurrentUser());
         fighter_ = fight_.getFighter(userPk_);
@@ -7153,9 +7152,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -7195,14 +7194,14 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         assertEq(POKEMON_FOE_FIGHTER_ZERO, fight_.getCurrentUser());
         fighter_ = fight_.getFighter(userPk_);
         assertEq(new Rate("4587/100"), fighter_.getRemainingHp());
         assertEq(new Rate("4587/100"), fighter_.pvMax());
-        assertTrue(fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -7243,19 +7242,19 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.setAllyChoices(fight_, data_);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         fight_.getFighter(userPk_).setSubstitute((byte) 1);
         TeamPosition currentUser_ = fight_.getCurrentUser();
         FightRound.roundThrowerSwitch(fight_, currentUser_, diff_, data_);
         fight_.setState(FightState.ATTAQUES);
         TeamPositionList cbts_=FightRound.selectTargetHavingToPlayAfterThrower(fight_,currentUser_,data_);
-        fight_.getOrderedFighters().clear();
-        fight_.getOrderedFighters().addAllElts(cbts_);
+        fight_.getTemp().getOrderedFighters().clear();
+        fight_.getTemp().getOrderedFighters().addAllElts(cbts_);
         FightOrder.sortFightersUsingMoveAmongList(fight_,data_);
-        cbts_ = fight_.getOrderedFighters();
+        cbts_ = fight_.getTemp().getOrderedFighters();
         FightRound.calculateNextFighters(fight_, cbts_, data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
         FightRound.roundUser(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_TWO, fight_.getCurrentUser());
@@ -7276,9 +7275,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
-        assertEq(0, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
+        assertEq(0, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -7307,7 +7306,7 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 12);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
@@ -7317,10 +7316,10 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setSubstitute((byte) 1);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -7346,7 +7345,7 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DRACO_RAGE, CHARGE), 3);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -7354,10 +7353,10 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(DRACO_RAGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.initRound(fight_);
         FightRound.calculateNextFighters(fight_, new TeamPositionList(), data_);
-        fight_.setKeepRound(true);
+        fight_.getTemp().setKeepRound(true);
         FightRound.roundUser(fight_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
     }
 
     @Test
@@ -7388,10 +7387,10 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
         FightRound.beginRound(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, fight_.getCurrentUser());
-        assertTrue(fight_.isKeepRound());
+        assertTrue(fight_.getTemp().isKeepRound());
         assertEq(CHARGE, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).getFirstChosenMove());
         //assertTrue(!fight_.getBeginRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, fight_.getCurrentUser());
         assertEq(0, fight_.getEffects().size());
     }
@@ -7423,9 +7422,9 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.beginRound(fight_, diff_, data_);
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, fight_.getCurrentUser());
-        assertTrue(fight_.isKeepRound());
+        assertTrue(fight_.getTemp().isKeepRound());
         //assertTrue(!fight_.getBeginRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertEq(POKEMON_PLAYER_FIGHTER_ZERO, fight_.getCurrentUser());
         assertEq(0, fight_.getEffects().size());
     }
@@ -7487,9 +7486,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, fight_.getCurrentUser());
         assertEq(1, fight_.getEffects().size());
         AnimationSwitch anim_ = (AnimationSwitch) fight_.getEffects().first();
@@ -7556,9 +7555,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(fight_.isKeepRound());
-        assertEq(1, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(fight_.getTemp().isKeepRound());
+        assertEq(1, fight_.getTemp().getRemainingFighters().size());
         assertEq(POKEMON_FOE_FIGHTER_ZERO, fight_.getCurrentUser());
         assertEq(0, fight_.getEffects().size());
     }
@@ -7624,9 +7623,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
-        assertEq(0, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
+        assertEq(0, fight_.getTemp().getRemainingFighters().size());
         assertEq(1, fight_.getEffects().size());
         AnimationSwitch anim_ = (AnimationSwitch) fight_.getEffects().first();
         assertEq(PTITARD, anim_.getSubstituteName());
@@ -7662,7 +7661,7 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 12);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
@@ -7686,7 +7685,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         fight_.getFighter(userPk_).setSubstitute((byte) 1);
         FightRound.beginRound(fight_, diff_, data_);
         fighter_ = fight_.getFighter(userPk_);
@@ -7702,7 +7701,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -7735,7 +7734,7 @@ public class FightRoundTest extends InitializationDataBase {
         FightRound.roundUser(fight_, diff_, data_);
         FightRound.endRoundFight(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -7793,7 +7792,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -7855,9 +7854,9 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
-        assertTrue(!fight_.isKeepRound());
-        assertEq(0, fight_.getRemainingFighters().size());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertTrue(!fight_.getTemp().isKeepRound());
+        assertEq(0, fight_.getTemp().getRemainingFighters().size());
         assertTrue(!FightKo.endedFight(fight_, diff_));
     }
 
@@ -7886,8 +7885,8 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending2(data_, diff_, player_, new StringList(DETECTION, CHARGE), new StringList(DETECTION, CHARGE));
-        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
-        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
+        fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
+        fight_.getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
         assertFalse(FightRound.changeKo(fight_, data_,true));
     }
 
@@ -7919,7 +7918,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getAllyChoice().put(new MoveTarget(PISTOLET_A_O,POKEMON_FOE_TARGET_ZERO), new MoveTarget(CHARGE,POKEMON_FOE_TARGET_ZERO));
         FightRound.roundAllThrowers(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -7949,7 +7948,7 @@ public class FightRoundTest extends InitializationDataBase {
         fighter_.setFirstChosenMoveTarget(CHARGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.roundAllThrowers(fight_, diff_, player_, data_);
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8002,7 +8001,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("92/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8076,7 +8075,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8149,7 +8148,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8195,7 +8194,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("92/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.APPRENDRE_EVOLUER, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8243,7 +8242,7 @@ public class FightRoundTest extends InitializationDataBase {
         //assertTrue(!FightEndRound.existSubstitute(fight_));
         assertEq(FightState.SWITCH_PROPOSE, fight_.getState());
         //assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8337,7 +8336,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8400,7 +8399,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.ATTAQUES, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -8426,14 +8425,14 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DRACO_RAGE, CHARGE), 3);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition foePk_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(userPk_);
         fighter_ = fight_.getFighter(foePk_);
         fighter_.setFirstChosenMoveTarget(DRACO_RAGE, POKEMON_PLAYER_TARGET_ZERO);
         FightRound.roundAllThrowers(fight_, diff_, player_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
 
@@ -8460,7 +8459,7 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DRACO_RAGE, CHARGE), 3);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition userPk_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition partner_ = POKEMON_PLAYER_FIGHTER_ONE;
         Fighter fighter_ = fight_.getFighter(userPk_);
@@ -8468,7 +8467,7 @@ public class FightRoundTest extends InitializationDataBase {
         fight_.getFighter(partner_).setRemainedHp(Rate.one());
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(PICOTS);
         FightRound.roundAllThrowers(fight_, diff_, player_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
         assertEq(FightState.ATTAQUES, fight_.getState());
     }
 
@@ -8497,7 +8496,7 @@ public class FightRoundTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         player_.recupererOeufPensions(new Egg(PTITARD));
         Fight fight_ = nextFightersSending1(data_, diff_, player_, new StringList(DETECTION, CHARGE), 12);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         fight_.getFoeTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getUserTeam().activerEffetEquipe(AIR_VEINARD);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_ONE).setRemainedHp(Rate.one());
@@ -8520,7 +8519,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         fight_.getFighter(userPk_).setSubstitute((byte) 1);
         FightRound.roundAllThrowers(fight_, diff_, player_, data_);
         fighter_ = fight_.getFighter(userPk_);
@@ -8536,7 +8535,7 @@ public class FightRoundTest extends InitializationDataBase {
         assertEq(new Rate("218/5"), fighter_.pvMax());
         assertTrue(!fighter_.isSuccessfulMove());
         assertEq(FightState.SWITCH_APRES_ATTAQUE, fight_.getState());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     private Fight nextFightersSending4(DataBase _data, Difficulty _diff, Player _player, StringList _partnerMoves, StringList _foeMoves) {

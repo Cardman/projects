@@ -141,25 +141,25 @@ final class FightItems {
         Rate pvRestants_=new Rate(creature_.getRemainingHp());
         if(!_berry.getHealHp().isZero()){
             if (!_checkCondition) {
-                creature_.variationLeftHp(_berry.getHealHp());
-                _fight.addHpMessage(_combattant, _import);
+                Rate r_ = creature_.variationLeftHp(_berry.getHealHp());
+                _fight.addHpMessage(_combattant, _import,r_);
             } else {
                 Rate mult_ = mult(creature_, _import, _berry.getMaxHpHealingHp());
                 if(Rate.greaterEq(Rate.multiply(mult_,creature_.pvMax()),creature_.getRemainingHp())){
-                    creature_.variationLeftHp(_berry.getHealHp());
-                    _fight.addHpMessage(_combattant, _import);
+                    Rate r_ = creature_.variationLeftHp(_berry.getHealHp());
+                    _fight.addHpMessage(_combattant, _import,r_);
                 }
             }
         }
         if(!_berry.getHealHpRate().isZero()){
             if (!_checkCondition) {
-                creature_.variationLeftHp(Rate.multiply(_berry.getHealHpRate(),creature_.pvMax()));
-                _fight.addHpMessage(_combattant, _import);
+                Rate r_ = creature_.variationLeftHp(Rate.multiply(_berry.getHealHpRate(), creature_.pvMax()));
+                _fight.addHpMessage(_combattant, _import,r_);
             } else {
                 Rate mult_ = mult(creature_, _import, _berry.getMaxHpHealingHpRate());
                 if(Rate.greaterEq(Rate.multiply(mult_,creature_.pvMax()),creature_.getRemainingHp())){
-                    creature_.variationLeftHp(Rate.multiply(_berry.getHealHpRate(),creature_.pvMax()));
-                    _fight.addHpMessage(_combattant, _import);
+                    Rate r_ = creature_.variationLeftHp(Rate.multiply(_berry.getHealHpRate(), creature_.pvMax()));
+                    _fight.addHpMessage(_combattant, _import,r_);
                 }
             }
         }
@@ -257,22 +257,22 @@ final class FightItems {
         }
         Fighter creatureCible_=_fight.getFighter(_combattant);
         Rate leftHp_ = new Rate(creatureCible_.getRemainingHp());
-        creatureCible_.variationLeftHp(Rate.multiply(berry_.getHealHpBySuperEffMove(),creatureCible_.pvMax()));
-        _fight.addHpMessage(_combattant, _import);
+        Rate r_ = creatureCible_.variationLeftHp(Rate.multiply(berry_.getHealHpBySuperEffMove(), creatureCible_.pvMax()));
+        _fight.addHpMessage(_combattant, _import,r_);
         if (!Rate.strGreater(creatureCible_.getRemainingHp(), leftHp_)) {
             return;
         }
         creatureCible_.useObject();
         bonusHp(_fight, _combattant, _import);
-        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_index,_combattant),BoolVal.FALSE);
+        _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_index,_combattant),BoolVal.FALSE);
     }
 
     static void bonusHp(Fight _fight,TeamPosition _combattant,DataBase _import) {
         Fighter fighter_ = _fight.getFighter(_combattant);
         AbilityData ab_ = fighter_.ficheCapaciteActuelle(_import);
         if (ab_ != null) {
-            fighter_.variationLeftHp(Rate.multiply(ab_.getHealHpWhileUsingBerry(),fighter_.pvMax()));
-            _fight.addHpMessage(_combattant, _import);
+            Rate r_ = fighter_.variationLeftHp(Rate.multiply(ab_.getHealHpWhileUsingBerry(), fighter_.pvMax()));
+            _fight.addHpMessage(_combattant, _import,r_);
         }
     }
 }

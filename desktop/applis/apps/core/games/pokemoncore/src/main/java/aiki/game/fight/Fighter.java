@@ -156,8 +156,6 @@ public final class Fighter {
     /***/
     private Rate remainingHp;
 
-    private Rate varHp = Rate.zero();
-
     /**Never mind even if clone &gt; max hp*/
     private Rate clone;
 
@@ -297,8 +295,6 @@ public final class Fighter {
 
     /***/
     private StringMap<MovesAbilities> movesAbilitiesEvos;
-
-    private Comment comment = new Comment();
 
     public Fighter(){
     }
@@ -1645,20 +1641,27 @@ public final class Fighter {
         statisBoost.put(_statistique, value_);
     }
 
-    void variationLeftHp(Rate _variation){
-        varHp.affectZero();
+    Rate variationLeftHp(Rate _variation){
+        Rate r_ = Rate.zero();
         Rate sum_ = Rate.plus(remainingHp, _variation);
         Rate max_ = pvMax();
         if (Rate.strGreater(sum_, max_)) {
             remainingHp = max_;
-            varHp.affect(Rate.minus(max_, remainingHp));
+            r_.affect(Rate.minus(max_, remainingHp));
         } else {
             remainingHp.addNb(_variation);
-            varHp.affect(_variation);
+            r_.affect(_variation);
         }
+        return r_;
     }
 
-    void fullHeal(DataBase _import){
+    void fullHealMessage(DataBase _import, TransientFight _transientFight) {
+        String name_ = _import.translatePokemon(name);
+        StringMap<String> mess_ = _import.getMessagesFighter();
+        _transientFight.addMessage(mess_.getVal(FULL_HEAL), name_);
+    }
+
+    void fullHeal() {
         remainingHp=pvMax();
         for(String c:status.getKeys()){
             supprimerStatut(c);
@@ -1672,9 +1675,6 @@ public final class Fighter {
         for(String c:moves.getKeys()){
             moves.getVal(c).fullHeal();
         }
-        String name_ = _import.translatePokemon(name);
-        StringMap<String> mess_ = _import.getMessagesFighter();
-        comment.addMessage(mess_.getVal(FULL_HEAL), name_);
     }
 
     void activerAttaqueFinTourIndividuel(String _attaque){
@@ -1827,8 +1827,7 @@ public final class Fighter {
     }
 
 
-    void calculateNewLevel(Difficulty _diff,DataBase _import,StringList _pkNamesBegin){
-        comment.clearMessages();
+    void calculateNewLevel(Difficulty _diff, DataBase _import, StringList _pkNamesBegin, TransientFight _te){
         String name_ = _import.translatePokemon(name);
         LevelExpPoints levelWonPoints_ = newLevelWonPoints(_import);
         short achievedLevel_ = levelWonPoints_.getLevel();
@@ -1855,15 +1854,16 @@ public final class Fighter {
         initLearntMoves(attaquesApprendre_, attaquesConnues_, _import);
         short monteNiveau_=(short) (achievedLevel_-level);
         setLevel(achievedLevel_);
-        learnMoves(attaquesApprendre_, _import);
+        learnMoves(attaquesApprendre_, _import,_te);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(moves.getKeys());
         StringMap<String> mess_ = _import.getMessagesFighter();
         if(monteNiveau_>0){
-            comment.addMessage(mess_.getVal(GROW_LEVEL), name_, Long.toString(achievedLevel_));
-            winHappinessByGrowingLevel(monteNiveau_,_import);
+            _te.addMessage(mess_.getVal(GROW_LEVEL), name_, Long.toString(achievedLevel_));
+            winHappinessByGrowingLevel(monteNiveau_,_import,_te);
             formeNormale(_import);
-            fullHeal(_import);
+            fullHeal();
+            fullHealMessage(_import,_te);
             //groundPlace = groundPlaceSubst;
         }
         proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, _import, _pkNamesBegin);
@@ -1949,7 +1949,7 @@ public final class Fighter {
     }
 
     void learnMoves(StringList _attaquesApprendre,
-            DataBase _import) {
+                    DataBase _import, TransientFight _te) {
         if (!movesToBeLearnt.isEmpty()) {
             return;
         }
@@ -1968,7 +1968,7 @@ public final class Fighter {
         StringMap<String> mess_ = _import.getMessagesFighter();
         for (String m: _attaquesApprendre) {
             String move_ = _import.translateMove(m);
-            comment.addMessage(mess_.getVal(LEARN_MOVE), name_, move_);
+            _te.addMessage(mess_.getVal(LEARN_MOVE), name_, move_);
         }
     }
 
@@ -1999,31 +1999,36 @@ public final class Fighter {
         }
     }
 
-    void variationGainExperience(Rate _variation, DataBase _import){
-        comment.clearMessages();
-        wonExp.addNb(_variation);
+    Comment variationGainExperienceMessage(Rate _variation, DataBase _import) {
+        Comment c_ = new Comment();
         String name_ = _import.translatePokemon(name);
         StringMap<String> mess_ = _import.getMessagesFighter();
-        comment.addMessage(mess_.getVal(WON_EXP), name_, _variation.toNumberString());
+        c_.addMessage(mess_.getVal(WON_EXP), name_, _variation.toNumberString());
+        return c_;
     }
 
-    void wonEvStatistic(Statistic _statistique,short _varEv,short _maxEv, DataBase _import){
-        comment.clearMessages();
+    void variationGainExperience(Rate _variation) {
+        wonExp.addNb(_variation);
+    }
+
+    Comment wonEvStatistic(Statistic _statistique,short _varEv,short _maxEv, DataBase _import){
+        Comment c_ = new Comment();
         short ev_=ev.getVal(_statistique);
         String name_ = _import.translatePokemon(name);
         String stat_ = _import.translateStatistics(_statistique);
         StringMap<String> mess_ = _import.getMessagesFighter();
         if(ev_+_varEv<_maxEv){
             ev_=(short) (ev_+_varEv);
-            comment.addMessage(mess_.getVal(WON_EV), name_, Long.toString(_varEv), stat_);
+            c_.addMessage(mess_.getVal(WON_EV), name_, Long.toString(_varEv), stat_);
         }else{
             ev_=_maxEv;
-            comment.addMessage(mess_.getVal(WON_EV_MAX), name_, stat_);
+            c_.addMessage(mess_.getVal(WON_EV_MAX), name_, stat_);
         }
         ev.put(_statistique, ev_);
+        return c_;
     }
 
-    void winHappinessByGrowingLevel(short _diffNiv,DataBase _import){
+    void winHappinessByGrowingLevel(short _diffNiv, DataBase _import, TransientFight _te){
         Rate mult_=DataBase.defRateProduct();
         ItemForBattle objet_ = dataExpObject(_import);
         if (objet_ != null && !objet_.getMultWinningHappiness().isZero()) {
@@ -2036,10 +2041,10 @@ public final class Fighter {
         StringMap<String> mess_ = _import.getMessagesFighter();
         if(happiness+mult_.ll()<=maxBonheur_){
             happiness=(short) (happiness +mult_.ll());
-            comment.addMessage(mess_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
+            _te.addMessage(mess_.getVal(WON_HAPPINESS), name_, mult_.toNumberString());
         }else{
             happiness=maxBonheur_;
-            comment.addMessage(mess_.getVal(MAX_HAPPINESS), name_);
+            _te.addMessage(mess_.getVal(MAX_HAPPINESS), name_);
         }
     }
 
@@ -2074,22 +2079,22 @@ public final class Fighter {
         currentMoves.putAllMap(moves);
     }
 
-    void evoluer(String _nomEvo,String _capacite,StringList _attaquesRetenues,DataBase _import){
-        evoluerSansApprendreCapacite(_nomEvo,_attaquesRetenues,_import);
-        evoluerSansApprendreAttaque(_nomEvo,_capacite,_import);
+    void evoluer(String _nomEvo, String _capacite, StringList _attaquesRetenues, DataBase _import, Fight _fight){
+        evoluerSansApprendreCapacite(_nomEvo,_attaquesRetenues,_import, _fight);
+        evoluerSansApprendreAttaque(_nomEvo,_capacite,_import,_fight);
     }
 
-    void evoluerSansApprendreCapacite(String _nomEvo,StringList _attaquesRetenues,DataBase _import){
+    void evoluerSansApprendreCapacite(String _nomEvo, StringList _attaquesRetenues, DataBase _import, Fight _fight){
         learnMovesWithoutEvolving(_attaquesRetenues,_import);
-        evoluerSansApprendreAttaqueCapacite(_nomEvo,_import);
+        evoluerSansApprendreAttaqueCapacite(_nomEvo,_import,_fight);
     }
 
-    void evoluerSansApprendreAttaqueCapacite(String _nomEvo,DataBase _import){
+    void evoluerSansApprendreAttaqueCapacite(String _nomEvo, DataBase _import, Fight _fight){
         PokemonData fPk_=_import.getPokemon(_nomEvo);
-        evoluerSansApprendreAttaque(_nomEvo,fPk_.getAbilities().first(),_import);
+        evoluerSansApprendreAttaque(_nomEvo,fPk_.getAbilities().first(),_import, _fight);
     }
 
-    void evoluerSansApprendreAttaque(String _nomEvo,String _capacite,DataBase _import){
+    void evoluerSansApprendreAttaque(String _nomEvo, String _capacite, DataBase _import, Fight _fight){
         PokemonData fPk_=_import.getPokemon(_nomEvo);
         for(Statistic c:statisBase.getKeys()){
             statisBase.put(c, new Rate(fPk_.getStatistics().getVal(c).getBase()));
@@ -2101,7 +2106,8 @@ public final class Fighter {
         height.affect(fPk_.getHeight());
         name=_nomEvo;
         currentName=name;
-        fullHeal(_import);
+        fullHeal();
+        fullHealMessage(_import,_fight.getTemp());
     }
 
     void useObject(){
@@ -2198,10 +2204,6 @@ public final class Fighter {
 
     void incrementRoundsStatus(String _nomStatut) {
         status.put(_nomStatut, (short) (status.getVal(_nomStatut)+1));
-    }
-
-    void clearMessages() {
-        comment.clearMessages();
     }
 
     void cancelSubstituteForMove() {
@@ -2441,14 +2443,6 @@ public final class Fighter {
 
     boolean isKoAt(byte _index) {
         return getGroundPlaceSubst() == _index && estKo();
-    }
-
-    Rate getVarHp() {
-        return varHp;
-    }
-
-    void setVarHp(Rate _varHp) {
-        varHp = _varHp;
     }
 
     public String getName() {
@@ -3084,11 +3078,4 @@ public final class Fighter {
         movesAbilitiesEvos = _evosAttaquesApprendreCapacites;
     }
 
-    public Comment getComment() {
-        return comment;
-    }
-
-    void setComment(Comment _comment) {
-        comment = _comment;
-    }
 }

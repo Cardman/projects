@@ -1,6 +1,5 @@
 package aiki.game.fight;
 
-import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionsMonteCarloNumber;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -56,7 +55,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void randomRate1SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1"), LgInt.one());
         law_.addQuickEvent(new Rate("2"), LgInt.one());
@@ -67,7 +66,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void randomRate2SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(new Rate("1"), LgInt.one());
         law_.addQuickEvent(new Rate("2"), LgInt.one());
@@ -78,7 +77,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void randomRate3SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), POKEMON_FOE_FIGHTER_ZERO));
     }
 
@@ -86,7 +85,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void randomRate4SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         assertTrue(FightEffects.randomRate(fight_, data_, new Rate("1"), POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
@@ -94,7 +93,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     public void randomRate5SimulationTest() {
         DataBase data_ = initDb();
         Fight fight_ = criticalHitCanHappen(data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         assertTrue(!FightEffects.randomRate(fight_, data_, new Rate("1/2"), POKEMON_PLAYER_FIGHTER_ZERO));
     }
 
@@ -1023,7 +1022,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
     }
 
@@ -1040,7 +1039,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("3/2"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
     }
 
@@ -1057,7 +1056,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
     }
 
@@ -1074,7 +1073,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
     }
 
@@ -1091,7 +1090,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         FightInvoke.processInvokingMove(fight_, thrower_, diff_, data_);
-        assertTrue(fight_.isSuccessfulInvokation());
+        assertTrue(fight_.getTemp().isSuccessfulInvokation());
         assertEq(new Rate("1"), FightEffects.rateDamageInvokedMove(fight_, thrower_, target_, data_));
     }
 
@@ -2654,12 +2653,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
     }
 
     private static void initDamage(Fight _fight) {
-        _fight.getDamage().getDamage().affectZero();
-        _fight.getDamage().getDamageClone().affectZero();
-        _fight.getDamage().getDamageCount().affectZero();
-        _fight.getDamage().setCriticalHit(false);
-        _fight.getDamage().setHits((byte) 0);
-        _fight.getDamage().setKeepProcessing(true);
+        _fight.getTemp().getDamage().getDamage().affectZero();
+        _fight.getTemp().getDamage().getDamageClone().affectZero();
+        _fight.getTemp().getDamage().getDamageCount().affectZero();
+        _fight.getTemp().getDamage().setCriticalHit(false);
+        _fight.getTemp().getDamage().setHits((byte) 0);
+        _fight.getTemp().getDamage().setKeepProcessing(true);
     }
 
     @Test
@@ -2689,7 +2688,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.inflictDamageToTargetByUserOfMove(fight_, thrower_, target_, law_, data_);
         fighter_ = fight_.getFighter(target_);
         assertTrue(!fighter_.estKo());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("8"),damage_.getDamage());
         assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(new Rate("8"),damage_.getDamageCount());
@@ -2725,7 +2724,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.inflictDamageToTargetByUserOfMove(fight_, thrower_, target_, law_, data_);
         fighter_ = fight_.getFighter(target_);
         assertTrue(!fighter_.estKo());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("16"),damage_.getDamage());
         assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(new Rate("16"),damage_.getDamageCount());
@@ -2761,7 +2760,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.inflictDamageToTargetByUserOfMove(fight_, thrower_, target_, law_, data_);
         fighter_ = fight_.getFighter(target_);
         //assertTrue(fighter_.estKo());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("92/5"),damage_.getDamage());
         assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(3,damage_.getHits());
@@ -2796,7 +2795,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.inflictDamageToTargetByUserOfMove(fight_, thrower_, target_, law_, data_);
         fighter_ = fight_.getFighter(target_);
         //assertTrue(fighter_.estKo());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("92/5"),damage_.getDamage());
         assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(3,damage_.getHits());
@@ -2834,7 +2833,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(!fighter_.estKo());
         assertEq(new Rate("46/5"),fighter_.getRemainingHp());
         assertEq(new Rate("6/5"),fighter_.getClone());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("0"),damage_.getDamage());
         assertEq(new Rate("8"),damage_.getDamageClone());
         assertEq(2,damage_.getHits());
@@ -2872,7 +2871,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(!fighter_.estKo());
         assertEq(new Rate("46/5"),fighter_.getRemainingHp());
         assertEq(new Rate("0"),fighter_.getClone());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("0"),damage_.getDamage());
         assertEq(new Rate("46/5"),damage_.getDamageClone());
         assertEq(3,damage_.getHits());
@@ -2910,7 +2909,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(!fighter_.estKo());
         assertEq(new Rate("46/5"),fighter_.getRemainingHp());
         assertEq(new Rate("0"),fighter_.getClone());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("4"),damage_.getDamage());
         assertEq(new Rate("46/5"),damage_.getDamageClone());
         assertEq(4,damage_.getHits());
@@ -2956,7 +2955,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         //assertTrue(fighter_.estKo());
         //assertEq(new Rate("0"),fighter_.getRemainingHp());
         assertEq(new Rate("0"),fighter_.getClone());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("46/5"),damage_.getDamage());
         assertEq(new Rate("46/5"),damage_.getDamageClone());
         assertEq(5,damage_.getHits());
@@ -3002,7 +3001,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         //assertTrue(fighter_.estKo());
         //assertEq(new Rate("0"),fighter_.getRemainingHp());
         assertEq(new Rate("0"),fighter_.getClone());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("46/5"),damage_.getDamage());
         assertEq(new Rate("46/5"),damage_.getDamageClone());
         assertEq(4,damage_.getHits());
@@ -3045,7 +3044,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.inflictDamageToTargetByUserOfMove(fight_, partner_, target_, law_, data_);
         fighter_ = fight_.getFighter(target_);
         //assertTrue(fighter_.estKo());
-        DamageMoveCountUser damage_ = fight_.getDamage();
+        DamageMoveCountUser damage_ = fight_.getTemp().getDamage();
         assertEq(new Rate("92/5"),damage_.getDamage());
         assertEq(new Rate("0"),damage_.getDamageClone());
         assertEq(3,damage_.getHits());
@@ -3061,10 +3060,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
-        fight_.getDamageKo().affectZero();
+        fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
-        assertEq(new Rate("92/5"), fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3075,10 +3074,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
-        fight_.getDamageKo().affectZero();
+        fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, FAUX_CHAGE, "1", diff_, data_);
-        assertEq(new Rate("87/5"), fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("87/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3094,10 +3093,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_ = fight_.getFighter(target_);
         fighter_.successUsingMove();
-        fight_.getDamageKo().affectZero();
+        fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
-        assertEq(new Rate("87/5"), fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("87/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3113,10 +3112,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightRound.initRound(fight_);
         fighter_ = fight_.getFighter(target_);
         fighter_.successUsingMove();
-        fight_.getDamageKo().affectZero();
+        fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "2", diff_, data_);
-        assertEq(new Rate("92/5"), fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3127,10 +3126,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getDamageKo().affectZero();
+        fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
-        assertEq(new Rate("1873/100"), fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("1873/100"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3140,12 +3139,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
-        fight_.getDamageKo().affectZero();
+        fight_.getTemp().getDamageKo().affectZero();
         calculateDamageKo(fight_, target_, DRACO_RAGE, "1", diff_, data_);
-        assertEq(new Rate("1873/100"), fight_.getDamageKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertEq(new Rate("1873/100"), fight_.getTemp().getDamageKo());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3837,12 +3836,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(NULL_REF);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, DRACO_RAGE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3858,12 +3857,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(METEO);
         fighter_.backUpObject(NULL_REF);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, DRACO_RAGE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3879,12 +3878,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_.backUpObject(NULL_REF);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, DRACO_RAGE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3900,12 +3899,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(PEAU_DURE);
         fighter_.backUpObject(NULL_REF);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("23/10"),fight_.getDamageKo());
+        assertEq(new Rate("23/10"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("161/10"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3921,12 +3920,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_JABOCA);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("23/10"),fight_.getDamageKo());
+        assertEq(new Rate("23/10"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("161/10"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3942,12 +3941,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("23/10"),fight_.getDamageKo());
+        assertEq(new Rate("23/10"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("161/10"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3963,12 +3962,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BAIE_JABOCA);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, TONNERRE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -3984,12 +3983,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(PIQUANTS);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, SEISME, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4005,12 +4004,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(NULL_REF);
         fighter_.backUpObject(BOUE_NOIRE);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, SEISME, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("92/5"), fighter_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4028,13 +4027,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.creerClone(new Rate("1/2"));
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("46/5"), fighter_.getRemainingHp());
         assertEq(new Rate("69/10"), fighter_.getClone());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4052,12 +4051,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("22/10"));
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("23/10"),fight_.getDamageKo());
+        assertEq(new Rate("23/10"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4075,13 +4074,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("22/10"));
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("23/10"),fight_.getDamageKo());
+        assertEq(new Rate("23/10"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4101,13 +4100,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_TWO, diff_, data_);
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4125,13 +4124,13 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.getRemainingHp().affectZero();
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4149,12 +4148,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("22/10"));
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("1873/800"),fight_.getDamageKo());
+        assertEq(new Rate("1873/800"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4164,7 +4163,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4173,12 +4172,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("22/10"));
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("0"),fight_.getDamageKo());
+        assertEq(new Rate("0"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -4188,7 +4187,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -4197,12 +4196,12 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setRemainedHp(new Rate("22/10"));
         FightEffects.recoilAgainstTarget(fight_, thrower_, target_, ROULADE, diff_, data_);
-        assertEq(new Rate("23/10"),fight_.getDamageKo());
+        assertEq(new Rate("23/10"), fight_.getTemp().getDamageKo());
         fighter_ = fight_.getFighter(thrower_);
         assertTrue(!fighter_.isUsingItem());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     private static Fight enableBoostEffectWhileKoTarget(Difficulty _diff, DataBase _data) {
@@ -4397,7 +4396,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, attaqueAnticipe_.getTargetPosition().getPosition());
         //assertTrue(!fighter_.getEnabledMovesConstChoices().getVal(move_).isEnabled());
         //1786/325
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4430,9 +4429,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("92/5"),fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4465,11 +4464,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
         //27788/2675
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4503,9 +4502,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("15"), fighter_.getRemainingHp());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("92/5"),fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4539,9 +4538,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("173/10"), fighter_.getRemainingHp());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("92/5"),fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4577,9 +4576,9 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("173/10"), fighter_.getRemainingHp());
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertEq(new Rate("92/5"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("92/5"),fight_.getDamageKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("92/5"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4616,10 +4615,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(new Rate("37446/2675"), fighter_.getRemainingHp());
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4658,10 +4657,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         //assertEq(new Rate(37446/2675), fighter_.getRemainingHp());//21432/2675
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4699,10 +4698,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4739,10 +4738,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         //assertEq(new Rate(37446/2675), fighter_.getRemainingHp());//21432/2675
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4781,10 +4780,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
         assertTrue(!fighter_.isUsingItem());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4824,10 +4823,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("11"),fighter_.getRemainingHp());
         assertTrue(fighter_.isUsingItem());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4857,7 +4856,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
         String move_ = ROULADE;
-        fight_.setInvokedMove(false);
+        fight_.getTemp().setInvokedMove(false);
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
         FightEffects.effectDamage(fight_, thrower_, target_, move_, diff_, data_);
@@ -4869,10 +4868,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("203236/13375"),fighter_.getRemainingHp());
         assertTrue(!fighter_.isUsingItem());
-        assertEq(new Rate("42864/13375"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/13375"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4900,7 +4899,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
-        fight_.setInvokedMove(true);
+        fight_.getTemp().setInvokedMove(true);
         String move_ = ROULADE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
@@ -4913,10 +4912,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("203236/13375"),fighter_.getRemainingHp());
         assertTrue(!fighter_.isUsingItem());
-        assertEq(new Rate("42864/13375"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/13375"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -4946,7 +4945,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         fighter_.setCurrentAbility(ARMURBASTON);
         fighter_.backUpObject(BAIE_ORAN);
-        fight_.setInvokedMove(false);
+        fight_.getTemp().setInvokedMove(false);
         String move_ = ROULADE;
         Effect effect_ = data_.getMove(move_).getEffet(0);
         fight_.addEffect(thrower_, target_, effect_);
@@ -4959,10 +4958,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("160372/13375"),fighter_.getRemainingHp());
         assertTrue(!fighter_.isUsingItem());
-        assertEq(new Rate("85728/13375"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("85728/13375"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("85728/13375"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("85728/13375"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5001,7 +5000,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(!FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5042,7 +5041,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5087,7 +5086,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5127,10 +5126,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertTrue(FightKo.endedFight(fight_, diff_));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
 //        assertEq(POKEMON_PLAYER_TARGET_ONE, animation_.getFromFighter());
@@ -5165,10 +5164,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(new Rate("21241/1300"),fighter_.getRemainingHp());
-        assertEq(new Rate("2679/1300"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("2679/1300"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("2679/1300"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("2679/1300"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5204,11 +5203,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
         //27788/2675
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5245,11 +5244,11 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(new Rate("6356/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("42864/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
+        assertEq(new Rate("42864/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
         //27788/2675
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5286,10 +5285,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(new Rate("6356/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("42864/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/2675"),fight_.getDamageKo());
-        assertTrue(!fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("42864/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(!fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5326,10 +5325,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(new Rate("6356/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("42864/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/2675"),fight_.getDamageKo());
-        assertTrue(!fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("42864/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(!fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5366,10 +5365,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(new Rate("203236/13375"),fighter_.getRemainingHp());
-        assertEq(new Rate("42864/13375"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/13375"),fight_.getDamageKo());
-        assertTrue(!fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageKo());
+        assertTrue(!fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5406,10 +5405,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_DEFENSE));
         assertEq(new Rate("203236/13375"),fighter_.getRemainingHp());
-        assertEq(new Rate("42864/13375"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("42864/13375"),fight_.getDamageKo());
-        assertTrue(!fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("42864/13375"), fight_.getTemp().getDamageKo());
+        assertTrue(!fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5462,8 +5461,8 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("1/4"),fighter_.getRemainingHp());
         assertEq(new Rate("0"),fighter_.getClone());
-        assertTrue(!fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(1, fight_.getEffects().size());
         AnimationEffectDamage animation_ = (AnimationEffectDamage) fight_.getEffects().last();
         assertEq(POKEMON_PLAYER_TARGET_ZERO, animation_.getFromFighter());
@@ -5482,14 +5481,14 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         String move_ = DRACO_RAGE;
         FightEffects.effectDamage(fight_, thrower_, target_, move_, diff_, data_);
         Fighter fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5499,7 +5498,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5515,7 +5514,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         FightEffects.effectDamage(fight_, thrower_, target_, move_, diff_, data_);
         fighter_ = fight_.getFighter(target_);
         assertTrue(fighter_.estKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5525,7 +5524,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_FOE_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5542,10 +5541,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("27788/2675"),fighter_.getRemainingHp());
-        assertEq(new Rate("21432/2675"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("21432/2675"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("21432/2675"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -5555,7 +5554,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = enableBoostEffectWhileKoTarget(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_FOE_FIGHTER_ZERO;
         TeamPosition target_ = POKEMON_PLAYER_FIGHTER_ZERO;
         Fighter fighter_ = fight_.getFighter(thrower_);
@@ -5572,10 +5571,10 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         fighter_ = fight_.getFighter(target_);
         assertEq(new Rate("1123149/89300"),fighter_.getRemainingHp());
-        assertEq(new Rate("27472/4465"),fight_.getDamageByCurrentUser().getVal(target_));
-        assertEq(new Rate("27472/4465"),fight_.getDamageKo());
-        assertTrue(fight_.getDamage().isCriticalHit());
-        assertTrue(fight_.getAcceptableChoices());
+        assertEq(new Rate("27472/4465"), fight_.getTemp().getDamageByCurrentUser().getVal(target_));
+        assertEq(new Rate("27472/4465"), fight_.getTemp().getDamageKo());
+        assertTrue(fight_.getTemp().getDamage().isCriticalHit());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     private void calculateDamageKo(Fight _fight, TeamPosition _target, String _move, String _chaine, Difficulty _diff, DataBase _data) {

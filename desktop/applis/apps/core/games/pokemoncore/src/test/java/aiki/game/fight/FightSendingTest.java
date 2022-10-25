@@ -2,9 +2,7 @@ package aiki.game.fight;
 
 import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import aiki.game.player.enums.Sex;
 import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -1560,12 +1558,12 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(new Rate("13111/800"), f_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1582,12 +1580,12 @@ public class FightSendingTest extends InitializationDataBase {
         f_.setRemainedHp(new Rate("2"));
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertTrue(f_.estKo());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1606,13 +1604,13 @@ public class FightSendingTest extends InitializationDataBase {
         f_.setRemainedHp(new Rate("2"));
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertTrue(f_.estKo());
         assertTrue(FightKo.endedFight(fight_, diff_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1628,14 +1626,14 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(1, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         //1873*7/800 = 13111/800
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1652,14 +1650,14 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(1, f_.getStatusNbRound(POISON_GRAVE));
         //1873*7/800 = 13111/800
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1677,14 +1675,14 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(1, f_.getStatusNbRound(POISON_GRAVE));
         //1873*7/800 = 13111/800
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1701,14 +1699,14 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         //1873*7/800 = 13111/800
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1727,14 +1725,14 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         //1873*7/800 = 13111/800
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1749,14 +1747,14 @@ public class FightSendingTest extends InitializationDataBase {
         Fighter f_ = fight_.getFighter(fighter_);
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         //1873*7/800 = 13111/800
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1766,7 +1764,7 @@ public class FightSendingTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = endRelations(diff_, data_);
-        fight_.setFullHealing(true);
+        fight_.getTemp().setFullHealing(true);
         String move_ = PICOTS;
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(move_);
         TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_TWO;
@@ -1774,12 +1772,12 @@ public class FightSendingTest extends InitializationDataBase {
         f_.setRemainedHp(new Rate("2"));
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(new Rate("2"),f_.getRemainingHp());
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1796,13 +1794,13 @@ public class FightSendingTest extends InitializationDataBase {
         f_.setRemainedHp(new Rate("2"));
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(new Rate("2"),f_.getRemainingHp());
         assertEq(-1, f_.getStatisBoost().getVal(Statistic.SPEED));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1820,13 +1818,13 @@ public class FightSendingTest extends InitializationDataBase {
         f_.setRemainedHp(new Rate("2"));
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertEq(new Rate("2"),f_.getRemainingHp());
         assertEq(0, f_.getStatisBoost().getVal(Statistic.SPEED));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1836,7 +1834,7 @@ public class FightSendingTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = endRelations(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         String move_ = PICOTS;
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(move_);
         TeamPosition fighter_ = POKEMON_PLAYER_FIGHTER_TWO;
@@ -1844,12 +1842,12 @@ public class FightSendingTest extends InitializationDataBase {
         f_.setRemainedHp(new Rate("2"));
         CustList<Effect> effects_ = data_.getMove(move_).getEffects();
         EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) effects_.last();
-        fight_.setSending(true);
+        fight_.getTemp().setSending(true);
         assertTrue(FightSuccess.successfulMove(fight_,fighter_,fighter_,move_,effects_.size()-1,true,data_).isSuccessful());
         FightSending.effectTeamWhileSendingFoeFighter(fight_, fighter_, move_, eff_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertTrue(f_.estKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1866,7 +1864,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(new Rate("1873/100"), f_.getRemainingHp());
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1886,7 +1884,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1907,7 +1905,7 @@ public class FightSendingTest extends InitializationDataBase {
         f_ = fight_.getFighter(fighter_);
         assertTrue(f_.estKo());
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertTrue(FightKo.endedFight(fight_, diff_));
     }
 
@@ -1929,7 +1927,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1948,7 +1946,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(1, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1967,7 +1965,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(1, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -1987,7 +1985,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2007,7 +2005,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.zero(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2028,7 +2026,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(0, f_.getStatusNbRound(POISON_ST));
         assertEq(0, f_.getStatusNbRound(POISON_GRAVE));
         assertEq(LgInt.one(), fight_.getFoeTeam().getEnabledMovesWhileSendingFoeUses().getVal(move_));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2038,7 +2036,7 @@ public class FightSendingTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = endRelations(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         String move_ = PICOTS;
         fight_.getFoeTeam().ajouterEffetEquipeEntreeAdv(move_);
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);
@@ -2049,7 +2047,7 @@ public class FightSendingTest extends InitializationDataBase {
         FightSending.effectsTeamWhileSendingFoeFighter(fight_, fighter_, diff_, data_);
         f_ = fight_.getFighter(fighter_);
         assertTrue(f_.estKo());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     private static Fight effectWhileSendingAbility(Difficulty _diff, DataBase _data) {
@@ -2202,7 +2200,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(TELECHARGE, fighter_.getCurrentAbility());
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2221,7 +2219,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2240,7 +2238,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(TELECHARGE, fighter_.getCurrentAbility());
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(1, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2259,7 +2257,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(CALQUE, fighter_.getCurrentAbility());
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2281,7 +2279,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(NULL_REF, fighter_.getCurrentAbility());
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2303,7 +2301,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(MULTITYPE, fighter_.getCurrentAbility());
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(0, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2324,7 +2322,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(TELECHARGE, fighter_.getCurrentAbility());
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2347,7 +2345,7 @@ public class FightSendingTest extends InitializationDataBase {
         assertEq(CALQUE, fighter_.getCurrentAbility());
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.ATTACK));
         assertEq(6, fighter_.getStatisBoost().getVal(Statistic.SPECIAL_ATTACK));
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
     }
 
     @Test
@@ -2357,7 +2355,7 @@ public class FightSendingTest extends InitializationDataBase {
         diff_.setEnabledClosing(true);
         diff_.setDamageRatePlayer(DifficultyModelLaw.CONSTANT_MAX);
         Fight fight_ = effectWhileSendingAbility(diff_, data_);
-        fight_.setSimulation(true);
+        fight_.getTemp().setSimulation(true);
         TeamPosition thrower_ = POKEMON_PLAYER_FIGHTER_THREE;
         Fighter fighter_ = fight_.getFighter(thrower_);
         String ab_ = ALEA_STAT;
@@ -2367,7 +2365,7 @@ public class FightSendingTest extends InitializationDataBase {
         fighter_.variationBoostStatistique(Statistic.SPECIAL_ATTACK, (byte) 5);
         FightSending.effectWhileSendingAbility(fight_, thrower_, data_.getAbility(ab_).getEffectSending().first(), diff_, data_);
         assertEq(ALEA_STAT, fighter_.getCurrentAbility());
-        assertTrue(!fight_.getAcceptableChoices());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
     }
 
     @Test

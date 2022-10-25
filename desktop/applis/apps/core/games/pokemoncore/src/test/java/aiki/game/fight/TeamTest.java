@@ -1334,7 +1334,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
         team_.getMembers().getVal((byte) 0).setUsingItem(true);
         team_.getMembers().getVal((byte) 1).setCurrentAbility(NULL_REF);
-        team_.useItemsEndRound(data_);
+        useItemsEndRound(team_, data_);
         assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getItem());
         assertEq(MAGNET, team_.getMembers().getVal((byte) 0).getLastUsedItem());
     }
@@ -1366,7 +1366,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
         team_.getMembers().getVal((byte) 0).setUsingItem(true);
         team_.getMembers().getVal((byte) 1).setCurrentAbility(SYMBIOSE);
-        team_.useItemsEndRound(data_);
+        useItemsEndRound(team_, data_);
         assertEq(MAGNET, team_.getMembers().getVal((byte) 0).getItem());
         assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getLastUsedItem());
     }
@@ -1398,7 +1398,7 @@ public class TeamTest extends InitializationDataBase {
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
         team_.getMembers().getVal((byte) 0).setUsingItem(true);
         team_.getMembers().getVal((byte) 1).setCurrentAbility(SYMBIOSE);
-        team_.useItemsEndRound(data_);
+        useItemsEndRound(team_, data_);
         assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getItem());
         assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getLastUsedItem());
     }
@@ -1429,7 +1429,7 @@ public class TeamTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         team_.initEquipeUtilisateur(player_, diff_, (short) 2, data_);
         team_.getMembers().getVal((byte) 1).setCurrentAbility(NULL_REF);
-        team_.useItemsEndRound(data_);
+        useItemsEndRound(team_, data_);
         assertEq(MAGNET, team_.getMembers().getVal((byte) 0).getItem());
         assertEq(NULL_REF, team_.getMembers().getVal((byte) 0).getLastUsedItem());
     }
@@ -1584,6 +1584,11 @@ public class TeamTest extends InitializationDataBase {
         assertEq(1, list_.size());
         assertTrue(list_.containsObj((byte) 3));
     }
+
+    private void useItemsEndRound(Team _team, DataBase _data) {
+        _team.useItemsEndRound(_data,new TransientFight());
+    }
+
 //
 //    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
 ////        int i_ = IndexConstants.SIZE_EMPTY;

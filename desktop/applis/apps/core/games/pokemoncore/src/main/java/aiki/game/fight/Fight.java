@@ -10,27 +10,20 @@ import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.effects.EffectStatus;
 import aiki.fight.moves.effects.EffectSwitchPosition;
 import aiki.game.fight.animations.*;
-import aiki.game.fight.enums.ActionType;
 import aiki.game.fight.enums.FightState;
 import aiki.game.fight.enums.FightType;
-import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.MoveTarget;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.util.MoveTargets;
-import aiki.util.NbEffectFighterCoordss;
 import aiki.util.TeamPositionList;
-import aiki.util.TeamPositionsRate;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.EntryCust;
-import code.util.IdList;
-import code.util.NatStringTreeMap;
 import code.util.*;
 
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.comparators.NaturalComparator;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -335,8 +328,8 @@ public final class Fight {
     static final String HELP_ALLY = "helpAlly";
 
     private static final String SEPARATOR_COMMENTS = ", ";
-    private boolean utilisationBaieLanceur;
-    private boolean tombeKo;
+//    private boolean utilisationBaieLanceur;
+//    private boolean tombeKo;
 
     /***/
     private FightType fightType;
@@ -363,7 +356,7 @@ public final class Fight {
     private ByteMap<Team> teams;
 
     /**variable sur un tour*/
-    private boolean fullHealing;
+//    private boolean fullHealing;
 
     /***/
     private short nbFleeAttempt;
@@ -377,31 +370,31 @@ public final class Fight {
     /***/
     private String catchingBall;
 
-    private boolean error;
+//    private boolean error;
 
     /***/
-    private NbEffectFighterCoordss successfulEffects = new NbEffectFighterCoordss();
+//    private NbEffectFighterCoordss successfulEffects = new NbEffectFighterCoordss();
 
     /***/
-    private Comment comment = new Comment();
+//    private Comment comment = new Comment();
 
     /***/
     //private boolean entres = true;
 
     /***/
-    private TeamPositionsRate damageByCurrentUser = new TeamPositionsRate();
+//    private TeamPositionsRate damageByCurrentUser = new TeamPositionsRate();
 
     /***/
-    private ByteMap<BoolVal> kos = new ByteMap<BoolVal>();
+//    private ByteMap<BoolVal> kos = new ByteMap<BoolVal>();
 
     /***/
-    private StringList sufferingTargetStatus = new StringList();
+//    private StringList sufferingTargetStatus = new StringList();
 
     /***/
-    private boolean lettingUserAttackWithStatus = true;
+//    private boolean lettingUserAttackWithStatus = true;
 
     /***/
-    private boolean endRound;
+//    private boolean endRound;
 
     /***/
     private TeamPosition currentUser;
@@ -413,7 +406,7 @@ public final class Fight {
     private StringMap<Short> usedItemsWhileRound;
 
     /***/
-    private boolean simulation;
+//    private boolean simulation;
 
     /**All keys are the player + ally fighters keys*/
     private ByteMap<Byte> firstPositPlayerFighters;
@@ -434,117 +427,119 @@ public final class Fight {
     private StringList caughtEvolutions;
 
     /***/
-    private boolean enabledMessages = true;
+//    private boolean enabledMessages = true;
 
     /***/
-    private boolean acceptableChoices = true;
+//    private boolean acceptableChoices = true;
 
     /***/
-    private IssueSimulation issue = IssueSimulation.NOTHING;
+//    private IssueSimulation issue = IssueSimulation.NOTHING;
 
     /***/
-    private boolean invokedMove;
+//    private boolean invokedMove;
+//
+//    /***/
+//    private boolean sending;
+//
+//    /***/
+//    private boolean keepStatus;
+//
+//    /***/
+//    private boolean enabledHealingPartner;
+//
+//    /***/
+//    private boolean changeThrower;
+//
+//    /***/
+//    private boolean successfulInvokation;
+//
+//    /***/
+//    private boolean successfulUse;
+//
+//    /***/
+//    private boolean putKo;
+//
+//    /***/
+//    private DamageMoveCountUser damage = new DamageMoveCountUser();
+//
+//    /***/
+//    private Rate damageKo = Rate.zero();
 
-    /***/
-    private boolean sending;
-
-    /***/
-    private boolean keepStatus;
-
-    /***/
-    private boolean enabledHealingPartner;
-
-    /***/
-    private boolean changeThrower;
-
-    /***/
-    private boolean successfulInvokation;
-
-    /***/
-    private boolean successfulUse;
-
-    /***/
-    private boolean putKo;
-
-    /***/
-    private DamageMoveCountUser damage = new DamageMoveCountUser();
-
-    /***/
-    private Rate damageKo = Rate.zero();
-
-    /***/
-    private TeamPositionList orderedFighters = new TeamPositionList();
-
-    /***/
-    private TeamPositionList remainingFighters = new TeamPositionList();
-
-    /***/
-    private CustList<ChosableTargetName> chosablePlayerTargets = new CustList<ChosableTargetName>();
-
-    /***/
-    private CustList<ChosableTargetName> chosableFoeTargets = new CustList<ChosableTargetName>();
+//    /***/
+//    private TeamPositionList orderedFighters = new TeamPositionList();
+//
+//    /***/
+//    private TeamPositionList remainingFighters = new TeamPositionList();
+//
+//    /***/
+//    private CustList<ChosableTargetName> chosablePlayerTargets = new CustList<ChosableTargetName>();
+//
+//    /***/
+//    private CustList<ChosableTargetName> chosableFoeTargets = new CustList<ChosableTargetName>();
 
     /***/
 //    private byte chosenPlayerTarget = Fighter.BACK;
 
     /***/
 //    private byte chosenFoeTarget = Fighter.BACK;
+//
+//    /***/
+//    private byte chosenIndexFront = Fighter.BACK;
+//
+//    /***/
+//    private byte chosenIndexBack = Fighter.BACK;
+//
+//    /***/
+//    private IdList<ActionType> possibleActionsCurFighter = new IdList<ActionType>();
+//
+//    /***/
+//    private ActionType selectedActionCurFighter = ActionType.NOTHING;
+//
+//    /***/
+//    private NatStringTreeMap<ChosenMoveInfos> currentFighterMoves = new NatStringTreeMap<ChosenMoveInfos>();
+//
+//    /***/
+//    private String chosenMoveFront = DataBase.EMPTY_STRING;
+//
+//    /***/
+//    private String chosenHealingMove = DataBase.EMPTY_STRING;
+//
+//    /***/
+//    private byte chosenSubstitute = Fighter.BACK;
+//
+//    /***/
+//    private byte chosenIndex = Fighter.BACK;
+//
+//    /***/
+//    private NatStringTreeMap<BoolVal> moves = new NatStringTreeMap<BoolVal>();
+//
+//    /***/
+//    private EvolutionChoiceMap evolutions = new EvolutionChoiceMap(new NaturalComparator());
+//
+//    /***/
+//    private StringList abilities = new StringList();
+//
+//    /***/
+//    private String ability = DataBase.EMPTY_STRING;
+//
+//    /***/
+//    private ActivityOfMove currentActivity;
+//
+//    /***/
+//    private boolean keepRound = true;
+//
+//    /***/
+//    private boolean endRoundFightKoPlayer = true;
+//
+//    /***/
+//    private CustList<AnimationInt> effects = new CustList<AnimationInt>();
 
-    /***/
-    private byte chosenIndexFront = Fighter.BACK;
-
-    /***/
-    private byte chosenIndexBack = Fighter.BACK;
-
-    /***/
-    private IdList<ActionType> possibleActionsCurFighter = new IdList<ActionType>();
-
-    /***/
-    private ActionType selectedActionCurFighter = ActionType.NOTHING;
-
-    /***/
-    private NatStringTreeMap<ChosenMoveInfos> currentFighterMoves = new NatStringTreeMap<ChosenMoveInfos>();
-
-    /***/
-    private String chosenMoveFront = DataBase.EMPTY_STRING;
-
-    /***/
-    private String chosenHealingMove = DataBase.EMPTY_STRING;
-
-    /***/
-    private byte chosenSubstitute = Fighter.BACK;
-
-    /***/
-    private byte chosenIndex = Fighter.BACK;
-
-    /***/
-    private NatStringTreeMap<BoolVal> moves = new NatStringTreeMap<BoolVal>();
-
-    /***/
-    private EvolutionChoiceMap evolutions = new EvolutionChoiceMap(new NaturalComparator());
-
-    /***/
-    private StringList abilities = new StringList();
-
-    /***/
-    private String ability = DataBase.EMPTY_STRING;
-
-    /***/
-    private ActivityOfMove currentActivity;
-
-    /***/
-    private boolean keepRound = true;
-
-    /***/
-    private boolean endRoundFightKoPlayer = true;
-
-    /***/
-    private CustList<AnimationInt> effects = new CustList<AnimationInt>();
-
+    private final TransientFight temp;
     public Fight() {
-        damage.setDamage(Rate.zero());
-        damage.setDamageClone(Rate.zero());
-        damage.setDamageCount(Rate.zero());
+        temp = new TransientFight();
+//        damage.setDamage(Rate.zero());
+//        damage.setDamageClone(Rate.zero());
+//        damage.setDamageCount(Rate.zero());
     }
 
     public Fighter wildPokemon(){
@@ -689,14 +684,6 @@ public final class Fight {
         teams = _teams;
     }
 
-    public boolean getFullHealing() {
-        return fullHealing;
-    }
-
-    public void setFullHealing(boolean _fullHealing) {
-        fullHealing = _fullHealing;
-    }
-
     public short getNbFleeAttempt() {
         return nbFleeAttempt;
     }
@@ -729,54 +716,6 @@ public final class Fight {
         catchingBall = _catchingBall;
     }
 
-    public NbEffectFighterCoordss getSuccessfulEffects() {
-        return successfulEffects;
-    }
-
-    public void setSuccessfulEffects(NbEffectFighterCoordss _successfulEffects) {
-        successfulEffects = _successfulEffects;
-    }
-
-    public TeamPositionsRate getDamageByCurrentUser() {
-        return damageByCurrentUser;
-    }
-
-    public void setDamageByCurrentUser(TeamPositionsRate _damage) {
-        damageByCurrentUser = _damage;
-    }
-
-    public ByteMap<BoolVal> getKos() {
-        return kos;
-    }
-
-    public void setKos(ByteMap<BoolVal> _kos) {
-        kos = _kos;
-    }
-
-    public StringList getSufferingTargetStatus() {
-        return sufferingTargetStatus;
-    }
-
-    public void setSufferingTargetStatus(StringList _sufferingTargetStatus) {
-        sufferingTargetStatus = _sufferingTargetStatus;
-    }
-
-    public boolean getLettingUserAttackWithStatus() {
-        return lettingUserAttackWithStatus;
-    }
-
-    public void setLettingUserAttackWithStatus(boolean _lettingUserAttackWithStatus) {
-        lettingUserAttackWithStatus = _lettingUserAttackWithStatus;
-    }
-
-    public boolean getEndRound() {
-        return endRound;
-    }
-
-    public void setEndRound(boolean _endRound) {
-        endRound = _endRound;
-    }
-
     public TeamPosition getCurrentUser() {
         return currentUser;
     }
@@ -799,14 +738,6 @@ public final class Fight {
 
     public void setUsedItemsWhileRound(StringMap<Short> _usedItemsWhileRound) {
         usedItemsWhileRound = _usedItemsWhileRound;
-    }
-
-    public boolean getSimulation() {
-        return simulation;
-    }
-
-    public void setSimulation(boolean _simulation) {
-        simulation = _simulation;
     }
 
     public ByteMap<Byte> getFirstPositPlayerFighters() {
@@ -871,139 +802,6 @@ public final class Fight {
         choices = _choices;
     }
 
-    public boolean getAcceptableChoices() {
-        return acceptableChoices;
-    }
-
-    public void setAcceptableChoices(boolean _acceptableChoices) {
-        acceptableChoices = _acceptableChoices;
-    }
-
-    public IssueSimulation getIssue() {
-        return issue;
-    }
-
-    public void setIssue(IssueSimulation _issue) {
-        issue = _issue;
-    }
-
-    public boolean isInvokedMove() {
-        return invokedMove;
-    }
-
-    public void setInvokedMove(boolean _invokedMove) {
-        invokedMove = _invokedMove;
-    }
-
-    boolean isSending() {
-        return sending;
-    }
-
-    void setSending(boolean _sending) {
-        sending = _sending;
-    }
-
-    boolean isKeepStatus() {
-        return keepStatus;
-    }
-
-    void setKeepStatus(boolean _keepStatus) {
-        keepStatus = _keepStatus;
-    }
-
-    boolean isEnabledHealingPartner() {
-        return enabledHealingPartner;
-    }
-
-    boolean isChangeThrower() {
-        return changeThrower;
-    }
-
-    void setChangeThrower(boolean _changeThrower) {
-        changeThrower = _changeThrower;
-    }
-
-    boolean isSuccessfulInvokation() {
-        return successfulInvokation;
-    }
-
-    void setSuccessfulInvokation(boolean _successfulInvokation) {
-        successfulInvokation = _successfulInvokation;
-    }
-
-    boolean isSuccessfulUse() {
-        return successfulUse;
-    }
-
-    void setSuccessfulUse(boolean _successfulUse) {
-        successfulUse = _successfulUse;
-    }
-
-    boolean isPutKo() {
-        return putKo;
-    }
-
-    void setPutKo(boolean _putKo) {
-        putKo = _putKo;
-    }
-
-    DamageMoveCountUser getDamage() {
-        return damage;
-    }
-
-    void setDamage(DamageMoveCountUser _damage) {
-        damage = _damage;
-    }
-
-    Rate getDamageKo() {
-        return damageKo;
-    }
-
-    void setDamageKo(Rate _damageKo) {
-        damageKo = _damageKo;
-    }
-
-    void setEnabledHealingPartner(boolean _enabledHealingPartner) {
-        enabledHealingPartner = _enabledHealingPartner;
-    }
-
-    TeamPositionList getRemainingFighters() {
-        return remainingFighters;
-    }
-
-    void setRemainingFighters(TeamPositionList _remainingFighters) {
-        remainingFighters = _remainingFighters;
-    }
-
-    /**
-    <html>
-    en:this method is public for comparing<br/>
-    fr:cette m&eacute;thode est publique pour comparer
-    </html>*/
-    public TeamPositionList getOrderedFighters() {
-        return orderedFighters;
-    }
-
-    void setOrderedFighters(TeamPositionList _orderedFighters) {
-        orderedFighters = _orderedFighters;
-    }
-
-    public CustList<ChosableTargetName> getChosablePlayerTargets() {
-        return chosablePlayerTargets;
-    }
-
-    void setChosablePlayerTargets(CustList<ChosableTargetName> _chosablePlayerTargets) {
-        chosablePlayerTargets = _chosablePlayerTargets;
-    }
-
-    public CustList<ChosableTargetName> getChosableFoeTargets() {
-        return chosableFoeTargets;
-    }
-
-    void setChosableFoeTargets(CustList<ChosableTargetName> _chosableFoeTargets) {
-        chosableFoeTargets = _chosableFoeTargets;
-    }
-
 //    public byte getChosenPlayerTarget() {
 //        return chosenPlayerTarget;
 //    }
@@ -1020,110 +818,6 @@ public final class Fight {
 //        chosenFoeTarget = _chosenFoeTarget;
 //    }
 
-    public byte getChosenIndexFront() {
-        return chosenIndexFront;
-    }
-
-    void setChosenIndexFront(byte _chosenIndex) {
-        chosenIndexFront = _chosenIndex;
-    }
-
-    public byte getChosenIndexBack() {
-        return chosenIndexBack;
-    }
-
-    void setChosenIndexBack(byte _chosenIndexBack) {
-        chosenIndexBack = _chosenIndexBack;
-    }
-
-    public IdList<ActionType> getPossibleActionsCurFighter() {
-        return possibleActionsCurFighter;
-    }
-
-    void setPossibleActionsCurFighter(IdList<ActionType> _possibleActionsCurFighter) {
-        possibleActionsCurFighter = _possibleActionsCurFighter;
-    }
-
-    public ActionType getSelectedActionCurFighter() {
-        return selectedActionCurFighter;
-    }
-
-    void setSelectedActionCurFighter(ActionType _selectedActionCurFighter) {
-        selectedActionCurFighter = _selectedActionCurFighter;
-    }
-
-    public NatStringTreeMap< ChosenMoveInfos> getCurrentFighterMoves() {
-        return currentFighterMoves;
-    }
-
-    void setCurrentFighterMoves(NatStringTreeMap< ChosenMoveInfos> _currentFighterMoves) {
-        currentFighterMoves = _currentFighterMoves;
-    }
-
-    public String getChosenMoveFront() {
-        return chosenMoveFront;
-    }
-
-    void setChosenMoveFront(String _chosenMoveFront) {
-        chosenMoveFront = _chosenMoveFront;
-    }
-
-    public String getChosenHealingMove() {
-        return chosenHealingMove;
-    }
-
-    void setChosenHealingMove(String _chosenHealingMove) {
-        chosenHealingMove = _chosenHealingMove;
-    }
-
-    public byte getChosenSubstitute() {
-        return chosenSubstitute;
-    }
-
-    void setChosenSubstitute(byte _chosenSubstitute) {
-        chosenSubstitute = _chosenSubstitute;
-    }
-
-    public byte getChosenIndex() {
-        return chosenIndex;
-    }
-
-    void setChosenIndex(byte _chosenIndex) {
-        chosenIndex = _chosenIndex;
-    }
-
-    public NatStringTreeMap< BoolVal> getMoves() {
-        return moves;
-    }
-
-    void setMoves(NatStringTreeMap< BoolVal> _moves) {
-        moves = _moves;
-    }
-
-    public EvolutionChoiceMap getEvolutions() {
-        return evolutions;
-    }
-
-    void setEvolutions(EvolutionChoiceMap _evolutions) {
-        evolutions = _evolutions;
-    }
-
-    public StringList getAbilities() {
-        return abilities;
-    }
-
-    void setAbilities(StringList _abilities) {
-        abilities = _abilities;
-    }
-
-    public String getAbility() {
-        return ability;
-    }
-
-    void setAbility(String _ability) {
-        ability = _ability;
-    }
-
     public StringList getCaughtEvolutions() {
         return caughtEvolutions;
     }
@@ -1132,28 +826,8 @@ public final class Fight {
         caughtEvolutions = _caughtEvolutions;
     }
 
-    public boolean isKeepRound() {
-        return keepRound;
-    }
-
-    void setKeepRound(boolean _keepRound) {
-        keepRound = _keepRound;
-    }
-
-    public boolean isEndRoundFightKoPlayer(){
-        return endRoundFightKoPlayer;
-    }
-
-    void setEndRoundFightKoPlayer(boolean _endRoundFightKoPlayer) {
-        endRoundFightKoPlayer = _endRoundFightKoPlayer;
-    }
-
     public CustList<AnimationInt> getEffects() {
-        return effects;
-    }
-
-    void setEffects(CustList<AnimationInt> _effects) {
-        effects = _effects;
+        return getTemp().getEffects();
     }
 
     void addEffectStatus(TeamPosition _user, TeamPosition _target) {
@@ -1165,8 +839,8 @@ public final class Fight {
 //        anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlace()));
         anim_.setFromFighter(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
-        anim_.setIndex(effects.size());
-        effects.add(anim_);
+        anim_.setIndex(getTemp().getEffects().size());
+        getTemp().getEffects().add(anim_);
     }
 
     void addEffectAbsorb(TeamPosition _from, TeamPosition _to) {
@@ -1188,8 +862,8 @@ public final class Fight {
 //        }
         anim_.setToFighter(new TargetCoords(_to.getTeam(), to_.getGroundPlaceSubst()));
         anim_.setKoToFighter(to_.estKo());
-        anim_.setIndex(effects.size());
-        effects.add(anim_);
+        anim_.setIndex(getTemp().getEffects().size());
+        getTemp().getEffects().add(anim_);
     }
 
     void addEffectRecoil(TeamPosition _target, EffectDamageRate _effect) {
@@ -1202,7 +876,7 @@ public final class Fight {
     void addEffectRecoil(TeamPosition _target) {
         AnimationAutoEffect anim_;
         anim_ = new AnimationAutoEffect(AutoEffectKind.RECOIL);
-        anim_.setIndex(effects.size());
+        anim_.setIndex(getTemp().getEffects().size());
         Fighter target_ = getFighter(_target);
 //        if (target_.estKo()) {
 //            anim_.setUser(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
@@ -1211,7 +885,7 @@ public final class Fight {
 //        }
         anim_.setUser(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
         anim_.setKoUser(target_.estKo());
-        effects.add(anim_);
+        getTemp().getEffects().add(anim_);
     }
 
     void addEffect(TeamPosition _user, TeamPosition _target, Effect _effect) {
@@ -1237,10 +911,10 @@ public final class Fight {
         Fighter target_ = getFighter(_target);
 //        anim_.setFromFighter(new TargetCoords(_user.getTeam(), user_.getGroundPlace()));
 //        anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlace()));
-        anim_.setIndex(effects.size());
+        anim_.setIndex(getTemp().getEffects().size());
         anim_.setFromFighter(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         anim_.setToFighter(new TargetCoords(_target.getTeam(), target_.getGroundPlaceSubst()));
-        effects.add(anim_);
+        getTemp().getEffects().add(anim_);
     }
 
     void addAnimationStatistic(Statistic _st, byte _variation, boolean _swap) {
@@ -1287,18 +961,18 @@ public final class Fight {
         anim_.setToFighter(new TargetCoords(_user.getTeam(), target_.getGroundPlaceSubst()));
         anim_.setKoFromFighter(true);
         anim_.setKoToFighter(true);
-        anim_.setIndex(effects.size());
-        effects.add(anim_);
+        anim_.setIndex(getTemp().getEffects().size());
+        getTemp().getEffects().add(anim_);
     }
 
     void addAnimationKoFighter(TeamPosition _user) {
         AnimationAutoEffect animation_;
         animation_ = new AnimationAutoEffect(AutoEffectKind.KO);
-        animation_.setIndex(effects.size());
+        animation_.setIndex(getTemp().getEffects().size());
         Fighter user_ = getFighter(_user);
         animation_.setUser(new TargetCoords(_user.getTeam(), user_.getGroundPlaceSubst()));
         animation_.setKoUser(true);
-        effects.add(animation_);
+        getTemp().getEffects().add(animation_);
     }
 
     void addAnimationHealthPoints(TeamPosition _fighter, Rate _var) {
@@ -1980,83 +1654,50 @@ public final class Fight {
         addMessage(_import, CLONE_ZERO, getFighterName(_fighter, _import));
     }
 
-    void addHpMessage(TeamPosition _fighter, DataBase _import) {
-        Fighter fighter_ = getFighter(_fighter);
-        Rate var_ = fighter_.getVarHp();
-        if (var_.isZero()) {
+    void addHpMessage(TeamPosition _fighter, DataBase _import, Rate _r) {
+        if (_r.isZero()) {
             addMessage(_import, NO_VAR_HP, getFighterName(_fighter, _import));
-        } else if (var_.isZeroOrGt()) {
-            addMessage(_import, WIN_HP, getFighterName(_fighter, _import), var_.toNumberString());
+        } else if (_r.isZeroOrGt()) {
+            addMessage(_import, WIN_HP, getFighterName(_fighter, _import), _r.toNumberString());
         } else {
-            addMessage(_import, LOOSE_HP, getFighterName(_fighter, _import), var_.absNb().toNumberString());
+            addMessage(_import, LOOSE_HP, getFighterName(_fighter, _import), _r.absNb().toNumberString());
         }
     }
 
     void addMessage(DataBase _db, String _key, String... _args) {
-        if (enabledMessages) {
-            StringMap<String> messages_ = _db.getMessagesFight();
-            comment.addMessage(messages_.getVal(_key), _args);
-        }
+        temp.addMessage(_db, _key, _args);
     }
 
     void addComment(Comment _comment) {
-        if (enabledMessages) {
-            comment.addComment(_comment);
-        }
+        temp.addComment(_comment);
     }
 
     public Comment getComment() {
-        return comment;
+        return temp.getComment();
     }
 
     void setComment(Comment _comment) {
-        comment = _comment;
+        temp.setComment(_comment);
     }
 
     void clearComments() {
-        if (simulation) {
-            return;
-        }
-        comment.clearMessages();
+        getTemp().clearComments();
+    }
+
+    public TransientFight getTemp() {
+        return temp;
     }
 
     void addEmptyMessage() {
-        comment.addEmptyMessage();
+        getTemp().addEmptyMessage();
     }
 
     public boolean isError() {
-        return error;
-    }
-
-    void setError(boolean _error) {
-        error = _error;
+        return getTemp().isError();
     }
 
     void setEnabledMessages(boolean _enabledMessages) {
-        enabledMessages = _enabledMessages;
+        getTemp().setEnabledMessages(_enabledMessages);
     }
 
-    ActivityOfMove getCurrentActivity() {
-        return currentActivity;
-    }
-
-    void setCurrentActivity(ActivityOfMove _currentActivity) {
-        currentActivity = _currentActivity;
-    }
-
-    boolean isUtilisationBaieLanceur() {
-        return utilisationBaieLanceur;
-    }
-
-    void setUtilisationBaieLanceur(boolean _p) {
-        this.utilisationBaieLanceur = _p;
-    }
-
-    boolean isTombeKo() {
-        return tombeKo;
-    }
-
-    void setTombeKo(boolean _p) {
-        this.tombeKo = _p;
-    }
 }

@@ -445,7 +445,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = choiceForSubstituing10(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).fullHeal(data_);
+        fullHeal(fight_, POKEMON_FOE_FIGHTER_ONE, data_);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
         //assertEq(Fighter.BACK, fighter_.getSubstistute());
@@ -481,7 +481,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = choiceForSubstituing10(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_FOE_FIGHTER_ONE, diff_, data_);
         fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).exitFrontBattleForBeingSubstitued();
-        fight_.getFighter(POKEMON_FOE_FIGHTER_ONE).fullHeal(data_);
+        fullHeal(fight_, POKEMON_FOE_FIGHTER_ONE, data_);
         fight_.getFirstPositFoeFighters().put((byte) 1, Fighter.BACK);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_FOE_FIGHTER_ZERO);
@@ -517,7 +517,7 @@ public class FightArtificialIntelligenceTest extends InitializationDataBase {
         Fight fight_ = choiceForSubstituing7(data_, diff_, player_, new StringList(JACKPOT), new StringList(DETECTION));
         FightKo.setKoMoveTeams(fight_, POKEMON_PLAYER_FIGHTER_TWO, diff_, data_);
         fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).exitFrontBattleForBeingSubstitued();
-        fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO).fullHeal(data_);
+        fullHeal(fight_, POKEMON_PLAYER_FIGHTER_TWO, data_);
         fight_.getFirstPositPlayerFighters().put((byte) 2, Fighter.BACK);
         FightArtificialIntelligence.choiceForSubstituing(fight_, data_);
         //Fighter fighter_ = fight_.getFighter(POKEMON_PLAYER_FIGHTER_TWO);

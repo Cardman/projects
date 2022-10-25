@@ -150,12 +150,12 @@ final class FightSending {
     }
 
     static void sendSubstitutes(Fight _fight, Difficulty _diff,Player _user,DataBase _import){
-        _fight.setError(false);
+        _fight.getTemp().setError(false);
         if (_fight.getState() != FightState.SWITCH_WHILE_KO_USER && !FightRules.substitutable(_fight, _diff, _import)) {
-            _fight.setError(true);
+            _fight.getTemp().setError(true);
             return;
         }
-        _fight.setTombeKo(false);
+        _fight.getTemp().setTombeKo(false);
         Team equipeAdv_=_fight.getFoeTeam();
         affectGroundPlaceBySubstFoe(equipeAdv_);
         withdrawalFoe(_fight, _import, equipeAdv_);
@@ -173,7 +173,7 @@ final class FightSending {
         if (endedFightPlayer(_fight, _diff, _import)) {
             return;
         }
-        afterSwitch(_fight, _diff, _user, _import, _fight.isTombeKo());
+        afterSwitch(_fight, _diff, _user, _import, _fight.getTemp().isTombeKo());
     }
 
     private static boolean endedFightPlayer(Fight _fight, Difficulty _diff, DataBase _import) {
@@ -189,7 +189,7 @@ final class FightSending {
                 return true;
             }
             if (membre_.estKo()) {
-                _fight.setTombeKo(true);
+                _fight.getTemp().setTombeKo(true);
             }
         }
         return false;
@@ -209,7 +209,7 @@ final class FightSending {
                 return true;
             }
             if (membre_.estKo()) {
-                _fight.setTombeKo(true);
+                _fight.getTemp().setTombeKo(true);
             }
         }
         return false;
@@ -230,7 +230,7 @@ final class FightSending {
                 return true;
             }
             if (membre_.estKo()) {
-                _fight.setTombeKo(true);
+                _fight.getTemp().setTombeKo(true);
             }
         }
         return false;
@@ -362,8 +362,8 @@ final class FightSending {
             if(!fCapacite_.getHealedHpRateBySwitch().isZero()){
                 Rate pvMax_=creatureCbt_.pvMax();
                 Rate pvSoignes_=Rate.multiply(fCapacite_.getHealedHpRateBySwitch(),pvMax_);
-                creatureCbt_.variationLeftHp(pvSoignes_);
-                _fight.addHpMessage(_cbtRetire, _import);
+                Rate r_ = creatureCbt_.variationLeftHp(pvSoignes_);
+                _fight.addHpMessage(_cbtRetire, _import,r_);
             }
         }
         disableEffectsExceptHp(_fight, _cbtRetire, _import);
@@ -518,7 +518,7 @@ final class FightSending {
                 continue;
             }
             FightEffects.effectStatisticRandom(_fight,_cbtEnvoye,c,effetStatis_,statistiques_, _import, FightSuccess.probaEffectStatistic(_fight, _cbtEnvoye, effetStatis_.getEvtRate(), true, _import));
-            if (!_fight.getAcceptableChoices()) {
+            if (!_fight.getTemp().getAcceptableChoices()) {
                 return;
             }
         }
@@ -566,7 +566,7 @@ final class FightSending {
                 }
                 //action picots,piege de roc,pics toxiks
                 effectTeamWhileSendingFoeFighter(_fight,_cbt,c,(EffectTeamWhileSendFoe)effet_,_diff,_import);
-                if(!_fight.getAcceptableChoices()){
+                if(!_fight.getTemp().getAcceptableChoices()){
                     return;
                 }
                 if(FightKo.endedFight(_fight,_diff)){
@@ -577,7 +577,7 @@ final class FightSending {
     }
 
     private static RandomBoolResults successfulMove(Fight _fight, TeamPosition _cbt, DataBase _import, String _c, int _i) {
-        _fight.setSending(true);
+        _fight.getTemp().setSending(true);
         return FightSuccess.successfulMove(_fight, _cbt, _cbt, _c, _i,true, _import);
     }
 
@@ -594,7 +594,7 @@ final class FightSending {
     }
 
     static void effectTeamWhileSendingFoeFighter(Fight _fight, TeamPosition _cbt,String _attaque,EffectTeamWhileSendFoe _effet,Difficulty _diff,DataBase _import){
-        if(_fight.getFullHealing()){
+        if(_fight.getTemp().getFullHealing()){
             return;
         }
         //successChangedStatistic
@@ -616,17 +616,17 @@ final class FightSending {
             Rate inflictedHp_ = Rate.multiply(pvInfliges_,creatureCbt_.pvMax());
             if(Rate.greaterEq(inflictedHp_,creatureCbt_.getRemainingHp())){
                 FightKo.setKoMoveTeams(_fight,_cbt,_diff,_import);
-                if(NumberUtil.eq(_cbt.getTeam(),Fight.CST_PLAYER)&&_fight.getSimulation()){
-                    _fight.setAcceptableChoices(false);
-                    _fight.setIssue(IssueSimulation.KO_PLAYER);
+                if(NumberUtil.eq(_cbt.getTeam(),Fight.CST_PLAYER)&& _fight.getTemp().getSimulation()){
+                    _fight.getTemp().setAcceptableChoices(false);
+                    _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
                     return;
                 }
                 if(FightKo.endedFight(_fight,_diff)){
                     return;
                 }
             }else{
-                creatureCbt_.variationLeftHp(inflictedHp_.opposNb());
-                _fight.addHpMessage(_cbt, _import);
+                Rate r_ = creatureCbt_.variationLeftHp(inflictedHp_.opposNb());
+                _fight.addHpMessage(_cbt, _import,r_);
             }
         }
         if(!_effet.getStatusByNbUses().isEmpty()){

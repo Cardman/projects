@@ -1526,7 +1526,7 @@ public class FightSimulation {
         FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
         game.simuler(fightSimulationActions,IndexConstants.FIRST_INDEX, _import);
         setComment(game.getFight().getComment().getMessages());
-        if (!game.getFight().getAcceptableChoices()) {
+        if (!game.getFight().getTemp().getAcceptableChoices()) {
             probleme = true;
             return;
         }
@@ -1791,7 +1791,7 @@ public class FightSimulation {
         FightFacade.initTypeEnv(game.getFight(), environment, game.getDifficulty(), _import);
 //        FightFacade.initTypeEnv(game.getFight(), foeCoords, game.getDifficulty(), _import);
         game.simuler(fightSimulationActions, _i, _import);
-        if (!game.getFight().getAcceptableChoices()) {
+        if (!game.getFight().getTemp().getAcceptableChoices()) {
             probleme = true;
             return true;
         }
@@ -1937,7 +1937,7 @@ public class FightSimulation {
     }
 
     public boolean isAcceptableChoices() {
-        return game.getFight().getAcceptableChoices();
+        return game.getFight().getTemp().getAcceptableChoices();
     }
 
     public EnvironmentType getEnvironment() {
@@ -1945,7 +1945,7 @@ public class FightSimulation {
     }
 
     public IssueSimulation getIssue() {
-        return game.getFight().getIssue();
+        return game.getFight().getTemp().getIssue();
     }
 
     Game getGame() {

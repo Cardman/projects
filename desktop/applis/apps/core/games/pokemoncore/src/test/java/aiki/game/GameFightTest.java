@@ -295,10 +295,10 @@ public class GameFightTest extends InitializationDataBase {
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertNull(action_);
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
-        assertEq(0, game_.getFight().getChosenIndexFront());
-        assertEq(0, game_.getFight().getChosableFoeTargets().size());
-        assertEq(0, game_.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
+        assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }
     @Test
     public void chooseMove1(){
@@ -327,8 +327,8 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(SEISME, ((ActionMove)action_).getFirstChosenMove());
         assertEq(0, ((ActionMove)action_).getChosenTargets().size());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
-        assertEq(0, game_.getFight().getChosableFoeTargets().size());
-        assertEq(0, game_.getFight().getChosablePlayerTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }
     @Test
     public void setFirstChosenMoveFoeTarget1(){
@@ -359,16 +359,16 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
         assertEq(POKEMON_FOE_TARGET_ZERO, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
-        assertEq(2, game_.getFight().getChosableFoeTargets().size());
-        assertEq(PIKACHU,getName(game_.getFight().getChosableFoeTargets(), 0));
-        assertEq(0,getKey(game_.getFight().getChosableFoeTargets(), 0));
-        assertEq(PIKACHU,getName(game_.getFight().getChosableFoeTargets(), 1));
-        assertEq(1,getKey(game_.getFight().getChosableFoeTargets(), 1));
-        assertSame(BoolVal.TRUE, game_.getFight().getChosableFoeTargets().get(0).getChosable());
-        assertSame(BoolVal.TRUE, game_.getFight().getChosableFoeTargets().get(1).getChosable());
-        assertEq(2, game_.getFight().getChosablePlayerTargets().size());
-        assertSame(BoolVal.FALSE, game_.getFight().getChosablePlayerTargets().get(0).getChosable());
-        assertSame(BoolVal.TRUE, game_.getFight().getChosablePlayerTargets().get(1).getChosable());
+        assertEq(2, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(PIKACHU,getName(game_.getFight().getTemp().getChosableFoeTargets(), 0));
+        assertEq(0,getKey(game_.getFight().getTemp().getChosableFoeTargets(), 0));
+        assertEq(PIKACHU,getName(game_.getFight().getTemp().getChosableFoeTargets(), 1));
+        assertEq(1,getKey(game_.getFight().getTemp().getChosableFoeTargets(), 1));
+        assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosableFoeTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosableFoeTargets().get(1).getChosable());
+        assertEq(2, game_.getFight().getTemp().getChosablePlayerTargets().size());
+        assertSame(BoolVal.FALSE, game_.getFight().getTemp().getChosablePlayerTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosablePlayerTargets().get(1).getChosable());
     }
 
     private String getName(CustList<ChosableTargetName> _chosablePlayerTargets, int _i) {
@@ -408,12 +408,12 @@ public class GameFightTest extends InitializationDataBase {
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
         assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
-        assertEq(2, game_.getFight().getChosableFoeTargets().size());
-        assertSame(BoolVal.TRUE, game_.getFight().getChosableFoeTargets().get(0).getChosable());
-        assertSame(BoolVal.TRUE, game_.getFight().getChosableFoeTargets().get(1).getChosable());
-        assertEq(2, game_.getFight().getChosablePlayerTargets().size());
-        assertSame(BoolVal.FALSE, game_.getFight().getChosablePlayerTargets().get(0).getChosable());
-        assertSame(BoolVal.TRUE, game_.getFight().getChosablePlayerTargets().get(1).getChosable());
+        assertEq(2, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosableFoeTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosableFoeTargets().get(1).getChosable());
+        assertEq(2, game_.getFight().getTemp().getChosablePlayerTargets().size());
+        assertSame(BoolVal.FALSE, game_.getFight().getTemp().getChosablePlayerTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE, game_.getFight().getTemp().getChosablePlayerTargets().get(1).getChosable());
     }
     @Test
     public void changeAction1(){
@@ -440,11 +440,11 @@ public class GameFightTest extends InitializationDataBase {
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertNull(action_);
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
-        assertEq(0, game_.getFight().getChosenIndexFront());
-        assertEq(ActionType.SWITCH, game_.getFight().getSelectedActionCurFighter());
-        assertEq(0, game_.getFight().getChosableFoeTargets().size());
-        assertEq(0, game_.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.SWITCH, game_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }
     @Test
     public void chooseBackFighter1(){
@@ -472,11 +472,11 @@ public class GameFightTest extends InitializationDataBase {
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertEq(1, ((ActionSwitch) action_).getSubstitute());
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexFront());
-        assertEq(ActionType.NOTHING, game_.getFight().getSelectedActionCurFighter());
-        assertEq(0, game_.getFight().getChosableFoeTargets().size());
-        assertEq(0, game_.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.NOTHING, game_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }
     @Test
     public void deselect1(){
@@ -502,11 +502,11 @@ public class GameFightTest extends InitializationDataBase {
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
         assertNull(action_);
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexFront());
-        assertEq(ActionType.NOTHING, game_.getFight().getSelectedActionCurFighter());
-        assertEq(0, game_.getFight().getChosableFoeTargets().size());
-        assertEq(0, game_.getFight().getChosablePlayerTargets().size());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.NOTHING, game_.getFight().getTemp().getSelectedActionCurFighter());
+        assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }
     @Test
     public void setChosenHealingItem1(){
@@ -534,12 +534,12 @@ public class GameFightTest extends InitializationDataBase {
         //game_.deselect();
         AbstractAction action_;
         action_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getAction();
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
-        assertEq(0, game_.getFight().getChosenIndexFront());
-        assertEq(ActionType.HEALING, game_.getFight().getSelectedActionCurFighter());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(0, game_.getFight().getTemp().getChosenIndexFront());
+        assertEq(ActionType.HEALING, game_.getFight().getTemp().getSelectedActionCurFighter());
         assertEq(EAU_FRAICHE, ((ActionSimpleHeal)action_).getChosenHealingItem());
-        assertEq(0, game_.getFight().getChosableFoeTargets().size());
-        assertEq(0, game_.getFight().getChosablePlayerTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosableFoeTargets().size());
+        assertEq(0, game_.getFight().getTemp().getChosablePlayerTargets().size());
     }
     @Test
     public void calculateCatchingRates1(){
@@ -588,8 +588,8 @@ public class GameFightTest extends InitializationDataBase {
         game_.deselect();
         game_.chooseBackFighter((byte) 0, data_);
         game_.setSubstituteEndRound((byte) 0);
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexBack());
-        assertEq(Fighter.BACK, game_.getFight().getChosenIndexFront());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexBack());
+        assertEq(Fighter.BACK, game_.getFight().getTemp().getChosenIndexFront());
         assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 0));
         assertEq(0, game_.getFight().getFirstPositPlayerFighters().getVal((byte) 1));
     }

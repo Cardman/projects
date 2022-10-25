@@ -19,12 +19,12 @@ final class FightInvoke {
     }
 
     static void processInvokingMove(Fight _fight, TeamPosition _lanceur,Difficulty _diff,DataBase _import) {
-        _fight.setInvokedMove(false);
-        _fight.setSuccessfulInvokation(true);
+        _fight.getTemp().setInvokedMove(false);
+        _fight.getTemp().setSuccessfulInvokation(true);
         Fighter creature_=_fight.getFighter(_lanceur);
         creature_.affectNoRoundBeforeUsingMove();
         creature_.setDisappeared(false);
-        _fight.getSuccessfulEffects().clear();
+        _fight.getTemp().getSuccessfulEffects().clear();
         creature_.ajouterAttaquesDejaInvoqueesTour(creature_.getFinalChosenMove());
         creature_.setLastUsedMove(creature_.getFinalChosenMove());
         StringList invoked_ = new StringList();
@@ -41,21 +41,21 @@ final class FightInvoke {
             CustList<TeamPosition> targets_ = FightOrder.targetsEffect(_fight, _lanceur, effet_, _diff, _import);
             if (!targets_.isEmpty()) {
                 TeamPosition e_ = targets_.first();
-                _fight.setSending(false);
+                _fight.getTemp().setSending(false);
                 if(FightSuccess.successfulMove(_fight,_lanceur,e_,attaqueInvoque_, IndexConstants.FIRST_INDEX,true,_import).isSuccessful()){
                     //debugger la chaine d'invocation d'attaques
                     invoquer_ = effectInvoke(_fight,_lanceur,e_,effet_,_import,invoked_);
-                    if(!_fight.getAcceptableChoices()){
+                    if(!_fight.getTemp().getAcceptableChoices()){
                         return;
                     }
                 }
             }
             if(invoquer_.isEmpty()){
                 _fight.addInvokeMoveFailMessage(attaqueInvoque_, _import);
-                _fight.setSuccessfulInvokation(false);
+                _fight.getTemp().setSuccessfulInvokation(false);
                 return;
             }
-            _fight.setInvokedMove(true);
+            _fight.getTemp().setInvokedMove(true);
             creature_.invokeMove(invoquer_);
             invoked_.add(invoquer_);
         }

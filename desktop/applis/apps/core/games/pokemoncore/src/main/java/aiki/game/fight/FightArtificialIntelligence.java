@@ -194,7 +194,7 @@ final class FightArtificialIntelligence {
 //        StringList types_ = FightMoves.moveTypes(_fight,_thrower, _move, _import);
         TargetCoordssRate remoteHpLoc_ = new TargetCoordssRate();
         int mult_ = _fight.getMult();
-        _fight.setSending(false);
+        _fight.getTemp().setSending(false);
         for(byte f = IndexConstants.FIRST_INDEX; f < mult_; f++){
             Bytes fighters_ = _fight.getFoeTeam().fightersAtCurrentPlace(f);
             if (fighters_.isEmpty()) {

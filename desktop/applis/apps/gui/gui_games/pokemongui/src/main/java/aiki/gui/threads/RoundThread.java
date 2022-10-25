@@ -21,7 +21,7 @@ public abstract class RoundThread implements Runnable {
     protected void round() {
         appendComments();
         animate();
-        while (facade.getFight().isKeepRound()) {
+        while (facade.getFight().getTemp().isKeepRound()) {
             facade.roundUser();
             appendComments();
             animate();
@@ -30,7 +30,7 @@ public abstract class RoundThread implements Runnable {
 
     private void appendComments() {
 //        ThreadInvoker.invokeNow(new AppendComments(facade, battle));
-        if (facade.getFight().isKeepRound()) {
+        if (facade.getFight().getTemp().isKeepRound()) {
             battle.appendComments();
         }
     }

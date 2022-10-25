@@ -50,7 +50,7 @@ final class FightSuccess {
             if(isProtectedAgainstMove(_fight,_lanceur,_cible,_attaque,_import)){
                 return new RandomBoolResults(false,true);
             }
-        } else if (_fight.isSending() && isProtectedAgainstMove(_fight, _cible, _cible, _attaque, _import)) {
+        } else if (_fight.getTemp().isSending() && isProtectedAgainstMove(_fight, _cible, _cible, _attaque, _import)) {
             return new RandomBoolResults(false, true);
         }
         Effect effet_=fAttaque_.getEffet(_noEffet);
@@ -82,7 +82,7 @@ final class FightSuccess {
         String fail_ = failEffect(_fight, _effet);
         StringMap<String> values_ = new StringMap<String>();
         if (!fail_.isEmpty()) {
-            if (_fight.isSending()) {
+            if (_fight.getTemp().isSending()) {
                 values_.putAllMap(FightValues.calculateSendingVariables(_fight,_lanceur, _import));
             }
             values_.putAllMap(FightValues.calculateValues(_fight,_lanceur,_cible,_import));
@@ -99,7 +99,7 @@ final class FightSuccess {
 
     private static String failEffect(Fight _fight, Effect _effet) {
         String fail_;
-        if (!_fight.isSending()) {
+        if (!_fight.getTemp().isSending()) {
             fail_ = _effet.getFail();
         } else {
             EffectTeamWhileSendFoe eff_ = (EffectTeamWhileSendFoe) _effet;
@@ -113,8 +113,8 @@ final class FightSuccess {
         for (int e: _effet.getRequiredSuccessfulEffects()) {
             boolean atLeastOneSuccessful_ = false;
             NbEffectFighterCoords hit_ = new NbEffectFighterCoords(e, _cible);
-            if (_fight.getSuccessfulEffects().contains(hit_)) {
-                atLeastOneSuccessful_ = _fight.getSuccessfulEffects().getVal(hit_) == BoolVal.TRUE;
+            if (_fight.getTemp().getSuccessfulEffects().contains(hit_)) {
+                atLeastOneSuccessful_ = _fight.getTemp().getSuccessfulEffects().getVal(hit_) == BoolVal.TRUE;
             }
             if (!atLeastOneSuccessful_) {
                 sucessful_ = false;
@@ -604,7 +604,7 @@ final class FightSuccess {
         MoveData fAttaque_=_import.getMove(_attaque);
         Effect effet_=fAttaque_.getEffet(_noEffet);
         boolean primaire_= _noEffet == fAttaque_.indexOfPrimaryEffect();
-        boolean reussi_ = reussiEffet(_cible, _withPreviousEffect, effet_, _fight.getSuccessfulEffects());
+        boolean reussi_ = reussiEffet(_cible, _withPreviousEffect, effet_, _fight.getTemp().getSuccessfulEffects());
         if(!reussi_){
             return false;
         }
@@ -1362,8 +1362,8 @@ final class FightSuccess {
     }
 
     static boolean isBadSimulation(Fight _fight,IntMonteCarlo _law) {
-        if (_law.nbEvents() != DataBase.ONE_POSSIBLE_CHOICE && _fight.getSimulation()) {
-            _fight.setAcceptableChoices(false);
+        if (_law.nbEvents() != DataBase.ONE_POSSIBLE_CHOICE && _fight.getTemp().getSimulation()) {
+            _fight.getTemp().setAcceptableChoices(false);
             return true;
         }
         return false;

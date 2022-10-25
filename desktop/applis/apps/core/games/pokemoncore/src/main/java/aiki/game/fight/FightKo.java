@@ -1,4 +1,5 @@
 package aiki.game.fight;
+import aiki.comments.Comment;
 import aiki.db.DataBase;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.ItemForBattle;
@@ -61,11 +62,11 @@ final class FightKo {
         creature_.formeNormale(_import);
         creature_.initCreatureRelationsAutre(FightOrder.fighters(_fight), _import);
         FightSending.endRelations(_fight, _combattant, _import);
-        _fight.getKos().put(_combattant.getTeam(),ComparatorBoolean.of(equipe_.estKo()));
+        _fight.getTemp().getKos().put(_combattant.getTeam(),ComparatorBoolean.of(equipe_.estKo()));
     }
 
     static boolean endedFight(Fight _fight, Difficulty _diff){
-        if (_fight.getEndRound() || _diff.getEndFightIfOneTeamKo()) {
+        if (_fight.getTemp().getEndRound() || _diff.getEndFightIfOneTeamKo()) {
             return FightFacade.koTeam(_fight);
         }
         return false;
@@ -95,8 +96,9 @@ final class FightKo {
                 continue;
             }
             if (nbMax_ != 0) {
-                fighter_.variationGainExperience(Rate.divide(sumMaxLevel_, new Rate(nbMax_)), _import);
-                _fight.addComment(fighter_.getComment());
+                Rate v_ = Rate.divide(sumMaxLevel_, new Rate(nbMax_));
+                fighter_.variationGainExperience(v_);
+                _fight.addComment(fighter_.variationGainExperienceMessage(v_, _import));
             }
             addExp(_fight,c, pointFoeExpObject_, _diff, true, _import);
         }
@@ -138,8 +140,7 @@ final class FightKo {
         Fighter membre_=_fight.getUserTeam().refPartMembres(_fighter.getPosition());
         for(Statistic c2_: _evs.getKeys()){
             Rate ev_=Rate.multiply(_rateEv,new Rate(_evs.getVal(c2_)));
-            membre_.wonEvStatistic(c2_,(short)ev_.ll(),(short)_import.getMaxEv(), _import);
-            _fight.addComment(membre_.getComment());
+            _fight.addComment(membre_.wonEvStatistic(c2_,(short)ev_.ll(),(short)_import.getMaxEv(), _import));
         }
     }
 
@@ -155,9 +156,10 @@ final class FightKo {
         Fighter membre_=equipeUt_.refPartMembres(_fighter.getPosition());
         String expItem_ = membre_.getExpItem();
         Rate gainBase_ = gainBase(_pointsFoeExp, _diff, _import, expItem_, _fight.getUserTeam().refPartMembres(_fighter.getPosition()).getLevel(), _fight.getFoeTeam().refPartMembres(_pointsFoeExp.getFoe().getPosition()).getLevel(), _fighter.getPosition());
-        membre_.variationGainExperience(gainBase_, _import);
+        membre_.variationGainExperience(gainBase_);
+        Comment c_ = membre_.variationGainExperienceMessage(gainBase_, _import);
         if (_showMessage) {
-            _fight.addComment(membre_.getComment());
+            _fight.addComment(c_);
         }
     }
 

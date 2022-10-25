@@ -2,7 +2,6 @@ package aiki.game.fight;
 
 import aiki.comments.Comment;
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
@@ -50,14 +49,14 @@ public class FightInitializationTest extends InitializationDataBase {
         player_.getTeam().add(egg_);
         Fight fight_ = FightFacade.newFight();
         FightInitialization.initMultiplicity(fight_,(byte) 4);
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertEq(FightState.ATTAQUES, fight_.getState());
         assertEq(4, fight_.getMult());
         assertEq(4, fight_.getPlayerMaxNumberFrontFighters());
         assertEq(0, fight_.getTeams().size());
-        assertEq(2, fight_.getKos().size());
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_FOE));
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
+        assertEq(2, fight_.getTemp().getKos().size());
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
     }
 
     @Test

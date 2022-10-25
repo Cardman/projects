@@ -41,20 +41,20 @@ final class FightOrder {
 
     static void sortFightersUsingMoveAmongList(
             Fight _fight, DataBase _import){
-        TeamPositionList listeTriee_=_fight.getOrderedFighters();
+        TeamPositionList listeTriee_= _fight.getTemp().getOrderedFighters();
         boolean vitessesInversees_=reverseSpeed(_fight,_import);
         listeTriee_.sortElts(new SortedFighterMoveActsComparator(_fight, _import, vitessesInversees_));
     }
 
     static void sortFightersSwitchingAmongList(
             Fight _fight,DataBase _import){
-        TeamPositionList listeTriee_ = _fight.getOrderedFighters();
+        TeamPositionList listeTriee_ = _fight.getTemp().getOrderedFighters();
         listeTriee_.sortElts(new SortedFighterSwitchActsComparator(_fight, _import));
     }
 
     static void sortFightersBeingHealedAmongList(
             Fight _fight){
-        TeamPositionList listeTriee_ = _fight.getOrderedFighters();
+        TeamPositionList listeTriee_ = _fight.getTemp().getOrderedFighters();
         listeTriee_.sortElts(new SortedFighterHealActsComparator(_fight));
     }
 

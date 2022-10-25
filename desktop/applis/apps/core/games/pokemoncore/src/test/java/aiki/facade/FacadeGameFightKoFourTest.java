@@ -7,7 +7,6 @@ import aiki.game.fight.InitializationDataBase;
 import aiki.game.fight.actions.AbstractAction;
 import aiki.game.fight.actions.ActionMove;
 import aiki.game.params.Difficulty;
-import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.PokemonPlayer;
@@ -59,12 +58,12 @@ public final class FacadeGameFightKoFourTest extends InitializationDataBase {
         assertEq(1, ((ActionMove)action_).getChosenTargets().size());
         assertEq(POKEMON_PLAYER_TARGET_ONE, ((ActionMove)action_).getChosenTargets().first());
         assertEq(Fighter.BACK, ((ActionMove)action_).getSubstitute());
-        assertEq(2, facadeGame_.getFight().getChosableFoeTargets().size());
-        assertSame(BoolVal.TRUE,facadeGame_.getFight().getChosableFoeTargets().get(0).getChosable());
-        assertSame(BoolVal.TRUE,facadeGame_.getFight().getChosableFoeTargets().get(1).getChosable());
-        assertEq(2, facadeGame_.getFight().getChosablePlayerTargets().size());
-        assertSame(BoolVal.FALSE,facadeGame_.getFight().getChosablePlayerTargets().get(0).getChosable());
-        assertSame(BoolVal.TRUE,facadeGame_.getFight().getChosablePlayerTargets().get(1).getChosable());
+        assertEq(2, facadeGame_.getFight().getTemp().getChosableFoeTargets().size());
+        assertSame(BoolVal.TRUE, facadeGame_.getFight().getTemp().getChosableFoeTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE, facadeGame_.getFight().getTemp().getChosableFoeTargets().get(1).getChosable());
+        assertEq(2, facadeGame_.getFight().getTemp().getChosablePlayerTargets().size());
+        assertSame(BoolVal.FALSE, facadeGame_.getFight().getTemp().getChosablePlayerTargets().get(0).getChosable());
+        assertSame(BoolVal.TRUE, facadeGame_.getFight().getTemp().getChosablePlayerTargets().get(1).getChosable());
     }
 
     private static Coords newCoords(int _place, int _level, int _x, int _y) {

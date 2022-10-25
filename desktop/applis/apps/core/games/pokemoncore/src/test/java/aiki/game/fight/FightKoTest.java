@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import aiki.util.TeamPositionList;
 import code.util.core.BoolVal;
 import org.junit.Test;
@@ -558,8 +557,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlace());
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
     }
 
     private static Fight setKo(Difficulty _diff, DataBase _data) {
@@ -661,8 +660,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(0, fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_ZERO).getRemainingHp());
         assertEq(0, fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte) 0).size());
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -690,8 +689,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(0, list_.size());
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte)2);
         assertEq(0, list_.size());
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -722,8 +721,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(0, list_.size());
         list_ = fight_.getUserTeam().getPlayerFightersAgainstFoe().getVal((byte)2);
         assertEq(0, list_.size());
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
-        assertSame(BoolVal.TRUE,fight_.getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
+        assertSame(BoolVal.TRUE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -735,8 +734,8 @@ public class FightKoTest extends InitializationDataBase {
         assertEq(Fighter.BACK, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getGroundPlace());
         assertEq(1, fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getGroundPlaceSubst());
         assertEq(Rate.zero(), fight_.getFighter(POKEMON_PLAYER_FIGHTER_THREE).getRemainingHp());
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_PLAYER));
-        assertSame(BoolVal.FALSE,fight_.getKos().getVal(Fight.CST_FOE));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_PLAYER));
+        assertSame(BoolVal.FALSE, fight_.getTemp().getKos().getVal(Fight.CST_FOE));
     }
 
     @Test
@@ -744,7 +743,7 @@ public class FightKoTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = addExp(diff_, data_);
-        fight_.setEndRound(false);
+        fight_.getTemp().setEndRound(false);
         assertTrue(!FightKo.endedFight(fight_,diff_));
     }
 
@@ -753,7 +752,7 @@ public class FightKoTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Difficulty diff_ = new Difficulty();
         Fight fight_ = addExp(diff_, data_);
-        fight_.setEndRound(true);
+        fight_.getTemp().setEndRound(true);
         assertTrue(!FightKo.endedFight(fight_,diff_));
     }
 
@@ -763,7 +762,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setEndFightIfOneTeamKo(false);
         Fight fight_ = addExp(diff_, data_);
-        fight_.setEndRound(true);
+        fight_.getTemp().setEndRound(true);
         assertTrue(!FightKo.endedFight(fight_,diff_));
     }
 
@@ -773,7 +772,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setEndFightIfOneTeamKo(false);
         Fight fight_ = addExp(diff_, data_);
-        fight_.setEndRound(false);
+        fight_.getTemp().setEndRound(false);
         assertTrue(!FightKo.endedFight(fight_,diff_));
     }
 
@@ -795,7 +794,7 @@ public class FightKoTest extends InitializationDataBase {
         Difficulty diff_ = new Difficulty();
         diff_.setEndFightIfOneTeamKo(false);
         Fight fight_ = addExp(diff_, data_);
-        fight_.setEndRound(false);
+        fight_.getTemp().setEndRound(false);
         FightKo.setKo(fight_,POKEMON_FOE_FIGHTER_ZERO, diff_, data_);
         assertTrue(!FightKo.endedFight(fight_,diff_));
         FightKo.setKo(fight_,POKEMON_PLAYER_FIGHTER_ZERO, diff_, data_);

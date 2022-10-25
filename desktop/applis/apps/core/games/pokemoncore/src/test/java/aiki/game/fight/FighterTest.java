@@ -4561,7 +4561,9 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 40);
         pokemonUser_.setWonExpSinceLastLevel(new Rate(3,2));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.variationGainExperience(new Rate("2"), data_);
+        Rate v_ = new Rate("2");
+        fighter_.variationGainExperience(v_);
+        fighter_.variationGainExperienceMessage(v_, data_);
         assertEq(new Rate("2"), fighter_.getWonExp());
     }
 
@@ -5772,7 +5774,7 @@ public class FighterTest extends InitializationDataBase {
         StringList attaquesApprendre_=getMoves(newMoves_,true);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data_);
+        learnMoves(fighter_, attaquesApprendre_, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -5829,7 +5831,7 @@ public class FighterTest extends InitializationDataBase {
         StringList attaquesApprendre_=getMoves(newMoves_,true);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data_);
+        learnMoves(fighter_, attaquesApprendre_, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -5886,7 +5888,7 @@ public class FighterTest extends InitializationDataBase {
         StringList attaquesApprendre_=getMoves(newMoves_,true);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data_);
+        learnMoves(fighter_, attaquesApprendre_, data_);
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(4, map_.size());
         assertTrue(map_.contains(ULTRASON));
@@ -5942,7 +5944,7 @@ public class FighterTest extends InitializationDataBase {
         StringList attaquesApprendre_=getMoves(newMoves_,true);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data_);
+        learnMoves(fighter_, attaquesApprendre_, data_);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(fighter_.getMoves().getKeys());
         fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
@@ -5999,7 +6001,7 @@ public class FighterTest extends InitializationDataBase {
         StringList attaquesApprendre_=getMoves(newMoves_,true);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data_);
+        learnMoves(fighter_, attaquesApprendre_, data_);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(fighter_.getMoves().getKeys());
         fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
@@ -6058,7 +6060,7 @@ public class FighterTest extends InitializationDataBase {
         StringList attaquesApprendre_=getMoves(newMoves_,true);
         fighter_.initLearntMoves(attaquesApprendre_, attaquesConnues_, data_);
         fighter_.setLevel(result_.getLevel());
-        fighter_.learnMoves(attaquesApprendre_, data_);
+        learnMoves(fighter_, attaquesApprendre_, data_);
         attaquesConnues_.clear();
         attaquesConnues_.addAllElts(fighter_.getMoves().getKeys());
         fighter_.proponeMovesAbilitiesForEvolutions(attaquesApprendre_, attaquesConnues_, data_, new StringList());
@@ -6091,7 +6093,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data_);
+        winHappinessByGrowingLevel(fighter_, data_);
         assertEq(150, fighter_.getHappiness());
     }
 
@@ -6116,7 +6118,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data_);
+        winHappinessByGrowingLevel(fighter_, data_);
         assertEq(150, fighter_.getHappiness());
     }
 
@@ -6141,7 +6143,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data_);
+        winHappinessByGrowingLevel(fighter_, data_);
         assertEq(150, fighter_.getHappiness());
     }
 
@@ -6166,7 +6168,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 140);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data_);
+        winHappinessByGrowingLevel(fighter_, data_);
         assertEq(160, fighter_.getHappiness());
     }
 
@@ -6191,7 +6193,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 155);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3167"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.winHappinessByGrowingLevel((short) 5, data_);
+        winHappinessByGrowingLevel(fighter_, data_);
         assertEq(170, fighter_.getHappiness());
     }
 
@@ -6300,7 +6302,8 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getCurrentMoves().getVal(MORPHING).setCurrent((short) 0);
         fighter_.getCurrentMoves().getVal(BROUHAHA).setCurrent((short) 5);
         fighter_.getCurrentMoves().getVal(POUV_ANTIQUE).setCurrent((short) 0);
-        fighter_.fullHeal(data_);
+        fighter_.fullHeal();
+        fighter_.fullHealMessage(data_,new TransientFight());
         assertEq(new Rate("271/5"),fighter_.getRemainingHp());
         StringMap<UsesOfMove> map_ = fighter_.getMoves();
         assertEq(3, map_.size());
@@ -6345,7 +6348,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6380,7 +6383,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6430,7 +6433,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("3168"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(1, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6480,7 +6483,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("2790"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(1, fighter_.getMovesToBeLearnt().size());
@@ -6516,7 +6519,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("0"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(2, movesAbilities_.size());
         assertEq(1, fighter_.getMovesToBeLearnt().size());
@@ -6572,7 +6575,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         assertEq(100,fighter_.getLevel());
         assertEq(new Rate("0"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6637,7 +6640,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         assertEq(100,fighter_.getLevel());
         assertEq(new Rate("0"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6666,7 +6669,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("1"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         assertEq(100,fighter_.getLevel());
         assertEq(new Rate("0"), fighter_.getWonExpSinceLastLevel());
         assertEq(new Rate("0"), fighter_.getWonExp());
@@ -6698,7 +6701,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setUsedBallCatching(SUPER_BALL);
         pokemonUser_.setHappiness((short) 70);
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6732,7 +6735,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 70);
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -6766,7 +6769,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setHappiness((short) 70);
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("1"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringMap<MovesAbilities> movesAbilities_ = fighter_.getMovesAbilitiesEvos();
         assertEq(0, movesAbilities_.size());
         assertEq(0, fighter_.getMovesToBeLearnt().size());
@@ -7037,7 +7040,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         NatStringTreeMap<BoolVal> map_ = fighter_.getMoves(NULL_REF);
         assertEq(4, map_.size());
         assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
@@ -7071,7 +7074,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         NatStringTreeMap<BoolVal> map_ = fighter_.getMoves(TARINORME);
         assertEq(12, map_.size());
         assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
@@ -7113,7 +7116,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("2790"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         NatStringTreeMap<BoolVal> map_ = fighter_.getMoves(NULL_REF);
         assertEq(5, map_.size());
         assertSame(BoolVal.TRUE,map_.getVal(DETECTION));
@@ -7148,7 +7151,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringList list_ = fighter_.getAbilities(NULL_REF);
         assertEq(1, list_.size());
         assertTrue(StringUtil.contains(list_, METEO));
@@ -7179,7 +7182,7 @@ public class FighterTest extends InitializationDataBase {
         pokemonUser_.setWonExpSinceLastLevel(new Rate("1"));
         Fighter fighter_ = new Fighter(pokemonUser_, data_, (byte) 0);
         fighter_.setWonExp(new Rate("3"));
-        fighter_.calculateNewLevel(diff_, data_, new StringList());
+        calculateNewLevel(fighter_, diff_, data_, new StringList());
         StringList list_ = fighter_.getAbilities(TARINORME);
         assertEq(2, list_.size());
         assertTrue(StringUtil.contains(list_, MAGNEPIEGE));
@@ -7269,6 +7272,15 @@ public class FighterTest extends InitializationDataBase {
         fighter_.getRemainingHp().affectZero();
         assertTrue(fighter_.isKoAt((byte) 0));
     }
+
+    private void learnMoves(Fighter _f, StringList _a, DataBase _data) {
+        _f.learnMoves(_a, _data, new TransientFight());
+    }
+
+    private void winHappinessByGrowingLevel(Fighter _f, DataBase _data) {
+        _f.winHappinessByGrowingLevel((short) 5, _data, new TransientFight());
+    }
+
 //
 //    static int getNbStatusRelatByRounds(Fighter _f, short _nbRounds) {
 ////        int i_ = IndexConstants.SIZE_EMPTY;

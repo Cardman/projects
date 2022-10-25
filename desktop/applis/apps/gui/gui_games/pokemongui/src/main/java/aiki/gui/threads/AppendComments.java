@@ -15,7 +15,7 @@ public final class AppendComments implements Runnable {
 
     @Override
     public void run() {
-        if (facade.getFight().isKeepRound()) {
+        if (facade.getFight().getTemp().isKeepRound()) {
             battle.appendComments();
         }
     }

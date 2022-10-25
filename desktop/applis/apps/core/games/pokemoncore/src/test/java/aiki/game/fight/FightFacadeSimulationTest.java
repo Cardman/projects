@@ -1,7 +1,6 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
-import aiki.game.player.enums.Sex;
 import aiki.util.TargetCoordsList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
@@ -93,8 +92,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOT_KO_FOE,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOT_KO_FOE, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -158,8 +157,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.KO_PLAYER,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.KO_PLAYER, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -223,8 +222,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.KO_PLAYER,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.KO_PLAYER, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -288,8 +287,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.RULES_LEARN,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.RULES_LEARN, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -353,9 +352,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertTrue(FightFacade.win(fight_));
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -419,9 +418,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertTrue(FightFacade.win(fight_));
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -485,8 +484,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -583,8 +582,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -707,8 +706,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
 //        assertTrue(!fight_.getAcceptableChoices());
-        assertTrue(fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -807,8 +806,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -873,8 +872,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.RULES_MOVES,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.RULES_MOVES, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -971,8 +970,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -1105,8 +1104,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -1239,8 +1238,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.NOT_KO_FOE,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.NOT_KO_FOE, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -1374,7 +1373,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evolutions_.add(evos_);
         actionsRound_.clear();
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getSimulation());
+        assertTrue(fight_.getTemp().getSimulation());
     }
 
     @Test
@@ -1506,10 +1505,10 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         choice_.setAbility(NULL_REF);
         evos_.put((byte) 3, choice_);
         evolutions_.add(evos_);
-        fight_.getKos().put(Fight.CST_FOE, BoolVal.TRUE);
-        fight_.getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
+        fight_.getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
+        fight_.getTemp().getKos().put(Fight.CST_PLAYER, BoolVal.FALSE);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getSimulation());
+        assertTrue(fight_.getTemp().getSimulation());
     }
 
     @Test
@@ -1615,8 +1614,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
 //        fight_.getKos().put(Fight.FOE, true);
 //        fight_.getKos().put(Fight.PLAYER, false);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.KO_PLAYER,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.KO_PLAYER, fight_.getTemp().getIssue());
     }
 
 
@@ -1715,8 +1714,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 1, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(!fight_.getAcceptableChoices());
-        assertEq(IssueSimulation.RULES_SWITCH,fight_.getIssue());
+        assertTrue(!fight_.getTemp().getAcceptableChoices());
+        assertEq(IssueSimulation.RULES_SWITCH, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -1796,9 +1795,9 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         evos_.put((byte) 2, choice_);
         evolutions_.add(evos_);
         simulate(fight_, actionsRound_, actionsSubstitutingFront_, actionsSubstitutingBack_, evolutions_, player_, diff_, data_);
-        assertTrue(fight_.getAcceptableChoices());
+        assertTrue(fight_.getTemp().getAcceptableChoices());
         assertTrue(FightFacade.win(fight_));
-        assertEq(IssueSimulation.NOTHING,fight_.getIssue());
+        assertEq(IssueSimulation.NOTHING, fight_.getTemp().getIssue());
     }
 
     @Test
@@ -2468,7 +2467,7 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         fightSimulation_.chooseMove(0, 1, 0, BROUHAHA, POKEMON_FOE_TARGET_ZERO, data_);
         fightSimulation_.simulateFight(data_);
         //the evolution is not valid but as the evolution happens at the end of fight, choices are acceptable.
-        assertTrue(fightSimulation_.getGame().getFight().getAcceptableChoices());
+        assertTrue(fightSimulation_.getGame().getFight().getTemp().getAcceptableChoices());
         assertTrue(fightSimulation_.getProbleme());
         assertTrue(fightSimulation_.isOk());
         assertEq(2, fightSimulation_.getKoFoes().size());

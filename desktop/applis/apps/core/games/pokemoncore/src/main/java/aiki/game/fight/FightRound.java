@@ -68,7 +68,7 @@ final class FightRound {
 
     static void roundAllThrowers(Fight _fight,Difficulty _diff,Player _user, DataBase _import){
         beginRound(_fight, _diff, _import);
-        while (_fight.isKeepRound()) {
+        while (_fight.getTemp().isKeepRound()) {
             roundUser(_fight, _diff, _import);
         }
         endRoundFight(_fight, _diff, _user, _import);
@@ -155,18 +155,18 @@ final class FightRound {
     }
 
     static void calculateNextFighters(Fight _fight, TeamPositionList _fighters, DataBase _import) {
-        _fight.getRemainingFighters().clear();
+        _fight.getTemp().getRemainingFighters().clear();
         NextUsers cbtsNonJoue_;
         cbtsNonJoue_ = nextFighters(_fight, _fighters, _import);
-        if(!_fight.getAcceptableChoices()){
-            _fight.setKeepRound(false);
+        if(!_fight.getTemp().getAcceptableChoices()){
+            _fight.getTemp().setKeepRound(false);
             return;
         }
         if (cbtsNonJoue_.getNextFighters().isEmpty()) {
-            _fight.setKeepRound(false);
+            _fight.getTemp().setKeepRound(false);
             return;
         }
-        _fight.getRemainingFighters().addAllElts(cbtsNonJoue_.getNextFighters());
+        _fight.getTemp().getRemainingFighters().addAllElts(cbtsNonJoue_.getNextFighters());
         _fight.setCurrentUser(cbtsNonJoue_.getNextFighters().first());
         for(TeamPosition e:cbtsNonJoue_.getItemUsers()){
             Fighter creature_=_fight.getFighter(e);
@@ -182,29 +182,29 @@ final class FightRound {
             cbts_ = FightOrder.fightersHavingToAct(_fight,false,_import);
             cbts_ = FightOrder.fightersBeingHealed(_fight, cbts_);
             if (!cbts_.isEmpty()) {
-                _fight.getOrderedFighters().clear();
-                _fight.getOrderedFighters().addAllElts(cbts_);
+                _fight.getTemp().getOrderedFighters().clear();
+                _fight.getTemp().getOrderedFighters().addAllElts(cbts_);
                 FightOrder.sortFightersBeingHealedAmongList(_fight);
-                cbts_ = _fight.getOrderedFighters();
+                cbts_ = _fight.getTemp().getOrderedFighters();
                 nextFighters_.getNextFighters().add(cbts_.first());
                 return nextFighters_;
             }
             cbts_ = FightOrder.fightersHavingToAct(_fight,false,_import);
             cbts_ = FightOrder.fightersSwitching(_fight, cbts_);
             if (!cbts_.isEmpty()) {
-                _fight.getOrderedFighters().clear();
-                _fight.getOrderedFighters().addAllElts(cbts_);
+                _fight.getTemp().getOrderedFighters().clear();
+                _fight.getTemp().getOrderedFighters().addAllElts(cbts_);
                 FightOrder.sortFightersSwitchingAmongList(_fight, _import);
-                cbts_ = _fight.getOrderedFighters();
+                cbts_ = _fight.getTemp().getOrderedFighters();
                 nextFighters_.getNextFighters().add(cbts_.first());
                 return nextFighters_;
             }
             cbts_ = FightOrder.fightersHavingToAct(_fight,false,_import);
             cbts_ = FightOrder.fightersUsingMove(_fight, cbts_);
-            _fight.getOrderedFighters().clear();
-            _fight.getOrderedFighters().addAllElts(cbts_);
+            _fight.getTemp().getOrderedFighters().clear();
+            _fight.getTemp().getOrderedFighters().addAllElts(cbts_);
             FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
-            cbts_ = _fight.getOrderedFighters();
+            cbts_ = _fight.getTemp().getOrderedFighters();
         } else {
             nextFighters_ = new NextUsers(_fighters, nextFighters_.getItemUsers());
             return nextFighters_;
@@ -212,10 +212,10 @@ final class FightRound {
         if(cbts_.isEmpty()){
             cbts_ = FightOrder.fightersHavingToAct(_fight,true,_import);
             cbts_ = FightOrder.fightersUsingMove(_fight, cbts_);
-            _fight.getOrderedFighters().clear();
-            _fight.getOrderedFighters().addAllElts(cbts_);
+            _fight.getTemp().getOrderedFighters().clear();
+            _fight.getTemp().getOrderedFighters().addAllElts(cbts_);
             FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
-            cbts_ = _fight.getOrderedFighters();
+            cbts_ = _fight.getTemp().getOrderedFighters();
         }
         if(cbts_.isEmpty()){
             return nextFighters_;
@@ -247,7 +247,7 @@ final class FightRound {
 
     static void beginRound(Fight _fight, Difficulty _diff, DataBase _import) {
         TeamPositionList cbts_=new TeamPositionList();
-        _fight.setKeepRound(true);
+        _fight.getTemp().setKeepRound(true);
         _fight.getEffects().clear();
         if(_fight.getBeginRound()){
             setAllyChoices(_fight, _import);
@@ -257,22 +257,22 @@ final class FightRound {
             Fighter creature_=_fight.getFighter(currentUser_);
             if(!NumberUtil.eq(creature_.getSubstistute(),Fighter.BACK)){
                 roundThrowerSwitch(_fight, currentUser_, _diff, _import);
-                if(!_fight.getAcceptableChoices()){
-                    _fight.setKeepRound(false);
+                if(!_fight.getTemp().getAcceptableChoices()){
+                    _fight.getTemp().setKeepRound(false);
                     return;
                 }
             }
             _fight.setState(FightState.ATTAQUES);
             //switch du dernier lanceur d'un joueur avec son remplacant
             cbts_=selectTargetHavingToPlayAfterThrower(_fight,currentUser_,_import);
-            _fight.getOrderedFighters().clear();
-            _fight.getOrderedFighters().addAllElts(cbts_);
+            _fight.getTemp().getOrderedFighters().clear();
+            _fight.getTemp().getOrderedFighters().addAllElts(cbts_);
             FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
-            cbts_ = _fight.getOrderedFighters();
+            cbts_ = _fight.getTemp().getOrderedFighters();
         }
         calculateNextFighters(_fight, cbts_, _import);
-        if (_fight.getRemainingFighters().isEmpty()) {
-            _fight.setKeepRound(false);
+        if (_fight.getTemp().getRemainingFighters().isEmpty()) {
+            _fight.getTemp().setKeepRound(false);
         }
     }
 
@@ -281,23 +281,23 @@ final class FightRound {
         Fighter creature_=_fight.getFighter(_fight.getCurrentUser());
         if(creature_.getAction() instanceof ActionMove){
             FightRound.roundThrowerMove(_fight, _fight.getCurrentUser(),_diff,_import);
-            if(!_fight.getAcceptableChoices()){
-                _fight.setKeepRound(false);
+            if(!_fight.getTemp().getAcceptableChoices()){
+                _fight.getTemp().setKeepRound(false);
                 return;
             }
             if(FightKo.endedFight(_fight,_diff)){
                 //proposition d'attaques et d'evos
-                _fight.setKeepRound(false);
+                _fight.getTemp().setKeepRound(false);
                 return;
             }
             if (substituingAfterRoundThrowerMove(_fight, _fight.getCurrentUser(), _diff, _import)) {
-                _fight.setKeepRound(false);
+                _fight.getTemp().setKeepRound(false);
                 return;
             }
         } else if(creature_.getAction() instanceof ActionSwitch) {
             FightRound.roundThrowerSwitch(_fight,_fight.getCurrentUser(),_diff,_import);
-            if(!_fight.getAcceptableChoices()){
-                _fight.setKeepRound(false);
+            if(!_fight.getTemp().getAcceptableChoices()){
+                _fight.getTemp().setKeepRound(false);
                 return;
             }
         } else {
@@ -307,27 +307,27 @@ final class FightRound {
         creature_.setActed(true);
         //tri des lanceurs
         TeamPositionList cbts_ = selectTargetHavingToPlayAfterThrower(_fight,_fight.getCurrentUser(),_import);
-        _fight.getOrderedFighters().clear();
-        _fight.getOrderedFighters().addAllElts(cbts_);
+        _fight.getTemp().getOrderedFighters().clear();
+        _fight.getTemp().getOrderedFighters().addAllElts(cbts_);
         FightOrder.sortFightersUsingMoveAmongList(_fight,_import);
-        cbts_ = _fight.getOrderedFighters();
+        cbts_ = _fight.getTemp().getOrderedFighters();
         calculateNextFighters(_fight, cbts_, _import);
-        if (_fight.getRemainingFighters().isEmpty()) {
-            _fight.setKeepRound(false);
+        if (_fight.getTemp().getRemainingFighters().isEmpty()) {
+            _fight.getTemp().setKeepRound(false);
         }
     }
 
     static void endRoundFight(Fight _fight,Difficulty _diff,Player _user, DataBase _import) {
         _fight.getEffects().clear();
-        if (FightKo.endedFight(_fight,_diff) || _fight.getRemainingFighters().isEmpty()) {
+        if (FightKo.endedFight(_fight,_diff) || _fight.getTemp().getRemainingFighters().isEmpty()) {
             endRoundShowActions(_fight,_diff, _user, _import);
         }
     }
 
     static void roundThrowerMove(Fight _fight, TeamPosition _lanceur,Difficulty _diff,DataBase _import){
         Fighter creature_=_fight.getFighter(_lanceur);
-        _fight.setLettingUserAttackWithStatus(true);
-        _fight.setKeepStatus(true);
+        _fight.getTemp().setLettingUserAttackWithStatus(true);
+        _fight.getTemp().setKeepStatus(true);
         String attaqueLanceur_=creature_.getFinalChosenMove();
         if (exitStatusBegin(_fight, _lanceur, _diff, _import, creature_)) {
             return;
@@ -337,7 +337,7 @@ final class FightRound {
             return;
         }
         FightInvoke.processInvokingMove(_fight,_lanceur,_diff,_import);
-        if (!_fight.isSuccessfulInvokation()) {
+        if (!_fight.getTemp().isSuccessfulInvokation()) {
             endRoundThrower(_fight, _lanceur, attaqueLanceur_, false, _import);
             return;
         }
@@ -378,7 +378,7 @@ final class FightRound {
             }
             processEffectTargets(_fight, _lanceur, lanceur_,new FightEffectState(primaire_,i,previousEffects_), _diff, _import);
             previousEffects_.add(i);
-            if (!_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff)) {
+            if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff)) {
                 return;
             }
         }
@@ -387,19 +387,19 @@ final class FightRound {
 
     private static TeamPosition possibleChangeUser(Fight _fight, TeamPosition _lanceur, DataBase _import, MoveData _fAttFinal) {
         TeamPosition lanceur_= _lanceur;
-        _fight.setChangeThrower(false);
+        _fight.getTemp().setChangeThrower(false);
         if (_fAttFinal.canBoostAllies()) {
             StatusMoveData fAttNonOff_=(StatusMoveData) _fAttFinal;
             if (fAttNonOff_.getThievableMove()) {
                 TeamPositionList takers_ = takers(_fight,lanceur_, _import);
                 if (!takers_.isEmpty()) {
-                    _fight.getOrderedFighters().clear();
-                    _fight.getOrderedFighters().addAllElts(takers_);
+                    _fight.getTemp().getOrderedFighters().clear();
+                    _fight.getTemp().getOrderedFighters().addAllElts(takers_);
                     FightOrder.sortFightersUsingMoveAmongList(_fight, _import);
-                    takers_ = _fight.getOrderedFighters();
+                    takers_ = _fight.getTemp().getOrderedFighters();
                     lanceur_ = takers_.first();
                     _fight.addChangingWiewPointUserMessage(lanceur_, _import);
-                    _fight.setChangeThrower(true);
+                    _fight.getTemp().setChangeThrower(true);
                 }
             }
         }
@@ -459,12 +459,12 @@ final class FightRound {
                 continue;
             }
             statusBeginRoundAttack(_fight, _lanceur,c, _diff, _import);
-            if (_fight.getSimulation() && !_fight.getLettingUserAttackWithStatus()) {
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.CANNOT_USE);
+            if (_fight.getTemp().getSimulation() && !_fight.getTemp().getLettingUserAttackWithStatus()) {
+                _fight.getTemp().setAcceptableChoices(false);
+                _fight.getTemp().setIssue(IssueSimulation.CANNOT_USE);
                 return true;
             }
-            if(!_fight.isKeepStatus()){
+            if(!_fight.getTemp().isKeepStatus()){
                 _fight.addStatusBeginRoundMessage(_lanceur, c, _import);
                 endRoundThrower(_fight, _lanceur, attaqueLanceur_, false, _import);
                 return true;
@@ -567,29 +567,29 @@ final class FightRound {
             if (nbEffets_ > _status.getIndex() + 1) {
                 Effect eff_ = fAttFinal_.getEffet(_status.getIndex() + 1);
                 if (eff_.getTargetChoice() == TargetChoice.LANCEUR) {
-                    _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _finalThrower),BoolVal.TRUE);
+                    _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _finalThrower),BoolVal.TRUE);
                 }
             }
         }
     }
     private static boolean exitEffectTarget(Fight _fight, TeamPosition _finalThrower,
                                             FightEffectState _status, Difficulty _diff, DataBase _import, TeamPosition _e) {
-        if (!_status.getPreviousEffect().isEmpty() && !_fight.getSuccessfulEffects().contains(new NbEffectFighterCoords((int) _status.getPreviousEffect().getMaximum(-1), _e))) {
+        if (!_status.getPreviousEffect().isEmpty() && !_fight.getTemp().getSuccessfulEffects().contains(new NbEffectFighterCoords((int) _status.getPreviousEffect().getMaximum(-1), _e))) {
             return false;
         }
-        if(!NumberUtil.eq(_e.getTeam(),_finalThrower.getTeam()) && !_fight.isChangeThrower()){
+        if(!NumberUtil.eq(_e.getTeam(),_finalThrower.getTeam()) && !_fight.getTemp().isChangeThrower()){
             if (exitStatusRelat(_fight, _finalThrower, _diff, _import, _status.getCreature(), _e)) {
                 return true;
             }
-            if(!_fight.getLettingUserAttackWithStatus()){
-                _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(),_e),BoolVal.FALSE);
+            if(!_fight.getTemp().getLettingUserAttackWithStatus()){
+                _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(),_e),BoolVal.FALSE);
                 return false;
             }
             if (_status.isFirstEffect() && _import.getMove(firstMove(_fight, _status.getCreature())) instanceof DamagingMoveData) {
                 pressure(_fight, _finalThrower, _e, _status.getAttaqueLanceur(), _diff, _import);
             }
         }
-        _fight.setSending(false);
+        _fight.getTemp().setSending(false);
         RandomBoolResults resultatsReussite_=FightSuccess.successfulMove(_fight,_finalThrower,_e,_status.getAttaqueLanceur(), _status.getIndex(),true,_import);
         if(!resultatsReussite_.isSuccessful()){
             return exitEffectTargetBecauseKoMove(_fight, _finalThrower, _status, _diff, _import, _e, resultatsReussite_);
@@ -603,39 +603,39 @@ final class FightRound {
 
     private static void noDamage(Fight _fight, TeamPosition _finalThrower, FightEffectState _status, DataBase _import, TeamPosition _e) {
         _fight.addSuccessfulMoveButNoDamageMessage(_status.getAttaqueLanceur(), _e, _import);
-        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e), ComparatorBoolean.of(_status.getfAttFinal().getSecEffectIfNoDamage()));
+        _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e), ComparatorBoolean.of(_status.getfAttFinal().getSecEffectIfNoDamage()));
         if (_status.getfAttFinal().getSecEffectIfNoDamage()) {
-            _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _finalThrower), BoolVal.TRUE);
+            _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _finalThrower), BoolVal.TRUE);
         }
     }
 
     private static boolean exitAccuracyOrDone(Fight _fight, TeamPosition _finalThrower, FightEffectState _status, Difficulty _diff, DataBase _import, TeamPosition _e) {
-        if(_status.isFirstEffect() && !_fight.isChangeThrower()){
+        if(_status.isFirstEffect() && !_fight.getTemp().isChangeThrower()){
             processAccurracy(_fight, _status.getAttaqueLanceur(), _finalThrower, _e, _import);
-            if (!_fight.getAcceptableChoices()) {
+            if (!_fight.getTemp().getAcceptableChoices()) {
                 return true;
             }
-            if (!_fight.isSuccessfulUse()) {
+            if (!_fight.getTemp().isSuccessfulUse()) {
                 _fight.addFailMoveMessage(_status.getAttaqueLanceur(), _e, _import);
-                _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e),BoolVal.FALSE);
+                _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e),BoolVal.FALSE);
                 return false;
             }
         }
         _fight.addSuccessfulMoveMessage(_status.getAttaqueLanceur(), _e, _import);
-        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e),BoolVal.TRUE);
+        _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e),BoolVal.TRUE);
         FightEffects.processEffectTarget(_fight, _status.getAttaqueLanceur(), _status.getIndex(),
                 _finalThrower, _e, _diff, _import);
         _status.achieveTar();
-        return !_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff);
+        return !_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff);
     }
 
     private static boolean exitEffectTargetBecauseKoMove(Fight _fight, TeamPosition _finalThrower, FightEffectState _status, Difficulty _diff, DataBase _import, TeamPosition _e, RandomBoolResults _resultatsReussite) {
         _fight.addFailMoveMessage(_status.getAttaqueLanceur(), _e, _import);
         //precision
-        _fight.getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e),BoolVal.FALSE);
-        if(_resultatsReussite.isEffectIfFail() && !_fight.isChangeThrower()){
+        _fight.getTemp().getSuccessfulEffects().put(new NbEffectFighterCoords(_status.getIndex(), _e),BoolVal.FALSE);
+        if(_resultatsReussite.isEffectIfFail() && !_fight.getTemp().isChangeThrower()){
             effectWhileFail(_fight, _finalThrower, _e, _status.getAttaqueLanceur(), _diff, _import);
-            if (!_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff)) {
+            if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff)) {
                 return true;
             }
             Rate efficiency_ = FightSuccess.rateEffAgainstTargetMove(_fight, _finalThrower, _e, _import);
@@ -651,7 +651,7 @@ final class FightRound {
         if (NumberUtil.eq(_e.getTeam(), _finalThrower.getTeam())) {
             //ally
             healPartner(_fight, _finalThrower, _e, _tauxMultPv, _import);
-            if (_fight.isEnabledHealingPartner()) {
+            if (_fight.getTemp().isEnabledHealingPartner()) {
                 continueLoop_ = true;
             }
         }
@@ -665,20 +665,20 @@ final class FightRound {
     }
 
     private static boolean exitStatusRelat(Fight _fight, TeamPosition _finalThrower, Difficulty _diff, DataBase _import, Fighter _creature, TeamPosition _e) {
-        _fight.setLettingUserAttackWithStatus(true);
-        _fight.setKeepStatus(true);
+        _fight.getTemp().setLettingUserAttackWithStatus(true);
+        _fight.getTemp().setKeepStatus(true);
         for(MoveTeamPosition c: _creature.getStatusRelatSet()){
             if (!TeamPosition.eq(c.getTeamPosition(), _e) || NumberUtil.eq(_creature.getStatusRelatNbRoundShort(c), 0)) {
                 continue;
             }
             statusBeginRoundAttack(_fight, _finalThrower,c.getMove(), _diff, _import);
             _fight.addStatusBeginRoundRelMessage(_finalThrower, c.getMove(), _e, _import);
-            if (!_fight.getLettingUserAttackWithStatus() && _fight.getSimulation()) {
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.CANNOT_USE);
+            if (!_fight.getTemp().getLettingUserAttackWithStatus() && _fight.getTemp().getSimulation()) {
+                _fight.getTemp().setAcceptableChoices(false);
+                _fight.getTemp().setIssue(IssueSimulation.CANNOT_USE);
                 return true;
             }
-            if(!_fight.isKeepStatus()){
+            if(!_fight.getTemp().isKeepStatus()){
                 return FightKo.endedFight(_fight, _diff);
             }
         }
@@ -687,7 +687,7 @@ final class FightRound {
 
     private static String firstMove(Fight _fight, Fighter _creature) {
         String firstMove_;
-        if (_fight.isInvokedMove()) {
+        if (_fight.getTemp().isInvokedMove()) {
             firstMove_ = _creature.getAlreadyInvokedMovesRound().first();
         } else {
             firstMove_ = _creature.getFinalChosenMove();
@@ -701,8 +701,8 @@ final class FightRound {
             return;
         }
         effectBeginRoundAttack(_fight,_combattant,_nomStatut,_diff,_import);
-        if (!_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff) || !_fight.getLettingUserAttackWithStatus()) {
-            _fight.setKeepStatus(false);
+        if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff) || !_fight.getTemp().getLettingUserAttackWithStatus()) {
+            _fight.getTemp().setKeepStatus(false);
         }
     }
 
@@ -732,14 +732,14 @@ final class FightRound {
         if(!attaquer_ && status_ instanceof StatusBeginRoundAutoDamage){
             StatusBeginRoundAutoDamage autoDamage_ = (StatusBeginRoundAutoDamage) status_;
             autoDamage(_fight,_combattant,autoDamage_.getPower(),autoDamage_.getAttack(),autoDamage_.getDefense(),_diff,_import);
-            if (!_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff)) {
+            if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff)) {
                 return;
             }
         }
-        _fight.setLettingUserAttackWithStatus(attaquer_&&attaquerAdv_);
+        _fight.getTemp().setLettingUserAttackWithStatus(attaquer_&&attaquerAdv_);
     }
     private static boolean tirageGuerison(Fight _fight,TeamPosition _combattant,DataBase _import,MonteCarloBoolean _lawUseMove, LgInt _maxRd) {
-        if (_fight.getSimulation()) {
+        if (_fight.getTemp().getSimulation()) {
             return !NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER);
         }
         return FightSuccess.tr(_lawUseMove.editNumber(_maxRd, _import.getGenerator()));
@@ -749,7 +749,7 @@ final class FightRound {
         LgInt maxRd_ = _import.getMaxRd();
         boolean attaquerAdv_=true;
         if(!_lawUseMoveIfFoe.events().isEmpty()){
-            if(_fight.getSimulation()){
+            if(_fight.getTemp().getSimulation()){
                 if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_PLAYER)){
                     attaquerAdv_=false;
                 }
@@ -818,7 +818,7 @@ final class FightRound {
         if (StringUtil.contains(_move.getDeletedStatus(), _nomStatut)) {
             fini_= true;
         } else {
-            if(_fight.getSimulation()){
+            if(_fight.getTemp().getSimulation()){
                 fini_= NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE);
             } else {
                 fini_=!FightSuccess.tr(_loiModif.editNumber(maxRd_, _import.getGenerator()));
@@ -841,7 +841,7 @@ final class FightRound {
         }
         LgInt maxRd_ = _import.getMaxRd();
         Fighter creature_=_fight.getFighter(_combattant);
-        if(_fight.getSimulation()){
+        if(_fight.getTemp().getSimulation()){
             if(NumberUtil.eq(_combattant.getTeam(),Fight.CST_FOE)){
                 creature_.supprimerStatut(_nomStatut);
                 _fight.addDisabledStatusMessage(_nomStatut, _combattant, _import);
@@ -891,13 +891,13 @@ final class FightRound {
         if(Rate.greaterEq(degats_,creature_.getRemainingHp())){
             FightKo.setKoMoveTeams(_fight,_combattant,_diff,_import);
             _fight.addAnimationKoFighter(_combattant);
-            if (NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER) && _fight.getSimulation()) {
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
+            if (NumberUtil.eq(_combattant.getTeam(), Fight.CST_PLAYER) && _fight.getTemp().getSimulation()) {
+                _fight.getTemp().setAcceptableChoices(false);
+                _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
             }
         }else{
-            creature_.variationLeftHp(degats_.opposNb());
-            _fight.addHpMessage(_combattant, _import);
+            Rate r_ = creature_.variationLeftHp(degats_.opposNb());
+            _fight.addHpMessage(_combattant, _import,r_);
         }
     }
 
@@ -977,8 +977,8 @@ final class FightRound {
             }
             Rate varPv_=new Rate(_k.getValue());
             varPv_.multiplyBy(_creatureCible.pvMax());
-            _creatureCible.variationLeftHp(varPv_);
-            _fight.addHpMessage(_target, _import);
+            Rate r_ = _creatureCible.variationLeftHp(varPv_);
+            _fight.addHpMessage(_target, _import,r_);
         }
         if (_activeWeathers.isEmpty()) {
             if(!StringUtil.quickEq(_k.getStat().getWeather(),DataBase.EMPTY_STRING)){
@@ -987,8 +987,8 @@ final class FightRound {
             //ABSORB_VOLT, ABSORB_EAU
             Rate varPv_=new Rate(_k.getValue());
             varPv_.multiplyBy(_creatureCible.pvMax());
-            _creatureCible.variationLeftHp(varPv_);
-            _fight.addHpMessage(_target, _import);
+            Rate r_ = _creatureCible.variationLeftHp(varPv_);
+            _fight.addHpMessage(_target, _import,r_);
         }
     }
 
@@ -1019,9 +1019,9 @@ final class FightRound {
         if (_user.getRemainingHp().isZero()) {
             FightKo.setKoMoveTeams(_fight, _thrower, _diff, _import);
             _fight.addAnimationKoFighter(_thrower);
-            if (_fight.getSimulation()) {
-                _fight.setAcceptableChoices(false);
-                _fight.setIssue(IssueSimulation.KO_PLAYER);
+            if (_fight.getTemp().getSimulation()) {
+                _fight.getTemp().setAcceptableChoices(false);
+                _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
                 return true;
             }
         }
@@ -1044,12 +1044,12 @@ final class FightRound {
         StringMap<Rate> damage_;
         damage_ = FightSuccess.sufferingDamageTypes(_fight, _thrower, _target, _move, _import);
         for (String type_: damage_.getKeys()) {
-            _user.variationLeftHp(Rate.multiply(damage_.getVal(type_).opposNb(), _user.pvMax()));
-            _fight.addHpMessage(_thrower, _import);
+            Rate r_ = _user.variationLeftHp(Rate.multiply(damage_.getVal(type_).opposNb(), _user.pvMax()));
+            _fight.addHpMessage(_thrower, _import,r_);
         }
         if (FightSuccess.sufferingDirectMoves(_fight, _thrower, _target, _move, false, _import)) {
-            _user.variationLeftHp(Rate.multiply(_effectLoc.getSufferingDamageDirectMove().opposNb(), _user.pvMax()));
-            _fight.addHpMessage(_thrower, _import);
+            Rate r_ = _user.variationLeftHp(Rate.multiply(_effectLoc.getSufferingDamageDirectMove().opposNb(), _user.pvMax()));
+            _fight.addHpMessage(_thrower, _import,r_);
         }
         if (!_user.getRemainingHp().isZeroOrGt()) {
             _user.getRemainingHp().affectZero();
@@ -1075,7 +1075,7 @@ final class FightRound {
             TeamPosition _partner,
             Rate _rateHealingGlobalMoves,
             DataBase _import) {
-        _fight.setEnabledHealingPartner(false);
+        _fight.getTemp().setEnabledHealingPartner(false);
         Team equipeLanceur_=_fight.getTeams().getVal(_fighter.getTeam());
         Fighter creatureLanceur_=_fight.getFighter(_fighter);
         for(MoveTeamPosition c:creatureLanceur_.getStatusRelatSet()){
@@ -1088,9 +1088,9 @@ final class FightRound {
                 Rate pv_ = creatureCible_.pvMax();
                 pv_.multiplyBy(rateHealtHpPartner_);
                 pv_.multiplyBy(_rateHealingGlobalMoves);
-                creatureCible_.variationLeftHp(pv_);
-                _fight.addHpMessage(_partner, _import);
-                _fight.setEnabledHealingPartner(true);
+                Rate r_ = creatureCible_.variationLeftHp(pv_);
+                _fight.addHpMessage(_partner, _import,r_);
+                _fight.getTemp().setEnabledHealingPartner(true);
             }
         }
     }
@@ -1113,7 +1113,7 @@ final class FightRound {
         Rate precision_= FightSuccess.accuracy(_fight,_thrower,_target,_move,_import);
         boolean precisionEstPartielle_=Rate.strLower(precision_, DataBase.determinatedRate());
         boolean randomReturn_ = false;
-        _fight.setSuccessfulUse(true);
+        _fight.getTemp().setSuccessfulUse(true);
         if (!precisionMaxCible_&&!sansEchec_) {
             MonteCarloBoolean law_ = MonteCarloUtil.booleanLaw(precision_);
             boolean success_;
@@ -1126,7 +1126,7 @@ final class FightRound {
                 success_ = FightSuccess.random(_import, law_);
             }
             if (!success_) {
-                _fight.setSuccessfulUse(false);
+                _fight.getTemp().setSuccessfulUse(false);
                 randomReturn_ = true;
             }
         }
@@ -1170,7 +1170,7 @@ final class FightRound {
             DataBase _import) {
         Team equipe_=_fight.getTeams().getVal(_lanceur.getTeam());
         Fighter creature_=_fight.getFighter(_lanceur);
-        _fight.getDamageByCurrentUser().clear();
+        _fight.getTemp().getDamageByCurrentUser().clear();
         if(creature_.isSuccessfulMove()){
             equipe_.addSuccessfulMoveRound(_throwerMove);
             if(equipe_.getNbUsesMoves().contains(_throwerMove)){
@@ -1198,7 +1198,7 @@ final class FightRound {
             }
             creature_.incrementConsecutiveUsesMove();
             //rechargment de l'attaque si le lanceur n'est pas KO et l'attaque est reussie et demande un rechargement
-            if(!_fight.isInvokedMove()&&_reloadMove&&creature_.powerPointsMove(_throwerMove) > 0){
+            if(!_fight.getTemp().isInvokedMove() &&_reloadMove&&creature_.powerPointsMove(_throwerMove) > 0){
                 creature_.setNeedingToRecharge(true);
             }
         }
@@ -1279,7 +1279,7 @@ final class FightRound {
                 //As for all team, is exists a "no ko fighter" at the front, so there a single free place
                 TeamPositionList pkPlayers_;
                 pkPlayers_ = FightOrder.fightersBelongingToUser(_fight, true);
-                _fight.setFullHealing(true);
+                _fight.getTemp().setFullHealing(true);
                 Bytes ally_ = new Bytes();
                 int mult_ = _fight.getMult();
                 for (byte m = IndexConstants.FIRST_INDEX; m < mult_; m++) {
@@ -1293,10 +1293,11 @@ final class FightRound {
                 byte pl_ = (byte) (_fight.getPlayerMaxNumberFrontFighters() - allyPk_.getGroundPlace());
                 Fighter fighter_ = _fight.getFighter(pkPlayers_.first());
                 FightSending.sending(_fight, pkPlayers_.first(), _diff, _import);
-                fighter_.fullHeal(_import);
+                fighter_.fullHeal();
+                fighter_.fullHealMessage(_import,_fight.getTemp());
                 fighter_.groundPlaceSubst(pl_);
                 _fight.getFirstPositPlayerFighters().put(pkPlayers_.first().getPosition(), pl_);
-                _fight.setFullHealing(false);
+                _fight.getTemp().setFullHealing(false);
                 AnimationSwitch animation_;
                 animation_ = new AnimationSwitch();
                 animation_.setIndex(_fight.getEffects().size());
@@ -1306,7 +1307,6 @@ final class FightRound {
                 animation_.setRateRemainHp(fighter_.rateRemainHp());
                 animation_.setWonExpRate(fighter_.wonExpRate(_import));
                 _fight.getEffects().add(animation_);
-                _fight.addComment(fighter_.getComment());
                 _fight.setState(FightState.ATTAQUES);
             }
             return;
@@ -1328,22 +1328,20 @@ final class FightRound {
         if(_soin.getHappiness().contains(_creatureLanceur.getUsedBallCatching())){
             coeff_= _soin.getHappiness().getVal(_creatureLanceur.getUsedBallCatching());
         }
-        _creatureLanceur.clearMessages();
-        _creatureLanceur.winHappinessByGrowingLevel(coeff_, _import);
-        _fight.addComment(_creatureLanceur.getComment());
+        _creatureLanceur.winHappinessByGrowingLevel(coeff_, _import, _fight.getTemp());
         if(_soin instanceof HealingPp){
             HealingPp soinPp_=(HealingPp) _soin;
             roundThrowerHealingItemPp(_import, _creatureLanceur, _objet, _attaque, soinPp_);
         }
         if(_soin instanceof HealingHp){
             HealingHp soinPv_=(HealingHp) _soin;
-            _creatureLanceur.variationLeftHp(soinPv_.getHp());
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = _creatureLanceur.variationLeftHp(soinPv_.getHp());
+            _fight.addHpMessage(_lanceur, _import,r_);
         }
         if(_soin instanceof HealingHpStatus){
             HealingHpStatus soinPvStatut_=(HealingHpStatus) _soin;
-            _creatureLanceur.variationLeftHp(Rate.multiply(soinPvStatut_.getHealedHpRate(), _creatureLanceur.pvMax()));
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = _creatureLanceur.variationLeftHp(Rate.multiply(soinPvStatut_.getHealedHpRate(), _creatureLanceur.pvMax()));
+            _fight.addHpMessage(_lanceur, _import,r_);
             for(String e:soinPvStatut_.getStatus()){
                 _creatureLanceur.supprimerStatut(e);
                 _fight.addDisabledStatusMessage(e, _lanceur, _import);
@@ -1375,9 +1373,7 @@ final class FightRound {
     }
 
     private static void roundThrowerHealingBerry(Fight _fight, TeamPosition _lanceur, DataBase _import, Fighter _creatureLanceur, String _objet, String _attaque, Berry _berry) {
-        _creatureLanceur.clearMessages();
-        _creatureLanceur.winHappinessByGrowingLevel((short) 1, _import);
-        _fight.addComment(_creatureLanceur.getComment());
+        _creatureLanceur.winHappinessByGrowingLevel((short) 1, _import, _fight.getTemp());
         if(_berry.getHealPp()!=0){
             short var_= _creatureLanceur.healedPpMove(_attaque, _objet, _import);
             if (var_ != 0) {
@@ -1391,8 +1387,8 @@ final class FightRound {
             _fight.addStatisticMessage(_lanceur, c, var_, _import);
         }
         if(!_berry.getHealHp().isZero()){
-            _creatureLanceur.variationLeftHp(_berry.getHealHp());
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = _creatureLanceur.variationLeftHp(_berry.getHealHp());
+            _fight.addHpMessage(_lanceur, _import,r_);
         }
         for(String c: _creatureLanceur.getStatusSet()){
             if(NumberUtil.eq(_creatureLanceur.getStatusNbRoundShort(c), 0)){
@@ -1404,21 +1400,20 @@ final class FightRound {
             }
         }
         if(!_berry.getHealHpRate().isZero()){
-            _creatureLanceur.variationLeftHp(Rate.multiply(_berry.getHealHpRate(), _creatureLanceur.pvMax()));
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = _creatureLanceur.variationLeftHp(Rate.multiply(_berry.getHealHpRate(), _creatureLanceur.pvMax()));
+            _fight.addHpMessage(_lanceur, _import,r_);
         }
         if(!_berry.getHealHpBySuperEffMove().isZero()){
-            _creatureLanceur.variationLeftHp(Rate.multiply(_berry.getHealHpBySuperEffMove(), _creatureLanceur.pvMax()));
-            _fight.addHpMessage(_lanceur, _import);
+            Rate r_ = _creatureLanceur.variationLeftHp(Rate.multiply(_berry.getHealHpBySuperEffMove(), _creatureLanceur.pvMax()));
+            _fight.addHpMessage(_lanceur, _import,r_);
         }
     }
 
     private static void healTeam(Fight _fight, DataBase _import, Team _equipeLanceur) {
         for(byte c: _equipeLanceur.getMembers().getKeys()){
             Fighter membre_= _equipeLanceur.refPartMembres(c);
-            membre_.clearMessages();
-            membre_.fullHeal(_import);
-            _fight.addComment(membre_.getComment());
+            membre_.fullHeal();
+            membre_.fullHealMessage(_import,_fight.getTemp());
         }
     }
 
@@ -1505,9 +1500,9 @@ final class FightRound {
     }
 
     static void endRoundShowActions(Fight _fight,Difficulty _diff,Player _user, DataBase _import) {
-        _fight.setEndRound(true);
+        _fight.getTemp().setEndRound(true);
         if(FightKo.endedFight(_fight,_diff)){
-            _fight.setEndRound(false);
+            _fight.getTemp().setEndRound(false);
             if (!FightFacade.win(_fight)) {
                 return;
             }
@@ -1515,8 +1510,8 @@ final class FightRound {
             return;
         }
         FightEndRound.processEndRound(_fight,_diff,_import);
-        _fight.setEndRound(false);
-        if (!_fight.getAcceptableChoices() || FightKo.endedFight(_fight, _diff) && !FightFacade.win(_fight)) {
+        _fight.getTemp().setEndRound(false);
+        if (!_fight.getTemp().getAcceptableChoices() || FightKo.endedFight(_fight, _diff) && !FightFacade.win(_fight)) {
             return;
         }
         boolean allKo_ = allPlayerFightersKo(_fight, _import);
@@ -1563,7 +1558,8 @@ final class FightRound {
         if (FightFacade.win(_fight)&& allKo_) {
             for (TeamPosition f: FightOrder.fightersBelongingToUser(_fight, true)) {
                 Fighter fighter_ = _fight.getFighter(f);
-                fighter_.fullHeal(_import);
+                fighter_.fullHeal();
+                fighter_.fullHealMessage(_import,_fight.getTemp());
             }
             allKo_ = false;
         }

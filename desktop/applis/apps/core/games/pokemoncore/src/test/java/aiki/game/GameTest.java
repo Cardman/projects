@@ -1309,7 +1309,7 @@ public class GameTest extends InitializationDataBase {
         game_.roundAllThrowers(data_, true);
         assertEq(FightState.ATTAQUES, game_.getFight().getState());
         assertTrue(game_.getFight().getFightType().isWild());
-        assertTrue(game_.getFight().isKeepRound());
+        assertTrue(game_.getFight().getTemp().isKeepRound());
     }
 
     @Test

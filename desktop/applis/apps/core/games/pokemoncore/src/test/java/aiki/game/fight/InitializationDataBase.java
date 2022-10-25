@@ -9,6 +9,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.util.TypesDuo;
+import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.map.DataMap;
@@ -1705,4 +1706,12 @@ public class InitializationDataBase extends EquallablePkUtil {
         _fightSimulation.setTeams(chs_, _begin);
     }
 
+    public void fullHeal(Fight _f, TeamPosition _id, DataBase _d) {
+        Fighter fi_ = _f.getFighter(_id);
+        fi_.fullHeal();
+        fi_.fullHealMessage(_d,_f.getTemp());
+    }
+    public void calculateNewLevel(Fighter _f, Difficulty _dif, DataBase _d, StringList _ls) {
+        _f.calculateNewLevel(_dif, _d, _ls,new TransientFight());
+    }
 }
