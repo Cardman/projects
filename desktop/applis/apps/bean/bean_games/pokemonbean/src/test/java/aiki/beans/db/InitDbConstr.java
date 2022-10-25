@@ -179,10 +179,10 @@ public abstract class InitDbConstr extends InitDbBean {
         fac_.setLanguage(EN);
         return fac_;
     }
-    protected static MoveData moveDam(TargetChoice _t) {
+    protected static DamagingMoveData moveDam(TargetChoice _t) {
         return moveDam(_t,"1", SwitchType.NOTHING, 0);
     }
-    protected static MoveData moveDam(TargetChoice _t, String _acc, SwitchType _n, int _rk) {
+    protected static DamagingMoveData moveDam(TargetChoice _t, String _acc, SwitchType _n, int _rk) {
         DamagingMoveData mv_ = Instances.newDamagingMoveData();
         feed(mv_, _t, _acc, _n, _rk, true, true, true, true, true, true, true, true, true);
         feed(mv_, true, true, true);
@@ -196,10 +196,10 @@ public abstract class InitDbConstr extends InitDbBean {
         _mv.setDirect(_d);
     }
 
-    protected static MoveData moveSta(TargetChoice _t) {
+    protected static StatusMoveData moveSta(TargetChoice _t) {
         return moveSta(_t,"1", SwitchType.NOTHING, 0);
     }
-    protected static MoveData moveSta(TargetChoice _t, String _acc, SwitchType _n, int _rk) {
+    protected static StatusMoveData moveSta(TargetChoice _t, String _acc, SwitchType _n, int _rk) {
         StatusMoveData mv_ = Instances.newStatusMoveData();
         feed(mv_, _t, _acc, _n, _rk, true, true, true, true, true, true, true, true, true);
         feed(mv_, true, true);

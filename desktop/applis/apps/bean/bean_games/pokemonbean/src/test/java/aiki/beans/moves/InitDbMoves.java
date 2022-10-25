@@ -5,9 +5,11 @@ import aiki.beans.db.InitDbConstr;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
+import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectDamage;
+import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.fight.Fight;
@@ -246,19 +248,21 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
-        MoveData dam_ = moveDam(TargetChoice.ANY_FOE);
+        DamagingMoveData dam_ = moveDam(TargetChoice.ANY_FOE);
         EffectDamage ef_ = Instances.newEffectDamage();
         ef_.setPower("1");
         target(dam_, ef_);
         facade_.getData().completeMembers(M_DAM, dam_);
-        MoveData dam2_ = moveDam(TargetChoice.ANY_FOE);
+        DamagingMoveData dam2_ = moveDam(TargetChoice.ANY_FOE);
+        dam2_.setDirect(false);
         dam2_.setAccuracy(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         EffectDamage ef2_ = Instances.newEffectDamage();
         ef2_.setPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         target(dam2_, ef2_);
         facade_.getData().completeMembers(M_DAM_VAR, dam2_);
         MoveData damBad_ = moveDam(TargetChoice.ADJ_ADV);
-        damBad_.getEffects().add(Instances.newEffectDamage());
+        EffectStatistic st_ = Instances.newEffectStatistic();
+        target(damBad_,st_);
         facade_.getData().completeMembers(M_DAM_BAD, damBad_);
         facade_.getData().completeMembers(M_DAM_VERY_BAD, moveDam(TargetChoice.ADJ_UNIQ));
         facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
