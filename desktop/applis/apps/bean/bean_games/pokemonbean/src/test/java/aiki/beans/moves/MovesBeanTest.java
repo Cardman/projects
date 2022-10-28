@@ -422,4 +422,10 @@ public final class MovesBeanTest extends InitDbMoves {
     public void intTypes2() {
         assertEq(T_TYPE_TR,elt(callMoveLineGetTypes(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))),0));
     }
+    @Test
+    public void clickRow() {
+        Struct moveline_ = dispLine(feedDb(), 2);
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML, clickRow(moveline_));
+        assertEq(M_DAM, getValMoveId(moveline_));
+    }
 }

@@ -148,7 +148,11 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     public static String goToLine(FacadeGame _fac, int _index) {
         Struct moveline_ = dispLine(_fac, _index);
-        return navigateData(clickMoveLineBeanMove(),"","",moveline_, toInt(callMoveLineBeanIndexGet(moveline_)));
+        return clickRow(moveline_);
+    }
+
+    protected static String clickRow(Struct _bean) {
+        return navigateData(clickMoveLineBeanMove(), "", "move_line.clickMove", _bean, toInt(callMoveLineBeanIndexGet(_bean)));
     }
 
     protected static Struct dispLine(FacadeGame _fac, int _index) {
