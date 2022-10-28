@@ -14,6 +14,7 @@ public final class AikiBeansMovesStd{
     public static final String WEB_HTML_MOVES_DATA_HTML="web/html/moves/data.html";
     public static final String WEB_HTML_MOVES_MOVE_LINE_HTML="web/html/moves/moveline.html";
     public static final String BEAN_MOVES="moves";
+    public static final String BEAN_MOVE="move";
     public static final String BEAN_MOVE_LINE="move_line";
     public static final String TYPE_MOVE_BEAN = "aiki.beans.moves.MoveBean";
     public static final String TYPE_MOVE_LINE_BEAN = "aiki.beans.moves.MoveLineBean";

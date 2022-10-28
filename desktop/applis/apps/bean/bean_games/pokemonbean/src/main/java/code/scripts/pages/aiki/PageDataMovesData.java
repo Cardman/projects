@@ -1,10 +1,11 @@
 package code.scripts.pages.aiki;
+import aiki.beans.moves.AikiBeansMovesStd;
 import code.sml.*;
 import code.util.*;
 import code.util.ints.*;
 final class PageDataMovesData extends PageCardsCommon{
 private static final String C_P_143_0="javahtml";
-private static final String C_P_143_1="move";
+private static final String C_P_143_1=AikiBeansMovesStd.BEAN_MOVE;
 private static final String C_P_143_2="msg_movedata,title";
 private static final String C_P_143_3="displayName";
 private static final String C_P_143_4="web/css/moves.css";
