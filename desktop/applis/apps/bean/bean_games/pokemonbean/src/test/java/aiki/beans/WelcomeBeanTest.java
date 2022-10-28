@@ -37,7 +37,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertFalse(forms(bean_).contains(CST_LEARNT));
-        assertEq(3,forms(bean_).getValMoveData(CST_MOVES_SET).size());
+        assertEq(0,forms(bean_).getValMoveData(CST_MOVES_SET).size());
         assertTrue(forms(bean_).contains(CST_LEARNT_MOVES));
         CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
         assertEq(2,keys_.size());

@@ -37,6 +37,7 @@ public abstract class WithFilterBean extends CommonBean {
     private String hasEvo = SelectedBoolean.YES_AND_NO.getBoolName();
     private String isEvo = SelectedBoolean.YES_AND_NO.getBoolName();
     private String isLeg = SelectedBoolean.YES_AND_NO.getBoolName();
+    private String learnt = SelectedBoolean.YES_AND_NO.getBoolName();
     private String typedMinNbPossEvos = DataBase.EMPTY_STRING;
     private String typedMaxNbPossEvos = DataBase.EMPTY_STRING;
     private String minPower = DataBase.EMPTY_STRING;
@@ -122,7 +123,7 @@ public abstract class WithFilterBean extends CommonBean {
                 continue;
             }
             PokemonData pkData_ = k.getValue();
-            if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos())) && (getTypedMaxNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo()), pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
+            if (atLeastMatchType(translationsTypes_,pkData_.getTypes()) && (getTypedMinNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() >= NumberUtil.parseLongZero(getTypedMinNbPossEvos())) && (getTypedMaxNbPossEvos().isEmpty() || pkData_.getDirectEvolutions().size() <= NumberUtil.parseLongZero(getTypedMaxNbPossEvos())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getHasEvo()), !pkData_.getEvolutions().isEmpty()) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsEvo()), !StringUtil.quickEq(k.getKey(), pkData_.getBaseEvo())) && CriteriaForSearching.match(PokemonStandards.getBoolByName(getIsLeg()), pkData_.getGenderRep() == GenderRepartition.LEGENDARY)) {
                 pokedex_.put(k.getKey(),k.getValue());
             }
         }
@@ -137,13 +138,15 @@ public abstract class WithFilterBean extends CommonBean {
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         moves_ = DictionaryComparatorUtil.buildMovesData(data_,getLanguage());
+        AbsMap<String,MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
+        CustList<String> list_ = learntMoves_.getKeys();
         for (EntryCust<String, MoveData> k: _m.entryList()) {
             String displayName_ = translationsMoves_.getVal(k.getKey());
             if (!StringUtil.match(displayName_, getTypedName())) {
                 continue;
             }
             MoveData moveData_ = k.getValue();
-            if (atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory(), moveData_.getCategory())) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
+            if (CriteriaForSearching.match(PokemonStandards.getBoolByName(getLearnt()), StringUtil.contains(list_, k.getKey()))&&atLeastMatchType(translationsTypes_, moveData_.getTypes()) && (StringUtil.quickEq(getTypedCategory(), DataBase.EMPTY_STRING) || StringUtil.quickEq(getTypedCategory(), moveData_.getCategory())) && !excludeByAccuracy(moveData_) && !excludeByPower(moveData_)) {
                 moves_.put(k.getKey(),k.getValue());
             }
         }
@@ -354,6 +357,14 @@ public abstract class WithFilterBean extends CommonBean {
 
     public void setHasEvo(String _hasEvo) {
         hasEvo = _hasEvo;
+    }
+
+    public String getLearnt() {
+        return learnt;
+    }
+
+    public void setLearnt(String _l) {
+        this.learnt = _l;
     }
 
     public String getIsEvo() {

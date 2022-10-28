@@ -4,6 +4,7 @@ import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
@@ -20,6 +21,9 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InitDbMoves extends InitDbConstr {
+
+    public static final String B_NO = "B_NO";
+    public static final String B_YES = "B_YES";
 
     public static Struct callMovesBeanCategorySet(Struct _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
@@ -53,6 +57,10 @@ public abstract class InitDbMoves extends InitDbConstr {
         return BeanPokemonCommonTs.callBool(new MovesBeanWholeWordSet(),_str,_args);
     }
 
+    public static Struct callMovesBeanLearntSet(Struct _str, String _args) {
+        return BeanPokemonCommonTs.callString(new MovesBeanLearntSet(),_str,_args);
+    }
+
     public static Struct callMovesBeanCategoriesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanCategoriesGet(),_str,_args);
     }
@@ -75,6 +83,10 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     public static Struct callMovesBeanMinPowerGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMinPowerGet(),_str,_args);
+    }
+
+    public static Struct callMovesBeanBooleansGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MovesBeanBooleansGet(),_str,_args);
     }
 
     public static Struct callMovesBeanMovesGet(Struct _str, long... _args) {
@@ -127,6 +139,10 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     public static Struct callMoveLineBeanTypesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineBeanTypesGet(),_str,_args);
+    }
+
+    public static Struct callMovesBeanLearntGet(Struct _str, String _args) {
+        return BeanPokemonCommonTs.callString(new MovesBeanLearntGet(),_str,_args);
     }
 
     public static String goToLine(FacadeGame _fac, int _index) {
@@ -300,6 +316,10 @@ public abstract class InitDbMoves extends InitDbConstr {
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
+        facade_.getData().getTranslatedBooleans().addEntry(EN,new IdMap<SelectedBoolean, String>());
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.NO, B_NO);
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES, B_YES);
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES_AND_NO," ");
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();

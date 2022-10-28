@@ -5,17 +5,21 @@ import org.junit.Test;
 
 public final class MovesBeanTest extends InitDbMoves {
     @Test
-    public void moves1() {
-        assertSizeEq(2,callMovesBeanMovesGet(dispLearntMoves(feedDb())));
+    public void movesBegin() {
+        assertSizeEq(0,callMovesBeanMovesGet(dispAllMoves(feedDb())));
     }
-    @Test
-    public void moves2() {
-        assertSizeEq(4, callMovesBeanMovesGet(dispNotLearntMoves(feedDb())));
-    }
-    @Test
-    public void moves4() {
-        assertSizeEq(6, callMovesBeanMovesGet(dispAllMoves(feedDb())));
-    }
+//    @Test
+//    public void moves1() {
+//        assertSizeEq(2,callMovesBeanMovesGet(dispLearntMoves(feedDb())));
+//    }
+//    @Test
+//    public void moves2() {
+//        assertSizeEq(4, callMovesBeanMovesGet(dispNotLearntMoves(feedDb())));
+//    }
+//    @Test
+//    public void moves4() {
+//        assertSizeEq(6, callMovesBeanMovesGet(dispAllMoves(feedDb())));
+//    }
     @Test
     public void cat1() {
         assertSizeEq(3, callMovesBeanCategoriesGet(dispAllMoves(feedDb())));

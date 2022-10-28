@@ -121,6 +121,8 @@ public final class AikiBeansMovesStd{
     private static final String MAX_POWER = "maxPower";
     private static final String MOVES = "moves";
     private static final String MOVES_BEAN = "movesBean";
+    private static final String LEARNT = "learnt";
+    private static final String BOOLEANS = "booleans";
     private static final String SORTED_MOVES = "sortedMoves";
     private AikiBeansMovesStd(){}
     public static void build(PokemonStandards _std) {
@@ -256,7 +258,9 @@ public final class AikiBeansMovesStd{
         fields_.add(new StandardField(MAX_POWER,BeanNatCommonLgNames.STRING,false,false,new MovesBeanMaxPowerGet(),new MovesBeanMaxPowerSet()));
         fields_.add(new StandardField(MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MovesBeanMovesGet(),null));
         fields_.add(new StandardField(MOVES_BEAN,BeanNatCommonLgNames.STRING,false,false,new MovesBeanMovesBeanGet(),null));
+        fields_.add(new StandardField(LEARNT,BeanNatCommonLgNames.STRING,false,false,new MovesBeanLearntGet(),new MovesBeanLearntSet()));
         fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MovesBeanSortedMovesGet(),null));
+        fields_.add(new StandardField(BOOLEANS, BeanNatCommonLgNames.TYPE_MAP,false,false,new MovesBeanBooleansGet(),null));
         methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MovesBeanSearch()));
         _std.getStds().addEntry(TYPE_MOVES_BEAN, type_);
     }

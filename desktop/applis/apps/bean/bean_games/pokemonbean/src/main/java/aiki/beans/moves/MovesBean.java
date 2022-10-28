@@ -9,7 +9,6 @@ import aiki.db.DataBase;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import code.util.*;
-import code.util.core.StringUtil;
 
 public class MovesBean extends WithFilterBean {
     static final String MOVES_BEAN=AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML;
@@ -19,6 +18,7 @@ public class MovesBean extends WithFilterBean {
 
     @Override
     public void beforeDisplaying() {
+        bools();
         DataBase data_ = getDataBase();
         moves.clear();
         StringMap<String> translationsMoves_;
@@ -30,25 +30,31 @@ public class MovesBean extends WithFilterBean {
         sort_.putAllMap(translationsCategories_);
         categories.putAllMap(sort_);
         categories.put(DataBase.EMPTY_STRING, DataBase.EMPTY_STRING);
-        if (!getForms().contains(CST_LEARNT)) {
-            AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
-            for (EntryCust<String, MoveData> k: moves_.entryList()) {
-                MoveData moveData_ = k.getValue();
-                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_);
-                moves.add(line_);
-            }
-        } else {
-            boolean selectedLearn_ = getForms().getValBool(CST_LEARNT);
-            AbsMap<String,MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
-            CustList<String> list_ = learntMoves_.getKeys();
-            for (EntryCust<String, MoveData> k: data_.getMoves().entryList()) {
-                if (StringUtil.contains(list_, k.getKey()) && !selectedLearn_ || !StringUtil.contains(list_, k.getKey()) && selectedLearn_) {
-                    continue;
-                }
-                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), k.getValue());
-                moves.add(line_);
-            }
+        AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
+        for (EntryCust<String, MoveData> k: moves_.entryList()) {
+            MoveData moveData_ = k.getValue();
+            MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_);
+            moves.add(line_);
         }
+//        if (!getForms().contains(CST_LEARNT)) {
+//            AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
+//            for (EntryCust<String, MoveData> k: moves_.entryList()) {
+//                MoveData moveData_ = k.getValue();
+//                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_);
+//                moves.add(line_);
+//            }
+//        } else {
+//            boolean selectedLearn_ = getForms().getValBool(CST_LEARNT);
+//            AbsMap<String,MoveData> learntMoves_ = getForms().getValMoveData(CST_LEARNT_MOVES);
+//            CustList<String> list_ = learntMoves_.getKeys();
+//            for (EntryCust<String, MoveData> k: data_.getMoves().entryList()) {
+//                if (StringUtil.contains(list_, k.getKey()) && !selectedLearn_ || !StringUtil.contains(list_, k.getKey()) && selectedLearn_) {
+//                    continue;
+//                }
+//                MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), k.getValue());
+//                moves.add(line_);
+//            }
+//        }
         sortedMoves.clear();
         for (MoveLine l: moves) {
             sortedMoves.add(l.getName());

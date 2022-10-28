@@ -51,6 +51,8 @@ private static final String C_P_71_7="Power points\n";
 private static final String C_P_71_8="Type of move\n";
 private static final String C_P_71_9="Priority\n";
 private static final String C_P_71_50="OK\n";
+private static final String C_P_71_51="Learnt\n";
+private static final String C_P_71_52="Apprise\n";
 private static final String M_P_71_ACCURACY="accuracy";
 private static final String M_P_71_CAT="cat";
 private static final String M_P_71_CAT_H="cat_h";
@@ -76,6 +78,7 @@ private static final String M_P_71_STATUS_INDIRECT="status_indirect";
 private static final String M_P_71_TITLE="title";
 private static final String M_P_71_TYPES="types";
 private static final String M_P_71_TYPES_H="types_h";
+private static final String M_P_71_LEARNT="learnt";
 private static final String M_P_71_OK="ok";
 private static final char SEP='=';
 private MesDataMovesMoves(){}
@@ -106,6 +109,7 @@ f+=M_P_71_INDEX+SEP+C_P_71_22;
 f+=M_P_71_CONTENT_TYPE+SEP+C_P_71_23;
 f+=M_P_71_CONTENT_TYPE_WHOLE+SEP+C_P_71_24;
 f+=M_P_71_OK+SEP+C_P_71_50;
+f+=M_P_71_LEARNT+SEP+C_P_71_51;
 return f;
 }
 static String fr(){
@@ -135,6 +139,7 @@ f+=M_P_71_INDEX+SEP+C_P_71_47;
 f+=M_P_71_CONTENT_TYPE+SEP+C_P_71_48;
 f+=M_P_71_CONTENT_TYPE_WHOLE+SEP+C_P_71_49;
 f+=M_P_71_OK+SEP+C_P_71_50;
+f+=M_P_71_LEARNT+SEP+C_P_71_52;
 return f;
 }
 }
