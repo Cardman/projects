@@ -333,5 +333,16 @@ public final class MovesBeanTest extends InitDbMoves {
         assertTrue(StringUtil.contains(keys_,M_DAM));
         assertEq(M_DAM, getValMoveId(bean_));
     }
-
+    @Test
+    public void afterSearch() {
+        Struct bean_ = dispAllMovesSearch(feedDb());
+        assertSizeEq(7,callMovesBeanMovesGet(bean_));
+    }
+//        assertTrue(StringUtil.contains(keys_,M_DAM));
+//        assertTrue(StringUtil.contains(keys_,M_STA));
+//        assertTrue(StringUtil.contains(keys_,M_WEA));
+//        assertTrue(StringUtil.contains(keys_,M_DAM_BAD));
+//        assertTrue(StringUtil.contains(keys_,M_DAM_VAR));
+//        assertTrue(StringUtil.contains(keys_,M_DAM_VERY_BAD));
+//        assertTrue(StringUtil.contains(keys_,M_DAM_POW));
 }

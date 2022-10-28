@@ -182,12 +182,23 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
     protected static Struct dispAllMoves(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToMoves(pk_);
+        return dispAllMoves(pk_);
+    }
+
+    private static Struct dispAllMoves(PkData _pk) {
+        StringMap<Struct> all_ = beanToMoves(_pk);
         Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(pk_,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+        transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
 //        transit(pk_,new MovesBeanSearch(),moves_,moves_);
+        return moves_;
+    }
+
+    protected static Struct dispAllMovesSearch(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        Struct moves_ = dispAllMoves(pk_);
+        transit(pk_,new MovesBeanSearch(),moves_,moves_);
         return moves_;
     }
 
