@@ -152,7 +152,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     protected static String clickRow(Struct _bean) {
-        return navigateData(clickMoveLineBeanMove(), "", "move_line.clickMove", _bean, toInt(callMoveLineBeanIndexGet(_bean)));
+        return navigateData(clickMoveLineBeanMove(), "", "", _bean, toInt(callMoveLineBeanIndexGet(_bean)));
     }
 
     protected static Struct dispLine(FacadeGame _fac, int _index) {
@@ -208,12 +208,8 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     protected static String navigateMovesSearch(Struct _moves) {
-        return navigateData(new MovesBeanSearch(), "", "moves.search", _moves);
+        return navigateData(new MovesBeanSearch(), "", "", _moves);
     }
-    /*public static String goToLine(FacadeGame _fac, int _index) {
-        Struct moveline_ = disp(_fac, _index);
-        return navigateData(clickMoveLineBeanMove(),"","",moveline_, toInt(callMoveLineBeanIndexGet(moveline_)));
-    }*/
 
     private static Struct displayMoveLine(StringMap<Struct> _all, int _index) {
         Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);

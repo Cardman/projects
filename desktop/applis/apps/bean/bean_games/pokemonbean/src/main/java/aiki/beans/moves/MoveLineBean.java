@@ -32,7 +32,7 @@ public class MoveLineBean extends CommonBean {
     }
     public String clickMove(int _index) {
         getForms().put(CST_MOVE, sortedMoves.get(_index));
-        return CST_MOVE;
+        return AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML;
     }
 
     public int getIndex() {

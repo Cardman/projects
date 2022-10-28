@@ -111,9 +111,9 @@ public class MovesBean extends WithFilterBean {
         getForms().putMoves(CST_MOVES_SET, moves_);
         if (moves_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(CST_MOVE, moves_.firstKey());
-            return CST_MOVE;
+            return AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML;
         }
-        return CST_MOVES;
+        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
     }
 //    private boolean excludeByAccuracy(MoveData _move) {
 //        if (Rate.isValid(getMinAccuracy())) {
