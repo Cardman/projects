@@ -65,7 +65,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
     }
 
-    private static String toStr(Struct _resultAsString) {
+    protected static String toStr(Struct _resultAsString) {
         return BeanNatCommonLgNames.processString(_resultAsString);
     }
 

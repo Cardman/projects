@@ -1,7 +1,12 @@
 package aiki.beans.moves;
 
+import aiki.beans.AikiBeansStd;
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.PkData;
+import aiki.facade.FacadeGame;
 import code.expressionlanguage.structs.Struct;
+import code.util.StringMap;
+import org.junit.Test;
 
 public abstract class InitDbMove extends InitDbMoves {
 
@@ -364,5 +369,24 @@ public abstract class InitDbMove extends InitDbMoves {
     public static Struct callMoveBeanTypesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanTypesGet(),_str,_args);
     }
-
+    protected static Struct dispMove(FacadeGame _fac, int _index) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToMove(pk_);
+        transitToAllMoves(pk_, all_);
+        StringMap<String> mapping_ = mappingToMove();
+        Struct moveline_ = displayMoveLine(all_, _index, mapping_);
+        Struct mbean_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVE);
+        transit(pk_,new MoveLineBeanClickMove(), moveline_, mbean_,toInt(callMoveLineBeanIndexGet(moveline_)));
+        return mbean_;
+    }
+    public static StringMap<Struct> beanToMove(PkData _pk) {
+        StringMap<Struct> map_ = beanToMoves(_pk);
+        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE,_pk.beanMoveBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToMove() {
+        StringMap<String> map_ = mappingToMoves();
+        map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE);
+        return map_;
+    }
 }

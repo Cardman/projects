@@ -158,33 +158,18 @@ public abstract class InitDbMoves extends InitDbConstr {
     protected static Struct dispLine(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToMoves(pk_);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
-        beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(pk_,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
-        transit(pk_,new MovesBeanSearch(),moves_,moves_);
-        return displayMoveLine(all_, _index);
+        transitToAllMoves(pk_, all_);
+        return displayMoveLine(all_, _index, mappingToMoves());
     }
 
-    protected static Struct dispLearntMoves(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToMoves(pk_);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+    protected static void transitToAllMoves(PkData _pk, StringMap<Struct> _all) {
+        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(pk_,new WelcomeBeanSeeLearntMoves(),welcome_,moves_);
-        return moves_;
+        Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
+        transit(_pk,new MovesBeanSearch(),moves_,moves_);
     }
 
-    protected static Struct dispNotLearntMoves(FacadeGame _fac) {
-        PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToMoves(pk_);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
-        beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        transit(pk_,new WelcomeBeanSeeNotLearntMoves(),welcome_,moves_);
-        return moves_;
-    }
     protected static Struct dispAllMoves(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllMoves(pk_);
@@ -211,16 +196,12 @@ public abstract class InitDbMoves extends InitDbConstr {
         return navigateData(new MovesBeanSearch(), "", "", _moves);
     }
 
-    private static Struct displayMoveLine(StringMap<Struct> _all, int _index) {
+    protected static Struct displayMoveLine(StringMap<Struct> _all, int _index, StringMap<String> _mapping) {
         Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
-        Struct moveline_ = byString(_all, callMovesBeanMovesBeanGet(moves_));
+        Struct moveline_ = byStr(_all, _mapping, callMovesBeanMovesBeanGet(moves_));
         fwdLineFull(moveline_, moves_, _index);
         beforeDisplaying(moveline_);
         return moveline_;
-    }
-
-    public static Struct byString(StringMap<Struct> _all, Struct _resultAsString) {
-        return byStr(_all, mappingToMoves(), _resultAsString);
     }
 
     public static void fwdLineFull(Struct _update, Struct _use, int _index) {
