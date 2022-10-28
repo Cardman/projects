@@ -2,6 +2,8 @@ package aiki.beans.moves;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
+import aiki.beans.facade.dto.MoveLineIsDamageMove;
+import aiki.beans.facade.dto.MoveLineIsDirect;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -146,18 +148,18 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     public static String goToLine(FacadeGame _fac, int _index) {
-        Struct moveline_ = disp(_fac, _index);
+        Struct moveline_ = dispLine(_fac, _index);
         return navigateData(clickMoveLineBeanMove(),"","",moveline_, toInt(callMoveLineBeanIndexGet(moveline_)));
     }
 
-    private static Struct disp(FacadeGame _fac, int _index) {
+    protected static Struct dispLine(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToMoves(pk_);
         Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
         transit(pk_,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
-//        transit(pk_,new MovesBeanSearch(),moves_,moves_);
+        transit(pk_,new MovesBeanSearch(),moves_,moves_);
         return displayMoveLine(all_, _index);
     }
 
@@ -256,6 +258,13 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
     public static Struct callMoveLineBeanMoveLineGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineBeanMoveLineGet(),_str,_args);
+    }
+    public static Struct callMoveLineIsDamageMove(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineIsDamageMove(),_str,_args);
+    }
+
+    public static Struct callMoveLineIsDirect(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineIsDirect(),_str,_args);
     }
     public static Struct callMoveLineBeanMoveLineSet(Struct _str, Struct _args) {
         return BeanPokemonCommonTs.callStruct(new MoveLineBeanMoveLineSet(),_str,_args);

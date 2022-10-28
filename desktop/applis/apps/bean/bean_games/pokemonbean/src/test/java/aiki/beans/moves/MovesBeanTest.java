@@ -12,18 +12,6 @@ public final class MovesBeanTest extends InitDbMoves {
     public void movesBegin() {
         assertSizeEq(0,callMovesBeanMovesGet(dispAllMoves(feedDb())));
     }
-//    @Test
-//    public void moves1() {
-//        assertSizeEq(2,callMovesBeanMovesGet(dispLearntMoves(feedDb())));
-//    }
-//    @Test
-//    public void moves2() {
-//        assertSizeEq(4, callMovesBeanMovesGet(dispNotLearntMoves(feedDb())));
-//    }
-//    @Test
-//    public void moves4() {
-//        assertSizeEq(6, callMovesBeanMovesGet(dispAllMoves(feedDb())));
-//    }
     @Test
     public void cat1() {
         assertSizeEq(3, callMovesBeanCategoriesGet(dispAllMoves(feedDb())));
@@ -338,11 +326,76 @@ public final class MovesBeanTest extends InitDbMoves {
         Struct bean_ = dispAllMovesSearch(feedDb());
         assertSizeEq(7,callMovesBeanMovesGet(bean_));
     }
-//        assertTrue(StringUtil.contains(keys_,M_DAM));
-//        assertTrue(StringUtil.contains(keys_,M_STA));
-//        assertTrue(StringUtil.contains(keys_,M_WEA));
-//        assertTrue(StringUtil.contains(keys_,M_DAM_BAD));
-//        assertTrue(StringUtil.contains(keys_,M_DAM_VAR));
-//        assertTrue(StringUtil.contains(keys_,M_DAM_VERY_BAD));
-//        assertTrue(StringUtil.contains(keys_,M_DAM_POW));
+    @Test
+    public void lineName1() {
+        assertEq(M_DAM_BAD_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),0)));
+    }
+    @Test
+    public void lineName2() {
+        assertEq(M_DAM_POW_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),1)));
+    }
+    @Test
+    public void lineName3() {
+        assertEq(M_DAM_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void lineName4() {
+        assertEq(M_DAM_VAR_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),3)));
+    }
+    @Test
+    public void lineName5() {
+        assertEq(M_DAM_VERY_BAD_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),4)));
+    }
+    @Test
+    public void lineName6() {
+        assertEq(M_STA_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),5)));
+    }
+    @Test
+    public void lineName7() {
+        assertEq(M_WEA_TR, callMoveLineBeanDisplayNameGet(dispLine(feedDb(),6)));
+    }
+    @Test
+    public void pp() {
+        assertEq(1,callMoveLineBeanPpGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void category() {
+        assertEq(C_CAT1_TR,callMoveLineBeanCategoryGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void prio() {
+        assertEq(1,callMoveLineBeanPriorityGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void acc() {
+        assertEq("1",callMoveLineBeanAccuracyGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void pow() {
+        assertEq("1",callMoveLineBeanPowerGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void types1() {
+        assertSizeEq(1,callMoveLineBeanTypesGet(dispLine(feedDb(),2)));
+    }
+    @Test
+    public void types2() {
+        assertEq(T_TYPE_TR,elt(callMoveLineBeanTypesGet(dispLine(feedDb(),2)),0));
+    }
+    @Test
+    public void damagingMove1() {
+        assertTrue(callMoveLineIsDamageMove(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void damagingMove2() {
+        assertFalse(callMoveLineIsDamageMove(callMoveLineBeanMoveLineGet(dispLine(feedDb(),5))));
+    }
+    @Test
+    public void direct1() {
+        assertTrue(callMoveLineIsDirect(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void direct2() {
+        assertFalse(callMoveLineIsDirect(callMoveLineBeanMoveLineGet(dispLine(feedDb(),3))));
+    }
 }
