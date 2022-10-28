@@ -350,4 +350,8 @@ public abstract class InitDbConstr extends InitDbBean {
     public static Struct callSimulationBeanSelectedTeamNumberGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
     }
+
+    protected static String getValMoveId(Struct _bean) {
+        return forms(_bean).getValStr(CST_MOVE);
+    }
 }

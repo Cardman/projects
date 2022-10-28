@@ -11,6 +11,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMovesStd{
     public static final String WEB_HTML_MOVES_MOVES_HTML="web/html/moves/moves.html";
+    public static final String WEB_HTML_MOVES_DATA_HTML="web/html/moves/data.html";
     public static final String WEB_HTML_MOVES_MOVE_LINE_HTML="web/html/moves/moveline.html";
     public static final String BEAN_MOVES="moves";
     public static final String BEAN_MOVE_LINE="move_line";

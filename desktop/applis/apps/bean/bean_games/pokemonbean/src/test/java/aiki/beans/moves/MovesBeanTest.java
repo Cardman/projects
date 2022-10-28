@@ -322,4 +322,16 @@ public final class MovesBeanTest extends InitDbMoves {
         CustList<String> keys_ = forms(bean_).getValMoveData(CST_MOVES_SET).getKeys();
         assertEq(0,keys_.size());
     }
+    @Test
+    public void search14() {
+        Struct bean_ = dispAllMoves(feedDb());
+        callMovesBeanTypedNameSet(bean_,M_DAM_TR);
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML, navigateMovesSearch(bean_));
+        assertTrue(forms(bean_).contains(CST_MOVES_SET));
+        CustList<String> keys_ = forms(bean_).getValMoveData(CST_MOVES_SET).getKeys();
+        assertEq(1,keys_.size());
+        assertTrue(StringUtil.contains(keys_,M_DAM));
+        assertEq(M_DAM, getValMoveId(bean_));
+    }
+
 }
