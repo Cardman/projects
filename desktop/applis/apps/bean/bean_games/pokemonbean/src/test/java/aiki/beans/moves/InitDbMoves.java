@@ -2,8 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
-import aiki.beans.facade.dto.MoveLineIsDamageMove;
-import aiki.beans.facade.dto.MoveLineIsDirect;
+import aiki.beans.facade.dto.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -261,6 +260,26 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
     public static Struct callMoveLineIsDamageMove(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineIsDamageMove(),_str,_args);
+    }
+
+    public static Struct callMoveLineCategoryGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineCategoryGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineDisplayNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineDisplayNameGet(),_str,_args);
+    }
+
+    public static Struct callMoveLineGetTypes(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLineGetTypes(),_str,_args);
+    }
+
+    public static Struct callMoveLinePpGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLinePpGet(),_str,_args);
+    }
+
+    public static Struct callMoveLinePriorityGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveLinePriorityGet(),_str,_args);
     }
 
     public static Struct callMoveLineIsDirect(Struct _str, long... _args) {

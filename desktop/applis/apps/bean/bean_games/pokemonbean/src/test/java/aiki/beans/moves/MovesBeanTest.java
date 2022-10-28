@@ -398,4 +398,28 @@ public final class MovesBeanTest extends InitDbMoves {
     public void direct2() {
         assertFalse(callMoveLineIsDirect(callMoveLineBeanMoveLineGet(dispLine(feedDb(),3))));
     }
+    @Test
+    public void indPp() {
+        assertEq(1,callMoveLinePpGet(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void indCategory() {
+        assertEq(C_CAT1_TR,callMoveLineCategoryGet(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void indPrio() {
+        assertEq(1,callMoveLinePriorityGet(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void indName() {
+        assertEq(M_DAM_TR,callMoveLineDisplayNameGet(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void indTypes1() {
+        assertSizeEq(1,callMoveLineGetTypes(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))));
+    }
+    @Test
+    public void intTypes2() {
+        assertEq(T_TYPE_TR,elt(callMoveLineGetTypes(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))),0));
+    }
 }
