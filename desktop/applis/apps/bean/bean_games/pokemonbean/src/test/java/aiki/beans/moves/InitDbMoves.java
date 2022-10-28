@@ -141,8 +141,8 @@ public abstract class InitDbMoves extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new MoveLineBeanTypesGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanLearntGet(Struct _str, String _args) {
-        return BeanPokemonCommonTs.callString(new MovesBeanLearntGet(),_str,_args);
+    public static Struct callMovesBeanLearntGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MovesBeanLearntGet(),_str,_args);
     }
 
     public static String goToLine(FacadeGame _fac, int _index) {
@@ -190,6 +190,14 @@ public abstract class InitDbMoves extends InitDbConstr {
 //        transit(pk_,new MovesBeanSearch(),moves_,moves_);
         return moves_;
     }
+
+    protected static String navigateMovesSearch(Struct _moves) {
+        return navigateData(new MovesBeanSearch(), "", "moves.search", _moves);
+    }
+    /*public static String goToLine(FacadeGame _fac, int _index) {
+        Struct moveline_ = disp(_fac, _index);
+        return navigateData(clickMoveLineBeanMove(),"","",moveline_, toInt(callMoveLineBeanIndexGet(moveline_)));
+    }*/
 
     private static Struct displayMoveLine(StringMap<Struct> _all, int _index) {
         Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
@@ -283,6 +291,12 @@ public abstract class InitDbMoves extends InitDbConstr {
         facade_.getData().completeMembers(M_DAM_VERY_BAD, moveDam(TargetChoice.ADJ_UNIQ));
         facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
         facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        DamagingMoveData dam3_ = moveDam(TargetChoice.ANY_FOE);
+        dam3_.setAccuracy("7/10");
+        EffectDamage ef3_ = Instances.newEffectDamage();
+        ef3_.setPower("10");
+        target(dam3_, ef3_);
+        facade_.getData().completeMembers(M_DAM_POW, dam3_);
         facade_.getData().completeMembers(I_ITEM,ball());
         facade_.getData().completeMembers(S_STA_REL,staRel(""));
         facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
@@ -304,6 +318,7 @@ public abstract class InitDbMoves extends InitDbConstr {
         facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_WEA,M_WEA_TR);
         facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VERY_BAD,M_DAM_VERY_BAD_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_POW,M_DAM_POW_TR);
         facade_.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POKEMON,P_POKEMON_TR);
         facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
