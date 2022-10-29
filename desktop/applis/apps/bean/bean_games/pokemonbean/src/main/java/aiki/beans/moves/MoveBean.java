@@ -166,8 +166,8 @@ public class MoveBean extends CommonBean {
         requiredStatus = requiredStatus_;
         DictionaryComparator<String, Ints> secEffectsByItem_;
         secEffectsByItem_ = DictionaryComparatorUtil.buildItemsLs(data_,getLanguage());
-        for (String s: moveData_.getSecEffectsByItem().getKeys()) {
-            secEffectsByItem_.put(s, moveData_.getSecEffectsByItem().getVal(s));
+        for (EntryCust<String, Ints> s: moveData_.getSecEffectsByItem().entryList()) {
+            secEffectsByItem_.put(s.getKey(), getValidEffects(moveData_, s.getValue()));
         }
         secEffectsByItem = secEffectsByItem_;
         movesLevelLearntByPokemon = movesLevelLearntByPokemon();
@@ -199,6 +199,18 @@ public class MoveBean extends CommonBean {
         }
         movesMtLearntByPokemon_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         movesMtLearntByPokemon = movesMtLearntByPokemon_;
+    }
+
+    static Ints getValidEffects(MoveData _move, Ints _ls) {
+        Ints no_ = new Ints();
+        int ef_ = _move.nbEffets();
+        int s_ = _ls.size();
+        for (int i =0; i < s_; i++) {
+            if (_ls.get(i) >= 0 && _ls.get(i) < ef_) {
+                no_.add(i);
+            }
+        }
+        return no_;
     }
 
     private StringList movesTmLearntByPokemon() {
@@ -539,6 +551,65 @@ public class MoveBean extends CommonBean {
         MoveData moveData_ = data_.getMove(name_);
         return moveData_.getEffet(_long) instanceof EffectEndRound;
     }
+    public Ints effPrimaryOrBeforeNotEndRound() {
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
+        MoveData moveData_ = data_.getMove(name_);
+        Ints no_ = new Ints();
+        int s_ = moveData_.getEffects().size();
+        for (int i = 0; i < s_; i++) {
+            if (effPrimOrBeforeNotEndRound(i)) {
+                no_.add(i);
+            }
+        }
+        return no_;
+    }
+
+    public boolean effPrimOrBeforeNotEndRound(int _index) {
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
+        MoveData moveData_ = data_.getMove(name_);
+        int indPr_ = moveData_.indexOfPrimaryEffect();
+        return _index <= indPr_ && !(moveData_.getEffet(_index) instanceof EffectEndRound);
+    }
+
+    public Ints effSecPrimaryOrBeforeNotEndRound() {
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
+        MoveData moveData_ = data_.getMove(name_);
+        Ints no_ = new Ints();
+        int s_ = moveData_.getEffects().size();
+        for (int i = 0; i < s_; i++) {
+            if (effSecNotEndRound(i)) {
+                no_.add(i);
+            }
+        }
+        return no_;
+    }
+
+    public boolean effSecNotEndRound(int _index) {
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
+        MoveData moveData_ = data_.getMove(name_);
+        int indPr_ = moveData_.indexOfPrimaryEffect();
+        return _index > indPr_ && !(moveData_.getEffet(_index) instanceof EffectEndRound);
+    }
+
+
+    public Ints effEndRound() {
+        String name_ = getForms().getValStr(CST_MOVE);
+        DataBase data_ = getDataBase();
+        MoveData moveData_ = data_.getMove(name_);
+        Ints no_ = new Ints();
+        int s_ = moveData_.getEffects().size();
+        for (int i = 0; i < s_; i++) {
+            if (moveData_.getEffet(i) instanceof EffectEndRound) {
+                no_.add(i);
+            }
+        }
+        return no_;
+    }
+
     public boolean isRepeatedRound() {
         return !repeatRoundLaw.isEmpty();
     }

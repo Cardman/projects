@@ -66,7 +66,6 @@ public class MovesBean extends WithFilterBean {
     public static SelectLineMove buildLine(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData) {
         SelectLineMove line_ = new SelectLineMove();
         line(_translationsMoves, _translationsTypes, _translationsCategories, _k, _moveData, line_);
-        line_.setSelected(false);
         return line_;
     }
 

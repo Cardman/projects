@@ -3,8 +3,22 @@ package aiki.beans.moves;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.facade.enums.SelectedBoolean;
+import aiki.fight.enums.Statistic;
+import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.moves.MoveData;
+import aiki.fight.moves.effects.Effect;
+import aiki.fight.moves.effects.EffectDamage;
+import aiki.fight.moves.effects.EffectStatistic;
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.game.fight.Fight;
+import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.util.IdMap;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -369,6 +383,14 @@ public abstract class InitDbMove extends InitDbMoves {
     public static Struct callMoveBeanTypesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanTypesGet(),_str,_args);
     }
+
+    public static Struct callMoveBeanEffPrimOrBeforeNotEndRound(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveBeanEffPrimOrBeforeNotEndRound(),_str,_args);
+    }
+
+    public static Struct callMoveBeanSecNotEndRound(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MoveBeanSecNotEndRound(),_str,_args);
+    }
     protected static Struct dispMove(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToMove(pk_);
@@ -388,5 +410,80 @@ public abstract class InitDbMove extends InitDbMoves {
         StringMap<String> map_ = mappingToMoves();
         map_.addEntry(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE);
         return map_;
+    }
+    protected static FacadeGame feedDbMove() {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = moveDam(TargetChoice.ANY_FOE);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower("1");
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        DamagingMoveData dam2_ = moveDam(TargetChoice.ANY_FOE);
+        dam2_.setDirect(false);
+        dam2_.setAccuracy(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        EffectDamage ef2_ = Instances.newEffectDamage();
+        ef2_.setPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        target(dam2_, ef2_);
+        facade_.getData().completeMembers(M_DAM_VAR, dam2_);
+        MoveData damBad_ = moveDam(TargetChoice.ADJ_ADV);
+        EffectStatistic st_ = Instances.newEffectStatistic();
+        target(damBad_,st_);
+        facade_.getData().completeMembers(M_DAM_BAD, damBad_);
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, moveDam(TargetChoice.ADJ_UNIQ));
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        DamagingMoveData dam3_ = moveDam(TargetChoice.ANY_FOE);
+        dam3_.setAccuracy("7/10");
+        EffectDamage ef3_ = Instances.newEffectDamage();
+        ef3_.setPower("10");
+        target(dam3_, ef3_);
+        facade_.getData().completeMembers(M_DAM_POW, dam3_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        facade_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedAbilities().getVal(EN).addEntry(A_ABILITY,A_ABILITY_TR);
+        facade_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE,T_TYPE_TR);
+        facade_.getData().getTranslatedCategories().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT, C_CAT1_TR);
+        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(DataBase.AUTRE,C_CAT2_TR);
+        facade_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEM,I_ITEM_TR);
+        facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_WEA,M_WEA_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VERY_BAD,M_DAM_VERY_BAD_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_POW,M_DAM_POW_TR);
+        facade_.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POKEMON,P_POKEMON_TR);
+        facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
+        facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
+        facade_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,ST_ATT_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.DEFENSE,ST_DEF_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_ATTACK,ST_ATT_SPE_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
+        facade_.getData().getTranslatedBooleans().addEntry(EN,new IdMap<SelectedBoolean, String>());
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.NO, B_NO);
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES, B_YES);
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES_AND_NO," ");
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static void target(MoveData _dam, Effect _ef) {
+        _ef.setTargetChoice(_dam.getTargetChoice());
+        _dam.getEffects().add(_ef);
     }
 }

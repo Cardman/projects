@@ -30,6 +30,8 @@ public final class AikiBeansMovesStd{
     private static final String GET_TR_TYPES_BY_WEATHERS = "getTrTypesByWeathers";
     private static final String TYPES_DEPEND_ON_WEATHER_AND_ITEM = "typesDependOnWeatherAndItem";
     private static final String IS_DAMAGING_MOVE = "isDamagingMove";
+    private static final String EFF_PRIM_OR_BEFORE_NOT_END_ROUND = "effPrimOrBeforeNotEndRound";
+    private static final String EFF_SEC_NOT_END_ROUND = "effSecNotEndRound";
     private static final String IS_DAMAGING_DIRECT_MOVE = "isDamagingDirectMove";
     private static final String IS_ZERO_PRIORITY = "isZeroPriority";
     private static final String IS_ADJ_ADV = "isAdjAdv";
@@ -182,6 +184,8 @@ public final class AikiBeansMovesStd{
         methods_.add( new SpecNatMethod(TYPES_DEPEND_ON_WEATHER_AND_ITEM,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanTypesDependOnWeatherAndItem()));
         methods_.add( new SpecNatMethod(IS_DAMAGING_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanIsDamagingMove()));
         methods_.add( new SpecNatMethod(IS_DAMAGING_DIRECT_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanIsDamagingDirectMove()));
+        methods_.add( new SpecNatMethod(EFF_PRIM_OR_BEFORE_NOT_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanEffPrimOrBeforeNotEndRound()));
+        methods_.add( new SpecNatMethod(EFF_SEC_NOT_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanSecNotEndRound()));
         methods_.add( new SpecNatMethod(IS_ZERO_PRIORITY,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanIsZeroPriority()));
         methods_.add( new SpecNatMethod(IS_ADJ_ADV,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanIsAdjAdv()));
         methods_.add( new SpecNatMethod(IS_ADJ_MULT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveBeanIsAdjMult()));
