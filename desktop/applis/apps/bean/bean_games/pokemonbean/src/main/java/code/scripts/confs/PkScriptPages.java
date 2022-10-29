@@ -420,6 +420,7 @@ private static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
         properties_.addEntry(MSG_LEVELSIMU,SIMULATION_LEVELSIMU);
         properties_.addEntry(MSG_GENERALHELP,GENERAL_GENERAL);
         properties_.addEntry(MSG_LANG,LANGS_LANGS);
+        properties_.addEntry(MSG_DIFFICULTY,DIFFICULTY);
         _d.setProperties(properties_);
         _d.setMessagesFolder(REN_ADD_WEB_MESSAGES);
         StringList added_ = new StringList(new CollCapacity(118));

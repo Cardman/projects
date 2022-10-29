@@ -184,6 +184,8 @@ m.addEntry("resources_pk/rom/web/messages/en/status/status.properties",MesDataSt
 m.addEntry("resources_pk/rom/web/messages/fr/status/status.properties",MesDataStatusStatus.fr());
 m.addEntry("resources_pk/rom/web/messages/en/status/statusset.properties",MesDataStatusStatusset.en());
 m.addEntry("resources_pk/rom/web/messages/fr/status/statusset.properties",MesDataStatusStatusset.fr());
+m.addEntry("resources_pk/rom/web/messages/en/difficulty.properties",MesGameDifficulty.en());
+m.addEntry("resources_pk/rom/web/messages/fr/difficulty.properties",MesGameDifficulty.fr());
 m.addEntry("resources_pk/rom/web_fight/messages/en/fight.properties",MesFightFight.en());
 m.addEntry("resources_pk/rom/web_fight/messages/fr/fight.properties",MesFightFight.fr());
 m.addEntry("resources_pk/rom/web_fight/messages/en/fighter.properties",MesFightFighter.en());

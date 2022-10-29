@@ -7,6 +7,7 @@ import aiki.beans.facade.dto.*;
 import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
+import aiki.beans.game.AikiBeansGameStd;
 import aiki.beans.help.*;
 import aiki.beans.items.*;
 import aiki.beans.items.effects.*;
@@ -86,6 +87,7 @@ public final class PkData extends PokemonStandards {
         buildLevelMove(this);
         buildPokemonPlayer(this);
         buildEffectPartnerStatus(this);
+        AikiBeansGameStd.buildDifficultyCommonBean(this);
     }
 
     private static void buildTypeDamageBoost(PokemonStandards _std){
@@ -298,6 +300,7 @@ public final class PkData extends PokemonStandards {
         getBeansStruct().setValue(105, beanSelectPokemonBean(_language));
         getBeansStruct().setValue(106, beanGeneralHelpBean(_language));
         getBeansStruct().setValue(107, beanLangsBean(_language));
+        getBeansStruct().setValue(108, beanDiffCommon(_language));
     }
 
     public PokemonBeanStruct beanWelcomeBean(String _language) {

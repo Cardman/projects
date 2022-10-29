@@ -8,6 +8,7 @@ import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.PlaceTrainerDto;
 import aiki.beans.facade.solution.dto.StepDto;
 import aiki.beans.facade.solution.dto.WildPokemonDto;
+import aiki.beans.game.DifficultyCommonBean;
 import aiki.beans.validators.PositiveRateValidator;
 import aiki.beans.validators.RateValidator;
 import aiki.beans.validators.ShortValidator;
@@ -217,6 +218,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         return new PokemonBeanStruct(_bean);
     }
 
+    public PokemonBeanStruct beanDiffCommon(String _language) {
+        return bean(new DifficultyCommonBean(), _language);
+    }
     public static NatArrayStruct getBigNatMap(AbsMap<String, AbsBasicTreeMap<Rate, Rate>> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;

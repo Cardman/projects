@@ -2,6 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.CommonBean;
 import aiki.beans.DifficultyCommon;
+import aiki.beans.WithDifficultyCommon;
 import aiki.beans.facade.comparators.ComparatorMoves;
 import aiki.beans.facade.comparators.ComparatorRadioLineMoves;
 import aiki.beans.facade.dto.KeptMovesAfterFight;
@@ -52,7 +53,7 @@ import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class SimulationBean extends CommonBean {
+public class SimulationBean extends CommonBean  implements WithDifficultyCommon {
     private final DifficultyCommon difficultyCommon = new DifficultyCommon();
     private CustList<PlaceIndex> places = new CustList<PlaceIndex>();
 

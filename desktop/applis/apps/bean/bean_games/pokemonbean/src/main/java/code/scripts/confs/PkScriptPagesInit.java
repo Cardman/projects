@@ -611,7 +611,7 @@ private static final char NAV_SEP='.';
     public static StringMap<StringMap<String>> initConfData(Configuration _configuration){
         _configuration.setFirstUrl(AikiBeansStd.WEB_HTML_INDEX_HTML);
         _configuration.setPrefix(PREF);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(108));
+        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(109));
         NavBuilder.buildBeans(beans_,AikiBeansStd.BEAN_WELCOME,AIKI_BEANS_WELCOME_BEAN);
         NavBuilder.buildBeans(beans_,POKEDEX,AIKI_BEANS_POKEMON_POKEDEX_BEAN);
         NavBuilder.buildBeans(beans_,POKEMON,AIKI_BEANS_POKEMON_POKEMON_BEAN);
@@ -720,6 +720,7 @@ private static final char NAV_SEP='.';
         NavBuilder.buildBeans(beans_,SELECTPOKEMON,AIKI_BEANS_SIMULATION_SELECT_POKEMON_BEAN);
         NavBuilder.buildBeans(beans_,GERERAL_DATA,AIKI_BEANS_HELP_GENERAL_HELP_BEAN);
         NavBuilder.buildBeans(beans_,LANGS,AIKI_BEANS_HELP_LANGS_BEAN);
+        NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
         StringMap<StringMap<String>> nav_ = new StringMap<StringMap<String>>(new CollCapacity(351));
 //        NavBuilder.buildNav(nav_,WELCOME+NAV_SEP+M_SEE_ALL_MOVES,new EntryNav(MOVES,WEB_HTML_MOVES_MOVES_HTML));
@@ -1141,8 +1142,9 @@ private static final char NAV_SEP='.';
     public static StringMap<StringMap<String>> initConfDiff(Configuration _configuration){
         _configuration.setFirstUrl(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
         _configuration.setPrefix(PREF);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
+        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(2));
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
+        NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
         return new StringMap<StringMap<String>>(new CollCapacity(0));
     }

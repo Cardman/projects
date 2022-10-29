@@ -14,6 +14,7 @@ return m_;
 public static StringMap<Document> buildDiff(){
 StringMap<Document> m_ = new StringMap<Document>();
 m_.addEntry(PREFIX+AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML,PageGameDifficulty.build());
+m_.addEntry(PREFIX+AikiBeansGameStd.DIFF_COMMON_HTML,PageDifficultyCommon.build());
 return m_;
 }
 public static StringMap<Document> buildFight(){
@@ -144,6 +145,7 @@ m_.addEntry("resources_pk/rom/web/html/simulation/simulationlevel.html",PageData
 m_.addEntry("resources_pk/rom/web/html/solution/solution.html",PageDataSolutionSolution.build());
 m_.addEntry("resources_pk/rom/web/html/status/data.html",PageDataStatusData.build());
 m_.addEntry("resources_pk/rom/web/html/status/status.html",PageDataStatusStatus.build());
+m_.addEntry(PREFIX+AikiBeansGameStd.DIFF_COMMON_HTML,PageDifficultyCommon.build());
 return m_;
 }
 }

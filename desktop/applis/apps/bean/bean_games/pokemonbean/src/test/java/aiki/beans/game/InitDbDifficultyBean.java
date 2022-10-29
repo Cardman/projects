@@ -3,6 +3,7 @@ package aiki.beans.game;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.InitDbBean;
 import aiki.beans.PkDiff;
+import aiki.beans.PokemonBeanStruct;
 import aiki.facade.FacadeGame;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
@@ -15,160 +16,179 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return navigateDiff(new DifficultyBeanChange(), "","",_str,_args);
     }
 
+    public static Struct callChange(Struct _str, String _args) {
+        callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),innerSet(_str),_args);
+        return _str;
+    }
+
     public static String navigateDiff(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
         return navigate(_caller,_url, PkScriptPagesInit.initConfDiff(new Configuration()),_concat,_str,_args);
     }
 
     public static Struct callDifficultyBeanDamageRateLawFoeSet(Struct _str, String _args) {
-        return callString(new DifficultyBeanDamageRateLawFoeSet(),_str,_args);
+        return callString(new DifficultyCommonBeanDamageRateLawFoeSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerSet(Struct _str, String _args) {
-        return callString(new DifficultyBeanDamageRatePlayerSet(),_str,_args);
+        return callString(new DifficultyCommonBeanDamageRatePlayerSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanDiffWinningExpPtsFightSet(Struct _str, String _args) {
-        return callString(new DifficultyBeanDiffWinningExpPtsFightSet(),_str,_args);
+        return callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanIvFoeSet(Struct _str, int _args) {
-        return callInt(new DifficultyBeanIvFoeSet(),_str,_args);
+        return callInt(new DifficultyCommonBeanIvFoeSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanIvPlayerSet(Struct _str, int _args) {
-        return callInt(new DifficultyBeanIvPlayerSet(),_str,_args);
+        return callInt(new DifficultyCommonBeanIvPlayerSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateLooseMoneyWinSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyBeanRateLooseMoneyWinSet(),_str,_args);
+        return callRate(new DifficultyCommonBeanRateLooseMoneyWinSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateWinMoneyBaseSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyBeanRateWinMoneyBaseSet(),_str,_args);
+        return callRate(new DifficultyCommonBeanRateWinMoneyBaseSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateWinningExpPtsFightSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyBeanRateWinningExpPtsFightSet(),_str,_args);
+        return callRate(new DifficultyCommonBeanRateWinningExpPtsFightSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanWinTrainerExpSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyBeanWinTrainerExpSet(),_str,_args);
+        return callRate(new DifficultyCommonBeanWinTrainerExpSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanStillPossibleFleeSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanStillPossibleFleeSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanStillPossibleFleeSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanRandomWildFightSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanRandomWildFightSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanRandomWildFightSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanEnabledClosingSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanEnabledClosingSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanEnabledClosingSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanRestoredMovesEndFightSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanRestoredMovesEndFightSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanRestoredMovesEndFightSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanAllowedSwitchPlacesEndRoundSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanAllowedSwitchPlacesEndRoundSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanEndFightIfOneTeamKoSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanEndFightIfOneTeamKoSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanEndFightIfOneTeamKoSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanAllowCatchingKoSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyBeanAllowCatchingKoSet(),_str,_args);
+        return callBool(new DifficultyCommonBeanAllowCatchingKoSet(),innerSet(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerTableGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRatePlayerTableGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRatePlayerTableGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRateFoeTableGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRateFoeTableGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRateFoeTableGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRatesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRatesGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRatesGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanWinPointsFightGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanWinPointsFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanWinPointsFightGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRateLawFoeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRateLawFoeGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRateLawFoeGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDamageRatePlayerGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDamageRatePlayerGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDiffWinningExpPtsFightGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanDiffWinningExpPtsFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanDiffWinningExpPtsFightGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanIvFoeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanIvFoeGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanIvFoeGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanIvPlayerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanIvPlayerGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanIvPlayerGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateLooseMoneyWinGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRateLooseMoneyWinGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRateLooseMoneyWinGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateWinMoneyBaseGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRateWinMoneyBaseGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRateWinMoneyBaseGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateWinningExpPtsFightGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRateWinningExpPtsFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRateWinningExpPtsFightGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanWinTrainerExpGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanWinTrainerExpGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanWinTrainerExpGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanStillPossibleFleeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanStillPossibleFleeGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanStillPossibleFleeGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRandomWildFightGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRandomWildFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRandomWildFightGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanEnabledClosingGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanEnabledClosingGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanEnabledClosingGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRestoredMovesEndFightGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanRestoredMovesEndFightGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanRestoredMovesEndFightGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanAllowedSwitchPlacesEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanEndFightIfOneTeamKoGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanEndFightIfOneTeamKoGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanEndFightIfOneTeamKoGet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanAllowCatchingKoGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DifficultyBeanAllowCatchingKoGet(),_str,_args);
+        return BeanPokemonCommonTs.callLongs(new DifficultyCommonBeanAllowCatchingKoGet(),inner(_str),_args);
+    }
+
+    private static Struct inner(Struct _str) {
+        DifficultyCommonBean b_ = new DifficultyCommonBean();
+        b_.setOwner(((DifficultyBean)((PokemonBeanStruct)_str).getInstance()).getDifficultyCommon());
+        b_.beforeDisplaying();
+        return new PokemonBeanStruct(b_);
+    }
+
+    private static Struct innerSet(Struct _str) {
+        DifficultyCommonBean b_ = new DifficultyCommonBean();
+        b_.setOwner(((DifficultyBean)((PokemonBeanStruct)_str).getInstance()).getDifficultyCommon());
+        b_.beforeDisplaying();
+        return new PokemonBeanStruct(b_);
     }
 
     public static Struct beanDiff(String _language, FacadeGame _dataBase) {

@@ -9,6 +9,9 @@ import code.util.CustList;
 public final class AikiBeansGameStd{
     public static final String WEB_GAME_HTML_DIFFICULTY_HTML="web_game/html/difficulty.html";
     public static final String TYPE_DIFFICULTY_BEAN = "aiki.beans.game.DifficultyBean";
+    public static final String TYPE_DIFFICULTY_COMMON_BEAN = "aiki.beans.DiCo";
+    public static final String DIFF_COMMON_HTML = "diff_common.html";
+    public static final String BEAN_DIFFICULTY_COMMON = "difficulty_common";
     public static final String TYPE_GAME_PROGRESSION_BEAN = "aiki.beans.game.GameProgressionBean";
     public static final String TYPE_POKEMON_PLAYER_BEAN = "aiki.beans.game.PokemonPlayerBean";
     private static final String CHANGE = "change";
@@ -87,29 +90,39 @@ public final class AikiBeansGameStd{
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_DIFFICULTY_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        fields_.add(new StandardField(D_WIN_POINTS_FIGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanWinPointsFightGet(),null));
-        fields_.add(new StandardField(D_DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDiffWinningExpPtsFightGet(),new DifficultyBeanDiffWinningExpPtsFightSet()));
-        fields_.add(new StandardField(D_ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowCatchingKoGet(),new DifficultyBeanAllowCatchingKoSet()));
-        fields_.add(new StandardField(D_ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanAllowedSwitchPlacesEndRoundGet(),new DifficultyBeanAllowedSwitchPlacesEndRoundSet()));
-        fields_.add(new StandardField(D_WIN_TRAINER_EXP,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanWinTrainerExpGet(),new DifficultyBeanWinTrainerExpSet()));
-        fields_.add(new StandardField(D_RATE_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanRateWinningExpPtsFightGet(),new DifficultyBeanRateWinningExpPtsFightSet()));
-        fields_.add(new StandardField(D_END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanEndFightIfOneTeamKoGet(),new DifficultyBeanEndFightIfOneTeamKoSet()));
-        fields_.add(new StandardField(D_IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyBeanIvPlayerGet(),new DifficultyBeanIvPlayerSet()));
-        fields_.add(new StandardField(D_IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyBeanIvFoeGet(),new DifficultyBeanIvFoeSet()));
-        fields_.add(new StandardField(D_RATE_WIN_MONEY_BASE,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanRateWinMoneyBaseGet(),new DifficultyBeanRateWinMoneyBaseSet()));
-        fields_.add(new StandardField(D_RATE_LOOSE_MONEY_WIN,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyBeanRateLooseMoneyWinGet(),new DifficultyBeanRateLooseMoneyWinSet()));
-        fields_.add(new StandardField(D_RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRestoredMovesEndFightGet(),new DifficultyBeanRestoredMovesEndFightSet()));
-        fields_.add(new StandardField(D_ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanEnabledClosingGet(),new DifficultyBeanEnabledClosingSet()));
-        fields_.add(new StandardField(D_RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanRandomWildFightGet(),new DifficultyBeanRandomWildFightSet()));
-        fields_.add(new StandardField(D_STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanStillPossibleFleeGet(),new DifficultyBeanStillPossibleFleeSet()));
-        fields_.add(new StandardField(D_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelGet(),new DifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet()));
-        fields_.add(new StandardField(D_DAMAGE_RATES, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatesGet(),null));
-        fields_.add(new StandardField(D_DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDamageRatePlayerGet(),new DifficultyBeanDamageRatePlayerSet()));
-        fields_.add(new StandardField(D_DAMAGE_RATE_PLAYER_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRatePlayerTableGet(),null));
-        fields_.add(new StandardField(D_DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false,new DifficultyBeanDamageRateLawFoeGet(),new DifficultyBeanDamageRateLawFoeSet()));
-        fields_.add(new StandardField(D_DAMAGE_RATE_FOE_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyBeanDamageRateFoeTableGet(),null));
+        fields_.add(new StandardField("d", BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(DIFF_COMMON_HTML),null));
+        fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN,false,false,new DifficultyBeanComGet(),null));
         methods_.add( new SpecNatMethod(CHANGE, BeanNatCommonLgNames.VOID, false, MethodModifier.NORMAL,new DifficultyBeanChange()));
         _std.getStds().addEntry(TYPE_DIFFICULTY_BEAN, type_);
+    }
+
+    public static void buildDifficultyCommonBean(PokemonStandards _std){
+        CustList<StandardField> fields_=new CustList<StandardField>();
+        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+        SpecialNatClass type_ = new SpecialNatClass(TYPE_DIFFICULTY_COMMON_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
+        fields_.add(new StandardField(D_WIN_POINTS_FIGHT, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyCommonBeanWinPointsFightGet(),null));
+        fields_.add(new StandardField(D_DIFF_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.STRING,false,false,new DifficultyCommonBeanDiffWinningExpPtsFightGet(),new DifficultyCommonBeanDiffWinningExpPtsFightSet()));
+        fields_.add(new StandardField(D_ALLOW_CATCHING_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanAllowCatchingKoGet(),new DifficultyCommonBeanAllowCatchingKoSet()));
+        fields_.add(new StandardField(D_ALLOWED_SWITCH_PLACES_END_ROUND,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanAllowedSwitchPlacesEndRoundGet(),new DifficultyCommonBeanAllowedSwitchPlacesEndRoundSet()));
+        fields_.add(new StandardField(D_WIN_TRAINER_EXP,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyCommonBeanWinTrainerExpGet(),new DifficultyCommonBeanWinTrainerExpSet()));
+        fields_.add(new StandardField(D_RATE_WINNING_EXP_PTS_FIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyCommonBeanRateWinningExpPtsFightGet(),new DifficultyCommonBeanRateWinningExpPtsFightSet()));
+        fields_.add(new StandardField(D_END_FIGHT_IF_ONE_TEAM_KO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanEndFightIfOneTeamKoGet(),new DifficultyCommonBeanEndFightIfOneTeamKoSet()));
+        fields_.add(new StandardField(D_IV_PLAYER, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyCommonBeanIvPlayerGet(),new DifficultyCommonBeanIvPlayerSet()));
+        fields_.add(new StandardField(D_IV_FOE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new DifficultyCommonBeanIvFoeGet(),new DifficultyCommonBeanIvFoeSet()));
+        fields_.add(new StandardField(D_RATE_WIN_MONEY_BASE,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyCommonBeanRateWinMoneyBaseGet(),new DifficultyCommonBeanRateWinMoneyBaseSet()));
+        fields_.add(new StandardField(D_RATE_LOOSE_MONEY_WIN,BeanNatCommonLgNames.TYPE_RATE,false,false,new DifficultyCommonBeanRateLooseMoneyWinGet(),new DifficultyCommonBeanRateLooseMoneyWinSet()));
+        fields_.add(new StandardField(D_RESTORED_MOVES_END_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanRestoredMovesEndFightGet(),new DifficultyCommonBeanRestoredMovesEndFightSet()));
+        fields_.add(new StandardField(D_ENABLED_CLOSING,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanEnabledClosingGet(),new DifficultyCommonBeanEnabledClosingSet()));
+        fields_.add(new StandardField(D_RANDOM_WILD_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanRandomWildFightGet(),new DifficultyCommonBeanRandomWildFightSet()));
+        fields_.add(new StandardField(D_STILL_POSSIBLE_FLEE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanStillPossibleFleeGet(),new DifficultyCommonBeanStillPossibleFleeSet()));
+        fields_.add(new StandardField(D_SKIP_LEARNING_MOVES_WHILE_NOT_GROWING_LEVEL,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelGet(),new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelSet()));
+        fields_.add(new StandardField(D_DAMAGE_RATES, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyCommonBeanDamageRatesGet(),null));
+        fields_.add(new StandardField(D_DAMAGE_RATE_PLAYER,BeanNatCommonLgNames.STRING,false,false,new DifficultyCommonBeanDamageRatePlayerGet(),new DifficultyCommonBeanDamageRatePlayerSet()));
+        fields_.add(new StandardField(D_DAMAGE_RATE_PLAYER_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyCommonBeanDamageRatePlayerTableGet(),null));
+        fields_.add(new StandardField(D_DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false,new DifficultyCommonBeanDamageRateLawFoeGet(),new DifficultyCommonBeanDamageRateLawFoeSet()));
+        fields_.add(new StandardField(D_DAMAGE_RATE_FOE_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new DifficultyCommonBeanDamageRateFoeTableGet(),null));
+        fields_.add(new StandardField("c", TYPE_DIFFICULTY_COMMON_BEAN,false,false,null,new DifficultyBeanComSet()));
+        _std.getStds().addEntry(TYPE_DIFFICULTY_COMMON_BEAN, type_);
     }
     public static void buildGameProgressionBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
