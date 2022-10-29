@@ -551,19 +551,6 @@ public class MoveBean extends CommonBean {
         MoveData moveData_ = data_.getMove(name_);
         return moveData_.getEffet(_long) instanceof EffectEndRound;
     }
-    public Ints effPrimaryOrBeforeNotEndRound() {
-        String name_ = getForms().getValStr(CST_MOVE);
-        DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
-        Ints no_ = new Ints();
-        int s_ = moveData_.getEffects().size();
-        for (int i = 0; i < s_; i++) {
-            if (effPrimOrBeforeNotEndRound(i)) {
-                no_.add(i);
-            }
-        }
-        return no_;
-    }
 
     public boolean effPrimOrBeforeNotEndRound(int _index) {
         String name_ = getForms().getValStr(CST_MOVE);
@@ -573,41 +560,12 @@ public class MoveBean extends CommonBean {
         return _index <= indPr_ && !(moveData_.getEffet(_index) instanceof EffectEndRound);
     }
 
-    public Ints effSecPrimaryOrBeforeNotEndRound() {
-        String name_ = getForms().getValStr(CST_MOVE);
-        DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
-        Ints no_ = new Ints();
-        int s_ = moveData_.getEffects().size();
-        for (int i = 0; i < s_; i++) {
-            if (effSecNotEndRound(i)) {
-                no_.add(i);
-            }
-        }
-        return no_;
-    }
-
     public boolean effSecNotEndRound(int _index) {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
         int indPr_ = moveData_.indexOfPrimaryEffect();
         return _index > indPr_ && !(moveData_.getEffet(_index) instanceof EffectEndRound);
-    }
-
-
-    public Ints effEndRound() {
-        String name_ = getForms().getValStr(CST_MOVE);
-        DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
-        Ints no_ = new Ints();
-        int s_ = moveData_.getEffects().size();
-        for (int i = 0; i < s_; i++) {
-            if (moveData_.getEffet(i) instanceof EffectEndRound) {
-                no_.add(i);
-            }
-        }
-        return no_;
     }
 
     public boolean isRepeatedRound() {

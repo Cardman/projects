@@ -209,7 +209,7 @@ public abstract class InitDbConstr extends InitDbBean {
         return mv_;
     }
 
-    private static void feed(StatusMoveData _mv, boolean _t, boolean _c) {
+    protected static void feed(StatusMoveData _mv, boolean _t, boolean _c) {
         _mv.setThievableMove(_t);
         _mv.setCounterableMove(_c);
     }
