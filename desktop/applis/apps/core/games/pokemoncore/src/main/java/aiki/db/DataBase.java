@@ -2638,19 +2638,11 @@ public class DataBase {
 
     private void trWord(String _language, StringMap<String> _litt, StringBuilder _str, char _cur, String _word) {
         if (_cur == '(' || StringUtil.quickEq(getTrueString(), _word)|| StringUtil.quickEq(getFalseString(), _word)) {
-            _str.append(translatedFctMath.getVal(_language).getVal(_word));
+            _str.append(StringUtil.nullToEmpty(translatedFctMath.getVal(_language).getVal(_word)));
         } else if (!_word.startsWith(VAR_PREFIX)) {
-            _str.append(translate(_word, _language));
+            _str.append(translateSafe(_word, _language));
         } else {
-            String tok_ = _word.substring(VAR_PREFIX.length());
-            StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
-            String line_ = _litt.getVal(elts_.first());
-            StringList infos_ = StringUtil.splitStrings(line_, TAB);
-            StringList objDisplay_ = getVars(_word, _language);
-            String pattern_ = infos_.get(1);
-
-            String format_ = StringUtil.simpleStringsFormat(pattern_,
-                    objDisplay_);
+            String format_ = formatVar(_language, _litt, _word);
             _str.append(format_);
         }
     }
@@ -2659,19 +2651,26 @@ public class DataBase {
         if (_dig) {
             _list.add(_word);
         } else if (!_word.startsWith(VAR_PREFIX)) {
-            _list.add(translate(_word, _language));
+            _list.add(translateSafe(_word, _language));
         } else {
-            String tok_ = _word.substring(VAR_PREFIX.length());
-            StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
-            String line_ = _litt.getVal(elts_.first());
-            StringList infos_ = StringUtil.splitStrings(line_, TAB);
-            StringList objDisplay_ = getVars(_word, _language);
-            String pattern_ = infos_.get(1);
-
-            String format_ = StringUtil.simpleStringsFormat(pattern_,
-                    objDisplay_);
+            String format_ = formatVar(_language, _litt, _word);
             _list.add(format_);
         }
+    }
+
+    private String formatVar(String _language, StringMap<String> _litt, String _word) {
+        String tok_ = _word.substring(DataBase.VAR_PREFIX.length());
+        StringList elts_ = StringUtil.splitStrings(tok_, DataBase.SEP_BETWEEN_KEYS);
+        String line_ = StringUtil.nullToEmpty(_litt.getVal(elts_.first()));
+        StringList infos_ = StringUtil.splitStrings(line_, DataBase.TAB);
+        StringList objDisplay_ = getVars(_word, _language);
+        if (infos_.size() < 2) {
+            return StringUtil.join(objDisplay_,SEPARATOR_MOVES);
+        }
+        String pattern_ = infos_.get(1);
+
+        return StringUtil.simpleStringsFormat(pattern_,
+                objDisplay_);
     }
 
     private static StringList getVariableWords(String _str) {
@@ -2712,18 +2711,20 @@ public class DataBase {
             }
             String tok_ = tokens_.get(i).substring(VAR_PREFIX.length());
             StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
-            String line_ = litt_.getVal(elts_.first());
+            String line_ = StringUtil.nullToEmpty(litt_.getVal(elts_.first()));
             StringList infos_ = StringUtil.splitStrings(line_, TAB);
-            String key_ = infos_.get(1);
-            StringList objDisplay_ = getVars(tokens_.get(i), _language);
+            if (infos_.size() >= 3) {
+                String key_ = infos_.get(1);
+                StringList objDisplay_ = getVars(tokens_.get(i), _language);
 
-            String formatKey_ = StringUtil.simpleStringsFormat(key_,
-                    objDisplay_);
-            String pattern_ = infos_.get(2);
+                String formatKey_ = StringUtil.simpleStringsFormat(key_,
+                        objDisplay_);
+                String pattern_ = infos_.get(2);
 
-            String format_ = StringUtil.simpleStringsFormat(pattern_,
-                    objDisplay_);
-            desc_.put(formatKey_, format_);
+                String format_ = StringUtil.simpleStringsFormat(pattern_,
+                        objDisplay_);
+                desc_.put(formatKey_, format_);
+            }
         }
         return desc_;
     }
@@ -2732,7 +2733,7 @@ public class DataBase {
         StringMap<String> litt_ = litterals.getVal(_language);
         String tok_ = _token.substring(VAR_PREFIX.length());
         StringList elts_ = StringUtil.splitStrings(tok_, SEP_BETWEEN_KEYS);
-        String line_ = litt_.getVal(elts_.first());
+        String line_ = StringUtil.nullToEmpty(litt_.getVal(elts_.first()));
         StringList infos_ = StringUtil.splitStrings(line_, TAB);
         String type_ = infos_.get(0);
         StringList types_ = StringUtil.splitChars(type_, getSepartorSetChar());
@@ -2801,13 +2802,16 @@ public class DataBase {
 
     private boolean isTranslatable(String _key) {
         for (String l : languages) {
-            if (translate(_key, l).isEmpty()) {
+            if (translateSafe(_key, l).isEmpty()) {
                 return false;
             }
         }
         return true;
     }
 
+    private String translateSafe(String _key, String _language) {
+        return StringUtil.nullToEmpty(translate(_key, _language));
+    }
     private String translate(String _key, String _language) {
         if (translatedMoves.getVal(_language).contains(_key)) {
             return translatedMoves.getVal(_language).getVal(_key);

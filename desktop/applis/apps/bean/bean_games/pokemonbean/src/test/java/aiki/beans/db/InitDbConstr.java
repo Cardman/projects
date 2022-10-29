@@ -187,7 +187,7 @@ public abstract class InitDbConstr extends InitDbBean {
     }
     protected static DamagingMoveData moveDam(TargetChoice _t, String _acc, SwitchType _n, int _rk) {
         DamagingMoveData mv_ = Instances.newDamagingMoveData();
-        feed(mv_, _t, _acc, _n, _rk, true, true, true, true, true, true, true, true, true);
+        feed(mv_, _t, _acc, _n, _rk, true, true, true, true, true, true, true, true, true, M_STA, M_WEA);
         feed(mv_, true, true, true);
         return mv_;
     }
@@ -204,7 +204,7 @@ public abstract class InitDbConstr extends InitDbBean {
     }
     protected static StatusMoveData moveSta(TargetChoice _t, String _acc, SwitchType _n, int _rk) {
         StatusMoveData mv_ = Instances.newStatusMoveData();
-        feed(mv_, _t, _acc, _n, _rk, true, true, true, true, true, true, true, true, true);
+        feed(mv_, _t, _acc, _n, _rk, true, true, true, true, true, true, true, true, true, M_STA, M_WEA);
         feed(mv_, true, true);
         return mv_;
     }
@@ -214,7 +214,7 @@ public abstract class InitDbConstr extends InitDbBean {
         _mv.setCounterableMove(_c);
     }
 
-    protected static void feed(MoveData _mv, TargetChoice _t, String _acc, SwitchType _n, int _rk, boolean _c, boolean _d, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo) {
+    protected static void feed(MoveData _mv, TargetChoice _t, String _acc, SwitchType _n, int _rk, boolean _c, boolean _d, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, String _achieve, String _wea) {
         _mv.setTargetChoice(_t);
         _mv.setAccuracy(_acc);
         _mv.setNbPrepaRound((short) 1);
@@ -224,12 +224,12 @@ public abstract class InitDbConstr extends InitDbBean {
         _mv.setRankIncrementNbRound((short) _rk);
         _mv.setBoostedTypes(new StringList(T_TYPE));
         _mv.setTypes(new StringList(T_TYPE));
-        _mv.setAchieveDisappearedPkUsingMove(new StringList(M_STA));
+        _mv.setAchieveDisappearedPkUsingMove(new StringList(_achieve));
         StringMap<String> t_ = new StringMap<String>();
         t_.addEntry(I_ITEM,T_TYPE);
         _mv.setTypesByOwnedItem(t_);
         StringMap<String> w_ = new StringMap<String>();
-        w_.addEntry(M_WEA,T_TYPE);
+        w_.addEntry(_wea,T_TYPE);
         _mv.setTypesByWeather(w_);
         _mv.setDeletedStatus(new StringList(S_STA_SIM));
         _mv.setRequiredStatus(new StringList(S_STA_REL));

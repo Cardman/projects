@@ -369,15 +369,13 @@ public class MoveBean extends CommonBean {
 
     private void withDef(MoveData _moveData) {
         DataBase data_ = getDataBase();
-        StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
-        StringMap<String> translatedItems_ = data_.getTranslatedItems().getVal(getLanguage());
         DictionaryComparator<String,String> typesByOwnedItems_;
         typesByOwnedItems_ =DictionaryComparatorUtil.buildItemsStr(data_,getLanguage());
         boolean hasDefault_ = false;
         for (String k: _moveData.getTypesByOwnedItem().getKeys()) {
             //ItemTypeLine line_ = new ItemTypeLine();
-            if (!translatedItems_.contains(k)) {
+            if (k.isEmpty()) {
                 if (!_moveData.getTypesByWeather().isEmpty()) {
                     continue;
                 }
@@ -412,7 +410,7 @@ public class MoveBean extends CommonBean {
 //                line_.setWeather(messages_.getVal(OTHER_WEATHER));
 //                hasDefault_ = true;
 //            }
-            if (!translatedMoves_.contains(k)) {
+            if (k.isEmpty()) {
                 //line_.setWeather(translatedMoves_.getVal(k));
                 hasDefault_ = true;
             }

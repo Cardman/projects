@@ -2417,6 +2417,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("mvTREMPETTE2", data_.getFormula("VAR__MYVAR__SPEE",LANGUAGE));
     }
     @Test
+    public void getFormula21Test() {
+        DataBase data_ =init();
+        data_.getTranslatedStatistics().addEntry(LANGUAGE,new IdMap<Statistic, String>());
+        IdMap<Statistic, String> tr_ = data_.getTranslatedStatistics().getVal(LANGUAGE);
+        tr_.addEntry(Statistic.SPEED,TREMPETTE2);
+        assertEq("", data_.getFormula("VAR__MYVAR__SPEE",LANGUAGE));
+    }
+    @Test
     public void getDescriptionsTest() {
         DataBase data_ =init();
         StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
@@ -2431,6 +2439,19 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         assertEq("a move TREMPETTE2", desc_.getValue(0));
         assertEq("sec mvTREMPETTE", desc_.getKey(1));
         assertEq("a sec move TREMPETTE", desc_.getValue(1));
+    }
+    @Test
+    public void getDescriptionsIncTest() {
+        DataBase data_ =init();
+        StringMap<String>  tr_ = data_.getTranslatedStatus().getVal(LANGUAGE);
+        tr_.addEntry(TREMPETTE,TREMPETTE2);
+        tr_.addEntry(TREMPETTE2,TREMPETTE);
+        StringMap<String> litt_ = data_.getLitterals().getVal(LANGUAGE);
+        litt_.addEntry("MYVAR","status\tmv{0}\ta move {0}");
+        NatStringTreeMap<String> desc_ = data_.getDescriptions("VAR__MYVAR__TREMPETTE+VAR__MYVAR2__TREMPETTE2", LANGUAGE);
+        assertEq(1,desc_.size());
+        assertEq("mvTREMPETTE2", desc_.getKey(0));
+        assertEq("a move TREMPETTE2", desc_.getValue(0));
     }
     private DataBase init() {
         DataBase data_ = newData();
