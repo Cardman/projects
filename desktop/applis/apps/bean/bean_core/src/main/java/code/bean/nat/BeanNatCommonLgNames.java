@@ -448,6 +448,9 @@ public abstract class BeanNatCommonLgNames implements WithPageInfos {
             StringMap<String> cases_ = _navigation.getVal(_concat);
             String ca_ = BeanNatCommonLgNames.processString(_ret);
             if (cases_ == null) {
+                if (ca_.isEmpty()) {
+                    return _currentUrl;
+                }
                 return ca_;
             }
             urlDest_ = cases_.getVal(ca_);
