@@ -15,19 +15,18 @@ public enum TeamCrud {
     }
 
     public static TeamCrud getTeamCrudByName(String _env) {
-        for (TeamCrud e: all()) {
+        for (TeamCrud e: allExceptNothing()) {
             if (StringUtil.quickEq(e.teamCrudString, _env)) {
                 return e;
             }
         }
         return NOTHING;
     }
-    public static IdList<TeamCrud> all() {
+    public static IdList<TeamCrud> allExceptNothing() {
         IdList<TeamCrud> l_ = new IdList<TeamCrud>();
         l_.add(ADD);
         l_.add(EDIT);
         l_.add(REMOVE);
-        l_.add(NOTHING);
         return l_;
     }
 }
