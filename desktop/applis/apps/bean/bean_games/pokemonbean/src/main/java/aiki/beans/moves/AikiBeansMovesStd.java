@@ -53,6 +53,7 @@ public final class AikiBeansMovesStd{
     private static final String CLICK_REQUIRED_STATUS = "clickRequiredStatus";
     private static final String GET_REQUIRED_STATUS = "getRequiredStatus";
     private static final String GET_TR_ACHIEVE_DISAPPEARED_PK_USING_MOVE = "getTrAchieveDisappearedPkUsingMove";
+    private static final String CLICK_ACHIEVE_DISAPPEARED_PK_USING_MOVE = "clickAchieveDisappearedPkUsingMove";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_TR_ABILITY = "getTrAbility";
     private static final String CLICK_ITEM = "clickItem";
@@ -206,6 +207,7 @@ public final class AikiBeansMovesStd{
         methods_.add( new SpecNatMethod(CLICK_REQUIRED_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanClickRequiredStatus()));
         methods_.add( new SpecNatMethod(GET_REQUIRED_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanGetRequiredStatus()));
         methods_.add( new SpecNatMethod(GET_TR_ACHIEVE_DISAPPEARED_PK_USING_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanGetTrAchieveDisappearedPkUsingMove()));
+        methods_.add( new SpecNatMethod(CLICK_ACHIEVE_DISAPPEARED_PK_USING_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanClickAchieveDisappearedPkUsingMove()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_TR_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanGetTrAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanClickItem()));

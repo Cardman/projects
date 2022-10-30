@@ -566,6 +566,10 @@ public class MoveBean extends CommonBean {
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(move_);
     }
+    public String clickAchieveDisappearedPkUsingMove(int _index) {
+        String move_ = achieveDisappearedPkUsingMove.get(_index);
+        return tryRedirectMv(CST_MOVE,move_,AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+    }
     public String clickRequiredStatus(int _index) {
         String key_ = getRequiredStatusKey(_index);
         getForms().put(CST_STATUS, key_);

@@ -634,4 +634,16 @@ public final class MoveBeanTest extends InitDbMove {
     public void getRepeatRoundLaw3() {
         assertEq(Rate.one(),second(elt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
+    @Test
+    public void getTrAchieveDisappearedPkUsingMove() {
+        assertEq(M_STA_TR,callMoveBeanGetTrAchieveDisappearedPkUsingMove(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickAchieveDisappearedPkUsingMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickAchieveDisappearedPkUsingMove(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickAchieveDisappearedPkUsingMove2() {
+        assertEq(M_STA,callMoveBeanClickAchieveDisappearedPkUsingMoveId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
 }

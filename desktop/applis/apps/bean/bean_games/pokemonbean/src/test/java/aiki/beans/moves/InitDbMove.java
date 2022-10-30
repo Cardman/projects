@@ -164,6 +164,14 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanGetTrAchieveDisappearedPkUsingMove(),_str,_args);
     }
 
+    public static String callMoveBeanClickAchieveDisappearedPkUsingMove(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickAchieveDisappearedPkUsingMove(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callMoveBeanClickAchieveDisappearedPkUsingMoveId(Struct _str, long... _args) {
+        callMoveBeanClickAchieveDisappearedPkUsingMove(_str, _args);
+        return getValMoveId(_str);
+    }
     public static Struct callMoveBeanGetTrItem(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanGetTrItem(),_str,_args);
     }
