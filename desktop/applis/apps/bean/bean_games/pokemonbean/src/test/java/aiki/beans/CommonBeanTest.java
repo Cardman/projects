@@ -2,6 +2,7 @@ package aiki.beans;
 
 import aiki.facade.FacadeGame;
 import code.bean.nat.RateStruct;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -118,23 +119,35 @@ public final class CommonBeanTest extends InitDbWelcome {
     }
     @Test
     public void rateAbs() {
-        assertEq(Rate.one(),callLongs(new RateAbsNb(),new RateStruct(Rate.minusOne())));
+        assertEq(Rate.one(),callRateAbsNb(new RateStruct(Rate.minusOne())));
     }
     @Test
     public void rateZero1() {
-        assertFalse(callLongs(new RateIsZero(),new RateStruct(Rate.one())));
+        assertFalse(callRateIsZero(new RateStruct(Rate.one())));
     }
     @Test
     public void rateZero2() {
-        assertTrue(callLongs(new RateIsZero(),new RateStruct(Rate.zero())));
+        assertTrue(callRateIsZero(new RateStruct(Rate.zero())));
     }
     @Test
     public void rateZeroGt1() {
-        assertTrue(callLongs(new RateIsZeroOrGt(),new RateStruct(Rate.one())));
+        assertTrue(callRateIsZeroOrGt(new RateStruct(Rate.one())));
     }
     @Test
     public void rateZeroGt2() {
-        assertFalse(callLongs(new RateIsZeroOrGt(),new RateStruct(Rate.minusOne())));
+        assertFalse(callRateIsZeroOrGt(new RateStruct(Rate.minusOne())));
+    }
+
+    public static Struct callRateAbsNb(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new RateAbsNb(),_str,_args);
+    }
+
+    public static Struct callRateIsZero(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new RateIsZero(),_str,_args);
+    }
+
+    public static Struct callRateIsZeroOrGt(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new RateIsZeroOrGt(),_str,_args);
     }
     private String value(StringMapObject _forms) {
         return _forms.getValStr(KEY);
