@@ -352,4 +352,96 @@ public final class MoveBeanTest extends InitDbMove {
     public void affectedByMoves4() {
         assertSizeEq(3,callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)));
     }
+    @Test
+    public void affectedByMoves5() {
+        assertEq(M_DAM_BAD,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),0));
+    }
+    @Test
+    public void affectedByMoves6() {
+        assertEq(M_DAM_POW,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),1));
+    }
+    @Test
+    public void affectedByMoves7() {
+        assertEq(M_DAM_VERY_BAD,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),2));
+    }
+    @Test
+    public void affectedByMoves8() {
+        assertEq(M_STA,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),3));
+    }
+    @Test
+    public void affectedByMoves9() {
+        assertEq(M_WEA,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)),4));
+    }
+    @Test
+    public void affectedByMoves10() {
+        assertEq(M_DAM_POW,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,false,false,false,false,true, true, "1"),2)),0));
+    }
+    @Test
+    public void affectedByMoves11() {
+        assertEq(M_DAM_BAD,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),0));
+    }
+    @Test
+    public void affectedByMoves12() {
+        assertEq(M_DAM_POW,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),1));
+    }
+    @Test
+    public void affectedByMoves13() {
+        assertEq(M_DAM,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),2));
+    }
+    @Test
+    public void affectedByMoves14() {
+        assertEq(M_DAM_VAR,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),3));
+    }
+    @Test
+    public void affectedByMoves15() {
+        assertEq(M_DAM_VERY_BAD,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),4));
+    }
+    @Test
+    public void affectedByMoves16() {
+        assertEq(M_WEA,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)),5));
+    }
+    @Test
+    public void affectedByMoves17() {
+        assertEq(M_DAM,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),0));
+    }
+    @Test
+    public void affectedByMoves18() {
+        assertEq(M_DAM_VAR,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),1));
+    }
+    @Test
+    public void affectedByMoves19() {
+        assertEq(M_WEA,elt(callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)),2));
+    }
+    @Test
+    public void abilities1() {
+        assertSizeEq(1,callMoveBeanAbilitiesGet(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void abilities2() {
+        assertEq(A_ABILITY,elt(callMoveBeanAbilitiesGet(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void items1() {
+        assertSizeEq(0,callMoveBeanItemsGet(dispMove(feedDbMoveDamItBatNot(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void items2() {
+        assertSizeEq(1,callMoveBeanItemsGet(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void items3() {
+        assertEq(I_ITEM,elt(callMoveBeanItemsGet(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void accVar1() {
+        assertSizeEq(1,callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void accVar2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void accVar3() {
+        assertEq(TIME,second(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
 }

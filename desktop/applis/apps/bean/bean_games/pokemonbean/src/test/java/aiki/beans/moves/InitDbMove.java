@@ -5,7 +5,9 @@ import aiki.beans.PkData;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
+import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
@@ -17,6 +19,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.util.LevelMove;
+import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
@@ -25,6 +28,8 @@ import code.maths.montecarlo.MonteCarloNumber;
 import code.util.*;
 
 public abstract class InitDbMove extends InitDbMoves {
+
+    public static final String TIME = "time";
 
     public static Struct callMoveBeanAbilitiesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanAbilitiesGet(),_str,_args);
@@ -518,6 +523,11 @@ public abstract class InitDbMove extends InitDbMoves {
         e_.setProtTeamAgainstPrio(_protTeamAgainstPrio);
         return e_;
     }
+    protected static FacadeGame feedDbMoveDamComp(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame f_ = feedDbMoveDam(_targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, _s, _k, _dir, _power);
+        f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        return f_;
+    }
     protected static FacadeGame feedDbMoveDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
@@ -530,6 +540,78 @@ public abstract class InitDbMove extends InitDbMoves {
         facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
         facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
         facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveDamAb(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        AbilityData ab_ = Instances.newAbilityData();
+        ab_.getImmuMove().add(M_DAM);
+        facade_.getData().completeMembers(A_ABILITY, ab_);
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveDamItBatNot(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,Instances.newItemForBattle());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        AbilityData ab_ = Instances.newAbilityData();
+        ab_.getImmuMove().add(M_DAM);
+        facade_.getData().completeMembers(A_ABILITY, ab_);
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveDamItBat(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        ItemForBattle ot_ = Instances.newItemForBattle();
+        ot_.getImmuMoves().add(M_DAM);
+        facade_.getData().completeMembers(I_ITEM, ot_);
         facade_.getData().completeMembers(S_STA_REL,staRel(""));
         facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
         facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));

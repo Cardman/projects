@@ -35,6 +35,7 @@ import code.scripts.confs.PkScriptPagesInit;
 import code.util.*;
 
 public abstract class InitDbConstr extends InitDbBean {
+    protected static final String TAB = "\t";
     protected static final String CST_ABILITIES = "abilities";
     protected static final String CST_ABILITIES_SET = "abilities_set";
     protected static final String CST_ABILITY = "ability";
