@@ -519,6 +519,85 @@ public abstract class InitDbMove extends InitDbMoves {
         facade_.getData().completeVariables();
         return facade_;
     }
+    protected static FacadeGame feedDbMoveDamDefTypeNoItem(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        dam_.getTypesByWeather().addEntry(NULL_REF, T_TYPE2);
+        dam_.getTypesByOwnedItem().clear();
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveDamDefTypeNo(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        dam_.getTypesByWeather().clear();
+        dam_.getTypesByOwnedItem().clear();
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveDamBig(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectStatistic pre_ = Instances.newEffectStatistic();
+        pre_.setTargetChoice(TargetChoice.LANCEUR);
+        dam_.getEffects().add(pre_);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        EffectStatus st_ = Instances.newEffectStatus();
+        st_.setTargetChoice(TargetChoice.LANCEUR);
+        dam_.getEffects().add(st_);
+        EffectEndRoundIndividual end_ = Instances.newEffectEndRoundIndividual();
+        end_.setTargetChoice(TargetChoice.LANCEUR);
+        dam_.getEffects().add(end_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
     protected static FacadeGame feedDbMoveDamDefTypeIt(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();

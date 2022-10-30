@@ -482,28 +482,19 @@ public class MoveBean extends CommonBean {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
-        if (!moveData_.getTypesByOwnedItem().isEmpty()) {
-            return !moveData_.getTypesByWeather().isEmpty();
-        }
-        return false;
+        return !moveData_.getTypesByOwnedItem().isEmpty() && !moveData_.getTypesByWeather().isEmpty();
     }
     public boolean typesDependOnlyOnItem() {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
-        if (!moveData_.getTypesByOwnedItem().isEmpty()) {
-            return moveData_.getTypesByWeather().isEmpty();
-        }
-        return false;
+        return !moveData_.getTypesByOwnedItem().isEmpty() && moveData_.getTypesByWeather().isEmpty();
     }
     public boolean typesDependOnlyOnWeather() {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
         MoveData moveData_ = data_.getMove(name_);
-        if (moveData_.getTypesByOwnedItem().isEmpty()) {
-            return !moveData_.getTypesByWeather().isEmpty();
-        }
-        return false;
+        return moveData_.getTypesByOwnedItem().isEmpty() && !moveData_.getTypesByWeather().isEmpty();
     }
     public boolean isDamagingMove() {
         String name_ = getForms().getValStr(CST_MOVE);

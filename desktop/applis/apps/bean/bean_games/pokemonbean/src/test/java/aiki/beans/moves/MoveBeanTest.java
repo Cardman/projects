@@ -155,4 +155,108 @@ public final class MoveBeanTest extends InitDbMove {
     public void isItem3() {
         assertTrue(callMoveBeanIsItem(dispMove(feedDbMoveDamDefTypeItWeather(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),0));
     }
+    @Test
+    public void typesDependOnWeatherAndItem1() {
+        assertFalse(callMoveBeanTypesDependOnWeatherAndItem(dispMove(feedDbMoveDamDefTypeNo(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnWeatherAndItem2() {
+        assertFalse(callMoveBeanTypesDependOnWeatherAndItem(dispMove(feedDbMoveDamDefTypeNoItem(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnWeatherAndItem3() {
+        assertFalse(callMoveBeanTypesDependOnWeatherAndItem(dispMove(feedDbMoveDamDefTypeIt(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnWeatherAndItem4() {
+        assertTrue(callMoveBeanTypesDependOnWeatherAndItem(dispMove(feedDbMoveDamDefTypeItWeather(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnItem1() {
+        assertFalse(callMoveBeanTypesDependOnlyOnItem(dispMove(feedDbMoveDamDefTypeNo(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnItem2() {
+        assertFalse(callMoveBeanTypesDependOnlyOnItem(dispMove(feedDbMoveDamDefTypeNoItem(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnItem3() {
+        assertTrue(callMoveBeanTypesDependOnlyOnItem(dispMove(feedDbMoveDamDefTypeIt(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnItem4() {
+        assertFalse(callMoveBeanTypesDependOnlyOnItem(dispMove(feedDbMoveDamDefTypeItWeather(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnWeather1() {
+        assertFalse(callMoveBeanTypesDependOnlyOnWeather(dispMove(feedDbMoveDamDefTypeNo(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnWeather2() {
+        assertTrue(callMoveBeanTypesDependOnlyOnWeather(dispMove(feedDbMoveDamDefTypeNoItem(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnWeather3() {
+        assertFalse(callMoveBeanTypesDependOnlyOnWeather(dispMove(feedDbMoveDamDefTypeIt(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void typesDependOnlyOnWeather4() {
+        assertFalse(callMoveBeanTypesDependOnlyOnWeather(dispMove(feedDbMoveDamDefTypeItWeather(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void isBeforePrimaryEffect1() {
+        assertFalse(callMoveBeanIsBeforePrimaryEffect(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
+    }
+    @Test
+    public void isBeforePrimaryEffect2() {
+        assertTrue(callMoveBeanIsBeforePrimaryEffect(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),0));
+    }
+    @Test
+    public void isPrimaryEffect1() {
+        assertFalse(callMoveBeanIsPrimaryEffect(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),2));
+    }
+    @Test
+    public void isPrimaryEffect2() {
+        assertTrue(callMoveBeanIsPrimaryEffect(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
+    }
+    @Test
+    public void isAfterPrimaryEffect1() {
+        assertFalse(callMoveBeanIsAfterPrimaryEffect(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
+    }
+    @Test
+    public void isAfterPrimaryEffect2() {
+        assertTrue(callMoveBeanIsAfterPrimaryEffect(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),2));
+    }
+    @Test
+    public void effPrimOrBeforeNotEndRound1() {
+        assertTrue(callMoveBeanEffPrimOrBeforeNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),0));
+    }
+    @Test
+    public void effPrimOrBeforeNotEndRound2() {
+        assertFalse(callMoveBeanEffPrimOrBeforeNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),3));
+    }
+    @Test
+    public void effPrimOrBeforeNotEndRound3() {
+        assertFalse(callMoveBeanEffPrimOrBeforeNotEndRound(dispMove(feedDbMoveStaEndRound(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1,1),1),0));
+    }
+    @Test
+    public void effPrimOrBeforeNotEndRound4() {
+        assertFalse(callMoveBeanEffPrimOrBeforeNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),2));
+    }
+    @Test
+    public void effSecNotEndRound1() {
+        assertTrue(callMoveBeanSecNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),2));
+    }
+    @Test
+    public void effSecNotEndRound2() {
+        assertFalse(callMoveBeanSecNotEndRound(dispMove(feedDbMoveStaEndRound(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1,1),1),0));
+    }
+    @Test
+    public void effSecNotEndRound3() {
+        assertFalse(callMoveBeanSecNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),3));
+    }
+    @Test
+    public void effSecNotEndRound4() {
+        assertFalse(callMoveBeanSecNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
+    }
 }
