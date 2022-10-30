@@ -12,13 +12,16 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.fight.pokemon.PokemonData;
+import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.fight.util.LevelMove;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public abstract class InitDbMove extends InitDbMoves {
 
@@ -470,6 +473,56 @@ public abstract class InitDbMove extends InitDbMoves {
         trs(facade_);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    protected static FacadeGame feedDbMoveDamFullLearn(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power, int _hm, int _tm) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VAR,moveDam(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_BAD,moveDam(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD,moveDam(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_POW,moveDam(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        PokemonData pk_ = Instances.newPokemonData();
+        pk_.setBaseEvo(P_POKEMON);
+        pk_.setTypes(new StringList(T_TYPE1));
+        pk_.setAbilities(new StringList(A_ABILITY));
+        pk_.setHeight(Rate.one());
+        pk_.setWeight(Rate.one());
+        pk_.setHappiness((short) 1);
+        pk_.setHappinessHatch((short) 1);
+        pk_.setExpRate(1);
+        pk_.setCatchingRate((short) 1);
+        pk_.setExpEvo(ExpType.E);
+        pk_.setGenderRep(GenderRepartition.NO_GENDER);
+        pk_.setHatchingSteps(LgInt.one());
+        pk_.setHiddenMoves(Shorts.newList((short) _hm));
+        pk_.setTechnicalMoves(Shorts.newList((short) _tm));
+        pk_.setEggGroups(new StringList("__"));
+        pk_.setMoveTutors(new StringList(M_DAM));
+        CustList<LevelMove> lv_ = new CustList<LevelMove>();
+        lv_.add(new LevelMove((short) 1,M_WEA));
+        lv_.add(new LevelMove((short) 1,M_DAM_VAR));
+        lv_.add(new LevelMove((short) 3,M_STA));
+        pk_.setLevMoves(lv_);
+        statAdv(pk_);
+        facade_.getData().completeMembers(P_POKEMON, pk_);
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(), facade_.getData().getTmPrice(), 1,M_DAM_POW);
+        feedHm(facade_.getData().getHm(), 1,M_DAM_BAD);
         facade_.getData().completeVariables();
         return facade_;
     }

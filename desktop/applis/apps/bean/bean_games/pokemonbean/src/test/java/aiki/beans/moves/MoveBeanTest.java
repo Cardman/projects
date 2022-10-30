@@ -259,4 +259,32 @@ public final class MoveBeanTest extends InitDbMove {
     public void effSecNotEndRound4() {
         assertFalse(callMoveBeanSecNotEndRound(dispMove(feedDbMoveDamBig(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
     }
+    @Test
+    public void canBeLearnt1() {
+        assertTrue(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",1,1),0)));
+    }
+    @Test
+    public void canBeLearnt2() {
+        assertTrue(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",1,1),1)));
+    }
+    @Test
+    public void canBeLearnt3() {
+        assertTrue(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",2,2),2)));
+    }
+    @Test
+    public void canBeLearnt4() {
+        assertTrue(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",2,2),3)));
+    }
+    @Test
+    public void canBeLearnt5() {
+        assertFalse(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",1,1),4)));
+    }
+    @Test
+    public void canBeLearnt6() {
+        assertFalse(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",2,2),0)));
+    }
+    @Test
+    public void canBeLearnt7() {
+        assertFalse(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",2,2),1)));
+    }
 }
