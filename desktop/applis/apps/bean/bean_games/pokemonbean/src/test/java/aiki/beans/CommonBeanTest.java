@@ -1,6 +1,8 @@
 package aiki.beans;
 
 import aiki.facade.FacadeGame;
+import code.bean.nat.RateStruct;
+import code.maths.Rate;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -114,7 +116,26 @@ public final class CommonBeanTest extends InitDbWelcome {
         assertTrue(forms_.getValPokemonData(P).isEmpty());
         assertTrue(forms_.getValStatusData(S).isEmpty());
     }
-
+    @Test
+    public void rateAbs() {
+        assertEq(Rate.one(),callLongs(new RateAbsNb(),new RateStruct(Rate.minusOne())));
+    }
+    @Test
+    public void rateZero1() {
+        assertFalse(callLongs(new RateIsZero(),new RateStruct(Rate.one())));
+    }
+    @Test
+    public void rateZero2() {
+        assertTrue(callLongs(new RateIsZero(),new RateStruct(Rate.zero())));
+    }
+    @Test
+    public void rateZeroGt1() {
+        assertTrue(callLongs(new RateIsZeroOrGt(),new RateStruct(Rate.one())));
+    }
+    @Test
+    public void rateZeroGt2() {
+        assertFalse(callLongs(new RateIsZeroOrGt(),new RateStruct(Rate.minusOne())));
+    }
     private String value(StringMapObject _forms) {
         return _forms.getValStr(KEY);
     }
