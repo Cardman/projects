@@ -17,7 +17,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     public static Struct callChange(Struct _str, String _args) {
-        callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),innerSet(_str),_args);
+        callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),inner(_str),_args);
         return _str;
     }
 
@@ -26,71 +26,71 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     public static Struct callDifficultyBeanDamageRateLawFoeSet(Struct _str, String _args) {
-        return callString(new DifficultyCommonBeanDamageRateLawFoeSet(),innerSet(_str),_args);
+        return callString(new DifficultyCommonBeanDamageRateLawFoeSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerSet(Struct _str, String _args) {
-        return callString(new DifficultyCommonBeanDamageRatePlayerSet(),innerSet(_str),_args);
+        return callString(new DifficultyCommonBeanDamageRatePlayerSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDiffWinningExpPtsFightSet(Struct _str, String _args) {
-        return callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),innerSet(_str),_args);
+        return callString(new DifficultyCommonBeanDiffWinningExpPtsFightSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanIvFoeSet(Struct _str, int _args) {
-        return callInt(new DifficultyCommonBeanIvFoeSet(),innerSet(_str),_args);
+        return callInt(new DifficultyCommonBeanIvFoeSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanIvPlayerSet(Struct _str, int _args) {
-        return callInt(new DifficultyCommonBeanIvPlayerSet(),innerSet(_str),_args);
+        return callInt(new DifficultyCommonBeanIvPlayerSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateLooseMoneyWinSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanRateLooseMoneyWinSet(),innerSet(_str),_args);
+        return callRate(new DifficultyCommonBeanRateLooseMoneyWinSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateWinMoneyBaseSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanRateWinMoneyBaseSet(),innerSet(_str),_args);
+        return callRate(new DifficultyCommonBeanRateWinMoneyBaseSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRateWinningExpPtsFightSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanRateWinningExpPtsFightSet(),innerSet(_str),_args);
+        return callRate(new DifficultyCommonBeanRateWinningExpPtsFightSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanWinTrainerExpSet(Struct _str, Rate _args) {
-        return callRate(new DifficultyCommonBeanWinTrainerExpSet(),innerSet(_str),_args);
+        return callRate(new DifficultyCommonBeanWinTrainerExpSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanSkipLearningMovesWhileNotGrowingLevelSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanSkipLearningMovesWhileNotGrowingLevelSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanStillPossibleFleeSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanStillPossibleFleeSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanStillPossibleFleeSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRandomWildFightSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanRandomWildFightSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanRandomWildFightSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanEnabledClosingSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanEnabledClosingSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanEnabledClosingSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanRestoredMovesEndFightSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanRestoredMovesEndFightSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanRestoredMovesEndFightSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanAllowedSwitchPlacesEndRoundSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanAllowedSwitchPlacesEndRoundSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanEndFightIfOneTeamKoSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanEndFightIfOneTeamKoSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanEndFightIfOneTeamKoSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanAllowCatchingKoSet(Struct _str, boolean _args) {
-        return callBool(new DifficultyCommonBeanAllowCatchingKoSet(),innerSet(_str),_args);
+        return callBool(new DifficultyCommonBeanAllowCatchingKoSet(),inner(_str),_args);
     }
 
     public static Struct callDifficultyBeanDamageRatePlayerTableGet(Struct _str, long... _args) {
@@ -178,13 +178,6 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     private static Struct inner(Struct _str) {
-        DifficultyCommonBean b_ = new DifficultyCommonBean();
-        b_.setOwner(((DifficultyBean)((PokemonBeanStruct)_str).getInstance()).getDifficultyCommon());
-        b_.beforeDisplaying();
-        return new PokemonBeanStruct(b_);
-    }
-
-    private static Struct innerSet(Struct _str) {
         DifficultyCommonBean b_ = new DifficultyCommonBean();
         b_.setOwner(((DifficultyBean)((PokemonBeanStruct)_str).getInstance()).getDifficultyCommon());
         b_.beforeDisplaying();
