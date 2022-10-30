@@ -3,6 +3,7 @@ package aiki.beans.moves;
 import aiki.beans.CommonBean;
 import aiki.beans.WithFilterBean;
 import aiki.beans.items.ItemsBean;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -814,8 +815,7 @@ public class MoveBean extends CommonBean {
     public String clickPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
         String pk_ = pks_.get(_indexPk);
-        getForms().put(CST_PK, pk_);
-        return CST_POKEMON;
+        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
     }
     public String getTrPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);

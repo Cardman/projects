@@ -123,6 +123,7 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static final String A_ABILITY="A_ABILITY";
     protected static final String P_POKEMON="P_POKEMON";
+    protected static final String P_PIKA="P_PIKA";
     protected static final String M_DAM="M_DAM";
     protected static final String M_DAM_VAR="M_DAM_VAR";
     protected static final String M_DAM_BAD="M_DAM_BAD";
@@ -136,9 +137,10 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String C_CAT="C_CAT";
     protected static final String S_STA_SIM="S_STA_SIM";
     protected static final String S_STA_REL="S_STA_REL";
+
     protected static final String A_ABILITY_TR="A_ABILITY_TR";
     protected static final String P_POKEMON_TR="P_POKEMON_TR";
-
+    protected static final String P_PIKA_TR="P_PIKA_TR";
     protected static final String M_DAM_TR="M_DAM_TR";
     protected static final String M_DAM_POW_TR="M_DAM_POW_TR";
     protected static final String M_DAM_VAR_TR="M_DAM_VAR_TR";
@@ -355,5 +357,9 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static String getValMoveId(Struct _bean) {
         return forms(_bean).getValStr(CST_MOVE);
+    }
+
+    protected static String getValPkId(Struct _bean) {
+        return forms(_bean).getValStr(CST_PK);
     }
 }

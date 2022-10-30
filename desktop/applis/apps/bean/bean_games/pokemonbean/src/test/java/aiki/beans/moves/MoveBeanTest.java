@@ -1,5 +1,6 @@
 package aiki.beans.moves;
 
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.db.DataBase;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
@@ -286,5 +287,53 @@ public final class MoveBeanTest extends InitDbMove {
     @Test
     public void canBeLearnt7() {
         assertFalse(callMoveBeanCanBeLearnt(dispMove(feedDbMoveDamFullLearn(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1",2,2),1)));
+    }
+    @Test
+    public void getMovesLevelLearntByPokemon1() {
+        assertSizeEq(1,callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)));
+    }
+    @Test
+    public void getMovesLevelLearntByPokemon2() {
+        assertEq(3,first(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)));
+    }
+    @Test
+    public void getMovesLevelLearntByPokemon3() {
+        assertEq(1,first(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)),0)));
+    }
+    @Test
+    public void getMovesLevelLearntByPokemon4() {
+        assertSizeEq(2,second(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)));
+    }
+    @Test
+    public void getMovesLevelLearntByPokemon5() {
+        assertEq(P_PIKA,elt(second(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)),0));
+    }
+    @Test
+    public void getMovesLevelLearntByPokemon6() {
+        assertEq(P_POKEMON,elt(second(elt(callMoveBeanMovesLevelLearntByPokemonGet(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1)),0)),1));
+    }
+    @Test
+    public void getTrPokemon1() {
+        assertEq(P_PIKA_TR,callMoveBeanGetTrPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,0));
+    }
+    @Test
+    public void getTrPokemon2() {
+        assertEq(P_POKEMON_TR,callMoveBeanGetTrPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,1));
+    }
+    @Test
+    public void clickPokemon1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,0));
+    }
+    @Test
+    public void clickPokemon2() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemon(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,1));
+    }
+    @Test
+    public void clickPokemon3() {
+        assertEq(P_PIKA,callMoveBeanClickPokemonId(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,0));
+    }
+    @Test
+    public void clickPokemon4() {
+        assertEq(P_POKEMON,callMoveBeanClickPokemonId(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,1));
     }
 }

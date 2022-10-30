@@ -2,6 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.StringMapObject;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -81,9 +82,18 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickMoves(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemon(),_str,_args);
+    public static String callMoveBeanClickPokemon(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickPokemon(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE+NAV_SEP+"clickPokemon(,)",_str,_args);
     }
+
+    public static String callMoveBeanClickPokemonId(Struct _str, long... _args) {
+        callMoveBeanClickPokemon(_str, _args);
+        return getValPkId(_str);
+    }
+
+//    public static Struct callMoveBeanClickPokemon(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemon(),_str,_args);
+//    }
 
     public static Struct callMoveBeanClickPokemonHm(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemonHm(),_str,_args);
@@ -523,6 +533,30 @@ public abstract class InitDbMove extends InitDbMoves {
         trs(facade_);
         feedTm(facade_.getData().getTm(), facade_.getData().getTmPrice(), 1,M_DAM_POW);
         feedHm(facade_.getData().getHm(), 1,M_DAM_BAD);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveDamTwo(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        facade_.getData().completeMembers(M_STA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA,moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(P_PIKA,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getTranslatedPokemon().getVal(EN).addEntry(P_PIKA,P_PIKA_TR);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
         return facade_;
     }

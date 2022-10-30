@@ -2,6 +2,7 @@ package code.scripts.confs;
 
 import aiki.beans.fight.*;
 import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import code.bean.nat.NatDualConfigurationContext;
 import code.util.CollCapacity;
 import code.util.StringList;
@@ -294,7 +295,7 @@ private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML="web
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFF_HTML="web/html/moves/effects/eff.html";
 //private static final String REN_ADD_WEB_HTML_MOVES_MOVELINE_HTML="web/html/moves/moveline.html";
 //private static final String REN_ADD_WEB_HTML_MOVES_MOVES_HTML="web/html/moves/moves.html";
-private static final String REN_ADD_WEB_HTML_POKEMON_DATA_HTML="web/html/pokemon/data.html";
+//private static final String REN_ADD_WEB_HTML_POKEMON_DATA_HTML="web/html/pokemon/data.html";
 private static final String REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOHAPPY_HTML="web/html/pokemon/evolutions/evohappy.html";
 private static final String REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOITEM_HTML="web/html/pokemon/evolutions/evoitem.html";
 private static final String REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVELGENDER_HTML="web/html/pokemon/evolutions/evolevelgender.html";
@@ -517,7 +518,7 @@ private static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML);
         added_.add(AikiBeansMovesStd.WEB_HTML_MOVES_MOVE_LINE_HTML);
         added_.add(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML);
-        added_.add(REN_ADD_WEB_HTML_POKEMON_DATA_HTML);
+        added_.add(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML);
         added_.add(REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOHAPPY_HTML);
         added_.add(REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOITEM_HTML);
         added_.add(REN_ADD_WEB_HTML_POKEMON_EVOLUTIONS_EVOLEVEL_HTML);
