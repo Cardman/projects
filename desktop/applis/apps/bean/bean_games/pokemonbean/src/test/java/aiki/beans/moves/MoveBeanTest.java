@@ -548,4 +548,44 @@ public final class MoveBeanTest extends InitDbMove {
     public void isUniqueImporte2() {
         assertTrue(callMoveBeanIsUniqueImporte(dispMove(feedDbMoveDam(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
+    @Test
+    public void key() {
+        assertEq(M_DAM,callMoveBeanNameGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void cat() {
+        assertEq(C_CAT1_TR,callMoveBeanCategoryGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void pp() {
+        assertEq(1,callMoveBeanPpGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void prio() {
+        assertEq(1,callMoveBeanPriorityGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void acc() {
+        assertEq("1",callMoveBeanAccuracyGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void prepa() {
+        assertEq(1,callMoveBeanNbPrepaRoundGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void boost1() {
+        assertSizeEq(1,callMoveBeanBoostedTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void boost2() {
+        assertEq(T_TYPE1_TR,elt(callMoveBeanBoostedTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void types1() {
+        assertSizeEq(1,callMoveBeanTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void types2() {
+        assertEq(T_TYPE1_TR,elt(callMoveBeanTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
 }
