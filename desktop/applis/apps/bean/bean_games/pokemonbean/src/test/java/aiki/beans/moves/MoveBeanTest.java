@@ -336,4 +336,20 @@ public final class MoveBeanTest extends InitDbMove {
     public void clickPokemon4() {
         assertEq(P_POKEMON,callMoveBeanClickPokemonId(dispMove(feedDbMoveDamTwo(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),1),0,1));
     }
+    @Test
+    public void affectedByMoves1() {
+        assertSizeEq(5,callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),2)));
+    }
+    @Test
+    public void affectedByMoves2() {
+        assertSizeEq(1,callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveDamAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,false,false,false,false,true, true, "1"),2)));
+    }
+    @Test
+    public void affectedByMoves3() {
+        assertSizeEq(6,callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),5)));
+    }
+    @Test
+    public void affectedByMoves4() {
+        assertSizeEq(3,callMoveBeanAffectedByMovesGet(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5)));
+    }
 }

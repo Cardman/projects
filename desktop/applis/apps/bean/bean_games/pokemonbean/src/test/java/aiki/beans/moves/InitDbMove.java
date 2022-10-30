@@ -2,7 +2,6 @@ package aiki.beans.moves;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
-import aiki.beans.StringMapObject;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -11,6 +10,7 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
+import aiki.fight.moves.effects.enums.PointViewChangementType;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
@@ -464,6 +464,60 @@ public abstract class InitDbMove extends InitDbMoves {
         facade_.getData().completeVariables();
         return facade_;
     }
+    protected static FacadeGame feedDbMoveStaEndRoundAffect(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _t, boolean _count, int _prepa, int _prioNb) {
+        FacadeGame facade_ = facade();
+        StatusMoveData protMult_ = moveSta(TargetChoice.ANY_FOE);
+        protMult_.getEffects().add(buildProt(false,false,Rate.zero(),true,false,false));
+        facade_.getData().completeMembers(M_DAM, protMult_);
+        StatusMoveData sta_ = Instances.newStatusMoveData();
+        feed(sta_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_DAM, M_WEA, _prepa, _prioNb);
+        feed(sta_, _t, _count);
+        EffectEndRoundIndividual ef_ = Instances.newEffectEndRoundIndividual();
+        target(sta_, ef_);
+        facade_.getData().completeMembers(M_STA, sta_);
+        StatusMoveData protSingle_ = moveSta(TargetChoice.TOUS_ADV);
+        protSingle_.getEffects().add(buildProt(true,false,Rate.zero(),false,false,false));
+        facade_.getData().completeMembers(M_WEA, protSingle_);
+        StatusMoveData prDam_ = moveSta(TargetChoice.TOUS_ADV);
+        prDam_.getEffects().add(pv(PointViewChangementType.THIEF_BONUSES));
+        facade_.getData().completeMembers(M_DAM_POW, prDam_);
+        StatusMoveData protStat_ = moveSta(TargetChoice.TOUS_ADV);
+        protStat_.getEffects().add(buildProt(false, false, Rate.zero(), false, true, false));
+        facade_.getData().completeMembers(M_DAM_VAR, protStat_);
+        StatusMoveData protKo_ = moveSta(TargetChoice.TOUS_ADV);
+        protKo_.getEffects().add(pv(PointViewChangementType.MIRROR_AGAINST_THROWER));
+        facade_.getData().completeMembers(M_DAM_BAD, protKo_);
+        StatusMoveData protPrio_ = moveSta(TargetChoice.TOUS_ADV);
+        protPrio_.getEffects().add(buildProt(false, false, Rate.zero(), false, false, true));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, protPrio_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static EffectSwitchPointView pv(PointViewChangementType _n) {
+        EffectSwitchPointView p_ = Instances.newEffectSwitchPointView();
+        p_.setPointViewChangement(_n);
+        return p_;
+    }
+
+    private static EffectProtection buildProt(boolean _single, boolean _protTeamAgainstDamageMoves, Rate _ag, boolean _protTeamAgainstMultTargets, boolean _protTeamAgainstStatusMoves, boolean _protTeamAgainstPrio) {
+        EffectProtection e_ = Instances.newEffectProtection();
+        e_.setProtSingle(_single);
+        e_.setProtTeamAgainstDamageMoves(_protTeamAgainstDamageMoves);
+        e_.setProtSingleAgainstKo(_ag);
+        e_.setProtTeamAgainstMultTargets(_protTeamAgainstMultTargets);
+        e_.setProtTeamAgainstStatusMoves(_protTeamAgainstStatusMoves);
+        e_.setProtTeamAgainstPrio(_protTeamAgainstPrio);
+        return e_;
+    }
     protected static FacadeGame feedDbMoveDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
@@ -486,7 +540,44 @@ public abstract class InitDbMove extends InitDbMoves {
         facade_.getData().completeVariables();
         return facade_;
     }
-
+    protected static FacadeGame feedDbMoveDamAffect(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+        FacadeGame facade_ = facade();
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
+        feed(dam_, _s, _k, _dir);
+        EffectDamage ef_ = Instances.newEffectDamage();
+        ef_.setPower(_power);
+        target(dam_, ef_);
+        facade_.getData().completeMembers(M_DAM, dam_);
+        StatusMoveData protMult_ = moveSta(TargetChoice.TOUS_ADV);
+        protMult_.getEffects().add(buildProt(false,false,Rate.zero(),true,false,false));
+        facade_.getData().completeMembers(M_STA, protMult_);
+        StatusMoveData protSingle_ = moveSta(TargetChoice.TOUS_ADV);
+        protSingle_.getEffects().add(buildProt(true,false,Rate.zero(),false,false,false));
+        facade_.getData().completeMembers(M_WEA, protSingle_);
+        StatusMoveData prDam_ = moveSta(TargetChoice.TOUS_ADV);
+        prDam_.getEffects().add(buildProt(false,true,Rate.zero(),false,false,false));
+        facade_.getData().completeMembers(M_DAM_POW, prDam_);
+        StatusMoveData protStat_ = moveSta(TargetChoice.TOUS_ADV);
+        protStat_.getEffects().add(buildProt(false, false, Rate.zero(), false, true, false));
+        facade_.getData().completeMembers(M_DAM_VAR, protStat_);
+        StatusMoveData protKo_ = moveSta(TargetChoice.TOUS_ADV);
+        protKo_.getEffects().add(buildProt(false, false, Rate.one(), false, false, false));
+        facade_.getData().completeMembers(M_DAM_BAD, protKo_);
+        StatusMoveData protPrio_ = moveSta(TargetChoice.TOUS_ADV);
+        protPrio_.getEffects().add(buildProt(false, false, Rate.zero(), false, false, true));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, protPrio_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
     protected static FacadeGame feedDbMoveDamFullLearn(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power, int _hm, int _tm) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
