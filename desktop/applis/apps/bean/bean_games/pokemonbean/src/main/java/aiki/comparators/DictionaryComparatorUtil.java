@@ -222,6 +222,15 @@ public final class DictionaryComparatorUtil {
         }
         return r_;
     }
+
+    public static DictionaryComparator<LgInt, Rate> buildIntRate(MonteCarloNumber _law) {
+        DictionaryComparator<LgInt, Rate> r_ = buildIntRate();
+        for (Rate r: _law.events()) {
+            r_.put(r.intPart(), _law.normalizedRate(r));
+        }
+        return r_;
+    }
+
     public static DictionaryComparator<Rate,Rate> buildRateRate() {
         return new DictionaryComparator<Rate,Rate>(new ComparatorRate());
     }

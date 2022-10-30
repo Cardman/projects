@@ -5,6 +5,8 @@ import aiki.db.DataBase;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
+import code.maths.LgInt;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class MoveBeanTest extends InitDbMove {
@@ -573,6 +575,10 @@ public final class MoveBeanTest extends InitDbMove {
         assertEq(1,callMoveBeanNbPrepaRoundGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
     @Test
+    public void rk() {
+        assertEq(1,callMoveBeanRankIncrementNbRoundGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
     public void boost1() {
         assertSizeEq(1,callMoveBeanBoostedTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
@@ -587,5 +593,45 @@ public final class MoveBeanTest extends InitDbMove {
     @Test
     public void types2() {
         assertEq(T_TYPE1_TR,elt(callMoveBeanTypesGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void deletedStatus1() {
+        assertSizeEq(1,callMoveBeanDeletedStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void deletedStatus2() {
+        assertEq(S_STA_SIM,elt(callMoveBeanDeletedStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void requiredStatus1() {
+        assertSizeEq(1,callMoveBeanRequiredStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void requiredStatus2() {
+        assertEq(S_STA_REL,elt(callMoveBeanRequiredStatusGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void achieveDisappearedPkUsingMove1() {
+        assertSizeEq(1,callMoveBeanAchieveDisappearedPkUsingMoveGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void achieveDisappearedPkUsingMove2() {
+        assertEq(M_STA,elt(callMoveBeanAchieveDisappearedPkUsingMoveGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void getEffects() {
+        assertSizeEq(1,callMoveBeanEffectsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getRepeatRoundLaw1() {
+        assertSizeEq(1,callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getRepeatRoundLaw2() {
+        assertEq(LgInt.one(),first(elt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void getRepeatRoundLaw3() {
+        assertEq(Rate.one(),second(elt(callMoveBeanRepeatRoundLawGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
 }

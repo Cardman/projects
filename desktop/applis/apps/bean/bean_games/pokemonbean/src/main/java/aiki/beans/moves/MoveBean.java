@@ -140,12 +140,7 @@ public class MoveBean extends CommonBean {
             effects_.add(i);
         }
         effects = effects_;
-        DictionaryComparator<LgInt, Rate> repeatRoundLaw_;
-        repeatRoundLaw_ = DictionaryComparatorUtil.buildIntRate();
-        for (Rate r: moveData_.getRepeatRoundLaw().events()) {
-            repeatRoundLaw_.put(r.intPart(), moveData_.getRepeatRoundLaw().normalizedRate(r));
-        }
-        repeatRoundLaw = repeatRoundLaw_;
+        repeatRoundLaw = DictionaryComparatorUtil.buildIntRate(moveData_.getRepeatRoundLaw());
         rankIncrementNbRound = moveData_.getRankIncrementNbRound();
         rechargeRound = moveData_.getRechargeRound();
         constUserChoice = moveData_.getConstUserChoice();
