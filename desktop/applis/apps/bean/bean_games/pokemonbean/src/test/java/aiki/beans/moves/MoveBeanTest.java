@@ -21,7 +21,7 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void endRound2() {
-        assertTrue(callMoveBeanIsEndRoundEffect(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true),1),0));
+        assertTrue(callMoveBeanIsEndRoundEffect(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1),0));
     }
     @Test
     public void hasDef1() {
@@ -110,5 +110,21 @@ public final class MoveBeanTest extends InitDbMove {
     @Test
     public void cstAcc2() {
         assertTrue(callMoveBeanIsConstAccuracy(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isZeroPriority1() {
+        assertFalse(callMoveBeanIsZeroPriority(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1),0));
+    }
+    @Test
+    public void isZeroPriority2() {
+        assertTrue(callMoveBeanIsZeroPriority(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 0),1),0));
+    }
+    @Test
+    public void isZeroPrepaRound1() {
+        assertFalse(callMoveBeanIsZeroPrepaRound(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1),0));
+    }
+    @Test
+    public void isZeroPrepaRound2() {
+        assertTrue(callMoveBeanIsZeroPrepaRound(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 0, 1),1),0));
     }
 }

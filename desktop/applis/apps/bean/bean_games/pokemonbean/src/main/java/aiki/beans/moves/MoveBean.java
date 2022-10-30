@@ -203,11 +203,12 @@ public class MoveBean extends CommonBean {
 
     static Ints getValidEffects(MoveData _move, Ints _ls) {
         Ints no_ = new Ints();
-        int ef_ = _move.nbEffets();
+        CustList<Effect> effects_ = _move.getEffects();
         int s_ = _ls.size();
         for (int i =0; i < s_; i++) {
-            if (_ls.get(i) >= 0 && _ls.get(i) < ef_) {
-                no_.add(i);
+            int v_ = _ls.get(i);
+            if (effects_.isValidIndex(v_)) {
+                no_.add(v_);
             }
         }
         return no_;

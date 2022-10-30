@@ -412,7 +412,7 @@ public abstract class InitDbMove extends InitDbMoves {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(M_DAM, moveDam(TargetChoice.ANY_FOE));
         StatusMoveData sta_ = Instances.newStatusMoveData();
-        feed(sta_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_DAM, M_WEA);
+        feed(sta_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_DAM, M_WEA, 1, 1);
         feed(sta_, _t, _count);
         EffectStatistic ef_ = Instances.newEffectStatistic();
         target(sta_, ef_);
@@ -429,11 +429,11 @@ public abstract class InitDbMove extends InitDbMoves {
         facade_.getData().completeVariables();
         return facade_;
     }
-    protected static FacadeGame feedDbMoveStaEndRound(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _t, boolean _count) {
+    protected static FacadeGame feedDbMoveStaEndRound(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _t, boolean _count, int _prepa, int _prioNb) {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(M_DAM, moveDam(TargetChoice.ANY_FOE));
         StatusMoveData sta_ = Instances.newStatusMoveData();
-        feed(sta_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_DAM, M_WEA);
+        feed(sta_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_DAM, M_WEA, _prepa, _prioNb);
         feed(sta_, _t, _count);
         EffectEndRoundIndividual ef_ = Instances.newEffectEndRoundIndividual();
         target(sta_, ef_);
@@ -453,7 +453,7 @@ public abstract class InitDbMove extends InitDbMoves {
     protected static FacadeGame feedDbMoveDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
-        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA);
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
         feed(dam_, _s, _k, _dir);
         EffectDamage ef_ = Instances.newEffectDamage();
         ef_.setPower(_power);
@@ -475,7 +475,7 @@ public abstract class InitDbMove extends InitDbMoves {
     protected static FacadeGame feedDbMoveDamDefType(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
-        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA);
+        feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
         feed(dam_, _s, _k, _dir);
         EffectDamage ef_ = Instances.newEffectDamage();
         ef_.setPower(_power);
