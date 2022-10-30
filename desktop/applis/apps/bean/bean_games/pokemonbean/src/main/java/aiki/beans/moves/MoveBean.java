@@ -905,9 +905,6 @@ public class MoveBean extends CommonBean {
     public boolean isUniqueImporte() {
         return targetChoice == TargetChoice.UNIQUE_IMPORTE;
     }
-    public boolean isNothing() {
-        return targetChoice == TargetChoice.NOTHING;
-    }
     public String getPage(int _long) {
         String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();

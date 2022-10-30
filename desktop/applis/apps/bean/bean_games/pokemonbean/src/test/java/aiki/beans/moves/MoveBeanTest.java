@@ -444,4 +444,108 @@ public final class MoveBeanTest extends InitDbMove {
     public void accVar3() {
         assertEq(TIME,second(elt(callMoveBeanMapVarsAccuracyGet(dispMove(feedDbMoveDamComp(TargetChoice.ANY_FOE, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
+    @Test
+    public void switchAfterUsingMove1() {
+        assertFalse(callMoveBeanSwitchAfterUsingMove(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.CIBLE,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void switchAfterUsingMove2() {
+        assertTrue(callMoveBeanSwitchAfterUsingMove(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.LANCEUR,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAdjAdv1() {
+        assertFalse(callMoveBeanIsAdjAdv(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAdjAdv2() {
+        assertTrue(callMoveBeanIsAdjAdv(dispMove(feedDbMoveDam(TargetChoice.ADJ_ADV,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAdjMult1() {
+        assertFalse(callMoveBeanIsAdjMult(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAdjMult2() {
+        assertTrue(callMoveBeanIsAdjMult(dispMove(feedDbMoveDam(TargetChoice.ADJ_MULT,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAdjUniq1() {
+        assertFalse(callMoveBeanIsAdjUniq(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAdjUniq2() {
+        assertTrue(callMoveBeanIsAdjUniq(dispMove(feedDbMoveDam(TargetChoice.ADJ_UNIQ,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAllie1() {
+        assertFalse(callMoveBeanIsAllie(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAllie2() {
+        assertTrue(callMoveBeanIsAllie(dispMove(feedDbMoveDam(TargetChoice.ALLIE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAllies1() {
+        assertFalse(callMoveBeanIsAllies(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAllies2() {
+        assertTrue(callMoveBeanIsAllies(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAnyFoe1() {
+        assertFalse(callMoveBeanIsAnyFoe(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAnyFoe2() {
+        assertTrue(callMoveBeanIsAnyFoe(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAutreUniq1() {
+        assertFalse(callMoveBeanIsAutreUniq(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isAutreUniq2() {
+        assertTrue(callMoveBeanIsAutreUniq(dispMove(feedDbMoveDam(TargetChoice.AUTRE_UNIQ,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isGlobale1() {
+        assertFalse(callMoveBeanIsGlobale(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isGlobale2() {
+        assertTrue(callMoveBeanIsGlobale(dispMove(feedDbMoveDam(TargetChoice.GLOBALE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isLanceur1() {
+        assertFalse(callMoveBeanIsLanceur(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isLanceur2() {
+        assertTrue(callMoveBeanIsLanceur(dispMove(feedDbMoveDam(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isPseudoGlobale1() {
+        assertFalse(callMoveBeanIsPseudoGlobale(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isPseudoGlobale2() {
+        assertTrue(callMoveBeanIsPseudoGlobale(dispMove(feedDbMoveDam(TargetChoice.PSEUDO_GLOBALE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isTousAdv1() {
+        assertFalse(callMoveBeanIsTousAdv(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isTousAdv2() {
+        assertTrue(callMoveBeanIsTousAdv(dispMove(feedDbMoveDam(TargetChoice.TOUS_ADV,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isUniqueImporte1() {
+        assertFalse(callMoveBeanIsUniqueImporte(dispMove(feedDbMoveDam(TargetChoice.ALLIES,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void isUniqueImporte2() {
+        assertTrue(callMoveBeanIsUniqueImporte(dispMove(feedDbMoveDam(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
 }
