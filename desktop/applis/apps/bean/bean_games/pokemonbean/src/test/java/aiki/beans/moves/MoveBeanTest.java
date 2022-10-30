@@ -113,18 +113,46 @@ public final class MoveBeanTest extends InitDbMove {
     }
     @Test
     public void isZeroPriority1() {
-        assertFalse(callMoveBeanIsZeroPriority(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1),0));
+        assertFalse(callMoveBeanIsZeroPriority(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1)));
     }
     @Test
     public void isZeroPriority2() {
-        assertTrue(callMoveBeanIsZeroPriority(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 0),1),0));
+        assertTrue(callMoveBeanIsZeroPriority(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 0),1)));
     }
     @Test
     public void isZeroPrepaRound1() {
-        assertFalse(callMoveBeanIsZeroPrepaRound(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1),0));
+        assertFalse(callMoveBeanIsZeroPrepaRound(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 1, 1),1)));
     }
     @Test
     public void isZeroPrepaRound2() {
-        assertTrue(callMoveBeanIsZeroPrepaRound(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 0, 1),1),0));
+        assertTrue(callMoveBeanIsZeroPrepaRound(dispMove(feedDbMoveStaEndRound(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, 0, 1),1)));
+    }
+    @Test
+    public void isRepeatedRound1() {
+        assertFalse(callMoveBeanIsRepeatedRound(dispMove(feedDbMoveDamNonRepeated(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void isRepeatedRound2() {
+        assertTrue(callMoveBeanIsRepeatedRound(dispMove(feedDbMoveDam(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0)));
+    }
+    @Test
+    public void isWeather1() {
+        assertFalse(callMoveBeanIsWeather(dispMove(feedDbMoveDamDefType(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),0));
+    }
+    @Test
+    public void isWeather2() {
+        assertTrue(callMoveBeanIsWeather(dispMove(feedDbMoveDamDefType(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
+    }
+    @Test
+    public void isItem1() {
+        assertFalse(callMoveBeanIsItem(dispMove(feedDbMoveDamDefTypeIt(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),0));
+    }
+    @Test
+    public void isItem2() {
+        assertTrue(callMoveBeanIsItem(dispMove(feedDbMoveDamDefTypeIt(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),1));
+    }
+    @Test
+    public void isItem3() {
+        assertTrue(callMoveBeanIsItem(dispMove(feedDbMoveDamDefTypeItWeather(TargetChoice.LANCEUR,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true, true, "1"),0),0));
     }
 }

@@ -131,8 +131,8 @@ public final class MovesBeanTest extends InitDbMoves {
     @Test
     public void typedTypeSet() {
         Struct bean_ = dispAllMoves(feedDb());
-        callMovesBeanTypedTypeSet(bean_,T_TYPE_TR);
-        assertEq(T_TYPE_TR,callMovesBeanTypedTypeGet(bean_));
+        callMovesBeanTypedTypeSet(bean_, T_TYPE1_TR);
+        assertEq(T_TYPE1_TR,callMovesBeanTypedTypeGet(bean_));
     }
     @Test
     public void learntSet1() {
@@ -198,7 +198,7 @@ public final class MovesBeanTest extends InitDbMoves {
     @Test
     public void search5() {
         Struct bean_ = dispAllMoves(feedDb());
-        callMovesBeanTypedTypeSet(bean_,T_TYPE_TR);
+        callMovesBeanTypedTypeSet(bean_, T_TYPE1_TR);
         callMovesBeanWholeWordSet(bean_,true);
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML, navigateMovesSearch(bean_));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
@@ -380,7 +380,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void types2() {
-        assertEq(T_TYPE_TR,elt(callMoveLineBeanTypesGet(dispLine(feedDb(),2)),0));
+        assertEq(T_TYPE1_TR,elt(callMoveLineBeanTypesGet(dispLine(feedDb(),2)),0));
     }
     @Test
     public void damagingMove1() {
@@ -420,7 +420,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void intTypes2() {
-        assertEq(T_TYPE_TR,elt(callMoveLineGetTypes(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))),0));
+        assertEq(T_TYPE1_TR,elt(callMoveLineGetTypes(callMoveLineBeanMoveLineGet(dispLine(feedDb(),2))),0));
     }
     @Test
     public void clickRow() {

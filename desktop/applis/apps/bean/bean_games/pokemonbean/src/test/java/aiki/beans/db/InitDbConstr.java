@@ -130,7 +130,8 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String M_DAM_POW="M_DAM_POW";
     protected static final String M_STA="M_STA";
     protected static final String M_WEA="M_WEA";
-    protected static final String T_TYPE="T_TYPE";
+    protected static final String T_TYPE1 ="T_TYPE1";
+    protected static final String T_TYPE2 ="T_TYPE2";
     protected static final String I_ITEM="I_ITEM";
     protected static final String C_CAT="C_CAT";
     protected static final String S_STA_SIM="S_STA_SIM";
@@ -145,7 +146,8 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String M_DAM_VERY_BAD_TR="M_DAM_VERY_BAD_TR";
     protected static final String M_STA_TR="M_STA_TR";
     protected static final String M_WEA_TR="M_WEA_TR";
-    protected static final String T_TYPE_TR="T_TYPE_TR";
+    protected static final String T_TYPE1_TR ="T_TYPE1_TR";
+    protected static final String T_TYPE2_TR ="T_TYPE2_TR";
     protected static final String I_ITEM_TR="I_ITEM_TR";
     protected static final String C_CAT1_TR="C_CAT1_TR";
     protected static final String C_CAT2_TR="C_CAT2_TR";
@@ -222,14 +224,14 @@ public abstract class InitDbConstr extends InitDbBean {
         _mv.setPriority((byte) _prioNb);
         _mv.setSwitchType(_n);
         _mv.setRankIncrementNbRound((short) _rk);
-        _mv.setBoostedTypes(new StringList(T_TYPE));
-        _mv.setTypes(new StringList(T_TYPE));
+        _mv.setBoostedTypes(new StringList(T_TYPE1));
+        _mv.setTypes(new StringList(T_TYPE1));
         _mv.setAchieveDisappearedPkUsingMove(new StringList(_achieve));
         StringMap<String> t_ = new StringMap<String>();
-        t_.addEntry(I_ITEM,T_TYPE);
+        t_.addEntry(I_ITEM, T_TYPE1);
         _mv.setTypesByOwnedItem(t_);
         StringMap<String> w_ = new StringMap<String>();
-        w_.addEntry(_wea,T_TYPE);
+        w_.addEntry(_wea, T_TYPE1);
         _mv.setTypesByWeather(w_);
         _mv.setDeletedStatus(new StringList(S_STA_SIM));
         _mv.setRequiredStatus(new StringList(S_STA_REL));
@@ -290,7 +292,7 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static PokemonData pk(StringList _g, GenderRepartition _rep) {
         PokemonData pk_ = Instances.newPokemonData();
         pk_.setBaseEvo(P_POKEMON);
-        pk_.setTypes(new StringList(T_TYPE));
+        pk_.setTypes(new StringList(T_TYPE1));
         pk_.setAbilities(new StringList(A_ABILITY));
         pk_.setHeight(Rate.one());
         pk_.setWeight(Rate.one());
