@@ -108,7 +108,7 @@ public abstract class InitDbMove extends InitDbMoves {
 //    }
 
     public static String callMoveBeanClickPokemonTm(Struct _str, long... _args) {
-        return navigateData(new MoveBeanClickPokemonTm(),AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"",_str,_args);
+        return navigateData(new MoveBeanClickPokemonTm(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
     public static String callMoveBeanClickPokemonTmId(Struct _str, long... _args) {
@@ -117,7 +117,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickPokemonHm(Struct _str, long... _args) {
-        return navigateData(new MoveBeanClickPokemonHm(),AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"",_str,_args);
+        return navigateData(new MoveBeanClickPokemonHm(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
     public static String callMoveBeanClickPokemonHmId(Struct _str, long... _args) {
@@ -126,7 +126,7 @@ public abstract class InitDbMove extends InitDbMoves {
     }
 
     public static String callMoveBeanClickPokemonMt(Struct _str, long... _args) {
-        return navigateData(new MoveBeanClickPokemonMt(),AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"",_str,_args);
+        return navigateData(new MoveBeanClickPokemonMt(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
     public static String callMoveBeanClickPokemonMtId(Struct _str, long... _args) {
