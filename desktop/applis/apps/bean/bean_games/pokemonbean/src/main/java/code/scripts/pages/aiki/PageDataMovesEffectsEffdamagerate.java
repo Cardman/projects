@@ -1,10 +1,10 @@
 package code.scripts.pages.aiki;
+import aiki.beans.moves.effects.AikiBeansMovesEffectsStd;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesEffectsEffdamagerate extends PageCardsCommon{
 private static final String C_P_154_0="javahtml";
-private static final String C_P_154_1="eff_damagerate";
+private static final String C_P_154_1=AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE;
 private static final String C_P_154_2="web/css/moves.css";
 private static final String C_P_154_3="stylesheet";
 private static final String C_P_154_4="text/css";
