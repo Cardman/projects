@@ -187,4 +187,8 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         _eff.getChLaw().addQuickEvent(_ev,_freq);
         return _eff;
     }
+    protected static EffectDamage withMultDamageAgainst(EffectDamage _eff, String _ev, Rate _freq) {
+        _eff.getMultDamageAgainst().addEntry(_ev,_freq);
+        return _eff;
+    }
 }

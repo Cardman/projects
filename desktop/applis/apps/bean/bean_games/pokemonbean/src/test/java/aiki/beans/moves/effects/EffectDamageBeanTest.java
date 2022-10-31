@@ -172,4 +172,16 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
     public void getSummingUserTeamOkFighter2() {
         assertTrue(callEffectDamageBeanSummingUserTeamOkFighterGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
     }
+    @Test
+    public void getMultDamageAgainst1() {
+        assertSizeEq(1,callEffectDamageBeanMultDamageAgainstGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)));
+    }
+    @Test
+    public void getMultDamageAgainst2() {
+        assertEq(C_CAT1_TR,first(elt(callEffectDamageBeanMultDamageAgainstGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)),0)));
+    }
+    @Test
+    public void getMultDamageAgainst3() {
+        assertEq(Rate.one(),second(elt(callEffectDamageBeanMultDamageAgainstGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)),0)));
+    }
 }
