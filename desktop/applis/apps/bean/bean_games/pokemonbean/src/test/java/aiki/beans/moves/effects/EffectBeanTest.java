@@ -135,4 +135,16 @@ public final class EffectBeanTest extends InitDbMoveEffect {
     public void reasons4() {
         assertEq(Fight.TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)),2));
     }
+    @Test
+    public void mapFail1() {
+        assertSizeEq(1,callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)));
+    }
+    @Test
+    public void mapFail2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)),0)));
+    }
+    @Test
+    public void mapFail3() {
+        assertEq(TIME,second(elt(callEffectBeanMapVarsFailGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)),0)));
+    }
 }
