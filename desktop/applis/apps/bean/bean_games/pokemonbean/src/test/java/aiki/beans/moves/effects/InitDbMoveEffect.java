@@ -10,11 +10,9 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
-import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
-import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
@@ -153,18 +151,19 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         return map_;
     }
 
-    protected static FacadeGame feedDbMoveEffDamComp(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
-        FacadeGame f_ = feedDbMoveEffDam(_targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, _s, _k, _dir, _power);
+    protected static FacadeGame feedDbMoveEffDamComp(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power, String _fail) {
+        FacadeGame f_ = feedDbMoveEffDam(_targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, _s, _k, _dir, _power, _fail);
         f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         return f_;
     }
-    protected static FacadeGame feedDbMoveEffDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power) {
+    protected static FacadeGame feedDbMoveEffDam(TargetChoice _targ, String _acc, SwitchType _noth, int _rk, boolean _c, boolean _dis, boolean _an, boolean _ep, boolean _rech, boolean _sec, boolean _multi, boolean _prio, boolean _solo, boolean _s, boolean _k, boolean _dir, String _power, String _fail) {
         FacadeGame facade_ = facade();
         DamagingMoveData dam_ = Instances.newDamagingMoveData();
         feed(dam_, _targ, _acc, _noth, _rk, _c, _dis, _an, _ep, _rech, _sec, _multi, _prio, _solo, M_STA, M_WEA, 1, 1);
         feed(dam_, _s, _k, _dir);
         EffectDamage ef_ = Instances.newEffectDamage();
         ef_.setPower(_power);
+        ef_.setFail(_fail);
         ef_.getRequiredSuccessfulEffects().add(0);
         target(dam_, ef_);
         facade_.getData().completeMembers(M_DAM, dam_);

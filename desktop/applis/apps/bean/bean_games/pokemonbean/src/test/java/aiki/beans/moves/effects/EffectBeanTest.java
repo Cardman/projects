@@ -1,7 +1,9 @@
 package aiki.beans.moves.effects;
 
+import aiki.db.DataBase;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
+import aiki.game.fight.Fight;
 import org.junit.Test;
 
 public final class EffectBeanTest extends InitDbMoveEffect {
@@ -111,10 +113,26 @@ public final class EffectBeanTest extends InitDbMoveEffect {
     }
     @Test
     public void needSuccessFirstEffect1() {
-        assertTrue(callEffectBeanNeedSuccessFirstEffectGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+        assertTrue(callEffectBeanNeedSuccessFirstEffectGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", ""),0)));
     }
     @Test
     public void needSuccessFirstEffect2() {
         assertFalse(callEffectBeanNeedSuccessFirstEffectGet(dispMoveEffDamage(feedDbMoveDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void reasons1() {
+        assertSizeEq(3,callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)));
+    }
+    @Test
+    public void reasons2() {
+        assertEq("("+Fight.TEMPS_TOUR+"|"+Fight.TEMPS_TOUR+")",elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)),0));
+    }
+    @Test
+    public void reasons3() {
+        assertEq(Fight.TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)),1));
+    }
+    @Test
+    public void reasons4() {
+        assertEq(Fight.TEMPS_TOUR,elt(callEffectBeanReasonsGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1", "("+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+")|"+ DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"|"+DataBase.VAR_PREFIX+Fight.TEMPS_TOUR),0)),2));
     }
 }
