@@ -956,7 +956,7 @@ public abstract class InitDbMove extends InitDbMoves {
         facade_.getData().completeVariables();
         return facade_;
     }
-    private static void trs(FacadeGame _facade) {
+    protected static void trs(FacadeGame _facade) {
         _facade.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
         _facade.getData().getTranslatedAbilities().getVal(EN).addEntry(A_ABILITY,A_ABILITY_TR);
         _facade.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
@@ -994,7 +994,7 @@ public abstract class InitDbMove extends InitDbMoves {
         _facade.getData().getLitterals().addEntry(EN,new StringMap<String>());
     }
 
-    private static void target(MoveData _dam, Effect _ef) {
+    protected static void target(MoveData _dam, Effect _ef) {
         _ef.setTargetChoice(_dam.getTargetChoice());
         _dam.getEffects().add(_ef);
     }

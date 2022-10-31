@@ -101,4 +101,20 @@ public final class EffectBeanTest extends InitDbMoveEffect {
     public void isUniqueImporte2() {
         assertTrue(callEffectBeanIsUniqueImporte(dispMoveEffDamage(feedDbMoveDam(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
+    @Test
+    public void indexGet() {
+        assertEq(0,callEffectBeanIndexGet(dispMoveEffDamage(feedDbMoveDam(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void moveGet() {
+        assertEq(M_DAM,callEffectBeanMoveGet(dispMoveEffDamage(feedDbMoveDam(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void needSuccessFirstEffect1() {
+        assertTrue(callEffectBeanNeedSuccessFirstEffectGet(dispMoveEffDamage(feedDbMoveEffDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void needSuccessFirstEffect2() {
+        assertFalse(callEffectBeanNeedSuccessFirstEffectGet(dispMoveEffDamage(feedDbMoveDamComp(TargetChoice.UNIQUE_IMPORTE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
 }
