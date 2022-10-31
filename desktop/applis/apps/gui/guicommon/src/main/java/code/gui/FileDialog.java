@@ -178,6 +178,7 @@ public abstract class FileDialog implements ChangeableTitle {
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
             folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
             refreshList(filesList_, currentFiles_);
+            folderSystem.select(folderSystem.getRoot());
         } else {
             AbstractMutableTreeNode default_ = programInfos.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
             for (String f: StreamFolderFile.listRootsAbPath(programInfos.getFileCoreStream())) {
@@ -286,7 +287,7 @@ public abstract class FileDialog implements ChangeableTitle {
         StringList pathFull_ = new StringList();
         AbstractMutableTreeNode current_ = _treePath;
         while (current_ != null) {
-            pathFull_.add(0,String.valueOf(current_.getUserObject()));
+            pathFull_.add(0,current_.getUserObject());
             current_ = current_.getParent();
         }
         StringUtil.removeObj(pathFull_, EMPTY_STRING);

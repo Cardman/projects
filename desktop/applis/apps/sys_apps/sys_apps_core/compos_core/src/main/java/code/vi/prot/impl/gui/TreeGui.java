@@ -55,10 +55,10 @@ public final class TreeGui implements AbsTreeGui {
             return new DefMutableTreeNode("");
         }
     }
-    public DefMutableTreeNode selectedEvt(TreePath _path) {
+    public AbstractMutableTreeNode selectedEvt(TreePath _path) {
         try {
             DefMutableTreeNode res_ = DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
-            return (DefMutableTreeNode) MutableTreeNodeCoreUtil.getElt(root,MutableTreeNodeUtil.getIndexes(res_));
+            return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.getElt(root,MutableTreeNodeUtil.getIndexes(res_));
         } catch (Exception e) {
             return null;
         }
