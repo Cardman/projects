@@ -836,4 +836,18 @@ public final class MoveBeanTest extends InitDbMove {
     public void clickMoves() {
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,callMoveBeanClickMoves(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
     }
+    @Test
+    public void getTrTypesByOwnedItems() {
+        assertEq(I_ITEM_TR,callMoveBeanGetTrTypesByOwnedItems(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+
+    }
+    @Test
+    public void translateItemSecEffect() {
+        assertEq(I_ITEM_TR,callMoveBeanTranslateItemSecEffect(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void getTrItem() {
+        assertEq(I_ITEM_TR,callMoveBeanGetTrItem(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+
+    }
 }
