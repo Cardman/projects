@@ -1,6 +1,6 @@
 package code.gui;
 
-public interface AbstractMutableTreeNode {
+public interface AbstractMutableTreeNode extends AbstractMutableTreeNodeCore{
     int getIndex();
     int getAntiIndex(AbstractMutableTreeNode _treeNode);
     boolean add(AbstractMutableTreeNode _treeNode);
@@ -12,6 +12,7 @@ public interface AbstractMutableTreeNode {
     int removeAllChildren();
 
     AbstractMutableTreeNode getParent();
+    AbstractMutableTreeNode getParentReal();
 
     int remove(AbstractMutableTreeNode _treeNode);
 

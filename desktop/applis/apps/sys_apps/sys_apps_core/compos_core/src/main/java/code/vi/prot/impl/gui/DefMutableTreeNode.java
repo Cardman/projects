@@ -1,6 +1,9 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.MutableTreeNodeCore;
+import code.gui.MutableTreeNodeCoreUtil;
 import code.util.core.StringUtil;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -9,12 +12,13 @@ import javax.swing.tree.MutableTreeNode;
 public final class DefMutableTreeNode implements AbstractMutableTreeNode {
     private final DefaultMutableTreeNode node;
 
+    private final MutableTreeNodeCore nav = new MutableTreeNodeCore();
     private final UsObj userObject;
 
     public DefMutableTreeNode(String _name) {
         String value_ = StringUtil.nullToEmpty(_name);
         UsObj us_ = new UsObj(this,value_);
-        node = new DefaultMutableTreeNode(us_);
+        node = new DefaultMutableTreeNode(value_);
         userObject = us_;
     }
 
@@ -38,69 +42,51 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
 
     @Override
     public int getAntiIndex(AbstractMutableTreeNode _treeNode) {
-        try {
-            return node.getIndex(((DefMutableTreeNode) _treeNode).node());
-        } catch (Exception e) {
-            return -1;
-        }
+        return MutableTreeNodeCoreUtil.getAntiIndex(this,_treeNode);
     }
 
     @Override
     public AbstractMutableTreeNode add(String _info) {
-        try {
-            DefMutableTreeNode defMutableTreeNode_ = new DefMutableTreeNode(_info);
-            node.add(defMutableTreeNode_.node);
-            return defMutableTreeNode_;
-        } catch (Exception e) {
-            return null;
-        }
+        DefMutableTreeNode defMutableTreeNode_ = new DefMutableTreeNode(_info);
+        node.add(defMutableTreeNode_.node);
+        MutableTreeNodeCoreUtil.add(this, defMutableTreeNode_);
+        return defMutableTreeNode_;
     }
 
     @Override
     public boolean add(AbstractMutableTreeNode _treeNode) {
-        try {
-            node.add(((DefMutableTreeNode) _treeNode).node());
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
+        boolean v_ = MutableTreeNodeCoreUtil.add(this, _treeNode);
+        node.add(((DefMutableTreeNode) _treeNode).node());
+        return v_;
     }
 
     @Override
     public int getChildCount() {
-        try {
-            return node.getChildCount();
-        } catch (Exception e) {
-            return -1;
-        }
+        return MutableTreeNodeCoreUtil.getChildCount(this);
     }
 
     @Override
     public int insert(AbstractMutableTreeNode _treeNode, int _index) {
-        try {
-            node.insert(((DefMutableTreeNode) _treeNode).node(), _index);
-            return _index;
-        } catch (Exception e) {
-            return -1;
-        }
+        node.insert(((DefMutableTreeNode) _treeNode).node(), _index);
+        return MutableTreeNodeCoreUtil.insert(this,_treeNode,_index);
     }
 
     @Override
     public int removeAllChildren() {
-        try {
-            int count_ = node.getChildCount();
-            node.removeAllChildren();
-            return count_;
-        } catch (Exception e) {
-            return -1;
-        }
+        int nb_ = MutableTreeNodeCoreUtil.getChildCount(this);
+        node.removeAllChildren();
+        return nb_;
     }
 
     @Override
     public AbstractMutableTreeNode getParent() {
+        return (AbstractMutableTreeNode) nav.getParent();
+    }
+
+    @Override
+    public AbstractMutableTreeNode getParentReal() {
         try {
-            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getParent();
-            return build(parent_);
+            return build((DefaultMutableTreeNode) node.getParent());
         } catch (Exception e) {
             return null;
         }
@@ -108,69 +94,62 @@ public final class DefMutableTreeNode implements AbstractMutableTreeNode {
 
     @Override
     public int remove(AbstractMutableTreeNode _treeNode) {
-        try {
-            int index_ = node.getIndex(((DefMutableTreeNode) _treeNode).node());
-            node.remove(((DefMutableTreeNode) _treeNode).node());
-            return index_;
-        } catch (Exception e) {
-            return -1;
-        }
+        int v_ = MutableTreeNodeCoreUtil.remove(this,_treeNode);
+        node.remove(((DefMutableTreeNode) _treeNode).node());
+        return v_;
     }
 
     @Override
     public AbstractMutableTreeNode remove(int _index) {
-        try {
-            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getChildAt(_index);
-            node.remove(_index);
-            return build(parent_);
-        } catch (Exception e) {
-            return null;
-        }
+        AbstractMutableTreeNodeCore v_ = MutableTreeNodeCoreUtil.remove(this, _index);
+        node.remove(_index);
+        return (AbstractMutableTreeNode) v_;
     }
 
     @Override
     public AbstractMutableTreeNode getChildAt(int _i) {
-        try {
-            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getChildAt(_i);
-            return build(parent_);
-        } catch (Exception e) {
-            return null;
-        }
+        return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.getChildAt(this,_i);
     }
 
     @Override
     public AbstractMutableTreeNode getPreviousSibling() {
-        try {
-            DefaultMutableTreeNode parent_ = node.getPreviousSibling();
-            return build(parent_);
-        } catch (Exception e) {
-            return null;
-        }
+        return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.getPreviousSibling(this);
     }
 
     @Override
     public AbstractMutableTreeNode getNextSibling() {
-        try {
-            DefaultMutableTreeNode parent_ = node.getNextSibling();
-            return build(parent_);
-        } catch (Exception e) {
-            return null;
-        }
+        return (AbstractMutableTreeNode) nav.getNextSibling();
+    }
+
+    @Override
+    public void setParent(AbstractMutableTreeNodeCore _v) {
+        nav.setParent(_v);
+    }
+
+    @Override
+    public AbstractMutableTreeNodeCore getFirstChild() {
+        return nav.getFirstChild();
+    }
+
+    @Override
+    public void setFirstChild(AbstractMutableTreeNodeCore _v) {
+        nav.setFirstChild(_v);
+    }
+
+    @Override
+    public void setNextSibling(AbstractMutableTreeNodeCore _v) {
+        nav.setNextSibling(_v);
     }
 
     @Override
     public AbstractMutableTreeNode removeFromParent() {
-        try {
-            DefaultMutableTreeNode parent_ = (DefaultMutableTreeNode) node.getParent();
-            node.removeFromParent();
-            return build(parent_);
-        } catch (Exception e) {
-            return null;
-        }
+        AbstractMutableTreeNode v_ = (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.removeFromParent(this);
+        node.removeFromParent();
+        return v_;
     }
 
     static DefMutableTreeNode build(DefaultMutableTreeNode _node) {
-        return new DefMutableTreeNode(_node,(UsObj)_node.getUserObject());
+        return new DefMutableTreeNode(_node,new UsObj(null,(String)_node.getUserObject()));
     }
 
     @Override

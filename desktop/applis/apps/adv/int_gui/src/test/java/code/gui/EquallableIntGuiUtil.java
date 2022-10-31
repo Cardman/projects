@@ -16,6 +16,9 @@ import code.threads.ThState;
 import org.junit.Assert;
 
 public abstract class EquallableIntGuiUtil {
+    public static void assertNull(AbstractMutableTreeNodeCore _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(AbstractThreadFactory _expected) {
         Assert.assertNull(_expected);
     }
@@ -57,6 +60,9 @@ public abstract class EquallableIntGuiUtil {
         Assert.assertEquals(_expected, _result);
     }
     public static void assertSame(ThState _expected, ThState _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(AbstractMutableTreeNodeCore _expected, AbstractMutableTreeNodeCore _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(long _expected, long _result) {

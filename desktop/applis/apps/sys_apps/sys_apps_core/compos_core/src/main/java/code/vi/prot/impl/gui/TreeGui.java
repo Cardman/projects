@@ -1,9 +1,6 @@
 package code.vi.prot.impl.gui;
 
-import code.gui.AbsCustComponent;
-import code.gui.AbsShortListTree;
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.*;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -15,10 +12,12 @@ public final class TreeGui implements AbsTreeGui {
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
     private AbstractMutableTreeNode selected;
+    private final AbstractMutableTreeNode root;
     private final IdMap<AbsShortListTree,DefTreeSelectionListener> list = new IdMap<AbsShortListTree, DefTreeSelectionListener>();
 
     public TreeGui(AbstractMutableTreeNode _t) {
         selected = _t;
+        root = _t;
         model = new DefaultTreeModel(convert(_t));
         tree = new TreeComponent(new JTree(model));
         selectionModel = new DefaultTreeSelectionModel();
@@ -28,6 +27,11 @@ public final class TreeGui implements AbsTreeGui {
 
     public static MutableTreeNode convert(AbstractMutableTreeNode _t) {
         return ((DefMutableTreeNode)_t).node();
+    }
+
+    @Override
+    public AbstractMutableTreeNode getRoot() {
+        return root;
     }
 
     public boolean isRootVisible() {
@@ -43,16 +47,18 @@ public final class TreeGui implements AbsTreeGui {
         selected = selectedEvt(selectionPath_);
         return selected;
     }
-    public static DefMutableTreeNode selected(TreePath _path) {
+    public static DefMutableTreeNode selected(AbstractMutableTreeNode _root,TreePath _path) {
         try {
-            return DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
+            DefMutableTreeNode res_ = DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
+            return (DefMutableTreeNode) MutableTreeNodeCoreUtil.getElt(_root,MutableTreeNodeUtil.getIndexes(res_));
         } catch (Exception e) {
             return new DefMutableTreeNode("");
         }
     }
-    public static DefMutableTreeNode selectedEvt(TreePath _path) {
+    public DefMutableTreeNode selectedEvt(TreePath _path) {
         try {
-            return DefMutableTreeNode.build((DefaultMutableTreeNode)_path.getLastPathComponent());
+            DefMutableTreeNode res_ = DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
+            return (DefMutableTreeNode) MutableTreeNodeCoreUtil.getElt(root,MutableTreeNodeUtil.getIndexes(res_));
         } catch (Exception e) {
             return null;
         }
@@ -78,7 +84,7 @@ public final class TreeGui implements AbsTreeGui {
 
     @Override
     public void addTreeSelectionListener(AbsShortListTree _sel) {
-        DefTreeSelectionListener value_ = new DefTreeSelectionListener(_sel);
+        DefTreeSelectionListener value_ = new DefTreeSelectionListener(_sel,root);
         tree.addTreeSelectionListener(value_);
         list.addEntry(_sel,value_);
     }

@@ -11,11 +11,6 @@ public final class UsObj {
         this.userObject = _userObject;
     }
 
-    @Override
-    public String toString() {
-        return getUserObject();
-    }
-
     public AbstractMutableTreeNode getNode() {
         return node;
     }

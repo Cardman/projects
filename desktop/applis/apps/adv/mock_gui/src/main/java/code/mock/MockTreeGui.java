@@ -9,12 +9,19 @@ import code.util.IdList;
 
 public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     private final MockTreeComponent tree;
+    private final AbstractMutableTreeNode root;
     private AbstractMutableTreeNode selected;
     private final IdList<AbsShortListTree> list = new IdList<AbsShortListTree>();
 
     public MockTreeGui(AbstractMutableTreeNode _t) {
+        root = _t;
         selected = _t;
         tree = new MockTreeComponent();
+    }
+
+    @Override
+    public AbstractMutableTreeNode getRoot() {
+        return root;
     }
 
     @Override
@@ -29,7 +36,7 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public void reloadRoot() {
-        loop(selected);
+        loop(getRoot());
     }
 
     private static void loop(AbstractMutableTreeNode _root) {

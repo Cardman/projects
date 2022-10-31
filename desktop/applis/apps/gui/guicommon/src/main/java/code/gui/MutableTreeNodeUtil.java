@@ -21,7 +21,7 @@ public final class MutableTreeNodeUtil {
             if (index_ > -1) {
                 pars_.add(0, index_);
             }
-            parent_ = parent_.getParent();
+            parent_ = parent_.getParentReal();
         }
         return pars_;
     }

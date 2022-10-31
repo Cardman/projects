@@ -11,11 +11,11 @@ import code.util.Ints;
 
 public class ListenerClickTree implements AbsShortListTree {
 
-    private NodeHelp node;
+    private final NodeHelp node;
 
-    private RenderedPage editor;
+    private final RenderedPage editor;
 
-    private AbsTreeGui tree;
+    private final AbsTreeGui tree;
 
     public ListenerClickTree(NodeHelp _node,
             RenderedPage _editor, AbsTreeGui _tree) {
