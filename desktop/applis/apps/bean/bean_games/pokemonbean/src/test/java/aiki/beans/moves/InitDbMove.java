@@ -86,10 +86,14 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickItemSecEffect(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickMove(),_str,_args);
+    public static String callMoveBeanClickMove(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickMove(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
+    public static String callMoveBeanClickMoveId(Struct _str, long... _args) {
+        callMoveBeanClickMove(_str, _args);
+        return getValMoveId(_str);
+    }
     public static Struct callMoveBeanClickMoves(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickMoves(),_str,_args);
     }
@@ -147,10 +151,14 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickTypesByOwnedItems(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickTypesByWeathers(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickTypesByWeathers(),_str,_args);
+    public static String callMoveBeanClickTypesByWeathers(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickTypesByWeathers(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
+    public static String callMoveBeanClickTypesByWeathersId(Struct _str, long... _args) {
+        callMoveBeanClickTypesByWeathers(_str, _args);
+        return getValMoveId(_str);
+    }
     public static Struct callMoveBeanConstUserChoiceGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanConstUserChoiceGet(),_str,_args);
     }

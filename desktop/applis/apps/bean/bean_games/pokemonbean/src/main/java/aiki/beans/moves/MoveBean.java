@@ -663,8 +663,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
-        getForms().put(CST_MOVE, item_);
-        return CST_MOVE;
+        return tryRedirectMv(CST_MOVE, item_,AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
     }
     public String getTrTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
@@ -801,8 +800,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickMove(int _index) {
         String key_ = affectedByMoves.get(_index);
-        getForms().put(CST_MOVE, key_);
-        return CST_MOVE;
+        return tryRedirectMv(CST_MOVE, key_,AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
     }
     public String getTrMove(int _index) {
         String ab_ = affectedByMoves.get(_index);

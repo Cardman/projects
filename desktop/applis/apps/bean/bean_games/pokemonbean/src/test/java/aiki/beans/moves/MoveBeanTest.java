@@ -771,5 +771,52 @@ public final class MoveBeanTest extends InitDbMove {
     public void clickPokemonHm2() {
         assertEq(P_POKEMON,callMoveBeanClickPokemonHmId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1),0));
     }
-
+    @Test
+    public void getTrTypesByWeathers() {
+        assertEq(M_WEA_TR,callMoveBeanGetTrTypesByWeathers(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickTypesByWeathers1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickTypesByWeathers(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickTypesByWeathers2() {
+        assertEq(M_WEA,callMoveBeanClickTypesByWeathersId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void getTrMove1() {
+        assertEq(M_DAM_TR,callMoveBeanGetTrMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),0));
+    }
+    @Test
+    public void getTrMove2() {
+        assertEq(M_DAM_VAR_TR,callMoveBeanGetTrMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),1));
+    }
+    @Test
+    public void getTrMove3() {
+        assertEq(M_WEA_TR,callMoveBeanGetTrMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),2));
+    }
+    @Test
+    public void clickMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),0));
+    }
+    @Test
+    public void clickMove2() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),1));
+    }
+    @Test
+    public void clickMove3() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callMoveBeanClickMove(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),2));
+    }
+    @Test
+    public void clickMove4() {
+        assertEq(M_DAM,callMoveBeanClickMoveId(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),0));
+    }
+    @Test
+    public void clickMove5() {
+        assertEq(M_DAM_VAR,callMoveBeanClickMoveId(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),1));
+    }
+    @Test
+    public void clickMove6() {
+        assertEq(M_WEA,callMoveBeanClickMoveId(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),2));
+    }
 }
