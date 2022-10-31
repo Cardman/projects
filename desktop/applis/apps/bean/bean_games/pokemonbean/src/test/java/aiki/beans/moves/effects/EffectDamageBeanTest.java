@@ -184,4 +184,32 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
     public void getMultDamageAgainst3() {
         assertEq(Rate.one(),second(elt(callEffectDamageBeanMultDamageAgainstGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)),0)));
     }
+    @Test
+    public void counterDamageCat1() {
+        assertFalse(callEffectDamageBeanCounterDamageCat(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(effDam("1",true,true,1,true,true,true),C_CAT, LgInt.one())),0)));
+    }
+    @Test
+    public void counterDamageCat2() {
+        assertTrue(callEffectDamageBeanCounterDamageCat(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)));
+    }
+    @Test
+    public void counterDamageCat3() {
+        assertFalse(callEffectDamageBeanCounterDamageCat(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void constPower1() {
+        assertFalse(callEffectDamageBeanConstPower(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(effDam("1",true,true,1,true,true,true),C_CAT, LgInt.one())),0)));
+    }
+    @Test
+    public void constPower2() {
+        assertTrue(callEffectDamageBeanConstPower(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void constPower3() {
+        assertFalse(callEffectDamageBeanConstPower(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)));
+    }
+    @Test
+    public void constPower4() {
+        assertFalse(callEffectDamageBeanConstPower(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
+    }
 }
