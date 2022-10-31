@@ -57,6 +57,10 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
         assertEq(Rate.newRate("3/4"),second(elt(callEffectDamageBeanDamageLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(withDamageLawEv(effDam("1",true,true,1,true,true,true),"1", LgInt.one()),DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, LgInt.newLgInt("3"))),0)),1)));
     }
     @Test
+    public void getDamageLaw6() {
+        assertSizeEq(0,callEffectDamageBeanDamageLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(effDam("1",true,true,1,true,true,true),DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, LgInt.one())),0)));
+    }
+    @Test
     public void getMapVarsDamage1() {
         assertSizeEq(1,callEffectDamageBeanMapVarsDamageGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withDamageLawEv(withDamageLawEv(effDam("1",true,true,1,true,true,true),"1", LgInt.one()),DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR, LgInt.one())),0)));
     }
@@ -79,5 +83,93 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
     @Test
     public void getMapVarsDamage6() {
         assertEq(TIME,second(elt(callEffectDamageBeanMapVarsDamageGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR,true,true,1,true,true,true)),0)),0)));
+    }
+    @Test
+    public void getHitsLaw1() {
+        assertSizeEq(2,callEffectDamageBeanHitsLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("5"), LgInt.one()),Rate.newRate("7"), LgInt.one())),0)));
+    }
+    @Test
+    public void getHitsLaw2() {
+        assertEq(5,first(elt(callEffectDamageBeanHitsLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("7"), LgInt.one()),Rate.newRate("5"), LgInt.one())),0)),0)));
+    }
+    @Test
+    public void getHitsLaw3() {
+        assertEq(7,first(elt(callEffectDamageBeanHitsLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("7"), LgInt.one()),Rate.newRate("5"), LgInt.one())),0)),1)));
+    }
+    @Test
+    public void getHitsLaw4() {
+        assertEq(Rate.newRate("1/4"),second(elt(callEffectDamageBeanHitsLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("5"), LgInt.one()),Rate.newRate("7"), LgInt.newLgInt("3"))),0)),0)));
+    }
+    @Test
+    public void getHitsLaw5() {
+        assertEq(Rate.newRate("3/4"),second(elt(callEffectDamageBeanHitsLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("5"), LgInt.one()),Rate.newRate("7"), LgInt.newLgInt("3"))),0)),1)));
+    }
+    @Test
+    public void getHitsLaw6() {
+        assertSizeEq(0,callEffectDamageBeanHitsLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("7"), LgInt.one())),0)));
+    }
+    @Test
+    public void getNbHits() {
+        assertEq(7,callEffectDamageBeanNbHitsGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withHitLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("7"), LgInt.one())),0)));
+    }
+    @Test
+    public void getChLaw1() {
+        assertSizeEq(2,callEffectDamageBeanChLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withChLawEv(withChLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("5"), LgInt.one()),Rate.newRate("7"), LgInt.one())),0)));
+    }
+    @Test
+    public void getChLaw2() {
+        assertEq(Rate.newRate("5"),first(elt(callEffectDamageBeanChLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withChLawEv(withChLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("7"), LgInt.one()),Rate.newRate("5"), LgInt.one())),0)),0)));
+    }
+    @Test
+    public void getChLaw3() {
+        assertEq(Rate.newRate("7"),first(elt(callEffectDamageBeanChLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withChLawEv(withChLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("7"), LgInt.one()),Rate.newRate("5"), LgInt.one())),0)),1)));
+    }
+    @Test
+    public void getChLaw4() {
+        assertEq(Rate.newRate("1/4"),second(elt(callEffectDamageBeanChLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withChLawEv(withChLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("5"), LgInt.one()),Rate.newRate("7"), LgInt.newLgInt("3"))),0)),0)));
+    }
+    @Test
+    public void getChLaw5() {
+        assertEq(Rate.newRate("3/4"),second(elt(callEffectDamageBeanChLawGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withChLawEv(withChLawEv(effDam("1",true,true,1,true,true,true),Rate.newRate("5"), LgInt.one()),Rate.newRate("7"), LgInt.newLgInt("3"))),0)),1)));
+    }
+    @Test
+    public void getConstDamage1() {
+        assertFalse(callEffectDamageBeanConstDamageGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,false)),0)));
+    }
+    @Test
+    public void getConstDamage2() {
+        assertTrue(callEffectDamageBeanConstDamageGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getUserAttack1() {
+        assertFalse(callEffectDamageBeanUserAttackGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,false,1,true,true,true)),0)));
+    }
+    @Test
+    public void getUserAttack2() {
+        assertTrue(callEffectDamageBeanUserAttackGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getTargetDefense1() {
+        assertFalse(callEffectDamageBeanTargetDefenseGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",false,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getTargetDefense2() {
+        assertTrue(callEffectDamageBeanTargetDefenseGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getRandMax1() {
+        assertFalse(callEffectDamageBeanRandMaxGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,false,true)),0)));
+    }
+    @Test
+    public void getRandMax2() {
+        assertTrue(callEffectDamageBeanRandMaxGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getSummingUserTeamOkFighter1() {
+        assertFalse(callEffectDamageBeanSummingUserTeamOkFighterGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,false,true,true)),0)));
+    }
+    @Test
+    public void getSummingUserTeamOkFighter2() {
+        assertTrue(callEffectDamageBeanSummingUserTeamOkFighterGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("1",true,true,1,true,true,true)),0)));
     }
 }
