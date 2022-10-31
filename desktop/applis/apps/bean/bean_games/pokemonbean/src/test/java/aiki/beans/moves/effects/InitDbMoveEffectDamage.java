@@ -179,4 +179,8 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         _eff.getDamageLaw().addQuickEvent(_ev,_freq);
         return _eff;
     }
+    protected static EffectDamage withHitLawEv(EffectDamage _eff, Rate _ev, LgInt _freq) {
+        _eff.getHitsLaw().addQuickEvent(_ev,_freq);
+        return _eff;
+    }
 }
