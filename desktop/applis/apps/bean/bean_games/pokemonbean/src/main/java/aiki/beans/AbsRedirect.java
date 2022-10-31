@@ -19,14 +19,13 @@ public abstract class AbsRedirect {
 
     public static String tryRedirect(AbsRedirect _red, String _key, String _target, DataBase _data, StringMapObject _forms) {
         if (StringUtil.contains(_red.keys(_data), _red.getName())) {
-            _red.manage(_key, _data, _forms);
-            return _target;
+            return _red.manage(_key, _data, _forms,_target);
         }
         return _red.def;
     }
 
     public abstract CustList<String> keys(DataBase _data);
-    public abstract void manage(String _key,DataBase _data,StringMapObject _forms);
+    public abstract String manage(String _key, DataBase _data, StringMapObject _forms, String _target);
 
     public String getName() {
         return name;

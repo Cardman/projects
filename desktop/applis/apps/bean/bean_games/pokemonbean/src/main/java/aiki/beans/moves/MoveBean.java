@@ -446,7 +446,7 @@ public class MoveBean extends CommonBean {
     public String clickMoves() {
         getForms().safeMoves(CST_MOVES_SET);
         getForms().safeMoves(CST_LEARNT_MOVES);
-        return CST_MOVES;
+        return AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML;
     }
 
     private StringList getMovesThieve() {

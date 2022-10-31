@@ -99,12 +99,12 @@ public abstract class InitDbMove extends InitDbMoves {
         callMoveBeanClickMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static Struct callMoveBeanClickMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickMoves(),_str,_args);
+    public static String callMoveBeanClickMoves(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickMoves(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
     public static String callMoveBeanClickPokemon(Struct _str, long... _args) {
-        return navigateData(new MoveBeanClickPokemon(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,AikiBeansMovesStd.BEAN_MOVE+NAV_SEP+"clickPokemon(,)",_str,_args);
+        return navigateData(new MoveBeanClickPokemon(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
     }
 
     public static String callMoveBeanClickPokemonId(Struct _str, long... _args) {

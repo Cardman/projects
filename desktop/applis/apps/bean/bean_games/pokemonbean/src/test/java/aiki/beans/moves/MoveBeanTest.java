@@ -832,4 +832,8 @@ public final class MoveBeanTest extends InitDbMove {
     public void clickAbility2() {
         assertEq(A_ABILITY,callMoveBeanClickAbilityId(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
+    @Test
+    public void clickMoves() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,callMoveBeanClickMoves(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
 }

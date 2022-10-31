@@ -8,8 +8,10 @@ public abstract class AbsRedirectAdv extends AbsRedirect {
         super(_n,_def);
     }
 
-    public void manage(String _key,DataBase _data,StringMapObject _forms) {
+    @Override
+    public String manage(String _key, DataBase _data, StringMapObject _forms, String _target) {
         _forms.put(_key,getName());
+        return _target;
     }
 
 }
