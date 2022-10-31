@@ -1,5 +1,6 @@
 package code.scripts.confs;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.fight.*;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
@@ -214,7 +215,7 @@ private static final String REN_ADD_WEB_GAME_CSS_DIFFICULTY_CSS="web_game/css/di
 private static final String REN_ADD_WEB_GAME_MESSAGES="web_game/messages";
 private static final String REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
 private static final String REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML="web/html/ability/ability.html";
-private static final String REN_ADD_WEB_HTML_ABILITY_DATA_HTML="web/html/ability/data.html";
+//private static final String REN_ADD_WEB_HTML_ABILITY_DATA_HTML="web/html/ability/data.html";
 private static final String REN_ADD_WEB_HTML_COMBO_COMBOS_HTML="web/html/combo/combos.html";
 private static final String REN_ADD_WEB_HTML_COMBO_COMBO_HTML="web/html/combo/combo.html";
 private static final String REN_ADD_WEB_HTML_ENDROUND_EFF_HTML="web/html/endround/eff.html";
@@ -437,7 +438,7 @@ private static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
         added_.add(REN_ADD_WEB_CSS_STATUTS_CSS);
         added_.add(REN_ADD_WEB_HTML_ABILITY_ABILITIES_HTML);
         added_.add(REN_ADD_WEB_HTML_ABILITY_ABILITY_HTML);
-        added_.add(REN_ADD_WEB_HTML_ABILITY_DATA_HTML);
+        added_.add(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML);
         added_.add(REN_ADD_WEB_HTML_COMBO_COMBO_HTML);
         added_.add(REN_ADD_WEB_HTML_COMBO_COMBOS_HTML);
         added_.add(REN_ADD_WEB_HTML_ENDROUND_EFF_HTML);

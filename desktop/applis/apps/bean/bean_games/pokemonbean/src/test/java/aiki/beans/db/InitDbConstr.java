@@ -367,4 +367,8 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static String getValStatusId(Struct _bean) {
         return forms(_bean).getValStr(CST_STATUS);
     }
+
+    protected static String getValAbilityId(Struct _bean) {
+        return forms(_bean).getValStr(CST_ABILITY);
+    }
 }

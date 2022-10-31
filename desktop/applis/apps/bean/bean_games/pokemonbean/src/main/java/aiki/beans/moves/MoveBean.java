@@ -2,6 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.CommonBean;
 import aiki.beans.WithFilterBean;
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.ItemsBean;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
@@ -733,8 +734,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickAbility(int _index) {
         String key_ = abilities.get(_index);
-        getForms().put(CST_ABILITY, key_);
-        return CST_ABILITY;
+        return tryRedirectAb(CST_ABILITY,key_, AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,"");
     }
     public String getTrAbility(int _index) {
         String ab_ = abilities.get(_index);

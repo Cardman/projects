@@ -7,6 +7,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansAbilitiesStd{
     public static final String WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
+    public static final String WEB_HTML_ABILITY_DATA_HTML= "web/html/ability/data.html";
     public static final String TYPE_ABILITIES_BEAN = "aiki.beans.abilities.AbilitiesBean";
     public static final String TYPE_ABILITY_BEAN = "aiki.beans.abilities.AbilityBean";
     private static final String SEARCH = "search";

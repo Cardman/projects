@@ -1,5 +1,6 @@
 package aiki.beans.moves;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
@@ -818,5 +819,17 @@ public final class MoveBeanTest extends InitDbMove {
     @Test
     public void clickMove6() {
         assertEq(M_WEA,callMoveBeanClickMoveId(dispMove(feedDbMoveStaEndRoundAffect(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,false,false, 1, 0),5),2));
+    }
+    @Test
+    public void getTrAbility() {
+        assertEq(A_ABILITY_TR,callMoveBeanGetTrAbility(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callMoveBeanClickAbility(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickAbility2() {
+        assertEq(A_ABILITY,callMoveBeanClickAbilityId(dispMove(feedDbMoveDamAb(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
 }

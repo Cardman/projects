@@ -65,8 +65,13 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanCategoryGet(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickAbility(),_str,_args);
+    public static String callMoveBeanClickAbility(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickAbility(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callMoveBeanClickAbilityId(Struct _str, long... _args) {
+        callMoveBeanClickAbility(_str, _args);
+        return getValAbilityId(_str);
     }
 
     public static String callMoveBeanClickDeletedStatus(Struct _str, long... _args) {
