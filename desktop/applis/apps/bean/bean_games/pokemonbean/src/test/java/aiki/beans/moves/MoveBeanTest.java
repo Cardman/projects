@@ -671,4 +671,44 @@ public final class MoveBeanTest extends InitDbMove {
     public void clickRequiredStatus2() {
         assertEq(S_STA_REL,callMoveBeanClickRequiredStatusId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
+    @Test
+    public void getSecEffectsByItem1() {
+        assertSizeEq(1,callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getSecEffectsByItem2() {
+        assertEq(I_ITEM,first(elt(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void getSecEffectsByItem3() {
+        assertSizeEq(1,second(elt(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void getSecEffectsByItem4() {
+        assertEq(0,elt(second(elt(callMoveBeanSecEffectsByItemGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)),0));
+    }
+    @Test
+    public void getTypesByOwnedItems1() {
+        assertSizeEq(1,callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getTypesByOwnedItems2() {
+        assertEq(I_ITEM,first(elt(callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void getTypesByOwnedItems3() {
+        assertEq(T_TYPE1_TR,second(elt(callMoveBeanTypesByOwnedItemsGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void getTypesByWeathers1() {
+        assertSizeEq(1,callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getTypesByWeathers2() {
+        assertEq(M_WEA,first(elt(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
+    @Test
+    public void getTypesByWeathers3() {
+        assertEq(T_TYPE1_TR,second(elt(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
+    }
 }
