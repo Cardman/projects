@@ -103,6 +103,9 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         fwdEffect(byStr(all_,mapping_,callMoveBeanGetPage(mbean_,noEff_)),mbean_, noEff_);
         return mbean_;
     }
+    protected static Struct dispMoveEffDamage(FacadeGame _fac, int _index) {
+        return dispMoveEffDamage(_fac, _index,0);
+    }
     protected static Struct dispMoveEffDamage(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToEffectDamage(pk_);
