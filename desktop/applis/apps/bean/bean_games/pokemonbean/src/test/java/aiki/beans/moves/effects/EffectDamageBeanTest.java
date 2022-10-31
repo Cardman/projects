@@ -212,4 +212,44 @@ public final class EffectDamageBeanTest extends InitDbMoveEffectDamage {
     public void constPower4() {
         assertFalse(callEffectDamageBeanConstPower(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
     }
+    @Test
+    public void getChRate() {
+        assertEq(1,callEffectDamageBeanChRateGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getStatisAtt() {
+        assertEq(ST_ATT_TR,callEffectDamageBeanStatisAttGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getStatisDef() {
+        assertEq(ST_DEF_TR,callEffectDamageBeanStatisDefGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(effDam("",true,true,1,true,true,true)),0)));
+    }
+    @Test
+    public void getIgnVarStatTargetPos() {
+        assertSizeEq(1,callEffectDamageBeanIgnVarStatTargetPosGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)));
+    }
+    @Test
+    public void getTranslatedStatisTarget() {
+        assertEq(ST_DEF_TR,callEffectDamageBeanGetTranslatedStatisTarget(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0),0));
+    }
+    @Test
+    public void getIgnVarStatUserNeg() {
+        assertSizeEq(1,callEffectDamageBeanIgnVarStatUserNegGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)));
+    }
+    @Test
+    public void getTranslatedStatisUser() {
+        assertEq(ST_ATT_TR,callEffectDamageBeanGetTranslatedStatisUser(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0),0));
+    }
+    @Test
+    public void getBoostStatisOnceKoFoe1() {
+        assertSizeEq(1,callEffectDamageBeanBoostStatisOnceKoFoeGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)));
+    }
+    @Test
+    public void getBoostStatisOnceKoFoe2() {
+        assertEq(1,second(elt(callEffectDamageBeanBoostStatisOnceKoFoeGet(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0)),0)));
+    }
+    @Test
+    public void getTranslatedStatisKo() {
+        assertEq(ST_SPEED_TR,callEffectDamageBeanGetTranslatedStatisKo(dispMoveEffDamage(feedDbMoveEffDataDamComp(withMultDamageAgainst(effDam("1",true,true,1,true,true,true),C_CAT, Rate.one())),0),0));
+    }
 }
