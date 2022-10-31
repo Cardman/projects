@@ -824,8 +824,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonTm(int _indexPk) {
         String pk_ = movesTmLearntByPokemon.get(_indexPk);
-        getForms().put(CST_PK, pk_);
-        return CST_POKEMON;
+        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
     }
     public String getTrPokemonTm(int _indexPk) {
         DataBase data_ = getDataBase();
@@ -835,8 +834,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonHm(int _indexPk) {
         String pk_ = movesHmLearntByPokemon.get(_indexPk);
-        getForms().put(CST_PK, pk_);
-        return CST_POKEMON;
+        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
     }
     public String getTrPokemonHm(int _indexPk) {
         DataBase data_ = getDataBase();
@@ -846,8 +844,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonMt(int _indexPk) {
         String pk_ = movesMtLearntByPokemon.get(_indexPk);
-        getForms().put(CST_PK, pk_);
-        return CST_POKEMON;
+        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
     }
     public String getTrPokemonMt(int _indexPk) {
         DataBase data_ = getDataBase();

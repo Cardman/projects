@@ -711,4 +711,65 @@ public final class MoveBeanTest extends InitDbMove {
     public void getTypesByWeathers3() {
         assertEq(T_TYPE1_TR,second(elt(callMoveBeanTypesByWeathersGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0)));
     }
+    @Test
+    public void getMovesTmLearntByPokemon1() {
+        assertSizeEq(1,callMoveBeanMovesTmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getMovesTmLearntByPokemon2() {
+        assertEq(P_POKEMON,elt(callMoveBeanMovesTmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void getTrPokemonTm() {
+        assertEq(P_POKEMON_TR,callMoveBeanGetTrPokemonTm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickPokemonTm1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonTm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickPokemonTm2() {
+        assertEq(P_POKEMON,callMoveBeanClickPokemonTmId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void getMovesMtLearntByPokemon1() {
+        assertSizeEq(1,callMoveBeanMovesMtLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)));
+    }
+    @Test
+    public void getMovesMtLearntByPokemon2() {
+        assertEq(P_POKEMON,elt(callMoveBeanMovesMtLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0)),0));
+    }
+    @Test
+    public void getTrPokemonMt() {
+        assertEq(P_POKEMON_TR,callMoveBeanGetTrPokemonMt(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickPokemonMt1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonMt(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickPokemonMt2() {
+        assertEq(P_POKEMON,callMoveBeanClickPokemonMtId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void getMovesHmLearntByPokemon1() {
+        assertSizeEq(1,callMoveBeanMovesHmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1)));
+    }
+    @Test
+    public void getMovesHmLearntByPokemon2() {
+        assertEq(P_POKEMON,elt(callMoveBeanMovesHmLearntByPokemonGet(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1)),0));
+    }
+    @Test
+    public void getTrPokemonHm() {
+        assertEq(P_POKEMON_TR,callMoveBeanGetTrPokemonHm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1),0));
+    }
+    @Test
+    public void clickPokemonHm1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callMoveBeanClickPokemonHm(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1),0));
+    }
+    @Test
+    public void clickPokemonHm2() {
+        assertEq(P_POKEMON,callMoveBeanClickPokemonHmId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),1),0));
+    }
+
 }

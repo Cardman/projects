@@ -2,6 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -106,16 +107,31 @@ public abstract class InitDbMove extends InitDbMoves {
 //        return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemon(),_str,_args);
 //    }
 
-    public static Struct callMoveBeanClickPokemonHm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemonHm(),_str,_args);
+    public static String callMoveBeanClickPokemonTm(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickPokemonTm(),AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"",_str,_args);
     }
 
-    public static Struct callMoveBeanClickPokemonMt(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemonMt(),_str,_args);
+    public static String callMoveBeanClickPokemonTmId(Struct _str, long... _args) {
+        callMoveBeanClickPokemonTm(_str, _args);
+        return getValPkId(_str);
     }
 
-    public static Struct callMoveBeanClickPokemonTm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemonTm(),_str,_args);
+    public static String callMoveBeanClickPokemonHm(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickPokemonHm(),AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callMoveBeanClickPokemonHmId(Struct _str, long... _args) {
+        callMoveBeanClickPokemonHm(_str, _args);
+        return getValPkId(_str);
+    }
+
+    public static String callMoveBeanClickPokemonMt(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickPokemonMt(),AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callMoveBeanClickPokemonMtId(Struct _str, long... _args) {
+        callMoveBeanClickPokemonMt(_str, _args);
+        return getValPkId(_str);
     }
 
     public static String callMoveBeanClickRequiredStatus(Struct _str, long... _args) {
