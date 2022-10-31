@@ -4,6 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.beans.WithFilterBean;
 import aiki.beans.items.ItemsBean;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -572,8 +573,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickRequiredStatus(int _index) {
         String key_ = getRequiredStatusKey(_index);
-        getForms().put(CST_STATUS, key_);
-        return CST_STATUS;
+        return tryRedirectSt(CST_STATUS,key_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
     }
     public String getRequiredStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -587,8 +587,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickDeletedStatus(int _index) {
         String key_ = getDeletedStatusKey(_index);
-        getForms().put(CST_STATUS, key_);
-        return CST_STATUS;
+        return tryRedirectSt(CST_STATUS,key_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
     }
     public String getDeletedStatus(int _index) {
         DataBase data_ = getDataBase();

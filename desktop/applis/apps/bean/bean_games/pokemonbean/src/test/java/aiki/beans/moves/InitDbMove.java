@@ -2,6 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -67,8 +68,13 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickAbility(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickDeletedStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickDeletedStatus(),_str,_args);
+    public static String callMoveBeanClickDeletedStatus(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickDeletedStatus(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callMoveBeanClickDeletedStatusId(Struct _str, long... _args) {
+        callMoveBeanClickDeletedStatus(_str, _args);
+        return getValStatusId(_str);
     }
 
     public static Struct callMoveBeanClickItem(Struct _str, long... _args) {
@@ -112,8 +118,13 @@ public abstract class InitDbMove extends InitDbMoves {
         return BeanPokemonCommonTs.callLongs(new MoveBeanClickPokemonTm(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickRequiredStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickRequiredStatus(),_str,_args);
+    public static String callMoveBeanClickRequiredStatus(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickRequiredStatus(),AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callMoveBeanClickRequiredStatusId(Struct _str, long... _args) {
+        callMoveBeanClickRequiredStatus(_str, _args);
+        return getValStatusId(_str);
     }
 
     public static Struct callMoveBeanClickTypesByOwnedItems(Struct _str, long... _args) {

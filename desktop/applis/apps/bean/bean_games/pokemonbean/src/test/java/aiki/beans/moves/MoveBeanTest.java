@@ -1,6 +1,7 @@
 package aiki.beans.moves;
 
 import aiki.beans.pokemon.AikiBeansPokemonStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
@@ -645,5 +646,29 @@ public final class MoveBeanTest extends InitDbMove {
     @Test
     public void clickAchieveDisappearedPkUsingMove2() {
         assertEq(M_STA,callMoveBeanClickAchieveDisappearedPkUsingMoveId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void getDeletedStatus() {
+        assertEq(S_STA_SIM_TR,callMoveBeanGetDeletedStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickDeletedStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callMoveBeanClickDeletedStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickDeletedStatus2() {
+        assertEq(S_STA_SIM,callMoveBeanClickDeletedStatusId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void getRequiredStatus() {
+        assertEq(S_STA_REL_TR,callMoveBeanGetRequiredStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickRequiredStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callMoveBeanClickRequiredStatus(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickRequiredStatus2() {
+        assertEq(S_STA_REL,callMoveBeanClickRequiredStatusId(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,1,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
 }
