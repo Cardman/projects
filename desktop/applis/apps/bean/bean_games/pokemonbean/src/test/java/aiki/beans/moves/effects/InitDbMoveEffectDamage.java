@@ -10,6 +10,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.maths.montecarlo.MonteCarloString;
@@ -173,5 +174,9 @@ public abstract class InitDbMoveEffectDamage extends InitDbMoveEffect{
         a_.add(Statistic.ATTACK);
         ef_.setIgnVarStatUserNeg(a_);
         return ef_;
+    }
+    protected static EffectDamage withDamageLawEv(EffectDamage _eff, String _ev, LgInt _freq) {
+        _eff.getDamageLaw().addQuickEvent(_ev,_freq);
+        return _eff;
     }
 }
