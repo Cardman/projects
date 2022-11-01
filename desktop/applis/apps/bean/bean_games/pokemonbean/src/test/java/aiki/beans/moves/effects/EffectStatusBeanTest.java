@@ -84,4 +84,52 @@ public final class EffectStatusBeanTest extends InitDbMoveEffectStatus {
     public void clickLink4() {
         assertEq(S_STA_SIM,callEffectStatusBeanClickLinkId(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3"))),0),0,1));
     }
+    @Test
+    public void getDeletedStatus1() {
+        assertSizeEq(2,callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)));
+    }
+    @Test
+    public void getDeletedStatus2() {
+        assertEq(S_STA_REL,elt(callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)),0));
+    }
+    @Test
+    public void getDeletedStatus3() {
+        assertEq(S_STA_SIM,elt(callEffectStatusBeanDeletedStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0)),1));
+    }
+    @Test
+    public void getTrLinkDeleted1() {
+        assertEq(NULL_REF,callEffectStatusBeanGetTrLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),"")),0),0));
+    }
+    @Test
+    public void getTrLinkDeleted2() {
+        assertEq(S_STA_SIM_TR,callEffectStatusBeanGetTrLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),"")),0),1));
+    }
+    @Test
+    public void clickLinkDeleted1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,0));
+    }
+    @Test
+    public void clickLinkDeleted2() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectStatusBeanClickLinkDeleted(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,1));
+    }
+    @Test
+    public void clickLinkDeleted3() {
+        assertEq(S_STA_REL,callEffectStatusBeanClickLinkDeletedId(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,0));
+    }
+    @Test
+    public void clickLinkDeleted4() {
+        assertEq(S_STA_SIM,callEffectStatusBeanClickLinkDeletedId(dispMoveEffStatus(feedDbMoveEffDataDamComp(withDeletedStatus(withDeletedStatus(eff(false,false),S_STA_SIM),S_STA_REL)),0),0,1));
+    }
+    @Test
+    public void getMapVarsStatus1() {
+        assertSizeEq(1,callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1));
+    }
+    @Test
+    public void getMapVarsStatus2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1),0)));
+    }
+    @Test
+    public void getMapVarsStatus3() {
+        assertEq(TIME,second(elt(callEffectStatusBeanMapVarsStatusGet(dispMoveEffStatus(feedDbMoveEffDataDamComp(withLawStatusFail(withLawStatus(withLawStatus(eff(false,false),S_STA_SIM, LgInt.one()),S_STA_REL,LgInt.newLgInt("3")),S_STA_SIM, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR)),0),1),0)));
+    }
 }

@@ -25,8 +25,13 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         callEffectStatusBeanClickLink(_str, _args);
         return getValStatusId(_str);
     }
-    public static Struct callEffectStatusBeanClickLinkDeleted(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectStatusBeanClickLinkDeleted(),_str,_args);
+    public static String callEffectStatusBeanClickLinkDeleted(Struct _str, long... _args) {
+        return navigateData(new EffectStatusBeanClickLinkDeleted(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+    }
+
+    public static String callEffectStatusBeanClickLinkDeletedId(Struct _str, long... _args) {
+        callEffectStatusBeanClickLinkDeleted(_str, _args);
+        return getValStatusId(_str);
     }
 
     public static Struct callEffectStatusBeanDeletedStatusGet(Struct _str, long... _args) {
@@ -116,6 +121,10 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
     }
     protected EffectStatus withLawStatus(EffectStatus _e, String _statis, LgInt _v) {
         _e.getLawStatus().addQuickEvent(_statis,_v);
+        return _e;
+    }
+    protected EffectStatus withDeletedStatus(EffectStatus _e, String _statis) {
+        _e.getDeletedStatus().add(_statis);
         return _e;
     }
     protected EffectStatus withLawStatusFail(EffectStatus _e, String _statis, String _v) {
