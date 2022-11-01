@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -8,6 +9,7 @@ import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.StringUtil;
 
 public class EffectStatusBean extends EffectBean {
     private DictionaryComparator<String, Rate> lawStatus;
@@ -60,14 +62,15 @@ public class EffectStatusBean extends EffectBean {
     public String clickLink(int _indexEffect, int _index) {
         DictionaryComparator<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
         String status_ = lawStatus_.getKey(_index);
-        getForms().put(CST_STATUS, status_);
-        return CST_STATUS;
+        return tryRedirectSt(CST_STATUS,status_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+//        getForms().put(CST_STATUS, status_);
+//        return CST_STATUS;
     }
     public String getTrLink(int _index) {
         String status_ = lawStatus.getKey(_index);
         DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(status_);
+        return StringUtil.nullToEmpty(translatedStatus_.getVal(status_));
     }
 
     private DictionaryComparator<String, Rate> getLawStatus(int _indexEffect) {
@@ -108,7 +111,9 @@ public class EffectStatusBean extends EffectBean {
         return !lawStatus.getKey(_index).isEmpty();
     }
     public String getFail(int _index) {
-        String status_ = lawStatus.getKey(_index);
+        DataBase data_ = getDataBase();
+        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
+        String status_ = StringUtil.nullToEmpty(translatedStatus_.getVal(lawStatus.getKey(_index)));
         if (!localFailStatus.contains(status_)) {
             return DataBase.EMPTY_STRING;
         }
