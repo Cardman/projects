@@ -377,6 +377,65 @@ public abstract class InitDbConstr extends InitDbBean {
     public static Struct callEfficiencyRateGetHpRate(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EfficiencyRateGetHpRate(),_str,_args);
     }
+    public static Struct callEffectPartnerStatusGetMultDamageAgainstFoe(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectPartnerStatusGetMultDamageAgainstFoe(),_str,_args);
+    }
+
+    public static Struct callEffectPartnerStatusGetRestoredHpRateLovedAlly(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectPartnerStatusGetRestoredHpRateLovedAlly(),_str,_args);
+    }
+
+    public static Struct callEffectPartnerStatusGetWeddingAlly(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectPartnerStatusGetWeddingAlly(),_str,_args);
+    }
+
+    public static Struct callPkTrainerGetItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PkTrainerGetItem(),_str,_args);
+    }
+
+    public static Struct callPkTrainerGetLevel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PkTrainerGetLevel(),_str,_args);
+    }
+
+    public static Struct callPkTrainerGetMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PkTrainerGetMoves(),_str,_args);
+    }
+    public static Struct callPlaceGetName(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PlaceGetName(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerGetHappiness(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonPlayerGetHappiness(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerGetItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonPlayerGetItem(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerGetWonExpSinceLastLevel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonPlayerGetWonExpSinceLastLevel(),_str,_args);
+    }
+
+
+    public static Struct callTypeDamageBoostGetBoost(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new TypeDamageBoostGetBoost(),_str,_args);
+    }
+
+    public static Struct callTypesDuoGetDamageType(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new TypesDuoGetDamageType(),_str,_args);
+    }
+
+    public static Struct callTypesDuoGetPokemonType(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new TypesDuoGetPokemonType(),_str,_args);
+    }
+
+    public static Struct callWildPkGetItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new WildPkGetItem(),_str,_args);
+    }
+
+    public static Struct callWildPkGetLevel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new WildPkGetLevel(),_str,_args);
+    }
 
     protected static String getValMoveId(Struct _bean) {
         return forms(_bean).getValStr(CST_MOVE);
