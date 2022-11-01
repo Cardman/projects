@@ -2,10 +2,7 @@ package cards.gui.dialogs.events;
 
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
-import code.gui.AbsShortListTree;
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
-import code.gui.MutableTreeNodeUtil;
+import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.util.Ints;
 
@@ -25,7 +22,7 @@ public class ListenerClickTree implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNode _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore _e) {
         AbstractMutableTreeNode sel_ = tree.selectEvt();
         if (sel_ == null) {
             return;

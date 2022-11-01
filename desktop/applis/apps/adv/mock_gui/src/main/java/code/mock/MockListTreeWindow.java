@@ -1,7 +1,7 @@
 package code.mock;
 
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 
 public interface MockListTreeWindow {
-    void action(int _nb,AbstractMutableTreeNode _node);
+    void action(int _nb, AbstractMutableTreeNodeCore _node);
 }

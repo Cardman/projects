@@ -1,28 +1,18 @@
 package code.gui;
 
-public interface AbstractMutableTreeNode extends AbstractMutableTreeNodeCore{
+public interface AbstractMutableTreeNode extends AbstractMutableTreeNodeNav{
     int getIndex();
-    int getAntiIndex(AbstractMutableTreeNode _treeNode);
-    boolean add(AbstractMutableTreeNode _treeNode);
+    boolean add(AbstractMutableTreeNodeCore _treeNode);
 
-    int getChildCount();
-
-    int insert(AbstractMutableTreeNode _treeNode, int _index);
+    int insert(AbstractMutableTreeNodeCore _treeNode, int _index);
 
     int removeAllChildren();
 
-    AbstractMutableTreeNode getParent();
     AbstractMutableTreeNode getParentReal();
 
-    int remove(AbstractMutableTreeNode _treeNode);
+    int remove(AbstractMutableTreeNodeCore _treeNode);
 
     AbstractMutableTreeNode remove(int _index);
-
-    AbstractMutableTreeNode getChildAt(int _i);
-
-    AbstractMutableTreeNode getPreviousSibling();
-
-    AbstractMutableTreeNode getNextSibling();
 
     AbstractMutableTreeNode removeFromParent();
 

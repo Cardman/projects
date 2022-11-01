@@ -1,7 +1,7 @@
 package code.mock;
 
 import code.gui.AbsShortListTree;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 
 public final class MockShortListTree implements AbsShortListTree {
     private final int nb;
@@ -13,7 +13,7 @@ public final class MockShortListTree implements AbsShortListTree {
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNode _node) {
+    public void valueChanged(AbstractMutableTreeNodeCore _node) {
         mockListTreeWindow.action(nb,_node);
     }
 }

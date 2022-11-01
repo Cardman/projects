@@ -177,9 +177,9 @@ public final class EventFunctionalInstance extends AbstractFunctionalInstanceImp
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNode _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore _e) {
         CustList<Argument> args_ = new CustList<Argument>();
-        Struct arg_ = EventStruct.node(_e);
+        Struct arg_ = TreeNodeStruct.nodeOrNull(_e);
         args_.add(new Argument(arg_));
         RunnableFunctionalInstance.callMethod(new GuiContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), args_);
     }

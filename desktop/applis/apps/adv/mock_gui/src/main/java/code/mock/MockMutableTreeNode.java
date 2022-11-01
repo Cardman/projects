@@ -1,14 +1,10 @@
 package code.mock;
 
-import code.gui.AbstractMutableTreeNode;
-import code.gui.AbstractMutableTreeNodeCore;
-import code.gui.MutableTreeNodeCore;
-import code.gui.MutableTreeNodeCoreUtil;
+import code.gui.*;
 import code.util.core.StringUtil;
 
-public final class MockMutableTreeNode implements AbstractMutableTreeNode {
+public final class MockMutableTreeNode extends MutableTreeNodeNav implements AbstractMutableTreeNode {
     private final String userObject;
-    private final MutableTreeNodeCore navMock = new MutableTreeNodeCore();
     private boolean accessible;
 
     public MockMutableTreeNode(String _name) {
@@ -21,23 +17,13 @@ public final class MockMutableTreeNode implements AbstractMutableTreeNode {
     }
 
     @Override
-    public int getAntiIndex(AbstractMutableTreeNode _m) {
-        return MutableTreeNodeCoreUtil.getAntiIndex(this,_m);
-    }
-
-    @Override
-    public boolean add(AbstractMutableTreeNode _m) {
+    public boolean add(AbstractMutableTreeNodeCore _m) {
         MutableTreeNodeCoreUtil.add(this, _m);
         return false;
     }
 
     @Override
-    public int getChildCount() {
-        return MutableTreeNodeCoreUtil.children(this).size();
-    }
-
-    @Override
-    public int insert(AbstractMutableTreeNode _m, int _i) {
+    public int insert(AbstractMutableTreeNodeCore _m, int _i) {
         return MutableTreeNodeCoreUtil.insert(this,_m,_i);
     }
 
@@ -47,58 +33,18 @@ public final class MockMutableTreeNode implements AbstractMutableTreeNode {
     }
 
     @Override
-    public AbstractMutableTreeNode getParent() {
-        return getParentReal();
-    }
-
-    @Override
     public AbstractMutableTreeNode getParentReal() {
-        return (AbstractMutableTreeNode) navMock.getParent();
+        return (AbstractMutableTreeNode) getParent();
     }
 
     @Override
-    public void setParent(AbstractMutableTreeNodeCore _v) {
-        navMock.setParent(_v);
-    }
-
-    @Override
-    public void setFirstChild(AbstractMutableTreeNodeCore _v) {
-        navMock.setFirstChild(_v);
-    }
-
-    @Override
-    public AbstractMutableTreeNodeCore getFirstChild() {
-        return navMock.getFirstChild();
-    }
-
-    @Override
-    public int remove(AbstractMutableTreeNode _m) {
+    public int remove(AbstractMutableTreeNodeCore _m) {
         return MutableTreeNodeCoreUtil.remove(this,_m);
     }
 
     @Override
     public AbstractMutableTreeNode remove(int _index) {
         return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.remove(this,_index);
-    }
-
-    @Override
-    public AbstractMutableTreeNode getChildAt(int _i) {
-        return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.getChildAt(this,_i);
-    }
-
-    @Override
-    public AbstractMutableTreeNode getPreviousSibling() {
-        return (AbstractMutableTreeNode) MutableTreeNodeCoreUtil.getPreviousSibling(this);
-    }
-
-    @Override
-    public AbstractMutableTreeNode getNextSibling() {
-        return (AbstractMutableTreeNode) navMock.getNextSibling();
-    }
-
-    @Override
-    public void setNextSibling(AbstractMutableTreeNodeCore _v) {
-        navMock.setNextSibling(_v);
     }
 
     @Override

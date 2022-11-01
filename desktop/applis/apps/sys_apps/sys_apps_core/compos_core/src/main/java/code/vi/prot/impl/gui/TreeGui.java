@@ -25,7 +25,7 @@ public final class TreeGui implements AbsTreeGui {
         setSelectionModel();
     }
 
-    public static MutableTreeNode convert(AbstractMutableTreeNode _t) {
+    public static MutableTreeNode convert(AbstractMutableTreeNodeCore _t) {
         return ((DefMutableTreeNode)_t).node();
     }
 
@@ -78,7 +78,7 @@ public final class TreeGui implements AbsTreeGui {
         return tree.getSelectionPath();
     }
 
-    public void select(AbstractMutableTreeNode _node) {
+    public void select(AbstractMutableTreeNodeCore _node) {
         tree.setSelectionPath(getTreePath(convert(_node)));
     }
 
@@ -113,7 +113,7 @@ public final class TreeGui implements AbsTreeGui {
     }
 
     @Override
-    public void reload(AbstractMutableTreeNode _node) {
+    public void reload(AbstractMutableTreeNodeCore _node) {
         model.reload(convert(_node));
     }
 

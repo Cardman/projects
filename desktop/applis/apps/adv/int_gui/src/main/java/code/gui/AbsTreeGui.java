@@ -3,8 +3,8 @@ package code.gui;
 import code.util.CustList;
 
 public interface AbsTreeGui {
-    void select(AbstractMutableTreeNode _node);
-    void reload(AbstractMutableTreeNode _node);
+    void select(AbstractMutableTreeNodeCore _node);
+    void reload(AbstractMutableTreeNodeCore _node);
     void reloadRoot();
     AbstractMutableTreeNode getRoot();
     AbstractMutableTreeNode getSelected();

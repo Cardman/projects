@@ -6,6 +6,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.MutableTreeNodeUtil;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -103,38 +104,38 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
     }
 
     public Struct getParentNode() {
-        AbstractMutableTreeNode par_ = treeNode.getParent();
+        AbstractMutableTreeNodeCore par_ = treeNode.getParent();
         return nodeOrNull(par_);
     }
 
     public Struct getPreviousSibling() {
-        AbstractMutableTreeNode prev_ = treeNode.getPreviousSibling();
+        AbstractMutableTreeNodeCore prev_ = treeNode.getPreviousSibling();
         return nodeOrNull(prev_);
     }
 
     public Struct getNextSibling() {
-        AbstractMutableTreeNode next_ = treeNode.getNextSibling();
+        AbstractMutableTreeNodeCore next_ = treeNode.getNextSibling();
         return nodeOrNull(next_);
     }
 
-    static Struct nodeOrNull(AbstractMutableTreeNode _value) {
-        if (_value == null) {
+    static Struct nodeOrNull(AbstractMutableTreeNodeCore _value) {
+        if (!(_value instanceof AbstractMutableTreeNode)) {
             return NullStruct.NULL_VALUE;
         }
-        return new TreeNodeStruct(_value);
+        return new TreeNodeStruct((AbstractMutableTreeNode)_value);
     }
 
     public IntStruct getChildCount() {
         return new IntStruct(treeNode.getChildCount());
     }
     public Struct getFirstChild() {
-        AbstractMutableTreeNode ch_ = treeNode.getChildAt(0);
+        AbstractMutableTreeNodeCore ch_ = treeNode.getChildAt(0);
         return nodeOrNull(ch_);
     }
 
     public Struct getLastChild() {
         int count_ = treeNode.getChildCount();
-        AbstractMutableTreeNode ch_ = treeNode.getChildAt(count_ - 1);
+        AbstractMutableTreeNodeCore ch_ = treeNode.getChildAt(count_ - 1);
         return nodeOrNull(ch_);
 
     }

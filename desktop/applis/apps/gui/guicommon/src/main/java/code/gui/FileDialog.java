@@ -288,7 +288,7 @@ public abstract class FileDialog implements ChangeableTitle {
         AbstractMutableTreeNode current_ = _treePath;
         while (current_ != null) {
             pathFull_.add(0,current_.getUserObject());
-            current_ = current_.getParent();
+            current_ = (AbstractMutableTreeNode) current_.getParent();
         }
         StringUtil.removeObj(pathFull_, EMPTY_STRING);
         StringBuilder str_ = new StringBuilder();

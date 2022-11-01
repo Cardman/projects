@@ -105,11 +105,11 @@ public final class FrameGeneralHelp extends ChildFrame {
             if (cheminSansNoeud_.isEmpty()) {
                 noeudLocGraphique_ = root_;
             } else {
-                noeudLocGraphique_ = root_
+                noeudLocGraphique_ = (AbstractMutableTreeNode) root_
                         .getChildAt(cheminSansNoeud_.first());
                 int lengthPath_ = cheminSansNoeud_.size();
                 for (int indice_ = IndexConstants.SECOND_INDEX; indice_ < lengthPath_; indice_++) {
-                    noeudLocGraphique_ = noeudLocGraphique_
+                    noeudLocGraphique_ = (AbstractMutableTreeNode) noeudLocGraphique_
                             .getChildAt(cheminSansNoeud_.get(indice_));
                 }
             }

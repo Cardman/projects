@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.AbsPlainLabel;
 import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -24,7 +25,7 @@ public final class MockCommonFrameTreeSample extends MockAbsCommonFrame implemen
     }
 
     @Override
-    public void action(int _nb, AbstractMutableTreeNode _node) {
+    public void action(int _nb, AbstractMutableTreeNodeCore _node) {
         MockTreeGui m_ = (MockTreeGui) getContentPane().getComponent(0);
         m_.selectEvt();
         AbsPlainLabel lab_ = (AbsPlainLabel) getContentPane().getComponent(1);

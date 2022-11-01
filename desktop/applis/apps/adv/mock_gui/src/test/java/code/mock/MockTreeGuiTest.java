@@ -1,9 +1,6 @@
 package code.mock;
 
-import code.gui.AbsCustComponent;
-import code.gui.AbsPlainLabel;
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.*;
 import org.junit.Test;
 
 public final class MockTreeGuiTest extends EquallableMockGuiUtil {
@@ -258,6 +255,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         assertNull(t1_.getChildAt(0));
         assertNull(t2_.getParent());
         assertNull(t3_.getParent());
+        assertNull(t3_.getParentReal());
         assertNull(t2_.getPreviousSibling());
         assertNull(t3_.getPreviousSibling());
         assertNull(t2_.getNextSibling());
@@ -280,7 +278,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         r_.add("1").add("3");
         r_.add("2").add("4");
         MockTreeGui t_ = new MockTreeGui(r_);
-        AbstractMutableTreeNode c_ = r_.getChildAt(0).getChildAt(0);
+        AbstractMutableTreeNodeCore c_ = ((AbstractMutableTreeNodeNav)r_.getChildAt(0)).getChildAt(0);
         t_.select(c_);
         assertSame(c_,t_.selectEvt());
     }
@@ -307,10 +305,10 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         assertTrue(r_.isAccessible());
         assertTrue(((MockMutableTreeNode)f_).isAccessible());
         assertTrue(((MockMutableTreeNode)s_).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)f_).getChildAt(0)).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)f_).getChildAt(1)).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)s_).getChildAt(0)).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)s_).getChildAt(1)).isAccessible());
+        assertTrue(((MockMutableTreeNode) f_.getChildAt(0)).isAccessible());
+        assertTrue(((MockMutableTreeNode) f_.getChildAt(1)).isAccessible());
+        assertTrue(((MockMutableTreeNode) s_.getChildAt(0)).isAccessible());
+        assertTrue(((MockMutableTreeNode) s_.getChildAt(1)).isAccessible());
     }
     @Test
     public void t22() {
@@ -335,10 +333,10 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         assertTrue(r_.isAccessible());
         assertTrue(((MockMutableTreeNode)f_).isAccessible());
         assertTrue(((MockMutableTreeNode)s_).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)f_).getChildAt(0)).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)f_).getChildAt(1)).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)s_).getChildAt(0)).isAccessible());
-        assertTrue(((MockMutableTreeNode)((MockMutableTreeNode)s_).getChildAt(1)).isAccessible());
+        assertTrue(((MockMutableTreeNode) f_.getChildAt(0)).isAccessible());
+        assertTrue(((MockMutableTreeNode) f_.getChildAt(1)).isAccessible());
+        assertTrue(((MockMutableTreeNode) s_.getChildAt(0)).isAccessible());
+        assertTrue(((MockMutableTreeNode) s_.getChildAt(1)).isAccessible());
     }
     @Test
     public void t26() {

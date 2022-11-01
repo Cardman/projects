@@ -271,4 +271,25 @@ public final class MutableTreeNodeCoreUtilTest extends EquallableIntGuiUtil {
         assertNull(MutableTreeNodeCoreUtil.getElt(t3_, Ints.newList(0,0,0)));
         assertNull(MutableTreeNodeCoreUtil.getElt(t3_, Ints.newList(0,0,0,0)));
     }
+    @Test
+    public void t19() {
+        MutableTreeNodeNav t1_ = new MutableTreeNodeNav();
+        MutableTreeNodeNav t2_ = new MutableTreeNodeNav();
+        MutableTreeNodeNav t3_ = new MutableTreeNodeNav();
+        assertEq(-1,t3_.getAntiIndex(t1_));
+        assertEq(-1,t3_.getAntiIndex(t2_));
+        assertFalse(MutableTreeNodeCoreUtil.add(t3_,t1_));
+        assertFalse(MutableTreeNodeCoreUtil.add(t3_,t2_));
+        assertEq(0,t3_.getAntiIndex(t1_));
+        assertEq(1,t3_.getAntiIndex(t2_));
+        assertEq(2,t3_.getChildCount());
+        assertSame(t1_,t3_.getChildAt(0));
+        assertSame(t2_,t3_.getChildAt(1));
+        assertSame(t3_,t1_.getParent());
+        assertSame(t3_,t2_.getParent());
+        assertNull(t1_.getPreviousSibling());
+        assertSame(t2_,t1_.getNextSibling());
+        assertSame(t1_,t2_.getPreviousSibling());
+        assertNull(t2_.getNextSibling());
+    }
 }

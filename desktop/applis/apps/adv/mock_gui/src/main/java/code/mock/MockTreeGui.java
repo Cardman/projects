@@ -1,9 +1,6 @@
 package code.mock;
 
-import code.gui.AbsCustComponent;
-import code.gui.AbsShortListTree;
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
+import code.gui.*;
 import code.util.CustList;
 import code.util.IdList;
 
@@ -25,12 +22,12 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     }
 
     @Override
-    public void select(AbstractMutableTreeNode _m) {
+    public void select(AbstractMutableTreeNodeCore _m) {
         tree.setSelectionPath(getTreePath((MockMutableTreeNode) _m));
     }
 
     @Override
-    public void reload(AbstractMutableTreeNode _m) {
+    public void reload(AbstractMutableTreeNodeCore _m) {
         loop(_m);
     }
 
@@ -39,11 +36,11 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         loop(getRoot());
     }
 
-    private static void loop(AbstractMutableTreeNode _root) {
-        AbstractMutableTreeNode cur_ = _root;
+    private static void loop(AbstractMutableTreeNodeCore _root) {
+        AbstractMutableTreeNodeCore cur_ = _root;
         while (cur_ != null) {
             ((MockMutableTreeNode)cur_).setAccessible(true);
-            AbstractMutableTreeNode ch_ = cur_.getChildAt(0);
+            AbstractMutableTreeNodeCore ch_ = ((MockMutableTreeNode)cur_).getChildAt(0);
             if (ch_ != null) {
                 cur_ = ch_;
                 continue;
@@ -51,14 +48,14 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
             cur_ = next(cur_,_root);
         }
     }
-    private static AbstractMutableTreeNode next(AbstractMutableTreeNode _current, AbstractMutableTreeNode _root) {
-        AbstractMutableTreeNode n_ = _current;
+    private static AbstractMutableTreeNodeCore next(AbstractMutableTreeNodeCore _current, AbstractMutableTreeNodeCore _root) {
+        AbstractMutableTreeNodeCore n_ = _current;
         while (n_ != null) {
-            AbstractMutableTreeNode next_ = n_.getNextSibling();
+            AbstractMutableTreeNodeCore next_ = n_.getNextSibling();
             if (next_ != null) {
                 return next_;
             }
-            AbstractMutableTreeNode parent_ = n_.getParent();
+            AbstractMutableTreeNodeCore parent_ = n_.getParent();
             if (parent_ == _root || parent_ == null) {
                 n_ = null;
             } else {

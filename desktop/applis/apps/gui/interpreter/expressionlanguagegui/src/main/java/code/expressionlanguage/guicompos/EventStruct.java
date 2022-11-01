@@ -287,20 +287,14 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     }
 
     @Override
-    public void valueChanged(AbstractMutableTreeNode _e) {
+    public void valueChanged(AbstractMutableTreeNodeCore _e) {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        Struct arg_ = node(_e);
+        Struct arg_ = TreeNodeStruct.nodeOrNull(_e);
         args_.add(new Argument(arg_));
         invoke(r_, ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListener(), ((LgNamesGui) r_.getStandards()).getGuiExecutingBlocks().getTreeListenerValueChanged(),args_);
     }
 
-    static Struct node(AbstractMutableTreeNode _e) {
-        if (_e == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new TreeNodeStruct(_e);
-    }
     @Override
     public void valueChanged(int _first, int _last) {
         GuiContextEl r_ = newCtx();
