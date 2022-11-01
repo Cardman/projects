@@ -2,10 +2,22 @@ package aiki.beans.items;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.db.InitDbConstr;
+import aiki.beans.facade.dto.*;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbItems extends InitDbConstr {
 
+    public static Struct callItemLineDescriptionClassGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new ItemLineDescriptionClassGet(),_str,_args);
+    }
+
+    public static Struct callItemLineDisplayNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new ItemLineDisplayNameGet(),_str,_args);
+    }
+
+    public static Struct callItemLinePriceGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new ItemLinePriceGet(),_str,_args);
+    }
     public static Struct callItemsBeanClickLink(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanClickLink(),_str,_args);
     }

@@ -16,4 +16,13 @@ public abstract class InitDbEffects extends InitDbConstr {
     public static Struct callCombosBeanCombosGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CombosBeanCombosGet(),_str,_args);
     }
+
+    public static Struct callCombosBeanComboGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new CombosBeanComboGet(),_str,_args);
+    }
+
+    public static Struct callCombosBeanGetCombosKey(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new CombosBeanGetCombosKey(),_str,_args);
+    }
+
 }

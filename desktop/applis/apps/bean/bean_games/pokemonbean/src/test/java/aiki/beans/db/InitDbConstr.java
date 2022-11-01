@@ -1,7 +1,7 @@
 package aiki.beans.db;
 
 import aiki.beans.*;
-import aiki.beans.effects.EffectWhileSendingBeanEffectSet;
+import aiki.beans.effects.*;
 import aiki.beans.map.MapLevelBeanAreas;
 import aiki.beans.map.MapLevelBeanClickArea;
 import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
@@ -344,6 +344,107 @@ public abstract class InitDbConstr extends InitDbBean {
         pk_.setDataBase(_dataBase);
         return pk_;
     }
+
+    public static Struct callEffectWhileSendingBeanCancelChgtStatGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCancelChgtStatGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanCancelLowStatGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCancelLowStatGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanClickWeather(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanClickWeather(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanCopyBoostGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCopyBoostGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanCopyingAbilityGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCopyingAbilityGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanDefaultBoostGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanDefaultBoostGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanDisableWeatherGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanDisableWeatherGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanEnabledWeatherGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanEnabledWeatherGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanEvtRateGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanEvtRateGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanEvtRatePerCentGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanEvtRatePerCentGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanGetFail(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetFail(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanGetRate(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetRate(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanGetSwapFail(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetSwapFail(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanGetTrWeather(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetTrWeather(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanIsAlwaysEnabled(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanIsAlwaysEnabled(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanMapVarsFailGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanMapVarsFailGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanMapVarsStatisticsGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanMapVarsStatisticsGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanMultWeightGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanMultWeightGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanNotEmptyVarBoost(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanNotEmptyVarBoost(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanPlateGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanPlateGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanRandomStatis(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanRandomStatis(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanReasonsGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanReasonsGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanStatisVarRankGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanStatisVarRankGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanStatisticGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanStatisticGet(),_str,_args);
+    }
+
+    public static Struct callEffectWhileSendingBeanSwapBoostStatisGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanSwapBoostStatisGet(),_str,_args);
+    }
+
     public static Struct callMapLevelBeanClickArea(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_args);
     }

@@ -953,10 +953,29 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callEditPokemonBeanRemainingHpSet(Struct _str, Rate _args) {
         return BeanPokemonCommonTs.callRate(new EditPokemonBeanRemainingHpSet(),_str,_args);
     }
+
+    public static Struct callEvLineEvGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvLineEvGet(),_str,_args);
+    }
     public static Struct callEvLineEvSet(Struct _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EvLineEvSet(),_str,_args);
     }
     public static Struct callDifficultyBeanComGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new DifficultyBeanComGet(),_str,_args);
+    }
+
+    public static Struct callPokemonPlayerDtoIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonPlayerDtoIndexGet(),_str,_args);
+    }
+
+    public static Struct callPokemonTrainerDtoIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTrainerDtoIndexGet(),_str,_args);
+    }
+    public static Struct callRadioLineMoveIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new RadioLineMoveIndexGet(),_str,_args);
+    }
+
+    public static Struct callSelectLineMoveSelectedGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectLineMoveSelectedGet(),_str,_args);
     }
 }

@@ -7,6 +7,54 @@ import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbCharacters extends InitDbConstr {
 
+    public static Struct callDealerBeanClickItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new DealerBeanClickItem(),_str,_args);
+    }
+
+    public static Struct callDealerBeanClickTm(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new DealerBeanClickTm(),_str,_args);
+    }
+
+    public static Struct callDealerBeanGetAllTm(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new DealerBeanGetAllTm(),_str,_args);
+    }
+
+    public static Struct callDealerBeanGetItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new DealerBeanGetItem(),_str,_args);
+    }
+
+    public static Struct callDealerBeanGetItems(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new DealerBeanGetItems(),_str,_args);
+    }
+
+    public static Struct callDealerBeanGetTm(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new DealerBeanGetTm(),_str,_args);
+    }
+
+
+    public static Struct callSellerBeanClickItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanClickItem(),_str,_args);
+    }
+
+    public static Struct callSellerBeanClickTm(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanClickTm(),_str,_args);
+    }
+
+    public static Struct callSellerBeanGetAllTm(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetAllTm(),_str,_args);
+    }
+
+    public static Struct callSellerBeanGetItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetItem(),_str,_args);
+    }
+
+    public static Struct callSellerBeanGetItems(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetItems(),_str,_args);
+    }
+
+    public static Struct callSellerBeanGetTm(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetTm(),_str,_args);
+    }
     public static Struct callAllyBeanClickAbility(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AllyBeanClickAbility(),_str,_args);
     }
