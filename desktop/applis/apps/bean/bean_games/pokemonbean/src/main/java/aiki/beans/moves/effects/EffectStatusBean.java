@@ -6,6 +6,7 @@ import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.moves.effects.EffectStatus;
 import code.maths.Rate;
+import code.util.EntryCust;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -15,7 +16,7 @@ public class EffectStatusBean extends EffectBean {
     private DictionaryComparator<String, Rate> lawStatus;
     private StringList deletedStatus;
 
-    private NatStringTreeMap< String> localFailStatus;
+    private StringMap< String> localFailStatus;
     private boolean koUserHealSubst;
     private boolean statusFromUser;
     private NatStringTreeMap<String> mapVarsStatus;
@@ -25,7 +26,6 @@ public class EffectStatusBean extends EffectBean {
         super.beforeDisplaying();
         EffectStatus effect_ = (EffectStatus) getEffect();
         DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
         DictionaryComparator<String, Rate> lawStatus_;
         lawStatus_ = DictionaryComparatorUtil.buildStatusRate(data_,getLanguage());
         for (String s: effect_.getLawStatus().events()) {
@@ -35,17 +35,17 @@ public class EffectStatusBean extends EffectBean {
 //        Map<String,String> loc_ = new Map<>();
 //        loc_.put(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //        loc_.put(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-        NatStringTreeMap< String> localFailStatus_;
-        localFailStatus_ = new NatStringTreeMap<String>();
+        StringMap< String> localFailStatus_;
+        localFailStatus_ = new StringMap<String>();
         NatStringTreeMap<String> mapVarsStatus_;
         mapVarsStatus_ = new NatStringTreeMap<String>();
-        for (String s: effect_.getLocalFailStatus().getKeys()) {
-            String formula_ = data_.getFormula(effect_.getLocalFailStatus().getVal(s), getLanguage());
+        for (EntryCust<String, String> s: effect_.getLocalFailStatus().entryList()) {
+            String formula_ = data_.getFormula(s.getValue(), getLanguage());
 //            formula_ = StringList.replace(formula_, loc_);
 //            formula_ = formula_.replace(LEFT_BRACE, QUOTED_LEFT_BRACE);
 //            formula_ = formula_.replace(RIGHT_BRACE, QUOTED_RIGHT_BRACE);
-            localFailStatus_.put(translatedStatus_.getVal(s), formula_);
-            mapVarsStatus_.putAllMap(data_.getDescriptions(effect_.getLocalFailStatus().getVal(s), getLanguage()));
+            localFailStatus_.put(s.getKey(), formula_);
+            mapVarsStatus_.putAllMap(data_.getDescriptions(s.getValue(), getLanguage()));
         }
         mapVarsStatus = mapVarsStatus_;
         localFailStatus = localFailStatus_;
@@ -108,13 +108,8 @@ public class EffectStatusBean extends EffectBean {
         return !lawStatus.getKey(_index).isEmpty();
     }
     public String getFail(int _index) {
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        String status_ = StringUtil.nullToEmpty(translatedStatus_.getVal(lawStatus.getKey(_index)));
-        if (!localFailStatus.contains(status_)) {
-            return DataBase.EMPTY_STRING;
-        }
-        return localFailStatus.getVal(status_);
+        String status_ = lawStatus.getKey(_index);
+        return StringUtil.nullToEmpty(localFailStatus.getVal(status_));
     }
 
     public DictionaryComparator<String,Rate> getLawStatus() {
