@@ -978,4 +978,416 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSelectLineMoveSelectedGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectLineMoveSelectedGet(),_str,_args);
     }
+    public static Struct callSimulationLevelBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanCancel(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanClickTile(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanClickTile(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanGetMapWidth(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanGetMapWidth(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanGymGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanGymGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanIsFirstRow(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanIsFirstRow(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanLevelIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanLevelIndexGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanNoFightGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanNoFightGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanOutsideGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanOutsideGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanPlaceNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPlaceNameGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanPokemonCenterGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPokemonCenterGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanPossibleMultiLayerGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPossibleMultiLayerGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanRoadGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanRoadGet(),_str,_args);
+    }
+
+    public static Struct callSimulationLevelBeanTilesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanTilesGet(),_str,_args);
+    }
+
+
+    public static Struct callAddPokemonBeanAbilitiesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAbilitiesGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanAbilityGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAbilityGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanAdd(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAdd(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanBooleansGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanBooleansGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanCancel(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanGenderGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGenderGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanGendersGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGendersGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanGetMiniImage(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGetMiniImage(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanHasEvoGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanHasEvoGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanIsEvoGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanIsEvoGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanIsLegGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanIsLegGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanLevelGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanLevelGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanNamePkGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanNamePkGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanPokedexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanPokedexGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanSearch(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanSearch(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanTypedNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanTypedNameGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanTypedTypeGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanTypedTypeGet(),_str,_args);
+    }
+
+    public static Struct callAddPokemonBeanWholeWordGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanWholeWordGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanAddMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanAddMoves(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanBallGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanBallGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanBallsGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanBallsGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanCancel(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanChooseItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanChooseItem(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanDeleteMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanDeleteMoves(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanEdit(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanEdit(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanEvGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanEvGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanExperienceGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanExperienceGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanGetTranslatedStatistic(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanGetTranslatedStatistic(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanHappinessGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanHappinessGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanHealGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanHealGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanLevelGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanLevelGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanMovesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanMovesGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanNamePkGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanNamePkGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanRemainingHpGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanRemainingHpGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanTranslateItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanTranslateItem(),_str,_args);
+    }
+
+    public static Struct callEditPokemonBeanTranslateName(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonBeanTranslateName(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanAddMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanAddMoves(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanAvailableMovesOnlyGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanAvailableMovesOnlyGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCancel(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanCategoriesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCategoriesGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanCategoryGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCategoryGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanMovesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanMovesGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanPlayerGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanPlayerGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanSearch(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanSearch(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanTypedNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanTypedNameGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanTypedTypeGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanTypedTypeGet(),_str,_args);
+    }
+
+    public static Struct callEditPokemonMovesBeanWholeWordGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanWholeWordGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanAddGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAddGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanAddMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAddMoves(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanAllyPkGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAllyPkGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanCancel(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanChooseAbility(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanChooseAbility(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanChooseItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanChooseItem(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanChooseName(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanChooseName(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanDeleteMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanDeleteMoves(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanGenderGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGenderGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanGendersGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGendersGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanGetTranslatedAbility(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedAbility(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanGetTranslatedItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedItem(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanGetTranslatedName(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedName(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanLevelGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanLevelGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanMovesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanMovesGet(),_str,_args);
+    }
+
+    public static Struct callEditTrainerPokemonBeanValidateTrainerPk(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanValidateTrainerPk(),_str,_args);
+    }
+
+    public static Struct callSelectAbilityBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanCancel(),_str,_args);
+    }
+
+    public static Struct callSelectAbilityBeanClickAbility(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanClickAbility(),_str,_args);
+    }
+
+    public static Struct callSelectAbilityBeanGetTrAbility(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanGetTrAbility(),_str,_args);
+    }
+
+    public static Struct callSelectAbilityBeanSearch(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanSearch(),_str,_args);
+    }
+
+    public static Struct callSelectAbilityBeanSortedAbilitiesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanSortedAbilitiesGet(),_str,_args);
+    }
+
+    public static Struct callSelectAbilityBeanTypedAbilityGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanTypedAbilityGet(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanCancel(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanCancelItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanCancelItem(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanClickLink(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanClickLink(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanGetMiniImage(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanGetMiniImage(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanItemsGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanItemsGet(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanSearch(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanSearch(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanTypedClassGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanTypedClassGet(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanTypedNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanTypedNameGet(),_str,_args);
+    }
+
+    public static Struct callSelectItemBeanTypedPriceGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectItemBeanTypedPriceGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanBooleansGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanBooleansGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanCancel(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanCancel(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanClickLink(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanClickLink(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanGetMiniImage(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanGetMiniImage(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanHasEvoGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanHasEvoGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanIsEvoGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanIsEvoGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanIsLegGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanIsLegGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanPokedexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanPokedexGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanSearch(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanSearch(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanTypedNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanTypedNameGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanTypedTypeGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanTypedTypeGet(),_str,_args);
+    }
+
+    public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
+    }
 }
