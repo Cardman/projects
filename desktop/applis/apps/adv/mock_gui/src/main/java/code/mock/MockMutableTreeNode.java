@@ -8,7 +8,7 @@ import code.util.core.StringUtil;
 
 public final class MockMutableTreeNode implements AbstractMutableTreeNode {
     private final String userObject;
-    private final MutableTreeNodeCore nav = new MutableTreeNodeCore();
+    private final MutableTreeNodeCore navMock = new MutableTreeNodeCore();
     private boolean accessible;
 
     public MockMutableTreeNode(String _name) {
@@ -53,22 +53,22 @@ public final class MockMutableTreeNode implements AbstractMutableTreeNode {
 
     @Override
     public AbstractMutableTreeNode getParentReal() {
-        return (AbstractMutableTreeNode) nav.getParent();
+        return (AbstractMutableTreeNode) navMock.getParent();
     }
 
     @Override
     public void setParent(AbstractMutableTreeNodeCore _v) {
-        nav.setParent(_v);
+        navMock.setParent(_v);
     }
 
     @Override
     public void setFirstChild(AbstractMutableTreeNodeCore _v) {
-        nav.setFirstChild(_v);
+        navMock.setFirstChild(_v);
     }
 
     @Override
     public AbstractMutableTreeNodeCore getFirstChild() {
-        return nav.getFirstChild();
+        return navMock.getFirstChild();
     }
 
     @Override
@@ -93,12 +93,12 @@ public final class MockMutableTreeNode implements AbstractMutableTreeNode {
 
     @Override
     public AbstractMutableTreeNode getNextSibling() {
-        return (AbstractMutableTreeNode) nav.getNextSibling();
+        return (AbstractMutableTreeNode) navMock.getNextSibling();
     }
 
     @Override
     public void setNextSibling(AbstractMutableTreeNodeCore _v) {
-        nav.setNextSibling(_v);
+        navMock.setNextSibling(_v);
     }
 
     @Override
