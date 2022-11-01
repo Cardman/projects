@@ -125,15 +125,6 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static void assertSizeEq(int _exp, Struct _result) {
         assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }
-    public static void assertEq(String _exp, Struct _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertEq(Rate _exp, Struct _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
-    public static void assertEq(long _exp, Struct _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)_result).get(_index)));
-    }
     public static Struct elt(Struct _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
     }

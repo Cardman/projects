@@ -2,6 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -16,7 +17,7 @@ import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
-
+    protected static final String ST_ACC_TR="ST_ACC_TR";
     public static Struct callEffectStatisticBeanCancelChgtStatGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanCancelChgtStatGet(),_str,_args);
     }
@@ -117,6 +118,8 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         trs(facade_);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
+        facade_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS,Rate.one());
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ACCURACY,ST_ACC_TR);
         facade_.getData().completeVariables();
         return facade_;
     }
