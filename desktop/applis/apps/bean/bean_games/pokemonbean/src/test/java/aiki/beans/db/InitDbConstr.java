@@ -1,8 +1,6 @@
 package aiki.beans.db;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.InitDbBean;
-import aiki.beans.PkData;
+import aiki.beans.*;
 import aiki.beans.effects.EffectWhileSendingBeanEffectSet;
 import aiki.beans.map.MapLevelBeanAreas;
 import aiki.beans.map.MapLevelBeanClickArea;
@@ -354,6 +352,30 @@ public abstract class InitDbConstr extends InitDbBean {
     }
     public static Struct callSimulationBeanSelectedTeamNumberGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
+    }
+
+    public static Struct callBoostHpRateGetBoost(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new BoostHpRateGetBoost(),_str,_args);
+    }
+
+    public static Struct callBoostHpRateGetHpRate(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new BoostHpRateGetHpRate(),_str,_args);
+    }
+
+    public static Struct callCategoryMultGetCategory(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new CategoryMultGetCategory(),_str,_args);
+    }
+
+    public static Struct callCategoryMultGetMult(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new CategoryMultGetMult(),_str,_args);
+    }
+
+    public static Struct callEfficiencyRateGetEff(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EfficiencyRateGetEff(),_str,_args);
+    }
+
+    public static Struct callEfficiencyRateGetHpRate(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EfficiencyRateGetHpRate(),_str,_args);
     }
 
     protected static String getValMoveId(Struct _bean) {

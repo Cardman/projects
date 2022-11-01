@@ -1,6 +1,7 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.*;
+import aiki.beans.pokemon.evolutions.*;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbPkOne extends InitDbPk {
@@ -220,4 +221,85 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static Struct callPokemonBeanWeightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanWeightGet(),_str,_args);
     }
+
+
+    public static Struct callEvolutionHappinessBeanMinGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionHappinessBeanMinGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionItemBeanClickItem(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanClickItem(),_str,_args);
+    }
+
+    public static Struct callEvolutionItemBeanItemGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanItemGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionLevelBeanLevelGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionLevelBeanLevelGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionLevelGenderBeanGenderGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionLevelGenderBeanGenderGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionMoveBeanClickMove(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanClickMove(),_str,_args);
+    }
+
+    public static Struct callEvolutionMoveBeanMoveGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanMoveGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionMoveTypeBeanTypeGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionMoveTypeBeanTypeGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionStoneBeanClickStone(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanClickStone(),_str,_args);
+    }
+
+    public static Struct callEvolutionStoneBeanStoneGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanStoneGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionStoneGenderBeanGenderGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionStoneGenderBeanGenderGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionTeamBeanClickTeam(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanClickTeam(),_str,_args);
+    }
+
+    public static Struct callEvolutionTeamBeanOtherGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanOtherGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionBeanClickEvo(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionBeanClickEvo(),_str,_args);
+    }
+
+    public static Struct callEvolutionBeanDisplayBaseGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayBaseGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionBeanDisplayNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayNameGet(),_str,_args);
+    }
+
+    public static Struct callEvolutionBeanIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new EvolutionBeanIndexGet(),_str,_args);
+    }
+    public static Struct callEvolutionBeanBaseSet(Struct _str, String _args) {
+        return BeanPokemonCommonTs.callString(new EvolutionBeanBaseSet(),_str,_args);
+    }
+
+    public static Struct callEvolutionBeanNameSet(Struct _str, String _args) {
+        return BeanPokemonCommonTs.callString(new EvolutionBeanNameSet(),_str,_args);
+    }
+
+    public static Struct callEvolutionBeanIndexSet(Struct _str, int _args) {
+        return BeanPokemonCommonTs.callInt(new EvolutionBeanIndexSet(),_str,_args);
+    }
+
 }

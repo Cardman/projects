@@ -2,10 +2,14 @@ package aiki.beans.pokemon;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.db.InitDbConstr;
+import aiki.beans.facade.dto.*;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbPk extends InitDbConstr {
 
+    public static Struct callPokemonLineEvolutionsGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonLineEvolutionsGet(),_str,_args);
+    }
     public static Struct callPokedexBeanBooleansGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokedexBeanBooleansGet(),_str,_args);
     }

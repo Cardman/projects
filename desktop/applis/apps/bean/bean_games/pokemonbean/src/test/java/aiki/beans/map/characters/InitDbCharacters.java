@@ -162,6 +162,10 @@ public abstract class InitDbCharacters extends InitDbConstr {
     public static Struct callPokemonTeamBeanTeamGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),_str,_args);
     }
+
+    public static Struct callPokemonTeamBeanNoFightSet(Struct _str, int _args) {
+        return BeanPokemonCommonTs.callInt(new PokemonTeamBeanNoFightSet(),_str,_args);
+    }
     public static void fwdTrainerDual(Struct _update, Struct _use) {
         callPokemonTeamBeanTrainerSet(_update,callDualFightBeanTrainerGet(_use));
     }
