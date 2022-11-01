@@ -7,6 +7,14 @@ import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbPk extends InitDbConstr {
 
+    public static Struct callPokemonLineDisplayNameGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonLineDisplayNameGet(),_str,_args);
+    }
+
+
+    public static Struct callPokemonLineTypesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonLineTypesGet(),_str,_args);
+    }
     public static Struct callPokemonLineEvolutionsGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonLineEvolutionsGet(),_str,_args);
     }
