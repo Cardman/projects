@@ -11,4 +11,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
     public static Struct callAbilityBeanGetEffectSending(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetEffectSending(),_str,_args);
     }
+    public static Struct callAbilitiesBeanTypedAbilitySet(Struct _str, String _args) {
+        return BeanPokemonCommonTs.callString(new AbilitiesBeanTypedAbilitySet(),_str,_args);
+    }
 }
