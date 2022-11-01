@@ -36,16 +36,8 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
     protected static Struct dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToEffectDamageRate(pk_);
-        transitToAllMoves(pk_, all_);
         StringMap<String> mapping_ = mappingToEffectDamageRate();
-        Struct moveline_ = displayMoveLine(all_, _index, mapping_);
-        Struct mbean_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVE);
-        transit(pk_,new MoveLineBeanClickMove(), moveline_, mbean_,toInt(callMoveLineBeanIndexGet(moveline_)));
-        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
-        Struct eff_ = byStr(all_, mapping_, callMoveBeanGetPage(mbean_, noEff_));
-        fwdEffect(eff_,mbean_, noEff_);
-        beforeDisplaying(eff_);
-        return eff_;
+        return transitEffect(_index,_indexEff,pk_,all_,mapping_);
     }
     public static StringMap<Struct> beanToEffectDamageRate(PkData _pk) {
         StringMap<Struct> map_ = beanToEffect(_pk);

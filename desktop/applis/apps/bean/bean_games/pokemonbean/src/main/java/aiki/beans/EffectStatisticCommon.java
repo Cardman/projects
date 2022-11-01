@@ -8,6 +8,7 @@ import code.util.AbsMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class EffectStatisticCommon {
     private NatStringTreeMap< Byte> statisVarRank;
@@ -56,6 +57,7 @@ public final class EffectStatisticCommon {
         for (Statistic s: _statis.getSwapBoostStatis()) {
             swapBoostStatis_.add(translatedStatistics_.getVal(s));
         }
+        swapBoostStatis_.sort();
         swapBoostStatis = swapBoostStatis_;
         NatStringTreeMap< Rate> lawBoost_;
         lawBoost_ = new NatStringTreeMap< Rate>();
@@ -125,17 +127,11 @@ public final class EffectStatisticCommon {
     }
     public String getFail(int _index) {
         String stat_ = statisVarRank.getKey(_index);
-        if (!localFailStatis.contains(stat_)) {
-            return DataBase.EMPTY_STRING;
-        }
-        return localFailStatis.getVal(stat_);
+        return StringUtil.nullToEmpty(localFailStatis.getVal(stat_));
     }
     public String getSwapFail(int _index) {
         String stat_ = swapBoostStatis.get(_index);
-        if (!localFailSwapBoostStatis.contains(stat_)) {
-            return DataBase.EMPTY_STRING;
-        }
-        return localFailSwapBoostStatis.getVal(stat_);
+        return StringUtil.nullToEmpty(localFailSwapBoostStatis.getVal(stat_));
     }
     public boolean isAlwaysEnabled() {
         return Rate.eq(evtRate, Rate.one());

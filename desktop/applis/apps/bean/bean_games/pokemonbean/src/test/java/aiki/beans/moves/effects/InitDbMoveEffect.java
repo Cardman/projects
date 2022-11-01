@@ -2,9 +2,7 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.moves.InitDbMove;
-import aiki.beans.moves.MoveLineBeanClickMove;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
@@ -96,36 +94,25 @@ public abstract class InitDbMoveEffect extends InitDbMove {
     public static Struct callEffectBeanIndexSet(Struct _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EffectBeanIndexSet(),_str,_args);
     }
-    protected static Struct dispMoveEff(FacadeGame _fac, int _index, int _indexEff) {
-        PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffect(pk_);
-        transitToAllMoves(pk_, all_);
-        StringMap<String> mapping_ = mappingToEffect();
-        Struct moveline_ = displayMoveLine(all_, _index, mapping_);
-        Struct mbean_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVE);
-        transit(pk_,new MoveLineBeanClickMove(), moveline_, mbean_,toInt(callMoveLineBeanIndexGet(moveline_)));
-        int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
-        fwdEffect(byStr(all_,mapping_,callMoveBeanGetPage(mbean_,noEff_)),mbean_, noEff_);
-        return mbean_;
-    }
     protected static Struct dispMoveEffDamage(FacadeGame _fac, int _index) {
         return dispMoveEffDamage(_fac, _index,0);
     }
     protected static Struct dispMoveEffDamage(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToEffectDamage(pk_);
-        transitToAllMoves(pk_, all_);
         StringMap<String> mapping_ = mappingToEffectDamage();
-        Struct moveline_ = displayMoveLine(all_, _index, mapping_);
-        Struct mbean_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVE);
-        transit(pk_,new MoveLineBeanClickMove(), moveline_, mbean_,toInt(callMoveLineBeanIndexGet(moveline_)));
+        return transitEffect(_index, _indexEff, pk_, all_, mapping_);
+    }
+
+    protected static Struct transitEffect(int _index, int _indexEff, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
+        Struct mbean_ = transitMove(_index, _pk, _all, _mapping);
         int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
-        Struct eff_ = byStr(all_, mapping_, callMoveBeanGetPage(mbean_, noEff_));
+        Struct eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
         fwdEffect(eff_,mbean_, noEff_);
         beforeDisplaying(eff_);
-//        fwdEffect(,mbean_,toInt(elt(callMoveBeanEffectsGet(mbean_),_indexEff)));
         return eff_;
     }
+
     public static void fwdEffect(Struct _update, Struct _use, int _index) {
         callEffectBeanIndexSet(_update,_index);
         callEffectBeanMoveSet(_update,toStr(callMoveBeanNameGet(_use)));

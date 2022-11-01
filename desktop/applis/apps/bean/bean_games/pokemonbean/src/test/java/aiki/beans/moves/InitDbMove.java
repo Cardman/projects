@@ -2,8 +2,6 @@ package aiki.beans.moves;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
-import aiki.beans.pokemon.AikiBeansPokemonStd;
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -458,13 +456,10 @@ public abstract class InitDbMove extends InitDbMoves {
     protected static Struct dispMove(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToMove(pk_);
-        transitToAllMoves(pk_, all_);
         StringMap<String> mapping_ = mappingToMove();
-        Struct moveline_ = displayMoveLine(all_, _index, mapping_);
-        Struct mbean_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVE);
-        transit(pk_,new MoveLineBeanClickMove(), moveline_, mbean_,toInt(callMoveLineBeanIndexGet(moveline_)));
-        return mbean_;
+        return transitMove(_index, pk_, all_, mapping_);
     }
+
     public static StringMap<Struct> beanToMove(PkData _pk) {
         StringMap<Struct> map_ = beanToMoves(_pk);
         map_.addEntry(AikiBeansMovesStd.BEAN_MOVE,_pk.beanMoveBean(EN));
