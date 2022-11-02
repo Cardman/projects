@@ -125,7 +125,7 @@ public class FightEffectsDamageTest extends InitializationDataBase {
         MoveData move_ = _data.getMove(_move);
         StringList typeAtt_=FightMoves.moveTypes(_fight, _thrower,_move, _data);
         String nomActuelLanceur_=fighter_.getCurrentName();
-        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), move_.getCategory());
+        variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_CATEGORIE), _data.getCategory(move_));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.LANCEUR_NOM), nomActuelLanceur_);
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_TYPES), StringUtil.join(typeAtt_, _data.getSepartorSetChar()));
         variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.ATTAQUE_NOM), _move);

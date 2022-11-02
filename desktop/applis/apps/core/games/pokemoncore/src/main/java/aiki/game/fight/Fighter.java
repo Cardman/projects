@@ -2287,7 +2287,7 @@ public final class Fighter {
     byte varPrio(TeamPosition _fighter, String _move, Fight _fight,DataBase _data) {
         byte varPrio_=0;
         MoveData fAtt_=_data.getMove(_move);
-        String categOne_ = fAtt_.getCategory();
+        String categOne_ = _data.getCategory(fAtt_);
         AbilityData fCapac_=ficheCapaciteActuelle(_data);
         if(fCapac_ != null){
             if(fCapac_.getIncreasedPrio().contains(categOne_)){

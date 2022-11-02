@@ -103,7 +103,6 @@ public final class DamagingMoveData extends MoveData {
         return false;
     }
 
-    @Override
     public String getCategory() {
         return category;
     }

@@ -50,7 +50,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //            line_.setPriority(moveData_.getPriority());
 //            line_.setSelected(false);
 //            moves.add(line_);
-            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k.getKey(),moveData_));
+            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k.getKey(),moveData_,getDataBase()));
         }
         moves.sortElts(new ComparatorMoves());
     }

@@ -81,7 +81,6 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     protected static final String STATUE = "STAUTE";
     protected static final String STATUE_TR = "eSTi";
     protected static final String NO_G = "NO_G";
-    protected static final String DEF_MAX_ATT = "DEF_MAX_ATT";
     protected static final String SPEED_TR = "vit";
 
     protected static final String PROG_PK1="PK_1";
@@ -701,7 +700,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     private static void initConstants(DataBase _data) {
         _data.addConstNumTest(DataBase.MAX_EV, new Rate(20));
         _data.addConstNumTest(DataBase.MAX_IV, new Rate(31));
-        _data.addConstNumTest(DEF_MAX_ATT, new Rate(4));
+        _data.addConstNumTest(DataBase.DEF_MAX_ATT, new Rate(4));
         _data.addConstNumTest(DataBase.DEF_PKEQ, new Rate(6));
         _data.addConstNumTest(DataBase.ARGENT, new Rate(3000));
         _data.addConstNumTest(DataBase.NIVEAU_PK_ECLOSION, new Rate(1));
@@ -739,6 +738,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
         _db.setDamageFormula(_damageFormula);
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
+        _db.setDefCategory("AUTRE");
     }
     private static void initExpPoints(DataBase _data) {
         _data.getExpGrowth().put(ExpType.E,"2*NIVEAU");

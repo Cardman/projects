@@ -26,7 +26,7 @@ public final class MovesBeanTest extends InitDbMoves {
     }
     @Test
     public void cat4() {
-        assertEq(DataBase.AUTRE,first(elt(callMovesBeanCategoriesGet(dispAllMoves(feedDb())),1)));
+        assertEq(AUTRE,first(elt(callMovesBeanCategoriesGet(dispAllMoves(feedDb())),1)));
     }
     @Test
     public void cat5() {

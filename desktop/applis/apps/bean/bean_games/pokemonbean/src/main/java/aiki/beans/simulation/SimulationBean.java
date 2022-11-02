@@ -180,7 +180,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         for (String k: _moves) {
             MoveData moveData_ = data_.getMoves().getVal(k);
             RadioLineMove line_ = new RadioLineMove();
-            MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_);
+            MovesBean.line(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,line_,getDataBase());
             movesSet.add(line_);
         }
         int i_ = IndexConstants.FIRST_INDEX;
@@ -216,7 +216,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             info_ = simulation.getAvailableMoves().getVal((byte) selectedPk);
             for (String k : info_.getMoves().getKeys()) {
                 MoveData moveData_ = data_.getMoves().getVal(k);
-                SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_);
+                SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,getDataBase());
 //                    line_.setName(k);
 //                    line_.setDisplayName(translationsMoves_.getVal(k));
 //                    StringList types_ = new StringList();
@@ -1265,7 +1265,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         for (String m: selectedMoves_.getKeys()) {
             MoveData moveData_ = data_.getMoves().getVal(m);
-            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_);
+            SelectLineMove line_ = MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,m,moveData_,getDataBase());
 //            SelectLineMove line_ = new SelectLineMove();
 //            line_.setName(m);
 //            line_.setDisplayName(data_.translateMove(m));

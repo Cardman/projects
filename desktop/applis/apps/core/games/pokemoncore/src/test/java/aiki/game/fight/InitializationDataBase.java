@@ -881,7 +881,6 @@ public class InitializationDataBase extends EquallablePkUtil {
         data_.initializeWildPokemon();
         data_.getMap().initInteractiveElements();
         data_.completeVariables();
-        initConstants(data_);
         data_.addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
         initRandomLaws(data_);
         initExpPoints(data_);
@@ -975,7 +974,6 @@ public class InitializationDataBase extends EquallablePkUtil {
         data_.getMap().initializeTree();
         data_.getMap().initializeAccessibility();
         data_.completeVariables();
-        initConstants(data_);
         initRandomLaws(data_);
         initExpPoints(data_);
         initTmHm(data_);
@@ -989,6 +987,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        initConstants(data_);
         InitializationPokedex.initAllPokemon(data_);
         InitializationPokedex.initAllSecondPokemons(data_);
         InitializationAbilities.initAllAbilities(data_);
@@ -1329,7 +1328,7 @@ public class InitializationDataBase extends EquallablePkUtil {
     protected static void initConstants(DataBase _data) {
         _data.addConstNumTest(DataBase.MAX_EV, new Rate(20));
         _data.addConstNumTest(DataBase.MAX_IV, new Rate(31));
-        _data.addConstNumTest("DEF_MAX_ATT", new Rate(4));
+        _data.addConstNumTest(DataBase.DEF_MAX_ATT, new Rate(4));
         _data.addConstNumTest(DataBase.DEF_PKEQ, new Rate(6));
         _data.addConstNumTest(DataBase.ARGENT, new Rate(3000));
         _data.addConstNumTest(DataBase.NIVEAU_PK_ECLOSION, new Rate(1));

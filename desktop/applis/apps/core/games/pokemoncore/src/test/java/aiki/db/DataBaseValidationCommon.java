@@ -34,7 +34,7 @@ public abstract class DataBaseValidationCommon extends EquallablePkUtil {
     protected static void initConstants(DataBase _data) {
         _data.addConstNumTest(DataBase.MAX_EV, new Rate(20));
         _data.addConstNumTest(DataBase.MAX_IV, new Rate(31));
-        _data.addConstNumTest("DEF_MAX_ATT", new Rate(4));
+        _data.addConstNumTest(DataBase.DEF_MAX_ATT, new Rate(4));
         _data.addConstNumTest(DataBase.DEF_PKEQ, new Rate(6));
         _data.addConstNumTest(DataBase.ARGENT, new Rate(3000));
         _data.addConstNumTest(DataBase.NIVEAU_PK_ECLOSION, new Rate(1));

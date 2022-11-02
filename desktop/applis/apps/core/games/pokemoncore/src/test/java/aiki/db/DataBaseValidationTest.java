@@ -185,13 +185,14 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initValue(DataBase.DEF_CAT, AUTRE);
         DamagingMoveData move_ = Instances.newDamagingMoveData();
         EffectEndRoundIndividual effect_ = Instances.newEffectEndRoundIndividual();
         effect_.setEndRoundRank(1);
         move_.getEffects().add(effect_);
         move_.setTypes(new StringList(ELECTRICK));
         move_.setRankIncrementNbRound((short)1);
-        move_.setCategory(DataBase.AUTRE);
+        move_.setCategory(AUTRE);
         data_.completeMembers(TREMPETTE, move_);
         move_ = Instances.newDamagingMoveData();
         move_.getEffects().add(Instances.newEffectDamage());
@@ -632,11 +633,12 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initValue(DataBase.DEF_CAT, AUTRE);
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE));
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE2));
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,DataBase.AUTRE));
-        data_.getCategories().add(DataBase.AUTRE);
+        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
+        data_.getCategories().add(AUTRE);
         StringMap<String> litt_ = new StringMap<String>();
         litt_.addEntry(TREMPETTE,"");
         litt_.addEntry(TREMPETTE2, StringUtil.concat(TAB,TAB));
@@ -654,10 +656,11 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initValue(DataBase.DEF_CAT, AUTRE);
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE));
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE2));
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,DataBase.AUTRE));
+        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
         StringMap<String> litt_ = new StringMap<String>();
         litt_.addEntry(TREMPETTE,"");
         litt_.addEntry(TREMPETTE2, StringUtil.concat(TAB,TAB));
@@ -676,10 +679,11 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();
+        data_.initValue(DataBase.DEF_CAT, AUTRE);
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE,DataBase.SEP_BETWEEN_KEYS,CHARGE3,DataBase.SEP_BETWEEN_KEYS,CHARGE3));
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE2,DataBase.SEP_BETWEEN_KEYS,CHARGE4));
         data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,TREMPETTE3,DataBase.SEP_BETWEEN_KEYS,TREMPETTE));
-        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,DataBase.AUTRE));
+        data_.getVariables().add(StringUtil.concat(DataBase.VAR_PREFIX,CHARGE2,DataBase.SEP_BETWEEN_KEYS,AUTRE));
         StringMap<String> litt_ = new StringMap<String>();
         litt_.addEntry(TREMPETTE, StringUtil.concat(TYPE_FORMULA,TAB,TAB));
         litt_.addEntry(TREMPETTE2, StringUtil.concat(TYPE_FORMULA,TAB,TAB));
@@ -700,7 +704,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         data_.addConstNumTest(DataBase.MAX_EV, new Rate(-20));
         data_.addConstNumTest(DataBase.MAX_IV, new Rate(-31));
-        data_.addConstNumTest("DEF_MAX_ATT", new Rate(-4));
+        data_.addConstNumTest(DataBase.DEF_MAX_ATT, new Rate(-4));
         data_.addConstNumTest(DataBase.DEF_PKEQ, new Rate(-6));
         data_.addConstNumTest(DataBase.ARGENT, new Rate(-3000));
         data_.addConstNumTest(DataBase.NIVEAU_PK_ECLOSION, new Rate(-1));
@@ -738,7 +742,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
         data_.initializeMembers();
         data_.addConstNumTest(DataBase.MAX_EV, new Rate(2000000));
         data_.addConstNumTest(DataBase.MAX_IV, new Rate(2000000));
-        data_.addConstNumTest("DEF_MAX_ATT", new Rate(2000000));
+        data_.addConstNumTest(DataBase.DEF_MAX_ATT, new Rate(2000000));
         data_.addConstNumTest(DataBase.DEF_PKEQ, new Rate(100));
         data_.addConstNumTest(DataBase.ARGENT, new Rate(0));
         data_.addConstNumTest(DataBase.NIVEAU_PK_ECLOSION, new Rate(2000000));
@@ -763,6 +767,7 @@ public final class DataBaseValidationTest extends DataBaseValidationCommon {
                 "",
                 LUTTE,
                 "", data_);
+        data_.setDefCategory("");
         data_.validateConstants();
         assertTrue(data_.isError());
     }

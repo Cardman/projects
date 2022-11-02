@@ -96,6 +96,13 @@ public class DataBaseTest extends EquallablePkUtil {
     @Test
     public void initBase9() {
         DataBase data_ = newData();
+        data_.initValue(DataBase.DEF_CAT,"_");
+        assertEq("_",data_.getDefCategory());
+    }
+
+    @Test
+    public void initBase10() {
+        DataBase data_ = newData();
         data_.initValue("","_");
         assertEq("",data_.getDefMove());
         assertEq("",data_.getRateBoost());
@@ -105,6 +112,7 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq("",data_.getBallDef());
         assertEq("",data_.getDefaultEggGroup());
         assertEq("",data_.getDamageFormula());
+        assertEq("",data_.getDefCategory());
     }
     @Test
     public void test() {
@@ -144,6 +152,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.setDefaultEggGroup("");
         data_.setDefMove("");
         data_.setDamageFormula("");
+        data_.setDefCategory("");
         data_.setExpGrowth(new IdMap<ExpType, String>());
         data_.setTableTypes(new TypesDuos());
         data_.setTypes(new StringList());
@@ -306,6 +315,7 @@ public class DataBaseTest extends EquallablePkUtil {
     public void completeMembers3Test() {
         DataBase data_ = newData();
         data_.initializeMembers();
+        data_.initValue(DataBase.DEF_CAT,AUTRE);
         StatusMoveData moveDamage_;
         moveDamage_ = new StatusMoveData();
         moveDamage_.setPp((short) 20);
@@ -316,7 +326,7 @@ public class DataBaseTest extends EquallablePkUtil {
         data_.completeMembers("QUEUE_DE_CHEVAL", moveDamage_);
         assertEq(0, data_.getCategories().size());
         assertEq(1, data_.getAllCategories().size());
-        assertTrue(StringUtil.contains(data_.getAllCategories(), DataBase.AUTRE));
+        assertTrue(StringUtil.contains(data_.getAllCategories(), data_.getDefCategory()));
     }
 
     @Test

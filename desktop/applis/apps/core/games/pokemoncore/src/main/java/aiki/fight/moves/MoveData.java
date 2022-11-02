@@ -145,8 +145,6 @@ public abstract class MoveData {
 
     public abstract boolean canBoostAllies();
 
-    public abstract String getCategory();
-
     public short getPp() {
         return pp;
     }

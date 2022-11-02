@@ -274,11 +274,6 @@ public final class StatusMoveData extends MoveData {
         return getTargetChoice() == TargetChoice.TOUS_ADV;
     }
 
-    @Override
-    public String getCategory() {
-        return DataBase.AUTRE;
-    }
-
     public boolean getThievableMove() {
         return thievableMove;
     }

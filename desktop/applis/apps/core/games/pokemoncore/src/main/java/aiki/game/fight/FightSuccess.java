@@ -590,7 +590,7 @@ final class FightSuccess {
         _valueStat.multiplyBy(FightStatistic.statisticWithoutBase(_fight, _cbt, _stat, FightValues.calculateValuesFighter(_fight, _cbt, _import), _import));
         AbilityData fCapacite_= _creature.ficheCapaciteActuelle(_import);
         if(fCapacite_ != null){
-            String categ_ = _fAttaque.getCategory();
+            String categ_ = _import.getCategory(_fAttaque);
             if(fCapacite_.getMultStatIfCat().contains(new StatisticCategory(_stat,categ_))){
                 _valueStat.multiplyBy(fCapacite_.getMultStatIfCat().getVal(new StatisticCategory(_stat,categ_)));
             }

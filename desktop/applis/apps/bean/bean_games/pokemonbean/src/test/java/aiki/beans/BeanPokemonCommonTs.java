@@ -11,6 +11,7 @@ import code.util.StringMap;
 
 public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
+    public static final String AUTRE = "AUTRE";
     public static final String ACCESS_TO_DEFAULT_FILES = "resources_pk/rom/";
     public static final String EN = "en";
     protected static final char NAV_SEP='.';

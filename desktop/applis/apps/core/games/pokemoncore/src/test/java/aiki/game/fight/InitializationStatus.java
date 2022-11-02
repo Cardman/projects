@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectEndRoundSingleStatus;
 import aiki.fight.moves.effects.EffectEndRoundStatus;
@@ -22,7 +23,7 @@ import code.util.*;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 
-final class InitializationStatus {
+final class InitializationStatus extends EquallablePkUtil {
 
     static final String SOMMEIL_REPOS = "SOMMEIL_REPOS";
     static final String SOMMEIL = "SOMMEIL";

@@ -64,6 +64,7 @@ import org.junit.Assert;
 
 public abstract class EquallablePkUtil {
 
+    protected static final String AUTRE = "AUTRE";
     private static final String DIFF = " != ";
     public static void assertNotNull(Dims _value) {
         Assert.assertNotNull(_value);
@@ -444,5 +445,6 @@ public abstract class EquallablePkUtil {
         _db.setDamageFormula(_damageFormula);
         _db.setDefMove(_defMove);
         _db.setDefaultEggGroup(_defaultEggGoup);
+        _db.setDefCategory(AUTRE);
     }
 }

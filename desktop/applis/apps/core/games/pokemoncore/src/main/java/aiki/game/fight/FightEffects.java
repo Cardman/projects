@@ -706,8 +706,8 @@ final class FightEffects {
         creatureCible_.setLastSufferedMove(_attaqueLanceur);
         creatureCible_.setLastSufferedMoveTypes(FightMoves.moveTypes(_fight, _lanceur, _attaqueLanceur, _import));
         _fight.getTemp().getDamageByCurrentUser().put(_cible,degats_);
-        creatureCible_.getDamageSufferedCategRound().getVal(fAttaqueLanceur_.getCategory()).addNb(degats_);
-        creatureCible_.getDamageSufferedCateg().getVal(fAttaqueLanceur_.getCategory()).addNb(degats_);
+        creatureCible_.getDamageSufferedCategRound().getVal(_import.getCategory(fAttaqueLanceur_)).addNb(degats_);
+        creatureCible_.getDamageSufferedCateg().getVal(_import.getCategory(fAttaqueLanceur_)).addNb(degats_);
         //degats recul et soin
         if (pvSoignes_.isZeroOrGt() || !Rate.greaterEq(pvSoignes_.opposNb(), creatureLanceur_.getRemainingHp())) {
             Rate r_ = creatureLanceur_.variationLeftHp(pvSoignes_);
@@ -741,7 +741,7 @@ final class FightEffects {
         if (!_creatureCible.estKo()) {
             Berry berry_ = FightItems.useItsBerry(_fight, _cible, _import);
             if (berry_ != null) {
-                if (StringUtil.quickEq(berry_.getCategoryBoosting(), _fAttaqueLanceur.getCategory())) {
+                if (StringUtil.quickEq(berry_.getCategoryBoosting(), _import.getCategory(_fAttaqueLanceur))) {
                     boostTarget(_fight, _cible, _import, _creatureCible, berry_.getBoostStatis());
                 }
                 FightItems.enableBerryHp(_fight, _cible, true, true, _import, berry_);
@@ -1127,7 +1127,7 @@ final class FightEffects {
         Rate basePower_ = _import.evaluatePositiveExp(effect_.getPower(), variables_, DataBase.getDefaultPower());
         StringList typeAtt_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
         FightValues.completeValuesWithThrower(_fight, _lanceur, variables_);
-        FightValues.completeValuesWithMoveInfo(_attaqueLanceur, variables_, basePower_, _import, typeAtt_, fAtt_.getCategory());
+        FightValues.completeValuesWithMoveInfo(_attaqueLanceur, variables_, basePower_, _import, typeAtt_, _import.getCategory(fAtt_));
         Rate finalPower_ = new Rate(basePower_);
         finalPower_.multiplyBy(rateObjectPower(_fight, _lanceur, variables_, _import));
         finalPower_.multiplyBy(rateTypesPower(_fight, _lanceur, _cible, typeAtt_));
@@ -1324,7 +1324,7 @@ final class FightEffects {
         Fighter thrower_ = _fight.getFighter(_thrower);
         Team equipeCible_=_fight.getTeams().getVal(_target.getTeam());
         MoveData fMove_ = _import.getMove(_move);
-        String cat_ = fMove_.getCategory();
+        String cat_ = _import.getCategory(fMove_);
         short mult_ = _fight.getMult();
         CategoryMult p_ = new CategoryMult(cat_,mult_);
         for(String c:equipeCible_.enabledTeamMoves()){
@@ -1796,7 +1796,7 @@ final class FightEffects {
         byte maxBoost_=(byte)_import.getMaxBoost();
         StringList typeAttaque_=FightMoves.moveTypes(_fight, _lanceur,_attaqueLanceur,_import);
         MoveData fAttaqueLanceur_ = _import.getMove(_attaqueLanceur);
-        String categorie_=fAttaqueLanceur_.getCategory();
+        String categorie_=_import.getCategory(fAttaqueLanceur_);
         for(Statistic c:creatureCible_.getStatisBoost().getKeys()){
             if(_criticalHit&&fCapac_.getMaxStatisticsIfCh().containsObj(c)){
                 byte boostActuel_=creatureCible_.getStatisBoost().getVal(c);

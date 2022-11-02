@@ -516,7 +516,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         _init.getMaxiPkFront().put(PIKACHU, BaseSixtyFourUtil.getImageByString(MAX_PIKA));
     }
     private void moves(DataBase _init) {
-        _init.addConstNumTest(DEF_MAX_ATT,Rate.newRate("2"));
+        _init.addConstNumTest(DataBase.DEF_MAX_ATT,Rate.newRate("2"));
         DamagingMoveData one_ = Instances.newDamagingMoveData();
         one_.setPp((short) 15);
         _init.completeMembers(ECLAIR, one_);

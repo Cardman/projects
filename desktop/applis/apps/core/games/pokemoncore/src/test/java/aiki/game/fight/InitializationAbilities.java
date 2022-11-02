@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
@@ -22,7 +23,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-final class InitializationAbilities {
+final class InitializationAbilities extends EquallablePkUtil {
 
     static final String ARMUROUILLEE = "ARMUROUILLEE";
 
@@ -297,9 +298,6 @@ final class InitializationAbilities {
     private static final String POISON_GRAVE = InitializationStatus.POISON_GRAVE;
     private static final String PEUR = InitializationStatus.PEUR;
     private static final String POISON_ST = InitializationStatus.POISON_ST;
-
-    private static final String AUTRE = DataBase.AUTRE;
-
     private static final String F = "F";
 
     private static final String NULL_REF = InitializationDataBase.NULL_REF;

@@ -959,7 +959,7 @@ public abstract class InitDbMove extends InitDbMoves {
         _facade.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE2, T_TYPE2_TR);
         _facade.getData().getTranslatedCategories().addEntry(EN,new StringMap<String>());
         _facade.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT, C_CAT1_TR);
-        _facade.getData().getTranslatedCategories().getVal(EN).addEntry(DataBase.AUTRE,C_CAT2_TR);
+        _facade.getData().getTranslatedCategories().getVal(EN).addEntry(AUTRE,C_CAT2_TR);
         _facade.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEM,I_ITEM_TR);
         _facade.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());

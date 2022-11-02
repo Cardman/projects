@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.enums.Statistic;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.ExpType;
@@ -26,7 +27,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-final class InitializationPokedex {
+final class InitializationPokedex extends EquallablePkUtil {
 
     static final String CARABAFFE = "CARABAFFE";
     static final String CARAPUCE = "CARAPUCE";

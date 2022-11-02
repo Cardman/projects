@@ -999,6 +999,48 @@ public final class DocumentReaderAikiCoreUtil {
             _d.setError(true);
             return;
         }
+        String cstNum_ = notNull(files_, StringUtil.concat(common_, CONST_NUM));
+        StringList linesNum_ = StringUtil.splitChar(
+                cstNum_,
+                RETURN_LINE_CHAR);
+        for (String l : linesNum_) {
+            if (l.isEmpty()) {
+                continue;
+            }
+            StringList infos_ = StringUtil.splitChar(l, TAB_CHAR);
+            _d.getConstNum().put(infos_.first(), new Rate(infos_.last()));
+        }
+
+        String cstNotNum_ = notNull(files_, StringUtil.concat(common_, CONST_NOT_NUM));
+        StringList linesNotNum_ = StringUtil.splitChar(
+                cstNotNum_,
+                RETURN_LINE_CHAR);
+        for (String l : linesNotNum_) {
+            if (l.isEmpty()) {
+                continue;
+            }
+            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
+            _d.initValue(infos_.first(),infos_.last());
+//            if (StringUtil.quickEq(infos_.first(), DataBase.DEF_MOVE)) {
+//                _d.setDefMove(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_BOOST)) {
+//                _d.setRateBoost(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(),
+//                    DataBase.RATE_BOOST_CRITICAL_HIT)) {
+//                _d.setRateBoostCriticalHit(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_FLEEING)) {
+//                _d.setRateFleeing(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_CATCHING)) {
+//                _d.setRateCatching(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
+//                _d.setBallDef(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.DEFAULT_EGG_GROUP)) {
+//                _d.setDefaultEggGroup(infos_.last());
+//            } else if (StringUtil.quickEq(infos_.first(), DataBase.DAMAGE_FORMULA)) {
+//                _d.setDamageFormula(infos_.last());
+//            }
+
+        }
         _perCentLoading.setPercent(5);
         StringList filesNames_;
         filesNames_ = new StringList();
@@ -1324,48 +1366,7 @@ public final class DocumentReaderAikiCoreUtil {
                 .concat(common_, MAP_FILE));
         _d.setMap(DocumentReaderAikiCoreUtil.getDataMap(mapFile_));
         _d.setConstNum(new StringMap<Rate>());
-        String cstNum_ = notNull(files_, StringUtil.concat(common_, CONST_NUM));
-        StringList linesNum_ = StringUtil.splitChar(
-                cstNum_,
-                RETURN_LINE_CHAR);
-        for (String l : linesNum_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChar(l, TAB_CHAR);
-            _d.getConstNum().put(infos_.first(), new Rate(infos_.last()));
-        }
 
-        String cstNotNum_ = notNull(files_, StringUtil.concat(common_, CONST_NOT_NUM));
-        StringList linesNotNum_ = StringUtil.splitChar(
-                cstNotNum_,
-                RETURN_LINE_CHAR);
-        for (String l : linesNotNum_) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            StringList infos_ = StringUtil.splitChars(l, TAB_CHAR);
-            _d.initValue(infos_.first(),infos_.last());
-//            if (StringUtil.quickEq(infos_.first(), DataBase.DEF_MOVE)) {
-//                _d.setDefMove(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_BOOST)) {
-//                _d.setRateBoost(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(),
-//                    DataBase.RATE_BOOST_CRITICAL_HIT)) {
-//                _d.setRateBoostCriticalHit(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_FLEEING)) {
-//                _d.setRateFleeing(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(), DataBase.RATE_CATCHING)) {
-//                _d.setRateCatching(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(), BALL_DEF)) {
-//                _d.setBallDef(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(), DataBase.DEFAULT_EGG_GROUP)) {
-//                _d.setDefaultEggGroup(infos_.last());
-//            } else if (StringUtil.quickEq(infos_.first(), DataBase.DAMAGE_FORMULA)) {
-//                _d.setDamageFormula(infos_.last());
-//            }
-
-        }
         _d.setTableTypes(new TypesDuos());
         String tTable_ = notNull(files_, StringUtil.concat(common_, TABLE_TYPES));
         StringList linesTableTypes_ = StringUtil.splitChars(

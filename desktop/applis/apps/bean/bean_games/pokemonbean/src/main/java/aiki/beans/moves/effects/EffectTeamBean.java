@@ -11,7 +11,6 @@ import code.util.AbsMap;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.ints.Listable;
 
 public class EffectTeamBean extends EffectBean {
     private boolean forbiddingHealing;
@@ -187,9 +186,6 @@ public class EffectTeamBean extends EffectBean {
         StringMap<String> translatedMoves_ = data_.getTranslatedStatus().getVal(getLanguage());
         String st_ = disableFoeTeamStatus.get(_index);
         return translatedMoves_.getVal(st_);
-    }
-    public Listable<CategoryMult> getCatMult() {
-        return multDamage.getKeys();
     }
 
     public boolean getForbiddingHealing() {

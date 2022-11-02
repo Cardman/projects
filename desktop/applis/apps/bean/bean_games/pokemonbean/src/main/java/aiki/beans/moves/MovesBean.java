@@ -33,7 +33,7 @@ public class MovesBean extends WithFilterBean {
         AbsMap<String,MoveData> moves_ = getForms().getValMoveData(CST_MOVES_SET);
         for (EntryCust<String, MoveData> k: moves_.entryList()) {
             MoveData moveData_ = k.getValue();
-            MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_);
+            MoveLine line_ = buildLine(translationsMoves_, translationsTypes_, translationsCategories_, k.getKey(), moveData_,getDataBase());
             moves.add(line_);
         }
 //        if (!getForms().contains(CST_LEARNT)) {
@@ -63,13 +63,13 @@ public class MovesBean extends WithFilterBean {
 
     }
 
-    public static SelectLineMove buildLine(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData) {
+    public static SelectLineMove buildLine(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData, DataBase _dataBase) {
         SelectLineMove line_ = new SelectLineMove();
-        line(_translationsMoves, _translationsTypes, _translationsCategories, _k, _moveData, line_);
+        line(_translationsMoves, _translationsTypes, _translationsCategories, _k, _moveData, line_, _dataBase);
         return line_;
     }
 
-    public static void line(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData, MoveLine _line) {
+    public static void line(StringMap<String> _translationsMoves, StringMap<String> _translationsTypes, StringMap<String> _translationsCategories, String _k, MoveData _moveData, MoveLine _line, DataBase _dataBase) {
         _line.setName(_k);
         _line.setDisplayName(_translationsMoves.getVal(_k));
         StringList types_ = new StringList();
@@ -78,7 +78,7 @@ public class MovesBean extends WithFilterBean {
         }
         _line.setTypes(types_);
         _line.setPp(_moveData.getPp());
-        _line.setCategory(_translationsCategories.getVal(_moveData.getCategory()));
+        _line.setCategory(_translationsCategories.getVal(_dataBase.getCategory(_moveData)));
         _line.setDamageMove(_moveData instanceof DamagingMoveData);
         _line.setDirect(direct(_moveData));
         _line.setPriority(_moveData.getPriority());

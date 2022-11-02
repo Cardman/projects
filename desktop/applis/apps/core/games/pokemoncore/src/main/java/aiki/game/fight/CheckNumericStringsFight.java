@@ -57,7 +57,7 @@ public final class CheckNumericStringsFight {
                 _foeFighter, _data);
         variablesMoves = new StringMap<String>(variablesDiff);
         FightValues.completeValuesWithThrower(_fight, _userFighter, variablesMoves);
-        FightValues.completeValuesWithMoveInfo(data.getDefMove(), variablesMoves, Rate.one(), _data, new StringList(), DataBase.AUTRE);
+        FightValues.completeValuesWithMoveInfo(data.getDefMove(), variablesMoves, Rate.one(), _data, new StringList(), _data.getDefCategory());
         variablesWithStat = FightValues.calculateValuesWithStat(variablesMoves,Rate.one(),Rate.one(),Rate.one());
         variablesFull = new StringMap<String>(variablesWithStat);
         FightValues.completeValuesWithRemaining(variablesFull,Rate.one(),LgInt.one());

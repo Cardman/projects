@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
@@ -25,7 +26,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 
-final class InitializationMoves {
+final class InitializationMoves extends EquallablePkUtil {
 
     static final String ONDE_VIDE = "ONDE_VIDE";
     static final String ULTIMAWASHI = "ULTIMAWASHI";

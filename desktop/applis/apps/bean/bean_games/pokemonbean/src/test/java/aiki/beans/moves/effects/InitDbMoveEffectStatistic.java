@@ -126,7 +126,6 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
     protected static EffectStatistic eff(Rate _evt, String _failStat, String _swapFail) {
         EffectStatistic e_ = Instances.newEffectStatistic();
         e_.setEvtRate(_evt);
-//        e_.getStatisVarRank().addEntry(Statistic.SPEED, (byte) 1);
         e_.getCancelLowStat().add(Statistic.SPEED);
         e_.getCancelChgtStat().add(Statistic.SPEED);
         e_.getCopyBoost().add(Statistic.SPEED);

@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Ball;
@@ -35,7 +36,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.BoolVal;
 
-final class InitializationItems {
+final class InitializationItems  extends EquallablePkUtil {
 
     static final String ROCHE_LISSE = "ROCHE_LISSE";
     static final String HERBEBLANCHE = "HERBEBLANCHE";

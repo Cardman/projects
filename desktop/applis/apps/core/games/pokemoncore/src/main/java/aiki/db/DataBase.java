@@ -123,12 +123,14 @@ public class DataBase {
     public static final String RATE_CATCHING = "RATE_CATCHING";
     public static final String RATE_FLEEING = "RATE_FLEEING";
     public static final String RATE_BOOST = "RATE_BOOST";
+    public static final String DEF_CAT = "DEF_CAT";
     public static final String RATE_BOOST_CRITICAL_HIT = "RATE_BOOST_CRITICAL_HIT";
     public static final String DAMAGE_FORMULA = "DAMAGE_FORMULA";
     public static final String DEFAULT_EGG_GROUP = "DEFAULT_EGG_GROUP";
     public static final String MAX_STEPS_SAME_EVO_BASE = "MAX_STEPS_SAME_EVO_BASE";
     public static final String MAX_STEPS = "MAX_STEPS";
     public static final String MIN_HP = "MIN_HP";
+    public static final String DEF_MAX_ATT = "DEF_MAX_ATT";
     public static final String BONUS_BOOST = "BONUS_BOOST";
     public static final String DEF_BASE_MOVE = "DEF_BASE_MOVE";
     public static final String BALL_DEF = "BALL_DEF";
@@ -183,7 +185,6 @@ public class DataBase {
     public static final String SEPARATOR_FILES = "/";
     public static final String END_GAME_IMAGE = "end_game";
     public static final int ONE_POSSIBLE_CHOICE = 1;
-    public static final String AUTRE = "AUTRE";
 
     public static final String ANIM_STATIS = "anim_statis";
 
@@ -200,8 +201,6 @@ public class DataBase {
     private static final int DEFAULT_INFLICTED_RATE_DEN = 8;
 
     private static final String TAB = "\t";
-
-    private static final String DEF_MAX_ATT = "DEF_MAX_ATT";
 
     private static final String MOVE_FORMULA = "move";
     private static final String CAT_FORMULA = "cat";
@@ -282,6 +281,7 @@ public class DataBase {
     private String rateBoost;
 
     private String damageFormula;
+    private String defCategory;
 
     private String ballDef;
 
@@ -407,6 +407,7 @@ public class DataBase {
         rateFleeing="";
         damageFormula="";
         defaultEggGroup="";
+        defCategory="";
         ballDef="";
     }
 
@@ -580,7 +581,6 @@ public class DataBase {
             return;
         }
         _perCentLoading.setPercent(60);
-        validateConstants();
         setCheckTranslation(true);
         if (!getPokedex().isEmpty() && !getAbilities().isEmpty() && moves.getVal(defMove) != null) {
             CheckNumericStringsFight.validateNumericBooleanStrings(this);
@@ -789,8 +789,9 @@ public class DataBase {
     public void validateCore(PerCent _perCentLoading) {
         initTypesByTable();
         _perCentLoading.setPercent(55);
+        validateConstants();
         checkTypesWithTable();
-        if (StringUtil.contains(getCategories(), AUTRE)) {
+        if (StringUtil.contains(getCategories(), getDefCategory())) {
             setError(true);
         }
         for (String s : getCategories()) {
@@ -987,6 +988,8 @@ public class DataBase {
             setDefaultEggGroup(_value);
         } else if (StringUtil.quickEq(_key, DAMAGE_FORMULA)) {
             setDamageFormula(_value);
+        } else if (StringUtil.quickEq(_key, DEF_CAT)) {
+            setDefCategory(_value);
         }
     }
     public void validateConstants() {
@@ -1017,7 +1020,9 @@ public class DataBase {
         if (getDefaultEggGroup().isEmpty()) {
             setError(true);
         }
-
+        if (getDefCategory().isEmpty()) {
+            setError(true);
+        }
         if (!(items.getVal(getBallDef()) instanceof Ball)) {
             setError(true);
         }
@@ -1822,6 +1827,14 @@ public class DataBase {
         damageFormula = _damageFormula;
     }
 
+    public String getDefCategory() {
+        return defCategory;
+    }
+
+    public void setDefCategory(String _d) {
+        this.defCategory = _d;
+    }
+
     public String getBallDef() {
         return ballDef;
     }
@@ -2099,12 +2112,18 @@ public class DataBase {
         updateInfo(_moveName, _move);
         moves.put(_moveName, _move);
     }
+    public String getCategory(MoveData _move) {
+        if (_move instanceof DamagingMoveData) {
+            return ((DamagingMoveData)_move).getCategory();
+        }
+        return defCategory;
+    }
 
     private void updateInfo(String _moveName, MoveData _move) {
         if (_move instanceof DamagingMoveData) {
-            categories.add(_move.getCategory());
+            categories.add(((DamagingMoveData)_move).getCategory());
         }
-        allCategories.add(_move.getCategory());
+        allCategories.add(getCategory(_move));
 
         variables.addAllElts(getVariableWords(_move.getAccuracy()));
 

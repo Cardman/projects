@@ -1453,7 +1453,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getDamageSufferedCateg().put(DataBase.AUTRE, Rate.one());
+        figther_.getDamageSufferedCateg().put(AUTRE, Rate.one());
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -1461,7 +1461,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getDamageSufferedCateg().put(DataBase.AUTRE, Rate.one());
+        figther_.getDamageSufferedCateg().put(AUTRE, Rate.one());
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -1469,7 +1469,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.GIRL, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getDamageSufferedCategRound().put(DataBase.AUTRE, Rate.one());
+        figther_.getDamageSufferedCategRound().put(AUTRE, Rate.one());
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test
@@ -1477,7 +1477,7 @@ public class FighterValidationTest extends InitializationDataBase {
         DataBase data_ = initDb();
         Game game_ = newGameInFightTrainer2(Sex.BOY, data_);
         Fighter figther_ = game_.getFight().getFighter(POKEMON_PLAYER_FIGHTER_ZERO);
-        figther_.getDamageSufferedCategRound().put(DataBase.AUTRE, Rate.one());
+        figther_.getDamageSufferedCategRound().put(AUTRE, Rate.one());
         assertTrue(!figther_.validate(data_, Fight.CST_PLAYER, game_.getFight()));
     }
     @Test

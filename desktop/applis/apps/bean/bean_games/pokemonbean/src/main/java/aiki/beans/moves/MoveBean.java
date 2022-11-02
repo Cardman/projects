@@ -110,7 +110,7 @@ public class MoveBean extends CommonBean {
         displayName = translatedMoves_.getVal(name_);
         MoveData moveData_ = data_.getMove(name_);
         StringMap<String> translatedCategories_ = data_.getTranslatedCategories().getVal(getLanguage());
-        category = translatedCategories_.getVal(moveData_.getCategory());
+        category = translatedCategories_.getVal(data_.getCategory(moveData_));
         pp = moveData_.getPp();
         priority = moveData_.getPriority();
 //        CustList<ItemTypeLine> typesByOwnedItem_;

@@ -65,7 +65,7 @@ public class EditTrainerPokemonBean extends CommonBean {
 //            }
 //            line_.setPriority(moveData_.getPriority());
 //            line_.setSelected(false);
-            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_));
+            moves.add(MovesBean.buildLine(translationsMoves_,translationsTypes_,translationsCategories_,k,moveData_,getDataBase()));
         }
         moves.sortElts(new ComparatorMoves());
 //        Map<SelectedBoolean,String> translatedBooleans_;

@@ -940,7 +940,7 @@ public abstract class InitDbFight extends InitDbBean {
         data_.completeMembers(PARATONNERRE,Instances.newAbilityData());
         data_.getTableTypes().addEntry(new TypesDuo(ELECTRICK,ELECTRICK),Rate.one());
         data_.addConstNumTest(DataBase.PP_MAX,Rate.newRate("256"));
-        data_.addConstNumTest("DEF_MAX_ATT",Rate.newRate("2"));
+        data_.addConstNumTest(DataBase.DEF_MAX_ATT,Rate.newRate("2"));
         data_.getTranslatedPokemon().addEntry(EN,new StringMap<String>());
         data_.getTranslatedPokemon().getVal(EN).addEntry(PIKACHU,PIKACHU_TR);
         data_.getTranslatedPokemon().getVal(EN).addEntry(PIKA_2, PIKA_2_TR);

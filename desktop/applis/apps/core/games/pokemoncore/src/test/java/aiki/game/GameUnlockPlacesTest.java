@@ -55,8 +55,6 @@ public class GameUnlockPlacesTest extends InitializationDataBase {
         DataBase dataCore_ = InitializationDataBase.coreDataBase();
         dataCore_.sortEndRound();
         dataCore_.completeVariables();
-        initTableTypes(dataCore_);
-        initConstants(dataCore_);
         initRandomLaws(dataCore_);
         initExpPoints(dataCore_);
         initTmHm(dataCore_);

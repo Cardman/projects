@@ -1,5 +1,6 @@
 package aiki.game.fight;
 import aiki.db.DataBase;
+import aiki.db.EquallablePkUtil;
 import aiki.fight.pokemon.NameLevel;
 import aiki.map.Condition;
 import aiki.map.DataMap;
@@ -45,7 +46,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-final class InitializationMap {
+final class InitializationMap  extends EquallablePkUtil {
 
     static final String CAVE = "Cave";
     static final String R_4 = "R 4";
