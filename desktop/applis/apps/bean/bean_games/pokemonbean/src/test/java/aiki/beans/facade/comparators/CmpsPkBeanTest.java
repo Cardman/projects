@@ -1,6 +1,7 @@
 package aiki.beans.facade.comparators;
 
 import aiki.beans.db.InitDbConstr;
+import aiki.beans.help.LanguageElementStringKey;
 import aiki.facade.FacadeGame;
 import aiki.fight.util.TypesDuo;
 import code.util.CustList;
@@ -242,5 +243,50 @@ public final class CmpsPkBeanTest extends InitDbConstr {
         assertEq(M_DAM_VAR, lists_.get(0).getPokemonType());
         assertEq(M_DAM, lists_.get(1).getDamageType());
         assertEq(M_DAM_VAR, lists_.get(1).getPokemonType());
+    }
+    @Test
+    public void cmp13() {
+        StringMap<StringMap<String>> trs_ = new StringMap<StringMap<String>>();
+        trs_.addEntry("EN",withTr(withTr(new StringMap<String>(),"0","ZERO"),"1","ONE"));
+        trs_.addEntry("FR",withTr(withTr(new StringMap<String>(),"0","ZERO"),"1","UN"));
+        trs_.addEntry("ES",withTr(withTr(new StringMap<String>(),"0","CERO"),"1","UNO"));
+        trs_.addEntry("DE",withTr(withTr(new StringMap<String>(),"0","NULL"),"1","EINS"));
+        StringList ls_ = new StringList();
+        ls_.add("EN");
+        ls_.add("FR");
+        ls_.add("DE");
+        ls_.add("ES");
+        ComparatorLanguageString cls_ = new ComparatorLanguageString(trs_,"FR",ls_);
+        CustList<LanguageElementStringKey> keys_ = new CustList<LanguageElementStringKey>();
+        keys_.add(new LanguageElementStringKey("EN","1"));
+        keys_.add(new LanguageElementStringKey("FR","0"));
+        keys_.add(new LanguageElementStringKey("ES","0"));
+        keys_.add(new LanguageElementStringKey("FR","1"));
+        keys_.add(new LanguageElementStringKey("DE","1"));
+        keys_.add(new LanguageElementStringKey("EN","0"));
+        keys_.add(new LanguageElementStringKey("ES","1"));
+        keys_.add(new LanguageElementStringKey("DE","0"));
+        keys_.sortElts(cls_);
+        assertEq(8,keys_.size());
+        assertEq("EN",keys_.get(0).getLanguage());
+        assertEq("1",keys_.get(0).getKey());
+        assertEq("FR",keys_.get(1).getLanguage());
+        assertEq("1",keys_.get(1).getKey());
+        assertEq("DE",keys_.get(2).getLanguage());
+        assertEq("1",keys_.get(2).getKey());
+        assertEq("ES",keys_.get(3).getLanguage());
+        assertEq("1",keys_.get(3).getKey());
+        assertEq("EN",keys_.get(4).getLanguage());
+        assertEq("0",keys_.get(4).getKey());
+        assertEq("FR",keys_.get(5).getLanguage());
+        assertEq("0",keys_.get(5).getKey());
+        assertEq("DE",keys_.get(6).getLanguage());
+        assertEq("0",keys_.get(6).getKey());
+        assertEq("ES",keys_.get(7).getLanguage());
+        assertEq("0",keys_.get(7).getKey());
+    }
+    private static StringMap<String> withTr(StringMap<String> _tr, String _k, String _v) {
+        _tr.addEntry(_k, _v);
+        return _tr;
     }
 }
