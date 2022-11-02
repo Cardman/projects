@@ -10,11 +10,11 @@ import code.util.ints.Comparing;
 
 public final class ComparatorStringList implements Comparing<StringList> {
 
-    private boolean translate;
+    private final boolean translate;
 
-    private DataBase data;
+    private final DataBase data;
 
-    private String language;
+    private final String language;
 
     public ComparatorStringList(DataBase _data, String _language, boolean _translate) {
         data = _data;
