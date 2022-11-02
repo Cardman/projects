@@ -1,5 +1,7 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -43,24 +45,28 @@ public class EffectTeamBean extends EffectBean {
         for (Statistic s: effect_.getForbiddenBoost()) {
             forbiddenBoost_.add(translatedStatistics_.getVal(s));
         }
+        forbiddenBoost_.sort();
         forbiddenBoost = forbiddenBoost_;
         StringList cancelChgtStatFoeTeam_;
         cancelChgtStatFoeTeam_ = new StringList();
         for (Statistic s: effect_.getCancelChgtStatFoeTeam()) {
             cancelChgtStatFoeTeam_.add(translatedStatistics_.getVal(s));
         }
+        cancelChgtStatFoeTeam_.sort();
         cancelChgtStatFoeTeam = cancelChgtStatFoeTeam_;
         StringList cancelChgtStatTeam_;
         cancelChgtStatTeam_ = new StringList();
         for (Statistic s: effect_.getCancelChgtStatTeam()) {
             cancelChgtStatTeam_.add(translatedStatistics_.getVal(s));
         }
+        cancelChgtStatTeam_.sort();
         cancelChgtStatTeam = cancelChgtStatTeam_;
         StringList protectAgainstLowStat_;
         protectAgainstLowStat_ = new StringList();
         for (Statistic s: effect_.getProtectAgainstLowStat()) {
             protectAgainstLowStat_.add(translatedStatistics_.getVal(s));
         }
+        protectAgainstLowStat_.sort();
         protectAgainstLowStat = protectAgainstLowStat_;
         NatStringTreeMap< Rate> multStatistic_;
         multStatistic_ = new NatStringTreeMap< Rate>();
@@ -84,34 +90,48 @@ public class EffectTeamBean extends EffectBean {
         }
         multDamage = multDamage_;
         protectAgainstStatus = getProtectAgainstStatus(effect_);
+        unusableMoves = unusableMoves(effect_);
+        disableFoeTeamEffects = disableFoeTeamEffects(effect_);
+        disableFoeTeamStatus = disableFoeTeamStatus(effect_);
+    }
+
+    private StringList unusableMoves(EffectTeam _effect) {
+        DataBase data_ = getDataBase();
         StringList unusableMoves_;
         unusableMoves_ = new StringList();
-        for (String m: effect_.getUnusableMoves()) {
+        for (String m: _effect.getUnusableMoves()) {
             unusableMoves_.add(m);
         }
         unusableMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        unusableMoves = unusableMoves_;
+        return unusableMoves_;
+    }
+
+    private StringList disableFoeTeamEffects(EffectTeam _effect) {
+        DataBase data_ = getDataBase();
         StringList disableFoeTeamEffects_;
         disableFoeTeamEffects_ = new StringList();
-        for (String m: effect_.getDisableFoeTeamEffects()) {
+        for (String m: _effect.getDisableFoeTeamEffects()) {
             disableFoeTeamEffects_.add(m);
         }
         disableFoeTeamEffects_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        disableFoeTeamEffects = disableFoeTeamEffects_;
+        return disableFoeTeamEffects_;
+    }
+
+    private StringList disableFoeTeamStatus(EffectTeam _effect) {
+        DataBase data_ = getDataBase();
         StringList disableFoeTeamStatus_;
         disableFoeTeamStatus_ = new StringList();
-        for (String m: effect_.getDisableFoeTeamStatus()) {
+        for (String m: _effect.getDisableFoeTeamStatus()) {
             disableFoeTeamStatus_.add(m);
         }
         disableFoeTeamStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        disableFoeTeamStatus = disableFoeTeamStatus_;
+        return disableFoeTeamStatus_;
     }
 
     public String clickStatus(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         String st_ = getProtectAgainstStatus(effect_).get(_index);
-        getForms().put(CST_STATUS, st_);
-        return CST_STATUS;
+        return tryRedirectSt(CST_STATUS,st_,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
     }
 
     private StringList getProtectAgainstStatus(EffectTeam _effect) {
@@ -132,16 +152,9 @@ public class EffectTeamBean extends EffectBean {
     }
     public String clickUnusableMove(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        DataBase data_ = getDataBase();
-        StringList unusableMoves_;
-        unusableMoves_ = new StringList();
-        for (String m: effect_.getUnusableMoves()) {
-            unusableMoves_.add(m);
-        }
-        unusableMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        StringList unusableMoves_ = unusableMoves(effect_);
         String st_ = unusableMoves_.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(CST_MOVE, st_, AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
     }
     public String getTrUnusableMove(int _index) {
         DataBase data_ = getDataBase();
@@ -151,16 +164,9 @@ public class EffectTeamBean extends EffectBean {
     }
     public String clickDisableFoeTeamEffects(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        DataBase data_ = getDataBase();
-        StringList disableFoeTeamEffects_;
-        disableFoeTeamEffects_ = new StringList();
-        for (String m: effect_.getDisableFoeTeamEffects()) {
-            disableFoeTeamEffects_.add(m);
-        }
-        disableFoeTeamEffects_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        StringList disableFoeTeamEffects_ = disableFoeTeamEffects(effect_);
         String st_ = disableFoeTeamEffects_.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(CST_MOVE, st_, AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
     }
     public String getTrDisableFoeTeamEffects(int _index) {
         DataBase data_ = getDataBase();
@@ -170,16 +176,9 @@ public class EffectTeamBean extends EffectBean {
     }
     public String clickDisableFoeTeamStatus(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
-        DataBase data_ = getDataBase();
-        StringList disableFoeTeamStatus_;
-        disableFoeTeamStatus_ = new StringList();
-        for (String m: effect_.getDisableFoeTeamStatus()) {
-            disableFoeTeamStatus_.add(m);
-        }
-        disableFoeTeamStatus_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+        StringList disableFoeTeamStatus_ = disableFoeTeamStatus(effect_);
         String st_ = disableFoeTeamStatus_.get(_index);
-        getForms().put(CST_STATUS, st_);
-        return CST_STATUS;
+        return tryRedirectSt(CST_STATUS,st_,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
     }
     public String getTrDisableFoeTeamStatus(int _index) {
         DataBase data_ = getDataBase();
