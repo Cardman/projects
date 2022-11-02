@@ -9,9 +9,9 @@ import code.util.ints.Comparing;
 
 public final class ComparatorStatisticCategory implements Comparing<StatisticCategory> {
 
-    private DataBase data;
+    private final DataBase data;
 
-    private String language;
+    private final String language;
 
     public ComparatorStatisticCategory(DataBase _data, String _language) {
         data = _data;

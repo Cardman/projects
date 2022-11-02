@@ -8,7 +8,7 @@ import code.util.ints.Comparing;
 
 public final class ComparatorPlaceNumber implements Comparing<Short> {
 
-    private DataMap dataMap;
+    private final DataMap dataMap;
 
     public ComparatorPlaceNumber(DataMap _dataMap) {
         dataMap = _dataMap;

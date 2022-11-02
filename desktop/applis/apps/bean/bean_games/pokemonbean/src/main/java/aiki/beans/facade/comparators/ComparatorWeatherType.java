@@ -7,9 +7,9 @@ import code.util.ints.Comparing;
 
 public final class ComparatorWeatherType implements Comparing<WeatherType> {
 
-    private DataBase data;
+    private final DataBase data;
 
-    private String language;
+    private final String language;
 
     public ComparatorWeatherType(DataBase _data, String _language) {
         data = _data;

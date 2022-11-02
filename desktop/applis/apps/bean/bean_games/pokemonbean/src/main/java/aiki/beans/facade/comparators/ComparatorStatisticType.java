@@ -9,9 +9,9 @@ import code.util.ints.Comparing;
 
 public final class ComparatorStatisticType implements Comparing<StatisticType> {
 
-    private DataBase data;
+    private final DataBase data;
 
-    private String language;
+    private final String language;
 
     public ComparatorStatisticType(DataBase _data, String _language) {
         data = _data;

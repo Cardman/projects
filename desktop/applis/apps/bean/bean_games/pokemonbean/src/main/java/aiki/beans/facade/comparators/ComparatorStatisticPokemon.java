@@ -9,9 +9,9 @@ import code.util.ints.Comparing;
 
 public final class ComparatorStatisticPokemon implements Comparing<StatisticPokemon> {
 
-    private DataBase data;
+    private final DataBase data;
 
-    private String language;
+    private final String language;
 
     public ComparatorStatisticPokemon(DataBase _data, String _language) {
         data = _data;
