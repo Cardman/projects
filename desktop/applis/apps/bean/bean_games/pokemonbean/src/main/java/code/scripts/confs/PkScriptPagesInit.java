@@ -351,7 +351,7 @@ private static final String M_CLICK_IMMU_STATUS_BEGIN_ROUND_1="clickImmuStatusBe
 private static final String M_CLICK_IMMU_STATUS_TYPES_2="clickImmuStatusTypes(,)";
 private static final String M_CLICK_IMMU_STATUS_WEATHER_1="clickImmuStatusWeather()";
 private static final String M_CLICK_INDEX="clickIndex";
-private static final String M_CLICK_INVOKED_MOVE="clickInvokedMove";
+//private static final String M_CLICK_INVOKED_MOVE="clickInvokedMove";
 private static final String M_CLICK_INVOKING_MOVE_1="clickInvokingMove()";
 private static final String M_CLICK_INVOKING_MOVE_TYPES_1="clickInvokingMoveTypes()";
 private static final String M_CLICK_ITEM="clickItem";
@@ -764,7 +764,7 @@ private static final char NAV_SEP='.';
         NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_UNUSABLE_MOVE_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_CANCELLED_EFFECT_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_MULT_MOVE_POWER_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
-        NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_INVOKED_MOVE,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
+//        NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_INVOKED_MOVE,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_INVOKING_MOVE_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_INVOKING_MOVE_TYPES_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,AikiBeansMovesEffectsStd.BEAN_EFFECT_GLOBAL+NAV_SEP+M_CLICK_MOVES_TARGET_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));

@@ -160,8 +160,11 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String ST_DEF_SPE_TR="ST_DEF_SPE_TR";
     protected static final String ST_SPEED_TR="ST_SPEED_TR";
     protected static final String ST_HP_TR="ST_HP_TR";
-    public static String navigateData(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
-        return navigate(_caller,_url, PkScriptPagesInit.initConfData(new Configuration()),_concat,_str,_args);
+    public static String navigateData(NatCaller _caller, Struct _str, long... _args) {
+        return navigateData(_caller,"",_str,_args);
+    }
+    public static String navigateData(NatCaller _caller, String _url, Struct _str, long... _args) {
+        return navigate(_caller,_url, PkScriptPagesInit.initConfData(new Configuration()),"",_str,_args);
     }
     public static Struct callEffectWhileSendingBeanEffectSet(Struct _str, Struct _args) {
         return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);

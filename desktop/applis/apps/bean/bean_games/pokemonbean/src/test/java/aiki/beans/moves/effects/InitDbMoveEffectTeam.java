@@ -27,7 +27,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
     }
 
     public static String callEffectTeamBeanClickDisableFoeTeamEffects(Struct _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickDisableFoeTeamEffects(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+        return navigateData(new EffectTeamBeanClickDisableFoeTeamEffects(),_str,_args);
     }
     public static String callEffectTeamBeanClickDisableFoeTeamEffectsId(Struct _str, long... _args) {
         callEffectTeamBeanClickDisableFoeTeamEffects(_str, _args);
@@ -35,7 +35,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
     }
 
     public static String callEffectTeamBeanClickDisableFoeTeamStatus(Struct _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickDisableFoeTeamStatus(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+        return navigateData(new EffectTeamBeanClickDisableFoeTeamStatus(),_str,_args);
     }
 
     public static String callEffectTeamBeanClickDisableFoeTeamStatusId(Struct _str, long... _args) {
@@ -44,7 +44,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
     }
 
     public static String callEffectTeamBeanClickStatus(Struct _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickStatus(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+        return navigateData(new EffectTeamBeanClickStatus(),_str,_args);
     }
 
     public static String callEffectTeamBeanClickStatusId(Struct _str, long... _args) {
@@ -53,7 +53,7 @@ public abstract class InitDbMoveEffectTeam extends InitDbMoveEffect {
     }
 
     public static String callEffectTeamBeanClickUnusableMove(Struct _str, long... _args) {
-        return navigateData(new EffectTeamBeanClickUnusableMove(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+        return navigateData(new EffectTeamBeanClickUnusableMove(),_str,_args);
     }
 
     public static String callEffectTeamBeanClickUnusableMoveId(Struct _str, long... _args) {

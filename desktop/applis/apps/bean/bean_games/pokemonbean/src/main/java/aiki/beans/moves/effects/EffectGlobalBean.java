@@ -241,8 +241,7 @@ public class EffectGlobalBean extends EffectBean {
         return translatedMoves_.getVal(st_);
     }
     public String clickInvokedMove() {
-        getForms().put(CST_MOVE, invokedMoveTerrain);
-        return CST_MOVE;
+        return tryRedirectMv(invokedMoveTerrain);
     }
     public String getTrInvokedMoveTerrain() {
         DataBase data_ = getDataBase();

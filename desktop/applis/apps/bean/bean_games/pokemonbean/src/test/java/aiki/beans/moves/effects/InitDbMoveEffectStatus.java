@@ -17,7 +17,7 @@ import code.util.StringMap;
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
 
     public static String callEffectStatusBeanClickLink(Struct _str, long... _args) {
-        return navigateData(new EffectStatusBeanClickLink(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+        return navigateData(new EffectStatusBeanClickLink(),_str,_args);
     }
 
     public static String callEffectStatusBeanClickLinkId(Struct _str, long... _args) {
@@ -25,7 +25,7 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         return getValStatusId(_str);
     }
     public static String callEffectStatusBeanClickLinkDeleted(Struct _str, long... _args) {
-        return navigateData(new EffectStatusBeanClickLinkDeleted(), AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"",_str,_args);
+        return navigateData(new EffectStatusBeanClickLinkDeleted(),_str,_args);
     }
 
     public static String callEffectStatusBeanClickLinkDeletedId(Struct _str, long... _args) {

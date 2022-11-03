@@ -148,12 +148,12 @@ public abstract class InitDbMoves extends InitDbConstr {
 
     public static String goToLine(int _index) {
         Struct bean_ = moveLine(_index);
-        return navigateData(clickMoveLineBeanMove(), "", "", bean_, callMoveLineBeanIndexGet(bean_));
+        return navigateData(clickMoveLineBeanMove(), bean_, callMoveLineBeanIndexGet(bean_));
     }
 
     public static String goToLineId(int _index) {
         Struct moveline_ = moveLine(_index);
-        navigateData(clickMoveLineBeanMove(), "", "", moveline_, callMoveLineBeanIndexGet(moveline_));
+        navigateData(clickMoveLineBeanMove(), moveline_, callMoveLineBeanIndexGet(moveline_));
         return getValMoveId(moveline_);
     }
 
@@ -200,7 +200,7 @@ public abstract class InitDbMoves extends InitDbConstr {
     }
 
     protected static String navigateMovesSearch(Struct _moves) {
-        return navigateData(new MovesBeanSearch(), "", "", _moves);
+        return navigateData(new MovesBeanSearch(), _moves);
     }
 
     private static Struct displayMoveLine(StringMap<Struct> _all, int _index, StringMap<String> _mapping) {

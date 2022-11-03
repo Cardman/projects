@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.moves.AikiBeansMovesStd;
 import code.maths.Rate;
 import code.util.StringList;
 import org.junit.Test;
@@ -236,5 +237,17 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     @Test
     public void getTrMultStatIfDamgeTypeSecond() {
         assertEq(T_TYPE1_TR,callEffectGlobalBeanGetTrMultStatIfDamgeTypeSecond(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrInvokedMoveTerrain() {
+        assertEq(M_STA_TR,callEffectGlobalBeanGetTrInvokedMoveTerrain(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void clickInvokedMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokedMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void clickInvokedMove2() {
+        assertEq(M_STA,callEffectGlobalBeanClickInvokedMoveId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
     }
 }

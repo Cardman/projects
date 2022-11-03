@@ -49,10 +49,14 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickCancelledEffect(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickInvokedMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickInvokedMove(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokedMove(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickInvokedMove(),_str,_args);
     }
 
+    public static String callEffectGlobalBeanClickInvokedMoveId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickInvokedMove(_str, _args);
+        return getValMoveId(_str);
+    }
     public static Struct callEffectGlobalBeanClickInvokingMove(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickInvokingMove(),_str,_args);
     }
