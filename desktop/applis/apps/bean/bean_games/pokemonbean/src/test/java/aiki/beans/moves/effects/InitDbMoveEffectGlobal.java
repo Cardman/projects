@@ -322,6 +322,8 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         e_.getCancelChgtStat().add(Statistic.SPEED);
         e_.setInvokedMoveTerrain(M_STA);
         e_.getChangedTypesTerrain().add(T_TYPE1);
+        e_.getImmuneTypes().add(T_TYPE1);
+        e_.getPreventStatus().add(S_STA_SIM);
         e_.getMultStatIfContainsType().addEntry(new StatisticType(Statistic.SPEED,T_TYPE1),Rate.one());
         e_.getMultDamagePrepaRound().addEntry(T_TYPE1,Rate.one());
         e_.getMovesUsedByTargetedFighters().add(M_STA);
