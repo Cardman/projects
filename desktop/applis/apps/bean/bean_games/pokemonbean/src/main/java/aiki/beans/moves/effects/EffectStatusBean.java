@@ -1,6 +1,5 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -62,7 +61,7 @@ public class EffectStatusBean extends EffectBean {
     public String clickLink(int _indexEffect, int _index) {
         DictionaryComparator<String, Rate> lawStatus_ = getLawStatus(_indexEffect);
         String status_ = lawStatus_.getKey(_index);
-        return tryRedirectSt(CST_STATUS,status_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+        return tryRedirectSt(status_);
     }
     public String getTrLink(int _index) {
         String status_ = lawStatus.getKey(_index);
@@ -84,7 +83,7 @@ public class EffectStatusBean extends EffectBean {
     public String clickLinkDeleted(int _indexEffect, int _index) {
         StringList deletedStatus_ = getDeletedStatus(_indexEffect);
         String status_ = deletedStatus_.get(_index);
-        return tryRedirectSt(CST_STATUS,status_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+        return tryRedirectSt(status_);
     }
     public String getTrLinkDeleted(int _index) {
         String status_ = deletedStatus.get(_index);

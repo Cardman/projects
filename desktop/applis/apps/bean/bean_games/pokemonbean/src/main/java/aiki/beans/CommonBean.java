@@ -1,5 +1,9 @@
 package aiki.beans;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.Bean;
@@ -214,17 +218,32 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         }
         return DataBase.EMPTY_STRING;
     }
+    protected String tryRedirectAb(String _name) {
+        return tryRedirectAb(CST_ABILITY,_name,AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,"");
+    }
     protected String tryRedirectAb(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectAb(_name,_def),_key,_target);
+    }
+    protected String tryRedirectIt(String _name,String _target) {
+        return tryRedirectIt(CST_ITEM,_name,_target,"");
     }
     protected String tryRedirectIt(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectIt(_name,_def),_key,_target);
     }
+    protected String tryRedirectMv(String _name) {
+        return tryRedirectMv(CST_MOVE,_name, AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+    }
     protected String tryRedirectMv(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectMv(_name,_def),_key,_target);
     }
+    protected String tryRedirectPk(String _name) {
+        return tryRedirectPk(CST_PK,_name,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
+    }
     protected String tryRedirectPk(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectPk(_name,_def),_key,_target);
+    }
+    protected String tryRedirectSt(String _name) {
+        return tryRedirectSt(CST_STATUS,_name,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
     }
     protected String tryRedirectSt(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectSt(_name,_def),_key,_target);

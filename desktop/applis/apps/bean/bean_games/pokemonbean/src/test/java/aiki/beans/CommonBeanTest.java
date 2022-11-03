@@ -22,7 +22,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect1() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DIRECT,AbsRedirect.tryRedirect(new RedirectAb(A_ABILITY,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DIRECT,AbsRedirect.tryRedirect(redirectAb(A_ABILITY), KEY, DIRECT,d_.getData(), forms_));
         assertEq(A_ABILITY, value(forms_));
     }
 
@@ -30,7 +30,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect2() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DEF_DIR,AbsRedirect.tryRedirect(new RedirectAb(NULL_REF,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectAb(NULL_REF), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
     }
 
@@ -38,7 +38,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect3() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DIRECT,AbsRedirect.tryRedirect(new RedirectIt(I_ITEM,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DIRECT,AbsRedirect.tryRedirect(redirectIt(I_ITEM), KEY, DIRECT,d_.getData(), forms_));
         assertEq(I_ITEM, value(forms_));
     }
 
@@ -46,7 +46,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect4() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DEF_DIR,AbsRedirect.tryRedirect(new RedirectIt(NULL_REF,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectIt(NULL_REF), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
     }
 
@@ -54,7 +54,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect5() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DIRECT,AbsRedirect.tryRedirect(new RedirectMv(M_DAM,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DIRECT,AbsRedirect.tryRedirect(redirectMv(M_DAM), KEY, DIRECT,d_.getData(), forms_));
         assertEq(M_DAM, value(forms_));
     }
 
@@ -62,7 +62,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect6() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DEF_DIR,AbsRedirect.tryRedirect(new RedirectMv(NULL_REF,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectMv(NULL_REF), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
     }
 
@@ -70,7 +70,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect7() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DIRECT,AbsRedirect.tryRedirect(new RedirectPk(P_POKEMON,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DIRECT,AbsRedirect.tryRedirect(redirectPk(P_POKEMON), KEY, DIRECT,d_.getData(), forms_));
         assertEq(P_POKEMON, value(forms_));
     }
 
@@ -78,7 +78,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect8() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DEF_DIR,AbsRedirect.tryRedirect(new RedirectPk(NULL_REF,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectPk(NULL_REF), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
     }
 
@@ -86,7 +86,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect9() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DIRECT,AbsRedirect.tryRedirect(new RedirectSt(S_STA_SIM,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DIRECT,AbsRedirect.tryRedirect(redirectSt(S_STA_SIM), KEY, DIRECT,d_.getData(), forms_));
         assertEq(S_STA_SIM, value(forms_));
     }
 
@@ -94,7 +94,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect10() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DEF_DIR,AbsRedirect.tryRedirect(new RedirectSt(NULL_REF,DEF_DIR), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectSt(NULL_REF), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
     }
 
@@ -136,6 +136,26 @@ public final class CommonBeanTest extends InitDbWelcome {
     @Test
     public void rateZeroGt2() {
         assertFalse(callRateIsZeroOrGt(new RateStruct(Rate.minusOne())));
+    }
+
+    private RedirectAb redirectAb(String _key) {
+        return new RedirectAb(_key, DEF_DIR);
+    }
+
+    private RedirectIt redirectIt(String _key) {
+        return new RedirectIt(_key, DEF_DIR);
+    }
+
+    private RedirectMv redirectMv(String _key) {
+        return new RedirectMv(_key, DEF_DIR);
+    }
+
+    private RedirectPk redirectPk(String _key) {
+        return new RedirectPk(_key, DEF_DIR);
+    }
+
+    private RedirectSt redirectSt(String _key) {
+        return new RedirectSt(_key, DEF_DIR);
     }
 
     public static Struct callRateAbsNb(Struct _str, long... _args) {

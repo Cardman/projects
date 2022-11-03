@@ -2,10 +2,7 @@ package aiki.beans.moves;
 
 import aiki.beans.CommonBean;
 import aiki.beans.WithFilterBean;
-import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.ItemsBean;
-import aiki.beans.pokemon.AikiBeansPokemonStd;
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -570,11 +567,11 @@ public class MoveBean extends CommonBean {
     }
     public String clickAchieveDisappearedPkUsingMove(int _index) {
         String move_ = achieveDisappearedPkUsingMove.get(_index);
-        return tryRedirectMv(CST_MOVE,move_,AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+        return tryRedirectMv(move_);
     }
     public String clickRequiredStatus(int _index) {
         String key_ = getRequiredStatusKey(_index);
-        return tryRedirectSt(CST_STATUS,key_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+        return tryRedirectSt(key_);
     }
     public String getRequiredStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -588,7 +585,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickDeletedStatus(int _index) {
         String key_ = getDeletedStatusKey(_index);
-        return tryRedirectSt(CST_STATUS,key_, AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+        return tryRedirectSt(key_);
     }
     public String getDeletedStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -664,7 +661,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
-        return tryRedirectMv(CST_MOVE, item_,AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+        return tryRedirectMv(item_);
     }
     public String getTrTypesByWeathers(int _index) {
         String item_ = typesByWeathers.getKey(_index);
@@ -734,7 +731,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickAbility(int _index) {
         String key_ = abilities.get(_index);
-        return tryRedirectAb(CST_ABILITY,key_, AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,"");
+        return tryRedirectAb(key_);
     }
     public String getTrAbility(int _index) {
         String ab_ = abilities.get(_index);
@@ -800,7 +797,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickMove(int _index) {
         String key_ = affectedByMoves.get(_index);
-        return tryRedirectMv(CST_MOVE, key_,AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+        return tryRedirectMv(key_);
     }
     public String getTrMove(int _index) {
         String ab_ = affectedByMoves.get(_index);
@@ -811,7 +808,7 @@ public class MoveBean extends CommonBean {
     public String clickPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
         String pk_ = pks_.get(_indexPk);
-        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
+        return tryRedirectPk(pk_);
     }
     public String getTrPokemon(int _indexLevel, int _indexPk) {
         StringList pks_ = movesLevelLearntByPokemon.getValue(_indexLevel);
@@ -822,7 +819,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonTm(int _indexPk) {
         String pk_ = movesTmLearntByPokemon.get(_indexPk);
-        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
+        return tryRedirectPk(pk_);
     }
     public String getTrPokemonTm(int _indexPk) {
         DataBase data_ = getDataBase();
@@ -832,7 +829,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonHm(int _indexPk) {
         String pk_ = movesHmLearntByPokemon.get(_indexPk);
-        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
+        return tryRedirectPk(pk_);
     }
     public String getTrPokemonHm(int _indexPk) {
         DataBase data_ = getDataBase();
@@ -842,7 +839,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickPokemonMt(int _indexPk) {
         String pk_ = movesMtLearntByPokemon.get(_indexPk);
-        return tryRedirectPk(CST_PK, pk_,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,"");
+        return tryRedirectPk(pk_);
     }
     public String getTrPokemonMt(int _indexPk) {
         DataBase data_ = getDataBase();

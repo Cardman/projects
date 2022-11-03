@@ -1,7 +1,5 @@
 package aiki.beans.moves.effects;
 
-import aiki.beans.moves.AikiBeansMovesStd;
-import aiki.beans.status.AikiBeansStatusStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -131,7 +129,7 @@ public class EffectTeamBean extends EffectBean {
     public String clickStatus(int _indexEffect, int _index) {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         String st_ = getProtectAgainstStatus(effect_).get(_index);
-        return tryRedirectSt(CST_STATUS,st_,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+        return tryRedirectSt(st_);
     }
 
     private StringList getProtectAgainstStatus(EffectTeam _effect) {
@@ -154,7 +152,7 @@ public class EffectTeamBean extends EffectBean {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         StringList unusableMoves_ = unusableMoves(effect_);
         String st_ = unusableMoves_.get(_index);
-        return tryRedirectMv(CST_MOVE, st_, AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+        return tryRedirectMv(st_);
     }
     public String getTrUnusableMove(int _index) {
         DataBase data_ = getDataBase();
@@ -166,7 +164,7 @@ public class EffectTeamBean extends EffectBean {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         StringList disableFoeTeamEffects_ = disableFoeTeamEffects(effect_);
         String st_ = disableFoeTeamEffects_.get(_index);
-        return tryRedirectMv(CST_MOVE, st_, AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");
+        return tryRedirectMv(st_);
     }
     public String getTrDisableFoeTeamEffects(int _index) {
         DataBase data_ = getDataBase();
@@ -178,7 +176,7 @@ public class EffectTeamBean extends EffectBean {
         EffectTeam effect_ = (EffectTeam) getEffect(_indexEffect);
         StringList disableFoeTeamStatus_ = disableFoeTeamStatus(effect_);
         String st_ = disableFoeTeamStatus_.get(_index);
-        return tryRedirectSt(CST_STATUS,st_,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,"");
+        return tryRedirectSt(st_);
     }
     public String getTrDisableFoeTeamStatus(int _index) {
         DataBase data_ = getDataBase();
