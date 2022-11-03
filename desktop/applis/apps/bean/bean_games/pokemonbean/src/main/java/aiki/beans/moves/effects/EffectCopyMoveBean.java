@@ -35,30 +35,35 @@ public class EffectCopyMoveBean extends EffectBean {
         displayName = translatedMoves_.getVal(getMove());
         defaultMove = data_.getDefMove();
         if (copyingMoveForUserDef) {
-            StringList movesTransforming_;
-            movesTransforming_ = new StringList();
-            for (String m: data_.getMoves().getKeys()) {
-                MoveData move_ = data_.getMove(m);
-                for (Effect e: move_.getEffects()) {
-                    if (!(e instanceof EffectCopyFighter)) {
-                        continue;
-                    }
-                    movesTransforming_.add(m);
-                }
-            }
+            StringList movesTransforming_ = movesTransforming(data_);
             movesTransforming_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
             movesTransforming = movesTransforming_;
         } else {
             movesTransforming = new StringList();
         }
     }
+
+    public static StringList movesTransforming(DataBase _data) {
+        StringList movesTransforming_;
+        movesTransforming_ = new StringList();
+        for (String m: _data.getMoves().getKeys()) {
+            MoveData move_ = _data.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (!(e instanceof EffectCopyFighter)) {
+                    continue;
+                }
+                movesTransforming_.add(m);
+            }
+        }
+        return movesTransforming_;
+    }
+
     public boolean copyMoveForUser() {
         return copyingMoveForUser > 0;
     }
     public String clickMove(int _index) {
         String move_ = movesNotToBeCopied.get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getTrMove(int _index) {
         String move_ = movesNotToBeCopied.get(_index);
@@ -68,8 +73,7 @@ public class EffectCopyMoveBean extends EffectBean {
     }
     public String clickMoveTrans(int _index) {
         String move_ = movesTransforming.get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getTrMoveTrans(int _index) {
         String move_ = movesTransforming.get(_index);
@@ -78,8 +82,7 @@ public class EffectCopyMoveBean extends EffectBean {
         return translatedMoves_.getVal(move_);
     }
     public String clickDefaultMove() {
-        getForms().put(CST_MOVE, defaultMove);
-        return CST_MOVE;
+        return tryRedirectMv(defaultMove);
     }
     public String getTrDefaultMove() {
         DataBase data_ = getDataBase();

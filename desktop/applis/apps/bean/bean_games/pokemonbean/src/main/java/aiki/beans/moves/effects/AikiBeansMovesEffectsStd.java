@@ -10,6 +10,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT="effect";
+    public static final String BEAN_EFFECT_COPY_MOVE="eff_copymove";
     public static final String BEAN_EFFECT_DAMAGE="eff_damage";
     public static final String BEAN_EFFECT_DAMAGE_RATE="eff_damagerate";
     public static final String BEAN_EFFECT_ENDROUND="eff_endround";
@@ -19,6 +20,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_TEAM="eff_team";
     public static final String BEAN_EFFECT_TEAMWHILESENDINGFOE="eff_teamwhilesendingfoe";
     public static final String WEB_HTML_MOVES_EFFECTS_EFF_HTML="web/html/moves/effects/eff.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML="web/html/moves/effects/effcopymove.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML="web/html/moves/effects/effdamage.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML="web/html/moves/effects/effdamagerate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML="web/html/moves/effects/effendround.html";
