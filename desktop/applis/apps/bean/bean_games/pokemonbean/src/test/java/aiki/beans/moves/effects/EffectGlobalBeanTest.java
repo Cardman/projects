@@ -1,5 +1,6 @@
 package aiki.beans.moves.effects;
 
+import code.maths.Rate;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -55,5 +56,25 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     @Test
     public void getPuttingKo2() {
         assertFalse(callEffectGlobalBeanPuttingKoGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, false, true, true, true)),0)));
+    }
+    @Test
+    public void getMultAccuracy1() {
+        assertEq(Rate.one(),callEffectGlobalBeanMultAccuracyGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getDamageEndRound1() {
+        assertEq(Rate.one(),callEffectGlobalBeanDamageEndRoundGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getHealingEndRoundGround1() {
+        assertEq(Rate.one(),callEffectGlobalBeanHealingEndRoundGroundGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getHealingEndRound1() {
+        assertEq(Rate.one(),callEffectGlobalBeanHealingEndRoundGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMultEffectLovingAlly1() {
+        assertEq(Rate.one(),callEffectGlobalBeanMultEffectLovingAllyGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
     }
 }

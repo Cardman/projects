@@ -14,7 +14,6 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.ints.Comparing;
-import code.util.ints.Listable;
 
 public class EffectGlobalBean extends EffectBean {
     private EffectGlobalCore effectGlobalCore;
@@ -296,25 +295,6 @@ public class EffectGlobalBean extends EffectBean {
         StringMap<String> translationsTypes_;
         translationsTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsTypes_.getVal(type_);
-    }
-    public Listable<StatisticType> getStatisType() {
-        return multStatIfContainsType.getKeys();
-    }
-
-    public Rate getMultAccuracy() {
-        return effectGlobalCore.getMultAccuracy();
-    }
-
-    public Rate getDamageEndRound() {
-        return effectGlobalCore.getDamageEndRound();
-    }
-
-    public Rate getHealingEndRoundGround() {
-        return effectGlobalCore.getHealingEndRoundGround();
-    }
-
-    public Rate getHealingEndRound() {
-        return effectGlobalCore.getHealingEndRound();
     }
 
     public EffectGlobalCore getEffectGlobalCore() {
