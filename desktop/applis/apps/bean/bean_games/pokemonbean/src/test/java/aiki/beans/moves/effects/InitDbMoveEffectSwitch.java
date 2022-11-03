@@ -1,9 +1,25 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.PkData;
+import aiki.facade.FacadeGame;
+import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.effects.EffectGlobal;
+import aiki.fight.moves.effects.EffectSwitchTypes;
+import aiki.fight.moves.effects.enums.ConstValuesType;
+import aiki.fight.moves.effects.enums.ExchangeType;
+import aiki.fight.moves.enums.SwitchType;
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.instances.Instances;
+import aiki.map.levels.enums.EnvironmentType;
 import code.expressionlanguage.structs.Struct;
+import code.util.IdMap;
+import code.util.StringMap;
 
 public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
+
+    public static final String ROAD_TR = "ROAD_TR";
 
     public static Struct callEffectSwitchAbilitiesBeanClickAbility(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectSwitchAbilitiesBeanClickAbility(),_str,_args);
@@ -97,8 +113,13 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectSwitchTypesBeanChgtTypeByEnvGet(),_str,_args);
     }
 
-    public static Struct callEffectSwitchTypesBeanClickGlobalMoveFctEnv(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectSwitchTypesBeanClickGlobalMoveFctEnv(),_str,_args);
+    public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnv(Struct _str, long... _args) {
+        return navigateData(new EffectSwitchTypesBeanClickGlobalMoveFctEnv(),_str,_args);
+    }
+
+    public static String callEffectSwitchTypesBeanClickGlobalMoveFctEnvId(Struct _str, long... _args) {
+        callEffectSwitchTypesBeanClickGlobalMoveFctEnv(_str,_args);
+        return getValMoveId(_str);
     }
 
     public static Struct callEffectSwitchTypesBeanConstTypesGet(Struct _str, long... _args) {
@@ -151,5 +172,62 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
 
     public static Struct callEffectSwitchTypesBeanSwitchTypes(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectSwitchTypesBeanSwitchTypes(),_str,_args);
+    }
+    protected static Struct dispMoveEffCopyMove(ConstValuesType _cst, ExchangeType _exc) {
+        PkData pk_ = pkDataByFacade(feedDbMoveEffDataDam(_cst, _exc));
+        StringMap<Struct> all_ = beanToEffectSwitchTypes(pk_);
+        StringMap<String> mapping_ = mappingToEffectSwitchTypes();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectSwitchTypes(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHTYPES,_pk.beanEffectSwitchTypesBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectSwitchTypes() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHTYPES);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataDam(ConstValuesType _cst, ExchangeType _exc) {
+        FacadeGame facade_ = facade();
+        addEff(effectSwitchTypes(_cst, _exc), facade_);
+        StatusMoveData chg_ = moveSta(TargetChoice.TOUS_ADV);
+        chg_.getEffects().add(Instances.newEffectGlobal());
+        facade_.getData().completeMembers(M_STA,chg_);
+        StatusMoveData gl_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectGlobal egl_ = Instances.newEffectGlobal();
+        egl_.getChangedTypesTerrain().add(T_TYPE1);
+        gl_.getEffects().add(egl_);
+        facade_.getData().completeMembers(M_WEA, gl_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getTranslatedEnvironment().addEntry(EN,new IdMap<EnvironmentType,String>());
+        facade_.getData().getTranslatedEnvironment().getVal(EN).addEntry(EnvironmentType.ROAD, ROAD_TR);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().setDefMove(M_DAM_VERY_BAD);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static void addEff(EffectSwitchTypes _eff, FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, _eff);
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectSwitchTypes effectSwitchTypes(ConstValuesType _cst, ExchangeType _exc) {
+        EffectSwitchTypes e_ = Instances.newEffectSwitchTypes();
+        e_.setConstValuesType(_cst);
+        e_.setExchangeTypes(_exc);
+        e_.getChgtTypeByEnv().addEntry(EnvironmentType.ROAD,T_TYPE1);
+        e_.getAddedTypes().add(T_TYPE1);
+        e_.getConstTypes().add(T_TYPE1);
+        return e_;
     }
 }

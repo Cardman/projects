@@ -39,15 +39,7 @@ public class EffectSwitchTypesBean extends EffectBean {
             chgtTypeByEnv_.put(env_.getEnvName(), translatedTypes_.getVal(type_));
         }
         chgtTypeByEnv = chgtTypeByEnv_;
-        StringList globalMoves_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (e instanceof EffectGlobal && !((EffectGlobal) e).getChangedTypesTerrain().isEmpty()) {
-                    globalMoves_.add(m);
-                }
-            }
-        }
+        StringList globalMoves_ = globalMoves(data_);
         globalMoves_.removeDuplicates();
         globalMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         globalMoves = globalMoves_;
@@ -68,6 +60,20 @@ public class EffectSwitchTypesBean extends EffectBean {
         addedTypes_.sortElts(DictionaryComparatorUtil.cmpTypes(data_,getLanguage()));
         addedTypes = addedTypes_;
     }
+
+    public static StringList globalMoves(DataBase _data) {
+        StringList globalMoves_ = new StringList();
+        for (String m: _data.getMoves().getKeys()) {
+            MoveData move_ = _data.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getChangedTypesTerrain().isEmpty()) {
+                    globalMoves_.add(m);
+                }
+            }
+        }
+        return globalMoves_;
+    }
+
     public boolean isConstTypes() {
         return constValuesType != ConstValuesType.NOTHING;
     }
@@ -91,8 +97,7 @@ public class EffectSwitchTypesBean extends EffectBean {
     }
     public String clickGlobalMoveFctEnv(int _index) {
         String st_ = globalMoves.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public boolean giveToTarget() {
         return exchangeTypes == ExchangeType.GIVE_TO_TARGET;
