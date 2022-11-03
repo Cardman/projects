@@ -1,6 +1,8 @@
 package aiki.beans.moves.effects;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import code.maths.Rate;
 import code.util.StringList;
 import org.junit.Test;
@@ -249,5 +251,101 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     @Test
     public void clickInvokedMove2() {
         assertEq(M_STA,callEffectGlobalBeanClickInvokedMoveId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getTrInvokingMove() {
+        assertEq(M_WEA_TR,callEffectGlobalBeanGetTrInvokingMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickInvokingMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokingMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickInvokingMove2() {
+        assertEq(M_WEA,callEffectGlobalBeanClickInvokingMoveId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrInvokingMoveTypes() {
+        assertEq(M_STA_TR,callEffectGlobalBeanGetTrInvokingMoveTypes(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickInvokingMoveTypes1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickInvokingMoveTypes(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickInvokingMoveTypes2() {
+        assertEq(M_STA,callEffectGlobalBeanClickInvokingMoveTypesId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrMovesTarget() {
+        assertEq(M_STA_TR,callEffectGlobalBeanGetTrMovesTarget(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickMovesTarget1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMovesTarget(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickMovesTarget2() {
+        assertEq(M_STA,callEffectGlobalBeanClickMovesTargetId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrUnusableMoves() {
+        assertEq(M_STA_TR,callEffectGlobalBeanGetTrUnusableMoves(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickUnusableMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickUnusableMove(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickUnusableMove2() {
+        assertEq(M_STA,callEffectGlobalBeanClicUnusableMoveId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrCancelledEffect() {
+        assertEq(M_STA_TR,callEffectGlobalBeanGetTrCancelledEffect(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickCancelledEffect1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickCancelledEffect(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickCancelledEffect2() {
+        assertEq(M_STA,callEffectGlobalBeanClickCancelledEffectId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrMultMovePower() {
+        assertEq(M_STA_TR,callEffectGlobalBeanGetTrMultMovePower(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickMultMovePower1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectGlobalBeanClickMultMovePower(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickMultMovePower2() {
+        assertEq(M_STA,callEffectGlobalBeanClickMultMovePowerId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrCancelledAbility() {
+        assertEq(A_ABILITY_TR,callEffectGlobalBeanGetTrCancelledAbility(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickCancelledAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callEffectGlobalBeanClickCancelledAbility(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickCancelledAbility2() {
+        assertEq(A_ABILITY,callEffectGlobalBeanClickCancelledAbilityId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrPreventedStatus() {
+        assertEq(S_STA_SIM_TR,callEffectGlobalBeanGetTrPreventedStatus(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickPreventedStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectGlobalBeanClickPreventedStatus(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void clickPreventedStatus2() {
+        assertEq(S_STA_SIM,callEffectGlobalBeanClickPreventedStatusId(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
     }
 }

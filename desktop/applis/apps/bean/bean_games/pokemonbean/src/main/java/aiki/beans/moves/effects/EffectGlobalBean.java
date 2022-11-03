@@ -187,8 +187,7 @@ public class EffectGlobalBean extends EffectBean {
 
     public String clickPreventedStatus(int _index) {
         String st_ = preventStatus.get(_index);
-        getForms().put(CST_STATUS, st_);
-        return CST_STATUS;
+        return tryRedirectSt(st_);
     }
     public String getTrPreventedStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -198,8 +197,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickCancelledAbility(int _index) {
         String st_ = cancelProtectingAbilities.get(_index);
-        getForms().put(CST_ABILITY, st_);
-        return CST_ABILITY;
+        return tryRedirectAb(st_);
     }
     public String getTrCancelledAbility(int _index) {
         DataBase data_ = getDataBase();
@@ -209,8 +207,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickUnusableMove(int _index) {
         String st_ = unusableMoves.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrUnusableMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -220,8 +217,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickCancelledEffect(int _index) {
         String st_ = cancelEffects.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrCancelledEffect(int _index) {
         DataBase data_ = getDataBase();
@@ -231,8 +227,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickMultMovePower(int _index) {
         String st_ = multPowerMoves.getKey(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrMultMovePower(int _index) {
         DataBase data_ = getDataBase();
@@ -250,8 +245,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickInvokingMove(int _index) {
         String st_ = invokingMoves.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrInvokingMove(int _index) {
         DataBase data_ = getDataBase();
@@ -261,8 +255,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickInvokingMoveTypes(int _index) {
         String st_ = invokingMovesChangingTypes.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrInvokingMoveTypes(int _index) {
         DataBase data_ = getDataBase();
@@ -272,8 +265,7 @@ public class EffectGlobalBean extends EffectBean {
     }
     public String clickMovesTarget(int _index) {
         String st_ = movesUsedByTargetedFighters.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrMovesTarget(int _index) {
         DataBase data_ = getDataBase();

@@ -41,14 +41,22 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanChangedTypesTerrainGet(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickCancelledAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickCancelledAbility(),_str,_args);
+    public static String callEffectGlobalBeanClickCancelledAbility(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickCancelledAbility(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickCancelledEffect(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickCancelledEffect(),_str,_args);
+    public static String callEffectGlobalBeanClickCancelledAbilityId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickCancelledAbility(_str, _args);
+        return getValAbilityId(_str);
+    }
+    public static String callEffectGlobalBeanClickCancelledEffect(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickCancelledEffect(),_str,_args);
     }
 
+    public static String callEffectGlobalBeanClickCancelledEffectId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickCancelledEffect(_str, _args);
+        return getValMoveId(_str);
+    }
     public static String callEffectGlobalBeanClickInvokedMove(Struct _str, long... _args) {
         return navigateData(new EffectGlobalBeanClickInvokedMove(),_str,_args);
     }
@@ -57,30 +65,55 @@ public abstract class InitDbMoveEffectGlobal extends InitDbMoveEffect {
         callEffectGlobalBeanClickInvokedMove(_str, _args);
         return getValMoveId(_str);
     }
-    public static Struct callEffectGlobalBeanClickInvokingMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickInvokingMove(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokingMove(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickInvokingMove(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickInvokingMoveTypes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickInvokingMoveTypes(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokingMoveId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickInvokingMove(_str, _args);
+        return getValMoveId(_str);
+    }
+    public static String callEffectGlobalBeanClickInvokingMoveTypes(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickInvokingMoveTypes(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickMovesTarget(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickMovesTarget(),_str,_args);
+    public static String callEffectGlobalBeanClickInvokingMoveTypesId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickInvokingMoveTypes(_str, _args);
+        return getValMoveId(_str);
     }
 
-    public static Struct callEffectGlobalBeanClickMultMovePower(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickMultMovePower(),_str,_args);
+    public static String callEffectGlobalBeanClickMovesTarget(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickMovesTarget(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickPreventedStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickPreventedStatus(),_str,_args);
+    public static String callEffectGlobalBeanClickMovesTargetId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickMovesTarget(_str, _args);
+        return getValMoveId(_str);
+    }
+    public static String callEffectGlobalBeanClickMultMovePower(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickMultMovePower(),_str,_args);
     }
 
-    public static Struct callEffectGlobalBeanClickUnusableMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanClickUnusableMove(),_str,_args);
+    public static String callEffectGlobalBeanClickMultMovePowerId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickMultMovePower(_str, _args);
+        return getValMoveId(_str);
+    }
+    public static String callEffectGlobalBeanClickPreventedStatus(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickPreventedStatus(),_str,_args);
     }
 
+    public static String callEffectGlobalBeanClickPreventedStatusId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickPreventedStatus(_str, _args);
+        return getValStatusId(_str);
+    }
+    public static String callEffectGlobalBeanClickUnusableMove(Struct _str, long... _args) {
+        return navigateData(new EffectGlobalBeanClickUnusableMove(),_str,_args);
+    }
+
+    public static String callEffectGlobalBeanClicUnusableMoveId(Struct _str, long... _args) {
+        callEffectGlobalBeanClickUnusableMove(_str, _args);
+        return getValMoveId(_str);
+    }
     public static Struct callEffectGlobalBeanDamageEndRoundGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectGlobalBeanDamageEndRoundGet(),_str,_args);
     }
