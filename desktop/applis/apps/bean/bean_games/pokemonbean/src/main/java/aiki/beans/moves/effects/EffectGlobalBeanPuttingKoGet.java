@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectGlobalBeanPuttingKoGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (EffectGlobalBean) ((PokemonBeanStruct)_instance).getInstance()).getPuttingKo());
+        return BooleanStruct.of(((EffectGlobalBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectGlobalCore().getPuttingKo());
     }
 }

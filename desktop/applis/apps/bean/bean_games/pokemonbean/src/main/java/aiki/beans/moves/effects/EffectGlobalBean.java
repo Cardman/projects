@@ -186,9 +186,6 @@ public class EffectGlobalBean extends EffectBean {
         return res_;
     }
 
-    public Listable<TypesDuo> getTypesDuos() {
-        return efficiencyMoves.getKeys();
-    }
     public String clickPreventedStatus(int _index) {
         String st_ = preventStatus.get(_index);
         getForms().put(CST_STATUS, st_);
@@ -304,26 +301,6 @@ public class EffectGlobalBean extends EffectBean {
         return multStatIfContainsType.getKeys();
     }
 
-    public boolean getWeather() {
-        return effectGlobalCore.getWeather();
-    }
-
-    public boolean getCanceledIfUsed() {
-        return effectGlobalCore.getCanceledIfUsed();
-    }
-
-    public boolean getReverseOrderOfSortBySpeed() {
-        return effectGlobalCore.getReverseOrderOfSortBySpeed();
-    }
-
-    public boolean getUnusableItem() {
-        return effectGlobalCore.getUnusableItem();
-    }
-
-    public boolean getPuttingKo() {
-        return effectGlobalCore.getPuttingKo();
-    }
-
     public Rate getMultAccuracy() {
         return effectGlobalCore.getMultAccuracy();
     }
@@ -338,6 +315,10 @@ public class EffectGlobalBean extends EffectBean {
 
     public Rate getHealingEndRound() {
         return effectGlobalCore.getHealingEndRound();
+    }
+
+    public EffectGlobalCore getEffectGlobalCore() {
+        return effectGlobalCore;
     }
 
     public Rate getMultEffectLovingAlly() {

@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectGlobalBeanCanceledIfUsedGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (EffectGlobalBean) ((PokemonBeanStruct)_instance).getInstance()).getCanceledIfUsed());
+        return BooleanStruct.of(((EffectGlobalBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectGlobalCore().getCanceledIfUsed());
     }
 }
