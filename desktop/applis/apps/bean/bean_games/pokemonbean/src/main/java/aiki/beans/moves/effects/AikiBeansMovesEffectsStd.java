@@ -14,6 +14,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_DAMAGE="eff_damage";
     public static final String BEAN_EFFECT_DAMAGE_RATE="eff_damagerate";
     public static final String BEAN_EFFECT_ENDROUND="eff_endround";
+    public static final String BEAN_EFFECT_FULLHPRATE="eff_fullhprate";
     public static final String BEAN_EFFECT_GLOBAL="eff_global";
     public static final String BEAN_EFFECT_STATIS="eff_statis";
     public static final String BEAN_EFFECT_STATUS="eff_status";
@@ -24,6 +25,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML="web/html/moves/effects/effdamage.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML="web/html/moves/effects/effdamagerate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML="web/html/moves/effects/effendround.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML="web/html/moves/effects/efffullhprate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML="web/html/moves/effects/effglobal.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML = "web/html/moves/effects/effstatis.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML = "web/html/moves/effects/effstatus.html";
