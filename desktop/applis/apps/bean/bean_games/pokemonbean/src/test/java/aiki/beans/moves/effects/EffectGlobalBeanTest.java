@@ -77,4 +77,64 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     public void getMultEffectLovingAlly1() {
         assertEq(Rate.one(),callEffectGlobalBeanMultEffectLovingAllyGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
     }
+    @Test
+    public void getInvokedMoveTerrain() {
+        assertEq(M_STA,callEffectGlobalBeanInvokedMoveTerrainGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getInvokingMovesChangingTypes1() {
+        assertSizeEq(1,callEffectGlobalBeanInvokingMovesChangingTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getInvokingMovesChangingTypes2() {
+        assertEq(M_STA,elt(callEffectGlobalBeanInvokingMovesChangingTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getInvokingMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanInvokingMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getInvokingMoves2() {
+        assertEq(M_WEA,elt(callEffectGlobalBeanInvokingMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getUnusableMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanUnusableMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getUnusableMoves2() {
+        assertEq(M_STA,elt(callEffectGlobalBeanUnusableMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getCancelEffects1() {
+        assertSizeEq(1,callEffectGlobalBeanCancelEffectsGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getCancelEffects2() {
+        assertEq(M_STA,elt(callEffectGlobalBeanCancelEffectsGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getMovesUsedByTargetedFighters1() {
+        assertSizeEq(1,callEffectGlobalBeanMovesUsedByTargetedFightersGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMovesUsedByTargetedFighters2() {
+        assertEq(M_STA,elt(callEffectGlobalBeanMovesUsedByTargetedFightersGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getDisableImmuAgainstTypes1() {
+        assertSizeEq(1,callEffectGlobalBeanDisableImmuAgainstTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getDisableImmuAgainstTypes2() {
+        assertEq(T_TYPE1_TR,elt(callEffectGlobalBeanDisableImmuAgainstTypesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
+    @Test
+    public void getChangedTypesTerrain1() {
+        assertSizeEq(1,callEffectGlobalBeanChangedTypesTerrainGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getChangedTypesTerrain2() {
+        assertEq(T_TYPE1_TR,elt(callEffectGlobalBeanChangedTypesTerrainGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0));
+    }
 }
