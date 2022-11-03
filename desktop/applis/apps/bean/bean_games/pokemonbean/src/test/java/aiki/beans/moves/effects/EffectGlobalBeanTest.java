@@ -205,4 +205,36 @@ public final class EffectGlobalBeanTest extends InitDbMoveEffectGlobal {
     public void getMultDamagePrepaRound3() {
         assertEq(Rate.one(),second(elt(callEffectGlobalBeanMultDamagePrepaRoundGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
     }
+    @Test
+    public void getEfficiencyMoves1() {
+        assertSizeEq(1,callEffectGlobalBeanEfficiencyMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getEfficiencyMoves2() {
+        assertEq(T_TYPE1_TR,callTypesDuoGetDamageType(first(elt(callEffectGlobalBeanEfficiencyMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0))));
+    }
+    @Test
+    public void getEfficiencyMoves3() {
+        assertEq(T_TYPE2_TR,callTypesDuoGetPokemonType(first(elt(callEffectGlobalBeanEfficiencyMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0))));
+    }
+    @Test
+    public void getEfficiencyMoves4() {
+        assertEq(Rate.one(),second(elt(callEffectGlobalBeanEfficiencyMovesGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getMultStatIfContainsType1() {
+        assertSizeEq(1,callEffectGlobalBeanMultStatIfContainsTypeGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)));
+    }
+    @Test
+    public void getMultStatIfContainsType2() {
+        assertEq(Rate.one(),second(elt(callEffectGlobalBeanMultStatIfContainsTypeGet(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0)),0)));
+    }
+    @Test
+    public void getTrMultStatIfDamgeTypeFirst() {
+        assertEq(ST_SPEED_TR,callEffectGlobalBeanGetTrMultStatIfDamgeTypeFirst(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
+    @Test
+    public void getTrMultStatIfDamgeTypeSecond() {
+        assertEq(T_TYPE1_TR,callEffectGlobalBeanGetTrMultStatIfDamgeTypeSecond(dispMoveEffGlobal(feedDbMoveEffDataDam(eff(true, true, true, true, true)),0),0));
+    }
 }
