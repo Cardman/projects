@@ -113,8 +113,7 @@ public class EffectTeamWhileSendFoeBean extends EffectBean {
             statusByNbUses_.put(s, status_);
         }
         String status_ = statusByNbUses_.getValue(_index);
-        getForms().put(CST_STATUS, status_);
-        return CST_STATUS;
+        return tryRedirectSt(status_);
     }
     public String getTranslatedStatus(int _index) {
         String status_ = statusByNbUses.getValue(_index);
