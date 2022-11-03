@@ -1,10 +1,10 @@
 package code.scripts.pages.aiki;
+import aiki.beans.moves.effects.AikiBeansMovesEffectsStd;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesEffectsEffinvoke extends PageCardsCommon{
 private static final String C_P_158_0="javahtml";
-private static final String C_P_158_1="eff_invoke";
+private static final String C_P_158_1=AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE;
 private static final String C_P_158_2="web/css/moves.css";
 private static final String C_P_158_3="stylesheet";
 private static final String C_P_158_4="text/css";

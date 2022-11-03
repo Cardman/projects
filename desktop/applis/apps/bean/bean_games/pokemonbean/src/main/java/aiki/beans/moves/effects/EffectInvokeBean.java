@@ -38,15 +38,7 @@ public class EffectInvokeBean extends EffectBean {
             moveFctEnv_.put(e.getEnvName(), effect_.getMoveFctEnv().getVal(e));
         }
         moveFctEnv = moveFctEnv_;
-        StringList globalMoves_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (e instanceof EffectGlobal && !((EffectGlobal) e).getInvokedMoveTerrain().isEmpty()) {
-                    globalMoves_.add(m);
-                }
-            }
-        }
+        StringList globalMoves_ = globalMoves(data_);
         globalMoves_.removeDuplicates();
         globalMoves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         globalMoves = globalMoves_;
@@ -71,10 +63,23 @@ public class EffectInvokeBean extends EffectBean {
         }
         invokingMoveByUserTypes = invokingMoveByUserTypes_;
     }
+
+    public static StringList globalMoves(DataBase _data) {
+        StringList globalMoves_ = new StringList();
+        for (String m: _data.getMoves().getKeys()) {
+            MoveData move_ = _data.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getInvokedMoveTerrain().isEmpty()) {
+                    globalMoves_.add(m);
+                }
+            }
+        }
+        return globalMoves_;
+    }
+
     public String clickMoveFctEnv(int _index) {
         String st_ = moveFctEnv.getValue(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrEnv(int _index) {
         DataBase data_ = getDataBase();
@@ -96,13 +101,11 @@ public class EffectInvokeBean extends EffectBean {
     }
     public String clickGlobalMoveFctEnv(int _index) {
         String st_ = globalMoves.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String clickMoveNotInvok(int _index) {
         String st_ = movesNotToBeInvoked.get(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public String getTrMoveNotInvok(int _index) {
         DataBase data_ = getDataBase();
@@ -112,8 +115,7 @@ public class EffectInvokeBean extends EffectBean {
     }
     public String clickMoveUserTypes(int _index) {
         String st_ = invokingMoveByUserTypes.getValue(_index);
-        getForms().put(CST_MOVE, st_);
-        return CST_MOVE;
+        return tryRedirectMv(st_);
     }
     public boolean isType(int _index) {
         String st_ = invokingMoveByUserTypes.getKey(_index);
