@@ -286,7 +286,7 @@ private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML="
 //private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML="web/html/moves/effects/effstatus.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML="web/html/moves/effects/effswitchabilities.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML="web/html/moves/effects/effswitchitems.html";
-private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML="web/html/moves/effects/effswitchmovetypes.html";
+//private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML="web/html/moves/effects/effswitchmovetypes.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML="web/html/moves/effects/effswitchpointview.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML="web/html/moves/effects/effswitchposition.html";
 //private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML="web/html/moves/effects/effswitchtypes.html";
@@ -510,7 +510,7 @@ private static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
         added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML);
-        added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML);
+        added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML);
         added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML);

@@ -933,6 +933,9 @@ public class MoveBean extends CommonBean {
         if (eff_ instanceof EffectInvoke) {
             return PAGE_INVOKE;
         }
+        if (eff_ instanceof EffectSwitchTypes) {
+            return PAGE_SWITCHTYPES;
+        }
         if (eff_ instanceof EffectSwitchMoveTypes) {
             return PAGE_SWITCHMOVETYPES;
         }
@@ -985,9 +988,6 @@ public class MoveBean extends CommonBean {
         }
         if (_eff instanceof EffectSwitchItems) {
             return PAGE_SWITCHITEMS;
-        }
-        if (_eff instanceof EffectSwitchTypes) {
-            return PAGE_SWITCHTYPES;
         }
         if (_eff instanceof EffectSwitchPointView) {
             return PAGE_SWITCHPOINTVIEW;

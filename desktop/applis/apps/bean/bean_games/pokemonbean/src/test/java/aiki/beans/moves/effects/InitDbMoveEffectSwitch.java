@@ -3,12 +3,9 @@ package aiki.beans.moves.effects;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.facade.FacadeGame;
-import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.StatusMoveData;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectSwitchTypes;
-import aiki.fight.moves.effects.enums.ConstValuesType;
-import aiki.fight.moves.effects.enums.ExchangeType;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.moves.effects.enums.*;
 import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
@@ -228,6 +225,60 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
         e_.getChgtTypeByEnv().addEntry(EnvironmentType.ROAD,T_TYPE1);
         e_.getAddedTypes().add(T_TYPE1);
         e_.getConstTypes().add(T_TYPE1);
+        return e_;
+    }
+    protected static Struct dispMoveEffSwitchMoveTypes() {
+        PkData pk_ = pkDataByFacade(feedDbMoveEffDataSwitchMoveTypes());
+        StringMap<Struct> all_ = beanToEffectSwitchMoveTypes(pk_);
+        StringMap<String> mapping_ = mappingToEffectSwitchMoveTypes();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectSwitchMoveTypes(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHMOVETYPES,_pk.beanEffectSwitchMoveTypesBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectSwitchMoveTypes() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHMOVETYPES);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataSwitchMoveTypes() {
+        FacadeGame facade_ = facade();
+        addEff(effectSwitchMoveTypes(), facade_);
+        StatusMoveData chg_ = moveSta(TargetChoice.TOUS_ADV);
+        chg_.getEffects().add(Instances.newEffectGlobal());
+        facade_.getData().completeMembers(M_STA,chg_);
+        StatusMoveData gl_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectGlobal egl_ = Instances.newEffectGlobal();
+        egl_.getChangedTypesTerrain().add(T_TYPE1);
+        gl_.getEffects().add(egl_);
+        facade_.getData().completeMembers(M_WEA, gl_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getTranslatedEnvironment().addEntry(EN,new IdMap<EnvironmentType,String>());
+        facade_.getData().getTranslatedEnvironment().getVal(EN).addEntry(EnvironmentType.ROAD, ROAD_TR);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().setDefMove(M_DAM_VERY_BAD);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static void addEff(EffectSwitchMoveTypes _eff, FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, _eff);
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectSwitchMoveTypes effectSwitchMoveTypes() {
+        EffectSwitchMoveTypes e_ = Instances.newEffectSwitchMoveTypes();
+        e_.getChangeTypes().addEntry(T_TYPE1,T_TYPE1);
+        e_.getReplacingTypes().add(T_TYPE1);
         return e_;
     }
 }
