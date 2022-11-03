@@ -107,19 +107,6 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanSufferingDamageTypesGet(),_str,_args);
     }
 
-
-    public static Struct callEffectEndRoundMoveBeanEndRoundRankGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanEndRoundRankGet(),_str,_args);
-    }
-
-    public static Struct callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanMapVarsFailEndRoundGet(),_str,_args);
-    }
-
-    public static Struct callEffectEndRoundMoveBeanReasonsEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanReasonsEndRoundGet(),_str,_args);
-    }
-
     public static Struct callEffectFullHpRateBeanClosestFoeDamageRateHpGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectFullHpRateBeanClosestFoeDamageRateHpGet(),_str,_args);
     }

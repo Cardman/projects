@@ -271,7 +271,7 @@ private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML="web
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML="web/html/moves/effects/effcounterattack.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML="web/html/moves/effects/effdamagerate.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML="web/html/moves/effects/effdamage.html";
-private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML="web/html/moves/effects/effendround.html";
+//private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML="web/html/moves/effects/effendround.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML="web/html/moves/effects/efffullhprate.html";
 //private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML="web/html/moves/effects/effglobal.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML="web/html/moves/effects/effinvoke.html";
@@ -495,7 +495,7 @@ private static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFDAMAGERATE_HTML);
-        added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML);
+        added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFENDROUND_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML);
         added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML);
