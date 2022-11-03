@@ -4,6 +4,7 @@ import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.*;
@@ -23,8 +24,8 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectAllyBeanMultAllyDamageGet(),_str,_args);
     }
 
-    public static Struct callEffectBatonPassBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectBatonPassBeanClickMove(),_str,_args);
+    public static String callEffectBatonPassBeanClickMove(Struct _str, long... _args) {
+        return navigateData(new EffectBatonPassBeanClickMove(),_str,_args);
     }
 
     public static Struct callEffectBatonPassBeanGetTrMove(Struct _str, long... _args) {
@@ -35,16 +36,16 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectBatonPassBeanMovesGet(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanClickMoveBatonPass(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectCloneBeanClickMoveBatonPass(),_str,_args);
+    public static String callEffectCloneBeanClickMoveBatonPass(Struct _str, long... _args) {
+        return navigateData(new EffectCloneBeanClickMoveBatonPass(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanClickMoveEndRound(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectCloneBeanClickMoveEndRound(),_str,_args);
+    public static String callEffectCloneBeanClickMoveEndRound(Struct _str, long... _args) {
+        return navigateData(new EffectCloneBeanClickMoveEndRound(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanClickMoveSending(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectCloneBeanClickMoveSending(),_str,_args);
+    public static String callEffectCloneBeanClickMoveSending(Struct _str, long... _args) {
+        return navigateData(new EffectCloneBeanClickMoveSending(),_str,_args);
     }
 
     public static Struct callEffectCloneBeanGetTrMovesBatonPass(Struct _str, long... _args) {
@@ -231,6 +232,65 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.setRestoredHp(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.setClosestFoeDamageRateHp(Rate.one());
         e_.setLeftUserHp(Rate.one());
+        return e_;
+    }
+    protected static Struct dispMoveEffCounterAttack() {
+        return dispMoveEffCounterAttack(feedDbMoveEffDataCounterAttack());
+    }
+    protected static Struct dispMoveEffCounterAttack(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectCounterAttack(pk_);
+        StringMap<String> mapping_ = mappingToEffectCounterAttack();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectCounterAttack(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK,_pk.beanEffectCounterAttackBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectCounterAttack() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataCounterAttack() {
+        FacadeGame facade_ = facade();
+        addEffCounterAttack(facade_);
+        StatusMoveData chg_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectSwitchTypes sw_ = Instances.newEffectSwitchTypes();
+        sw_.getChgtTypeByEnv().addEntry(EnvironmentType.ROAD,T_TYPE1);
+        chg_.getEffects().add(sw_);
+        facade_.getData().completeMembers(M_STA, chg_);
+        StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectInvoke inv_ = Instances.newEffectInvoke();
+        inv_.getMoveFctEnv().addEntry(EnvironmentType.ROAD,T_TYPE1);
+        minv_.getEffects().add(inv_);
+        facade_.getData().completeMembers(M_WEA, minv_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffCounterAttack(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effCounterAttack());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectCounterAttack effCounterAttack() {
+        EffectCounterAttack e_ = Instances.newEffectCounterAttack();
+        e_.setCounterFail(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setProtectFail(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.setSufferingDamageDirectMove(Rate.one());
+        e_.getSufferingDamageTypes().addEntry(T_TYPE1,Rate.one());
+        e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,(byte)1);
         return e_;
     }
 }

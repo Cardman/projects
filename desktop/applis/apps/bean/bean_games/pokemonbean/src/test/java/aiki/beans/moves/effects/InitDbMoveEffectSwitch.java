@@ -277,7 +277,7 @@ public abstract class InitDbMoveEffectSwitch extends InitDbMoveEffect {
     }
     protected static EffectSwitchMoveTypes effectSwitchMoveTypes() {
         EffectSwitchMoveTypes e_ = Instances.newEffectSwitchMoveTypes();
-        e_.getChangeTypes().addEntry(T_TYPE1,T_TYPE1);
+        e_.getChangeTypes().addEntry(T_TYPE1,T_TYPE2);
         e_.getReplacingTypes().add(T_TYPE1);
         return e_;
     }

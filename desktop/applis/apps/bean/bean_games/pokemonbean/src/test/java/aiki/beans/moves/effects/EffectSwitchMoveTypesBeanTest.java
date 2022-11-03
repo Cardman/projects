@@ -25,7 +25,7 @@ public final class EffectSwitchMoveTypesBeanTest extends InitDbMoveEffectSwitch 
     }
     @Test
     public void getChangeTypes3() {
-        assertEq(T_TYPE1_TR,second(elt(callEffectSwitchMoveTypesBeanChangeTypesGet(dispMoveEffSwitchMoveTypes()),0)));
+        assertEq(T_TYPE2_TR,second(elt(callEffectSwitchMoveTypesBeanChangeTypesGet(dispMoveEffSwitchMoveTypes()),0)));
     }
     @Test
     public void getTrChangedTypes() {
