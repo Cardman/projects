@@ -28,7 +28,10 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_PROTECTFROMTYPES="eff_protectfromtypes";
     public static final String BEAN_EFFECT_PROTECTION="eff_protection";
     public static final String BEAN_EFFECT_RESTRICTION="eff_restriction";
+    public static final String BEAN_EFFECT_SWITCHABILITIES="eff_switchabilities";
+    public static final String BEAN_EFFECT_SWITCHITEMS="eff_switchitems";
     public static final String BEAN_EFFECT_SWITCHMOVETYPES="eff_switchmovetypes";
+    public static final String BEAN_EFFECT_SWITCHPOINTVIEW="eff_switchpointview";
     public static final String BEAN_EFFECT_SWITCHTYPES="eff_switchtypes";
     public static final String BEAN_EFFECT_STATIS="eff_statis";
     public static final String BEAN_EFFECT_STATUS="eff_status";
@@ -54,7 +57,10 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML="web/html/moves/effects/effprotectfromtypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML="web/html/moves/effects/effprotection.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML="web/html/moves/effects/effrestriction.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML="web/html/moves/effects/effswitchabilities.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML="web/html/moves/effects/effswitchitems.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML="web/html/moves/effects/effswitchmovetypes.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOINTVIEW_HTML="web/html/moves/effects/effswitchpointview.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML="web/html/moves/effects/effswitchtypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML = "web/html/moves/effects/effstatis.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML = "web/html/moves/effects/effstatus.html";
