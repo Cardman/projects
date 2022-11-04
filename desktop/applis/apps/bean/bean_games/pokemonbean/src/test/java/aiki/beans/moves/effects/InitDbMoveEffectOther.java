@@ -28,6 +28,11 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return navigateData(new EffectBatonPassBeanClickMove(),_str,_args);
     }
 
+    public static String callEffectBatonPassBeanClickMoveId(Struct _str, long... _args) {
+        callEffectBatonPassBeanClickMove(_str, _args);
+        return getValMoveId(_str);
+    }
+
     public static Struct callEffectBatonPassBeanGetTrMove(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBatonPassBeanGetTrMove(),_str,_args);
     }
@@ -292,5 +297,107 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.getSufferingDamageTypes().addEntry(T_TYPE1,Rate.one());
         e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,(byte)1);
         return e_;
+    }
+    protected static Struct dispMoveEffAlly() {
+        return dispMoveEffAlly(feedDbMoveEffDataAlly());
+    }
+    protected static Struct dispMoveEffAlly(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectAlly(pk_);
+        StringMap<String> mapping_ = mappingToEffectAlly();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectAlly(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ALLY,_pk.beanEffectAllyBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectAlly() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ALLY);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataAlly() {
+        FacadeGame facade_ = facade();
+        addEffAlly(facade_);
+        StatusMoveData chg_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectSwitchTypes sw_ = Instances.newEffectSwitchTypes();
+        sw_.getChgtTypeByEnv().addEntry(EnvironmentType.ROAD,T_TYPE1);
+        chg_.getEffects().add(sw_);
+        facade_.getData().completeMembers(M_STA, chg_);
+        StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectInvoke inv_ = Instances.newEffectInvoke();
+        inv_.getMoveFctEnv().addEntry(EnvironmentType.ROAD,T_TYPE1);
+        minv_.getEffects().add(inv_);
+        facade_.getData().completeMembers(M_WEA, minv_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffAlly(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effAlly());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectAlly effAlly() {
+        EffectAlly e_ = Instances.newEffectAlly();
+        e_.setMultAllyDamage(Rate.one());
+        return e_;
+    }
+    protected static Struct dispMoveEffBatonPass() {
+        return dispMoveEffBatonPass(feedDbMoveEffDataBatonPass());
+    }
+    protected static Struct dispMoveEffBatonPass(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectBatonPass(pk_);
+        StringMap<String> mapping_ = mappingToEffectBatonPass();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectBatonPass(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_BATONPASS,_pk.beanEffectBatonPassBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectBatonPass() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_BATONPASS);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataBatonPass() {
+        FacadeGame facade_ = facade();
+        addEffBatonPass(facade_);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
+        minv_.getEffects().add(Instances.newEffectProtectFromTypes());
+        facade_.getData().completeMembers(M_WEA, minv_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffBatonPass(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effBatonPass());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectBatonPass effBatonPass() {
+        return Instances.newEffectBatonPass();
     }
 }

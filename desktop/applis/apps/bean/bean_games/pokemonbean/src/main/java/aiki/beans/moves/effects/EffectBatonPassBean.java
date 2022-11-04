@@ -31,8 +31,7 @@ public class EffectBatonPassBean extends EffectBean {
     }
     public String clickMove(int _index) {
         String move_ = moves.get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
 
     public StringList getMoves() {
