@@ -261,7 +261,7 @@ private static final String REN_ADD_WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML
 private static final String REN_ADD_WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
 private static final String REN_ADD_WEB_HTML_MAP_MAP_HTML="web/html/map/map.html";
 private static final String REN_ADD_WEB_HTML_MOVES_DATA_HTML="web/html/moves/data.html";
-private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML="web/html/moves/effects/effaccuracy.html";
+//private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML="web/html/moves/effects/effaccuracy.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML="web/html/moves/effects/effally.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML="web/html/moves/effects/effbatonpass.html";
 private static final String REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML="web/html/moves/effects/effclone.html";
@@ -485,7 +485,7 @@ private static final String REN_ADD_WEB_PROG_MESSAGES="web_prog/messages";
         added_.add(REN_ADD_WEB_HTML_MAP_MAP_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_DATA_HTML);
         added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFF_HTML);
-        added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML);
+        added_.add(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML);
         added_.add(REN_ADD_WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML);
