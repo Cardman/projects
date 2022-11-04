@@ -1007,10 +1007,7 @@ public class MoveBean extends CommonBean {
         if (_eff instanceof EffectVarPP) {
             return PAGE_VARPP;
         }
-        if (_eff instanceof EffectWinMoney) {
-            return PAGE_WINMONEY;
-        }
-        return DataBase.EMPTY_STRING;
+        return PAGE_WINMONEY;
     }
 
     public String getDisplayName() {

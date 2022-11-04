@@ -695,4 +695,53 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.getMultMovePowerFctType().addEntry(T_TYPE2,Rate.newRate("2"));
         return cl_;
     }
+    protected static Struct dispMoveEffVarPp() {
+        EffectVarPP e_ = Instances.newEffectVarPP();
+        e_.setDeletePp((short) 1);
+        return dispMoveEffOther(feedDbMoveEffDataOther(e_));
+    }
+    protected static Struct dispMoveEffWinMoney() {
+        EffectWinMoney e_ = Instances.newEffectWinMoney();
+        e_.setWinningRateBySumTargetUser(Rate.one());
+        return dispMoveEffOther(feedDbMoveEffDataOther(e_));
+    }
+
+    protected static Struct dispMoveEffOther(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectOther(pk_);
+        StringMap<String> mapping_ = mappingToEffectOther();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectOther(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_VARPP,_pk.beanEffectVarPPBean(EN));
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_WINMONEY,_pk.beanEffectWinMoneyBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectOther() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFVARPP_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_VARPP);
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFWINMONEY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_WINMONEY);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataOther(Effect _eff) {
+        FacadeGame facade_ = facade();
+        addEffOther(facade_,_eff);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffOther(FacadeGame _facade, Effect _eff) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, _eff);
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
 }

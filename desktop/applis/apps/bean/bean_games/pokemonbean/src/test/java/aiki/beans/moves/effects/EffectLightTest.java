@@ -7,4 +7,8 @@ public final class EffectLightTest extends InitDbMoveEffectLightDisplay {
     public void acc() {
         assertEq(M_DAM,dispMoveEffAccuracy());
     }
+    @Test
+    public void swPos() {
+        assertEq(M_DAM,dispEffectSwitchPosition());
+    }
 }

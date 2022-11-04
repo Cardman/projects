@@ -10,6 +10,9 @@ import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
+    protected static String dispEffectSwitchPosition() {
+        return toStr(callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectSwitchPosition()))));
+    }
     protected static String dispMoveEffAccuracy() {
         return toStr(callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectAccuracy()))));
     }
@@ -22,11 +25,13 @@ public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
     public static StringMap<Struct> beanToEffectAccuracy(PkData _pk) {
         StringMap<Struct> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ACCURACY,_pk.beanEffectBean(EN));
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOSITION,_pk.beanEffectBean(EN));
         return map_;
     }
     public static StringMap<String> mappingToEffectAccuracy() {
         StringMap<String> map_ = mappingToEffect();
         map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ACCURACY);
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFSWITCHPOSITION_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOSITION);
         return map_;
     }
     protected static FacadeGame feedDbMoveEffDataAccuracy(Effect _eff) {
