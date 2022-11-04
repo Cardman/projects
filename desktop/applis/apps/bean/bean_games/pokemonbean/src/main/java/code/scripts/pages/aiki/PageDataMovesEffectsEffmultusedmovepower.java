@@ -1,10 +1,10 @@
 package code.scripts.pages.aiki;
+import aiki.beans.moves.effects.AikiBeansMovesEffectsStd;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesEffectsEffmultusedmovepower extends PageCardsCommon{
 private static final String C_P_160_0="javahtml";
-private static final String C_P_160_1="eff_multusedmovepower";
+private static final String C_P_160_1=AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER;
 private static final String C_P_160_2="web/css/moves.css";
 private static final String C_P_160_3="stylesheet";
 private static final String C_P_160_4="text/css";

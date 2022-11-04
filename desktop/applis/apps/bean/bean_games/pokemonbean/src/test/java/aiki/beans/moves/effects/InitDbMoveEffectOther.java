@@ -590,4 +590,109 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.setTargetAttacksLast(_targetAttacksLast);
         return cl_;
     }
+    protected static Struct dispMoveEffRemainedHpRate(Rate _targetAttacksLast) {
+        return dispMoveEffRemainedHpRate(feedDbMoveEffDataRemainedHpRate(_targetAttacksLast));
+    }
+    protected static Struct dispMoveEffRemainedHpRate(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectRemainedHpRate(pk_);
+        StringMap<String> mapping_ = mappingToEffectRemainedHpRate();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectRemainedHpRate(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_REMAINEDHPRATE,_pk.beanEffectRemainedHpRateBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectRemainedHpRate() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_REMAINEDHPRATE);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataRemainedHpRate(Rate _targetAttacksLast) {
+        FacadeGame facade_ = facade();
+        addEffRemainedHpRate(facade_, _targetAttacksLast);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffRemainedHpRate(FacadeGame _facade, Rate _targetAttacksLast) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effRemainedHpRate(_targetAttacksLast));
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectRemainedHpRate effRemainedHpRate(Rate _targetAttacksLast) {
+        EffectRemainedHpRate cl_ = Instances.newEffectRemainedHpRate();
+        cl_.setRateHp(_targetAttacksLast);
+        return cl_;
+    }
+
+    protected static Struct dispMoveEffMultMovePower(int _indexEff) {
+        return dispMoveEffMultMovePower(feedDbMoveEffDataMultMovePower(), _indexEff);
+    }
+    protected static Struct dispMoveEffMultMovePower(FacadeGame _fac, int _indexEff) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectMultMovePower(pk_);
+        StringMap<String> mapping_ = mappingToEffectMultMovePower();
+        return transitEffect(0, _indexEff,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectMultMovePower(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectMultMovePower() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER);
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataMultMovePower() {
+        FacadeGame facade_ = facade();
+        addEffMultMovePower(facade_);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffMultMovePower(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effMultMovePowerInf());
+        target(dam_, effMultMovePowerSub());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectMultMovePower effMultMovePowerInf() {
+        EffectMultMovePower cl_ = Instances.newEffectMultUsedMovePower();
+        cl_.getMultMovePowerFctType().addEntry(T_TYPE1,Rate.one());
+        return cl_;
+    }
+    protected static EffectMultMovePower effMultMovePowerSub() {
+        EffectMultMovePower cl_ = Instances.newEffectMultSufferedMovePower();
+        cl_.getMultMovePowerFctType().addEntry(T_TYPE2,Rate.newRate("2"));
+        return cl_;
+    }
 }

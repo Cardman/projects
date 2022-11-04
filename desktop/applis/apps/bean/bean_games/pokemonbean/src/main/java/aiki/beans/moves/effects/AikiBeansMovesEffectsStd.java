@@ -24,9 +24,12 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_FULLHPRATE="eff_fullhprate";
     public static final String BEAN_EFFECT_GLOBAL="eff_global";
     public static final String BEAN_EFFECT_INVOKE="eff_invoke";
+    public static final String BEAN_EFFECT_MULTSUFFEREDMOVEPOWER="eff_multsufferedmovepower";
+    public static final String BEAN_EFFECT_MULTUSEDMOVEPOWER="eff_multusedmovepower";
     public static final String BEAN_EFFECT_ORDER="eff_order";
     public static final String BEAN_EFFECT_PROTECTFROMTYPES="eff_protectfromtypes";
     public static final String BEAN_EFFECT_PROTECTION="eff_protection";
+    public static final String BEAN_EFFECT_REMAINEDHPRATE="eff_remainedhprate";
     public static final String BEAN_EFFECT_RESTRICTION="eff_restriction";
     public static final String BEAN_EFFECT_SWITCHABILITIES="eff_switchabilities";
     public static final String BEAN_EFFECT_SWITCHITEMS="eff_switchitems";
@@ -53,9 +56,12 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML="web/html/moves/effects/efffullhprate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML="web/html/moves/effects/effglobal.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML="web/html/moves/effects/effinvoke.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFMULTSUFFEREDMOVEPOWER_HTML="web/html/moves/effects/effmultsufferedmovepower.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFMULTUSEDMOVEPOWER_HTML="web/html/moves/effects/effmultusedmovepower.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML="web/html/moves/effects/efforder.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML="web/html/moves/effects/effprotectfromtypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML="web/html/moves/effects/effprotection.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFREMAINEDHPRATE_HTML="web/html/moves/effects/effremainedhprate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFRESTRICTION_HTML="web/html/moves/effects/effrestriction.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHABILITIES_HTML="web/html/moves/effects/effswitchabilities.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHITEMS_HTML="web/html/moves/effects/effswitchitems.html";
