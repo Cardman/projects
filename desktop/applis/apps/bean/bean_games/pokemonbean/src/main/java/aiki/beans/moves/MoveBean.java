@@ -2,7 +2,6 @@ package aiki.beans.moves;
 
 import aiki.beans.CommonBean;
 import aiki.beans.WithFilterBean;
-import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -602,10 +601,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickTypesByOwnedItems(int _index) {
         String item_ = typesByOwnedItems.getKey(_index);
-        DataBase data_ = getDataBase();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -671,10 +667,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickItemSecEffect(int _index) {
         String item_ = getItemSecEffect(_index);
-        DataBase data_ = getDataBase();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -741,10 +734,7 @@ public class MoveBean extends CommonBean {
     }
     public String clickItem(int _index) {
         String key_ = items.get(_index);
-        DataBase data_ = getDataBase();
-        getForms().put(CST_ITEM, key_);
-        Item it_ = data_.getItem(key_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(key_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }

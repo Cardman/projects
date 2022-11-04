@@ -81,12 +81,22 @@ public abstract class InitDbMove extends InitDbMoves {
         return getValStatusId(_str);
     }
 
-    public static Struct callMoveBeanClickItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickItem(),_str,_args);
+    public static String callMoveBeanClickItem(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickItem(),_str,_args);
     }
 
-    public static Struct callMoveBeanClickItemSecEffect(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickItemSecEffect(),_str,_args);
+    public static String callMoveBeanClickItemId(Struct _str, long... _args) {
+        callMoveBeanClickItem(_str, _args);
+        return getValItemId(_str);
+    }
+
+    public static String callMoveBeanClickItemSecEffect(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickItemSecEffect(),_str,_args);
+    }
+
+    public static String callMoveBeanClickItemSecEffectId(Struct _str, long... _args) {
+        callMoveBeanClickItemSecEffect(_str, _args);
+        return getValItemId(_str);
     }
 
     public static String callMoveBeanClickMove(Struct _str, long... _args) {
@@ -150,8 +160,13 @@ public abstract class InitDbMove extends InitDbMoves {
         return getValStatusId(_str);
     }
 
-    public static Struct callMoveBeanClickTypesByOwnedItems(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MoveBeanClickTypesByOwnedItems(),_str,_args);
+    public static String callMoveBeanClickTypesByOwnedItems(Struct _str, long... _args) {
+        return navigateData(new MoveBeanClickTypesByOwnedItems(),_str,_args);
+    }
+
+    public static String callMoveBeanClickTypesByOwnedItemsId(Struct _str, long... _args) {
+        callMoveBeanClickTypesByOwnedItems(_str, _args);
+        return getValItemId(_str);
     }
 
     public static String callMoveBeanClickTypesByWeathers(Struct _str, long... _args) {

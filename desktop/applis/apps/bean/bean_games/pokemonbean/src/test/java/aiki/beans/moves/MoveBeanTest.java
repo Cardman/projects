@@ -1,6 +1,7 @@
 package aiki.beans.moves;
 
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
@@ -839,15 +840,39 @@ public final class MoveBeanTest extends InitDbMove {
     @Test
     public void getTrTypesByOwnedItems() {
         assertEq(I_ITEM_TR,callMoveBeanGetTrTypesByOwnedItems(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
-
+    }
+    @Test
+    public void clickTypesByOwnedItems1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickTypesByOwnedItems(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickTypesByOwnedItems2() {
+        assertEq(I_ITEM,callMoveBeanClickTypesByOwnedItemsId(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
     public void translateItemSecEffect() {
         assertEq(I_ITEM_TR,callMoveBeanTranslateItemSecEffect(dispMove(feedDbMoveDam(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
     @Test
+    public void clickItemSecEffect1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickItemSecEffect(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
+    public void clickItemSecEffect2() {
+        assertEq(I_ITEM,callMoveBeanClickItemSecEffectId(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+    }
+    @Test
     public void getTrItem() {
         assertEq(I_ITEM_TR,callMoveBeanGetTrItem(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
 
+    }
+    @Test
+    public void clickItem1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callMoveBeanClickItem(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
+
+    }
+    @Test
+    public void clickItem2() {
+        assertEq(I_ITEM,callMoveBeanClickItemId(dispMove(feedDbMoveDamItBat(TargetChoice.ANY_FOE,"1", SwitchType.NOTHING,0,true,true,true,true,true,true,true,true,true,true,true,true,"1"),0),0));
     }
 }
