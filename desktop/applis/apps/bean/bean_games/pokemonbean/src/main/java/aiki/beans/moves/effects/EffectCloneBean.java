@@ -30,24 +30,21 @@ public class EffectCloneBean extends EffectBean {
         movesEndRound_.removeDuplicates();
         movesEndRound_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesEndRound = movesEndRound_;
-        StringList movesBatonPass_;
-        movesBatonPass_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectBatonPass)) {
-                    continue;
-                }
-                movesBatonPass_.add(m);
-            }
-        }
+        StringList movesBatonPass_ = movesBatonPass(data_);
         movesBatonPass_.removeDuplicates();
         movesBatonPass_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesBatonPass = movesBatonPass_;
+        StringList movesSending_ = movesSending(data_);
+        movesSending_.removeDuplicates();
+        movesSending_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesSending = movesSending_;
+    }
+
+    public static StringList movesSending(DataBase _data) {
         StringList movesSending_;
         movesSending_ = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        for (String m: _data.getMoves().getKeys()) {
+            MoveData move_ = _data.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (!(e instanceof EffectTeamWhileSendFoe)) {
                     continue;
@@ -58,14 +55,27 @@ public class EffectCloneBean extends EffectBean {
                 }
             }
         }
-        movesSending_.removeDuplicates();
-        movesSending_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesSending = movesSending_;
+        return movesSending_;
     }
+
+    public static StringList movesBatonPass(DataBase _data) {
+        StringList movesBatonPass_;
+        movesBatonPass_ = new StringList();
+        for (String m: _data.getMoves().getKeys()) {
+            MoveData move_ = _data.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (!(e instanceof EffectBatonPass)) {
+                    continue;
+                }
+                movesBatonPass_.add(m);
+            }
+        }
+        return movesBatonPass_;
+    }
+
     public String clickMoveEndRound(int _index) {
         String move_ = movesEndRound.get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getTrMovesEndRound(int _index) {
         String move_ = movesEndRound.get(_index);
@@ -75,8 +85,7 @@ public class EffectCloneBean extends EffectBean {
     }
     public String clickMoveBatonPass(int _index) {
         String move_ = movesBatonPass.get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getTrMovesBatonPass(int _index) {
         String move_ = movesBatonPass.get(_index);
@@ -86,8 +95,7 @@ public class EffectCloneBean extends EffectBean {
     }
     public String clickMoveSending(int _index) {
         String move_ = movesSending.get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getTrMovesSending(int _index) {
         String move_ = movesSending.get(_index);

@@ -13,6 +13,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_ACCURACY="eff_accuracy";
     public static final String BEAN_EFFECT_ALLY="eff_ally";
     public static final String BEAN_EFFECT_BATONPASS="eff_batonpass";
+    public static final String BEAN_EFFECT_CLONE="eff_clone";
     public static final String BEAN_EFFECT_COPY_FIGHTER="eff_copyfighter";
     public static final String BEAN_EFFECT_COPY_MOVE="eff_copymove";
     public static final String BEAN_EFFECT_COUNTER_ATTACK="eff_counterattack";
@@ -35,6 +36,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML="web/html/moves/effects/effaccuracy.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFALLY_HTML="web/html/moves/effects/effally.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFBATONPASS_HTML="web/html/moves/effects/effbatonpass.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML="web/html/moves/effects/effclone.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML="web/html/moves/effects/effcopyfighter.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML="web/html/moves/effects/effcopymove.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML="web/html/moves/effects/effcounterattack.html";

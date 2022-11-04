@@ -45,14 +45,26 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return navigateData(new EffectCloneBeanClickMoveBatonPass(),_str,_args);
     }
 
+    public static String callEffectCloneBeanClickMoveBatonPassId(Struct _str, long... _args) {
+        callEffectCloneBeanClickMoveBatonPass(_str, _args);
+        return getValMoveId(_str);
+    }
     public static String callEffectCloneBeanClickMoveEndRound(Struct _str, long... _args) {
         return navigateData(new EffectCloneBeanClickMoveEndRound(),_str,_args);
     }
 
+    public static String callEffectCloneBeanClickMoveEndRoundId(Struct _str, long... _args) {
+        callEffectCloneBeanClickMoveEndRound(_str, _args);
+        return getValMoveId(_str);
+    }
     public static String callEffectCloneBeanClickMoveSending(Struct _str, long... _args) {
         return navigateData(new EffectCloneBeanClickMoveSending(),_str,_args);
     }
 
+    public static String callEffectCloneBeanClickMoveSendingId(Struct _str, long... _args) {
+        callEffectCloneBeanClickMoveSending(_str, _args);
+        return getValMoveId(_str);
+    }
     public static Struct callEffectCloneBeanGetTrMovesBatonPass(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanGetTrMovesBatonPass(),_str,_args);
     }
@@ -399,5 +411,87 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     }
     protected static EffectBatonPass effBatonPass() {
         return Instances.newEffectBatonPass();
+    }
+    protected static Struct dispMoveEffClone() {
+        return dispMoveEffClone(feedDbMoveEffDataClone());
+    }
+    protected static Struct dispMoveEffClone(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectClone(pk_);
+        StringMap<String> mapping_ = mappingToEffectClone();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectClone(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_CLONE,_pk.beanEffectCloneBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectClone() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFCLONE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_CLONE);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataClone() {
+        FacadeGame facade_ = facade();
+        addEffClone(facade_);
+        StatusMoveData ba_ = moveSta(TargetChoice.TOUS_ADV);
+        ba_.getEffects().add(Instances.newEffectBatonPass());
+        facade_.getData().completeMembers(M_STA, ba_);
+        StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectTeamWhileSendFoe mu_ = Instances.newEffectTeamWhileSendFoe();
+        mu_.setDamageRateAgainstFoe(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        minv_.getEffects().add(mu_);
+        facade_.getData().completeMembers(M_WEA, minv_);
+        StatusMoveData ant_ = moveSta(TargetChoice.TOUS_ADV);
+        ant_.getEffects().add(Instances.newEffectEndRoundPositionTargetRelation());
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, ant_);
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveEffDataCloneBatonPass() {
+        FacadeGame facade_ = facade();
+        addEffClone(facade_);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
+        minv_.getEffects().add(Instances.newEffectBatonPass());
+        facade_.getData().completeMembers(M_WEA, minv_);
+        trs(facade_);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    protected static FacadeGame feedDbMoveEffDataCloneSending() {
+        FacadeGame facade_ = facade();
+        addEffClone(facade_);
+        StatusMoveData si_ = moveSta(TargetChoice.TOUS_ADV);
+        si_.getEffects().add(Instances.newEffectTeamWhileSendFoe());
+        facade_.getData().completeMembers(M_STA, si_);
+        StatusMoveData minv_ = moveSta(TargetChoice.TOUS_ADV);
+        EffectTeamWhileSendFoe mu_ = Instances.newEffectTeamWhileSendFoe();
+        mu_.setDamageRateAgainstFoe(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        minv_.getEffects().add(mu_);
+        facade_.getData().completeMembers(M_WEA, minv_);
+        trs(facade_);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffClone(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effClone());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectClone effClone() {
+        EffectClone cl_ = Instances.newEffectClone();
+        cl_.setHpRateClone(Rate.one());
+        return cl_;
     }
 }
