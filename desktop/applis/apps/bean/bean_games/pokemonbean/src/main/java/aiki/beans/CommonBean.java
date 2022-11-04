@@ -224,11 +224,11 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected String tryRedirectAb(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectAb(_name,_def),_key,_target);
     }
-    protected String tryRedirectIt(String _name,String _target) {
-        return tryRedirectIt(CST_ITEM,_name,_target,"");
+    protected String tryRedirectIt(String _name) {
+        return tryRedirectIt(CST_ITEM,_name,"","");
     }
     protected String tryRedirectIt(String _key, String _name, String _target, String _def) {
-        return AbsRedirect.tryRedirect(this,new RedirectIt(_name,_def),_key,_target);
+        return AbsRedirect.tryRedirect(this,new RedirectIt(_name,_def,getDataBase().getItem(_name)),_key,_target);
     }
     protected String tryRedirectMv(String _name) {
         return tryRedirectMv(CST_MOVE,_name, AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,"");

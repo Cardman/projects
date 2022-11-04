@@ -1,5 +1,7 @@
 package aiki.beans;
 
+import aiki.beans.items.AikiBeansItemsStd;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
@@ -38,7 +40,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect3() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DIRECT,AbsRedirect.tryRedirect(redirectIt(I_ITEM), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,AbsRedirect.tryRedirect(redirectIt(I_ITEM,d_.getData()), KEY, DIRECT,d_.getData(), forms_));
         assertEq(I_ITEM, value(forms_));
     }
 
@@ -46,7 +48,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void redirect4() {
         FacadeGame d_ = feedDbBase();
         StringMapObject forms_ = new StringMapObject();
-        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectIt(NULL_REF), KEY, DIRECT,d_.getData(), forms_));
+        assertEq(DEF_DIR,AbsRedirect.tryRedirect(redirectIt(NULL_REF,d_.getData()), KEY, DIRECT,d_.getData(), forms_));
         assertEq("", StringUtil.nullToEmpty(value(forms_)));
     }
 
@@ -142,8 +144,8 @@ public final class CommonBeanTest extends InitDbWelcome {
         return new RedirectAb(_key, DEF_DIR);
     }
 
-    private RedirectIt redirectIt(String _key) {
-        return new RedirectIt(_key, DEF_DIR);
+    private RedirectIt redirectIt(String _key, DataBase _db) {
+        return new RedirectIt(_key, DEF_DIR,_db.getItem(_key));
     }
 
     private RedirectMv redirectMv(String _key) {

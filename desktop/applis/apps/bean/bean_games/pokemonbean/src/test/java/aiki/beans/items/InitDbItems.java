@@ -3,8 +3,10 @@ package aiki.beans.items;
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.dto.*;
+import aiki.beans.moves.MovesBeanSearch;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
 import aiki.fight.items.Boost;
@@ -17,6 +19,7 @@ import aiki.fight.util.StatisticPokemon;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.IdMap;
@@ -25,13 +28,34 @@ import code.util.StringMap;
 import code.util.core.BoolVal;
 
 public abstract class InitDbItems extends InitDbConstr {
+
+    public static final String B_NO = "B_NO";
+    public static final String B_YES = "B_YES";
+    protected static final String MAX_RAI = "AAABAACP";
+    protected static final String MAX_RAI2 = "AAABAACQ";
+
+    protected static final String CI_BALL_TR = "CI_BALL_TR";
+    protected static final String CI_BERRY_TR = "CI_BERRY_TR";
+    protected static final String CI_BOOST_TR = "CI_BOOST_TR";
+    protected static final String CI_EVO_ITEM_TR = "CI_EVO_ITEM_TR";
+    protected static final String CI_EVO_STONE_TR = "CI_EVO_STONE_TR";
+    protected static final String CI_FOSSIL_TR = "CI_FOSSIL_TR";
+    protected static final String CI_HEAL_TR = "CI_HEAL_TR";
+    protected static final String CI_HEAL_HP_STATUS_TR = "CI_HEAL_HP_STATUS_TR";
+    protected static final String CI_HEAL_HP_TR = "CI_HEAL_HP_TR";
+    protected static final String CI_HEAL_PP_TR = "CI_HEAL_PP_TR";
+    protected static final String CI_HEAL_STATUS_TR = "CI_HEAL_STATUS_TR";
+    protected static final String CI_ITEMBATTLE_TR = "CI_ITEMBATTLE_TR";
+    protected static final String CI_REPEL_TR = "CI_REPEL_TR";
+    protected static final String CI_SELLING_TR = "CI_SELLING_TR";
+
     protected static final String I_BALL_TR = "I_BALL_TR";
     protected static final String I_BERRY_TR = "I_BERRY_TR";
     protected static final String I_BOOST_TR = "I_BOOST_TR";
     protected static final String I_EVO_ITEM_TR = "I_EVO_ITEM_TR";
     protected static final String I_EVO_STONE_TR = "I_EVO_STONE_TR";
     protected static final String I_FOSSIL_TR = "I_FOSSIL_TR";
-    protected static final String I_HEAL_TR = "I_HEA_TR";
+    protected static final String I_HEAL_TR = "I_HEAL_TR";
     protected static final String I_HEAL_HP_STATUS_TR = "I_HEAL_HP_STATUS_TR";
     protected static final String I_HEAL_HP_TR = "I_HEAL_HP_TR";
     protected static final String I_HEAL_PP_TR = "I_HEAL_PP_TR";
@@ -110,6 +134,9 @@ public abstract class InitDbItems extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
     }
 
+    protected static String navigateItemsSearch(Struct _moves) {
+        return navigateData(new ItemsBeanSearch(), _moves);
+    }
     protected static Struct dispAllItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllMItems(pk_);
@@ -126,7 +153,7 @@ public abstract class InitDbItems extends InitDbConstr {
     public static StringMap<Struct> beanToItems(PkData _pk) {
         StringMap<Struct> map_ = new StringMap<Struct>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
-        map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS,_pk.beanMovesBean(EN));
+        map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS,_pk.beanItemsBean(EN));
         return map_;
     }
     public static StringMap<String> mappingToItems() {
@@ -199,9 +226,42 @@ public abstract class InitDbItems extends InitDbConstr {
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
+        facade_.getData().getTranslatedBooleans().addEntry(EN,new IdMap<SelectedBoolean, String>());
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.NO, B_NO);
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES, B_YES);
+        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES_AND_NO," ");
+        facade_.getData().getTranslatedClassesDescriptions().addEntry(LANGUAGE,new StringMap<String>());
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_BALL).getItemType(),CI_BALL_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_BERRY).getItemType(),CI_BERRY_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_BOOST).getItemType(),CI_BOOST_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_ITEMBATTLE).getItemType(),CI_ITEMBATTLE_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_EVO_ITEM).getItemType(),CI_EVO_ITEM_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_EVO_STONE).getItemType(),CI_EVO_STONE_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_FOSSIL).getItemType(),CI_FOSSIL_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_HEAL).getItemType(),CI_HEAL_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_HEAL_HP).getItemType(),CI_HEAL_HP_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_HEAL_PP).getItemType(),CI_HEAL_PP_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_HEAL_HP_STATUS).getItemType(),CI_HEAL_HP_STATUS_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_HEAL_STATUS).getItemType(),CI_HEAL_STATUS_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_REPEL).getItemType(),CI_REPEL_TR);
+        facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_SELLING).getItemType(),CI_SELLING_TR);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
+        facade_.getData().getMiniItems().addEntry(I_BALL,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_BERRY,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_BOOST,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_ITEMBATTLE,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_EVO_ITEM,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_EVO_STONE,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_FOSSIL,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_HP,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_PP,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_HP_STATUS,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_HEAL_STATUS,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
+        facade_.getData().getMiniItems().addEntry(I_REPEL,BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        facade_.getData().getMiniItems().addEntry(I_SELLING,BaseSixtyFourUtil.getImageByString(MAX_RAI2));
         return facade_;
     }
 

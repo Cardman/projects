@@ -62,11 +62,12 @@ public class ItemsBean extends WithFilterBean {
 //        sortedItems_.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         getForms().putItems(CST_ITEMS_SET, sortedItems_);
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(CST_ITEM, sortedItems_.firstKey());
-            Item it_ = sortedItems_.firstValue();
-            return switchItem(it_);
+//            getForms().put(CST_ITEM, sortedItems_.firstKey());
+//            Item it_ = sortedItems_.firstValue();
+            return tryRedirectIt(sortedItems_.firstKey());
+//            return switchItem(it_);
         }
-        return CST_ITEMS;
+        return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
     public static String switchItem(Item _it) {
@@ -155,18 +156,20 @@ public class ItemsBean extends WithFilterBean {
         if (_it instanceof Repel) {
             return AikiBeansItemsStd.WEB_HTML_ITEMS_REPEL_HTML;
         }
-        if (_it instanceof SellingItem) {
-            return AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML;
-        }
-        return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEM_HTML;
+        return AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML;
+//        if (_it instanceof SellingItem) {
+//            return AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML;
+//        }
+//        return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEM_HTML;
     }
 
     public String clickLink(int _index) {
-        DataBase data_ = getDataBase();
+//        DataBase data_ = getDataBase();
         String item_ = getItems().get(_index).getName();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return switchItem(it_);
+        return tryRedirectIt(item_);
+//        getForms().put(CST_ITEM, item_);
+//        Item it_ = data_.getItem(item_);
+//        return switchItem(it_);
     }
     public String getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();
