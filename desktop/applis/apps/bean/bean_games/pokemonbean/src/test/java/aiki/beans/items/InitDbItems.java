@@ -1,11 +1,58 @@
 package aiki.beans.items;
 
-import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.dto.*;
+import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.fight.enums.Statistic;
+import aiki.fight.items.Berry;
+import aiki.fight.items.Boost;
+import aiki.fight.items.ItemForBattle;
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.fight.util.BoostHpRate;
+import aiki.fight.util.EfficiencyRate;
+import aiki.fight.util.StatisticPokemon;
+import aiki.game.fight.Fight;
+import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.IdMap;
+import code.util.StringList;
+import code.util.StringMap;
+import code.util.core.BoolVal;
 
 public abstract class InitDbItems extends InitDbConstr {
+    protected static final String I_BALL_TR = "I_BALL_TR";
+    protected static final String I_BERRY_TR = "I_BERRY_TR";
+    protected static final String I_BOOST_TR = "I_BOOST_TR";
+    protected static final String I_EVO_ITEM_TR = "I_EVO_ITEM_TR";
+    protected static final String I_EVO_STONE_TR = "I_EVO_STONE_TR";
+    protected static final String I_FOSSIL_TR = "I_FOSSIL_TR";
+    protected static final String I_HEAL_TR = "I_HEA_TR";
+    protected static final String I_HEAL_HP_STATUS_TR = "I_HEAL_HP_STATUS_TR";
+    protected static final String I_HEAL_HP_TR = "I_HEAL_HP_TR";
+    protected static final String I_HEAL_PP_TR = "I_HEAL_PP_TR";
+    protected static final String I_HEAL_STATUS_TR = "I_HEAL_STATUS_TR";
+    protected static final String I_ITEMBATTLE_TR = "I_ITEMBATTLE_TR";
+    protected static final String I_REPEL_TR = "I_REPEL_TR";
+    protected static final String I_SELLING_TR = "I_SELLING_TR";
+    protected static final String I_BALL = "I_BALL";
+    protected static final String I_BERRY = "I_BERRY";
+    protected static final String I_BOOST = "I_BOOST";
+    protected static final String I_EVO_ITEM = "I_EVO_ITEM";
+    protected static final String I_EVO_STONE = "I_EVO_STONE";
+    protected static final String I_FOSSIL = "I_FOSSIL";
+    protected static final String I_HEAL = "I_HEAL";
+    protected static final String I_HEAL_HP_STATUS = "I_HEAL_HP_STATUS";
+    protected static final String I_HEAL_HP = "I_HEAL_HP";
+    protected static final String I_HEAL_PP = "I_HEAL_PP";
+    protected static final String I_HEAL_STATUS = "I_HEAL_STATUS";
+    protected static final String I_ITEMBATTLE = "I_ITEMBATTLE";
+    protected static final String I_REPEL = "I_REPEL";
+    protected static final String I_SELLING = "I_SELLING";
 
     public static Struct callItemLineDescriptionClassGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemLineDescriptionClassGet(),_str,_args);
@@ -61,5 +108,172 @@ public abstract class InitDbItems extends InitDbConstr {
     }
     public static Struct callItemForBattleBeanGetEffectSending(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
+    }
+
+    protected static Struct dispAllItems(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        return dispAllMItems(pk_);
+    }
+
+    private static Struct dispAllMItems(PkData _pk) {
+        StringMap<Struct> all_ = beanToItems(_pk);
+        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        transit(_pk,new WelcomeBeanClickItems(),welcome_,moves_);
+        return moves_;
+    }
+    public static StringMap<Struct> beanToItems(PkData _pk) {
+        StringMap<Struct> map_ = new StringMap<Struct>();
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
+        map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS,_pk.beanMovesBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToItems() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML,AikiBeansItemsStd.BEAN_ITEMS);
+        return map_;
+    }
+
+    protected static FacadeGame feedDb() {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(M_DAM,moveDam(TargetChoice.ANY_FOE));
+        facade_.getData().completeMembers(I_BALL,ball());
+        facade_.getData().completeMembers(I_BERRY,berry());
+        facade_.getData().completeMembers(I_BOOST,boost());
+        facade_.getData().completeMembers(I_EVO_ITEM,Instances.newEvolvingItem());
+        facade_.getData().completeMembers(I_EVO_STONE,Instances.newEvolvingStone());
+        facade_.getData().completeMembers(I_FOSSIL,Instances.newFossil());
+        facade_.getData().completeMembers(I_HEAL,Instances.newHealingSimpleItem());
+        facade_.getData().completeMembers(I_HEAL_HP,Instances.newHealingHp());
+        facade_.getData().completeMembers(I_HEAL_HP_STATUS,Instances.newHealingHpStatus());
+        facade_.getData().completeMembers(I_HEAL_PP,Instances.newHealingPp());
+        facade_.getData().completeMembers(I_HEAL_STATUS,Instances.newHealingSimpleStatus());
+        facade_.getData().completeMembers(I_ITEMBATTLE,itemForBattle());
+        facade_.getData().completeMembers(I_REPEL,Instances.newRepel());
+        facade_.getData().completeMembers(I_SELLING,Instances.newSellingItem());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        facade_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedAbilities().getVal(EN).addEntry(A_ABILITY,A_ABILITY_TR);
+        facade_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE1, T_TYPE1_TR);
+        facade_.getData().getTranslatedCategories().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT, C_CAT1_TR);
+        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(AUTRE,C_CAT2_TR);
+        facade_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_BALL,I_BALL_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_BERRY,I_BERRY_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_BOOST,I_BOOST_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEMBATTLE,I_ITEMBATTLE_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_EVO_ITEM,I_EVO_ITEM_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_EVO_STONE,I_EVO_STONE_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_FOSSIL,I_FOSSIL_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL,I_HEAL_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_HP,I_HEAL_HP_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_PP,I_HEAL_PP_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_HP_STATUS,I_HEAL_HP_STATUS_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_STATUS,I_HEAL_STATUS_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_REPEL,I_REPEL_TR);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_SELLING,I_SELLING_TR);
+        facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_WEA,M_WEA_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VERY_BAD,M_DAM_VERY_BAD_TR);
+        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_POW,M_DAM_POW_TR);
+        facade_.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POKEMON,P_POKEMON_TR);
+        facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
+        facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
+        facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
+        facade_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,ST_ATT_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.DEFENSE,ST_DEF_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_ATTACK,ST_ATT_SPE_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
+        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static Boost boost() {
+        Boost b_ = Instances.newBoost();
+        b_.setWinPp(Rate.one());
+        b_.getHappiness().addEntry(I_BALL,(short)1);
+        b_.getEvs().addEntry(Statistic.SPEED,(short)1);
+        b_.setPrice(2);
+        return b_;
+    }
+
+    protected static Berry berry() {
+        return berry(Rate.one(), 1, Rate.one(), Rate.one(), NULL_REF, true, true);
+    }
+    protected static Berry berry(Rate _r, int _pp, Rate _hp, Rate _eff, String _cat, boolean _lawForAttackFirst, boolean _withoutFail) {
+        Berry b_ = Instances.newBerry();
+        b_.setHealHp(_r);
+        b_.setHealPp(_pp);
+        b_.setHealHpRate(_hp);
+        b_.setHealHpBySuperEffMove(_eff);
+        b_.setCategoryBoosting(_cat);
+        b_.setLawForAttackFirst(_lawForAttackFirst);
+        b_.setWithoutFail(_withoutFail);
+        b_.setMaxHpHealingHpRate(Rate.one());
+        b_.getBoostStatis().addEntry(Statistic.SPEED,(byte)1);
+        b_.getDamageRateRecoilFoe().addEntry(C_CAT,Rate.one());
+        b_.getHealStatus().add(S_STA_SIM);
+        b_.getMultFoesDamage().addEntry(T_TYPE1,new EfficiencyRate(Rate.one(),Rate.one()));
+        b_.getMultStat().addEntry(Statistic.SPEED,new BoostHpRate((byte)1,Rate.one()));
+        b_.setPrice(1);
+        return b_;
+    }
+    protected static ItemForBattle itemForBattle() {
+        return itemForBattle(true, true, true, true, true, true);
+    }
+    protected static ItemForBattle itemForBattle(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis) {
+        ItemForBattle b_ = Instances.newItemForBattle();
+        b_.setDamageRecoil(Rate.one());
+        b_.setMultWinningEv(Rate.one());
+        b_.setMultDrainedHp(Rate.one());
+        b_.setProtectAgainstKo(Rate.one());
+        b_.setProtectAgainstKoIfFullHp(Rate.one());
+        b_.setMultWinningHappiness(Rate.one());
+        b_.setMultDamage(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.setMultPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.setAgainstEvo(_againstEvo);
+        b_.setAttackLast(_attackLast);
+        b_.setAttacksSoon(_attacksSoon);
+        b_.setBoostExp(_boostExp);
+        b_.setCancelImmuType(_cancelImmuType);
+        b_.setImmuLowStatis(_immuLowStatis);
+        b_.getMultStatRank().addEntry(Statistic.SPEED,(byte)1);
+        b_.getWinEvFight().addEntry(Statistic.SPEED,(short)1);
+        b_.getMultStat().addEntry(Statistic.SPEED,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.getBoostStatisSuperEff().addEntry(Statistic.SPEED,(byte)1);
+        b_.getIncreasingMaxNbRoundGlobalMove().addEntry(M_DAM,(short)1);
+        b_.getIncreasingMaxNbRoundTeamMove().addEntry(M_DAM,(short)1);
+        b_.getIncreasingMaxNbRoundTrap().addEntry(M_DAM,(short)1);
+        b_.getBoostStatisTypes().addEntry(T_TYPE1,new IdMap<Statistic,Byte>());
+        b_.getBoostStatisTypes().getVal(T_TYPE1).addEntry(Statistic.SPEED,(byte)1);
+        b_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_POKEMON),(byte)1);
+        b_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE, LgInt.one());
+        b_.getImmuMoves().add(M_DAM);
+        b_.getImmuTypes().add(T_TYPE1);
+        b_.getImmuStatus().add(S_STA_SIM);
+        b_.getTypesPk().add(T_TYPE1);
+        b_.getSynchroStatus().add(S_STA_SIM);
+        b_.getHatching().add(P_POKEMON);
+        b_.getImmuWeather().add(M_DAM);
+        b_.getFailStatus().addEntry(S_STA_SIM,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        b_.setPrice(1);
+        return b_;
     }
 }
