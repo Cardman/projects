@@ -324,4 +324,19 @@ public final class ItemsBeanTest extends InitDbItems {
         assertEq(CI_BALL_TR,callItemLineDescriptionClassGet(elt(callItemsBeanItemsGet(bean_),0)));
         assertEq(1,callItemLinePriceGet(elt(callItemsBeanItemsGet(bean_),0)));
     }
+    @Test
+    public void clickLink() {
+        Struct bean_ = dispAllItems(feedDb());
+        navigateItemsSearch(bean_);
+        beforeDisplaying(bean_);
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,callItemsBeanClickLink(bean_,0));
+        assertEq(I_BALL,getValItemId(bean_));
+    }
+    @Test
+    public void getMiniImage() {
+        Struct bean_ = dispAllItems(feedDb());
+        navigateItemsSearch(bean_);
+        beforeDisplaying(bean_);
+        assertEq(MAX_RAI,callItemsBeanGetMiniImage(bean_,0));
+    }
 }

@@ -89,8 +89,8 @@ public abstract class InitDbItems extends InitDbConstr {
     public static Struct callItemLinePriceGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemLinePriceGet(),_str,_args);
     }
-    public static Struct callItemsBeanClickLink(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanClickLink(),_str,_args);
+    public static String callItemsBeanClickLink(Struct _str, long... _args) {
+        return navigateData(new ItemsBeanClickLink(),_str,_args);
     }
 
     public static Struct callItemsBeanGetMiniImage(Struct _str, long... _args) {
