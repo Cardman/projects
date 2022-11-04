@@ -24,10 +24,7 @@ public abstract class ItemBean extends CommonBean {
         translationsClasses_ = data_.getTranslatedClassesDescriptions().getVal(getLanguage());
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());
-        String name_ = getForms().getValStr(CST_ITEM);
-        if (name_ != null) {
-            name = name_;
-        }
+        name = getForms().getValStr(CST_ITEM);
         itemImage = BaseSixtyFourUtil.getStringByImage(data_.getMiniItems().getVal(name));
         displayName = translationsItems_.getVal(name);
         Item item_ = data_.getItem(name);
@@ -67,10 +64,6 @@ public abstract class ItemBean extends CommonBean {
 
     protected Item getItem() {
         DataBase data_ = getDataBase();
-        String name_ = getForms().getValStr(CST_ITEM);
-        if (name_ != null) {
-            return data_.getItem(name_);
-        }
         return data_.getItem(name);
     }
 
