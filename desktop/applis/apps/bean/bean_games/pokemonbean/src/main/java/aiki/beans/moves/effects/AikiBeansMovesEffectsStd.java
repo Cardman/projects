@@ -11,6 +11,7 @@ import code.util.CustList;
 public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT="effect";
     public static final String BEAN_EFFECT_ACCURACY="eff_accuracy";
+    public static final String BEAN_EFFECT_COPY_FIGHTER="eff_copyfighter";
     public static final String BEAN_EFFECT_COPY_MOVE="eff_copymove";
     public static final String BEAN_EFFECT_COUNTER_ATTACK="eff_counterattack";
     public static final String BEAN_EFFECT_DAMAGE="eff_damage";
@@ -28,6 +29,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_TEAMWHILESENDINGFOE="eff_teamwhilesendingfoe";
     public static final String WEB_HTML_MOVES_EFFECTS_EFF_HTML="web/html/moves/effects/eff.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML="web/html/moves/effects/effaccuracy.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML="web/html/moves/effects/effcopyfighter.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFCOPYMOVE_HTML="web/html/moves/effects/effcopymove.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFCOUNTERATTACK_HTML="web/html/moves/effects/effcounterattack.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML="web/html/moves/effects/effdamage.html";
