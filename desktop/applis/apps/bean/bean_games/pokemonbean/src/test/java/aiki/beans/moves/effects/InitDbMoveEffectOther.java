@@ -494,4 +494,100 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.setHpRateClone(Rate.one());
         return cl_;
     }
+    protected static Struct dispMoveEffCommonStatistics() {
+        return dispMoveEffCommonStatistics(feedDbMoveEffDataCommonStatistics());
+    }
+    protected static Struct dispMoveEffCommonStatistics(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectCommonStatistics(pk_);
+        StringMap<String> mapping_ = mappingToEffectCommonStatistics();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectCommonStatistics(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COMMONSTATISTICS,_pk.beanEffectCommonStatisticsBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectCommonStatistics() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFCOMMONSTATISTICS_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_COMMONSTATISTICS);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataCommonStatistics() {
+        FacadeGame facade_ = facade();
+        addEffCommonStatistics(facade_);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffCommonStatistics(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effCommonStatistics());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectCommonStatistics effCommonStatistics() {
+        EffectCommonStatistics cl_ = Instances.newEffectCommonStatistics();
+        cl_.getCommonValue().addEntry(Statistic.SPEED,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        return cl_;
+    }
+    protected static Struct dispMoveEffOrder(boolean _targetAttacksLast) {
+        return dispMoveEffOrder(feedDbMoveEffDataOrder(_targetAttacksLast));
+    }
+    protected static Struct dispMoveEffOrder(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectOrder(pk_);
+        StringMap<String> mapping_ = mappingToEffectOrder();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectOrder(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ORDER,_pk.beanEffectOrderBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectOrder() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFORDER_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_ORDER);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataOrder(boolean _targetAttacksLast) {
+        FacadeGame facade_ = facade();
+        addEffOrder(facade_, _targetAttacksLast);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_DAM_VERY_BAD, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffOrder(FacadeGame _facade, boolean _targetAttacksLast) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effOrder(_targetAttacksLast));
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectOrder effOrder(boolean _targetAttacksLast) {
+        EffectOrder cl_ = Instances.newEffectOrder();
+        cl_.setTargetAttacksLast(_targetAttacksLast);
+        return cl_;
+    }
 }
