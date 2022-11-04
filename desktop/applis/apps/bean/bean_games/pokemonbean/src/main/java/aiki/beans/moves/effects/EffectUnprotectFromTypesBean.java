@@ -77,8 +77,7 @@ public class EffectUnprotectFromTypesBean extends EffectBean {
     }
     public String clickMove(int _indexEffect, int _index) {
         String type_ = getDisableImmuFromMoves(_indexEffect).get(_index);
-        getForms().put(CST_MOVE, type_);
-        return CST_MOVE;
+        return tryRedirectMv(type_);
     }
     public String getTrDisableImmuMove(int _index) {
         DataBase data_ = getDataBase();

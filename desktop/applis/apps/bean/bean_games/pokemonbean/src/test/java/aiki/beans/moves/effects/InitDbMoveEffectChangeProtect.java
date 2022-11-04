@@ -5,6 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
+import aiki.fight.util.TypesDuo;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
@@ -16,8 +17,13 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         return BeanPokemonCommonTs.callLongs(new EffectUnprotectFromTypesBeanAttackTargetWithTypesGet(),_str,_args);
     }
 
-    public static Struct callEffectUnprotectFromTypesBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectUnprotectFromTypesBeanClickMove(),_str,_args);
+    public static String callEffectUnprotectFromTypesBeanClickMove(Struct _str, long... _args) {
+        return navigateData(new EffectUnprotectFromTypesBeanClickMove(),_str,_args);
+    }
+
+    public static String callEffectUnprotectFromTypesBeanClickMoveId(Struct _str, long... _args) {
+        callEffectUnprotectFromTypesBeanClickMove(_str, _args);
+        return getValMoveId(_str);
     }
 
     public static Struct callEffectUnprotectFromTypesBeanDisableImmuAgainstTypesGet(Struct _str, long... _args) {
@@ -132,6 +138,101 @@ public abstract class InitDbMoveEffectChangeProtect extends InitDbMoveEffect {
         e_.setProtTeamAgainstStatusMoves(_protTeamAgainstStatusMoves);
         e_.setProtTeamAgainstDamageMoves(_protTeamAgainstDamageMoves);
         e_.setProtTeamAgainstMultTargets(_protTeamAgainstMultTargets);
+        return e_;
+    }
+    protected static Struct dispMoveEffProtectFromTypes() {
+        return dispMoveEffProtectFromTypes(feedDbMoveEffDataProtectFromTypes());
+    }
+    protected static Struct dispMoveEffProtectFromTypes(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectProtectFromTypes(pk_);
+        StringMap<String> mapping_ = mappingToEffectProtectFromTypes();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectProtectFromTypes(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES,_pk.beanEffectProtectFromTypesBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectProtectFromTypes() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTFROMTYPES);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataProtectFromTypes() {
+        FacadeGame facade_ = facade();
+        addEffProtectFromTypes(facade_);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffProtectFromTypes(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effProtectFromTypes());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectProtectFromTypes effProtectFromTypes() {
+        EffectProtectFromTypes e_ = Instances.newEffectProtectFromTypes();
+        e_.getImmuAgainstTypes().add(T_TYPE1);
+        return e_;
+    }
+    protected static Struct dispMoveEffUnprotectFromTypes() {
+        return dispMoveEffUnprotectFromTypes(feedDbMoveEffDataUnprotectFromTypes());
+    }
+    protected static Struct dispMoveEffUnprotectFromTypes(FacadeGame _fac) {
+        PkData pk_ = pkDataByFacade(_fac);
+        StringMap<Struct> all_ = beanToEffectUnprotectFromTypes(pk_);
+        StringMap<String> mapping_ = mappingToEffectUnprotectFromTypes();
+        return transitEffect(0,0,pk_,all_,mapping_);
+    }
+    public static StringMap<Struct> beanToEffectUnprotectFromTypes(PkData _pk) {
+        StringMap<Struct> map_ = beanToEffect(_pk);
+        map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES,_pk.beanEffectUnprotectFromTypesBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToEffectUnprotectFromTypes() {
+        StringMap<String> map_ = mappingToEffect();
+        map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_UNPROTECTFROMTYPES);
+        return map_;
+    }
+    protected static FacadeGame feedDbMoveEffDataUnprotectFromTypes() {
+        FacadeGame facade_ = facade();
+        addEffUnprotectFromTypes(facade_);
+        facade_.getData().completeMembers(M_STA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(M_WEA, moveSta(TargetChoice.TOUS_ADV));
+        facade_.getData().completeMembers(I_ITEM,ball());
+        facade_.getData().completeMembers(S_STA_REL,staRel(""));
+        facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
+        facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
+        trs(facade_);
+        feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
+        feedHm(facade_.getData().getHm());
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+    private static void addEffUnprotectFromTypes(FacadeGame _facade) {
+        DamagingMoveData dam_ = Instances.newDamagingMoveData();
+        feed(dam_, TargetChoice.UNIQUE_IMPORTE, "1", SwitchType.NOTHING, 0, true, true, true, true, true, true, true, true, true, M_STA, M_WEA, 1, 1);
+        feed(dam_, true, true, true);
+        target(dam_, effUnprotectFromTypes());
+        _facade.getData().completeMembers(M_DAM, dam_);
+    }
+    protected static EffectUnprotectFromTypes effUnprotectFromTypes() {
+        EffectUnprotectFromTypes e_ = Instances.newEffectUnprotectFromTypes();
+        e_.getAttackTargetWithTypes().add(T_TYPE1);
+        e_.getDisableImmuAgainstTypes().add(T_TYPE1);
+        e_.getDisableImmuFromMoves().add(M_STA);
+        e_.getTypes().add(new TypesDuo(T_TYPE1,T_TYPE2));
         return e_;
     }
 }

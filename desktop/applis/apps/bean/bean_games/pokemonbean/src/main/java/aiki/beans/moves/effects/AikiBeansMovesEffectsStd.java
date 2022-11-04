@@ -20,6 +20,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_FULLHPRATE="eff_fullhprate";
     public static final String BEAN_EFFECT_GLOBAL="eff_global";
     public static final String BEAN_EFFECT_INVOKE="eff_invoke";
+    public static final String BEAN_EFFECT_PROTECTFROMTYPES="eff_protectfromtypes";
     public static final String BEAN_EFFECT_PROTECTION="eff_protection";
     public static final String BEAN_EFFECT_SWITCHMOVETYPES="eff_switchmovetypes";
     public static final String BEAN_EFFECT_SWITCHTYPES="eff_switchtypes";
@@ -27,6 +28,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_STATUS="eff_status";
     public static final String BEAN_EFFECT_TEAM="eff_team";
     public static final String BEAN_EFFECT_TEAMWHILESENDINGFOE="eff_teamwhilesendingfoe";
+    public static final String BEAN_EFFECT_UNPROTECTFROMTYPES="eff_unprotectfromtypes";
     public static final String WEB_HTML_MOVES_EFFECTS_EFF_HTML="web/html/moves/effects/eff.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFACCURACY_HTML="web/html/moves/effects/effaccuracy.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFCOPYFIGHTER_HTML="web/html/moves/effects/effcopyfighter.html";
@@ -38,6 +40,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML="web/html/moves/effects/efffullhprate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML="web/html/moves/effects/effglobal.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML="web/html/moves/effects/effinvoke.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTFROMTYPES_HTML="web/html/moves/effects/effprotectfromtypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML="web/html/moves/effects/effprotection.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML="web/html/moves/effects/effswitchmovetypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML="web/html/moves/effects/effswitchtypes.html";
@@ -45,6 +48,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSTATUS_HTML = "web/html/moves/effects/effstatus.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFTEAM_HTML = "web/html/moves/effects/effteam.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFTEAMWHILESENDINGFOE_HTML = "web/html/moves/effects/effteamwhilesendingfoe.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFUNPROTECTFROMTYPES_HTML = "web/html/moves/effects/effunprotectfromtypes.html";
     public static final String TYPE_EFFECT_ALLY_BEAN = "aiki.beans.moves.effects.EffectAllyBean";
     public static final String TYPE_EFFECT_BATON_PASS_BEAN = "aiki.beans.moves.effects.EffectBatonPassBean";
     public static final String TYPE_EFFECT_BEAN = "aiki.beans.moves.effects.EffectBean";
