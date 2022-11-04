@@ -152,8 +152,7 @@ public class EffectEndRoundBean extends CommonBean {
     public String clickItem(int _index) {
         DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(CST_ITEM, element_.getElement());
-        return CST_ITEM;
+        return tryRedirectIt(element_.getElement());
     }
     public String clickStatus(int _index) {
         DataBase data_ = getDataBase();
