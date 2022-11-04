@@ -25,8 +25,7 @@ public class EvolutionStoneBean extends EvolutionBean {
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         EvolutionStone evo_ = (EvolutionStone) pk_.getEvolutions().getVal(evolutions_.get(_index));
-        getForms().put(CST_ITEM,evo_.getStone());
-        return CST_EVO_STONE;
+        return tryRedirectIt(evo_.getStone());
     }
 
     public String getStone() {

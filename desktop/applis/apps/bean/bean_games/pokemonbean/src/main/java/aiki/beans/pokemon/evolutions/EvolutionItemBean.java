@@ -25,8 +25,7 @@ public class EvolutionItemBean extends EvolutionBean {
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         EvolutionItem evo_ = (EvolutionItem) pk_.getEvolutions().getVal(evolutions_.get(_index));
-        getForms().put(CST_ITEM,evo_.getItem());
-        return CST_EVO_ITEM;
+        return tryRedirectIt(evo_.getItem());
     }
 
     public String getItem() {

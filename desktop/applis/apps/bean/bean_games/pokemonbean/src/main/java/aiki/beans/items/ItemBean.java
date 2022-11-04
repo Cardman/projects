@@ -52,8 +52,7 @@ public abstract class ItemBean extends CommonBean {
         return getDataBase().getTranslatedItems().getVal(getLanguage()).getVal(happiness.getKey(_index));
     }
     public String clickHappiness(int _index) {
-        getForms().put(CST_ITEM, happiness.getKey(_index));
-        return AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML;
+        return tryRedirectIt(happiness.getKey(_index));
     }
 
     public DictionaryComparator<String,Short> getHappiness() {
