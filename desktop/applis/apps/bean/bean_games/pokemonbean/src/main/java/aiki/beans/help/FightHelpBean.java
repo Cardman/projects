@@ -3,7 +3,6 @@ package aiki.beans.help;
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorStringList;
-import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -3955,8 +3954,7 @@ public class FightHelpBean extends CommonBean {
         return translatedItems_.getVal(itemsTypesDef.get(_index));
     }
     public String clickItemsTypesDef(int _index) {
-        getForms().put(CST_ITEM, itemsTypesDef.get(_index));
-        return ItemsBean.switchItem(getDataBase().getItem(itemsTypesDef.get(_index)));
+        return tryRedirectIt(itemsTypesDef.get(_index));
     }
     public String getTrMovesTypesDefWeather(int _index) {
         DataBase data_ = getDataBase();

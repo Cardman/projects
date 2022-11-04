@@ -70,52 +70,6 @@ public class ItemsBean extends WithFilterBean {
         return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
-    public static String switchItem(Item _it) {
-        if (_it instanceof Ball) {
-            return CST_BALL;
-        }
-        if (_it instanceof Berry) {
-            return CST_BERRY;
-        }
-        if (_it instanceof Boost) {
-            return CST_BOOST;
-        }
-        if (_it instanceof EvolvingItem) {
-            return CST_EVOLVINGITEM;
-        }
-        if (_it instanceof EvolvingStone) {
-            return CST_EVOLVINGSTONE;
-        }
-        if (_it instanceof Fossil) {
-            return CST_FOSSIL;
-        }
-        if (_it instanceof HealingHpStatus) {
-            return CST_HEALINGHPSTATUS;
-        }
-        if (_it instanceof HealingStatus) {
-            return CST_HEALINGSTATUS;
-        }
-        if (_it instanceof HealingHp) {
-            return CST_HEALINGHP;
-        }
-        if (_it instanceof HealingPp) {
-            return CST_HEALINGPP;
-        }
-        if (_it instanceof HealingItem) {
-            return CST_HEALINGITEM;
-        }
-        if (_it instanceof ItemForBattle) {
-            return CST_ITEMFORBATTLE;
-        }
-        if (_it instanceof Repel) {
-            return CST_REPEL;
-        }
-        if (_it instanceof SellingItem) {
-            return CST_SELLINGITEM;
-        }
-        return CST_ITEM;
-    }
-
     public static String switchItemPage(Item _it) {
         if (_it instanceof Ball) {
             return AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML;

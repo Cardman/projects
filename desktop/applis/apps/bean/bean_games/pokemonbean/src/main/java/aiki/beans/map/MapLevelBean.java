@@ -1,9 +1,8 @@
 package aiki.beans.map;
 
 import aiki.beans.AbsLevelBean;
-import aiki.beans.items.ItemsBean;
+import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.db.DataBase;
-import aiki.fight.items.Item;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
@@ -62,7 +61,7 @@ public class MapLevelBean extends AbsLevelBean {
             if (place_ instanceof League && NumberUtil.eq(pl_, (((League) place_).getAccessCoords()).getNumberPlace()) && NumberUtil.eq(lev_, (((League) place_).getAccessCoords()).getLevel().getLevelIndex()) && Point.eq(pt_, (((League) place_).getAccessCoords()).getLevel().getPoint())) {
                 getForms().put(CST_LEVEL_MAP_INDEX, IndexConstants.FIRST_INDEX);
                 getForms().put(CST_PLACE_MAP_INDEX, p);
-                return CST_LEVEL;
+                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (p_ instanceof InitializedPlace) {
@@ -71,7 +70,7 @@ public class MapLevelBean extends AbsLevelBean {
                 Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
                 getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
                 getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
-                return CST_LEVEL;
+                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         return place(pt_, lev_, p_);
@@ -87,14 +86,14 @@ public class MapLevelBean extends AbsLevelBean {
                 Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
                 getForms().put(CST_LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
                 getForms().put(CST_PLACE_MAP_INDEX, coords_.getNumberPlace());
-                return CST_LEVEL;
+                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
             LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal((byte) _lev);
             if (level_.getLinksOtherLevels().contains(_pt)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(_pt).getCoords();
                 getForms().put(CST_LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
                 getForms().put(CST_PLACE_MAP_INDEX, coords_.getNumberPlace());
-                return CST_LEVEL;
+                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (_p instanceof League) {
@@ -104,7 +103,7 @@ public class MapLevelBean extends AbsLevelBean {
             }
             if (Point.eq(l_.getRooms().get(_lev).getTrainerCoords(), _pt)) {
                 getForms().put(CST_TRAINER, l_.getRooms().get(_lev).getTrainer());
-                return CST_TRAINER_ONE_FIGHT;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
         }
         if (_p instanceof City) {
@@ -114,7 +113,7 @@ public class MapLevelBean extends AbsLevelBean {
             }
             if (c_.getBuildings().contains(_pt)) {
                 getForms().put(CST_INSIDE, _pt);
-                return CST_LEVEL;
+                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         return campaign(_pt, (byte) _lev, _p);
@@ -129,7 +128,7 @@ public class MapLevelBean extends AbsLevelBean {
             getForms().put(CST_LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
             getForms().put(CST_PLACE_MAP_INDEX, coords_.getNumberPlace());
         }
-        return CST_LEVEL;
+        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     private String inside(Point _pt, City _c) {
@@ -137,17 +136,17 @@ public class MapLevelBean extends AbsLevelBean {
         Building b_ = _c.getBuildings().getVal(ptInside_);
         if (Point.eq(b_.getExitCity(), _pt)) {
             getForms().removeKey(CST_INSIDE);
-            return CST_LEVEL;
+            return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
         }
         if (b_ instanceof Gym) {
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(_pt)) {
                 getForms().put(CST_TRAINER, g_.getIndoor().getGymTrainers().getVal(_pt));
-                return CST_TRAINER_ONE_FIGHT;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), _pt)) {
                 getForms().put(CST_TRAINER, g_.getIndoor().getGymLeader());
-                return CST_TRAINER_ONE_FIGHT;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
         }
         if (b_ instanceof PokemonCenter) {
@@ -162,11 +161,11 @@ public class MapLevelBean extends AbsLevelBean {
             Seller seller_ = (Seller) pers_;
             if (!seller_.getItems().isEmpty()) {
                 getForms().put(CST_SELLER, seller_);
-                return CST_SELLER;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
             }
             if (!seller_.getTm().isEmpty()) {
                 getForms().put(CST_SELLER, seller_);
-                return CST_SELLER;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
             }
         }
         return DataBase.EMPTY_STRING;
@@ -181,14 +180,12 @@ public class MapLevelBean extends AbsLevelBean {
         if (l_.getDualFights().contains(_pt)) {
             getForms().put(CST_TRAINER, l_.getDualFights().getVal(_pt).getFoeTrainer());
             getForms().put(CST_ALLY, l_.getDualFights().getVal(_pt).getAlly());
-            return CST_DUAL;
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
         }
         DataBase data_ = getDataBase();
         if (l_.getItems().contains(_pt)) {
             String item_ = l_.getItems().getVal(_pt);
-            getForms().put(CST_ITEM, item_);
-            Item it_ = data_.getItem(item_);
-            return ItemsBean.switchItem(it_);
+            return tryRedirectIt(item_);
 //                if (it_ instanceof Ball) {
 //                    return CST_BALL;
 //                }
@@ -235,23 +232,21 @@ public class MapLevelBean extends AbsLevelBean {
         }
         if (l_.getTm().contains(_pt)) {
             Short tm_ = l_.getTm().getVal(_pt);
-            getForms().put(CST_MOVE, data_.getTm().getVal(tm_));
-            return CST_MOVE;
+            return tryRedirectMv(data_.getTm().getVal(tm_));
         }
         if (l_.getHm().contains(_pt)) {
             Short tm_ = l_.getHm().getVal(_pt);
-            getForms().put(CST_MOVE, data_.getHm().getVal(tm_));
-            return CST_MOVE;
+            return tryRedirectMv(data_.getHm().getVal(tm_));
         }
         if (l_.getCharacters().contains(_pt)) {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(_pt);
             if (char_ instanceof TrainerMultiFights) {
                 getForms().put(CST_TRAINER, (TrainerMultiFights)char_);
-                return CST_TRAINER_MULTI_FIGHT;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML;
             }
             if (char_ instanceof DealerItem) {
                 getForms().put(CST_DEALER, (DealerItem)char_);
-                return CST_DEALER;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DEALER_HTML;
             }
         }
         for (Point ptKey_: l_.getDualFights().getKeys()) {
@@ -259,12 +254,12 @@ public class MapLevelBean extends AbsLevelBean {
             if (Point.eq(d_.getPt(), _pt)) {
                 getForms().put(CST_TRAINER, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
                 getForms().put(CST_ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
-                return CST_DUAL;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
             }
         }
         if (l_.containsPokemon(_pt)) {
             getForms().put(CST_LEG_PK, l_.getPokemon(_pt));
-            return CST_LEG_PK;
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML;
         }
         return DataBase.EMPTY_STRING;
     }
@@ -286,7 +281,7 @@ public class MapLevelBean extends AbsLevelBean {
                 break;
             }
         }
-        return CST_LEVEL;
+        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     private void reinitForms() {
@@ -328,7 +323,7 @@ public class MapLevelBean extends AbsLevelBean {
                 break;
             }
         }
-        return CST_LEVEL;
+        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
     public String seeArea() {
         Point pt_ = getForms().getValPt(CST_CURRENT_TILE);
@@ -345,7 +340,7 @@ public class MapLevelBean extends AbsLevelBean {
         if (!app_.isVirtual()) {
             getForms().put(CST_AREA, app_);
         }
-        return CST_AREA;
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
     }
     public String clickTileOnMap(int _index) {
         Point pt_ = getTiles().getKey(_index);
@@ -406,7 +401,7 @@ public class MapLevelBean extends AbsLevelBean {
             propone(booleansOthers_);
             putDirs(booleansDir_, BoolVal.FALSE);
             putDirs(booleansDir_, BoolVal.TRUE);
-            return CST_LEVEL;
+            return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
         }
         return atMostOneDir(pt_, app_, p_);
     }
@@ -433,13 +428,13 @@ public class MapLevelBean extends AbsLevelBean {
                     Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
                     getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
                     getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
-                    return CST_LEVEL;
+                    return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
                 }
             }
         }
         if (_p instanceof Campaign && !_app.isVirtual()) {
             getForms().put(CST_AREA, _app);
-            return CST_AREA;
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
         }
         return DataBase.EMPTY_STRING;
     }

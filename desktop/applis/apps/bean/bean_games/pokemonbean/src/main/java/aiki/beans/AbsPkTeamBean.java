@@ -1,9 +1,7 @@
 package aiki.beans;
 
-import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.fight.items.Item;
 import aiki.map.pokemon.PkTrainer;
 import code.images.BaseSixtyFourUtil;
 import code.util.CustList;
@@ -83,13 +81,10 @@ public abstract class AbsPkTeamBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItem(CustList<PkTrainer> _list,int _index) {
-        DataBase data_ = getDataBase();
         PkTrainer pk_;
         pk_ = _list.get(_index);
         String item_ = pk_.getItem();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
     }
     public String getMove(int _index, int _moveIndex) {
         DataBase data_ = getDataBase();

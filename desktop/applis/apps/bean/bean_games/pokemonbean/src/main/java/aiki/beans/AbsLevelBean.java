@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -80,7 +81,7 @@ public abstract class AbsLevelBean extends CommonBean {
     }
     public String clickArea(int _index) {
         getForms().put(CST_AREA,getWildPokemonAreas().get(_index));
-        return CST_AREA;
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
     }
 
     public int getMapWidth() {

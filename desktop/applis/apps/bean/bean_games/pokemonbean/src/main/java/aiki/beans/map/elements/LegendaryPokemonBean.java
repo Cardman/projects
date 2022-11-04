@@ -1,10 +1,8 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.CommonBean;
-import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.fight.items.*;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import code.images.BaseSixtyFourUtil;
@@ -67,11 +65,8 @@ public class LegendaryPokemonBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItem() {
-        DataBase data_ = getDataBase();
         String item_ = pokemon.getItem();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }

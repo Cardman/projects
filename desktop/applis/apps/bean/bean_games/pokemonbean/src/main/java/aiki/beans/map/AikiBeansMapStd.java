@@ -9,6 +9,7 @@ import code.util.CustList;
 public final class AikiBeansMapStd{
     public static final String TYPE_MAP_BEAN = "aiki.beans.map.MapBean";
     public static final String TYPE_MAP_LEVEL_BEAN = "aiki.beans.map.MapLevelBean";
+    public static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
     private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String WITHOUT_TITLE = "withoutTitle";

@@ -1,10 +1,8 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.CommonBean;
-import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.fight.items.*;
 import aiki.map.characters.Seller;
 import code.util.StringList;
 import code.util.StringMap;
@@ -31,11 +29,8 @@ public class SellerBean extends CommonBean {
         return items_;
     }
     public String clickItem(int _index) {
-        DataBase data_ = getDataBase();
         String item_ = getItems().get(_index);
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }

@@ -11,6 +11,14 @@ public final class AikiBeansMapElementsStd{
     public static final String ELTS = "Elts";
     public static final String TYPE_AREA_BEAN = "aiki.beans.map.elements.AreaBean";
     public static final String TYPE_LEGENDARY_POKEMON_BEAN = "aiki.beans.map.elements.LegendaryPokemonBean";
+    public static final String WEB_HTML_MAP_ELEMENTS_AREA_HTML="web/html/map/elements/area.html";
+    public static final String WEB_HTML_MAP_ELEMENTS_DEALER_HTML="web/html/map/elements/dealer.html";
+    public static final String WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML="web/html/map/elements/dual_fight.html";
+    public static final String WEB_HTML_MAP_ELEMENTS_LEG_PK_HTML="web/html/map/elements/leg_pk.html";
+    public static final String WEB_HTML_MAP_ELEMENTS_SELLER_HTML="web/html/map/elements/seller.html";
+    public static final String WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML="web/html/map/elements/trainer_multi_fight.html";
+    public static final String WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML="web/html/map/elements/trainer_one_fight.html";
+
     private static final String GET_IMAGE = "getImage";
     private static final String CLICK_NAME = "clickName";
     private static final String GET_NAME = "getName";

@@ -1,10 +1,8 @@
 package aiki.beans.map.elements;
 
 import aiki.beans.CommonBean;
-import aiki.beans.items.ItemsBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
-import aiki.fight.items.*;
 import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.Pokemon;
 import aiki.map.pokemon.enums.Gender;
@@ -79,13 +77,10 @@ public class AreaBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItem(int _index) {
-        DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String item_ = pk_.getItem();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
@@ -209,13 +204,10 @@ public class AreaBean extends CommonBean {
         return translationsItems_.getVal(item_);
     }
     public String clickItemFishing(int _index) {
-        DataBase data_ = getDataBase();
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String item_ = pk_.getItem();
-        getForms().put(CST_ITEM, item_);
-        Item it_ = data_.getItem(item_);
-        return ItemsBean.switchItem(it_);
+        return tryRedirectIt(item_);
 //        if (it_ instanceof Ball) {
 //            return CST_BALL;
 //        }
