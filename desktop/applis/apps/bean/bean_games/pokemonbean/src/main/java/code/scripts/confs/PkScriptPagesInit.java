@@ -166,7 +166,7 @@ private static final String EFF_MULTSUFFEREDMOVEPOWER="eff_multsufferedmovepower
 private static final String EFF_MULTUSEDMOVEPOWER="eff_multusedmovepower";
 private static final String EFF_ORDER="eff_order";
 private static final String EFF_PROTECTFROMTYPES="eff_protectfromtypes";
-private static final String EFF_PROTECTION="eff_protection";
+//private static final String EFF_PROTECTION="eff_protection";
 private static final String EFF_REMAINEDHPRATE="eff_remainedhprate";
 private static final String EFF_RESTRICTION="eff_restriction";
 //private static final String EFF_STATIS="eff_statis";
@@ -645,7 +645,7 @@ private static final char NAV_SEP='.';
         NavBuilder.buildBeans(beans_,AikiBeansMovesEffectsStd.BEAN_EFFECT_INVOKE,AIKI_BEANS_MOVES_EFFECTS_EFFECT_INVOKE_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHMOVETYPES,AIKI_BEANS_MOVES_EFFECTS_EFFECT_SWITCH_MOVE_TYPES_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK,AIKI_BEANS_MOVES_EFFECTS_EFFECT_COUNTER_ATTACK_BEAN);
-        NavBuilder.buildBeans(beans_,EFF_PROTECTION,AIKI_BEANS_MOVES_EFFECTS_EFFECT_PROTECTION_BEAN);
+        NavBuilder.buildBeans(beans_,AikiBeansMovesEffectsStd.BEAN_EFFECT_PROTECTION,AIKI_BEANS_MOVES_EFFECTS_EFFECT_PROTECTION_BEAN);
         NavBuilder.buildBeans(beans_,EFF_ACCURACY,AIKI_BEANS_MOVES_EFFECTS_EFFECT_BEAN);
         NavBuilder.buildBeans(beans_,EFF_COPYFIGHTER,AIKI_BEANS_MOVES_EFFECTS_EFFECT_COPY_FIGHTER_BEAN);
         NavBuilder.buildBeans(beans_,EFF_PROTECTFROMTYPES,AIKI_BEANS_MOVES_EFFECTS_EFFECT_PROTECT_FROM_TYPES_BEAN);

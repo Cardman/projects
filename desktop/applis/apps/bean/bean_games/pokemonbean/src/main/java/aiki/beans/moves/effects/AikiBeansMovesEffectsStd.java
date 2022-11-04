@@ -18,6 +18,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String BEAN_EFFECT_FULLHPRATE="eff_fullhprate";
     public static final String BEAN_EFFECT_GLOBAL="eff_global";
     public static final String BEAN_EFFECT_INVOKE="eff_invoke";
+    public static final String BEAN_EFFECT_PROTECTION="eff_protection";
     public static final String BEAN_EFFECT_SWITCHMOVETYPES="eff_switchmovetypes";
     public static final String BEAN_EFFECT_SWITCHTYPES="eff_switchtypes";
     public static final String BEAN_EFFECT_STATIS="eff_statis";
@@ -33,6 +34,7 @@ public final class AikiBeansMovesEffectsStd{
     public static final String WEB_HTML_MOVES_EFFECTS_EFFFULLHPRATE_HTML="web/html/moves/effects/efffullhprate.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFGLOBAL_HTML="web/html/moves/effects/effglobal.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFINVOKE_HTML="web/html/moves/effects/effinvoke.html";
+    public static final String WEB_HTML_MOVES_EFFECTS_EFFPROTECTION_HTML="web/html/moves/effects/effprotection.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHMOVETYPES_HTML="web/html/moves/effects/effswitchmovetypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSWITCHTYPES_HTML="web/html/moves/effects/effswitchtypes.html";
     public static final String WEB_HTML_MOVES_EFFECTS_EFFSTATIS_HTML = "web/html/moves/effects/effstatis.html";
