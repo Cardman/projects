@@ -3,6 +3,8 @@ package aiki.beans.items;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.facade.FacadeGame;
+import aiki.fight.items.HealingItem;
+import aiki.fight.items.HealingPp;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
@@ -57,9 +59,13 @@ public abstract class InitDbItem extends InitDbItems{
     protected static Struct dispLine(FacadeGame _fac, String _key) {
         PkData pk_ = pkDataByFacade(_fac);
         StringMap<Struct> all_ = beanToItemSample(pk_);
-        Struct res_ = transitToAllItems(pk_, all_, 0, _key);
+        return dispLine(_key, pk_, all_);
+    }
+
+    protected static Struct dispLine(String _key, PkData _pk, StringMap<Struct> _all) {
+        Struct res_ = transitToAllItems(_pk, _all, 0, _key);
         callItemBeanItemBeanGet(res_);
-        callItemBeanNameSet(all_.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
+        callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;
     }
 
@@ -86,5 +92,22 @@ public abstract class InitDbItem extends InitDbItems{
         facade_.getData().getMiniItems().addEntry(I_BALL, BaseSixtyFourUtil.getImageByString(MAX_RAI2));
         facade_.getData().getMiniItems().addEntry(I_BOOST, BaseSixtyFourUtil.getImageByString(MAX_RAI));
         return facade_;
+    }
+
+    protected static HealingPp ppItem(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
+        HealingPp h_ = Instances.newHealingPp();
+        h_.setHealingMoveFullpp(_healingMoveFullpp);
+        h_.setHealingAllMovesPp(_healingAllMovesPp);
+        h_.setHealingAllMovesFullpp(_healingAllMovesFullpp);
+        h_.setHealedMovePp(_healedMovePp);
+        h_.getHappiness().addEntry(I_BALL,(short)1);
+        h_.getHappiness().addEntry(I_BOOST,(short)2);
+        return h_;
+    }
+
+    protected static HealingItem healItem(boolean _healingMoveFullpp) {
+        HealingItem h_ = Instances.newHealingSimpleItem();
+        h_.setHealingTeam(_healingMoveFullpp);
+        return h_;
     }
 }
