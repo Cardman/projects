@@ -2,7 +2,7 @@ package aiki.beans.items;
 
 import org.junit.Test;
 
-public final class HealingPpBeanTest extends InitDbItemOther {
+public final class HealingPpBeanTest extends InitDbHealingPp {
     @Test
     public void getHappiness1() {
         assertSizeEq(2,callHealingItemBeanHappinessGet(ppDb(true,true,1,1)));

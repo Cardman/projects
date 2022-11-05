@@ -2,13 +2,13 @@ package aiki.beans.items;
 
 import org.junit.Test;
 
-public final class HealingItemBeanTest extends InitDbItemOther {
+public final class HealingItemBeanTest extends InitDbHealing {
     @Test
     public void getHealingTeam1() {
-        assertTrue(callHealingItemBeanHealingTeamGet(ppSimple(true)));
+        assertTrue(callHealingItemBeanHealingTeamGet(healSimple(true)));
     }
     @Test
     public void getHealingTeam2() {
-        assertFalse(callHealingItemBeanHealingTeamGet(ppSimple(false)));
+        assertFalse(callHealingItemBeanHealingTeamGet(healSimple(false)));
     }
 }
