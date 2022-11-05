@@ -3,7 +3,7 @@ package aiki.beans.items;
 import code.maths.Rate;
 import org.junit.Test;
 
-public final class BoostBeanTest extends InitDbItemOther {
+public final class BoostBeanTest extends InitDbBoost {
     @Test
     public void getHappiness1() {
         assertSizeEq(2,callBoostBeanHappinessGet(boostDb()));
