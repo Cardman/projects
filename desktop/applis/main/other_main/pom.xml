@@ -79,11 +79,6 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>infos</groupId>
-			<artifactId>infos</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			<groupId>other_fact</groupId>
 			<artifactId>other_fact</artifactId>
 			<version>1.0-SNAPSHOT</version>

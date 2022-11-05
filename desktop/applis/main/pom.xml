@@ -12,10 +12,10 @@
 	<artifactId>main</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>infos</module>
 		<module>def_main</module>
 		<module>other_main</module>
 		<module>standalones</module>
 		<module>young</module>
+		<module>infos</module>
 	</modules>
 </project>
