@@ -9,7 +9,7 @@ import code.sml.Element;
 
 public final class BeanCustLgNamesImpl extends TestedBeanCustLgNames {
     public BeanCustLgNamesImpl() {
-        super(new DefaultGenerator());
+        super(DefaultGenerator.oneElt());
     }
 
     @Override

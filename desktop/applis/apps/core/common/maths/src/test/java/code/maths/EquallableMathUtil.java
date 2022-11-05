@@ -3,6 +3,8 @@ package code.maths;
 import code.maths.geo.*;
 import code.maths.litteral.MathType;
 import code.maths.litteral.MbArgument;
+import code.maths.litteraladv.MaNumParsers;
+import code.maths.litteraladv.MaRateStruct;
 import code.maths.litteraladv.MaStruct;
 import code.maths.matrix.Diagonal;
 import code.maths.montecarlo.CustomSeedGene;
@@ -42,6 +44,14 @@ public abstract class EquallableMathUtil {
 
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
+    }
+
+    public static void assertEqRate(MaRateStruct _o, MaRateStruct _t) {
+        Assert.assertTrue(MaNumParsers.eqNb(_o,_t));
+    }
+
+    public static void assertNotEq(MaRateStruct _o, MaRateStruct _t) {
+        Assert.assertFalse(MaNumParsers.eqNb(_o,_t));
     }
     public static void assertSame(RatePointThreeDims _expected, RatePointThreeDims _result) {
         Assert.assertSame(_expected, _result);

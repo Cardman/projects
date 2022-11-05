@@ -10,7 +10,7 @@ import code.sml.Element;
 public final class BeanCustLgNamesFailImpl extends TestedBeanCustLgNames {
 
     public BeanCustLgNamesFailImpl() {
-        super(new DefaultGenerator());
+        super(DefaultGenerator.oneElt());
     }
 
     @Override

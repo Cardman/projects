@@ -51,7 +51,7 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
     }
 
     private static DataBase newData() {
-        return new DataBase(new DefaultGenerator());
+        return new DataBase(DefaultGenerator.oneElt());
     }
 
     @Test

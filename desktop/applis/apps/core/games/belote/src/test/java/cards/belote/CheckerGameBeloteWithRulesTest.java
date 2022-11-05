@@ -191,7 +191,7 @@ public class CheckerGameBeloteWithRulesTest extends EquallableBeloteUtil {
     }
 
     private static void initDonneLoc(RulesBelote _rules, DealBelote _deal) {
-        _deal.initDonne(_rules, new DisplayingBelote(), new DefaultGenerator());
+        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt());
     }
 
     @Test

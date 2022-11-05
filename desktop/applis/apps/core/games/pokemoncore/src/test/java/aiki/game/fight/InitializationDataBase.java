@@ -983,7 +983,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         return data_;
     }
     protected static DataBase coreDataBase() {
-        DataBase data_ = new DataBase(new DefaultGenerator());
+        DataBase data_ = new DataBase(DefaultGenerator.oneElt());
         data_.setLanguage(LANGUAGE);
         data_.setLanguages(new StringList(LANGUAGE));
         data_.initializeMembers();

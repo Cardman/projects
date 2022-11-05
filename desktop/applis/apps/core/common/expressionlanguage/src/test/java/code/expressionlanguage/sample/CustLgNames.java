@@ -16,7 +16,7 @@ import code.maths.montecarlo.DefaultGenerator;
 public final class CustLgNames extends LgNames implements LoggableLgNames {
 
     public CustLgNames() {
-        super(new DefaultGenerator());
+        super(DefaultGenerator.oneElt());
     }
 
     @Override

@@ -34,7 +34,7 @@ public final class GamePresidentSimulateTest extends EquallablePresidentUtil {
     }
 
     private static void simulateLoc(GamePresident _g, AbstractSimulatingPresident _s) {
-        _g.simulate(2,_s, new DefaultGenerator());
+        _g.simulate(2,_s, DefaultGenerator.oneElt());
     }
 
     static CustList<HandPresident> deal1() {

@@ -10,7 +10,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         RulesPresident rules_ = new RulesPresident();
         rules_.getCommon().setMixedCards(MixCardsChoice.NEVER);
         DealPresident donne_=new DealPresident(0,HandPresident.stack(1));
-        donne_.setRandomDealer(rules_, new DefaultGenerator());
+        donne_.setRandomDealer(rules_, DefaultGenerator.oneElt());
         initDonneLoc(rules_, donne_);
         assertEq(4,donne_.nombreDeMains());
         assertEq(13,donne_.hand((byte)0).total());
@@ -23,7 +23,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         RulesPresident rules_ = new RulesPresident();
         rules_.getCommon().setMixedCards(MixCardsChoice.EACH_DEAL);
         DealPresident donne_=new DealPresident(0,HandPresident.stack(1));
-        donne_.setRandomDealer(rules_, new DefaultGenerator());
+        donne_.setRandomDealer(rules_, DefaultGenerator.oneElt());
         initDonneLoc(rules_, donne_);
         assertEq(4,donne_.nombreDeMains());
         assertEq(13,donne_.hand((byte)0).total());
@@ -33,7 +33,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
     }
 
     private static void initDonneLoc(RulesPresident _rules, DealPresident _donne) {
-        _donne.initDonne(_rules, new DefaultGenerator());
+        _donne.initDonne(_rules, DefaultGenerator.oneElt());
     }
 
     @Test
@@ -41,7 +41,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         RulesPresident rules_ = new RulesPresident();
         rules_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         DealPresident donne_=new DealPresident(0,HandPresident.stack(1));
-        donne_.setRandomDealer(rules_, new DefaultGenerator());
+        donne_.setRandomDealer(rules_, DefaultGenerator.oneElt());
         initDonneLoc(rules_, donne_);
         assertEq(4,donne_.nombreDeMains());
         assertEq(13,donne_.hand((byte)0).total());
@@ -54,7 +54,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         RulesPresident rules_ = new RulesPresident();
         rules_.getCommon().setMixedCards(MixCardsChoice.EACH_LAUNCHING);
         DealPresident donne_=new DealPresident(1,HandPresident.stack(1));
-        donne_.setRandomDealer(rules_, new DefaultGenerator());
+        donne_.setRandomDealer(rules_, DefaultGenerator.oneElt());
         initDonneLoc(rules_, donne_);
         assertEq(4,donne_.nombreDeMains());
         assertEq(13,donne_.hand((byte)0).total());
@@ -67,7 +67,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         RulesPresident rules_ = new RulesPresident();
         rules_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         DealPresident donne_=new DealPresident(0,HandPresident.stack(1));
-        donne_.setRandomDealer(rules_, new DefaultGenerator());
+        donne_.setRandomDealer(rules_, DefaultGenerator.oneElt());
         initDonneLoc(rules_, donne_);
         assertEq(4,donne_.nombreDeMains());
         assertEq(13,donne_.hand((byte)0).total());
@@ -80,7 +80,7 @@ public final class DealPresidentTest extends EquallablePresidentUtil {
         RulesPresident rules_ = new RulesPresident();
         rules_.getCommon().setMixedCards(MixCardsChoice.ONCE_ONLY);
         DealPresident donne_=new DealPresident(1,HandPresident.stack(1));
-        donne_.setRandomDealer(rules_, new DefaultGenerator());
+        donne_.setRandomDealer(rules_, DefaultGenerator.oneElt());
         initDonneLoc(rules_, donne_);
         assertEq(4,donne_.nombreDeMains());
         assertEq(13,donne_.hand((byte)0).total());

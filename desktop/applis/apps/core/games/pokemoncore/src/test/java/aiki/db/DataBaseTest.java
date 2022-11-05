@@ -184,7 +184,7 @@ public class DataBaseTest extends EquallablePkUtil {
     }
 
     private static DataBase newData() {
-        return new DataBase(new DefaultGenerator());
+        return new DataBase(DefaultGenerator.oneElt());
     }
 
     @Test

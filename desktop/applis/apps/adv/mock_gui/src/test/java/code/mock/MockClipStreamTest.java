@@ -1,11 +1,12 @@
 package code.mock;
 
+import code.maths.montecarlo.*;
 import org.junit.Test;
 
 public final class MockClipStreamTest extends EquallableMockGuiUtil {
     @Test
     public void c1() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(new double[1]), 152351, true);
+        MockClipStream c_ = new MockClipStream(DefaultGenerator.sizeOne(), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         assertTrue(c_.isRunning());
@@ -16,7 +17,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c2() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(new double[1]), 152351, true);
+        MockClipStream c_ = new MockClipStream(DefaultGenerator.sizeOne(), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -28,7 +29,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c3() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(new double[1]), 152351, true);
+        MockClipStream c_ = new MockClipStream(DefaultGenerator.sizeOne(), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -40,7 +41,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c4() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.75)), 152351, true);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.75), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -53,7 +54,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c5() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.25)), 152351, true);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.25), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -66,7 +67,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c6() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(new double[1]), 152351, false);
+        MockClipStream c_ = new MockClipStream(DefaultGenerator.sizeOne(), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         assertTrue(c_.isRunning());
@@ -77,7 +78,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c7() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(new double[1]), 152351, false);
+        MockClipStream c_ = new MockClipStream(DefaultGenerator.sizeOne(), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -89,7 +90,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c8() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(new double[1]), 152351, false);
+        MockClipStream c_ = new MockClipStream(DefaultGenerator.sizeOne(), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -101,7 +102,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c9() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.75)), 152351, false);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.75), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -114,7 +115,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c10() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.25)), 152351, false);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.25), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.stop(120);
@@ -127,7 +128,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c11() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.25)), 152351, true);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.25), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.setPosition(120);
@@ -135,7 +136,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c12() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.25)), 152351, false);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.25), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.setPosition(120);
@@ -143,7 +144,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c13() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.25)), 152351, true);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.25), 152351, true);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.setPosition(152351);
@@ -154,7 +155,7 @@ public final class MockClipStreamTest extends EquallableMockGuiUtil {
     }
     @Test
     public void c14() {
-        MockClipStream c_ = new MockClipStream(new MockGenerator(dbs(0.25)), 152351, false);
+        MockClipStream c_ = new MockClipStream(new DefaultGenerator(0.25), 152351, false);
         MockLineShortListenable list_ = new MockLineShortListenable();
         c_.addLineListener(list_);
         c_.setPosition(152351);

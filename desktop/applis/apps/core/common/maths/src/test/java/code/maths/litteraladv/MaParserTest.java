@@ -3843,9 +3843,9 @@ public final class MaParserTest extends EquallableMathUtil {
 //    }
     @Test
     public void test(){
-        assertTrue(MaNumParsers.eqNb(null,null));
-        assertTrue(!MaNumParsers.eqNb(null,new MaRateStruct(Rate.zero())));
-        assertTrue(!MaNumParsers.eqNb(new MaRateStruct(Rate.zero()),null));
+        assertEqRate(null, null);
+        assertNotEq(null, new MaRateStruct(Rate.zero()));
+        assertNotEq(new MaRateStruct(Rate.zero()), null);
         assertNull(MaNumParsers.tryGet(new CustList<MaOperationNode>(),0));
         MaStackOperators m_ = new MaStackOperators();
         m_.add(0,' ');
@@ -3922,6 +3922,6 @@ public final class MaParserTest extends EquallableMathUtil {
     }
 
     private static String processEl(String _el, CustList<Replacement> _conf) {
-        return MaParser.processEl(new DefaultGenerator(),new CustomSeedGene(),_el, _conf);
+        return MaParser.processEl(DefaultGenerator.oneElt(),new CustomSeedGene(),_el, _conf);
     }
 }

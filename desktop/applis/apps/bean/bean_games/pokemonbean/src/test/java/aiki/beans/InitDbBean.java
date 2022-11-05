@@ -841,7 +841,7 @@ public abstract class InitDbBean extends BeanPokemonCommonTs {
     }
 
     protected static DataBase newData() {
-        return new DataBase(new DefaultGenerator());
+        return new DataBase(DefaultGenerator.oneElt());
     }
 
     private static void initPlaces(DataBase _data) {

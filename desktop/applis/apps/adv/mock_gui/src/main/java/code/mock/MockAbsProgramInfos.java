@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.*;
 import code.gui.initialize.*;
+import code.maths.montecarlo.*;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
@@ -22,9 +23,9 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     private int screenHeight;
 
     protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
-        this(_h,_t,new MockGenerator(_se.getSe()),_se,_cust,_set);
+        this(_h,_t,new DefaultGenerator(_se.getSe()),_se,_cust,_set);
     }
-    private MockAbsProgramInfos(String _h, String _t, MockGenerator _gene, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
+    private MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
         super(_h,_t,_gene,new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),new MockAdvGraphicListGenerator(_cust),
                 new CompoundedInitParts(new MockThreadFactory(_gene, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory(),new MockInterceptor()));
         mockFileSet = _set;

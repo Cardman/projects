@@ -157,18 +157,18 @@ public class MonteCarloTest extends EquallableMathUtil {
 
     @Test
     public void randomLong() {
-        assertEq(-1, NumberUtil.signum(MonteCarloUtil.randomLong(2, new DefaultGenerator()) - 2));
+        assertEq(-1, NumberUtil.signum(MonteCarloUtil.randomLong(2, DefaultGenerator.oneElt()) - 2));
     }
 
     @Test
     public void randomLgInt() {
-        assertEq(-1, NumberUtil.signum(MonteCarloUtil.randomLgInt(new LgInt(2), new DefaultGenerator()).ll() - 2));
+        assertEq(-1, NumberUtil.signum(MonteCarloUtil.randomLgInt(new LgInt(2), DefaultGenerator.oneElt()).ll() - 2));
     }
     @Test
     public void editNumber1Test() {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(1));
-        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(2, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -260,7 +260,7 @@ public class MonteCarloTest extends EquallableMathUtil {
     public void editNumber9Test() {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(3L, new LgInt(5));
-        assertEq(3, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(3, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -268,7 +268,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addEvent(2L, new LgInt(0));
         law_.addEvent(3L, new LgInt(5));
-        assertEq(3, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(3, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -276,7 +276,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addQuickEvent(2L, new LgInt(1));
         law_.addQuickEvent(2L, new LgInt(1));
-        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(2, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -284,7 +284,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addQuickEvent(2L, new LgInt(1));
         law_.addQuickEvent(2L, new LgInt(2));
-        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(2, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -292,7 +292,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloNb law_ = new MonteCarloNb();
         law_.addQuickEvent(2L, new LgInt(2));
         law_.addQuickEvent(2L, new LgInt(1));
-        assertEq(2, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(2, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -418,7 +418,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         MonteCarloList<String> law_ = new MonteCarloList<String>();
         law_.addEvent("2", new LgInt(1));
         law_.events();
-        assertEq("2", law_.editNumber(LgInt.one(),new DefaultGenerator()));
+        assertEq("2", law_.editNumber(LgInt.one(),DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -427,7 +427,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.addQuickEvent(new Rate(2), new LgInt(2));
         law_.addQuickEvent(new Rate(2), new LgInt(1));
         law_.events();
-        assertEq(new Rate(2), law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertEq(new Rate(2), law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
 
     @Test
@@ -436,7 +436,7 @@ public class MonteCarloTest extends EquallableMathUtil {
         law_.addEvent(BoolVal.TRUE, new LgInt(1));
         law_.addEvent(BoolVal.FALSE, new LgInt(1));
         law_.events();
-        assertSame(BoolVal.TRUE, law_.editNumber(new LgInt(8), new DefaultGenerator()));
+        assertSame(BoolVal.TRUE, law_.editNumber(new LgInt(8), DefaultGenerator.oneElt()));
     }
     @Test
     public void normalRate1() {

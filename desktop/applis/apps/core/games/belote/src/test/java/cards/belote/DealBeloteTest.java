@@ -543,6 +543,6 @@ public class DealBeloteTest extends EquallableBeloteUtil {
     }
 
     private static void initDonneLoc(DealBelote _donne, RulesBelote _regles) {
-        _donne.initDonne(_regles,new DisplayingBelote(), new DefaultGenerator());
+        _donne.initDonne(_regles,new DisplayingBelote(), DefaultGenerator.oneElt());
     }
 }

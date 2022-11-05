@@ -37,7 +37,7 @@ public class CheckerGameTarotWithRulesTest extends EquallableTarotUtil {
     }
 
     private static void initDonneLoc(RulesTarot _rules, DealTarot _deal) {
-        _deal.initDonne(_rules, new DefaultGenerator());
+        _deal.initDonne(_rules, DefaultGenerator.oneElt());
     }
 
     @Test

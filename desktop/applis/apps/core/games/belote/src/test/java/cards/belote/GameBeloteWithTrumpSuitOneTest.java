@@ -400,7 +400,7 @@ public class GameBeloteWithTrumpSuitOneTest extends GameBeloteWithTrumpSuit {
     }
 
     private static void initDonne(RulesBelote _rules, DealBelote _deal) {
-        _deal.initDonne(_rules, new DisplayingBelote(), new DefaultGenerator());
+        _deal.initDonne(_rules, new DisplayingBelote(), DefaultGenerator.oneElt());
     }
 
     private static DealBelote deal2Classic(byte _dealer) {

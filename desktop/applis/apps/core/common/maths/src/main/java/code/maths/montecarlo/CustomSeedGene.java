@@ -27,4 +27,20 @@ public final class CustomSeedGene {
         }
         return _gene.pick();
     }
+
+    int getRandLen() {
+        return rand.length;
+    }
+
+    double getRandValue() {
+        return rand[seedIndex];
+    }
+
+    int getSeedIndex() {
+        return seedIndex;
+    }
+
+    void setSeedIndex(int _s) {
+        seedIndex = _s;
+    }
 }

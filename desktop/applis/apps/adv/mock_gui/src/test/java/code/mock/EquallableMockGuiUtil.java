@@ -1,7 +1,10 @@
 package code.mock;
 
 import code.expressionlanguage.structs.Struct;
-import code.gui.*;
+import code.gui.AbsCustComponent;
+import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.EnabledMenu;
+import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
 import code.stream.AbsClipStream;
 import code.stream.core.ContentTime;
@@ -91,10 +94,10 @@ public abstract class EquallableMockGuiUtil {
     }
 
     protected static MockProgramInfosSample init() {
-        return new MockProgramInfosSample("", "", new double[0], 0, new long[0], true, "/");
+        return new MockProgramInfosSample("", "",0, new long[0], true, "/");
     }
 
     protected static MockProgramInfosSample initDef() {
-        return new MockProgramInfosSample("", "", new double[0], 0, new long[0], false, "/");
+        return new MockProgramInfosSample("", "",0, new long[0], false, "/");
     }
 }

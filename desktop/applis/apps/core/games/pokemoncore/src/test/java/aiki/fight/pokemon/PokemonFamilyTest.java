@@ -41,7 +41,7 @@ public class PokemonFamilyTest extends EquallablePkUtil {
     }
 
     private static DataBase newData() {
-        return new DataBase(new DefaultGenerator());
+        return new DataBase(DefaultGenerator.oneElt());
     }
 
     @Test

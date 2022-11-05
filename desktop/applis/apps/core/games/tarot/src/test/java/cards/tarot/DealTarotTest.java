@@ -186,7 +186,7 @@ public class DealTarotTest extends EquallableTarotUtil {
     }
 
     private static void initDonneLoc(DealTarot _donne, RulesTarot _regles) {
-        _donne.initDonne(_regles, new DefaultGenerator());
+        _donne.initDonne(_regles, DefaultGenerator.oneElt());
     }
 
     @Test
@@ -354,7 +354,7 @@ public class DealTarotTest extends EquallableTarotUtil {
     }
 
     private static void initHuntSmall(RulesTarot _regles, DealTarot _deal) {
-        _deal.initDonne(ChoiceTarot.HUNT_SMALL,_regles, new DefaultGenerator());
+        _deal.initDonne(ChoiceTarot.HUNT_SMALL,_regles, DefaultGenerator.oneElt());
     }
 
     @Test
@@ -375,7 +375,7 @@ public class DealTarotTest extends EquallableTarotUtil {
     }
 
     private static void initLeadSmallBound(RulesTarot _regles, DealTarot _deal) {
-        _deal.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,_regles, new DefaultGenerator());
+        _deal.initDonne(ChoiceTarot.LEAD_SMALL_BOUND,_regles, DefaultGenerator.oneElt());
     }
 
     @Test
@@ -420,7 +420,7 @@ public class DealTarotTest extends EquallableTarotUtil {
     }
 
     private static void initSaveSmall(RulesTarot _regles, DealTarot _deal) {
-        _deal.initDonne(ChoiceTarot.SAVE_SMALL,_regles, new DefaultGenerator());
+        _deal.initDonne(ChoiceTarot.SAVE_SMALL,_regles, DefaultGenerator.oneElt());
     }
 
     @Test

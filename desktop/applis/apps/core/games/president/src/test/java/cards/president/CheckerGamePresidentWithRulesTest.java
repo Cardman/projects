@@ -5177,7 +5177,7 @@ public class CheckerGamePresidentWithRulesTest extends EquallablePresidentUtil {
     }
 
     private static void initDonneLoc(RulesPresident _r, DealPresident _d) {
-        _d.initDonne(_r, new DefaultGenerator());
+        _d.initDonne(_r, DefaultGenerator.oneElt());
     }
 
     @Test

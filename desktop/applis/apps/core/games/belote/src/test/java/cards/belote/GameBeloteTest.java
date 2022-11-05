@@ -43,6 +43,6 @@ public final class GameBeloteTest extends CommonGameBelote {
         assertEq(0,g_.getDeal().hand().total());
         g_.isSameTeam(new Bytes());
         g_.playersBelongingToSameTeam();
-        d_.setRandomDealer(4, new DefaultGenerator());
+        d_.setRandomDealer(4, DefaultGenerator.oneElt());
     }
 }

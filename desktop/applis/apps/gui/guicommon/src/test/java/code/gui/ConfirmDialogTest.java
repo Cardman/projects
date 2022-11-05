@@ -7,7 +7,7 @@ import org.junit.Test;
 public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     @Test
     public void yesNo1() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMiniDialog("","","en",GuiConstants.YES_NO_OPTION,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -20,7 +20,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void yesNo2() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMiniDialog("","","en",GuiConstants.YES_NO_OPTION,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -33,7 +33,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void yesNoCancel1() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMiniDialog("","","en",GuiConstants.YES_NO_CANCEL_OPTION,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -46,7 +46,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void yesNoCancel2() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMiniDialog("","","en",GuiConstants.YES_NO_CANCEL_OPTION,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -59,7 +59,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void yesNoCancel3() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMiniDialog("","","en",GuiConstants.YES_NO_CANCEL_OPTION,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -72,7 +72,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void ok() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMiniDialog("","","en",2,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -85,7 +85,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void showTextField1() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showTextField("","","","en",conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -101,7 +101,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void showTextField2() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showTextField("","","","en",conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -117,7 +117,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void showMessage1() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMessage("","","en",GuiConstants.ERROR_MESSAGE,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -129,7 +129,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void showMessage2() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMessage("","","en",GuiConstants.INFORMATION_MESSAGE,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
@@ -141,7 +141,7 @@ public final class ConfirmDialogTest extends EquallableGuiCommonUtil {
     }
     @Test
     public void showMessage3() {
-        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new double[0], new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         ConfirmDialog conf_ = new ConfirmDialog(pr_);
         ConfirmDialog.showMessage("","","en",GuiConstants.WARNING_MESSAGE,conf_,pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)));
         AbsPanel pane_ = conf_.getAbsDialog().getPane();
