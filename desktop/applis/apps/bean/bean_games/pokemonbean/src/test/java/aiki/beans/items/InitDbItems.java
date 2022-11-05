@@ -3,7 +3,6 @@ package aiki.beans.items;
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.dto.*;
-import aiki.beans.moves.MovesBeanSearch;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -137,6 +136,18 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static String navigateItemsSearch(Struct _moves) {
         return navigateData(new ItemsBeanSearch(), _moves);
     }
+
+    protected static Struct transitToAllItems(PkData _pk, StringMap<Struct> _all,int _index, String _it) {
+        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        transit(_pk,new WelcomeBeanClickItems(),welcome_,items_);
+        transit(_pk,new ItemsBeanSearch(),items_,items_);
+        Struct itData_ = _all.getVal(_it);
+        transit(_pk,new ItemsBeanClickLink(),items_, itData_,_index);
+        return itData_;
+    }
+
     protected static Struct dispAllItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllMItems(pk_);
@@ -184,52 +195,7 @@ public abstract class InitDbItems extends InitDbConstr {
         facade_.getData().completeMembers(S_STA_SIM,staSimple(""));
         facade_.getData().completeMembers(P_POKEMON,pk(new StringList("__"), GenderRepartition.NO_GENDER));
         facade_.getData().completeMembers(A_ABILITY, Instances.newAbilityData());
-        facade_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedAbilities().getVal(EN).addEntry(A_ABILITY,A_ABILITY_TR);
-        facade_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE1, T_TYPE1_TR);
-        facade_.getData().getTranslatedCategories().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT, C_CAT1_TR);
-        facade_.getData().getTranslatedCategories().getVal(EN).addEntry(AUTRE,C_CAT2_TR);
-        facade_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_BALL,I_BALL_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_BERRY,I_BERRY_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_BOOST,I_BOOST_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEMBATTLE,I_ITEMBATTLE_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_EVO_ITEM,I_EVO_ITEM_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_EVO_STONE,I_EVO_STONE_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_FOSSIL,I_FOSSIL_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL,I_HEAL_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_HP,I_HEAL_HP_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_PP,I_HEAL_PP_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_HP_STATUS,I_HEAL_HP_STATUS_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_STATUS,I_HEAL_STATUS_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_REPEL,I_REPEL_TR);
-        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_SELLING,I_SELLING_TR);
-        facade_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_WEA,M_WEA_TR);
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VERY_BAD,M_DAM_VERY_BAD_TR);
-        facade_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_POW,M_DAM_POW_TR);
-        facade_.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POKEMON,P_POKEMON_TR);
-        facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
-        facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
-        facade_.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
-        facade_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
-        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,ST_ATT_TR);
-        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.DEFENSE,ST_DEF_TR);
-        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_ATTACK,ST_ATT_SPE_TR);
-        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
-        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
-        facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
-        facade_.getData().getTranslatedBooleans().addEntry(EN,new IdMap<SelectedBoolean, String>());
-        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.NO, B_NO);
-        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES, B_YES);
-        facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES_AND_NO," ");
+        trsCore(facade_);
         facade_.getData().getTranslatedClassesDescriptions().addEntry(LANGUAGE,new StringMap<String>());
         facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_BALL).getItemType(),CI_BALL_TR);
         facade_.getData().getTranslatedClassesDescriptions().getVal(EN).addEntry(facade_.getData().getItem(I_BERRY).getItemType(),CI_BERRY_TR);
@@ -265,10 +231,65 @@ public abstract class InitDbItems extends InitDbConstr {
         return facade_;
     }
 
-    private static Boost boost() {
+    public static StringMap<Struct> beanToItem(PkData _pk) {
+        StringMap<Struct> map_ = beanToItems(_pk);
+        map_.addEntry(AikiBeansItemsStd.BEAN_ITEM,_pk.beanSellingItemBean(EN));
+        return map_;
+    }
+    protected static void trsCore(FacadeGame _facade) {
+        _facade.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedAbilities().getVal(EN).addEntry(A_ABILITY,A_ABILITY_TR);
+        _facade.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedTypes().getVal(EN).addEntry(T_TYPE1, T_TYPE1_TR);
+        _facade.getData().getTranslatedCategories().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedCategories().getVal(EN).addEntry(C_CAT, C_CAT1_TR);
+        _facade.getData().getTranslatedCategories().getVal(EN).addEntry(AUTRE,C_CAT2_TR);
+        _facade.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_BALL,I_BALL_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_BERRY,I_BERRY_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_BOOST,I_BOOST_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_ITEMBATTLE,I_ITEMBATTLE_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_EVO_ITEM,I_EVO_ITEM_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_EVO_STONE,I_EVO_STONE_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_FOSSIL,I_FOSSIL_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL,I_HEAL_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_HP,I_HEAL_HP_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_PP,I_HEAL_PP_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_HP_STATUS,I_HEAL_HP_STATUS_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_HEAL_STATUS,I_HEAL_STATUS_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_REPEL,I_REPEL_TR);
+        _facade.getData().getTranslatedItems().getVal(EN).addEntry(I_SELLING,I_SELLING_TR);
+        _facade.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_WEA,M_WEA_TR);
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_VERY_BAD,M_DAM_VERY_BAD_TR);
+        _facade.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM_POW,M_DAM_POW_TR);
+        _facade.getData().getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POKEMON,P_POKEMON_TR);
+        _facade.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
+        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
+        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
+        _facade.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
+        _facade.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,ST_ATT_TR);
+        _facade.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.DEFENSE,ST_DEF_TR);
+        _facade.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_ATTACK,ST_ATT_SPE_TR);
+        _facade.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPECIAL_DEFENSE,ST_DEF_SPE_TR);
+        _facade.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.SPEED,ST_SPEED_TR);
+        _facade.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.HP,ST_HP_TR);
+        _facade.getData().getTranslatedBooleans().addEntry(EN,new IdMap<SelectedBoolean, String>());
+        _facade.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.NO, B_NO);
+        _facade.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES, B_YES);
+        _facade.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES_AND_NO," ");
+    }
+
+    protected static Boost boost() {
         Boost b_ = Instances.newBoost();
         b_.setWinPp(Rate.one());
         b_.getHappiness().addEntry(I_BALL,(short)1);
+        b_.getHappiness().addEntry(I_BOOST,(short)2);
         b_.getEvs().addEntry(Statistic.SPEED,(short)1);
         b_.setPrice(2);
         return b_;

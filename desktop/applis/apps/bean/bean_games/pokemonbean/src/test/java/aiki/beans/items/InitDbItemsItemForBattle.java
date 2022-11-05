@@ -3,7 +3,7 @@ package aiki.beans.items;
 import aiki.beans.BeanPokemonCommonTs;
 import code.expressionlanguage.structs.Struct;
 
-public abstract class InitDbItemsItemForBattle extends InitDbItems {
+public abstract class InitDbItemsItemForBattle extends InitDbItem {
 
     public static Struct callItemForBattleBeanAgainstEvoGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanAgainstEvoGet(),_str,_args);

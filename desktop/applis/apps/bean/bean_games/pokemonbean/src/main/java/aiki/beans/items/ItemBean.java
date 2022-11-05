@@ -4,6 +4,7 @@ import aiki.beans.CommonBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.fight.items.Ball;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
 import code.util.StringMap;
@@ -43,7 +44,7 @@ public abstract class ItemBean extends CommonBean {
     }
 
     public boolean isBall(int _index) {
-        return !happiness.getKey(_index).isEmpty();
+        return getDataBase().getItem(happiness.getKey(_index)) instanceof Ball;
     }
     public String getTrHappiness(int _index) {
         return getDataBase().getTranslatedItems().getVal(getLanguage()).getVal(happiness.getKey(_index));
@@ -59,7 +60,7 @@ public abstract class ItemBean extends CommonBean {
 
     public String clickItems() {
         getForms().safeItems(CST_ITEMS_SET);
-        return CST_ITEMS;
+        return AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML;
     }
 
     protected Item getItem() {
