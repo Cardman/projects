@@ -45,8 +45,7 @@ public class HealingStatusBean extends HealingItemBean {
     }
     public String clickStatus(int _index) {
         String status_ = status.get(_index);
-        getForms().put(CST_STATUS, status_);
-        return CST_STATUS;
+        return tryRedirectSt(status_);
     }
 
     public boolean getHealingKo() {
