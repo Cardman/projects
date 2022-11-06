@@ -20,8 +20,7 @@ public class FossilBean extends ItemBean {
         return translatedPokemon_.getVal(pokemon);
     }
     public String clickPokemon() {
-        getForms().put(CST_PK, pokemon);
-        return CST_POKEMON;
+        return tryRedirectPk(pokemon);
     }
 
     public short getLevel() {

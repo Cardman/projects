@@ -2,6 +2,7 @@ package aiki.beans.items;
 
 import aiki.beans.*;
 import aiki.facade.FacadeGame;
+import aiki.fight.items.Fossil;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.pokemon.evolution.EvolutionItem;
@@ -60,16 +61,26 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return BeanPokemonCommonTs.callLongs(new EvolvingStoneBeanPokemonGet(),healEvoStone());
     }
 
-    public static Struct callFossilBeanClickPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new FossilBeanClickPokemon(),_str,_args);
+    public static String callFossilBeanClickPokemon() {
+        return callFossilBeanClickPokemon(healFossil());
     }
 
-    public static Struct callFossilBeanGetTrPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new FossilBeanGetTrPokemon(),_str,_args);
+    public static String callFossilBeanClickPokemon(Struct _str) {
+        return navigateData(new FossilBeanClickPokemon(),_str,0);
     }
 
-    public static Struct callFossilBeanLevelGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new FossilBeanLevelGet(),_str,_args);
+    public static String callFossilBeanClickPokemonId() {
+        Struct it_ = healFossil();
+        callFossilBeanClickPokemon(it_);
+        return getValPkId(it_);
+    }
+
+    public static Struct callFossilBeanGetTrPokemon() {
+        return BeanPokemonCommonTs.callLongs(new FossilBeanGetTrPokemon(),healFossil(),0);
+    }
+
+    public static Struct callFossilBeanLevelGet() {
+        return BeanPokemonCommonTs.callLongs(new FossilBeanLevelGet(),healFossil());
     }
 
     public static StringMap<Struct> beanToEvoItem(PkData _pk) {
@@ -125,6 +136,29 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         other_.getEvolutions().addEntry(P_POKEMON2,Instances.newEvolutionItem());
         facade_.getData().completeMembers(P_POKEMON2, other_);
         trsEvos(facade_, CI_EVO_STONE_TR);
+        return facade_;
+    }
+
+    public static StringMap<Struct> beanToFossil(PkData _pk) {
+        StringMap<Struct> map_ = beanToItem(_pk);
+        map_.addEntry(AikiBeansItemsStd.BEAN_FOSSIL,_pk.beanFossilBean(EN));
+        return map_;
+    }
+
+    protected static Struct healFossil() {
+        PkData pk_ = pkDataByFacade(feedDbFossil());
+        StringMap<Struct> all_ = beanToFossil(pk_);
+        return dispLine(AikiBeansItemsStd.BEAN_FOSSIL, pk_, all_);
+    }
+
+    private static FacadeGame feedDbFossil() {
+        FacadeGame facade_ = facade();
+        Fossil f_ = Instances.newFossil();
+        f_.setPokemon(P_POKEMON);
+        f_.setLevel((short) 1);
+        facade_.getData().completeMembers(I_BASE, f_);
+        facade_.getData().completeMembers(P_POKEMON, pk(new StringList("__"), GenderRepartition.NO_GENDER));
+        trsEvos(facade_, CI_FOSSIL_TR);
         return facade_;
     }
     private static void trsEvos(FacadeGame _facade, String _tr) {
