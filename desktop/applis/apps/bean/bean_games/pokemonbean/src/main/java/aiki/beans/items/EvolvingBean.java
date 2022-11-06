@@ -16,8 +16,7 @@ public abstract class EvolvingBean extends ItemBean{
     }
     public String clickPokemon(int _index) {
         String type_ = pokemon.get(_index);
-        getForms().put(CST_PK, type_);
-        return CST_POKEMON;
+        return tryRedirectPk(type_);
     }
 
     public StringList getPokemon() {
