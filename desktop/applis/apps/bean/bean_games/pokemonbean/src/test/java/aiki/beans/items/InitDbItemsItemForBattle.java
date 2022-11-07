@@ -372,6 +372,9 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return res_;
     }
 
+    public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+        return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
+    }
     public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
         PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
         StringMap<Struct> all_ = beanToItBaseSend(pk_);
@@ -418,7 +421,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     protected static FacadeGame feedDbItemNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
-        return feedDbItem((EffectStatistic)null,_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather);
+        return feedDbItem(null,_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather);
     }
 
     protected static FacadeGame feedDbItemEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
@@ -463,6 +466,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         _facade.getData().getLitterals().addEntry(EN,new StringMap<String>());
         _facade.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         _facade.getData().getMiniItems().addEntry(I_BASE, BaseSixtyFourUtil.getImageByString(MAX_RAI));
+        _facade.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS,Rate.one());
     }
 
     protected static FacadeGame feedDbMove() {
@@ -502,8 +506,10 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         e_.getCancelChgtStat().add(Statistic.SPEED);
         e_.getCopyBoost().add(Statistic.SPEED);
         e_.getSwapBoostStatis().add(Statistic.SPEED);
+        e_.getStatisVarRank().addEntry(Statistic.SPEED,(byte)1);
         e_.getLocalFailStatis().addEntry(Statistic.SPEED, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
         e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        e_.getLawBoost().addQuickEvent(Statistic.SPEED,LgInt.one());
         return e_;
     }
 
