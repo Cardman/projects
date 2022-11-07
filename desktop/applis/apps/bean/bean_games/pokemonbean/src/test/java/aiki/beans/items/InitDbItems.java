@@ -318,9 +318,9 @@ public abstract class InitDbItems extends InitDbConstr {
         return b_;
     }
     protected static ItemForBattle itemForBattle() {
-        return itemForBattle(true, true, true, true, true, true);
+        return itemForBattle(true, true, true, true, true, true, LgInt.one(), LgInt.zero());
     }
-    protected static ItemForBattle itemForBattle(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis) {
+    protected static ItemForBattle itemForBattle(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
         ItemForBattle b_ = Instances.newItemForBattle();
         b_.setDamageRecoil(Rate.one());
         b_.setMultWinningEv(Rate.one());
@@ -346,7 +346,8 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.getBoostStatisTypes().addEntry(T_TYPE1,new IdMap<Statistic,Byte>());
         b_.getBoostStatisTypes().getVal(T_TYPE1).addEntry(Statistic.SPEED,(byte)1);
         b_.getMultStatPokemonRank().addEntry(new StatisticPokemon(Statistic.SPEED,P_POKEMON),(byte)1);
-        b_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE, LgInt.one());
+        b_.getLawForAttackFirst().addQuickEvent(BoolVal.TRUE, _trueEff);
+        b_.getLawForAttackFirst().addQuickEvent(BoolVal.FALSE, _falseEff);
         b_.getImmuMoves().add(M_DAM);
         b_.getImmuTypes().add(T_TYPE1);
         b_.getImmuStatus().add(S_STA_SIM);

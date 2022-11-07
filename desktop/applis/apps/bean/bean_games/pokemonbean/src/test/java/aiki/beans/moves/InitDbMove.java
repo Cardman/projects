@@ -29,7 +29,6 @@ import code.util.*;
 
 public abstract class InitDbMove extends InitDbMoves {
 
-    public static final String TIME = "time";
 
     public static Struct callMoveBeanAbilitiesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveBeanAbilitiesGet(),_str,_args);

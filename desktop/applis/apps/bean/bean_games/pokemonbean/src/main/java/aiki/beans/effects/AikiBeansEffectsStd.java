@@ -9,6 +9,7 @@ import code.bean.nat.StandardField;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansEffectsStd{
+    public static final String EFFECT_SENDING = "effsending";
     public static final String TYPE_COMBO_DTO = "aiki.beans.effects.ComboDto";
     public static final String TYPE_COMBOS_BEAN = "aiki.beans.effects.CombosBean";
     public static final String TYPE_EFFECT_COMBO_BEAN = "aiki.beans.effects.EffectComboBean";
