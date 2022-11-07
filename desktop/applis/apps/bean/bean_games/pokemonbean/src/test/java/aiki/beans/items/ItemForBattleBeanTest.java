@@ -117,6 +117,50 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
         assertEq(Rate.newRate("1/4"),callItemForBattleBeanRateForAttackFirst(true,true,true,true,true,true, LgInt.one(), LgInt.newLgInt("3")));
     }
     @Test
+    public void getProtectAgainstKo() {
+        assertEq(Rate.one(),callItemForBattleBeanProtectAgainstKoGet());
+    }
+    @Test
+    public void getProtectAgainstKoIfFullHp() {
+        assertEq(Rate.one(),callItemForBattleBeanProtectAgainstKoIfFullHpGet());
+    }
+    @Test
+    public void getDrainedHpByDamageRate() {
+        assertEq(Rate.one(),callItemForBattleBeanDrainedHpByDamageRateGet());
+    }
+    @Test
+    public void getMultTrappingDamage() {
+        assertEq(Rate.one(),callItemForBattleBeanMultTrappingDamageGet());
+    }
+    @Test
+    public void getMultWinningHappiness() {
+        assertEq(Rate.one(),callItemForBattleBeanMultWinningHappinessGet());
+    }
+    @Test
+    public void getMultWinningEv() {
+        assertEq(Rate.one(),callItemForBattleBeanMultWinningEvGet());
+    }
+    @Test
+    public void getMultWinningExp() {
+        assertEq(Rate.one(),callItemForBattleBeanMultWinningExpGet());
+    }
+    @Test
+    public void getMultDrainedHp() {
+        assertEq(Rate.one(),callItemForBattleBeanMultDrainedHpGet());
+    }
+    @Test
+    public void getDamageRecoil() {
+        assertEq(Rate.one(),callItemForBattleBeanDamageRecoilGet());
+    }
+    @Test
+    public void getMultPower() {
+        assertEq(Fight.TEMPS_TOUR,callItemForBattleBeanMultPowerGet());
+    }
+    @Test
+    public void getMultDamage() {
+        assertEq(Fight.TEMPS_TOUR,callItemForBattleBeanMultDamageGet());
+    }
+    @Test
     public void getDisableWeather1() {
         assertFalse(callEffectWhileSendingBeanDisableWeatherGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,false)));
     }

@@ -163,7 +163,7 @@ public final class AikiBeansItemsStd{
     private static final String PROTECT_AGAINST_KO_IF_FULL_HP = "protectAgainstKoIfFullHp";
     private static final String DRAINED_HP_BY_DAMAGE_RATE = "drainedHpByDamageRate";
     private static final String MULT_TRAPPING_DAMAGE = "multTrappingDamage";
-    private static final String MULT_WINNING_MONEY = "multWinningMoney";
+//    private static final String MULT_WINNING_MONEY = "multWinningMoney";
     private static final String MULT_WINNING_HAPPINESS = "multWinningHappiness";
     private static final String MULT_WINNING_EV = "multWinningEv";
     private static final String MULT_WINNING_EXP = "multWinningExp";
@@ -370,7 +370,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(PROTECT_AGAINST_KO_IF_FULL_HP,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanProtectAgainstKoIfFullHpGet(),null));
         fields_.add(new StandardField(DRAINED_HP_BY_DAMAGE_RATE,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanDrainedHpByDamageRateGet(),null));
         fields_.add(new StandardField(MULT_TRAPPING_DAMAGE,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultTrappingDamageGet(),null));
-        fields_.add(new StandardField(MULT_WINNING_MONEY,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningMoneyGet(),null));
+//        fields_.add(new StandardField(MULT_WINNING_MONEY,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningMoneyGet(),null));
         fields_.add(new StandardField(MULT_WINNING_HAPPINESS,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningHappinessGet(),null));
         fields_.add(new StandardField(MULT_WINNING_EV,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningEvGet(),null));
         fields_.add(new StandardField(MULT_WINNING_EXP,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanMultWinningExpGet(),null));

@@ -328,6 +328,9 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.setProtectAgainstKo(Rate.one());
         b_.setProtectAgainstKoIfFullHp(Rate.one());
         b_.setMultWinningHappiness(Rate.one());
+        b_.setMultTrappingDamage(Rate.one());
+        b_.setDrainedHpByDamageRate(Rate.one());
+        b_.setMultWinningExp(Rate.one());
         b_.setMultDamage(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         b_.setMultPower(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         b_.setAgainstEvo(_againstEvo);

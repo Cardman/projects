@@ -37,7 +37,6 @@ public class ItemForBattleBean extends ItemBean {
 
     private MonteCarloBoolean lawForAttackFirst;
     private Rate multTrappingDamage;
-    private Rate multWinningMoney;
     private Rate multWinningHappiness;
     private Rate multWinningEv;
     private Rate multWinningExp;
@@ -81,7 +80,6 @@ public class ItemForBattleBean extends ItemBean {
         protectAgainstKoIfFullHp = item_.getProtectAgainstKoIfFullHp();
         drainedHpByDamageRate = item_.getDrainedHpByDamageRate();
         multTrappingDamage = item_.getMultTrappingDamage();
-        multWinningMoney = Rate.zero();
         multWinningHappiness = item_.getMultWinningHappiness();
         multWinningEv = item_.getMultWinningEv();
         multWinningExp = item_.getMultWinningExp();
@@ -533,10 +531,6 @@ public class ItemForBattleBean extends ItemBean {
 
     public Rate getMultTrappingDamage() {
         return multTrappingDamage;
-    }
-
-    public Rate getMultWinningMoney() {
-        return multWinningMoney;
     }
 
     public Rate getMultWinningHappiness() {
