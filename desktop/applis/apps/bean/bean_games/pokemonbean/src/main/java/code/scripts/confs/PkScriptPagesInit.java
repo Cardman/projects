@@ -804,7 +804,7 @@ private static final char NAV_SEP='.';
         NavBuilder.buildNav(nav_,ITEMFORBATTLE+NAV_SEP+M_CLICK_IMMU_MOVE_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,ITEMFORBATTLE+NAV_SEP+M_CLICK_WEATHER_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
         NavBuilder.buildNav(nav_,ITEMFORBATTLE+NAV_SEP+M_CLICK_HATCHING_1,new EntryNav(POKEMON,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML));
-        NavBuilder.buildNav(nav_,BERRY+NAV_SEP+M_CLICK_STATUS_1,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));
+//        NavBuilder.buildNav(nav_,BERRY+NAV_SEP+M_CLICK_STATUS_1,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));
 //        NavBuilder.buildNav(nav_,BOOST+NAV_SEP+M_CLICK_HAPPINESS_1,new EntryNav(BALL,WEB_HTML_ITEMS_BALL_HTML));
 //        NavBuilder.buildNav(nav_,HEALINGITEM+NAV_SEP+M_CLICK_HAPPINESS_1,new EntryNav(BALL,WEB_HTML_ITEMS_BALL_HTML));
 //        NavBuilder.buildNav(nav_,HEALINGSTATUS+NAV_SEP+M_CLICK_STATUS_1,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));

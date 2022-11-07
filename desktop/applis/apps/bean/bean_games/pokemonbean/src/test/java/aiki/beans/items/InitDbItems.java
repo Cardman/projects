@@ -307,6 +307,7 @@ public abstract class InitDbItems extends InitDbConstr {
         b_.setCategoryBoosting(_cat);
         b_.setLawForAttackFirst(_lawForAttackFirst);
         b_.setWithoutFail(_withoutFail);
+        b_.setMaxHpHealingHp(Rate.one());
         b_.setMaxHpHealingHpRate(Rate.one());
         b_.getBoostStatis().addEntry(Statistic.SPEED,(byte)1);
         b_.getDamageRateRecoilFoe().addEntry(C_CAT,Rate.one());

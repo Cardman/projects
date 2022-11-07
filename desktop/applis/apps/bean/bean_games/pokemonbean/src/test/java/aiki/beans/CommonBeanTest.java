@@ -5,7 +5,10 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
+import code.maths.LgInt;
 import code.maths.Rate;
+import code.maths.montecarlo.MonteCarloBoolean;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -118,6 +121,16 @@ public final class CommonBeanTest extends InitDbWelcome {
         assertTrue(forms_.getValMoveData(M).isEmpty());
         assertTrue(forms_.getValPokemonData(P).isEmpty());
         assertTrue(forms_.getValStatusData(S).isEmpty());
+    }
+    @Test
+    public void rateTrue1() {
+        assertEq(Rate.zero(),CommonBean.rateTrue(new MonteCarloBoolean()));
+    }
+    @Test
+    public void rateTrue2() {
+        MonteCarloBoolean t_ = new MonteCarloBoolean();
+        t_.addQuickEvent(BoolVal.TRUE, LgInt.one());
+        assertEq(Rate.one(),CommonBean.rateTrue(t_));
     }
     @Test
     public void rateAbs() {
