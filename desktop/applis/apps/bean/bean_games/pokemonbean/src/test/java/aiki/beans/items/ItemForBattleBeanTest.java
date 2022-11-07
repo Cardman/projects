@@ -109,4 +109,36 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     public void rateForAttackFirst() {
         assertEq(Rate.newRate("1/4"),callItemForBattleBeanRateForAttackFirst(true,true,true,true,true,true, LgInt.one(), LgInt.newLgInt("3")));
     }
+    @Test
+    public void getDisableWeather1() {
+        assertFalse(callEffectWhileSendingBeanDisableWeatherGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,false)));
+    }
+    @Test
+    public void getDisableWeather2() {
+        assertTrue(callEffectWhileSendingBeanDisableWeatherGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,true)));
+    }
+    @Test
+    public void getCopyingAbility1() {
+        assertFalse(callEffectWhileSendingBeanCopyingAbilityGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),false,true)));
+    }
+    @Test
+    public void getCopyingAbility2() {
+        assertTrue(callEffectWhileSendingBeanCopyingAbilityGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,true)));
+    }
+    @Test
+    public void getStatistic1() {
+        assertFalse(callEffectWhileSendingBeanStatisticGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),false,true)));
+    }
+    @Test
+    public void getStatistic2() {
+        assertTrue(callEffectWhileSendingBeanStatisticGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void evtRate1() {
+        assertEq(Rate.zero(),callEffectWhileSendingBeanEvtRateGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),false,true)));
+    }
+    @Test
+    public void evtRate2() {
+        assertEq(Rate.one(),callEffectWhileSendingBeanEvtRateGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
 }
