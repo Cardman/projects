@@ -1,7 +1,14 @@
 package aiki.beans.items;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.facade.*;
+import aiki.fight.abilities.AbilityData;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.moves.enums.*;
+import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.maths.*;
 
 public abstract class InitDbItemsItemForBattle extends InitDbItem {
 
@@ -281,9 +288,9 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanReasonsEndRoundGet(),_str,_args);
     }
 
-    public static Struct callItemForBattleBeanRepellingWildPkGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanRepellingWildPkGet(),_str,_args);
-    }
+//    public static Struct callItemForBattleBeanRepellingWildPkGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanRepellingWildPkGet(),_str,_args);
+//    }
 
     public static Struct callItemForBattleBeanSendingGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanSendingGet(),_str,_args);
@@ -303,6 +310,47 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
 
     public static Struct callItemForBattleBeanWinEvFightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanWinEvFightGet(),_str,_args);
+    }
+
+    protected static FacadeGame feedDbItem() {
+        FacadeGame facade_ = facade();
+        StatusMoveData rep_ = moveSta(TargetChoice.ANY_FOE);
+        rep_.getEffects().add(lawEndRound());
+        facade_.getData().completeMembers(M_DAM, rep_);
+        facade_.getData().completeMembers(A_ABILITY, abilityPlate(true));
+        facade_.getData().completeMembers(I_BASE,itemForBattle(true,true,true,true,true,true));
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    protected static FacadeGame feedDbMove() {
+        FacadeGame facade_ = facade();
+        StatusMoveData rep_ = moveSta(TargetChoice.ANY_FOE);
+        rep_.getEffects().add(Instances.newEffectStatistic());
+        rep_.getEffects().add(lawEndRound());
+        facade_.getData().completeMembers(M_DAM, rep_);
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static EffectEndRoundSingleRelation lawEndRound() {
+        EffectEndRoundSingleRelation e_ = Instances.newEffectEndRoundSingleRelation();
+        e_.getLawForEnablingEffect().addQuickEvent(Rate.one(), LgInt.one());
+        e_.getLawForEnablingEffect().addQuickEvent(Rate.newRate("2"), LgInt.newLgInt("3"));
+        return e_;
+    }
+
+    protected static FacadeGame feedDbAbility(boolean _plate) {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(A_ABILITY, abilityPlate(_plate));
+        facade_.getData().completeVariables();
+        return facade_;
+    }
+
+    private static AbilityData abilityPlate(boolean _plate) {
+        AbilityData ab_ = Instances.newAbilityData();
+        ab_.setPlate(_plate);
+        return ab_;
     }
 
 }

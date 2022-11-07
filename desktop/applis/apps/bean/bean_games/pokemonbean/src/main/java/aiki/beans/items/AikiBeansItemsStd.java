@@ -156,7 +156,7 @@ public final class AikiBeansItemsStd{
     private static final String AGAINST_EVO = "againstEvo";
     private static final String ATTACK_LAST = "attackLast";
     private static final String BOOST_EXP = "boostExp";
-    private static final String REPELLING_WILD_PK = "repellingWildPk";
+//    private static final String REPELLING_WILD_PK = "repellingWildPk";
     private static final String IMMU_LOW_STATIS = "immuLowStatis";
     private static final String ATTACKS_SOON = "attacksSoon";
     private static final String PROTECT_AGAINST_KO = "protectAgainstKo";
@@ -363,7 +363,7 @@ public final class AikiBeansItemsStd{
         fields_.add(new StandardField(AGAINST_EVO,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanAgainstEvoGet(),null));
         fields_.add(new StandardField(ATTACK_LAST,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanAttackLastGet(),null));
         fields_.add(new StandardField(BOOST_EXP,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanBoostExpGet(),null));
-        fields_.add(new StandardField(REPELLING_WILD_PK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanRepellingWildPkGet(),null));
+//        fields_.add(new StandardField(REPELLING_WILD_PK,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanRepellingWildPkGet(),null));
         fields_.add(new StandardField(IMMU_LOW_STATIS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanImmuLowStatisGet(),null));
         fields_.add(new StandardField(ATTACKS_SOON,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new ItemForBattleBeanAttacksSoonGet(),null));
         fields_.add(new StandardField(PROTECT_AGAINST_KO,BeanNatCommonLgNames.TYPE_RATE,false,false,new ItemForBattleBeanProtectAgainstKoGet(),null));

@@ -40,7 +40,7 @@ public final class AikiBeansEffectsStd{
     private static final String DISABLE_WEATHER = "disableWeather";
     private static final String ENABLED_WEATHER = "enabledWeather";
     private static final String COPYING_ABILITY = "copyingAbility";
-    private static final String PLATE = "plate";
+//    private static final String PLATE = "plate";
     private static final String MULT_WEIGHT = "multWeight";
     private static final String STATISTIC = "statistic";
     private static final String REASONS = "reasons";
@@ -96,7 +96,7 @@ public final class AikiBeansEffectsStd{
         fields_.add(new StandardField(DISABLE_WEATHER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanDisableWeatherGet(),null));
         fields_.add(new StandardField(ENABLED_WEATHER,BeanNatCommonLgNames.STRING,false,false,new EffectWhileSendingBeanEnabledWeatherGet(),null));
         fields_.add(new StandardField(COPYING_ABILITY,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanCopyingAbilityGet(),null));
-        fields_.add(new StandardField(PLATE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanPlateGet(),null));
+//        fields_.add(new StandardField(PLATE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanPlateGet(),null));
         fields_.add(new StandardField(MULT_WEIGHT,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectWhileSendingBeanMultWeightGet(),null));
         fields_.add(new StandardField(STATISTIC,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new EffectWhileSendingBeanStatisticGet(),null));
         fields_.add(new StandardField(REASONS, BeanNatCommonLgNames.TYPE_LIST,false,false,new EffectWhileSendingBeanReasonsGet(),null));

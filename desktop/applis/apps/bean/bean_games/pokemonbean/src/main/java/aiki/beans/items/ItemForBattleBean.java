@@ -4,6 +4,7 @@ import aiki.beans.EndRoundCommon;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
+import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.ItemForBattle;
@@ -13,10 +14,7 @@ import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
 import aiki.fight.util.StatisticPokemon;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
-import code.util.AbsMap;
-import code.util.NatStringTreeMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 
 public class ItemForBattleBean extends ItemBean {
     static final String EFFECT_SEND_BEAN="web/html/sending/effsending.html";
@@ -30,7 +28,6 @@ public class ItemForBattleBean extends ItemBean {
     private boolean immuLowStatis;
     private DictionaryComparator<String, Short> increasingMaxNbRoundTrap;
     private boolean attacksSoon;
-    private boolean repellingWildPk;
     private StringList synchroStatus;
     private DictionaryComparator<String, String> failStatus;
     private Rate protectAgainstKo;
@@ -54,7 +51,7 @@ public class ItemForBattleBean extends ItemBean {
     private DictionaryComparator<String, Short> increasingMaxNbRoundGlobalMove;
     private DictionaryComparator<String, Short> increasingMaxNbRoundTeamMove;
     private StringList immuMoves;
-    private StringList hatching;
+//    private StringList hatching;
     private StringList immuTypes;
     private StringList immuWeather;
     private DictionaryComparator<Statistic, Byte> boostStatisSuperEff;
@@ -217,10 +214,10 @@ public class ItemForBattleBean extends ItemBean {
         mapVars_.putAllMap(data_.getDescriptions(item_.getMultPower(), getLanguage()));
         mapVars_.putAllMap(data_.getDescriptions(item_.getMultDamage(), getLanguage()));
         mapVars = mapVars_;
-        StringList hatching_;
-        hatching_ = new StringList(item_.getHatching());
-        hatching_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        hatching = hatching_;
+//        StringList hatching_;
+//        hatching_ = new StringList(item_.getHatching());
+//        hatching_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
+//        hatching = hatching_;
         boostStatisTypes = boostStatisTypes(item_);
         lawForAttackFirst = item_.getLawForAttackFirst();
     }
@@ -229,13 +226,13 @@ public class ItemForBattleBean extends ItemBean {
         DataBase data_ = getDataBase();
         DictionaryComparator<String, DictionaryComparator<Statistic, Byte>> boostStatisTypes_;
         boostStatisTypes_ = DictionaryComparatorUtil.buildTypesTypeDic(data_,getLanguage());
-        for (String t: _item.getBoostStatisTypes().getKeys()) {
+        for (EntryCust<String, IdMap<Statistic, Byte>> t: _item.getBoostStatisTypes().entryList()) {
             DictionaryComparator<Statistic, Byte> boost_;
             boost_ = DictionaryComparatorUtil.buildStatisByte(data_,getLanguage());
-            for (Statistic s: _item.getBoostStatisTypes().getVal(t).getKeys()) {
-                boost_.put(s, _item.getBoostStatisTypes().getVal(t).getVal(s));
+            for (EntryCust<Statistic, Byte> s: t.getValue().entryList()) {
+                boost_.put(s.getKey(), s.getValue());
             }
-            boostStatisTypes_.put(t, boost_);
+            boostStatisTypes_.put(t.getKey(), boost_);
         }
         return boostStatisTypes_;
     }
@@ -246,28 +243,39 @@ public class ItemForBattleBean extends ItemBean {
         increasingMaxNbRoundTrap_ = DictionaryComparatorUtil.buildMovesShort(data_,getLanguage());
         for (String m: _item.getIncreasingMaxNbRoundTrap().getKeys()) {
             short nb_ = _item.getIncreasingMaxNbRoundTrap().getVal(m);
-            for (Effect e: data_.getMove(m).getEffects()) {
-                if (!(e instanceof EffectEndRoundSingleRelation)) {
-                    continue;
-                }
-                EffectEndRoundSingleRelation eff_ = (EffectEndRoundSingleRelation) e;
-                nb_ += eff_.getLawForEnablingEffect().maximum().ll();
-            }
+            nb_+=bonusEffect(data_, m);
             increasingMaxNbRoundTrap_.put(m, nb_);
         }
         return increasingMaxNbRoundTrap_;
     }
 
+    public static long bonusEffect(DataBase _data, String _move) {
+        long add_ = 0;
+        for (Effect e: _data.getMove(_move).getEffects()) {
+            if (!(e instanceof EffectEndRoundSingleRelation)) {
+                continue;
+            }
+            EffectEndRoundSingleRelation eff_ = (EffectEndRoundSingleRelation) e;
+            add_ += eff_.getLawForEnablingEffect().maximum().ll();
+        }
+        return add_;
+    }
+
     private StringList typesPkAbilities() {
         DataBase data_ = getDataBase();
+        StringList typesPkAbilities_ = initTypesPkAbilities(data_);
+        typesPkAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return typesPkAbilities_;
+    }
+
+    public static StringList initTypesPkAbilities(DataBase _data) {
         StringList typesPkAbilities_;
         typesPkAbilities_ = new StringList();
-        for (String ability_: data_.getAbilities().getKeys()) {
-            if (data_.getAbility(ability_).isPlate()) {
-                typesPkAbilities_.add(ability_);
+        for (EntryCust<String, AbilityData> ability_: _data.getAbilities().entryList()) {
+            if (ability_.getValue().isPlate()) {
+                typesPkAbilities_.add(ability_.getKey());
             }
         }
-        typesPkAbilities_.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         return typesPkAbilities_;
     }
 
@@ -396,9 +404,9 @@ public class ItemForBattleBean extends ItemBean {
         AbsMap<Statistic,String> translatedStatistics_ = data_.getTranslatedStatistics().getVal(getLanguage());
         return translatedStatistics_.getVal(type_);
     }
-    public DictionaryComparator<Statistic, Byte> getMapMultStatisTypesStat(int _index) {
-        return boostStatisTypes.getValue(_index);
-    }
+//    public DictionaryComparator<Statistic, Byte> getMapMultStatisTypesStat(int _index) {
+//        return boostStatisTypes.getValue(_index);
+//    }
     public String getTrMultStatisSuperEff(int _index) {
         Statistic type_ = boostStatisSuperEff.getKey(_index);
         DataBase data_ = getDataBase();
@@ -460,17 +468,17 @@ public class ItemForBattleBean extends ItemBean {
         getForms().put(CST_MOVE, type_);
         return CST_MOVE;
     }
-    public String getTrHatching(int _index) {
-        String type_ = hatching.get(_index);
-        DataBase data_ = getDataBase();
-        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        return translatedPokemon_.getVal(type_);
-    }
-    public String clickHatching(int _index) {
-        String type_ = hatching.get(_index);
-        getForms().put(CST_PK, type_);
-        return CST_POKEMON;
-    }
+//    public String getTrHatching(int _index) {
+//        String type_ = hatching.get(_index);
+//        DataBase data_ = getDataBase();
+//        StringMap<String> translatedPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
+//        return translatedPokemon_.getVal(type_);
+//    }
+//    public String clickHatching(int _index) {
+//        String type_ = hatching.get(_index);
+//        getForms().put(CST_PK, type_);
+//        return CST_POKEMON;
+//    }
     public Rate rateForAttackFirst() {
         return rateTrue(lawForAttackFirst);
     }
@@ -501,10 +509,6 @@ public class ItemForBattleBean extends ItemBean {
 
     public boolean getBoostExp() {
         return boostExp;
-    }
-
-    public boolean getRepellingWildPk() {
-        return repellingWildPk;
     }
 
     public boolean getImmuLowStatis() {

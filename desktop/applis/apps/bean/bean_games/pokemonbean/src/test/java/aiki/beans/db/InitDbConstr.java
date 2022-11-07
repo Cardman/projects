@@ -425,9 +425,9 @@ public abstract class InitDbConstr extends InitDbBean {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanNotEmptyVarBoost(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanPlateGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanPlateGet(),_str,_args);
-    }
+//    public static Struct callEffectWhileSendingBeanPlateGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanPlateGet(),_str,_args);
+//    }
 
     public static Struct callEffectWhileSendingBeanRandomStatis(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanRandomStatis(),_str,_args);

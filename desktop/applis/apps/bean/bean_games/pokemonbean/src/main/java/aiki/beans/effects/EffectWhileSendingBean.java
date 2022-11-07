@@ -16,7 +16,6 @@ public class EffectWhileSendingBean extends CommonBean {
     private boolean disableWeather;
     private String enabledWeather;
     private boolean copyingAbility;
-    private boolean plate;
     private boolean statistic;
     private Rate multWeight;
     private StringList reasons;
@@ -77,10 +76,6 @@ public class EffectWhileSendingBean extends CommonBean {
 
     public boolean getCopyingAbility() {
         return copyingAbility;
-    }
-
-    public boolean getPlate() {
-        return plate;
     }
 
     public Rate getMultWeight() {
