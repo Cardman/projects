@@ -359,8 +359,13 @@ public abstract class InitDbConstr extends InitDbBean {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCancelLowStatGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanClickWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanClickWeather(),_str,_args);
+    public static String callEffectWhileSendingBeanClickWeather(Struct _str, long... _args) {
+        return navigateData(new EffectWhileSendingBeanClickWeather(),_str,_args);
+    }
+
+    public static String callEffectWhileSendingBeanClickWeatherId(Struct _str, long... _args) {
+        callEffectWhileSendingBeanClickWeather(_str, _args);
+        return getValMoveId(_str);
     }
 
     public static Struct callEffectWhileSendingBeanCopyBoostGet(Struct _str, long... _args) {

@@ -5,6 +5,7 @@ import aiki.beans.EffectStatisticCommon;
 import aiki.db.DataBase;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.moves.effects.EffectStatistic;
+import aiki.instances.Instances;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -23,20 +24,11 @@ public class EffectWhileSendingBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        if (effect == null) {
-            disableWeather = false;
-            enabledWeather="";
-            copyingAbility=false;
-            multWeight = Rate.zero();
-            reasons = new StringList();
-            mapVarsFail = new NatStringTreeMap<String>();
-            return;
-        }
-        disableWeather = effect.getDisableWeather();
-        copyingAbility = effect.getCopyingAbility();
-        enabledWeather = effect.getEnabledWeather();
-        multWeight = effect.getMultWeight();
-        EffectWhileSendingWithStatistic effectSend_ = effect;
+        EffectWhileSendingWithStatistic effectSend_ = patch(effect);
+        disableWeather = effectSend_.getDisableWeather();
+        copyingAbility = effectSend_.getCopyingAbility();
+        enabledWeather = effectSend_.getEnabledWeather();
+        multWeight = effectSend_.getMultWeight();
         EffectStatistic effect_ = effectSend_.getEffect();
         statistic = effect_ != null;
         effectStatisticCommon.init(getDataBase(),getLanguage(),effect_);
@@ -48,14 +40,19 @@ public class EffectWhileSendingBean extends CommonBean {
             mapVarsFail = new NatStringTreeMap<String>();
         }
     }
+    public static EffectWhileSendingWithStatistic patch(EffectWhileSendingWithStatistic _eff) {
+        if (_eff == null) {
+            return Instances.newEffectWhileSendingSimple();
+        }
+        return _eff;
+    }
     public String getTrWeather() {
         DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
         return translatedMoves_.getVal(enabledWeather);
     }
     public String clickWeather() {
-        getForms().put(CST_MOVE, enabledWeather);
-        return CST_MOVE;
+        return tryRedirectMv(enabledWeather);
     }
 
     public EffectStatisticCommon getEffectStatisticCommon() {

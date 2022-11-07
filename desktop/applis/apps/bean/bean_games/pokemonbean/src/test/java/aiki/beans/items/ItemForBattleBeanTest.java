@@ -1,5 +1,7 @@
 package aiki.beans.items;
 
+import aiki.beans.effects.EffectWhileSendingBean;
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -7,6 +9,10 @@ import code.util.StringList;
 import org.junit.Test;
 
 public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
+    @Test
+    public void patch() {
+        assertEq(Rate.zero(), EffectWhileSendingBean.patch(null).getMultWeight());
+    }
     @Test
     public void bonusEffect1() {
         assertEq(2,ItemForBattleBean.bonusEffect(feedDbMove().getData(),M_DAM));
@@ -133,6 +139,46 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     @Test
     public void getStatistic2() {
         assertTrue(callEffectWhileSendingBeanStatisticGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void getMultWeight() {
+        assertEq(Rate.one(),callEffectWhileSendingBeanMultWeightGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void getEnabledWeather() {
+        assertEq(M_DAM,callEffectWhileSendingBeanEnabledWeatherGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void getTrWeather() {
+        assertEq(M_DAM_TR,callEffectWhileSendingBeanGetTrWeather(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void clickWeather1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectWhileSendingBeanClickWeather(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void clickWeather2() {
+        assertEq(M_DAM,callEffectWhileSendingBeanClickWeatherId(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void getMapVarsFail1() {
+        assertSizeEq(1,callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void getMapVarsFail2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+    }
+    @Test
+    public void getMapVarsFail3() {
+        assertEq(TIME,second(elt(callEffectWhileSendingBeanMapVarsFailGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0)));
+    }
+    @Test
+    public void getReasons1() {
+        assertSizeEq(1,callEffectWhileSendingBeanReasonsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())));
+    }
+    @Test
+    public void getReasons2() {
+        assertEq(Fight.TEMPS_TOUR,elt(callEffectWhileSendingBeanReasonsGet(healSimpleStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one())),0));
     }
     @Test
     public void evtRate1() {

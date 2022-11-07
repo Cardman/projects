@@ -510,6 +510,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         e_.getLocalFailStatis().addEntry(Statistic.SPEED, DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
         e_.getLocalFailSwapBoostStatis().addEntry(Statistic.SPEED, DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         e_.getLawBoost().addQuickEvent(Statistic.SPEED,LgInt.one());
+        e_.setFail(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
         return e_;
     }
 
