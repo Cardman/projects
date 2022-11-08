@@ -287,6 +287,66 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
         assertEq(M_DAM,callItemForBattleBeanClickWeatherId());
     }
     @Test
+    public void getMultStatRank1() {
+        assertSizeEq(1,callItemForBattleBeanMultStatRankGet());
+    }
+    @Test
+    public void getMultStatRank2() {
+        assertEq(1,second(elt(callItemForBattleBeanMultStatRankGet(),0)));
+    }
+    @Test
+    public void getTrMultStatRank() {
+        assertEq(ST_SPEED_TR,callItemForBattleBeanGetTrMultStatRank());
+    }
+    @Test
+    public void getBoostStatisSuperEff1() {
+        assertSizeEq(1,callItemForBattleBeanBoostStatisSuperEffGet());
+    }
+    @Test
+    public void getBoostStatisSuperEff2() {
+        assertEq(1,second(elt(callItemForBattleBeanBoostStatisSuperEffGet(),0)));
+    }
+    @Test
+    public void getTrMultStatisSuperEff() {
+        assertEq(ST_SPEED_TR,callItemForBattleBeanGetTrMultStatisSuperEff());
+    }
+    @Test
+    public void getWinEvFight1() {
+        assertSizeEq(1,callItemForBattleBeanWinEvFightGet());
+    }
+    @Test
+    public void getWinEvFight2() {
+        assertEq(1,second(elt(callItemForBattleBeanWinEvFightGet(),0)));
+    }
+    @Test
+    public void getTrWinEvFight() {
+        assertEq(ST_SPEED_TR,callItemForBattleBeanGetTrWinEvFight());
+    }
+    @Test
+    public void getMultStat1() {
+        assertSizeEq(1,callItemForBattleBeanMultStatGet());
+    }
+    @Test
+    public void getMultStat2() {
+        assertEq(Fight.TEMPS_TOUR,second(elt(callItemForBattleBeanMultStatGet(),0)));
+    }
+    @Test
+    public void getTrMultStat() {
+        assertEq(ST_SPEED_TR,callItemForBattleBeanGetTrMultStat());
+    }
+    @Test
+    public void getMapVars1() {
+        assertSizeEq(1,callItemForBattleBeanMapVarsGet());
+    }
+    @Test
+    public void getMapVars2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsGet(),0)));
+    }
+    @Test
+    public void getMapVars3() {
+        assertEq(TIME,second(elt(callItemForBattleBeanMapVarsGet(),0)));
+    }
+    @Test
     public void getDisableWeather1() {
         assertFalse(callEffectWhileSendingBeanDisableWeatherGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,false)));
     }
