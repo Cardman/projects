@@ -468,6 +468,30 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
         assertEq(P_POKEMON,callItemForBattleBeanClickMultStatPkId());
     }
     @Test
+    public void getBoostStatisTypes1() {
+        assertSizeEq(1,callItemForBattleBeanBoostStatisTypesGet());
+    }
+    @Test
+    public void getBoostStatisTypes2() {
+        assertEq(T_TYPE1,first(elt(callItemForBattleBeanBoostStatisTypesGet(),0)));
+    }
+    @Test
+    public void getBoostStatisTypes3() {
+        assertSizeEq(1,second(elt(callItemForBattleBeanBoostStatisTypesGet(),0)));
+    }
+    @Test
+    public void getBoostStatisTypes4() {
+        assertEq(1,second(elt(second(elt(callItemForBattleBeanBoostStatisTypesGet(),0)),0)));
+    }
+    @Test
+    public void getTrMultStatisTypes() {
+        assertEq(T_TYPE1_TR,callItemForBattleBeanGetTrMultStatisTypes());
+    }
+    @Test
+    public void getTrMultStatisTypesStat() {
+        assertEq(ST_SPEED_TR,callItemForBattleBeanGetTrMultStatisTypesStat());
+    }
+    @Test
     public void getMapVarsFailEndRound1() {
         assertSizeEq(1,callItemForBattleBeanMapVarsFailEndRoundGet());
     }

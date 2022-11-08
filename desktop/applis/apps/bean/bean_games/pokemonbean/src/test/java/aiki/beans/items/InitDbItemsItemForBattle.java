@@ -267,7 +267,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     public static Struct callItemForBattleBeanGetTrMultStatisTypesStat() {
-        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetTrMultStatisTypesStat(),healSimple(),0);
+        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetTrMultStatisTypesStat(),healSimple(),0,0);
     }
 
     public static Struct callItemForBattleBeanGetTrSynchroStatus() {
