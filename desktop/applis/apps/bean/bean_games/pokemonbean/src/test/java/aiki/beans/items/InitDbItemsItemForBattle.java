@@ -331,7 +331,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     public static Struct callItemForBattleBeanMapVarsFailEndRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanMapVarsFailEndRoundGet(),healSimple());
+        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanMapVarsFailEndRoundGet(),healSimpleEndRound());
     }
 
     public static Struct callItemForBattleBeanMapVarsGet() {
@@ -395,7 +395,7 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     }
 
     public static Struct callItemForBattleBeanReasonsEndRoundGet() {
-        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanReasonsEndRoundGet(),healSimple());
+        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanReasonsEndRoundGet(),healSimpleEndRound());
     }
 
 //    public static Struct callItemForBattleBeanRepellingWildPkGet(Struct _str, long... _args) {
@@ -440,6 +440,10 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
         StringMap<Struct> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_ITEMFORBATTLE,_pk.beanItemForBattleBean(EN));
         return map_;
+    }
+
+    protected static Struct healSimpleEndRound() {
+        return healSimpleEndRound(true,true,true,true,true,true,LgInt.one(),LgInt.one());
     }
 
     protected static Struct healSimple() {

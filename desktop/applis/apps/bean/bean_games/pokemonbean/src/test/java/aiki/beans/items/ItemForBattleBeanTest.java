@@ -468,6 +468,26 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
         assertEq(P_POKEMON,callItemForBattleBeanClickMultStatPkId());
     }
     @Test
+    public void getMapVarsFailEndRound1() {
+        assertSizeEq(1,callItemForBattleBeanMapVarsFailEndRoundGet());
+    }
+    @Test
+    public void getMapVarsFailEndRound2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
+    }
+    @Test
+    public void getMapVarsFailEndRound3() {
+        assertEq(TIME,second(elt(callItemForBattleBeanMapVarsFailEndRoundGet(),0)));
+    }
+    @Test
+    public void getReasonsEndRound1() {
+        assertSizeEq(1,callItemForBattleBeanReasonsEndRoundGet());
+    }
+    @Test
+    public void getReasonsEndRound2() {
+        assertEq(Fight.TEMPS_TOUR,elt(callItemForBattleBeanReasonsEndRoundGet(),0));
+    }
+    @Test
     public void getDisableWeather1() {
         assertFalse(callEffectWhileSendingBeanDisableWeatherGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,false)));
     }
