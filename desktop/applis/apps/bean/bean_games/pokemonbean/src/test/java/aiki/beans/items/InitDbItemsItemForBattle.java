@@ -553,6 +553,8 @@ public abstract class InitDbItemsItemForBattle extends InitDbItem {
     private static void otherElts(FacadeGame _facade) {
         StatusMoveData rep_ = moveSta(TargetChoice.ANY_FOE);
         rep_.getEffects().add(lawEndRound());
+        rep_.getRepeatRoundLaw().addQuickEvent(Rate.one(), LgInt.one());
+        rep_.getRepeatRoundLaw().addQuickEvent(Rate.newRate("2"), LgInt.newLgInt("3"));
         _facade.getData().completeMembers(M_DAM, rep_);
         _facade.getData().completeMembers(A_ABILITY, abilityPlate(true));
         _facade.getData().completeMembers(P_POKEMON, pk(new StringList("__"), GenderRepartition.NO_GENDER));

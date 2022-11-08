@@ -347,6 +347,78 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
         assertEq(TIME,second(elt(callItemForBattleBeanMapVarsGet(),0)));
     }
     @Test
+    public void getIncreasingMaxNbRoundTrap1() {
+        assertSizeEq(1,callItemForBattleBeanIncreasingMaxNbRoundTrapGet());
+    }
+    @Test
+    public void getIncreasingMaxNbRoundTrap2() {
+        assertEq(M_DAM,first(elt(callItemForBattleBeanIncreasingMaxNbRoundTrapGet(),0)));
+    }
+    @Test
+    public void getIncreasingMaxNbRoundTrap3() {
+        assertEq(3,second(elt(callItemForBattleBeanIncreasingMaxNbRoundTrapGet(),0)));
+    }
+    @Test
+    public void getTrTrapMove() {
+        assertEq(M_DAM_TR,callItemForBattleBeanGetTrTrapMove());
+    }
+    @Test
+    public void clickTrapMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickTrapMove());
+    }
+    @Test
+    public void clickTrapMove2() {
+        assertEq(M_DAM,callItemForBattleBeanClickTrapMoveId());
+    }
+    @Test
+    public void getIncreasingMaxNbRoundTeamMove1() {
+        assertSizeEq(1,callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet());
+    }
+    @Test
+    public void getIncreasingMaxNbRoundTeamMove2() {
+        assertEq(M_DAM,first(elt(callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),0)));
+    }
+    @Test
+    public void getIncreasingMaxNbRoundTeamMove3() {
+        assertEq(3,second(elt(callItemForBattleBeanIncreasingMaxNbRoundTeamMoveGet(),0)));
+    }
+    @Test
+    public void getTrTeamMove() {
+        assertEq(M_DAM_TR,callItemForBattleBeanGetTrTeamMove());
+    }
+    @Test
+    public void clickTeamMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickTeamMove());
+    }
+    @Test
+    public void clickTeamMove2() {
+        assertEq(M_DAM,callItemForBattleBeanClickTeamMoveId());
+    }
+    @Test
+    public void getIncreasingMaxNbRoundGlobalMove1() {
+        assertSizeEq(1,callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet());
+    }
+    @Test
+    public void getIncreasingMaxNbRoundGlobalMove2() {
+        assertEq(M_DAM,first(elt(callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),0)));
+    }
+    @Test
+    public void getIncreasingMaxNbRoundGlobalMove3() {
+        assertEq(3,second(elt(callItemForBattleBeanIncreasingMaxNbRoundGlobalMoveGet(),0)));
+    }
+    @Test
+    public void getTrGlobalMove() {
+        assertEq(M_DAM_TR,callItemForBattleBeanGetTrGlobalMove());
+    }
+    @Test
+    public void clickGlobalMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickGlobalMove());
+    }
+    @Test
+    public void clickGlobalMove2() {
+        assertEq(M_DAM,callItemForBattleBeanClickGlobalMoveId());
+    }
+    @Test
     public void getDisableWeather1() {
         assertFalse(callEffectWhileSendingBeanDisableWeatherGet(healSimpleNoStatSend(true,true,true,true,true,true, LgInt.one(), LgInt.one(),true,false)));
     }
