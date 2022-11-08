@@ -1,7 +1,9 @@
 package aiki.beans.items;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -159,6 +161,130 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     @Test
     public void getMultDamage() {
         assertEq(Fight.TEMPS_TOUR,callItemForBattleBeanMultDamageGet());
+    }
+    @Test
+    public void getTypesPk1() {
+        assertSizeEq(1,callItemForBattleBeanTypesPkGet());
+    }
+    @Test
+    public void getTypesPk2() {
+        assertEq(T_TYPE1,elt(callItemForBattleBeanTypesPkGet(),0));
+    }
+    @Test
+    public void getTrTypesPk() {
+        assertEq(T_TYPE1_TR,callItemForBattleBeanGetTrTypesPk());
+    }
+    @Test
+    public void getImmuTypes1() {
+        assertSizeEq(1,callItemForBattleBeanImmuTypesGet());
+    }
+    @Test
+    public void getImmuTypes2() {
+        assertEq(T_TYPE1,elt(callItemForBattleBeanImmuTypesGet(),0));
+    }
+    @Test
+    public void getTrImmuTypes() {
+        assertEq(T_TYPE1_TR,callItemForBattleBeanGetTrImmuTypes());
+    }
+    @Test
+    public void getTypesPkAbilities1() {
+        assertSizeEq(1,callItemForBattleBeanTypesPkAbilitiesGet());
+    }
+    @Test
+    public void getTypesPkAbilities2() {
+        assertEq(A_ABILITY,elt(callItemForBattleBeanTypesPkAbilitiesGet(),0));
+    }
+    @Test
+    public void getTrTypesPkAbility() {
+        assertEq(A_ABILITY_TR,callItemForBattleBeanGetTrTypesPkAbility());
+    }
+    @Test
+    public void clickTypesPkAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callItemForBattleBeanClickTypesPkAbility());
+    }
+    @Test
+    public void clickTypesPkAbility2() {
+        assertEq(A_ABILITY,callItemForBattleBeanClickTypesPkAbilityId());
+    }
+    @Test
+    public void getImmuStatus1() {
+        assertSizeEq(1,callItemForBattleBeanImmuStatusGet());
+    }
+    @Test
+    public void getImmuStatus2() {
+        assertEq(S_STA_SIM,elt(callItemForBattleBeanImmuStatusGet(),0));
+    }
+    @Test
+    public void getTrImmuStatus() {
+        assertEq(S_STA_SIM_TR,callItemForBattleBeanGetTrImmuStatus());
+    }
+    @Test
+    public void clickImmuStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickImmuStatus());
+    }
+    @Test
+    public void clickImmuStatus2() {
+        assertEq(S_STA_SIM,callItemForBattleBeanClickImmuStatusId());
+    }
+    @Test
+    public void getSynchroStatus1() {
+        assertSizeEq(1,callItemForBattleBeanSynchroStatusGet());
+    }
+    @Test
+    public void getSynchroStatus2() {
+        assertEq(S_STA_SIM,elt(callItemForBattleBeanSynchroStatusGet(),0));
+    }
+    @Test
+    public void getTrSynchroStatus() {
+        assertEq(S_STA_SIM_TR,callItemForBattleBeanGetTrSynchroStatus());
+    }
+    @Test
+    public void clickSynchroStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickSynchroStatus());
+    }
+    @Test
+    public void clickSynchroStatus2() {
+        assertEq(S_STA_SIM,callItemForBattleBeanClickSynchroStatusId());
+    }
+    @Test
+    public void getImmuMoves1() {
+        assertSizeEq(1,callItemForBattleBeanImmuMovesGet());
+    }
+    @Test
+    public void getImmuMoves2() {
+        assertEq(M_DAM,elt(callItemForBattleBeanImmuMovesGet(),0));
+    }
+    @Test
+    public void getTrImmuMove() {
+        assertEq(M_DAM_TR,callItemForBattleBeanGetTrImmuMove());
+    }
+    @Test
+    public void clickImmuMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickImmuMove());
+    }
+    @Test
+    public void clickImmuMove2() {
+        assertEq(M_DAM,callItemForBattleBeanClickImmuMoveId());
+    }
+    @Test
+    public void getImmuWeather1() {
+        assertSizeEq(1,callItemForBattleBeanImmuWeatherGet());
+    }
+    @Test
+    public void getImmuWeather2() {
+        assertEq(M_DAM,elt(callItemForBattleBeanImmuWeatherGet(),0));
+    }
+    @Test
+    public void getTrWeatherInd() {
+        assertEq(M_DAM_TR,callItemForBattleBeanGetTrWeather());
+    }
+    @Test
+    public void clickWeatherInd1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callItemForBattleBeanClickWeather());
+    }
+    @Test
+    public void clickWeatherInd2() {
+        assertEq(M_DAM,callItemForBattleBeanClickWeatherId());
     }
     @Test
     public void getDisableWeather1() {

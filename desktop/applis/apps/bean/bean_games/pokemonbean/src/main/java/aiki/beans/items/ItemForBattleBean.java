@@ -313,8 +313,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickTypesPkAbility(int _index) {
         String type_ = typesPkAbilities.get(_index);
-        getForms().put(CST_ABILITY, type_);
-        return CST_ABILITY;
+        return tryRedirectAb(type_);
     }
     public String getTrImmuTypes(int _index) {
         String type_ = immuTypes.get(_index);
@@ -330,8 +329,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickImmuStatus(int _index) {
         String type_ = immuStatus.get(_index);
-        getForms().put(CST_STATUS, type_);
-        return CST_STATUS;
+        return tryRedirectSt(type_);
     }
     public String getTrSynchroStatus(int _index) {
         String type_ = synchroStatus.get(_index);
@@ -341,8 +339,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickSynchroStatus(int _index) {
         String type_ = synchroStatus.get(_index);
-        getForms().put(CST_STATUS, type_);
-        return CST_STATUS;
+        return tryRedirectSt(type_);
     }
     public String getTrFailStatus(int _index) {
         String type_ = failStatus.getKey(_index);
@@ -352,8 +349,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickFailStatus(int _index) {
         String type_ = failStatus.getKey(_index);
-        getForms().put(CST_STATUS, type_);
-        return CST_STATUS;
+        return tryRedirectSt(type_);
     }
     public String getTrWinEvFight(int _index) {
         Statistic type_ = winEvFight.getKey(_index);
@@ -387,8 +383,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickMultStatPk(int _index) {
         String type_ = multStatPokemonRank.getKey(_index).getPokemon();
-        getForms().put(CST_PK, type_);
-        return CST_POKEMON;
+        return tryRedirectPk(type_);
     }
     public String getTrMultStatisTypes(int _index) {
         String type_ = boostStatisTypes.getKey(_index);
@@ -419,8 +414,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickTrapMove(int _index) {
         String type_ = increasingMaxNbRoundTrap.getKey(_index);
-        getForms().put(CST_MOVE, type_);
-        return CST_MOVE;
+        return tryRedirectMv(type_);
     }
     public String getTrGlobalMove(int _index) {
         String type_ = increasingMaxNbRoundGlobalMove.getKey(_index);
@@ -430,8 +424,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickGlobalMove(int _index) {
         String type_ = increasingMaxNbRoundGlobalMove.getKey(_index);
-        getForms().put(CST_MOVE, type_);
-        return CST_MOVE;
+        return tryRedirectMv(type_);
     }
     public String getTrTeamMove(int _index) {
         String type_ = increasingMaxNbRoundTeamMove.getKey(_index);
@@ -441,8 +434,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickTeamMove(int _index) {
         String type_ = increasingMaxNbRoundTeamMove.getKey(_index);
-        getForms().put(CST_MOVE, type_);
-        return CST_MOVE;
+        return tryRedirectMv(type_);
     }
     public String getTrImmuMove(int _index) {
         String type_ = immuMoves.get(_index);
@@ -452,8 +444,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickImmuMove(int _index) {
         String type_ = immuMoves.get(_index);
-        getForms().put(CST_MOVE, type_);
-        return CST_MOVE;
+        return tryRedirectMv(type_);
     }
     public String getTrWeather(int _index) {
         String type_ = immuWeather.get(_index);
@@ -463,8 +454,7 @@ public class ItemForBattleBean extends ItemBean {
     }
     public String clickWeather(int _index) {
         String type_ = immuWeather.get(_index);
-        getForms().put(CST_MOVE, type_);
-        return CST_MOVE;
+        return tryRedirectMv(type_);
     }
 //    public String getTrHatching(int _index) {
 //        String type_ = hatching.get(_index);
