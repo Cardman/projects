@@ -3,6 +3,7 @@ package aiki.beans.items;
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.effects.EffectWhileSendingBean;
 import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
@@ -417,6 +418,54 @@ public final class ItemForBattleBeanTest extends InitDbItemsItemForBattle {
     @Test
     public void clickGlobalMove2() {
         assertEq(M_DAM,callItemForBattleBeanClickGlobalMoveId());
+    }
+    @Test
+    public void getFailStatus1() {
+        assertSizeEq(1,callItemForBattleBeanFailStatusGet());
+    }
+    @Test
+    public void getFailStatus2() {
+        assertEq(S_STA_SIM,first(elt(callItemForBattleBeanFailStatusGet(),0)));
+    }
+    @Test
+    public void getFailStatus3() {
+        assertEq(Fight.TEMPS_TOUR,second(elt(callItemForBattleBeanFailStatusGet(),0)));
+    }
+    @Test
+    public void getTrFailStatus() {
+        assertEq(S_STA_SIM_TR,callItemForBattleBeanGetTrFailStatus());
+    }
+    @Test
+    public void clickFailStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callItemForBattleBeanClickFailStatus());
+    }
+    @Test
+    public void clickFailStatus2() {
+        assertEq(S_STA_SIM,callItemForBattleBeanClickFailStatusId());
+    }
+    @Test
+    public void getMultStatPokemonRank1() {
+        assertSizeEq(1,callItemForBattleBeanMultStatPokemonRankGet());
+    }
+    @Test
+    public void getMultStatPokemonRank2() {
+        assertEq(1,second(elt(callItemForBattleBeanMultStatPokemonRankGet(),0)));
+    }
+    @Test
+    public void getTrMultStatPkRank() {
+        assertEq(ST_SPEED_TR,callItemForBattleBeanGetTrMultStatPkRank());
+    }
+    @Test
+    public void getTrMultStatPk() {
+        assertEq(P_POKEMON_TR,callItemForBattleBeanGetTrMultStatPk());
+    }
+    @Test
+    public void clickMultStatPk1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callItemForBattleBeanClickMultStatPk());
+    }
+    @Test
+    public void clickMultStatPk2() {
+        assertEq(P_POKEMON,callItemForBattleBeanClickMultStatPkId());
     }
     @Test
     public void getDisableWeather1() {
