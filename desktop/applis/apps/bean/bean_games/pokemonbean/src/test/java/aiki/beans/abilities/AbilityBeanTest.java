@@ -295,6 +295,10 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(Fight.TEMPS_TOUR,callAbilityBeanMultDamageGet());
     }
     @Test
+    public void getDefEff() {
+        assertEq(Rate.one(),callAbilityBeanDefEffGet());
+    }
+    @Test
     public void getHealHpWhileUsingBerry() {
         assertEq(Rate.one(),callAbilityBeanHealHpWhileUsingBerryGet());
     }
@@ -1300,5 +1304,8 @@ public final class AbilityBeanTest extends InitDbAbility {
     public void getReasonsEndRound2() {
         assertEq(Fight.TEMPS_TOUR,elt(callAbilityBeanReasonsEndRoundGet(),0));
     }
-
+    @Test
+    public void clickAbilities() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_ABILITIES_HTML,callAbilityBeanClickIndex());
+    }
 }
