@@ -198,7 +198,7 @@ public abstract class InitDbAbilities extends InitDbConstr {
         a_.getHealHpByWeather().addEntry(NULL_REF,Rate.one());
         a_.getHealHpByWeather().addEntry(M_DAM,Rate.newRate("2"));
         a_.getHealHpByTypeIfWeather().addEntry(new WeatherType(NULL_REF,T_TYPE1),Rate.one());
-        a_.getHealHpByTypeIfWeather().addEntry(new WeatherType(NULL_REF,T_TYPE1),Rate.newRate("2"));
+        a_.getHealHpByTypeIfWeather().addEntry(new WeatherType(M_DAM,T_TYPE1),Rate.newRate("2"));
         a_.getImmuStatusBeginRound().add(S_STA_SIM);
         a_.getImmuMove().add(M_DAM);
         a_.getIgnFoeTeamMove().add(M_DAM);

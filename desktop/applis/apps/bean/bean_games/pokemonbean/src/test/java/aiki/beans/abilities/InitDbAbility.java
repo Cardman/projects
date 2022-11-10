@@ -789,28 +789,28 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanInflictingDamageInsteadOfSufferingGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanIsChgtTypeByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsChgtTypeByWeather(),directCase(),0);
+    public static Struct callAbilityBeanIsChgtTypeByWeather(int _v) {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsChgtTypeByWeather(),directCase(),_v);
     }
 
-    public static Struct callAbilityBeanIsHealHpByTypeIfWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByTypeIfWeather(),directCase(),0);
+    public static Struct callAbilityBeanIsHealHpByTypeIfWeather(int _v) {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByTypeIfWeather(),directCase(),_v);
     }
 
-    public static Struct callAbilityBeanIsHealHpByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByWeather(),directCase(),0);
+    public static Struct callAbilityBeanIsHealHpByWeather(int _v) {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByWeather(),directCase(),_v);
     }
 
-    public static Struct callAbilityBeanIsMoveByStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByStatus(),directCase(),0);
+    public static Struct callAbilityBeanIsMoveByStatus(int _v) {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByStatus(),directCase(),_v);
     }
 
-    public static Struct callAbilityBeanIsMoveByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByWeather(),directCase(),0);
+    public static Struct callAbilityBeanIsMoveByWeather(int _v) {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByWeather(),directCase(),_v);
     }
 
-    public static Struct callAbilityBeanIsStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsStatus(),directCase(),0);
+    public static Struct callAbilityBeanIsStatus(int _v) {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsStatus(),directCase(),_v);
     }
 
     public static Struct callAbilityBeanLowStatFoeHitGet() {

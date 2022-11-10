@@ -355,6 +355,26 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(ST_SPEED_TR,callAbilityBeanGetTrMaxStatisticsIfCh());
     }
     @Test
+    public void getEfficiencyMoves1() {
+        assertSizeEq(1,callAbilityBeanBreakFoeImmuneGet());
+    }
+    @Test
+    public void getEfficiencyMoves2() {
+        assertEq(T_TYPE1,callTypesDuoGetDamageType(elt(callAbilityBeanBreakFoeImmuneGet(),0)));
+    }
+    @Test
+    public void getEfficiencyMoves3() {
+        assertEq(T_TYPE2,callTypesDuoGetPokemonType(elt(callAbilityBeanBreakFoeImmuneGet(),0)));
+    }
+    @Test
+    public void getTrBreakFoeImmuneKey() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrBreakFoeImmuneKey());
+    }
+    @Test
+    public void getTrBreakFoeImmuneValue() {
+        assertEq(T_TYPE2_TR,callAbilityBeanGetTrBreakFoeImmuneValue());
+    }
+    @Test
     public void getBonusStatRank1() {
         assertSizeEq(1,callAbilityBeanBonusStatRankGet());
     }
@@ -685,6 +705,54 @@ public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void clickReversePowerTypesAbilities2() {
         assertEq(A_ABILITY2,callAbilityBeanClickReversePowerTypesAbilitiesId());
+    }
+    @Test
+    public void isChgtTypeByWeather1() {
+        assertFalse(callAbilityBeanIsChgtTypeByWeather(0));
+    }
+    @Test
+    public void isChgtTypeByWeather2() {
+        assertTrue(callAbilityBeanIsChgtTypeByWeather(1));
+    }
+    @Test
+    public void isHealHpByTypeIfWeather1() {
+        assertFalse(callAbilityBeanIsHealHpByTypeIfWeather(0));
+    }
+    @Test
+    public void isHealHpByTypeIfWeather2() {
+        assertTrue(callAbilityBeanIsHealHpByTypeIfWeather(1));
+    }
+    @Test
+    public void isHealHpByWeather1() {
+        assertFalse(callAbilityBeanIsHealHpByWeather(0));
+    }
+    @Test
+    public void isHealHpByWeather2() {
+        assertTrue(callAbilityBeanIsHealHpByWeather(1));
+    }
+    @Test
+    public void isMoveByStatus1() {
+        assertFalse(callAbilityBeanIsMoveByStatus(0));
+    }
+    @Test
+    public void isMoveByStatus2() {
+        assertTrue(callAbilityBeanIsMoveByStatus(1));
+    }
+    @Test
+    public void isMoveByWeather1() {
+        assertFalse(callAbilityBeanIsMoveByWeather(0));
+    }
+    @Test
+    public void isMoveByWeather2() {
+        assertTrue(callAbilityBeanIsMoveByWeather(1));
+    }
+    @Test
+    public void isStatus1() {
+        assertFalse(callAbilityBeanIsStatus(0));
+    }
+    @Test
+    public void isStatus2() {
+        assertTrue(callAbilityBeanIsStatus(1));
     }
     @Test
     public void getMapVarsFailEndRound1() {
