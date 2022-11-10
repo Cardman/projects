@@ -687,6 +687,54 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(T_TYPE1_TR,callAbilityBeanGetTrMultPowerMovesTypesGlobalKey());
     }
     @Test
+    public void getMultDamageFoe1() {
+        assertSizeEq(1,callAbilityBeanMultDamageFoeGet());
+    }
+    @Test
+    public void getMultDamageFoe2() {
+        assertEq(T_TYPE1,first(elt(callAbilityBeanMultDamageFoeGet(),0)));
+    }
+    @Test
+    public void getMultDamageFoe3() {
+        assertEq(Rate.one(),second(elt(callAbilityBeanMultDamageFoeGet(),0)));
+    }
+    @Test
+    public void getTrMultDamageFoe() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrMultDamageFoe());
+    }
+    @Test
+    public void getIncreasedPrioTypes1() {
+        assertSizeEq(1,callAbilityBeanIncreasedPrioTypesGet());
+    }
+    @Test
+    public void getIncreasedPrioTypes2() {
+        assertEq(T_TYPE1,first(elt(callAbilityBeanIncreasedPrioTypesGet(),0)));
+    }
+    @Test
+    public void getIncreasedPrioTypes3() {
+        assertEq(1,second(elt(callAbilityBeanIncreasedPrioTypesGet(),0)));
+    }
+    @Test
+    public void getTrIncreasedPrioTypes() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrIncreasedPrioTypes());
+    }
+    @Test
+    public void getIncreasedPrio1() {
+        assertSizeEq(1,callAbilityBeanIncreasedPrioGet());
+    }
+    @Test
+    public void getIncreasedPrio2() {
+        assertEq(C_CAT,first(elt(callAbilityBeanIncreasedPrioGet(),0)));
+    }
+    @Test
+    public void getIncreasedPrio3() {
+        assertEq(1,second(elt(callAbilityBeanIncreasedPrioGet(),0)));
+    }
+    @Test
+    public void getTrIncreasedPrio() {
+        assertEq(C_CAT1_TR,callAbilityBeanGetTrIncreasedPrio());
+    }
+    @Test
     public void getReverseEffectsPowerMovesTypesGlobalAbilities1() {
         assertSizeEq(1,callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet());
     }
@@ -705,6 +753,30 @@ public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void clickReversePowerTypesAbilities2() {
         assertEq(A_ABILITY2,callAbilityBeanClickReversePowerTypesAbilitiesId());
+    }
+    @Test
+    public void getDivideStatusRound1() {
+        assertSizeEq(1,callAbilityBeanDivideStatusRoundGet());
+    }
+    @Test
+    public void getDivideStatusRound2() {
+        assertEq(S_STA_SIM,first(elt(callAbilityBeanDivideStatusRoundGet(),0)));
+    }
+    @Test
+    public void getDivideStatusRound3() {
+        assertEq(Rate.one(),second(elt(callAbilityBeanDivideStatusRoundGet(),0)));
+    }
+    @Test
+    public void getTrDivideStatusRoundKey() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrDivideStatusRoundKey());
+    }
+    @Test
+    public void clickDivideStatusRoundKey1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickDivideStatusRoundKey());
+    }
+    @Test
+    public void clickDivideStatusRoundKey2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickDivideStatusRoundKeyId());
     }
     @Test
     public void getChgtTypeByWeather1() {
@@ -971,6 +1043,18 @@ public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void clickSingleStatus2() {
         assertEq(S_STA_SIM,callAbilityBeanClickSingleStatusId());
+    }
+    @Test
+    public void getMapVars1() {
+        assertSizeEq(1,callAbilityBeanMapVarsGet());
+    }
+    @Test
+    public void getMapVars2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callAbilityBeanMapVarsGet(),0)));
+    }
+    @Test
+    public void getMapVars3() {
+        assertEq(TIME,second(elt(callAbilityBeanMapVarsGet(),0)));
     }
     @Test
     public void getMapVarsFailEndRound1() {
