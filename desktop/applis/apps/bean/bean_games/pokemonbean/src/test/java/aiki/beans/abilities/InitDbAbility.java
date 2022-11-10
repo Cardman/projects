@@ -1,7 +1,30 @@
 package aiki.beans.abilities;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.PkData;
+import aiki.beans.effects.AikiBeansEffectsStd;
+import aiki.beans.items.AikiBeansItemsStd;
+import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.fight.abilities.AbilityData;
+import aiki.fight.effects.EffectWhileSendingWithStatistic;
+import aiki.fight.items.ItemForBattle;
+import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.moves.StatusMoveData;
+import aiki.fight.moves.effects.EffectEndRound;
+import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
+import aiki.fight.moves.effects.EffectStatistic;
+import aiki.fight.moves.enums.TargetChoice;
+import aiki.fight.pokemon.PokemonData;
+import aiki.fight.pokemon.enums.GenderRepartition;
+import aiki.game.fight.Fight;
+import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
+import code.images.BaseSixtyFourUtil;
+import code.maths.LgInt;
+import code.maths.Rate;
+import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class InitDbAbility extends InitDbAbilities {
 
@@ -145,8 +168,18 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanClickPokemon(),_str,_args);
     }
 
-    public static Struct callAbilityBeanClickReversePowerTypesAbilities(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickReversePowerTypesAbilities(),_str,_args);
+    public static String callAbilityBeanClickReversePowerTypesAbilities() {
+        return callAbilityBeanClickReversePowerTypesAbilities(reverseCase());
+    }
+
+    public static String callAbilityBeanClickReversePowerTypesAbilities(Struct _str) {
+        return navigateData(new AbilityBeanClickReversePowerTypesAbilities(),_str,0);
+    }
+
+    public static String callAbilityBeanClickReversePowerTypesAbilitiesId() {
+        Struct bean_ = reverseCase();
+        callAbilityBeanClickReversePowerTypesAbilities(bean_);
+        return getValAbilityId(bean_);
     }
 
     public static Struct callAbilityBeanClickSingleStatus(Struct _str, long... _args) {
@@ -173,8 +206,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanDefEffGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanDisplayNameGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDisplayNameGet(),_str,_args);
+    public static Struct callAbilityBeanDisplayNameGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanDisplayNameGet(),directCase());
     }
 
     public static Struct callAbilityBeanDivideStatusRoundGet(Struct _str, long... _args) {
@@ -369,8 +402,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultDamageFoe(),_str,_args);
     }
 
-    public static Struct callAbilityBeanGetTrMultPowerMovesTypesGlobalKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultPowerMovesTypesGlobalKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultPowerMovesTypesGlobalKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultPowerMovesTypesGlobalKey(),directCase(),0);
     }
 
     public static Struct callAbilityBeanGetTrMultStat(Struct _str, long... _args) {
@@ -425,8 +458,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrPokemon(),_str,_args);
     }
 
-    public static Struct callAbilityBeanGetTrReversePowerTypesAbilities(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrReversePowerTypesAbilities(),_str,_args);
+    public static Struct callAbilityBeanGetTrReversePowerTypesAbilities() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrReversePowerTypesAbilities(),reverseCase(),0);
     }
 
     public static Struct callAbilityBeanGetTrSingleStatus(Struct _str, long... _args) {
@@ -629,8 +662,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanMultPowerMovesTypesGlobalGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerMovesTypesGlobalGet(),_str,_args);
+    public static Struct callAbilityBeanMultPowerMovesTypesGlobalGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerMovesTypesGlobalGet(),directCase());
     }
 
     public static Struct callAbilityBeanMultStabGet(Struct _str, long... _args) {
@@ -713,8 +746,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanRecoilDamageFoeGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet(),_str,_args);
+    public static Struct callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet(),reverseCase());
     }
 
     public static Struct callAbilityBeanReverseEffectsPowerMovesTypesGlobalGet(Struct _str, long... _args) {
@@ -741,4 +774,194 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanTypeForMovesGet(),_str,_args);
     }
 
+
+
+    public static StringMap<Struct> beanToItBaseSend(PkData _pk) {
+        StringMap<Struct> map_ = beanToAbility(_pk);
+        map_.addEntry(AikiBeansEffectsStd.EFFECT_SENDING,_pk.beanEffectWhileSendingBean(EN));
+        return map_;
+    }
+
+//    protected static Struct healSimpleEndRound() {
+//        return healSimpleEndRound(true,true,true,true,true,true,LgInt.one(),LgInt.one());
+//    }
+//
+//    protected static Struct healSimple() {
+//        return healSimple(true,true,true,true,true,true,LgInt.one(),LgInt.one());
+//    }
+
+    protected static Struct reverseCase() {
+        PkData pk_ = pkDataByFacade(feedDbAbilityReverse());
+        StringMap<Struct> all_ = beanToAbility(pk_);
+        return transitToAllAbilities(pk_,all_,0);
+    }
+
+    protected static Struct directCase() {
+        PkData pk_ = pkDataByFacade(feedDbAbility());
+        StringMap<Struct> all_ = beanToAbility(pk_);
+        return transitToAllAbilities(pk_,all_,0);
+    }
+//    protected static Struct healSimple(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        PkData pk_ = pkDataByFacade(feedDbItem(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+//        StringMap<Struct> all_ = beanToAbility(pk_);
+//
+//        return dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+//    }
+//
+//    protected static Struct healSimpleEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        PkData pk_ = pkDataByFacade(feedDbItemEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+//        StringMap<Struct> all_ = beanToItBase(pk_);
+//        return dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+//    }
+//
+//    protected static Struct healSimpleNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
+//        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
+//        StringMap<Struct> all_ = beanToItBaseSend(pk_);
+//        Struct res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+//        callItemForBattleBeanEffectSendBeanGet(res_);
+//        Struct send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
+//        callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
+//        beforeDisplaying(send_);
+//        return res_;
+//    }
+//
+//    public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
+//    }
+//    public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
+//        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
+//        StringMap<Struct> all_ = beanToItBaseSend(pk_);
+//        Struct res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+//        callItemForBattleBeanEffectSendBeanGet(res_);
+//        Struct send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
+//        callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
+//        beforeDisplaying(send_);
+//        return send_;
+//    }
+//
+//    public static Struct healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+//        StringMap<Struct> all_ = beanToItBaseSend(pk_);
+//        Struct res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+//        callItemForBattleBeanEffectSendBeanGet(res_);
+//        Struct send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
+//        callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
+//        beforeDisplaying(send_);
+//        return send_;
+//    }
+//
+//    protected static Struct healSimpleStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+//        StringMap<Struct> all_ = beanToItBaseSend(pk_);
+//        Struct res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
+//        callItemForBattleBeanEffectSendBeanGet(res_);
+//        Struct send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
+//        callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
+//        beforeDisplaying(send_);
+//        return res_;
+//    }
+
+//    protected static FacadeGame feedDbItem(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        FacadeGame facade_ = facade();
+//        facade_.getData().completeMembers(I_BASE,itemForBattle(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
+//        otherElts(facade_);
+//        facade_.getData().completeVariables();
+//        return facade_;
+//    }
+//
+//    protected static FacadeGame feedDbItemStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        return feedDbItem(eff(),_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, true, true);
+//    }
+//
+//    protected static FacadeGame feedDbItemNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
+//        return feedDbItem(null,_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather);
+//    }
+//
+//    protected static FacadeGame feedDbItemEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        return feedDbItem(effEndRound(),_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff);
+//    }
+//
+//    protected static FacadeGame feedDbItem(EffectStatistic _eff, boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
+//        FacadeGame facade_ = facade();
+//        ItemForBattle it_ = itemForBattle(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff);
+//        EffectWhileSendingWithStatistic e_ = Instances.newEffectWhileSendingWithStatistic();
+//        e_.setEffect(_eff);
+//        e_.setCopyingAbility(_copyingAbility);
+//        e_.setDisableWeather(_disableWeather);
+//        e_.setEnabledWeather(M_DAM);
+//        e_.setMultWeight(Rate.one());
+//        it_.getEffectSending().add(e_);
+//        facade_.getData().completeMembers(I_BASE, it_);
+//        otherElts(facade_);
+//        facade_.getData().completeVariables();
+//        return facade_;
+//    }
+//
+//    protected static FacadeGame feedDbItem(EffectEndRound _eff,boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
+//        FacadeGame facade_ = facade();
+//        ItemForBattle it_ = itemForBattle(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff);
+//        it_.getEffectEndRound().add(_eff);
+//        facade_.getData().completeMembers(I_BASE, it_);
+//        otherElts(facade_);
+//        facade_.getData().completeVariables();
+//        return facade_;
+//    }
+
+
+    protected static FacadeGame feedDbAbility() {
+        return feedDbAbility(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,"");
+    }
+
+    protected static FacadeGame feedDbAbility(boolean _rech, String _ab) {
+        return feedDbAbility(_rech,_ab,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,"");
+    }
+
+    protected static FacadeGame feedDbAbility(boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
+        return feedDbAbility(true,A_ABILITY,_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves);
+    }
+    protected static FacadeGame feedDbAbility(boolean _rech, String _ab,boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(A_ABILITY, ability(_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves));
+        AbilityData ab_ = ability();
+        ab_.setMultPowerMovesTypesGlobal(new StringMap<Rate>());
+        facade_.getData().completeMembers(A_ABILITY2, ab_);
+        return common(_rech, _ab, facade_);
+    }
+    protected static FacadeGame feedDbAbilityReverse() {
+        FacadeGame facade_ = facade();
+        AbilityData d_ = ability();
+        d_.setMultPowerMovesTypesGlobal(new StringMap<Rate>());
+        facade_.getData().completeMembers(A_ABILITY, d_);
+        AbilityData ab_ = ability();
+        facade_.getData().completeMembers(A_ABILITY2, ab_);
+        return common(true, A_ABILITY, facade_);
+    }
+
+    private static FacadeGame common(boolean _rech, String _ab, FacadeGame _facade) {
+        _facade.getData().completeMembers(S_STA_REL,staRel(""));
+        _facade.getData().completeMembers(S_STA_SIM,staSimple(""));
+        DamagingMoveData rech_ = moveDam(TargetChoice.ANY_FOE);
+        rech_.setRechargeRound(_rech);
+        _facade.getData().completeMembers(M_DAM, rech_);
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
+        pk_.setAbilities(new StringList(_ab));
+        _facade.getData().completeMembers(P_POKEMON, pk_);
+        trsCore(_facade);
+        _facade.getData().completeVariables();
+        return _facade;
+    }
+
+    protected static EffectEndRound effEndRound() {
+        EffectEndRound e_ = lawEndRound();
+        e_.setFailEndRound(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setEndRoundRank(1);
+        return e_;
+    }
+
+    private static EffectEndRoundSingleRelation lawEndRound() {
+        EffectEndRoundSingleRelation e_ = Instances.newEffectEndRoundSingleRelation();
+        e_.getLawForEnablingEffect().addQuickEvent(Rate.one(), LgInt.one());
+        e_.getLawForEnablingEffect().addQuickEvent(Rate.newRate("2"), LgInt.newLgInt("3"));
+        return e_;
+    }
 }
