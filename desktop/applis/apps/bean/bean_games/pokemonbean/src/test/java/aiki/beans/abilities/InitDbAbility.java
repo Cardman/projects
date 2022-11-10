@@ -189,8 +189,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanCopyMovesTypesGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanDecreaseNecStepsHatchGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDecreaseNecStepsHatchGet(),_str,_args);
+    public static Struct callAbilityBeanDecreaseNecStepsHatchGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanDecreaseNecStepsHatchGet(),directCase());
     }
 
     public static Struct callAbilityBeanDecreaseNecStepsHatchInt(Struct _str, long... _args) {
@@ -721,8 +721,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanNbHitsGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanNbUsedPpGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanNbUsedPpGet(),_str,_args);
+    public static Struct callAbilityBeanNbUsedPpGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanNbUsedPpGet(),directCase());
     }
 
     public static Struct callAbilityBeanNbUsedPpInt(Struct _str, long... _args) {

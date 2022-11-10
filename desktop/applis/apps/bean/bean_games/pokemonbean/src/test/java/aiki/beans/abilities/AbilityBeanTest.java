@@ -252,6 +252,38 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertTrue(callAbilityBeanTakeItemByDamagingMoveGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
     }
     @Test
+    public void decreaseNecStepsHatchInt1() {
+        assertFalse(callAbilityBeanDecreaseNecStepsHatchInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,0,T_TYPE1)));
+    }
+    @Test
+    public void decreaseNecStepsHatchInt2() {
+        assertTrue(callAbilityBeanDecreaseNecStepsHatchInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+    }
+    @Test
+    public void nbUsedPpInt1() {
+        assertFalse(callAbilityBeanNbUsedPpInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,0,1,T_TYPE1)));
+    }
+    @Test
+    public void nbUsedPpInt2() {
+        assertTrue(callAbilityBeanNbUsedPpInt(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+    }
+    @Test
+    public void getDecreaseNecStepsHatch() {
+        assertEq(1,callAbilityBeanDecreaseNecStepsHatchGet());
+    }
+    @Test
+    public void getNbUsedPp() {
+        assertEq(1,callAbilityBeanNbUsedPpGet());
+    }
+    @Test
+    public void getTypeForMoves1() {
+        assertEq(NULL_REF,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,NULL_REF)));
+    }
+    @Test
+    public void getTypeForMoves2() {
+        assertEq(T_TYPE1_TR,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
+    }
+    @Test
     public void getMultPowerMovesTypesGlobal1() {
         assertSizeEq(1,callAbilityBeanMultPowerMovesTypesGlobalGet());
     }
