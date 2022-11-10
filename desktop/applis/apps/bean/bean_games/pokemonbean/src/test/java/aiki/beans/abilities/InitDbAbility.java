@@ -10,6 +10,7 @@ import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
+import aiki.fight.moves.effects.EffectProtection;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
@@ -71,98 +72,277 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanChgtTypeByWeatherGet(),directCase());
     }
 
+    public static String callAbilityBeanClickBreakProtectionMoves() {
+        return callAbilityBeanClickBreakProtectionMoves(directCase());
+    }
+
     public static String callAbilityBeanClickBreakProtectionMoves(Struct _str) {
         return navigateData(new AbilityBeanClickBreakProtectionMoves(),_str,0);
     }
 
+    public static String callAbilityBeanClickBreakProtectionMovesId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickBreakProtectionMoves(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickChgtTypeByWeatherKey() {
+        return callAbilityBeanClickChgtTypeByWeatherKey(directCase());
+    }
     public static String callAbilityBeanClickChgtTypeByWeatherKey(Struct _str) {
         return navigateData(new AbilityBeanClickChgtTypeByWeatherKey(),_str,0);
     }
 
+    public static String callAbilityBeanClickChgtTypeByWeatherKeyId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickChgtTypeByWeatherKey(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickDivideStatusRoundKey() {
+        return callAbilityBeanClickDivideStatusRoundKey(directCase());
+    }
     public static String callAbilityBeanClickDivideStatusRoundKey(Struct _str) {
         return navigateData(new AbilityBeanClickDivideStatusRoundKey(),_str,0);
     }
 
+    public static String callAbilityBeanClickDivideStatusRoundKeyId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickDivideStatusRoundKey(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickFailStatus() {
+        return callAbilityBeanClickFailStatus(directCase());
+    }
     public static String callAbilityBeanClickFailStatus(Struct _str) {
         return navigateData(new AbilityBeanClickFailStatus(),_str,0);
     }
 
+    public static String callAbilityBeanClickFailStatusId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickFailStatus(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickForwardStatusKey() {
+        return callAbilityBeanClickForwardStatusKey(directCase());
+    }
     public static String callAbilityBeanClickForwardStatusKey(Struct _str) {
         return navigateData(new AbilityBeanClickForwardStatusKey(),_str,0);
     }
 
+    public static String callAbilityBeanClickForwardStatusKeyId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickForwardStatusKey(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickForwardStatusValue() {
+        return callAbilityBeanClickForwardStatusValue(directCase());
+    }
     public static String callAbilityBeanClickForwardStatusValue(Struct _str) {
         return navigateData(new AbilityBeanClickForwardStatusValue(),_str,0);
     }
 
+    public static String callAbilityBeanClickForwardStatusValueId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickForwardStatusValue(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickHealHpByTypeIfWeatherKey() {
+        return callAbilityBeanClickHealHpByTypeIfWeatherKey(directCase());
+    }
     public static String callAbilityBeanClickHealHpByTypeIfWeatherKey(Struct _str) {
         return navigateData(new AbilityBeanClickHealHpByTypeIfWeatherKey(),_str,0);
     }
 
+    public static String callAbilityBeanClickHealHpByTypeIfWeatherKeyId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickHealHpByTypeIfWeatherKey(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickHealHpByWeatherKey() {
+        return callAbilityBeanClickHealHpByWeatherKey(directCase());
+    }
     public static String callAbilityBeanClickHealHpByWeatherKey(Struct _str) {
         return navigateData(new AbilityBeanClickHealHpByWeatherKey(),_str,0);
     }
 
+    public static String callAbilityBeanClickHealHpByWeatherKeyId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickHealHpByWeatherKey(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickIgnAbility() {
+        return callAbilityBeanClickIgnAbility(directCase());
+    }
     public static String callAbilityBeanClickIgnAbility(Struct _str) {
         return navigateData(new AbilityBeanClickIgnAbility(),_str,0);
     }
 
+    public static String callAbilityBeanClickIgnAbilityId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickIgnAbility(b_);
+        return getValAbilityId(b_);
+    }
+    public static String callAbilityBeanClickIgnFoeTeamMove() {
+        return callAbilityBeanClickIgnFoeTeamMove(directCase());
+    }
     public static String callAbilityBeanClickIgnFoeTeamMove(Struct _str) {
         return navigateData(new AbilityBeanClickIgnFoeTeamMove(),_str,0);
     }
 
+    public static String callAbilityBeanClickIgnFoeTeamMoveId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickIgnFoeTeamMove(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickImmuAbility() {
+        return callAbilityBeanClickImmuAbility(directCase());
+    }
     public static String callAbilityBeanClickImmuAbility(Struct _str) {
         return navigateData(new AbilityBeanClickImmuAbility(),_str,0);
     }
 
+    public static String callAbilityBeanClickImmuAbilityId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuAbility(b_);
+        return getValAbilityId(b_);
+    }
+    public static String callAbilityBeanClickImmuAllyFromMoves() {
+        return callAbilityBeanClickImmuAllyFromMoves(directCase());
+    }
     public static String callAbilityBeanClickImmuAllyFromMoves(Struct _str) {
         return navigateData(new AbilityBeanClickImmuAllyFromMoves(),_str,0);
     }
 
+    public static String callAbilityBeanClickImmuAllyFromMovesId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuAllyFromMoves(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickImmuLowStatIfStatusKey() {
+        return callAbilityBeanClickImmuLowStatIfStatusKey(directCase());
+    }
     public static String callAbilityBeanClickImmuLowStatIfStatusKey(Struct _str) {
         return navigateData(new AbilityBeanClickImmuLowStatIfStatusKey(),_str,0);
+    }
+
+    public static String callAbilityBeanClickImmuLowStatIfStatusKeyId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuLowStatIfStatusKey(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickImmuMove() {
+        return callAbilityBeanClickImmuMove(directCase());
     }
 
     public static String callAbilityBeanClickImmuMove(Struct _str) {
         return navigateData(new AbilityBeanClickImmuMove(),_str,0);
     }
 
+    public static String callAbilityBeanClickImmuMoveId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuMove(b_);
+        return getValMoveId(b_);
+    }
+
+    public static String callAbilityBeanClickImmuMoveByWeather() {
+        return callAbilityBeanClickImmuMoveByWeather(directCase());
+    }
     public static String callAbilityBeanClickImmuMoveByWeather(Struct _str) {
         return navigateData(new AbilityBeanClickImmuMoveByWeather(),_str,0);
     }
 
+    public static String callAbilityBeanClickImmuMoveByWeatherId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuMoveByWeather(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickImmuRechargeRoundMoves() {
+        return callAbilityBeanClickImmuRechargeRoundMoves(directCase());
+    }
     public static String callAbilityBeanClickImmuRechargeRoundMoves(Struct _str) {
         return navigateData(new AbilityBeanClickImmuRechargeRoundMoves(),_str,0);
     }
 
+    public static String callAbilityBeanClickImmuRechargeRoundMovesId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuRechargeRoundMoves(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickImmuStatus() {
+        return callAbilityBeanClickImmuStatus(directCase());
+    }
     public static String callAbilityBeanClickImmuStatus(Struct _str) {
         return navigateData(new AbilityBeanClickImmuStatus(),_str,0,0);
     }
 
+    public static String callAbilityBeanClickImmuStatusId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuStatus(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickImmuStatusBeginRound() {
+        return callAbilityBeanClickImmuStatusBeginRound(directCase());
+    }
     public static String callAbilityBeanClickImmuStatusBeginRound(Struct _str) {
         return navigateData(new AbilityBeanClickImmuStatusBeginRound(),_str,0);
     }
 
+    public static String callAbilityBeanClickImmuStatusBeginRoundId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuStatusBeginRound(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickImmuStatusTypes() {
+        return callAbilityBeanClickImmuStatusTypes(directCase());
+    }
     public static String callAbilityBeanClickImmuStatusTypes(Struct _str) {
         return navigateData(new AbilityBeanClickImmuStatusTypes(),_str,0,0);
     }
 
+    public static String callAbilityBeanClickImmuStatusTypesId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuStatusTypes(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickImmuStatusWeather() {
+        return callAbilityBeanClickImmuStatusWeather(directCase());
+    }
     public static String callAbilityBeanClickImmuStatusWeather(Struct _str) {
         return navigateData(new AbilityBeanClickImmuStatusWeather(),_str,0);
     }
 
-    public static String callAbilityBeanClickIndex(Struct _str) {
-        return navigateData(new AbilityBeanClickIndex(),_str);
+    public static String callAbilityBeanClickImmuStatusWeatherId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickImmuStatusWeather(b_);
+        return getValMoveId(b_);
+    }
+    public static String callAbilityBeanClickIndex() {
+        return navigateData(new AbilityBeanClickIndex(),directCase());
     }
 
+    public static String callAbilityBeanClickMultStatIfStatutRankSec() {
+        return callAbilityBeanClickMultStatIfStatutRankSec(directCase());
+    }
     public static String callAbilityBeanClickMultStatIfStatutRankSec(Struct _str) {
         return navigateData(new AbilityBeanClickMultStatIfStatutRankSec(),_str,0);
     }
 
+    public static String callAbilityBeanClickMultStatIfStatutRankSecId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickMultStatIfStatutRankSec(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickPokemon() {
+        return callAbilityBeanClickPokemon(directCase());
+    }
     public static String callAbilityBeanClickPokemon(Struct _str) {
         return navigateData(new AbilityBeanClickPokemon(),_str,0);
     }
 
+    public static String callAbilityBeanClickPokemonId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickPokemon(b_);
+        return getValPkId(b_);
+    }
     public static String callAbilityBeanClickReversePowerTypesAbilities() {
         return callAbilityBeanClickReversePowerTypesAbilities(reverseCase());
     }
@@ -177,14 +357,30 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return getValAbilityId(bean_);
     }
 
+    public static String callAbilityBeanClickSingleStatus() {
+        return callAbilityBeanClickSingleStatus(directCase());
+    }
     public static String callAbilityBeanClickSingleStatus(Struct _str) {
         return navigateData(new AbilityBeanClickSingleStatus(),_str,0);
     }
 
+    public static String callAbilityBeanClickSingleStatusId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickSingleStatus(b_);
+        return getValStatusId(b_);
+    }
+    public static String callAbilityBeanClickWeather() {
+        return callAbilityBeanClickWeather(directCase());
+    }
     public static String callAbilityBeanClickWeather(Struct _str) {
         return navigateData(new AbilityBeanClickWeather(),_str,0);
     }
 
+    public static String callAbilityBeanClickWeatherId() {
+        Struct b_ = directCase();
+        callAbilityBeanClickWeather(b_);
+        return getValMoveId(b_);
+    }
     public static Struct callAbilityBeanCopyMovesTypesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanCopyMovesTypesGet(),_str,_args);
     }
@@ -946,6 +1142,9 @@ public abstract class InitDbAbility extends InitDbAbilities {
         _facade.getData().completeMembers(S_STA_SIM,staSimple(""));
         DamagingMoveData rech_ = moveDam(TargetChoice.ANY_FOE);
         rech_.setRechargeRound(_rech);
+        EffectProtection e_ = Instances.newEffectProtection();
+        e_.setProtTeamAgainstPrio(true);
+        rech_.getEffects().add(e_);
         _facade.getData().completeMembers(M_DAM, rech_);
         PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
         pk_.setAbilities(new StringList(_ab));

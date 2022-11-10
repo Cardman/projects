@@ -1,5 +1,6 @@
 package aiki.beans.abilities;
 
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
 import code.maths.Rate;
 import code.util.CustList;
@@ -334,6 +335,106 @@ public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void getHealedHpRateBySwitch() {
         assertEq(Rate.one(),callAbilityBeanHealedHpRateBySwitchGet());
+    }
+    @Test
+    public void getImmuMove1() {
+        assertSizeEq(1,callAbilityBeanImmuMoveGet());
+    }
+    @Test
+    public void getImmuMove2() {
+        assertEq(M_DAM,elt(callAbilityBeanImmuMoveGet(),0));
+    }
+    @Test
+    public void getTrImmuMove() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrImmuMove());
+    }
+    @Test
+    public void clickImmuMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuMove());
+    }
+    @Test
+    public void clickImmuMove2() {
+        assertEq(M_DAM,callAbilityBeanClickImmuMoveId());
+    }
+    @Test
+    public void getBreakProtectionMoves1() {
+        assertSizeEq(1,callAbilityBeanBreakProtectionMovesGet());
+    }
+    @Test
+    public void getBreakProtectionMoves2() {
+        assertEq(M_DAM,elt(callAbilityBeanBreakProtectionMovesGet(),0));
+    }
+    @Test
+    public void getTrBreakProtectionMoves() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrBreakProtectionMoves());
+    }
+    @Test
+    public void clickBreakProtectionMoves1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickBreakProtectionMoves());
+    }
+    @Test
+    public void clickBreakProtectionMoves2() {
+        assertEq(M_DAM,callAbilityBeanClickBreakProtectionMovesId());
+    }
+    @Test
+    public void getImmuRechargeRoundMoves1() {
+        assertSizeEq(1,callAbilityBeanImmuRechargeRoundMovesGet());
+    }
+    @Test
+    public void getImmuRechargeRoundMoves2() {
+        assertEq(M_DAM,elt(callAbilityBeanImmuRechargeRoundMovesGet(),0));
+    }
+    @Test
+    public void getTrImmuRechargeRoundMoves() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrImmuRechargeRoundMoves());
+    }
+    @Test
+    public void clickImmuRechargeRoundMoves1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuRechargeRoundMoves());
+    }
+    @Test
+    public void clickImmuRechargeRoundMoves2() {
+        assertEq(M_DAM,callAbilityBeanClickImmuRechargeRoundMovesId());
+    }
+    @Test
+    public void getImmuAllyFromMoves1() {
+        assertSizeEq(1,callAbilityBeanImmuAllyFromMovesGet());
+    }
+    @Test
+    public void getImmuAllyFromMoves2() {
+        assertEq(M_DAM,elt(callAbilityBeanImmuAllyFromMovesGet(),0));
+    }
+    @Test
+    public void getTrImmuAllyFromMoves() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrImmuAllyFromMoves());
+    }
+    @Test
+    public void clickImmuAllyFromMoves1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuAllyFromMoves());
+    }
+    @Test
+    public void clickImmuAllyFromMoves2() {
+        assertEq(M_DAM,callAbilityBeanClickImmuAllyFromMovesId());
+    }
+    @Test
+    public void getIgnFoeTeamMove1() {
+        assertSizeEq(1,callAbilityBeanIgnFoeTeamMoveGet());
+    }
+    @Test
+    public void getIgnFoeTeamMove2() {
+        assertEq(M_DAM,elt(callAbilityBeanIgnFoeTeamMoveGet(),0));
+    }
+    @Test
+    public void getTrIgnFoeTeamMove() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrIgnFoeTeamMove());
+    }
+    @Test
+    public void clickIgnFoeTeamMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickIgnFoeTeamMove());
+    }
+    @Test
+    public void clickIgnFoeTeamMove2() {
+        assertEq(M_DAM,callAbilityBeanClickIgnFoeTeamMoveId());
     }
     @Test
     public void getMultPowerMovesTypesGlobal1() {
