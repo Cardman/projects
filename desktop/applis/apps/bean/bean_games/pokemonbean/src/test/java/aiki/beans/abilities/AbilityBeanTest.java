@@ -891,6 +891,46 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(S_STA_SIM,callAbilityBeanClickImmuLowStatIfStatusKeyId());
     }
     @Test
+    public void getImmuLowStatisTypes1() {
+        assertSizeEq(1,callAbilityBeanImmuLowStatisTypesGet());
+    }
+    @Test
+    public void getImmuLowStatisTypes2() {
+        assertEq(T_TYPE1,first(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
+    }
+    @Test
+    public void getImmuLowStatisTypes3() {
+        assertSizeEq(1,second(elt(callAbilityBeanImmuLowStatisTypesGet(),0)));
+    }
+    @Test
+    public void getTrImmuLowStatisTypes() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrImmuLowStatisTypes());
+    }
+    @Test
+    public void getTrImmuLowStatisValue() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrImmuLowStatisValue());
+    }
+    @Test
+    public void getChangingBoostTypes1() {
+        assertSizeEq(1,callAbilityBeanChangingBoostTypesGet());
+    }
+    @Test
+    public void getChangingBoostTypes2() {
+        assertEq(T_TYPE1,first(elt(callAbilityBeanChangingBoostTypesGet(),0)));
+    }
+    @Test
+    public void getChangingBoostTypes3() {
+        assertEq(Rate.one(),callTypeDamageBoostGetBoost(second(elt(callAbilityBeanChangingBoostTypesGet(),0))));
+    }
+    @Test
+    public void getTrChangingBoostTypesOld() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrChangingBoostTypesOld());
+    }
+    @Test
+    public void getTrChangingBoostTypesNew() {
+        assertEq(T_TYPE2_TR,callAbilityBeanGetTrChangingBoostTypesNew());
+    }
+    @Test
     public void getChgtTypeByWeather1() {
         assertSizeEq(2,callAbilityBeanChgtTypeByWeatherGet());
     }
