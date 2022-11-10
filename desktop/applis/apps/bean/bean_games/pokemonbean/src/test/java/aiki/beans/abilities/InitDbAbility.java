@@ -247,7 +247,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickImmuMoveByWeather(directCase());
     }
     public static String callAbilityBeanClickImmuMoveByWeather(Struct _str) {
-        return navigateData(new AbilityBeanClickImmuMoveByWeather(),_str,0);
+        return navigateData(new AbilityBeanClickImmuMoveByWeather(),_str,1);
     }
 
     public static String callAbilityBeanClickImmuMoveByWeatherId() {
@@ -361,7 +361,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickSingleStatus(directCase());
     }
     public static String callAbilityBeanClickSingleStatus(Struct _str) {
-        return navigateData(new AbilityBeanClickSingleStatus(),_str,0);
+        return navigateData(new AbilityBeanClickSingleStatus(),_str,1);
     }
 
     public static String callAbilityBeanClickSingleStatusId() {
@@ -550,7 +550,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrImmuMoveByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMoveByWeather(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMoveByWeather(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrImmuRechargeRoundMoves() {
@@ -578,7 +578,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrImmuTypeByWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuTypeByWeather(),directCase(),0,0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuTypeByWeather(),directCase(),1,0);
     }
 
     public static Struct callAbilityBeanGetTrIncreasedPrio() {
@@ -662,7 +662,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrSingleStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrSingleStatus(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrSingleStatus(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrWeather() {

@@ -739,6 +739,30 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertTrue(callAbilityBeanIsMoveByStatus(1));
     }
     @Test
+    public void getImmuMoveTypesByWeather1() {
+        assertSizeEq(2,callAbilityBeanImmuMoveTypesByWeatherGet());
+    }
+    @Test
+    public void getImmuMoveTypesByWeather2() {
+        assertEq(NULL_REF,first(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
+    }
+    @Test
+    public void getImmuMoveTypesByWeather3() {
+        assertSizeEq(0,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),0)));
+    }
+    @Test
+    public void getImmuMoveTypesByWeather4() {
+        assertEq(M_DAM,first(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
+    }
+    @Test
+    public void getImmuMoveTypesByWeather5() {
+        assertSizeEq(1,second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)));
+    }
+    @Test
+    public void getImmuMoveTypesByWeather6() {
+        assertEq(T_TYPE1,elt(second(elt(callAbilityBeanImmuMoveTypesByWeatherGet(),1)),0));
+    }
+    @Test
     public void isMoveByWeather1() {
         assertFalse(callAbilityBeanIsMoveByWeather(0));
     }
@@ -747,12 +771,60 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertTrue(callAbilityBeanIsMoveByWeather(1));
     }
     @Test
+    public void getTrImmuMoveByWeather() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrImmuMoveByWeather());
+    }
+    @Test
+    public void getTrImmuTypeByWeather() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrImmuTypeByWeather());
+    }
+    @Test
+    public void clickWeather1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuMoveByWeather());
+    }
+    @Test
+    public void clickWeather2() {
+        assertEq(M_DAM,callAbilityBeanClickImmuMoveByWeatherId());
+    }
+    @Test
+    public void getSingleStatus1() {
+        assertSizeEq(2,callAbilityBeanSingleStatusGet());
+    }
+    @Test
+    public void getSingleStatus2() {
+        assertEq(NULL_REF,first(elt(callAbilityBeanSingleStatusGet(),0)));
+    }
+    @Test
+    public void getSingleStatus3() {
+        assertEq(Rate.newRate("1/4"),second(elt(callAbilityBeanSingleStatusGet(),0)));
+    }
+    @Test
+    public void getSingleStatus4() {
+        assertEq(S_STA_SIM,first(elt(callAbilityBeanSingleStatusGet(),1)));
+    }
+    @Test
+    public void getSingleStatus5() {
+        assertEq(Rate.newRate("3/4"),second(elt(callAbilityBeanSingleStatusGet(),1)));
+    }
+    @Test
     public void isStatus1() {
         assertFalse(callAbilityBeanIsStatus(0));
     }
     @Test
     public void isStatus2() {
         assertTrue(callAbilityBeanIsStatus(1));
+    }
+    @Test
+    public void getTrSingleStatus() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrSingleStatus());
+    }
+    @Test
+    public void clickSingleStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickSingleStatus());
+    }
+    @Test
+    public void clickSingleStatus2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickSingleStatusId());
     }
     @Test
     public void getMapVarsFailEndRound1() {
