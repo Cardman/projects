@@ -779,6 +779,66 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(S_STA_SIM,callAbilityBeanClickDivideStatusRoundKeyId());
     }
     @Test
+    public void getFailStatus1() {
+        assertSizeEq(1,callAbilityBeanFailStatusGet());
+    }
+    @Test
+    public void getFailStatus2() {
+        assertEq(S_STA_SIM,first(elt(callAbilityBeanFailStatusGet(),0)));
+    }
+    @Test
+    public void getFailStatus3() {
+        assertEq(Fight.TEMPS_TOUR,second(elt(callAbilityBeanFailStatusGet(),0)));
+    }
+    @Test
+    public void getTrFailStatus() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrFailStatus());
+    }
+    @Test
+    public void clickFailStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickFailStatus());
+    }
+    @Test
+    public void clickFailStatus2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickFailStatusId());
+    }
+    @Test
+    public void getForwardStatus1() {
+        assertSizeEq(1,callAbilityBeanForwardStatusGet());
+    }
+    @Test
+    public void getForwardStatus2() {
+        assertEq(S_STA_SIM,first(elt(callAbilityBeanForwardStatusGet(),0)));
+    }
+    @Test
+    public void getForwardStatus3() {
+        assertEq(S_STA_REL,second(elt(callAbilityBeanForwardStatusGet(),0)));
+    }
+    @Test
+    public void getTrForwardStatusKey() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrForwardStatusKey());
+    }
+    @Test
+    public void getTrForwardStatusValue() {
+        assertEq(S_STA_REL_TR,callAbilityBeanGetTrForwardStatusValue());
+    }
+    @Test
+    public void clickForwardStatusKey1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickForwardStatusKey());
+    }
+    @Test
+    public void clickForwardStatusKey2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickForwardStatusKeyId());
+    }
+    @Test
+    public void clickForwardStatusValue1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickForwardStatusValue());
+    }
+    @Test
+    public void clickForwardStatusValue2() {
+        assertEq(S_STA_REL,callAbilityBeanClickForwardStatusValueId());
+    }
+    @Test
     public void getChgtTypeByWeather1() {
         assertSizeEq(2,callAbilityBeanChgtTypeByWeatherGet());
     }
