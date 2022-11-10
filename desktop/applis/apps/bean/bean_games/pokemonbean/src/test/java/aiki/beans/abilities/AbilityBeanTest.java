@@ -339,6 +339,118 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(Rate.one(),callAbilityBeanHealedHpRateBySwitchGet());
     }
     @Test
+    public void getImmuLowStat() {
+        assertSizeEq(1,callAbilityBeanImmuLowStatGet());
+    }
+    @Test
+    public void getTrImmuLowStat() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrImmuLowStat());
+    }
+    @Test
+    public void getMaxStatisticsIfCh() {
+        assertSizeEq(1,callAbilityBeanMaxStatisticsIfChGet());
+    }
+    @Test
+    public void getTrMaxStatisticsIfCh() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMaxStatisticsIfCh());
+    }
+    @Test
+    public void getBonusStatRank1() {
+        assertSizeEq(1,callAbilityBeanBonusStatRankGet());
+    }
+    @Test
+    public void getBonusStatRank2() {
+        assertEq(1,second(elt(callAbilityBeanBonusStatRankGet(),0)));
+    }
+    @Test
+    public void getTrBonusStatRank() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrBonusStatRank());
+    }
+    @Test
+    public void getBoostStatRankEndRound1() {
+        assertSizeEq(1,callAbilityBeanBoostStatRankEndRoundGet());
+    }
+    @Test
+    public void getBoostStatRankEndRound2() {
+        assertEq(1,second(elt(callAbilityBeanBoostStatRankEndRoundGet(),0)));
+    }
+    @Test
+    public void getTrBoostStatRankEndRound() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrBoostStatRankEndRound());
+    }
+    @Test
+    public void getBoostStatRankProtected1() {
+        assertSizeEq(1,callAbilityBeanBoostStatRankProtectedGet());
+    }
+    @Test
+    public void getBoostStatRankProtected2() {
+        assertEq(1,second(elt(callAbilityBeanBoostStatRankProtectedGet(),0)));
+    }
+    @Test
+    public void getTrBoostStatRankProtected() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrBoostStatRankProtected());
+    }
+    @Test
+    public void getLowStatFoeHit1() {
+        assertSizeEq(1,callAbilityBeanLowStatFoeHitGet());
+    }
+    @Test
+    public void getLowStatFoeHit2() {
+        assertEq(1,second(elt(callAbilityBeanLowStatFoeHitGet(),0)));
+    }
+    @Test
+    public void getTrLowStatFoeHit() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrLowStatFoeHit());
+    }
+    @Test
+    public void getMultStatIfKoFoe1() {
+        assertSizeEq(1,callAbilityBeanMultStatIfKoFoeGet());
+    }
+    @Test
+    public void getMultStatIfKoFoe2() {
+        assertEq(1,second(elt(callAbilityBeanMultStatIfKoFoeGet(),0)));
+    }
+    @Test
+    public void getTrMultStatIfKoFoe() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatIfKoFoe());
+    }
+    @Test
+    public void getMultStatIfLowStat1() {
+        assertSizeEq(1,callAbilityBeanMultStatIfLowStatGet());
+    }
+    @Test
+    public void getMultStatIfLowStat2() {
+        assertEq(1,second(elt(callAbilityBeanMultStatIfLowStatGet(),0)));
+    }
+    @Test
+    public void getTrMultStatIfLowStat() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatIfLowStat());
+    }
+    @Test
+    public void getMultStatAlly1() {
+        assertSizeEq(1,callAbilityBeanMultStatAllyGet());
+    }
+    @Test
+    public void getMultStatAlly2() {
+        assertEq(Rate.one(),second(elt(callAbilityBeanMultStatAllyGet(),0)));
+    }
+    @Test
+    public void getTrMultStatAlly() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatAlly());
+    }
+    @Test
+    public void getMultStat1() {
+        assertSizeEq(1,callAbilityBeanMultStatGet());
+    }
+    @Test
+    public void getMultStat2() {
+        assertEq(Fight.TEMPS_TOUR,second(elt(callAbilityBeanMultStatGet(),0)));
+    }
+    @Test
+    public void getTrMultStat() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStat());
+    }
+    @Test
     public void getImmuMove1() {
         assertSizeEq(1,callAbilityBeanImmuMoveGet());
     }
