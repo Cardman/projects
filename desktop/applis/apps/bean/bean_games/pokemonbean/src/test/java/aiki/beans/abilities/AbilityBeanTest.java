@@ -963,6 +963,46 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(C_CAT1_TR,callAbilityBeanGetTrMultStatIfCatKeySec());
     }
     @Test
+    public void getMultStatIfDamgeType1() {
+        assertSizeEq(1,callAbilityBeanMultStatIfDamgeTypeGet());
+    }
+    @Test
+    public void getMultStatIfDamgeType2() {
+        assertEq(1,second(elt(callAbilityBeanMultStatIfDamgeTypeGet(),0)));
+    }
+    @Test
+    public void getTrMultStatIfDamgeType() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatIfDamgeType());
+    }
+    @Test
+    public void getTrMultStatIfDamgeTypeSec() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrMultStatIfDamgeTypeSec());
+    }
+    @Test
+    public void getMultStatIfStatutRank1() {
+        assertSizeEq(1,callAbilityBeanMultStatIfStatutRankGet());
+    }
+    @Test
+    public void getMultStatIfStatutRank2() {
+        assertEq(1,second(elt(callAbilityBeanMultStatIfStatutRankGet(),0)));
+    }
+    @Test
+    public void getTrMultStatIfStatutRank() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatIfStatutRank());
+    }
+    @Test
+    public void getTrMultStatIfStatutRankSec() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrMultStatIfStatutRankSec());
+    }
+    @Test
+    public void clickMultStatIfStatutRankSec1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickMultStatIfStatutRankSec());
+    }
+    @Test
+    public void clickMultStatIfStatutRankSec2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickMultStatIfStatutRankSecId());
+    }
+    @Test
     public void getChgtTypeByWeather1() {
         assertSizeEq(2,callAbilityBeanChgtTypeByWeatherGet());
     }
