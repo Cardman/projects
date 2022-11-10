@@ -1,6 +1,8 @@
 package aiki.beans.abilities;
 
 import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.game.fight.Fight;
 import code.maths.Rate;
 import code.util.CustList;
@@ -435,6 +437,106 @@ public final class AbilityBeanTest extends InitDbAbility {
     @Test
     public void clickIgnFoeTeamMove2() {
         assertEq(M_DAM,callAbilityBeanClickIgnFoeTeamMoveId());
+    }
+    @Test
+    public void getImmuWeather1() {
+        assertSizeEq(1,callAbilityBeanImmuWeatherGet());
+    }
+    @Test
+    public void getImmuWeather2() {
+        assertEq(M_DAM,elt(callAbilityBeanImmuWeatherGet(),0));
+    }
+    @Test
+    public void getTrImmuWeather() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrWeather());
+    }
+    @Test
+    public void clickImmuWeather1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickWeather());
+    }
+    @Test
+    public void clickImmuWeather2() {
+        assertEq(M_DAM,callAbilityBeanClickWeatherId());
+    }
+    @Test
+    public void getIgnAbility1() {
+        assertSizeEq(1,callAbilityBeanIgnAbilityGet());
+    }
+    @Test
+    public void getIgnAbility2() {
+        assertEq(A_ABILITY2,elt(callAbilityBeanIgnAbilityGet(),0));
+    }
+    @Test
+    public void getTrIgnAbility() {
+        assertEq(A_ABILITY2_TR,callAbilityBeanGetTrIgnAbility());
+    }
+    @Test
+    public void clickIgnAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickIgnAbility());
+    }
+    @Test
+    public void clickIgnAbility2() {
+        assertEq(A_ABILITY2,callAbilityBeanClickIgnAbilityId());
+    }
+    @Test
+    public void getImmuAbility1() {
+        assertSizeEq(1,callAbilityBeanImmuAbilityGet());
+    }
+    @Test
+    public void getImmuAbility2() {
+        assertEq(A_ABILITY2,elt(callAbilityBeanImmuAbilityGet(),0));
+    }
+    @Test
+    public void getTrImmuAbility() {
+        assertEq(A_ABILITY2_TR,callAbilityBeanGetTrImmuAbility());
+    }
+    @Test
+    public void clickImmuAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callAbilityBeanClickImmuAbility());
+    }
+    @Test
+    public void clickImmuAbility2() {
+        assertEq(A_ABILITY2,callAbilityBeanClickImmuAbilityId());
+    }
+    @Test
+    public void getImmuStatusBeginRound1() {
+        assertSizeEq(1,callAbilityBeanImmuStatusBeginRoundGet());
+    }
+    @Test
+    public void getImmuStatusBeginRound2() {
+        assertEq(S_STA_SIM,elt(callAbilityBeanImmuStatusBeginRoundGet(),0));
+    }
+    @Test
+    public void getTrImmuStatusBeginRound() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrImmuStatusBeginRound());
+    }
+    @Test
+    public void clickImmuStatusBeginRound1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatusBeginRound());
+    }
+    @Test
+    public void clickImmuStatusBeginRound2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickImmuStatusBeginRoundId());
+    }
+    @Test
+    public void getPokemon1() {
+        assertSizeEq(1,callAbilityBeanPokemonGet());
+    }
+    @Test
+    public void getPokemon2() {
+        assertEq(P_POKEMON,elt(callAbilityBeanPokemonGet(),0));
+    }
+    @Test
+    public void getTrPokemon() {
+        assertEq(P_POKEMON_TR,callAbilityBeanGetTrPokemon());
+    }
+    @Test
+    public void clickPokemon1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callAbilityBeanClickPokemon());
+    }
+    @Test
+    public void clickPokemon2() {
+        assertEq(P_POKEMON,callAbilityBeanClickPokemonId());
     }
     @Test
     public void getMultPowerMovesTypesGlobal1() {
