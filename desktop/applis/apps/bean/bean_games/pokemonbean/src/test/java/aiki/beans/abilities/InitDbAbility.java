@@ -27,28 +27,28 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanAchievedDisappearedPkGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanBonusStatRankGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBonusStatRankGet(),_str,_args);
+    public static Struct callAbilityBeanBonusStatRankGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanBonusStatRankGet(),directCase());
     }
 
-    public static Struct callAbilityBeanBoostStatRankEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBoostStatRankEndRoundGet(),_str,_args);
+    public static Struct callAbilityBeanBoostStatRankEndRoundGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanBoostStatRankEndRoundGet(),directCase());
     }
 
-    public static Struct callAbilityBeanBoostStatRankProtectedGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBoostStatRankProtectedGet(),_str,_args);
+    public static Struct callAbilityBeanBoostStatRankProtectedGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanBoostStatRankProtectedGet(),directCase());
     }
 
-    public static Struct callAbilityBeanBreakFoeImmuneGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakFoeImmuneGet(),_str,_args);
+    public static Struct callAbilityBeanBreakFoeImmuneGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakFoeImmuneGet(),directCase());
     }
 
     public static Struct callAbilityBeanBreakProtectionGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakProtectionGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanBreakProtectionMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakProtectionMovesGet(),_str,_args);
+    public static Struct callAbilityBeanBreakProtectionMovesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanBreakProtectionMovesGet(),directCase());
     }
 
     public static Struct callAbilityBeanCancelSecEffectOtherGet(Struct _str, long... _args) {
@@ -59,108 +59,108 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanCancelSecEffectOwnerGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanChangingBoostTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanChangingBoostTypesGet(),_str,_args);
+    public static Struct callAbilityBeanChangingBoostTypesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanChangingBoostTypesGet(),directCase());
     }
 
     public static Struct callAbilityBeanChgtTypeByDamageGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanChgtTypeByDamageGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanChgtTypeByWeatherGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanChgtTypeByWeatherGet(),_str,_args);
+    public static Struct callAbilityBeanChgtTypeByWeatherGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanChgtTypeByWeatherGet(),directCase());
     }
 
-    public static Struct callAbilityBeanClickBreakProtectionMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickBreakProtectionMoves(),_str,_args);
+    public static String callAbilityBeanClickBreakProtectionMoves(Struct _str) {
+        return navigateData(new AbilityBeanClickBreakProtectionMoves(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickChgtTypeByWeatherKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickChgtTypeByWeatherKey(),_str,_args);
+    public static String callAbilityBeanClickChgtTypeByWeatherKey(Struct _str) {
+        return navigateData(new AbilityBeanClickChgtTypeByWeatherKey(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickDivideStatusRoundKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickDivideStatusRoundKey(),_str,_args);
+    public static String callAbilityBeanClickDivideStatusRoundKey(Struct _str) {
+        return navigateData(new AbilityBeanClickDivideStatusRoundKey(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickFailStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickFailStatus(),_str,_args);
+    public static String callAbilityBeanClickFailStatus(Struct _str) {
+        return navigateData(new AbilityBeanClickFailStatus(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickForwardStatusKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickForwardStatusKey(),_str,_args);
+    public static String callAbilityBeanClickForwardStatusKey(Struct _str) {
+        return navigateData(new AbilityBeanClickForwardStatusKey(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickForwardStatusValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickForwardStatusValue(),_str,_args);
+    public static String callAbilityBeanClickForwardStatusValue(Struct _str) {
+        return navigateData(new AbilityBeanClickForwardStatusValue(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickHealHpByTypeIfWeatherKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickHealHpByTypeIfWeatherKey(),_str,_args);
+    public static String callAbilityBeanClickHealHpByTypeIfWeatherKey(Struct _str) {
+        return navigateData(new AbilityBeanClickHealHpByTypeIfWeatherKey(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickHealHpByWeatherKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickHealHpByWeatherKey(),_str,_args);
+    public static String callAbilityBeanClickHealHpByWeatherKey(Struct _str) {
+        return navigateData(new AbilityBeanClickHealHpByWeatherKey(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickIgnAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickIgnAbility(),_str,_args);
+    public static String callAbilityBeanClickIgnAbility(Struct _str) {
+        return navigateData(new AbilityBeanClickIgnAbility(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickIgnFoeTeamMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickIgnFoeTeamMove(),_str,_args);
+    public static String callAbilityBeanClickIgnFoeTeamMove(Struct _str) {
+        return navigateData(new AbilityBeanClickIgnFoeTeamMove(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuAbility(),_str,_args);
+    public static String callAbilityBeanClickImmuAbility(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuAbility(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuAllyFromMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuAllyFromMoves(),_str,_args);
+    public static String callAbilityBeanClickImmuAllyFromMoves(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuAllyFromMoves(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuLowStatIfStatusKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuLowStatIfStatusKey(),_str,_args);
+    public static String callAbilityBeanClickImmuLowStatIfStatusKey(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuLowStatIfStatusKey(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuMove(),_str,_args);
+    public static String callAbilityBeanClickImmuMove(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuMove(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuMoveByWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuMoveByWeather(),_str,_args);
+    public static String callAbilityBeanClickImmuMoveByWeather(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuMoveByWeather(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuRechargeRoundMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuRechargeRoundMoves(),_str,_args);
+    public static String callAbilityBeanClickImmuRechargeRoundMoves(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuRechargeRoundMoves(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuStatus(),_str,_args);
+    public static String callAbilityBeanClickImmuStatus(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuStatus(),_str,0,0);
     }
 
-    public static Struct callAbilityBeanClickImmuStatusBeginRound(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuStatusBeginRound(),_str,_args);
+    public static String callAbilityBeanClickImmuStatusBeginRound(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuStatusBeginRound(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickImmuStatusTypes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuStatusTypes(),_str,_args);
+    public static String callAbilityBeanClickImmuStatusTypes(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuStatusTypes(),_str,0,0);
     }
 
-    public static Struct callAbilityBeanClickImmuStatusWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickImmuStatusWeather(),_str,_args);
+    public static String callAbilityBeanClickImmuStatusWeather(Struct _str) {
+        return navigateData(new AbilityBeanClickImmuStatusWeather(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickIndex(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickIndex(),_str,_args);
+    public static String callAbilityBeanClickIndex(Struct _str) {
+        return navigateData(new AbilityBeanClickIndex(),_str);
     }
 
-    public static Struct callAbilityBeanClickMultStatIfStatutRankSec(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickMultStatIfStatutRankSec(),_str,_args);
+    public static String callAbilityBeanClickMultStatIfStatutRankSec(Struct _str) {
+        return navigateData(new AbilityBeanClickMultStatIfStatutRankSec(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickPokemon(),_str,_args);
+    public static String callAbilityBeanClickPokemon(Struct _str) {
+        return navigateData(new AbilityBeanClickPokemon(),_str,0);
     }
 
     public static String callAbilityBeanClickReversePowerTypesAbilities() {
@@ -177,12 +177,12 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return getValAbilityId(bean_);
     }
 
-    public static Struct callAbilityBeanClickSingleStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickSingleStatus(),_str,_args);
+    public static String callAbilityBeanClickSingleStatus(Struct _str) {
+        return navigateData(new AbilityBeanClickSingleStatus(),_str,0);
     }
 
-    public static Struct callAbilityBeanClickWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanClickWeather(),_str,_args);
+    public static String callAbilityBeanClickWeather(Struct _str) {
+        return navigateData(new AbilityBeanClickWeather(),_str,0);
     }
 
     public static Struct callAbilityBeanCopyMovesTypesGet(Struct _str, long... _args) {
@@ -197,16 +197,16 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanDecreaseNecStepsHatchInt(),_str,_args);
     }
 
-    public static Struct callAbilityBeanDefEffGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDefEffGet(),_str,_args);
+    public static Struct callAbilityBeanDefEffGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanDefEffGet(),directCase());
     }
 
     public static Struct callAbilityBeanDisplayNameGet() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanDisplayNameGet(),directCase());
     }
 
-    public static Struct callAbilityBeanDivideStatusRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanDivideStatusRoundGet(),_str,_args);
+    public static Struct callAbilityBeanDivideStatusRoundGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanDivideStatusRoundGet(),directCase());
     }
 
     public static Struct callAbilityBeanEffectSendBeanGet(Struct _str, long... _args) {
@@ -229,292 +229,292 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundRankGet(),directCase());
     }
 
-    public static Struct callAbilityBeanFailStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanFailStatusGet(),_str,_args);
+    public static Struct callAbilityBeanFailStatusGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanFailStatusGet(),directCase());
     }
 
     public static Struct callAbilityBeanForbidUseBerryAgainstFoesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanForbidUseBerryAgainstFoesGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanForwardStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanForwardStatusGet(),_str,_args);
+    public static Struct callAbilityBeanForwardStatusGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanForwardStatusGet(),directCase());
     }
 
     public static Struct callAbilityBeanGetEffectSending(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetEffectSending(),_str,_args);
     }
 
-    public static Struct callAbilityBeanGetTrBonusStatRank(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBonusStatRank(),_str,_args);
+    public static Struct callAbilityBeanGetTrBonusStatRank() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBonusStatRank(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrBoostStatRankEndRound(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBoostStatRankEndRound(),_str,_args);
+    public static Struct callAbilityBeanGetTrBoostStatRankEndRound() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBoostStatRankEndRound(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrBoostStatRankProtected(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBoostStatRankProtected(),_str,_args);
+    public static Struct callAbilityBeanGetTrBoostStatRankProtected() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBoostStatRankProtected(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrBreakFoeImmuneKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakFoeImmuneKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrBreakFoeImmuneKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakFoeImmuneKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrBreakFoeImmuneValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakFoeImmuneValue(),_str,_args);
+    public static Struct callAbilityBeanGetTrBreakFoeImmuneValue() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakFoeImmuneValue(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrBreakProtectionMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakProtectionMoves(),_str,_args);
+    public static Struct callAbilityBeanGetTrBreakProtectionMoves() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrBreakProtectionMoves(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrChangingBoostTypesNew(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChangingBoostTypesNew(),_str,_args);
+    public static Struct callAbilityBeanGetTrChangingBoostTypesNew() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChangingBoostTypesNew(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrChangingBoostTypesOld(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChangingBoostTypesOld(),_str,_args);
+    public static Struct callAbilityBeanGetTrChangingBoostTypesOld() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChangingBoostTypesOld(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrChgtTypeByWeatherKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrChgtTypeByWeatherKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrChgtTypeByWeatherValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherValue(),_str,_args);
+    public static Struct callAbilityBeanGetTrChgtTypeByWeatherValue() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherValue(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrDivideStatusRoundKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrDivideStatusRoundKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrDivideStatusRoundKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrDivideStatusRoundKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrFailStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrFailStatus(),_str,_args);
+    public static Struct callAbilityBeanGetTrFailStatus() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrFailStatus(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrForwardStatusKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrForwardStatusKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrForwardStatusKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrForwardStatusKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrForwardStatusValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrForwardStatusValue(),_str,_args);
+    public static Struct callAbilityBeanGetTrForwardStatusValue() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrForwardStatusValue(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrHealHpByTypeIfWeatherKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrHealHpByTypeIfWeatherKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrHealHpByTypeIfWeatherKeySec(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKeySec(),_str,_args);
+    public static Struct callAbilityBeanGetTrHealHpByTypeIfWeatherKeySec() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKeySec(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrHealHpByWeatherKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByWeatherKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrHealHpByWeatherKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByWeatherKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrIgnAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIgnAbility(),_str,_args);
+    public static Struct callAbilityBeanGetTrIgnAbility() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIgnAbility(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrIgnFoeTeamMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIgnFoeTeamMove(),_str,_args);
+    public static Struct callAbilityBeanGetTrIgnFoeTeamMove() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIgnFoeTeamMove(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuAbility(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuAbility() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuAbility(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuAllyFromMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuAllyFromMoves(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuAllyFromMoves() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuAllyFromMoves(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuLowStat(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStat(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuLowStat() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStat(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuLowStatIfStatusKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatIfStatusKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuLowStatIfStatusKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatIfStatusKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuLowStatIfStatusValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatIfStatusValue(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuLowStatIfStatusValue() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatIfStatusValue(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuLowStatisTypes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisTypes(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuLowStatisTypes() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisTypes(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuLowStatisValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisValue(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuLowStatisValue() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuLowStatisValue(),directCase(),0,0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMove(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuMove() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMove(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuMoveByWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMoveByWeather(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuMoveByWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuMoveByWeather(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuRechargeRoundMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuRechargeRoundMoves(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuRechargeRoundMoves() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuRechargeRoundMoves(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatus(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuStatus() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatus(),directCase(),0,0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuStatusBeginRound(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusBeginRound(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuStatusBeginRound() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusBeginRound(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuStatusTypes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusTypes(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuStatusTypes() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusTypes(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuStatusValue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusValue(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuStatusValue() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusValue(),directCase(),0,0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuStatusWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusWeather(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuStatusWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusWeather(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrImmuTypeByWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuTypeByWeather(),_str,_args);
+    public static Struct callAbilityBeanGetTrImmuTypeByWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuTypeByWeather(),directCase(),0,0);
     }
 
-    public static Struct callAbilityBeanGetTrIncreasedPrio(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIncreasedPrio(),_str,_args);
+    public static Struct callAbilityBeanGetTrIncreasedPrio() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIncreasedPrio(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrIncreasedPrioTypes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIncreasedPrioTypes(),_str,_args);
+    public static Struct callAbilityBeanGetTrIncreasedPrioTypes() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrIncreasedPrioTypes(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrLowStatFoeHit(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrLowStatFoeHit(),_str,_args);
+    public static Struct callAbilityBeanGetTrLowStatFoeHit() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrLowStatFoeHit(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMaxStatisticsIfCh(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMaxStatisticsIfCh(),_str,_args);
+    public static Struct callAbilityBeanGetTrMaxStatisticsIfCh() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMaxStatisticsIfCh(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultDamageFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultDamageFoe(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultDamageFoe() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultDamageFoe(),directCase(),0);
     }
 
     public static Struct callAbilityBeanGetTrMultPowerMovesTypesGlobalKey() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultPowerMovesTypesGlobalKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStat(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStat(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStat() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStat(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatAlly(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatAlly() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatAlly(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfCatKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfCatKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfCatKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfCatKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfCatKeySec(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfCatKeySec(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfCatKeySec() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfCatKeySec(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfDamageCatKey(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamageCatKey(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfDamageCatKey() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamageCatKey(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfDamageCatKeySec(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamageCatKeySec(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfDamageCatKeySec() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamageCatKeySec(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfDamgeType(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamgeType(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfDamgeType() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamgeType(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfDamgeTypeSec(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamgeTypeSec(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfDamgeTypeSec() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfDamgeTypeSec(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfKoFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfKoFoe(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfKoFoe() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfKoFoe(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfLowStat(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfLowStat(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfLowStat() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfLowStat(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfStatutRank(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfStatutRank(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfStatutRank() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfStatutRank(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrMultStatIfStatutRankSec(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfStatutRankSec(),_str,_args);
+    public static Struct callAbilityBeanGetTrMultStatIfStatutRankSec() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrMultStatIfStatutRankSec(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrPokemon(),_str,_args);
+    public static Struct callAbilityBeanGetTrPokemon() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrPokemon(),directCase(),0);
     }
 
     public static Struct callAbilityBeanGetTrReversePowerTypesAbilities() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrReversePowerTypesAbilities(),reverseCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrSingleStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrSingleStatus(),_str,_args);
+    public static Struct callAbilityBeanGetTrSingleStatus() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrSingleStatus(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanGetTrWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrWeather(),_str,_args);
+    public static Struct callAbilityBeanGetTrWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrWeather(),directCase(),0);
     }
 
     public static Struct callAbilityBeanGiveItemToAllyHavingUsedGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanGiveItemToAllyHavingUsedGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanHealHpByTypeIfWeatherGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpByTypeIfWeatherGet(),_str,_args);
+    public static Struct callAbilityBeanHealHpByTypeIfWeatherGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpByTypeIfWeatherGet(),directCase());
     }
 
-    public static Struct callAbilityBeanHealHpByWeatherGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpByWeatherGet(),_str,_args);
+    public static Struct callAbilityBeanHealHpByWeatherGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpByWeatherGet(),directCase());
     }
 
-    public static Struct callAbilityBeanHealHpWhileUsingBerryGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpWhileUsingBerryGet(),_str,_args);
+    public static Struct callAbilityBeanHealHpWhileUsingBerryGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealHpWhileUsingBerryGet(),directCase());
     }
 
-    public static Struct callAbilityBeanHealedHpRateBySwitchGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealedHpRateBySwitchGet(),_str,_args);
+    public static Struct callAbilityBeanHealedHpRateBySwitchGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanHealedHpRateBySwitchGet(),directCase());
     }
 
     public static Struct callAbilityBeanHealedStatusBySwitchGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanHealedStatusBySwitchGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanIgnAbilityGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnAbilityGet(),_str,_args);
+    public static Struct callAbilityBeanIgnAbilityGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnAbilityGet(),directCase());
     }
 
     public static Struct callAbilityBeanIgnFoeStatisBoostGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnFoeStatisBoostGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanIgnFoeTeamMoveGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnFoeTeamMoveGet(),_str,_args);
+    public static Struct callAbilityBeanIgnFoeTeamMoveGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIgnFoeTeamMoveGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuAbilityGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuAbilityGet(),_str,_args);
+    public static Struct callAbilityBeanImmuAbilityGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuAbilityGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuAllyFromMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuAllyFromMovesGet(),_str,_args);
+    public static Struct callAbilityBeanImmuAllyFromMovesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuAllyFromMovesGet(),directCase());
     }
 
     public static Struct callAbilityBeanImmuChGet(Struct _str, long... _args) {
@@ -533,184 +533,184 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuDamageTrappingMovesGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanImmuLowStatGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatGet(),_str,_args);
+    public static Struct callAbilityBeanImmuLowStatGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuLowStatIfStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatIfStatusGet(),_str,_args);
+    public static Struct callAbilityBeanImmuLowStatIfStatusGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatIfStatusGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuLowStatisTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatisTypesGet(),_str,_args);
+    public static Struct callAbilityBeanImmuLowStatisTypesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuLowStatisTypesGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuMoveGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuMoveGet(),_str,_args);
+    public static Struct callAbilityBeanImmuMoveGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuMoveGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuMoveTypesByWeatherGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuMoveTypesByWeatherGet(),_str,_args);
+    public static Struct callAbilityBeanImmuMoveTypesByWeatherGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuMoveTypesByWeatherGet(),directCase());
     }
 
     public static Struct callAbilityBeanImmuRechargeRoundGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuRechargeRoundGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanImmuRechargeRoundMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuRechargeRoundMovesGet(),_str,_args);
+    public static Struct callAbilityBeanImmuRechargeRoundMovesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuRechargeRoundMovesGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuStatusBeginRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusBeginRoundGet(),_str,_args);
+    public static Struct callAbilityBeanImmuStatusBeginRoundGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusBeginRoundGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusGet(),_str,_args);
+    public static Struct callAbilityBeanImmuStatusGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusGet(),directCase());
     }
 
-    public static Struct callAbilityBeanImmuStatusTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusTypesGet(),_str,_args);
+    public static Struct callAbilityBeanImmuStatusTypesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuStatusTypesGet(),directCase());
     }
 
     public static Struct callAbilityBeanImmuSufferedDamageLowEffGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuSufferedDamageLowEffGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanImmuWeatherGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuWeatherGet(),_str,_args);
+    public static Struct callAbilityBeanImmuWeatherGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanImmuWeatherGet(),directCase());
     }
 
-    public static Struct callAbilityBeanIncreasedPrioGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIncreasedPrioGet(),_str,_args);
+    public static Struct callAbilityBeanIncreasedPrioGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIncreasedPrioGet(),directCase());
     }
 
-    public static Struct callAbilityBeanIncreasedPrioTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIncreasedPrioTypesGet(),_str,_args);
+    public static Struct callAbilityBeanIncreasedPrioTypesGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIncreasedPrioTypesGet(),directCase());
     }
 
     public static Struct callAbilityBeanInflictingDamageInsteadOfSufferingGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanInflictingDamageInsteadOfSufferingGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanIsChgtTypeByWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsChgtTypeByWeather(),_str,_args);
+    public static Struct callAbilityBeanIsChgtTypeByWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsChgtTypeByWeather(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanIsHealHpByTypeIfWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByTypeIfWeather(),_str,_args);
+    public static Struct callAbilityBeanIsHealHpByTypeIfWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByTypeIfWeather(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanIsHealHpByWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByWeather(),_str,_args);
+    public static Struct callAbilityBeanIsHealHpByWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsHealHpByWeather(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanIsMoveByStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByStatus(),_str,_args);
+    public static Struct callAbilityBeanIsMoveByStatus() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByStatus(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanIsMoveByWeather(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByWeather(),_str,_args);
+    public static Struct callAbilityBeanIsMoveByWeather() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsMoveByWeather(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanIsStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsStatus(),_str,_args);
+    public static Struct callAbilityBeanIsStatus() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanIsStatus(),directCase(),0);
     }
 
-    public static Struct callAbilityBeanLowStatFoeHitGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanLowStatFoeHitGet(),_str,_args);
+    public static Struct callAbilityBeanLowStatFoeHitGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanLowStatFoeHitGet(),directCase());
     }
 
     public static Struct callAbilityBeanMapVarsFailEndRoundGet() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsFailEndRoundGet(),directCaseEndRound());
     }
 
-    public static Struct callAbilityBeanMapVarsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsGet(),_str,_args);
+    public static Struct callAbilityBeanMapVarsGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMaxHpForUsingBerryGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMaxHpForUsingBerryGet(),_str,_args);
+    public static Struct callAbilityBeanMaxHpForUsingBerryGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMaxHpForUsingBerryGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMaxStatisticsIfChGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMaxStatisticsIfChGet(),_str,_args);
+    public static Struct callAbilityBeanMaxStatisticsIfChGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMaxStatisticsIfChGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultAllyDamageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultAllyDamageGet(),_str,_args);
+    public static Struct callAbilityBeanMultAllyDamageGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultAllyDamageGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultDamageChGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageChGet(),_str,_args);
+    public static Struct callAbilityBeanMultDamageChGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageChGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultDamageFoeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageFoeGet(),_str,_args);
+    public static Struct callAbilityBeanMultDamageFoeGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageFoeGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultDamageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageGet(),_str,_args);
+    public static Struct callAbilityBeanMultDamageGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultDamageGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultEvtRateChGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultEvtRateChGet(),_str,_args);
+    public static Struct callAbilityBeanMultEvtRateChGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultEvtRateChGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultEvtRateSecEffectOwnerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultEvtRateSecEffectOwnerGet(),_str,_args);
+    public static Struct callAbilityBeanMultEvtRateSecEffectOwnerGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultEvtRateSecEffectOwnerGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultPowerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerGet(),_str,_args);
+    public static Struct callAbilityBeanMultPowerGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerGet(),directCase());
     }
 
     public static Struct callAbilityBeanMultPowerMovesTypesGlobalGet() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanMultPowerMovesTypesGlobalGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStabGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStabGet(),_str,_args);
+    public static Struct callAbilityBeanMultStabGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStabGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatAllyGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatAllyGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatAllyGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatAllyGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatIfCatGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfCatGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatIfCatGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfCatGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatIfDamageCatGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfDamageCatGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatIfDamageCatGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfDamageCatGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatIfDamgeTypeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfDamgeTypeGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatIfDamgeTypeGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfDamgeTypeGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatIfKoFoeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfKoFoeGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatIfKoFoeGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfKoFoeGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatIfLowStatGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfLowStatGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatIfLowStatGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfLowStatGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultStatIfStatutRankGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfStatutRankGet(),_str,_args);
+    public static Struct callAbilityBeanMultStatIfStatutRankGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultStatIfStatutRankGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultSufferedDamageSuperEffGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultSufferedDamageSuperEffGet(),_str,_args);
+    public static Struct callAbilityBeanMultSufferedDamageSuperEffGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultSufferedDamageSuperEffGet(),directCase());
     }
 
-    public static Struct callAbilityBeanMultVarBoostGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultVarBoostGet(),_str,_args);
+    public static Struct callAbilityBeanMultVarBoostGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMultVarBoostGet(),directCase());
     }
 
     public static Struct callAbilityBeanMumyGet(Struct _str, long... _args) {
@@ -733,20 +733,20 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanPlateGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanPokemonGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanPokemonGet(),_str,_args);
+    public static Struct callAbilityBeanPokemonGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanPokemonGet(),directCase());
     }
 
     public static Struct callAbilityBeanReasonsEndRoundGet() {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanReasonsEndRoundGet(),directCaseEndRound());
     }
 
-    public static Struct callAbilityBeanRecoilDamageFoeByKoOwnerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanRecoilDamageFoeByKoOwnerGet(),_str,_args);
-    }
+//    public static Struct callAbilityBeanRecoilDamageFoeByKoOwnerGet() {
+//        return BeanPokemonCommonTs.callLongs(new AbilityBeanRecoilDamageFoeByKoOwnerGet(),directCase());
+//    }
 
-    public static Struct callAbilityBeanRecoilDamageFoeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanRecoilDamageFoeGet(),_str,_args);
+    public static Struct callAbilityBeanRecoilDamageFoeGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanRecoilDamageFoeGet(),directCase());
     }
 
     public static Struct callAbilityBeanReverseEffectsPowerMovesTypesGlobalAbilitiesGet() {
@@ -765,8 +765,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanSendingGet(),abNoStatSend());
     }
 
-    public static Struct callAbilityBeanSingleStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanSingleStatusGet(),_str,_args);
+    public static Struct callAbilityBeanSingleStatusGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanSingleStatusGet(),directCase());
     }
 
     public static Struct callAbilityBeanSlowingGet(Struct _str, long... _args) {

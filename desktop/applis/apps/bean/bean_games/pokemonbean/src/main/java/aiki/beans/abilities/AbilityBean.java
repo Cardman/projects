@@ -62,7 +62,6 @@ public class AbilityBean extends CommonBean {
     private Rate multSufferedDamageSuperEff;
     private Rate multVarBoost;
     private Rate recoilDamageFoe;
-    private Rate recoilDamageFoeByKoOwner;
     private StringList ignAbility;
     private StringList ignFoeTeamMove;
     private StringList immuAbility;
@@ -171,7 +170,6 @@ public class AbilityBean extends CommonBean {
         multSufferedDamageSuperEff = ability_.getMultSufferedDamageSuperEff();
         multVarBoost = ability_.getMultVarBoost();
         recoilDamageFoe = ability_.getRecoilDamageFoe();
-        recoilDamageFoeByKoOwner = Rate.zero();
         decreaseNecStepsHatch = ability_.getDecreaseNecStepsHatch();
         nbUsedPp = ability_.getNbUsedPp();
         NatStringTreeMap<String> mapVars_;
@@ -1375,10 +1373,6 @@ public class AbilityBean extends CommonBean {
 
     public Rate getRecoilDamageFoe() {
         return recoilDamageFoe;
-    }
-
-    public Rate getRecoilDamageFoeByKoOwner() {
-        return recoilDamageFoeByKoOwner;
     }
 
     public int getDecreaseNecStepsHatch() {

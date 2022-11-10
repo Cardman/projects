@@ -284,6 +284,58 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(T_TYPE1_TR,callAbilityBeanTypeForMovesGet(directCase(true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,1,1,T_TYPE1)));
     }
     @Test
+    public void getMultPower() {
+        assertEq(Fight.TEMPS_TOUR,callAbilityBeanMultPowerGet());
+    }
+    @Test
+    public void getMultDamage() {
+        assertEq(Fight.TEMPS_TOUR,callAbilityBeanMultDamageGet());
+    }
+    @Test
+    public void getHealHpWhileUsingBerry() {
+        assertEq(Rate.one(),callAbilityBeanHealHpWhileUsingBerryGet());
+    }
+    @Test
+    public void getMaxHpForUsingBerry() {
+        assertEq(Rate.one(),callAbilityBeanMaxHpForUsingBerryGet());
+    }
+    @Test
+    public void getMultAllyDamage() {
+        assertEq(Rate.one(),callAbilityBeanMultAllyDamageGet());
+    }
+    @Test
+    public void getMultDamageCh() {
+        assertEq(Rate.one(),callAbilityBeanMultDamageChGet());
+    }
+    @Test
+    public void getMultEvtRateCh() {
+        assertEq(Rate.one(),callAbilityBeanMultEvtRateChGet());
+    }
+    @Test
+    public void getMultEvtRateSecEffectOwner() {
+        assertEq(Rate.one(),callAbilityBeanMultEvtRateSecEffectOwnerGet());
+    }
+    @Test
+    public void getMultStab() {
+        assertEq(Rate.one(),callAbilityBeanMultStabGet());
+    }
+    @Test
+    public void getMultSufferedDamageSuperEff() {
+        assertEq(Rate.one(),callAbilityBeanMultSufferedDamageSuperEffGet());
+    }
+    @Test
+    public void getMultVarBoost() {
+        assertEq(Rate.one(),callAbilityBeanMultVarBoostGet());
+    }
+    @Test
+    public void getRecoilDamageFoe() {
+        assertEq(Rate.one(),callAbilityBeanRecoilDamageFoeGet());
+    }
+    @Test
+    public void getHealedHpRateBySwitch() {
+        assertEq(Rate.one(),callAbilityBeanHealedHpRateBySwitchGet());
+    }
+    @Test
     public void getMultPowerMovesTypesGlobal1() {
         assertSizeEq(1,callAbilityBeanMultPowerMovesTypesGlobalGet());
     }

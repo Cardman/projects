@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataAbilityData extends PageCardsCommon{
 private static final String C_P_98_0="javahtml";
 private static final String C_P_98_1="ability";
@@ -178,10 +177,10 @@ private static final String C_P_98_171="!recoilDamageFoe.isZero()";
 private static final String C_P_98_172="msg_ability,recoil_damage_foe_time";
 private static final String C_P_98_173="msg_ability,recoil_damage_foe";
 private static final String C_P_98_174="recoilDamageFoe";
-private static final String C_P_98_175="!recoilDamageFoeByKoOwner.isZero()";
-private static final String C_P_98_176="msg_ability,recoil_damage_foe_by_ko_owner_time";
-private static final String C_P_98_177="msg_ability,recoil_damage_foe_by_ko_owner";
-private static final String C_P_98_178="recoilDamageFoeByKoOwner";
+//private static final String C_P_98_175="!recoilDamageFoeByKoOwner.isZero()";
+//private static final String C_P_98_176="msg_ability,recoil_damage_foe_by_ko_owner_time";
+//private static final String C_P_98_177="msg_ability,recoil_damage_foe_by_ko_owner";
+//private static final String C_P_98_178="recoilDamageFoeByKoOwner";
 private static final String C_P_98_179="decreaseNecStepsHatchInt()";
 private static final String C_P_98_180="msg_ability,decrease_nec_steps_hatch_time";
 private static final String C_P_98_181="msg_ability,decrease_nec_steps_hatch";
@@ -773,7 +772,7 @@ build34(elt6_,_doc3);
 build35(elt6_,_doc3);
 build36(elt6_,_doc3);
 build37(elt6_,_doc3);
-build38(elt6_,_doc3);
+//build38(elt6_,_doc3);
 build39(elt6_,_doc3);
 build40(elt6_,_doc3);
 build41(elt6_,_doc3);
@@ -1697,28 +1696,28 @@ ad(elt2_,elt3_);
 ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
-static void build38(Element _body,Document _doc3){
-Element elt0_=el(_doc3,C_IF);
-CustList<Attr> attrs0_=al(1);
-attrs0_.add(at(CONDITION,C_P_98_175));
-at(elt0_,attrs0_);
-Element elt1_=el(_doc3,C_MESSAGE);
-CustList<Attr> attrs1_=al(1);
-attrs1_.add(at(VALUE,C_P_98_176));
-at(elt1_,attrs1_);
-ad(elt0_,elt1_);
-Element elt2_=el(_doc3,C_MESSAGE);
-CustList<Attr> attrs2_=al(1);
-attrs2_.add(at(VALUE,C_P_98_177));
-at(elt2_,attrs2_);
-Element elt3_=el(_doc3,PARAM);
-CustList<Attr> attrs3_=al(1);
-attrs3_.add(at(VALUE,C_P_98_178));
-at(elt3_,attrs3_);
-ad(elt2_,elt3_);
-ad(elt0_,elt2_);
-ad(_body,elt0_);
-}
+//static void build38(Element _body,Document _doc3){
+//Element elt0_=el(_doc3,C_IF);
+//CustList<Attr> attrs0_=al(1);
+//attrs0_.add(at(CONDITION,C_P_98_175));
+//at(elt0_,attrs0_);
+//Element elt1_=el(_doc3,C_MESSAGE);
+//CustList<Attr> attrs1_=al(1);
+//attrs1_.add(at(VALUE,C_P_98_176));
+//at(elt1_,attrs1_);
+//ad(elt0_,elt1_);
+//Element elt2_=el(_doc3,C_MESSAGE);
+//CustList<Attr> attrs2_=al(1);
+//attrs2_.add(at(VALUE,C_P_98_177));
+//at(elt2_,attrs2_);
+//Element elt3_=el(_doc3,PARAM);
+//CustList<Attr> attrs3_=al(1);
+//attrs3_.add(at(VALUE,C_P_98_178));
+//at(elt3_,attrs3_);
+//ad(elt2_,elt3_);
+//ad(elt0_,elt2_);
+//ad(_body,elt0_);
+//}
 static void build39(Element _body,Document _doc3){
 Element elt0_=el(_doc3,C_IF);
 CustList<Attr> attrs0_=al(1);

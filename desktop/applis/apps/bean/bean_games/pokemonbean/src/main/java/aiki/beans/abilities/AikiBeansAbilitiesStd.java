@@ -153,7 +153,7 @@ public final class AikiBeansAbilitiesStd{
     private static final String MULT_SUFFERED_DAMAGE_SUPER_EFF = "multSufferedDamageSuperEff";
     private static final String MULT_VAR_BOOST = "multVarBoost";
     private static final String RECOIL_DAMAGE_FOE = "recoilDamageFoe";
-    private static final String RECOIL_DAMAGE_FOE_BY_KO_OWNER = "recoilDamageFoeByKoOwner";
+//    private static final String RECOIL_DAMAGE_FOE_BY_KO_OWNER = "recoilDamageFoeByKoOwner";
     private static final String DECREASE_NEC_STEPS_HATCH = "decreaseNecStepsHatch";
     private static final String NB_USED_PP = "nbUsedPp";
     private static final String IMMU_MOVE = "immuMove";
@@ -267,7 +267,7 @@ public final class AikiBeansAbilitiesStd{
         fields_.add(new StandardField(MULT_SUFFERED_DAMAGE_SUPER_EFF,BeanNatCommonLgNames.TYPE_RATE,false,false,new AbilityBeanMultSufferedDamageSuperEffGet(),null));
         fields_.add(new StandardField(MULT_VAR_BOOST,BeanNatCommonLgNames.TYPE_RATE,false,false,new AbilityBeanMultVarBoostGet(),null));
         fields_.add(new StandardField(RECOIL_DAMAGE_FOE,BeanNatCommonLgNames.TYPE_RATE,false,false,new AbilityBeanRecoilDamageFoeGet(),null));
-        fields_.add(new StandardField(RECOIL_DAMAGE_FOE_BY_KO_OWNER,BeanNatCommonLgNames.TYPE_RATE,false,false,new AbilityBeanRecoilDamageFoeByKoOwnerGet(),null));
+//        fields_.add(new StandardField(RECOIL_DAMAGE_FOE_BY_KO_OWNER,BeanNatCommonLgNames.TYPE_RATE,false,false,new AbilityBeanRecoilDamageFoeByKoOwnerGet(),null));
         fields_.add(new StandardField(DECREASE_NEC_STEPS_HATCH, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new AbilityBeanDecreaseNecStepsHatchGet(),null));
         fields_.add(new StandardField(NB_USED_PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new AbilityBeanNbUsedPpGet(),null));
         fields_.add(new StandardField(IMMU_MOVE, BeanNatCommonLgNames.TYPE_LIST,false,false,new AbilityBeanImmuMoveGet(),null));
