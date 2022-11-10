@@ -6,6 +6,8 @@ import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansAbilitiesStd{
+    public static final String BEAN_ABILITIES="abilities";
+    public static final String BEAN_ABILITY="ability";
     public static final String WEB_HTML_ABILITY_ABILITIES_HTML="web/html/ability/abilities.html";
     public static final String WEB_HTML_ABILITY_DATA_HTML= "web/html/ability/data.html";
     public static final String TYPE_ABILITIES_BEAN = "aiki.beans.abilities.AbilitiesBean";

@@ -42,17 +42,11 @@ public class SelectItemBean extends WithFilterBean {
 //        escapeInputs();
     }
     public String cancel() {
-        if (player) {
-            return CST_EDIT_POKEMON_PLAYER;
-        }
-        return CST_POKEMON_EDIT;
+        return redirect();
     }
     public String cancelItem() {
         getForms().put(CST_ITEM_EDIT, DataBase.EMPTY_STRING);
-        if (player) {
-            return CST_EDIT_POKEMON_PLAYER;
-        }
-        return CST_POKEMON_EDIT;
+        return redirect();
     }
     public String search() {
         AbsMap<String, Item> sortedItems_ = sortedItems(getDataBase());
@@ -60,10 +54,7 @@ public class SelectItemBean extends WithFilterBean {
         if (sortedItems_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             item = sortedItems_.firstKey();
             getForms().put(CST_ITEM_EDIT, item);
-            if (player) {
-                return CST_EDIT_POKEMON_PLAYER;
-            }
-            return CST_POKEMON_EDIT;
+            return redirect();
         }
         return DataBase.EMPTY_STRING;
     }
@@ -99,10 +90,13 @@ public class SelectItemBean extends WithFilterBean {
     public String clickLink(int _index) {
         item = getItems().get(_index).getName();
         getForms().put(CST_ITEM_EDIT, item);
+        return redirect();
+    }
+    private String redirect() {
         if (player) {
-            return CST_EDIT_POKEMON_PLAYER;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
-        return CST_POKEMON_EDIT;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public String getMiniImage(int _number) {
         String item_ = getItems().get(_number).getName();

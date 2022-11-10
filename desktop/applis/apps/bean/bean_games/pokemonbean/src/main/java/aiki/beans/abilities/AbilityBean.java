@@ -1106,11 +1106,6 @@ public class AbilityBean extends CommonBean {
         translationsMoves_ = data_.getTranslatedTypes().getVal(getLanguage());
         return translationsMoves_.getVal(status_);
     }
-    public String clickMultPowerMovesTypesGlobalKey(int _index) {
-        String status_ = multPowerMovesTypesGlobal.getKey(_index);
-        getForms().put(CST_MOVE, status_);
-        return CST_MOVE;
-    }
     public String getTrImmuLowStatisTypes(int _index) {
         String move_ = immuLowStatisTypes.getKey(_index);
         DataBase data_ = getDataBase();

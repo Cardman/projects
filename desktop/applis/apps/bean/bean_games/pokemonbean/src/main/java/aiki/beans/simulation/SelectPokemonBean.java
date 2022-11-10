@@ -10,15 +10,15 @@ public class SelectPokemonBean extends WithFilterBean {
         setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET));
     }
     public static String cancel() {
-        return CST_POKEMON;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public String search() {
-        return search(CST_POKEMON_NAME_EDIT);
+        return search(CST_POKEMON_NAME_EDIT, AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML, AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTPOKEMON_HTML);
     }
 
     public String clickLink(int _number) {
         getForms().put(CST_POKEMON_NAME_EDIT, getPokedex().get(_number).getName());
-        return CST_POKEMON;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
 
 }

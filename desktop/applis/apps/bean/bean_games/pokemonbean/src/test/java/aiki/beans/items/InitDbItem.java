@@ -63,7 +63,7 @@ public abstract class InitDbItem extends InitDbItems{
     }
 
     protected static Struct dispLine(String _key, PkData _pk, StringMap<Struct> _all) {
-        Struct res_ = transitToAllItems(_pk, _all, 0, _key);
+        Struct res_ = transitToAllItems(_pk, _all, _key);
         callItemBeanItemBeanGet(res_);
         callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;

@@ -96,18 +96,18 @@ public abstract class WithFilterBean extends CommonBean {
         setTypedStatus(escapedStringQuote(getTypedStatus()));
     }
 
-    protected String search(String _pk) {
-        return search(CST_POKEMON_SET, _pk);
+    protected String search(String _pk, String _mono, String _multi) {
+        return search(CST_POKEMON_SET, _pk, _mono, _multi);
     }
 
-    protected String search(String _k, String _pk) {
+    protected String search(String _k, String _pk, String _mono, String _multi) {
         AbsMap<String,PokemonData> pokedex_ = pokedex();
         getForms().putPokedex(_k, pokedex_);
         if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(_pk,pokedex_.firstKey());
-            return CST_POKEMON;
+            return _mono;
         }
-        return CST_POKEMON_SET;
+        return _multi;
     }
 
     protected AbsMap<String,PokemonData> pokedex() {
@@ -201,14 +201,14 @@ public abstract class WithFilterBean extends CommonBean {
         return ((EffectDamage)eff_).getPower();
     }
 
-    protected String searchAbility(String _k) {
+    protected String searchAbility(String _k, String _mono, String _multi) {
         AbsMap<String,AbilityData> sortedAbilities_ = sortedAbilities();
+        getForms().putAbilities(CST_ABILITIES_SET, sortedAbilities_);
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
             getForms().put(_k, sortedAbilities_.firstKey());
-            return CST_ABILITY;
+            return _mono;
         }
-        getForms().putAbilities(CST_ABILITIES_SET, sortedAbilities_);
-        return CST_ABILITIES;
+        return _multi;
     }
 
     protected AbsMap<String,AbilityData> sortedAbilities() {

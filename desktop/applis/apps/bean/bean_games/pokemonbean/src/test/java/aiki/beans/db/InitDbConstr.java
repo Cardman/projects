@@ -34,6 +34,8 @@ import code.util.*;
 
 public abstract class InitDbConstr extends InitDbBean {
 
+    public static final String B_NO = "B_NO";
+    public static final String B_YES = "B_YES";
     public static final String TIME = "time";
     protected static final String TAB = "\t";
     protected static final String CST_ABILITIES = "abilities";

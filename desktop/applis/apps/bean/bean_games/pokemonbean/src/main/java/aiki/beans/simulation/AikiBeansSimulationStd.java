@@ -10,6 +10,23 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansSimulationStd{
     public static final String WEB_HTML_SIMULATION_SIMULATION_HTML="web/html/simulation/simulation.html";
+    public static final String WEB_HTML_SIMULATION_ADDPOKEMON_HTML="web/html/simulation/addpokemon.html";
+    public static final String WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML="web/html/simulation/editpokemonmoves.html";
+    public static final String WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML="web/html/simulation/editpokemontrainer.html";
+    public static final String WEB_HTML_SIMULATION_EDITPOKEMON_HTML="web/html/simulation/editpokemon.html";
+    public static final String WEB_HTML_SIMULATION_SELECTABILITY_HTML="web/html/simulation/selectability.html";
+    public static final String WEB_HTML_SIMULATION_SELECTITEM_HTML="web/html/simulation/selectitem.html";
+    public static final String WEB_HTML_SIMULATION_SELECTPOKEMON_HTML="web/html/simulation/selectpokemon.html";
+    public static final String WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML="web/html/simulation/simulationlevel.html";
+    public static final String BEAN_SIMULATION="simulation";
+    public static final String BEAN_ADDPOKEMON="addpokemon";
+    public static final String BEAN_EDITPOKEMON="editpokemon";
+    public static final String BEAN_EDITPOKEMONMOVES="editpokemonmoves";
+    public static final String BEAN_EDITTRAINERPOKEMON="edittrainerpokemon";
+    public static final String BEAN_LEVEL_SIMU="level_simu";
+    public static final String BEAN_SELECTABILITY="selectability";
+    public static final String BEAN_SELECTITEM="selectitem";
+    public static final String BEAN_SELECTPOKEMON="selectpokemon";
     public static final String TYPE_ADD_POKEMON_BEAN = "aiki.beans.simulation.AddPokemonBean";
     public static final String TYPE_EDIT_POKEMON_BEAN = "aiki.beans.simulation.EditPokemonBean";
     public static final String TYPE_EDIT_POKEMON_MOVES_BEAN = "aiki.beans.simulation.EditPokemonMovesBean";
@@ -588,7 +605,7 @@ public final class AikiBeansSimulationStd{
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new SimulationLevelBeanGetMapWidth()));
         methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationLevelBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(CLICK_TILE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SimulationLevelBeanClickTile()));
-        methods_.add( new SpecNatMethod(GSL, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/simulation/simulationlevel.html")));
+        methods_.add( new SpecNatMethod(GSL, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML)));
         _std.getStds().addEntry(TYPE_SIMULATION_LEVEL_BEAN, type_);
     }
 }

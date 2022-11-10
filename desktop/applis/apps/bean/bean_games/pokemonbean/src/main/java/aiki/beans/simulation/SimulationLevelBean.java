@@ -24,7 +24,7 @@ public class SimulationLevelBean extends AbsLevelBean {
         noFight = getForms().getValInt(CST_NO_FIGHT);
     }
     public static String cancel() {
-        return CST_SIMULATION;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String clickTile(int _index) {
         if (noFight < 0) {
@@ -53,7 +53,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             coords_.getLevel().setPoint(new Point(pt_));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);
-            return CST_SIMULATION;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (l_.getCharacters().contains(pt_)) {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);
@@ -71,7 +71,7 @@ public class SimulationLevelBean extends AbsLevelBean {
                 coords_.getLevel().setPoint(new Point(pt_));
                 getForms().put(CST_COORDS, coords_);
                 //noFight
-                return CST_SIMULATION;
+                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
         for (Point ptKey_: l_.getDualFights().getKeys()) {
@@ -84,7 +84,7 @@ public class SimulationLevelBean extends AbsLevelBean {
                 coords_.getLevel().setPoint(new Point(ptKey_));
                 getForms().put(CST_NO_FIGHT, noFight);
                 getForms().put(CST_COORDS, coords_);
-                return CST_SIMULATION;
+                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
         return DataBase.EMPTY_STRING;
@@ -102,7 +102,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             coords_.getLevel().setPoint(new Point(_pt));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);
-            return CST_SIMULATION;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (Point.eq(g_.getIndoor().getGymLeaderCoords(), _pt)) {
             Coords coords_ = new Coords();
@@ -112,7 +112,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             coords_.getLevel().setPoint(new Point(_pt));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);
-            return CST_SIMULATION;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         return DataBase.EMPTY_STRING;
     }

@@ -73,14 +73,14 @@ public class AddPokemonBean extends WithFilterBean {
         pkDto_.setPokemon(pk_);
         pkDto_.setMoves(pkData_.getMovesAtLevel((short) common.getLevel(), data_.getNbMaxMoves()));
         getForms().put(CST_POKEMON_ADDED, pkDto_);
-        return CST_SIMULATION;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-        return CST_SIMULATION;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public void search() {
-        search(CST_POKEMON_SET_SIMU, CST_PK_NAME);
+        search(CST_POKEMON_SET_SIMU, CST_PK_NAME, "", "");
 //        StringList pokedex_ = pokedex();
 //        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
 //        if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {

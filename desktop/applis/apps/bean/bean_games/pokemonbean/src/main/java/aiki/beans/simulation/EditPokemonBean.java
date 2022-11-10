@@ -89,7 +89,7 @@ public class EditPokemonBean extends CommonBean {
     public String chooseItem() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
         getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
-        return CST_POKEMON_EDIT;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String translateName() {
         if (namePk.isEmpty()) {
@@ -112,7 +112,7 @@ public class EditPokemonBean extends CommonBean {
     public String addMoves() {
         getForms().put(CST_IS_POKEMON_PLAYER_MOVES, true);
         getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
-        return CST_POKEMON_EDIT;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
     public String getTranslatedStatistic(int _index) {
         Statistic st_ = ev.getKey(_index);
@@ -122,7 +122,7 @@ public class EditPokemonBean extends CommonBean {
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
-        return CST_SIMULATION;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public void deleteMoves() {
         StringList keptMoves_ = new StringList();
@@ -158,7 +158,7 @@ public class EditPokemonBean extends CommonBean {
             return DataBase.EMPTY_STRING;
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
-        return CST_SIMULATION;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
 
     public int getLevel() {

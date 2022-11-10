@@ -14,7 +14,7 @@ public class PokedexBean extends WithFilterBean {
         setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET));
     }
     public String search() {
-        return search(CST_PK);
+        return search(CST_PK, AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML, AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML);
     }
 
     public static boolean atLeastMatchType(StringMap<String> _translationsTypes, boolean _wholeWord, String _typedType, StringList _types) {
@@ -37,6 +37,6 @@ public class PokedexBean extends WithFilterBean {
 
     public String clickLink(int _number) {
         getForms().put(CST_PK, getPokedex().get(_number).getName());
-        return CST_POKEMON;
+        return AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML;
     }
 }

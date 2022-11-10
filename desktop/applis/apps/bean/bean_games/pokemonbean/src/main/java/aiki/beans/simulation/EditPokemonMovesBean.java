@@ -56,10 +56,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
     }
     public String cancel() {
         getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
-        if (player) {
-            return CST_EDIT_POKEMON_PLAYER;
-        }
-        return CST_POKEMON_EDIT;
+        return redirect();
     }
     public String addMoves() {
         StringList currentMoves_ = getForms().getValList(CST_POKEMON_MOVES_EDIT);
@@ -72,10 +69,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         currentMoves_.addAllElts(keptMoves_);
         currentMoves_.removeDuplicates();
         getForms().put(CST_POKEMON_MOVES_EDIT, currentMoves_);
-        if (player) {
-            return CST_EDIT_POKEMON_PLAYER;
-        }
-        return CST_POKEMON_EDIT;
+        return redirect();
     }
     public void search() {
         DataBase data_ = getDataBase();
@@ -112,6 +106,12 @@ public class EditPokemonMovesBean extends WithFilterBean {
         getForms().putMoves(CST_MOVES_EDIT_SET, moves_);
     }
 
+    private String redirect() {
+        if (player) {
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
+        }
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
+    }
     public StringMap<String> getCategories() {
         return categories;
     }

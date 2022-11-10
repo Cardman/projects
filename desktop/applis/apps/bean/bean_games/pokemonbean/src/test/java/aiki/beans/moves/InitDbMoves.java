@@ -23,9 +23,6 @@ import code.util.StringMap;
 
 public abstract class InitDbMoves extends InitDbConstr {
 
-    public static final String B_NO = "B_NO";
-    public static final String B_YES = "B_YES";
-
     public static Struct callMovesBeanCategorySet(Struct _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
     }

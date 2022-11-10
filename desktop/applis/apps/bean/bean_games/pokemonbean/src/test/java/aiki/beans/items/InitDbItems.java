@@ -28,8 +28,6 @@ import code.util.core.BoolVal;
 
 public abstract class InitDbItems extends InitDbConstr {
 
-    public static final String B_NO = "B_NO";
-    public static final String B_YES = "B_YES";
     protected static final String MAX_RAI = "AAABAACP";
     protected static final String MAX_RAI2 = "AAABAACQ";
 
@@ -100,9 +98,9 @@ public abstract class InitDbItems extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanItemsGet(),_str,_args);
     }
 
-    public static Struct callItemsBeanSearch(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemsBeanSearch(),_str,_args);
-    }
+//    public static Struct callItemsBeanSearch(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new ItemsBeanSearch(),_str,_args);
+//    }
 
     public static Struct callItemsBeanTypedClassGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedClassGet(),_str,_args);
@@ -126,34 +124,34 @@ public abstract class InitDbItems extends InitDbConstr {
     public static Struct callItemsBeanTypedPriceSet(Struct _str, String _args) {
         return BeanPokemonCommonTs.callString(new ItemsBeanTypedPriceSet(),_str,_args);
     }
-    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
-        callEffectWhileSendingBeanEffectSet(_update,callItemForBattleBeanGetEffectSending(_use));
-    }
-    public static Struct callItemForBattleBeanGetEffectSending(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
-    }
+//    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
+//        callEffectWhileSendingBeanEffectSet(_update,callItemForBattleBeanGetEffectSending(_use));
+//    }
+//    public static Struct callItemForBattleBeanGetEffectSending(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
+//    }
 
     protected static String navigateItemsSearch(Struct _moves) {
         return navigateData(new ItemsBeanSearch(), _moves);
     }
 
-    protected static Struct transitToAllItems(PkData _pk, StringMap<Struct> _all,int _index, String _it) {
+    protected static Struct transitToAllItems(PkData _pk, StringMap<Struct> _all, String _it) {
         Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         Struct items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems(),welcome_,items_);
         transit(_pk,new ItemsBeanSearch(),items_,items_);
         Struct itData_ = _all.getVal(_it);
-        transit(_pk,new ItemsBeanClickLink(),items_, itData_,_index);
+        transit(_pk,new ItemsBeanClickLink(),items_, itData_, 0);
         return itData_;
     }
 
     protected static Struct dispAllItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        return dispAllMItems(pk_);
+        return dispAllItems(pk_);
     }
 
-    private static Struct dispAllMItems(PkData _pk) {
+    private static Struct dispAllItems(PkData _pk) {
         StringMap<Struct> all_ = beanToItems(_pk);
         Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
@@ -165,12 +163,6 @@ public abstract class InitDbItems extends InitDbConstr {
         StringMap<Struct> map_ = new StringMap<Struct>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS,_pk.beanItemsBean(EN));
-        return map_;
-    }
-    public static StringMap<String> mappingToItems() {
-        StringMap<String> map_ = new StringMap<String>();
-        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
-        map_.addEntry(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML,AikiBeansItemsStd.BEAN_ITEMS);
         return map_;
     }
 
