@@ -839,6 +839,58 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(S_STA_REL,callAbilityBeanClickForwardStatusValueId());
     }
     @Test
+    public void getImmuStatusTypes1() {
+        assertSizeEq(1,callAbilityBeanImmuStatusTypesGet());
+    }
+    @Test
+    public void getImmuStatusTypes2() {
+        assertEq(T_TYPE1,first(elt(callAbilityBeanImmuStatusTypesGet(),0)));
+    }
+    @Test
+    public void getImmuStatusTypes3() {
+        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusTypesGet(),0)));
+    }
+    @Test
+    public void getImmuStatusTypes4() {
+        assertEq(S_STA_SIM,elt(second(elt(callAbilityBeanImmuStatusTypesGet(),0)),0));
+    }
+    @Test
+    public void getTrImmuStatusTypes() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrImmuStatusTypes());
+    }
+    @Test
+    public void getTrImmuStatusValue() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrImmuStatusValue());
+    }
+    @Test
+    public void clickImmuStatusTypes1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatusTypes());
+    }
+    @Test
+    public void clickImmuStatusTypes2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickImmuStatusTypesId());
+    }
+    @Test
+    public void getImmuLowStatIfStatus() {
+        assertSizeEq(1,callAbilityBeanImmuLowStatIfStatusGet());
+    }
+    @Test
+    public void getTrImmuLowStatIfStatusKey() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrImmuLowStatIfStatusKey());
+    }
+    @Test
+    public void getTrImmuLowStatIfStatusValue() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrImmuLowStatIfStatusValue());
+    }
+    @Test
+    public void clickImmuLowStatIfStatusKey1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuLowStatIfStatusKey());
+    }
+    @Test
+    public void clickImmuLowStatIfStatusKey2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickImmuLowStatIfStatusKeyId());
+    }
+    @Test
     public void getChgtTypeByWeather1() {
         assertSizeEq(2,callAbilityBeanChgtTypeByWeatherGet());
     }
