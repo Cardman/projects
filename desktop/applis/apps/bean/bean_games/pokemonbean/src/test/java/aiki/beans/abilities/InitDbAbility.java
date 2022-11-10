@@ -89,7 +89,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickChgtTypeByWeatherKey(directCase());
     }
     public static String callAbilityBeanClickChgtTypeByWeatherKey(Struct _str) {
-        return navigateData(new AbilityBeanClickChgtTypeByWeatherKey(),_str,0);
+        return navigateData(new AbilityBeanClickChgtTypeByWeatherKey(),_str,1);
     }
 
     public static String callAbilityBeanClickChgtTypeByWeatherKeyId() {
@@ -149,7 +149,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickHealHpByTypeIfWeatherKey(directCase());
     }
     public static String callAbilityBeanClickHealHpByTypeIfWeatherKey(Struct _str) {
-        return navigateData(new AbilityBeanClickHealHpByTypeIfWeatherKey(),_str,0);
+        return navigateData(new AbilityBeanClickHealHpByTypeIfWeatherKey(),_str,1);
     }
 
     public static String callAbilityBeanClickHealHpByTypeIfWeatherKeyId() {
@@ -161,7 +161,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickHealHpByWeatherKey(directCase());
     }
     public static String callAbilityBeanClickHealHpByWeatherKey(Struct _str) {
-        return navigateData(new AbilityBeanClickHealHpByWeatherKey(),_str,0);
+        return navigateData(new AbilityBeanClickHealHpByWeatherKey(),_str,1);
     }
 
     public static String callAbilityBeanClickHealHpByWeatherKeyId() {
@@ -271,7 +271,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickImmuStatus(directCase());
     }
     public static String callAbilityBeanClickImmuStatus(Struct _str) {
-        return navigateData(new AbilityBeanClickImmuStatus(),_str,0,0);
+        return navigateData(new AbilityBeanClickImmuStatus(),_str,1,0);
     }
 
     public static String callAbilityBeanClickImmuStatusId() {
@@ -307,7 +307,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return callAbilityBeanClickImmuStatusWeather(directCase());
     }
     public static String callAbilityBeanClickImmuStatusWeather(Struct _str) {
-        return navigateData(new AbilityBeanClickImmuStatusWeather(),_str,0);
+        return navigateData(new AbilityBeanClickImmuStatusWeather(),_str,1);
     }
 
     public static String callAbilityBeanClickImmuStatusWeatherId() {
@@ -474,11 +474,11 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrChgtTypeByWeatherKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherKey(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherKey(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrChgtTypeByWeatherValue() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherValue(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrChgtTypeByWeatherValue(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrDivideStatusRoundKey() {
@@ -498,15 +498,15 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrHealHpByTypeIfWeatherKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKey(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKey(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrHealHpByTypeIfWeatherKeySec() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKeySec(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByTypeIfWeatherKeySec(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrHealHpByWeatherKey() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByWeatherKey(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrHealHpByWeatherKey(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrIgnAbility() {
@@ -558,7 +558,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrImmuStatus() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatus(),directCase(),0,0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatus(),directCase(),1,0);
     }
 
     public static Struct callAbilityBeanGetTrImmuStatusBeginRound() {
@@ -574,7 +574,7 @@ public abstract class InitDbAbility extends InitDbAbilities {
     }
 
     public static Struct callAbilityBeanGetTrImmuStatusWeather() {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusWeather(),directCase(),0);
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetTrImmuStatusWeather(),directCase(),1);
     }
 
     public static Struct callAbilityBeanGetTrImmuTypeByWeather() {

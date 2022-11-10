@@ -707,6 +707,26 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(A_ABILITY2,callAbilityBeanClickReversePowerTypesAbilitiesId());
     }
     @Test
+    public void getChgtTypeByWeather1() {
+        assertSizeEq(2,callAbilityBeanChgtTypeByWeatherGet());
+    }
+    @Test
+    public void getChgtTypeByWeather2() {
+        assertEq(NULL_REF,first(elt(callAbilityBeanChgtTypeByWeatherGet(),0)));
+    }
+    @Test
+    public void getChgtTypeByWeather3() {
+        assertEq(T_TYPE1,second(elt(callAbilityBeanChgtTypeByWeatherGet(),0)));
+    }
+    @Test
+    public void getChgtTypeByWeather4() {
+        assertEq(M_DAM,first(elt(callAbilityBeanChgtTypeByWeatherGet(),1)));
+    }
+    @Test
+    public void getChgtTypeByWeather5() {
+        assertEq(T_TYPE2,second(elt(callAbilityBeanChgtTypeByWeatherGet(),1)));
+    }
+    @Test
     public void isChgtTypeByWeather1() {
         assertFalse(callAbilityBeanIsChgtTypeByWeather(0));
     }
@@ -714,6 +734,35 @@ public final class AbilityBeanTest extends InitDbAbility {
     public void isChgtTypeByWeather2() {
         assertTrue(callAbilityBeanIsChgtTypeByWeather(1));
     }
+    @Test
+    public void getTrChgtTypeByWeatherKey() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrChgtTypeByWeatherKey());
+    }
+    @Test
+    public void getTrChgtTypeByWeatherValue() {
+        assertEq(T_TYPE2_TR,callAbilityBeanGetTrChgtTypeByWeatherValue());
+    }
+    @Test
+    public void clickChgtTypeByWeatherKey1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickChgtTypeByWeatherKey());
+    }
+    @Test
+    public void clickChgtTypeByWeatherKey2() {
+        assertEq(M_DAM,callAbilityBeanClickChgtTypeByWeatherKeyId());
+    }
+    @Test
+    public void getHealHpByTypeIfWeather1() {
+        assertSizeEq(2,callAbilityBeanHealHpByTypeIfWeatherGet());
+    }
+    @Test
+    public void getHealHpByTypeIfWeather2() {
+        assertEq(Rate.one(),second(elt(callAbilityBeanHealHpByTypeIfWeatherGet(),0)));
+    }
+    @Test
+    public void getHealHpByTypeIfWeather3() {
+        assertEq(Rate.newRate("2"),second(elt(callAbilityBeanHealHpByTypeIfWeatherGet(),1)));
+    }
+
     @Test
     public void isHealHpByTypeIfWeather1() {
         assertFalse(callAbilityBeanIsHealHpByTypeIfWeather(0));
@@ -723,6 +772,43 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertTrue(callAbilityBeanIsHealHpByTypeIfWeather(1));
     }
     @Test
+    public void getTrHealHpByTypeIfWeatherKey() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrHealHpByTypeIfWeatherKey());
+    }
+    @Test
+    public void getTrHealHpByTypeIfWeatherKeySec() {
+        assertEq(T_TYPE1_TR,callAbilityBeanGetTrHealHpByTypeIfWeatherKeySec());
+    }
+    @Test
+    public void clickHealHpByTypeIfWeatherKey1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickHealHpByTypeIfWeatherKey());
+    }
+    @Test
+    public void clickHealHpByTypeIfWeatherKey2() {
+        assertEq(M_DAM,callAbilityBeanClickHealHpByTypeIfWeatherKeyId());
+    }
+    @Test
+    public void getHealHpByWeather1() {
+        assertSizeEq(2,callAbilityBeanHealHpByWeatherGet());
+    }
+    @Test
+    public void getHealHpByWeather2() {
+        assertEq(NULL_REF,first(elt(callAbilityBeanHealHpByWeatherGet(),0)));
+    }
+    @Test
+    public void getHealHpByWeather3() {
+        assertEq(Rate.one(),second(elt(callAbilityBeanHealHpByWeatherGet(),0)));
+    }
+    @Test
+    public void getHealHpByWeather4() {
+        assertEq(M_DAM,first(elt(callAbilityBeanHealHpByWeatherGet(),1)));
+    }
+    @Test
+    public void getHealHpByWeather5() {
+        assertEq(Rate.newRate("2"),second(elt(callAbilityBeanHealHpByWeatherGet(),1)));
+    }
+
+    @Test
     public void isHealHpByWeather1() {
         assertFalse(callAbilityBeanIsHealHpByWeather(0));
     }
@@ -731,12 +817,72 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertTrue(callAbilityBeanIsHealHpByWeather(1));
     }
     @Test
+    public void getTrHealHpByWeatherKey() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrHealHpByWeatherKey());
+    }
+    @Test
+    public void clickHealHpByWeatherKey1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickHealHpByWeatherKey());
+    }
+    @Test
+    public void clickHealHpByWeatherKey2() {
+        assertEq(M_DAM,callAbilityBeanClickHealHpByWeatherKeyId());
+    }
+    @Test
+    public void getImmuStatus1() {
+        assertSizeEq(2,callAbilityBeanImmuStatusGet());
+    }
+    @Test
+    public void getImmuStatus2() {
+        assertEq(NULL_REF,first(elt(callAbilityBeanImmuStatusGet(),0)));
+    }
+    @Test
+    public void getImmuStatus3() {
+        assertSizeEq(0,second(elt(callAbilityBeanImmuStatusGet(),0)));
+    }
+    @Test
+    public void getImmuStatus4() {
+        assertEq(M_DAM,first(elt(callAbilityBeanImmuStatusGet(),1)));
+    }
+    @Test
+    public void getImmuStatus5() {
+        assertSizeEq(1,second(elt(callAbilityBeanImmuStatusGet(),1)));
+    }
+    @Test
+    public void getImmuStatus6() {
+        assertEq(S_STA_SIM,elt(second(elt(callAbilityBeanImmuStatusGet(),1)),0));
+    }
+    @Test
     public void isMoveByStatus1() {
         assertFalse(callAbilityBeanIsMoveByStatus(0));
     }
     @Test
     public void isMoveByStatus2() {
         assertTrue(callAbilityBeanIsMoveByStatus(1));
+    }
+    @Test
+    public void getTrImmuStatusWeather() {
+        assertEq(M_DAM_TR,callAbilityBeanGetTrImmuStatusWeather());
+    }
+    @Test
+    public void getTrImmuStatus() {
+        assertEq(S_STA_SIM_TR,callAbilityBeanGetTrImmuStatus());
+    }
+    @Test
+    public void clickImmuStatusWeather1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAbilityBeanClickImmuStatusWeather());
+    }
+    @Test
+    public void clickImmuStatusWeather2() {
+        assertEq(M_DAM,callAbilityBeanClickImmuStatusWeatherId());
+    }
+    @Test
+    public void clickImmuStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callAbilityBeanClickImmuStatus());
+    }
+    @Test
+    public void clickImmuStatus2() {
+        assertEq(S_STA_SIM,callAbilityBeanClickImmuStatusId());
     }
     @Test
     public void getImmuMoveTypesByWeather1() {
