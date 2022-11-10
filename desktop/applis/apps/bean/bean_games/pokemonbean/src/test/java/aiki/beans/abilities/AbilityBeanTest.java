@@ -931,6 +931,38 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(T_TYPE2_TR,callAbilityBeanGetTrChangingBoostTypesNew());
     }
     @Test
+    public void getMultStatIfDamageCat1() {
+        assertSizeEq(1,callAbilityBeanMultStatIfDamageCatGet());
+    }
+    @Test
+    public void getMultStatIfDamageCat2() {
+        assertEq(1,second(elt(callAbilityBeanMultStatIfDamageCatGet(),0)));
+    }
+    @Test
+    public void getTrMultStatIfDamageCatKey() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatIfDamageCatKey());
+    }
+    @Test
+    public void getTrMultStatIfDamageCatKeySec() {
+        assertEq(C_CAT1_TR,callAbilityBeanGetTrMultStatIfDamageCatKeySec());
+    }
+    @Test
+    public void getMultStatIfCat1() {
+        assertSizeEq(1,callAbilityBeanMultStatIfCatGet());
+    }
+    @Test
+    public void getMultStatIfCat2() {
+        assertEq(Rate.one(),second(elt(callAbilityBeanMultStatIfCatGet(),0)));
+    }
+    @Test
+    public void getTrMultStatIfCatKey() {
+        assertEq(ST_SPEED_TR,callAbilityBeanGetTrMultStatIfCatKey());
+    }
+    @Test
+    public void getTrMultStatIfCatKeySec() {
+        assertEq(C_CAT1_TR,callAbilityBeanGetTrMultStatIfCatKeySec());
+    }
+    @Test
     public void getChgtTypeByWeather1() {
         assertSizeEq(2,callAbilityBeanChgtTypeByWeatherGet());
     }
