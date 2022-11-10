@@ -3,24 +3,19 @@ package aiki.beans.abilities;
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.beans.effects.AikiBeansEffectsStd;
-import aiki.beans.items.AikiBeansItemsStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
-import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.DamagingMoveData;
-import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.moves.effects.EffectStatistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import code.expressionlanguage.structs.Struct;
-import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
@@ -218,12 +213,20 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanEffectSendBeanGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundGet(),_str,_args);
+    public static Struct callAbilityBeanEndRoundGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundGet(),directCaseEndRound());
     }
 
-    public static Struct callAbilityBeanEndRoundRankGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundRankGet(),_str,_args);
+    public static Struct callAbilityBeanEndRoundRankGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundRankGet(),directCaseEndRound());
+    }
+
+    public static Struct callAbilityBeanEndRoundGetNo() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundGet(),directCase());
+    }
+
+    public static Struct callAbilityBeanEndRoundRankGetNo() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanEndRoundRankGet(),directCase());
     }
 
     public static Struct callAbilityBeanFailStatusGet(Struct _str, long... _args) {
@@ -618,8 +621,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanLowStatFoeHitGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanMapVarsFailEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsFailEndRoundGet(),_str,_args);
+    public static Struct callAbilityBeanMapVarsFailEndRoundGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanMapVarsFailEndRoundGet(),directCaseEndRound());
     }
 
     public static Struct callAbilityBeanMapVarsGet(Struct _str, long... _args) {
@@ -734,8 +737,8 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanPokemonGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanReasonsEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanReasonsEndRoundGet(),_str,_args);
+    public static Struct callAbilityBeanReasonsEndRoundGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanReasonsEndRoundGet(),directCaseEndRound());
     }
 
     public static Struct callAbilityBeanRecoilDamageFoeByKoOwnerGet(Struct _str, long... _args) {
@@ -754,8 +757,12 @@ public abstract class InitDbAbility extends InitDbAbilities {
         return BeanPokemonCommonTs.callLongs(new AbilityBeanReverseEffectsPowerMovesTypesGlobalGet(),_str,_args);
     }
 
-    public static Struct callAbilityBeanSendingGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AbilityBeanSendingGet(),_str,_args);
+    public static Struct callAbilityBeanSendingNoGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanSendingGet(),directCase());
+    }
+
+    public static Struct callAbilityBeanSendingGet() {
+        return BeanPokemonCommonTs.callLongs(new AbilityBeanSendingGet(),abNoStatSend());
     }
 
     public static Struct callAbilityBeanSingleStatusGet(Struct _str, long... _args) {
@@ -801,18 +808,17 @@ public abstract class InitDbAbility extends InitDbAbilities {
         StringMap<Struct> all_ = beanToAbility(pk_);
         return transitToAllAbilities(pk_,all_,0);
     }
-//    protected static Struct healSimple(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-//        PkData pk_ = pkDataByFacade(feedDbItem(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
-//        StringMap<Struct> all_ = beanToAbility(pk_);
-//
-//        return dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
-//    }
-//
-//    protected static Struct healSimpleEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-//        PkData pk_ = pkDataByFacade(feedDbItemEndRound(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
-//        StringMap<Struct> all_ = beanToItBase(pk_);
-//        return dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
-//    }
+    protected static Struct directCase(boolean _forbidUseBerryAgainstFoes, boolean _chgtTypeByDamage, boolean _ignFoeStatisBoost, boolean _immuCh, boolean _immuDamageTrappingMoves, boolean _immuDamageAllyMoves, boolean _immuDamageRecoil, boolean _copyMovesTypes, boolean _reverseEffectsPowerMovesTypesGlobal, boolean _takeItemByDamagingMove, boolean _giveItemToAllyHavingUsed, boolean _inflictingDamageInsteadOfSuffering, boolean _nbHits, boolean _breakProtection, boolean _plate, boolean _healedStatusBySwitch, boolean _achievedDisappearedPk, boolean _mumy, boolean _immuRechargeRound, boolean _slowing, boolean _immuSufferedDamageLowEff, boolean _cancelSecEffectOther, boolean _cancelSecEffectOwner, int _nbUsedPp, int _decreaseNecStepsHatch, String _typeForMoves) {
+        PkData pk_ = pkDataByFacade(feedDbAbility(_forbidUseBerryAgainstFoes, _chgtTypeByDamage, _ignFoeStatisBoost, _immuCh, _immuDamageTrappingMoves, _immuDamageAllyMoves, _immuDamageRecoil, _copyMovesTypes, _reverseEffectsPowerMovesTypesGlobal, _takeItemByDamagingMove, _giveItemToAllyHavingUsed, _inflictingDamageInsteadOfSuffering, _nbHits, _breakProtection, _plate, _healedStatusBySwitch, _achievedDisappearedPk, _mumy, _immuRechargeRound, _slowing, _immuSufferedDamageLowEff, _cancelSecEffectOther, _cancelSecEffectOwner, _nbUsedPp, _decreaseNecStepsHatch, _typeForMoves));
+        StringMap<Struct> all_ = beanToAbility(pk_);
+        return transitToAllAbilities(pk_,all_,0);
+    }
+
+    protected static Struct directCaseEndRound() {
+        PkData pk_ = pkDataByFacade(feedDbAbilityEndRound());
+        StringMap<Struct> all_ = beanToAbility(pk_);
+        return transitToAllAbilities(pk_,all_,0);
+    }
 //
 //    protected static Struct healSimpleNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
 //        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
@@ -828,16 +834,21 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
 //        return healSimpleNoStatSend(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff,true,true);
 //    }
-//    public static Struct healSimpleNoStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
-//        PkData pk_ = pkDataByFacade(feedDbItemNoStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather));
-//        StringMap<Struct> all_ = beanToItBaseSend(pk_);
-//        Struct res_ = dispLine(AikiBeansItemsStd.BEAN_ITEMFORBATTLE, pk_, all_);
-//        callItemForBattleBeanEffectSendBeanGet(res_);
-//        Struct send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
-//        callEffectWhileSendingBeanEffectSet(send_,callItemForBattleBeanGetEffectSending(res_));
-//        beforeDisplaying(send_);
-//        return send_;
-//    }
+    public static Struct healSimpleNoStatSend() {
+        PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
+        StringMap<Struct> all_ = beanToItBaseSend(pk_);
+        Struct res_ = transitToAllAbilities(pk_, all_,0);
+        callAbilityBeanEffectSendBeanGet(res_);
+        Struct send_ = all_.getVal(AikiBeansEffectsStd.EFFECT_SENDING);
+        callEffectWhileSendingBeanEffectSet(send_,callAbilityBeanGetEffectSending(res_));
+        beforeDisplaying(send_);
+        return send_;
+    }
+    public static Struct abNoStatSend() {
+        PkData pk_ = pkDataByFacade(feedDbAbilityNoStat());
+        StringMap<Struct> all_ = beanToItBaseSend(pk_);
+        return transitToAllAbilities(pk_, all_,0);
+    }
 //
 //    public static Struct healSimpleStatSend(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
 //        PkData pk_ = pkDataByFacade(feedDbItemStat(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff));
@@ -870,42 +881,35 @@ public abstract class InitDbAbility extends InitDbAbilities {
 //    }
 //
 //    protected static FacadeGame feedDbItemStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-//        return feedDbItem(eff(),_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, true, true);
+//        return feedDbAbility(eff(),_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, true, true);
 //    }
 //
-//    protected static FacadeGame feedDbItemNoStat(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
-//        return feedDbItem(null,_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff, _copyingAbility, _disableWeather);
-//    }
+    protected static FacadeGame feedDbAbilityNoStat() {
+        return feedDbAbilityStat();
+    }
 //
-//    protected static FacadeGame feedDbItemEndRound(boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-//        return feedDbItem(effEndRound(),_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff);
-//    }
+    protected static FacadeGame feedDbAbilityEndRound() {
+        return feedDbAbility(effEndRound());
+    }
 //
-//    protected static FacadeGame feedDbItem(EffectStatistic _eff, boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff, boolean _copyingAbility, boolean _disableWeather) {
-//        FacadeGame facade_ = facade();
-//        ItemForBattle it_ = itemForBattle(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff);
-//        EffectWhileSendingWithStatistic e_ = Instances.newEffectWhileSendingWithStatistic();
-//        e_.setEffect(_eff);
-//        e_.setCopyingAbility(_copyingAbility);
-//        e_.setDisableWeather(_disableWeather);
-//        e_.setEnabledWeather(M_DAM);
-//        e_.setMultWeight(Rate.one());
-//        it_.getEffectSending().add(e_);
-//        facade_.getData().completeMembers(I_BASE, it_);
-//        otherElts(facade_);
-//        facade_.getData().completeVariables();
-//        return facade_;
-//    }
+    protected static FacadeGame feedDbAbilityStat() {
+        FacadeGame facade_ = facade();
+        AbilityData it_ = ability();
+        EffectWhileSendingWithStatistic e_ = Instances.newEffectWhileSendingWithStatistic();
+        e_.setEffect(null);
+        e_.setMultWeight(Rate.one());
+        it_.getEffectSending().add(e_);
+        facade_.getData().completeMembers(A_ABILITY, it_);
+        return common(true, A_ABILITY, facade_);
+    }
 //
-//    protected static FacadeGame feedDbItem(EffectEndRound _eff,boolean _againstEvo, boolean _attackLast, boolean _attacksSoon, boolean _boostExp, boolean _cancelImmuType, boolean _immuLowStatis, LgInt _trueEff, LgInt _falseEff) {
-//        FacadeGame facade_ = facade();
-//        ItemForBattle it_ = itemForBattle(_againstEvo, _attackLast, _attacksSoon, _boostExp, _cancelImmuType, _immuLowStatis, _trueEff, _falseEff);
-//        it_.getEffectEndRound().add(_eff);
-//        facade_.getData().completeMembers(I_BASE, it_);
-//        otherElts(facade_);
-//        facade_.getData().completeVariables();
-//        return facade_;
-//    }
+    protected static FacadeGame feedDbAbility(EffectEndRound _eff) {
+        FacadeGame facade_ = facade();
+        AbilityData it_ = ability();
+        it_.getEffectEndRound().add(_eff);
+        facade_.getData().completeMembers(A_ABILITY, it_);
+        return common(true, A_ABILITY, facade_);
+    }
 
 
     protected static FacadeGame feedDbAbility() {

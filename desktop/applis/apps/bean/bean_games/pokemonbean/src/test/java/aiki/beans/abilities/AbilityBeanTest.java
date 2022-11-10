@@ -1,5 +1,6 @@
 package aiki.beans.abilities;
 
+import aiki.game.fight.Fight;
 import code.maths.Rate;
 import code.util.CustList;
 import code.util.StringList;
@@ -39,6 +40,34 @@ public final class AbilityBeanTest extends InitDbAbility {
         assertEq(A_ABILITY_TR,callAbilityBeanDisplayNameGet());
     }
     @Test
+    public void getSending1() {
+        assertFalse(callAbilityBeanSendingNoGet());
+    }
+    @Test
+    public void getSending2() {
+        assertTrue(callAbilityBeanSendingGet());
+    }
+    @Test
+    public void getEndRound1() {
+        assertFalse(callAbilityBeanEndRoundGetNo());
+    }
+    @Test
+    public void getEndRound2() {
+        assertTrue(callAbilityBeanEndRoundGet());
+    }
+    @Test
+    public void roundRank1() {
+        assertEq(0,callAbilityBeanEndRoundRankGetNo());
+    }
+    @Test
+    public void roundRank2() {
+        assertEq(1,callAbilityBeanEndRoundRankGet());
+    }
+    @Test
+    public void multWeight() {
+        assertEq(Rate.one(),callEffectWhileSendingBeanMultWeightGet(healSimpleNoStatSend()));
+    }
+    @Test
     public void getMultPowerMovesTypesGlobal1() {
         assertSizeEq(1,callAbilityBeanMultPowerMovesTypesGlobalGet());
     }
@@ -74,4 +103,25 @@ public final class AbilityBeanTest extends InitDbAbility {
     public void clickReversePowerTypesAbilities2() {
         assertEq(A_ABILITY2,callAbilityBeanClickReversePowerTypesAbilitiesId());
     }
+    @Test
+    public void getMapVarsFailEndRound1() {
+        assertSizeEq(1,callAbilityBeanMapVarsFailEndRoundGet());
+    }
+    @Test
+    public void getMapVarsFailEndRound2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callAbilityBeanMapVarsFailEndRoundGet(),0)));
+    }
+    @Test
+    public void getMapVarsFailEndRound3() {
+        assertEq(TIME,second(elt(callAbilityBeanMapVarsFailEndRoundGet(),0)));
+    }
+    @Test
+    public void getReasonsEndRound1() {
+        assertSizeEq(1,callAbilityBeanReasonsEndRoundGet());
+    }
+    @Test
+    public void getReasonsEndRound2() {
+        assertEq(Fight.TEMPS_TOUR,elt(callAbilityBeanReasonsEndRoundGet(),0));
+    }
+
 }
