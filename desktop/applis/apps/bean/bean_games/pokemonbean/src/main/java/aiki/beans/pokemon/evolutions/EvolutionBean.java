@@ -35,8 +35,7 @@ public class EvolutionBean extends CommonBean {
         PokemonData pk_ = data_.getPokemon(base);
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
-        getForms().put(CST_PK,evolutions_.get(_index));
-        return CST_POKEMON;
+        return tryRedirectPk(evolutions_.get(_index));
     }
 
     public String getBase() {

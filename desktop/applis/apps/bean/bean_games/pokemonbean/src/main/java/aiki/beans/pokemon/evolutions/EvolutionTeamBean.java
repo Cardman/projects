@@ -25,8 +25,7 @@ public class EvolutionTeamBean extends EvolutionBean {
         StringList evolutions_ = new StringList(pk_.getEvolutions().getKeys());
         evolutions_.sortElts(DictionaryComparatorUtil.cmpPokemon(data_,getLanguage()));
         EvolutionTeam evo_ = (EvolutionTeam) pk_.getEvolutions().getVal(evolutions_.get(_index));
-        getForms().put(CST_PK,evo_.getPokemon());
-        return CST_POKEMON;
+        return tryRedirectPk(evo_.getPokemon());
     }
 
     public String getOther() {

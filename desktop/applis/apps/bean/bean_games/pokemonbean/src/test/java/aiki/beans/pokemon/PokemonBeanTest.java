@@ -1,6 +1,7 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
@@ -522,12 +523,28 @@ public final class PokemonBeanTest extends InitDbPkOne {
         assertEq(I_STONE_TR,callEvolutionStoneBeanStoneGet());
     }
     @Test
+    public void clickStone1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_EVO_STONE_HTML,callEvolutionStoneBeanClickStone());
+    }
+    @Test
+    public void clickStone2() {
+        assertEq(I_STONE,callEvolutionStoneBeanClickStoneId());
+    }
+    @Test
     public void getGender2() {
         assertEq(NO_G,callEvolutionStoneGenderBeanGenderGet());
     }
     @Test
     public void getMove() {
         assertEq(M_DAM_TR,callEvolutionMoveBeanMoveGet());
+    }
+    @Test
+    public void clickMoveEvo1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEvolutionMoveBeanClickMove());
+    }
+    @Test
+    public void clickMoveEvo2() {
+        assertEq(M_DAM,callEvolutionMoveBeanClickMoveId());
     }
     @Test
     public void getType() {
@@ -538,12 +555,36 @@ public final class PokemonBeanTest extends InitDbPkOne {
         assertEq(P_POK_11_TR,callEvolutionTeamBeanOtherGet());
     }
     @Test
+    public void clickTeam1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callEvolutionTeamBeanClickTeam());
+    }
+    @Test
+    public void clickTeam2() {
+        assertEq(P_POK_11,callEvolutionTeamBeanClickTeamId());
+    }
+    @Test
     public void getItem() {
         assertEq(I_HOLD_TR,callEvolutionItemBeanItemGet());
     }
     @Test
+    public void clickItem1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_EVO_ITEM_HTML,callEvolutionItemBeanClickItem());
+    }
+    @Test
+    public void clickItem2() {
+        assertEq(I_HOLD,callEvolutionItemBeanClickItemId());
+    }
+    @Test
     public void getDisplayNameEvo() {
         assertEq(P_POK_13_TR,callEvolutionBeanDisplayNameGet());
+    }
+    @Test
+    public void clickEvo1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callEvolutionBeanClickEvo());
+    }
+    @Test
+    public void clickEvo2() {
+        assertEq(P_POK_13,callEvolutionBeanClickEvoId());
     }
     @Test
     public void getMin() {

@@ -302,8 +302,18 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new EvolutionHappinessBeanMinGet(),dispPkOne(12,0));
     }
 
-    public static Struct callEvolutionItemBeanClickItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanClickItem(),_str,_args);
+    public static String callEvolutionItemBeanClickItem() {
+        return callEvolutionItemBeanClickItem(dispPkOne(9,0));
+    }
+
+    public static String callEvolutionItemBeanClickItem(Struct _str) {
+        return navigateData(new EvolutionItemBeanClickItem(),_str,toInt(callEvolutionBeanIndexGet(_str)));
+    }
+
+    public static String callEvolutionItemBeanClickItemId() {
+        Struct bean_ = dispPkOne(9, 0);
+        callEvolutionItemBeanClickItem(bean_);
+        return getValItemId(bean_);
     }
 
     public static Struct callEvolutionItemBeanItemGet() {
@@ -318,8 +328,18 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new EvolutionLevelGenderBeanGenderGet(),dispPkOne(1,0));
     }
 
-    public static Struct callEvolutionMoveBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanClickMove(),_str,_args);
+    public static String callEvolutionMoveBeanClickMove() {
+        return callEvolutionMoveBeanClickMove(dispPkOne(5,0));
+    }
+
+    public static String callEvolutionMoveBeanClickMove(Struct _str) {
+        return navigateData(new EvolutionMoveBeanClickMove(),_str,toInt(callEvolutionBeanIndexGet(_str)));
+    }
+
+    public static String callEvolutionMoveBeanClickMoveId() {
+        Struct bean_ = dispPkOne(5, 0);
+        callEvolutionMoveBeanClickMove(bean_);
+        return getValMoveId(bean_);
     }
 
     public static Struct callEvolutionMoveBeanMoveGet() {
@@ -330,8 +350,18 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new EvolutionMoveTypeBeanTypeGet(),dispPkOne(5,1));
     }
 
-    public static Struct callEvolutionStoneBeanClickStone(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanClickStone(),_str,_args);
+    public static String callEvolutionStoneBeanClickStone() {
+        return callEvolutionStoneBeanClickStone(dispPkOne(3,0));
+    }
+
+    public static String callEvolutionStoneBeanClickStone(Struct _str) {
+        return navigateData(new EvolutionStoneBeanClickStone(),_str,toInt(callEvolutionBeanIndexGet(_str)));
+    }
+
+    public static String callEvolutionStoneBeanClickStoneId() {
+        Struct bean_ = dispPkOne(3, 0);
+        callEvolutionStoneBeanClickStone(bean_);
+        return getValItemId(bean_);
     }
 
     public static Struct callEvolutionStoneBeanStoneGet() {
@@ -342,16 +372,36 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new EvolutionStoneGenderBeanGenderGet(),dispPkOne(4,0));
     }
 
-    public static Struct callEvolutionTeamBeanClickTeam(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanClickTeam(),_str,_args);
+    public static String callEvolutionTeamBeanClickTeam() {
+        return callEvolutionTeamBeanClickTeam(dispPkOne(8,0));
+    }
+
+    public static String callEvolutionTeamBeanClickTeam(Struct _str) {
+        return navigateData(new EvolutionTeamBeanClickTeam(),_str,toInt(callEvolutionBeanIndexGet(_str)));
+    }
+
+    public static String callEvolutionTeamBeanClickTeamId() {
+        Struct bean_ = dispPkOne(8, 0);
+        callEvolutionTeamBeanClickTeam(bean_);
+        return getValPkId(bean_);
     }
 
     public static Struct callEvolutionTeamBeanOtherGet() {
         return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanOtherGet(),dispPkOne(8,0));
     }
 
-    public static Struct callEvolutionBeanClickEvo(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionBeanClickEvo(),_str,_args);
+    public static String callEvolutionBeanClickEvo() {
+        return callEvolutionBeanClickEvo(dispPkOne(12,0));
+    }
+
+    public static String callEvolutionBeanClickEvo(Struct _str) {
+        return navigateData(new EvolutionBeanClickEvo(),_str,toInt(callEvolutionBeanIndexGet(_str)));
+    }
+
+    public static String callEvolutionBeanClickEvoId() {
+        Struct bean_ = dispPkOne(12, 0);
+        callEvolutionBeanClickEvo(bean_);
+        return getValPkId(bean_);
     }
 
     public static Struct callEvolutionBeanDisplayBaseGet() {
@@ -388,7 +438,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         Struct pkbean_ = transitToAllPks(pk_, all_, _index);
         Struct evobean_ = byStr(all_, mapping_, callPokemonBeanGetPage(pkbean_, _evo));
         callEvolutionBeanBaseSet(evobean_,toStr(callPokemonBeanNameGet(pkbean_)));
-        callEvolutionBeanIndexSet(evobean_,_index);
+        callEvolutionBeanIndexSet(evobean_,_evo);
         callEvolutionBeanNameSet(evobean_,toStr(elt(callPokemonBeanEvolutionsGet(pkbean_),_evo)));
         beforeDisplaying(evobean_);
         return evobean_;
