@@ -204,6 +204,16 @@ public abstract class InitDbPk extends InitDbConstr {
         return moves_;
     }
 
+    protected static Struct transitToAllPks(PkData _pk, StringMap<Struct> _all,int _index) {
+        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct pks_ = _all.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
+        Struct pk_ = _all.getVal(AikiBeansPokemonStd.BEAN_PK);
+        transit(_pk,new WelcomeBeanClickPokedex(),welcome_,pks_);
+        transit(_pk,new PokedexBeanSearch(),pks_,pks_);
+        transit(_pk,new PokedexBeanClickLink(),pks_,pk_,_index);
+        return pk_;
+    }
     protected static String navigatePkSearch(Struct _moves) {
         return navigateData(new PokedexBeanSearch(), _moves);
     }
@@ -219,18 +229,7 @@ public abstract class InitDbPk extends InitDbConstr {
         map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
         return map_;
     }
-//
-//    public static class MiniTest{
-//        @org.junit.Test
-//        public void __() {
-//            int[][] image = new int[2][2];
-//            image[0][0]= ConverterBufferedImage.WHITE_RGB_INT;
-//            image[0][1]= ConverterBufferedImage.WHITE_RGB_INT;
-//            image[1][0]= ConverterBufferedImage.WHITE_RGB_INT;
-//            image[1][1]= ConverterBufferedImage.WHITE_RGB_INT;
-//            System.out.println(BaseSixtyFourUtil.getStringByImage(image));
-//        }
-//    }
+
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
         facade_.getData().setDefaultEggGroup(DEFAULT_EGG_GROUP);

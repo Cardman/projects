@@ -307,11 +307,29 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static StringMap<Struct> beanToPkOne(PkData _pk) {
         StringMap<Struct> map_ = beanToPk(_pk);
         map_.addEntry(AikiBeansPokemonStd.BEAN_PK,_pk.beanPokemonBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_HAPPY,_pk.beanEvolutionHappinessBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_ITEM,_pk.beanEvolutionItemBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_LEVEL,_pk.beanEvolutionLevelBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_LEVELGENDER,_pk.beanEvolutionLevelGenderBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_MOVE,_pk.beanEvolutionMoveBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_STONE,_pk.beanEvolutionStoneBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_STONEGENDER,_pk.beanEvolutionStoneGenderBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_TEAM,_pk.beanEvolutionTeamBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_EVO_TYPE,_pk.beanEvolutionMoveTypeBean(EN));
         return map_;
     }
     public static StringMap<String> mappingToPkOne() {
         StringMap<String> map_ = mappingToPk();
         map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,AikiBeansPokemonStd.BEAN_PK);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_HAPPY,AikiBeansPokemonStd.BEAN_EVO_HAPPY);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_ITEM,AikiBeansPokemonStd.BEAN_EVO_ITEM);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVEL,AikiBeansPokemonStd.BEAN_EVO_LEVEL);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_LEVELGENDER,AikiBeansPokemonStd.BEAN_EVO_LEVELGENDER);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_MOVE,AikiBeansPokemonStd.BEAN_EVO_MOVE);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONE,AikiBeansPokemonStd.BEAN_EVO_STONE);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_STONEGENDER,AikiBeansPokemonStd.BEAN_EVO_STONEGENDER);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TEAM,AikiBeansPokemonStd.BEAN_EVO_TEAM);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_EVOS_TYPE,AikiBeansPokemonStd.BEAN_EVO_TYPE);
         return map_;
     }
 }
