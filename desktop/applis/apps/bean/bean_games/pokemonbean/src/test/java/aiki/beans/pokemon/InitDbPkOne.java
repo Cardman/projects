@@ -57,8 +57,18 @@ public abstract class InitDbPkOne extends InitDbPk {
         return getValPkId(bean_);
     }
 
-    public static Struct callPokemonBeanClickEggPk(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanClickEggPk(),_str,_args);
+    public static String callPokemonBeanClickEggPk(int _row,int _args) {
+        return callPokemonBeanClickEggPk(dispPkOne(_row),_args);
+    }
+
+    public static String callPokemonBeanClickEggPk(Struct _str, int _ind) {
+        return navigateData(new PokemonBeanClickEggPk(),_str,_ind);
+    }
+
+    public static String callPokemonBeanClickEggPkId(int _row,int _args) {
+        Struct bean_ = dispPkOne(_row);
+        callPokemonBeanClickEggPk(bean_,_args);
+        return getValPkId(bean_);
     }
 
     public static Struct callPokemonBeanClickHiddenMove(Struct _str, long... _args) {
@@ -103,8 +113,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanDisplayNameGet(),dispPkOne(_args));
     }
 
-    public static Struct callPokemonBeanEggGroupsPkGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanEggGroupsPkGet(),_str,_args);
+    public static Struct callPokemonBeanEggGroupsPkGet(int _line) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanEggGroupsPkGet(),dispPkOne(_line));
     }
 
     public static Struct callPokemonBeanEvoBaseGet() {
@@ -135,8 +145,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanGetBase(),_str,_args);
     }
 
-    public static Struct callPokemonBeanGetEggPk(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetEggPk(),_str,_args);
+    public static Struct callPokemonBeanGetEggPk(int _line, int _ind) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetEggPk(),dispPkOne(_line),_ind);
     }
 
     public static Struct callPokemonBeanGetEv(Struct _str, long... _args) {

@@ -324,4 +324,100 @@ public final class PokemonBeanTest extends InitDbPkOne {
     public void clickMoveTutors2() {
         assertEq(M_DAM,callPokemonBeanClickMoveTutorsId());
     }
+    @Test
+    public void getEggGroupsPk1() {
+        assertSizeEq(10,callPokemonBeanEggGroupsPkGet(0));
+    }
+    @Test
+    public void getEggGroupsPk2() {
+        assertSizeEq(10,callPokemonBeanEggGroupsPkGet(1));
+    }
+    @Test
+    public void getEggGroupsPk3() {
+        assertSizeEq(10,callPokemonBeanEggGroupsPkGet(2));
+    }
+    @Test
+    public void getEggGroupsPk4() {
+        assertSizeEq(11,callPokemonBeanEggGroupsPkGet(3));
+    }
+    @Test
+    public void getEggGroupsPk5() {
+        assertSizeEq(11,callPokemonBeanEggGroupsPkGet(4));
+    }
+    @Test
+    public void getEggGroupsPk6() {
+        assertSizeEq(11,callPokemonBeanEggGroupsPkGet(5));
+    }
+    @Test
+    public void getEggGroupsPk7() {
+        assertSizeEq(11,callPokemonBeanEggGroupsPkGet(6));
+    }
+    @Test
+    public void getEggGroupsPk8() {
+        assertSizeEq(11,callPokemonBeanEggGroupsPkGet(7));
+    }
+    @Test
+    public void getEggGroupsPk9() {
+        assertSizeEq(5,callPokemonBeanEggGroupsPkGet(8));
+    }
+    @Test
+    public void getEggGroupsPk10() {
+        assertSizeEq(5,callPokemonBeanEggGroupsPkGet(9));
+    }
+    @Test
+    public void getEggGroupsPk11() {
+        assertSizeEq(5,callPokemonBeanEggGroupsPkGet(10));
+    }
+    @Test
+    public void getEggGroupsPk12() {
+        assertSizeEq(5,callPokemonBeanEggGroupsPkGet(11));
+    }
+    @Test
+    public void getEggGroupsPk13() {
+        assertSizeEq(10,callPokemonBeanEggGroupsPkGet(12));
+    }
+    @Test
+    public void getEggGroupsPk14() {
+        assertSizeEq(10,callPokemonBeanEggGroupsPkGet(13));
+    }
+    @Test
+    public void getEggGroupsPk15() {
+        assertSizeEq(5,callPokemonBeanEggGroupsPkGet(14));
+    }
+    @Test
+    public void getEggGroupsPk16() {
+        assertSizeEq(11,callPokemonBeanEggGroupsPkGet(15));
+    }
+    @Test
+    public void getEggGroupsPk17() {
+        assertEq(P_POK_08,elt(callPokemonBeanEggGroupsPkGet(8),0));
+    }
+    @Test
+    public void getEggGroupsPk18() {
+        assertEq(P_POK_09,elt(callPokemonBeanEggGroupsPkGet(8),1));
+    }
+    @Test
+    public void getEggGroupsPk19() {
+        assertEq(P_POK_10,elt(callPokemonBeanEggGroupsPkGet(8),2));
+    }
+    @Test
+    public void getEggGroupsPk20() {
+        assertEq(P_POK_11,elt(callPokemonBeanEggGroupsPkGet(8),3));
+    }
+    @Test
+    public void getEggGroupsPk21() {
+        assertEq(P_POK_14,elt(callPokemonBeanEggGroupsPkGet(8),4));
+    }
+    @Test
+    public void getEggPk() {
+        assertEq(P_POK_09_TR,callPokemonBeanGetEggPk(8,1));
+    }
+    @Test
+    public void clickEggPk1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callPokemonBeanClickEggPk(8,1));
+    }
+    @Test
+    public void clickEggPk2() {
+        assertEq(P_POK_09,callPokemonBeanClickEggPkId(8,1));
+    }
 }
