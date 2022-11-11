@@ -1,9 +1,7 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.*;
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.evolutions.*;
-import aiki.facade.FacadeGame;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -300,68 +298,68 @@ public abstract class InitDbPkOne extends InitDbPk {
     }
 
 
-    public static Struct callEvolutionHappinessBeanMinGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionHappinessBeanMinGet(),_str,_args);
+    public static Struct callEvolutionHappinessBeanMinGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionHappinessBeanMinGet(),dispPkOne(12,0));
     }
 
     public static Struct callEvolutionItemBeanClickItem(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanClickItem(),_str,_args);
     }
 
-    public static Struct callEvolutionItemBeanItemGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanItemGet(),_str,_args);
+    public static Struct callEvolutionItemBeanItemGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionItemBeanItemGet(),dispPkOne(9,0));
     }
 
-    public static Struct callEvolutionLevelBeanLevelGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionLevelBeanLevelGet(),_str,_args);
+    public static Struct callEvolutionLevelBeanLevelGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionLevelBeanLevelGet(),dispPkOne(0,0));
     }
 
-    public static Struct callEvolutionLevelGenderBeanGenderGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionLevelGenderBeanGenderGet(),_str,_args);
+    public static Struct callEvolutionLevelGenderBeanGenderGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionLevelGenderBeanGenderGet(),dispPkOne(1,0));
     }
 
     public static Struct callEvolutionMoveBeanClickMove(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanClickMove(),_str,_args);
     }
 
-    public static Struct callEvolutionMoveBeanMoveGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanMoveGet(),_str,_args);
+    public static Struct callEvolutionMoveBeanMoveGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionMoveBeanMoveGet(),dispPkOne(5,0));
     }
 
-    public static Struct callEvolutionMoveTypeBeanTypeGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionMoveTypeBeanTypeGet(),_str,_args);
+    public static Struct callEvolutionMoveTypeBeanTypeGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionMoveTypeBeanTypeGet(),dispPkOne(5,1));
     }
 
     public static Struct callEvolutionStoneBeanClickStone(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanClickStone(),_str,_args);
     }
 
-    public static Struct callEvolutionStoneBeanStoneGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanStoneGet(),_str,_args);
+    public static Struct callEvolutionStoneBeanStoneGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionStoneBeanStoneGet(),dispPkOne(3,0));
     }
 
-    public static Struct callEvolutionStoneGenderBeanGenderGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionStoneGenderBeanGenderGet(),_str,_args);
+    public static Struct callEvolutionStoneGenderBeanGenderGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionStoneGenderBeanGenderGet(),dispPkOne(4,0));
     }
 
     public static Struct callEvolutionTeamBeanClickTeam(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanClickTeam(),_str,_args);
     }
 
-    public static Struct callEvolutionTeamBeanOtherGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanOtherGet(),_str,_args);
+    public static Struct callEvolutionTeamBeanOtherGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionTeamBeanOtherGet(),dispPkOne(8,0));
     }
 
     public static Struct callEvolutionBeanClickEvo(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EvolutionBeanClickEvo(),_str,_args);
     }
 
-    public static Struct callEvolutionBeanDisplayBaseGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayBaseGet(),_str,_args);
+    public static Struct callEvolutionBeanDisplayBaseGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayBaseGet(),dispPkOne(1,0));
     }
 
-    public static Struct callEvolutionBeanDisplayNameGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayNameGet(),_str,_args);
+    public static Struct callEvolutionBeanDisplayNameGet() {
+        return BeanPokemonCommonTs.callLongs(new EvolutionBeanDisplayNameGet(),dispPkOne(12,0));
     }
 
     public static Struct callEvolutionBeanIndexGet(Struct _str, long... _args) {

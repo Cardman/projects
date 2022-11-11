@@ -28,6 +28,7 @@ import aiki.map.util.MiniMapCoords;
 import aiki.map.util.TileMiniMap;
 import code.expressionlanguage.structs.Struct;
 import code.images.*;
+import code.maths.Rate;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -387,6 +388,7 @@ public abstract class InitDbPk extends InitDbConstr {
         facade_.getData().getTranslatedGenders().getVal(EN).addEntry(Gender.NO_GENDER,NO_G);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
+        facade_.getData().addConstNumTest(DataBase.EVO_BONHEUR, Rate.newRate("128"));
         facade_.getData().completeVariables();
         DataMap map_ = Instances.newDataMap();
         Road r_ = Instances.newRoad();

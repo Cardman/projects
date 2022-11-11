@@ -504,4 +504,49 @@ public final class PokemonBeanTest extends InitDbPkOne {
     public void clickMove4() {
         assertEq(M_STA,callPokemonBeanClickMoveId(1));
     }
+
+    @Test
+    public void getLevel() {
+        assertEq(5,callEvolutionLevelBeanLevelGet());
+    }
+    @Test
+    public void getGender1() {
+        assertEq(NO_G,callEvolutionLevelGenderBeanGenderGet());
+    }
+    @Test
+    public void getDisplayBase() {
+        assertEq(P_POK_01_TR,callEvolutionBeanDisplayBaseGet());
+    }
+    @Test
+    public void getStone() {
+        assertEq(I_STONE_TR,callEvolutionStoneBeanStoneGet());
+    }
+    @Test
+    public void getGender2() {
+        assertEq(NO_G,callEvolutionStoneGenderBeanGenderGet());
+    }
+    @Test
+    public void getMove() {
+        assertEq(M_DAM_TR,callEvolutionMoveBeanMoveGet());
+    }
+    @Test
+    public void getType() {
+        assertEq(T_TYPE1_TR,callEvolutionMoveTypeBeanTypeGet());
+    }
+    @Test
+    public void getOther() {
+        assertEq(P_POK_11_TR,callEvolutionTeamBeanOtherGet());
+    }
+    @Test
+    public void getItem() {
+        assertEq(I_HOLD_TR,callEvolutionItemBeanItemGet());
+    }
+    @Test
+    public void getDisplayNameEvo() {
+        assertEq(P_POK_13_TR,callEvolutionBeanDisplayNameGet());
+    }
+    @Test
+    public void getMin() {
+        assertEq(128,callEvolutionHappinessBeanMinGet());
+    }
 }
