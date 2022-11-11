@@ -5,7 +5,6 @@ import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.dto.*;
-import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -27,6 +26,8 @@ import aiki.map.places.City;
 import aiki.map.places.Road;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
+import aiki.map.util.MiniMapCoords;
+import aiki.map.util.TileMiniMap;
 import code.expressionlanguage.structs.Struct;
 import code.images.*;
 import code.util.IdMap;
@@ -390,9 +391,25 @@ public abstract class InitDbPk extends InitDbConstr {
         lctwo_.getLegendaryPks().addEntry(newPoint(0,0),wpk(P_POK_15));
         ca_.getLevels().add(lctwo_);
         map_.getPlaces().add(ca_);
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)0),tm("0", -1));
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)0,(short)1),tm("1", 0));
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)0),tm("2", 1));
+        map_.getMiniMap().addEntry(new MiniMapCoords((short)1,(short)1),tm("3", 2));
+        facade_.getData().getMiniMap().addEntry("0",BaseSixtyFourUtil.getImageByString("AAACXXXXCAAADAAA////"));
+        facade_.getData().getMiniMap().addEntry("1",BaseSixtyFourUtil.getImageByString("AAACXXXXCAAAEAAA////"));
+        facade_.getData().getMiniMap().addEntry("2",BaseSixtyFourUtil.getImageByString("AAACXXXXCAAAFAAA////"));
+        facade_.getData().getMiniMap().addEntry("3",BaseSixtyFourUtil.getImageByString("AAACXXXXCAAAGAAA////"));
         facade_.getData().setMap(map_);
         return facade_;
     }
+
+    private static TileMiniMap tm(String _file, int _pl) {
+        TileMiniMap t_ = Instances.newTileMiniMap();
+        t_.setFile(_file);
+        t_.setPlace((short) _pl);
+        return t_;
+    }
+
     private static WildPk wpk(String _name) {
         WildPk w_ = Instances.newWildPk();
         w_.setGender(Gender.NO_GENDER);
