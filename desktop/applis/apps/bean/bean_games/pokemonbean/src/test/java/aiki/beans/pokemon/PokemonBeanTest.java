@@ -1,5 +1,7 @@
 package aiki.beans.pokemon;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -217,5 +219,109 @@ public final class PokemonBeanTest extends InitDbPkOne {
     @Test
     public void clickBase2() {
         assertEq(P_POK_00,callPokemonBeanClickBaseId());
+    }
+    @Test
+    public void getStatistics1() {
+        assertSizeEq(6,callPokemonBeanStatisticsGet());
+    }
+    @Test
+    public void getStatistics2() {
+        assertEq(ST_HP_TR,elt(callPokemonBeanStatisticsGet(),0));
+    }
+    @Test
+    public void getStatistics3() {
+        assertEq(ST_ATT_TR,elt(callPokemonBeanStatisticsGet(),1));
+    }
+    @Test
+    public void getStatistics4() {
+        assertEq(ST_DEF_TR,elt(callPokemonBeanStatisticsGet(),2));
+    }
+    @Test
+    public void getStatistics5() {
+        assertEq(ST_ATT_SPE_TR,elt(callPokemonBeanStatisticsGet(),3));
+    }
+    @Test
+    public void getStatistics6() {
+        assertEq(ST_DEF_SPE_TR,elt(callPokemonBeanStatisticsGet(),4));
+    }
+    @Test
+    public void getStatistics7() {
+        assertEq(ST_SPEED_TR,elt(callPokemonBeanStatisticsGet(),5));
+    }
+    @Test
+    public void getPossibleGenders1() {
+        assertSizeEq(1,callPokemonBeanPossibleGendersGet());
+    }
+    @Test
+    public void getPossibleGenders2() {
+        assertEq(NO_G,elt(callPokemonBeanPossibleGendersGet(),0));
+    }
+    @Test
+    public void getTypes1() {
+        assertSizeEq(1,callPokemonBeanTypesGet());
+    }
+    @Test
+    public void getTypes2() {
+        assertEq(T_TYPE1_TR,elt(callPokemonBeanTypesGet(),0));
+    }
+    @Test
+    public void getEvolutions1() {
+        assertSizeEq(1,callPokemonBeanEvolutionsGet());
+    }
+    @Test
+    public void getEvolutions2() {
+        assertEq(P_POK_01,elt(callPokemonBeanEvolutionsGet(),0));
+    }
+    @Test
+    public void getMapVars1() {
+        assertSizeEq(1,callPokemonBeanMapVarsGet());
+    }
+    @Test
+    public void getMapVars2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callPokemonBeanMapVarsGet(),0)));
+    }
+    @Test
+    public void getMapVars3() {
+        assertEq(TIME,second(elt(callPokemonBeanMapVarsGet(),0)));
+    }
+    @Test
+    public void getAbilities1() {
+        assertSizeEq(1,callPokemonBeanAbilitiesGet());
+    }
+    @Test
+    public void getAbilities2() {
+        assertEq(A_ABILITY,elt(callPokemonBeanAbilitiesGet(),0));
+    }
+    @Test
+    public void getTrAbility() {
+        assertEq(A_ABILITY_TR,callPokemonBeanGetTrAbility());
+    }
+    @Test
+    public void clickAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callPokemonBeanClickAbility());
+    }
+    @Test
+    public void clickAbility2() {
+        assertEq(A_ABILITY,callPokemonBeanClickAbilityId());
+    }
+    @Test
+    public void getMoveTutors1() {
+        assertSizeEq(1,callPokemonBeanMoveTutorsGet());
+    }
+    @Test
+    public void getMoveTutors2() {
+        assertEq(M_DAM,elt(callPokemonBeanMoveTutorsGet(),0));
+    }
+    @Test
+    public void getMoveTutor() {
+        assertEq(M_DAM_TR,callPokemonBeanGetMoveTutor());
+    }
+    @Test
+    public void clickMoveTutors1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMoveTutors());
+    }
+    @Test
+    public void clickMoveTutors2() {
+        assertEq(M_DAM,callPokemonBeanClickMoveTutorsId());
     }
 }
