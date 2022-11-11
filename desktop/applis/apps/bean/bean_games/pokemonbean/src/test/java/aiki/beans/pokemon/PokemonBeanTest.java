@@ -1,5 +1,6 @@
 package aiki.beans.pokemon;
 
+import aiki.game.fight.Fight;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -192,5 +193,29 @@ public final class PokemonBeanTest extends InitDbPkOne {
     @Test
     public void getHatchingSteps() {
         assertEq(LgInt.one(),callPokemonBeanHatchingStepsGet());
+    }
+    @Test
+    public void getCatchingRate() {
+        assertEq(1,callPokemonBeanCatchingRateGet());
+    }
+    @Test
+    public void getExpRate() {
+        assertEq(1,callPokemonBeanExpRateGet());
+    }
+    @Test
+    public void getExpEvo() {
+        assertEq(Fight.TEMPS_TOUR,callPokemonBeanExpEvoGet());
+    }
+    @Test
+    public void getEvoBase() {
+        assertEq(P_POK_00_TR,callPokemonBeanEvoBaseGet());
+    }
+    @Test
+    public void clickBase1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callPokemonBeanClickBase());
+    }
+    @Test
+    public void clickBase2() {
+        assertEq(P_POK_00,callPokemonBeanClickBaseId());
     }
 }

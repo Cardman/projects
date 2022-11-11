@@ -25,16 +25,26 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanBackImageGet(),dispPkOne(0));
     }
 
-    public static Struct callPokemonBeanCatchingRateGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanCatchingRateGet(),_str,_args);
+    public static Struct callPokemonBeanCatchingRateGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanCatchingRateGet(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanClickAbility(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanClickAbility(),_str,_args);
     }
 
-    public static Struct callPokemonBeanClickBase(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanClickBase(),_str,_args);
+    public static String callPokemonBeanClickBase(Struct _str) {
+        return navigateData(new PokemonBeanClickBase(),_str);
+    }
+
+    public static String callPokemonBeanClickBase() {
+        return callPokemonBeanClickBase(dispPkOne(1));
+    }
+
+    public static String callPokemonBeanClickBaseId() {
+        Struct bean_ = dispPkOne(1);
+        callPokemonBeanClickBase(bean_);
+        return getValPkId(bean_);
     }
 
     public static Struct callPokemonBeanClickEggPk(Struct _str, long... _args) {
@@ -77,20 +87,20 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanEggGroupsPkGet(),_str,_args);
     }
 
-    public static Struct callPokemonBeanEvoBaseGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanEvoBaseGet(),_str,_args);
+    public static Struct callPokemonBeanEvoBaseGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanEvoBaseGet(),dispPkOne(1));
     }
 
     public static Struct callPokemonBeanEvolutionsGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanEvolutionsGet(),_str,_args);
     }
 
-    public static Struct callPokemonBeanExpEvoGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanExpEvoGet(),_str,_args);
+    public static Struct callPokemonBeanExpEvoGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanExpEvoGet(),dispPkOne(0));
     }
 
-    public static Struct callPokemonBeanExpRateGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanExpRateGet(),_str,_args);
+    public static Struct callPokemonBeanExpRateGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanExpRateGet(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanFrontImageGet() {

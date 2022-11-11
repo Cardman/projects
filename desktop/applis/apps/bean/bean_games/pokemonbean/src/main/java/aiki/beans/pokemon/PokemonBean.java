@@ -273,14 +273,12 @@ public class PokemonBean extends CommonBean {
         return data_.translateAbility(abilities.get(_index));
     }
     public String clickAbility(int _index) {
-        getForms().put(CST_ABILITY,abilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilities.get(_index));
     }
     public String clickBase() {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
-        getForms().put(CST_PK,pk_.getBaseEvo());
-        return CST_POKEMON;
+        return tryRedirectPk(pk_.getBaseEvo());
     }
     public short getBase(int _index) {
         DataBase data_ = getDataBase();
@@ -300,20 +298,17 @@ public class PokemonBean extends CommonBean {
         DataBase data_ = getDataBase();
         PokemonData pk_ = data_.getPokemon(name);
         String move_ = pk_.getLevMoves().get(_index).getMove();
-        getForms().put(CST_MOVE,move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String clickTechnicalMove(int _index) {
         DataBase data_ = getDataBase();
         String move_ = data_.getTm().getVal(technicalMoves.getKey(_index));
-        getForms().put(CST_MOVE,move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String clickHiddenMove(int _index) {
         DataBase data_ = getDataBase();
         String move_ = data_.getHm().getVal(hiddenMoves.getKey(_index));
-        getForms().put(CST_MOVE,move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getMoveTutor(int _index) {
         DataBase data_ = getDataBase();
@@ -323,8 +318,7 @@ public class PokemonBean extends CommonBean {
     }
     public String clickMoveTutors(int _index) {
         String move_ = moveTutors.get(_index);
-        getForms().put(CST_MOVE,move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getEggPk(int _index) {
         DataBase data_ = getDataBase();
@@ -334,8 +328,7 @@ public class PokemonBean extends CommonBean {
     }
     public String clickEggPk(int _index) {
         String pk_ = eggGroupsPk.get(_index);
-        getForms().put(CST_PK,pk_);
-        return CST_POKEMON;
+        return tryRedirectPk(pk_);
     }
     public boolean isAppearingAnyWhere() {
         int nbPlaces_ = places.size();
