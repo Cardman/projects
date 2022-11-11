@@ -1,8 +1,6 @@
 package aiki.beans.pokemon;
 
-import aiki.beans.AikiBeansStd;
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.PkData;
+import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.dto.*;
 import aiki.db.DataBase;
@@ -91,12 +89,22 @@ public abstract class InitDbPk extends InitDbConstr {
     public static Struct callPokemonLineEvolutionsGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonLineEvolutionsGet(),_str,_args);
     }
-    public static Struct callPokedexBeanBooleansGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanBooleansGet(),_str,_args);
+    public static Struct callPokedexBeanBooleansGet() {
+        return BeanPokemonCommonTs.callLongs(new PokedexBeanBooleansGet(),dispAllPks());
     }
 
-    public static Struct callPokedexBeanClickLink(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokedexBeanClickLink(),_str,_args);
+    public static String callPokedexBeanClickLink(Struct _str, long... _args) {
+        return navigateData(new PokedexBeanClickLink(),_str,_args);
+    }
+
+    public static String callPokedexBeanClickLink(long... _args) {
+        return callPokedexBeanClickLink(dispAllPksSearch(),_args);
+    }
+
+    public static String callPokedexBeanClickLinkId(long... _args) {
+        Struct bean_ = dispAllPksSearch();
+        callPokedexBeanClickLink(bean_,_args);
+        return getValPkId(bean_);
     }
 
     public static Struct callPokedexBeanGetMiniImage(Struct _str, long... _args) {
@@ -105,6 +113,10 @@ public abstract class InitDbPk extends InitDbConstr {
 
     public static Struct callPokedexBeanIsEvoGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokedexBeanIsEvoGet(),_str,_args);
+    }
+
+    public static Struct callPokedexBeanHasEvoGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PokedexBeanHasEvoGet(),_str,_args);
     }
 
     public static Struct callPokedexBeanIsLegGet(Struct _str, long... _args) {
@@ -143,6 +155,10 @@ public abstract class InitDbPk extends InitDbConstr {
         return BeanPokemonCommonTs.callString(new PokedexBeanIsEvoSet(),_str,_args);
     }
 
+    public static Struct callPokedexBeanHasEvoSet(Struct _str, String _args) {
+        return BeanPokemonCommonTs.callString(new PokedexBeanHasEvoSet(),_str,_args);
+    }
+
     public static Struct callPokedexBeanIsLegSet(Struct _str, String _args) {
         return BeanPokemonCommonTs.callString(new PokedexBeanIsLegSet(),_str,_args);
     }
@@ -165,6 +181,31 @@ public abstract class InitDbPk extends InitDbConstr {
 
     public static Struct callPokedexBeanWholeWordSet(Struct _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new PokedexBeanWholeWordSet(),_str,_args);
+    }
+
+    protected static Struct dispAllPks() {
+        PkData pk_ = pkDataByFacade(feedDb());
+        return dispAllPks(pk_);
+    }
+
+    private static Struct dispAllPks(PkData _pk) {
+        StringMap<Struct> all_ = beanToPk(_pk);
+        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
+        transit(_pk,new WelcomeBeanClickPokedex(),welcome_,moves_);
+        return moves_;
+    }
+
+    protected static Struct dispAllPksSearch() {
+        PkData pk_ = pkDataByFacade(feedDb());
+        Struct moves_ = dispAllPks(pk_);
+        transit(pk_,new PokedexBeanSearch(),moves_,moves_);
+        return moves_;
+    }
+
+    protected static String navigatePkSearch(Struct _moves) {
+        return navigateData(new PokedexBeanSearch(), _moves);
     }
     public static StringMap<Struct> beanToPk(PkData _pk) {
         StringMap<Struct> map_ = new StringMap<Struct>();
