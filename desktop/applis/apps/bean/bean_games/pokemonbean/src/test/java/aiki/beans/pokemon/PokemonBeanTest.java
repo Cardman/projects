@@ -468,4 +468,40 @@ public final class PokemonBeanTest extends InitDbPkOne {
     public void clickHiddenMove2() {
         assertEq(M_STA,callPokemonBeanClickHiddenMoveId());
     }
+    @Test
+    public void getLevMoves1() {
+        assertSizeEq(2,callPokemonBeanLevMovesGet());
+    }
+    @Test
+    public void getLevMoves2() {
+        assertEq(1,callLevelMoveGetLevel(elt(callPokemonBeanLevMovesGet(),0)));
+    }
+    @Test
+    public void getLevMoves3() {
+        assertEq(M_DAM_TR,callLevelMoveGetMove(elt(callPokemonBeanLevMovesGet(),0)));
+    }
+    @Test
+    public void getLevMoves4() {
+        assertEq(3,callLevelMoveGetLevel(elt(callPokemonBeanLevMovesGet(),1)));
+    }
+    @Test
+    public void getLevMoves5() {
+        assertEq(M_STA_TR,callLevelMoveGetMove(elt(callPokemonBeanLevMovesGet(),1)));
+    }
+    @Test
+    public void clickMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMove(0));
+    }
+    @Test
+    public void clickMove2() {
+        assertEq(M_DAM,callPokemonBeanClickMoveId(0));
+    }
+    @Test
+    public void clickMove3() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickMove(1));
+    }
+    @Test
+    public void clickMove4() {
+        assertEq(M_STA,callPokemonBeanClickMoveId(1));
+    }
 }

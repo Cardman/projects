@@ -93,8 +93,18 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanClickLevelZero(),_str,_args);
     }
 
-    public static Struct callPokemonBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanClickMove(),_str,_args);
+    public static String callPokemonBeanClickMove(int _args) {
+        return callPokemonBeanClickMove(dispPkOne(0),_args);
+    }
+
+    public static String callPokemonBeanClickMove(Struct _str, int _args) {
+        return navigateData(new PokemonBeanClickMove(),_str,_args);
+    }
+
+    public static String callPokemonBeanClickMoveId(int _args) {
+        Struct bean_ = dispPkOne(0);
+        callPokemonBeanClickMove(bean_,_args);
+        return getValMoveId(bean_);
     }
 
     public static String callPokemonBeanClickMoveTutors() {
@@ -241,8 +251,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanLayers(),dispPkOne(0),_pl);
     }
 
-    public static Struct callPokemonBeanLevMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanLevMovesGet(),_str,_args);
+    public static Struct callPokemonBeanLevMovesGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanLevMovesGet(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanMapVarsGet() {
