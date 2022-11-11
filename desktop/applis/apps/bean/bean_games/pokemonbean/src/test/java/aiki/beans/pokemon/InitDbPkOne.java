@@ -109,8 +109,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanGetEv(),_str,_args);
     }
 
-    public static Struct callPokemonBeanGetMapWidth(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMapWidth(),_str,_args);
+    public static Struct callPokemonBeanGetMapWidth() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMapWidth(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanGetMiniMapImage(Struct _str, long... _args) {
@@ -165,16 +165,16 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingZero(),dispPkOne(_pk),_pl);
     }
 
-    public static Struct callPokemonBeanIsFirstRow(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsFirstRow(),_str,_args);
+    public static Struct callPokemonBeanIsFirstRow(int _row) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsFirstRow(),dispPkOne(0),_row);
     }
 
-    public static Struct callPokemonBeanIsMultiLayer(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsMultiLayer(),_str,_args);
+    public static Struct callPokemonBeanIsMultiLayer(int _pl) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsMultiLayer(),dispPkOne(0),_pl);
     }
 
-    public static Struct callPokemonBeanLayers(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanLayers(),_str,_args);
+    public static Struct callPokemonBeanLayers(int _pl) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanLayers(),dispPkOne(0),_pl);
     }
 
     public static Struct callPokemonBeanLevMovesGet(Struct _str, long... _args) {

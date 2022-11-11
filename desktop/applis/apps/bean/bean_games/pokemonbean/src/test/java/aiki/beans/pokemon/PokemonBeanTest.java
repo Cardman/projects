@@ -40,11 +40,47 @@ public final class PokemonBeanTest extends InitDbPkOne {
         assertFalse(callPokemonBeanIsAppearingPlace(1,0));
     }
     @Test
-    public void callPokemonBeanIsAppearingAnyWhere1() {
+    public void isAppearingAnyWhere1() {
         assertTrue(callPokemonBeanIsAppearingAnyWhere(15));
     }
     @Test
-    public void callPokemonBeanIsAppearingAnyWhere2() {
+    public void isAppearingAnyWhere2() {
         assertFalse(callPokemonBeanIsAppearingAnyWhere(2));
+    }
+    @Test
+    public void layers() {
+        assertSizeEq(2,callPokemonBeanLayers(0));
+    }
+    @Test
+    public void isMultiLayer1() {
+        assertTrue(callPokemonBeanIsMultiLayer(0));
+    }
+    @Test
+    public void isMultiLayer2() {
+        assertFalse(callPokemonBeanIsMultiLayer(1));
+    }
+    @Test
+    public void isMultiLayer3() {
+        assertFalse(callPokemonBeanIsMultiLayer(2));
+    }
+    @Test
+    public void isFirstRow1() {
+        assertFalse(callPokemonBeanIsFirstRow(0));
+    }
+    @Test
+    public void isFirstRow2() {
+        assertFalse(callPokemonBeanIsFirstRow(1));
+    }
+    @Test
+    public void isFirstRow3() {
+        assertTrue(callPokemonBeanIsFirstRow(2));
+    }
+    @Test
+    public void isFirstRow4() {
+        assertFalse(callPokemonBeanIsFirstRow(3));
+    }
+    @Test
+    public void getMapWidth() {
+        assertEq(2,callPokemonBeanGetMapWidth());
     }
 }
