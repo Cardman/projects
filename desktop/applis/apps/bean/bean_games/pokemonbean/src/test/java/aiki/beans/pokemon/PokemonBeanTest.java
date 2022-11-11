@@ -1,5 +1,7 @@
 package aiki.beans.pokemon;
 
+import code.maths.LgInt;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class PokemonBeanTest extends InitDbPkOne {
@@ -126,5 +128,69 @@ public final class PokemonBeanTest extends InitDbPkOne {
     @Test
     public void getMiniMapImage4() {
         assertEq("AAACXXXXCAAAGAAA////",callPokemonBeanGetMiniMapImage(3));
+    }
+    @Test
+    public void getPlaces1() {
+        assertSizeEq(3,callPokemonBeanPlacesGet());
+    }
+    @Test
+    public void getPlaces2() {
+        assertEq(2,callPlaceIndexIndexGet(elt(callPokemonBeanPlacesGet(),0)));
+    }
+    @Test
+    public void getPlaces3() {
+        assertEq(CAVE,callPlaceGetName(callPlaceIndexGetPlace(elt(callPokemonBeanPlacesGet(),0))));
+    }
+    @Test
+    public void getPlaces4() {
+        assertEq(1,callPlaceIndexIndexGet(elt(callPokemonBeanPlacesGet(),1)));
+    }
+    @Test
+    public void getPlaces5() {
+        assertEq(CITY,callPlaceGetName(callPlaceIndexGetPlace(elt(callPokemonBeanPlacesGet(),1))));
+    }
+    @Test
+    public void getPlaces6() {
+        assertEq(0,callPlaceIndexIndexGet(elt(callPokemonBeanPlacesGet(),2)));
+    }
+    @Test
+    public void getPlaces7() {
+        assertEq(ROAD,callPlaceGetName(callPlaceIndexGetPlace(elt(callPokemonBeanPlacesGet(),2))));
+    }
+    @Test
+    public void getPlaceName1() {
+        assertEq(NULL_REF,callPokemonBeanGetPlaceName(0));
+    }
+    @Test
+    public void getPlaceName2() {
+        assertEq(CITY,callPokemonBeanGetPlaceName(1));
+    }
+    @Test
+    public void getPlaceName3() {
+        assertEq(ROAD,callPokemonBeanGetPlaceName(2));
+    }
+    @Test
+    public void getPlaceName4() {
+        assertEq(CAVE,callPokemonBeanGetPlaceName(3));
+    }
+    @Test
+    public void getHeight() {
+        assertEq(Rate.one(),callPokemonBeanHeightGet());
+    }
+    @Test
+    public void getWeight() {
+        assertEq(Rate.one(),callPokemonBeanWeightGet());
+    }
+    @Test
+    public void roundHeight() {
+        assertEq("1.0E0",callPokemonBeanRoundHeight());
+    }
+    @Test
+    public void roundWeight() {
+        assertEq("1.0E0",callPokemonBeanRoundWeight());
+    }
+    @Test
+    public void getHatchingSteps() {
+        assertEq(LgInt.one(),callPokemonBeanHatchingStepsGet());
     }
 }

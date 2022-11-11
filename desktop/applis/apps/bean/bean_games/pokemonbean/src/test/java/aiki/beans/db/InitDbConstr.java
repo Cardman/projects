@@ -2,6 +2,8 @@ package aiki.beans.db;
 
 import aiki.beans.*;
 import aiki.beans.effects.*;
+import aiki.beans.facade.map.dto.PlaceIndexGetPlace;
+import aiki.beans.facade.map.dto.PlaceIndexIndexGet;
 import aiki.beans.map.MapLevelBeanAreas;
 import aiki.beans.map.MapLevelBeanClickArea;
 import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
@@ -569,5 +571,13 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static String getValAbilityId(Struct _bean) {
         return forms(_bean).getValStr(CST_ABILITY);
+    }
+
+    public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PlaceIndexGetPlace(),_str,_args);
+    }
+
+    public static Struct callPlaceIndexIndexGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new PlaceIndexIndexGet(),_str,_args);
     }
 }

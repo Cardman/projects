@@ -2,7 +2,6 @@ package aiki.beans.map;
 
 import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
-import aiki.beans.facade.map.dto.*;
 import aiki.beans.map.elements.*;
 import code.expressionlanguage.structs.Struct;
 
@@ -299,11 +298,4 @@ public abstract class InitDbMap extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new AreaApparitionGetWildPokemonFishing(),_str,_args);
     }
 
-    public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PlaceIndexGetPlace(),_str,_args);
-    }
-
-    public static Struct callPlaceIndexIndexGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PlaceIndexIndexGet(),_str,_args);
-    }
 }
