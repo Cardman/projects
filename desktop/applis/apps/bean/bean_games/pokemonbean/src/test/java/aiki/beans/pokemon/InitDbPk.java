@@ -76,6 +76,9 @@ public abstract class InitDbPk extends InitDbConstr {
     public static final String DEFAULT_EGG_GROUP = "__";
     public static final String FIRST_GROUP = "_";
     public static final String SECOND_GROUP = "___";
+    public static final String ROAD = "R 1";
+    public static final String CITY = "CI 1";
+    public static final String CAVE = "CA 1";
 
     public static Struct callPokemonLineDisplayNameGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonLineDisplayNameGet(),_str,_args);
@@ -345,7 +348,7 @@ public abstract class InitDbPk extends InitDbConstr {
         facade_.getData().completeVariables();
         DataMap map_ = Instances.newDataMap();
         Road r_ = Instances.newRoad();
-        r_.setName("R 1");
+        r_.setName(ROAD);
         LevelRoad lr_ = r_.getLevelRoad();
         AreaApparition a0_ = area();
         a0_.getWildPokemon().add(wpk(P_POK_00));
@@ -361,10 +364,10 @@ public abstract class InitDbPk extends InitDbConstr {
         lr_.getWildPokemonAreas().add(a1_);
         map_.getPlaces().add(r_);
         City ci_ = Instances.newCity();
-        ci_.setName("CI 1");
+        ci_.setName(CITY);
         map_.getPlaces().add(ci_);
         Cave ca_ = Instances.newCave();
-        ca_.setName("CA 1");
+        ca_.setName(CAVE);
         LevelCave lcone_ = Instances.newLevelCave();
         AreaApparition a2_ = area();
         a2_.getWildPokemon().add(wpk(P_POK_03));
