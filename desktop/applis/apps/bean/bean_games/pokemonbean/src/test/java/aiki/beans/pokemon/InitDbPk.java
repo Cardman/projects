@@ -1,21 +1,26 @@
 package aiki.beans.pokemon;
 
+import aiki.beans.AikiBeansStd;
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.PkData;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.dto.*;
+import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.*;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.PokemonData;
+import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.pokemon.evolution.*;
+import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import aiki.map.pokemon.enums.Gender;
 import code.expressionlanguage.structs.Struct;
-import code.images.BaseSixtyFourUtil;
-import code.images.ConverterBufferedImage;
+import code.images.*;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
@@ -145,6 +150,18 @@ public abstract class InitDbPk extends InitDbConstr {
 
     public static Struct callPokedexBeanWholeWordSet(Struct _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new PokedexBeanWholeWordSet(),_str,_args);
+    }
+    public static StringMap<Struct> beanToPk(PkData _pk) {
+        StringMap<Struct> map_ = new StringMap<Struct>();
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
+        map_.addEntry(AikiBeansPokemonStd.BEAN_POKEDEX,_pk.beanPokedexBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToPk() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML,AikiBeansPokemonStd.BEAN_POKEDEX);
+        return map_;
     }
 //
 //    public static class MiniTest{
@@ -295,6 +312,9 @@ public abstract class InitDbPk extends InitDbConstr {
         facade_.getData().getMaxiPkFront().addEntry(P_POK_13,BaseSixtyFourUtil.getImageByString("AAACAAANBAAA////////"));
         facade_.getData().getMaxiPkFront().addEntry(P_POK_14,BaseSixtyFourUtil.getImageByString("AAACAAAOBAAA////////"));
         facade_.getData().getMaxiPkFront().addEntry(P_POK_15,BaseSixtyFourUtil.getImageByString("AAACAAAPBAAA////////"));
+        facade_.getData().getExpGrowth().addEntry(ExpType.E, DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         facade_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         facade_.getData().getTranslatedStatistics().addEntry(EN,new IdMap<Statistic, String>());
         facade_.getData().getTranslatedStatistics().getVal(EN).addEntry(Statistic.ATTACK,ST_ATT_TR);

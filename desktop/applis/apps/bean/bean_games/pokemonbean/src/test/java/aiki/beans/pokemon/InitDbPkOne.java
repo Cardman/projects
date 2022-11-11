@@ -1,8 +1,10 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.*;
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.evolutions.*;
 import code.expressionlanguage.structs.Struct;
+import code.util.StringMap;
 
 public abstract class InitDbPkOne extends InitDbPk {
 
@@ -302,4 +304,14 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callInt(new EvolutionBeanIndexSet(),_str,_args);
     }
 
+    public static StringMap<Struct> beanToPkOne(PkData _pk) {
+        StringMap<Struct> map_ = beanToPk(_pk);
+        map_.addEntry(AikiBeansPokemonStd.BEAN_PK,_pk.beanPokemonBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToPkOne() {
+        StringMap<String> map_ = mappingToPk();
+        map_.addEntry(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,AikiBeansPokemonStd.BEAN_PK);
+        return map_;
+    }
 }
