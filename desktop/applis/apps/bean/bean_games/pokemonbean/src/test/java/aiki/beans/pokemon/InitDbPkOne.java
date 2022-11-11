@@ -3,6 +3,7 @@ package aiki.beans.pokemon;
 import aiki.beans.*;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.evolutions.*;
+import aiki.facade.FacadeGame;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -68,8 +69,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanClickTechnicalMove(),_str,_args);
     }
 
-    public static Struct callPokemonBeanDisplayNameGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanDisplayNameGet(),_str,_args);
+    public static Struct callPokemonBeanDisplayNameGet(int _args) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanDisplayNameGet(),dispPkOne(_args));
     }
 
     public static Struct callPokemonBeanEggGroupsPkGet(Struct _str, long... _args) {
@@ -148,20 +149,20 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanImagesGet(),_str,_args);
     }
 
-    public static Struct callPokemonBeanIsAppearing(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearing(),_str,_args);
+    public static Struct callPokemonBeanIsAppearing(int _pk,int _pl, int _lev) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearing(),dispPkOne(_pk),_pl,_lev);
     }
 
-    public static Struct callPokemonBeanIsAppearingAnyWhere(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingAnyWhere(),_str,_args);
+    public static Struct callPokemonBeanIsAppearingAnyWhere(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingAnyWhere(),dispPkOne(_pk));
     }
 
-    public static Struct callPokemonBeanIsAppearingPlace(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingPlace(),_str,_args);
+    public static Struct callPokemonBeanIsAppearingPlace(int _pk,int _pl) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingPlace(),dispPkOne(_pk),_pl);
     }
 
-    public static Struct callPokemonBeanIsAppearingZero(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingZero(),_str,_args);
+    public static Struct callPokemonBeanIsAppearingZero(int _pk,int _pl) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingZero(),dispPkOne(_pk),_pl);
     }
 
     public static Struct callPokemonBeanIsFirstRow(Struct _str, long... _args) {
@@ -303,7 +304,23 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static Struct callEvolutionBeanIndexSet(Struct _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EvolutionBeanIndexSet(),_str,_args);
     }
-
+    protected static Struct dispPkOne(int _index) {
+        PkData pk_ = pkDataByFacade(feedDb());
+        StringMap<Struct> all_ = beanToPkOne(pk_);
+        return transitToAllPks(pk_, all_, _index);
+    }
+    protected static Struct dispPkOne(int _index, int _evo) {
+        PkData pk_ = pkDataByFacade(feedDb());
+        StringMap<Struct> all_ = beanToPkOne(pk_);
+        StringMap<String> mapping_ = mappingToPkOne();
+        Struct pkbean_ = transitToAllPks(pk_, all_, _index);
+        Struct evobean_ = byStr(all_, mapping_, callPokemonBeanGetPage(pkbean_, _evo));
+        callEvolutionBeanBaseSet(evobean_,toStr(callPokemonBeanNameGet(pkbean_)));
+        callEvolutionBeanIndexSet(evobean_,_index);
+        callEvolutionBeanNameSet(evobean_,toStr(elt(callPokemonBeanEvolutionsGet(pkbean_),_evo)));
+        beforeDisplaying(evobean_);
+        return evobean_;
+    }
     public static StringMap<Struct> beanToPkOne(PkData _pk) {
         StringMap<Struct> map_ = beanToPk(_pk);
         map_.addEntry(AikiBeansPokemonStd.BEAN_PK,_pk.beanPokemonBean(EN));

@@ -383,6 +383,8 @@ public abstract class InitDbPk extends InitDbConstr {
         facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.NO, B_NO);
         facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES, B_YES);
         facade_.getData().getTranslatedBooleans().getVal(EN).addEntry(SelectedBoolean.YES_AND_NO," ");
+        facade_.getData().getTranslatedGenders().addEntry(EN,new IdMap<Gender,String>());
+        facade_.getData().getTranslatedGenders().getVal(EN).addEntry(Gender.NO_GENDER,NO_G);
         feedTm(facade_.getData().getTm(),facade_.getData().getTmPrice());
         feedHm(facade_.getData().getHm());
         facade_.getData().completeVariables();
