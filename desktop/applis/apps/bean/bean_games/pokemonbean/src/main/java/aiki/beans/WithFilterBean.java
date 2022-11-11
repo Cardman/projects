@@ -3,7 +3,6 @@ package aiki.beans;
 import aiki.beans.facade.dto.ItemLine;
 import aiki.beans.facade.dto.PokemonLine;
 import aiki.beans.pokemon.PokedexBean;
-import aiki.beans.simulation.SelectItemBean;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -48,6 +47,34 @@ public abstract class WithFilterBean extends CommonBean {
     private AbsMap<String,AbilityData> sortedAbilities = new StringMap<AbilityData>();
     private final CustList<PokemonLine> pokedex = new CustList<PokemonLine>();
     private final CustList<ItemLine> items = new CustList<ItemLine>();
+
+    public static AbsMap<String,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
+        AbsMap<String,Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData(_data,_language);
+        StringMap<String> translationsItems_;
+        translationsItems_ = _data.getTranslatedItems().getVal(_language);
+        StringMap<String> translationsClasses_;
+        translationsClasses_ = _data.getTranslatedClassesDescriptions().getVal(_language);
+        if (_typedPrice.isEmpty()) {
+            for (EntryCust<String, Item> i: _data.getItems().entryList()) {
+                String display_ = translationsItems_.getVal(i.getKey());
+                //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
+                if (StringUtil.match(display_, _typedName) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
+                    sortedItems_.put(i.getKey(),i.getValue());
+                }
+            }
+        } else {
+            int int_ = NumberUtil.parseInt(_typedPrice);
+            for (EntryCust<String, Item> i: _data.getItems().entryList()) {
+                String display_ = translationsItems_.getVal(i.getKey());
+                //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
+                if (StringUtil.match(display_, _typedName) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
+                    sortedItems_.put(i.getKey(),i.getValue());
+                }
+            }
+        }
+//        sortedItems_.sortElts(DictionaryComparatorUtil.cmpItems(_data, _language));
+        return sortedItems_;
+    }
 
     protected void bools() {
         DataBase data_ = getDataBase();
@@ -253,8 +280,8 @@ public abstract class WithFilterBean extends CommonBean {
         escapeInputs();
     }
 
-    protected  AbsMap<String,Item> sortedItems(DataBase _data) {
-        return SelectItemBean.sortedItems(_data,getTypedPrice(),getTypedName(),getTypedClass(),getLanguage());
+    protected AbsMap<String,Item> sortedItems(DataBase _data) {
+        return sortedItems(_data,getTypedPrice(),getTypedName(),getTypedClass(),getLanguage());
     }
     public String getTrSortedAbility(int _index) {
         String ability_ = sortedAbilities.getKey(_index);

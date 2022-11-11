@@ -1,15 +1,10 @@
 package aiki.beans.simulation;
 
 import aiki.beans.WithFilterBean;
-import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.items.Item;
 import code.images.BaseSixtyFourUtil;
 import code.util.AbsMap;
-import code.util.EntryCust;
-import code.util.StringMap;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public class SelectItemBean extends WithFilterBean {
     private String item = DataBase.EMPTY_STRING;
@@ -57,34 +52,6 @@ public class SelectItemBean extends WithFilterBean {
             return redirect();
         }
         return DataBase.EMPTY_STRING;
-    }
-
-    public static AbsMap<String,Item> sortedItems(DataBase _data, String _typedPrice, String _typedName, String _typedClass, String _language) {
-        AbsMap<String,Item> sortedItems_ = DictionaryComparatorUtil.buildItemsData(_data,_language);
-        StringMap<String> translationsItems_;
-        translationsItems_ = _data.getTranslatedItems().getVal(_language);
-        StringMap<String> translationsClasses_;
-        translationsClasses_ = _data.getTranslatedClassesDescriptions().getVal(_language);
-        if (_typedPrice.isEmpty()) {
-            for (EntryCust<String, Item> i: _data.getItems().entryList()) {
-                String display_ = translationsItems_.getVal(i.getKey());
-                //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
-                if (StringUtil.match(display_, _typedName) && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.put(i.getKey(),i.getValue());
-                }
-            }
-        } else {
-            int int_ = NumberUtil.parseInt(_typedPrice);
-            for (EntryCust<String, Item> i: _data.getItems().entryList()) {
-                String display_ = translationsItems_.getVal(i.getKey());
-                //                String class_ = translationsClasses_.getVal(i_.getClass().getName());
-                if (StringUtil.match(display_, _typedName) && i.getValue().getPrice() == int_ && StringUtil.match(translationsClasses_.getVal(i.getValue().getItemType()), _typedClass)) {
-                    sortedItems_.put(i.getKey(),i.getValue());
-                }
-            }
-        }
-//        sortedItems_.sortElts(DictionaryComparatorUtil.cmpItems(_data, _language));
-        return sortedItems_;
     }
 
     public String clickLink(int _index) {
