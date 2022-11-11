@@ -21,8 +21,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanAbilitiesGet(),_str,_args);
     }
 
-    public static Struct callPokemonBeanBackImageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanBackImageGet(),_str,_args);
+    public static Struct callPokemonBeanBackImageGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanBackImageGet(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanCatchingRateGet(Struct _str, long... _args) {
@@ -93,8 +93,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanExpRateGet(),_str,_args);
     }
 
-    public static Struct callPokemonBeanFrontImageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanFrontImageGet(),_str,_args);
+    public static Struct callPokemonBeanFrontImageGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanFrontImageGet(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanGetBase(Struct _str, long... _args) {
@@ -113,8 +113,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMapWidth(),dispPkOne(0));
     }
 
-    public static Struct callPokemonBeanGetMiniMapImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMiniMapImage(),_str,_args);
+    public static Struct callPokemonBeanGetMiniMapImage(int _tile) {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanGetMiniMapImage(),dispPkOne(0),_tile);
     }
 
     public static Struct callPokemonBeanGetMoveTutor(Struct _str, long... _args) {
@@ -145,8 +145,8 @@ public abstract class InitDbPkOne extends InitDbPk {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanHiddenMovesGet(),_str,_args);
     }
 
-    public static Struct callPokemonBeanImagesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanImagesGet(),_str,_args);
+    public static Struct callPokemonBeanImagesGet() {
+        return BeanPokemonCommonTs.callLongs(new PokemonBeanImagesGet(),dispPkOne(0));
     }
 
     public static Struct callPokemonBeanIsAppearing(int _pk,int _pl, int _lev) {

@@ -83,4 +83,48 @@ public final class PokemonBeanTest extends InitDbPkOne {
     public void getMapWidth() {
         assertEq(2,callPokemonBeanGetMapWidth());
     }
+    @Test
+    public void getImages1() {
+        assertSizeEq(4,callPokemonBeanImagesGet());
+    }
+    @Test
+    public void getImages2() {
+        assertEq("AAACXXXXCAAADAAA////",second(elt(callPokemonBeanImagesGet(),0)));
+    }
+    @Test
+    public void getImages3() {
+        assertEq("AAACXXXXCAAAFAAA////",second(elt(callPokemonBeanImagesGet(),1)));
+    }
+    @Test
+    public void getImages4() {
+        assertEq("AAACXXXXCAAAEAAA////",second(elt(callPokemonBeanImagesGet(),2)));
+    }
+    @Test
+    public void getImages5() {
+        assertEq("AAACXXXXCAAAGAAA////",second(elt(callPokemonBeanImagesGet(),3)));
+    }
+    @Test
+    public void getBackImage() {
+        assertEq("AAACAAAADAAA////////",callPokemonBeanBackImageGet());
+    }
+    @Test
+    public void getFrontImage() {
+        assertEq("AAACAAAAEAAA////////",callPokemonBeanFrontImageGet());
+    }
+    @Test
+    public void getMiniMapImage1() {
+        assertEq("AAACXXXXCAAADAAA////",callPokemonBeanGetMiniMapImage(0));
+    }
+    @Test
+    public void getMiniMapImage2() {
+        assertEq("AAACXXXXCAAAFAAA////",callPokemonBeanGetMiniMapImage(1));
+    }
+    @Test
+    public void getMiniMapImage3() {
+        assertEq("AAACAAAABAAAEAAA////",callPokemonBeanGetMiniMapImage(2));
+    }
+    @Test
+    public void getMiniMapImage4() {
+        assertEq("AAACXXXXCAAAGAAA////",callPokemonBeanGetMiniMapImage(3));
+    }
 }
