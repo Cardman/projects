@@ -249,6 +249,14 @@ public final class PokemonBeanTest extends InitDbPkOne {
         assertEq(ST_SPEED_TR,elt(callPokemonBeanStatisticsGet(),5));
     }
     @Test
+    public void getBase() {
+        assertEq(1,callPokemonBeanGetBase());
+    }
+    @Test
+    public void getEv() {
+        assertEq(1,callPokemonBeanGetEv());
+    }
+    @Test
     public void getPossibleGenders1() {
         assertSizeEq(1,callPokemonBeanPossibleGendersGet());
     }
@@ -419,5 +427,45 @@ public final class PokemonBeanTest extends InitDbPkOne {
     @Test
     public void clickEggPk2() {
         assertEq(P_POK_09,callPokemonBeanClickEggPkId(8,1));
+    }
+    @Test
+    public void getTechnicalMoves1() {
+        assertSizeEq(1,callPokemonBeanTechnicalMovesGet());
+    }
+    @Test
+    public void getTechnicalMoves2() {
+        assertEq(1,first(elt(callPokemonBeanTechnicalMovesGet(),0)));
+    }
+    @Test
+    public void getTechnicalMoves3() {
+        assertEq(M_DAM_TR,second(elt(callPokemonBeanTechnicalMovesGet(),0)));
+    }
+    @Test
+    public void clickTechnicalMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickTechnicalMove());
+    }
+    @Test
+    public void clickTechnicalMove2() {
+        assertEq(M_DAM,callPokemonBeanClickTechnicalMoveId());
+    }
+    @Test
+    public void getHiddenMoves1() {
+        assertSizeEq(1,callPokemonBeanHiddenMovesGet());
+    }
+    @Test
+    public void getHiddenMoves2() {
+        assertEq(1,first(elt(callPokemonBeanHiddenMovesGet(),0)));
+    }
+    @Test
+    public void getHiddenMoves3() {
+        assertEq(M_STA_TR,second(elt(callPokemonBeanHiddenMovesGet(),0)));
+    }
+    @Test
+    public void clickHiddenMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonBeanClickHiddenMove());
+    }
+    @Test
+    public void clickHiddenMove2() {
+        assertEq(M_STA,callPokemonBeanClickHiddenMoveId());
     }
 }
