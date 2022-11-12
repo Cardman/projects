@@ -1,12 +1,10 @@
 package aiki.beans.endround;
+
 import aiki.beans.CommonBean;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.fight.EndRoundMainElements;
 import aiki.fight.enums.EndTurnType;
-import aiki.fight.items.Item;
-import aiki.fight.items.ItemForBattle;
-import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectEndRound;
 import code.util.NatStringTreeMap;
 import code.util.StringList;
@@ -52,12 +50,6 @@ public class EffectEndRoundBean extends CommonBean {
         } else {
             status = data_.translateStatus(element.getElement());
         }
-        if (element.isIncrementNumberOfRounds()) {
-            endRoundRank = element.getNumberIncrement();
-            reasonsEndRound = new StringList();
-            mapVarsFailEndRound = new NatStringTreeMap<String>();
-            return;
-        }
         EffectEndRound effect_ = getEffect(index);
         if (effect_ == null) {
             endRoundRank = element.getNumberIncrement();
@@ -89,36 +81,9 @@ public class EffectEndRoundBean extends CommonBean {
     }
 
     protected EffectEndRound getEffect(int _index) {
-        EffectEndRound effect_ = null;
         DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        if (element_.getEndRoundType() == EndTurnType.ATTAQUE) {
-            String move_ = element_.getElement();
-            for (Effect e: data_.getMove(move_).getEffects()) {
-                if (e instanceof EffectEndRound) {
-                    effect_ = (EffectEndRound) e;
-                    break;
-                }
-            }
-        } else if (element_.getEndRoundType() == EndTurnType.CAPACITE) {
-            String ability_ = element_.getElement();
-            effect_ = data_.getAbility(ability_).getEffectEndRound().first();
-        } else if (element_.getEndRoundType() == EndTurnType.OBJET) {
-            String item_ = element_.getElement();
-            Item it_ = data_.getItem(item_);
-            ItemForBattle itBat_ = (ItemForBattle) it_;
-            effect_ = itBat_.getEffectEndRound().first();
-        } else if (element_.getEndRoundType() == EndTurnType.ATTAQUE_COMBI) {
-            StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
-            effect_ = data_.getCombos().getEffects().getVal(moves_).getEffectEndRound().first();
-        } else {
-            String status_ = element_.getElement();
-            if (data_.getStatus(status_).getEffectEndRound().isEmpty()) {
-                return null;
-            }
-            effect_ = data_.getStatus(status_).getEffectEndRound().first();
-        }
-        return effect_;
+        return element_.getEff();
     }
     public String clickMoves(int _indexOne, int _indexTwo) {
         DataBase data_ = getDataBase();

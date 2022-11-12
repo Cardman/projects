@@ -1602,7 +1602,7 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq(EndTurnType.STATUT, data_.getEvtEndRound().first().getEndRoundType());
         assertEq("PAR", data_.getEvtEndRound().first().getElement());
         assertEq(RelationType.STATUT, data_.getEvtEndRound().first().getRelation());
-        assertTrue(!data_.getEvtEndRound().first().isIncrementNumberOfRounds());
+        assertTrue(data_.getEvtEndRound().first().isIncrementNumberOfRounds());
     }
 
     @Test
@@ -1621,7 +1621,7 @@ public class DataBaseTest extends EquallablePkUtil {
         assertEq(EndTurnType.STATUT, data_.getEvtEndRound().first().getEndRoundType());
         assertEq("PAR", data_.getEvtEndRound().first().getElement());
         assertEq(RelationType.STATUT_RELATION, data_.getEvtEndRound().first().getRelation());
-        assertTrue(!data_.getEvtEndRound().first().isIncrementNumberOfRounds());
+        assertTrue(data_.getEvtEndRound().first().isIncrementNumberOfRounds());
     }
 
     @Test

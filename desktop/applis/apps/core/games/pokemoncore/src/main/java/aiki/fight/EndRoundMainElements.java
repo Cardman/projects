@@ -1,9 +1,11 @@
 package aiki.fight;
 import aiki.fight.enums.EndTurnType;
+import aiki.fight.moves.effects.EffectEndRound;
 import aiki.fight.moves.effects.enums.RelationType;
 
 public class EndRoundMainElements {
 
+    private final EffectEndRound eff;
     private short numberIncrement;
 
     private boolean incrementNumberOfRounds;
@@ -13,6 +15,14 @@ public class EndRoundMainElements {
     private String element;
 
     private RelationType relation;
+
+    public EndRoundMainElements(EffectEndRound _endRound) {
+        eff = _endRound;
+    }
+
+    public EffectEndRound getEff() {
+        return eff;
+    }
 
     public short getNumberIncrement() {
         return numberIncrement;

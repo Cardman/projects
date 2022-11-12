@@ -12,33 +12,7 @@ import aiki.fight.items.Item;
 import aiki.fight.items.ItemForBattle;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.MoveData;
-import aiki.fight.moves.effects.Effect;
-import aiki.fight.moves.effects.EffectAccuracy;
-import aiki.fight.moves.effects.EffectAlly;
-import aiki.fight.moves.effects.EffectBatonPass;
-import aiki.fight.moves.effects.EffectCombo;
-import aiki.fight.moves.effects.EffectCommonStatistics;
-import aiki.fight.moves.effects.EffectCopyMove;
-import aiki.fight.moves.effects.EffectCounterAttack;
-import aiki.fight.moves.effects.EffectDamage;
-import aiki.fight.moves.effects.EffectDamageRate;
-import aiki.fight.moves.effects.EffectEndRound;
-import aiki.fight.moves.effects.EffectEndRoundIndividual;
-import aiki.fight.moves.effects.EffectEndRoundPositionRelation;
-import aiki.fight.moves.effects.EffectEndRoundPositionTargetRelation;
-import aiki.fight.moves.effects.EffectEndRoundSingleRelation;
-import aiki.fight.moves.effects.EffectFullHpRate;
-import aiki.fight.moves.effects.EffectGlobal;
-import aiki.fight.moves.effects.EffectInvoke;
-import aiki.fight.moves.effects.EffectProtectFromTypes;
-import aiki.fight.moves.effects.EffectProtection;
-import aiki.fight.moves.effects.EffectRestriction;
-import aiki.fight.moves.effects.EffectStatistic;
-import aiki.fight.moves.effects.EffectStatus;
-import aiki.fight.moves.effects.EffectSwitchMoveTypes;
-import aiki.fight.moves.effects.EffectTeam;
-import aiki.fight.moves.effects.EffectTeamWhileSendFoe;
-import aiki.fight.moves.effects.EffectUnprotectFromTypes;
+import aiki.fight.moves.effects.*;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.fight.moves.effects.enums.RelationType;
 import aiki.fight.moves.enums.TargetChoice;
@@ -2129,7 +2103,7 @@ public class DataBase {
 
         EndRoundMainElements endTurn_;
         if (_move.getRankIncrementNbRound() > 0) {
-            endTurn_ = new EndRoundMainElements();
+            endTurn_ = new EndRoundMainElements(null);
             endTurn_.setNumberIncrement(_move.getRankIncrementNbRound());
             endTurn_.setIncrementNumberOfRounds(true);
             endTurn_.setEndRoundType(EndTurnType.ATTAQUE);
@@ -2303,7 +2277,7 @@ public class DataBase {
 
     private void updateInfoEffectEndRound(String _moveName, MoveData _move, EffectEndRound _e) {
         EndRoundMainElements endTurn_;
-        endTurn_ = new EndRoundMainElements();
+        endTurn_ = new EndRoundMainElements(_e);
         endTurn_.setNumberIncrement((short) _e.getEndRoundRank());
         endTurn_.setIncrementNumberOfRounds(false);
         endTurn_.setEndRoundType(EndTurnType.ATTAQUE);
@@ -2381,7 +2355,8 @@ public class DataBase {
         if (_object instanceof ItemForBattle) {
             ItemForBattle obj_ = (ItemForBattle) _object;
             if (!obj_.getEffectEndRound().isEmpty()) {
-                EndRoundMainElements endTurn_ = new EndRoundMainElements();
+                EndRoundMainElements endTurn_ = new EndRoundMainElements(obj_.getEffectEndRound()
+                        .first());
                 endTurn_.setNumberIncrement((short) obj_.getEffectEndRound()
                         .first().getEndRoundRank());
                 endTurn_.setIncrementNumberOfRounds(false);
@@ -2413,7 +2388,8 @@ public class DataBase {
 
     private void updateInfo(String _abilityName, AbilityData _ability) {
         if (!_ability.getEffectEndRound().isEmpty()) {
-            EndRoundMainElements endTurn_ = new EndRoundMainElements();
+            EndRoundMainElements endTurn_ = new EndRoundMainElements(_ability.getEffectEndRound()
+                    .first());
             endTurn_.setNumberIncrement((short) _ability.getEffectEndRound()
                     .first().getEndRoundRank());
             endTurn_.setIncrementNumberOfRounds(false);
@@ -2443,10 +2419,10 @@ public class DataBase {
     }
 
     private void updateInfo(String _statusName, Status _status) {
-        if (!_status.getEffectEndRound().isEmpty()) {
-            EndRoundMainElements endTurn_ = new EndRoundMainElements();
-            endTurn_.setNumberIncrement((short) _status.getEffectEndRound()
-                    .first().getEndRoundRank());
+        EffectEndRound e_ = endRound(_status);
+        if (e_ != null) {
+            EndRoundMainElements endTurn_ = new EndRoundMainElements(e_);
+            endTurn_.setNumberIncrement((short) e_.getEndRoundRank());
             endTurn_.setIncrementNumberOfRounds(false);
             endTurn_.setEndRoundType(EndTurnType.STATUT);
             endTurn_.setElement(_statusName);
@@ -2455,9 +2431,9 @@ public class DataBase {
             evtEndRound.add(endTurn_);
         }
         if (_status.getIncrementingEndRound()) {
-            EndRoundMainElements endTurn_ = new EndRoundMainElements();
+            EndRoundMainElements endTurn_ = new EndRoundMainElements(null);
             endTurn_.setNumberIncrement((short) _status.getIncrementEndRound());
-            endTurn_.setIncrementNumberOfRounds(false);
+            endTurn_.setIncrementNumberOfRounds(true);
             endTurn_.setEndRoundType(EndTurnType.STATUT);
             endTurn_.setElement(_statusName);
             if (_status.getStatusType() == StatusType.INDIVIDUEL) {
@@ -2467,6 +2443,17 @@ public class DataBase {
             }
             evtEndRound.add(endTurn_);
         }
+    }
+
+    public static EffectEndRoundStatus endRound(Status _status) {
+        EffectEndRoundStatus e_;
+        if (!_status.getEffectEndRound().isEmpty()) {
+            e_ = _status.getEffectEndRound()
+                    .first();
+        } else {
+            e_ = null;
+        }
+        return e_;
     }
 
     public void initCombosTest() {
@@ -2483,7 +2470,7 @@ public class DataBase {
 
     public void completeMembers(StringList _moves, EffectCombo _effect) {
         if (_effect.getRankIncrementNbRound() > 0) {
-            EndRoundMainElements endTurn_ = new EndRoundMainElements();
+            EndRoundMainElements endTurn_ = new EndRoundMainElements(null);
             endTurn_.setNumberIncrement(_effect.getRankIncrementNbRound());
             endTurn_.setIncrementNumberOfRounds(true);
             endTurn_.setEndRoundType(EndTurnType.ATTAQUE_COMBI);
@@ -2494,7 +2481,7 @@ public class DataBase {
         if (_effect.getEffectEndRound().isEmpty()) {
             return;
         }
-        EndRoundMainElements endTurn_ = new EndRoundMainElements();
+        EndRoundMainElements endTurn_ = new EndRoundMainElements(_effect.getEffectEndRound().first());
         endTurn_.setNumberIncrement((short) _effect.getEffectEndRound().first()
                 .getEndRoundRank());
         endTurn_.setIncrementNumberOfRounds(false);

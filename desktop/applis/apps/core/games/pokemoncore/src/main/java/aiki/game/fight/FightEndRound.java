@@ -231,7 +231,7 @@ final class FightEndRound {
 
     private static boolean exitEndRound(Fight _fight, Difficulty _diff, DataBase _import, CustList<EndRoundMainElements> _liste, int _i) {
         EndRoundMainElements elt_= _liste.get(_i);
-        if(elt_.isIncrementNumberOfRounds()){
+        if(elt_.getEff() == null){
             //Tirage du nombre de tour
             return exitEndRoundIncr(_fight, _import, elt_);
         }
@@ -342,7 +342,7 @@ final class FightEndRound {
                 if(!StringUtil.quickEq(c2_.getMove(), _elt.getElement())){
                     continue;
                 }
-                effectEndRoundStatusRelation(_fight,c,c2_.getTeamPosition(),c2_.getMove(), _import);
+                effectEndRoundStatusRelation(_fight,c,c2_.getTeamPosition(),c2_.getMove(), _import,_import.getStatus(c2_.getMove()));
             }
         }
     }
@@ -496,7 +496,7 @@ final class FightEndRound {
     }
 
     private static boolean exitEndRoundIncr(Fight _fight, DataBase _import, EndRoundMainElements _elt) {
-        if (_elt.getEndRoundType() == EndTurnType.ATTAQUE && exitEndRoundIncrMove(_fight, _import, _elt)) {
+        if (_elt.getEndRoundType() == EndTurnType.ATTAQUE && exitEndRoundIncrMove(_fight, _import, _elt.getElement())) {
             return true;
         }
         if(_elt.getEndRoundType() == EndTurnType.ATTAQUE_COMBI){
@@ -513,15 +513,14 @@ final class FightEndRound {
         return false;
     }
 
-    private static boolean exitEndRoundIncrMove(Fight _fight, DataBase _import, EndRoundMainElements _elt) {
-        String move_ = _elt.getElement();
+    private static boolean exitEndRoundIncrMove(Fight _fight, DataBase _import, String _move) {
         for(TeamPosition c:FightOrder.frontFighters(_fight)){
-            incrementNumberRounds(_fight,c, move_, _import);
+            incrementNumberRounds(_fight,c, _move, _import);
         }
         for(byte c: _fight.getTeams().getKeys()){
-            incrementNumberRoundsTeam(_fight, c, move_, _import);
+            incrementNumberRoundsTeam(_fight, c, _move, _import);
         }
-        incrementNumberRoundsGlobal(_fight, move_, _import);
+        incrementNumberRoundsGlobal(_fight, _move, _import);
         return !_fight.getTemp().getAcceptableChoices();
     }
 
@@ -1184,8 +1183,8 @@ final class FightEndRound {
     }
 
     static void effectEndRoundStatusHp(Fight _fight,TeamPosition _combattant,Status _statut,String _nomStatut,Difficulty _diff,DataBase _import){
-        CustList<EffectEndRoundStatus> effectEndRound_ = _statut.getEffectEndRound();
-        if (effectEndRound_.isEmpty()) {
+        EffectEndRound er_ = DataBase.endRound(_statut);
+        if (!(er_ instanceof EffectEndRoundSingleStatus)) {
             return;
         }
         Fighter creature_=_fight.getFighter(_combattant);
@@ -1194,7 +1193,7 @@ final class FightEndRound {
             return;
         }
         _fight.addStatusEndRoundMessage(_nomStatut, _combattant, _import);
-        EffectEndRoundSingleStatus effet_=(EffectEndRoundSingleStatus) effectEndRound_.first();
+        EffectEndRoundSingleStatus effet_=(EffectEndRoundSingleStatus)er_;
         Rate taux_=new Rate(effet_.getInflictedRateHpTarget());
         if (effet_.isIncrementingDamageByRounds()) {
             taux_.multiplyBy(new Rate(nbRounds_));
@@ -1226,10 +1225,9 @@ final class FightEndRound {
         }
     }
 
-    static void effectEndRoundStatusRelation(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _nomStatut, DataBase _import){
-        Status status_ = _import.getStatus(_nomStatut);
-        CustList<EffectEndRoundStatus> effectEndRound_ = status_.getEffectEndRound();
-        if (effectEndRound_.isEmpty()) {
+    static void effectEndRoundStatusRelation(Fight _fight,TeamPosition _lanceur,TeamPosition _cible,String _nomStatut, DataBase _import, Status _st){
+        EffectEndRoundStatus er_ = DataBase.endRound(_st);
+        if (er_ == null) {
             return;
         }
         Fighter creature_=_fight.getFighter(_cible);
@@ -1237,17 +1235,16 @@ final class FightEndRound {
         if(nbTour_ <= 0){
             return;
         }
-        EffectEndRoundStatus effetFinTour_ = effectEndRound_.first();
-        boolean success_ = successEndRound(_fight, _lanceur, _cible, _import, effetFinTour_);
+        boolean success_ = successEndRound(_fight, _lanceur, _cible, _import, er_);
         if(!success_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
             _fight.addDisabledStatusRelMessage(_nomStatut, _cible, _lanceur, nbTour_, _import);
             return;
         }
-        if (!(status_ instanceof StatusBeginRound) || !status_.getIncrementingEndRound()) {
+        if (!(_st instanceof StatusBeginRound) || !_st.getIncrementingEndRound()) {
             return;
         }
-        MonteCarloNumber loi_=((StatusBeginRound)status_).getLawForUsingAMoveNbRound();
+        MonteCarloNumber loi_=((StatusBeginRound) _st).getLawForUsingAMoveNbRound();
         boolean resterActif_ = resterActif(_fight, _import, nbTour_, loi_, _cible.getTeam(), Fight.CST_PLAYER);
         if(!resterActif_){
             creature_.supprimerPseudoStatutCombattant(_lanceur,_nomStatut);
