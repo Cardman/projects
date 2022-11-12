@@ -43,6 +43,10 @@ public final class StatusBeanTest extends InitDbStatus {
         assertTrue(callStatusBeanSingleStatusGet(3));
     }
     @Test
+    public void getSingleStatus3() {
+        assertFalse(callStatusBeanSingleStatusGet(2));
+    }
+    @Test
     public void getIncrementingDamageByRounds1() {
         assertFalse(callStatusBeanIncrementingDamageByRoundsGet(0));
     }
