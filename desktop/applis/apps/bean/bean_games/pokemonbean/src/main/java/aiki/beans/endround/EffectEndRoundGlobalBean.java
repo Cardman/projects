@@ -3,6 +3,7 @@ import aiki.db.DataBase;
 import aiki.fight.moves.MoveData;
 import aiki.fight.moves.effects.Effect;
 import aiki.fight.moves.effects.EffectGlobal;
+import aiki.instances.Instances;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -19,16 +20,7 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         super.beforeDisplaying();
         DataBase data_ = getDataBase();
         MoveData move_ = data_.getMove(getElement().getElement());
-        EffectGlobal effect_ = null;
-        for (Effect e: move_.getEffects()) {
-            if (e instanceof EffectGlobal) {
-                effect_ = (EffectGlobal) e;
-                break;
-            }
-        }
-        if (effect_ == null) {
-            return;
-        }
+        EffectGlobal effect_ = global(move_);
         StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         StringList immuneTypes_;
         immuneTypes_ = new StringList();
@@ -41,6 +33,15 @@ public class EffectEndRoundGlobalBean extends EffectEndRoundBean {
         healingEndRound = effect_.getHealingEndRound();
         healingEndRoundGround = effect_.getHealingEndRoundGround();
         puttingKo = effect_.getPuttingKo();
+    }
+
+    public static EffectGlobal global(MoveData _move) {
+        for (Effect e: _move.getEffects()) {
+            if (e instanceof EffectGlobal) {
+                return (EffectGlobal) e;
+            }
+        }
+        return Instances.newEffectGlobal();
     }
 
     public Rate getDamageEndRound() {
