@@ -351,7 +351,7 @@ private static final String M_CLICK_IMMU_STATUS_ABILITY_1="clickImmuStatusAbilit
 //private static final String M_CLICK_IMMU_STATUS_BEGIN_ROUND_1="clickImmuStatusBeginRound()";
 //private static final String M_CLICK_IMMU_STATUS_TYPES_2="clickImmuStatusTypes(,)";
 //private static final String M_CLICK_IMMU_STATUS_WEATHER_1="clickImmuStatusWeather()";
-private static final String M_CLICK_INDEX="clickIndex";
+//private static final String M_CLICK_INDEX="clickIndex";
 //private static final String M_CLICK_INVOKED_MOVE="clickInvokedMove";
 //private static final String M_CLICK_INVOKING_MOVE_1="clickInvokingMove()";
 //private static final String M_CLICK_INVOKING_MOVE_TYPES_1="clickInvokingMoveTypes()";
@@ -606,7 +606,7 @@ private static final String WEB_HTML_POKEMON_POKEDEX_HTML="web/html/pokemon/poke
 //private static final String WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML="web/html/simulation/simulationlevel.html";
 //private static final String WEB_HTML_SIMULATION_SIMULATION_HTML="web/html/simulation/simulation.html";
 //private static final String AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML="web/html/status/data.html";
-private static final String WEB_HTML_STATUS_STATUS_HTML="web/html/status/status.html";
+//private static final String WEB_HTML_STATUS_STATUS_HTML="web/html/status/status.html";
 private static final String WEB_PK_HTML_POKEMON_HTML="web_pk/html/pokemon.html";
 private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.html";
 //private static final String WELCOME="welcome";
@@ -841,7 +841,7 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,WELCOME+NAV_SEP+M_CLICK_STATUS,new EntryNav(STATUS_SET,WEB_HTML_STATUS_STATUS_HTML));
 //        NavBuilder.buildNav(nav_,STATUS_SET+NAV_SEP+M_SEARCH,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML),new EntryNav(STATUS_SET,WEB_HTML_STATUS_STATUS_HTML));
 //        NavBuilder.buildNav(nav_,STATUS_SET+NAV_SEP+M_CLICK_STATUS_1,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));
-        NavBuilder.buildNav(nav_,STATUS+NAV_SEP+M_CLICK_INDEX,new EntryNav(STATUS_SET,WEB_HTML_STATUS_STATUS_HTML));
+//        NavBuilder.buildNav(nav_,STATUS+NAV_SEP+M_CLICK_INDEX,new EntryNav(STATUS_SET,WEB_HTML_STATUS_STATUS_HTML));
 //        NavBuilder.buildNav(nav_,ABILITY+NAV_SEP+M_CLICK_INDEX,new EntryNav(ABILITIES,WEB_HTML_ABILITY_ABILITIES_HTML));
         NavBuilder.buildNav(nav_,END_INDIVIDUAL+NAV_SEP+M_CLICK_USER_STATUS,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));
         NavBuilder.buildNav(nav_,END_INDIVIDUAL+NAV_SEP+M_CLICK_DAMAGE_STATUS,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));

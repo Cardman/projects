@@ -142,7 +142,7 @@ public class StatusBean extends CommonBean {
     }
     public String clickIndex() {
         getForms().safeStatus(CST_STATUS_SET);
-        return CST_STATUS_SET;
+        return AikiBeansStatusStd.WEB_HTML_STATUS_STATUS_HTML;
     }
     public boolean incrementEndRoundInt() {
         return incrementEndRound > 0;

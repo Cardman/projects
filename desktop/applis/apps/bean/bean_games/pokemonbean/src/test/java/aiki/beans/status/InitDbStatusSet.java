@@ -130,8 +130,9 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         facade_.getData().completeMembers(S_STA_02,rel1_);
         Status si1_ = staSimple(DataBase.VAR_PREFIX + Fight.TEMPS_TOUR, 1, true, true);
         EffectEndRoundSingleStatus e1_ = Instances.newEffectEndRoundSingleStatus();
+        e1_.setFailEndRound(DataBase.VAR_PREFIX + Fight.TEMPS_TOUR);
         e1_.setEndRoundRank(5);
-        e1_.setIncrementingDamageByRounds(true);
+        e1_.setIncrementingDamageByRounds(false);
         si1_.getEffectEndRound().add(e1_);
         facade_.getData().completeMembers(S_STA_03,si1_);
         facade_.getData().completeMembers(S_STA_04,staSimple(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR,0,false,false));
@@ -155,6 +156,7 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         StatusBeginRoundAutoDamage b2_ = Instances.newStatusBeginRoundAutoDamage();
         b2_.setAttack(Statistic.ATTACK);
         b2_.setDefense(Statistic.DEFENSE);
+        b2_.setPower(Rate.one());
         b2_.getLawForUsingAMove().addQuickEvent(BoolVal.FALSE, LgInt.newLgInt("22"));
         b2_.getLawForUsingAMoveIfFoe().addQuickEvent(BoolVal.FALSE, LgInt.newLgInt("43"));
         facade_.getData().completeMembers(S_STA_08,b2_);

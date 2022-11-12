@@ -18,8 +18,8 @@ public abstract class InitDbStatus extends InitDbStatusSet {
         return BeanPokemonCommonTs.callLongs(new StatusBeanCatchingRateGet(),dispStatusOne(_str),_args);
     }
 
-    public static Struct callStatusBeanClickIndex(int _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StatusBeanClickIndex(),dispStatusOne(_str),_args);
+    public static String callStatusBeanClickIndex(int _str, long... _args) {
+        return navigateData(new StatusBeanClickIndex(),dispStatusOne(_str),_args);
     }
 
     public static Struct callStatusBeanDefenseGet(int _str, long... _args) {
