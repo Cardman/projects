@@ -27,17 +27,15 @@ public class StatusSetBean extends WithFilterBean {
                 sortedAbilities_.put(i.getKey(),i.getValue());
             }
         }
+        getForms().putStatus(CST_STATUS_SET, sortedAbilities_);
         if (sortedAbilities_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
-            getForms().put(CST_STATUS, sortedAbilities_.firstKey());
-            return CST_STATUS;
+            return tryRedirectSt(sortedAbilities_.firstKey());
         }
 //        sortedAbilities_.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        getForms().putStatus(CST_STATUS_SET, sortedAbilities_);
-        return CST_STATUS_SET;
+        return AikiBeansStatusStd.WEB_HTML_STATUS_STATUS_HTML;
     }
     public String clickStatus(int _index) {
-        getForms().put(CST_STATUS, sortedStatus.getKey(_index));
-        return CST_STATUS;
+        return tryRedirectSt(sortedStatus.getKey(_index));
     }
     public String getTrStatus(int _index) {
         String ability_ = sortedStatus.getKey(_index);
