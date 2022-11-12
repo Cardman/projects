@@ -2,16 +2,23 @@ package aiki.beans.endround;
 
 import aiki.beans.*;
 import aiki.beans.db.*;
+import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.fight.Combos;
 import aiki.fight.abilities.*;
+import aiki.fight.enums.Statistic;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.status.*;
+import aiki.fight.util.ListEffectCombo;
+import aiki.game.fight.Fight;
 import aiki.instances.*;
 import code.expressionlanguage.structs.*;
 import code.maths.LgInt;
 import code.maths.Rate;
+import code.util.StringList;
+import code.util.StringMap;
 
 public abstract class InitDbEndRound extends InitDbConstr {
 
@@ -226,8 +233,37 @@ public abstract class InitDbEndRound extends InitDbConstr {
     }
     protected static FacadeGame feedDb() {
         FacadeGame facade_ = facade();
-//        facade_.getData().completeMembers();
+        facade_.getData().completeMembers("M_END_1",incr(1));
+        facade_.getData().completeMembers("M_END_2",incr(2));
+        facade_.getData().completeMembers("M_END_3",endRoundGlobal(true, 3));
+        facade_.getData().completeMembers("M_END_4",endRoundGlobal(false, 4));
+        facade_.getData().completeMembers("M_END_5",moveEndPositionTargetRelation(5));
+        facade_.getData().completeMembers("M_END_6",moveEndPositionTargetRelation(6));
+        facade_.getData().completeMembers("M_END_7",endRound(individual(7)));
+        facade_.getData().completeMembers("M_END_8",endRound(individual(8)));
+        facade_.getData().completeMembers("I_END_9",item(multRelation(9)));
+        facade_.getData().completeMembers("I_END_10",item(multRelation(10)));
+        facade_.getData().completeMembers("I_END_11",item(multPosRelation(11)));
+        facade_.getData().completeMembers("I_END_12",item(multPosRelation(12)));
+        facade_.getData().completeMembers("A_END_13",ability(singlePosRelation(13)));
+        facade_.getData().completeMembers("A_END_14",ability(singlePosRelation(14)));
+        facade_.getData().completeMembers("A_END_15",ability(team(15)));
+        facade_.getData().completeMembers("A_END_16",ability(team(16)));
+        facade_.getData().completeMembers("S_END_17",simpleStatus(true,17,StatusType.INDIVIDUEL));
+        facade_.getData().completeMembers("S_END_18",simpleStatus(false,18,StatusType.RELATION_UNIQUE));
+        facade_.getData().completeMembers("S_END_19",simpleStatus(statRel(20),true,19,StatusType.INDIVIDUEL));
+        facade_.getData().completeMembers("S_END_20",simpleStatus(statRel(22),false,21,StatusType.RELATION_UNIQUE));
+        facade_.getData().completeMembers("S_END_21",simpleStatus(statSimple(true,24),true,23,StatusType.INDIVIDUEL));
+        facade_.getData().completeMembers("S_END_22",simpleStatus(statSimple(false,26),false,25,StatusType.RELATION_UNIQUE));
+        Combos co_ = Instances.newCombos();
+        co_.getEffects().add(new ListEffectCombo(new StringList("M_END_23","M_END_24"), combo(27)));
+        co_.getEffects().add(new ListEffectCombo(new StringList("M_END_25","M_END_26"), combo(28)));
+        co_.getEffects().add(new ListEffectCombo(new StringList("M_END_27","M_END_28"), comboFoe(29,30)));
+        co_.getEffects().add(new ListEffectCombo(new StringList("M_END_29","M_END_30"), comboFoe(31,32)));
+        facade_.getData().setCombos(co_);
         facade_.getData().completeMembersCombos();
+        facade_.getData().getLitterals().addEntry(EN,new StringMap<String>());
+        facade_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         facade_.getData().completeVariables();
         facade_.getData().sortEndRound();
         return facade_;
@@ -238,9 +274,11 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return m_;
     }
 
-    private static MoveData moveEndPositionTargetRelation() {
+    private static MoveData moveEndPositionTargetRelation(int _rk) {
         MoveData m_ = Instances.newDamagingMoveData();
-        m_.getEffects().add(Instances.newEffectEndRoundPositionTargetRelation());
+        EffectEndRoundPositionTargetRelation end_ = Instances.newEffectEndRoundPositionTargetRelation();
+        end_.setEndRoundRank(_rk);
+        m_.getEffects().add(end_);
         return m_;
     }
 
@@ -250,9 +288,11 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return m_;
     }
 
-    private static MoveData endRoundGlobal(boolean _puttingKo) {
+    private static MoveData endRoundGlobal(boolean _puttingKo, int _rk) {
         MoveData m_ = Instances.newDamagingMoveData();
-        m_.getEffects().add(Instances.newEffectEndRoundGlobal());
+        EffectEndRoundGlobal c_ = Instances.newEffectEndRoundGlobal();
+        c_.setEndRoundRank(_rk);
+        m_.getEffects().add(c_);
         EffectGlobal gl_ = Instances.newEffectGlobal();
         gl_.setDamageEndRound(Rate.one());
         gl_.setHealingEndRoundGround(Rate.one());
@@ -287,55 +327,28 @@ public abstract class InitDbEndRound extends InitDbConstr {
         st_.setStatusType(_relation);
         return st_;
     }
-    private static StatusBeginRoundAutoDamage simpleAuto(boolean _incrementingEndRound, int _incrementEndRound, StatusType _relation) {
-        StatusBeginRoundAutoDamage st_ = Instances.newStatusBeginRoundAutoDamage();
-        st_.setIncrementingEndRound(_incrementingEndRound);
-        st_.setIncrementEndRound(_incrementEndRound);
-        st_.setStatusType(_relation);
-        return st_;
-    }
-    private static StatusBeginRoundAutoDamage simpleAuto(EffectEndRoundStatus _endRound, boolean _incrementingEndRound, int _incrementEndRound, StatusType _relation) {
-        StatusBeginRoundAutoDamage st_ = Instances.newStatusBeginRoundAutoDamage();
-        st_.getEffectEndRound().add(_endRound);
-        st_.setIncrementingEndRound(_incrementingEndRound);
-        st_.setIncrementEndRound(_incrementEndRound);
-        st_.setStatusType(_relation);
-        return st_;
-    }
-    private static StatusBeginRoundSimple simpleBegin(boolean _incrementingEndRound, int _incrementEndRound, StatusType _relation) {
-        StatusBeginRoundSimple st_ = Instances.newStatusBeginRoundSimple();
-        st_.setIncrementingEndRound(_incrementingEndRound);
-        st_.setIncrementEndRound(_incrementEndRound);
-        st_.setStatusType(_relation);
-        return st_;
-    }
-    private static StatusBeginRoundSimple simpleBegin(EffectEndRoundStatus _endRound, boolean _incrementingEndRound, int _incrementEndRound, StatusType _relation) {
-        StatusBeginRoundSimple st_ = Instances.newStatusBeginRoundSimple();
-        st_.getEffectEndRound().add(_endRound);
-        st_.setIncrementingEndRound(_incrementingEndRound);
-        st_.setIncrementEndRound(_incrementEndRound);
-        st_.setStatusType(_relation);
-        return st_;
-    }
     private static EffectCombo combo(int _rank) {
         EffectCombo ec_ = Instances.newEffectCombo();
         ec_.setRankIncrementNbRound((short)_rank);
         return ec_;
     }
 
-    private static EffectCombo comboFoe(int _rank) {
+    private static EffectCombo comboFoe(int _incr, int _act) {
         EffectCombo ec_ = Instances.newEffectCombo();
-        ec_.setRankIncrementNbRound((short)_rank);
-        ec_.getEffectEndRound().add(foe());
+        ec_.setRankIncrementNbRound((short)_incr);
+        ec_.getEffectEndRound().add(foe(_act));
         return ec_;
     }
-    private static EffectEndRoundFoe foe() {
+    private static EffectEndRoundFoe foe(int _rk) {
         EffectEndRoundFoe e_ = Instances.newEffectEndRoundFoe();
+        e_.setEndRoundRank(_rk);
         e_.setInflictedRateHpTarget(Rate.one());
         return e_;
     }
-    private static EffectEndRoundIndividual individual() {
+    private static EffectEndRoundIndividual individual(int _rk) {
         EffectEndRoundIndividual e_ = Instances.newEffectEndRoundIndividual();
+        e_.setFailEndRound(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        e_.setEndRoundRank(_rk);
         e_.setDeleteAllStatus(Rate.one());
         e_.setRecoilDamage(Rate.one());
         e_.setHealHp(Rate.one());
@@ -344,38 +357,44 @@ public abstract class InitDbEndRound extends InitDbConstr {
         e_.getMultDamageStatus().addEntry(S_STA_DAM,Rate.one());
         return e_;
     }
-    private static EffectEndRoundMultiRelation multRelation() {
+    private static EffectEndRoundMultiRelation multRelation(int _rk) {
         EffectEndRoundMultiRelation e_ = Instances.newEffectEndRoundMultiRelation();
+        e_.setEndRoundRank(_rk);
         e_.getDamageByStatus().addEntry(S_STA_RELATION,Rate.one());
         return e_;
     }
-    private static EffectEndRoundPositionRelation multPosRelation() {
+    private static EffectEndRoundPositionRelation multPosRelation(int _rk) {
         EffectEndRoundPositionRelation e_ = Instances.newEffectEndRoundPositionRelation();
+        e_.setEndRoundRank(_rk);
         e_.setHealHp(Rate.one());
         return e_;
     }
-    private static EffectEndRoundSingleRelation singlePosRelation() {
+    private static EffectEndRoundSingleRelation singlePosRelation(int _rk) {
         EffectEndRoundSingleRelation e_ = Instances.newEffectEndRoundSingleRelation();
+        e_.setEndRoundRank(_rk);
         e_.getRateDamageFunctionOfNbRounds().addEntry(1L,Rate.one());
         e_.getRateDamageFunctionOfNbRounds().addEntry(3L,Rate.newRate("5"));
         e_.getLawForEnablingEffect().addQuickEvent(Rate.newRate("5"), LgInt.newLgInt("15"));
         e_.getLawForEnablingEffect().addQuickEvent(Rate.newRate("7"), LgInt.newLgInt("12"));
         return e_;
     }
-    private static EffectEndRoundTeam team() {
+    private static EffectEndRoundTeam team(int _rk) {
         EffectEndRoundTeam e_ = Instances.newEffectEndRoundTeam();
+        e_.setEndRoundRank(_rk);
         e_.setDeleteAllStatus(Rate.one());
         e_.setDeleteAllStatusAlly(Rate.one());
         return e_;
     }
-    private static EffectEndRoundStatusRelation statRel() {
+    private static EffectEndRoundStatusRelation statRel(int _rk) {
         EffectEndRoundStatusRelation e_ = Instances.newEffectEndRoundStatusRelation();
+        e_.setEndRoundRank(_rk);
         e_.setInflictedRateHpTarget(Rate.one());
         e_.setThievedHpRateTargetToUser(Rate.one());
         return e_;
     }
-    private static EffectEndRoundSingleStatus statSimple(boolean _incr) {
+    private static EffectEndRoundSingleStatus statSimple(boolean _incr, int _rk) {
         EffectEndRoundSingleStatus e_ = Instances.newEffectEndRoundSingleStatus();
+        e_.setEndRoundRank(_rk);
         e_.setInflictedRateHpTarget(Rate.one());
         e_.setIncrementingDamageByRounds(_incr);
         return e_;
