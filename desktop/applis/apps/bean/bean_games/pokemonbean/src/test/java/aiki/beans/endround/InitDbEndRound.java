@@ -2,6 +2,7 @@ package aiki.beans.endround;
 
 import aiki.beans.*;
 import aiki.beans.db.*;
+import aiki.facade.FacadeGame;
 import aiki.fight.abilities.*;
 import aiki.fight.items.*;
 import aiki.fight.moves.*;
@@ -223,7 +224,14 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static Struct callEffectEndRoundTeamBeanDeleteAllStatusGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundTeamBeanDeleteAllStatusGet(),_str,_args);
     }
-
+    protected static FacadeGame feedDb() {
+        FacadeGame facade_ = facade();
+//        facade_.getData().completeMembers();
+        facade_.getData().completeMembersCombos();
+        facade_.getData().completeVariables();
+        facade_.getData().sortEndRound();
+        return facade_;
+    }
     private static MoveData incr(int _rank) {
         MoveData m_ = Instances.newDamagingMoveData();
         m_.setRankIncrementNbRound((short) _rank);
