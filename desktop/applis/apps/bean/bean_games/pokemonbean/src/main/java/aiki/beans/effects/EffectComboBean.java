@@ -73,8 +73,7 @@ public class EffectComboBean extends CommonBean {
     }
     public String clickMove(int _indexOne, int _indexTwo) {
         StringList moves_ = combos.getKey(_indexOne);
-        getForms().put(CST_MOVE, moves_.get(_indexTwo));
-        return CST_MOVE;
+        return tryRedirectMv(moves_.get(_indexTwo));
     }
 
     public StringList getMoves() {

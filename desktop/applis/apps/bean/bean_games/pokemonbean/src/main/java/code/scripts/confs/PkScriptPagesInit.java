@@ -854,7 +854,7 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,END+NAV_SEP+M_CLICK_ITEM_1,new EntryNav(ITEM,WEB_HTML_ITEMS_ITEMFORBATTLE_HTML));
         NavBuilder.buildNav(nav_,END+NAV_SEP+M_CLICK_STATUS_1,new EntryNav(STATUS,AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML));
         NavBuilder.buildNav(nav_,END+NAV_SEP+M_CLICK_MOVES_2,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
-        NavBuilder.buildNav(nav_,EFF_COMBO+NAV_SEP+M_CLICK_MOVE_2,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
+//        NavBuilder.buildNav(nav_,EFF_COMBO+NAV_SEP+M_CLICK_MOVE_2,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
 //        NavBuilder.buildNav(nav_,AikiBeansMovesStd.BEAN_MOVES+NAV_SEP+M_SEARCH,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML),new EntryNav(MOVES,AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML));
 //        NavBuilder.buildNav(nav_,AikiBeansMovesStd.BEAN_MOVE+NAV_SEP+M_CLICK_MOVES,new EntryNav(MOVES,AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML));
 //        NavBuilder.buildNav(nav_,AikiBeansMovesStd.BEAN_MOVE+NAV_SEP+M_CLICK_MOVE_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));

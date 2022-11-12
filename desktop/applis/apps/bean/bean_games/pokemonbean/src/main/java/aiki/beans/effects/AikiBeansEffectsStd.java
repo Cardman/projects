@@ -12,6 +12,8 @@ public final class AikiBeansEffectsStd{
     public static final String EFFECT_SENDING = "effsending";
     public static final String TYPE_COMBO_DTO = "aiki.beans.effects.ComboDto";
     public static final String TYPE_COMBOS_BEAN = "aiki.beans.effects.CombosBean";
+    public static final String BEAN_COMBOS = "combos";
+    public static final String BEAN_COMBO = "eff_combo";
     public static final String TYPE_EFFECT_COMBO_BEAN = "aiki.beans.effects.EffectComboBean";
     public static final String TYPE_EFFECT_WHILE_SENDING_BEAN = "aiki.beans.effects.EffectWhileSendingBean";
     private static final String CLICK_MOVE = "clickMove";
