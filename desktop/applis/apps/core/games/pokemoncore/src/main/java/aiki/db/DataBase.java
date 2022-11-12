@@ -2419,14 +2419,14 @@ public class DataBase {
     }
 
     private void updateInfo(String _statusName, Status _status) {
-        EffectEndRound e_ = endRound(_status);
+        EffectEndRoundStatus e_ = endRound(_status);
         if (e_ != null) {
             EndRoundMainElements endTurn_ = new EndRoundMainElements(e_);
             endTurn_.setNumberIncrement((short) e_.getEndRoundRank());
             endTurn_.setIncrementNumberOfRounds(false);
             endTurn_.setEndRoundType(EndTurnType.STATUT);
             endTurn_.setElement(_statusName);
-            endTurn_.setRelation(_status.getEffectEndRound().first()
+            endTurn_.setRelation(e_
                     .getRelation());
             evtEndRound.add(endTurn_);
         }
