@@ -171,24 +171,24 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundFoeBeanInflictedRateHpTargetGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundGlobalBeanDamageEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanDamageEndRoundGet(),_str,_args);
+    public static Struct callEffectEndRoundGlobalBeanDamageEndRoundGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanDamageEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanHealingEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanHealingEndRoundGet(),_str,_args);
+    public static Struct callEffectEndRoundGlobalBeanHealingEndRoundGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanHealingEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanHealingEndRoundGroundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanHealingEndRoundGroundGet(),_str,_args);
+    public static Struct callEffectEndRoundGlobalBeanHealingEndRoundGroundGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanHealingEndRoundGroundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanImmuneTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanImmuneTypesGet(),_str,_args);
+    public static Struct callEffectEndRoundGlobalBeanImmuneTypesGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanImmuneTypesGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanPuttingKoGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanPuttingKoGet(),_str,_args);
+    public static Struct callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanPuttingKoGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundIndividualBeanClickDamageStatus(Struct _str, long... _args) {

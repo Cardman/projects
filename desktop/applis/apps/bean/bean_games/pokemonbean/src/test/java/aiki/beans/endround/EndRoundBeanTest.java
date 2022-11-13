@@ -18,6 +18,34 @@ public final class EndRoundBeanTest extends InitDbEndRound {
         assertEq(Rate.zero(),EffectEndRoundGlobalBean.global(feedDb().getData().getMove(M_END_5)).getDamageEndRound());
     }
     @Test
+    public void getPuttingKo1() {
+        assertTrue(callEffectEndRoundGlobalBeanPuttingKoGet(5));
+    }
+    @Test
+    public void getPuttingKo2() {
+        assertFalse(callEffectEndRoundGlobalBeanPuttingKoGet(6));
+    }
+    @Test
+    public void getDamageEndRound() {
+        assertEq(Rate.one(),callEffectEndRoundGlobalBeanDamageEndRoundGet(5));
+    }
+    @Test
+    public void getHealingEndRoundGround() {
+        assertEq(Rate.one(),callEffectEndRoundGlobalBeanHealingEndRoundGroundGet(5));
+    }
+    @Test
+    public void getHealingEndRound() {
+        assertEq(Rate.one(),callEffectEndRoundGlobalBeanHealingEndRoundGet(5));
+    }
+    @Test
+    public void getImmuneTypes1() {
+        assertSizeEq(1,callEffectEndRoundGlobalBeanImmuneTypesGet(5));
+    }
+    @Test
+    public void getImmuneTypes2() {
+        assertEq(T_TYPE_ROUND_1_TR,elt(callEffectEndRoundGlobalBeanImmuneTypesGet(5),0));
+    }
+    @Test
     public void getDamageByStatus1() {
         assertSizeEq(1,callEffectEndRoundMultiRelationBeanDamageByStatusGet(11));
     }
