@@ -48,7 +48,6 @@ public class EffectEndRoundPositionTargetBean extends EffectEndRoundBean {
 
     public String clickTargetRelationMove(int _index) {
         StringList moves_ = moves();
-        getForms().put(CST_MOVE, moves_.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(moves_.get(_index));
     }
 }

@@ -90,8 +90,7 @@ public class EffectEndRoundBean extends CommonBean {
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_indexOne);
         StringList moves_ = StringUtil.splitStrings(element_.getElement(), DataBase.SEPARATOR_MOVES);
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        getForms().put(CST_MOVE, moves_.get(_indexTwo));
-        return CST_MOVE;
+        return tryRedirectMv(moves_.get(_indexTwo));
     }
     public String getTrMoves(int _indexTwo) {
         DataBase data_ = getDataBase();
@@ -105,14 +104,12 @@ public class EffectEndRoundBean extends CommonBean {
     public String clickMove(int _index) {
         DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(CST_MOVE, element_.getElement());
-        return CST_MOVE;
+        return tryRedirectMv(element_.getElement());
     }
     public String clickAbility(int _index) {
         DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(CST_ABILITY, element_.getElement());
-        return CST_ABILITY;
+        return tryRedirectAb(element_.getElement());
     }
     public String clickItem(int _index) {
         DataBase data_ = getDataBase();
@@ -122,8 +119,7 @@ public class EffectEndRoundBean extends CommonBean {
     public String clickStatus(int _index) {
         DataBase data_ = getDataBase();
         EndRoundMainElements element_ = data_.getEvtEndRound().get(_index);
-        getForms().put(CST_STATUS, element_.getElement());
-        return CST_STATUS;
+        return tryRedirectSt(element_.getElement());
     }
 
     public String getMove() {

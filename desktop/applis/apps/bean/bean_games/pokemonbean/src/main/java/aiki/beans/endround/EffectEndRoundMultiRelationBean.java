@@ -36,8 +36,7 @@ public class EffectEndRoundMultiRelationBean extends EffectEndRoundBean {
         for (String s: effect_.getDamageByStatus().getKeys()) {
             multDamageStatus_.put(s, effect_.getDamageByStatus().getVal(s));
         }
-        getForms().put(CST_STATUS, multDamageStatus_.getKey(_indexTwo));
-        return CST_STATUS;
+        return tryRedirectSt(multDamageStatus_.getKey(_indexTwo));
     }
 
     public DictionaryComparator<String,Rate> getDamageByStatus() {
