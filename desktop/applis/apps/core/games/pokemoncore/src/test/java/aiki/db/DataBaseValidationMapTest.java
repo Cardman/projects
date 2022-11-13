@@ -2588,6 +2588,16 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         assertEq(81,data_.getLevelImage((short)1,(byte)0,new Point((short)1,(short)1)).size());
     }
     @Test
+    public void getWhiteLevelImage1Test() {
+        DataBase data_ = InitializationDataBase.initDb();
+        assertEq(36,data_.getWhiteLevelImage((short)0,(byte)0).size());
+    }
+    @Test
+    public void getWhiteLevelImage2Test() {
+        DataBase data_ = InitializationDataBase.initDb();
+        assertEq(81,data_.getWhiteLevelImage((short)1,(byte)0,new Point((short)1,(short)1)).size());
+    }
+    @Test
     public void getFighterNameTest() {
         DataBase data_ = newData();
         data_.setMessagesFight(new StringMap<String>());

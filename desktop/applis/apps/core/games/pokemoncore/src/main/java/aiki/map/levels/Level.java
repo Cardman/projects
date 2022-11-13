@@ -17,6 +17,7 @@ import aiki.map.util.Limits;
 import aiki.map.util.ScreenCoords;
 import aiki.util.*;
 import code.images.BaseSixtyFourUtil;
+import code.images.ConverterBufferedImage;
 import code.util.CustList;
 
 import code.util.core.IndexConstants;
@@ -74,6 +75,36 @@ public abstract class Level {
             }
         }
         return true;
+    }
+
+    public static Points< int[][]> getWhiteLevelBackgroundImage(
+            DataBase _data, Coords _coords) {
+        int sideLen_ = _data.getMap().getSideLength();
+        Level lev_ = _data.getMap().getLevelByCoords(_coords);
+        Points< int[][]> tiles_ = new PointsArr();
+        for (Point p : lev_.getBlocks().getKeys()) {
+            Block bl_ = lev_.getBlocks().getVal(p);
+            short w_ = bl_.getWidth();
+            short h_ = bl_.getHeight();
+            for (short x = IndexConstants.FIRST_INDEX; x < w_; x++) {
+                for (short y = IndexConstants.FIRST_INDEX; y < h_; y++) {
+                    int[][] img_ = whiteCell(sideLen_);
+                    tiles_.put(
+                            new Point((short) (x + p.getx()), (short) (y + p
+                                    .gety())), img_);
+                }
+            }
+        }
+        return tiles_;
+    }
+    private static int[][] whiteCell(int _side) {
+        int[][] img_ = new int[_side][_side];
+        for (int i = 0; i < _side; i++) {
+            for (int j = 0; j < _side; j++) {
+                img_[i][j] = ConverterBufferedImage.WHITE_RGB_INT;
+            }
+        }
+        return img_;
     }
 
     public static Points< int[][]> getLevelBackgroundImage(

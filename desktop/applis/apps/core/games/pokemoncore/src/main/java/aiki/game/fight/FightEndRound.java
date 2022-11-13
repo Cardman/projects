@@ -263,8 +263,7 @@ final class FightEndRound {
 
     private static boolean exitEndRoundCombo(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
         StringList key_ = StringUtil.splitStrings(_elt.getElement(), DataBase.SEPARATOR_MOVES);
-        EffectCombo effet_ = _import.getCombos().getEffects().getVal(key_);
-        EffectEndRoundFoe effetFinTour_ = effet_.getEffectEndRound().first();
+        EffectEndRoundFoe effetFinTour_ = (EffectEndRoundFoe) _elt.getEff();
         if (_fight.getUserTeam().getEnabledMovesByGroup().getVal(key_).isEnabled()) {
             for (TeamPosition c : FightOrder.frontFighters(_fight)) {
                 if (NumberUtil.eq(c.getTeam(), Fight.CST_PLAYER)) {
@@ -417,10 +416,7 @@ final class FightEndRound {
     }
 
     private static boolean exitEndRoundMoveTargetRelations(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
-        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
-            if (!(e instanceof EffectEndRoundPositionTargetRelation)) {
-                continue;
-            }
+        if (_elt.getEff() instanceof EffectEndRoundPositionTargetRelation) {
             for(TeamPosition c:FightOrder.sortedFightersAmongListEndRound(_fight,false, _import)){
                 effectEndRoundPositionTargetRelation(_fight,c, _elt.getElement(), _diff, _import);
                 if (exitEndRound(_diff, _fight)) {
@@ -513,14 +509,9 @@ final class FightEndRound {
     }
 
     private static boolean exitEndRoundMoveGlobal(Fight _fight, Difficulty _diff, DataBase _import, EndRoundMainElements _elt) {
-        for (Effect e: _import.getMove(_elt.getElement()).getEffects()) {
-            if (!(e instanceof EffectEndRoundGlobal)) {
-                continue;
-            }
+        if (_elt.getEff() instanceof EffectEndRoundGlobal) {
             effectEndRoundGlobal(_fight, _elt.getElement(), _diff, _import);
-            if (exitEndRound(_diff, _fight)) {
-                return true;
-            }
+            return exitEndRound(_diff, _fight);
         }
         return false;
     }

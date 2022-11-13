@@ -491,6 +491,24 @@ public class DataBase {
                 _default);
     }
 
+    public Points< int[][]> getWhiteLevelImage(short _pl, byte _level) {
+        Coords coords_ = new Coords();
+        coords_.setNumberPlace(_pl);
+        coords_.setLevel(new LevelPoint());
+        coords_.getLevel().setLevelIndex(_level);
+        return getWhiteLevelImage(coords_);
+    }
+
+    public Points< int[][]> getWhiteLevelImage(short _pl, byte _level,
+                                          Point _inside) {
+        Coords coords_ = new Coords();
+        coords_.setNumberPlace(_pl);
+        coords_.setLevel(new LevelPoint());
+        coords_.getLevel().setLevelIndex(_level);
+        coords_.setInsideBuilding(_inside);
+        return getWhiteLevelImage(coords_);
+    }
+
     public Points< int[][]> getLevelImage(short _pl, byte _level) {
         Coords coords_ = new Coords();
         coords_.setNumberPlace(_pl);
@@ -507,6 +525,17 @@ public class DataBase {
         coords_.getLevel().setLevelIndex(_level);
         coords_.setInsideBuilding(_inside);
         return getLevelImage(coords_);
+    }
+
+    public Points< int[][]> getWhiteLevelImage(Coords _coords) {
+        Points< int[][]> tiles_ = Level.getWhiteLevelBackgroundImage(this,
+                _coords);
+        Points< int[][]> frontTiles_ = Level.getLevelForegroundImage(
+                this, _coords);
+        for (Point p : frontTiles_.getKeys()) {
+            tiles_.put(p, stackImages(tiles_, frontTiles_, p));
+        }
+        return tiles_;
     }
 
     public Points< int[][]> getLevelImage(Coords _coords) {
