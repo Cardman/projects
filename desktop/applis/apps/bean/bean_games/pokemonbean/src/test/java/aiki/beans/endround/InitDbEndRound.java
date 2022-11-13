@@ -278,12 +278,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetTrTargetRelationMove(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanLawForEnablingEffectGet(),_str,_args);
+    public static Struct callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanLawForEnablingEffectGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(),_str,_args);
+    public static Struct callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundStatusBeanEndRoundStatusHtmlGet(Struct _str, long... _args) {
