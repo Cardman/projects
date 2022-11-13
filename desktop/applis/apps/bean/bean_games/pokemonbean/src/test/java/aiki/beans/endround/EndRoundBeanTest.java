@@ -2,6 +2,7 @@ package aiki.beans.endround;
 
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.status.AikiBeansStatusStd;
+import aiki.game.fight.Fight;
 import code.maths.*;
 import org.junit.Test;
 
@@ -257,6 +258,26 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     @Test
     public void getEndRoundRank() {
         assertEq(1,callEffectEndRoundBeanEndRoundRankGet(0));
+    }
+    @Test
+    public void getReasonsEndRound1() {
+        assertSizeEq(1,callEffectEndRoundBeanReasonsEndRoundGet(9));
+    }
+    @Test
+    public void getReasonsEndRound2() {
+        assertEq(Fight.TEMPS_TOUR,elt(callEffectEndRoundBeanReasonsEndRoundGet(9),0));
+    }
+    @Test
+    public void getMapVarsFailEndRound1() {
+        assertSizeEq(1,callEffectEndRoundBeanMapVarsFailEndRoundGet(9));
+    }
+    @Test
+    public void getMapVarsFailEndRound2() {
+        assertEq(Fight.TEMPS_TOUR,first(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
+    }
+    @Test
+    public void getMapVarsFailEndRound3() {
+        assertEq(TIME,second(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
 }
 /**

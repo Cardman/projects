@@ -136,8 +136,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanItemGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundBeanMapVarsFailEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMapVarsFailEndRoundGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanMapVarsFailEndRoundGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMapVarsFailEndRoundGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundBeanMoveGet(Struct _str, long... _args) {
@@ -148,8 +148,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMovesGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundBeanReasonsEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanReasonsEndRoundGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanReasonsEndRoundGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanReasonsEndRoundGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundBeanStatusGet(Struct _str, long... _args) {

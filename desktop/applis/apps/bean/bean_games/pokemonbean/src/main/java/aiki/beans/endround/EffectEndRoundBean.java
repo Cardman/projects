@@ -59,9 +59,7 @@ public class EffectEndRoundBean extends CommonBean {
         }
         effect = effect_;
         endRoundRank = element.getNumberIncrement();
-        StringList reasons_;
-        reasons_ = new StringList();
-        reasonsEndRound = reasons_;
+        reasonsEndRound = CommonBean.getFormattedReasons(data_, getFailEndRoundReasons(), getLanguage());
         NatStringTreeMap<String> mapVars_ = data_.getDescriptions(effect_.getFailEndRound(),getLanguage());
         NatStringTreeMap<String> mapVarsFail_ = new NatStringTreeMap<String>();
         StringList desc_ = new StringList(mapVars_.getKeys());
@@ -72,6 +70,9 @@ public class EffectEndRoundBean extends CommonBean {
         mapVarsFailEndRound = mapVarsFail_;
     }
 
+    private StringList getFailEndRoundReasons() {
+        return getReasons(getEffect().getFailEndRound());
+    }
     protected EffectEndRound getEffect() {
         return effect;
     }
