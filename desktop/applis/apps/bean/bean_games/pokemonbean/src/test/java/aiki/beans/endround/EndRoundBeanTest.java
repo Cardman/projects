@@ -280,6 +280,18 @@ public final class EndRoundBeanTest extends InitDbEndRound {
         assertEq(TIME,second(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
     @Test
+    public void getMove() {
+        assertEq(M_END_7_TR,callEffectEndRoundBeanMoveGet(9));
+    }
+    @Test
+    public void clickMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMove(9));
+    }
+    @Test
+    public void clickMove2() {
+        assertEq(M_END_7,callEffectEndRoundBeanClickMoveId(9));
+    }
+    @Test
     public void getMoves1() {
         assertSizeEq(2,callEffectEndRoundBeanMovesGet(29));
     }
