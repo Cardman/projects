@@ -8,17 +8,17 @@ import code.util.CustList;
 
 public class EndRoundBean extends CommonBean {
 
-    private static final String PAGE_EFF = "web/html/endround/eff.html";
-    private static final String PAGE_GLOBAL = "web/html/endround/global.html";
-    private static final String PAGE_INDIVIDUAL = "web/html/endround/individual.html";
-    private static final String PAGE_STATUSRELATION = "web/html/endround/statusrelation.html";
-    private static final String PAGE_STATUS = "web/html/endround/status.html";
-    private static final String PAGE_SINGLERELATION = "web/html/endround/singlerelation.html";
-    private static final String PAGE_FOE = "web/html/endround/foe.html";
-    private static final String PAGE_TEAM = "web/html/endround/team.html";
-    private static final String PAGE_MULTIRELATION = "web/html/endround/multirelation.html";
-    private static final String PAGE_POSITIONRELATION = "web/html/endround/positionrelation.html";
-    private static final String PAGE_POSITIONTARGET = "web/html/endround/positiontarget.html";
+//    private static final String PAGE_EFF = "web/html/endround/eff.html";
+//    private static final String PAGE_GLOBAL = "web/html/endround/global.html";
+//    private static final String PAGE_INDIVIDUAL = "web/html/endround/individual.html";
+//    private static final String PAGE_STATUSRELATION = "web/html/endround/statusrelation.html";
+//    private static final String PAGE_STATUS = "web/html/endround/status.html";
+//    private static final String PAGE_SINGLERELATION = "web/html/endround/singlerelation.html";
+//    private static final String PAGE_FOE = "web/html/endround/foe.html";
+//    private static final String PAGE_TEAM = "web/html/endround/team.html";
+//    private static final String PAGE_MULTIRELATION = "web/html/endround/multirelation.html";
+//    private static final String PAGE_POSITIONRELATION = "web/html/endround/positionrelation.html";
+//    private static final String PAGE_POSITIONTARGET = "web/html/endround/positiontarget.html";
     private CustList<EndRoundMainElements> evts;
 
     @Override
@@ -35,36 +35,36 @@ public class EndRoundBean extends CommonBean {
 
     private String endRound(EffectEndRound _effect) {
         if (_effect instanceof EffectEndRoundGlobal) {
-            return PAGE_GLOBAL;
+            return AikiBeansEndroundStd.PAGE_GLOBAL;
         }
         if (_effect instanceof EffectEndRoundIndividual) {
-            return PAGE_INDIVIDUAL;
+            return AikiBeansEndroundStd.PAGE_INDIVIDUAL;
         }
         if (_effect instanceof EffectEndRoundStatusRelation) {
-            return PAGE_STATUSRELATION;
+            return AikiBeansEndroundStd.PAGE_STATUSRELATION;
         }
         if (_effect instanceof EffectEndRoundStatus) {
-            return PAGE_STATUS;
+            return AikiBeansEndroundStd.PAGE_STATUS;
         }
         if (_effect instanceof EffectEndRoundSingleRelation) {
-            return PAGE_SINGLERELATION;
+            return AikiBeansEndroundStd.PAGE_SINGLERELATION;
         }
         if (_effect instanceof EffectEndRoundFoe) {
-            return PAGE_FOE;
+            return AikiBeansEndroundStd.PAGE_FOE;
         }
         if (_effect instanceof EffectEndRoundTeam) {
-            return PAGE_TEAM;
+            return AikiBeansEndroundStd.PAGE_TEAM;
         }
         if (_effect instanceof EffectEndRoundMultiRelation) {
-            return PAGE_MULTIRELATION;
+            return AikiBeansEndroundStd.PAGE_MULTIRELATION;
         }
         if (_effect instanceof EffectEndRoundPositionRelation) {
-            return PAGE_POSITIONRELATION;
+            return AikiBeansEndroundStd.PAGE_POSITIONRELATION;
         }
         if (_effect instanceof EffectEndRoundPositionTargetRelation) {
-            return PAGE_POSITIONTARGET;
+            return AikiBeansEndroundStd.PAGE_POSITIONTARGET;
         }
-        return PAGE_EFF;
+        return AikiBeansEndroundStd.PAGE_EFF;
     }
 
     public CustList<EndRoundMainElements> getEvts() {

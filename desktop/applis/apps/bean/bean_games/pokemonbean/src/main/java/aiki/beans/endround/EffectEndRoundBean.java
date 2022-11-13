@@ -12,7 +12,7 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public class EffectEndRoundBean extends CommonBean {
-    static final String END_ROUND_HTML="web/html/endround/eff.html";
+//    static final String END_ROUND_HTML="web/html/endround/eff.html";
 
     private EffectEndRound effect;
     private int index;

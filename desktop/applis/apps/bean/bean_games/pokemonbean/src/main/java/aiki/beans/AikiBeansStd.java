@@ -1,5 +1,6 @@
 package aiki.beans;
 
+import aiki.beans.endround.AikiBeansEndroundStd;
 import aiki.beans.map.elements.*;
 import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -35,7 +36,7 @@ public final class AikiBeansStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_COMMON_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
         methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_INDEX_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/endround/endround.html")));
+        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(AikiBeansEndroundStd.PAGE_END_ROUND)));
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(PokemonStandards _std){
