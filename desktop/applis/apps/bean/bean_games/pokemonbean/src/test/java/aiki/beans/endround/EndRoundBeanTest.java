@@ -1,5 +1,7 @@
 package aiki.beans.endround;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.game.fight.Fight;
@@ -280,6 +282,30 @@ public final class EndRoundBeanTest extends InitDbEndRound {
         assertEq(TIME,second(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
     @Test
+    public void getAbility() {
+    assertEq(A_END_14_TR,callEffectEndRoundBeanAbilityGet(16));
+    }
+    @Test
+    public void clickAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callEffectEndRoundBeanClickAbility(16));
+    }
+    @Test
+    public void clickAbility2() {
+        assertEq(A_END_14,callEffectEndRoundBeanClickAbilityId(16));
+    }
+    @Test
+    public void getItem() {
+        assertEq(I_END_9_TR,callEffectEndRoundBeanItemGet(11));
+    }
+    @Test
+    public void clickItem1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,callEffectEndRoundBeanClickItem(11));
+    }
+    @Test
+    public void clickItem2() {
+        assertEq(I_END_9,callEffectEndRoundBeanClickItemId(11));
+    }
+    @Test
     public void getMove() {
         assertEq(M_END_7_TR,callEffectEndRoundBeanMoveGet(9));
     }
@@ -327,7 +353,18 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     public void clickMoves4() {
         assertEq(M_END_28,callEffectEndRoundBeanClickMovesId(29,1));
     }
-
+    @Test
+    public void getStatus() {
+        assertEq(S_END_17_TR,callEffectEndRoundBeanStatusGet(19));
+    }
+    @Test
+    public void clickStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundBeanClickStatus(19));
+    }
+    @Test
+    public void clickStatus2() {
+        assertEq(S_END_17,callEffectEndRoundBeanClickStatusId(19));
+    }
 }
 /**
 1
