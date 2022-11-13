@@ -10,6 +10,14 @@ public final class EndRoundBeanTest extends InitDbEndRound {
         assertSizeEq(32,dispEndRoundEvts());
     }
     @Test
+    public void global1() {
+        assertEq(Rate.one(),EffectEndRoundGlobalBean.global(feedDb().getData().getMove(M_END_3)).getDamageEndRound());
+    }
+    @Test
+    public void global2() {
+        assertEq(Rate.zero(),EffectEndRoundGlobalBean.global(feedDb().getData().getMove(M_END_5)).getDamageEndRound());
+    }
+    @Test
     public void getDamageByStatus1() {
         assertSizeEq(1,callEffectEndRoundMultiRelationBeanDamageByStatusGet(11));
     }
