@@ -1,6 +1,7 @@
 package aiki.game.fight;
 
 import aiki.db.DataBase;
+import aiki.fight.EndRoundMainElements;
 import aiki.game.fight.animations.*;
 import aiki.instances.Instances;
 import code.util.core.BoolVal;
@@ -8829,7 +8830,9 @@ public class FightEndRoundTest extends InitializationDataBase {
     }
 
     private static void effectEndRoundStatusHp(Fight _fight, TeamPosition _f, Status _status, String _st, Difficulty _diff, DataBase _data) {
-        FightEndRound.effectEndRoundStatusHp(_fight, _f, _status, _st, _diff, _data);
+        EndRoundMainElements end_ = new EndRoundMainElements(DataBase.endRound(_status));
+        end_.setElement(_st);
+        FightEndRound.effectEndRoundStatusHp(_fight, _f, _diff, _data,end_);
     }
 
     private void effectEndRoundStatusRelationHp(Fight _fight, TeamPosition _thrower, TeamPosition _target, String _st, Difficulty _diff, DataBase _data) {
@@ -8841,7 +8844,9 @@ public class FightEndRoundTest extends InitializationDataBase {
     }
 
     private void effectEndRoundStatusRelation(Fight _fight, TeamPosition _thrower, TeamPosition _target, String _st, DataBase _data, Status _stData) {
-        FightEndRound.effectEndRoundStatusRelation(_fight, _thrower, _target, _st, _data, _stData);
+        EndRoundMainElements end_ = new EndRoundMainElements(DataBase.endRound(_stData));
+        end_.setElement(_st);
+        FightEndRound.effectEndRoundStatusRelation(_fight, _thrower, _target, _data, _stData,end_);
     }
 
 }
