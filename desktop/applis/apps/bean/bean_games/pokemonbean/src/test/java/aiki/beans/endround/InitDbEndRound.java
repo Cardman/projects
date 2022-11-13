@@ -92,30 +92,75 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static final String M_END_28_TR="M_END_28_TR";
     public static final String M_END_29_TR="M_END_29_TR";
     public static final String M_END_30_TR="M_END_30_TR";
-    public static Struct callEffectEndRoundBeanAbilityGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanAbilityGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanAbilityGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanAbilityGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanClickAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanClickAbility(),_str,_args);
+    public static String callEffectEndRoundBeanClickAbility(int _ev) {
+        return callEffectEndRoundBeanClickAbility(dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanClickItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanClickItem(),_str,_args);
+    public static String callEffectEndRoundBeanClickAbility(Struct _str) {
+        return navigateData(new EffectEndRoundBeanClickAbility(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
-    public static Struct callEffectEndRoundBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanClickMove(),_str,_args);
+    public static String callEffectEndRoundBeanClickAbilityId(int _ev) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundBeanClickAbility(bean_);
+        return getValAbilityId(bean_);
     }
 
-    public static Struct callEffectEndRoundBeanClickMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanClickMoves(),_str,_args);
+    public static String callEffectEndRoundBeanClickItem(int _ev) {
+        return callEffectEndRoundBeanClickItem(dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanClickStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanClickStatus(),_str,_args);
+    public static String callEffectEndRoundBeanClickItem(Struct _str) {
+        return navigateData(new EffectEndRoundBeanClickItem(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
+    public static String callEffectEndRoundBeanClickItemId(int _ev) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundBeanClickItem(bean_);
+        return getValItemId(bean_);
+    }
+    public static String callEffectEndRoundBeanClickMove(int _ev) {
+        return callEffectEndRoundBeanClickMove(dispEndRound(_ev));
+    }
+
+    public static String callEffectEndRoundBeanClickMove(Struct _str) {
+        return navigateData(new EffectEndRoundBeanClickMove(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+    }
+    public static String callEffectEndRoundBeanClickMoveId(int _ev) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundBeanClickMove(bean_);
+        return getValMoveId(bean_);
+    }
+    public static String callEffectEndRoundBeanClickMoves(int _ev, int _ind) {
+        return callEffectEndRoundBeanClickMoves(dispEndRound(_ev),_ind);
+    }
+
+    public static String callEffectEndRoundBeanClickMoves(Struct _str, int _ind) {
+        return navigateData(new EffectEndRoundBeanClickMoves(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
+    }
+    public static String callEffectEndRoundBeanClickMovesId(int _ev, int _ind) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundBeanClickMoves(bean_,_ind);
+        return getValMoveId(bean_);
+    }
+
+    public static String callEffectEndRoundBeanClickStatus(int _ev) {
+        return callEffectEndRoundBeanClickStatus(dispEndRound(_ev));
+    }
+
+    public static String callEffectEndRoundBeanClickStatus(Struct _str) {
+        return navigateData(new EffectEndRoundBeanClickStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
+    }
+
+    public static String callEffectEndRoundBeanClickStatusId(int _ev) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundBeanClickStatus(bean_);
+        return getValStatusId(bean_);
+    }
 //    public static Struct callEffectEndRoundBeanEndRoundHtmlGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanEndRoundHtmlGet(),_str,_args);
 //    }
@@ -124,36 +169,36 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanEndRoundRankGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanGetTrMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanGetTrMoves(),_str,_args);
+    public static Struct callEffectEndRoundBeanGetTrMoves(int _ev, int _ind) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanGetTrMoves(),dispEndRound(_ev),_ind);
     }
 
     public static Struct callEffectEndRoundBeanIndexGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanIndexGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundBeanItemGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanItemGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanItemGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanItemGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundBeanMapVarsFailEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMapVarsFailEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanMoveGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMoveGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanMoveGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMoveGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMovesGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanMovesGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMovesGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundBeanReasonsEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanReasonsEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanStatusGet(),_str,_args);
+    public static Struct callEffectEndRoundBeanStatusGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanStatusGet(),dispEndRound(_ev));
     }
 
     public static Struct callEndRoundBeanGetEvts(Struct _str, long... _args) {
