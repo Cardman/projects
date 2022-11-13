@@ -200,7 +200,7 @@ public final class AikiBeansEndroundStd{
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
         SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_STATUS_BEAN, fields_, methods_, AikiBeansEndroundStd.TYPE_EFFECT_END_ROUND_BEAN);
         fields_.add(new StandardField(INFLICTED_RATE_HP_TARGET,BeanNatCommonLgNames.TYPE_RATE,false,false,new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),null));
-        fields_.add(new StandardField(END_ROUND_STATUS_HTML,BeanNatCommonLgNames.STRING,false,false,new EffectEndRoundStatusBeanEndRoundStatusHtmlGet(),null));
+        fields_.add(new StandardField(END_ROUND_STATUS_HTML,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(EffectEndRoundStatusBean.END_ROUND_STATUS_HTML),null));
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_STATUS_BEAN, type_);
     }
     private static void buildEffectEndRoundStatusRelationBean(PokemonStandards _std){

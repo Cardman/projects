@@ -313,13 +313,13 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static Struct callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(),dispEndRound(_ev));
     }
+//
+//    public static Struct callEffectEndRoundStatusBeanEndRoundStatusHtmlGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanEndRoundStatusHtmlGet(),_str,_args);
+//    }
 
-    public static Struct callEffectEndRoundStatusBeanEndRoundStatusHtmlGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanEndRoundStatusHtmlGet(),_str,_args);
-    }
-
-    public static Struct callEffectEndRoundStatusBeanInflictedRateHpTargetGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),_str,_args);
+    public static Struct callEffectEndRoundStatusBeanInflictedRateHpTargetGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(int _ev) {

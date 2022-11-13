@@ -238,6 +238,10 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     public void getThievedHpRateTargetToUser() {
         assertEq(Rate.one(),callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(21));
     }
+    @Test
+    public void getInflictedRateHpTargetSec() {
+        assertEq(Rate.one(),callEffectEndRoundStatusBeanInflictedRateHpTargetGet(24));
+    }
 }
 /**
 1
