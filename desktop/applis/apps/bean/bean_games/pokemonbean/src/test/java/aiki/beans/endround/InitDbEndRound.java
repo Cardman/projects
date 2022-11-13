@@ -167,8 +167,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callInt(new EffectEndRoundBeanIndexSet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundFoeBeanInflictedRateHpTargetGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundFoeBeanInflictedRateHpTargetGet(),_str,_args);
+    public static Struct callEffectEndRoundFoeBeanInflictedRateHpTargetGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundFoeBeanInflictedRateHpTargetGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundGlobalBeanDamageEndRoundGet(int _ev) {
@@ -322,8 +322,8 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(),_str,_args);
+    public static Struct callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(),dispEndRound(_ev));
     }
 
     public static Struct callEffectEndRoundTeamBeanDeleteAllStatusAllyGet(Struct _str, long... _args) {

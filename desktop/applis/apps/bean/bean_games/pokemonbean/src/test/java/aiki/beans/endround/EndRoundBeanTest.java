@@ -230,6 +230,14 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     public void clickMultDamageStatus2() {
         assertEq(S_STA_DAM,callEffectEndRoundIndividualBeanClickDamageStatusId(9,0));
     }
+    @Test
+    public void getInflictedRateHpTarget() {
+        assertEq(Rate.one(),callEffectEndRoundFoeBeanInflictedRateHpTargetGet(29));
+    }
+    @Test
+    public void getThievedHpRateTargetToUser() {
+        assertEq(Rate.one(),callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(21));
+    }
 }
 /**
 1
