@@ -266,16 +266,25 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionRelationBeanHealHpGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundPositionTargetBeanClickTargetRelationMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanClickTargetRelationMove(),_str,_args);
+    public static String callEffectEndRoundPositionTargetBeanClickTargetRelationMove(int _ev, int _ind) {
+        return callEffectEndRoundPositionTargetBeanClickTargetRelationMove(dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundPositionTargetBeanGetMovesSameCategory(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetMovesSameCategory(),_str,_args);
+    public static String callEffectEndRoundPositionTargetBeanClickTargetRelationMove(Struct _str, int _ind) {
+        return navigateData(new EffectEndRoundPositionTargetBeanClickTargetRelationMove(),_str,_ind);
     }
 
-    public static Struct callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetTrTargetRelationMove(),_str,_args);
+    public static String callEffectEndRoundPositionTargetBeanClickTargetRelationMoveId(int _ev, int _ind) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundPositionTargetBeanClickTargetRelationMove(bean_,_ind);
+        return getValMoveId(bean_);
+    }
+    public static Struct callEffectEndRoundPositionTargetBeanGetMovesSameCategory(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetMovesSameCategory(),dispEndRound(_ev));
+    }
+
+    public static Struct callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(int _ev, int _ind) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetTrTargetRelationMove(),dispEndRound(_ev),_ind);
     }
 
     public static Struct callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(int _ev) {
@@ -454,6 +463,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
 
     private static MoveData moveEndPositionTargetRelation(int _rk) {
         MoveData m_ = Instances.newDamagingMoveData();
+        m_.getEffects().add(Instances.newEffectDamage());
         EffectEndRoundPositionTargetRelation end_ = Instances.newEffectEndRoundPositionTargetRelation();
         end_.setEndRoundRank(_rk);
         m_.getEffects().add(end_);
@@ -468,9 +478,6 @@ public abstract class InitDbEndRound extends InitDbConstr {
 
     private static MoveData endRoundGlobal(boolean _puttingKo, int _rk) {
         MoveData m_ = Instances.newDamagingMoveData();
-        EffectEndRoundGlobal c_ = Instances.newEffectEndRoundGlobal();
-        c_.setEndRoundRank(_rk);
-        m_.getEffects().add(c_);
         EffectGlobal gl_ = Instances.newEffectGlobal();
         gl_.setDamageEndRound(Rate.one());
         gl_.setHealingEndRoundGround(Rate.one());
@@ -478,6 +485,9 @@ public abstract class InitDbEndRound extends InitDbConstr {
         gl_.setPuttingKo(_puttingKo);
         gl_.getImmuneTypes().add(T_TYPE_ROUND_1);
         m_.getEffects().add(gl_);
+        EffectEndRoundGlobal c_ = Instances.newEffectEndRoundGlobal();
+        c_.setEndRoundRank(_rk);
+        m_.getEffects().add(c_);
         return m_;
     }
     private static ItemForBattle item(EffectEndRound _endRound) {

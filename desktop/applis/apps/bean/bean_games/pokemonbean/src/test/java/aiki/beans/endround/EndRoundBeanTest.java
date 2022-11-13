@@ -1,5 +1,6 @@
 package aiki.beans.endround;
 
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import code.maths.*;
 import org.junit.Test;
@@ -44,6 +45,42 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     @Test
     public void getImmuneTypes2() {
         assertEq(T_TYPE_ROUND_1_TR,elt(callEffectEndRoundGlobalBeanImmuneTypesGet(5),0));
+    }
+    @Test
+    public void getMovesSameCategory1() {
+        assertSizeEq(2,callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7));
+    }
+    @Test
+    public void getMovesSameCategory2() {
+        assertEq(M_END_5,elt(callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7),0));
+    }
+    @Test
+    public void getMovesSameCategory3() {
+        assertEq(M_END_6,elt(callEffectEndRoundPositionTargetBeanGetMovesSameCategory(7),1));
+    }
+    @Test
+    public void getTrTargetRelationMove1() {
+        assertEq(M_END_5_TR,callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(7,0));
+    }
+    @Test
+    public void getTrTargetRelationMove2() {
+        assertEq(M_END_6_TR,callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(7,1));
+    }
+    @Test
+    public void clickTargetRelationMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundPositionTargetBeanClickTargetRelationMove(7,0));
+    }
+    @Test
+    public void clickTargetRelationMove2() {
+        assertEq(M_END_5,callEffectEndRoundPositionTargetBeanClickTargetRelationMoveId(7,0));
+    }
+    @Test
+    public void clickTargetRelationMove3() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundPositionTargetBeanClickTargetRelationMove(7,1));
+    }
+    @Test
+    public void clickTargetRelationMove4() {
+        assertEq(M_END_6,callEffectEndRoundPositionTargetBeanClickTargetRelationMoveId(7,1));
     }
     @Test
     public void getDamageByStatus1() {
