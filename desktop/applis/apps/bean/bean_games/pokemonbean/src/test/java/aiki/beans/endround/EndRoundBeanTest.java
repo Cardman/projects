@@ -146,6 +146,90 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     public void getLawForEnablingEffect5() {
         assertEq(Rate.newRate("4/9"),second(elt(callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(15),1)));
     }
+    @Test
+    public void getDeleteAllStatus() {
+        assertEq(Rate.one(),callEffectEndRoundIndividualBeanDeleteAllStatusGet(9));
+    }
+    @Test
+    public void getRecoilDamage() {
+        assertEq(Rate.one(),callEffectEndRoundIndividualBeanRecoilDamageGet(9));
+    }
+    @Test
+    public void getHealHp() {
+        assertEq(Rate.one(),callEffectEndRoundIndividualBeanHealHpGet(9));
+    }
+    @Test
+    public void getHealHpByOwnerTypes1() {
+        assertSizeEq(2,callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9));
+    }
+    @Test
+    public void getHealHpByOwnerTypes2() {
+        assertEq(NULL_REF,first(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),0)));
+    }
+    @Test
+    public void getHealHpByOwnerTypes3() {
+        assertEq(Rate.newRate("2"),second(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),0)));
+    }
+    @Test
+    public void getHealHpByOwnerTypes4() {
+        assertEq(T_TYPE_HEAL,first(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),1)));
+    }
+    @Test
+    public void getHealHpByOwnerTypes5() {
+        assertEq(Rate.one(),second(elt(callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(9),1)));
+    }
+    @Test
+    public void isType1() {
+        assertFalse(callEffectEndRoundIndividualBeanIsType(9,0));
+    }
+    @Test
+    public void isType2() {
+        assertTrue(callEffectEndRoundIndividualBeanIsType(9,1));
+    }
+    @Test
+    public void getTrType() {
+        assertEq(T_TYPE_HEAL_TR,callEffectEndRoundIndividualBeanGetTrType(9,1));
+    }
+    @Test
+    public void getUserStatusEndRound() {
+        assertEq(S_STA_END_ROUND,callEffectEndRoundIndividualBeanUserStatusEndRoundGet(9));
+    }
+    @Test
+    public void getTrUserStatus() {
+        assertEq(S_STA_END_ROUND_TR,callEffectEndRoundIndividualBeanGetTrUserStatus(9));
+    }
+    @Test
+    public void clickUserStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundIndividualBeanClickUserStatus(9));
+    }
+    @Test
+    public void clickUserStatus2() {
+        assertEq(S_STA_END_ROUND,callEffectEndRoundIndividualBeanClickUserStatusId(9));
+    }
+    @Test
+    public void getMultDamageByStatus1() {
+        assertSizeEq(1,callEffectEndRoundIndividualBeanMultDamageStatusGet(9));
+    }
+    @Test
+    public void getMultDamageByStatus2() {
+        assertEq(S_STA_DAM,first(elt(callEffectEndRoundIndividualBeanMultDamageStatusGet(9),0)));
+    }
+    @Test
+    public void getMultDamageByStatus3() {
+        assertEq(Rate.one(),second(elt(callEffectEndRoundIndividualBeanMultDamageStatusGet(9),0)));
+    }
+    @Test
+    public void getTrMultDamageStatus() {
+        assertEq(S_STA_DAM_TR,callEffectEndRoundIndividualBeanGetTrDamageStatus(9,0));
+    }
+    @Test
+    public void clickMultDamageStatus1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,callEffectEndRoundIndividualBeanClickDamageStatus(9,0));
+    }
+    @Test
+    public void clickMultDamageStatus2() {
+        assertEq(S_STA_DAM,callEffectEndRoundIndividualBeanClickDamageStatusId(9,0));
+    }
 }
 /**
 1

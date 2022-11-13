@@ -191,52 +191,71 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanPuttingKoGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanClickDamageStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanClickDamageStatus(),_str,_args);
+    public static String callEffectEndRoundIndividualBeanClickDamageStatus(int _ev, int _ind) {
+        return callEffectEndRoundIndividualBeanClickDamageStatus(dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanClickUserStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanClickUserStatus(),_str,_args);
+    public static String callEffectEndRoundIndividualBeanClickDamageStatus(Struct _str, int _ind) {
+        return navigateData(new EffectEndRoundIndividualBeanClickDamageStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanDeleteAllStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanDeleteAllStatusGet(),_str,_args);
+    public static String callEffectEndRoundIndividualBeanClickDamageStatusId(int _ev, int _ind) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundIndividualBeanClickDamageStatus(bean_,_ind);
+        return getValStatusId(bean_);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanGetTrDamageStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrDamageStatus(),_str,_args);
+    public static String callEffectEndRoundIndividualBeanClickUserStatus(int _ev) {
+        return callEffectEndRoundIndividualBeanClickUserStatus(dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanGetTrType(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrType(),_str,_args);
+    public static String callEffectEndRoundIndividualBeanClickUserStatus(Struct _str) {
+        return navigateData(new EffectEndRoundIndividualBeanClickUserStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanGetTrUserStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrUserStatus(),_str,_args);
+    public static String callEffectEndRoundIndividualBeanClickUserStatusId(int _ev) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundIndividualBeanClickUserStatus(bean_);
+        return getValStatusId(bean_);
+    }
+    public static Struct callEffectEndRoundIndividualBeanDeleteAllStatusGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanDeleteAllStatusGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanHealHpByOwnerTypesGet(),_str,_args);
+    public static Struct callEffectEndRoundIndividualBeanGetTrDamageStatus(int _ev, int _ind) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrDamageStatus(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanHealHpGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanHealHpGet(),_str,_args);
+    public static Struct callEffectEndRoundIndividualBeanGetTrType(int _ev, int _ind) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrType(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanIsType(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanIsType(),_str,_args);
+    public static Struct callEffectEndRoundIndividualBeanGetTrUserStatus(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrUserStatus(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanMultDamageStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanMultDamageStatusGet(),_str,_args);
+    public static Struct callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanHealHpByOwnerTypesGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanRecoilDamageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanRecoilDamageGet(),_str,_args);
+    public static Struct callEffectEndRoundIndividualBeanHealHpGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanHealHpGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanUserStatusEndRoundGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanUserStatusEndRoundGet(),_str,_args);
+    public static Struct callEffectEndRoundIndividualBeanIsType(int _ev,int _ind) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanIsType(),dispEndRound(_ev),_ind);
+    }
+
+    public static Struct callEffectEndRoundIndividualBeanMultDamageStatusGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanMultDamageStatusGet(),dispEndRound(_ev));
+    }
+
+    public static Struct callEffectEndRoundIndividualBeanRecoilDamageGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanRecoilDamageGet(),dispEndRound(_ev));
+    }
+
+    public static Struct callEffectEndRoundIndividualBeanUserStatusEndRoundGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanUserStatusEndRoundGet(),dispEndRound(_ev));
     }
 
     public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(int _ev, int _ind) {
@@ -542,6 +561,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         e_.setHealHp(Rate.one());
         e_.setUserStatusEndRound(S_STA_END_ROUND);
         e_.getHealHpByOwnerTypes().addEntry(T_TYPE_HEAL,Rate.one());
+        e_.getHealHpByOwnerTypes().addEntry(NULL_REF,Rate.newRate("2"));
         e_.getMultDamageStatus().addEntry(S_STA_DAM,Rate.one());
         return e_;
     }
