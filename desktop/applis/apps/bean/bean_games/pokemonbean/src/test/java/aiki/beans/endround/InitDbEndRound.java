@@ -239,16 +239,27 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanUserStatusEndRoundGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundMultiRelationBeanClickDamageStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanClickDamageStatus(),_str,_args);
+    public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(int _ev, int _ind) {
+        Struct bean_ = dispEndRound(_ev);
+        return callEffectEndRoundMultiRelationBeanClickDamageStatus(bean_,_ind);
     }
 
-    public static Struct callEffectEndRoundMultiRelationBeanDamageByStatusGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanDamageByStatusGet(),_str,_args);
+    public static String callEffectEndRoundMultiRelationBeanClickDamageStatusId(int _ev, int _ind) {
+        Struct bean_ = dispEndRound(_ev);
+        callEffectEndRoundMultiRelationBeanClickDamageStatus(bean_,_ind);
+        return getValStatusId(bean_);
     }
 
-    public static Struct callEffectEndRoundMultiRelationBeanGetTrDamageStatus(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanGetTrDamageStatus(),_str,_args);
+    public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(Struct _str, int _ind) {
+        return navigateData(new EffectEndRoundMultiRelationBeanClickDamageStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
+    }
+
+    public static Struct callEffectEndRoundMultiRelationBeanDamageByStatusGet(int _ev) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanDamageByStatusGet(),dispEndRound(_ev));
+    }
+
+    public static Struct callEffectEndRoundMultiRelationBeanGetTrDamageStatus(int _ev, int _ind) {
+        return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanGetTrDamageStatus(),dispEndRound(_ev),_ind);
     }
 
     public static Struct callEffectEndRoundPositionRelationBeanHealHpGet(Struct _str, long... _args) {
