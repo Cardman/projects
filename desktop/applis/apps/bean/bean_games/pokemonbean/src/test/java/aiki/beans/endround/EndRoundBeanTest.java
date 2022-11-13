@@ -242,6 +242,22 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     public void getInflictedRateHpTargetSec() {
         assertEq(Rate.one(),callEffectEndRoundStatusBeanInflictedRateHpTargetGet(24));
     }
+    @Test
+    public void getDeleteAllStatusSec() {
+        assertEq(Rate.one(),callEffectEndRoundTeamBeanDeleteAllStatusGet(17));
+    }
+    @Test
+    public void getDeleteAllStatusAlly() {
+        assertEq(Rate.one(),callEffectEndRoundTeamBeanDeleteAllStatusAllyGet(17));
+    }
+    @Test
+    public void getHealHpSec() {
+        assertEq(Rate.one(),callEffectEndRoundPositionRelationBeanHealHpGet(13));
+    }
+    @Test
+    public void getEndRoundRank() {
+        assertEq(1,callEffectEndRoundBeanEndRoundRankGet(0));
+    }
 }
 /**
 1
