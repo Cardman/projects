@@ -294,7 +294,28 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static Struct callEffectEndRoundTeamBeanDeleteAllStatusGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundTeamBeanDeleteAllStatusGet(),_str,_args);
     }
-    public static StringMap<Struct> beanToPkOne(PkData _pk) {
+    protected static Struct dispEndRoundEvts() {
+        PkData pk_ = pkDataByFacade(feedDb());
+        StringMap<Struct> all_ = beanToEndRound(pk_);
+        return callEndRoundBeanGetEvts(transitToAllPks(all_));
+    }
+    protected static Struct dispEndRound(int _index) {
+        PkData pk_ = pkDataByFacade(feedDb());
+        StringMap<Struct> all_ = beanToEndRound(pk_);
+        StringMap<String> mapping_ = mappingToEndRound();
+        Struct pkbean_ = transitToAllPks(all_);
+        Struct evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
+        callEffectEndRoundBeanIndexSet(evobean_,_index);
+        beforeDisplaying(evobean_);
+        return evobean_;
+    }
+
+    protected static Struct transitToAllPks(StringMap<Struct> _all) {
+        Struct welcome_ = _all.getVal(AikiBeansEndroundStd.BEAN_ENDROUND);
+        beforeDisplaying(welcome_);
+        return welcome_;
+    }
+    public static StringMap<Struct> beanToEndRound(PkData _pk) {
         StringMap<Struct> map_ = new StringMap<Struct>();
         map_.addEntry(AikiBeansEndroundStd.BEAN_ENDROUND,_pk.beanEndRoundBean(EN));
         map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
@@ -310,7 +331,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
         map_.addEntry(AikiBeansEndroundStd.BEAN_END_TEAM,_pk.beanEffectEndRoundTeamBean(EN));
         return map_;
     }
-    public static StringMap<String> mappingToPkOne() {
+    public static StringMap<String> mappingToEndRound() {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry(AikiBeansEndroundStd.PAGE_END_ROUND,AikiBeansEndroundStd.BEAN_ENDROUND);
         map_.addEntry(AikiBeansEndroundStd.PAGE_EFF,AikiBeansEndroundStd.BEAN_END);
