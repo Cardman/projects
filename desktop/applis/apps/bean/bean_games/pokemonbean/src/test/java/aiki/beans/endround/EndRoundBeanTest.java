@@ -279,6 +279,43 @@ public final class EndRoundBeanTest extends InitDbEndRound {
     public void getMapVarsFailEndRound3() {
         assertEq(TIME,second(elt(callEffectEndRoundBeanMapVarsFailEndRoundGet(9),0)));
     }
+    @Test
+    public void getMoves1() {
+        assertSizeEq(2,callEffectEndRoundBeanMovesGet(29));
+    }
+    @Test
+    public void getMoves2() {
+        assertEq(M_END_27_TR,elt(callEffectEndRoundBeanMovesGet(29),0));
+    }
+    @Test
+    public void getMoves3() {
+        assertEq(M_END_28_TR,elt(callEffectEndRoundBeanMovesGet(29),1));
+    }
+    @Test
+    public void getTrMoves1() {
+        assertEq(M_END_27_TR,callEffectEndRoundBeanGetTrMoves(29,0));
+    }
+    @Test
+    public void getTrMoves2() {
+        assertEq(M_END_28_TR,callEffectEndRoundBeanGetTrMoves(29,1));
+    }
+    @Test
+    public void clickMoves1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMoves(29,0));
+    }
+    @Test
+    public void clickMoves2() {
+        assertEq(M_END_27,callEffectEndRoundBeanClickMovesId(29,0));
+    }
+    @Test
+    public void clickMoves3() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectEndRoundBeanClickMoves(29,1));
+    }
+    @Test
+    public void clickMoves4() {
+        assertEq(M_END_28,callEffectEndRoundBeanClickMovesId(29,1));
+    }
+
 }
 /**
 1
