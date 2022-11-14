@@ -33,6 +33,7 @@ private static final String C_P_202_26="post";
 private static final String C_P_202_27="msg_levelsimu,no_fight";
 private static final String C_P_202_28="noFight";
 private static final String C_P_202_29="noFight";
+private static final String C_P_202_29_0="{noFight}";
 private static final String C_P_202_30="text";
 private static final String C_P_202_31="noFight";
 private static final String C_P_202_33="msg_levelsimu,ok";
@@ -203,6 +204,9 @@ attrs3_.add(at(MESSAGE,C_P_202_33));
 at(elt4_,attrs3_);
 ad(elt0_,elt4_);
 ad(_body,elt0_);
+ad(_body,el(_doc107,BR));
+ad(_body,tx(_doc107,C_P_202_29_0));
+ad(_body,el(_doc107,BR));
 }
 static void build1(Element _body,Document _doc107){
 Element elt0_=el(_doc107,BR);

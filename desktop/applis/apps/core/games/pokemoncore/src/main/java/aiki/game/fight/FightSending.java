@@ -619,6 +619,7 @@ final class FightSending {
                 if(NumberUtil.eq(_cbt.getTeam(),Fight.CST_PLAYER)&& _fight.getTemp().getSimulation()){
                     _fight.getTemp().setAcceptableChoices(false);
                     _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
+                    _fight.addIssueSendingMessage(_import);
                     return;
                 }
                 if(FightKo.endedFight(_fight,_diff)){

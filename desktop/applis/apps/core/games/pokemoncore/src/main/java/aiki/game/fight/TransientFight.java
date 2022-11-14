@@ -14,6 +14,14 @@ import code.util.comparators.NaturalComparator;
 import code.util.core.BoolVal;
 
 public final class TransientFight {
+    private static final String ISSUE_AFTER_FIGHT="issue_after_fight";
+    private static final String ISSUE_RANDOM="issue_random";
+    private static final String ISSUE_RULES_LEARN="issue_rules_learn";
+    private static final String ISSUE_RULES_MOVES="issue_rules_moves";
+    private static final String ISSUE_RULES_SWITCH="issue_rules_switch";
+    private static final String ISSUE_SENDING="issue_sending";
+    private static final String ISSUE_TOO_HARD="issue_too_hard";
+    private static final String ISSUE_USING="issue_using";
     private boolean utilisationBaieLanceur;
     private boolean tombeKo;
     /**variable sur un tour*/
@@ -159,6 +167,43 @@ public final class TransientFight {
         damage.setDamage(Rate.zero());
         damage.setDamageClone(Rate.zero());
         damage.setDamageCount(Rate.zero());
+    }
+
+    void addIssueAfterFightMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_AFTER_FIGHT);
+    }
+
+    void addIssueRandomMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_RANDOM);
+    }
+
+    void addIssueRulesLearnMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_RULES_LEARN);
+    }
+
+    void addIssueRulesMovesMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_RULES_MOVES);
+    }
+
+    void addIssueRulesSwitchMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_RULES_SWITCH);
+    }
+
+    void addIssueSendingMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_SENDING);
+    }
+
+    void addIssueTooHardMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_TOO_HARD);
+    }
+
+    void addIssueUsingMessage(DataBase _db) {
+        addIssueMessage(_db,ISSUE_USING);
+    }
+
+    void addIssueMessage(DataBase _db, String _key) {
+        StringMap<String> messages_ = _db.getMessagesFight();
+        addMessage(messages_.getVal(_key));
     }
 
     void addMessage(DataBase _db, String _key, String... _args) {

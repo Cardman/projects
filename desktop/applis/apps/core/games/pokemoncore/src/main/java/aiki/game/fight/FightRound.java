@@ -462,6 +462,7 @@ final class FightRound {
             if (_fight.getTemp().getSimulation() && !_fight.getTemp().getLettingUserAttackWithStatus()) {
                 _fight.getTemp().setAcceptableChoices(false);
                 _fight.getTemp().setIssue(IssueSimulation.CANNOT_USE);
+                _fight.addIssueUsingMessage(_import);
                 return true;
             }
             if(!_fight.getTemp().isKeepStatus()){
@@ -676,6 +677,7 @@ final class FightRound {
             if (!_fight.getTemp().getLettingUserAttackWithStatus() && _fight.getTemp().getSimulation()) {
                 _fight.getTemp().setAcceptableChoices(false);
                 _fight.getTemp().setIssue(IssueSimulation.CANNOT_USE);
+                _fight.addIssueUsingMessage(_import);
                 return true;
             }
             if(!_fight.getTemp().isKeepStatus()){

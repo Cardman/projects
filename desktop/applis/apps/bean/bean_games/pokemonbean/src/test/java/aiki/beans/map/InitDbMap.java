@@ -123,6 +123,10 @@ public abstract class InitDbMap extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanTilesGet(),_str,_args);
     }
 
+    public static Struct callMapLevelBeanWhiteTilesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanWhiteTilesGet(),_str,_args);
+    }
+
     public static Struct callMapLevelBeanWithoutTitle(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanWithoutTitle(),_str,_args);
     }

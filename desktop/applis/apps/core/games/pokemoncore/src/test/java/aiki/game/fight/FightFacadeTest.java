@@ -11098,7 +11098,7 @@ public class FightFacadeTest extends InitializationDataBase {
         player_.getTeam().add(lasPk_);
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
-        assertTrue(!FightFacade.keepLoop(fight_,true));
+        assertTrue(!FightFacade.keepLoop(fight_,true,data_));
     }
 
     @Test
@@ -11123,7 +11123,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         fight_.getTemp().getKos().put(Fight.CST_FOE, BoolVal.TRUE);
-        assertTrue(!FightFacade.keepLoop(fight_,true));
+        assertTrue(!FightFacade.keepLoop(fight_,true,data_));
     }
 
     @Test
@@ -11148,7 +11148,7 @@ public class FightFacadeTest extends InitializationDataBase {
         Fight fight_ = fightRoad(player_, PIKACHU, (short) 1, diff_, data_);
         fight_.setState(FightState.SWITCH_PROPOSE);
         FightKo.setKo(fight_,Fight.toUserFighter((byte) 0),diff_,data_);
-        assertTrue(!FightFacade.keepLoop(fight_,false));
+        assertTrue(!FightFacade.keepLoop(fight_,false,data_));
     }
 
     private static Fight fightRoad(Player _player, String _name, short _level, Difficulty _diff, DataBase _data) {

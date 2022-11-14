@@ -1664,6 +1664,38 @@ public final class Fight {
         }
     }
 
+    void addIssueAfterFightMessage(DataBase _db) {
+        temp.addIssueAfterFightMessage(_db);
+    }
+
+    void addIssueRandomMessage(DataBase _db) {
+        temp.addIssueRandomMessage(_db);
+    }
+
+    void addIssueRulesLearnMessage(DataBase _db) {
+        temp.addIssueRulesLearnMessage(_db);
+    }
+
+    void addIssueRulesMovesMessage(DataBase _db) {
+        temp.addIssueRulesMovesMessage(_db);
+    }
+
+    void addIssueRulesSwitchMessage(DataBase _db) {
+        temp.addIssueRulesSwitchMessage(_db);
+    }
+
+    void addIssueSendingMessage(DataBase _db) {
+        temp.addIssueSendingMessage(_db);
+    }
+
+    void addIssueTooHardMessage(DataBase _db) {
+        temp.addIssueTooHardMessage(_db);
+    }
+
+    void addIssueUsingMessage(DataBase _db) {
+        temp.addIssueUsingMessage(_db);
+    }
+
     void addMessage(DataBase _db, String _key, String... _args) {
         temp.addMessage(_db, _key, _args);
     }

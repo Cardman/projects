@@ -2246,6 +2246,7 @@ final class FightEffects {
         if (_fight.getTemp().getSimulation() && NumberUtil.eq(_thrower.getTeam(), Fight.CST_PLAYER) && Rate.strLower(_rate, DataBase.determinatedRate())) {
             _fight.getTemp().setAcceptableChoices(false);
             _fight.getTemp().setIssue(IssueSimulation.RANDOM);
+            _fight.addIssueRandomMessage(_import);
             return false;
         }
         return FightSuccess.tirage(_import, _rate);

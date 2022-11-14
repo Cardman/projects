@@ -23,15 +23,12 @@ import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.*;
-import aiki.game.fight.enums.IssueSimulation;
 import aiki.game.fight.util.AvailableMovesInfos;
 import aiki.game.params.Difficulty;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.levels.Level;
-import aiki.map.levels.LevelIndoorGym;
 import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Cave;
 import aiki.map.places.City;
@@ -440,26 +437,27 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
 
     private String getTrainerName(Coords _coords) {
         DataBase data_ = getDataBase();
-        Place pl_ = data_.getMap().getPlace(_coords.getNumberPlace());
-        Level level_ = pl_.getLevelByCoords(_coords);
-        if (level_ instanceof LevelIndoorGym) {
-            LevelIndoorGym g_ = (LevelIndoorGym) level_;
-            if (Point.eq(g_.getGymLeaderCoords(), _coords.getLevel().getPoint())) {
-                return g_.getGymLeader().getName();
-            }
-            return DataBase.EMPTY_STRING;
-        }
-        if (level_ instanceof LevelLeague) {
-            LevelLeague l_ = (LevelLeague) level_;
-            return l_.getTrainer().getName();
-        }
-        if (level_ instanceof LevelWithWildPokemon) {
-            LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
-            if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
-                return StringUtil.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), CST_SPACE);
-            }
-        }
-        return DataBase.EMPTY_STRING;
+        return data_.getMap().getTrainerName(_coords);
+//        Place pl_ = data_.getMap().getPlace(_coords.getNumberPlace());
+//        Level level_ = pl_.getLevelByCoords(_coords);
+//        if (level_ instanceof LevelIndoorGym) {
+//            LevelIndoorGym g_ = (LevelIndoorGym) level_;
+//            if (Point.eq(g_.getGymLeaderCoords(), _coords.getLevel().getPoint())) {
+//                return g_.getGymLeader().getName();
+//            }
+//            return DataBase.EMPTY_STRING;
+//        }
+//        if (level_ instanceof LevelLeague) {
+//            LevelLeague l_ = (LevelLeague) level_;
+//            return l_.getTrainer().getName();
+//        }
+//        if (level_ instanceof LevelWithWildPokemon) {
+//            LevelWithWildPokemon w_ = (LevelWithWildPokemon) level_;
+//            if (w_.getDualFights().contains(_coords.getLevel().getPoint())) {
+//                return StringUtil.join(w_.getDualFights().getVal(_coords.getLevel().getPoint()).getNames(), CST_SPACE);
+//            }
+//        }
+//        return DataBase.EMPTY_STRING;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
         //getForms().removeKey(INSIDE);
@@ -1378,30 +1376,30 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         list_.sort();
         return list_;
     }
-    public boolean isRulesIssue() {
-        return simulation.getIssue().isRules();
-    }
-    public boolean isRulesMovesIssue() {
-        return simulation.getIssue() == IssueSimulation.RULES_MOVES;
-    }
-    public boolean isRulesLearnIssue() {
-        return simulation.getIssue() == IssueSimulation.RULES_LEARN;
-    }
-    public boolean isRulesSwitchIssue() {
-        return simulation.getIssue() == IssueSimulation.RULES_SWITCH;
-    }
-    public boolean isSendingIssue() {
-        return simulation.getIssue() == IssueSimulation.SENDING_ISSUE;
-    }
-    public boolean isRandomIssue() {
-        return simulation.getIssue() == IssueSimulation.RANDOM;
-    }
-    public boolean isUsingIssue() {
-        return simulation.getIssue() == IssueSimulation.CANNOT_USE;
-    }
-    public boolean isHardSimulationIssue() {
-        return simulation.getIssue() == IssueSimulation.TOO_HARD_SIMULATION;
-    }
+//    public boolean isRulesIssue() {
+//        return simulation.getIssue().isRules();
+//    }
+//    public boolean isRulesMovesIssue() {
+//        return simulation.getIssue() == IssueSimulation.RULES_MOVES;
+//    }
+//    public boolean isRulesLearnIssue() {
+//        return simulation.getIssue() == IssueSimulation.RULES_LEARN;
+//    }
+//    public boolean isRulesSwitchIssue() {
+//        return simulation.getIssue() == IssueSimulation.RULES_SWITCH;
+//    }
+//    public boolean isSendingIssue() {
+//        return simulation.getIssue() == IssueSimulation.SENDING_ISSUE;
+//    }
+//    public boolean isRandomIssue() {
+//        return simulation.getIssue() == IssueSimulation.RANDOM;
+//    }
+//    public boolean isUsingIssue() {
+//        return simulation.getIssue() == IssueSimulation.CANNOT_USE;
+//    }
+//    public boolean isHardSimulationIssue() {
+//        return simulation.getIssue() == IssueSimulation.TOO_HARD_SIMULATION;
+//    }
     public int getRealStepNumber() {
         return stepNumber + 1;
     }

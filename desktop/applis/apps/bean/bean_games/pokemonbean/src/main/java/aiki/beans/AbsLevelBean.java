@@ -21,6 +21,7 @@ import code.util.core.IndexConstants;
 
 public abstract class AbsLevelBean extends CommonBean {
     private DictionaryComparator<Point,String> tiles;
+    private DictionaryComparator<Point,String> whiteTiles;
     private String placeName;
     private int levelIndex;
     private boolean outside;
@@ -34,6 +35,7 @@ public abstract class AbsLevelBean extends CommonBean {
         wildPokemonAreas = new CustList<AreaApparition>();
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = DictionaryComparatorUtil.buildPointString();
+        whiteTiles = DictionaryComparatorUtil.buildPointString();
         DataBase data_ = getDataBase();
         possibleMultiLayer = false;
         road = false;
@@ -51,7 +53,8 @@ public abstract class AbsLevelBean extends CommonBean {
                 gym = build_ instanceof Gym;
                 pokemonCenter = build_ instanceof PokemonCenter;
             }
-            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_));
+            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles());
+            feedImages(data_.getWhiteLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles());
         } else {
             outside = true;
             int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
@@ -70,13 +73,14 @@ public abstract class AbsLevelBean extends CommonBean {
             if (level_ instanceof LevelWithWildPokemon) {
                 wildPokemonAreas = ((LevelWithWildPokemon) level_).getWildPokemonAreas();
             }
-            feedImages(data_.getLevelImage((short) pl_, (byte) lev_));
+            feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles());
+            feedImages(data_.getWhiteLevelImage((short) pl_, (byte) lev_), getWhiteTiles());
         }
     }
 
-    private void feedImages(Points<int[][]> _map) {
+    private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de) {
         for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
-            tiles.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
+            _de.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
         }
     }
     public String clickArea(int _index) {
@@ -132,5 +136,9 @@ public abstract class AbsLevelBean extends CommonBean {
 
     public DictionaryComparator<Point, String> getTiles() {
         return tiles;
+    }
+
+    public DictionaryComparator<Point, String> getWhiteTiles() {
+        return whiteTiles;
     }
 }

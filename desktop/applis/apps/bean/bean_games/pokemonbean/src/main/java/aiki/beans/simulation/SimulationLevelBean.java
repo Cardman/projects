@@ -23,9 +23,6 @@ public class SimulationLevelBean extends AbsLevelBean {
         initTiles();
         noFight = getForms().getValInt(CST_NO_FIGHT);
     }
-    public static String cancel() {
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
-    }
     public String clickTile(int _index) {
         if (noFight < 0) {
             noFight = 0;
@@ -122,6 +119,7 @@ public class SimulationLevelBean extends AbsLevelBean {
     }
 
     public void setNoFight(int _n) {
+        getForms().put(CST_NO_FIGHT,_n);
         this.noFight = _n;
     }
 

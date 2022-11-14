@@ -357,13 +357,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsFrontState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsHardSimulationIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsHardSimulationIssue(),_str,_args);
-    }
-
-    public static Struct callSimulationBeanIsIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssue(),_str,_args);
-    }
+//    public static Struct callSimulationBeanIsHardSimulationIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsHardSimulationIssue(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationBeanIsIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssue(),_str,_args);
+//    }
 
     public static Struct callSimulationBeanIsIssueAfterFight(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
@@ -380,30 +380,30 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSimulationBeanIsMultiLayer(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsMultiLayer(),_str,_args);
     }
-
-    public static Struct callSimulationBeanIsRandomIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRandomIssue(),_str,_args);
-    }
-
-    public static Struct callSimulationBeanIsRulesIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesIssue(),_str,_args);
-    }
-
-    public static Struct callSimulationBeanIsRulesLearnIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesLearnIssue(),_str,_args);
-    }
-
-    public static Struct callSimulationBeanIsRulesMovesIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesMovesIssue(),_str,_args);
-    }
-
-    public static Struct callSimulationBeanIsRulesSwitchIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesSwitchIssue(),_str,_args);
-    }
-
-    public static Struct callSimulationBeanIsSendingIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSendingIssue(),_str,_args);
-    }
+//
+//    public static Struct callSimulationBeanIsRandomIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRandomIssue(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationBeanIsRulesIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesIssue(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationBeanIsRulesLearnIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesLearnIssue(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationBeanIsRulesMovesIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesMovesIssue(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationBeanIsRulesSwitchIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsRulesSwitchIssue(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationBeanIsSendingIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSendingIssue(),_str,_args);
+//    }
 
     public static Struct callSimulationBeanIsSimulationState(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSimulationState(),_str,_args);
@@ -413,9 +413,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsTeamState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsUsingIssue(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsUsingIssue(),_str,_args);
-    }
+//    public static Struct callSimulationBeanIsUsingIssue(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsUsingIssue(),_str,_args);
+//    }
 
 //    public static Struct callSimulationBeanIvFoeGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIvFoeGet(),_str,_args);
@@ -978,57 +978,57 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSelectLineMoveSelectedGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectLineMoveSelectedGet(),_str,_args);
     }
-    public static Struct callSimulationLevelBeanCancel(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanCancel(),_str,_args);
-    }
+//    public static Struct callSimulationLevelBeanCancel(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanCancel(),_str,_args);
+//    }
 
     public static Struct callSimulationLevelBeanClickTile(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanClickTile(),_str,_args);
     }
 
-    public static Struct callSimulationLevelBeanGetMapWidth(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanGetMapWidth(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanGymGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanGymGet(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanIsFirstRow(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanIsFirstRow(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanLevelIndexGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanLevelIndexGet(),_str,_args);
-    }
+//    public static Struct callSimulationLevelBeanGetMapWidth(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanGetMapWidth(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanGymGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanGymGet(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanIsFirstRow(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanIsFirstRow(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanLevelIndexGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanLevelIndexGet(),_str,_args);
+//    }
 
     public static Struct callSimulationLevelBeanNoFightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanNoFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationLevelBeanOutsideGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanOutsideGet(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanPlaceNameGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPlaceNameGet(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanPokemonCenterGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPokemonCenterGet(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanPossibleMultiLayerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPossibleMultiLayerGet(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanRoadGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanRoadGet(),_str,_args);
-    }
-
-    public static Struct callSimulationLevelBeanTilesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanTilesGet(),_str,_args);
-    }
+//    public static Struct callSimulationLevelBeanOutsideGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanOutsideGet(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanPlaceNameGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPlaceNameGet(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanPokemonCenterGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPokemonCenterGet(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanPossibleMultiLayerGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanPossibleMultiLayerGet(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanRoadGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanRoadGet(),_str,_args);
+//    }
+//
+//    public static Struct callSimulationLevelBeanTilesGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanTilesGet(),_str,_args);
+//    }
 
 
     public static Struct callAddPokemonBeanAbilitiesGet(Struct _str, long... _args) {

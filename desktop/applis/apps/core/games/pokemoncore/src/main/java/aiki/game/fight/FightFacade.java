@@ -2244,6 +2244,7 @@ public final class FightFacade {
             beforeRound(_fight, _fightSimulationActions, _index, _diff, _import, round_);
             if (!FightRules.playable(_fight, _utilisateur, _diff, _import)) {
                 _fight.getTemp().setIssue(IssueSimulation.RULES_MOVES);
+                _fight.addIssueRulesMovesMessage(_import);
                 _fight.getTemp().setAcceptableChoices(false);
                 return;
             }
@@ -2270,7 +2271,7 @@ public final class FightFacade {
             if (_fight.getState() == FightState.APPRENDRE_EVOLUER && issueEvolve(_fight, _diff, _import, evolutions_)) {
                 return;
             }
-            if (existPlayerFaintedOrFoeNotFainted(_fight)) {
+            if (existPlayerFaintedOrFoeNotFainted(_fight,_import)) {
                 return;
             }
 //            if(win(_fight)){
@@ -2312,6 +2313,7 @@ public final class FightFacade {
         }
         if (!possibleChoices(_fight, _import)) {
             _fight.getTemp().setIssue(IssueSimulation.RULES_LEARN);
+            _fight.addIssueRulesLearnMessage(_import);
             _fight.getTemp().setAcceptableChoices(false);
             return true;
         }
@@ -2319,7 +2321,7 @@ public final class FightFacade {
         return false;
     }
 
-    private static boolean existPlayerFaintedOrFoeNotFainted(Fight _fight) {
+    private static boolean existPlayerFaintedOrFoeNotFainted(Fight _fight, DataBase _import) {
         Team equipeUt_ = _fight.getUserTeam();
         for (byte c : equipeUt_.getMembers().getKeys()) {
             Fighter creatureLanceur_ = equipeUt_.getMembers().getVal(c);
@@ -2327,6 +2329,7 @@ public final class FightFacade {
                 continue;
             }
             _fight.getTemp().setIssue(IssueSimulation.KO_PLAYER);
+            _fight.addIssueAfterFightMessage(_import);
             _fight.getTemp().setAcceptableChoices(false);
             return true;
         }
@@ -2337,6 +2340,7 @@ public final class FightFacade {
                 continue;
             }
             _fight.getTemp().setIssue(IssueSimulation.NOT_KO_FOE);
+            _fight.addIssueAfterFightMessage(_import);
             _fight.getTemp().setAcceptableChoices(false);
             return true;
         }
@@ -2348,10 +2352,11 @@ public final class FightFacade {
         _fight.setState(FightState.SWITCH_PROPOSE);
         boolean test_ = false;
         //_fight.getState() != FightState.ATTAQUES
-        while (keepLoop(_fight, test_)) {
+        while (keepLoop(_fight, test_,_import)) {
             simuSubsti(_fight, _fightSimulationActions, _index, _diff, _import, _round);
             if (!FightRules.substitutable(_fight, _diff, _import)) {
                 _fight.getTemp().setIssue(IssueSimulation.RULES_SWITCH);
+                _fight.addIssueRulesSwitchMessage(_import);
                 _fight.getTemp().setAcceptableChoices(false);
                 return true;
             }
@@ -2443,7 +2448,7 @@ public final class FightFacade {
         return win(_fight) || !_fight.getTemp().getAcceptableChoices();
     }
 
-    static boolean keepLoop(Fight _fight, boolean _test) {
+    static boolean keepLoop(Fight _fight, boolean _test, DataBase _import) {
         if (existKoPlayer(_fight)) {
             return false;
         }
@@ -2455,6 +2460,7 @@ public final class FightFacade {
         }
         if (_test) {
             _fight.getTemp().setIssue(IssueSimulation.TOO_HARD_SIMULATION);
+            _fight.addIssueTooHardMessage(_import);
             _fight.getTemp().setAcceptableChoices(false);
             return false;
         }
