@@ -30,7 +30,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_SIMULATION = "simulation";
     protected static final String CST_SIMULATION_STATE = "simulation_state";
     protected static final String CST_CURRENT_TILE = "current_tile";
-    protected static final String CST_DEALER = "dealer";
+//    protected static final String CST_DEALER = "dealer";
     protected static final String CST_DUAL = "dual";
     protected static final String CST_EVO_ITEM = "evo_item";
     protected static final String CST_EVO_STONE = "evo_stone";
@@ -97,11 +97,12 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_PROPONE_TILE = "propone_tile";
     protected static final String CST_REPEL = "repel";
     protected static final String CST_SEE_AREA = "see_area";
-    protected static final String CST_SELLER = "seller";
+//    protected static final String CST_SELLER = "seller";
     protected static final String CST_SELLINGITEM = "sellingitem";
     protected static final String CST_STATUS = "status";
     protected static final String CST_STATUS_SET = "status_set";
-    protected static final String CST_TRAINER = "trainer";
+//    protected static final String CST_TRAINER = "trainer";
+    protected static final String CST_PERSON = "person";
     protected static final String CST_TRAINER_MULTI_FIGHT = "trainer_multi_fight";
     protected static final String CST_TRAINER_ONE_FIGHT = "trainer_one_fight";
     protected static final String CST_SPACE = " ";

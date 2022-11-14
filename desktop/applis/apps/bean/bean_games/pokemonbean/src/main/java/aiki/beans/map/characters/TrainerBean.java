@@ -19,7 +19,7 @@ public class TrainerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        trainer = (Trainer) getForms().getValPers(CST_TRAINER);
+        trainer = (Trainer) getForms().getValPers(CST_PERSON);
         DataBase data_ = getDataBase();
         if (trainer instanceof GymLeader) {
             GymLeader gym_ = (GymLeader) trainer;

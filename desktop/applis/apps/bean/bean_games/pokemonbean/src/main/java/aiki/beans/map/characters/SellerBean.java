@@ -13,7 +13,7 @@ public class SellerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        seller = (Seller) getForms().getValPers(CST_SELLER);
+        seller = (Seller) getForms().getValPers(CST_PERSON);
     }
     public String getItem(int _index) {
         DataBase data_ = getDataBase();

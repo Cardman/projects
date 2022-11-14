@@ -100,7 +100,7 @@ public class MapLevelBean extends AbsLevelBean {
                 return league(_pl,_lev, l_);
             }
             if (Point.eq(l_.getRooms().get(_lev).getTrainerCoords(), _pt)) {
-                getForms().put(CST_TRAINER, l_.getRooms().get(_lev).getTrainer());
+                getForms().put(CST_PERSON, l_.getRooms().get(_lev).getTrainer());
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
         }
@@ -138,11 +138,11 @@ public class MapLevelBean extends AbsLevelBean {
         if (b_ instanceof Gym) {
             Gym g_ = (Gym) b_;
             if (g_.getIndoor().getGymTrainers().contains(_pt)) {
-                getForms().put(CST_TRAINER, g_.getIndoor().getGymTrainers().getVal(_pt));
+                getForms().put(CST_PERSON, g_.getIndoor().getGymTrainers().getVal(_pt));
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
             if (Point.eq(g_.getIndoor().getGymLeaderCoords(), _pt)) {
-                getForms().put(CST_TRAINER, g_.getIndoor().getGymLeader());
+                getForms().put(CST_PERSON, g_.getIndoor().getGymLeader());
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML;
             }
         }
@@ -157,11 +157,11 @@ public class MapLevelBean extends AbsLevelBean {
             }
             Seller seller_ = (Seller) pers_;
             if (!seller_.getItems().isEmpty()) {
-                getForms().put(CST_SELLER, seller_);
+                getForms().put(CST_PERSON, seller_);
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
             }
             if (!seller_.getTm().isEmpty()) {
-                getForms().put(CST_SELLER, seller_);
+                getForms().put(CST_PERSON, seller_);
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML;
             }
         }
@@ -175,7 +175,7 @@ public class MapLevelBean extends AbsLevelBean {
         Campaign c_ = (Campaign) _p;
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal(_lev);
         if (l_.getDualFights().contains(_pt)) {
-            getForms().put(CST_TRAINER, l_.getDualFights().getVal(_pt).getFoeTrainer());
+            getForms().put(CST_PERSON, l_.getDualFights().getVal(_pt).getFoeTrainer());
             getForms().put(CST_ALLY, l_.getDualFights().getVal(_pt).getAlly());
             return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
         }
@@ -238,18 +238,18 @@ public class MapLevelBean extends AbsLevelBean {
         if (l_.getCharacters().contains(_pt)) {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(_pt);
             if (char_ instanceof TrainerMultiFights) {
-                getForms().put(CST_TRAINER, (TrainerMultiFights)char_);
+                getForms().put(CST_PERSON, (TrainerMultiFights)char_);
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML;
             }
             if (char_ instanceof DealerItem) {
-                getForms().put(CST_DEALER, (DealerItem)char_);
+                getForms().put(CST_PERSON, (DealerItem)char_);
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DEALER_HTML;
             }
         }
         for (Point ptKey_: l_.getDualFights().getKeys()) {
             DualFight d_ = l_.getDualFights().getVal(ptKey_);
             if (Point.eq(d_.getPt(), _pt)) {
-                getForms().put(CST_TRAINER, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
+                getForms().put(CST_PERSON, l_.getDualFights().getVal(ptKey_).getFoeTrainer());
                 getForms().put(CST_ALLY, l_.getDualFights().getVal(ptKey_).getAlly());
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DUAL_FIGHT_HTML;
             }

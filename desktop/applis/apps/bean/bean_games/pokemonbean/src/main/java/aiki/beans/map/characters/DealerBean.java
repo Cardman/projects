@@ -13,7 +13,7 @@ public class DealerBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        dealer = (DealerItem) getForms().getValPers(CST_DEALER);
+        dealer = (DealerItem) getForms().getValPers(CST_PERSON);
     }
     public String getItem(int _index) {
         DataBase data_ = getDataBase();

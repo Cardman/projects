@@ -24,6 +24,7 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.instances.Instances;
+import aiki.map.characters.Person;
 import aiki.map.levels.AreaApparition;
 import aiki.util.Point;
 import code.bean.nat.NatCaller;
@@ -46,6 +47,7 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String CST_ABILITY = "ability";
     protected static final String CST_ALLY = "ally";
     protected static final String CST_AREA = "area";
+    protected static final String CST_PERSON = "person";
     protected static final String CST_BALL = "ball";
     protected static final String CST_BERRY = "berry";
     protected static final String CST_BOOST = "boost";
@@ -604,6 +606,9 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static AreaApparition getValArea(Struct _bean) {
         return forms(_bean).getValArea(CST_AREA);
+    }
+    protected static Person getValPers(Struct _key){
+        return forms(_key).getValPers(CST_PERSON);
     }
 
     public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
