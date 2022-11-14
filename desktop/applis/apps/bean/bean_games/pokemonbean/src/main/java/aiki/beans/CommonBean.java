@@ -6,6 +6,7 @@ import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.map.enums.Direction;
 import code.bean.Bean;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -52,7 +53,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_LEG_PK = "leg_pk";
     protected static final String CST_LEVEL = "level";
     protected static final String CST_LEVEL_MAP = "level_map";
-    protected static final String CST_LEVEL_MAP_INDEX = "level_map_index";
+//    protected static final String CST_LEVEL_MAP_INDEX = "level_map_index";
     protected static final String CST_MOVE = "move";
     protected static final String CST_MOVES = "moves";
     protected static final String CST_MOVES_SET = "moves_set";
@@ -60,7 +61,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_OTHER_ITEM = "other_item";
     protected static final String CST_OTHER_WEATHER = "other_weather";
     protected static final String CST_PK = "pk";
-    protected static final String CST_PLACE_MAP_INDEX = "place_map_index";
+//    protected static final String CST_PLACE_MAP_INDEX = "place_map_index";
     protected static final String CST_POKEMON = "pokemon";
     protected static final String CST_POKEMON_SET = "pokemon_set";
     protected static final String CST_PROPONE_LINK = "propone_link";
@@ -124,6 +125,17 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
             return Rate.zero();
         }
         return _law.normalizedRate(BoolVal.TRUE);
+    }
+
+    public static void feedForms(int _indexOne, int _indexTwo, StringMapObject _forms) {
+        _forms.removeKey(CST_INSIDE);
+        _forms.put(CST_LEVEL_MAP, _indexOne, _indexTwo);
+        _forms.put(CST_PROPONE_LINK, false);
+        _forms.put(CST_PROPONE_TILE, false);
+        _forms.put(CST_SEE_AREA, false);
+        for (Direction d: Direction.all()) {
+            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
+        }
     }
 
     public DataBase getDataBase() {

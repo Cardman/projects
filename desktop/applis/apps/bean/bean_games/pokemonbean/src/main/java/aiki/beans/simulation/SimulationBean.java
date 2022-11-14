@@ -479,16 +479,14 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             for (Point p: c_.getBuildings().getKeys()) {
                 Building b_ = c_.getBuildings().getVal(p);
                 if (b_ instanceof Gym) {
-                    getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
-                    getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
+                    getForms().put(CST_LEVEL_MAP,_indexOne,_indexTwo);
                     getForms().put(CST_INSIDE, new Point(p));
                     return CST_LEVEL;
                 }
             }
         }
         getForms().removeKey(CST_INSIDE);
-        getForms().put(CST_LEVEL_MAP_INDEX, _indexTwo);
-        getForms().put(CST_PLACE_MAP_INDEX, _indexOne);
+        getForms().put(CST_LEVEL_MAP,_indexOne,_indexTwo);
         return CST_LEVEL;
     }
     public void validateDiffChoice() {
@@ -1410,8 +1408,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().removeKey(CST_SIMULATION_STATE);
         getForms().removeKey(CST_COORDS);
         getForms().removeKey(CST_INSIDE);
-        getForms().removeKey(CST_LEVEL_MAP_INDEX);
-        getForms().removeKey(CST_PLACE_MAP_INDEX);
+        getForms().removeKey(CST_LEVEL_MAP);
         stepNumber = 0;
         ok = true;
         return CST_LEVEL;

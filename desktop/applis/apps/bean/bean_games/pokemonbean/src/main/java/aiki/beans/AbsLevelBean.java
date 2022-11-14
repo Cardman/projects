@@ -1,7 +1,6 @@
 package aiki.beans;
 
 import aiki.beans.map.AikiBeansMapStd;
-import aiki.beans.map.MapBean;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -47,7 +46,8 @@ public abstract class AbsLevelBean extends CommonBean {
         gym = false;
         pokemonCenter = false;
         outside = false;
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
         Place place_ = data_.getMap().getPlace(pl_);
         placeName = place_.getName();
         if (getForms().contains(CST_INSIDE)) {
@@ -62,7 +62,7 @@ public abstract class AbsLevelBean extends CommonBean {
             feedImages(data_.getWhiteLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles());
         } else {
             outside = true;
-            int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+            int lev_ = sel_.getLevel();
             if (place_ instanceof League) {
                 possibleMultiLayer = true;
             }
@@ -98,7 +98,7 @@ public abstract class AbsLevelBean extends CommonBean {
         return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
     }
     public String clickNeighbour(int _index) {
-        MapBean.clickMapLevel(neighbours.getKey(_index),0,getForms());
+        CommonBean.feedForms(neighbours.getKey(_index),0,getForms());
         return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 

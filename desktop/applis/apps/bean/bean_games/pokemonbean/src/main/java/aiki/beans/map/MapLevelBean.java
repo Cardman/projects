@@ -1,6 +1,7 @@
 package aiki.beans.map;
 
 import aiki.beans.AbsLevelBean;
+import aiki.beans.SelectedPlaceLevelIndexes;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.db.DataBase;
 import aiki.map.buildings.Building;
@@ -48,8 +49,9 @@ public class MapLevelBean extends AbsLevelBean {
     }
     public String clickTile() {
         Point pt_ = getForms().getValPt(CST_CURRENT_TILE);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
-        int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
+        int lev_ = sel_.getLevel();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         reinitForms();
@@ -59,8 +61,7 @@ public class MapLevelBean extends AbsLevelBean {
         for (int p = 0; p < nb_; p++) {
             Place place_ = data_.getMap().getPlace(p);
             if (place_ instanceof League && NumberUtil.eq(pl_, (((League) place_).getAccessCoords()).getNumberPlace()) && NumberUtil.eq(lev_, (((League) place_).getAccessCoords()).getLevel().getLevelIndex()) && Point.eq(pt_, (((League) place_).getAccessCoords()).getLevel().getPoint())) {
-                getForms().put(CST_LEVEL_MAP_INDEX, IndexConstants.FIRST_INDEX);
-                getForms().put(CST_PLACE_MAP_INDEX, p);
+                getForms().put(CST_LEVEL_MAP,p,IndexConstants.FIRST_INDEX);
                 return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
@@ -68,15 +69,14 @@ public class MapLevelBean extends AbsLevelBean {
             InitializedPlace i_ = (InitializedPlace) p_;
             if (i_.getLinksWithCaves().contains(pt_)) {
                 Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
-                getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
+                getForms().putPlaceLevel(CST_LEVEL_MAP,c_);
                 return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
-        return place(pt_, lev_, p_);
+        return place(pl_,pt_, lev_, p_);
     }
 
-    private String place(Point _pt, int _lev, Place _p) {
+    private String place(int _pl,Point _pt, int _lev, Place _p) {
         if (_p instanceof Cave) {
             Cave c_ = (Cave) _p;
             LevelPoint lp_ = new LevelPoint();
@@ -84,22 +84,20 @@ public class MapLevelBean extends AbsLevelBean {
             lp_.setPoint(_pt);
             if (c_.getLinksWithOtherPlaces().contains(lp_)) {
                 Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
-                getForms().put(CST_LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-                getForms().put(CST_PLACE_MAP_INDEX, coords_.getNumberPlace());
+                getForms().putPlaceLevel(CST_LEVEL_MAP,coords_);
                 return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
             LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal((byte) _lev);
             if (level_.getLinksOtherLevels().contains(_pt)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(_pt).getCoords();
-                getForms().put(CST_LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-                getForms().put(CST_PLACE_MAP_INDEX, coords_.getNumberPlace());
+                getForms().putPlaceLevel(CST_LEVEL_MAP,coords_);
                 return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (_p instanceof League) {
             League l_ = (League) _p;
             if (Point.eq(l_.getRooms().get(_lev).getAccessPoint(), _pt)) {
-                return league(_lev, l_);
+                return league(_pl,_lev, l_);
             }
             if (Point.eq(l_.getRooms().get(_lev).getTrainerCoords(), _pt)) {
                 getForms().put(CST_TRAINER, l_.getRooms().get(_lev).getTrainer());
@@ -119,14 +117,13 @@ public class MapLevelBean extends AbsLevelBean {
         return campaign(_pt, (byte) _lev, _p);
     }
 
-    private String league(int _lev, League _l) {
+    private String league(int _pl, int _lev, League _l) {
         if (_lev < _l.getRooms().size() - 1) {
-            getForms().put(CST_LEVEL_MAP_INDEX, _lev + 1);
+            getForms().put(CST_LEVEL_MAP,_pl, _lev + 1);
         } else {
             DataBase data_ = getDataBase();
             Coords coords_ = data_.getMap().getBegin();
-            getForms().put(CST_LEVEL_MAP_INDEX, coords_.getLevel().getLevelIndex());
-            getForms().put(CST_PLACE_MAP_INDEX, coords_.getNumberPlace());
+            getForms().putPlaceLevel(CST_LEVEL_MAP,coords_);
         }
         return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
@@ -267,7 +264,8 @@ public class MapLevelBean extends AbsLevelBean {
     public String clickDirectedLink(int _index) {
         Point pt_ = getForms().getValPt(CST_CURRENT_TILE);
         Direction dir_ = dirs.getKey(_index);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         reinitForms();
@@ -276,8 +274,7 @@ public class MapLevelBean extends AbsLevelBean {
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
             if (p.getDir() == dir_&&Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
+                getForms().putPlaceLevel(CST_LEVEL_MAP,c_);
                 break;
             }
         }
@@ -310,7 +307,8 @@ public class MapLevelBean extends AbsLevelBean {
     }
     public String clickLink() {
         Point pt_ = getForms().getValPt(CST_CURRENT_TILE);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         reinitForms();
@@ -318,8 +316,7 @@ public class MapLevelBean extends AbsLevelBean {
         for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
             if (Point.eq(p.getSource(), pt_)) {
                 Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
+                getForms().putPlaceLevel(CST_LEVEL_MAP,c_);
                 break;
             }
         }
@@ -327,8 +324,9 @@ public class MapLevelBean extends AbsLevelBean {
     }
     public String seeArea() {
         Point pt_ = getForms().getValPt(CST_CURRENT_TILE);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
-        int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
+        int lev_ = sel_.getLevel();
         DataBase data_ = getDataBase();
         reinitForms();
         Coords current_ = new Coords();
@@ -345,8 +343,9 @@ public class MapLevelBean extends AbsLevelBean {
     public String clickTileOnMap(int _index) {
         Point pt_ = getTiles().getKey(_index);
         getForms().put(CST_CURRENT_TILE, pt_);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
-        int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
+        int lev_ = sel_.getLevel();
         DataBase data_ = getDataBase();
         Coords current_ = new Coords();
         current_.setNumberPlace((short) pl_);
@@ -431,8 +430,7 @@ public class MapLevelBean extends AbsLevelBean {
             for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
                 if (Point.eq(p.getSource(), _pt)) {
                     Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                    getForms().put(CST_LEVEL_MAP_INDEX, c_.getLevel().getLevelIndex());
-                    getForms().put(CST_PLACE_MAP_INDEX, c_.getNumberPlace());
+                    getForms().putPlaceLevel(CST_LEVEL_MAP,c_);
                     return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
                 }
             }
@@ -477,8 +475,9 @@ public class MapLevelBean extends AbsLevelBean {
     }
     public boolean isAccessibleByBeatingSomeTrainers(int _index) {
         Point pt_ = getTiles().getKey(_index);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
-        int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
+        int lev_ = sel_.getLevel();
         Coords coords_ = new Coords();
         coords_.setNumberPlace((short) pl_);
         coords_.setLevel(new LevelPoint());
@@ -642,7 +641,8 @@ public class MapLevelBean extends AbsLevelBean {
         return pk_.getIndoor().getGerants().getVal(pt_);
     }
     private PokemonCenter pkCenter() {
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         if (p_ instanceof City) {

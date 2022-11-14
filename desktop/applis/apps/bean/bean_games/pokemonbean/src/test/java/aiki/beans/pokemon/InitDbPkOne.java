@@ -83,14 +83,35 @@ public abstract class InitDbPkOne extends InitDbPk {
         return getValMoveId(bean_);
     }
 
-    public static Struct callPokemonBeanClickLevel(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanClickLevel(),_str,_args);
+    public static String callPokemonBeanClickLevel() {
+        return callPokemonBeanClickLevel(dispPkOne(10));
     }
 
-    public static Struct callPokemonBeanClickLevelZero(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanClickLevelZero(),_str,_args);
+    public static String callPokemonBeanClickLevel(Struct _str) {
+        return navigateData(new PokemonBeanClickLevel(),_str,2,1);
     }
 
+    public static SelectedPlaceLevelIndexes callPokemonBeanClickLevelId() {
+        Struct bean_ = dispPkOne(10);
+        callPokemonBeanClickLevel(bean_);
+        assertTrue(containsPlaceLevelId(bean_));
+        return getValPlaceLevelId(bean_);
+    }
+
+    public static String callPokemonBeanClickLevelZero() {
+        return callPokemonBeanClickLevelZero(dispPkOne(1));
+    }
+
+    public static String callPokemonBeanClickLevelZero(Struct _str) {
+        return navigateData(new PokemonBeanClickLevelZero(),_str,0);
+    }
+
+    public static SelectedPlaceLevelIndexes callPokemonBeanClickLevelZeroId() {
+        Struct bean_ = dispPkOne(1);
+        callPokemonBeanClickLevelZero(bean_);
+        assertTrue(containsPlaceLevelId(bean_));
+        return getValPlaceLevelId(bean_);
+    }
     public static String callPokemonBeanClickMove(int _args) {
         return callPokemonBeanClickMove(dispPkOne(0),_args);
     }
@@ -119,8 +140,11 @@ public abstract class InitDbPkOne extends InitDbPk {
         return getValMoveId(bean_);
     }
 
-    public static Struct callPokemonBeanClickPokedex(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanClickPokedex(),_str,_args);
+    public static String callPokemonBeanClickPokedex() {
+        Struct bean_ = dispPkOne(0);
+        String value_ = navigateData(new PokemonBeanClickPokedex(), bean_);
+        assertFalse(containsPlaceLevelId(bean_));
+        return value_;
     }
 
     public static String callPokemonBeanClickTechnicalMove() {

@@ -2,7 +2,7 @@ package aiki.beans.pokemon;
 
 import aiki.beans.CommonBean;
 import aiki.beans.facade.map.dto.PlaceIndex;
-import aiki.beans.map.MapBean;
+import aiki.beans.map.AikiBeansMapStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -232,7 +232,7 @@ public class PokemonBean extends CommonBean {
     }
     public String clickPokedex() {
         getForms().safePokedex(CST_POKEMON_SET);
-        return CST_POKEMON_SET;
+        return AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML;
     }
     public String getPage(int _index) {
         DataBase data_ = getDataBase();
@@ -385,7 +385,8 @@ public class PokemonBean extends CommonBean {
         return false;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
-        return MapBean.clickMapLevel(_indexOne,_indexTwo,getForms());
+        CommonBean.feedForms(_indexOne, _indexTwo, getForms());
+        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public String getDisplayName() {

@@ -1,19 +1,15 @@
 package aiki.beans.map;
 
 import aiki.beans.CommonBean;
-import aiki.beans.StringMapObject;
 import aiki.beans.facade.map.dto.PlaceIndex;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
 import aiki.map.buildings.PokemonCenter;
-import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
 import aiki.map.places.City;
 import aiki.map.places.Place;
 import code.util.CustList;
-import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public class MapBean extends CommonBean {
     private CustList<PlaceIndex> places;
@@ -48,19 +44,7 @@ public class MapBean extends CommonBean {
         return places.get(_index).getPlace() instanceof City;
     }
     public String clickLevel(int _indexOne, int _indexTwo) {
-        return clickMapLevel(_indexOne, _indexTwo, getForms());
-    }
-
-    public static String clickMapLevel(int _indexOne, int _indexTwo, StringMapObject _forms) {
-        _forms.removeKey(CST_INSIDE);
-        _forms.put(CST_LEVEL_MAP_INDEX, _indexTwo);
-        _forms.put(CST_PLACE_MAP_INDEX, _indexOne);
-        _forms.put(CST_PROPONE_LINK, false);
-        _forms.put(CST_PROPONE_TILE, false);
-        _forms.put(CST_SEE_AREA, false);
-        for (Direction d: Direction.all()) {
-            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-        }
+        feedForms(_indexOne, _indexTwo, getForms());
         return CST_LEVEL;
     }
 

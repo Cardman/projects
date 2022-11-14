@@ -584,6 +584,14 @@ public abstract class InitDbConstr extends InitDbBean {
         return forms(_bean).getValStr(CST_ABILITY);
     }
 
+    protected static boolean containsPlaceLevelId(Struct _bean) {
+        return forms(_bean).contains(CST_LEVEL_MAP);
+    }
+
+    protected static SelectedPlaceLevelIndexes getValPlaceLevelId(Struct _bean) {
+        return forms(_bean).getValPlacesLevels(CST_LEVEL_MAP);
+    }
+
     public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PlaceIndexGetPlace(),_str,_args);
     }

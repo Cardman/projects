@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.AbsLevelBean;
+import aiki.beans.SelectedPlaceLevelIndexes;
 import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -29,8 +30,9 @@ public class SimulationLevelBean extends AbsLevelBean {
         }
         Point pt_ = getTiles().getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
-        int pl_ = getForms().getValInt(CST_PLACE_MAP_INDEX);
-        int lev_ = getForms().getValInt(CST_LEVEL_MAP_INDEX);
+        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+        int pl_ = sel_.getPlace();
+        int lev_ = sel_.getLevel();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);

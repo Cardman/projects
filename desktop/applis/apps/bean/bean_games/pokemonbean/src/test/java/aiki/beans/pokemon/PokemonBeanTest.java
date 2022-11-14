@@ -1,7 +1,9 @@
 package aiki.beans.pokemon;
 
+import aiki.beans.SelectedPlaceLevelIndexes;
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.AikiBeansItemsStd;
+import aiki.beans.map.AikiBeansMapStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
 import code.maths.LgInt;
@@ -589,5 +591,29 @@ public final class PokemonBeanTest extends InitDbPkOne {
     @Test
     public void getMin() {
         assertEq(128,callEvolutionHappinessBeanMinGet());
+    }
+    @Test
+    public void clickLevel1() {
+        assertEq(AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevel());
+    }
+    @Test
+    public void clickLevel2() {
+        SelectedPlaceLevelIndexes val_ = callPokemonBeanClickLevelId();
+        assertEq(2,val_.getPlace());
+        assertEq(1,val_.getLevel());
+    }
+    @Test
+    public void clickLevelZero1() {
+        assertEq(AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevelZero());
+    }
+    @Test
+    public void clickLevelZero2() {
+        SelectedPlaceLevelIndexes val_ = callPokemonBeanClickLevelZeroId();
+        assertEq(0,val_.getPlace());
+        assertEq(0,val_.getLevel());
+    }
+    @Test
+    public void clickPokedex() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML,callPokemonBeanClickPokedex());
     }
 }
