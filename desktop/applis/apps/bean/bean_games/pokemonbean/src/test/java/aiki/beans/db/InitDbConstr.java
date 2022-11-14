@@ -24,6 +24,7 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.instances.Instances;
+import aiki.util.Point;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -590,6 +591,14 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static SelectedPlaceLevelIndexes getValPlaceLevelId(Struct _bean) {
         return forms(_bean).getValPlacesLevels(CST_LEVEL_MAP);
+    }
+
+    protected static Point getValPointInside(Struct _bean) {
+        return forms(_bean).getValPt(CST_INSIDE);
+    }
+
+    protected static Point getValCurrentTile(Struct _bean) {
+        return forms(_bean).getValPt(CST_CURRENT_TILE);
     }
 
     public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
