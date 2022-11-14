@@ -24,6 +24,8 @@ import cards.gui.dialogs.*;
 import cards.gui.events.BackToMainMenuEvent;
 import cards.gui.events.ChooseModeEvent;
 import cards.gui.events.ListenerBeginGame;
+import cards.gui.interfaces.ResultCardsServer;
+import cards.gui.interfaces.ResultCardsServerInteract;
 import cards.gui.menus.ChangeGameEvent;
 import cards.gui.menus.ConsultEvent;
 import cards.gui.menus.DisplayHelpEvent;
@@ -79,7 +81,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.AbstractSocket;
 import code.network.*;
 import code.network.enums.ErrorHostConnectionType;
-import code.network.enums.IpType;
 import code.scripts.messages.gui.MessGuiCardsGr;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -366,10 +367,6 @@ public final class WindowCards extends NetGroupFrame {
 
     private static final String NOT_CONNECTED = "notConnected";
 
-    private static final String LOCALHOST_OLD_IP = "127.0.0.1";
-
-    private static final String LOCALHOST_NEW_IP = "::1";
-
     private static final String F_ONE = "F1";
     private static final String F_TWO = "F2";
     private static final String F_THREE = "F3";
@@ -483,6 +480,7 @@ public final class WindowCards extends NetGroupFrame {
     private final DialogSoft dialogSoft;
     private final DialogServerCards dialogServer;
     private final CardFactories cardFactories;
+    private ResultCardsServerInteract resultCardsServerInteract;
     private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     public WindowCards(String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
@@ -1939,40 +1937,32 @@ public final class WindowCards extends NetGroupFrame {
             ((ContainerSingle)containerGame).modify();
             return;
         }
-        DialogServerCards.setDialogServer(this, _jeuBouton);
-        String ip_ = DialogServerCards.getIpOrHostName(getDialogServer());
-        if (ip_ == null || ip_.isEmpty()) {
-            if (DialogServerCards.getIpType(getDialogServer()) == IpType.IP_V6) {
-                ip_ = LOCALHOST_NEW_IP;
-            } else {
-                ip_ = LOCALHOST_OLD_IP;
-            }
-        }
-        if (!DialogServerCards.isChoosen(getDialogServer())) {
+        ResultCardsServer result_ = getResultCardsServerInteract().interact(this, _jeuBouton);
+        if (result_ == null) {
             return;
         }
         GameEnum choosenGameMultiPlayers_ = _jeuBouton;
         if (choosenGameMultiPlayers_ == GameEnum.TAROT) {
-            containerGame = new ContainerMultiTarot(this, DialogServerCards.isCreate(getDialogServer()), DialogServerCards.getNbPlayers(getDialogServer()));
+            containerGame = new ContainerMultiTarot(this, result_.isCreate(), result_.getNbPlayers());
         } else if (choosenGameMultiPlayers_ == GameEnum.PRESIDENT) {
-            containerGame = new ContainerMultiPresident(this, DialogServerCards.isCreate(getDialogServer()), DialogServerCards.getNbPlayers(getDialogServer()));
+            containerGame = new ContainerMultiPresident(this, result_.isCreate(), result_.getNbPlayers());
         } else if (choosenGameMultiPlayers_ == GameEnum.BELOTE) {
-            containerGame = new ContainerMultiBelote(this, DialogServerCards.isCreate(getDialogServer()));
+            containerGame = new ContainerMultiBelote(this, result_.isCreate());
         }
         String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()), FileConst.PORT_INI);
         int port_ = NetCreate.tryToGetPort(fileName_, Net.getPort(),getFileCoreStream(),getStreams());
-        if (DialogServerCards.isCreate(getDialogServer())) {
-            int nbChoosenPlayers_ = DialogServerCards.getNbPlayers(getDialogServer());
+        if (result_.isCreate()) {
+            int nbChoosenPlayers_ = result_.getNbPlayers();
             Net.setNbPlayers(nbChoosenPlayers_, getNet());
-            createServer(ip_, DialogServerCards.getIpType(getDialogServer()), port_);
+            createServer(result_.getIp(), result_.getIpType(), port_);
             return;
         }
-        SocketResults connected_ = createClient(ip_, DialogServerCards.getIpType(getDialogServer()), false, port_);
+        SocketResults connected_ = createClient(result_.getIp(), result_.getIpType(), false, port_);
         if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
             containerGame = new ContainerNoGame(this);
             if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
                 String formatted_ = getMessages().getVal(UNKNOWN_HOST);
-                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
+                formatted_ = StringUtil.simpleStringsFormat(formatted_, result_.getIp());
                 getFrames().getMessageDialogAbs().input(getCommonFrame(), getMessages().getVal(BUG), formatted_, getLanguageKey(), GuiConstants.ERROR_MESSAGE);
                 return;
             }
@@ -2334,7 +2324,23 @@ public final class WindowCards extends NetGroupFrame {
         return images;
     }
 
+    public AbsPlainButton getSingleModeButton() {
+        return singleModeButton;
+    }
+
+    public AbsPlainButton getMultiModeButton() {
+        return multiModeButton;
+    }
+
     public void setImages(StringMap<StringMap<String>> _i) {
         this.images = _i;
+    }
+
+    public ResultCardsServerInteract getResultCardsServerInteract() {
+        return resultCardsServerInteract;
+    }
+
+    public void setResultCardsServerInteract(ResultCardsServerInteract _r) {
+        this.resultCardsServerInteract = _r;
     }
 }
