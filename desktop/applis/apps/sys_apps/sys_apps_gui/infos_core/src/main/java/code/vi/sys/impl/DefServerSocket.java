@@ -15,7 +15,6 @@ public class DefServerSocket implements AbstractServerSocket {
         try {
             serverSocket = new ServerSocket();
             serverSocket.bind(new InetSocketAddress(_ip, _port));
-            serverSocket.close();
             setOk(true);
         } catch (Exception e) {
             serverSocket = null;
