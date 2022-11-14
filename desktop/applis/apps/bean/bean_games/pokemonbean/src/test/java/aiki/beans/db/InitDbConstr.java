@@ -24,6 +24,7 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.instances.Instances;
+import aiki.map.levels.AreaApparition;
 import aiki.util.Point;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
@@ -599,6 +600,10 @@ public abstract class InitDbConstr extends InitDbBean {
 
     protected static Point getValCurrentTile(Struct _bean) {
         return forms(_bean).getValPt(CST_CURRENT_TILE);
+    }
+
+    protected static AreaApparition getValArea(Struct _bean) {
+        return forms(_bean).getValArea(CST_AREA);
     }
 
     public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
