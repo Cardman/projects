@@ -1,5 +1,7 @@
 package aiki.beans;
 
+import aiki.beans.map.AikiBeansMapStd;
+import aiki.beans.map.MapBean;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
@@ -11,6 +13,7 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.levels.Level;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
+import aiki.map.util.PlaceInterConnectCoords;
 import aiki.util.CommonParam;
 import aiki.util.Coords;
 import aiki.util.Point;
@@ -30,9 +33,11 @@ public abstract class AbsLevelBean extends CommonBean {
     private boolean gym;
     private boolean possibleMultiLayer;
     private CustList<AreaApparition> wildPokemonAreas = new CustList<AreaApparition>();
+    private DictionaryComparator<Short,String> neighbours;
 
     protected void initTiles() {
         wildPokemonAreas = new CustList<AreaApparition>();
+        neighbours = DictionaryComparatorUtil.buildStringPlaces(getDataBase().getMap());
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
         tiles = DictionaryComparatorUtil.buildPointString();
         whiteTiles = DictionaryComparatorUtil.buildPointString();
@@ -76,6 +81,11 @@ public abstract class AbsLevelBean extends CommonBean {
             feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles());
             feedImages(data_.getWhiteLevelImage((short) pl_, (byte) lev_), getWhiteTiles());
         }
+        if (place_ instanceof InitializedPlace) {
+            for (PlaceInterConnectCoords n: ((InitializedPlace)place_).getPointsWithCitiesAndOtherRoads().entryList()){
+                neighbours.put(n.getCoords().getNumberPlace(),getDataBase().getMap().getPlace(n.getCoords().getNumberPlace()).getName());
+            }
+        }
     }
 
     private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de) {
@@ -86,6 +96,10 @@ public abstract class AbsLevelBean extends CommonBean {
     public String clickArea(int _index) {
         getForms().put(CST_AREA,getWildPokemonAreas().get(_index));
         return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+    }
+    public String clickNeighbour(int _index) {
+        MapBean.clickMapLevel(neighbours.getKey(_index),0,getForms());
+        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public int getMapWidth() {
@@ -140,5 +154,9 @@ public abstract class AbsLevelBean extends CommonBean {
 
     public DictionaryComparator<Point, String> getWhiteTiles() {
         return whiteTiles;
+    }
+
+    public DictionaryComparator<Short, String> getNeighbours() {
+        return neighbours;
     }
 }

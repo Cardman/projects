@@ -321,6 +321,10 @@ public final class DictionaryComparatorUtil {
         return new DictionaryComparator<Short, Integer>(new ComparatorPlaceNumber(_map));
     }
 
+    public static DictionaryComparator<Short, String> buildStringPlaces(DataMap _map) {
+        return new DictionaryComparator<Short, String>(new ComparatorPlaceNumber(_map));
+    }
+
     public static DictionaryComparator<StatisticPokemon, Byte> buildStatPk(DataBase _data, String _lg) {
         return new DictionaryComparator<StatisticPokemon, Byte>(new ComparatorStatisticPokemon(_data, _lg));
     }

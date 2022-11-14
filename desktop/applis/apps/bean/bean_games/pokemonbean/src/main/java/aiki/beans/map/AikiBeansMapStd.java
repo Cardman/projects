@@ -29,6 +29,7 @@ public final class AikiBeansMapStd{
     private static final String IS_RIGHT = "isRight";
     private static final String IS_MULTI_LAYER = "isMultiLayer";
     private static final String LAYERS = "layers";
+    private static final String CLICK_FORE_GROUND = "clickForeGround";
     private static final String CLICK_LEVEL = "clickLevel";
     private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
     private static final String PROPONE_TILE = "proponeTile";
@@ -68,6 +69,7 @@ public final class AikiBeansMapStd{
         methods_.add( new SpecNatMethod(IS_HOST,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsHost()));
         methods_.add( new SpecNatMethod(IS_FOSSILE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFossile()));
         methods_.add( new SpecNatMethod(IS_MOVE_TUTORS,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsMoveTutors()));
+        methods_.add( new SpecNatMethod(CLICK_FORE_GROUND,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickForeGround()));
         methods_.add( new SpecNatMethod(CLICK_TILE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickTile()));
         methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickLink()));
         methods_.add( new SpecNatMethod(SEE_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanSeeArea()));

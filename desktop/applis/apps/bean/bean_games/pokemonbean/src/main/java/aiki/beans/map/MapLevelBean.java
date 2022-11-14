@@ -412,6 +412,11 @@ public class MapLevelBean extends AbsLevelBean {
         }
     }
 
+    public String clickForeGround(int _index) {
+        Point pt_ = getTiles().getKey(_index);
+        getForms().put(CST_CURRENT_TILE, pt_);
+        return clickTile();
+    }
     private String atMostOneDir(Point _pt, AreaApparition _app, Place _p) {
         String return_ = clickTile();
         if (!return_.isEmpty()) {

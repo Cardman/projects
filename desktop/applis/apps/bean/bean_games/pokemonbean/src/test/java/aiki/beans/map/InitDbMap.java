@@ -23,6 +23,10 @@ public abstract class InitDbMap extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickTileOnMap(),_str,_args);
     }
 
+    public static Struct callMapLevelBeanClickForeGround(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickForeGround(),_str,_args);
+    }
+
     public static Struct callMapLevelBeanDirsGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanDirsGet(),_str,_args);
     }
@@ -121,10 +125,6 @@ public abstract class InitDbMap extends InitDbConstr {
 
     public static Struct callMapLevelBeanTilesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanTilesGet(),_str,_args);
-    }
-
-    public static Struct callMapLevelBeanWhiteTilesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanWhiteTilesGet(),_str,_args);
     }
 
     public static Struct callMapLevelBeanWithoutTitle(Struct _str, long... _args) {

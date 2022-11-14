@@ -4,8 +4,7 @@ import aiki.beans.*;
 import aiki.beans.effects.*;
 import aiki.beans.facade.map.dto.PlaceIndexGetPlace;
 import aiki.beans.facade.map.dto.PlaceIndexIndexGet;
-import aiki.beans.map.MapLevelBeanAreas;
-import aiki.beans.map.MapLevelBeanClickArea;
+import aiki.beans.map.*;
 import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -462,6 +461,18 @@ public abstract class InitDbConstr extends InitDbBean {
 
     public static Struct callMapLevelBeanClickArea(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_args);
+    }
+
+    public static Struct callMapLevelBeanWhiteTilesGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanWhiteTilesGet(),_str,_args);
+    }
+
+    public static Struct callMapLevelBeanNeighboursGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanNeighboursGet(),_str,_args);
+    }
+
+    public static Struct callMapLevelBeanClickNeighbour(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickNeighbour(),_str,_args);
     }
     public static Struct callMapLevelBeanAreas(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanAreas(),_str,_args);
