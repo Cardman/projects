@@ -24,8 +24,10 @@ import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
 import aiki.fight.util.StatBaseEv;
 import aiki.instances.Instances;
+import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
 import aiki.map.levels.AreaApparition;
+import aiki.map.pokemon.WildPk;
 import aiki.util.Point;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
@@ -609,6 +611,12 @@ public abstract class InitDbConstr extends InitDbBean {
     }
     protected static Person getValPers(Struct _key){
         return forms(_key).getValPers(CST_PERSON);
+    }
+    protected static Ally getValAlly(Struct _key){
+        return forms(_key).getValAlly(CST_ALLY);
+    }
+    protected static WildPk getValPk(Struct _key){
+        return forms(_key).getValPk(CST_LEG_PK);
     }
 
     public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
