@@ -111,9 +111,9 @@ public abstract class InitDbCharacters extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new DualFightBeanImageMiniSecondGet(),_str,_args);
     }
 
-    public static Struct callDualFightBeanPageAllyGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanPageAllyGet(),_str,_args);
-    }
+//    public static Struct callDualFightBeanPageAllyGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new DualFightBeanPageAllyGet(),_str,_args);
+//    }
 
 //    public static Struct callDualFightBeanPageTeamGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new DualFightBeanPageTeamGet(),_str,_args);

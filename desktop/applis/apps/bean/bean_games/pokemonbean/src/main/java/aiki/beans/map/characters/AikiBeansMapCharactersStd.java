@@ -81,7 +81,7 @@ public final class AikiBeansMapCharactersStd{
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageMiniGet(),null));
         fields_.add(new StandardField(IMAGE_MINI_SECOND,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageMiniSecondGet(),null));
-        fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanPageAllyGet(),null));
+        fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(DualFightBean.PAGE_ALLY),null));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY,false,false,new DualFightBeanAllyGet(),null));
         fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(DualFightBean.PAGE_TEAM),null));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER,false,false,new DualFightBeanTrainerGet(),null));
