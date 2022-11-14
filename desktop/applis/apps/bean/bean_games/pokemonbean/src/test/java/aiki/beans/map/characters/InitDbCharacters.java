@@ -1,11 +1,11 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.db.InitDbConstr;
+import aiki.beans.map.InitDbLevelMap;
 import aiki.beans.map.pokemon.*;
 import code.expressionlanguage.structs.Struct;
 
-public abstract class InitDbCharacters extends InitDbConstr {
+public abstract class InitDbCharacters extends InitDbLevelMap {
 
     public static Struct callDealerBeanClickItem(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new DealerBeanClickItem(),_str,_args);
