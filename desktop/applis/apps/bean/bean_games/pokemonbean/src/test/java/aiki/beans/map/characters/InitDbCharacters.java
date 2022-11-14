@@ -115,9 +115,9 @@ public abstract class InitDbCharacters extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new DualFightBeanPageAllyGet(),_str,_args);
     }
 
-    public static Struct callDualFightBeanPageTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanPageTeamGet(),_str,_args);
-    }
+//    public static Struct callDualFightBeanPageTeamGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new DualFightBeanPageTeamGet(),_str,_args);
+//    }
 //
 //    public static Struct callDualFightBeanTrainerGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new DualFightBeanTrainerGet(),_str,_args);
@@ -151,9 +151,9 @@ public abstract class InitDbCharacters extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new TrainerBeanMoveGet(),_str,_args);
     }
 
-    public static Struct callTrainerBeanPageTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanPageTeamGet(),_str,_args);
-    }
+//    public static Struct callTrainerBeanPageTeamGet(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new TrainerBeanPageTeamGet(),_str,_args);
+//    }
 
 //    public static Struct callTrainerBeanTrainerGet(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new TrainerBeanTrainerGet(),_str,_args);

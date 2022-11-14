@@ -3,10 +3,7 @@ package aiki.beans.map.characters;
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
-import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.SpecNatMethod;
-import code.bean.nat.SpecialNatClass;
-import code.bean.nat.StandardField;
+import code.bean.nat.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansMapCharactersStd{
@@ -86,7 +83,7 @@ public final class AikiBeansMapCharactersStd{
         fields_.add(new StandardField(IMAGE_MINI_SECOND,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanImageMiniSecondGet(),null));
         fields_.add(new StandardField(PAGE_ALLY,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanPageAllyGet(),null));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY,false,false,new DualFightBeanAllyGet(),null));
-        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new DualFightBeanPageTeamGet(),null));
+        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(DualFightBean.PAGE_TEAM),null));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TEMP_TRAINER,false,false,new DualFightBeanTrainerGet(),null));
         _std.getStds().addEntry(TYPE_DUAL_FIGHT_BEAN, type_);
     }
@@ -108,7 +105,7 @@ public final class AikiBeansMapCharactersStd{
         SpecialNatClass type_ = new SpecialNatClass(TYPE_TRAINER_BEAN, fields_, methods_, AikiBeansMapElementsStd.ELTS);
         fields_.add(new StandardField(IMAGE,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanImageGet(),null));
         fields_.add(new StandardField(IMAGE_MINI,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanImageMiniGet(),null));
-        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanPageTeamGet(),null));
+        fields_.add(new StandardField(PAGE_TEAM,BeanNatCommonLgNames.STRING,false,false,new CstNatCaller(TrainerBean.PAGE_TEAM),null));
         fields_.add(new StandardField(TRAINER,PokemonStandards.TYPE_TRAINER,false,false,new TrainerBeanTrainerGet(),null));
         fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false,new TrainerBeanMoveGet(),null));
         methods_.add( new SpecNatMethod(GET_TEAMS_REWARDS, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new TrainerBeanGetTeamsRewards()));
