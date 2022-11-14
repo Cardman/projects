@@ -10,9 +10,9 @@ public abstract class SendReceive implements Runnable {
     /** Used socket for a server or a client */
     private AbstractSocket socket;
 
-    private NetGroupFrame net;
+    private final NetGroupFrame net;
 
-    public SendReceive(AbstractSocket _socket, NetGroupFrame _net) {
+    protected SendReceive(AbstractSocket _socket, NetGroupFrame _net) {
         setSocket(_socket);
         net = _net;
 
@@ -22,7 +22,7 @@ public abstract class SendReceive implements Runnable {
         return net;
     }
 
-    protected AbstractSocket getSocket() {
+    public AbstractSocket getSocket() {
         return socket;
     }
 
