@@ -56,7 +56,8 @@ public final class MockImage implements AbstractImage {
 
     @Override
     public void setRGB(int _i, int _j, int _c) {
-        pixels[_j][_i] = _c;
+        pixels[NumberUtil.max(0,NumberUtil.min(_j,pixels.length-1))]
+                [NumberUtil.max(0,NumberUtil.min(_i,pixels[0].length-1))] = _c;
     }
 
     @Override
