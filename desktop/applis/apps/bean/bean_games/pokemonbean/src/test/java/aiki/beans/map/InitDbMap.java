@@ -1,7 +1,7 @@
 package aiki.beans.map;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.db.InitDbConstr;
+import aiki.beans.*;
+import aiki.beans.db.*;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.util.*;
@@ -18,6 +18,7 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.Coords;
 import code.expressionlanguage.structs.Struct;
+import code.images.*;
 import code.util.*;
 
 public abstract class InitDbMap extends InitDbConstr {
@@ -118,6 +119,12 @@ public abstract class InitDbMap extends InitDbConstr {
 
     protected static final String A_ABILITY2="B_ABILITY";
     protected static final String A_ABILITY2_TR="B_ABILITY_TR";
+    public static final String DUAL = "dual";
+    public static final String SINGLE = "single";
+    public static final String DUAL_1 = "dual_1";
+    public static final String DUAL_2 = "dual_2";
+    public static final String SI = "si";
+
     public static Struct callMapBeanClickLevel(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapBeanClickLevel(),_str,_args);
     }
@@ -154,6 +161,9 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static DualFight dual() {
         DualFight d_ = Instances.newDualFight();
+        d_.getFoeTrainer().setImageMaxiFileName(DUAL);
+        d_.getFoeTrainer().setImageMiniFileName(DUAL_1);
+        d_.getFoeTrainer().setImageMiniSecondTrainerFileName(DUAL_2);
         d_.setPt(newPoint(0,1));
         d_.getAlly().getTeam().add(wpOne(P_POK_16,A_ABILITY,I_HEAL_HP_STATUS,18));
         d_.getAlly().getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
@@ -163,6 +173,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static TrainerLeague trLeagueOne() {
         TrainerLeague tmf_ = Instances.newTrainerLeague();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_12,A_ABILITY,I_BOOST,20));
         tmf_.getTeam().add(wpTwo(P_POK_13,A_ABILITY2,I_ITEMBATTLE,25));
@@ -170,6 +182,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static TrainerLeague trLeagueTwo() {
         TrainerLeague tmf_ = Instances.newTrainerLeague();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_20,A_ABILITY,I_BOOST,20));
         tmf_.getTeam().add(wpTwo(P_POK_21,A_ABILITY2,I_ITEMBATTLE,25));
@@ -177,6 +191,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static GymLeader trGymLeader() {
         GymLeader tmf_ = Instances.newGymLeader();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
         tmf_.getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
@@ -184,6 +200,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static GymTrainer trGymTrainer() {
         GymTrainer tmf_ = Instances.newGymTrainer();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_16,A_ABILITY,I_HEAL_HP_STATUS,18));
         tmf_.getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
@@ -348,6 +366,52 @@ public abstract class InitDbMap extends InitDbConstr {
         _facade.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POK_21, P_POK_21_TR);
         _facade.getData().getTranslatedGenders().addEntry(EN,new IdMap<Gender,String>());
         _facade.getData().getTranslatedGenders().getVal(EN).addEntry(Gender.NO_GENDER,NO_G);
+//        _facade.getData().getMiniPk().addEntry(P_POK_00,BaseSixtyFourUtil.getImageByString("AAACAAAABAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_01,BaseSixtyFourUtil.getImageByString("AAACAAABBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_02,BaseSixtyFourUtil.getImageByString("AAACAAACBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_03,BaseSixtyFourUtil.getImageByString("AAACAAADBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_04,BaseSixtyFourUtil.getImageByString("AAACAAAEBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_05,BaseSixtyFourUtil.getImageByString("AAACAAAFBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_06,BaseSixtyFourUtil.getImageByString("AAACAAAGBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_07,BaseSixtyFourUtil.getImageByString("AAACAAAHBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_08,BaseSixtyFourUtil.getImageByString("AAACAAAIBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_09,BaseSixtyFourUtil.getImageByString("AAACAAAJBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_10,BaseSixtyFourUtil.getImageByString("AAACAAAKBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_11,BaseSixtyFourUtil.getImageByString("AAACAAALBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_12,BaseSixtyFourUtil.getImageByString("AAACAAAMBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_13,BaseSixtyFourUtil.getImageByString("AAACAAANBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_14,BaseSixtyFourUtil.getImageByString("AAACAAAOBAAA////////"));
+//        _facade.getData().getMiniPk().addEntry(P_POK_15,BaseSixtyFourUtil.getImageByString("AAACAAAPBAAA////////"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_00,BaseSixtyFourUtil.getImageByString("AAABAAAA"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_01,BaseSixtyFourUtil.getImageByString("AAABAAAB"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_02,BaseSixtyFourUtil.getImageByString("AAABAAAC"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_03,BaseSixtyFourUtil.getImageByString("AAABAAAD"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_04,BaseSixtyFourUtil.getImageByString("AAABAAAE"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_05,BaseSixtyFourUtil.getImageByString("AAABAAAF"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_06,BaseSixtyFourUtil.getImageByString("AAABAAAG"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_07,BaseSixtyFourUtil.getImageByString("AAABAAAH"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_08,BaseSixtyFourUtil.getImageByString("AAABAAAI"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_09,BaseSixtyFourUtil.getImageByString("AAABAAAJ"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_10,BaseSixtyFourUtil.getImageByString("AAABAAAK"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_11,BaseSixtyFourUtil.getImageByString("AAABAAAL"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_12,BaseSixtyFourUtil.getImageByString("AAABAAAM"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_13,BaseSixtyFourUtil.getImageByString("AAABAAAN"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_14,BaseSixtyFourUtil.getImageByString("AAABAAAO"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_15,BaseSixtyFourUtil.getImageByString("AAABAAAP"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_16,BaseSixtyFourUtil.getImageByString("AAABAAAQ"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_17,BaseSixtyFourUtil.getImageByString("AAABAAAR"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_18,BaseSixtyFourUtil.getImageByString("AAABAAAS"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_19,BaseSixtyFourUtil.getImageByString("AAABAAAT"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_20,BaseSixtyFourUtil.getImageByString("AAABAAAU"));
+        _facade.getData().getMaxiPkFront().addEntry(P_POK_21,BaseSixtyFourUtil.getImageByString("AAABAAAV"));
+
+        _facade.getData().getTrainers().addEntry(DUAL,BaseSixtyFourUtil.getImageByString("AAACAAAWAAAX"));
+        _facade.getData().getTrainers().addEntry(SINGLE,BaseSixtyFourUtil.getImageByString("AAABAAAW"));
+        _facade.getData().getPeople().addEntry(DUAL_1,BaseSixtyFourUtil.getImageByString("AAABAAAX"));
+        _facade.getData().getPeople().addEntry(DUAL_2,BaseSixtyFourUtil.getImageByString("AAABAAAY"));
+        _facade.getData().getPeople().addEntry(SI,BaseSixtyFourUtil.getImageByString("AAABAAAZ"));
+        _facade.getData().getPeople().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getImages().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
 //        _facade.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
