@@ -23,7 +23,6 @@ import code.util.*;
 import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class MapLevelBean extends AbsLevelBean {
@@ -58,9 +57,14 @@ public class MapLevelBean extends AbsLevelBean {
         //getForms().put(FROM_LIST, false);
         CustList<Place> places_ = data_.getMap().getPlaces();
         int nb_ = places_.size();
+        Coords cl_ = new Coords();
+        cl_.setNumberPlace((short)pl_);
+        cl_.getLevel().setLevelIndex((byte) lev_);
+        cl_.getLevel().setPoint(pt_);
+        cl_.setInsideBuilding(getForms().getValPt(CST_INSIDE));
         for (int p = 0; p < nb_; p++) {
             Place place_ = data_.getMap().getPlace(p);
-            if (place_ instanceof League && NumberUtil.eq(pl_, (((League) place_).getAccessCoords()).getNumberPlace()) && NumberUtil.eq(lev_, (((League) place_).getAccessCoords()).getLevel().getLevelIndex()) && Point.eq(pt_, (((League) place_).getAccessCoords()).getLevel().getPoint())) {
+            if (place_ instanceof League && Coords.eq(cl_, (((League) place_).getAccessCoords()))) {
                 getForms().put(CST_LEVEL_MAP,p,IndexConstants.FIRST_INDEX);
                 return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
             }
