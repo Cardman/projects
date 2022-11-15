@@ -49,14 +49,15 @@ public abstract class AbsLevelBean extends CommonBean {
         int pl_ = co_.getNumberPlace();
         Place place_ = data_.getMap().getPlace(pl_);
         placeName = place_.getName();
+        if (place_ instanceof City&&co_.isInside()) {
+            City city_ = (City) place_;
+            Point ptInside_ = co_.getInsideBuilding();
+            Building build_ = city_.getBuildings().getVal(ptInside_);
+            gym = build_ instanceof Gym;
+            pokemonCenter = build_ instanceof PokemonCenter;
+        }
         if (co_.isInside()) {
             Point ptInside_ = co_.getInsideBuilding();
-            if (place_ instanceof City) {
-                City city_ = (City) place_;
-                Building build_ = city_.getBuildings().getVal(ptInside_);
-                gym = build_ instanceof Gym;
-                pokemonCenter = build_ instanceof PokemonCenter;
-            }
             feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles());
             feedImages(data_.getWhiteLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles());
         } else {
@@ -70,10 +71,7 @@ public abstract class AbsLevelBean extends CommonBean {
             }
             road = place_ instanceof Road;
             levelIndex = lev_;
-            Coords c_ = new Coords();
-            c_.setNumberPlace((short) pl_);
-            c_.getLevel().setLevelIndex((byte) lev_);
-            Level level_ = data_.getMap().getLevelByCoords(c_);
+            Level level_ = data_.getMap().getLevelByCoords(co_);
             if (level_ instanceof LevelWithWildPokemon) {
                 wildPokemonAreas = ((LevelWithWildPokemon) level_).getWildPokemonAreas();
             }

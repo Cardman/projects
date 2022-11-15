@@ -2,6 +2,7 @@ package code.scripts.confs;
 
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.fight.enums.Statistic;
+import aiki.util.Coords;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.structs.Message;
 import org.junit.Assert;
@@ -40,7 +41,9 @@ public abstract class EquallablePkBeanUtil {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
-
+    public static void assertEq(Coords _expected, Coords _result) {
+        Assert.assertTrue(_expected.eq(_result));
+    }
     public static void assertEq(double _expected, double _result) {
         Assert.assertEquals(Double.toString(_expected),Double.toString(_result));
     }

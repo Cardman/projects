@@ -187,14 +187,27 @@ public abstract class InitDbMap extends InitDbConstr {
         return welcome_;
     }
 
-    /*protected static Struct disMapLevel() {
+    protected static Struct dispMapLevel(int _place, int _level) {
         PkData pk_ = pkDataByFacade(db());
-        Struct moves_ = dispMap(pk_);
-        transit(pk_,new PokedexBeanSearch(),moves_,moves_);
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        transit(pk_,new MapBeanClickLevel(),welcome_,moves_,_place,_level);
         return moves_;
     }
 
-    protected static Struct transitToAllPks(PkData _pk, StringMap<Struct> _all,int _index) {
+    protected static Struct dispMapLevelZero(int _place) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        beforeDisplaying(welcome_);
+        Struct moves_ = all_.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        transit(pk_,new MapBeanClickLevelZero(),welcome_,moves_,_place);
+        return moves_;
+    }
+
+    /*protected static Struct transitToAllPks(PkData _pk, StringMap<Struct> _all,int _index) {
         Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
         Struct pks_ = _all.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
@@ -496,7 +509,28 @@ public abstract class InitDbMap extends InitDbConstr {
         _facade.getData().getMaxiPkFront().addEntry(P_POK_19,BaseSixtyFourUtil.getImageByString("AAABAAAT"));
         _facade.getData().getMaxiPkFront().addEntry(P_POK_20,BaseSixtyFourUtil.getImageByString("AAABAAAU"));
         _facade.getData().getMaxiPkFront().addEntry(P_POK_21,BaseSixtyFourUtil.getImageByString("AAABAAAV"));
-
+        _facade.getData().getMiniPk().addEntry(P_POK_00,BaseSixtyFourUtil.getImageByString("AAABAAAA"));
+        _facade.getData().getMiniPk().addEntry(P_POK_01,BaseSixtyFourUtil.getImageByString("AAABAAAB"));
+        _facade.getData().getMiniPk().addEntry(P_POK_02,BaseSixtyFourUtil.getImageByString("AAABAAAC"));
+        _facade.getData().getMiniPk().addEntry(P_POK_03,BaseSixtyFourUtil.getImageByString("AAABAAAD"));
+        _facade.getData().getMiniPk().addEntry(P_POK_04,BaseSixtyFourUtil.getImageByString("AAABAAAE"));
+        _facade.getData().getMiniPk().addEntry(P_POK_05,BaseSixtyFourUtil.getImageByString("AAABAAAF"));
+        _facade.getData().getMiniPk().addEntry(P_POK_06,BaseSixtyFourUtil.getImageByString("AAABAAAG"));
+        _facade.getData().getMiniPk().addEntry(P_POK_07,BaseSixtyFourUtil.getImageByString("AAABAAAH"));
+        _facade.getData().getMiniPk().addEntry(P_POK_08,BaseSixtyFourUtil.getImageByString("AAABAAAI"));
+        _facade.getData().getMiniPk().addEntry(P_POK_09,BaseSixtyFourUtil.getImageByString("AAABAAAJ"));
+        _facade.getData().getMiniPk().addEntry(P_POK_10,BaseSixtyFourUtil.getImageByString("AAABAAAK"));
+        _facade.getData().getMiniPk().addEntry(P_POK_11,BaseSixtyFourUtil.getImageByString("AAABAAAL"));
+        _facade.getData().getMiniPk().addEntry(P_POK_12,BaseSixtyFourUtil.getImageByString("AAABAAAM"));
+        _facade.getData().getMiniPk().addEntry(P_POK_13,BaseSixtyFourUtil.getImageByString("AAABAAAN"));
+        _facade.getData().getMiniPk().addEntry(P_POK_14,BaseSixtyFourUtil.getImageByString("AAABAAAO"));
+        _facade.getData().getMiniPk().addEntry(P_POK_15,BaseSixtyFourUtil.getImageByString("AAABAAAP"));
+        _facade.getData().getMiniPk().addEntry(P_POK_16,BaseSixtyFourUtil.getImageByString("AAABAAAQ"));
+        _facade.getData().getMiniPk().addEntry(P_POK_17,BaseSixtyFourUtil.getImageByString("AAABAAAR"));
+        _facade.getData().getMiniPk().addEntry(P_POK_18,BaseSixtyFourUtil.getImageByString("AAABAAAS"));
+        _facade.getData().getMiniPk().addEntry(P_POK_19,BaseSixtyFourUtil.getImageByString("AAABAAAT"));
+        _facade.getData().getMiniPk().addEntry(P_POK_20,BaseSixtyFourUtil.getImageByString("AAABAAAU"));
+        _facade.getData().getMiniPk().addEntry(P_POK_21,BaseSixtyFourUtil.getImageByString("AAABAAAV"));
         _facade.getData().getTrainers().addEntry(DUAL,BaseSixtyFourUtil.getImageByString("AAACAAAWAAAX"));
         _facade.getData().getTrainers().addEntry(SINGLE,BaseSixtyFourUtil.getImageByString("AAABAAAW"));
         _facade.getData().getPeople().addEntry(DUAL_1,BaseSixtyFourUtil.getImageByString("AAABAAAX"));
@@ -505,6 +539,21 @@ public abstract class InitDbMap extends InitDbConstr {
         _facade.getData().getPeople().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
         _facade.getData().getImages().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
         _facade.getData().getLinks().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_BALL,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_BERRY,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_BOOST,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_ITEMBATTLE,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_EVO_ITEM,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_EVO_STONE,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_FOSSIL,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_HEAL,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_HEAL_HP,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_HEAL_PP,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_HEAL_HP_STATUS,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_HEAL_STATUS,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_REPEL,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getMiniItems().addEntry(I_SELLING,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().setImageTmHm(BaseSixtyFourUtil.getImageByString("AAAB////"));
 //        _facade.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
