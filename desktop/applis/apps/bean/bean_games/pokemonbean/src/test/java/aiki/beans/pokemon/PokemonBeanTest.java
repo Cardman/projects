@@ -1,11 +1,11 @@
 package aiki.beans.pokemon;
 
-import aiki.beans.SelectedPlaceLevelIndexes;
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.map.AikiBeansMapStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
+import aiki.util.Coords;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -598,9 +598,9 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickLevel2() {
-        SelectedPlaceLevelIndexes val_ = callPokemonBeanClickLevelId();
-        assertEq(2,val_.getPlace());
-        assertEq(1,val_.getLevel());
+        Coords val_ = callPokemonBeanClickLevelId();
+        assertEq(2,val_.getNumberPlace());
+        assertEq(1,val_.getLevel().getLevelIndex());
     }
     @Test
     public void clickLevelZero1() {
@@ -608,9 +608,9 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickLevelZero2() {
-        SelectedPlaceLevelIndexes val_ = callPokemonBeanClickLevelZeroId();
-        assertEq(0,val_.getPlace());
-        assertEq(0,val_.getLevel());
+        Coords val_ = callPokemonBeanClickLevelZeroId();
+        assertEq(0,val_.getNumberPlace());
+        assertEq(0,val_.getLevel().getLevelIndex());
     }
     @Test
     public void clickPokedex() {

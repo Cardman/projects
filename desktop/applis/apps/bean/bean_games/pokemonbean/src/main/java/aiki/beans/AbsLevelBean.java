@@ -46,12 +46,12 @@ public abstract class AbsLevelBean extends CommonBean {
         gym = false;
         pokemonCenter = false;
         outside = false;
-        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
-        int pl_ = sel_.getPlace();
+        Coords co_ = getForms().getValCoords(CST_COORDS);
+        int pl_ = co_.getNumberPlace();
         Place place_ = data_.getMap().getPlace(pl_);
         placeName = place_.getName();
-        if (getForms().contains(CST_INSIDE)) {
-            Point ptInside_ = getForms().getValPt(CST_INSIDE);
+        if (co_.isInside()) {
+            Point ptInside_ = co_.getInsideBuilding();
             if (place_ instanceof City) {
                 City city_ = (City) place_;
                 Building build_ = city_.getBuildings().getVal(ptInside_);
@@ -62,7 +62,7 @@ public abstract class AbsLevelBean extends CommonBean {
             feedImages(data_.getWhiteLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles());
         } else {
             outside = true;
-            int lev_ = sel_.getLevel();
+            int lev_ = co_.getLevel().getLevelIndex();
             if (place_ instanceof League) {
                 possibleMultiLayer = true;
             }

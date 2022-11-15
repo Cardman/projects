@@ -7,6 +7,7 @@ import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.map.enums.Direction;
+import aiki.util.Coords;
 import code.bean.Bean;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -29,7 +30,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_COMBO = "combo";
     protected static final String CST_SIMULATION = "simulation";
     protected static final String CST_SIMULATION_STATE = "simulation_state";
-    protected static final String CST_CURRENT_TILE = "current_tile";
+//    protected static final String CST_CURRENT_TILE = "current_tile";
 //    protected static final String CST_DEALER = "dealer";
     protected static final String CST_DUAL = "dual";
     protected static final String CST_EVO_ITEM = "evo_item";
@@ -43,7 +44,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_HEALINGITEM = "healingitem";
     protected static final String CST_HEALINGPP = "healingpp";
     protected static final String CST_HEALINGSTATUS = "healingstatus";
-    protected static final String CST_INSIDE = "inside";
+//    protected static final String CST_INSIDE = "inside";
     protected static final String CST_ITEM = "item";
     protected static final String CST_ITEMFORBATTLE = "itemforbattle";
     protected static final String CST_ITEMS = "items";
@@ -52,7 +53,7 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final String CST_LEARNT_MOVES = "learnt_moves";
     protected static final String CST_LEG_PK = "leg_pk";
     protected static final String CST_LEVEL = "level";
-    protected static final String CST_LEVEL_MAP = "level_map";
+//    protected static final String CST_LEVEL_MAP = "level_map";
 //    protected static final String CST_LEVEL_MAP_INDEX = "level_map_index";
     protected static final String CST_MOVE = "move";
     protected static final String CST_MOVES = "moves";
@@ -129,8 +130,10 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     }
 
     public static void feedForms(int _indexOne, int _indexTwo, StringMapObject _forms) {
-        _forms.removeKey(CST_INSIDE);
-        _forms.put(CST_LEVEL_MAP, _indexOne, _indexTwo);
+        Coords c_ = new Coords();
+        c_.setNumberPlace((short)_indexOne);
+        c_.getLevel().setLevelIndex((byte)_indexTwo);
+        _forms.put(CST_COORDS, c_);
         _forms.put(CST_PROPONE_LINK, false);
         _forms.put(CST_PROPONE_TILE, false);
         _forms.put(CST_SEE_AREA, false);

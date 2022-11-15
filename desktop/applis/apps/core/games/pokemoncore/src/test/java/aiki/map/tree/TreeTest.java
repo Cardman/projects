@@ -100,7 +100,7 @@ public class TreeTest extends EquallablePkUtil {
     private static Coords coords(int _pl,int _xi,int _yi,int _x,int _y) {
         Coords c_ = new Coords();
         c_.setNumberPlace((short) _pl);
-        c_.setInsideBuilding(new Point((short)_xi,(short)_yi));
+        c_.affectInside(new Point((short)_xi,(short)_yi));
         c_.setLevel(new LevelPoint());
         c_.getLevel().setLevelIndex((byte) 0);
         c_.getLevel().setPoint(new Point((short)_x,(short)_y));

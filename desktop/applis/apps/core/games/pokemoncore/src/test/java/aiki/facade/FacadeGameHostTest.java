@@ -117,7 +117,7 @@ public final class FacadeGameHostTest extends InitializationDataBase {
     private static Coords newCoords(int _place, int _level, int _xi, int _yi, int _x, int _y) {
         Coords begin_ = new Coords();
         begin_.setNumberPlace((short) _place);
-        begin_.setInsideBuilding(newPoint(_xi, _yi));
+        begin_.affectInside(newPoint(_xi, _yi));
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) _level);
         begin_.getLevel().setPoint(new Point((short)_x, (short)_y));

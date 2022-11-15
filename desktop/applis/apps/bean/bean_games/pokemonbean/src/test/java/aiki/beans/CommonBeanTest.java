@@ -1,8 +1,10 @@
 package aiki.beans;
 
+import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.map.pokemon.enums.Gender;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
@@ -153,6 +155,26 @@ public final class CommonBeanTest extends InitDbWelcome {
         assertFalse(callRateIsZeroOrGt(new RateStruct(Rate.minusOne())));
     }
 
+    @Test
+    public void forms1() {
+        StringMapObject s_ = new StringMapObject();
+        s_.putDir("",BoolVal.FALSE);
+        assertTrue(s_.contains(""));
+    }
+
+    @Test
+    public void forms2() {
+        StringMapObject s_ = new StringMapObject();
+        s_.put("",Gender.NO_GENDER);
+        assertTrue(s_.contains(""));
+    }
+
+    @Test
+    public void forms3() {
+        StringMapObject s_ = new StringMapObject();
+        s_.put("",TeamCrud.NOTHING);
+        assertTrue(s_.contains(""));
+    }
     private RedirectAb redirectAb(String _key) {
         return new RedirectAb(_key, DEF_DIR);
     }

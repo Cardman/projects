@@ -1,7 +1,6 @@
 package aiki.beans.simulation;
 
 import aiki.beans.AbsLevelBean;
-import aiki.beans.SelectedPlaceLevelIndexes;
 import aiki.db.DataBase;
 import aiki.map.buildings.Building;
 import aiki.map.buildings.Gym;
@@ -30,9 +29,9 @@ public class SimulationLevelBean extends AbsLevelBean {
         }
         Point pt_ = getTiles().getKey(_index);
         //Level level_ = (Level) getForms().getVal(LEVEL_MAP);
-        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
-        int pl_ = sel_.getPlace();
-        int lev_ = sel_.getLevel();
+        Coords sel_ = getForms().getValCoords(CST_COORDS);
+        int pl_ = sel_.getNumberPlace();
+        int lev_ = sel_.getLevel().getLevelIndex();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);
@@ -90,14 +89,14 @@ public class SimulationLevelBean extends AbsLevelBean {
     }
 
     private String city(Point _pt, short _pl, City _p) {
-        Point ptInside_ = getForms().getValPt(CST_INSIDE);
+        Point ptInside_ = getForms().getValCoords(CST_COORDS).getInsideBuilding();
         Building b_ = _p.getBuildings().getVal(ptInside_);
         Gym g_ = (Gym) b_;
         if (g_.getIndoor().getGymTrainers().contains(_pt)) {
             Coords coords_ = new Coords();
             coords_.setNumberPlace(_pl);
             coords_.setLevel(new LevelPoint());
-            coords_.setInsideBuilding(new Point(ptInside_));
+            coords_.affectInside(new Point(ptInside_));
             coords_.getLevel().setPoint(new Point(_pt));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);
@@ -107,7 +106,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             Coords coords_ = new Coords();
             coords_.setNumberPlace(_pl);
             coords_.setLevel(new LevelPoint());
-            coords_.setInsideBuilding(new Point(ptInside_));
+            coords_.affectInside(new Point(ptInside_));
             coords_.getLevel().setPoint(new Point(_pt));
             getForms().put(CST_COORDS, coords_);
             getForms().put(CST_NO_FIGHT, noFight);

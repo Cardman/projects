@@ -28,6 +28,7 @@ import aiki.map.characters.Ally;
 import aiki.map.characters.Person;
 import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.WildPk;
+import aiki.util.Coords;
 import aiki.util.Point;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
@@ -56,7 +57,7 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String CST_COMBO = "combo";
     protected static final String CST_SIMULATION = "simulation";
     protected static final String CST_SIMULATION_STATE = "simulation_state";
-    protected static final String CST_CURRENT_TILE = "current_tile";
+//    protected static final String CST_CURRENT_TILE = "current_tile";
     protected static final String CST_DEALER = "dealer";
     protected static final String CST_DUAL = "dual";
     protected static final String CST_EVO_ITEM = "evo_item";
@@ -70,7 +71,7 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String CST_HEALINGITEM = "healingitem";
     protected static final String CST_HEALINGPP = "healingpp";
     protected static final String CST_HEALINGSTATUS = "healingstatus";
-    protected static final String CST_INSIDE = "inside";
+//    protected static final String CST_INSIDE = "inside";
     protected static final String CST_ITEM = "item";
     protected static final String CST_ITEMFORBATTLE = "itemforbattle";
     protected static final String CST_ITEMS = "items";
@@ -79,7 +80,7 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String CST_LEARNT_MOVES = "learnt_moves";
     protected static final String CST_LEG_PK = "leg_pk";
     protected static final String CST_LEVEL = "level";
-    protected static final String CST_LEVEL_MAP = "level_map";
+//    protected static final String CST_LEVEL_MAP = "level_map";
     protected static final String CST_LEVEL_MAP_INDEX = "level_map_index";
     protected static final String CST_MOVE = "move";
     protected static final String CST_MOVES = "moves";
@@ -591,20 +592,20 @@ public abstract class InitDbConstr extends InitDbBean {
     }
 
     protected static boolean containsPlaceLevelId(Struct _bean) {
-        return forms(_bean).contains(CST_LEVEL_MAP);
+        return forms(_bean).contains(CST_COORDS);
     }
 
-    protected static SelectedPlaceLevelIndexes getValPlaceLevelId(Struct _bean) {
-        return forms(_bean).getValPlacesLevels(CST_LEVEL_MAP);
+    protected static Coords getValPlaceLevelId(Struct _bean) {
+        return forms(_bean).getValCoords(CST_COORDS);
     }
-
-    protected static Point getValPointInside(Struct _bean) {
-        return forms(_bean).getValPt(CST_INSIDE);
-    }
-
-    protected static Point getValCurrentTile(Struct _bean) {
-        return forms(_bean).getValPt(CST_CURRENT_TILE);
-    }
+//
+//    protected static Point getValPointInside(Struct _bean) {
+//        return forms(_bean).getValPt(CST_INSIDE);
+//    }
+//
+//    protected static Point getValCurrentTile(Struct _bean) {
+//        return forms(_bean).getValPt(CST_CURRENT_TILE);
+//    }
 
     protected static AreaApparition getValArea(Struct _bean) {
         return forms(_bean).getValArea(CST_AREA);

@@ -145,7 +145,7 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.setInsideBuilding(new Point((short)4,(short)5));
+        begin_.affectInside(new Point((short)4,(short)5));
         begin_.getLevel().setPoint(new Point((short)3,(short)0));
         Coords dest_ = dataMap_.closestTile(begin_, Direction.UP);
         assertTrue(!dest_.isValid());
@@ -158,7 +158,7 @@ public class DataMapClosestTileTest extends EquallablePkUtil {
         begin_.setNumberPlace((short) 0);
         begin_.setLevel(new LevelPoint());
         begin_.getLevel().setLevelIndex((byte) 0);
-        begin_.setInsideBuilding(new Point((short)4,(short)5));
+        begin_.affectInside(new Point((short)4,(short)5));
         begin_.getLevel().setPoint(new Point((short)3,(short)1));
         Coords dest_ = dataMap_.closestTile(begin_, Direction.UP);
         assertEq(0, dest_.getNumberPlace());

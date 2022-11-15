@@ -37,7 +37,7 @@ public class CoordsTest extends EquallablePkUtil {
     public void isInside2Test() {
         Coords pt_ = new Coords();
         pt_.setNumberPlace((short) 0);
-        pt_.setInsideBuilding(new Point((byte)0,(byte)0));
+        pt_.affectInside(new Point((byte)0,(byte)0));
         pt_.setLevel(new LevelPoint());
         pt_.getLevel().setLevelIndex((byte) 0);
         pt_.getLevel().setPoint(new Point((byte)0,(byte)0));
@@ -113,7 +113,7 @@ public class CoordsTest extends EquallablePkUtil {
         Coords coords_ = new Coords();
         coords_.setLevel(lpt_);
         coords_.setNumberPlace((short) 4);
-        coords_.setInsideBuilding(new Point((short)5,(short)6));
+        coords_.affectInside(new Point((short)5,(short)6));
         assertEq(StringUtil.concat("4",Character.toString(Coords.SEPARATOR),"5",Character.toString(Point.SEPARATOR),"6",Character.toString(Coords.SEPARATOR),"2",Character.toString(LevelPoint.SEPARATOR),"3",Character.toString(Point.SEPARATOR),"1"), coords_.display());
     }
 }

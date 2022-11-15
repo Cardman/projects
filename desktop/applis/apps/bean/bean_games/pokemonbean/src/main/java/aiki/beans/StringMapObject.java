@@ -14,7 +14,6 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.Coords;
-import aiki.util.Point;
 import code.bean.nat.StringMapObjectBase;
 import code.util.AbsMap;
 import code.util.StringMap;
@@ -25,8 +24,8 @@ public final class StringMapObject extends StringMapObjectBase {
     private final StringMap<Ally> mapAlly = new StringMap<Ally>();
     private final StringMap<WildPk> mapWildPk = new StringMap<WildPk>();
     private final StringMap<Person> mapPerson = new StringMap<Person>();
-    private final StringMap<SelectedPlaceLevelIndexes> mapPlacesLevels = new StringMap<SelectedPlaceLevelIndexes>();
-    private final StringMap<Point> mapPoint = new StringMap<Point>();
+//    private final StringMap<SelectedPlaceLevelIndexes> mapPlacesLevels = new StringMap<SelectedPlaceLevelIndexes>();
+//    private final StringMap<Point> mapPoint = new StringMap<Point>();
     private final StringMap<Coords> mapCoords = new StringMap<Coords>();
     private final StringMap<SimulationSteps> mapSimulationSteps = new StringMap<SimulationSteps>();
     private final StringMap<TeamCrud> mapTeamCrud = new StringMap<TeamCrud>();
@@ -104,15 +103,14 @@ public final class StringMapObject extends StringMapObjectBase {
     }
 
     public void putPlaceLevel(String _key, Coords _coords) {
-        put(_key, _coords.getNumberPlace(),_coords.getLevel().getLevelIndex());
+        put(_key, _coords);
     }
 
     public void put(String _key, int _pl, int _lev) {
-        mapPlacesLevels.put(_key, new SelectedPlaceLevelIndexes(_pl, _lev));
-    }
-
-    public void put(String _key, Point _v) {
-        mapPoint.put(_key, _v);
+        Coords c_ = new Coords();
+        c_.setNumberPlace((short)_pl);
+        c_.getLevel().setLevelIndex((byte)_lev);
+        put(_key,c_);
     }
 
     public void put(String _key, Coords _v) {
@@ -136,8 +134,6 @@ public final class StringMapObject extends StringMapObjectBase {
                 mapAlly.contains(_key)||
                 mapWildPk.contains(_key)||
                 mapPerson.contains(_key)||
-                mapPlacesLevels.contains(_key)||
-                mapPoint.contains(_key)||
                 mapCoords.contains(_key)||
                 mapSimulationSteps.contains(_key)||
                 mapTeamCrud.contains(_key)||
@@ -193,12 +189,6 @@ public final class StringMapObject extends StringMapObjectBase {
     public Coords getValCoords(String _key) {
         return mapCoords.getVal(_key);
     }
-    public SelectedPlaceLevelIndexes getValPlacesLevels(String _key) {
-        return mapPlacesLevels.getVal(_key);
-    }
-    public Point getValPt(String _key) {
-        return mapPoint.getVal(_key);
-    }
 
     public void putAllMapGene(StringMapObjectBase _m) {
         if (_m instanceof StringMapObject) {
@@ -212,8 +202,6 @@ public final class StringMapObject extends StringMapObjectBase {
         mapAlly.putAllMap(_m.mapAlly);
         mapWildPk.putAllMap(_m.mapWildPk);
         mapPerson.putAllMap(_m.mapPerson);
-        mapPlacesLevels.putAllMap(_m.mapPlacesLevels);
-        mapPoint.putAllMap(_m.mapPoint);
         mapCoords.putAllMap(_m.mapCoords);
         mapSimulationSteps.putAllMap(_m.mapSimulationSteps);
         mapTeamCrud.putAllMap(_m.mapTeamCrud);
@@ -232,8 +220,6 @@ public final class StringMapObject extends StringMapObjectBase {
         mapAlly.removeKey(_key);
         mapWildPk.removeKey(_key);
         mapPerson.removeKey(_key);
-        mapPlacesLevels.removeKey(_key);
-        mapPoint.removeKey(_key);
         mapCoords.removeKey(_key);
         mapSimulationSteps.removeKey(_key);
         mapTeamCrud.removeKey(_key);

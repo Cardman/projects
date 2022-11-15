@@ -505,7 +505,7 @@ public class DataBase {
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
         coords_.getLevel().setLevelIndex(_level);
-        coords_.setInsideBuilding(_inside);
+        coords_.affectInside(_inside);
         return getWhiteLevelImage(coords_);
     }
 
@@ -523,7 +523,7 @@ public class DataBase {
         coords_.setNumberPlace(_pl);
         coords_.setLevel(new LevelPoint());
         coords_.getLevel().setLevelIndex(_level);
-        coords_.setInsideBuilding(_inside);
+        coords_.affectInside(_inside);
         return getLevelImage(coords_);
     }
 

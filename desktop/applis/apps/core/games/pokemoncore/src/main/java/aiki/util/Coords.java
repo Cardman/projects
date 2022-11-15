@@ -91,7 +91,7 @@ public final class Coords {
         if (_pt == null) {
             insideBuilding = null;
         } else {
-            insideBuilding = new Point(_pt);
+            setInsideBuilding(new Point(_pt));
         }
     }
 

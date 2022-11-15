@@ -12,7 +12,7 @@ public class MapBean extends CommonBean {
 
     @Override
     public void beforeDisplaying() {
-        getForms().removeKey(CST_INSIDE);
+//        getForms().removeKey(CST_INSIDE);
         places = PlaceIndex.places(getDataBase());
     }
     public boolean isMultiLayer(int _index) {

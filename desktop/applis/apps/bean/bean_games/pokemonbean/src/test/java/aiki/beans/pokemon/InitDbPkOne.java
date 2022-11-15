@@ -2,6 +2,7 @@ package aiki.beans.pokemon;
 
 import aiki.beans.*;
 import aiki.beans.pokemon.evolutions.*;
+import aiki.util.Coords;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -91,7 +92,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         return navigateData(new PokemonBeanClickLevel(),_str,2,1);
     }
 
-    public static SelectedPlaceLevelIndexes callPokemonBeanClickLevelId() {
+    public static Coords callPokemonBeanClickLevelId() {
         Struct bean_ = dispPkOne(10);
         callPokemonBeanClickLevel(bean_);
         assertTrue(containsPlaceLevelId(bean_));
@@ -106,7 +107,7 @@ public abstract class InitDbPkOne extends InitDbPk {
         return navigateData(new PokemonBeanClickLevelZero(),_str,0);
     }
 
-    public static SelectedPlaceLevelIndexes callPokemonBeanClickLevelZeroId() {
+    public static Coords callPokemonBeanClickLevelZeroId() {
         Struct bean_ = dispPkOne(1);
         callPokemonBeanClickLevelZero(bean_);
         assertTrue(containsPlaceLevelId(bean_));
