@@ -2,7 +2,7 @@ package aiki.beans.pokemon;
 
 import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.AikiBeansItemsStd;
-import aiki.beans.map.AikiBeansMapStd;
+import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.game.fight.Fight;
 import aiki.util.Coords;
@@ -594,7 +594,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickLevel1() {
-        assertEq(AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevel());
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevel());
     }
     @Test
     public void clickLevel2() {
@@ -604,7 +604,7 @@ public final class PokemonBeanTest extends InitDbPkOne {
     }
     @Test
     public void clickLevelZero1() {
-        assertEq(AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevelZero());
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callPokemonBeanClickLevelZero());
     }
     @Test
     public void clickLevelZero2() {

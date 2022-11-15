@@ -19,7 +19,6 @@ public final class AikiBeansMapStd{
     public static final String BEAN_LEG_PK="leg_pk";
     public static final String BEAN_DEALER="dealer";
     public static final String BEAN_SELLER="seller";
-    public static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
     private static final String WITHOUT_TITLE = "withoutTitle";
     private static final String IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS = "isAccessibleByBeatingSomeTrainers";
     private static final String CLICK_TILE_ON_MAP = "clickTileOnMap";

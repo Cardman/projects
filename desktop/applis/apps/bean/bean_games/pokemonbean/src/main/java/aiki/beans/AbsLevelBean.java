@@ -1,7 +1,6 @@
 package aiki.beans;
 
-import aiki.beans.map.AikiBeansMapStd;
-import aiki.beans.map.elements.AikiBeansMapElementsStd;
+import aiki.beans.map.elements.*;
 import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
@@ -99,7 +98,7 @@ public abstract class AbsLevelBean extends CommonBean {
     }
     public String clickNeighbour(int _index) {
         CommonBean.feedForms(neighbours.getKey(_index),0,getForms());
-        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     public int getMapWidth() {

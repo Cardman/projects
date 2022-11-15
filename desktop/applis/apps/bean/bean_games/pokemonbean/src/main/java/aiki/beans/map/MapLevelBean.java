@@ -60,7 +60,7 @@ public class MapLevelBean extends AbsLevelBean {
             Place place_ = data_.getMap().getPlace(p);
             if (place_ instanceof League && Coords.eq(co_, (((League) place_).getAccessCoords()))) {
                 getForms().put(CST_COORDS,p,IndexConstants.FIRST_INDEX);
-                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (p_ instanceof InitializedPlace) {
@@ -68,7 +68,7 @@ public class MapLevelBean extends AbsLevelBean {
             if (i_.getLinksWithCaves().contains(pt_)) {
                 Coords c_ = i_.getLinksWithCaves().getVal(pt_).getCoords();
                 getForms().putPlaceLevel(CST_COORDS,c_);
-                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         return place(co_, p_);
@@ -81,14 +81,14 @@ public class MapLevelBean extends AbsLevelBean {
             if (c_.getLinksWithOtherPlaces().contains(lp_)) {
                 Coords coords_ = c_.getLinksWithOtherPlaces().getVal(lp_).getCoords();
                 getForms().putPlaceLevel(CST_COORDS,coords_);
-                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
             }
             LevelCave level_ = (LevelCave) c_.getLevelsMap().getVal(lp_.getLevelIndex());
             Point pt_ = lp_.getPoint();
             if (level_.getLinksOtherLevels().contains(pt_)) {
                 Coords coords_ = level_.getLinksOtherLevels().getVal(pt_).getCoords();
                 getForms().putPlaceLevel(CST_COORDS,coords_);
-                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         if (_p instanceof League) {
@@ -115,7 +115,7 @@ public class MapLevelBean extends AbsLevelBean {
                 Coords inside_ = new Coords(_co);
                 inside_.affectInside(pt_);
                 getForms().put(CST_COORDS, inside_);
-                return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+                return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
             }
         }
         return campaign(_co,_p);
@@ -130,7 +130,7 @@ public class MapLevelBean extends AbsLevelBean {
             Coords coords_ = data_.getMap().getBegin();
             getForms().putPlaceLevel(CST_COORDS,coords_);
         }
-        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     private String inside(Coords _co, City _c) {
@@ -142,7 +142,7 @@ public class MapLevelBean extends AbsLevelBean {
             Coords outside_ = new Coords(_co);
             outside_.outside();
             getForms().put(CST_COORDS, outside_);
-            return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
         }
         if (b_ instanceof Gym) {
             Gym g_ = (Gym) b_;
@@ -290,7 +290,7 @@ public class MapLevelBean extends AbsLevelBean {
                 break;
             }
         }
-        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     private void reinitForms() {
@@ -332,7 +332,7 @@ public class MapLevelBean extends AbsLevelBean {
                 break;
             }
         }
-        return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
     }
     public String seeArea() {
         Coords co_ = getForms().getValCoords(CST_COORDS);
@@ -395,7 +395,7 @@ public class MapLevelBean extends AbsLevelBean {
             propone(booleansOthers_);
             putDirs(booleansDir_, BoolVal.FALSE);
             putDirs(booleansDir_, BoolVal.TRUE);
-            return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
         }
         return atMostOneDir(pt_, app_, p_);
     }
@@ -430,7 +430,7 @@ public class MapLevelBean extends AbsLevelBean {
                 if (Point.eq(p.getSource(), _pt)) {
                     Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
                     getForms().putPlaceLevel(CST_COORDS,c_);
-                    return AikiBeansMapStd.WEB_HTML_MAP_LEVEL_HTML;
+                    return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
                 }
             }
         }
