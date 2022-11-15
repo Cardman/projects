@@ -28,7 +28,7 @@ public class MapLevelBean extends AbsLevelBean {
     private boolean proponeLink;
     private boolean proponeTile;
     private boolean seeArea;
-    private IdMap<Direction, BoolVal> dirs;
+    private IdList<Direction> dirs;
 
     @Override
     public void beforeDisplaying() {
@@ -36,13 +36,13 @@ public class MapLevelBean extends AbsLevelBean {
         proponeLink = getForms().getValBool(CST_PROPONE_LINK);
         proponeTile = getForms().getValBool(CST_PROPONE_TILE);
         seeArea = getForms().getValBool(CST_SEE_AREA);
-        dirs = new IdMap<Direction, BoolVal>();
+        dirs = new IdList<Direction>();
         for (EntryCust<String, BoolVal> s: getForms().getMapDirection().entryList()) {
             if (s.getValue() != BoolVal.TRUE) {
                 continue;
             }
             String dirStr_ = s.getKey().substring(CST_PROPONE_LINK_VAR.length());
-            dirs.put(Direction.getDirectionByName(dirStr_), BoolVal.TRUE);
+            dirs.add(Direction.getDirectionByName(dirStr_));
         }
     }
     public String clickTile() {
@@ -273,7 +273,7 @@ public class MapLevelBean extends AbsLevelBean {
     public String clickDirectedLink(int _index) {
         Coords co_ = getForms().getValCoords(CST_COORDS);
         Point pt_ = co_.getLevel().getPoint();
-        Direction dir_ = dirs.getKey(_index);
+        Direction dir_ = dirs.get(_index);
 //        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
         int pl_ = co_.getNumberPlace();
         DataBase data_ = getDataBase();
@@ -301,19 +301,19 @@ public class MapLevelBean extends AbsLevelBean {
     }
 
     public boolean isUp(int _index) {
-        return dirs.getKey(_index) == Direction.UP;
+        return dirs.get(_index) == Direction.UP;
     }
 
     public boolean isDown(int _index) {
-        return dirs.getKey(_index) == Direction.DOWN;
+        return dirs.get(_index) == Direction.DOWN;
     }
 
     public boolean isLeft(int _index) {
-        return dirs.getKey(_index) == Direction.LEFT;
+        return dirs.get(_index) == Direction.LEFT;
     }
 
     public boolean isRight(int _index) {
-        return dirs.getKey(_index) == Direction.RIGHT;
+        return dirs.get(_index) == Direction.RIGHT;
     }
     public String clickLink() {
         Coords co_ = getForms().getValCoords(CST_COORDS);
@@ -367,16 +367,9 @@ public class MapLevelBean extends AbsLevelBean {
             IdList<Direction> points_ = points(pt_, i_);
             booleans_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
             booleansOthers_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
-            if (points_.size() > DataBase.ONE_POSSIBLE_CHOICE) {
-                for (Direction d: Direction.all()) {
-                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
-                    booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
-                }
-            } else {
-                for (Direction d: Direction.all()) {
-                    booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-                    booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-                }
+            for (Direction d: Direction.all()) {
+                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
+                booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
             }
         } else {
             booleans_.put(CST_PROPONE_LINK,BoolVal.FALSE);
@@ -667,7 +660,7 @@ public class MapLevelBean extends AbsLevelBean {
         return seeArea;
     }
 
-    public IdMap<Direction,BoolVal> getDirs() {
+    public IdList<Direction> getDirs() {
         return dirs;
     }
 }

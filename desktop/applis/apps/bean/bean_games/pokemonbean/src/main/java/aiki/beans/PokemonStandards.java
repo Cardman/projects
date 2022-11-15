@@ -789,11 +789,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getDirBool(AbsMap<Direction, BoolVal> _map) {
+    public static NatArrayStruct getDirBool(CustList<Direction> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
-        for (EntryCust<Direction,BoolVal> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey().getDirName()),BooleanStruct.of(e.getValue() == BoolVal.TRUE));
+        for (Direction e: _map){
+            PairStruct p_ = new PairStruct(new StringStruct(e.getDirName()),BooleanStruct.of(true));
             arr_.set(i_,p_);
             i_++;
         }

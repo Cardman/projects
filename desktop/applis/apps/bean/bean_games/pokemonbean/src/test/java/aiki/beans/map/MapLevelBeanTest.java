@@ -185,4 +185,52 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void clickForeGround33() {
         assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(3,0,6));
     }
+    @Test
+    public void getDirs1() {
+        assertSizeEq(1,callMapLevelBeanDirsGet(2,0));
+    }
+    @Test
+    public void getDirs2() {
+        assertSizeEq(1,callMapLevelBeanDirsGet(2,3));
+    }
+    @Test
+    public void getDirs3() {
+        assertSizeEq(1,callMapLevelBeanDirsGet(6,0));
+    }
+    @Test
+    public void getDirs4() {
+        assertSizeEq(1,callMapLevelBeanDirsGet(7,0));
+    }
+    @Test
+    public void isUp1() {
+        assertTrue(callMapLevelBeanIsUp(2,0,0));
+    }
+    @Test
+    public void isUp2() {
+        assertFalse(callMapLevelBeanIsUp(2,3,0));
+    }
+    @Test
+    public void idDown1() {
+        assertTrue(callMapLevelBeanIsDown(2,3,0));
+    }
+    @Test
+    public void idDown2() {
+        assertFalse(callMapLevelBeanIsDown(2,0,0));
+    }
+    @Test
+    public void isLeft1() {
+        assertTrue(callMapLevelBeanIsLeft(6,0,0));
+    }
+    @Test
+    public void isLeft2() {
+        assertFalse(callMapLevelBeanIsLeft(7,0,0));
+    }
+    @Test
+    public void isRight1() {
+        assertTrue(callMapLevelBeanIsRight(7,0,0));
+    }
+    @Test
+    public void isRight2() {
+        assertFalse(callMapLevelBeanIsRight(6,0,0));
+    }
 }

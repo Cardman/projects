@@ -52,8 +52,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return navigateData(new MapLevelBeanClickForeGround(),_str,_tile);
     }
 
-    public static Struct callMapLevelBeanDirsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanDirsGet(),_str,_args);
+    public static Struct callMapLevelBeanDirsGet(int _place, int _tile) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanDirsGet(),bean_);
     }
 
     public static Struct callMapLevelBeanGetMapWidth(Struct _str, long... _args) {
@@ -71,8 +74,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsAccessibleByBeatingSomeTrainers(),_str,_args);
     }
 
-    public static Struct callMapLevelBeanIsDown(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsDown(),_str,_args);
+    public static Struct callMapLevelBeanIsDown(int _place, int _tile, int _second) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsDown(),bean_,_second);
     }
 
     public static Struct callMapLevelBeanIsFirstRow(Struct _str, long... _args) {
@@ -91,24 +97,33 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHost(),_str,_args);
     }
 
-    public static Struct callMapLevelBeanIsLeft(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsLeft(),_str,_args);
+    public static Struct callMapLevelBeanIsLeft(int _place, int _tile, int _second) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsLeft(),bean_,_second);
     }
 
     public static Struct callMapLevelBeanIsMoveTutors(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsMoveTutors(),_str,_args);
     }
 
-    public static Struct callMapLevelBeanIsRight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsRight(),_str,_args);
+    public static Struct callMapLevelBeanIsRight(int _place, int _tile, int _second) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsRight(),bean_,_second);
     }
 
     public static Struct callMapLevelBeanIsStorage(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsStorage(),_str,_args);
     }
 
-    public static Struct callMapLevelBeanIsUp(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsUp(),_str,_args);
+    public static Struct callMapLevelBeanIsUp(int _place, int _tile, int _second) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsUp(),bean_,_second);
     }
 
     public static Struct callMapLevelBeanLevelIndexGet(Struct _str, long... _args) {
