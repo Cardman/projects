@@ -663,6 +663,7 @@ public abstract class InitDbMap extends InitDbConstr {
         g_.getIndoor().getBlocks().addEntry(newPoint(1,0),bl_);
         g_.getIndoor().getBlocks().addEntry(newPoint(1,1),bl_);
         g_.getIndoor().getBlocks().addEntry(newPoint(1,2),bl_);
+        g_.getIndoor().getBlocks().addEntry(newPoint(1,3),bl_);
         return g_;
     }
     protected static PokemonCenter pkCenter() {

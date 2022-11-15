@@ -113,4 +113,40 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void clickForeGround14() {
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BOOST_HTML,callMapLevelBeanClickForeGround(3,1,2));
     }
+    @Test
+    public void clickForeGround15() {
+        assertEq("",callMapLevelBeanClickForeGroundTwice(1,4,4));
+    }
+    @Test
+    public void clickForeGround17() {
+        assertEq("",callMapLevelBeanClickForeGroundTwice(1,4,2));
+    }
+    @Test
+    public void clickForeGround18() {
+        assertEq("",callMapLevelBeanClickForeGroundTwice(1,4,0));
+    }
+    @Test
+    public void clickForeGround19() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML,callMapLevelBeanClickForeGroundTwice(1,4,5));
+    }
+    @Test
+    public void clickForeGround20() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_SELLER_HTML,callMapLevelBeanClickForeGroundTwice(1,4,8));
+    }
+    @Test
+    public void clickForeGround21() {
+        assertEq("",callMapLevelBeanClickForeGroundTwice(0,4,3));
+    }
+    @Test
+    public void clickForeGround22() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickForeGroundTwice(0,4,0));
+    }
+    @Test
+    public void clickForeGround23() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickForeGroundTwice(0,4,1));
+    }
+    @Test
+    public void clickForeGround24() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGroundTwice(0,4,2));
+    }
 }
