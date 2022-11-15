@@ -249,4 +249,12 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void clickTileOnMap4() {
         assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,0));
     }
+    @Test
+    public void clickTileOnMap8() {
+        assertEq("",callMapLevelBeanClickTileOnMap(8,8));
+    }
+    @Test
+    public void clickTileOnMap9() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickTileOnMap(8,4));
+    }
 }
