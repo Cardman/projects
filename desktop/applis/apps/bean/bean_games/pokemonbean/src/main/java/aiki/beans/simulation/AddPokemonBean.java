@@ -49,12 +49,6 @@ public class AddPokemonBean extends WithFilterBean {
         if (!getForms().contains(CST_PK_NAME)) {
             return DataBase.EMPTY_STRING;
         }
-        if (!common.getGenders().contains(common.getGender())) {
-            return DataBase.EMPTY_STRING;
-        }
-        if (!abilities.contains(ability)) {
-            return DataBase.EMPTY_STRING;
-        }
         DataBase data_ = getDataBase();
         common.patchLevel(data_);
         /*if (level < data_.getMinLevel()) {

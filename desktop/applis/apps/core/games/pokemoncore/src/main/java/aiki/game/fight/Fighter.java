@@ -2315,7 +2315,7 @@ public final class Fighter {
     }
 
     AbilityData ficheCapacite(DataBase _import){
-        return _import.getAbility(ability);
+        return _import.getSafeAbility(ability);
     }
 
     PokemonData fichePokemonActuelle(DataBase _import){

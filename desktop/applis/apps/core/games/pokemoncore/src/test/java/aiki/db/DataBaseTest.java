@@ -118,6 +118,8 @@ public class DataBaseTest extends EquallablePkUtil {
     public void test() {
         DataBase data_ = InitializationDataBase.initDataBase();
         assertTrue(!data_.isError());
+        assertEq(0,data_.getSafeAbility("").getEffectEndRound().size());
+        assertEq(0,data_.getSafeAbility("").getEffectSending().size());
     }
 
     @Test

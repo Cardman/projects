@@ -32,6 +32,7 @@ import aiki.game.fight.CheckNumericStringsFight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import aiki.game.player.enums.Sex;
+import aiki.instances.Instances;
 import aiki.map.DataMap;
 import aiki.map.enums.Direction;
 import aiki.map.levels.Block;
@@ -2963,6 +2964,14 @@ public class DataBase {
 
     public Item getItem(String _name) {
         return items.getVal(_name);
+    }
+
+    public AbilityData getSafeAbility(String _name) {
+        AbilityData ab_ = getAbility(_name);
+        if (ab_ == null) {
+            return Instances.newAbilityData();
+        }
+        return ab_;
     }
 
     public AbilityData getAbility(String _name) {

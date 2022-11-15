@@ -4,6 +4,7 @@ import aiki.comparators.DictionaryComparator;
 import aiki.comparators.DictionaryComparatorUtil;
 import aiki.db.DataBase;
 import aiki.map.pokemon.enums.Gender;
+import code.util.EntryCust;
 
 public final class CrudPkCommon {
     private String gender = Gender.NO_GENDER.getGenderName();
@@ -12,6 +13,10 @@ public final class CrudPkCommon {
 
     public void init(DataBase _data,String _lg) {
         genders = DictionaryComparatorUtil.buildGenderStr(_data,_lg);
+        setGender(Gender.NO_GENDER.getGenderName());
+        for (EntryCust<String,String> e: genders.entryList()) {
+            setGender(e.getKey());
+        }
     }
     public void patchLevel(DataBase _data) {
         if (level < _data.getMinLevel()) {

@@ -321,7 +321,7 @@ public final class Player {
                 ((PokemonPlayer)e).deplacement(_import);
                 firstPk_ = false;
             }
-            AbilityData fCapac_=_import.getAbility(((PokemonPlayer) e).getAbility());
+            AbilityData fCapac_=_import.getSafeAbility(((PokemonPlayer) e).getAbility());
             coeff_+=fCapac_.getDecreaseNecStepsHatch();
         }
         for(UsablePokemon e:team){
