@@ -435,11 +435,14 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getPlaces().add(lcOne(d_.getPlaces().size(),newCoords(2,0,1,0)));
         d_.getPlaces().add(city(Direction.LEFT,newCoords(5,0,0,0)));
         d_.getPlaces().add(city(Direction.RIGHT,newCoords(4,0,0,0)));
+        d_.getPlaces().add(road(Direction.LEFT,newCoords(7,0,0,0)));
+        d_.getPlaces().add(road(Direction.RIGHT,newCoords(6,0,0,0)));
         d_.getPlaces().add(league(newCoords(3,0,0,2)));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,2),new Condition());
         d_.join((short)0,(short)2,newPoint(0,1),newPoint(0,1),Direction.UP);
         d_.join((short)2,(short)1,newPoint(0,0),newPoint(0,0),Direction.UP);
         d_.join((short)4,(short)5,newPoint(0,0),newPoint(0,0),Direction.LEFT);
+        d_.join((short)6,(short)7,newPoint(0,0),newPoint(0,0),Direction.LEFT);
         return d_;
     }
     protected static League league(Coords _c) {
@@ -464,6 +467,22 @@ public abstract class InitDbMap extends InitDbConstr {
         City c_ = Instances.newCity();
         c_.setName(CITY);
         sqThree(c_.getLevel());
+        c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(newPoint(0,0),_dir),_other);
+        return c_;
+    }
+    protected static Road road(Direction _dir,Coords _other) {
+        Road c_ = Instances.newRoad();
+        c_.setName(ROAD);
+        Block one_ = Instances.newBlock();
+        one_.setHeight((short) 1);
+        one_.setWidth((short) 1);
+        one_.setTileFileName("");
+        one_.setIndexApparition((short)0);
+        c_.getLevelRoad().getBlocks().addEntry(newPoint(0,0),one_);
+        c_.getLevelRoad().getBlocks().addEntry(newPoint(0,1),one_);
+        c_.getLevelRoad().getBlocks().addEntry(newPoint(1,0),one_);
+        c_.getLevelRoad().getBlocks().addEntry(newPoint(1,1),one_);
+        c_.getLevelRoad().getWildPokemonAreas().add(areaThree());
         c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(newPoint(0,0),_dir),_other);
         return c_;
     }
@@ -604,6 +623,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static AreaApparition areaOne() {
         AreaApparition a_ = Instances.newAreaApparition();
+        a_.setMultFight((byte)1);
         a_.getWildPokemon().add(wp(P_POK_00,A_ABILITY,I_FOSSIL));
         a_.getWildPokemon().add(wp(P_POK_01,A_ABILITY2,I_HEAL_STATUS));
         a_.getWildPokemonFishing().add(wp(P_POK_02,A_ABILITY,I_EVO_ITEM));
@@ -612,10 +632,20 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static AreaApparition areaTwo() {
         AreaApparition a_ = Instances.newAreaApparition();
+        a_.setMultFight((byte)1);
         a_.getWildPokemon().add(wp(P_POK_04,A_ABILITY,I_FOSSIL));
         a_.getWildPokemon().add(wp(P_POK_05,A_ABILITY2,I_HEAL_STATUS));
         a_.getWildPokemonFishing().add(wp(P_POK_06,A_ABILITY,I_EVO_ITEM));
         a_.getWildPokemonFishing().add(wp(P_POK_07,A_ABILITY2,I_EVO_STONE));
+        return a_;
+    }
+    protected static AreaApparition areaThree() {
+        AreaApparition a_ = Instances.newAreaApparition();
+        a_.setMultFight((byte)1);
+        a_.getWildPokemon().add(wp(P_POK_08,A_ABILITY,I_HEAL_STATUS));
+        a_.getWildPokemon().add(wp(P_POK_09,A_ABILITY2,I_HEAL));
+        a_.getWildPokemonFishing().add(wp(P_POK_10,A_ABILITY,I_HEAL_PP));
+        a_.getWildPokemonFishing().add(wp(P_POK_11,A_ABILITY2,I_HEAL_HP));
         return a_;
     }
     protected static WildPk wp(String _name, String _ab, String _it) {
