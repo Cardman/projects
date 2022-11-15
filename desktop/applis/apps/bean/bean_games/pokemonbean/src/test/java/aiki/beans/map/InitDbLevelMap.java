@@ -22,6 +22,12 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickTileOnMap(),_str,_args);
     }
 
+    public static String callMapLevelBeanClickForeGroundTwice(int _place, int _tile, int _second) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickForeGround(bean_,_tile);
+        beforeDisplaying(bean_);
+        return callMapLevelBeanClickForeGround(bean_,_second);
+    }
     public static String callMapLevelBeanClickForeGround(int _place, int _tile) {
         return callMapLevelBeanClickForeGround(dispMapLevelZero(_place),_tile);
     }

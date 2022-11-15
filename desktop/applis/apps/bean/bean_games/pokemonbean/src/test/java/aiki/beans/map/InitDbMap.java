@@ -266,7 +266,7 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getFoeTrainer().setImageMaxiFileName(DUAL);
         d_.getFoeTrainer().setImageMiniFileName(DUAL_1);
         d_.getFoeTrainer().setImageMiniSecondTrainerFileName(DUAL_2);
-        d_.setPt(newPoint(0,1));
+        d_.setPt(newPoint(1,0));
         d_.getAlly().getTeam().add(wpOne(P_POK_16,A_ABILITY,I_HEAL_HP_STATUS,18));
         d_.getAlly().getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
         d_.getFoeTrainer().getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
@@ -301,6 +301,7 @@ public abstract class InitDbMap extends InitDbConstr {
         mult((byte) 1, tmf_);
         tmf_.getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
         tmf_.getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
+        tmf_.setTm((short)2);
         return tmf_;
     }
     protected static GymTrainer trGymTrainer() {
@@ -410,6 +411,10 @@ public abstract class InitDbMap extends InitDbConstr {
         facade_.getData().completeMembers(A_ABILITY,Instances.newAbilityData());
         facade_.getData().completeMembers(A_ABILITY2,Instances.newAbilityData());
         facade_.getData().setMap(dm());
+        facade_.getData().getHm().addEntry((short)1,M_POK_00);
+        facade_.getData().getTm().addEntry((short)1,M_POK_01);
+        facade_.getData().getTm().addEntry((short)2,M_POK_02);
+        facade_.getData().getTm().addEntry((short)3,M_POK_03);
         trsCore(facade_);
         return facade_;
     }
@@ -744,10 +749,10 @@ public abstract class InitDbMap extends InitDbConstr {
         sqThree(first_);
         first_.getLegendaryPks().addEntry(newPoint(2,2),wp(P_POK_18,A_ABILITY2,I_REPEL));
         first_.getLegendaryPks().addEntry(newPoint(1,1),wp(P_POK_19,A_ABILITY,I_SELLING));
+        first_.getDualFights().addEntry(newPoint(2,0),dual());
         c_.getLevels().add(first_);
         LevelCave sec_ = Instances.newLevelCave();
         sqThree(sec_);
-        sec_.getDualFights().addEntry(newPoint(0,2),dual());
         sec_.getCharacters().addEntry(newPoint(1,0),trMult());
         DealerItem dOne_ = Instances.newDealerItem();
         dOne_.getItems().add(I_BALL);

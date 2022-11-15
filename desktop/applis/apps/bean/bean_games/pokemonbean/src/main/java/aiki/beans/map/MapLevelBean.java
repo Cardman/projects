@@ -252,10 +252,8 @@ public class MapLevelBean extends AbsLevelBean {
                 getForms().put(CST_PERSON, (TrainerMultiFights)char_);
                 return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML;
             }
-            if (char_ instanceof DealerItem) {
-                getForms().put(CST_PERSON, (DealerItem)char_);
-                return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DEALER_HTML;
-            }
+            getForms().put(CST_PERSON, (DealerItem)char_);
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_DEALER_HTML;
         }
         for (Point ptKey_: l_.getDualFights().getKeys()) {
             DualFight d_ = l_.getDualFights().getVal(ptKey_);
