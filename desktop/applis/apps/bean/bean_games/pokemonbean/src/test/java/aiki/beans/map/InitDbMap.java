@@ -124,6 +124,11 @@ public abstract class InitDbMap extends InitDbConstr {
     public static final String DUAL_1 = "dual_1";
     public static final String DUAL_2 = "dual_2";
     public static final String SI = "si";
+    public static final String T_L_1 = "T L 1";
+    public static final String T_L_2 = "T L 2";
+    public static final String G_L_1 = "G L 1";
+    public static final String D_T_1 = "D T 1";
+    public static final String D_T_2 = "D T 2";
 
     public static Struct callMapBeanClickLevel(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapBeanClickLevel(),_str,_args);
@@ -161,6 +166,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static DualFight dual() {
         DualFight d_ = Instances.newDualFight();
+        d_.setNames(new StringList(D_T_1, D_T_2));
         d_.getFoeTrainer().setImageMaxiFileName(DUAL);
         d_.getFoeTrainer().setImageMiniFileName(DUAL_1);
         d_.getFoeTrainer().setImageMiniSecondTrainerFileName(DUAL_2);
@@ -173,6 +179,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static TrainerLeague trLeagueOne() {
         TrainerLeague tmf_ = Instances.newTrainerLeague();
+        tmf_.setName(T_L_1);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
@@ -182,6 +189,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static TrainerLeague trLeagueTwo() {
         TrainerLeague tmf_ = Instances.newTrainerLeague();
+        tmf_.setName(T_L_2);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
@@ -191,6 +199,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static GymLeader trGymLeader() {
         GymLeader tmf_ = Instances.newGymLeader();
+        tmf_.setName(G_L_1);
         tmf_.setImageMaxiFileName(SINGLE);
         tmf_.setImageMiniFileName(SI);
         mult((byte) 1, tmf_);
