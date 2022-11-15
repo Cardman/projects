@@ -85,9 +85,6 @@ public abstract class InitDbMap extends InitDbConstr {
     public static final String P_POK_19_TR = "P_POK19_TR";
     public static final String P_POK_20_TR = "P_POK20_TR";
     public static final String P_POK_21_TR = "P_POK21_TR";
-    public static final String ROAD = "R 1";
-    public static final String CITY = "CI 1";
-    public static final String CAVE = "CA 1";
 
     public static final String I_BALL_TR = "I_BALL_TR";
     public static final String I_BERRY_TR = "I_BERRY_TR";
@@ -130,28 +127,84 @@ public abstract class InitDbMap extends InitDbConstr {
     public static final String G_L_1 = "G L 1";
     public static final String D_T_1 = "D T 1";
     public static final String D_T_2 = "D T 2";
+    public static final String PL_1 = "PL 1";
+    public static final String PL_2 = "PL 2";
+    public static final String PL_3 = "PL 3";
+    public static final String PL_4 = "PL 4";
+    public static final String PL_5 = "PL 5";
+    public static final String PL_6 = "PL 6";
+    public static final String PL_7 = "PL 7";
+    public static final String PL_8 = "PL 8";
+    public static final String PL_9 = "PL 9";
 
-    public static Struct callMapBeanClickLevel(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanClickLevel(),_str,_args);
+    public static String callMapBeanClickLevel(int _place, int _level) {
+        return callMapBeanClickLevel(dispMap(),_place,_level);
     }
 
-    public static Struct callMapBeanClickLevelZero(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanClickLevelZero(),_str,_args);
+    public static String callMapBeanClickLevel(Struct _str, int _place, int _level) {
+        return navigateData(new MapBeanClickLevel(),_str,_place,_level);
     }
 
-    public static Struct callMapBeanIsMultiLayer(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanIsMultiLayer(),_str,_args);
+    public static Coords callMapBeanClickLevelId(int _place, int _level) {
+        Struct bean_ = dispMap();
+        callMapBeanClickLevel(bean_,_place,_level);
+        return getValPlaceLevelId(bean_);
+    }
+    public static String callMapBeanClickLevelZero(int _place) {
+        return callMapBeanClickLevelZero(dispMap(),_place);
     }
 
-    public static Struct callMapBeanLayers(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanLayers(),_str,_args);
+    public static String callMapBeanClickLevelZero(Struct _str, int  _place) {
+        return navigateData(new MapBeanClickLevelZero(),_str,_place);
     }
 
-    public static Struct callMapBeanPlacesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapBeanPlacesGet(),_str,_args);
+    public static Coords callMapBeanClickLevelZeroId(int _place) {
+        Struct bean_ = dispMap();
+        callMapBeanClickLevelZero(bean_,_place);
+        return getValPlaceLevelId(bean_);
+    }
+    public static Struct callMapBeanIsMultiLayer(int _place) {
+        return BeanPokemonCommonTs.callLongs(new MapBeanIsMultiLayer(),dispMap(),_place);
     }
 
-    public static StringMap<Struct> beanToEndRound(PkData _pk) {
+    public static Struct callMapBeanLayers(int _place) {
+        return BeanPokemonCommonTs.callLongs(new MapBeanLayers(),dispMap(),_place);
+    }
+
+    public static Struct callMapBeanPlacesGet() {
+        return BeanPokemonCommonTs.callLongs(new MapBeanPlacesGet(),dispMap());
+    }
+
+    protected static Struct dispMap() {
+        PkData pk_ = pkDataByFacade(db());
+        return dispMap(pk_);
+    }
+
+    private static Struct dispMap(PkData _pk) {
+        StringMap<Struct> all_ = beanToMap(_pk);
+        Struct welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        beforeDisplaying(welcome_);
+        return welcome_;
+    }
+
+    /*protected static Struct disMapLevel() {
+        PkData pk_ = pkDataByFacade(db());
+        Struct moves_ = dispMap(pk_);
+        transit(pk_,new PokedexBeanSearch(),moves_,moves_);
+        return moves_;
+    }
+
+    protected static Struct transitToAllPks(PkData _pk, StringMap<Struct> _all,int _index) {
+        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        beforeDisplaying(welcome_);
+        Struct pks_ = _all.getVal(AikiBeansPokemonStd.BEAN_POKEDEX);
+        Struct pk_ = _all.getVal(AikiBeansPokemonStd.BEAN_PK);
+        transit(_pk,new WelcomeBeanClickPokedex(),welcome_,pks_);
+        transit(_pk,new PokedexBeanSearch(),pks_,pks_);
+        transit(_pk,new PokedexBeanClickLink(),pks_,pk_,_index);
+        return pk_;
+    }*/
+    public static StringMap<Struct> beanToMap(PkData _pk) {
         StringMap<Struct> map_ = new StringMap<Struct>();
         map_.addEntry(AikiBeansMapStd.BEAN_GAME_MAP,_pk.beanMapBean(EN));
         map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP,_pk.beanMapLevelBean(EN));
@@ -165,7 +218,7 @@ public abstract class InitDbMap extends InitDbConstr {
         map_.addEntry(AikiBeansMapStd.BEAN_SELLER,_pk.beanSellerBean(EN));
         return map_;
     }
-    public static StringMap<String> mappingToEndRound() {
+    public static StringMap<String> mappingToMap() {
         StringMap<String> map_ = new StringMap<String>();
         map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_MAP_HTML,AikiBeansMapStd.BEAN_GAME_MAP);
         map_.addEntry(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,AikiBeansMapStd.BEAN_LEVEL_MAP);
@@ -451,6 +504,7 @@ public abstract class InitDbMap extends InitDbConstr {
         _facade.getData().getPeople().addEntry(SI,BaseSixtyFourUtil.getImageByString("AAABAAAZ"));
         _facade.getData().getPeople().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
         _facade.getData().getImages().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().getLinks().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
 //        _facade.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
@@ -472,10 +526,10 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getPlaces().add(cityTwo(newCoords(2,0,0,0)));
         d_.getPlaces().add(lrOne(newCoords(3,0,0,1),newCoords(1,0,1,2),newCoords(0,0,1,0)));
         d_.getPlaces().add(lcOne(d_.getPlaces().size(),newCoords(2,0,1,0)));
-        d_.getPlaces().add(city(Direction.LEFT,newCoords(5,0,0,0)));
-        d_.getPlaces().add(city(Direction.RIGHT,newCoords(4,0,0,0)));
-        d_.getPlaces().add(road(Direction.LEFT,newCoords(7,0,0,0)));
-        d_.getPlaces().add(road(Direction.RIGHT,newCoords(6,0,0,0)));
+        d_.getPlaces().add(city(Direction.LEFT,newCoords(5,0,0,0), PL_5));
+        d_.getPlaces().add(city(Direction.RIGHT,newCoords(4,0,0,0), PL_6));
+        d_.getPlaces().add(road(Direction.LEFT,newCoords(7,0,0,0), PL_7));
+        d_.getPlaces().add(road(Direction.RIGHT,newCoords(6,0,0,0), PL_8));
         d_.getPlaces().add(league(newCoords(3,0,0,2)));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,2),new Condition());
         d_.join((short)0,(short)2,newPoint(1,0),newPoint(0,1),Direction.DOWN);
@@ -486,6 +540,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static League league(Coords _c) {
         League l_ = Instances.newLeague();
+        l_.setName(PL_9);
         LevelLeague one_ = Instances.newLevelLeague();
         one_.setTrainer(trLeagueOne());
         sqThree(one_);
@@ -502,16 +557,16 @@ public abstract class InitDbMap extends InitDbConstr {
         l_.setAccessCoords(_c);
         return l_;
     }
-    protected static City city(Direction _dir,Coords _other) {
+    protected static City city(Direction _dir, Coords _other, String _n) {
         City c_ = Instances.newCity();
-        c_.setName(CITY);
+        c_.setName(_n);
         sqThree(c_.getLevel());
         c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(newPoint(0,0),_dir),_other);
         return c_;
     }
-    protected static Road road(Direction _dir,Coords _other) {
+    protected static Road road(Direction _dir, Coords _other, String _n) {
         Road c_ = Instances.newRoad();
-        c_.setName(ROAD);
+        c_.setName(_n);
         Block one_ = Instances.newBlock();
         one_.setHeight((short) 1);
         one_.setWidth((short) 1);
@@ -527,7 +582,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static City cityOne(Coords _other) {
         City c_ = Instances.newCity();
-        c_.setName(CITY);
+        c_.setName(PL_1);
         sqThree(c_.getLevel());
         c_.getBuildings().addEntry(newPoint(1,1),gym());
         c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(newPoint(1,0),Direction.UP),_other);
@@ -535,7 +590,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static City cityTwo(Coords _other) {
         City c_ = Instances.newCity();
-        c_.setName(CITY);
+        c_.setName(PL_2);
         sqThree(c_.getLevel());
         c_.getBuildings().addEntry(newPoint(1,1),pkCenter());
         c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(newPoint(1,2),Direction.DOWN),_other);
@@ -604,7 +659,7 @@ public abstract class InitDbMap extends InitDbConstr {
 
     protected static Road lrOne(Coords _cave, Coords _up, Coords _down) {
         Road r_ = Instances.newRoad();
-        r_.setName(ROAD);
+        r_.setName(PL_3);
         LevelRoad lr_ = Instances.newLevelRoad();
         Block one_ = Instances.newBlock();
         one_.setHeight((short) 1);
@@ -635,7 +690,7 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static Cave lcOne(int _pl, Coords _join) {
         Cave c_ = Instances.newCave();
-        c_.setName(CAVE);
+        c_.setName(PL_4);
         LevelCave first_ = Instances.newLevelCave();
         sqThree(first_);
         first_.getLegendaryPks().addEntry(newPoint(2,2),wp(P_POK_18,A_ABILITY2,I_REPEL));
