@@ -346,6 +346,8 @@ public abstract class InitDbMap extends InitDbConstr {
         _facade.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POK_19, P_POK_19_TR);
         _facade.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POK_20, P_POK_20_TR);
         _facade.getData().getTranslatedPokemon().getVal(EN).addEntry(P_POK_21, P_POK_21_TR);
+        _facade.getData().getTranslatedGenders().addEntry(EN,new IdMap<Gender,String>());
+        _facade.getData().getTranslatedGenders().getVal(EN).addEntry(Gender.NO_GENDER,NO_G);
 //        _facade.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
