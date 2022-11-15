@@ -149,4 +149,40 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void clickForeGround24() {
         assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGroundTwice(0,4,2));
     }
+    @Test
+    public void clickForeGround25() {
+        assertEq("",callMapLevelBeanClickForeGround(8,0,3));
+    }
+    @Test
+    public void clickForeGround26() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickForeGround(8,0,4));
+    }
+    @Test
+    public void clickForeGround27() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML,callMapLevelBeanClickForeGround(8,1,4));
+    }
+    @Test
+    public void clickForeGround28() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(8,0,7));
+    }
+    @Test
+    public void clickForeGround29() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(8,1,7));
+    }
+    @Test
+    public void clickForeGround30() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(3,1,0));
+    }
+    @Test
+    public void clickForeGround31() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(3,0,3));
+    }
+    @Test
+    public void clickForeGround32() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(2,0,1));
+    }
+    @Test
+    public void clickForeGround33() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickForeGround(3,0,6));
+    }
 }
