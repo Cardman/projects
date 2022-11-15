@@ -32,8 +32,7 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String clickName() {
         String name_ = pokemon.getName();
-        getForms().put(CST_PK, name_);
-        return CST_POKEMON;
+        return tryRedirectPk(name_);
     }
     public short getLevel() {
         return pokemon.getLevel();
@@ -54,8 +53,7 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String clickAbility() {
         String ability_ = pokemon.getAbility();
-        getForms().put(CST_ABILITY, ability_);
-        return CST_ABILITY;
+        return tryRedirectAb(ability_);
     }
     public String getItem() {
         DataBase data_ = getDataBase();
@@ -120,8 +118,7 @@ public class LegendaryPokemonBean extends CommonBean {
     }
     public String clickMove(int _moveIndex) {
         String move_ = getMovesAtLevel().get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public StringList getMovesAtLevel() {
         DataBase data_ = getDataBase();

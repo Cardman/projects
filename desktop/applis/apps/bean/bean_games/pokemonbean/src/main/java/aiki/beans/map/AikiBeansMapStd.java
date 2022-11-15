@@ -9,6 +9,16 @@ import code.util.CustList;
 public final class AikiBeansMapStd{
     public static final String TYPE_MAP_BEAN = "aiki.beans.map.MapBean";
     public static final String TYPE_MAP_LEVEL_BEAN = "aiki.beans.map.MapLevelBean";
+    public static final String BEAN_GAME_MAP="game_map";
+    public static final String BEAN_LEVEL_MAP="level_map";
+    public static final String BEAN_PK_TEAM="pk_team";
+    public static final String BEAN_TRAINER_FIGHT="trainer_fight";
+    public static final String BEAN_ALLY="ally";
+    public static final String BEAN_DUAL="dual";
+    public static final String BEAN_AREA="area";
+    public static final String BEAN_LEG_PK="leg_pk";
+    public static final String BEAN_DEALER="dealer";
+    public static final String BEAN_SELLER="seller";
     public static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
     private static final String WITHOUT_TITLE = "withoutTitle";
     private static final String IS_ACCESSIBLE_BY_BEATING_SOME_TRAINERS = "isAccessibleByBeatingSomeTrainers";

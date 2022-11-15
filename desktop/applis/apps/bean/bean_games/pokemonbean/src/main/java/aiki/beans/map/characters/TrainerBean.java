@@ -44,8 +44,7 @@ public class TrainerBean extends CommonBean {
         return translationsMoves_.getVal(move);
     }
     public String clickMove() {
-        getForms().put(CST_MOVE, move);
-        return CST_MOVE;
+        return tryRedirectMv(move);
     }
     public CustList<PokemonTeam> getTeamsRewards() {
         if (trainer instanceof TrainerMultiFights) {

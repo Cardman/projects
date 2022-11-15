@@ -93,7 +93,6 @@ public class DealerBean extends CommonBean {
     }
     public String clickTm(int _index) {
         String move_ = getAllTmDealer().get(_index);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
 }

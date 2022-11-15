@@ -52,8 +52,7 @@ public abstract class AbsPkTeamBean extends CommonBean {
         PkTrainer pk_;
         pk_ = _list.get(_index);
         String name_ = pk_.getName();
-        getForms().put(CST_PK, name_);
-        return CST_POKEMON;
+        return tryRedirectPk(name_);
     }
     public String getAbility(int _index) {
         DataBase data_ = getDataBase();
@@ -68,8 +67,7 @@ public abstract class AbsPkTeamBean extends CommonBean {
         PkTrainer pk_;
         pk_ = _list.get(_index);
         String ability_ = pk_.getAbility();
-        getForms().put(CST_ABILITY, ability_);
-        return CST_ABILITY;
+        return tryRedirectAb(ability_);
     }
     public String getItem(int _index) {
         DataBase data_ = getDataBase();
@@ -102,8 +100,7 @@ public abstract class AbsPkTeamBean extends CommonBean {
         StringList moves_ = new StringList(pk_.getMoves());
         moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         String move_ = moves_.get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public CustList<PkTrainer> getTeam() {
         return team;

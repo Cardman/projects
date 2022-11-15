@@ -39,8 +39,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String name_ = pk_.getName();
-        getForms().put(CST_PK, name_);
-        return CST_POKEMON;
+        return tryRedirectPk(name_);
     }
     public String getGender(int _index) {
         DataBase data_ = getDataBase();
@@ -64,8 +63,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getWildPokemon(_index);
         String ability_ = pk_.getAbility();
-        getForms().put(CST_ABILITY, ability_);
-        return CST_ABILITY;
+        return tryRedirectAb(ability_);
     }
     public String getItem(int _index) {
         DataBase data_ = getDataBase();
@@ -134,8 +132,7 @@ public class AreaBean extends CommonBean {
     }
     public String clickMove(int _index, int _moveIndex) {
         String move_ = getMovesAtLevel(_index).get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public StringList getMovesAtLevel(int _index) {
         DataBase data_ = getDataBase();
@@ -166,8 +163,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String name_ = pk_.getName();
-        getForms().put(CST_PK, name_);
-        return CST_POKEMON;
+        return tryRedirectPk(name_);
     }
     public String getGenderFishing(int _index) {
         DataBase data_ = getDataBase();
@@ -191,8 +187,7 @@ public class AreaBean extends CommonBean {
         Pokemon pk_;
         pk_ = area.getPokemonFishing(_index);
         String ability_ = pk_.getAbility();
-        getForms().put(CST_ABILITY, ability_);
-        return CST_ABILITY;
+        return tryRedirectAb(ability_);
     }
     public String getItemFishing(int _index) {
         DataBase data_ = getDataBase();
@@ -261,8 +256,7 @@ public class AreaBean extends CommonBean {
     }
     public String clickMoveFishing(int _index, int _moveIndex) {
         String move_ = getMovesAtLevelFishing(_index).get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public StringList getMovesAtLevelFishing(int _index) {
         DataBase data_ = getDataBase();
