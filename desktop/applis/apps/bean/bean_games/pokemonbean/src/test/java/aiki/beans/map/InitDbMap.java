@@ -439,8 +439,8 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getPlaces().add(road(Direction.RIGHT,newCoords(6,0,0,0)));
         d_.getPlaces().add(league(newCoords(3,0,0,2)));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,2),new Condition());
-        d_.join((short)0,(short)2,newPoint(0,1),newPoint(0,1),Direction.UP);
-        d_.join((short)2,(short)1,newPoint(0,0),newPoint(0,0),Direction.UP);
+        d_.join((short)0,(short)2,newPoint(1,0),newPoint(0,1),Direction.DOWN);
+        d_.join((short)2,(short)1,newPoint(0,0),newPoint(1,2),Direction.DOWN);
         d_.join((short)4,(short)5,newPoint(0,0),newPoint(0,0),Direction.LEFT);
         d_.join((short)6,(short)7,newPoint(0,0),newPoint(0,0),Direction.LEFT);
         return d_;
