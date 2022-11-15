@@ -23,6 +23,7 @@ public final class AikiBeansMapElementsStd{
     private static final String CLICK_NAME = "clickName";
     private static final String GET_NAME = "getName";
     private static final String GET_GENDER = "getGender";
+    private static final String GET_GENDER_FISHING = "getGenderFishing";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_ABILITY = "getAbility";
     private static final String CLICK_ITEM = "clickItem";
@@ -68,6 +69,7 @@ public final class AikiBeansMapElementsStd{
         methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickName()));
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetName()));
         methods_.add( new SpecNatMethod(GET_GENDER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetGender()));
+        methods_.add( new SpecNatMethod(GET_GENDER_FISHING,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetGenderFishing()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanGetAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AreaBeanClickItem()));

@@ -69,6 +69,10 @@ public abstract class InitDbArea extends InitDbLevelMap{
         return BeanPokemonCommonTs.callLongs(new AreaBeanGetGender(),_str,_args);
     }
 
+    public static Struct callAreaBeanGetGenderFishing(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new AreaBeanGetGenderFishing(),_str,_args);
+    }
+
     public static Struct callAreaBeanGetImage(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AreaBeanGetImage(),_str,_args);
     }
