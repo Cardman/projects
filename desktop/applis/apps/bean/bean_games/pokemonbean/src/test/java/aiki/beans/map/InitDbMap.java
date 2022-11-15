@@ -578,13 +578,14 @@ public abstract class InitDbMap extends InitDbConstr {
         DataMap d_ = Instances.newDataMap();
         d_.getPlaces().add(cityOne(newCoords(2,0,0,1)));
         d_.getPlaces().add(cityTwo(newCoords(2,0,0,0)));
-        d_.getPlaces().add(lrOne(newCoords(3,0,0,1),newCoords(1,0,1,2),newCoords(0,0,1,0)));
+        d_.getPlaces().add(lrOne(newCoords(3,0,0,1),newCoords(1,0,1,2),newCoords(0,0,1,0), PL_3));
         d_.getPlaces().add(lcOne(d_.getPlaces().size(),newCoords(2,0,1,0)));
         d_.getPlaces().add(city(Direction.LEFT,newCoords(5,0,0,0), PL_5));
         d_.getPlaces().add(city(Direction.RIGHT,newCoords(4,0,0,0), PL_6));
         d_.getPlaces().add(road(Direction.LEFT,newCoords(7,0,0,0), PL_7));
         d_.getPlaces().add(road(Direction.RIGHT,newCoords(6,0,0,0), PL_8));
         d_.getPlaces().add(league(newCoords(3,0,0,2)));
+        d_.getPlaces().add(lrOne(newCoords(3,0,0,1),newCoords(1,0,1,2),newCoords(0,0,1,0), "PL__"));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,2),new Condition());
         d_.join((short)0,(short)2,newPoint(1,0),newPoint(0,1),Direction.DOWN);
         d_.join((short)2,(short)1,newPoint(0,0),newPoint(1,2),Direction.DOWN);
@@ -712,9 +713,9 @@ public abstract class InitDbMap extends InitDbConstr {
         _l.getBlocks().addEntry(newPoint(2,2),bl_);
     }
 
-    protected static Road lrOne(Coords _cave, Coords _up, Coords _down) {
+    protected static Road lrOne(Coords _cave, Coords _up, Coords _down, String _n) {
         Road r_ = Instances.newRoad();
-        r_.setName(PL_3);
+        r_.setName(_n);
         LevelRoad lr_ = Instances.newLevelRoad();
         Block one_ = Instances.newBlock();
         one_.setHeight((short) 1);

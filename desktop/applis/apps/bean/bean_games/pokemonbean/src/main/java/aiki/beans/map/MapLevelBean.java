@@ -281,14 +281,18 @@ public class MapLevelBean extends AbsLevelBean {
         reinitForms();
         InitializedPlace i_ = (InitializedPlace) p_;
         //p_.getLevelByCoords(coords_).get
-        for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
-            if (p.getDir() == dir_&&Point.eq(p.getSource(), pt_)) {
-                Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().putPlaceLevel(CST_COORDS,c_);
+        feedForm(pt_, dir_, i_, getForms().getMapCoords());
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+    }
+
+    static void feedForm(Point _pt, Direction _dir, InitializedPlace _i, StringMap<Coords> _map) {
+        for (PlaceInterConnect p: _i.getPointsWithCitiesAndOtherRoads().getKeys()) {
+            if (p.getDir() == _dir &&Point.eq(p.getSource(), _pt)) {
+                Coords c_ = _i.getPointsWithCitiesAndOtherRoads().getVal(p);
+                _map.put(CST_COORDS,c_);
                 break;
             }
         }
-        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
     }
 
     private void reinitForms() {
@@ -414,20 +418,23 @@ public class MapLevelBean extends AbsLevelBean {
     }
 
     private String whenNoTile(Point _pt, AreaApparition _app, Place _p) {
-        Coords co_ = getForms().getValCoords(CST_COORDS);
+        if (_p instanceof Campaign && !_app.isVirtual()) {
+            getForms().put(CST_AREA, _app);
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+        }
+        return whenNoTile(_pt,_p, getForms().getMapCoords());
+    }
+    static String whenNoTile(Point _pt, Place _p, StringMap<Coords> _map) {
+        Coords co_ = _map.getVal(CST_COORDS);
         if (_p instanceof InitializedPlace && !co_.isInside()) {
             InitializedPlace i_ = (InitializedPlace) _p;
             for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
                 if (Point.eq(p.getSource(), _pt)) {
                     Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                    getForms().putPlaceLevel(CST_COORDS,c_);
+                    _map.put(CST_COORDS,c_);
                     return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
                 }
             }
-        }
-        if (_p instanceof Campaign && !_app.isVirtual()) {
-            getForms().put(CST_AREA, _app);
-            return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
         }
         return DataBase.EMPTY_STRING;
     }

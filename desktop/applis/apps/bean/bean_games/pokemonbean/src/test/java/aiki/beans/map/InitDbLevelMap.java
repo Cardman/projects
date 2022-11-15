@@ -17,11 +17,17 @@ public abstract class InitDbLevelMap extends InitDbMap {
     public static Struct callMapLevelBeanClickTile(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickTile(),_str,_args);
     }
-
-    public static Struct callMapLevelBeanClickTileOnMap(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickTileOnMap(),_str,_args);
+    public static String callMapLevelBeanClickTileOnMap(int _place, int _tile) {
+        return callMapLevelBeanClickTileOnMap(dispMapLevelZero(_place),_tile);
     }
 
+    public static String callMapLevelBeanClickTileOnMap(Struct _str, long... _args) {
+        return navigateData(new MapLevelBeanClickTileOnMap(),_str,_args);
+    }
+
+    public static String callMapLevelBeanClickTileOnMap(int _place, int _level, int _tile) {
+        return callMapLevelBeanClickTileOnMap(dispMapLevel(_place, _level),_tile);
+    }
     public static String callMapLevelBeanClickForeGroundTwice(int _place, int _tile, int _second) {
         Struct bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickForeGround(bean_,_tile);

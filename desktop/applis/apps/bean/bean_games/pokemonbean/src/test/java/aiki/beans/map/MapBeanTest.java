@@ -7,7 +7,7 @@ import org.junit.Test;
 public final class MapBeanTest extends InitDbMap {
     @Test
     public void getPlaces() {
-        assertSizeEq(9,callMapBeanPlacesGet());
+        assertSizeEq(10,callMapBeanPlacesGet());
     }
     @Test
     public void layers() {

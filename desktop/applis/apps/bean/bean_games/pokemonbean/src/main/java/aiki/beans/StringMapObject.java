@@ -236,4 +236,8 @@ public final class StringMapObject extends StringMapObjectBase {
     public StringMap<BoolVal> getMapDirection() {
         return mapDirection;
     }
+
+    public StringMap<Coords> getMapCoords() {
+        return mapCoords;
+    }
 }
