@@ -1,6 +1,7 @@
 package aiki.beans.map;
 
 import aiki.beans.AbsLevelBean;
+import aiki.beans.StringMapObject;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import aiki.db.DataBase;
 import aiki.map.buildings.Building;
@@ -14,36 +15,33 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.levels.LevelCave;
 import aiki.map.levels.LevelWithWildPokemon;
 import aiki.map.places.*;
-import aiki.map.util.PlaceInterConnect;
+import aiki.map.util.PlaceInterConnectCoords;
 import aiki.util.Coords;
 import aiki.util.LevelPoint;
 import aiki.util.Point;
 import code.util.*;
-import code.util.comparators.ComparatorBoolean;
-import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
-import code.util.core.StringUtil;
 
 public class MapLevelBean extends AbsLevelBean {
-    private boolean proponeLink;
-    private boolean proponeTile;
-    private boolean seeArea;
-    private IdList<Direction> dirs;
+//    private boolean proponeLink;
+//    private boolean proponeTile;
+//    private boolean seeArea;
+//    private IdList<Direction> dirs;
 
     @Override
     public void beforeDisplaying() {
         initTiles();
-        proponeLink = getForms().getValBool(CST_PROPONE_LINK);
-        proponeTile = getForms().getValBool(CST_PROPONE_TILE);
-        seeArea = getForms().getValBool(CST_SEE_AREA);
-        dirs = new IdList<Direction>();
-        for (EntryCust<String, BoolVal> s: getForms().getMapDirection().entryList()) {
-            if (s.getValue() != BoolVal.TRUE) {
-                continue;
-            }
-            String dirStr_ = s.getKey().substring(CST_PROPONE_LINK_VAR.length());
-            dirs.add(Direction.getDirectionByName(dirStr_));
-        }
+//        proponeLink = getForms().getValBool(CST_PROPONE_LINK);
+//        proponeTile = getForms().getValBool(CST_PROPONE_TILE);
+//        seeArea = getForms().getValBool(CST_SEE_AREA);
+//        dirs = new IdList<Direction>();
+//        for (EntryCust<String, BoolVal> s: getForms().getMapDirection().entryList()) {
+//            if (s.getValue() != BoolVal.TRUE) {
+//                continue;
+//            }
+//            String dirStr_ = s.getKey().substring(CST_PROPONE_LINK_VAR.length());
+//            dirs.add(Direction.getDirectionByName(dirStr_));
+//        }
     }
     public String clickTile() {
         Coords co_ = getForms().getValCoords(CST_COORDS);
@@ -52,7 +50,7 @@ public class MapLevelBean extends AbsLevelBean {
         int pl_ = co_.getNumberPlace();
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
-        reinitForms();
+//        reinitForms();
         //getForms().put(FROM_LIST, false);
         CustList<Place> places_ = data_.getMap().getPlaces();
         int nb_ = places_.size();
@@ -270,82 +268,82 @@ public class MapLevelBean extends AbsLevelBean {
         return DataBase.EMPTY_STRING;
     }
 
-    public String clickDirectedLink(int _index) {
-        Coords co_ = getForms().getValCoords(CST_COORDS);
-        Point pt_ = co_.getLevel().getPoint();
-        Direction dir_ = dirs.get(_index);
-//        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
-        int pl_ = co_.getNumberPlace();
-        DataBase data_ = getDataBase();
-        Place p_ = data_.getMap().getPlace(pl_);
-        reinitForms();
-        InitializedPlace i_ = (InitializedPlace) p_;
-        //p_.getLevelByCoords(coords_).get
-        feedForm(pt_, dir_, i_, getForms().getMapCoords());
-        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
-    }
+//    public String clickDirectedLink(int _index) {
+//        Coords co_ = getForms().getValCoords(CST_COORDS);
+//        Point pt_ = co_.getLevel().getPoint();
+//        Direction dir_ = dirs.get(_index);
+////        SelectedPlaceLevelIndexes sel_ = getForms().getValPlacesLevels(CST_LEVEL_MAP);
+//        int pl_ = co_.getNumberPlace();
+//        DataBase data_ = getDataBase();
+//        Place p_ = data_.getMap().getPlace(pl_);
+//        reinitForms();
+//        InitializedPlace i_ = (InitializedPlace) p_;
+//        //p_.getLevelByCoords(coords_).get
+//        feedForm(pt_, dir_, i_, getForms());
+//        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+//    }
 
-    static void feedForm(Point _pt, Direction _dir, InitializedPlace _i, StringMap<Coords> _map) {
-        for (PlaceInterConnect p: _i.getPointsWithCitiesAndOtherRoads().getKeys()) {
-            if (p.getDir() == _dir &&Point.eq(p.getSource(), _pt)) {
-                Coords c_ = _i.getPointsWithCitiesAndOtherRoads().getVal(p);
-                _map.put(CST_COORDS,c_);
-                break;
-            }
-        }
-    }
+//    static void feedForm(Point _pt, Direction _dir, InitializedPlace _i, StringMapObject _map) {
+//        for (PlaceInterConnect p: _i.getPointsWithCitiesAndOtherRoads().getKeys()) {
+//            if (p.getDir() == _dir &&Point.eq(p.getSource(), _pt)) {
+//                Coords c_ = _i.getPointsWithCitiesAndOtherRoads().getVal(p);
+//                _map.put(CST_COORDS,c_);
+//                break;
+//            }
+//        }
+//    }
 
-    private void reinitForms() {
-        getForms().put(CST_PROPONE_LINK, false);
-        getForms().put(CST_PROPONE_TILE, false);
-        getForms().put(CST_SEE_AREA, false);
-        for (Direction d: Direction.all()) {
-            getForms().putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-        }
-    }
+//    private void reinitForms() {
+//        getForms().put(CST_PROPONE_LINK, false);
+//        getForms().put(CST_PROPONE_TILE, false);
+//        getForms().put(CST_SEE_AREA, false);
+//        for (Direction d: Direction.all()) {
+//            getForms().putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
+//        }
+//    }
 
-    public boolean isUp(int _index) {
-        return dirs.get(_index) == Direction.UP;
-    }
-
-    public boolean isDown(int _index) {
-        return dirs.get(_index) == Direction.DOWN;
-    }
-
-    public boolean isLeft(int _index) {
-        return dirs.get(_index) == Direction.LEFT;
-    }
-
-    public boolean isRight(int _index) {
-        return dirs.get(_index) == Direction.RIGHT;
-    }
-    public String clickLink() {
-        Coords co_ = getForms().getValCoords(CST_COORDS);
-        Point pt_ = co_.getLevel().getPoint();
-        int pl_ = co_.getNumberPlace();
-        DataBase data_ = getDataBase();
-        Place p_ = data_.getMap().getPlace(pl_);
-        reinitForms();
-        InitializedPlace i_ = (InitializedPlace) p_;
-        for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
-            if (Point.eq(p.getSource(), pt_)) {
-                Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                getForms().putPlaceLevel(CST_COORDS,c_);
-                break;
-            }
-        }
-        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
-    }
-    public String seeArea() {
-        Coords co_ = getForms().getValCoords(CST_COORDS);
-        DataBase data_ = getDataBase();
-        reinitForms();
-        AreaApparition app_ = data_.getMap().getAreaByCoords(co_);
-        if (!app_.isVirtual()) {
-            getForms().put(CST_AREA, app_);
-        }
-        return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
-    }
+//    public boolean isUp(int _index) {
+//        return dirs.get(_index) == Direction.UP;
+//    }
+//
+//    public boolean isDown(int _index) {
+//        return dirs.get(_index) == Direction.DOWN;
+//    }
+//
+//    public boolean isLeft(int _index) {
+//        return dirs.get(_index) == Direction.LEFT;
+//    }
+//
+//    public boolean isRight(int _index) {
+//        return dirs.get(_index) == Direction.RIGHT;
+//    }
+//    public String clickLink() {
+//        Coords co_ = getForms().getValCoords(CST_COORDS);
+//        Point pt_ = co_.getLevel().getPoint();
+//        int pl_ = co_.getNumberPlace();
+//        DataBase data_ = getDataBase();
+//        Place p_ = data_.getMap().getPlace(pl_);
+//        reinitForms();
+//        InitializedPlace i_ = (InitializedPlace) p_;
+//        for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
+//            if (Point.eq(p.getSource(), pt_)) {
+//                Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
+//                getForms().putPlaceLevel(CST_COORDS,c_);
+//                break;
+//            }
+//        }
+//        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+//    }
+//    public String seeArea() {
+//        Coords co_ = getForms().getValCoords(CST_COORDS);
+//        DataBase data_ = getDataBase();
+//        reinitForms();
+//        AreaApparition app_ = data_.getMap().getAreaByCoords(co_);
+//        if (!app_.isVirtual()) {
+//            getForms().put(CST_AREA, app_);
+//        }
+//        return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+//    }
     public String clickTileOnMap(int _index) {
         Coords co_ = getForms().getValCoords(CST_COORDS);
         Point pt_ = getTiles().getKey(_index);
@@ -355,60 +353,60 @@ public class MapLevelBean extends AbsLevelBean {
         int pl_ = co_.getNumberPlace();
         DataBase data_ = getDataBase();
         AreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
-        BoolVal seeArea_ = BoolVal.FALSE;
-        if (!app_.isVirtual()) {
-            getForms().put(CST_AREA, app_);
-            seeArea_ = BoolVal.TRUE;
-        }
+//        BoolVal seeArea_ = BoolVal.FALSE;
+//        if (!app_.isVirtual()) {
+//            getForms().put(CST_AREA, app_);
+//            seeArea_ = BoolVal.TRUE;
+//        }
         Place p_ = data_.getMap().getPlace(pl_);
-        StringMap<BoolVal> booleansDir_ = new StringMap<BoolVal>();
-        StringMap<BoolVal> booleansOthers_ = new StringMap<BoolVal>();
-        StringMap<BoolVal> booleans_ = new StringMap<BoolVal>();
-        booleans_.put(CST_SEE_AREA,seeArea_);
-        booleansOthers_.put(CST_SEE_AREA,seeArea_);
-        if (p_ instanceof InitializedPlace) {
-            InitializedPlace i_ = (InitializedPlace) p_;
-            IdList<Direction> points_ = points(pt_, i_);
-            booleans_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
-            booleansOthers_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
-            for (Direction d: Direction.all()) {
-                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
-                booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
-            }
-        } else {
-            booleans_.put(CST_PROPONE_LINK,BoolVal.FALSE);
-            booleansOthers_.put(CST_PROPONE_LINK,BoolVal.FALSE);
-            for (Direction d: Direction.all()) {
-                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-                booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-            }
-        }
-        booleans_.put(CST_PROPONE_TILE,ComparatorBoolean.of(!data_.getMap().isEmptyForAdding(cp_)));
-        booleansOthers_.put(CST_PROPONE_TILE,ComparatorBoolean.of(!data_.getMap().isEmptyForAdding(cp_)));
-        int nbTrue_ = DataBase.countValues(booleans_.values(), BoolVal.TRUE);
-        if (nbTrue_ > DataBase.ONE_POSSIBLE_CHOICE) {
-            propone(booleansOthers_);
-            putDirs(booleansDir_, BoolVal.FALSE);
-            putDirs(booleansDir_, BoolVal.TRUE);
-            return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
-        }
+//        StringMap<BoolVal> booleansDir_ = new StringMap<BoolVal>();
+//        StringMap<BoolVal> booleansOthers_ = new StringMap<BoolVal>();
+//        StringMap<BoolVal> booleans_ = new StringMap<BoolVal>();
+//        booleans_.put(CST_SEE_AREA,seeArea_);
+//        booleansOthers_.put(CST_SEE_AREA,seeArea_);
+//        if (p_ instanceof InitializedPlace) {
+//            InitializedPlace i_ = (InitializedPlace) p_;
+//            IdList<Direction> points_ = points(pt_, i_);
+//            booleans_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
+//            booleansOthers_.put(CST_PROPONE_LINK, ComparatorBoolean.of(!points_.isEmpty()));
+//            for (Direction d: Direction.all()) {
+//                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
+//                booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()),ComparatorBoolean.of(points_.containsObj(d)));
+//            }
+//        } else {
+//            booleans_.put(CST_PROPONE_LINK,BoolVal.FALSE);
+//            booleansOthers_.put(CST_PROPONE_LINK,BoolVal.FALSE);
+//            for (Direction d: Direction.all()) {
+//                booleans_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
+//                booleansDir_.put(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
+//            }
+//        }
+//        booleans_.put(CST_PROPONE_TILE,ComparatorBoolean.of(!data_.getMap().isEmptyForAdding(cp_)));
+//        booleansOthers_.put(CST_PROPONE_TILE,ComparatorBoolean.of(!data_.getMap().isEmptyForAdding(cp_)));
+//        int nbTrue_ = DataBase.countValues(booleans_.values(), BoolVal.TRUE);
+//        if (nbTrue_ > DataBase.ONE_POSSIBLE_CHOICE) {
+//            propone(booleansOthers_);
+//            putDirs(booleansDir_, BoolVal.FALSE);
+//            putDirs(booleansDir_, BoolVal.TRUE);
+//            return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+//        }
         return atMostOneDir(pt_, app_, p_);
     }
 
-    private void propone(StringMap<BoolVal> _bools) {
-        for (EntryCust<String, BoolVal> e: _bools.entryList()) {
-            getForms().put(e.getKey(),e.getValue());
-        }
-    }
+//    private void propone(StringMap<BoolVal> _bools) {
+//        for (EntryCust<String, BoolVal> e: _bools.entryList()) {
+//            getForms().put(e.getKey(),e.getValue());
+//        }
+//    }
 
-    public String clickForeGround(int _index) {
-        Coords co_ = getForms().getValCoords(CST_COORDS);
-        Point pt_ = getTiles().getKey(_index);
-        Coords cp_ = new Coords(co_);
-        cp_.getLevel().setPoint(pt_);
-        getForms().put(CST_COORDS, cp_);
-        return clickTile();
-    }
+//    public String clickForeGround(int _index) {
+//        Coords co_ = getForms().getValCoords(CST_COORDS);
+//        Point pt_ = getTiles().getKey(_index);
+//        Coords cp_ = new Coords(co_);
+//        cp_.getLevel().setPoint(pt_);
+//        getForms().put(CST_COORDS, cp_);
+//        return clickTile();
+//    }
     private String atMostOneDir(Point _pt, AreaApparition _app, Place _p) {
         String return_ = clickTile();
         if (!return_.isEmpty()) {
@@ -422,38 +420,49 @@ public class MapLevelBean extends AbsLevelBean {
             getForms().put(CST_AREA, _app);
             return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
         }
-        return whenNoTile(_pt,_p, getForms().getMapCoords());
+        return whenNoTile(_pt,_p, getForms());
     }
-    static String whenNoTile(Point _pt, Place _p, StringMap<Coords> _map) {
-        Coords co_ = _map.getVal(CST_COORDS);
+    static String whenNoTile(Point _pt, Place _p, StringMapObject _map) {
+        Coords co_ = _map.getValCoords(CST_COORDS);
         if (_p instanceof InitializedPlace && !co_.isInside()) {
             InitializedPlace i_ = (InitializedPlace) _p;
-            for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
-                if (Point.eq(p.getSource(), _pt)) {
-                    Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
-                    _map.put(CST_COORDS,c_);
-                    return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+            for (Direction d: Direction.all()) {
+                Point moved_ = new Point(_pt);
+                moved_.moveTo(d);
+                for (PlaceInterConnectCoords p: i_.getPointsWithCitiesAndOtherRoads().entryList()) {
+                    if (Point.eq(moved_,p.getPlaceInterConnect().getSource()) && d == p.getPlaceInterConnect().getDir().getOpposite()) {
+                        Coords c_ = p.getCoords();
+                        _map.put(CST_COORDS,c_);
+                        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+                    }
                 }
             }
+//            for (PlaceInterConnect p: i_.getPointsWithCitiesAndOtherRoads().getKeys()) {
+//                if (Point.eq(p.getSource(), _pt)) {
+//                    Coords c_ = i_.getPointsWithCitiesAndOtherRoads().getVal(p);
+//                    _map.put(CST_COORDS,c_);
+//                    return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+//                }
+//            }
         }
         return DataBase.EMPTY_STRING;
     }
 
-    private IdList<Direction> points(Point _pt, InitializedPlace _i) {
-        IdList<Direction> points_ = new IdList<Direction>();
-        for (PlaceInterConnect p: _i.getPointsWithCitiesAndOtherRoads().getKeys()) {
-            if (Point.eq(p.getSource(), _pt)) {
-                points_.add(p.getDir());
-            }
-        }
-        return points_;
-    }
-
-    private void putDirs(StringMap<BoolVal> _dirs, BoolVal _fl) {
-        for (String e: DataBase.keysWithValue(_dirs, _fl)) {
-            getForms().putDir(e, _fl);
-        }
-    }
+//    private IdList<Direction> points(Point _pt, InitializedPlace _i) {
+//        IdList<Direction> points_ = new IdList<Direction>();
+//        for (PlaceInterConnect p: _i.getPointsWithCitiesAndOtherRoads().getKeys()) {
+//            if (Point.eq(p.getSource(), _pt)) {
+//                points_.add(p.getDir());
+//            }
+//        }
+//        return points_;
+//    }
+//
+//    private void putDirs(StringMap<BoolVal> _dirs, BoolVal _fl) {
+//        for (String e: DataBase.keysWithValue(_dirs, _fl)) {
+//            getForms().putDir(e, _fl);
+//        }
+//    }
 
     public boolean withoutTitle(int _index) {
         if (isStorage(_index)) {
@@ -654,20 +663,20 @@ public class MapLevelBean extends AbsLevelBean {
         Direction dir_ = dirs.getKey(_index);
 
     }*/
+//
+//    public boolean getProponeTile() {
+//        return proponeTile;
+//    }
+//
+//    public boolean getProponeLink() {
+//        return proponeLink;
+//    }
+//
+//    public boolean getSeeArea() {
+//        return seeArea;
+//    }
 
-    public boolean getProponeTile() {
-        return proponeTile;
-    }
-
-    public boolean getProponeLink() {
-        return proponeLink;
-    }
-
-    public boolean getSeeArea() {
-        return seeArea;
-    }
-
-    public IdList<Direction> getDirs() {
-        return dirs;
-    }
+//    public IdList<Direction> getDirs() {
+//        return dirs;
+//    }
 }

@@ -23,6 +23,7 @@ public final class AikiBeansStd{
     private static final String GET_MAP_WIDTH = "getMapWidth";
     private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String CLICK_AREA = "clickArea";
+    private static final String CLICK_AREA_ON_MAP = "clickAreaOnMap";
     private static final String CLICK_NEIGHBOUR = "clickNeighbour";
     private static final String POSSIBLE_MULTI_LAYER = "possibleMultiLayer";
     private static final String PLACE_NAME = "placeName";
@@ -93,6 +94,7 @@ public final class AikiBeansStd{
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new MapLevelBeanGetMapWidth()));
         methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickArea()));
+        methods_.add( new SpecNatMethod(CLICK_AREA_ON_MAP,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickAreaOnMap()));
         methods_.add( new SpecNatMethod(CLICK_NEIGHBOUR,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickNeighbour()));
         _std.getStds().addEntry(TYPE_ABS_LEVEL_BEAN, type_);
     }

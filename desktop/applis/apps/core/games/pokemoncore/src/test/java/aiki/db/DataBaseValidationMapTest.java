@@ -2598,6 +2598,36 @@ public final class DataBaseValidationMapTest extends DataBaseValidationCommon {
         assertEq(81,data_.getWhiteLevelImage((short)1,(byte)0,new Point((short)1,(short)1)).size());
     }
     @Test
+    public void getBackLevelImage1Test() {
+        DataBase data_ = InitializationDataBase.initDb();
+        assertEq(36,data_.getBackLevelImage((short)0,(byte)0).size());
+    }
+    @Test
+    public void getBackLevelImage2Test() {
+        DataBase data_ = InitializationDataBase.initDb();
+        assertEq(81,data_.getBackLevelImage((short)1,(byte)0,new Point((short)1,(short)1)).size());
+    }
+    @Test
+    public void updateBorders1() {
+        DataBase data_ = InitializationDataBase.initDb();
+        Points<int[][]> imgs_ = new PointsArr();
+        imgs_.addEntry(newPoint(0,0),new int[1][1]);
+        imgs_.addEntry(newPoint(0,1),new int[1][1]);
+        imgs_.addEntry(newPoint(0,2),new int[1][1]);
+        imgs_.addEntry(newPoint(1,0),new int[1][1]);
+        imgs_.addEntry(newPoint(1,1),new int[1][1]);
+        imgs_.addEntry(newPoint(1,2),new int[1][1]);
+        DataBase.updateBorders(imgs_,data_.getMap().getSideLength());
+        assertEq(20,imgs_.size());
+    }
+    @Test
+    public void updateBorders2() {
+        DataBase data_ = InitializationDataBase.initDb();
+        Points<int[][]> imgs_ = new PointsArr();
+        DataBase.updateBorders(imgs_,data_.getMap().getSideLength());
+        assertEq(0,imgs_.size());
+    }
+    @Test
     public void getFighterNameTest() {
         DataBase data_ = newData();
         data_.setMessagesFight(new StringMap<String>());

@@ -56,10 +56,11 @@ public abstract class AbsLevelBean extends CommonBean {
             gym = build_ instanceof Gym;
             pokemonCenter = build_ instanceof PokemonCenter;
         }
+        int sideLength_ = data_.getMap().getSideLength();
         if (co_.isInside()) {
             Point ptInside_ = co_.getInsideBuilding();
-            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles());
-            feedImages(data_.getWhiteLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles());
+            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles(),sideLength_);
+            feedImages(data_.getBackLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles(),sideLength_);
         } else {
             outside = true;
             int lev_ = co_.getLevel().getLevelIndex();
@@ -75,8 +76,8 @@ public abstract class AbsLevelBean extends CommonBean {
             if (level_ instanceof LevelWithWildPokemon) {
                 wildPokemonAreas = ((LevelWithWildPokemon) level_).getWildPokemonAreas();
             }
-            feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles());
-            feedImages(data_.getWhiteLevelImage((short) pl_, (byte) lev_), getWhiteTiles());
+            feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles(),sideLength_);
+            feedImages(data_.getBackLevelImage((short) pl_, (byte) lev_), getWhiteTiles(),sideLength_);
         }
         if (place_ instanceof InitializedPlace) {
             for (PlaceInterConnectCoords n: ((InitializedPlace)place_).getPointsWithCitiesAndOtherRoads().entryList()){
@@ -85,13 +86,28 @@ public abstract class AbsLevelBean extends CommonBean {
         }
     }
 
-    private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de) {
+    private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de, int _side) {
+        DataBase.updateBorders(_map,_side);
         for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
             _de.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
         }
     }
     public String clickArea(int _index) {
         getForms().put(CST_AREA,getWildPokemonAreas().get(_index));
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
+    }
+    public String clickAreaOnMap(int _index) {
+        Coords co_ = getForms().getValCoords(CST_COORDS);
+        Point pt_ = getTiles().getKey(_index);
+        Coords cp_ = new Coords(co_);
+        cp_.getLevel().setPoint(pt_);
+        getForms().put(CST_COORDS, cp_);
+        DataBase data_ = getDataBase();
+        AreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
+        if (app_.isVirtual()) {
+            return "";
+        }
+        getForms().put(CST_AREA,app_);
         return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
     }
     public String clickNeighbour(int _index) {
@@ -101,7 +117,8 @@ public abstract class AbsLevelBean extends CommonBean {
 
     public int getMapWidth() {
         int w_ = 0;
-        while (tiles.getKey(w_).gety() != IndexConstants.SECOND_INDEX) {
+        int y_ = tiles.getKey(w_).gety();
+        while (tiles.getKey(w_).gety() != y_+1) {
             w_++;
         }
         return w_;

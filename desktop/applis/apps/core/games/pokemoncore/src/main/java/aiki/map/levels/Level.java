@@ -97,7 +97,7 @@ public abstract class Level {
         }
         return tiles_;
     }
-    private static int[][] whiteCell(int _side) {
+    public static int[][] whiteCell(int _side) {
         int[][] img_ = new int[_side][_side];
         for (int i = 0; i < _side; i++) {
             for (int j = 0; j < _side; j++) {

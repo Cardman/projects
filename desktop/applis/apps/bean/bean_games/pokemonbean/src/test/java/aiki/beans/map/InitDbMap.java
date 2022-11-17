@@ -18,6 +18,7 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.Coords;
+import aiki.util.Point;
 import code.expressionlanguage.structs.Struct;
 import code.images.*;
 import code.util.*;
@@ -580,8 +581,8 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getPlaces().add(cityTwo(newCoords(2,0,0,0)));
         d_.getPlaces().add(lrOne(newCoords(3,0,0,1),newCoords(1,0,1,2),newCoords(0,0,1,0), PL_3));
         d_.getPlaces().add(lcOne(d_.getPlaces().size(),newCoords(2,0,1,0)));
-        d_.getPlaces().add(city(Direction.LEFT,newCoords(5,0,0,0), PL_5));
-        d_.getPlaces().add(city(Direction.RIGHT,newCoords(4,0,0,0), PL_6));
+        d_.getPlaces().add(city(Direction.LEFT,newCoords(5,0,0,0), PL_5, newPoint(0, 0)));
+        d_.getPlaces().add(city(Direction.RIGHT,newCoords(4,0,0,0), PL_6, newPoint(0, 2)));
         d_.getPlaces().add(road(Direction.LEFT,newCoords(7,0,0,0), PL_7));
         d_.getPlaces().add(road(Direction.RIGHT,newCoords(6,0,0,0), PL_8));
         d_.getPlaces().add(league(newCoords(3,0,0,2)));
@@ -612,11 +613,11 @@ public abstract class InitDbMap extends InitDbConstr {
         l_.setAccessCoords(_c);
         return l_;
     }
-    protected static City city(Direction _dir, Coords _other, String _n) {
+    protected static City city(Direction _dir, Coords _other, String _n, Point _source) {
         City c_ = Instances.newCity();
         c_.setName(_n);
         sqThree(c_.getLevel());
-        c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(newPoint(0,0),_dir),_other);
+        c_.getPointsWithCitiesAndOtherRoads().addEntry(new PlaceInterConnect(_source,_dir),_other);
         return c_;
     }
     protected static Road road(Direction _dir, Coords _other, String _n) {

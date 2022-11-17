@@ -22,7 +22,6 @@ import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.fight.util.*;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.map.enums.Direction;
 import aiki.map.levels.Level;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.PkTrainer;
@@ -789,16 +788,16 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         }
         return arr_;
     }
-    public static NatArrayStruct getDirBool(CustList<Direction> _map) {
-        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
-        int i_ = 0;
-        for (Direction e: _map){
-            PairStruct p_ = new PairStruct(new StringStruct(e.getDirName()),BooleanStruct.of(true));
-            arr_.set(i_,p_);
-            i_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getDirBool(CustList<Direction> _map) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_map.size());
+//        int i_ = 0;
+//        for (Direction e: _map){
+//            PairStruct p_ = new PairStruct(new StringStruct(e.getDirName()),BooleanStruct.of(true));
+//            arr_.set(i_,p_);
+//            i_++;
+//        }
+//        return arr_;
+//    }
     public static NatArrayStruct getShortStr(AbsMap<Short, String> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;

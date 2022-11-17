@@ -470,6 +470,10 @@ public abstract class InitDbConstr extends InitDbBean {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_args);
     }
 
+    public static Struct callMapLevelBeanClickAreaOnMap(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickAreaOnMap(),_str,_args);
+    }
+
     public static Struct callMapLevelBeanWhiteTilesGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanWhiteTilesGet(),_str,_args);
     }

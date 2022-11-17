@@ -528,6 +528,24 @@ public class DataBase {
         return getLevelImage(coords_);
     }
 
+    public Points< int[][]> getBackLevelImage(short _pl, byte _level) {
+        Coords coords_ = new Coords();
+        coords_.setNumberPlace(_pl);
+        coords_.setLevel(new LevelPoint());
+        coords_.getLevel().setLevelIndex(_level);
+        return Level.getLevelBackgroundImage(this,coords_);
+    }
+
+    public Points< int[][]> getBackLevelImage(short _pl, byte _level,
+                                          Point _inside) {
+        Coords coords_ = new Coords();
+        coords_.setNumberPlace(_pl);
+        coords_.setLevel(new LevelPoint());
+        coords_.getLevel().setLevelIndex(_level);
+        coords_.affectInside(_inside);
+        return Level.getLevelBackgroundImage(this,coords_);
+    }
+
     public Points< int[][]> getWhiteLevelImage(Coords _coords) {
         Points< int[][]> tiles_ = Level.getWhiteLevelBackgroundImage(this,
                 _coords);
@@ -548,6 +566,33 @@ public class DataBase {
             tiles_.put(p, stackImages(tiles_, frontTiles_, p));
         }
         return tiles_;
+    }
+    public static void updateBorders(Points< int[][]> _tiles, int _side) {
+        if (_tiles.isEmpty()) {
+            return;
+        }
+        Shorts x_ = new Shorts();
+        Shorts y_ = new Shorts();
+        for (Point p : _tiles.getKeys()) {
+            x_.add(p.getx());
+            y_.add(p.gety());
+        }
+        short minx_ = (short) x_.getMinimum(0);
+        short miny_ = (short) y_.getMinimum(0);
+        short maxx_ = (short) x_.getMaximum(0);
+        short maxy_ = (short) y_.getMaximum(0);
+        _tiles.addEntry(new Point((short)(minx_-1),(short)(miny_-1)),Level.whiteCell(_side));
+        _tiles.addEntry(new Point((short)(minx_-1),(short)(maxy_+1)),Level.whiteCell(_side));
+        _tiles.addEntry(new Point((short)(maxx_+1),(short)(maxy_+1)),Level.whiteCell(_side));
+        _tiles.addEntry(new Point((short)(maxx_+1),(short)(miny_-1)),Level.whiteCell(_side));
+        for (short i = minx_; i <= maxx_; i++) {
+            _tiles.addEntry(new Point(i,(short)(miny_-1)),Level.whiteCell(_side));
+            _tiles.addEntry(new Point(i,(short)(maxy_+1)),Level.whiteCell(_side));
+        }
+        for (short i = miny_; i <= maxy_; i++) {
+            _tiles.addEntry(new Point((short)(minx_-1),i),Level.whiteCell(_side));
+            _tiles.addEntry(new Point((short)(maxx_+1),i),Level.whiteCell(_side));
+        }
     }
 
     public static int[][] stackImages(Points< int[][]> _tiles,
