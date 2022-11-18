@@ -4,6 +4,7 @@ import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
@@ -226,5 +227,53 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     @Test
     public void getColorType() {
         assertEq("AAABBQYH",callGeneralHelpBeanGetColorType());
+    }
+    @Test
+    public void getNbMaxMoves() {
+        assertEq(4,callGeneralHelpBeanNbMaxMovesGet());
+    }
+    @Test
+    public void getMaxEv() {
+        assertEq(15,callGeneralHelpBeanMaxEvGet());
+    }
+    @Test
+    public void getMaxIv() {
+        assertEq(16,callGeneralHelpBeanMaxIvGet());
+    }
+    @Test
+    public void getMaxLevel() {
+        assertEq(64,callGeneralHelpBeanMaxLevelGet());
+    }
+    @Test
+    public void getMinLevel() {
+        assertEq(1,callGeneralHelpBeanMinLevelGet());
+    }
+    @Test
+    public void getHappinessMax() {
+        assertEq(128,callGeneralHelpBeanHappinessMaxGet());
+    }
+    @Test
+    public void getNbMaxTeam() {
+        assertEq(8,callGeneralHelpBeanNbMaxTeamGet());
+    }
+    @Test
+    public void getMaxPp() {
+        assertEq(48,callGeneralHelpBeanMaxPpGet());
+    }
+    @Test
+    public void getNbNecStepsIncrHappiness() {
+        assertEq(2,callGeneralHelpBeanNbNecStepsIncrHappinessGet());
+    }
+    @Test
+    public void getNbMaxStepsSameEvoBase() {
+        assertEq(3,callGeneralHelpBeanNbMaxStepsSameEvoBaseGet());
+    }
+    @Test
+    public void getNbMaxSteps() {
+        assertEq(6,callGeneralHelpBeanNbMaxStepsGet());
+    }
+    @Test
+    public void getDefaultMoney() {
+        assertEq(new Rate(1024),callGeneralHelpBeanDefaultMoneyGet());
     }
 }

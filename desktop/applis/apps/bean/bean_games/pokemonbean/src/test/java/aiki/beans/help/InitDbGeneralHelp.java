@@ -138,8 +138,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         callGeneralHelpBeanClickTm(bean_,_tm);
         return getValMoveId(bean_);
     }
-    public static Struct callGeneralHelpBeanDefaultMoneyGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanDefaultMoneyGet(),_str,_args);
+    public static Struct callGeneralHelpBeanDefaultMoneyGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanDefaultMoneyGet(),with());
     }
 
     public static Struct callGeneralHelpBeanFirstPokemonHasItem() {
@@ -222,8 +222,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrType(),with(),0);
     }
 
-    public static Struct callGeneralHelpBeanHappinessMaxGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanHappinessMaxGet(),_str,_args);
+    public static Struct callGeneralHelpBeanHappinessMaxGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanHappinessMaxGet(),with());
     }
 
     public static Struct callGeneralHelpBeanHmGet() {
@@ -234,48 +234,48 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanIsFirstRow(),_str,_args);
 //    }
 
-    public static Struct callGeneralHelpBeanMaxEvGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxEvGet(),_str,_args);
+    public static Struct callGeneralHelpBeanMaxEvGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxEvGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanMaxIvGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxIvGet(),_str,_args);
+    public static Struct callGeneralHelpBeanMaxIvGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxIvGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanMaxLevelGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxLevelGet(),_str,_args);
+    public static Struct callGeneralHelpBeanMaxLevelGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxLevelGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanMaxPpGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxPpGet(),_str,_args);
+    public static Struct callGeneralHelpBeanMaxPpGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxPpGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanMinLevelGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMinLevelGet(),_str,_args);
+    public static Struct callGeneralHelpBeanMinLevelGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMinLevelGet(),with());
     }
 
     public static Struct callGeneralHelpBeanMiniMapGet() {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMiniMapGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanNbMaxMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxMovesGet(),_str,_args);
+    public static Struct callGeneralHelpBeanNbMaxMovesGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxMovesGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanNbMaxStepsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxStepsGet(),_str,_args);
+    public static Struct callGeneralHelpBeanNbMaxStepsGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxStepsGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanNbMaxStepsSameEvoBaseGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxStepsSameEvoBaseGet(),_str,_args);
+    public static Struct callGeneralHelpBeanNbMaxStepsSameEvoBaseGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxStepsSameEvoBaseGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanNbMaxTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxTeamGet(),_str,_args);
+    public static Struct callGeneralHelpBeanNbMaxTeamGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbMaxTeamGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanNbNecStepsIncrHappinessGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbNecStepsIncrHappinessGet(),_str,_args);
+    public static Struct callGeneralHelpBeanNbNecStepsIncrHappinessGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbNecStepsIncrHappinessGet(),with());
     }
 
     public static Struct callGeneralHelpBeanPokemonDefaultEggGroupGet() {
@@ -376,6 +376,17 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
 //        _facade.getData().getMiniItems().addEntry(I_BALL,BaseSixtyFourUtil.getImageByString("AAAB////"));
 //        _facade.getData().setImageTmHm(BaseSixtyFourUtil.getImageByString("AAAB////"));
         _facade.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(4));
+        _facade.getData().addConstNumTest(DataBase.MAX_IV,new Rate(16));
+        _facade.getData().addConstNumTest(DataBase.MAX_EV,new Rate(15));
+        _facade.getData().addConstNumTest(DataBase.NIVEAU_PK_MAX,new Rate(64));
+        _facade.getData().addConstNumTest(DataBase.NIVEAU_PK_ECLOSION,new Rate(1));
+        _facade.getData().addConstNumTest(DataBase.MAX_BONHEUR,new Rate(128));
+        _facade.getData().addConstNumTest(DataBase.DEF_PKEQ,new Rate(8));
+        _facade.getData().addConstNumTest(DataBase.PP_MAX,new Rate(48));
+        _facade.getData().addConstNumTest(DataBase.PAS_NECES_INCREMENT_BONHEUR,new Rate(2));
+        _facade.getData().addConstNumTest(DataBase.MAX_STEPS_SAME_EVO_BASE,new Rate(3));
+        _facade.getData().addConstNumTest(DataBase.MAX_STEPS,new Rate(6));
+        _facade.getData().addConstNumTest(DataBase.ARGENT,new Rate(1024));
         _facade.getData().initValue(DataBase.DEFAULT_EGG_GROUP,"DEF_EGG");
     }
     protected static PokemonData pkOne() {
