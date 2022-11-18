@@ -17,7 +17,6 @@ import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public class GeneralHelpBean extends CommonBean {
@@ -89,18 +88,19 @@ public class GeneralHelpBean extends CommonBean {
     }
     public int getMapWidth() {
         int w_ = 0;
-        while (miniMap.getKey(w_).getYcoords() != IndexConstants.SECOND_INDEX) {
+        int y_ = miniMap.getKey(w_).getYcoords();
+        while (miniMap.getKey(w_).getYcoords() != y_+1) {
             w_++;
         }
         return w_;
     }
-    public boolean isFirstRow(int _index) {
-        if (_index == 0) {
-            return false;
-        }
-        MiniMapCoords key_ = miniMap.getKey(_index);
-        return key_.getXcoords() == IndexConstants.FIRST_INDEX;
-    }
+//    public boolean isFirstRow(int _index) {
+//        if (_index == 0) {
+//            return false;
+//        }
+//        MiniMapCoords key_ = miniMap.getKey(_index);
+//        return key_.getXcoords() == IndexConstants.FIRST_INDEX;
+//    }
     public String getPlaceName(int _index) {
         return namesPlaces.getValue(_index);
     }

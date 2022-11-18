@@ -71,22 +71,22 @@ public final class PokemonBeanTest extends InitDbPkOne {
     public void isMultiLayer3() {
         assertFalse(callPokemonBeanIsMultiLayer(2));
     }
-    @Test
-    public void isFirstRow1() {
-        assertFalse(callPokemonBeanIsFirstRow(0));
-    }
-    @Test
-    public void isFirstRow2() {
-        assertFalse(callPokemonBeanIsFirstRow(1));
-    }
-    @Test
-    public void isFirstRow3() {
-        assertTrue(callPokemonBeanIsFirstRow(2));
-    }
-    @Test
-    public void isFirstRow4() {
-        assertFalse(callPokemonBeanIsFirstRow(3));
-    }
+//    @Test
+//    public void isFirstRow1() {
+//        assertFalse(callPokemonBeanIsFirstRow(0));
+//    }
+//    @Test
+//    public void isFirstRow2() {
+//        assertFalse(callPokemonBeanIsFirstRow(1));
+//    }
+//    @Test
+//    public void isFirstRow3() {
+//        assertTrue(callPokemonBeanIsFirstRow(2));
+//    }
+//    @Test
+//    public void isFirstRow4() {
+//        assertFalse(callPokemonBeanIsFirstRow(3));
+//    }
     @Test
     public void getMapWidth() {
         assertEq(2,callPokemonBeanGetMapWidth());

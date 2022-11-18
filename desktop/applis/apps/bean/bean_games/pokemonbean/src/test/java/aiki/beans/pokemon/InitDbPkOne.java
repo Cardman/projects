@@ -261,10 +261,10 @@ public abstract class InitDbPkOne extends InitDbPk {
     public static Struct callPokemonBeanIsAppearingZero(int _pk,int _pl) {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanIsAppearingZero(),dispPkOne(_pk),_pl);
     }
-
-    public static Struct callPokemonBeanIsFirstRow(int _row) {
-        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsFirstRow(),dispPkOne(0),_row);
-    }
+//
+//    public static Struct callPokemonBeanIsFirstRow(int _row) {
+//        return BeanPokemonCommonTs.callLongs(new PokemonBeanIsFirstRow(),dispPkOne(0),_row);
+//    }
 
     public static Struct callPokemonBeanIsMultiLayer(int _pl) {
         return BeanPokemonCommonTs.callLongs(new PokemonBeanIsMultiLayer(),dispPkOne(0),_pl);

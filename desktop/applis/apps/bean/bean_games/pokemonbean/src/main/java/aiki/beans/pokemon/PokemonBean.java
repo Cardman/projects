@@ -212,18 +212,19 @@ public class PokemonBean extends CommonBean {
     }
     public int getMapWidth() {
         int w_ = 0;
-        while (images.getKey(w_).getYcoords() != IndexConstants.SECOND_INDEX) {
+        int y_ = images.getKey(w_).getYcoords();
+        while (images.getKey(w_).getYcoords() != y_+1) {
             w_++;
         }
         return w_;
     }
-    public boolean isFirstRow(int _index) {
-        if (_index == 0) {
-            return false;
-        }
-        MiniMapCoords key_ = images.getKey(_index);
-        return key_.getXcoords() == IndexConstants.FIRST_INDEX;
-    }
+//    public boolean isFirstRow(int _index) {
+//        if (_index == 0) {
+//            return false;
+//        }
+//        MiniMapCoords key_ = images.getKey(_index);
+//        return key_.getXcoords() == IndexConstants.FIRST_INDEX;
+//    }
     public String roundWeight() {
         return weight.evaluate(2);
     }

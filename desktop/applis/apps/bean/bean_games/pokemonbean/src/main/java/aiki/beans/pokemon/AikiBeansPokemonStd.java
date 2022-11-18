@@ -58,7 +58,7 @@ public final class AikiBeansPokemonStd{
     private static final String CLICK_LEVEL = "clickLevel";
     private static final String CLICK_LEVEL_ZERO = "clickLevelZero";
     private static final String GET_MAP_WIDTH = "getMapWidth";
-    private static final String IS_FIRST_ROW = "isFirstRow";
+//    private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
     private static final String GET_MINI_MAP_IMAGE = "getMiniMapImage";
     private static final String SEARCH = "search";
@@ -173,7 +173,7 @@ public final class AikiBeansPokemonStd{
         methods_.add( new SpecNatMethod(CLICK_LEVEL,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickLevel()));
         methods_.add( new SpecNatMethod(CLICK_LEVEL_ZERO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanClickLevelZero()));
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new PokemonBeanGetMapWidth()));
-        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsFirstRow()));
+//        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new PokemonBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(GET_PLACE_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetPlaceName()));
         methods_.add( new SpecNatMethod(GET_MINI_MAP_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonBeanGetMiniMapImage()));
         _std.getStds().addEntry(TYPE_POKEMON_BEAN, type_);

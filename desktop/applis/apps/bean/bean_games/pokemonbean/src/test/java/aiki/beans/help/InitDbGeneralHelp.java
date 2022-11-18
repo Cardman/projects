@@ -126,9 +126,9 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanHmGet(),_str,_args);
     }
 
-    public static Struct callGeneralHelpBeanIsFirstRow(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanIsFirstRow(),_str,_args);
-    }
+//    public static Struct callGeneralHelpBeanIsFirstRow(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanIsFirstRow(),_str,_args);
+//    }
 
     public static Struct callGeneralHelpBeanMaxEvGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanMaxEvGet(),_str,_args);

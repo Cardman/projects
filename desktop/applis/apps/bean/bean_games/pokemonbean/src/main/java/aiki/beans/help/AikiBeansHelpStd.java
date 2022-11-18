@@ -12,7 +12,7 @@ public final class AikiBeansHelpStd{
     public static final String TYPE_LANGUAGE_ELEMENT_KEY = "aiki.beans.help.LanguageElementKey";
     public static final String TYPE_LANGUAGE_ELEMENT_STRING_KEY = "aiki.beans.help.LanguageElementStringKey";
     private static final String GET_MAP_WIDTH = "getMapWidth";
-    private static final String IS_FIRST_ROW = "isFirstRow";
+//    private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String GET_PLACE_NAME = "getPlaceName";
     private static final String GET_MINI_MAP_IMAGE = "getMiniMapImage";
     private static final String GET_IMAGE = "getImage";
@@ -1223,7 +1223,7 @@ public final class AikiBeansHelpStd{
         fields_.add(new StandardField(HM, BeanNatCommonLgNames.TYPE_LIST,false,false,new GeneralHelpBeanHmGet(),null));
         fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new GeneralHelpBeanTypesGet(),null));
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new GeneralHelpBeanGetMapWidth()));
-        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new GeneralHelpBeanIsFirstRow()));
+//        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new GeneralHelpBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(GET_PLACE_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GeneralHelpBeanGetPlaceName()));
         methods_.add( new SpecNatMethod(GET_MINI_MAP_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GeneralHelpBeanGetMiniMapImage()));
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new GeneralHelpBeanGetImage()));
