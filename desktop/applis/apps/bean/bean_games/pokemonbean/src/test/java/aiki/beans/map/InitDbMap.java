@@ -3,6 +3,7 @@ package aiki.beans.map;
 import aiki.beans.*;
 import aiki.beans.db.*;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
+import aiki.db.DataBase;
 import aiki.facade.*;
 import aiki.fight.pokemon.*;
 import aiki.fight.util.*;
@@ -21,6 +22,7 @@ import aiki.util.Coords;
 import aiki.util.Point;
 import code.expressionlanguage.structs.Struct;
 import code.images.*;
+import code.maths.Rate;
 import code.util.*;
 
 public abstract class InitDbMap extends InitDbConstr {
@@ -571,6 +573,7 @@ public abstract class InitDbMap extends InitDbConstr {
         _facade.getData().getMiniItems().addEntry(I_REPEL,BaseSixtyFourUtil.getImageByString("AAAB////"));
         _facade.getData().getMiniItems().addEntry(I_SELLING,BaseSixtyFourUtil.getImageByString("AAAB////"));
         _facade.getData().setImageTmHm(BaseSixtyFourUtil.getImageByString("AAAB////"));
+        _facade.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(4));
 //        _facade.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_REL,S_STA_REL_TR);
 //        _facade.getData().getTranslatedStatus().getVal(EN).addEntry(S_STA_SIM,S_STA_SIM_TR);
@@ -786,6 +789,7 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static AreaApparition areaOne() {
         AreaApparition a_ = Instances.newAreaApparition();
         a_.setMultFight((byte)1);
+        a_.setAvgNbSteps((short) 5);
         a_.getWildPokemon().add(wp(P_POK_00,A_ABILITY,I_FOSSIL));
         a_.getWildPokemon().add(wp(P_POK_01,A_ABILITY2,I_HEAL_STATUS));
         a_.getWildPokemonFishing().add(wp(P_POK_02,A_ABILITY,I_EVO_ITEM));
@@ -795,6 +799,7 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static AreaApparition areaTwo() {
         AreaApparition a_ = Instances.newAreaApparition();
         a_.setMultFight((byte)1);
+        a_.setAvgNbSteps((short) 10);
         a_.getWildPokemon().add(wp(P_POK_04,A_ABILITY,I_FOSSIL));
         a_.getWildPokemon().add(wp(P_POK_05,A_ABILITY2,I_HEAL_STATUS));
         a_.getWildPokemonFishing().add(wp(P_POK_06,A_ABILITY,I_EVO_ITEM));
