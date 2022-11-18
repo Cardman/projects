@@ -24,6 +24,21 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return tr_;
     }
 
+    public static Struct displaySellerLevelZero(int _place, int _tile, int _second) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+//        StringMap<String> map_ = mappingToMap();
+        Struct bean_ = transitLevelZero(_place,pk_,all_);
+        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,bean_,_tile);
+        Struct tr_ = all_.getVal(AikiBeansMapStd.BEAN_SELLER);
+        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_second);
+//        callMapLevelBeanClickTileOnMapStruct(bean_,_tile);
+//        beforeDisplaying(bean_);
+//        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _second));
+//        beforeDisplaying(tr_);
+        return tr_;
+    }
+
     public static Struct displayTrainer(int _place, int _level, int _tile) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToMap(pk_);
@@ -90,28 +105,48 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     }
 
 
-    public static Struct callSellerBeanClickItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SellerBeanClickItem(),_str,_args);
+    public static String callSellerBeanClickItem() {
+        return callSellerBeanClickItem(displaySellerLevelZero(1,12,13),0);
     }
 
-    public static Struct callSellerBeanClickTm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SellerBeanClickTm(),_str,_args);
+    public static String callSellerBeanClickItem(Struct _str, int _item) {
+        return navigateData(new SellerBeanClickItem(),_str,_item);
     }
 
-    public static Struct callSellerBeanGetAllTm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SellerBeanGetAllTm(),_str,_args);
+    public static String callSellerBeanClickItemId() {
+        Struct bean_ = displaySellerLevelZero(1,12,13);
+        callSellerBeanClickItem(bean_,0);
+        return getValItemId(bean_);
     }
 
-    public static Struct callSellerBeanGetItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SellerBeanGetItem(),_str,_args);
+    public static String callSellerBeanClickTm() {
+        return callSellerBeanClickTm(displaySellerLevelZero(1,12,18),0);
     }
 
-    public static Struct callSellerBeanGetItems(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SellerBeanGetItems(),_str,_args);
+    public static String callSellerBeanClickTm(Struct _str, int _tm) {
+        return navigateData(new SellerBeanClickTm(),_str,_tm);
     }
 
-    public static Struct callSellerBeanGetTm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SellerBeanGetTm(),_str,_args);
+    public static String callSellerBeanClickTmId() {
+        Struct bean_ = displaySellerLevelZero(1, 12, 18);
+        callSellerBeanClickTm(bean_,0);
+        return getValMoveId(bean_);
+    }
+
+    public static Struct callSellerBeanGetAllTm() {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetAllTm(),displaySellerLevelZero(1,12,18));
+    }
+
+    public static Struct callSellerBeanGetItem() {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetItem(),displaySellerLevelZero(1,12,13),0);
+    }
+
+    public static Struct callSellerBeanGetItems() {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetItems(),displaySellerLevelZero(1,12,13));
+    }
+
+    public static Struct callSellerBeanGetTm() {
+        return BeanPokemonCommonTs.callLongs(new SellerBeanGetTm(),displaySellerLevelZero(1,12,18),0);
     }
     public static Struct callAllyBeanClickAbility(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AllyBeanClickAbility(),_str,_args);
