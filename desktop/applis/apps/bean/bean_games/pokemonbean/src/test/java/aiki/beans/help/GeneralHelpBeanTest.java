@@ -211,4 +211,20 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     public void clickHm2() {
         assertEq(M_POK_00,callGeneralHelpBeanClickHmId());
     }
+    @Test
+    public void getTypes() {
+        assertSizeEq(1,callGeneralHelpBeanTypesGet());
+    }
+    @Test
+    public void getTrType() {
+        assertEq(T_TYPE1_TR,callGeneralHelpBeanGetTrType());
+    }
+    @Test
+    public void getImageType() {
+        assertEq("AAACXXXXCAAAIAAA////",callGeneralHelpBeanGetImageType());
+    }
+    @Test
+    public void getColorType() {
+        assertEq("AAABBQYH",callGeneralHelpBeanGetColorType());
+    }
 }

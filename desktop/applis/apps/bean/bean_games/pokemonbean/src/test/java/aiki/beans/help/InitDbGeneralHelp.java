@@ -154,8 +154,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetAbility(),with());
     }
 
-    public static Struct callGeneralHelpBeanGetColorType(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetColorType(),_str,_args);
+    public static Struct callGeneralHelpBeanGetColorType() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetColorType(),with(),0);
     }
 
     public static Struct callGeneralHelpBeanGetGender() {
@@ -166,8 +166,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetImage(),with());
     }
 
-    public static Struct callGeneralHelpBeanGetImageType(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetImageType(),_str,_args);
+    public static Struct callGeneralHelpBeanGetImageType() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetImageType(),with(),0);
     }
 
     public static Struct callGeneralHelpBeanGetItem() {
@@ -218,8 +218,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrTm(),with(),_tm);
     }
 
-    public static Struct callGeneralHelpBeanGetTrType(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrType(),_str,_args);
+    public static Struct callGeneralHelpBeanGetTrType() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrType(),with(),0);
     }
 
     public static Struct callGeneralHelpBeanHappinessMaxGet(Struct _str, long... _args) {
@@ -286,8 +286,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanTmGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanTypesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanTypesGet(),_str,_args);
+    public static Struct callGeneralHelpBeanTypesGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanTypesGet(),with());
     }
 
     public static Struct callGeneralHelpBeanUnlockedCityGet() {
@@ -410,6 +410,7 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         map_.setUnlockedCity("4");
         map_.setFirstPokemon(wp(_it));
         map_.setBegin(newCoords(0,0,0,0));
+        map_.setSideLength(1);
         return map_;
     }
 
