@@ -158,6 +158,15 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return transitDual(pk_, all_);
     }
 
+    public static Struct displayAlly() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct dual_ = transitDual(pk_, all_);
+        Struct ally_ = all_.getVal(AikiBeansMapStd.BEAN_ALLY);
+        fwdAlly(ally_,dual_);
+        beforeDisplaying(ally_);
+        return ally_;
+    }
     private static Struct transitDual(PkData _pk, StringMap<Struct> _all) {
         Struct bean_ = transitLevel(3, 0, _pk, _all);
         Struct tr_ = _all.getVal(AikiBeansMapStd.BEAN_DUAL);
@@ -181,28 +190,28 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new AllyBeanClickName(),_str,_args);
     }
 
-    public static Struct callAllyBeanGetAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanGetAbility(),_str,_args);
+    public static Struct callAllyBeanGetAbility(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new AllyBeanGetAbility(),displayAlly(),_pk);
     }
 
-    public static Struct callAllyBeanGetImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanGetImage(),_str,_args);
+    public static Struct callAllyBeanGetImage(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new AllyBeanGetImage(),displayAlly(),_pk);
     }
 
-    public static Struct callAllyBeanGetItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanGetItem(),_str,_args);
+    public static Struct callAllyBeanGetItem(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new AllyBeanGetItem(),displayAlly(),_pk);
     }
 
-    public static Struct callAllyBeanGetMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanGetMove(),_str,_args);
+    public static Struct callAllyBeanGetMove(int _pk, int _move) {
+        return BeanPokemonCommonTs.callLongs(new AllyBeanGetMove(),displayAlly(),_pk,_move);
     }
 
-    public static Struct callAllyBeanGetName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanGetName(),_str,_args);
+    public static Struct callAllyBeanGetName(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new AllyBeanGetName(),displayAlly(),_pk);
     }
 
-    public static Struct callAllyBeanTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanTeamGet(),_str,_args);
+    public static Struct callAllyBeanTeamGet() {
+        return BeanPokemonCommonTs.callLongs(new AllyBeanTeamGet(),displayAlly());
     }
 
 //    public static Struct callDualFightBeanAllyGet(Struct _str, long... _args) {
