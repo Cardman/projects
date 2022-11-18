@@ -191,20 +191,28 @@ public abstract class InitDbMap extends InitDbConstr {
     protected static Struct dispMapLevel(int _place, int _level) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToMap(pk_);
-        Struct welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        return transitLevel(_place, _level, pk_, all_);
+    }
+
+    protected static Struct transitLevel(int _place, int _level, PkData _pk, StringMap<Struct> _all) {
+        Struct welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
-        transit(pk_,new MapBeanClickLevel(),welcome_,moves_,_place,_level);
+        Struct moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        transit(_pk,new MapBeanClickLevel(),welcome_,moves_, _place, _level);
         return moves_;
     }
 
     protected static Struct dispMapLevelZero(int _place) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToMap(pk_);
-        Struct welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+        return transitLevelZero(_place, pk_, all_);
+    }
+
+    protected static Struct transitLevelZero(int _place, PkData _pk, StringMap<Struct> _all) {
+        Struct welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
-        transit(pk_,new MapBeanClickLevelZero(),welcome_,moves_,_place);
+        Struct moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        transit(_pk,new MapBeanClickLevelZero(),welcome_,moves_, _place);
         return moves_;
     }
 
@@ -316,6 +324,8 @@ public abstract class InitDbMap extends InitDbConstr {
     }
     protected static TrainerMultiFights trMult() {
         TrainerMultiFights tmf_ = Instances.newTrainerMultiFights();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
         mult((byte) 2, tmf_);
         tmf_.getTeamsRewards().add(teamOne());
         tmf_.getTeamsRewards().add(teamTwo());

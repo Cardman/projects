@@ -2131,7 +2131,7 @@ public final class Game {
         noBeaten_.removeAllElements(_leaders);
         for (Coords c: noBeaten_) {
             Place pl_ = map_.getPlace(c.getNumberPlace());
-            String name_ = map_.getTrainerName(c);
+            String name_ = map_.getTrainerNameBeat(c);
             commentGame.addMessage(mess_.getVal(NO_BEATEN_TRAINER), name_, pl_.getName());
         }
     }

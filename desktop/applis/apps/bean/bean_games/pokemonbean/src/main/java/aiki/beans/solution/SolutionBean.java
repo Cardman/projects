@@ -10,11 +10,6 @@ import aiki.db.DataBase;
 import aiki.fight.pokemon.GenderName;
 import aiki.map.Solution;
 import aiki.map.Step;
-import aiki.map.levels.Level;
-import aiki.map.levels.LevelIndoorGym;
-import aiki.map.levels.LevelLeague;
-import aiki.map.levels.LevelWithWildPokemon;
-import aiki.map.places.League;
 import aiki.map.places.Place;
 import aiki.map.util.PlaceLevel;
 import aiki.util.Coords;
@@ -56,20 +51,20 @@ public class SolutionBean extends CommonBean {
             CustList<PlaceTrainerDto> places_ = new CustList<PlaceTrainerDto>();
             for (Coords cTrainer_: step_.getImportantsTrainers()) {
                 Place pl_ = data_.getMap().getPlace(cTrainer_.getNumberPlace());
-                Level level_ = pl_.getLevelByCoords(cTrainer_);
-                String trainerName_ = DataBase.EMPTY_STRING;
-                if (level_ instanceof LevelIndoorGym) {
-                    LevelIndoorGym lev_ = (LevelIndoorGym) level_;
-                    trainerName_ = lev_.getGymLeader().getName();
-                }
-                if (level_ instanceof LevelLeague) {
-                    League league_ = (League) pl_;
-                    trainerName_ = league_.getRooms().last().getTrainer().getName();
-                }
-                if (level_ instanceof LevelWithWildPokemon) {
-                    trainerName_ = data_.getMap().getTrainerName(cTrainer_);
-                }
-                places_.add(new PlaceTrainerDto(pl_.getName(), trainerName_));
+//                Level level_ = pl_.getLevelByCoords(cTrainer_);
+//                String trainerName_ = DataBase.EMPTY_STRING;
+//                if (level_ instanceof LevelIndoorGym) {
+//                    LevelIndoorGym lev_ = (LevelIndoorGym) level_;
+//                    trainerName_ = lev_.getGymLeader().getName();
+//                }
+//                if (level_ instanceof LevelLeague) {
+//                    League league_ = (League) pl_;
+//                    trainerName_ = league_.getRooms().last().getTrainer().getName();
+//                }
+//                if (level_ instanceof LevelWithWildPokemon) {
+//                    trainerName_ = data_.getMap().getTrainerName(cTrainer_);
+//                }
+                places_.add(new PlaceTrainerDto(pl_.getName(), data_.getMap().getTrainerNameBeat(cTrainer_)));
             }
             s_.getNames().addAllElts(places_);
             steps.add(s_);

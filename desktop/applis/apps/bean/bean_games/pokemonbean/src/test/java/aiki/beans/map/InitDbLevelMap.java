@@ -74,6 +74,10 @@ public abstract class InitDbLevelMap extends InitDbMap {
     public static String callMapLevelBeanClickTileOnMap(Struct _str, int _tile) {
         return navigateData(new MapLevelBeanClickTileOnMap(),_str,_tile);
     }
+
+    public static Struct callMapLevelBeanClickTileOnMapStruct(Struct _str, int _tile) {
+        return callLongs(new MapLevelBeanClickTileOnMap(),_str,_tile);
+    }
 //    public static String callMapLevelBeanClickForeGround(Struct _str, int _tile) {
 //        return navigateData(new MapLevelBeanClickTileOnMap(),_str,_tile);
 //    }

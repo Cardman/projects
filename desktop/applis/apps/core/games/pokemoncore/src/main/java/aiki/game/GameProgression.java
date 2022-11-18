@@ -48,12 +48,12 @@ public final class GameProgression {
         beatenImportantTrainers = new CustList<TrainerPlaceNames>();
         for (Coords c: _game.getBeatenGymLeader()) {
             Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
-            beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
+            beatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerNameBeat(c), pl_.getName()));
         }
         unBeatenImportantTrainers = new CustList<TrainerPlaceNames>();
         for (Coords c: _game.getUnBeatenGymLeader()) {
             Place pl_ = _data.getMap().getPlace(c.getNumberPlace());
-            unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerName(c), pl_.getName()));
+            unBeatenImportantTrainers.add(new TrainerPlaceNames(_data.getMap().getTrainerNameBeat(c), pl_.getName()));
         }
         remainingOtherTrainerPlaces = new ShortMap<Integer>();
         for (NbFightCoords k: _game.getBeatTrainer().getKeys()) {

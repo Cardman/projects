@@ -1,12 +1,40 @@
 package aiki.beans.map.characters;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.map.InitDbLevelMap;
+import aiki.beans.*;
+import aiki.beans.map.*;
+import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
 import code.expressionlanguage.structs.Struct;
+import code.util.StringMap;
 
 public abstract class InitDbCharacters extends InitDbLevelMap {
 
+    public static Struct displayTrainerLevelZero(int _place, int _tile, int _second) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+//        StringMap<String> map_ = mappingToMap();
+        Struct bean_ = transitLevelZero(_place,pk_,all_);
+        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,bean_,_tile);
+        Struct tr_ = all_.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_second);
+//        callMapLevelBeanClickTileOnMapStruct(bean_,_tile);
+//        beforeDisplaying(bean_);
+//        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _second));
+//        beforeDisplaying(tr_);
+        return tr_;
+    }
+
+    public static Struct displayTrainer(int _place, int _level, int _tile) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+//        StringMap<String> map_ = mappingToMap();
+        Struct bean_ = transitLevel(_place, _level,pk_,all_);
+        Struct tr_ = all_.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_tile);
+//        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _tile));
+//        beforeDisplaying(tr_);
+        return tr_;
+    }
     public static Struct callDealerBeanClickItem(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new DealerBeanClickItem(),_str,_args);
     }
@@ -123,32 +151,82 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 //        return BeanPokemonCommonTs.callLongs(new DualFightBeanTrainerGet(),_str,_args);
 //    }
 
-    public static Struct callTrainerBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanClickMove(),_str,_args);
+    public static String callTrainerBeanClickMove(int _place, int _tile, int _second) {
+        return callTrainerBeanClickMove(displayTrainerLevelZero(_place, _tile, _second));
     }
 
-    public static Struct callTrainerBeanGetName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanGetName(),_str,_args);
+    public static String callTrainerBeanClickMove(Struct _str) {
+        return navigateData(new TrainerBeanClickMove(),_str);
     }
 
-    public static Struct callTrainerBeanGetTeamsRewards(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanGetTeamsRewards(),_str,_args);
+    public static String callTrainerBeanClickMoveId(int _place, int _tile, int _second) {
+        Struct bean_ = displayTrainerLevelZero(_place, _tile, _second);
+        callTrainerBeanClickMove(bean_);
+        return getValMoveId(bean_);
     }
 
-    public static Struct callTrainerBeanGetTrMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanGetTrMove(),_str,_args);
+    public static Struct callTrainerBeanGetName(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new TrainerBeanGetName(),_str);
     }
 
-    public static Struct callTrainerBeanImageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanImageGet(),_str,_args);
+    public static Struct callTrainerBeanGetNameLevelZero(int _place, int _tile, int _second) {
+        return callTrainerBeanGetName(displayTrainerLevelZero(_place, _tile, _second));
+    }
+
+    public static Struct callTrainerBeanGetNameOtherLevel(int _place, int _level, int _tile) {
+        return callTrainerBeanGetName(displayTrainer(_place, _level, _tile));
+    }
+
+    public static Struct callTrainerBeanGetTeamsRewards(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new TrainerBeanGetTeamsRewards(),_str);
+    }
+
+    public static Struct callTrainerBeanGetTeamsRewardsLevelZero(int _place, int _tile, int _second) {
+        return callTrainerBeanGetTeamsRewards(displayTrainerLevelZero(_place, _tile, _second));
+    }
+
+    public static Struct callTrainerBeanGetTeamsRewardsOtherLevel(int _place, int _level, int _tile) {
+        return callTrainerBeanGetTeamsRewards(displayTrainer(_place, _level, _tile));
+    }
+
+    public static Struct callTrainerBeanGetTrMove(int _place, int _tile, int _second) {
+        return BeanPokemonCommonTs.callLongs(new TrainerBeanGetTrMove(),displayTrainerLevelZero(_place, _tile, _second));
+    }
+
+    public static Struct callTrainerBeanImageGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new TrainerBeanImageGet(),_str);
+    }
+
+    public static Struct callTrainerBeanImageGetLevelZero(int _place, int _tile, int _second) {
+        return callTrainerBeanImageGet(displayTrainerLevelZero(_place, _tile, _second));
+    }
+
+    public static Struct callTrainerBeanImageGetOtherLevel(int _place, int _level, int _tile) {
+        return callTrainerBeanImageGet(displayTrainer(_place, _level, _tile));
     }
 
     public static Struct callTrainerBeanImageMiniGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TrainerBeanImageMiniGet(),_str,_args);
     }
 
-    public static Struct callTrainerBeanMoveGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new TrainerBeanMoveGet(),_str,_args);
+    public static Struct callTrainerBeanImageMiniGetLevelZero(int _place, int _tile, int _second) {
+        return callTrainerBeanImageMiniGet(displayTrainerLevelZero(_place, _tile, _second));
+    }
+
+    public static Struct callTrainerBeanImageMiniGetOtherLevel(int _place, int _level, int _tile) {
+        return callTrainerBeanImageMiniGet(displayTrainer(_place, _level, _tile));
+    }
+
+    public static Struct callTrainerBeanMoveGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new TrainerBeanMoveGet(),_str);
+    }
+
+    public static Struct callTrainerBeanMoveGetLevelZero(int _place, int _tile, int _second) {
+        return callTrainerBeanMoveGet(displayTrainerLevelZero(_place, _tile, _second));
+    }
+
+    public static Struct callTrainerBeanMoveGetOtherLevel(int _place, int _level, int _tile) {
+        return callTrainerBeanMoveGet(displayTrainer(_place, _level, _tile));
     }
 
 //    public static Struct callTrainerBeanPageTeamGet(Struct _str, long... _args) {

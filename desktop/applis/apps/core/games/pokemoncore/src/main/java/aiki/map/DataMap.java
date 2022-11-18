@@ -1657,16 +1657,24 @@ public final class DataMap {
         return eq_;
     }
 
-    public String getTrainerName(Coords _coords) {
+    public String getTrainerNameBeat(Coords _coords) {
         Place pl_ = places.get(_coords.getNumberPlace());
+        if (pl_ instanceof League) {
+            League l_ = (League) pl_;
+            Coords c_ = new Coords(_coords);
+            c_.getLevel().setLevelIndex((byte) l_.getRooms().getLastIndex());
+            return getTrainerName(c_);
+        }
+        return getTrainerName(_coords);
+    }
+    public String getTrainerName(Coords _coords) {
         Level level_ = getLevelByCoords(_coords);
         if (level_ instanceof LevelIndoorGym) {
             LevelIndoorGym g_ = (LevelIndoorGym) level_;
             return g_.getGymLeader().getName();
         }
-        if (pl_ instanceof League) {
-            League league_ = (League) pl_;
-            LevelLeague l_ = league_.getRooms().last();
+        if (level_ instanceof LevelLeague) {
+            LevelLeague l_ = (LevelLeague) level_;
             return l_.getTrainer().getName();
         }
         if (level_ instanceof LevelWithWildPokemon) {

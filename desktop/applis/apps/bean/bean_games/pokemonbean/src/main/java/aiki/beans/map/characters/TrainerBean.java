@@ -3,7 +3,6 @@ import aiki.beans.CommonBean;
 import aiki.db.DataBase;
 import aiki.map.characters.GymLeader;
 import aiki.map.characters.Trainer;
-import aiki.map.characters.TrainerLeague;
 import aiki.map.characters.TrainerMultiFights;
 import aiki.map.pokemon.PokemonTeam;
 import code.images.BaseSixtyFourUtil;
@@ -13,6 +12,7 @@ import code.util.StringMap;
 public class TrainerBean extends CommonBean {
     static final String PAGE_TEAM = "web/html/map/elements/pokemon_team.html";
     private Trainer trainer;
+    private String name = DataBase.EMPTY_STRING;
     private String move = DataBase.EMPTY_STRING;
     private String image;
     private String imageMini;
@@ -21,6 +21,7 @@ public class TrainerBean extends CommonBean {
     public void beforeDisplaying() {
         trainer = (Trainer) getForms().getValPers(CST_PERSON);
         DataBase data_ = getDataBase();
+        name = data_.getMap().getTrainerName(getForms().getValCoords(CST_COORDS));
         if (trainer instanceof GymLeader) {
             GymLeader gym_ = (GymLeader) trainer;
             move = data_.getTm().getVal(gym_.getTm());
@@ -29,13 +30,7 @@ public class TrainerBean extends CommonBean {
         imageMini = BaseSixtyFourUtil.getStringByImage(data_.getPerson(trainer.getImageMiniFileName()));
     }
     public String getName() {
-        if (trainer instanceof GymLeader) {
-            return ((GymLeader)trainer).getName();
-        }
-        if (trainer instanceof TrainerLeague) {
-            return ((TrainerLeague)trainer).getName();
-        }
-        return DataBase.EMPTY_STRING;
+        return name;
     }
     public String getTrMove() {
         DataBase data_ = getDataBase();
