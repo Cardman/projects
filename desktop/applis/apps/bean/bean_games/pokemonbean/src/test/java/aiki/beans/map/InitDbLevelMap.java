@@ -96,8 +96,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanGymGet(),bean_);
     }
 
-    public static Struct callMapLevelBeanIsAccessibleByBeatingSomeTrainers(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsAccessibleByBeatingSomeTrainers(),_str,_args);
+    public static Struct callMapLevelBeanIsAccessibleByBeatingSomeTrainers(int _place, int _level, int _tile) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsAccessibleByBeatingSomeTrainers(),dispMapLevel(_place, _level),_tile);
     }
 
 //    public static Struct callMapLevelBeanIsDown(int _place, int _tile, int _second) {
@@ -111,16 +111,25 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFirstRow(),_str,_args);
 //    }
 
-    public static Struct callMapLevelBeanIsFossile(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFossile(),_str,_args);
+    public static Struct callMapLevelBeanIsFossile(int _place, int _tile, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFossile(),bean_,_cell);
     }
 
-    public static Struct callMapLevelBeanIsHealer(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHealer(),_str,_args);
+    public static Struct callMapLevelBeanIsHealer(int _place, int _tile, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHealer(),bean_,_cell);
     }
 
-    public static Struct callMapLevelBeanIsHost(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHost(),_str,_args);
+    public static Struct callMapLevelBeanIsHost(int _place, int _tile, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHost(),bean_,_cell);
     }
 
 //    public static Struct callMapLevelBeanIsLeft(int _place, int _tile, int _second) {
@@ -130,8 +139,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsLeft(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanIsMoveTutors(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsMoveTutors(),_str,_args);
+    public static Struct callMapLevelBeanIsMoveTutors(int _place, int _tile, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsMoveTutors(),bean_,_cell);
     }
 
 //    public static Struct callMapLevelBeanIsRight(int _place, int _tile, int _second) {
@@ -252,8 +264,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanTilesGet(),dispMapLevelZero(_place));
     }
 
-    public static Struct callMapLevelBeanWithoutTitle(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanWithoutTitle(),_str,_args);
+    public static Struct callMapLevelBeanWithoutTitle(int _place, int _tile, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanWithoutTitle(),bean_,_cell);
     }
 
 }

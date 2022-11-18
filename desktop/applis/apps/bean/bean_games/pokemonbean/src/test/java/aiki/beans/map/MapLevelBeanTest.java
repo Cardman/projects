@@ -341,4 +341,92 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void isStorage5() {
         assertTrue(callMapLevelBeanIsStorage(1,12,7));
     }
+    @Test
+    public void isMoveTutors1() {
+        assertFalse(callMapLevelBeanIsMoveTutors(0,12,12));
+    }
+    @Test
+    public void isMoveTutors2() {
+        assertFalse(callMapLevelBeanIsMoveTutors(1,12,7));
+    }
+    @Test
+    public void isMoveTutors3() {
+        assertFalse(callMapLevelBeanIsMoveTutors(1,12,6));
+    }
+    @Test
+    public void isMoveTutors4() {
+        assertFalse(callMapLevelBeanIsMoveTutors(1,12,13));
+    }
+    @Test
+    public void isMoveTutors5() {
+        assertFalse(callMapLevelBeanIsMoveTutors(1,12,18));
+    }
+    @Test
+    public void isMoveTutors6() {
+        assertTrue(callMapLevelBeanIsMoveTutors(1,12,8));
+    }
+    @Test
+    public void isHealer1() {
+        assertFalse(callMapLevelBeanIsHealer(0,12,12));
+    }
+    @Test
+    public void isHealer2() {
+        assertFalse(callMapLevelBeanIsHealer(1,12,7));
+    }
+    @Test
+    public void isHealer3() {
+        assertFalse(callMapLevelBeanIsHealer(1,12,8));
+    }
+    @Test
+    public void isHealer4() {
+        assertTrue(callMapLevelBeanIsHealer(1,12,6));
+    }
+    @Test
+    public void isHost1() {
+        assertFalse(callMapLevelBeanIsHost(1,12,6));
+    }
+    @Test
+    public void isHost2() {
+        assertTrue(callMapLevelBeanIsHost(1,12,11));
+    }
+    @Test
+    public void isFossile1() {
+        assertFalse(callMapLevelBeanIsFossile(1,12,11));
+    }
+    @Test
+    public void isFossile2() {
+        assertTrue(callMapLevelBeanIsFossile(1,12,16));
+    }
+    @Test
+    public void withoutTitle1() {
+        assertTrue(callMapLevelBeanWithoutTitle(1,12,12));
+    }
+    @Test
+    public void withoutTitle2() {
+        assertFalse(callMapLevelBeanWithoutTitle(1,12,7));
+    }
+    @Test
+    public void withoutTitle3() {
+        assertFalse(callMapLevelBeanWithoutTitle(1,12,8));
+    }
+    @Test
+    public void withoutTitle4() {
+        assertFalse(callMapLevelBeanWithoutTitle(1,12,6));
+    }
+    @Test
+    public void withoutTitle5() {
+        assertFalse(callMapLevelBeanWithoutTitle(1,12,11));
+    }
+    @Test
+    public void withoutTitle6() {
+        assertFalse(callMapLevelBeanWithoutTitle(1,12,16));
+    }
+    @Test
+    public void isAccessibleByBeatingSomeTrainers1() {
+        assertFalse(callMapLevelBeanIsAccessibleByBeatingSomeTrainers(3,0,15));
+    }
+    @Test
+    public void isAccessibleByBeatingSomeTrainers2() {
+        assertTrue(callMapLevelBeanIsAccessibleByBeatingSomeTrainers(3,0,16));
+    }
 }

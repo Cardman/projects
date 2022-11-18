@@ -485,7 +485,7 @@ public class MapLevelBean extends AbsLevelBean {
         Coords cp_ = new Coords(co_);
         cp_.getLevel().setPoint(pt_);
         DataBase data_ = getDataBase();
-        return data_.getMap().getAccessCondition().contains(co_);
+        return data_.getMap().getAccessCondition().contains(cp_);
     }
     public boolean isStorage(int _index) {
         PokemonCenter pk_ = pkCenter();
