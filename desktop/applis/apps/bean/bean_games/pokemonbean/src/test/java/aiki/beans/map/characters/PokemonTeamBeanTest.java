@@ -107,4 +107,84 @@ public final class PokemonTeamBeanTest extends InitDbCharacters {
     public void getMultiplicity2() {
         assertEq(1,callPokemonTeamBeanMultiplicityGet());
     }
+    @Test
+    public void getName1() {
+        assertEq(P_POK_08_TR,callPokemonTeamBeanGetName(0,0));
+    }
+    @Test
+    public void getName2() {
+        assertEq(P_POK_09_TR,callPokemonTeamBeanGetName(0,1));
+    }
+    @Test
+    public void getName3() {
+        assertEq(P_POK_10_TR,callPokemonTeamBeanGetName(1,0));
+    }
+    @Test
+    public void getName4() {
+        assertEq(P_POK_11_TR,callPokemonTeamBeanGetName(1,1));
+    }
+    @Test
+    public void getAbility1() {
+        assertEq(A_ABILITY_TR,callPokemonTeamBeanGetAbility(0,0));
+    }
+    @Test
+    public void getAbility2() {
+        assertEq(A_ABILITY2_TR,callPokemonTeamBeanGetAbility(0,1));
+    }
+    @Test
+    public void getAbility3() {
+        assertEq(A_ABILITY2_TR,callPokemonTeamBeanGetAbility(1,0));
+    }
+    @Test
+    public void getAbility4() {
+        assertEq(A_ABILITY_TR,callPokemonTeamBeanGetAbility(1,1));
+    }
+    @Test
+    public void getItem1() {
+        assertEq(I_BALL_TR,callPokemonTeamBeanGetItem(0,0));
+    }
+    @Test
+    public void getItem2() {
+        assertEq(I_BERRY_TR,callPokemonTeamBeanGetItem(0,1));
+    }
+    @Test
+    public void getItem3() {
+        assertEq(NULL_REF,callPokemonTeamBeanGetItem(1,0));
+    }
+    @Test
+    public void getItem4() {
+        assertEq(NULL_REF,callPokemonTeamBeanGetItem(1,1));
+    }
+    @Test
+    public void getMove1() {
+        assertEq(M_POK_04_TR,callPokemonTeamBeanGetMove(0,0,0));
+    }
+    @Test
+    public void getMove2() {
+        assertEq(M_POK_05_TR,callPokemonTeamBeanGetMove(0,0,1));
+    }
+    @Test
+    public void getMove3() {
+        assertEq(M_POK_06_TR,callPokemonTeamBeanGetMove(0,1,0));
+    }
+    @Test
+    public void getMove4() {
+        assertEq(M_POK_07_TR,callPokemonTeamBeanGetMove(0,1,1));
+    }
+    @Test
+    public void getMove5() {
+        assertEq(M_POK_04_TR,callPokemonTeamBeanGetMove(1,0,0));
+    }
+    @Test
+    public void getMove6() {
+        assertEq(M_POK_05_TR,callPokemonTeamBeanGetMove(1,0,1));
+    }
+    @Test
+    public void getMove7() {
+        assertEq(M_POK_06_TR,callPokemonTeamBeanGetMove(1,1,0));
+    }
+    @Test
+    public void getMove8() {
+        assertEq(M_POK_07_TR,callPokemonTeamBeanGetMove(1,1,1));
+    }
 }

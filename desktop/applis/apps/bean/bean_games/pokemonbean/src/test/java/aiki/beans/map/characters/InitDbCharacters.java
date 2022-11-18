@@ -438,8 +438,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanClickName(),_str,_args);
     }
 
-    public static Struct callPokemonTeamBeanGetAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetAbility(),_str,_args);
+    public static Struct callPokemonTeamBeanGetAbility(int _no, int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetAbility(),displayMult(_no),_pk);
     }
 
     public static Struct callPokemonTeamBeanGetImageTempTrainer(int _pk) {
@@ -462,16 +462,16 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),displayMult(_no),_pk);
     }
 
-    public static Struct callPokemonTeamBeanGetItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetItem(),_str,_args);
+    public static Struct callPokemonTeamBeanGetItem(int _no, int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetItem(),displayMult(_no),_pk);
     }
 
-    public static Struct callPokemonTeamBeanGetMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetMove(),_str,_args);
+    public static Struct callPokemonTeamBeanGetMove(int _no, int _pk, int _move) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetMove(),displayMult(_no),_pk,_move);
     }
 
-    public static Struct callPokemonTeamBeanGetName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetName(),_str,_args);
+    public static Struct callPokemonTeamBeanGetName(int _no, int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetName(),displayMult(_no),_pk);
     }
 
     public static Struct callPokemonTeamBeanMultiplicityGetMult() {
@@ -482,8 +482,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanMultiplicityGet(),displayGymLeader());
     }
 
-    public static Struct callPokemonTeamBeanNoFightGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanNoFightGet(),_str,_args);
+    public static Struct callPokemonTeamBeanNoFightGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanNoFightGet(),_str);
     }
 
     public static Struct callPokemonTeamBeanRewardGet(int _no) {
