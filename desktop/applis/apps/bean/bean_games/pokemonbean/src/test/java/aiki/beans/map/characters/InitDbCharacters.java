@@ -2,7 +2,6 @@ package aiki.beans.map.characters;
 
 import aiki.beans.*;
 import aiki.beans.map.*;
-import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.*;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
@@ -13,14 +12,19 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
-        Struct bean_ = transitLevelZero(_place,pk_,all_);
-        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,bean_,_tile);
-        Struct tr_ = all_.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_second);
+//        Struct tr_ = transitTrainer(_place, _tile, _second, pk_, all_);
 //        callMapLevelBeanClickTileOnMapStruct(bean_,_tile);
 //        beforeDisplaying(bean_);
 //        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _second));
 //        beforeDisplaying(tr_);
+        return transitTrainerLevelZero(_place, _tile, _second, pk_, all_);
+    }
+
+    private static Struct transitTrainerLevelZero(int _place, int _tile, int _second, PkData _pk, StringMap<Struct> _all) {
+        Struct bean_ = transitLevelZero(_place, _pk, _all);
+        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,bean_, _tile);
+        Struct tr_ = _all.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,tr_, _second);
         return tr_;
     }
 
@@ -43,9 +47,13 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToMap(pk_);
 //        StringMap<String> map_ = mappingToMap();
-        Struct bean_ = transitLevel(_place, _level,pk_,all_);
-        Struct tr_ = all_.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
-        transit(pk_,new MapLevelBeanClickTileOnMap(),bean_,tr_,_tile);
+        return transitTrainer(_place, _level, _tile, pk_, all_);
+    }
+
+    private static Struct transitTrainer(int _place, int _level, int _tile, PkData _pk, StringMap<Struct> _all) {
+        Struct bean_ = transitLevel(_place, _level, _pk, _all);
+        Struct tr_ = _all.getVal(AikiBeansMapStd.BEAN_TRAINER_FIGHT);
+        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,tr_, _tile);
 //        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _tile));
 //        beforeDisplaying(tr_);
         return tr_;
@@ -166,6 +174,52 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         fwdAlly(ally_,dual_);
         beforeDisplaying(ally_);
         return ally_;
+    }
+
+    public static Struct displayTempTrainer() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct dual_ = transitDual(pk_, all_);
+        Struct pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        fwdTrainerDual(pkTeam_,dual_);
+        beforeDisplaying(pkTeam_);
+        return pkTeam_;
+    }
+
+    public static Struct displayGymTrainer() {
+        return displayGym(7);
+    }
+
+    public static Struct displayGymLeader() {
+        return displayGym(4);
+    }
+    public static Struct displayGym(int _tile) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct trainer_ = transitTrainerLevelZero(0,12,_tile,pk_, all_);
+        Struct pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        fwdTrainer(pkTeam_,trainer_);
+        beforeDisplaying(pkTeam_);
+        return pkTeam_;
+    }
+    public static Struct displayLeague(int _level) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct trainer_ = transitTrainer(8,_level,12,pk_, all_);
+        Struct pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        fwdTrainer(pkTeam_,trainer_);
+        beforeDisplaying(pkTeam_);
+        return pkTeam_;
+    }
+    public static Struct displayMult(int _no) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+        Struct trainer_ = transitTrainer(3,1,7,pk_, all_);
+        Struct pkTeam_ = all_.getVal(AikiBeansMapStd.BEAN_PK_TEAM);
+        fwdTrainer(pkTeam_,trainer_);
+        callPokemonTeamBeanNoFightSet(pkTeam_,_no);
+        beforeDisplaying(pkTeam_);
+        return pkTeam_;
     }
     private static Struct transitDual(PkData _pk, StringMap<Struct> _all) {
         Struct bean_ = transitLevel(3, 0, _pk, _all);
@@ -416,8 +470,24 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanRewardGet(),_str,_args);
     }
 
-    public static Struct callPokemonTeamBeanTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),_str,_args);
+    public static Struct callPokemonTeamBeanTeamGetTempTrainer() {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),displayTempTrainer());
+    }
+
+    public static Struct callPokemonTeamBeanTeamGetGymTrainer() {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),displayGymTrainer());
+    }
+
+    public static Struct callPokemonTeamBeanTeamGetGymLeader() {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),displayGymLeader());
+    }
+
+    public static Struct callPokemonTeamBeanTeamGetTrainerLeague(int _level) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),displayLeague(_level));
+    }
+
+    public static Struct callPokemonTeamBeanTeamGetMulti(int _no) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanTeamGet(),displayMult(_no));
     }
 
     public static Struct callPokemonTeamBeanNoFightSet(Struct _str, int _args) {
