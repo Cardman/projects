@@ -442,8 +442,24 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetAbility(),_str,_args);
     }
 
-    public static Struct callPokemonTeamBeanGetImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),_str,_args);
+    public static Struct callPokemonTeamBeanGetImageTempTrainer(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),displayTempTrainer(),_pk);
+    }
+
+    public static Struct callPokemonTeamBeanGetImageGymTrainer(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),displayGymTrainer(),_pk);
+    }
+
+    public static Struct callPokemonTeamBeanGetImageGymLeader(int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),displayGymLeader(),_pk);
+    }
+
+    public static Struct callPokemonTeamBeanGetImageTrainerLeague(int _level,int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),displayLeague(_level),_pk);
+    }
+
+    public static Struct callPokemonTeamBeanGetImageMulti(int _no,int _pk) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanGetImage(),displayMult(_no),_pk);
     }
 
     public static Struct callPokemonTeamBeanGetItem(Struct _str, long... _args) {
