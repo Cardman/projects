@@ -148,6 +148,23 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
     public static Struct callSellerBeanGetTm() {
         return BeanPokemonCommonTs.callLongs(new SellerBeanGetTm(),displaySellerLevelZero(1,12,18),0);
     }
+
+    public static Struct displayDual() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToMap(pk_);
+//        StringMap<String> map_ = mappingToMap();
+//        Struct tr_ = byStr(all_, map_, callMapLevelBeanClickTileOnMapStruct(bean_, _tile));
+//        beforeDisplaying(tr_);
+        return transitDual(pk_, all_);
+    }
+
+    private static Struct transitDual(PkData _pk, StringMap<Struct> _all) {
+        Struct bean_ = transitLevel(3, 0, _pk, _all);
+        Struct tr_ = _all.getVal(AikiBeansMapStd.BEAN_DUAL);
+        transit(_pk,new MapLevelBeanClickTileOnMap(),bean_,tr_,8);
+        return tr_;
+    }
+
     public static Struct callAllyBeanClickAbility(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AllyBeanClickAbility(),_str,_args);
     }
@@ -192,16 +209,16 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 //        return BeanPokemonCommonTs.callLongs(new DualFightBeanAllyGet(),_str,_args);
 //    }
 
-    public static Struct callDualFightBeanImageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanImageGet(),_str,_args);
+    public static Struct callDualFightBeanImageGet() {
+        return BeanPokemonCommonTs.callLongs(new DualFightBeanImageGet(),displayDual());
     }
 
-    public static Struct callDualFightBeanImageMiniGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanImageMiniGet(),_str,_args);
+    public static Struct callDualFightBeanImageMiniGet() {
+        return BeanPokemonCommonTs.callLongs(new DualFightBeanImageMiniGet(),displayDual());
     }
 
-    public static Struct callDualFightBeanImageMiniSecondGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new DualFightBeanImageMiniSecondGet(),_str,_args);
+    public static Struct callDualFightBeanImageMiniSecondGet() {
+        return BeanPokemonCommonTs.callLongs(new DualFightBeanImageMiniSecondGet(),displayDual());
     }
 
 //    public static Struct callDualFightBeanPageAllyGet(Struct _str, long... _args) {
