@@ -174,20 +174,60 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return tr_;
     }
 
-    public static Struct callAllyBeanClickAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanClickAbility(),_str,_args);
+    public static String callAllyBeanClickAbility(int _pk) {
+        return callAllyBeanClickAbility(displayAlly(),_pk);
     }
 
-    public static Struct callAllyBeanClickItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanClickItem(),_str,_args);
+    public static String callAllyBeanClickAbility(Struct _str, int _pk) {
+        return navigateData(new AllyBeanClickAbility(),_str,_pk);
     }
 
-    public static Struct callAllyBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanClickMove(),_str,_args);
+    public static String callAllyBeanClickAbilityId(int _pk) {
+        Struct bean_ = displayAlly();
+        callAllyBeanClickAbility(bean_,_pk);
+        return getValAbilityId(bean_);
     }
 
-    public static Struct callAllyBeanClickName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AllyBeanClickName(),_str,_args);
+    public static String callAllyBeanClickItem(int _pk) {
+        return callAllyBeanClickItem(displayAlly(),_pk);
+    }
+
+    public static String callAllyBeanClickItem(Struct _str, int _pk) {
+        return navigateData(new AllyBeanClickItem(),_str,_pk);
+    }
+
+    public static String callAllyBeanClickItemId(int _pk) {
+        Struct bean_ = displayAlly();
+        callAllyBeanClickItem(bean_,_pk);
+        return getValItemId(bean_);
+    }
+
+    public static String callAllyBeanClickMove(int _pk, int _move) {
+        return callAllyBeanClickMove(displayAlly(),_pk,_move);
+    }
+
+    public static String callAllyBeanClickMove(Struct _str, int _pk, int _move) {
+        return navigateData(new AllyBeanClickMove(),_str,_pk,_move);
+    }
+
+    public static String callAllyBeanClickMoveId(int _pk, int _move) {
+        Struct bean_ = displayAlly();
+        callAllyBeanClickMove(bean_,_pk,_move);
+        return getValMoveId(bean_);
+    }
+
+    public static String callAllyBeanClickName(int _pk) {
+        return callAllyBeanClickName(displayAlly(),_pk);
+    }
+
+    public static String callAllyBeanClickName(Struct _str, int _pk) {
+        return navigateData(new AllyBeanClickName(),_str,_pk);
+    }
+
+    public static String callAllyBeanClickNameId(int _pk) {
+        Struct bean_ = displayAlly();
+        callAllyBeanClickName(bean_,_pk);
+        return getValPkId(bean_);
     }
 
     public static Struct callAllyBeanGetAbility(int _pk) {

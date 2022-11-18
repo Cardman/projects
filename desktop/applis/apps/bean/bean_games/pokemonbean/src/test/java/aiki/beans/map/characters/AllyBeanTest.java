@@ -1,5 +1,9 @@
 package aiki.beans.map.characters;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.items.AikiBeansItemsStd;
+import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import org.junit.Test;
 
 public final class AllyBeanTest extends InitDbCharacters {
@@ -94,5 +98,85 @@ public final class AllyBeanTest extends InitDbCharacters {
     @Test
     public void getMove4() {
         assertEq(M_POK_07_TR,callAllyBeanGetMove(1,1));
+    }
+    @Test
+    public void clickName1() {
+        assertEq(P_POK_16,callAllyBeanClickNameId(0));
+    }
+    @Test
+    public void clickName2() {
+        assertEq(P_POK_17,callAllyBeanClickNameId(1));
+    }
+    @Test
+    public void clickAbility1() {
+        assertEq(A_ABILITY,callAllyBeanClickAbilityId(0));
+    }
+    @Test
+    public void clickAbility2() {
+        assertEq(A_ABILITY2,callAllyBeanClickAbilityId(1));
+    }
+    @Test
+    public void clickItem1() {
+        assertEq(I_HEAL_HP_STATUS,callAllyBeanClickItemId(0));
+    }
+    @Test
+    public void clickItem2() {
+        assertEq(I_HEAL_PP,callAllyBeanClickItemId(1));
+    }
+    @Test
+    public void clickMove1() {
+        assertEq(M_POK_04,callAllyBeanClickMoveId(0,0));
+    }
+    @Test
+    public void clickMove2() {
+        assertEq(M_POK_05,callAllyBeanClickMoveId(0,1));
+    }
+    @Test
+    public void clickMove3() {
+        assertEq(M_POK_06,callAllyBeanClickMoveId(1,0));
+    }
+    @Test
+    public void clickMove4() {
+        assertEq(M_POK_07,callAllyBeanClickMoveId(1,1));
+    }
+    @Test
+    public void clickName3() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callAllyBeanClickName(0));
+    }
+    @Test
+    public void clickName4() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callAllyBeanClickName(1));
+    }
+    @Test
+    public void clickAbility3() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callAllyBeanClickAbility(0));
+    }
+    @Test
+    public void clickAbility4() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callAllyBeanClickAbility(1));
+    }
+    @Test
+    public void clickItem3() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML,callAllyBeanClickItem(0));
+    }
+    @Test
+    public void clickItem4() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGPP_HTML,callAllyBeanClickItem(1));
+    }
+    @Test
+    public void clickMove5() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(0,0));
+    }
+    @Test
+    public void clickMove6() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(0,1));
+    }
+    @Test
+    public void clickMove7() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(1,0));
+    }
+    @Test
+    public void clickMove8() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callAllyBeanClickMove(1,1));
     }
 }
