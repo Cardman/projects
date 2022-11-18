@@ -37,8 +37,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
     public static final String ROAD = "R 1";
     public static final String CITY = "CI 1";
     public static final String CAVE = "CA 1";
-    public static Struct callGeneralHelpBeanBeginGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanBeginGet(),_str,_args);
+    public static Struct callGeneralHelpBeanBeginGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanBeginGet(),with());
     }
 
     public static Struct callGeneralHelpBeanClickAbility(Struct _str, long... _args) {
@@ -221,8 +221,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanTypesGet(),_str,_args);
     }
 
-    public static Struct callGeneralHelpBeanUnlockedCityGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanUnlockedCityGet(),_str,_args);
+    public static Struct callGeneralHelpBeanUnlockedCityGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanUnlockedCityGet(),with());
     }
     protected static Struct with() {
         return str(I_BALL);

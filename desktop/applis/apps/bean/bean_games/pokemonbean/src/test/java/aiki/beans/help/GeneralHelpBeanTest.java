@@ -75,5 +75,12 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     public void getPlaceName4() {
         assertEq(CAVE,callGeneralHelpBeanGetPlaceName(3));
     }
-
+    @Test
+    public void getBegin() {
+        assertEq(ROAD,callGeneralHelpBeanBeginGet());
+    }
+    @Test
+    public void getUnlockedCity() {
+        assertEq("AAACXXXXCAAAHAAA////",callGeneralHelpBeanUnlockedCityGet());
+    }
 }
