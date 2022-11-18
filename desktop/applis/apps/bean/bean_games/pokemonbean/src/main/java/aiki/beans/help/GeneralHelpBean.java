@@ -111,8 +111,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String clickPokemon(int _index) {
         String pk_ = pokemonDefaultEggGroup.get(_index);
-        getForms().put(CST_PK,pk_);
-        return CST_POKEMON;
+        return tryRedirectPk(pk_);
     }
     public String getImage() {
         DataBase data_ = getDataBase();
@@ -129,8 +128,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String clickName() {
         String name_ = firstPokemon.getName();
-        getForms().put(CST_PK, name_);
-        return CST_POKEMON;
+        return tryRedirectPk(name_);
     }
     public short getLevel() {
         return firstPokemon.getLevel();
@@ -151,8 +149,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String clickAbility() {
         String ability_ = firstPokemon.getAbility();
-        getForms().put(CST_ABILITY, ability_);
-        return CST_ABILITY;
+        return tryRedirectAb(ability_);
     }
     public boolean firstPokemonHasItem() {
         return !firstPokemon.getItem().isEmpty();
@@ -220,8 +217,7 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String clickMoveFirstPk(int _moveIndex) {
         String move_ = getMovesAtLevelFirstPk().get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public StringList getMovesAtLevelFirstPk() {
         DataBase data_ = getDataBase();
@@ -231,13 +227,11 @@ public class GeneralHelpBean extends CommonBean {
     }
     public String clickTm(int _moveIndex) {
         String move_ = tm.get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String clickHm(int _moveIndex) {
         String move_ = hm.get(_moveIndex);
-        getForms().put(CST_MOVE, move_);
-        return CST_MOVE;
+        return tryRedirectMv(move_);
     }
     public String getTrTm(int _moveIndex) {
         DataBase data_ = getDataBase();
