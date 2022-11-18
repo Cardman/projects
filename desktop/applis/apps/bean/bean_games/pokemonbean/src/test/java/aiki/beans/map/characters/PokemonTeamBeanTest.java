@@ -95,4 +95,16 @@ public final class PokemonTeamBeanTest extends InitDbCharacters {
     public void getReward2() {
         assertEq(15,callPokemonTeamBeanRewardGet(1));
     }
+    @Test
+    public void getReward3() {
+        assertEq(25,callPokemonTeamBeanRewardGet());
+    }
+    @Test
+    public void getMultiplicity1() {
+        assertEq(2, callPokemonTeamBeanMultiplicityGetMult());
+    }
+    @Test
+    public void getMultiplicity2() {
+        assertEq(1,callPokemonTeamBeanMultiplicityGet());
+    }
 }

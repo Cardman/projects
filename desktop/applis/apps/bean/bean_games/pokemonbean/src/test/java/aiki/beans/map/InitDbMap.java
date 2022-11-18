@@ -280,6 +280,7 @@ public abstract class InitDbMap extends InitDbConstr {
         d_.getAlly().getTeam().add(wpTwo(P_POK_17,A_ABILITY2,I_HEAL_PP,19));
         d_.getFoeTrainer().getTeam().add(wpOne(P_POK_14,A_ABILITY2,I_HEAL,18));
         d_.getFoeTrainer().getTeam().add(wpTwo(P_POK_15,A_ABILITY,I_HEAL_HP,19));
+        d_.getFoeTrainer().setReward((short) 25);
         return d_;
     }
     protected static TrainerLeague trLeagueOne() {
