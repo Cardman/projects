@@ -107,9 +107,9 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsDown(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanIsFirstRow(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFirstRow(),_str,_args);
-    }
+//    public static Struct callMapLevelBeanIsFirstRow(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFirstRow(),_str,_args);
+//    }
 
     public static Struct callMapLevelBeanIsFossile(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFossile(),_str,_args);
@@ -152,14 +152,40 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsUp(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanLevelIndexGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanLevelIndexGet(),_str,_args);
+    public static Struct callMapLevelBeanLevelIndexGet(int _place, int _level) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanLevelIndexGet(),dispMapLevel(_place, _level));
     }
 
     public static Struct callMapLevelBeanOutsideGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanOutsideGet(),dispMapLevelZero(_place));
     }
 
+    public static Struct callMapLevelBeanClickArea(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_index);
+    }
+
+    public static Struct callMapLevelBeanClickArea(int _place, int _index) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),dispMapLevelZero(_place),_index);
+    }
+
+    public static String callMapLevelBeanClickAreaOnMap(int _place, int _tile) {
+        return navigateData(new MapLevelBeanClickAreaOnMap(),dispMapLevelZero(_place),_tile);
+    }
+
+    public static Struct callMapLevelBeanWhiteTilesGet(int _place) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanWhiteTilesGet(),dispMapLevelZero(_place));
+    }
+
+    public static Struct callMapLevelBeanNeighboursGet(int _place) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanNeighboursGet(),dispMapLevelZero(_place));
+    }
+
+    public static String callMapLevelBeanClickNeighbour(int _place, int _index) {
+        return navigateData(new MapLevelBeanClickNeighbour(),dispMapLevelZero(_place),_index);
+    }
+    public static Struct callMapLevelBeanAreas(int _place) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanAreas(),dispMapLevelZero(_place));
+    }
     public static Struct callMapLevelBeanOutsideGet(int _place, int _tile) {
         Struct bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
@@ -167,8 +193,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanOutsideGet(),bean_);
     }
 
-    public static Struct callMapLevelBeanPlaceNameGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanPlaceNameGet(),_str,_args);
+    public static Struct callMapLevelBeanPlaceNameGet(int _place, int _level) {
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanPlaceNameGet(),dispMapLevel(_place, _level));
     }
 
     public static Struct callMapLevelBeanPokemonCenterGet(int _place, int _tile) {

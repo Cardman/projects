@@ -158,8 +158,7 @@ public final class CommonBeanTest extends InitDbWelcome {
     @Test
     public void forms1() {
         StringMapObject s_ = new StringMapObject();
-        s_.putDir("",BoolVal.FALSE);
-        assertTrue(s_.contains(""));
+        assertFalse(s_.contains(""));
     }
 
     @Test

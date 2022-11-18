@@ -6,7 +6,6 @@ import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import aiki.map.enums.Direction;
 import aiki.util.Coords;
 import code.bean.Bean;
 import code.maths.Rate;
@@ -134,12 +133,12 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
         c_.setNumberPlace((short)_indexOne);
         c_.getLevel().setLevelIndex((byte)_indexTwo);
         _forms.put(CST_COORDS, c_);
-        _forms.put(CST_PROPONE_LINK, false);
-        _forms.put(CST_PROPONE_TILE, false);
-        _forms.put(CST_SEE_AREA, false);
-        for (Direction d: Direction.all()) {
-            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
-        }
+//        _forms.put(CST_PROPONE_LINK, false);
+//        _forms.put(CST_PROPONE_TILE, false);
+//        _forms.put(CST_SEE_AREA, false);
+//        for (Direction d: Direction.all()) {
+//            _forms.putDir(StringUtil.concat(CST_PROPONE_LINK_VAR,d.getDirName()), BoolVal.FALSE);
+//        }
     }
 
     public DataBase getDataBase() {

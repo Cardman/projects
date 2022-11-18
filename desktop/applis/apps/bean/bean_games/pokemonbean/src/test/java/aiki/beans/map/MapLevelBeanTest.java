@@ -269,4 +269,56 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void clickTileOnMap11() {
         assertEq("",callMapLevelBeanClickTileOnMap(5,8));
     }
+    @Test
+    public void getWildPokemonAreas() {
+        assertSizeEq(2,callMapLevelBeanAreas(2));
+    }
+    @Test
+    public void getNeighbours1() {
+        assertSizeEq(2,callMapLevelBeanNeighboursGet(2));
+    }
+    @Test
+    public void getNeighbours2() {
+        assertEq(0,first(elt(callMapLevelBeanNeighboursGet(2),0)));
+    }
+    @Test
+    public void getNeighbours3() {
+        assertEq(PL_1,second(elt(callMapLevelBeanNeighboursGet(2),0)));
+    }
+    @Test
+    public void getNeighbours4() {
+        assertEq(1,first(elt(callMapLevelBeanNeighboursGet(2),1)));
+    }
+    @Test
+    public void getNeighbours5() {
+        assertEq(PL_2,second(elt(callMapLevelBeanNeighboursGet(2),1)));
+    }
+    @Test
+    public void getLevelIndex() {
+        assertEq(1,callMapLevelBeanLevelIndexGet(3,1));
+    }
+    @Test
+    public void getPlaceName() {
+        assertEq(PL_4,callMapLevelBeanPlaceNameGet(3,1));
+    }
+    @Test
+    public void clickAreaOnMap1() {
+        assertEq("",callMapLevelBeanClickAreaOnMap(2,10));
+    }
+    @Test
+    public void clickAreaOnMap2() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickAreaOnMap(2,5));
+    }
+    @Test
+    public void clickArea() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML,callMapLevelBeanClickArea(2,0));
+    }
+    @Test
+    public void clickNeighbour() {
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickNeighbour(2,0));
+    }
+    @Test
+    public void getWhiteTiles() {
+        assertSizeEq(25,callMapLevelBeanWhiteTilesGet(0));
+    }
 }

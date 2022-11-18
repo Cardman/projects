@@ -123,13 +123,13 @@ public abstract class AbsLevelBean extends CommonBean {
         }
         return w_;
     }
-    public boolean isFirstRow(int _index) {
-        if (_index == 0) {
-            return false;
-        }
-        Point pt_ = tiles.getKey(_index);
-        return pt_.getx() == IndexConstants.FIRST_INDEX;
-    }
+//    public boolean isFirstRow(int _index) {
+//        if (_index == 0) {
+//            return false;
+//        }
+//        Point pt_ = tiles.getKey(_index);
+//        return pt_.getx() == IndexConstants.FIRST_INDEX;
+//    }
     public int getLevelIndex() {
         return levelIndex;
     }

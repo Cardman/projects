@@ -21,7 +21,7 @@ public final class AikiBeansStd{
     private static final String CLICK_STATUS = "clickStatus";
     private static final String CLICK_SIMULATION = "clickSimulation";
     private static final String GET_MAP_WIDTH = "getMapWidth";
-    private static final String IS_FIRST_ROW = "isFirstRow";
+//    private static final String IS_FIRST_ROW = "isFirstRow";
     private static final String CLICK_AREA = "clickArea";
     private static final String CLICK_AREA_ON_MAP = "clickAreaOnMap";
     private static final String CLICK_NEIGHBOUR = "clickNeighbour";
@@ -92,7 +92,7 @@ public final class AikiBeansStd{
         fields_.add(new StandardField(WHITE_TILES, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanWhiteTilesGet(),null));
         fields_.add(new StandardField(NEIGHBOURS, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanNeighboursGet(),null));
         methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new MapLevelBeanGetMapWidth()));
-        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
+//        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
         methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickArea()));
         methods_.add( new SpecNatMethod(CLICK_AREA_ON_MAP,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickAreaOnMap()));
         methods_.add( new SpecNatMethod(CLICK_NEIGHBOUR,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickNeighbour()));
