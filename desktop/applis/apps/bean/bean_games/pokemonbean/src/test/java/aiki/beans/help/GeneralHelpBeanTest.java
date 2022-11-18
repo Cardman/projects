@@ -1,5 +1,9 @@
 package aiki.beans.help;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.items.AikiBeansItemsStd;
+import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import org.junit.Test;
 
 public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
@@ -82,5 +86,65 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     @Test
     public void getUnlockedCity() {
         assertEq("AAACXXXXCAAAHAAA////",callGeneralHelpBeanUnlockedCityGet());
+    }
+    @Test
+    public void getPkName() {
+        assertEq(P_POK_00_TR,callGeneralHelpBeanGetName());
+    }
+    @Test
+    public void clickPkName1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callGeneralHelpBeanClickName());
+    }
+    @Test
+    public void clickPkName2() {
+        assertEq(P_POK_00,callGeneralHelpBeanClickNameId());
+    }
+    @Test
+    public void getPkItem() {
+        assertEq(I_BALL_TR,callGeneralHelpBeanGetItem());
+    }
+    @Test
+    public void clickPkItem1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,callGeneralHelpBeanClickItem());
+    }
+    @Test
+    public void clickPkItem2() {
+        assertEq(I_BALL,callGeneralHelpBeanClickItemId());
+    }
+    @Test
+    public void getPkAbility() {
+        assertEq(A_ABILITY_TR,callGeneralHelpBeanGetAbility());
+    }
+    @Test
+    public void clickPkAbility1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callGeneralHelpBeanClickAbility());
+    }
+    @Test
+    public void clickPkAbility2() {
+        assertEq(A_ABILITY,callGeneralHelpBeanClickAbilityId());
+    }
+    @Test
+    public void getMovesAtLevelFirstPk() {
+        assertSizeEq(1,callGeneralHelpBeanGetMovesAtLevel());
+    }
+    @Test
+    public void getPkMove() {
+        assertEq(M_POK_00_TR,callGeneralHelpBeanGetMove());
+    }
+    @Test
+    public void clickPkMove1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickMove());
+    }
+    @Test
+    public void clickPkMove2() {
+        assertEq(M_POK_00,callGeneralHelpBeanClickMoveId());
+    }
+    @Test
+    public void getPkLevel() {
+        assertEq(4,callGeneralHelpBeanGetLevel());
+    }
+    @Test
+    public void getPkGender() {
+        assertEq(NO_G,callGeneralHelpBeanGetGender());
     }
 }
