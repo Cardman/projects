@@ -482,8 +482,8 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
         return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanNoFightGet(),_str,_args);
     }
 
-    public static Struct callPokemonTeamBeanRewardGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanRewardGet(),_str,_args);
+    public static Struct callPokemonTeamBeanRewardGet(int _no) {
+        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanRewardGet(),displayMult(_no));
     }
 
     public static Struct callPokemonTeamBeanTeamGetTempTrainer() {
