@@ -55,8 +55,18 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return getValAbilityId(bean_);
     }
 
-    public static Struct callGeneralHelpBeanClickHm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanClickHm(),_str,_args);
+
+    public static String callGeneralHelpBeanClickHm() {
+        return callGeneralHelpBeanClickHm(with());
+    }
+    public static String callGeneralHelpBeanClickHm(Struct _str) {
+        return navigateData(new GeneralHelpBeanClickHm(),_str,0);
+    }
+
+    public static String callGeneralHelpBeanClickHmId() {
+        Struct bean_ = with();
+        callGeneralHelpBeanClickHm(bean_);
+        return getValMoveId(bean_);
     }
 
     public static String callGeneralHelpBeanClickItem() {
@@ -101,10 +111,33 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return getValPkId(bean_);
     }
 
-    public static Struct callGeneralHelpBeanClickTm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanClickTm(),_str,_args);
+    public static String callGeneralHelpBeanClickPokemon() {
+        return callGeneralHelpBeanClickPokemon(with());
     }
 
+    public static String callGeneralHelpBeanClickPokemon(Struct _str) {
+        return navigateData(new GeneralHelpBeanClickPokemon(),_str,0);
+    }
+
+    public static String callGeneralHelpBeanClickPokemonId() {
+        Struct bean_ = with();
+        callGeneralHelpBeanClickPokemon(bean_);
+        return getValPkId(bean_);
+    }
+
+    public static String callGeneralHelpBeanClickTm(int _tm) {
+        return callGeneralHelpBeanClickTm(with(),_tm);
+    }
+
+    public static String callGeneralHelpBeanClickTm(Struct _str, int _tm) {
+        return navigateData(new GeneralHelpBeanClickTm(),_str,_tm);
+    }
+
+    public static String callGeneralHelpBeanClickTmId(int _tm) {
+        Struct bean_ = with();
+        callGeneralHelpBeanClickTm(bean_,_tm);
+        return getValMoveId(bean_);
+    }
     public static Struct callGeneralHelpBeanDefaultMoneyGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanDefaultMoneyGet(),_str,_args);
     }
@@ -129,8 +162,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetGender(),with());
     }
 
-    public static Struct callGeneralHelpBeanGetImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetImage(),_str,_args);
+    public static Struct callGeneralHelpBeanGetImage() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetImage(),with());
     }
 
     public static Struct callGeneralHelpBeanGetImageType(Struct _str, long... _args) {
@@ -173,16 +206,16 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTmPrice(),with(),_move);
     }
 
-    public static Struct callGeneralHelpBeanGetTrHm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrHm(),_str,_args);
+    public static Struct callGeneralHelpBeanGetTrHm() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrHm(),with(),0);
     }
 
-    public static Struct callGeneralHelpBeanGetTrPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrPokemon(),_str,_args);
+    public static Struct callGeneralHelpBeanGetTrPokemon() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrPokemon(),with(),0);
     }
 
-    public static Struct callGeneralHelpBeanGetTrTm(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrTm(),_str,_args);
+    public static Struct callGeneralHelpBeanGetTrTm(int _tm) {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanGetTrTm(),with(),_tm);
     }
 
     public static Struct callGeneralHelpBeanGetTrType(Struct _str, long... _args) {
@@ -193,8 +226,8 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanHappinessMaxGet(),_str,_args);
     }
 
-    public static Struct callGeneralHelpBeanHmGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanHmGet(),_str,_args);
+    public static Struct callGeneralHelpBeanHmGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanHmGet(),with());
     }
 
 //    public static Struct callGeneralHelpBeanIsFirstRow(Struct _str, long... _args) {
@@ -245,12 +278,12 @@ public abstract class InitDbGeneralHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanNbNecStepsIncrHappinessGet(),_str,_args);
     }
 
-    public static Struct callGeneralHelpBeanPokemonDefaultEggGroupGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanPokemonDefaultEggGroupGet(),_str,_args);
+    public static Struct callGeneralHelpBeanPokemonDefaultEggGroupGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanPokemonDefaultEggGroupGet(),with());
     }
 
-    public static Struct callGeneralHelpBeanTmGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanTmGet(),_str,_args);
+    public static Struct callGeneralHelpBeanTmGet() {
+        return BeanPokemonCommonTs.callLongs(new GeneralHelpBeanTmGet(),with());
     }
 
     public static Struct callGeneralHelpBeanTypesGet(Struct _str, long... _args) {

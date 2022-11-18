@@ -147,4 +147,68 @@ public final class GeneralHelpBeanTest extends InitDbGeneralHelp {
     public void getPkGender() {
         assertEq(NO_G,callGeneralHelpBeanGetGender());
     }
+    @Test
+    public void getPkImage() {
+        assertEq("AAABAAAA",callGeneralHelpBeanGetImage());
+    }
+    @Test
+    public void getPokemonDefaultEggGroup() {
+        assertSizeEq(1,callGeneralHelpBeanPokemonDefaultEggGroupGet());
+    }
+    @Test
+    public void getName() {
+        assertEq(P_POK_01_TR,callGeneralHelpBeanGetTrPokemon());
+    }
+    @Test
+    public void clickName1() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callGeneralHelpBeanClickPokemon());
+    }
+    @Test
+    public void clickName2() {
+        assertEq(P_POK_01,callGeneralHelpBeanClickPokemonId());
+    }
+    @Test
+    public void getTm() {
+        assertSizeEq(2,callGeneralHelpBeanTmGet());
+    }
+    @Test
+    public void getTrTm1() {
+        assertEq(M_POK_02_TR,callGeneralHelpBeanGetTrTm(0));
+    }
+    @Test
+    public void getTrTm2() {
+        assertEq(M_POK_03_TR,callGeneralHelpBeanGetTrTm(1));
+    }
+    @Test
+    public void clickTm1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickTm(0));
+    }
+    @Test
+    public void clickTm2() {
+        assertEq(M_POK_02,callGeneralHelpBeanClickTmId(0));
+    }
+    @Test
+    public void clickTm3() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickTm(1));
+    }
+    @Test
+    public void clickTm4() {
+        assertEq(M_POK_03,callGeneralHelpBeanClickTmId(1));
+    }
+    @Test
+    public void getHm() {
+        assertSizeEq(1,callGeneralHelpBeanHmGet());
+    }
+    @Test
+    public void getTrHm() {
+        assertEq(M_POK_00_TR,callGeneralHelpBeanGetTrHm());
+    }
+    @Test
+    public void clickHm1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callGeneralHelpBeanClickHm());
+    }
+    @Test
+    public void clickHm2() {
+        assertEq(M_POK_00,callGeneralHelpBeanClickHmId());
+    }
 }
