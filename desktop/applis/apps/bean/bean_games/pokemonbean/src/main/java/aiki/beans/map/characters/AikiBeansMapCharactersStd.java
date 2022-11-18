@@ -16,6 +16,7 @@ public final class AikiBeansMapCharactersStd{
     private static final String GET_IMAGE = "getImage";
     private static final String CLICK_NAME = "clickName";
     private static final String GET_NAME = "getName";
+    private static final String GET_GENDER = "getGender";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_ABILITY = "getAbility";
     private static final String CLICK_ITEM = "clickItem";
@@ -54,6 +55,7 @@ public final class AikiBeansMapCharactersStd{
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanGetImage()));
         methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanClickName()));
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanGetName()));
+        methods_.add( new SpecNatMethod(GET_GENDER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanGetGender()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanGetAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new AllyBeanClickItem()));

@@ -54,6 +54,14 @@ public abstract class AbsPkTeamBean extends CommonBean {
         String name_ = pk_.getName();
         return tryRedirectPk(name_);
     }
+
+    public String getGender(int _index) {
+        DataBase data_ = getDataBase();
+        PkTrainer pk_;
+        pk_ = team.get(_index);
+        return data_.getTranslatedGenders().getVal(getLanguage()).getVal(pk_.getGender());
+    }
+
     public String getAbility(int _index) {
         DataBase data_ = getDataBase();
         StringMap<String> translationsAbilities_;

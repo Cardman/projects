@@ -100,6 +100,10 @@ public final class AllyBeanTest extends InitDbCharacters {
         assertEq(M_POK_07_TR,callAllyBeanGetMove(1,1));
     }
     @Test
+    public void getGender() {
+        assertEq(NO_G,callAllyBeanGetGender());
+    }
+    @Test
     public void clickName1() {
         assertEq(P_POK_16,callAllyBeanClickNameId(0));
     }

@@ -13,6 +13,7 @@ public final class AikiBeansMapPokemonStd{
     private static final String GET_IMAGE = "getImage";
     private static final String CLICK_NAME = "clickName";
     private static final String GET_NAME = "getName";
+    private static final String GET_GENDER = "getGender";
     private static final String CLICK_ABILITY = "clickAbility";
     private static final String GET_ABILITY = "getAbility";
     private static final String CLICK_ITEM = "clickItem";
@@ -40,6 +41,7 @@ public final class AikiBeansMapPokemonStd{
         methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetImage()));
         methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickName()));
         methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetName()));
+        methods_.add( new SpecNatMethod(GET_GENDER,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetGender()));
         methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickAbility()));
         methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanGetAbility()));
         methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new PokemonTeamBeanClickItem()));

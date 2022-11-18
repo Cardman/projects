@@ -92,6 +92,10 @@ public final class PokemonTeamBeanTest extends InitDbCharacters {
         assertEq("AAABAAAL",callPokemonTeamBeanGetImageMulti(1,1));
     }
     @Test
+    public void getGender() {
+        assertEq(NO_G,callPokemonTeamBeanGetGender());
+    }
+    @Test
     public void getReward1() {
         assertEq(20,callPokemonTeamBeanRewardGet(0));
     }
