@@ -28,6 +28,18 @@ public abstract class InitDbLevelMap extends InitDbMap {
     public static String callMapLevelBeanClickTileOnMap(int _place, int _level, int _tile) {
         return callMapLevelBeanClickTileOnMap(dispMapLevel(_place, _level),_tile);
     }
+
+    public static String callMapLevelBeanClickTileOnMapMv(int _place, int _level, int _tile) {
+        Struct bean_ = dispMapLevel(_place, _level);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        return getValMoveId(bean_);
+    }
+
+    public static String callMapLevelBeanClickTileOnMapIt(int _place, int _level, int _tile) {
+        Struct bean_ = dispMapLevel(_place, _level);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        return getValItemId(bean_);
+    }
 //    public static String callMapLevelBeanClickForeGroundTwice(int _place, int _tile, int _second) {
 //        Struct bean_ = dispMapLevelZero(_place);
 //        callMapLevelBeanClickForeGround(bean_,_tile);

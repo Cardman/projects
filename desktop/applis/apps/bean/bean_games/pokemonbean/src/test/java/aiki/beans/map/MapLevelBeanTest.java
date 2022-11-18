@@ -118,6 +118,18 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BOOST_HTML,callMapLevelBeanClickTileOnMap(3,1,8));
     }
     @Test
+    public void clickForeGroundId12() {
+        assertEq(M_POK_00,callMapLevelBeanClickTileOnMapMv(3,1,13));
+    }
+    @Test
+    public void clickForeGroundId13() {
+        assertEq(M_POK_01,callMapLevelBeanClickTileOnMapMv(3,1,18));
+    }
+    @Test
+    public void clickForeGroundId14() {
+        assertEq(I_BOOST,callMapLevelBeanClickTileOnMapIt(3,1,8));
+    }
+    @Test
     public void clickForeGround15() {
         assertEq("",callMapLevelBeanClickTileOnMapTwice(1,12,12));
     }
