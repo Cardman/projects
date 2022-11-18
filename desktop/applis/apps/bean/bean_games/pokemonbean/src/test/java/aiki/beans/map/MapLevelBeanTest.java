@@ -321,4 +321,24 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     public void getWhiteTiles() {
         assertSizeEq(25,callMapLevelBeanWhiteTilesGet(0));
     }
+    @Test
+    public void isStorage1() {
+        assertFalse(callMapLevelBeanIsStorage(0,12,12));
+    }
+    @Test
+    public void isStorage2() {
+        assertFalse(callMapLevelBeanIsStorage(0,13));
+    }
+    @Test
+    public void isStorage3() {
+        assertFalse(callMapLevelBeanIsStorage(2,10));
+    }
+    @Test
+    public void isStorage4() {
+        assertFalse(callMapLevelBeanIsStorage(1,12,6));
+    }
+    @Test
+    public void isStorage5() {
+        assertTrue(callMapLevelBeanIsStorage(1,12,7));
+    }
 }

@@ -141,8 +141,16 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsRight(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanIsStorage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsStorage(),_str,_args);
+    public static Struct callMapLevelBeanIsStorage(int _place, int _tile, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        callMapLevelBeanClickTileOnMap(bean_,_tile);
+        beforeDisplaying(bean_);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsStorage(),bean_,_cell);
+    }
+
+    public static Struct callMapLevelBeanIsStorage(int _place, int _cell) {
+        Struct bean_ = dispMapLevelZero(_place);
+        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsStorage(),bean_,_cell);
     }
 
 //    public static Struct callMapLevelBeanIsUp(int _place, int _tile, int _second) {
