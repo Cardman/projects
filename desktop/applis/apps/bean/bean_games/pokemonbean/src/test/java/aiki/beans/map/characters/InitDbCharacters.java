@@ -422,20 +422,60 @@ public abstract class InitDbCharacters extends InitDbLevelMap {
 //        return BeanPokemonCommonTs.callLongs(new TrainerBeanTrainerGet(),_str,_args);
 //    }
 
-    public static Struct callPokemonTeamBeanClickAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanClickAbility(),_str,_args);
+    public static String callPokemonTeamBeanClickAbility(int _no, int _pk) {
+        return callPokemonTeamBeanClickAbility(displayMult(_no),_pk);
     }
 
-    public static Struct callPokemonTeamBeanClickItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanClickItem(),_str,_args);
+    public static String callPokemonTeamBeanClickAbility(Struct _str, int _pk) {
+        return navigateData(new PokemonTeamBeanClickAbility(),_str,toInt(callPokemonTeamBeanNoFightGet(_str)),_pk);
     }
 
-    public static Struct callPokemonTeamBeanClickMove(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanClickMove(),_str,_args);
+    public static String callPokemonTeamBeanClickAbilityId(int _no, int _pk) {
+        Struct bean_ = displayMult(_no);
+        callPokemonTeamBeanClickAbility(bean_,_pk);
+        return getValAbilityId(bean_);
     }
 
-    public static Struct callPokemonTeamBeanClickName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PokemonTeamBeanClickName(),_str,_args);
+    public static String callPokemonTeamBeanClickItem(int _no, int _pk) {
+        return callPokemonTeamBeanClickItem(displayMult(_no),_pk);
+    }
+
+    public static String callPokemonTeamBeanClickItem(Struct _str, int _pk) {
+        return navigateData(new PokemonTeamBeanClickItem(),_str,toInt(callPokemonTeamBeanNoFightGet(_str)),_pk);
+    }
+
+    public static String callPokemonTeamBeanClickItemId(int _no, int _pk) {
+        Struct bean_ = displayMult(_no);
+        callPokemonTeamBeanClickItem(bean_,_pk);
+        return getValItemId(bean_);
+    }
+
+    public static String callPokemonTeamBeanClickMove(int _no, int _pk, int _move) {
+        return callPokemonTeamBeanClickMove(displayMult(_no),_pk,_move);
+    }
+
+    public static String callPokemonTeamBeanClickMove(Struct _str, int _pk, int _move) {
+        return navigateData(new PokemonTeamBeanClickMove(),_str,toInt(callPokemonTeamBeanNoFightGet(_str)),_pk,_move);
+    }
+
+    public static String callPokemonTeamBeanClickMoveId(int _no, int _pk, int _move) {
+        Struct bean_ = displayMult(_no);
+        callPokemonTeamBeanClickMove(bean_,_pk,_move);
+        return getValMoveId(bean_);
+    }
+
+    public static String callPokemonTeamBeanClickName(int _no, int _pk) {
+        return callPokemonTeamBeanClickName(displayMult(_no),_pk);
+    }
+
+    public static String callPokemonTeamBeanClickName(Struct _str, int _pk) {
+        return navigateData(new PokemonTeamBeanClickName(),_str,toInt(callPokemonTeamBeanNoFightGet(_str)),_pk);
+    }
+
+    public static String callPokemonTeamBeanClickNameId(int _no, int _pk) {
+        Struct bean_ = displayMult(_no);
+        callPokemonTeamBeanClickName(bean_,_pk);
+        return getValPkId(bean_);
     }
 
     public static Struct callPokemonTeamBeanGetAbility(int _no, int _pk) {

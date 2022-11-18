@@ -1,5 +1,9 @@
 package aiki.beans.map.characters;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.items.AikiBeansItemsStd;
+import aiki.beans.moves.AikiBeansMovesStd;
+import aiki.beans.pokemon.AikiBeansPokemonStd;
 import org.junit.Test;
 
 public final class PokemonTeamBeanTest extends InitDbCharacters {
@@ -186,5 +190,149 @@ public final class PokemonTeamBeanTest extends InitDbCharacters {
     @Test
     public void getMove8() {
         assertEq(M_POK_07_TR,callPokemonTeamBeanGetMove(1,1,1));
+    }
+    @Test
+    public void clickName1() {
+        assertEq(P_POK_08,callPokemonTeamBeanClickNameId(0,0));
+    }
+    @Test
+    public void clickName2() {
+        assertEq(P_POK_09,callPokemonTeamBeanClickNameId(0,1));
+    }
+    @Test
+    public void clickName3() {
+        assertEq(P_POK_10,callPokemonTeamBeanClickNameId(1,0));
+    }
+    @Test
+    public void clickName4() {
+        assertEq(P_POK_11,callPokemonTeamBeanClickNameId(1,1));
+    }
+    @Test
+    public void clickName5() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callPokemonTeamBeanClickName(0,0));
+    }
+    @Test
+    public void clickName6() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callPokemonTeamBeanClickName(0,1));
+    }
+    @Test
+    public void clickName7() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callPokemonTeamBeanClickName(1,0));
+    }
+    @Test
+    public void clickName8() {
+        assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML,callPokemonTeamBeanClickName(1,1));
+    }
+    @Test
+    public void clickAbility1() {
+        assertEq(A_ABILITY,callPokemonTeamBeanClickAbilityId(0,0));
+    }
+    @Test
+    public void clickAbility2() {
+        assertEq(A_ABILITY2,callPokemonTeamBeanClickAbilityId(0,1));
+    }
+    @Test
+    public void clickAbility3() {
+        assertEq(A_ABILITY2,callPokemonTeamBeanClickAbilityId(1,0));
+    }
+    @Test
+    public void clickAbility4() {
+        assertEq(A_ABILITY,callPokemonTeamBeanClickAbilityId(1,1));
+    }
+    @Test
+    public void clickAbility5() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callPokemonTeamBeanClickAbility(0,0));
+    }
+    @Test
+    public void clickAbility6() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callPokemonTeamBeanClickAbility(0,1));
+    }
+    @Test
+    public void clickAbility7() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callPokemonTeamBeanClickAbility(1,0));
+    }
+    @Test
+    public void clickAbility8() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,callPokemonTeamBeanClickAbility(1,1));
+    }
+    @Test
+    public void clickItem1() {
+        assertEq(I_BALL,callPokemonTeamBeanClickItemId(0,0));
+    }
+    @Test
+    public void clickItem2() {
+        assertEq(I_BERRY,callPokemonTeamBeanClickItemId(0,1));
+    }
+    @Test
+    public void clickItem3() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,callPokemonTeamBeanClickItem(0,0));
+    }
+    @Test
+    public void clickItem4() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BERRY_HTML,callPokemonTeamBeanClickItem(0,1));
+    }
+    @Test
+    public void clickMove1() {
+        assertEq(M_POK_04,callPokemonTeamBeanClickMoveId(0,0,0));
+    }
+    @Test
+    public void clickMove2() {
+        assertEq(M_POK_05,callPokemonTeamBeanClickMoveId(0,0,1));
+    }
+    @Test
+    public void clickMove3() {
+        assertEq(M_POK_06,callPokemonTeamBeanClickMoveId(0,1,0));
+    }
+    @Test
+    public void clickMove4() {
+        assertEq(M_POK_07,callPokemonTeamBeanClickMoveId(0,1,1));
+    }
+    @Test
+    public void clickMove5() {
+        assertEq(M_POK_04,callPokemonTeamBeanClickMoveId(1,0,0));
+    }
+    @Test
+    public void clickMove6() {
+        assertEq(M_POK_05,callPokemonTeamBeanClickMoveId(1,0,1));
+    }
+    @Test
+    public void clickMove7() {
+        assertEq(M_POK_06,callPokemonTeamBeanClickMoveId(1,1,0));
+    }
+    @Test
+    public void clickMove8() {
+        assertEq(M_POK_07,callPokemonTeamBeanClickMoveId(1,1,1));
+    }
+    @Test
+    public void clickMove9() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(0,0,0));
+    }
+    @Test
+    public void clickMove10() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(0,0,1));
+    }
+    @Test
+    public void clickMove11() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(0,1,0));
+    }
+    @Test
+    public void clickMove12() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(0,1,1));
+    }
+    @Test
+    public void clickMove13() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(1,0,0));
+    }
+    @Test
+    public void clickMove14() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(1,0,1));
+    }
+    @Test
+    public void clickMove15() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(1,1,0));
+    }
+    @Test
+    public void clickMove16() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callPokemonTeamBeanClickMove(1,1,1));
     }
 }
