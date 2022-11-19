@@ -189,6 +189,13 @@ public final class CommonBeanTest extends InitDbWelcome {
         s_.put("",Instances.newGerantPokemon());
         assertTrue(s_.contains(""));
     }
+
+    @Test
+    public void forms6() {
+        StringMapObject s_ = new StringMapObject();
+        s_.put("",Instances.newWildPk());
+        assertTrue(s_.contains(""));
+    }
     private RedirectAb redirectAb(String _key) {
         return new RedirectAb(_key, DEF_DIR);
     }
