@@ -150,15 +150,15 @@ public class EditPokemonBean extends CommonBean {
 //            }
             selected_.add(s.getName());
         }
-        if (selected_.isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
-        DataBase data_ = getDataBase();
-        if (selected_.size() > data_.getNbMaxMoves()) {
+        if (!inRangeMoves(selected_)) {
             return DataBase.EMPTY_STRING;
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+    }
+    public boolean inRangeMoves(StringList _selected) {
+        DataBase data_ = getDataBase();
+        return inRange(_selected.size(),1,data_.getNbMaxMoves());
     }
 
     public int getLevel() {

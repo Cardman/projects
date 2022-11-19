@@ -196,6 +196,22 @@ public final class CommonBeanTest extends InitDbWelcome {
         s_.put("",Instances.newWildPk());
         assertTrue(s_.contains(""));
     }
+    @Test
+    public void inRange1() {
+        assertFalse(CommonBean.inRange(0,1,10));
+    }
+    @Test
+    public void inRange2() {
+        assertFalse(CommonBean.inRange(11,1,10));
+    }
+    @Test
+    public void inRange3() {
+        assertTrue(CommonBean.inRange(1,1,10));
+    }
+    @Test
+    public void inRange4() {
+        assertTrue(CommonBean.inRange(10,1,10));
+    }
     private RedirectAb redirectAb(String _key) {
         return new RedirectAb(_key, DEF_DIR);
     }

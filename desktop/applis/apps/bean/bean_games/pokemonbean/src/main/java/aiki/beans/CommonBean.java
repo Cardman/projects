@@ -162,6 +162,10 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     public void setForms(StringMapObject _forms) {
         setBaseForms(_forms);
     }
+
+    public static boolean inRange(int _value, int _min, int _max) {
+        return _value >= _min && _value <= _max;
+    }
     protected static String escapedStringQuote(String _string) {
         StringMap<String> map_ = new StringMap<String>();
         map_.put(CST_QUOTE, CST_ESCAPED_QUOTE);
