@@ -19,12 +19,11 @@ import aiki.fight.util.*;
 import aiki.game.fight.*;
 import aiki.game.params.enums.*;
 import aiki.instances.*;
-import aiki.map.DataMap;
+import aiki.map.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
-import aiki.util.CoordsLists;
-import aiki.util.LawNumber;
+import aiki.util.*;
 import code.expressionlanguage.structs.*;
 import code.images.*;
 import code.maths.*;
@@ -1525,7 +1524,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().completeMembers(I_BALL,Instances.newBall());
         facade_.getData().completeMembers(A_SIM_1,Instances.newAbilityData());
         facade_.getData().completeMembers(A_SIM_2,Instances.newAbilityData());
+        facade_.getData().setCombos(Instances.newCombos());
         facade_.getData().completeVariables();
+        facade_.getData().completeMembersCombos();
 //        _db.setBallDef(_ballDef);
 //        _db.setRateCatching(_rateCatching);
 //        _db.setRateFleeing(_rateFleeing);
@@ -1692,10 +1693,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         move_.setTypes(new StringList(_type));
         move_.setBoostedTypes(new StringList(_type));
         move_.setCategory(_cat);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
         EffectDamage eff_ = Instances.newEffectDamage();
-        eff_.setTargetChoice(TargetChoice.ANY_FOE);
         eff_.setConstDamage(true);
         eff_.setPower(_power);
+        eff_.patch();
         target(move_,eff_);
         return move_;
     }
@@ -1706,9 +1708,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         move_.setTypes(new StringList(T_SIM_2));
         move_.setBoostedTypes(new StringList(T_SIM_2));
         move_.setCategory(C_SIM_2);
+        move_.setTargetChoice(TargetChoice.ANY_FOE);
         EffectDamage eff_ = Instances.newEffectDamage();
-        eff_.setTargetChoice(TargetChoice.ANY_FOE);
         eff_.setPower(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        eff_.patch();
         target(move_,eff_);
         return move_;
     }
