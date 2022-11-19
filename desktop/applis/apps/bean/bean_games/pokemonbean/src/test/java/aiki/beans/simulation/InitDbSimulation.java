@@ -1,13 +1,101 @@
 package aiki.beans.simulation;
 
-import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.db.InitDbConstr;
+import aiki.beans.*;
+import aiki.beans.db.*;
 import aiki.beans.facade.simulation.dto.*;
-import aiki.beans.game.DifficultyBeanComGet;
-import code.expressionlanguage.structs.Struct;
-import code.maths.Rate;
+import aiki.beans.game.*;
+import aiki.db.*;
+import aiki.facade.*;
+import aiki.facade.enums.*;
+import aiki.fight.enums.*;
+import aiki.fight.items.*;
+import aiki.fight.moves.*;
+import aiki.fight.moves.effects.*;
+import aiki.fight.moves.enums.*;
+import aiki.fight.pokemon.*;
+import aiki.fight.pokemon.enums.*;
+import aiki.fight.pokemon.evolution.*;
+import aiki.fight.util.*;
+import aiki.game.fight.*;
+import aiki.game.params.enums.*;
+import aiki.instances.*;
+import aiki.map.DataMap;
+import aiki.map.levels.enums.*;
+import aiki.map.pokemon.*;
+import aiki.map.pokemon.enums.*;
+import aiki.util.CoordsLists;
+import aiki.util.LawNumber;
+import code.expressionlanguage.structs.*;
+import code.images.*;
+import code.maths.*;
+import code.maths.montecarlo.*;
+import code.util.*;
 
 public abstract class InitDbSimulation extends InitDbConstr {
+    public static final String M_POK_00 = "M_POK00";
+    public static final String M_POK_01 = "M_POK01";
+    public static final String M_POK_02 = "M_POK02";
+    public static final String M_POK_03 = "M_POK03";
+    public static final String M_POK_04 = "M_POK04";
+    public static final String M_POK_05 = "M_POK05";
+    public static final String M_POK_06 = "M_POK06";
+    public static final String M_POK_07 = "M_POK07";
+
+    public static final String P_POK_00 = "P_POK00";
+    public static final String P_POK_01 = "P_POK01";
+    public static final String P_POK_02 = "P_POK02";
+    public static final String P_POK_03 = "P_POK03";
+    public static final String P_POK_04 = "P_POK04";
+    public static final String P_POK_05 = "P_POK05";
+    public static final String P_POK_06 = "P_POK06";
+    public static final String P_POK_07 = "P_POK07";
+    public static final String P_POK_08 = "P_POK08";
+    public static final String P_POK_09 = "P_POK09";
+    public static final String P_POK_10 = "P_POK10";
+    public static final String P_POK_11 = "P_POK11";
+    public static final String P_POK_12 = "P_POK12";
+    public static final String P_POK_13 = "P_POK13";
+    public static final String P_POK_14 = "P_POK14";
+    public static final String P_POK_15 = "P_POK15";
+
+
+    public static final String T_SIM_1 = "T_SIM1";
+    public static final String T_SIM_2 = "T_SIM2";
+    public static final String C_SIM_1 = "C_SIM1";
+    public static final String C_SIM_2 = "C_SIM2";
+    public static final String I_STONE = "I_STONE";
+    public static final String I_MULT_EXP = "I_MULT_EXP";
+    public static final String A_SIM_1 = "A_SIM1";
+    public static final String A_SIM_2 = "A_SIM2";
+    public static final String I_NOTHING = "I_NOTHING";
+    public static final String T_SIM_1_TR = "T_SIM_1_TR";
+    public static final String T_SIM_2_TR = "T_SIM_2_TR";
+    public static final String P_POK_00_TR = "P_POK_00_TR";
+    public static final String P_POK_01_TR = "P_POK_01_TR";
+    public static final String P_POK_02_TR = "P_POK_02_TR";
+    public static final String P_POK_03_TR = "P_POK_03_TR";
+    public static final String P_POK_04_TR = "P_POK_04_TR";
+    public static final String P_POK_05_TR = "P_POK_05_TR";
+    public static final String P_POK_06_TR = "P_POK_06_TR";
+    public static final String P_POK_07_TR = "P_POK_07_TR";
+    public static final String P_POK_08_TR = "P_POK_08_TR";
+    public static final String P_POK_09_TR = "P_POK_09_TR";
+    public static final String M_POK_00_TR = "M_POK_00_TR";
+    public static final String M_POK_01_TR = "M_POK_01_TR";
+    public static final String M_POK_02_TR = "M_POK_02_TR";
+    public static final String M_POK_03_TR = "M_POK_03_TR";
+    public static final String M_POK_04_TR = "M_POK_04_TR";
+    public static final String M_POK_05_TR = "M_POK_05_TR";
+    public static final String M_POK_06_TR = "M_POK_06_TR";
+    public static final String I_NOTHING_TR = "I_NOTHING1";
+    public static final String I_MULT_EXP_TR = "I_MULT_EXP1";
+    public static final String I_STONE_TR = "I_STONE1";
+    public static final String A_SIM_1_TR = "A_SIM_1_TR";
+    public static final String A_SIM_2_TR = "A_SIM_2_TR";
+    public static final String C_SIM_1_TR = "C_SIM_1_TR";
+    public static final String C_SIM_2_TR = "C_SIM_2_TR";
+    public static final String CI_BATTLE = "CI_BATTLE";
+    public static final String CI_STONE = "CI_STONE";
 
     public static Struct callSimulationBeanAbilitiesAfterFightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
@@ -1389,5 +1477,294 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
+    }
+
+    private static FacadeGame db() {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(M_POK_00,power(T_SIM_1, C_SIM_1, "10"));
+        facade_.getData().completeMembers(M_POK_01,power(T_SIM_1, C_SIM_1, "64"));
+        facade_.getData().completeMembers(M_POK_02,power(T_SIM_2, C_SIM_2, "192"));
+        facade_.getData().completeMembers(M_POK_03,power(T_SIM_2, C_SIM_2, "256"));
+        facade_.getData().completeMembers(M_POK_04,powerBad());
+        facade_.getData().completeMembers(M_POK_05,noEff());
+        facade_.getData().completeMembers(M_POK_06,noEff());
+        facade_.getData().completeMembers(P_POK_00,specPk(P_POK_00,P_POK_01,20, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_00),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_01,specPk(P_POK_00, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_03),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_02,specPk(P_POK_02,P_POK_03,40, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_00),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_03,specPk(P_POK_02, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_03),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_04,specPk(P_POK_04,P_POK_05, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_00),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_05,specPk(P_POK_04, withLearn(withLearn(withLearn(new CustList<LevelMove>(),1,M_POK_03),10,M_POK_01),20,M_POK_02)));
+        facade_.getData().completeMembers(P_POK_06,specLeg(P_POK_06, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(P_POK_07,specLeg(P_POK_07, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(P_POK_08,specPk(P_POK_08, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(P_POK_09,specPk(P_POK_09, withLearn(new CustList<LevelMove>(),1,M_POK_03)));
+        facade_.getData().completeMembers(I_STONE,Instances.newEvolvingStone());
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,DataBase.VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        TypesDuos t_ = new TypesDuos();
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_2),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_2),Rate.one());
+        facade_.getData().setTableTypes(t_);
+        facade_.getData().setTypes(new StringList(T_SIM_1,T_SIM_2));
+        ItemForBattle it_ = Instances.newItemForBattle();
+        it_.setBoostExp(true);
+        facade_.getData().completeMembers(I_MULT_EXP,it_);
+        facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
+        facade_.getData().completeMembers(A_SIM_1,Instances.newAbilityData());
+        facade_.getData().completeMembers(A_SIM_2,Instances.newAbilityData());
+        facade_.getData().completeVariables();
+//        _db.setBallDef(_ballDef);
+//        _db.setRateCatching(_rateCatching);
+//        _db.setRateFleeing(_rateFleeing);
+        facade_.getData().setRateBoost("1");
+        facade_.getData().setRateBoostCriticalHit("2");
+        facade_.getData().setDamageFormula("21");
+//        _db.setDefMove(_defMove);
+//        _db.setDefaultEggGroup(_defaultEggGoup);
+//        _db.setDefCategory("AUTRE");
+        facade_.getData().addConstNumTest(DataBase.PP_MAX,new Rate(20));
+        facade_.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_ECLOSION,new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_MAX,new Rate(255));
+        facade_.getData().addConstNumTest(DataBase.DEF_PKEQ,new Rate(4));
+        facade_.getData().addConstNumTest(DataBase.MAX_BONHEUR,new Rate(128));
+        facade_.getData().addConstNumTest(DataBase.MAX_IV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.MAX_EV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.GAIN_BONHEUR_NIV, new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, new Rate(0));
+        facade_.getData().addConstNumTest(DataBase.MAX_BOOST, new Rate(6));
+        facade_.getData().addConstNumTest(DataBase.MIN_BOOST, new Rate(-6));
+        facade_.getData().addConstNumTest(DataBase.MIN_HP, new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.BONUS_BOOST, new Rate("3/2"));
+        facade_.getData().addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
+        facade_.getData().setMap(dm());
+        trCore(facade_);
+        return facade_;
+    }
+    private static MonteCarloNumber lawOne() {
+        MonteCarloNumber mcn_ = new MonteCarloNumber();
+        mcn_.addQuickEvent(Rate.one(),LgInt.one());
+        return mcn_;
+    }
+
+    private static DataMap dm() {
+        DataMap dm_ = Instances.newDataMap();
+        dm_.setAccessCondition(new CoordsLists());
+        WildPk pkm_ = new WildPk();
+        pkm_.setName(P_POK_00);
+        pkm_.setAbility(A_SIM_1);
+        pkm_.setGender(Gender.NO_GENDER);
+        pkm_.setItem(NULL_REF);
+        pkm_.setLevel((short) 7);
+        dm_.setFirstPokemon(pkm_);
+        dm_.setBegin(newCoords(0, 0, 0, 1));
+        return dm_;
+    }
+
+    private static void trCore(FacadeGame _facade) {
+        DataBase data_ = _facade.getData();
+        IdMap<Gender, String> gdrs_ = new IdMap<Gender, String>();
+        gdrs_.addEntry(Gender.NO_GENDER, NO_G);
+        data_.getTranslatedGenders().addEntry(EN, gdrs_);
+        IdMap<SelectedBoolean, String> bools_ = new IdMap<SelectedBoolean, String>();
+        bools_.addEntry(SelectedBoolean.NO,"NO");
+        bools_.addEntry(SelectedBoolean.YES,"YES");
+        bools_.addEntry(SelectedBoolean.YES_AND_NO,"YES_AND_NO");
+        data_.getTranslatedBooleans().addEntry(EN, bools_);
+        IdMap<DifficultyWinPointsFight, String> wfn_ = new IdMap<DifficultyWinPointsFight, String>();
+        wfn_.addEntry(DifficultyWinPointsFight.TRES_DIFFICILE,"TRES_DIFFICILE");
+        wfn_.addEntry(DifficultyWinPointsFight.DIFFICILE,"DIFFICILE");
+        wfn_.addEntry(DifficultyWinPointsFight.FACILE,"FACILE");
+        wfn_.addEntry(DifficultyWinPointsFight.TRES_FACILE,"TRES_FACILE");
+        data_.getTranslatedDiffWinPts().addEntry(EN, wfn_);
+        IdMap<DifficultyModelLaw, String> ml_ = new IdMap<DifficultyModelLaw, String>();
+        ml_.addEntry(DifficultyModelLaw.CONSTANT_MIN,"CONSTANT_MIN");
+        ml_.addEntry(DifficultyModelLaw.CROISSANT,"CROISSANT");
+        ml_.addEntry(DifficultyModelLaw.UNIFORME,"UNIFORME");
+        ml_.addEntry(DifficultyModelLaw.DECROISSANT,"DECROISSANT");
+        ml_.addEntry(DifficultyModelLaw.CONSTANT_MAX,"CONSTANT_MAX");
+        data_.getTranslatedDiffModelLaw().addEntry(EN, ml_);
+        IdMap<EnvironmentType, String> et_ = new IdMap<EnvironmentType, String>();
+        et_.addEntry(EnvironmentType.ROAD,"ROAD");
+        et_.addEntry(EnvironmentType.ROCK,"ROCK");
+        et_.addEntry(EnvironmentType.NOTHING,"NOTHING");
+        et_.addEntry(EnvironmentType.BUILDING,"BUILDING");
+        et_.addEntry(EnvironmentType.GRASS,"GRASS");
+        et_.addEntry(EnvironmentType.DESERT,"DESERT");
+        et_.addEntry(EnvironmentType.ICE,"ICE");
+        et_.addEntry(EnvironmentType.SNOW,"SNOW");
+        et_.addEntry(EnvironmentType.WATER,"WATER");
+        data_.getTranslatedEnvironment().addEntry(EN, et_);
+        IdMap<Statistic, String> stats_ = new IdMap<Statistic, String>();
+        stats_.addEntry(Statistic.ATTACK,"ATTACK");
+        stats_.addEntry(Statistic.SPECIAL_ATTACK,"SPECIAL_ATTACK");
+        stats_.addEntry(Statistic.DEFENSE,"DEFENSE");
+        stats_.addEntry(Statistic.SPECIAL_DEFENSE,"SPECIAL_DEFENSE");
+        stats_.addEntry(Statistic.SPEED, SPEED_TR);
+        stats_.addEntry(Statistic.ACCURACY,"ACCURACY");
+        stats_.addEntry(Statistic.EVASINESS,"EVASINESS");
+        stats_.addEntry(Statistic.HP,"HP");
+        stats_.addEntry(Statistic.PV_RESTANTS,"PV_RESTANTS");
+        stats_.addEntry(Statistic.CRITICAL_HIT,"CRITICAL_HIT");
+        data_.getTranslatedStatistics().addEntry(EN, stats_);
+        IdMap<TargetChoice, String> tar_ = new IdMap<TargetChoice, String>();
+        tar_.addEntry(TargetChoice.ADJ_ADV,"ADJ_ADV");
+        tar_.addEntry(TargetChoice.ADJ_MULT,"ADJ_MULT");
+        tar_.addEntry(TargetChoice.ANY_FOE,"ANY_FOE");
+        tar_.addEntry(TargetChoice.ALLIE,"ALLIE");
+        tar_.addEntry(TargetChoice.ALLIES,"ALLIES");
+        tar_.addEntry(TargetChoice.AUTRE_UNIQ,"AUTRE_UNIQ");
+        tar_.addEntry(TargetChoice.ADJ_UNIQ,"ADJ_UNIQ");
+        tar_.addEntry(TargetChoice.GLOBALE,"GLOBALE");
+        tar_.addEntry(TargetChoice.LANCEUR,"LANCEUR");
+        tar_.addEntry(TargetChoice.NOTHING,"NOTHING");
+        tar_.addEntry(TargetChoice.TOUS_ADV,"TOUS_ADV");
+        tar_.addEntry(TargetChoice.PSEUDO_GLOBALE,"PSEUDO_GLOBALE");
+        tar_.addEntry(TargetChoice.UNIQUE_IMPORTE,"UNIQUE_IMPORTE");
+        data_.getTranslatedTargets().addEntry(EN, tar_);
+        data_.getTranslatedTypes().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedTypes().getVal(EN).addEntry(T_SIM_1, T_SIM_1_TR);
+        data_.getTranslatedTypes().getVal(EN).addEntry(T_SIM_2, T_SIM_2_TR);
+        data_.getTranslatedPokemon().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_00, P_POK_00_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_01, P_POK_01_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_02, P_POK_02_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_03, P_POK_03_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_04, P_POK_04_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_05, P_POK_05_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_06, P_POK_06_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_07, P_POK_07_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_08, P_POK_08_TR);
+        data_.getTranslatedPokemon().getVal(EN).addEntry(P_POK_09, P_POK_09_TR);
+        data_.getTranslatedTypes().getVal(EN).addEntry(T_SIM_2, T_SIM_2_TR);
+        data_.getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_00, M_POK_00_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_01, M_POK_01_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_02, M_POK_02_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_03, M_POK_03_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_04, M_POK_04_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_05, M_POK_05_TR);
+        data_.getTranslatedMoves().getVal(EN).addEntry(M_POK_06, M_POK_06_TR);
+        data_.getTranslatedItems().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedItems().getVal(EN).addEntry(I_NOTHING, I_NOTHING_TR);
+        data_.getTranslatedItems().getVal(EN).addEntry(I_MULT_EXP, I_MULT_EXP_TR);
+        data_.getTranslatedItems().getVal(EN).addEntry(I_STONE, I_STONE_TR);
+        data_.getTranslatedAbilities().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedAbilities().getVal(EN).addEntry(A_SIM_1, A_SIM_1_TR);
+        data_.getTranslatedAbilities().getVal(EN).addEntry(A_SIM_2, A_SIM_2_TR);
+        data_.getTranslatedCategories().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedCategories().getVal(EN).addEntry(C_SIM_1, C_SIM_1_TR);
+        data_.getTranslatedCategories().getVal(EN).addEntry(C_SIM_2, C_SIM_2_TR);
+        data_.getTranslatedClassesDescriptions().addEntry(EN,new StringMap<String>());
+        data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_NOTHING).getItemType(), CI_BATTLE);
+        data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_STONE).getItemType(), CI_STONE);
+        data_.getLitterals().addEntry(EN,new StringMap<String>());
+        data_.getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
+        data_.getMiniPk().addEntry(P_POK_00, BaseSixtyFourUtil.getImageByString("AAABAAAC"));
+        data_.getMiniPk().addEntry(P_POK_01, BaseSixtyFourUtil.getImageByString("AAABAAAD"));
+        data_.getMiniPk().addEntry(P_POK_02, BaseSixtyFourUtil.getImageByString("AAABAAAE"));
+        data_.getMiniPk().addEntry(P_POK_03, BaseSixtyFourUtil.getImageByString("AAABAAAF"));
+        data_.getMiniPk().addEntry(P_POK_04, BaseSixtyFourUtil.getImageByString("AAABAAAG"));
+        data_.getMiniPk().addEntry(P_POK_05, BaseSixtyFourUtil.getImageByString("AAABAAAH"));
+        data_.getMiniPk().addEntry(P_POK_06, BaseSixtyFourUtil.getImageByString("AAABAAAI"));
+        data_.getMiniPk().addEntry(P_POK_07, BaseSixtyFourUtil.getImageByString("AAABAAAJ"));
+        data_.getMiniPk().addEntry(P_POK_08, BaseSixtyFourUtil.getImageByString("AAABAAAK"));
+        data_.getMiniPk().addEntry(P_POK_09, BaseSixtyFourUtil.getImageByString("AAABAAAL"));
+    }
+    private static DamagingMoveData power(String _type, String _cat, String _power) {
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        move_.setAccuracy("1");
+        move_.setPp((short)15);
+        move_.setTypes(new StringList(_type));
+        move_.setBoostedTypes(new StringList(_type));
+        move_.setCategory(_cat);
+        EffectDamage eff_ = Instances.newEffectDamage();
+        eff_.setTargetChoice(TargetChoice.ANY_FOE);
+        eff_.setConstDamage(true);
+        eff_.setPower(_power);
+        target(move_,eff_);
+        return move_;
+    }
+    private static DamagingMoveData powerBad() {
+        DamagingMoveData move_ = Instances.newDamagingMoveData();
+        move_.setPp((short)5);
+        move_.setAccuracy(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
+        move_.setTypes(new StringList(T_SIM_2));
+        move_.setBoostedTypes(new StringList(T_SIM_2));
+        move_.setCategory(C_SIM_2);
+        EffectDamage eff_ = Instances.newEffectDamage();
+        eff_.setTargetChoice(TargetChoice.ANY_FOE);
+        eff_.setPower(DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);
+        target(move_,eff_);
+        return move_;
+    }
+    private static StatusMoveData noEff() {
+        StatusMoveData st_ = Instances.newStatusMoveData();
+        st_.setPp((short)1);
+        return st_;
+    }
+    private static void target(MoveData _dam, Effect _ef) {
+        _ef.setTargetChoice(_dam.getTargetChoice());
+        _dam.getEffects().add(_ef);
+    }
+
+    private static PokemonData specPk(String _base, CustList<LevelMove> _moves) {
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
+        pk_.setTypes(new StringList(T_SIM_1));
+        pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
+        pk_.setBaseEvo(_base);
+        pk_.setLevMoves(_moves);
+        pk_.setExpEvo(ExpType.E);
+        return pk_;
+    }
+
+    private static PokemonData specPk(String _base, String _evo, int _lev, CustList<LevelMove> _moves) {
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
+        pk_.setTypes(new StringList(T_SIM_1));
+        pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
+        pk_.setBaseEvo(_base);
+        EvolutionLevelSimple e_ = Instances.newEvolutionLevelSimple();
+        e_.setLevel((short) _lev);
+        pk_.getEvolutions().addEntry(_evo, e_);
+        pk_.setLevMoves(_moves);
+        pk_.setExpEvo(ExpType.E);
+        return pk_;
+    }
+
+    private static PokemonData specPk(String _base, String _evo, CustList<LevelMove> _moves) {
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
+        pk_.setTypes(new StringList(T_SIM_1));
+        pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
+        pk_.setBaseEvo(_base);
+        EvolutionStoneSimple e_ = Instances.newEvolutionStoneSimple();
+        e_.setStone(I_STONE);
+        pk_.getEvolutions().addEntry(_evo, e_);
+        pk_.setLevMoves(_moves);
+        pk_.setExpEvo(ExpType.E);
+        return pk_;
+    }
+
+    private static PokemonData specLeg(String _base, CustList<LevelMove> _moves) {
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.LEGENDARY);
+        pk_.setTypes(new StringList(T_SIM_2));
+        pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
+        pk_.setBaseEvo(_base);
+        pk_.setLevMoves(_moves);
+        pk_.setExpEvo(ExpType.E);
+        return pk_;
+    }
+    private static CustList<LevelMove> withLearn(CustList<LevelMove> _set, int _level, String _move) {
+        _set.add(new LevelMove((short)_level,_move));
+        return _set;
     }
 }
