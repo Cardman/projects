@@ -28,6 +28,18 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(3,callLangsBeanGetKeysGenders());
     }
     @Test
+    public void getRowGenderCount1() {
+        assertSizeEq(2,callLangsBeanGetRowGender(0));
+    }
+    @Test
+    public void getRowGenderCount2() {
+        assertSizeEq(2,callLangsBeanGetRowGender(1));
+    }
+    @Test
+    public void getRowGenderCount3() {
+        assertSizeEq(2,callLangsBeanGetRowGender(2));
+    }
+    @Test
     public void getRowGender1() {
         assertEq("FE1",elt(callLangsBeanGetRowGender(0),0));
     }
@@ -54,6 +66,18 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysBooleans() {
         assertSizeEq(3,callLangsBeanGetKeysBooleans());
+    }
+    @Test
+    public void getRowBooleanCount1() {
+        assertSizeEq(2,callLangsBeanGetRowBoolean(0));
+    }
+    @Test
+    public void getRowBooleanCount2() {
+        assertSizeEq(2,callLangsBeanGetRowBoolean(1));
+    }
+    @Test
+    public void getRowBooleanCount3() {
+        assertSizeEq(2,callLangsBeanGetRowBoolean(2));
     }
     @Test
     public void getRowBoolean1() {
@@ -84,6 +108,10 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(9,callLangsBeanGetKeysEnvironments());
     }
     @Test
+    public void getRowEnvironmentCount() {
+        assertSizeEq(2,callLangsBeanGetRowEnvironment(0));
+    }
+    @Test
     public void getRowEnvironment1() {
         assertEq("BUILDING1",elt(callLangsBeanGetRowEnvironment(0),0));
     }
@@ -94,6 +122,10 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysStatistics() {
         assertSizeEq(10,callLangsBeanGetKeysStatistics());
+    }
+    @Test
+    public void getRowStatisticCount() {
+        assertSizeEq(2,callLangsBeanGetRowStatistic(0));
     }
     @Test
     public void getRowStatistic1() {
@@ -108,6 +140,10 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(13,callLangsBeanGetKeysTargets());
     }
     @Test
+    public void getRowTargetCount() {
+        assertSizeEq(2,callLangsBeanGetRowTarget(0));
+    }
+    @Test
     public void getRowTarget1() {
         assertEq("ADJ_ADV1",elt(callLangsBeanGetRowTarget(0),0));
     }
@@ -118,6 +154,10 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysCategories() {
         assertSizeEq(1,callLangsBeanGetKeysCategories());
+    }
+    @Test
+    public void getRowCategoryCount() {
+        assertSizeEq(2,callLangsBeanGetRowCategory(0));
     }
     @Test
     public void getRowCategory1() {
@@ -132,6 +172,10 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(1,callLangsBeanGetKeysTypes());
     }
     @Test
+    public void getRowTypeCount() {
+        assertSizeEq(2,callLangsBeanGetRowType(0));
+    }
+    @Test
     public void getRowType1() {
         assertEq("T_T1",elt(callLangsBeanGetRowType(0),0));
     }
@@ -142,6 +186,10 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysAbilities() {
         assertSizeEq(1,callLangsBeanGetKeysAbilities());
+    }
+    @Test
+    public void getRowAbilityCount() {
+        assertSizeEq(2,callLangsBeanGetRowAbility(0));
     }
     @Test
     public void getRowAbility1() {
@@ -156,6 +204,10 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(1,callLangsBeanGetKeysDesc());
     }
     @Test
+    public void getRowClItemCount() {
+        assertSizeEq(2,callLangsBeanGetRowDesc(0));
+    }
+    @Test
     public void getRowClItem1() {
         assertEq("I_ITEM_1",elt(callLangsBeanGetRowDesc(0),0));
     }
@@ -166,6 +218,10 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysItems() {
         assertSizeEq(1,callLangsBeanGetKeysItems());
+    }
+    @Test
+    public void getRowItemCount() {
+        assertSizeEq(2,callLangsBeanGetRowItem(0));
     }
     @Test
     public void getRowItem1() {
@@ -180,6 +236,10 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(1,callLangsBeanGetKeysMoves());
     }
     @Test
+    public void getRowMoveCount() {
+        assertSizeEq(2,callLangsBeanGetRowMove(0));
+    }
+    @Test
     public void getRowMove1() {
         assertEq("M_DAM1",elt(callLangsBeanGetRowMove(0),0));
     }
@@ -190,6 +250,10 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysPokemon() {
         assertSizeEq(1,callLangsBeanGetKeysPokemon());
+    }
+    @Test
+    public void getRowPokemonCount() {
+        assertSizeEq(2,callLangsBeanGetRowPokemon(0));
     }
     @Test
     public void getRowPokemon1() {
@@ -204,6 +268,10 @@ public final class LangsBeanTest extends InitDbLangs {
         assertSizeEq(1,callLangsBeanGetKeysStatus());
     }
     @Test
+    public void getRowStatusCount() {
+        assertSizeEq(2,callLangsBeanGetRowStatus(0));
+    }
+    @Test
     public void getRowStatus1() {
         assertEq("S_STA_SIM1",elt(callLangsBeanGetRowStatus(0),0));
     }
@@ -214,6 +282,10 @@ public final class LangsBeanTest extends InitDbLangs {
     @Test
     public void getKeysFct() {
         assertSizeEq(1,callLangsBeanGetKeysMath());
+    }
+    @Test
+    public void getRowFctCount() {
+        assertSizeEq(2,callLangsBeanGetRowMath(0));
     }
     @Test
     public void getRowFct1() {
