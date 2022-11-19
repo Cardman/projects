@@ -1533,6 +1533,57 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimuRem(pk_, new SimulationBeanValidateDiffChoice(),simu_);
         return goToAddPkTrainer(pk_,all_,mapping_,simu_);
     }
+//    protected static Struct pkTrainerSelectPkNameCycle(String _name, String _ability) {
+//        PkData pk_ = pkDataByFacade(db());
+//        StringMap<Struct> all_ = beanToSimu(pk_);
+//        StringMap<String> mapping_ = mappingToSimu();
+//        Struct simu_ = init(2, pk_, all_, mapping_);
+//        Struct editPkTrainer_ = validateDiffThenGoAddPkTrainer(pk_, all_, mapping_, simu_);
+//        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+//        callSelectPokemonBeanTypedNameSet(selPk_, _name);
+//        Struct retPk_ = transitSimu(pk_, all_, mapping_, new SelectPokemonBeanSearch(), selPk_);
+//        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), retPk_);
+//        callSelectAbilityBeanTypedAbilitySet(selAb_,_ability);
+//        Struct retAb_ = transitSimu(pk_, all_, mapping_, new SelectAbilityBeanSearch(), selPk_);
+//        return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+//    }
+//
+//    protected static Struct pkTrainerSelectPkNameOne(String _name) {
+//        PkData pk_ = pkDataByFacade(db());
+//        StringMap<Struct> all_ = beanToSimu(pk_);
+//        StringMap<String> mapping_ = mappingToSimu();
+//        Struct simu_ = init(2, pk_, all_, mapping_);
+//        Struct editPkTrainer_ = validateDiffThenGoAddPkTrainer(pk_, all_, mapping_, simu_);
+//        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+//        callSelectPokemonBeanTypedNameSet(selPk_,_name);
+//        assertEq(_name,callSelectPokemonBeanTypedNameGet(selPk_));
+//        return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
+//    }
+//    protected static Struct pkTrainerSelectPkNameManyOrNo(String _name) {
+//        PkData pk_ = pkDataByFacade(db());
+//        StringMap<Struct> all_ = beanToSimu(pk_);
+//        StringMap<String> mapping_ = mappingToSimu();
+//        Struct simu_ = init(2, pk_, all_, mapping_);
+//        Struct editPkTrainer_ = validateDiffThenGoAddPkTrainer(pk_, all_, mapping_, simu_);
+//        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+//        callSelectPokemonBeanTypedNameSet(selPk_,_name);
+//        assertEq(_name,callSelectPokemonBeanTypedNameGet(selPk_));
+//        return transitSimuRem(pk_,new SelectPokemonBeanSearch(),selPk_);
+//    }
+//    protected static Struct pkTrainerSelectPk() {
+//        PkData pk_ = pkDataByFacade(db());
+//        StringMap<Struct> all_ = beanToSimu(pk_);
+//        StringMap<String> mapping_ = mappingToSimu();
+//        Struct simu_ = init(2, pk_, all_, mapping_);
+//        Struct editPkTrainer_ = validateDiffThenGoAddPkTrainer(pk_, all_, mapping_, simu_);
+//        return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+//    }
+//
+//    private static Struct validateDiffThenGoAddPkTrainer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+//        transitSimuRem(_pk, new SimulationBeanValidateDiffChoice(), _simu);
+//        return goToAddPkTrainer(_pk, _all, _mapping, _simu);
+//    }
+
     protected static Struct goToAddPkTrainer(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
         return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer(),_simu);
     }
