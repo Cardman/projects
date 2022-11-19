@@ -1364,8 +1364,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedItem(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanGetTranslatedName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedName(),_str,_args);
+    public static Struct callEditTrainerPokemonBeanGetTranslatedName(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedName(),_str);
     }
 
     public static Struct callEditTrainerPokemonBeanLevelGet(Struct _str, long... _args) {
@@ -1524,6 +1524,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
         beforeDisplaying(dCom_);
         return simu_;
+    }
+    protected static Struct pkTrainer() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = init(2, pk_, all_, mapping_);
+        transitSimuRem(pk_, new SimulationBeanValidateDiffChoice(),simu_);
+        return goToAddPkTrainer(pk_,all_,mapping_,simu_);
+    }
+    protected static Struct goToAddPkTrainer(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer(),_simu);
     }
 
     public static Struct transitSimu(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {

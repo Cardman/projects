@@ -616,7 +616,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             getForms().put(CST_POKEMON_MOVES_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getMoves());
             getForms().put(CST_POKEMON_ABILITY_EDIT, foeTeams.get(indexTeam).get(selectedFoePk).getPkTrainer().getAbility());
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
-            return CST_POKEMON_EDIT;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.REMOVE) {
             int index_ = selectedFoePk;
@@ -689,7 +689,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             getForms().put(CST_POKEMON_MOVES_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getMoves());
             getForms().put(CST_POKEMON_ABILITY_EDIT, allyTeams.get(indexTeam).get(selectedAllyPk).getPkTrainer().getAbility());
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
-            return CST_POKEMON_EDIT;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.REMOVE) {
             int index_ = selectedAllyPk;
@@ -714,7 +714,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().put(CST_POKEMON_ABILITY_EDIT, pk_.getAbility());
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
         getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
-        return CST_POKEMON_EDIT;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public void validateFoeChoiceFree() {
         ok = true;

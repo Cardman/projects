@@ -43,4 +43,8 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void selectedTeamNumber() {
         assertEq(2, callSimulationBeanSelectedTeamNumberGet(selectTeam(validateDiff(3),1)));
     }
+    @Test
+    public void getTranslatedName() {
+        assertEq(P_POK_00_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainer()));
+    }
 }
