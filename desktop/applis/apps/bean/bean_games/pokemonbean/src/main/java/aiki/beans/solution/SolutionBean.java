@@ -100,23 +100,23 @@ public class SolutionBean extends CommonBean {
         return pokemon_;
     }
 
-    public CustList<PlaceLevel> getPlaces(int _indexStep) {
-        StepDto step_ = steps.get(_indexStep);
-        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
-        keys_.addAllElts(step_.getPokemon().getKeys());
-//        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
-//            @Override
-//            public int compare(Pair<Short, Byte> _o1, Pair<Short, Byte> _o2) {
-//                int res_ = _o1.getFirst().compareTo(_o2.getFirst());
-//                if (res_ != 0) {
-//                    return res_;
-//                }
-//                return _o1.getSecond().compareTo(_o2.getSecond());
-//            }
-//        });
-        keys_.sortElts(new ComparatorPlaceLevel());
-        return keys_;
-    }
+//    public CustList<PlaceLevel> getPlaces(int _indexStep) {
+//        StepDto step_ = steps.get(_indexStep);
+//        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
+//        keys_.addAllElts(step_.getPokemon().getKeys());
+////        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
+////            @Override
+////            public int compare(Pair<Short, Byte> _o1, Pair<Short, Byte> _o2) {
+////                int res_ = _o1.getFirst().compareTo(_o2.getFirst());
+////                if (res_ != 0) {
+////                    return res_;
+////                }
+////                return _o1.getSecond().compareTo(_o2.getSecond());
+////            }
+////        });
+//        keys_.sortElts(new ComparatorPlaceLevel());
+//        return keys_;
+//    }
     public String getPlace(int _indexStep, int _indexPlace) {
         StepDto step_ = steps.get(_indexStep);
         CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
@@ -141,40 +141,40 @@ public class SolutionBean extends CommonBean {
         }
         return StringUtil.concat(name_, CST_SPACE,Long.toString(key_.getLevel()));
     }
-    public CustList<WildPokemonDto> getPokemonList(int _indexStep, int _indexLevelPlace) {
-        StepDto step_ = steps.get(_indexStep);
-        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
-        keys_.addAllElts(step_.getPokemon().getKeys());
-//        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
-//            @Override
-//            public int compare(Pair<Short, Byte> _o1, Pair<Short, Byte> _o2) {
-//                int res_ = _o1.getFirst().compareTo(_o2.getFirst());
-//                if (res_ != 0) {
-//                    return res_;
-//                }
-//                return _o1.getSecond().compareTo(_o2.getSecond());
-//            }
-//        });
-        keys_.sortElts(new ComparatorPlaceLevel());
-        return step_.getPokemon().getVal(keys_.get(_indexLevelPlace));
-    }
-    public String getPokemonName(int _indexStep, int _indexLevelPlace, int _indexPokemon) {
-        Step step_ = solution.getSteps().get(_indexStep);
-        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
-        keys_.addAllElts(step_.getCaughtPokemonPlaceLevel().getKeys());
-//        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
-//            @Override
-//            public int compare(Pair<Short, Byte> _o1, Pair<Short, Byte> _o2) {
-//                int res_ = _o1.getFirst().compareTo(_o2.getFirst());
-//                if (res_ != 0) {
-//                    return res_;
-//                }
-//                return _o1.getSecond().compareTo(_o2.getSecond());
-//            }
-//        });
-        keys_.sortElts(new ComparatorPlaceLevel());
-        return step_.getCaughtPokemonPlaceLevel().getVal(keys_.get(_indexLevelPlace)).get(_indexPokemon).getName();
-    }
+//    public CustList<WildPokemonDto> getPokemonList(int _indexStep, int _indexLevelPlace) {
+//        StepDto step_ = steps.get(_indexStep);
+//        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
+//        keys_.addAllElts(step_.getPokemon().getKeys());
+////        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
+////            @Override
+////            public int compare(Pair<Short, Byte> _o1, Pair<Short, Byte> _o2) {
+////                int res_ = _o1.getFirst().compareTo(_o2.getFirst());
+////                if (res_ != 0) {
+////                    return res_;
+////                }
+////                return _o1.getSecond().compareTo(_o2.getSecond());
+////            }
+////        });
+//        keys_.sortElts(new ComparatorPlaceLevel());
+//        return step_.getPokemon().getVal(keys_.get(_indexLevelPlace));
+//    }
+//    public String getPokemonName(int _indexStep, int _indexLevelPlace, int _indexPokemon) {
+//        Step step_ = solution.getSteps().get(_indexStep);
+//        CustList<PlaceLevel> keys_ = new CustList<PlaceLevel>();
+//        keys_.addAllElts(step_.getCaughtPokemonPlaceLevel().getKeys());
+////        keys_.sort(new NaturalComparator<Pair<Short,Byte>>() {
+////            @Override
+////            public int compare(Pair<Short, Byte> _o1, Pair<Short, Byte> _o2) {
+////                int res_ = _o1.getFirst().compareTo(_o2.getFirst());
+////                if (res_ != 0) {
+////                    return res_;
+////                }
+////                return _o1.getSecond().compareTo(_o2.getSecond());
+////            }
+////        });
+//        keys_.sortElts(new ComparatorPlaceLevel());
+//        return step_.getCaughtPokemonPlaceLevel().getVal(keys_.get(_indexLevelPlace)).get(_indexPokemon).getName();
+//    }
 
     public CustList<StepDto> getSteps() {
         return steps;

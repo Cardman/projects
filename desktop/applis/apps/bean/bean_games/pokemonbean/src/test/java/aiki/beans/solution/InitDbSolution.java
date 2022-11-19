@@ -1,6 +1,6 @@
 package aiki.beans.solution;
 
-import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.*;
 import aiki.beans.db.InitDbConstr;
 import aiki.beans.facade.solution.dto.*;
 import aiki.db.*;
@@ -52,40 +52,60 @@ public abstract class InitDbSolution extends InitDbConstr {
     public static final String D_T_1 = "D T 1";
     public static final String D_T_2 = "D T 2";
 
-    public static Struct callSolutionBeanGetPlace(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SolutionBeanGetPlace(),_str,_args);
+    public static Struct callSolutionBeanGetPlace(int _step, int _place) {
+        return BeanPokemonCommonTs.callLongs(new SolutionBeanGetPlace(),dispSol(),_step,_place);
     }
 
-    public static Struct callSolutionBeanStepsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),_str,_args);
+    public static Struct callSolutionBeanStepsGet() {
+        return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),dispSol());
     }
 
-    public static Struct callPlaceTrainerDtoPlaceGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoPlaceGet(),_str,_args);
+    public static Struct callSolutionBeanStepsTwiceGet() {
+        return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),dispSolTwice());
     }
 
-    public static Struct callPlaceTrainerDtoTrainerGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoTrainerGet(),_str,_args);
+    public static Struct callPlaceTrainerDtoPlaceGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoPlaceGet(),_str);
     }
 
-    public static Struct callStepDtoGetNames(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StepDtoGetNames(),_str,_args);
+    public static Struct callPlaceTrainerDtoTrainerGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoTrainerGet(),_str);
     }
 
-    public static Struct callStepDtoGetPokemon(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new StepDtoGetPokemon(),_str,_args);
+    public static Struct callStepDtoGetNames(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new StepDtoGetNames(),_str);
     }
 
-    public static Struct callWildPokemonDtoGenderGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoGenderGet(),_str,_args);
+    public static Struct callStepDtoGetPokemon(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new StepDtoGetPokemon(),_str);
     }
 
-    public static Struct callWildPokemonDtoImageGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoImageGet(),_str,_args);
+    public static Struct callWildPokemonDtoGenderGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoGenderGet(),_str);
     }
 
-    public static Struct callWildPokemonDtoNameGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoNameGet(),_str,_args);
+    public static Struct callWildPokemonDtoImageGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoImageGet(),_str);
+    }
+
+    public static Struct callWildPokemonDtoNameGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new WildPokemonDtoNameGet(),_str);
+    }
+    protected static Struct dispSol() {
+        PkData pk_ = pkDataByFacade(db());
+        return dispSol(pk_);
+    }
+    protected static Struct dispSolTwice() {
+        PkData pk_ = pkDataByFacade(db());
+        Struct bean_ = dispSol(pk_);
+        beforeDisplaying(bean_);
+        return bean_;
+    }
+
+    private static Struct dispSol(PkData _pk) {
+        Struct welcome_ = _pk.beanSolutionBean(EN);
+        beforeDisplaying(welcome_);
+        return welcome_;
     }
 
     private static FacadeGame db() {
@@ -116,7 +136,7 @@ public abstract class InitDbSolution extends InitDbConstr {
         d_.getPlaces().add(cityTwo(newCoords(1,0,1,0),newCoords(3,0,0,0)));
         d_.getPlaces().add(roadTwo(newCoords(2,0,2,0),newCoords(5,0,0,1)));
         d_.getPlaces().add(league());
-        d_.getPlaces().add(cave(5,newCoords(3,0,3,0)));
+        d_.getPlaces().add(cave(newCoords(3,0,3,0)));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,0),Condition.newList(newCoords(2,0,1,0,1,0)));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,1),Condition.newList(newCoords(2,0,1,0,1,0)));
         d_.getAccessCondition().addEntry(newCoords(3,0,0,2),Condition.newList(newCoords(2,0,1,0,1,0)));
@@ -265,7 +285,7 @@ public abstract class InitDbSolution extends InitDbConstr {
         l_.setAccessCoords(newCoords(3,0,2,2));
         return l_;
     }
-    protected static Cave cave(int _pl, Coords _join) {
+    protected static Cave cave(Coords _join) {
         Cave c_ = Instances.newCave();
         c_.setName(CAVE);
         LevelCave first_ = Instances.newLevelCave();
@@ -277,8 +297,8 @@ public abstract class InitDbSolution extends InitDbConstr {
         sec_.getWildPokemonAreas().add(area(P_POK_05));
         sec_.getBlocks().getVal(newPoint(1,0)).setIndexApparition((short) 0);
         c_.getLevels().add(sec_);
-        first_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(_pl,1,0,0)));
-        sec_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(_pl,0,0,0)));
+        first_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(5,1,0,0)));
+        sec_.getLinksOtherLevels().addEntry(newPoint(0,0),new Link("",newCoords(5,0,0,0)));
         c_.getLinksWithOtherPlaces().addEntry(newCoords(0,0,0,1).getLevel(),new Link("",_join));
         return c_;
     }
