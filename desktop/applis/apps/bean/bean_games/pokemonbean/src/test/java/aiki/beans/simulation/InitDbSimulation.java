@@ -24,6 +24,7 @@ import aiki.map.levels.enums.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
+import code.bean.nat.*;
 import code.expressionlanguage.structs.*;
 import code.images.*;
 import code.maths.*;
@@ -1479,13 +1480,32 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
     }
-//
-//    protected static Struct dispSimu() {
-//        PkData pk_ = pkDataByFacade(db());
-//    }
+
+    protected static Struct dispSimu() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        return simu(pk_, all_, mappingToSimu(), all_.getVal(AikiBeansStd.BEAN_WELCOME));
+    }
+
+    private static Struct simu(PkData _pk, StringMap<Struct> _all, StringMap<String> _simu, Struct _from) {
+        beforeDisplaying(_from);
+        return transitSimu(_pk,_all, _simu,new WelcomeBeanClickSimulation(), _from);
+//        Struct simu_ = _all.getVal(AikiBeansSimulationStd.BEAN_SIMULATION);
+//        transit(_pk,new WelcomeBeanClickSimulation(),welc_,simu_);
+//        return simu_;
+    }
+
+    public static Struct transitSimu(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {
+        String url_ = navigateData(_caller, _first, _args);
+        Struct dest_ = _all.getVal(_mapping.getVal(url_));
+        setFormsBy(_stds,dest_,_first);
+        beforeDisplaying(dest_);
+        return dest_;
+    }
     public static StringMap<Struct> beanToSimu(PkData _pk) {
         StringMap<Struct> map_ = new StringMap<Struct>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
+        map_.addEntry(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,_pk.beanDiffCommon(EN));
         map_.addEntry(AikiBeansSimulationStd.BEAN_SIMULATION,_pk.beanSimulationBean(EN));
         map_.addEntry(AikiBeansSimulationStd.BEAN_ADDPOKEMON,_pk.beanAddPokemonBean(EN));
         map_.addEntry(AikiBeansSimulationStd.BEAN_SELECTABILITY,_pk.beanSelectAbilityBean(EN));
