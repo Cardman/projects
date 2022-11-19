@@ -423,8 +423,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsAvailableMoves(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsDiffState(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsDiffState(),_str,_args);
+    public static Struct callSimulationBeanIsDiffState(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsDiffState(),_str);
     }
 
     public static Struct callSimulationBeanIsEvolutionAfterFightState(Struct _str, long... _args) {
@@ -1053,6 +1053,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callDifficultyBeanComGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new DifficultyBeanComGet(),_str,_args);
     }
+    public static Struct callDifficultyBeanComSet(Struct _str, Struct _diffCom) {
+        return BeanPokemonCommonTs.callStruct(new DifficultyBeanComSet(),_str,_diffCom);
+    }
 
     public static Struct callPokemonPlayerDtoIndexGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonPlayerDtoIndexGet(),_str,_args);
@@ -1484,15 +1487,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
     protected static Struct dispSimu() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
-        return simu(pk_, all_, mappingToSimu(), all_.getVal(AikiBeansStd.BEAN_WELCOME));
-    }
-
-    private static Struct simu(PkData _pk, StringMap<Struct> _all, StringMap<String> _simu, Struct _from) {
-        beforeDisplaying(_from);
-        return transitSimu(_pk,_all, _simu,new WelcomeBeanClickSimulation(), _from);
-//        Struct simu_ = _all.getVal(AikiBeansSimulationStd.BEAN_SIMULATION);
-//        transit(_pk,new WelcomeBeanClickSimulation(),welc_,simu_);
-//        return simu_;
+        Struct from_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+        Struct dCom_ = all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
+        beforeDisplaying(from_);
+        Struct simu_ = transitSimu(pk_, all_, mappingToSimu(), new WelcomeBeanClickSimulation(), from_);
+        callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
+        beforeDisplaying(dCom_);
+        return simu_;
     }
 
     public static Struct transitSimu(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {
