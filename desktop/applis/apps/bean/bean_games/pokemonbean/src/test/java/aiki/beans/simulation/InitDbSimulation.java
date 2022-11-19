@@ -411,8 +411,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanHideComments(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIndexTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIndexTeamGet(),_str,_args);
+    public static Struct callSimulationBeanIndexTeamGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanIndexTeamGet(),_str);
     }
 
     public static Struct callSimulationBeanIsAvailableAbilities(Struct _str, long... _args) {
@@ -543,6 +543,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNbTeamsGet(),initByTeam(_team));
     }
 
+    public static Struct callSimulationBeanSelectedTeamNumberGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str);
+    }
+
     public static Struct callSimulationBeanNextFight(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNextFight(),_str,_args);
     }
@@ -551,8 +555,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNumberNecessaryPointsForGrowingLevel(),_str,_args);
     }
 
-    public static Struct callSimulationBeanNumbers(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanNumbers(),_str,_args);
+    public static Struct callSimulationBeanNumbers(int _teams) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanNumbers(),validateDiff(_teams));
     }
 
     public static Struct callSimulationBeanOkGet(Struct _str, long... _args) {
@@ -1501,7 +1505,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanNbTeamsSet(simu_, _nbTeam);
         return simu_;
     }
-
+    protected static Struct selectTeam(Struct _simu, int _indexTeam) {
+        callSimulationBeanIndexTeamSet(_simu, _indexTeam);
+        beforeDisplaying(_simu);
+        return _simu;
+    }
     protected static Struct dispSimu() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
