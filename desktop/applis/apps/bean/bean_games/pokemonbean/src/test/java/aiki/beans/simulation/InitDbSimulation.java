@@ -1479,7 +1479,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
     }
-
+//
+//    protected static Struct dispSimu() {
+//        PkData pk_ = pkDataByFacade(db());
+//    }
+    public static StringMap<Struct> beanToSimu(PkData _pk) {
+        StringMap<Struct> map_ = new StringMap<Struct>();
+        map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_SIMULATION,_pk.beanSimulationBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_ADDPOKEMON,_pk.beanAddPokemonBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_SELECTABILITY,_pk.beanSelectAbilityBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_SELECTPOKEMON,_pk.beanSelectPokemonBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_SELECTITEM,_pk.beanSelectItemBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_EDITPOKEMON,_pk.beanEditPokemonBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_EDITPOKEMONMOVES,_pk.beanEditPokemonMovesBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_EDITTRAINERPOKEMON,_pk.beanEditTrainerPokemonBean(EN));
+        map_.addEntry(AikiBeansSimulationStd.BEAN_LEVEL_SIMU,_pk.beanSimulationLevelBean(EN));
+        return map_;
+    }
+    public static StringMap<String> mappingToSimu() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry(AikiBeansStd.WEB_HTML_INDEX_HTML,AikiBeansStd.BEAN_WELCOME);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,AikiBeansSimulationStd.BEAN_SIMULATION);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML,AikiBeansSimulationStd.BEAN_ADDPOKEMON);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTABILITY_HTML,AikiBeansSimulationStd.BEAN_SELECTABILITY);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTPOKEMON_HTML,AikiBeansSimulationStd.BEAN_SELECTPOKEMON);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTITEM_HTML,AikiBeansSimulationStd.BEAN_SELECTITEM);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML,AikiBeansSimulationStd.BEAN_EDITPOKEMON);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML,AikiBeansSimulationStd.BEAN_EDITPOKEMONMOVES);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,AikiBeansSimulationStd.BEAN_EDITTRAINERPOKEMON);
+        map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,AikiBeansSimulationStd.BEAN_LEVEL_SIMU);
+        return map_;
+    }
     private static FacadeGame db() {
         FacadeGame facade_ = facade();
         facade_.getData().completeMembers(M_POK_00,power(T_SIM_1, C_SIM_1, "10"));
