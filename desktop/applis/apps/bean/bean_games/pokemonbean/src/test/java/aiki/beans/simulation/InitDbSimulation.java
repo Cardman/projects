@@ -267,8 +267,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanFoeTeamGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanFreeTeamsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanFreeTeamsGet(),_str,_args);
+    public static Struct callSimulationBeanFreeTeamsGet(int _team) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanFreeTeamsGet(),initByTeam(_team));
     }
 
     public static Struct callSimulationBeanGetAbility(Struct _str, long... _args) {
@@ -539,8 +539,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanMultiplicityGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanNbTeamsGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanNbTeamsGet(),_str,_args);
+    public static Struct callSimulationBeanNbTeamsGet(int _team) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanNbTeamsGet(),initByTeam(_team));
     }
 
     public static Struct callSimulationBeanNextFight(Struct _str, long... _args) {
@@ -859,9 +859,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callBool(new SimulationBeanEndFightIfOneTeamKoSet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanFreeTeamsSet(Struct _str, boolean _args) {
-        return BeanPokemonCommonTs.callBool(new SimulationBeanFreeTeamsSet(),_str,_args);
-    }
+//    public static Struct callSimulationBeanFreeTeamsSet(Struct _str, boolean _args) {
+//        return BeanPokemonCommonTs.callBool(new SimulationBeanFreeTeamsSet(),_str,_args);
+//    }
 
 //    public static Struct callSimulationBeanRateLooseMoneyWinSet(Struct _str, Rate _args) {
 //        return BeanPokemonCommonTs.callRate(new SimulationBeanRateLooseMoneyWinSet(),_str,_args);
@@ -1483,14 +1483,37 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
     }
+    protected static Struct validateDiff(int _nbTeam){
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = init(_nbTeam, pk_, all_, mapping_);
+        transitSimuRem(pk_,all_,mapping_,new SimulationBeanValidateDiffChoice(),simu_);
+        return simu_;
+    }
+
+    protected static Struct initByTeam(int _nbTeam) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        return init(_nbTeam,pk_,all_,mappingToSimu());
+    }
+    protected static Struct init(int _nbTeam, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
+        Struct simu_ = init(_pk, _all, _mapping);
+        callSimulationBeanNbTeamsSet(simu_, _nbTeam);
+        return simu_;
+    }
 
     protected static Struct dispSimu() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
-        Struct from_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
-        Struct dCom_ = all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
+        return init(pk_, all_, mappingToSimu());
+    }
+
+    private static Struct init(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
+        Struct from_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        Struct dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
         beforeDisplaying(from_);
-        Struct simu_ = transitSimu(pk_, all_, mappingToSimu(), new WelcomeBeanClickSimulation(), from_);
+        Struct simu_ = transitSimu(_pk, _all, _mapping, new WelcomeBeanClickSimulation(), from_);
         callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
         beforeDisplaying(dCom_);
         return simu_;
@@ -1502,6 +1525,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         setFormsBy(_stds,dest_,_first);
         beforeDisplaying(dest_);
         return dest_;
+    }
+
+    public static Struct transitSimuRem(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {
+        String url_ = navigateData(_caller, _first, _args);
+        assertTrue(url_.isEmpty());
+//        Struct dest_ = _all.getVal(_mapping.getVal(url_));
+        setFormsBy(_stds, _first,_first);
+        beforeDisplaying(_first);
+        return _first;
     }
     public static StringMap<Struct> beanToSimu(PkData _pk) {
         StringMap<Struct> map_ = new StringMap<Struct>();

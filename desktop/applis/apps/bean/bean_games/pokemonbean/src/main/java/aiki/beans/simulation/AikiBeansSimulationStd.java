@@ -430,7 +430,8 @@ public final class AikiBeansSimulationStd{
 //        fields_.add(new StandardField(DAMAGE_RATE_PLAYER_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanDamageRatePlayerTableGet(),null));
 //        fields_.add(new StandardField(DAMAGE_RATE_LAW_FOE,BeanNatCommonLgNames.STRING,false,false,new SimulationBeanDamageRateLawFoeGet(),new SimulationBeanDamageRateLawFoeSet()));
 //        fields_.add(new StandardField(DAMAGE_RATE_FOE_TABLE, BeanNatCommonLgNames.TYPE_MAP,false,false,new SimulationBeanDamageRateFoeTableGet(),null));
-        fields_.add(new StandardField(FREE_TEAMS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new SimulationBeanFreeTeamsGet(),new SimulationBeanFreeTeamsSet()));
+        fields_.add(new StandardField(FREE_TEAMS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new SimulationBeanFreeTeamsGet(),null));
+//        fields_.add(new StandardField(FREE_TEAMS,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new SimulationBeanFreeTeamsGet(),new SimulationBeanFreeTeamsSet()));
         fields_.add(new StandardField(NB_TEAMS,BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanNbTeamsGet(),new SimulationBeanNbTeamsSet()));
         fields_.add(new StandardField(INDEX_TEAM,BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanIndexTeamGet(),new SimulationBeanIndexTeamSet()));
         fields_.add(new StandardField(SELECTED_TEAM_NUMBER,BeanNatCommonLgNames.PRIM_INTEGER,false,false,new SimulationBeanSelectedTeamNumberGet(),null));

@@ -1422,9 +1422,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         return difficultyCommon;
     }
 
-    public void setFreeTeams(boolean _freeTeams) {
-        freeTeams = _freeTeams;
-    }
+//    public void setFreeTeams(boolean _freeTeams) {
+//        freeTeams = _freeTeams;
+//    }
 
     public boolean getFreeTeams() {
         return freeTeams;
