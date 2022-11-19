@@ -1488,8 +1488,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = init(_nbTeam, pk_, all_, mapping_);
-        transitSimuRem(pk_,all_,mapping_,new SimulationBeanValidateDiffChoice(),simu_);
-        return simu_;
+        return transitSimuRem(pk_, new SimulationBeanValidateDiffChoice(),simu_);
     }
 
     protected static Struct initByTeam(int _nbTeam) {
@@ -1527,7 +1526,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return dest_;
     }
 
-    public static Struct transitSimuRem(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {
+    public static Struct transitSimuRem(PokemonStandards _stds, NatCaller _caller, Struct _first, long... _args) {
         String url_ = navigateData(_caller, _first, _args);
         assertTrue(url_.isEmpty());
 //        Struct dest_ = _all.getVal(_mapping.getVal(url_));
