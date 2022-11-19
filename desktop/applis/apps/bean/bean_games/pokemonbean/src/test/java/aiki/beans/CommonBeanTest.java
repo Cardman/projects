@@ -4,6 +4,7 @@ import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.beans.items.AikiBeansItemsStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.instances.Instances;
 import aiki.map.pokemon.enums.Gender;
 import code.bean.nat.RateStruct;
 import code.expressionlanguage.structs.Struct;
@@ -172,6 +173,20 @@ public final class CommonBeanTest extends InitDbWelcome {
     public void forms3() {
         StringMapObject s_ = new StringMapObject();
         s_.put("",TeamCrud.NOTHING);
+        assertTrue(s_.contains(""));
+    }
+
+    @Test
+    public void forms4() {
+        StringMapObject s_ = new StringMapObject();
+        s_.put("",Instances.newAlly());
+        assertTrue(s_.contains(""));
+    }
+
+    @Test
+    public void forms5() {
+        StringMapObject s_ = new StringMapObject();
+        s_.put("",Instances.newGerantPokemon());
         assertTrue(s_.contains(""));
     }
     private RedirectAb redirectAb(String _key) {
