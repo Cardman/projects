@@ -96,6 +96,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String C_SIM_2_TR = "C_SIM_2_TR";
     public static final String CI_BATTLE = "CI_BATTLE";
     public static final String CI_STONE = "CI_STONE";
+    public static final String I_BALL = "I_BALL";
+    public static final String CI_BALL = "CI_BALL";
 
     public static Struct callSimulationBeanAbilitiesAfterFightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
@@ -1520,6 +1522,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         it_.setBoostExp(true);
         facade_.getData().completeMembers(I_MULT_EXP,it_);
         facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
+        facade_.getData().completeMembers(I_BALL,Instances.newBall());
         facade_.getData().completeMembers(A_SIM_1,Instances.newAbilityData());
         facade_.getData().completeMembers(A_SIM_2,Instances.newAbilityData());
         facade_.getData().completeVariables();
@@ -1668,6 +1671,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         data_.getTranslatedClassesDescriptions().addEntry(EN,new StringMap<String>());
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_NOTHING).getItemType(), CI_BATTLE);
         data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_STONE).getItemType(), CI_STONE);
+        data_.getTranslatedClassesDescriptions().getVal(EN).addEntry(data_.getItem(I_BALL).getItemType(), CI_BALL);
         data_.getLitterals().addEntry(EN,new StringMap<String>());
         data_.getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         data_.getMiniPk().addEntry(P_POK_00, BaseSixtyFourUtil.getImageByString("AAABAAAC"));
