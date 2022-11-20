@@ -472,7 +472,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().first()).getTrainerCoords()));
             getForms().put(CST_COORDS, coords);
             noFight = IndexConstants.FIRST_INDEX;
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (pl_ instanceof City) {
             City c_ = (City) pl_;
@@ -484,7 +484,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
                     co_.getLevel().setLevelIndex((byte)_indexTwo);
                     co_.affectInside(new Point(p));
                     getForms().put(CST_COORDS,co_);
-                    return CST_LEVEL;
+                    return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
                 }
             }
         }
@@ -492,7 +492,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         co_.setNumberPlace((short)_indexOne);
         co_.getLevel().setLevelIndex((byte)_indexTwo);
         getForms().put(CST_COORDS,co_);
-        return CST_LEVEL;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
     public void validateDiffChoice() {
         ok = true;
@@ -593,17 +593,17 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getItemFoe(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = foeTeams.get(indexTeam).get(_index);
-        if (pk_.getPkTrainer().getItem().isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
+//        if (pk_.getPkTrainer().getItem().isEmpty()) {
+//            return DataBase.EMPTY_STRING;
+//        }
         return data_.translateItem(pk_.getPkTrainer().getItem());
     }
     public String selectFoePk() {
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.NOTHING) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, true);
@@ -627,7 +627,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             }
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
-        return DataBase.EMPTY_STRING;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String getImageAlly(int _index) {
         DataBase data_ = getDataBase();
@@ -666,17 +666,17 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getItemAlly(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
-        if (pk_.getPkTrainer().getItem().isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
+//        if (pk_.getPkTrainer().getItem().isEmpty()) {
+//            return DataBase.EMPTY_STRING;
+//        }
         return data_.translateItem(pk_.getPkTrainer().getItem());
     }
     public String selectAllyPk() {
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.NOTHING) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.EDIT) {
             getForms().put(CST_POKEMON_FOE, false);
@@ -700,7 +700,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             }
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
-        return DataBase.EMPTY_STRING;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String addPkTrainer() {
         DataBase data_ = getDataBase();
@@ -776,10 +776,10 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     }
     public String selectPk() {
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.NOTHING) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.EDIT) {
             getForms().putItems(CST_ITEMS_SET_EDIT, new StringMap<Item>());
@@ -796,7 +796,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             for (Statistic s: Statistic.getStatisticsWithBase()) {
                 getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), simulation.getTeam().get(selectedPk).getEv().getVal(s));
             }
-            return CST_EDIT_POKEMON_PLAYER;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
         if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.REMOVE) {
             int index_ = selectedPk;
@@ -807,11 +807,11 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             }
             simulation.removePokemonPlayer(index_);
         }
-        return DataBase.EMPTY_STRING;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String add() {
         getForms().putPokedex(CST_POKEMON_SET_SIMU, new StringMap<PokemonData>());
-        return CST_ADD_POKEMON_PLAYER;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
     public String getImage(int _index) {
         DataBase data_ = getDataBase();
@@ -850,9 +850,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getItem(int _index) {
         DataBase data_ = getDataBase();
         PokemonPlayerDto pk_ = team.get(_index);
-        if (pk_.getPokemon().getItem().isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
+//        if (pk_.getPokemon().getItem().isEmpty()) {
+//            return DataBase.EMPTY_STRING;
+//        }
         return data_.translateItem(pk_.getPokemon().getItem());
     }
     public void validateTeam() {
@@ -1196,9 +1196,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public String getItemAfterFight(int _index) {
         DataBase data_ = getDataBase();
         PokemonPlayer pk_ = teamAfterFight.get(_index);
-        if (pk_.getItem().isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
+//        if (pk_.getItem().isEmpty()) {
+//            return DataBase.EMPTY_STRING;
+//        }
         return data_.translateItem(pk_.getItem());
     }
     public LgInt getRemainingLifeRate(int _index) {
