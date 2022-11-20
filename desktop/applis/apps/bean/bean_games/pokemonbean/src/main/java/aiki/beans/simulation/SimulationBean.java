@@ -599,9 +599,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         return data_.translateItem(pk_.getPkTrainer().getItem());
     }
     public String selectFoePk() {
-        if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.NOTHING) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
-        }
+//        if (TeamCrud.getTeamCrudByName(selectedFoeAction) == TeamCrud.NOTHING) {
+//            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+//        }
         if (selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
@@ -672,9 +672,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         return data_.translateItem(pk_.getPkTrainer().getItem());
     }
     public String selectAllyPk() {
-        if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.NOTHING) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
-        }
+//        if (TeamCrud.getTeamCrudByName(selectedAllyAction) == TeamCrud.NOTHING) {
+//            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+//        }
         if (selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
@@ -775,9 +775,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         return true;
     }
     public String selectPk() {
-        if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.NOTHING) {
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
-        }
+//        if (TeamCrud.getTeamCrudByName(selectedAction) == TeamCrud.NOTHING) {
+//            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+//        }
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }

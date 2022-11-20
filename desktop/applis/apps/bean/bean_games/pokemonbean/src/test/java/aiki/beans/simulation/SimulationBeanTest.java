@@ -422,4 +422,16 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void cancelAddPkTrainer() {
         assertSizeEq(0,callSimulationBeanFoeTeamGet(pkTrainerLevelCancelAdd()));
     }
+    @Test
+    public void selectFoePkInit() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
+    }
+    @Test
+    public void selectFoePkAddedNoSelect() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
+    }
+    @Test
+    public void editing() {
+        assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedFoePk()));
+    }
 }

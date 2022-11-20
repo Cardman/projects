@@ -128,12 +128,12 @@ public class EditTrainerPokemonBean extends CommonBean {
 //        if (level > data_.getMaxLevel()) {
 //            level = (short) data_.getMaxLevel();
 //        }
-        if (ability.isEmpty()) {
-            ability = data_.getMap().getFirstPokemon().getAbility();
-        }
-        if (namePk.isEmpty()) {
-            namePk = data_.getMap().getFirstPokemon().getName();
-        }
+//        if (ability.isEmpty()) {
+//            ability = data_.getMap().getFirstPokemon().getAbility();
+//        }
+//        if (namePk.isEmpty()) {
+//            namePk = data_.getMap().getFirstPokemon().getName();
+//        }
         StringList selected_ = new StringList();
         for (SelectLineMove s: moves) {
             selected_.add(s.getName());
