@@ -109,7 +109,7 @@ public class EditTrainerPokemonBean extends CommonBean {
         getForms().putMoves(CST_MOVES_EDIT_SET, new StringMap<MoveData>());
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
-    public void deleteMoves() {
+    public String deleteMoves() {
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (!s.isSelected()) {
@@ -117,6 +117,7 @@ public class EditTrainerPokemonBean extends CommonBean {
             }
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML;
     }
     public String validateTrainerPk() {
         DataBase data_ = getDataBase();

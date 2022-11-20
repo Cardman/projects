@@ -48,7 +48,7 @@ public class AddPokemonBean extends WithFilterBean {
     }
     public String add() {
         if (!getForms().contains(CST_PK_NAME)) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
         }
         DataBase data_ = getDataBase();
         common.patchLevel(data_);
@@ -74,16 +74,18 @@ public class AddPokemonBean extends WithFilterBean {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    public void search() {
+    public String search() {
         search(CST_POKEMON_SET_SIMU, CST_PK_NAME, "", "");
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
 //        StringList pokedex_ = pokedex();
 //        getForms().put(CST_POKEMON_SET_SIMU, pokedex_);
 //        if (pokedex_.size() == DataBase.ONE_POSSIBLE_CHOICE) {
 //            getForms().put(CST_PK_NAME,pokedex_.first());
 //        }
     }
-    public void clickLink(int _number) {
+    public String clickLink(int _number) {
         getForms().put(CST_PK_NAME, getPokedex().get(_number).getName());
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
     }
 
     public String getNamePk() {

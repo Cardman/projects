@@ -71,7 +71,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
         getForms().put(CST_POKEMON_MOVES_EDIT, currentMoves_);
         return redirect();
     }
-    public void search() {
+    public String search() {
         DataBase data_ = getDataBase();
 //        StringMap<String> translationsMoves_;
 //        translationsMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
@@ -104,6 +104,7 @@ public class EditPokemonMovesBean extends WithFilterBean {
 //        }
 //        moves_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         getForms().putMoves(CST_MOVES_EDIT_SET, moves_);
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONMOVES_HTML;
     }
 
     private String redirect() {

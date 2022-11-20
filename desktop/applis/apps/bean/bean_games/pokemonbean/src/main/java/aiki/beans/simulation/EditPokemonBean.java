@@ -124,7 +124,7 @@ public class EditPokemonBean extends CommonBean {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
-    public void deleteMoves() {
+    public String deleteMoves() {
         StringList keptMoves_ = new StringList();
         for (SelectLineMove s: moves) {
             if (!s.isSelected()) {
@@ -132,6 +132,7 @@ public class EditPokemonBean extends CommonBean {
             }
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, keptMoves_);
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
     }
     public String edit() {
         getForms().put(CST_ITEM_EDIT, item);
@@ -151,7 +152,7 @@ public class EditPokemonBean extends CommonBean {
             selected_.add(s.getName());
         }
         if (!inRangeMoves(selected_)) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
