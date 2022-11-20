@@ -1782,17 +1782,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel(),selPk_);
     }
+    protected static Struct pkTrainerSetMovesRemove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        Struct re_ = addMove(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
+        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
+        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanDeleteMoves(),re_);
+    }
     protected static Struct pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
-        callEditPokemonMovesBeanTypedNameSet(selPk_,_name);
-        Struct foundMoves_ = transitSimu(pk_, all_, mapping_, new EditPokemonMovesBeanSearch(), selPk_);
+        return addMove(_name, _row, pk_, all_, mapping_, editPkTrainer_);
+    }
+
+    private static Struct addMove(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
+        Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
+        callEditPokemonMovesBeanTypedNameSet(selPk_, _name);
+        Struct foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), selPk_);
         callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanAddMoves(),foundMoves_);
+        return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanAddMoves(), foundMoves_);
     }
     protected static Struct pkTrainerSetMovesType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
