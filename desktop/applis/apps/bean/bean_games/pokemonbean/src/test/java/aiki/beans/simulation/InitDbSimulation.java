@@ -1540,6 +1540,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         return navigateData(new SimulationBeanSelectFoePk(),simu_);
     }
+    protected static Struct pkTrainerFoeRemove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        assertSame(added_,simu_);
+        Struct second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        callSimulationBeanSelectedFoeActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
+        callSimulationBeanSelectedFoePkSet(second_,0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePk(),second_);
+    }
     protected static String editNoSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -1586,7 +1598,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
-        return navigateData(new SimulationBeanSelectFoePk(),simu_);
+        return navigateData(new SimulationBeanSelectAllyPk(),simu_);
     }
     protected static Struct pkTrainerIndex() {
         PkData pk_ = pkDataByFacade(db());
