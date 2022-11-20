@@ -299,38 +299,74 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getFoeTeamChangeMovesPkTrainer() {
-        assertSizeEq(1,callSimulationBeanFoeTeamGet(addPkTrainerChangeMoves()));
+        assertSizeEq(1,callSimulationBeanFoeTeamGet(addPkTrainerChangeMoves(false)));
     }
     @Test
     public void getImageFoe() {
-        assertEq("AAABAAAC",callSimulationBeanGetImageFoe(addPkTrainerChangeMoves(),0));
+        assertEq("AAABAAAC",callSimulationBeanGetImageFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getNameFoe() {
-        assertEq(P_POK_00_TR,callSimulationBeanGetNameFoe(addPkTrainerChangeMoves(),0));
+        assertEq(P_POK_00_TR,callSimulationBeanGetNameFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getGenderFoe() {
-        assertEq(NO_G,callSimulationBeanGetGenderFoe(addPkTrainerChangeMoves(),0));
+        assertEq(NO_G,callSimulationBeanGetGenderFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getLevelFoe() {
-        assertEq(7,callSimulationBeanGetLevelFoe(addPkTrainerChangeMoves(),0));
+        assertEq(7,callSimulationBeanGetLevelFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getAbilityFoe() {
-        assertEq(A_SIM_1_TR,callSimulationBeanGetAbilityFoe(addPkTrainerChangeMoves(),0));
+        assertEq(A_SIM_1_TR,callSimulationBeanGetAbilityFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getItemFoe() {
-        assertEq(I_BALL_TR,callSimulationBeanGetItemFoe(addPkTrainerChangeItem(),0));
+        assertEq(I_BALL_TR,callSimulationBeanGetItemFoe(addPkTrainerChangeItem(false),0));
     }
     @Test
     public void getMovesFoe() {
-        assertSizeEq(1,callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(),0));
+        assertSizeEq(1,callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(false),0));
     }
     @Test
     public void getMovesFoeElt() {
-        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(),0),0));
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(false),0),0));
+    }
+    @Test
+    public void getAllyTeamChangeMovesPkTrainer() {
+        assertSizeEq(1,callSimulationBeanAllyTeamGet(addPkTrainerChangeMoves(true)));
+    }
+    @Test
+    public void getImageAlly() {
+        assertEq("AAABAAAC",callSimulationBeanGetImageAlly(addPkTrainerChangeMoves(true),0));
+    }
+    @Test
+    public void getNameAlly() {
+        assertEq(P_POK_00_TR,callSimulationBeanGetNameAlly(addPkTrainerChangeMoves(true),0));
+    }
+    @Test
+    public void getGenderAlly() {
+        assertEq(NO_G,callSimulationBeanGetGenderAlly(addPkTrainerChangeMoves(true),0));
+    }
+    @Test
+    public void getLevelAlly() {
+        assertEq(7,callSimulationBeanGetLevelAlly(addPkTrainerChangeMoves(true),0));
+    }
+    @Test
+    public void getAbilityAlly() {
+        assertEq(A_SIM_1_TR,callSimulationBeanGetAbilityAlly(addPkTrainerChangeMoves(true),0));
+    }
+    @Test
+    public void getItemAlly() {
+        assertEq(I_BALL_TR,callSimulationBeanGetItemAlly(addPkTrainerChangeItem(true),0));
+    }
+    @Test
+    public void getMovesAlly() {
+        assertSizeEq(1,callSimulationBeanGetMovesAlly(addPkTrainerChangeMoves(true),0));
+    }
+    @Test
+    public void getMovesAllyElt() {
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesAlly(addPkTrainerChangeMoves(true),0),0));
     }
 }
