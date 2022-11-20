@@ -431,6 +431,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
     }
     @Test
+    public void selectFoePkAddedForeget() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
+    }
+    @Test
     public void editing() {
         assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedFoePk()));
     }
