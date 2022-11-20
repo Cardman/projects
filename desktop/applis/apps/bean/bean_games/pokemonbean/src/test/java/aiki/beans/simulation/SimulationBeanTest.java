@@ -237,4 +237,36 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getCategoriesSelMoves1() {
         assertSizeEq(3,callEditPokemonMovesBeanCategoriesGet(pkTrainerSetMoves()));
     }
+    @Test
+    public void typeNameSetMoves() {
+        assertEq(NULL_REF,callEditPokemonMovesBeanTypedNameGet(pkTrainerSetMoves()));
+    }
+    @Test
+    public void getMovesSearch() {
+        assertSizeEq(5,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesName("")));
+    }
+    @Test
+    public void getMovesPkTrainerAfter() {
+        assertSizeEq(2, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesNameAdd(M_POK_01_TR)));
+    }
+    @Test
+    public void typeTypeSetMoves() {
+        assertEq(NULL_REF,callEditPokemonMovesBeanTypedTypeGet(pkTrainerSetMoves()));
+    }
+    @Test
+    public void typeTypeMvWholeWord1() {
+        assertFalse(callEditPokemonMovesBeanWholeWordGet(pkTrainerSetMovesType("",false)));
+    }
+    @Test
+    public void typeTypeMvWholeWord2() {
+        assertTrue(callEditPokemonMovesBeanWholeWordGet(pkTrainerSetMovesType("",true)));
+    }
+    @Test
+    public void getMovesWholeWord1() {
+        assertSizeEq(0,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesType("T_*",true)));
+    }
+    @Test
+    public void getMovesWholeWord2() {
+        assertSizeEq(5,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesType("T_*",false)));
+    }
 }
