@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.facade.enums.SelectedBoolean;
+import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -56,6 +57,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void getBooleansSelPk1() {
         assertSizeEq(3,callSelectPokemonBeanBooleansGet(pkTrainerSelectPk()));
+    }
+    @Test
+    public void genderBegin() {
+        assertEq(Gender.NO_GENDER.getGenderName(),callEditTrainerPokemonBeanGenderGet(pkTrainer()));
+    }
+    @Test
+    public void levelBegin() {
+        assertEq(7,callEditTrainerPokemonBeanLevelGet(pkTrainer()));
     }
     @Test
     public void adding() {
@@ -380,5 +389,9 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void getMovesAllyElt() {
         assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesAlly(addPkTrainerChangeMoves(true),0),0));
+    }
+    @Test
+    public void levelAfter() {
+        assertEq(8,callSimulationBeanGetLevelFoe(pkTrainerLevel(),0));
     }
 }
