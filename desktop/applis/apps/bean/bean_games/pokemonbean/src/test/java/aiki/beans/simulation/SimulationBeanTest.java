@@ -242,7 +242,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(NULL_REF,callEditPokemonMovesBeanTypedNameGet(pkTrainerSetMoves()));
     }
     @Test
-    public void getMovesSearch() {
+    public void getMovesSearchName() {
         assertSizeEq(5,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesName("")));
     }
     @Test
@@ -272,5 +272,25 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void getMovesWholeWord2() {
         assertSizeEq(5,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesType("T_*",false)));
+    }
+    @Test
+    public void catSetMoves() {
+        assertEq(NULL_REF,callEditPokemonMovesBeanCategoryGet(pkTrainerSetMoves()));
+    }
+    @Test
+    public void getMovesSearchCat1() {
+        assertSizeEq(2,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesCat(C_SIM_1)));
+    }
+    @Test
+    public void getMovesSearchCat2() {
+        assertSizeEq(3,callEditPokemonMovesBeanMovesGet(pkTrainerSetMovesCat(C_SIM_2)));
+    }
+    @Test
+    public void getMovesIsPlayer1() {
+        assertFalse(callEditPokemonMovesBeanPlayerGet(pkTrainerSetMoves()));
+    }
+    @Test
+    public void getMovesPkTrainerCancel() {
+        assertSizeEq(1, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesCancel()));
     }
 }
