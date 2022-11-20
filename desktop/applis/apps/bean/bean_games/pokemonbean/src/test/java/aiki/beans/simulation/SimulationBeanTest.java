@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import code.maths.Rate;
 import org.junit.Test;
 
 public final class SimulationBeanTest extends InitDbSimulation {
@@ -10,6 +11,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void isDiffState2() {
         assertFalse(callSimulationBeanIsDiffState(validateDiff(2)));
+    }
+    @Test
+    public void modifDiff() {
+        assertEq(Rate.newRate("5/7"),integration());
     }
     @Test
     public void getNbTeams() {

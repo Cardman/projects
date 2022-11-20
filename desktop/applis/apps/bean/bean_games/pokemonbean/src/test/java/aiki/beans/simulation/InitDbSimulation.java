@@ -1594,6 +1594,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         beforeDisplaying(dest_);
         return dest_;
     }
+    protected static Rate integration() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = init(pk_, all_, mapping_);
+        callSimulationBeanNbTeamsSet(simu_, 2);
+        callRate(new DifficultyCommonBeanWinTrainerExpSet(),all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON),Rate.newRate("5/7"));
+        Struct result_ = callDifficultyBeanComGet(transitSimuRem(pk_, new SimulationBeanValidateDiffChoice(), simu_));
+        return ((DifficultyCommonStruct)result_).getInstance().getWinTrainerExp();
+    }
 
     public static Struct transitSimuRem(PokemonStandards _stds, NatCaller _caller, Struct _first, long... _args) {
         String url_ = navigateData(_caller, _first, _args);
