@@ -59,8 +59,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertSizeEq(3,callSelectPokemonBeanBooleansGet(pkTrainerSelectPk()));
     }
     @Test
-    public void genderBegin() {
+    public void genderBeginPkTrainer() {
         assertEq(Gender.NO_GENDER.getGenderName(),callEditTrainerPokemonBeanGenderGet(pkTrainer()));
+    }
+    @Test
+    public void gendersListPkTrainer() {
+        assertSizeEq(1,callEditTrainerPokemonBeanGendersGet(pkTrainer()));
     }
     @Test
     public void levelBegin() {
@@ -392,6 +396,22 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void levelAfter() {
-        assertEq(8,callSimulationBeanGetLevelFoe(pkTrainerLevel(),0));
+        assertEq(8,callSimulationBeanGetLevelFoe(pkTrainerLevel(8),0));
+    }
+    @Test
+    public void levelTooMuch() {
+        assertEq(255,callSimulationBeanGetLevelFoe(pkTrainerLevel(256),0));
+    }
+    @Test
+    public void levelTooLow() {
+        assertEq(1,callSimulationBeanGetLevelFoe(pkTrainerLevel(0),0));
+    }
+    @Test
+    public void getMovesFoeRestore() {
+        assertSizeEq(1,callSimulationBeanGetMovesFoe(pkTrainerLevelRestoreMoves(),0));
+    }
+    @Test
+    public void getMovesFoeRestoreElt() {
+        assertEq(M_POK_00_TR,elt(callSimulationBeanGetMovesFoe(pkTrainerLevelRestoreMoves(),0),0));
     }
 }
