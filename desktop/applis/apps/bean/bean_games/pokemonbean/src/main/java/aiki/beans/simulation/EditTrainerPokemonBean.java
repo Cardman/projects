@@ -85,6 +85,7 @@ public class EditTrainerPokemonBean extends CommonBean {
             translated_.addEntry(s.getKey().getGenderName(),s.getValue());
         }
         common.getGenders().addAllEntries(translated_);
+        common.updateGender();
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);

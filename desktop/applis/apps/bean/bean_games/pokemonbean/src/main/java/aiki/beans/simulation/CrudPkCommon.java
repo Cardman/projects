@@ -13,11 +13,15 @@ public final class CrudPkCommon {
 
     public void init(DataBase _data,String _lg) {
         genders = DictionaryComparatorUtil.buildGenderStr(_data,_lg);
+    }
+
+    public void updateGender() {
         setGender(Gender.NO_GENDER.getGenderName());
         for (EntryCust<String,String> e: genders.entryList()) {
             setGender(e.getKey());
         }
     }
+
     public void patchLevel(DataBase _data) {
         if (level < _data.getMinLevel()) {
             level = (short) _data.getMinLevel();
