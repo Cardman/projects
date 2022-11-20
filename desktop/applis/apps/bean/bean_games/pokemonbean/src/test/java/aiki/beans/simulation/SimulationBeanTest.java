@@ -414,4 +414,8 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getMovesFoeRestoreElt() {
         assertEq(M_POK_00_TR,elt(callSimulationBeanGetMovesFoe(pkTrainerLevelRestoreMoves(),0),0));
     }
+    @Test
+    public void pkTrainerIndexValue() {
+        assertEq(1,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanFoeTeamGet(pkTrainerIndex()),1)));
+    }
 }
