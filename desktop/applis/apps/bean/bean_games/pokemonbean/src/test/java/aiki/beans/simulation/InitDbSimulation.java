@@ -1532,22 +1532,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         return goToAddPkTrainer(pk_,all_,mapping_,simu_);
     }
-    /*protected static Struct pkTrainerSelectPkNameCycle(String _name, String _ability) {
-        PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
-        StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+
+    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
+        Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_, _name);
-        Struct retPk_ = transitSimu(pk_, all_, mapping_, new SelectPokemonBeanSearch(), selPk_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), retPk_);
-        callSelectAbilityBeanTypedAbilitySet(selAb_,_ability);
-        Struct retAb_ = transitSimu(pk_, all_, mapping_, new SelectAbilityBeanSearch(), selPk_);
-        return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+        Struct retPk_ = transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
+        Struct selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), retPk_);
+        callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
+        Struct retAb_ = transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
+        callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
     }
 
-    protected static Struct pkTrainerSelectPkNameOne(String _name) {
+    /*protected static Struct pkTrainerSelectPkNameOne(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
