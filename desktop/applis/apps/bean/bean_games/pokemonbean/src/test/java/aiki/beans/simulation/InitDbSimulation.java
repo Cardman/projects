@@ -1533,7 +1533,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return goToAddPkTrainer(pk_,all_,mapping_,simu_);
     }
 
-    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
         Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
         Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_, _name);
@@ -1542,16 +1542,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
         Struct retAb_ = transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
         callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
+        callEditTrainerPokemonBeanLevelSet(retAb_, _level);
+        genderSet(retAb_);
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
     }
 
-    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, String _item, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, String _item, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
         Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
         Struct retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
         Struct retAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
         chooseItem(_item,_pk,_all,_mapping,retAb_);
         callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
+        callEditTrainerPokemonBeanLevelSet(retAb_, _level);
+        genderSet(retAb_);
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+    }
+
+    private static void genderSet(Struct _str) {
+        callEditTrainerPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
     }
 
     private static Struct chooseName(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
