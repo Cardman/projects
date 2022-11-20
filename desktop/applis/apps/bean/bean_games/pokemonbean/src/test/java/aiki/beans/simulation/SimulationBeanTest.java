@@ -438,4 +438,16 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void editing() {
         assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedFoePk()));
     }
+    @Test
+    public void getMovesFoeEditPkTrainer() {
+        assertSizeEq(2,callSimulationBeanGetMovesFoe(editEditSelectedFoePkAddMove(),0));
+    }
+    @Test
+    public void getMovesFoeEditPkTrainerFirst() {
+        assertEq(M_POK_00_TR,elt(callSimulationBeanGetMovesFoe(editEditSelectedFoePkAddMove(),0),0));
+    }
+    @Test
+    public void getMovesFoeEditPkTrainerSecond() {
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesFoe(editEditSelectedFoePkAddMove(),0),1));
+    }
 }
