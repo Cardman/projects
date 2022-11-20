@@ -95,7 +95,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void clickLinkPk1() {
-        assertEq(P_POK_01_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkName(1)));
+        assertEq(P_POK_01_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkRow(1)));
     }
     @Test
     public void hasEvoSelPk() {
@@ -135,7 +135,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void cancelSelPk() {
-        assertEq(P_POK_00_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectCancel()));
+        assertEq(P_POK_00_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkCancel()));
     }
     @Test
     public void getTranslatedAbility() {
@@ -160,5 +160,61 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void clickLinkAb1() {
         assertEq(A_SIM_2_TR,callEditTrainerPokemonBeanGetTranslatedAbility(pkTrainerSelectAb(1)));
+    }
+    @Test
+    public void cancelSelAb() {
+        assertEq(A_SIM_1_TR,callEditTrainerPokemonBeanGetTranslatedAbility(pkTrainerSelectAbCancel()));
+    }
+    @Test
+    public void getTranslatedItem() {
+        assertEq(NULL_REF,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainer()));
+    }
+    @Test
+    public void typeNameSelIt() {
+        assertEq(NULL_REF,callSelectItemBeanTypedNameGet(pkTrainerSelectItName()));
+    }
+    @Test
+    public void getSelectedItemsName() {
+        assertSizeEq(4,callSelectItemBeanItemsGet(pkTrainerSelectItName("")));
+    }
+    @Test
+    public void typePriceSelIt() {
+        assertEq(NULL_REF,callSelectItemBeanTypedPriceGet(pkTrainerSelectItName()));
+    }
+    @Test
+    public void getSelectedItemsPrice() {
+        assertSizeEq(4,callSelectItemBeanItemsGet(pkTrainerSelectItPrice()));
+    }
+    @Test
+    public void typeClassSelIt() {
+        assertEq(NULL_REF,callSelectItemBeanTypedClassGet(pkTrainerSelectItName()));
+    }
+    @Test
+    public void getSelectedItemsClass() {
+        assertSizeEq(2,callSelectItemBeanItemsGet(pkTrainerSelectItCl(CI_BATTLE)));
+    }
+    @Test
+    public void getSelectedIt() {
+        assertEq(I_STONE_TR,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainerSelectItName(I_STONE_TR)));
+    }
+    @Test
+    public void getMiniImageIt() {
+        assertEq("AAABBUTF",callSelectItemBeanGetMiniImage());
+    }
+    @Test
+    public void clickLinkIt1() {
+        assertEq(I_BALL_TR,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainerSelectItName(0)));
+    }
+    @Test
+    public void clickLinkIt2() {
+        assertEq(I_MULT_EXP_TR,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainerSelectItName(1)));
+    }
+    @Test
+    public void cancelSelItRem() {
+        assertEq(NULL_REF,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainerSelectItCancelRem()));
+    }
+    @Test
+    public void cancelSelIt() {
+        assertEq(I_BALL_TR,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainerSelectItCancel()));
     }
 }

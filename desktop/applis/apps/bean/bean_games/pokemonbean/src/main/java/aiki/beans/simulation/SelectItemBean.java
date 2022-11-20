@@ -51,7 +51,7 @@ public class SelectItemBean extends WithFilterBean {
             getForms().put(CST_ITEM_EDIT, item);
             return redirect();
         }
-        return DataBase.EMPTY_STRING;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
 
     public String clickLink(int _index) {
