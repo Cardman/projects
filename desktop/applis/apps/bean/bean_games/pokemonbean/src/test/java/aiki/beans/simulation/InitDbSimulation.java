@@ -1548,6 +1548,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         return pkTrainerSelectPkNameCycle(false,P_POK_00_TR,A_SIM_1_TR,pk_,all_,mapping_,simu_, _level);
     }
+    protected static Struct pkTrainerLevelCancelAdd() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
+        return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanCancel(), editPkTrainer_);
+    }
     protected static Struct pkTrainerLevelRestoreMoves() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);

@@ -418,4 +418,8 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void pkTrainerIndexValue() {
         assertEq(1,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanFoeTeamGet(pkTrainerIndex()),1)));
     }
+    @Test
+    public void cancelAddPkTrainer() {
+        assertSizeEq(0,callSimulationBeanFoeTeamGet(pkTrainerLevelCancelAdd()));
+    }
 }
