@@ -58,6 +58,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertSizeEq(3,callSelectPokemonBeanBooleansGet(pkTrainerSelectPk()));
     }
     @Test
+    public void ally() {
+        assertTrue(callEditTrainerPokemonBeanAllyPkGet(pkTrainerSelectPkAllyInfo(true)));
+    }
+    @Test
+    public void foe() {
+        assertFalse(callEditTrainerPokemonBeanAllyPkGet(pkTrainerSelectPkAllyInfo(false)));
+    }
+    @Test
     public void typeNameSelPk() {
         assertEq(NULL_REF,callSelectPokemonBeanTypedNameGet(pkTrainerSelectPk()));
     }

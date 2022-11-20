@@ -1637,6 +1637,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return goToSelectPk(pk_, all_, mapping_, editPkTrainer_);
     }
+    protected static Struct pkTrainerSelectPkAllyInfo(boolean _ally) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
+        return editPkTrainer_;
+    }
     protected static Struct pkTrainerSelectAbCancel() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
