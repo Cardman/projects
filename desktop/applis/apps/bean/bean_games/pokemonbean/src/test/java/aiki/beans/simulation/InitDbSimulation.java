@@ -272,136 +272,136 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanFreeTeamsGet(),initByTeam(_team));
     }
 
-    public static Struct callSimulationBeanGetAbility(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbility(),_str,_args);
+    public static Struct callSimulationBeanGetAbility(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbility(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetAbilityAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetAbilityAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetAbilityAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityAlly(),_str,_args);
+    public static Struct callSimulationBeanGetAbilityAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetAbilityFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityFoe(),_str,_args);
+    public static Struct callSimulationBeanGetAbilityFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGender(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGender(),_str,_args);
+    public static Struct callSimulationBeanGetGender(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGender(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGenderAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetGenderAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGenderAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderAlly(),_str,_args);
+    public static Struct callSimulationBeanGetGenderAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGenderFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderFoe(),_str,_args);
+    public static Struct callSimulationBeanGetGenderFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImage(),_str,_args);
+    public static Struct callSimulationBeanGetImage(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImage(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImageAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetImageAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImageAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageAlly(),_str,_args);
+    public static Struct callSimulationBeanGetImageAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImageFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageFoe(),_str,_args);
+    public static Struct callSimulationBeanGetImageFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItem(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItem(),_str,_args);
+    public static Struct callSimulationBeanGetItem(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItem(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItemAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetItemAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItemAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemAlly(),_str,_args);
+    public static Struct callSimulationBeanGetItemAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItemFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemFoe(),_str,_args);
+    public static Struct callSimulationBeanGetItemFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetKoFoes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetKoFoes(),_str,_args);
+    public static Struct callSimulationBeanGetKoFoes(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetKoFoes(),_str);
     }
 
-    public static Struct callSimulationBeanGetKoPlayers(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetKoPlayers(),_str,_args);
+    public static Struct callSimulationBeanGetKoPlayers(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetKoPlayers(),_str);
     }
 
-    public static Struct callSimulationBeanGetLevel(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevel(),_str,_args);
+    public static Struct callSimulationBeanGetLevel(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevel(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetLevelAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetLevelAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetLevelAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelAlly(),_str,_args);
+    public static Struct callSimulationBeanGetLevelAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetLevelFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelFoe(),_str,_args);
+    public static Struct callSimulationBeanGetLevelFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMoves(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMoves(),_str,_args);
+    public static Struct callSimulationBeanGetMoves(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMoves(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMovesAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetMovesAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMovesAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesAlly(),_str,_args);
+    public static Struct callSimulationBeanGetMovesAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMovesFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesFoe(),_str,_args);
+    public static Struct callSimulationBeanGetMovesFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetName(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetName(),_str,_args);
+    public static Struct callSimulationBeanGetName(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetName(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNameAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameAfterFight(),_str,_args);
+    public static Struct callSimulationBeanGetNameAfterFight(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNameAlly(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameAlly(),_str,_args);
+    public static Struct callSimulationBeanGetNameAlly(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNameFoe(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameFoe(),_str,_args);
+    public static Struct callSimulationBeanGetNameFoe(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNotKoFrontFoes(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNotKoFrontFoes(),_str,_args);
+    public static Struct callSimulationBeanGetNotKoFrontFoes(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNotKoFrontFoes(),_str);
     }
 
-    public static Struct callSimulationBeanGetRealStepNumber(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetRealStepNumber(),_str,_args);
+    public static Struct callSimulationBeanGetRealStepNumber(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetRealStepNumber(),_str);
     }
 
-    public static Struct callSimulationBeanGetRemainingLifeRate(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetRemainingLifeRate(),_str,_args);
+    public static Struct callSimulationBeanGetRemainingLifeRate(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanGetRemainingLifeRate(),_str,_index);
     }
 
     public static Struct callSimulationBeanGetTrainerName(Struct _str, long... _args) {
@@ -552,8 +552,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNextFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanNumberNecessaryPointsForGrowingLevel(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanNumberNecessaryPointsForGrowingLevel(),_str,_args);
+    public static Struct callSimulationBeanNumberNecessaryPointsForGrowingLevel(Struct _str, int _index) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanNumberNecessaryPointsForGrowingLevel(),_str,_index);
     }
 
     public static Struct callSimulationBeanNumbers(int _teams) {

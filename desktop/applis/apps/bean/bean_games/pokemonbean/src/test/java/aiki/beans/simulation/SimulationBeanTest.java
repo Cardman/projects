@@ -301,8 +301,24 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getFoeTeamChangeMovesPkTrainer() {
         assertSizeEq(1,callSimulationBeanFoeTeamGet(addPkTrainerChangeMoves()));
     }
-//    @Test
-//    public void deleteMovesPkTrainerElt() {
-//        assertSizeEq(1, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesRemove()));
-//    }
+    @Test
+    public void getImageFoe() {
+        assertEq("AAABAAAC",callSimulationBeanGetImageFoe(addPkTrainerChangeMoves(),0));
+    }
+    @Test
+    public void getNameFoe() {
+        assertEq(P_POK_00_TR,callSimulationBeanGetNameFoe(addPkTrainerChangeMoves(),0));
+    }
+    @Test
+    public void getGenderFoe() {
+        assertEq(NO_G,callSimulationBeanGetGenderFoe(addPkTrainerChangeMoves(),0));
+    }
+    @Test
+    public void getMovesFoe() {
+        assertSizeEq(1,callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(),0));
+    }
+    @Test
+    public void getMovesFoeElt() {
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(),0),0));
+    }
 }
