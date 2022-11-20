@@ -133,4 +133,32 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getPokedexIsLeg2() {
         assertSizeEq(8,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkIsLeg(SelectedBoolean.NO.getBoolName())));
     }
+    @Test
+    public void cancelSelPk() {
+        assertEq(P_POK_00_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectCancel()));
+    }
+    @Test
+    public void getTranslatedAbility() {
+        assertEq(A_SIM_1_TR,callEditTrainerPokemonBeanGetTranslatedAbility(pkTrainer()));
+    }
+    @Test
+    public void typeAbilitySelAb() {
+        assertEq(NULL_REF,callSelectAbilityBeanTypedAbilityGet(pkTrainerSelectAb()));
+    }
+    @Test
+    public void getSortedAbilities() {
+        assertSizeEq(2,callSelectAbilityBeanSortedAbilitiesGet(pkTrainerSelectAb("")));
+    }
+    @Test
+    public void getSelectedAb() {
+        assertEq(A_SIM_2_TR,callEditTrainerPokemonBeanGetTranslatedAbility(pkTrainerSelectAb(A_SIM_2_TR)));
+    }
+    @Test
+    public void getTrSortedAbility() {
+        assertEq(A_SIM_2_TR,callSelectAbilityBeanGetTrAbility());
+    }
+    @Test
+    public void clickLinkAb1() {
+        assertEq(A_SIM_2_TR,callEditTrainerPokemonBeanGetTranslatedAbility(pkTrainerSelectAb(1)));
+    }
 }
