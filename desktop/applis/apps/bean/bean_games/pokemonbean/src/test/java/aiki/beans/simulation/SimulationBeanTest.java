@@ -52,4 +52,20 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getTranslatedName() {
         assertEq(P_POK_00_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainer()));
     }
+    @Test
+    public void getBooleansSelPk1() {
+        assertSizeEq(3,callSelectPokemonBeanBooleansGet(pkTrainerSelectPk()));
+    }
+    @Test
+    public void typeNameSelPk() {
+        assertEq(NULL_REF,callSelectPokemonBeanTypedNameGet(pkTrainerSelectPk()));
+    }
+    @Test
+    public void getPokedex() {
+        assertSizeEq(10,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkName("")));
+    }
+    @Test
+    public void getSelectedPk() {
+        assertEq(P_POK_01_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkName(P_POK_01_TR)));
+    }
 }
