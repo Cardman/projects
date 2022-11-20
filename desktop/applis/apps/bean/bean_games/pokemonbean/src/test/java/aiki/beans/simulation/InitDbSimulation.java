@@ -1285,8 +1285,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCancel(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanCategoriesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCategoriesGet(),_str,_args);
+    public static Struct callEditPokemonMovesBeanCategoriesGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCategoriesGet(),_str);
     }
 
     public static Struct callEditPokemonMovesBeanCategoryGet(Struct _str, long... _args) {
@@ -1373,8 +1373,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanLevelGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanMovesGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanMovesGet(),_str,_args);
+    public static Struct callEditTrainerPokemonBeanMovesGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanMovesGet(),_str);
     }
 
     public static Struct callEditTrainerPokemonBeanValidateTrainerPk(Struct _str, long... _args) {
@@ -1751,6 +1751,23 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return goToSelectIt(pk_, all_, mapping_, editPkTrainer_);
     }
+    protected static Struct pkTrainerSetMoves() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        return goToSetMovesTrainer(pk_, all_, mapping_, editPkTrainer_);
+    }
+    protected static Struct pkTrainer(boolean _select) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct edit_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
+        return edit_;
+    }
     private static Struct goToSelectPk(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _struct);
     }
@@ -1759,6 +1776,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     private static Struct goToSelectIt(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _struct);
+    }
+    private static Struct goToSetMovesTrainer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _struct);
     }
     private static Struct simu(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, int _nbTeam) {
         Struct simu_ = init(_nbTeam, _pk, _all, _mapping);

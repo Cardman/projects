@@ -217,4 +217,24 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void cancelSelIt() {
         assertEq(I_BALL_TR,callEditTrainerPokemonBeanGetTranslatedItem(pkTrainerSelectItCancel()));
     }
+    @Test
+    public void getMovesPkTrainer() {
+        assertSizeEq(1, callEditTrainerPokemonBeanMovesGet(pkTrainer()));
+    }
+    @Test
+    public void getMovesPkTrainerElt1() {
+        assertFalse(callSelectLineMoveSelectedGet(elt(callEditTrainerPokemonBeanMovesGet(pkTrainer()),0)));
+    }
+    @Test
+    public void getMovesPkTrainerElt2() {
+        assertFalse(callSelectLineMoveSelectedGet(elt(callEditTrainerPokemonBeanMovesGet(pkTrainer(false)),0)));
+    }
+    @Test
+    public void getMovesPkTrainerElt3() {
+        assertTrue(callSelectLineMoveSelectedGet(elt(callEditTrainerPokemonBeanMovesGet(pkTrainer(true)),0)));
+    }
+    @Test
+    public void getCategoriesSelMoves1() {
+        assertSizeEq(3,callEditPokemonMovesBeanCategoriesGet(pkTrainerSetMoves()));
+    }
 }
