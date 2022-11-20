@@ -1763,7 +1763,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
     }
 
-    protected static Struct pkTrainerSetMovesNameAdd(String _name) {
+    protected static Struct pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
@@ -1772,8 +1772,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
         callEditPokemonMovesBeanTypedNameSet(selPk_,_name);
         Struct foundMoves_ = transitSimu(pk_, all_, mapping_, new EditPokemonMovesBeanSearch(), selPk_);
-        callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_),0),true);
-        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanAddMoves(),foundMoves_,0);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanAddMoves(),foundMoves_);
     }
     protected static Struct pkTrainerSetMovesType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());

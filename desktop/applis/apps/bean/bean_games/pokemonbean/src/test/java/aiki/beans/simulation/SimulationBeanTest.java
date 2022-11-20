@@ -247,7 +247,11 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getMovesPkTrainerAfter() {
-        assertSizeEq(2, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesNameAdd(M_POK_01_TR)));
+        assertSizeEq(2, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesNameAdd(M_POK_01_TR, 0)));
+    }
+    @Test
+    public void getMovesPkTrainerAfterSec() {
+        assertSizeEq(2, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesNameAdd("M_POK_0*", 1)));
     }
     @Test
     public void typeTypeSetMoves() {
