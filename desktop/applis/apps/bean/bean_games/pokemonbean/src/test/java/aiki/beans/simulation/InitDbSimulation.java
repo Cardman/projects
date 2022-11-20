@@ -264,8 +264,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanEvolutionsAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanFoeTeamGet(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanFoeTeamGet(),_str,_args);
+    public static Struct callSimulationBeanFoeTeamGet(Struct _str) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanFoeTeamGet(),_str);
     }
 
     public static Struct callSimulationBeanFreeTeamsGet(int _team) {
@@ -1791,6 +1791,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct re_ = addMove(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanDeleteMoves(),re_);
+    }
+    protected static Struct addPkTrainerChangeMoves() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        Struct re_ = addMove(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
+        callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
+        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), re_);
+        return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),afterDel_);
     }
     protected static Struct pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());

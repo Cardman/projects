@@ -297,6 +297,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void deleteMovesPkTrainer() {
         assertSizeEq(1, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesRemove()));
     }
+    @Test
+    public void getFoeTeamChangeMovesPkTrainer() {
+        assertSizeEq(1,callSimulationBeanFoeTeamGet(addPkTrainerChangeMoves()));
+    }
 //    @Test
 //    public void deleteMovesPkTrainerElt() {
 //        assertSizeEq(1, callEditTrainerPokemonBeanMovesGet(pkTrainerSetMovesRemove()));
