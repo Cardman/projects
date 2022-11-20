@@ -1452,8 +1452,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanClickLink(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanGetMiniImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanGetMiniImage(),_str,_args);
+    public static Struct callSelectPokemonBeanGetMiniImage() {
+        return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanGetMiniImage(),pkTrainerSelectPkName(""),0);
     }
 
     public static Struct callSelectPokemonBeanHasEvoGet(Struct _str, long... _args) {
@@ -1564,6 +1564,28 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
+        return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
+    }
+    protected static Struct pkTrainerSelectPkName(int _row) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        callSelectPokemonBeanTypedNameSet(selPk_,"");
+        Struct rSe_ = transitSimu(pk_, all_, mapping_, new SelectPokemonBeanSearch(), selPk_);
+        return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanClickLink(),rSe_,_row);
+    }
+    protected static Struct pkTrainerSelectPkType(String _type, boolean _wholeWord) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        callSelectPokemonBeanTypedTypeSet(selPk_,_type);
+        callSelectPokemonBeanWholeWordSet(selPk_,_wholeWord);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
     protected static Struct pkTrainerSelectPk() {

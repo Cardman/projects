@@ -68,4 +68,32 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getSelectedPk() {
         assertEq(P_POK_01_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkName(P_POK_01_TR)));
     }
+    @Test
+    public void typeTypeSelPk() {
+        assertEq(NULL_REF,callSelectPokemonBeanTypedTypeGet(pkTrainerSelectPk()));
+    }
+    @Test
+    public void typeTypePkWholeWord1() {
+        assertFalse(callSelectPokemonBeanWholeWordGet(pkTrainerSelectPkType("",false)));
+    }
+    @Test
+    public void typeTypePkWholeWord2() {
+        assertTrue(callSelectPokemonBeanWholeWordGet(pkTrainerSelectPkType("",true)));
+    }
+    @Test
+    public void getPokedexWholeWord1() {
+        assertSizeEq(0,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkType("T_*",true)));
+    }
+    @Test
+    public void getPokedexWholeWord2() {
+        assertSizeEq(10,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkType("T_*",false)));
+    }
+    @Test
+    public void getMiniImagePk() {
+        assertEq("AAABAAAC",callSelectPokemonBeanGetMiniImage());
+    }
+    @Test
+    public void clickLinkPk1() {
+        assertEq(P_POK_01_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkName(1)));
+    }
 }
