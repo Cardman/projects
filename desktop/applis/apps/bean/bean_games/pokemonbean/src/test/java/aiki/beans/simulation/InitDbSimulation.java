@@ -1545,6 +1545,27 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
     }
 
+    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, String _item, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
+        Struct retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
+        Struct retAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
+        chooseItem(_item,_pk,_all,_mapping,retAb_);
+        callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
+        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+    }
+
+    private static Struct chooseName(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
+        Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _str);
+        callSelectPokemonBeanTypedNameSet(selPk_, _name);
+        return transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
+    }
+
+    private static Struct chooseAbility(String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
+        Struct selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _str);
+        callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
+        return transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
+    }
+
     /*protected static Struct pkTrainerSelectPkNameOne(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
