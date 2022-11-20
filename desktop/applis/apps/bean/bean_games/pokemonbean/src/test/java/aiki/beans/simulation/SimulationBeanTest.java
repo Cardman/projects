@@ -314,6 +314,18 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(NO_G,callSimulationBeanGetGenderFoe(addPkTrainerChangeMoves(),0));
     }
     @Test
+    public void getLevelFoe() {
+        assertEq(7,callSimulationBeanGetLevelFoe(addPkTrainerChangeMoves(),0));
+    }
+    @Test
+    public void getAbilityFoe() {
+        assertEq(A_SIM_1_TR,callSimulationBeanGetAbilityFoe(addPkTrainerChangeMoves(),0));
+    }
+    @Test
+    public void getItemFoe() {
+        assertEq(I_BALL_TR,callSimulationBeanGetItemFoe(addPkTrainerChangeItem(),0));
+    }
+    @Test
     public void getMovesFoe() {
         assertSizeEq(1,callSimulationBeanGetMovesFoe(addPkTrainerChangeMoves(),0));
     }

@@ -1719,9 +1719,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
-        callSelectItemBeanTypedNameSet(selAb_,_name);
-        return transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
+        return chooseItem(_name, pk_, all_, mapping_, editPkTrainer_);
+    }
+
+    private static Struct chooseItem(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
+        Struct selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _editPkTrainer);
+        callSelectItemBeanTypedNameSet(selAb_, _name);
+        return transitSimu(_pk, _all, _mapping, new SelectItemBeanSearch(), selAb_);
     }
     protected static Struct pkTrainerSelectItPrice() {
         PkData pk_ = pkDataByFacade(db());
@@ -1802,6 +1806,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), re_);
         return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),afterDel_);
+    }
+    protected static Struct addPkTrainerChangeItem() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        Struct afterIt_ = chooseItem(I_BALL_TR,pk_,all_,mapping_,editPkTrainer_);
+        return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),afterIt_);
     }
     protected static Struct pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());
