@@ -152,23 +152,14 @@ public class EditTrainerPokemonBean extends CommonBean {
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String getTranslatedName() {
-        if (namePk.isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
         DataBase data_ = getDataBase();
         return data_.translatePokemon(namePk);
     }
     public String getTranslatedAbility() {
-        if (ability.isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
         DataBase data_ = getDataBase();
         return data_.translateAbility(ability);
     }
     public String getTranslatedItem() {
-        if (item.isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
         DataBase data_ = getDataBase();
         return data_.translateItem(item);
     }

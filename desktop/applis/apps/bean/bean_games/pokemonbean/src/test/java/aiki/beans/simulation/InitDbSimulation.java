@@ -1566,6 +1566,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
+    protected static Struct pkTrainerSelectPkHasEvo(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        callSelectPokemonBeanHasEvoSet(selPk_,_name);
+        return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
+    }
     protected static Struct pkTrainerSelectPkName(int _row) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);

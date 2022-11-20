@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.facade.enums.SelectedBoolean;
 import code.maths.Rate;
 import org.junit.Test;
 
@@ -95,5 +96,17 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void clickLinkPk1() {
         assertEq(P_POK_01_TR,callEditTrainerPokemonBeanGetTranslatedName(pkTrainerSelectPkName(1)));
+    }
+    @Test
+    public void hasEvoSelPk() {
+        assertEq(SelectedBoolean.YES_AND_NO.getBoolName(),callSelectPokemonBeanHasEvoGet(pkTrainerSelectPk()));
+    }
+    @Test
+    public void getPokedexHasEvo1() {
+        assertSizeEq(3,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkHasEvo(SelectedBoolean.YES.getBoolName())));
+    }
+    @Test
+    public void getPokedexHasEvo2() {
+        assertSizeEq(7,callSelectPokemonBeanPokedexGet(pkTrainerSelectPkHasEvo(SelectedBoolean.NO.getBoolName())));
     }
 }
