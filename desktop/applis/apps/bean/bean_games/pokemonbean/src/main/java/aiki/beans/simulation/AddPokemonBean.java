@@ -43,6 +43,8 @@ public class AddPokemonBean extends WithFilterBean {
                 common.getGenders().put(g.getGenderName(), translatedGenders_.getVal(g));
             }
             common.updateGender();
+        } else {
+            namePk = "";
         }
         setupPokedex(getForms().getValPokemonData(CST_POKEMON_SET_SIMU));
     }
