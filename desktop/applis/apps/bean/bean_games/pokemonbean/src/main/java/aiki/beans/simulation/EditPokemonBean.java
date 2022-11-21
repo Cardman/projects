@@ -92,18 +92,18 @@ public class EditPokemonBean extends CommonBean {
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SELECTITEM_HTML;
     }
     public String translateName() {
-        if (namePk.isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
+//        if (namePk.isEmpty()) {
+//            return DataBase.EMPTY_STRING;
+//        }
         DataBase data_ = getDataBase();
         StringMap<String> translationsPokemon_;
         translationsPokemon_ = data_.getTranslatedPokemon().getVal(getLanguage());
         return translationsPokemon_.getVal(namePk);
     }
     public String translateItem() {
-        if (item.isEmpty()) {
-            return DataBase.EMPTY_STRING;
-        }
+//        if (item.isEmpty()) {
+//            return DataBase.EMPTY_STRING;
+//        }
         DataBase data_ = getDataBase();
         StringMap<String> translationsItems_;
         translationsItems_ = data_.getTranslatedItems().getVal(getLanguage());

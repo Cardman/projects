@@ -433,7 +433,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedFoePk());
     }
     @Test
-    public void selectFoePkAddedForeget() {
+    public void selectFoePkAddedForget() {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
     }
     @Test
@@ -477,7 +477,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
     }
     @Test
-    public void selectAllyPkAddedForeget() {
+    public void selectAllyPkAddedForget() {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
     }
     @Test
@@ -688,20 +688,44 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void addPkPlayerTwice() {
         assertSizeEq(2,callSimulationBeanTeamGet(pkPlayerSelectPkNameTwice()));
     }
-//    @Test
-//    public void selectPlayerPkInit() {
-//        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
-//    }
-//    @Test
-//    public void selectPlayerPkAddedNoSelect() {
-//        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
-//    }
-//    @Test
-//    public void selectPlayerPkAddedForeget() {
-//        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
-//    }
-//    @Test
-//    public void editingPlayer() {
-//        assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedAllyPk()));
-//    }
+    @Test
+    public void selectPlayerPkInit() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoPlayerPk());
+    }
+    @Test
+    public void selectPlayerPkAddedNoSelect() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedPlayerPk());
+    }
+    @Test
+    public void selectPlayerPkAddedForget() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedPlayerPk());
+    }
+    @Test
+    public void namePkPlayerEdit() {
+        assertEq(P_POK_00,callEditPokemonBeanNamePkGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void namePkPlayerEditTr() {
+        assertEq(P_POK_00_TR,callEditPokemonBeanTranslateName(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void chosenItem() {
+        assertEq(I_BALL_TR,callEditPokemonBeanTranslateItem(editEditSelectedPlayerPkItem()));
+    }
+    @Test
+    public void deleteMovesPkPlayer() {
+        assertSizeEq(1, callEditPokemonBeanMovesGet(pkPlayerSetMovesRemove()));
+    }
+    @Test
+    public void getItem() {
+        assertEq(I_BALL_TR,callSimulationBeanGetItem(addPkPlayerChangeMoves(),0));
+    }
+    @Test
+    public void getMovesEditPkPlayer() {
+        assertSizeEq(1,callSimulationBeanGetMoves(addPkPlayerChangeMoves(),0));
+    }
+    @Test
+    public void getMovesEditPkPlayerFirst() {
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMoves(addPkPlayerChangeMoves(),0),0));
+    }
 }

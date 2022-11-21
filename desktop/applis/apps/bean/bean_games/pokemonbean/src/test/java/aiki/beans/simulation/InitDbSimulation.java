@@ -1661,7 +1661,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
         Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectFoePk(), added_);
-        addMove(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
+        addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
     }
     protected static String editForgetSelectedFoePk() {
@@ -1732,7 +1732,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
         Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectAllyPk(), added_);
-        addMove(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
+        addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
     }
     protected static String editForgetSelectedAllyPk() {
@@ -1795,7 +1795,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
         Struct retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
         Struct retAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
-        assertSame(retAb_,chooseItem(_item,_pk,_all,_mapping,retAb_));
+        assertSame(retAb_, chooseItemPkTrainer(_item,_pk,_all,_mapping,retAb_));
         callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
         callEditTrainerPokemonBeanLevelSet(retAb_, _level);
         genderSet(retAb_);
@@ -2009,13 +2009,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        return chooseItem(_name, pk_, all_, mapping_, editPkTrainer_);
+        return chooseItemPkTrainer(_name, pk_, all_, mapping_, editPkTrainer_);
     }
 
-    private static Struct chooseItem(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
-        Struct selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _editPkTrainer);
-        callSelectItemBeanTypedNameSet(selAb_, _name);
-        return transitSimu(_pk, _all, _mapping, new SelectItemBeanSearch(), selAb_);
+    private static Struct chooseItemPkTrainer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
+        Struct selIt_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _editPkTrainer);
+        return chooseItemGene(_name, _pk, _all, _mapping, selIt_);
+    }
+
+    private static Struct chooseItemPkPlayer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
+        Struct selIt_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _editPkTrainer);
+        return chooseItemGene(_name, _pk, _all, _mapping, selIt_);
+    }
+
+    private static Struct chooseItemGene(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _selIt) {
+        callSelectItemBeanTypedNameSet(_selIt, _name);
+        return transitSimu(_pk, _all, _mapping, new SelectItemBeanSearch(), _selIt);
     }
     protected static Struct pkTrainerSelectItPrice() {
         PkData pk_ = pkDataByFacade(db());
@@ -2082,7 +2091,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct re_ = addMove(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
+        Struct re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanDeleteMoves(),re_);
     }
@@ -2092,7 +2101,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct re_ = addMove(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
+        Struct re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), re_);
         callEditTrainerPokemonBeanAllyPkSet(afterDel_,_ally);
@@ -2104,7 +2113,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        assertSame(editPkTrainer_,chooseItem(I_BALL_TR,pk_,all_,mapping_,editPkTrainer_));
+        assertSame(editPkTrainer_, chooseItemPkTrainer(I_BALL_TR,pk_,all_,mapping_,editPkTrainer_));
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
         return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editPkTrainer_);
     }
@@ -2114,13 +2123,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        return addMove(_name, _row, pk_, all_, mapping_, editPkTrainer_);
+        return addMoveTrainer(_name, _row, pk_, all_, mapping_, editPkTrainer_);
     }
 
-    private static Struct addMove(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
-        Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
-        callEditPokemonMovesBeanTypedNameSet(selPk_, _name);
-        Struct foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), selPk_);
+    private static Struct addMoveTrainer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
+        Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
+        return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
+    }
+
+    private static Struct addMovePlayer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer) {
+        Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
+        return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
+    }
+
+    private static Struct addMoveGene(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editMoves) {
+        callEditPokemonMovesBeanTypedNameSet(_editMoves, _name);
+        Struct foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), _editMoves);
         callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
         return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanAddMoves(), foundMoves_);
     }
@@ -2161,17 +2179,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanSelectedPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectPk(),simu_);
     }
-    protected static Struct pkTrainerPlayerRemove() {
+    protected static Struct pkPlayerRemove() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        Struct second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
-        callSimulationBeanSelectedActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
-        callSimulationBeanSelectedPkSet(second_,0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectPk(),second_);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
+        return editPkPlayer(pk_, all_, mapping_, simu_, P_POK_01_TR, A_SIM_2_TR, 0, 5, TeamCrud.REMOVE);
     }
     protected static String editNoSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
@@ -2179,7 +2194,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        Struct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_,-1);
         return navigateData(new SimulationBeanSelectPk(),added_);
@@ -2190,10 +2205,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
-        callSimulationBeanSelectedPkSet(added_,0);
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectPk(),added_);
+        return editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+    }
+    protected static Struct editEditSelectedPlayerPkItem() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        assertSame(edit_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,edit_));
+        return edit_;
     }
     protected static Struct formEditSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
@@ -2201,7 +2223,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        Struct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_,0);
         return added_;
@@ -2212,12 +2234,28 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
-        callSimulationBeanSelectedPkSet(added_,0);
-        Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPk(), added_);
-        addMove(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
-        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        addMovePlayer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
+    }
+
+    private static Struct editPkPlayer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
+        Struct added_ = pkTrainerSelectPkPlayerNameCycle(_name, _ab, _pk, _all, _mapping, _simu, _level);
+        callSimulationBeanSelectedActionSet(added_, _mode.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(added_, _index);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanSelectPk(), added_);
+    }
+
+    protected static Struct pkPlayerSetMovesRemove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanDeleteMoves(),re_);
     }
     protected static String editForgetSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
@@ -2225,12 +2263,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        Struct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_,0);
         return navigateData(new SimulationBeanSelectPk(),added_);
     }
-
+    protected static Struct addPkPlayerChangeMoves() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,editing_));
+        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
+        return transitSimu(pk_, all_, mapping_,new EditPokemonBeanEdit(),afterDel_);
+    }
+//    protected static Struct editEditSelectedPlayerPkAddMove() {
+//        PkData pk_ = pkDataByFacade(db());
+//        StringMap<Struct> all_ = beanToSimu(pk_);
+//        StringMap<String> mapping_ = mappingToSimu();
+//        Struct simu_ = simu(pk_, all_, mapping_, 2);
+//        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+//        callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
+//        callSimulationBeanSelectedFoePkSet(added_,0);
+//        Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectFoePk(), added_);
+//        addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
+//        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
+//    }
     private static Struct pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
         Struct addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
@@ -2406,6 +2468,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
     private static Struct goToSelectIt(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _struct);
+    }
+    private static Struct goToSelectItPlayer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+        return transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _struct);
     }
     private static Struct goToSetMovesTrainer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _struct);
