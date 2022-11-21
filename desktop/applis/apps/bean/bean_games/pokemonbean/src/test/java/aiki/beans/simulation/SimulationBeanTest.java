@@ -728,4 +728,20 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getMovesEditPkPlayerFirst() {
         assertEq(M_POK_01_TR,elt(callSimulationBeanGetMoves(addPkPlayerChangeMoves(),0),0));
     }
+    @Test
+    public void pkPlayerIndexAfterRemove() {
+        assertEq(0,callPokemonPlayerDtoIndexGet(elt(callSimulationBeanTeamGet(pkPlayerRemove()),0)));
+    }
+    @Test
+    public void pkPlayerNameAfterRemove() {
+        assertEq(P_POK_01_TR,callSimulationBeanGetName(pkPlayerRemove(),0));
+    }
+    @Test
+    public void getSelectedPkPlayerIndexe() {
+        assertEq(0,callSimulationBeanSelectedPkGet(formEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getSelectedAction() {
+        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedActionGet(formEditSelectedPlayerPk()));
+    }
 }
