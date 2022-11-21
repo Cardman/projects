@@ -683,6 +683,10 @@ public class FightSimulation {
         for (byte k: moves.getKeys()) {
             StringList list_ = new StringList(team.get(k).getMoves().getKeys());
             keepMoves(k, list_, _import);
+            int nbRounds_ = nbRound(mult.get(0), foeTeams.get(0).size());
+            for (int i = 0; i < nbRounds_; i++) {
+                keepMoves(k, list_, _import);
+            }
         }
         validateAllMoves(_import);
     }
@@ -1024,8 +1028,7 @@ public class FightSimulation {
 
     public void keepMoves(int _index, StringList _moves, DataBase _import) {
         KeyFightRound key_ = availableMoves.getVal((byte) _index).getKey();
-        KeyFightRound nextKey_ = new KeyFightRound(key_);
-        nextKey_.setRound((byte) (nextKey_.getRound()+1));
+        KeyFightRound nextKey_ = key_.next();
         TreeMap<KeyFightRound, StringList> tree_ = moves.getVal((byte) _index);
         if (!tree_.contains(nextKey_)) {
             availableMoves.getVal((byte) _index).getMoves().clear();
@@ -1103,10 +1106,8 @@ public class FightSimulation {
 
     public void cancelMovesOneFight(int _index, DataBase _import) {
         KeyFightRound key_ = availableMoves.getVal((byte) _index).getKey();
-        KeyFightRound previousKey_ = new KeyFightRound(key_);
-        previousKey_.setRound((byte) (previousKey_.getRound()-1));
-        KeyFightRound previousPrevKey_ = new KeyFightRound(previousKey_);
-        previousPrevKey_.setRound((byte) (previousPrevKey_.getRound()-1));
+        KeyFightRound previousKey_ = key_.previous();
+        KeyFightRound previousPrevKey_ = previousKey_.previous();
         TreeMap<KeyFightRound, StringList> tree_ = moves.getVal((byte) _index);
         if (!tree_.contains(previousPrevKey_)) {
             StringList initMoves_= new StringList(team.get(_index).getMoves().getKeys());
@@ -1128,8 +1129,7 @@ public class FightSimulation {
 
     void validateMovesOneFight(int _index, DataBase _import) {
         KeyFightRound key_ = availableMoves.getVal((byte) _index).getKey();
-        KeyFightRound nextKey_ = new KeyFightRound(key_);
-        nextKey_.setRound((byte) (nextKey_.getRound()+1));
+        KeyFightRound nextKey_ = key_.next();
         TreeMap<KeyFightRound, StringList> tree_ = moves.getVal((byte) _index);
         StringList initMoves_ = keptMoves.getVal((byte) _index).getVal(key_);
         StringMap<BoolVal> choicesMoves_ = movesToBeChosen(tree_.getVal(nextKey_), initMoves_, _import.getNbMaxMoves());
@@ -1142,8 +1142,7 @@ public class FightSimulation {
     public void validateMoves(int _index, DataBase _import) {
         byte currentFight_ = currentFights.getVal((byte) _index);
         KeyFightRound key_ = availableMoves.getVal((byte) _index).getKey();
-        KeyFightRound nextKey_ = new KeyFightRound(key_);
-        nextKey_.setRound((byte) (nextKey_.getRound()+1));
+        KeyFightRound nextKey_ = key_.next();
         boolean betweenFights_= true;
         TreeMap<KeyFightRound, StringList> tree_ = moves.getVal((byte) _index);
         for (KeyFightRound k: tree_.getKeys()) {
@@ -1163,16 +1162,14 @@ public class FightSimulation {
         }
         if (movesBetweenFights.getVal((byte) _index).get(currentFight_).isEmpty()) {
             StringList initMoves_ = keptMoves.getVal((byte) _index).getVal(key_);
-            currentFight_++;
-            nextKey_.setFight(currentFight_);
-            nextKey_.setRound(IndexConstants.FIRST_INDEX);
+            KeyFightRound n_ = nextKey_.nextFight();
             StringMap<BoolVal> choicesMoves_;
-            choicesMoves_ = movesToBeChosen(tree_.getVal(nextKey_), initMoves_, _import.getNbMaxMoves());
-            availableMoves.getVal((byte) _index).setFirst(nextKey_);
+            choicesMoves_ = movesToBeChosen(tree_.getVal(n_), initMoves_, _import.getNbMaxMoves());
+            availableMoves.getVal((byte) _index).setFirst(n_);
             availableMoves.getVal((byte) _index).getMoves().clear();
             availableMoves.getVal((byte) _index).getMoves().putAllMap(choicesMoves_);
-            keptMoves.getVal((byte) _index).put(nextKey_, getChosenMoves(choicesMoves_));
-            currentFights.put((byte) _index, currentFight_);
+            keptMoves.getVal((byte) _index).put(n_, getChosenMoves(choicesMoves_));
+            currentFights.put((byte) _index, (byte) n_.getFight());
             return;
         }
         if (keptMovesBetweenFights.getVal((byte) _index).get(currentFight_).isEmpty()) {
@@ -1205,16 +1202,14 @@ public class FightSimulation {
         int size_ = keptMovesBetweenFights.getVal((byte) _index).get(_currentFight).size();
         if (size_ == movesBetweenFights.getVal((byte) _index).get(_currentFight).size()) {
             StringList initMoves_ = keptMovesBetweenFights.getVal((byte) _index).get(_currentFight).last();
-            byte currentFight_ = _currentFight;
-            currentFight_++;
-            _nextKey.setFight(currentFight_);
-            _nextKey.setRound(IndexConstants.FIRST_INDEX);
-            StringMap<BoolVal> choicesMoves_ = movesToBeChosen(_tree.getVal(_nextKey), initMoves_, _import.getNbMaxMoves());
-            availableMoves.getVal((byte) _index).setFirst(_nextKey);
+            KeyFightRound n_ = _nextKey.nextFight();
+            int currentFight_ = n_.getFight();
+            StringMap<BoolVal> choicesMoves_ = movesToBeChosen(_tree.getVal(n_), initMoves_, _import.getNbMaxMoves());
+            availableMoves.getVal((byte) _index).setFirst(n_);
             availableMoves.getVal((byte) _index).getMoves().clear();
             availableMoves.getVal((byte) _index).getMoves().putAllMap(choicesMoves_);
-            currentFights.put((byte) _index, currentFight_);
-            keptMoves.getVal((byte) _index).put(_nextKey, getChosenMoves(choicesMoves_));
+            currentFights.put((byte) _index, (byte) currentFight_);
+            keptMoves.getVal((byte) _index).put(n_, getChosenMoves(choicesMoves_));
             return;
         }
         StringList initMoves_ = keptMovesBetweenFights.getVal((byte) _index).get(_currentFight).last();

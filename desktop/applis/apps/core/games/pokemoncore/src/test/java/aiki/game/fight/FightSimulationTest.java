@@ -3191,8 +3191,7 @@ public class FightSimulationTest extends InitializationDataBase {
         KeyFightRound key_;
         key_ = fightSimulation_.getAvailableMoves().getVal((byte) 1).getKey();
         KeyFightRound nextKey_;
-        nextKey_ = new KeyFightRound(key_);
-        nextKey_.setRound((byte) (nextKey_.getRound()+1));
+        nextKey_ = key_.next();
         TreeMap<KeyFightRound, StringList> tree_;
         tree_ = fightSimulation_.getMoves().getVal((byte) 1);
         CustList<StringList> list_ = fightSimulation_.getMovesBetweenFights().getVal((byte) 1).get(currentFight_);
