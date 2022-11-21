@@ -772,4 +772,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getAvailableMovesOnlyDef() {
         assertFalse(callEditPokemonMovesBeanAvailableMovesOnlyGet(editEditSelectedPlayerPkListMoves()));
     }
+    @Test
+    public void editPkPlayerMoves() {
+        assertTrue(callEditPokemonMovesBeanPlayerGet(editEditSelectedPlayerPkListMoves()));
+    }
+    @Test
+    public void editPkPlayerMovesCancel() {
+        assertSizeEq(1,callEditPokemonBeanMovesGet(editEditSelectedPlayerPkListMovesCancel()));
+    }
 }

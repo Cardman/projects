@@ -2128,20 +2128,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static Struct addMoveTrainer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
         Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
-        assertFalse(callEditPokemonMovesBeanPlayerGet(editMoves_));
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
     }
 
     private static Struct addMovePlayer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer) {
         Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
-        assertTrue(callEditPokemonMovesBeanPlayerGet(editMoves_));
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_,false);
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
     }
 
     private static Struct searchMovePlayer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer, boolean _flag) {
         Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
-        assertTrue(callEditPokemonMovesBeanPlayerGet(editMoves_));
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_, _flag);
         callEditPokemonMovesBeanTypedNameSet(editMoves_, _name);
         return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), editMoves_);
@@ -2266,6 +2263,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         return searchMovePlayer(_name,pk_,all_,mapping_,editing_,_flag);
+    }
+    protected static Struct editEditSelectedPlayerPkListMovesCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        Struct se_ = searchMovePlayer(M_POK_04_TR, pk_, all_, mapping_, editing_, false);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(se_),0),true);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel(),se_);
     }
 
     private static Struct editPkPlayer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
