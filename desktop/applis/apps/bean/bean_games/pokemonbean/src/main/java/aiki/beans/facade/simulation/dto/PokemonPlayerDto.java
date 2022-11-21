@@ -8,7 +8,6 @@ public final class PokemonPlayerDto {
     private Pokemon pokemon = new WildPk();
 
     private StringList moves = new StringList();
-    private boolean selected;
     private int index;
 
     public Pokemon getPokemon() {
@@ -25,14 +24,6 @@ public final class PokemonPlayerDto {
 
     public void setMoves(StringList _moves) {
         moves = _moves;
-    }
-
-    public boolean isSelected() {
-        return selected;
-    }
-
-    public void setSelected(boolean _selected) {
-        selected = _selected;
     }
 
     public int getIndex() {
