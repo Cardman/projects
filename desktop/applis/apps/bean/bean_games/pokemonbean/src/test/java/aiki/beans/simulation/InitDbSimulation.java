@@ -2128,12 +2128,23 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static Struct addMoveTrainer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
         Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
+        assertFalse(callEditPokemonMovesBeanPlayerGet(editMoves_));
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
     }
 
     private static Struct addMovePlayer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer) {
         Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
+        assertTrue(callEditPokemonMovesBeanPlayerGet(editMoves_));
+        callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_,false);
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
+    }
+
+    private static Struct searchMovePlayer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer, boolean _flag) {
+        Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
+        assertTrue(callEditPokemonMovesBeanPlayerGet(editMoves_));
+        callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_, _flag);
+        callEditPokemonMovesBeanTypedNameSet(editMoves_, _name);
+        return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), editMoves_);
     }
 
     private static Struct addMoveGene(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editMoves) {
@@ -2237,6 +2248,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         addMovePlayer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
+    }
+    protected static Struct editEditSelectedPlayerPkListMoves() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        return transitSimu(pk_,all_,mapping_, new EditPokemonBeanAddMoves(),editing_);
+    }
+    protected static Struct editEditSelectedPlayerPkListMoves(String _name, boolean _flag) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        return searchMovePlayer(_name,pk_,all_,mapping_,editing_,_flag);
     }
 
     private static Struct editPkPlayer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
@@ -2801,6 +2830,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setBaseEvo(_base);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
+        pk_.setHiddenMoves(Shorts.newList());
+        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
 
@@ -2814,6 +2846,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.getEvolutions().addEntry(_evo, e_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
+        pk_.setHiddenMoves(Shorts.newList());
+        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
 
@@ -2827,6 +2862,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.getEvolutions().addEntry(_evo, e_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
+        pk_.setHiddenMoves(Shorts.newList());
+        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
 
@@ -2837,6 +2875,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.setBaseEvo(_base);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
+        pk_.setHiddenMoves(Shorts.newList());
+        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setMoveTutors(new StringList(M_POK_03));
         return pk_;
     }
     private static CustList<LevelMove> withLearn(CustList<LevelMove> _set, int _level, String _move) {

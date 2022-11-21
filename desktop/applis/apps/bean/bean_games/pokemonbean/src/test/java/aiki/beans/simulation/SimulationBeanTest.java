@@ -744,4 +744,32 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getSelectedAction() {
         assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedActionGet(formEditSelectedPlayerPk()));
     }
+    @Test
+    public void allMovesPkPlayer() {
+        assertSizeEq(5,callEditPokemonMovesBeanMovesGet(editEditSelectedPlayerPkListMoves("",false)));
+    }
+    @Test
+    public void availableMovesPkPlayer() {
+        assertSizeEq(2,callEditPokemonMovesBeanMovesGet(editEditSelectedPlayerPkListMoves("",true)));
+    }
+    @Test
+    public void availableMovesPkPlayerNone() {
+        assertSizeEq(0,callEditPokemonMovesBeanMovesGet(editEditSelectedPlayerPkListMoves(M_POK_01_TR,true)));
+    }
+    @Test
+    public void availableMovesPkPlayerOne() {
+        assertSizeEq(1,callEditPokemonMovesBeanMovesGet(editEditSelectedPlayerPkListMoves(M_POK_01_TR,false)));
+    }
+    @Test
+    public void getAvailableMovesOnlyNo() {
+        assertFalse(callEditPokemonMovesBeanAvailableMovesOnlyGet(editEditSelectedPlayerPkListMoves("",false)));
+    }
+    @Test
+    public void getAvailableMovesOnlyYes() {
+        assertTrue(callEditPokemonMovesBeanAvailableMovesOnlyGet(editEditSelectedPlayerPkListMoves("",true)));
+    }
+    @Test
+    public void getAvailableMovesOnlyDef() {
+        assertFalse(callEditPokemonMovesBeanAvailableMovesOnlyGet(editEditSelectedPlayerPkListMoves()));
+    }
 }
