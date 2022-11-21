@@ -718,8 +718,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     }
     public void validateFoeChoiceFree() {
         ok = true;
-        DataBase data_ = getDataBase();
-        coords = new Coords(data_.getMap().getBegin());
+        coords = new Coords();
         if (!okFights()) {
             ok = false;
             return;
@@ -756,7 +755,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             ch_.getFoeTeam().addAllElts(foe_);
             chs_.add(ch_);
         }
-        simulation.setTeams(chs_, coords);
+        simulation.setTeams(chs_);
         selectedPk = IndexConstants.INDEX_NOT_FOUND_ELT;
         selectedAction = TeamCrud.NOTHING.getTeamCrudString();
         indexTeam=0;

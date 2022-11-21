@@ -2508,7 +2508,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pk_.setAbility(ATTENTION);
         pk_.setLevel((short) 38);
         foeTeam_.add(new PkTrainer(pk_, new StringList(JACKPOT)));
-        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1, 1, EnvironmentType.ROCK, data_.getMap().getBegin());
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1, 1, EnvironmentType.ROCK);
+//        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1, 1, EnvironmentType.ROCK, data_.getMap().getBegin());
 
         //fightSimulation_.initializeFight(newCoords(6, 0, 4, 8), CustList.INDEX_NOT_FOUND_ELT, data_);
         WildPk pokemon_ = new WildPk();
@@ -2593,7 +2594,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pk_.setAbility(ATTENTION);
         pk_.setLevel((short) 28);
         allyTeam_.add(new PkTrainer(pk_, new StringList(TONNERRE)));
-        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2, 1, EnvironmentType.ROCK, data_.getMap().getBegin());
+        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2, 1, EnvironmentType.ROCK);
+//        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2, 1, EnvironmentType.ROCK, data_.getMap().getBegin());
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -2843,7 +2845,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         pk_.setAbility(ATTENTION);
         pk_.setLevel((short) 28);
         allyTeam_.add(new PkTrainer(pk_, new StringList(TONNERRE)));
-        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2, 1, EnvironmentType.ROCK, data_.getMap().getBegin());
+        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2, 1, EnvironmentType.ROCK);
+//        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2, 1, EnvironmentType.ROCK, data_.getMap().getBegin());
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);
@@ -3046,7 +3049,8 @@ public class FightFacadeSimulationTest extends InitializationDataBase {
         chTwo_.setNbMaxActions(1);
         chTwo_.setEnv(EnvironmentType.BUILDING);
         chs_.add(chTwo_);
-        fightSimulation_.setTeams(chs_,newCoords(6, 0, 4, 8));
+        fightSimulation_.setTeams(chs_);
+//        fightSimulation_.setTeams(chs_,newCoords(6, 0, 4, 8));
         WildPk pokemon_ = new WildPk();
         pokemon_.setLevel((short) 100);
         pokemon_.setName(TETARTE);

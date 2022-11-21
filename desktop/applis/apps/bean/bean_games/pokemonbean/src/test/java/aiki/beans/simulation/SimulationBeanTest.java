@@ -511,4 +511,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getSelectedAllyAction() {
         assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedAllyActionGet(formEditSelectedAllyPk()));
     }
+    @Test
+    public void noTeam() {
+        assertFalse(callSimulationBeanOkGet(pkTrainerTwoTeamsNextKo()));
+    }
+    @Test
+    public void sufficientPkInTeams() {
+        assertTrue(callSimulationBeanOkGet(pkTrainerTwoTeamsNextOk()));
+    }
 }

@@ -1693,7 +1693,7 @@ public class InitializationDataBase extends EquallablePkUtil {
         _cave.getLevels().add(level_);
     }
 
-    protected static void setTeams(FightSimulation _fightSimulation, CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam, int _multiplicity, int _nbMaxActions, EnvironmentType _rock, Coords _begin) {
+    protected static void setTeams(FightSimulation _fightSimulation, CustList<PkTrainer> _allyTeam, CustList<PkTrainer> _foeTeam, int _multiplicity, int _nbMaxActions, EnvironmentType _rock) {
         CustList<FreeTeamChoice> chs_ = new CustList<FreeTeamChoice>();
         FreeTeamChoice ch_ = new FreeTeamChoice();
         ch_.setNbMaxActions(_nbMaxActions);
@@ -1702,7 +1702,8 @@ public class InitializationDataBase extends EquallablePkUtil {
         ch_.getAllyTeam().addAllElts(_allyTeam);
         ch_.getFoeTeam().addAllElts(_foeTeam);
         chs_.add(ch_);
-        _fightSimulation.setTeams(chs_, _begin);
+//        _fightSimulation.setTeams(chs_, _begin);
+        _fightSimulation.setTeams(chs_);
     }
 
     public void fullHeal(Fight _f, TeamPosition _id, DataBase _d) {

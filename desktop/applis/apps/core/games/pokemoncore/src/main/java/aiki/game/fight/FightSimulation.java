@@ -315,8 +315,8 @@ public class FightSimulation {
         return place_;
     }
 
-    public void setTeams(CustList<FreeTeamChoice> _choice, Coords _coords) {
-        foeCoords = new Coords(_coords);
+    public void setTeams(CustList<FreeTeamChoice> _choice) {
+        foeCoords = new Coords();
         indexFight=0;
         environment = _choice.get(0).getEnv();
         freeTeams = true;
@@ -338,7 +338,7 @@ public class FightSimulation {
         foeTeams.add(_choice.get(0).getFoeTeam());
         for (FreeTeamChoice l: _choice) {
             allyTeamAll.add(l.getAllyTeam());
-            foeCoordsAll.add(new Coords(_coords));
+            foeCoordsAll.add(new Coords());
             maxActionsAll.add(l.getNbMaxActions());
             environmentAll.add(l.getEnv());
             multAll.add((byte) l.getMultiplicity());

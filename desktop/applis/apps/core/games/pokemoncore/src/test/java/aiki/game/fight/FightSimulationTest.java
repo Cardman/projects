@@ -404,7 +404,8 @@ public class FightSimulationTest extends InitializationDataBase {
         pk_.setName(PICHU);
         pk_.setAbility(ATTENTION);
         foeTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
-        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK, data_.getMap().getBegin());
+        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK);
+//        setTeams(fightSimulation_, new CustList<PkTrainer>(), foeTeam_, 1,1,EnvironmentType.ROCK, data_.getMap().getBegin());
         assertTrue(fightSimulation_.isFreeTeams());
         CustList<PkTrainer> allyNumbers_;
         allyNumbers_ = fightSimulation_.getAllyTeam();
@@ -455,7 +456,8 @@ public class FightSimulationTest extends InitializationDataBase {
         pk_.setName(PIKACHU);
         pk_.setAbility(ATTENTION);
         allyTeam_.add(new PkTrainer(pk_, new StringList(CHARGE)));
-        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2,1,EnvironmentType.ROCK, data_.getMap().getBegin());
+        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2,1,EnvironmentType.ROCK);
+//        setTeams(fightSimulation_, allyTeam_, foeTeam_, 2,1,EnvironmentType.ROCK, data_.getMap().getBegin());
         assertTrue(fightSimulation_.isFreeTeams());
         CustList<PkTrainer> allyNumbers_;
         allyNumbers_ = fightSimulation_.getAllyTeam();
