@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
@@ -459,6 +460,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(P_POK_01_TR,callSimulationBeanGetNameFoe(pkTrainerFoeRemove(),0));
     }
     @Test
+    public void getSelectedFoePk() {
+        assertEq(0,callSimulationBeanSelectedFoePkGet(formEditSelectedFoePk()));
+    }
+    @Test
+    public void getSelectedFoeAction() {
+        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedFoeActionGet(formEditSelectedFoePk()));
+    }
+    @Test
     public void selectAllyPkInit() {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
     }
@@ -493,5 +502,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void pkTrainerNameAllyAfterRemove() {
         assertEq(P_POK_01_TR,callSimulationBeanGetNameAlly(pkTrainerAllyRemove(),0));
+    }
+    @Test
+    public void getSelectedAllyPk() {
+        assertEq(0,callSimulationBeanSelectedAllyPkGet(formEditSelectedAllyPk()));
+    }
+    @Test
+    public void getSelectedAllyAction() {
+        assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedAllyActionGet(formEditSelectedAllyPk()));
     }
 }
