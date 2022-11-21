@@ -900,4 +900,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getNameFormZero() {
         assertEq(P_POK_00_TR,callSimulationBeanGetName(editEditSelectedPlayerPkForm(false,Rate.one(),Rate.zero()),0));
     }
+    @Test
+    public void getBadMovesCountEdit() {
+        assertSizeEq(0,callEditPokemonBeanMovesGet(editEditSelectedPlayerPkFormNoMove()));
+    }
+    @Test
+    public void cancelEditingPkPlayer() {
+        assertSizeEq(1,callSimulationBeanGetMoves(editEditSelectedPlayerPkFormCancel(),0));
+    }
 }

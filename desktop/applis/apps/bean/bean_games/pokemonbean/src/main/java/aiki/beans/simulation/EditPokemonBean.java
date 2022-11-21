@@ -155,6 +155,7 @@ public class EditPokemonBean extends CommonBean {
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML;
         }
         getForms().put(CST_POKEMON_MOVES_EDIT, selected_);
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.EDIT);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public boolean inRangeMoves(StringList _selected) {

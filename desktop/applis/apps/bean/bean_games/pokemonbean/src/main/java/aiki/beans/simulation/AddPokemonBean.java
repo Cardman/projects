@@ -69,6 +69,7 @@ public class AddPokemonBean extends WithFilterBean {
         pkDto_.setPokemon(pk_);
         pkDto_.setMoves(pkData_.getMovesAtLevel((short) common.getLevel(), data_.getNbMaxMoves()));
         getForms().put(CST_POKEMON_ADDED, pkDto_);
+        getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.ADD);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String cancel() {

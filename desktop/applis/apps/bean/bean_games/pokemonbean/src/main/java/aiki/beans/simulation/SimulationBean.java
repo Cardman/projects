@@ -255,6 +255,10 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         if (!simulation.getTeam().isEmpty()) {
             ok = true;
         }
+        boolean nothing_ = getForms().getValTeamCrud(CST_ADDING_TRAINER_PK) == TeamCrud.NOTHING;
+        if (nothing_) {
+            return;
+        }
         if (getForms().contains(CST_POKEMON_ADDED)) {
             PokemonPlayerDto pk_ = getForms().getVal(CST_POKEMON_ADDED);
             getForms().removeKey(CST_POKEMON_ADDED);

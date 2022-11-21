@@ -2225,9 +2225,32 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callEditPokemonBeanHealSet(editing_, _heal);
         callEditPokemonBeanBallSet(editing_,I_BALL);
         callEditPokemonBeanExperienceSet(editing_, _exp);
+        callEditPokemonBeanHappinessSet(editing_,1);
         callEditPokemonBeanRemainingHpSet(editing_, _hp);
         callEvLineEvSet(second(elt(callEditPokemonBeanEvGet(editing_),2)),33);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
+    }
+    protected static Struct editEditSelectedPlayerPkFormNoMove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(editing_),0),true);
+        transitSimu(pk_,all_,mapping_,new EditPokemonBeanDeleteMoves(),editing_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
+    }
+    protected static Struct editEditSelectedPlayerPkFormCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(editing_),0),true);
+        transitSimu(pk_,all_,mapping_,new EditPokemonBeanDeleteMoves(),editing_);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanCancel(),editing_);
     }
     protected static Struct editEditSelectedPlayerPkHeal(boolean _heal) {
         Struct h_ = editEditSelectedPlayerPk();
