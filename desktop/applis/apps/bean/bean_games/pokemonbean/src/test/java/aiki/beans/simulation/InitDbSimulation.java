@@ -1522,12 +1522,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanMultiplicitySet(simu_,2);
+        callSimulationBeanEnvironmentSet(simu_, EnvironmentType.ROAD.getEnvName());
         selectTeam(simu_,1);
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_05_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         callSimulationBeanMultiplicitySet(simu_,2);
+        callSimulationBeanEnvironmentSet(simu_, EnvironmentType.ROAD.getEnvName());
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
     }
     protected static Struct pkTrainerTwoTeamsNextOkAlly() {
@@ -1804,6 +1806,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     private static void genderSet(Struct _str) {
         callEditTrainerPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
+    }
+
+    private static void genderSetPl(Struct _str) {
+        callAddPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
     }
 
     private static Struct chooseName(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
@@ -2164,6 +2170,36 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanCancel(),addPk_);
     }
 
+    protected static Struct pkPlayerSelectPkNameAbility(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        return pkPlAb(_name, pk_, all_, mapping_, simu_);
+    }
+
+    private static Struct pkPlAb(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        Struct addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
+        callAddPokemonBeanTypedNameSet(addPk_, _name);
+        Struct afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
+        callAddPokemonBeanAbilitySet(afSearch_,A_SIM_2);
+        callAddPokemonBeanLevelSet(afSearch_,40);
+        genderSetPl(afSearch_);
+        return afSearch_;
+    }
+
+    protected static Struct pkPlayerSelectPkNameAdded(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+//        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+//        callAddPokemonBeanTypedNameSet(addPk_,_name);
+//        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
+        return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),pkPlAb(_name,pk_,all_,mapping_,simu_));
+    }
     protected static Struct pkPlayerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);

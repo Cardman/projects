@@ -640,4 +640,20 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void cancelSelPkPlayer() {
         assertSizeEq(0,callSimulationBeanTeamGet(pkPlayerSelectPkCancel()));
     }
+    @Test
+    public void getPkPlayerAbilities() {
+        assertSizeEq(2,callAddPokemonBeanAbilitiesGet(pkPlayerSelectPkName(P_POK_01_TR)));
+    }
+    @Test
+    public void getPkPlayerAbility() {
+        assertEq(A_SIM_2,callAddPokemonBeanAbilityGet(pkPlayerSelectPkNameAbility(P_POK_01_TR)));
+    }
+    @Test
+    public void getPkPlayerLevel() {
+        assertEq(40,callAddPokemonBeanLevelGet(pkPlayerSelectPkNameAbility(P_POK_01_TR)));
+    }
+    @Test
+    public void getPkPlayerGender() {
+        assertEq(Gender.NO_GENDER.getGenderName(), callAddPokemonBeanGenderGet(pkPlayerSelectPkNameAbility(P_POK_01_TR)));
+    }
 }
