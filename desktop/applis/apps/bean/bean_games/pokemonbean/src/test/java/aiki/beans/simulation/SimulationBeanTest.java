@@ -684,5 +684,24 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getAbility() {
         assertEq(A_SIM_2_TR,callSimulationBeanGetAbility(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
     }
-
+    @Test
+    public void addPkPlayerTwice() {
+        assertSizeEq(2,callSimulationBeanTeamGet(pkPlayerSelectPkNameTwice()));
+    }
+//    @Test
+//    public void selectPlayerPkInit() {
+//        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
+//    }
+//    @Test
+//    public void selectPlayerPkAddedNoSelect() {
+//        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
+//    }
+//    @Test
+//    public void selectPlayerPkAddedForeget() {
+//        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
+//    }
+//    @Test
+//    public void editingPlayer() {
+//        assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedAllyPk()));
+//    }
 }

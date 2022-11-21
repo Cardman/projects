@@ -1679,7 +1679,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
-        callSimulationBeanSelectedFoePkSet(simu_,-1);
+        callSimulationBeanSelectedAllyPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectAllyPk(),simu_);
     }
     protected static Struct pkTrainerAllyRemove() {
@@ -2152,6 +2152,95 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
         return edit_;
     }
+    protected static String editNoPlayerPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_,-1);
+        return navigateData(new SimulationBeanSelectPk(),simu_);
+    }
+    protected static Struct pkTrainerPlayerRemove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        Struct second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        callSimulationBeanSelectedActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(second_,0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectPk(),second_);
+    }
+    protected static String editNoSelectedPlayerPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(added_,-1);
+        return navigateData(new SimulationBeanSelectPk(),added_);
+    }
+    protected static Struct editEditSelectedPlayerPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(added_,0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectPk(),added_);
+    }
+    protected static Struct formEditSelectedPlayerPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(added_,0);
+        return added_;
+    }
+    protected static Struct editEditSelectedPlayerPkAddMove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(added_,0);
+        Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPk(), added_);
+        addMove(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
+        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
+    }
+    protected static String editForgetSelectedPlayerPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
+        callSimulationBeanSelectedPkSet(added_,0);
+        return navigateData(new SimulationBeanSelectPk(),added_);
+    }
+
+    private static Struct pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
+        Struct addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
+        callAddPokemonBeanTypedNameSet(addPk_,_name);
+        Struct afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
+        callAddPokemonBeanAbilitySet(afSearch_,_ability);
+        callAddPokemonBeanLevelSet(afSearch_,_level);
+        Struct afterAddEdit_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanAdd(), afSearch_);
+        assertSame(afterAddEdit_,_simu);
+        return afterAddEdit_;
+    }
     protected static Struct pkPlayerSelectPk() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2177,6 +2266,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return pkPlAb(_name, pk_, all_, mapping_, simu_);
+    }
+
+    protected static Struct pkPlayerSelectPkNameTwice() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1,pk_,all_,mapping_,simu_,40);
+        return pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_2,pk_,all_,mapping_,simu_,39);
     }
 
     private static Struct pkPlAb(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
