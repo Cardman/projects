@@ -76,6 +76,7 @@ public class AddPokemonBean extends WithFilterBean {
     }
     public String cancel() {
         getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.NOTHING);
+        getForms().removeKey(CST_PK_NAME);
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
     public String search() {
