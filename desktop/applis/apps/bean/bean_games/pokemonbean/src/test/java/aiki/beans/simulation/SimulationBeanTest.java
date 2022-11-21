@@ -888,4 +888,16 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getHealEditKo() {
         assertFalse(callEditPokemonBeanHealGet(editEditSelectedPlayerPkHeal(false)));
     }
+    @Test
+    public void getNameFormHeal() {
+        assertEq(P_POK_00_TR,callSimulationBeanGetName(editEditSelectedPlayerPkForm(true,Rate.one(),Rate.newRate("382/25")),0));
+    }
+    @Test
+    public void getNameFormTooMuch() {
+        assertEq(P_POK_00_TR,callSimulationBeanGetName(editEditSelectedPlayerPkForm(false,Rate.one(),Rate.newRate("386/25")),0));
+    }
+    @Test
+    public void getNameFormZero() {
+        assertEq(P_POK_00_TR,callSimulationBeanGetName(editEditSelectedPlayerPkForm(false,Rate.one(),Rate.zero()),0));
+    }
 }

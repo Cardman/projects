@@ -2215,6 +2215,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
     }
+    protected static Struct editEditSelectedPlayerPkForm(boolean _heal, Rate _exp, Rate _hp) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        callEditPokemonBeanHealSet(editing_, _heal);
+        callEditPokemonBeanBallSet(editing_,I_BALL);
+        callEditPokemonBeanExperienceSet(editing_, _exp);
+        callEditPokemonBeanRemainingHpSet(editing_, _hp);
+        callEvLineEvSet(second(elt(callEditPokemonBeanEvGet(editing_),2)),33);
+        return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
+    }
     protected static Struct editEditSelectedPlayerPkHeal(boolean _heal) {
         Struct h_ = editEditSelectedPlayerPk();
         callEditPokemonBeanHealSet(h_,_heal);
