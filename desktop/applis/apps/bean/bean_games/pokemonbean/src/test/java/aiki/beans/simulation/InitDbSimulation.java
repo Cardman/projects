@@ -2200,6 +2200,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
         return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),pkPlAb(_name,pk_,all_,mapping_,simu_));
     }
+
+    protected static Struct pkPlayerSelectPkNameQuickAdded() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+//        callAddPokemonBeanTypedNameSet(addPk_,_name);
+//        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
+        return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),addPk_);
+    }
     protected static Struct pkPlayerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
