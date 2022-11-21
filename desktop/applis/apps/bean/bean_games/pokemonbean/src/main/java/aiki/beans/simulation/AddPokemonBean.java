@@ -50,6 +50,7 @@ public class AddPokemonBean extends WithFilterBean {
         if (!getForms().contains(CST_PK_NAME)) {
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML;
         }
+        getForms().removeKey(CST_PK_NAME);
         DataBase data_ = getDataBase();
         common.patchLevel(data_);
         /*if (level < data_.getMinLevel()) {

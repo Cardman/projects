@@ -540,4 +540,104 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void sufficientPkInTeamsAlly() {
         assertTrue(callSimulationBeanOkGet(pkTrainerTwoTeamsNextOkAlly()));
     }
+    @Test
+    public void getPkPlayerName() {
+        assertEq(NULL_REF,callAddPokemonBeanNamePkGet(pkPlayer()));
+    }
+    @Test
+    public void getBooleansSelPkPlayer1() {
+        assertSizeEq(3,callAddPokemonBeanBooleansGet(pkPlayer()));
+    }
+    @Test
+    public void genderBeginPkPlayer() {
+        assertEq(Gender.NO_GENDER.getGenderName(),callAddPokemonBeanGenderGet(pkPlayer()));
+    }
+    @Test
+    public void gendersListPkPlayer() {
+        assertSizeEq(0,callAddPokemonBeanGendersGet(pkPlayer()));
+    }
+    @Test
+    public void levelBeginPkPlayer() {
+        assertEq(0,callAddPokemonBeanLevelGet(pkPlayer()));
+    }
+    @Test
+    public void typeNameSelPkPlayer() {
+        assertEq(NULL_REF,callAddPokemonBeanTypedNameGet(pkPlayerSelectPk()));
+    }
+    @Test
+    public void getPokedexPkPlayer() {
+        assertSizeEq(10,callAddPokemonBeanPokedexGet(pkPlayerSelectPkName("")));
+    }
+    @Test
+    public void getSelectedPkPlayer() {
+        assertEq(P_POK_01,callAddPokemonBeanNamePkGet(pkPlayerSelectPkName(P_POK_01_TR)));
+    }
+    @Test
+    public void typeTypeSelPkPlayer() {
+        assertEq(NULL_REF,callAddPokemonBeanTypedTypeGet(pkPlayerSelectPk()));
+    }
+    @Test
+    public void typeTypePkPlayerWholeWord1() {
+        assertFalse(callAddPokemonBeanWholeWordGet(pkPlayerSelectPkType("",false)));
+    }
+    @Test
+    public void typeTypePkPlayerWholeWord2() {
+        assertTrue(callAddPokemonBeanWholeWordGet(pkPlayerSelectPkType("",true)));
+    }
+    @Test
+    public void getPokedexPkPlayerWholeWord1() {
+        assertSizeEq(0,callAddPokemonBeanPokedexGet(pkPlayerSelectPkType("T_*",true)));
+    }
+    @Test
+    public void getPokedexPkPlayerWholeWord2() {
+        assertSizeEq(10,callAddPokemonBeanPokedexGet(pkPlayerSelectPkType("T_*",false)));
+    }
+    @Test
+    public void getMiniImagePkPlayer() {
+        assertEq("AAABAAAC",callAddPokemonBeanGetMiniImage());
+    }
+    @Test
+    public void clickLinkPkPlayer1() {
+        assertEq(P_POK_01,callAddPokemonBeanNamePkGet(pkPlayerSelectPkRow(1)));
+    }
+    @Test
+    public void hasEvoSelPkPlayer() {
+        assertEq(SelectedBoolean.YES_AND_NO.getBoolName(),callAddPokemonBeanHasEvoGet(pkPlayerSelectPk()));
+    }
+    @Test
+    public void getPokedexPkPlayerHasEvo1() {
+        assertSizeEq(3,callAddPokemonBeanPokedexGet(pkPlayerSelectPkHasEvo(SelectedBoolean.YES.getBoolName())));
+    }
+    @Test
+    public void getPokedexPkPlayerHasEvo2() {
+        assertSizeEq(7,callAddPokemonBeanPokedexGet(pkPlayerSelectPkHasEvo(SelectedBoolean.NO.getBoolName())));
+    }
+    @Test
+    public void isEvoSelPkPlayer() {
+        assertEq(SelectedBoolean.YES_AND_NO.getBoolName(),callAddPokemonBeanIsEvoGet(pkPlayerSelectPk()));
+    }
+    @Test
+    public void getPokedexIsEvoPkPlayer1() {
+        assertSizeEq(3,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsEvo(SelectedBoolean.YES.getBoolName())));
+    }
+    @Test
+    public void getPokedexIsEvoPkPlayer2() {
+        assertSizeEq(7,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsEvo(SelectedBoolean.NO.getBoolName())));
+    }
+    @Test
+    public void isLegPkPlayer() {
+        assertEq(SelectedBoolean.YES_AND_NO.getBoolName(),callAddPokemonBeanIsLegGet(pkPlayerSelectPk()));
+    }
+    @Test
+    public void getPokedexIsLegPkPlayer1() {
+        assertSizeEq(2,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsLeg(SelectedBoolean.YES.getBoolName())));
+    }
+    @Test
+    public void getPokedexIsLegPkPlayer2() {
+        assertSizeEq(8,callAddPokemonBeanPokedexGet(pkPlayerSelectPkIsLeg(SelectedBoolean.NO.getBoolName())));
+    }
+    @Test
+    public void cancelSelPkPlayer() {
+        assertSizeEq(0,callSimulationBeanTeamGet(pkPlayerSelectPkCancel()));
+    }
 }

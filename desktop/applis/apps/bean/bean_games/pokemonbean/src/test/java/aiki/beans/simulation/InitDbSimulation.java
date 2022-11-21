@@ -1158,8 +1158,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGendersGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanGetMiniImage(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGetMiniImage(),_str,_args);
+    public static Struct callAddPokemonBeanGetMiniImage() {
+        return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGetMiniImage(),pkPlayerSelectPkName(""),0);
     }
 
     public static Struct callAddPokemonBeanHasEvoGet(Struct _str, long... _args) {
@@ -2146,6 +2146,111 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
         return edit_;
     }
+    protected static Struct pkPlayerSelectPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        return goToAddPkPlayer(pk_, all_, mapping_, simu_);
+    }
+    protected static Struct pkPlayerSelectPkCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanCancel(),addPk_);
+    }
+
+    protected static Struct pkPlayerSelectPkName(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        callAddPokemonBeanTypedNameSet(addPk_,_name);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+    }
+    protected static Struct pkPlayerSelectPkHasEvo(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        callAddPokemonBeanHasEvoSet(addPk_,_name);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+    }
+    protected static Struct pkPlayerSelectPkIsEvo(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        callAddPokemonBeanIsEvoSet(addPk_,_name);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+    }
+    protected static Struct pkPlayerSelectPkIsLeg(String _name) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        callAddPokemonBeanIsLegSet(addPk_,_name);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+    }
+    protected static Struct pkPlayerSelectPkRow(int _row) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        callAddPokemonBeanTypedNameSet(addPk_,"");
+        Struct rSe_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanClickLink(),rSe_,_row);
+    }
+    protected static Struct pkPlayerSelectPkType(String _type, boolean _wholeWord) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        callAddPokemonBeanTypedTypeSet(addPk_,_type);
+        callAddPokemonBeanWholeWordSet(addPk_,_wholeWord);
+        return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
+    }
+    protected static Struct pkPlayer() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        return goToAddPkPlayer(pk_,all_,mapping_,simu_);
+    }
+
+    private static void foeTeamsSample(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        callSimulationBeanMultiplicitySet(_simu,2);
+        selectTeam(_simu,1);
+        pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_05_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        callSimulationBeanMultiplicitySet(_simu,2);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
+    }
+
     private static Struct goToSelectPk(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _struct);
     }
@@ -2166,6 +2271,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
 
     protected static Struct goToAddPkTrainer(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
         return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer(),_simu);
+    }
+
+    protected static Struct goToAddPkPlayer(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        return transitSimu(_stds,_all,_mapping,new SimulationBeanAdd(),_simu);
     }
 
     public static Struct transitSimu(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {
