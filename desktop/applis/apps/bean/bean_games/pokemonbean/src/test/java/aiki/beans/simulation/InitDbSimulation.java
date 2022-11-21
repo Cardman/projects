@@ -2215,6 +2215,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
     }
+    protected static Struct editEditSelectedPlayerPkHeal(boolean _heal) {
+        Struct h_ = editEditSelectedPlayerPk();
+        callEditPokemonBeanHealSet(h_,_heal);
+        return h_;
+    }
     protected static Struct editEditSelectedPlayerPkItem() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2743,16 +2748,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         et_.addEntry(EnvironmentType.WATER,"WATER");
         data_.getTranslatedEnvironment().addEntry(EN, et_);
         IdMap<Statistic, String> stats_ = new IdMap<Statistic, String>();
-        stats_.addEntry(Statistic.ATTACK,"ATTACK");
-        stats_.addEntry(Statistic.SPECIAL_ATTACK,"SPECIAL_ATTACK");
-        stats_.addEntry(Statistic.DEFENSE,"DEFENSE");
-        stats_.addEntry(Statistic.SPECIAL_DEFENSE,"SPECIAL_DEFENSE");
-        stats_.addEntry(Statistic.SPEED, SPEED_TR);
-        stats_.addEntry(Statistic.ACCURACY,"ACCURACY");
-        stats_.addEntry(Statistic.EVASINESS,"EVASINESS");
-        stats_.addEntry(Statistic.HP,"HP");
-        stats_.addEntry(Statistic.PV_RESTANTS,"PV_RESTANTS");
-        stats_.addEntry(Statistic.CRITICAL_HIT,"CRITICAL_HIT");
+        stats_.addEntry(Statistic.ATTACK,"ATTACK1");
+        stats_.addEntry(Statistic.SPECIAL_ATTACK,"SPECIAL_ATTACK1");
+        stats_.addEntry(Statistic.DEFENSE,"DEFENSE1");
+        stats_.addEntry(Statistic.SPECIAL_DEFENSE,"SPECIAL_DEFENSE1");
+        stats_.addEntry(Statistic.SPEED, "SPEED1");
+        stats_.addEntry(Statistic.ACCURACY,"ACCURACY1");
+        stats_.addEntry(Statistic.EVASINESS,"EVASINESS1");
+        stats_.addEntry(Statistic.HP,"HP1");
+        stats_.addEntry(Statistic.PV_RESTANTS,"PV_RESTANTS1");
+        stats_.addEntry(Statistic.CRITICAL_HIT,"CRITICAL_HIT1");
         data_.getTranslatedStatistics().addEntry(EN, stats_);
         IdMap<TargetChoice, String> tar_ = new IdMap<TargetChoice, String>();
         tar_.addEntry(TargetChoice.ADJ_ADV,"ADJ_ADV");

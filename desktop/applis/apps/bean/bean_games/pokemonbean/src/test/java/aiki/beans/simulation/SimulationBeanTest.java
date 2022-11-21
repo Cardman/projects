@@ -796,4 +796,96 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void editPkPlayerKeepItem() {
         assertEq(I_BALL_TR,callEditPokemonBeanTranslateItem(editEditSelectedPlayerPkItemCancel()));
     }
+    @Test
+    public void getLevelEdit() {
+        assertEq(4,callEditPokemonBeanLevelGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getExpEdit() {
+        assertEq(Rate.zero(),callEditPokemonBeanExperienceGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getBallEdit() {
+        assertEq(NULL_REF,callEditPokemonBeanBallGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getBallsEdit() {
+        assertSizeEq(1,callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getBallsEditKey() {
+        assertEq(I_BALL,first(elt(callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()),0)));
+    }
+    @Test
+    public void getBallsEditValue() {
+        assertEq(I_BALL_TR,second(elt(callEditPokemonBeanBallsGet(editEditSelectedPlayerPk()),0)));
+    }
+    @Test
+    public void getHappinessEdit() {
+        assertEq(0,callEditPokemonBeanHappinessGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getRemainingHp() {
+        assertEq(Rate.newRate("384/25"),callEditPokemonBeanRemainingHpGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getEvEdit() {
+        assertSizeEq(6,callEditPokemonBeanEvGet(editEditSelectedPlayerPk()));
+    }
+    @Test
+    public void getEvEditHpTr() {
+        assertEq("HP1",callEditPokemonBeanGetTranslatedStatistic(editEditSelectedPlayerPk(),0));
+    }
+    @Test
+    public void getEvEditHp() {
+        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),0))));
+    }
+    @Test
+    public void getEvEditAttackTr() {
+        assertEq("ATTACK1",callEditPokemonBeanGetTranslatedStatistic(editEditSelectedPlayerPk(),1));
+    }
+    @Test
+    public void getEvEditAttack() {
+        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),1))));
+    }
+    @Test
+    public void getEvEditDefenseTr() {
+        assertEq("DEFENSE1",callEditPokemonBeanGetTranslatedStatistic(editEditSelectedPlayerPk(),2));
+    }
+    @Test
+    public void getEvEditDefense() {
+        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),2))));
+    }
+    @Test
+    public void getEvEditSpecAttackTr() {
+        assertEq("SPECIAL_ATTACK1",callEditPokemonBeanGetTranslatedStatistic(editEditSelectedPlayerPk(),3));
+    }
+    @Test
+    public void getEvEditSpecAttack() {
+        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),3))));
+    }
+    @Test
+    public void getEvEditSpecDefenseTr() {
+        assertEq("SPECIAL_DEFENSE1",callEditPokemonBeanGetTranslatedStatistic(editEditSelectedPlayerPk(),4));
+    }
+    @Test
+    public void getEvEditSpecDefense() {
+        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),4))));
+    }
+    @Test
+    public void getEvEditSpeedTr() {
+        assertEq("SPEED1",callEditPokemonBeanGetTranslatedStatistic(editEditSelectedPlayerPk(),5));
+    }
+    @Test
+    public void getEvEditSpeed() {
+        assertEq(0,callEvLineEvGet(second(elt(callEditPokemonBeanEvGet(editEditSelectedPlayerPk()),5))));
+    }
+    @Test
+    public void getHealEditOk() {
+        assertTrue(callEditPokemonBeanHealGet(editEditSelectedPlayerPkHeal(true)));
+    }
+    @Test
+    public void getHealEditKo() {
+        assertFalse(callEditPokemonBeanHealGet(editEditSelectedPlayerPkHeal(false)));
+    }
 }
