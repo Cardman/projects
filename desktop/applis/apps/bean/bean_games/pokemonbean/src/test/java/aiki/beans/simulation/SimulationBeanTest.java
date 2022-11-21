@@ -664,4 +664,25 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void addPkPlayer() {
         assertSizeEq(1,callSimulationBeanTeamGet(pkPlayerSelectPkNameAdded(P_POK_01_TR)));
     }
+    @Test
+    public void getImage() {
+        assertEq("AAABAAAD",callSimulationBeanGetImage(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
+    }
+    @Test
+    public void getName() {
+        assertEq(P_POK_01_TR,callSimulationBeanGetName(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
+    }
+    @Test
+    public void getGender() {
+        assertEq(NO_G,callSimulationBeanGetGender(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
+    }
+    @Test
+    public void getLevel() {
+        assertEq(40,callSimulationBeanGetLevel(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
+    }
+    @Test
+    public void getAbility() {
+        assertEq(A_SIM_2_TR,callSimulationBeanGetAbility(pkPlayerSelectPkNameAdded(P_POK_01_TR),0));
+    }
+
 }
