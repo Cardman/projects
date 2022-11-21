@@ -780,4 +780,20 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void editPkPlayerMovesCancel() {
         assertSizeEq(1,callEditPokemonBeanMovesGet(editEditSelectedPlayerPkListMovesCancel()));
     }
+    @Test
+    public void editPkPlayerClickLinkFirst() {
+        assertEq(I_BALL_TR,callEditPokemonBeanTranslateItem(editEditSelectedPlayerPkItemPart(0)));
+    }
+    @Test
+    public void editPkPlayerClickLinkSecond() {
+        assertEq(I_MULT_EXP_TR,callEditPokemonBeanTranslateItem(editEditSelectedPlayerPkItemPart(1)));
+    }
+    @Test
+    public void editPkPlayerRemoveItem() {
+        assertEq(NULL_REF,callEditPokemonBeanTranslateItem(editEditSelectedPlayerPkItemCancelItem()));
+    }
+    @Test
+    public void editPkPlayerKeepItem() {
+        assertEq(I_BALL_TR,callEditPokemonBeanTranslateItem(editEditSelectedPlayerPkItemCancel()));
+    }
 }

@@ -2225,6 +2225,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
         assertSame(edit_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,edit_));
         return edit_;
     }
+    protected static Struct editEditSelectedPlayerPkItemCancelItem() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        Struct chosen_ = chooseItemPkPlayer(I_BALL_TR, pk_, all_, mapping_, edit_);
+        Struct redo_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanChooseItem(), chosen_);
+        return transitSimu(pk_, all_, mapping_, new SelectItemBeanCancelItem(), redo_);
+    }
+    protected static Struct editEditSelectedPlayerPkItemCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        Struct first_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanChooseItem(), edit_);
+        Struct back_ = transitSimu(pk_, all_, mapping_, new SelectItemBeanCancel(), first_);
+        return chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,back_);
+    }
+    protected static Struct editEditSelectedPlayerPkItemPart(int _row) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        Struct chosen_ = chooseItemPkPlayer("", pk_, all_, mapping_, edit_);
+        return transitSimu(pk_, all_, mapping_, new SelectItemBeanClickLink(), chosen_,_row);
+    }
     protected static Struct formEditSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
