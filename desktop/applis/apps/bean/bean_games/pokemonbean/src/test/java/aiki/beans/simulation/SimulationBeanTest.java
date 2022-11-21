@@ -2,6 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
 import org.junit.Test;
@@ -512,11 +513,31 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedAllyActionGet(formEditSelectedAllyPk()));
     }
     @Test
+    public void defaultMult() {
+        assertEq(1,callSimulationBeanMultiplicityGet(validateDiff(1)));
+    }
+    @Test
+    public void defaultEnv() {
+        assertEq(EnvironmentType.ROAD.getEnvName(),callSimulationBeanEnvironmentGet(validateDiff(1)));
+    }
+    @Test
+    public void envs() {
+        assertSizeEq(9,callSimulationBeanEnvironmentsGet(validateDiff(1)));
+    }
+    @Test
     public void noTeam() {
         assertFalse(callSimulationBeanOkGet(pkTrainerTwoTeamsNextKo()));
     }
     @Test
     public void sufficientPkInTeams() {
         assertTrue(callSimulationBeanOkGet(pkTrainerTwoTeamsNextOk()));
+    }
+    @Test
+    public void sufficientPkInTeamsAdjMult() {
+        assertTrue(callSimulationBeanOkGet(pkTrainerTwoTeamsNextAdjMult()));
+    }
+    @Test
+    public void sufficientPkInTeamsAlly() {
+        assertTrue(callSimulationBeanOkGet(pkTrainerTwoTeamsNextOkAlly()));
     }
 }

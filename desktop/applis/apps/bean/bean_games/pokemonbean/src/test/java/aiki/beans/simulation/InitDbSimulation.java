@@ -1530,6 +1530,38 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanMultiplicitySet(simu_,2);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
     }
+    protected static Struct pkTrainerTwoTeamsNextOkAlly() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 1);
+        selectTeam(simu_,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        pkTrainerSelectPkNameCycle(true, P_POK_02_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        pkTrainerSelectPkNameCycle(true, P_POK_03_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanMultiplicitySet(simu_,2);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
+    }
+    protected static Struct pkTrainerTwoTeamsNextAdjMult() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        selectTeam(simu_,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanMultiplicitySet(simu_,0);
+        selectTeam(simu_,1);
+        pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_05_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        callSimulationBeanMultiplicitySet(simu_,8);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
+    }
     protected static Struct pkTrainerTwoTeamsNextKo() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
