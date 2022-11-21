@@ -39,7 +39,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             return city(pt_, (short) pl_, (City) p_);
         }
         if (!(p_ instanceof Campaign)) {
-            return DataBase.EMPTY_STRING;
+            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
         }
         Campaign c_ = (Campaign) p_;
         LevelWithWildPokemon l_ = (LevelWithWildPokemon) c_.getLevelsMap().getVal((byte) lev_);
@@ -85,7 +85,7 @@ public class SimulationLevelBean extends AbsLevelBean {
                 return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
             }
         }
-        return DataBase.EMPTY_STRING;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
 
     private String city(Point _pt, short _pl, City _p) {
@@ -112,7 +112,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             getForms().put(CST_NO_FIGHT, noFight);
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
         }
-        return DataBase.EMPTY_STRING;
+        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
 
     public int getNoFight() {
