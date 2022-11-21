@@ -3,7 +3,7 @@ package aiki.beans.simulation;
 import aiki.beans.*;
 import aiki.beans.db.*;
 import aiki.beans.facade.simulation.dto.*;
-import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.beans.facade.simulation.enums.*;
 import aiki.beans.game.*;
 import aiki.db.*;
 import aiki.facade.*;
@@ -1538,6 +1538,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
+        callSimulationBeanSelectedFoePkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectFoePk(),simu_);
     }
     protected static Struct pkTrainerFoeRemove() {
@@ -1545,8 +1546,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        assertSame(added_,simu_);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         Struct second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         callSimulationBeanSelectedFoeActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(second_,0);
@@ -1559,6 +1559,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
+        callSimulationBeanSelectedFoePkSet(added_,-1);
         return navigateData(new SimulationBeanSelectFoePk(),added_);
     }
     protected static Struct editEditSelectedFoePk() {
@@ -1598,15 +1599,68 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
+        callSimulationBeanSelectedFoePkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectAllyPk(),simu_);
+    }
+    protected static Struct pkTrainerAllyRemove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        Struct second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        callSimulationBeanSelectedAllyActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
+        callSimulationBeanSelectedAllyPkSet(second_,0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPk(),second_);
+    }
+    protected static String editNoSelectedAllyPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
+        callSimulationBeanSelectedAllyPkSet(added_,-1);
+        return navigateData(new SimulationBeanSelectAllyPk(),added_);
+    }
+    protected static Struct editEditSelectedAllyPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
+        callSimulationBeanSelectedAllyPkSet(added_,0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPk(),added_);
+    }
+    protected static Struct editEditSelectedAllyPkAddMove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
+        callSimulationBeanSelectedAllyPkSet(added_,0);
+        Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectAllyPk(), added_);
+        addMove(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
+        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
+    }
+    protected static String editForgetSelectedAllyPk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
+        callSimulationBeanSelectedAllyPkSet(added_,0);
+        return navigateData(new SimulationBeanSelectAllyPk(),added_);
     }
     protected static Struct pkTrainerIndex() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        assertSame(added_,simu_);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
     }
     protected static Struct pkTrainerLevel(int _level) {
@@ -1642,18 +1696,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callEditTrainerPokemonBeanAllyPkSet(selAb_, _ally);
         callEditTrainerPokemonBeanLevelSet(selAb_, _level);
         genderSet(selAb_);
-        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), selAb_);
+        Struct afterAddEdit_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), selAb_);
+        assertSame(afterAddEdit_,_simu);
+        return afterAddEdit_;
     }
 
     private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, String _item, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
         Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
         Struct retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
         Struct retAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
-        chooseItem(_item,_pk,_all,_mapping,retAb_);
+        assertSame(retAb_,chooseItem(_item,_pk,_all,_mapping,retAb_));
         callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
         callEditTrainerPokemonBeanLevelSet(retAb_, _level);
         genderSet(retAb_);
-        return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+        Struct afterAddEdit_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+        assertSame(afterAddEdit_,_simu);
+        return afterAddEdit_;
     }
 
     private static void genderSet(Struct _str) {
@@ -1663,13 +1721,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static Struct chooseName(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
         Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _str);
         callSelectPokemonBeanTypedNameSet(selPk_, _name);
-        return transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
+        Struct afSel_ = transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
+        assertSame(afSel_,_str);
+        return afSel_;
     }
 
     private static Struct chooseAbility(String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
         Struct selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _str);
         callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
-        return transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
+        Struct afSel_ = transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
+        assertSame(afSel_,_str);
+        return afSel_;
     }
 
     /*protected static Struct pkTrainerSelectPkNameOne(String _name) {
@@ -1948,9 +2010,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         StringMap<String> mapping_ = mappingToSimu();
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct afterIt_ = chooseItem(I_BALL_TR,pk_,all_,mapping_,editPkTrainer_);
-        callEditTrainerPokemonBeanAllyPkSet(afterIt_, _ally);
-        return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),afterIt_);
+        assertSame(editPkTrainer_,chooseItem(I_BALL_TR,pk_,all_,mapping_,editPkTrainer_));
+        callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
+        return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editPkTrainer_);
     }
     protected static Struct pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());

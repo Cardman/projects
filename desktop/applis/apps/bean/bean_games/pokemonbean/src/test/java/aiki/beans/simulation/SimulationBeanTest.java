@@ -435,7 +435,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedFoePk());
     }
     @Test
-    public void editing() {
+    public void editingFoe() {
         assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedFoePk()));
     }
     @Test
@@ -451,11 +451,47 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesFoe(editEditSelectedFoePkAddMove(),0),1));
     }
     @Test
-    public void pkTrainerIndexAfterRemove() {
+    public void pkTrainerFoeIndexAfterRemove() {
         assertEq(0,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanFoeTeamGet(pkTrainerFoeRemove()),0)));
     }
     @Test
-    public void pkTrainerNameAfterRemove() {
+    public void pkTrainerNameFoeAfterRemove() {
         assertEq(P_POK_01_TR,callSimulationBeanGetNameFoe(pkTrainerFoeRemove(),0));
+    }
+    @Test
+    public void selectAllyPkInit() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoAllyPk());
+    }
+    @Test
+    public void selectAllyPkAddedNoSelect() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoSelectedAllyPk());
+    }
+    @Test
+    public void selectAllyPkAddedForeget() {
+        assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editForgetSelectedAllyPk());
+    }
+    @Test
+    public void editingAlly() {
+        assertFalse(callEditTrainerPokemonBeanAddGet(editEditSelectedAllyPk()));
+    }
+    @Test
+    public void getMovesAllyEditPkTrainer() {
+        assertSizeEq(2,callSimulationBeanGetMovesAlly(editEditSelectedAllyPkAddMove(),0));
+    }
+    @Test
+    public void getMovesAllyEditPkTrainerFirst() {
+        assertEq(M_POK_00_TR,elt(callSimulationBeanGetMovesAlly(editEditSelectedAllyPkAddMove(),0),0));
+    }
+    @Test
+    public void getMovesAllyEditPkTrainerSecond() {
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesAlly(editEditSelectedAllyPkAddMove(),0),1));
+    }
+    @Test
+    public void pkTrainerAllyIndexAfterRemove() {
+        assertEq(0,callPokemonTrainerDtoIndexGet(elt(callSimulationBeanAllyTeamGet(pkTrainerAllyRemove()),0)));
+    }
+    @Test
+    public void pkTrainerNameAllyAfterRemove() {
+        assertEq(P_POK_01_TR,callSimulationBeanGetNameAlly(pkTrainerAllyRemove(),0));
     }
 }
