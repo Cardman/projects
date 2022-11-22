@@ -1165,4 +1165,32 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void moveSetFrontFighterChoiceRound2IndexSecond() {
         assertEq(1,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),1)));
     }
+    @Test
+    public void allyChoiceSet1() {
+        assertFalse(callSimulationBeanAllyChoiceGet(pkPlayerEvoFighterChoiceAfter(0,0,false,0,0)));
+    }
+    @Test
+    public void allyChoiceSet2() {
+        assertTrue(callSimulationBeanAllyChoiceGet(pkPlayerEvoFighterChoiceAfter(1,1,true,0,0)));
+    }
+    @Test
+    public void targetChoice() {
+        assertEq("1",callSimulationBeanTargetGet(pkPlayerEvoFighterChoiceAfter(0,0,true,0,1)));
+    }
+    @Test
+    public void moveChoice() {
+        assertEq(1,callSimulationBeanSelectedMoveGet(pkPlayerEvoFighterChoiceAfter(0,0,true,1,0)));
+    }
+    @Test
+    public void moveChoiceNo() {
+        assertEq(-1,callSimulationBeanSelectedMoveGet(pkPlayerEvoFighterChoiceAfter(0,0,true,-1,0)));
+    }
+    @Test
+    public void getDisplayIfError1() {
+        assertFalse(callSimulationBeanDisplayIfErrorGet(pkPlayerEvoFighterChoiceAfter(0,0,true,0,0)));
+    }
+    @Test
+    public void getDisplayIfError2() {
+        assertTrue(callSimulationBeanDisplayIfErrorGet(pkPlayerEvoFightersWithoutFronts()));
+    }
 }
