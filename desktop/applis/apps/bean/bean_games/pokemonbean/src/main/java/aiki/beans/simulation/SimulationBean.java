@@ -935,21 +935,13 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         return getForms().contains(CST_POKEMON_INDEX_EDIT);
     }
     public void displayEvolutions() {
+        DataBase data_ = getDataBase();
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {
-            if (availableEvos != null) {
-                availableEvos.clear();
-            }
+            availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
             return;
         }
         getForms().put(CST_POKEMON_INDEX_EDIT, selectedPk);
-        StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(selectedPk);
-        DataBase data_ = getDataBase();
-        availableEvosLevel = new StringMap<Short>(evos_);
-        StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
-        for (String e: evos_.getKeys()) {
-            availableEvos.put(e, map_.getVal(e));
-        }
+        evoList(data_,selectedPk);
     }
     public void validateEvo() {
 //        if (!getForms().contains(POKEMON_INDEX_EDIT)) {
@@ -959,13 +951,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
         levelEvo = (short) NumberUtil.max(levelEvo, availableEvosLevel.getVal(chosenEvo));
         simulation.setNextEvolutions(index_, chosenEvo, (short) levelEvo, data_);
-        StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
-        availableEvosLevel = new StringMap<Short>(evos_);
-        StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
-        for (String e: evos_.getKeys()) {
-            availableEvos.put(e, map_.getVal(e));
-        }
+        evoList(data_, index_);
     }
     public void cancelEvo() {
 //        if (!getForms().contains(POKEMON_INDEX_EDIT)) {
@@ -974,14 +960,19 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         DataBase data_ = getDataBase();
         int index_ = getForms().getValInt(CST_POKEMON_INDEX_EDIT);
         simulation.cancelEvolutions(index_, data_);
-        StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(index_);
+        evoList(data_, index_);
+    }
+
+    private void evoList(DataBase _data, int _index) {
+        StringMap<Short> evos_ = simulation.getAvailableEvolutions().get(_index);
         availableEvosLevel = new StringMap<Short>(evos_);
-        StringMap<String> map_ = data_.getTranslatedPokemon().getVal(getLanguage());
-        availableEvos = DictionaryComparatorUtil.buildPkStr(data_,getLanguage());
+        StringMap<String> map_ = _data.getTranslatedPokemon().getVal(getLanguage());
+        availableEvos = DictionaryComparatorUtil.buildPkStr(_data,getLanguage());
         for (String e: evos_.getKeys()) {
             availableEvos.put(e, map_.getVal(e));
         }
     }
+
     public void validateFrontFighter() {
         displayIfError = false;
         if (selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT) {

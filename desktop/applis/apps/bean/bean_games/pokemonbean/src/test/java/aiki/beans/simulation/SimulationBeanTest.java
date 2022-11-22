@@ -908,4 +908,60 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void cancelEditingPkPlayer() {
         assertSizeEq(1,callSimulationBeanGetMoves(editEditSelectedPlayerPkFormCancel(),0));
     }
+    @Test
+    public void koPlayerTeam() {
+        assertFalse(callSimulationBeanOkGet(pkPlayerValidateEvosKo()));
+    }
+    @Test
+    public void okPlayerTeam() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerValidateEvos()));
+    }
+    @Test
+    public void selectedIndexFalse() {
+        assertFalse(callSimulationBeanSelectedIndex(pkPlayerValidateEvosNoSelect()));
+    }
+    @Test
+    public void selectedIndexTrue() {
+        assertTrue(callSimulationBeanSelectedIndex(pkPlayerValidateEvosSelect()));
+    }
+    @Test
+    public void noEvoSel() {
+        assertSizeEq(0,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosNoSelect()));
+    }
+    @Test
+    public void evoSel() {
+        assertSizeEq(1,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()));
+    }
+    @Test
+    public void evoSelKey() {
+        assertEq(P_POK_03,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()),0)));
+    }
+    @Test
+    public void evoSelValue() {
+        assertEq(P_POK_03_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelect()),0)));
+    }
+    @Test
+    public void levelEvo() {
+        assertEq(41,callSimulationBeanLevelEvoGet(pkPlayerValidateEvoValues()));
+    }
+    @Test
+    public void chosenEvo() {
+        assertEq(P_POK_03,callSimulationBeanChosenEvoGet(pkPlayerValidateEvoValues()));
+    }
+    @Test
+    public void levelEvoForm() {
+        assertEq(41,callSimulationBeanLevelEvoGet(pkPlayerValidateEvoValidate()));
+    }
+    @Test
+    public void chosenEvoForm() {
+        assertEq(P_POK_03,callSimulationBeanChosenEvoGet(pkPlayerValidateEvoValidate()));
+    }
+    @Test
+    public void validateEvoNoRemainEvo() {
+        assertSizeEq(0,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvoValidate()));
+    }
+    @Test
+    public void cancelEvo() {
+        assertSizeEq(1,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvoValidateThenCancel()));
+    }
 }
