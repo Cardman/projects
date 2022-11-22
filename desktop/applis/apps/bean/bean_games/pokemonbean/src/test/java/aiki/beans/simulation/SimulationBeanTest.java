@@ -1021,4 +1021,20 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void placesFight() {
         assertEq(Long.toString(Fighter.BACK),callSimulationBeanPlaceFightGet(pkPlayerEvoThenFighters()));
     }
+    @Test
+    public void noSelectedFrontFighter() {
+        assertEq(-1,callSimulationBeanSelectedPkGet(pkPlayerEvoFightersImmediateValid()));
+    }
+    @Test
+    public void validateFighter() {
+        assertEq(0,callSimulationBeanSelectedPkGet(pkPlayerEvoFightersFormValid()));
+    }
+    @Test
+    public void koFrontFighters() {
+        assertFalse(callSimulationBeanOkGet(pkPlayerEvoFightersWithoutFronts()));
+    }
+    @Test
+    public void okFrontFighters() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFronts()));
+    }
 }

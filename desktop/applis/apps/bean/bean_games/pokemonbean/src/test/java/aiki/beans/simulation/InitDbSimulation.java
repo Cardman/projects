@@ -2506,9 +2506,73 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
-        validEvo(pk_, all_, mapping_, simu_,1);
-        validEvo(pk_, all_, mapping_, simu_,3);
-        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(),simu_);
+        return validEvos(pk_, all_, mapping_,simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersImmediateValid() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        callSimulationBeanSelectedPkSet(simu_,-1);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFrontFighter(),simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersFormValid() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        return changeFighterPosition(pk_, all_, mapping_, simu_, 0, "0", "0");
+    }
+
+    protected static Struct pkPlayerEvoFightersWithoutFronts() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFrontFighters(), simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersSufficientFronts() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        changeFighterPosition(pk_,all_,mapping_,simu_,0,"0","0");
+        changeFighterPosition(pk_,all_,mapping_,simu_,1,"0","1");
+        changeFighterPosition(pk_,all_,mapping_,simu_,2,"0",Long.toString(Fighter.BACK));
+        changeFighterPosition(pk_,all_,mapping_,simu_,3,"0",Long.toString(Fighter.BACK));
+        changeFighterPosition(pk_,all_,mapping_,simu_,0,"1","0");
+        changeFighterPosition(pk_,all_,mapping_,simu_,1,"1","1");
+        changeFighterPosition(pk_,all_,mapping_,simu_,2,"1",Long.toString(Fighter.BACK));
+        changeFighterPosition(pk_,all_,mapping_,simu_,3,"1",Long.toString(Fighter.BACK));
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFrontFighters(), simu_);
+    }
+
+    private static Struct changeFighterPosition(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _index, String _round, String _place) {
+        callSimulationBeanSelectedPkSet(_simu, _index);
+        callSimulationBeanSelectedRoundSet(_simu, _round);
+        callSimulationBeanPlaceFightSet(_simu, _place);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighter(),_simu);
+    }
+
+    private static Struct validEvos(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        validEvo(_pk, _all, _mapping, _simu,1);
+        validEvo(_pk, _all, _mapping, _simu,3);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvolutions(),_simu);
     }
 
     protected static Struct pkPlayerValidateEvoValidateThenCancel() {
