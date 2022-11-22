@@ -453,9 +453,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsHardSimulationIssue(),_str,_args);
 //    }
 //
-//    public static Struct callSimulationBeanIsIssue(Struct _str, long... _args) {
-//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssue(),_str,_args);
-//    }
+    public static Struct callSimulationBeanIsIssue(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssue(),_str,_args);
+    }
 
 //    public static Struct callSimulationBeanIsIssueAfterFight(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
@@ -2635,13 +2635,60 @@ public abstract class InitDbSimulation extends InitDbConstr {
         validEvos(pk_, all_, mapping_,simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
         movesSet(pk_, all_, mapping_, simu_);
-        callSimulationBeanSelectedPkSet(simu_,_index);
-        callSimulationBeanSelectedRoundSet(simu_,Long.toString(_round));
-        beforeDisplaying(simu_);
-        callSimulationBeanAllyChoiceSet(simu_, _allyChoice);
-        callSimulationBeanSelectedMoveSet(simu_, _move);
-        callSimulationBeanTargetSet(simu_, Long.toString(_target));
-        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateMovesChoice(),simu_);
+        return moveChoice(_index, _round, _allyChoice, _move, _target, pk_, all_, mapping_, simu_);
+    }
+
+    protected static Struct pkPlayerEvoFighterSimulate() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
+    }
+
+    protected static Struct pkPlayerEvoFighterSimulateKo() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoicesKo(pk_, all_, mapping_, simu_));
+    }
+
+    private static Struct moveChoices(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
+        moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
+        return moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
+    }
+
+    private static Struct moveChoicesKo(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
+        moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+        return moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
+    }
+
+    private static Struct moveChoice(int _index, int _round, int _move, int _target, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        return moveChoice(_index,_round,false,_move,_target,_pk,_all,_mapping,_simu);
+    }
+    private static Struct moveChoice(int _index, int _round, boolean _allyChoice, int _move, int _target, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        callSimulationBeanSelectedPkSet(_simu, _index);
+        callSimulationBeanSelectedRoundSet(_simu,Long.toString(_round));
+        beforeDisplaying(_simu);
+        callSimulationBeanAllyChoiceSet(_simu, _allyChoice);
+        callSimulationBeanSelectedMoveSet(_simu, _move);
+        callSimulationBeanTargetSet(_simu, Long.toString(_target));
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesChoice(), _simu);
     }
 
     protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {

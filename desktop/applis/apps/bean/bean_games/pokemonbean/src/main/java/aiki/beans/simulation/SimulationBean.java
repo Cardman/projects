@@ -137,10 +137,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
 
     private void stateSimu() {
         if (isIssue()) {
-            comments.clear();
-            for (String l: simulation.getComment()) {
-                comments.add(escapedStringQuote(l));
-            }
+            setupComments();
         }
         teamAfterFight = new CustList<PokemonPlayer>();
         if (!simulation.getProbleme()) {
@@ -1097,6 +1094,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         stepNumber--;
     }
     public void displayComments() {
+        setupComments();
+    }
+    private void setupComments() {
         comments.clear();
         for (String l: simulation.getComment()) {
             comments.add(escapedStringQuote(l));
