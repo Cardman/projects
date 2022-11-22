@@ -2551,15 +2551,33 @@ public abstract class InitDbSimulation extends InitDbConstr {
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
-        changeFighterPosition(pk_,all_,mapping_,simu_,0,"0","0");
-        changeFighterPosition(pk_,all_,mapping_,simu_,1,"0","1");
-        changeFighterPosition(pk_,all_,mapping_,simu_,2,"0",Long.toString(Fighter.BACK));
-        changeFighterPosition(pk_,all_,mapping_,simu_,3,"0",Long.toString(Fighter.BACK));
-        changeFighterPosition(pk_,all_,mapping_,simu_,0,"1","0");
-        changeFighterPosition(pk_,all_,mapping_,simu_,1,"1","1");
-        changeFighterPosition(pk_,all_,mapping_,simu_,2,"1",Long.toString(Fighter.BACK));
-        changeFighterPosition(pk_,all_,mapping_,simu_,3,"1",Long.toString(Fighter.BACK));
-        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFrontFighters(), simu_);
+        return fighterPositions(pk_, all_, mapping_, simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMove(int _index) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_,_index);
+        beforeDisplaying(simu_);
+        return simu_;
+    }
+
+    private static Struct fighterPositions(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
+        changeFighterPosition(_pk, _all, _mapping, _simu,2,"0",Long.toString(Fighter.BACK));
+        changeFighterPosition(_pk, _all, _mapping, _simu,3,"0",Long.toString(Fighter.BACK));
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"1","1");
+        changeFighterPosition(_pk, _all, _mapping, _simu,2,"1",Long.toString(Fighter.BACK));
+        changeFighterPosition(_pk, _all, _mapping, _simu,3,"1",Long.toString(Fighter.BACK));
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
     }
 
     private static Struct changeFighterPosition(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _index, String _round, String _place) {

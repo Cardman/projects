@@ -2840,6 +2840,7 @@ public class FightSimulationTest extends InitializationDataBase {
         fightSimulation_.getFrontFighters().last().last().put((byte)1, Fighter.BACK);
         fightSimulation_.prepareMovesToBeLearnt(data_);
         assertTrue(!fightSimulation_.isAvailableMoves(0));
+        assertTrue(!fightSimulation_.isAvailableMoves(-1));
     }
     @Test
     public void deleteMove1Test() {

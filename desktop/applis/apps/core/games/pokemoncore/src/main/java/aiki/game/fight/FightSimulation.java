@@ -1052,7 +1052,11 @@ public class FightSimulation {
     }
 
     public boolean isAvailableMoves(int _index) {
-        return !availableMoves.getVal((byte) _index).getMoves().isEmpty();
+        AvailableMovesInfos val_ = availableMoves.getVal((byte) _index);
+        if (val_ == null) {
+            return false;
+        }
+        return !val_.getMoves().isEmpty();
     }
 
     public boolean isAvailableAbilities(int _index) {

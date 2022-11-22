@@ -194,7 +194,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         translationsAbilities_ = data_.getTranslatedAbilities().getVal(getLanguage());
         abilities = DictionaryComparatorUtil.buildAbilities(data_,getLanguage());
         currentAbility = DataBase.EMPTY_STRING;
-        if (selectedIndexForMoves() && isAvailableMoves()) {
+        if (isAvailableMoves()) {
             if (isAvailableAbilities()) {
                 for (String a : getAvailableAbilities()) {
                     abilities.put(a, translationsAbilities_.getVal(a));

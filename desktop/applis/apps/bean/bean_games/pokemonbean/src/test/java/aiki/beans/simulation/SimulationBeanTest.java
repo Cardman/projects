@@ -1037,4 +1037,28 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void okFrontFighters() {
         assertTrue(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFronts()));
     }
+    @Test
+    public void isNotAvailMoves() {
+        assertFalse(callSimulationBeanIsAvailableMoves(pkPlayerEvoFightersSufficientFronts()));
+    }
+    @Test
+    public void noSelectedIndexMoves() {
+        assertFalse(callSimulationBeanSelectedIndexForMoves(pkPlayerEvoFightersSufficientFronts()));
+    }
+    @Test
+    public void selectedIndexMoves() {
+        assertTrue(callSimulationBeanSelectedIndexForMoves(pkPlayerEvoFightersSufficientFrontsFormMove(0)));
+    }
+    @Test
+    public void isNotAvailAbilities() {
+        assertFalse(callSimulationBeanIsAvailableAbilities(pkPlayerEvoFightersSufficientFrontsFormMove(0)));
+    }
+    @Test
+    public void isAvailAbilities() {
+        assertTrue(callSimulationBeanIsAvailableAbilities(pkPlayerEvoFightersSufficientFrontsFormMove(1)));
+    }
+    @Test
+    public void isAvailMoves() {
+        assertTrue(callSimulationBeanIsAvailableMoves(pkPlayerEvoFightersSufficientFrontsFormMove(1)));
+    }
 }
