@@ -2,6 +2,7 @@ package aiki.beans.simulation;
 
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.facade.enums.SelectedBoolean;
+import aiki.game.fight.Fighter;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
@@ -963,5 +964,21 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void cancelEvo() {
         assertSizeEq(1,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvoValidateThenCancel()));
+    }
+    @Test
+    public void rounds() {
+        assertSizeEq(2,callSimulationBeanRoundGet(pkPlayerEvoThenFighters()));
+    }
+    @Test
+    public void placesFights() {
+        assertSizeEq(3,callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()));
+    }
+    @Test
+    public void round() {
+        assertEq("0",callSimulationBeanSelectedRoundGet(pkPlayerEvoThenFighters()));
+    }
+    @Test
+    public void placesFight() {
+        assertEq(Long.toString(Fighter.BACK),callSimulationBeanPlaceFightGet(pkPlayerEvoThenFighters()));
     }
 }

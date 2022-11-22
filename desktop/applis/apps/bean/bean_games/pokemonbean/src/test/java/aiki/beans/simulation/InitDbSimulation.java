@@ -2499,6 +2499,18 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
     }
 
+    protected static Struct pkPlayerEvoThenFighters() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvo(pk_, all_, mapping_, simu_,1);
+        validEvo(pk_, all_, mapping_, simu_,3);
+        return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(),simu_);
+    }
+
     protected static Struct pkPlayerValidateEvoValidateThenCancel() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2512,6 +2524,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanLevelEvoSet(simu_,39);
         transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
         return transitSimu(pk_, all_, mapping_,new SimulationBeanCancelEvo(),simu_);
+    }
+    private static void validEvo(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _index) {
+        callSimulationBeanSelectedPkSet(_simu,_index);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanDisplayEvolutions(),_simu);
+        callSimulationBeanChosenEvoSet(_simu,P_POK_03);
+        callSimulationBeanLevelEvoSet(_simu,41);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvo(),_simu);
     }
 //
 //    protected static Struct pkPlayerValidateEvosSelect(int _index) {
