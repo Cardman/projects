@@ -970,8 +970,48 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertSizeEq(2,callSimulationBeanRoundGet(pkPlayerEvoThenFighters()));
     }
     @Test
+    public void roundsFirstKey() {
+        assertEq(0,first(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
+    }
+    @Test
+    public void roundsFirstValue() {
+        assertEq(0,second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),0)));
+    }
+    @Test
+    public void roundsSecondKey() {
+        assertEq(1,first(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
+    }
+    @Test
+    public void roundsSecondValue() {
+        assertEq(1,second(elt(callSimulationBeanRoundGet(pkPlayerEvoThenFighters()),1)));
+    }
+    @Test
     public void placesFights() {
         assertSizeEq(3,callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()));
+    }
+    @Test
+    public void placesFightsFirstKey() {
+        assertEq(Fighter.BACK,first(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),0)));
+    }
+    @Test
+    public void placesFightsFirstValue() {
+        assertEq(NULL_REF,second(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),0)));
+    }
+    @Test
+    public void placesFightsSecondKey() {
+        assertEq(0,first(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),1)));
+    }
+    @Test
+    public void placesFightsSecondValue() {
+        assertEq("0",second(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),1)));
+    }
+    @Test
+    public void placesFightsThirdKey() {
+        assertEq(1,first(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),2)));
+    }
+    @Test
+    public void placesFightsThirdValue() {
+        assertEq("1",second(elt(callSimulationBeanPlacesFightGet(pkPlayerEvoThenFighters()),2)));
     }
     @Test
     public void round() {
