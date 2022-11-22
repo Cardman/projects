@@ -2609,6 +2609,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesSet(pk_, all_, mapping_, simu_);
     }
 
+    protected static Struct pkPlayerEvoFighterChoice(int _index, int _round) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_,_index);
+        callSimulationBeanSelectedRoundSet(simu_,Long.toString(_round));
+        beforeDisplaying(simu_);
+        return simu_;
+    }
+
     protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);

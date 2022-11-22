@@ -1121,4 +1121,48 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void okMoveSets() {
         assertTrue(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk()));
     }
+    @Test
+    public void targetsFight() {
+        assertSizeEq(2,callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)));
+    }
+    @Test
+    public void targetsFightFirstKey() {
+        assertEq(0,first(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),0)));
+    }
+    @Test
+    public void targetsFightFirstValue() {
+        assertEq("0",second(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),0)));
+    }
+    @Test
+    public void targetsFightSecondKey() {
+        assertEq(1,first(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),1)));
+    }
+    @Test
+    public void targetsFightSecondValue() {
+        assertEq("1",second(elt(callSimulationBeanTargetFightGet(pkPlayerEvoFighterChoice(0,0)),1)));
+    }
+    @Test
+    public void moveSetFrontFighterChoiceRound1() {
+        assertSizeEq(2,callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)));
+    }
+    @Test
+    public void moveSetFrontFighterChoiceRound1IndexFirst() {
+        assertEq(0,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)),0)));
+    }
+    @Test
+    public void moveSetFrontFighterChoiceRound1IndexSecond() {
+        assertEq(1,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,0)),1)));
+    }
+    @Test
+    public void moveSetFrontFighterChoiceRound2() {
+        assertSizeEq(2,callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)));
+    }
+    @Test
+    public void moveSetFrontFighterChoiceRound2IndexFirst() {
+        assertEq(0,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),0)));
+    }
+    @Test
+    public void moveSetFrontFighterChoiceRound2IndexSecond() {
+        assertEq(1,callRadioLineMoveIndexGet(elt(callSimulationBeanMovesSetGet(pkPlayerEvoFighterChoice(0,1)),1)));
+    }
 }
