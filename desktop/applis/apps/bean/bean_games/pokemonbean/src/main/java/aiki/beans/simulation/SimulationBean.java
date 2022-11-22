@@ -370,6 +370,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             pk_.getPkTrainer().setItem(getForms().getValStr(CST_ITEM_EDIT));
             pk_.getPkTrainer().setLevel((short) getForms().getValInt(CST_POKEMON_LEVEL_EDIT));
         }
+        getForms().put(CST_ADDING_TRAINER_PK,TeamCrud.NOTHING);
     }
 
     private void stateDiff() {
