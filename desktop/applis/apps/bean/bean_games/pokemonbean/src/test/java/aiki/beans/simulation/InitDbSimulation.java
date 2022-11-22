@@ -2568,6 +2568,95 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return simu_;
     }
 
+    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(int _index, String _ab) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_,_index);
+        beforeDisplaying(simu_);
+        return movesAbilities(_ab, pk_, all_, mapping_, simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(int _index, String _ab) {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_,_index);
+        beforeDisplaying(simu_);
+        movesAbilities(_ab, pk_, all_, mapping_, simu_);
+        return movesAbilities("", pk_, all_, mapping_, simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        return movesSet(pk_, all_, mapping_, simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_, 1);
+        beforeDisplaying(simu_);
+        callSimulationBeanCurrentAbilitySet(simu_, A_SIM_1);
+        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),0),true);
+        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),1),true);
+        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),2),true);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMoves(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesSets(), simu_);
+    }
+
+    private static Struct movesSet(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        withoutAbility(0, _pk, _all, _mapping, _simu);
+        withAbility(1,A_SIM_1, _pk, _all, _mapping, _simu);
+        withoutAbility(2, _pk, _all, _mapping, _simu);
+        withAbility(3,A_SIM_1, _pk, _all, _mapping, _simu);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesSets(), _simu);
+    }
+
+    private static Struct withAbility(int _index, String _ab, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        callSimulationBeanSelectedPkSet(_simu, _index);
+        beforeDisplaying(_simu);
+        movesAbilities(_ab, _pk, _all, _mapping, _simu);
+        movesAbilities("", _pk, _all, _mapping, _simu);
+        return movesAbilities("", _pk, _all, _mapping, _simu);
+    }
+
+    private static Struct withoutAbility(int _index, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        callSimulationBeanSelectedPkSet(_simu, _index);
+        beforeDisplaying(_simu);
+        movesAbilities("", _pk, _all, _mapping, _simu);
+        movesAbilities("", _pk, _all, _mapping, _simu);
+        return movesAbilities("", _pk, _all, _mapping, _simu);
+    }
+
+    private static Struct movesAbilities(String _ab, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        callSimulationBeanCurrentAbilitySet(_simu, _ab);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMoves(), _simu);
+    }
+
     private static Struct fighterPositions(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");

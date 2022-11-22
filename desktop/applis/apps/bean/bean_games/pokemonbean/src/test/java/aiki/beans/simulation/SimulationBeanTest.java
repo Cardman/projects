@@ -1061,4 +1061,64 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void isAvailMoves() {
         assertTrue(callSimulationBeanIsAvailableMoves(pkPlayerEvoFightersSufficientFrontsFormMove(1)));
     }
+    @Test
+    public void noCurrentAbility() {
+        assertEq(NULL_REF,callSimulationBeanCurrentAbilityGet(pkPlayerEvoFightersSufficientFrontsFormMove(0)));
+    }
+    @Test
+    public void currentAbility() {
+        assertEq(A_SIM_1,callSimulationBeanCurrentAbilityGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)));
+    }
+    @Test
+    public void abilities() {
+        assertSizeEq(2,callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)));
+    }
+    @Test
+    public void abilitiesFirstKey() {
+        assertEq(A_SIM_1,first(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),0)));
+    }
+    @Test
+    public void abilitiesFirstValue() {
+        assertEq(A_SIM_1_TR,second(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),0)));
+    }
+    @Test
+    public void abilitiesSecondKey() {
+        assertEq(A_SIM_2,first(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),1)));
+    }
+    @Test
+    public void abilitiesSecondValue() {
+        assertEq(A_SIM_2_TR,second(elt(callSimulationBeanAbilitiesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)),1)));
+    }
+    @Test
+    public void keptMoves() {
+        assertSizeEq(3,callSimulationBeanKeptMovesGet(pkPlayerEvoFightersSufficientFrontsFormMove(1)));
+    }
+    @Test
+    public void validateMovesQuick() {
+        assertSizeEq(3,callSimulationBeanKeptMovesGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(1, "")));
+    }
+    @Test
+    public void validateMovesFull() {
+        assertSizeEq(2,callSimulationBeanKeptMovesGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(1, A_SIM_2)));
+    }
+    @Test
+    public void changeAbility() {
+        assertEq(NULL_REF,callSimulationBeanCurrentAbilityGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(1, A_SIM_2)));
+    }
+    @Test
+    public void validateMovesQuickChange() {
+        assertSizeEq(2,callSimulationBeanKeptMovesGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(0, "")));
+    }
+    @Test
+    public void validateMovesFullTwice() {
+        assertSizeEq(2,callSimulationBeanKeptMovesGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(1, A_SIM_2)));
+    }
+    @Test
+    public void koMoveSets() {
+        assertFalse(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo()));
+    }
+    @Test
+    public void okMoveSets() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk()));
+    }
 }
