@@ -1217,4 +1217,8 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void simulateFightEvosKoIssue() {
         assertTrue(callSimulationBeanIsIssue(pkPlayerEvoFighterSimulateKo()));
     }
+    @Test
+    public void simulateFightEvosKosIssue() {
+        assertTrue(callSimulationBeanIsIssue(pkPlayerEvoFighterSimulateKos()));
+    }
 }

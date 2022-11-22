@@ -2664,6 +2664,19 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoicesKo(pk_, all_, mapping_, simu_));
     }
 
+    protected static Struct pkPlayerEvoFighterSimulateKos() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSampleInv(pk_, all_, mapping_, simu_);
+        playerTeamSampleInv(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(),simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
+    }
+
     private static Struct moveChoices(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
         moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
         moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
@@ -2816,6 +2829,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
     }
 
+    private static Struct playerTeamSampleInv(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
+    }
+
     protected static Struct pkPlayerValidateEvosKo() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2932,6 +2953,22 @@ public abstract class InitDbSimulation extends InitDbConstr {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        setMult(_simu,2);
+        selectTeam(_simu,1);
+        pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_05_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        setMult(_simu,2);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
+    }
+
+    private static void foeTeamsSampleInv(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 40);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 40);
         pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         setMult(_simu,2);
