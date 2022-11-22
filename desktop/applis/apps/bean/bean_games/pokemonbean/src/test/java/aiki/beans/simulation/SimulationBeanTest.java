@@ -6,9 +6,17 @@ import aiki.game.fight.Fighter;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
 import code.maths.Rate;
+import code.util.StringList;
 import org.junit.Test;
 
 public final class SimulationBeanTest extends InitDbSimulation {
+    @Test
+    public void translatePk() {
+        StringList tr_ = SimulationBean.translatePk(dbView(), new StringList(P_POK_01, P_POK_00));
+        assertEq(2,tr_.size());
+        assertEq(P_POK_00_TR,tr_.get(0));
+        assertEq(P_POK_01_TR,tr_.get(1));
+    }
     @Test
     public void isDiffState() {
         assertTrue(callSimulationBeanIsDiffState(dispSimu()));

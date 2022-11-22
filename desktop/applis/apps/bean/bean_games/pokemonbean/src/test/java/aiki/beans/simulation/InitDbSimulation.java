@@ -457,9 +457,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssue(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanIsIssueAfterFight(Struct _str, long... _args) {
-        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
-    }
+//    public static Struct callSimulationBeanIsIssueAfterFight(Struct _str, long... _args) {
+//        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
+//    }
 
     public static Struct callSimulationBeanIsMovesFightState(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsMovesFightState(),_str,_args);
@@ -2985,6 +2985,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
         map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML,AikiBeansSimulationStd.BEAN_EDITTRAINERPOKEMON);
         map_.addEntry(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML,AikiBeansSimulationStd.BEAN_LEVEL_SIMU);
         return map_;
+    }
+    protected static DataBase dbView() {
+        return db().getData();
     }
     private static FacadeGame db() {
         FacadeGame facade_ = facade();

@@ -1340,36 +1340,27 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     public boolean isIssue() {
         return simulation.getProbleme();
     }
-    public boolean isIssueAfterFight() {
-        if (!simulation.isAcceptableChoices()) {
-            //the fight could not be finished
-            return false;
-        }
-        return simulation.getProbleme();
-    }
+//    public boolean isIssueAfterFight() {
+//        if (!simulation.isAcceptableChoices()) {
+//            //the fight could not be finished
+//            return false;
+//        }
+//        return simulation.getProbleme();
+//    }
     public StringList getKoPlayers() {
-        DataBase data_ = getDataBase();
-        StringList list_ = new StringList();
-        for (String f: simulation.getKoPlayers()) {
-            list_.add(data_.translatePokemon(f));
-        }
-        list_.sort();
-        return list_;
+        return translatePk(getDataBase(), simulation.getKoPlayers());
     }
     public StringList getNotKoFrontFoes() {
-        DataBase data_ = getDataBase();
-        StringList list_ = new StringList();
-        for (String f: simulation.getNotKoFrontFoes()) {
-            list_.add(data_.translatePokemon(f));
-        }
-        list_.sort();
-        return list_;
+        return translatePk(getDataBase(), simulation.getNotKoFrontFoes());
     }
     public StringList getKoFoes() {
-        DataBase data_ = getDataBase();
+        return translatePk(getDataBase(), simulation.getKoFoes());
+    }
+
+    static StringList translatePk(DataBase _db, StringList _list) {
         StringList list_ = new StringList();
-        for (String f: simulation.getKoFoes()) {
-            list_.add(data_.translatePokemon(f));
+        for (String f: _list) {
+            list_.add(_db.translatePokemon(f));
         }
         list_.sort();
         return list_;

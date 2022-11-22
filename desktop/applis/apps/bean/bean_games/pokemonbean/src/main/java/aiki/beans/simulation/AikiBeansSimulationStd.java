@@ -135,7 +135,7 @@ public final class AikiBeansSimulationStd{
 //    private static final String IS_RANDOM_ISSUE = "isRandomIssue";
 //    private static final String IS_USING_ISSUE = "isUsingIssue";
 //    private static final String IS_HARD_SIMULATION_ISSUE = "isHardSimulationIssue";
-    private static final String IS_ISSUE_AFTER_FIGHT = "isIssueAfterFight";
+//    private static final String IS_ISSUE_AFTER_FIGHT = "isIssueAfterFight";
     private static final String GET_IMAGE_AFTER_FIGHT = "getImageAfterFight";
     private static final String GET_NAME_AFTER_FIGHT = "getNameAfterFight";
     private static final String GET_LEVEL_AFTER_FIGHT = "getLevelAfterFight";
@@ -554,7 +554,7 @@ public final class AikiBeansSimulationStd{
 //        methods_.add( new SpecNatMethod(IS_RANDOM_ISSUE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationBeanIsRandomIssue()));
 //        methods_.add( new SpecNatMethod(IS_USING_ISSUE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationBeanIsUsingIssue()));
 //        methods_.add( new SpecNatMethod(IS_HARD_SIMULATION_ISSUE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationBeanIsHardSimulationIssue()));
-        methods_.add( new SpecNatMethod(IS_ISSUE_AFTER_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationBeanIsIssueAfterFight()));
+//        methods_.add( new SpecNatMethod(IS_ISSUE_AFTER_FIGHT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new SimulationBeanIsIssueAfterFight()));
         methods_.add( new SpecNatMethod(GET_IMAGE_AFTER_FIGHT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SimulationBeanGetImageAfterFight()));
         methods_.add( new SpecNatMethod(GET_NAME_AFTER_FIGHT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SimulationBeanGetNameAfterFight()));
         methods_.add( new SpecNatMethod(GET_LEVEL_AFTER_FIGHT, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new SimulationBeanGetLevelAfterFight()));
