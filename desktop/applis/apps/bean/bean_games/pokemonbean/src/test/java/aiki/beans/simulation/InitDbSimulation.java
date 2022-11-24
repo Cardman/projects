@@ -2687,6 +2687,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
     }
 
+    protected static Struct pkPlayerFighterSimulateAfterFightOneValidate() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        callSimulationBeanSelectedPkSet(simu_,0);
+        beforeDisplaying(simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        callSimulationBeanEvolutionAfterFightSet(simu_,P_POK_05);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateEvolutionAfterFight(), simu_);
+        callSimulationBeanAbilityAfterFightSet(simu_,A_SIM_2);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAbilityAfterFight(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAfterFight(), simu_);
+    }
+
     private static Struct oneFight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
         fighterPositions(_pk, _all, _mapping, _simu);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(), moveChoices(_pk, _all, _mapping, _simu));

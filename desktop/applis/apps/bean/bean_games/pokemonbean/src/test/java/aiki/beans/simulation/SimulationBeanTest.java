@@ -1366,4 +1366,8 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getAbilityAfterFightCh() {
         assertEq(A_SIM_1,callSimulationBeanAbilityAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
     }
+    @Test
+    public void validateAfterFight() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerFighterSimulateAfterFightOneValidate()));
+    }
 }
