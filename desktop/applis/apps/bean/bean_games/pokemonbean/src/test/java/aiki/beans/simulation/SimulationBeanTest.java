@@ -1233,4 +1233,16 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void skipEvosEmpty() {
         assertFalse(callSimulationBeanOkGet(pkPlayerFighterSkipEvosStateEmpty()));
     }
+    @Test
+    public void oneFight() {
+        assertFalse(callSimulationBeanIsFightAfter(pkPlayerFighterSimulateOneFight()));
+    }
+    @Test
+    public void issueNoFight() {
+        assertFalse(callSimulationBeanIsFightAfter(pkPlayerEvoFighterSimulateKos()));
+    }
+    @Test
+    public void twoFights() {
+        assertTrue(callSimulationBeanIsFightAfter(pkPlayerFighterSimulate()));
+    }
 }
