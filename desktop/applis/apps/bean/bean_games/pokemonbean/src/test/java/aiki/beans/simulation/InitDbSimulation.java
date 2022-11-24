@@ -2651,6 +2651,17 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
     }
 
+    protected static Struct pkPlayerFighterSimulate() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
+    }
+
     protected static Struct pkPlayerEvoFighterSimulateKo() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2827,6 +2838,14 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
+    }
+
+    private static Struct playerTeamSampleSkip(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        pkTrainerSelectPkPlayerNameCycle(P_POK_04_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
+        pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
     }
 
     private static Struct playerTeamSampleInv(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {

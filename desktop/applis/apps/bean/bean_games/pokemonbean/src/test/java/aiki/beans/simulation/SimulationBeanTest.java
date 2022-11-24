@@ -1202,6 +1202,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertTrue(callSimulationBeanDisplayIfErrorGet(pkPlayerEvoFightersWithoutFronts()));
     }
     @Test
+    public void simulateFightOk() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerFighterSimulate()));
+    }
+    @Test
     public void simulateFightEvosOk() {
         assertTrue(callSimulationBeanOkGet(pkPlayerEvoFighterSimulate()));
     }
