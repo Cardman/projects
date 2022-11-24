@@ -5,6 +5,7 @@ import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
 import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.pokemon.enums.Gender;
+import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
 import org.junit.Test;
@@ -1297,5 +1298,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getMovesAfterFightSecond() {
         assertEq(M_POK_02_TR,elt(callSimulationBeanGetMovesAfterFight(pkPlayerFighterSimulateOneFight(),0),1));
     }
-
+    @Test
+    public void getRemainingLifeRate() {
+        assertEq(LgInt.newLgInt("100"),callSimulationBeanGetRemainingLifeRate(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void numberNecessaryPointsForGrowingLevel() {
+        assertEq(Rate.newRate("1"),callSimulationBeanNumberNecessaryPointsForGrowingLevel(pkPlayerFighterSimulateOneFight(),0));
+    }
 }
