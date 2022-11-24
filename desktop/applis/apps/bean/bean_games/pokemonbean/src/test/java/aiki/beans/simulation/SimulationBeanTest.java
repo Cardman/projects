@@ -1245,4 +1245,57 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void twoFights() {
         assertTrue(callSimulationBeanIsFightAfter(pkPlayerFighterSimulate()));
     }
+    @Test
+    public void getTeamAfterFight() {
+        assertSizeEq(4,callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()));
+    }
+    @Test
+    public void pokemonPlayerGetItem() {
+        assertEq(I_BALL,callPokemonPlayerGetItem(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+    }
+    @Test
+    public void pokemonPlayerGetHappiness() {
+        assertEq(16,callPokemonPlayerGetHappiness(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+    }
+    @Test
+    public void pokemonPlayergetWonExpSinceLastLevel() {
+        assertEq(Rate.newRate("0"),callPokemonPlayerGetWonExpSinceLastLevel(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+    }
+    @Test
+    public void getImageAfterFight() {
+        assertEq("AAABAAAG",callSimulationBeanGetImageAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getNameAfterFight() {
+        assertEq(P_POK_04_TR,callSimulationBeanGetNameAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getGenderAfterFight() {
+        assertEq(NO_G,callSimulationBeanGetGenderAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getLevelAfterFight() {
+        assertEq(49,callSimulationBeanGetLevelAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getAbilityAfterFight() {
+        assertEq(A_SIM_1_TR,callSimulationBeanGetAbilityAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getItemAfterFight() {
+        assertEq(I_BALL_TR,callSimulationBeanGetItemAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getMovesAfterFight() {
+        assertSizeEq(2,callSimulationBeanGetMovesAfterFight(pkPlayerFighterSimulateOneFight(),0));
+    }
+    @Test
+    public void getMovesAfterFightFirst() {
+        assertEq(M_POK_01_TR,elt(callSimulationBeanGetMovesAfterFight(pkPlayerFighterSimulateOneFight(),0),0));
+    }
+    @Test
+    public void getMovesAfterFightSecond() {
+        assertEq(M_POK_02_TR,elt(callSimulationBeanGetMovesAfterFight(pkPlayerFighterSimulateOneFight(),0),1));
+    }
+
 }

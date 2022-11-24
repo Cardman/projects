@@ -2877,7 +2877,9 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
     private static Struct playerTeamSampleSkip(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
-        pkTrainerSelectPkPlayerNameCycle(P_POK_04_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
+        Struct editing_ = editPkPlayer(_pk, _all, _mapping, _simu, P_POK_04_TR, A_SIM_1, 0, 41, TeamCrud.EDIT);
+        assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,_pk, _all, _mapping,editing_));
+        assertSame(_simu,transitSimu(_pk, _all, _mapping,new EditPokemonBeanEdit(),editing_));
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
