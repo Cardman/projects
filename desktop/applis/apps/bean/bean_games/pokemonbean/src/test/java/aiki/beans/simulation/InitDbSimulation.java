@@ -2651,6 +2651,53 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
     }
 
+    protected static Struct pkPlayerEvoFighterSimulateStMove() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        moveChoices(pk_, all_, mapping_, simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
+    }
+
+    protected static Struct pkPlayerEvoFighterSimulateStMoveCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        moveChoices(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesSets(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters(), simu_);
+    }
+
+    protected static Struct pkPlayerEvoFighterSimulateStMoveCancel2() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        movesSet(pk_, all_, mapping_, simu_);
+        moveChoices(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesSets(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutions(), simu_);
+    }
+
     protected static Struct pkPlayerFighterSimulate() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2686,6 +2733,62 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
     }
 
+    protected static Struct pkPlayerFighterSimulateAfterFightCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
+    }
+
+    protected static Struct pkPlayerFighterSimulateAfterFightCancel2() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
+    }
+
+    protected static Struct pkPlayerFighterSimulateAfterFightCancel3() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
+    }
+
+    protected static Struct pkPlayerFighterSimulateAfterFightCancel4() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelTeam(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelDiffChoice(), simu_);
+    }
+
     protected static Struct pkPlayerFighterSimulateAfterFightOne() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2717,6 +2820,23 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanAbilityAfterFightSet(simu_,A_SIM_2);
         transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAbilityAfterFight(), simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAfterFight(), simu_);
+    }
+
+    protected static Struct pkPlayerFighterSimulateAfterFightCancelOne() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        callSimulationBeanSelectedPkSet(simu_,0);
+        beforeDisplaying(simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+        callSimulationBeanEvolutionAfterFightSet(simu_,P_POK_05);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateEvolutionAfterFight(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutionsAfterFight(), simu_);
     }
 
     private static Struct oneFight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
@@ -2829,6 +2949,26 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),1),true);
         callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),2),true);
         transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMoves(), simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesSets(), simu_);
+    }
+
+    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSample(pk_, all_, mapping_, simu_);
+        validEvos(pk_, all_, mapping_,simu_);
+        fighterPositions(pk_, all_, mapping_, simu_);
+        callSimulationBeanSelectedPkSet(simu_, 1);
+        beforeDisplaying(simu_);
+        callSimulationBeanCurrentAbilitySet(simu_, A_SIM_1);
+        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),0),true);
+        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),1),true);
+        callSelectLineMoveSelectedSet(elt(callSimulationBeanKeptMovesGet(simu_),2),true);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMoves(), simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMoves(), simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesSets(), simu_);
     }
 

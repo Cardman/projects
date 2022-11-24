@@ -1127,6 +1127,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertFalse(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo()));
     }
     @Test
+    public void cancelMoveSets() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel()));
+    }
+    @Test
     public void okMoveSets() {
         assertTrue(callSimulationBeanOkGet(pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk()));
     }
@@ -1371,6 +1375,10 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertTrue(callSimulationBeanOkGet(pkPlayerFighterSimulateAfterFightOneValidate()));
     }
     @Test
+    public void cancelEvolutionAfterFight() {
+        assertEq(P_POK_04,callSimulationBeanEvolutionAfterFightGet(pkPlayerFighterSimulateAfterFightCancelOne()));
+    }
+    @Test
     public void koFoes() {
         assertSizeEq(4,callSimulationBeanGetKoFoes(pkPlayerFighterSimulate()));
     }
@@ -1385,5 +1393,73 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void comment() {
         assertSizeEq(0,pkPlayerFighterSimulateComment());
+    }
+    @Test
+    public void isEvolutionAfterFightStateNo() {
+        assertFalse(callSimulationBeanIsEvolutionAfterFightState(pkPlayerFighterSimulateAfterFightCancel()));
+    }
+    @Test
+    public void isEvolutionAfterFightStateYes() {
+        assertTrue(callSimulationBeanIsEvolutionAfterFightState(pkPlayerFighterSimulateAfterFight()));
+    }
+    @Test
+    public void isFightStateNo() {
+        assertFalse(callSimulationBeanIsSimulationState(pkPlayerFighterSimulateAfterFightCancel2()));
+    }
+    @Test
+    public void isFightStateYes() {
+        assertTrue(callSimulationBeanIsSimulationState(pkPlayerFighterSimulateAfterFightCancel()));
+    }
+    @Test
+    public void isMovesFightStateNo() {
+        assertFalse(callSimulationBeanIsMovesFightState(pkPlayerFighterSimulateAfterFightCancel3()));
+    }
+    @Test
+    public void isMovesFightStateYes() {
+        assertTrue(callSimulationBeanIsMovesFightState(pkPlayerFighterSimulateAfterFightCancel2()));
+    }
+    @Test
+    public void isMovesStateNo() {
+        assertFalse(callSimulationBeanIsMovesState(pkPlayerFighterSimulateAfterFightCancel3()));
+    }
+    @Test
+    public void isMovesStateYes() {
+        assertTrue(callSimulationBeanIsMovesState(pkPlayerEvoFighterSimulateStMove()));
+    }
+    @Test
+    public void isFrontStateNo() {
+        assertFalse(callSimulationBeanIsFrontState(pkPlayerFighterSimulateAfterFightCancel2()));
+    }
+    @Test
+    public void isFrontStateYes() {
+        assertTrue(callSimulationBeanIsFrontState(pkPlayerFighterSimulateAfterFightCancel3()));
+    }
+    @Test
+    public void isEvoStateNo() {
+        assertFalse(callSimulationBeanIsEvolutionsState(pkPlayerFighterSimulateAfterFightCancel2()));
+    }
+    @Test
+    public void isEvoStateYes() {
+        assertTrue(callSimulationBeanIsEvolutionsState(pkPlayerEvoFighterSimulateStMoveCancel()));
+    }
+    @Test
+    public void isTeamStateNo() {
+        assertFalse(callSimulationBeanIsTeamState(pkPlayerFighterSimulateAfterFightCancel2()));
+    }
+    @Test
+    public void isTeamStateYes() {
+        assertTrue(callSimulationBeanIsTeamState(pkPlayerEvoFighterSimulateStMoveCancel2()));
+    }
+    @Test
+    public void isFoeStateNo() {
+        assertFalse(callSimulationBeanIsFoeState(pkPlayerFighterSimulate()));
+    }
+    @Test
+    public void isFoeStateYes() {
+        assertTrue(callSimulationBeanIsFoeState(validateDiff(2)));
+    }
+    @Test
+    public void back() {
+        assertTrue(callSimulationBeanIsDiffState(pkPlayerFighterSimulateAfterFightCancel4()));
     }
 }
