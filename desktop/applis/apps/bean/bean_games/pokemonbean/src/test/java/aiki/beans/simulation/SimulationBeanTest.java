@@ -1306,4 +1306,16 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void numberNecessaryPointsForGrowingLevel() {
         assertEq(Rate.newRate("1"),callSimulationBeanNumberNecessaryPointsForGrowingLevel(pkPlayerFighterSimulateOneFight(),0));
     }
+    @Test
+    public void nextFight() {
+        assertTrue(callSimulationBeanOkGet(pkPlayerFighterSimulate()));
+    }
+    @Test
+    public void noSelectAfterFight() {
+        assertEq(-1,callSimulationBeanSelectedPkGet(pkPlayerFighterSimulateAfterFight()));
+    }
+    @Test
+    public void getEvolutionsAfterFight() {
+        assertSizeEq(2,callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
+    }
 }
