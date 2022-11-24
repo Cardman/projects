@@ -1370,4 +1370,20 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void validateAfterFight() {
         assertTrue(callSimulationBeanOkGet(pkPlayerFighterSimulateAfterFightOneValidate()));
     }
+    @Test
+    public void koFoes() {
+        assertSizeEq(4,callSimulationBeanGetKoFoes(pkPlayerFighterSimulate()));
+    }
+    @Test
+    public void notKoFoes() {
+        assertSizeEq(0,callSimulationBeanGetNotKoFrontFoes(pkPlayerFighterSimulate()));
+    }
+    @Test
+    public void notKo() {
+        assertSizeEq(0,callSimulationBeanGetKoPlayers(pkPlayerFighterSimulate()));
+    }
+    @Test
+    public void comment() {
+        assertSizeEq(0,pkPlayerFighterSimulateComment());
+    }
 }

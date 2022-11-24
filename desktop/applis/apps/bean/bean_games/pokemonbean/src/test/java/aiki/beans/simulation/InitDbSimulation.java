@@ -2661,6 +2661,19 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return oneFight(pk_, all_, mapping_, simu_);
     }
 
+    protected static Struct pkPlayerFighterSimulateComment() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSample(pk_, all_, mapping_, simu_);
+        playerTeamSampleSkip(pk_, all_, mapping_, simu_);
+        oneFight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanDisplayComments(),simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanHideComments(),simu_);
+        return callSimulationBeanCommentsGet(simu_);
+    }
+
     protected static Struct pkPlayerFighterSimulateAfterFight() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
