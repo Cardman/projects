@@ -1318,4 +1318,52 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void getEvolutionsAfterFight() {
         assertSizeEq(2,callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
     }
+    @Test
+    public void getEvolutionsAfterFightFirstKey() {
+        assertEq(P_POK_04,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+    }
+    @Test
+    public void getEvolutionsAfterFightFirstValue() {
+        assertEq(P_POK_04_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+    }
+    @Test
+    public void getEvolutionsAfterFightSecondKey() {
+        assertEq(P_POK_05,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+    }
+    @Test
+    public void getEvolutionsAfterFightSecondValue() {
+        assertEq(P_POK_05_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+    }
+    @Test
+    public void getKeptMovesAfterFight() {
+        assertSizeEq(3,callSimulationBeanKeptMovesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
+    }
+    @Test
+    public void getAbilitiesAfterFight() {
+        assertSizeEq(2,callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
+    }
+    @Test
+    public void getAbilitiesAfterFightFirstKey() {
+        assertEq(A_SIM_1,first(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+    }
+    @Test
+    public void getAbilitiesAfterFightFirstValue() {
+        assertEq(A_SIM_1_TR,second(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),0)));
+    }
+    @Test
+    public void getAbilitiesAfterFightSecondKey() {
+        assertEq(A_SIM_2,first(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+    }
+    @Test
+    public void getAbilitiesAfterFightSecondValue() {
+        assertEq(A_SIM_2_TR,second(elt(callSimulationBeanAbilitiesAfterFightGet(pkPlayerFighterSimulateAfterFightOne()),1)));
+    }
+    @Test
+    public void getEvolutionAfterFight() {
+        assertEq(P_POK_04,callSimulationBeanEvolutionAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
+    }
+    @Test
+    public void getAbilityAfterFightCh() {
+        assertEq(A_SIM_1,callSimulationBeanAbilityAfterFightGet(pkPlayerFighterSimulateAfterFightOne()));
+    }
 }
