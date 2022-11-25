@@ -100,6 +100,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String I_BALL = "I_BALL";
     public static final String CI_BALL = "CI_BALL";
     public static final String I_BALL_TR = "I_BALL_TR";
+    public static final String I_STONE_2 = "I_STONE2";
+    public static final String I_STONE_2_TR = "I_STONE_2_TR";
 
     public static Struct callSimulationBeanAbilitiesAfterFightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
@@ -3633,6 +3635,99 @@ public abstract class InitDbSimulation extends InitDbConstr {
         trCore(facade_);
         return facade_;
     }
+
+    protected static Struct pkPlayerFighterSimulateAfterFightOneLight() {
+        PkData pk_ = pkDataByFacade(dbLightThree());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSampleVeryLight(pk_, all_, mapping_, simu_);
+        playerTeamSampleLightSkip(pk_, all_, mapping_, simu_);
+        fighterPositionsLight(pk_, all_, mapping_, simu_);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoicesLight(pk_, all_, mapping_, simu_));
+        transitSimu(pk_, all_, mapping_, new SimulationBeanNextFight(),simu_);
+        callSimulationBeanSelectedPkSet(simu_,0);
+        beforeDisplaying(simu_);
+        return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
+    }
+
+    private static Struct moveChoicesLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        return moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+    }
+    private static void foeTeamsSampleVeryLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        selectTeam(_simu,1);
+        pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
+    }
+
+    private static Struct playerTeamSampleLightSkip(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
+        return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+    }
+    private static FacadeGame dbLightThree() {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(M_POK_00,power(T_SIM_1, C_SIM_1, "10"));
+        facade_.getData().completeMembers(M_POK_01,power(T_SIM_1, C_SIM_1, "256"));
+        facade_.getData().completeMembers(P_POK_00,specPk(P_POK_00,P_POK_01, P_POK_02, withLearn(new CustList<LevelMove>(),1,M_POK_01)));
+        facade_.getData().completeMembers(P_POK_01,specPk(P_POK_00, withLearn(new CustList<LevelMove>(),1,M_POK_01)));
+        facade_.getData().completeMembers(P_POK_02,specPk(P_POK_00,withLearn(new CustList<LevelMove>(),1,M_POK_01)));
+        facade_.getData().completeMembers(P_POK_03,specPk(P_POK_03,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,DataBase.VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
+        TypesDuos t_ = new TypesDuos();
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_2),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_2),Rate.one());
+        facade_.getData().setTableTypes(t_);
+        facade_.getData().setTypes(new StringList(T_SIM_1,T_SIM_2));
+        facade_.getData().completeMembers(A_SIM_1,Instances.newAbilityData());
+        facade_.getData().completeMembers(A_SIM_2,Instances.newAbilityData());
+        facade_.getData().completeMembers(I_BALL,Instances.newBall());
+        facade_.getData().completeMembers(I_STONE,Instances.newEvolvingStone());
+        facade_.getData().completeMembers(I_STONE_2,Instances.newEvolvingStone());
+        facade_.getData().setCombos(Instances.newCombos());
+        facade_.getData().completeVariables();
+        facade_.getData().completeMembersCombos();
+        facade_.getData().setRateBoost("1");
+        facade_.getData().setRateBoostCriticalHit("2");
+        facade_.getData().setDamageFormula("21");
+        facade_.getData().addConstNumTest(DataBase.PP_MAX,new Rate(20));
+        facade_.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_ECLOSION,new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_MAX,new Rate(255));
+        facade_.getData().addConstNumTest(DataBase.DEF_PKEQ,new Rate(4));
+        facade_.getData().addConstNumTest(DataBase.MAX_BONHEUR,new Rate(128));
+        facade_.getData().addConstNumTest(DataBase.MAX_IV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.MAX_EV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.GAIN_BONHEUR_NIV, new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, new Rate(0));
+        facade_.getData().addConstNumTest(DataBase.MAX_BOOST, new Rate(6));
+        facade_.getData().addConstNumTest(DataBase.MIN_BOOST, new Rate(-6));
+        facade_.getData().addConstNumTest(DataBase.MIN_HP, new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.BONUS_BOOST, new Rate("3/2"));
+        facade_.getData().addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
+        facade_.getData().setMap(dm());
+        trCore(facade_);
+        facade_.getData().getTranslatedItems().getVal(EN).addEntry(I_STONE_2, I_STONE_2_TR);
+        return facade_;
+    }
+
+    private static Struct fighterPositionsLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
+    }
     private static MonteCarloNumber lawOne() {
         MonteCarloNumber mcn_ = new MonteCarloNumber();
         mcn_.addQuickEvent(Rate.one(),LgInt.one());
@@ -3847,6 +3942,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pk_.getEvolutions().addEntry(_evo, e_);
         EvolutionLevelSimple e2_ = Instances.newEvolutionLevelSimple();
         e2_.setLevel((short) _lev2);
+        pk_.getEvolutions().addEntry(_evo2, e2_);
+        pk_.setLevMoves(_moves);
+        pk_.setExpEvo(ExpType.E);
+        pk_.setHiddenMoves(Shorts.newList());
+        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setMoveTutors(new StringList(M_POK_03));
+        return pk_;
+    }
+
+    private static PokemonData specPk(String _base, String _evo, String _evo2, CustList<LevelMove> _moves) {
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
+        pk_.setTypes(new StringList(T_SIM_1));
+        pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
+        pk_.setBaseEvo(_base);
+        EvolutionStoneSimple e_ = Instances.newEvolutionStoneSimple();
+        e_.setStone(I_STONE);
+        pk_.getEvolutions().addEntry(_evo, e_);
+        EvolutionStoneSimple e2_ = Instances.newEvolutionStoneSimple();
+        e2_.setStone(I_STONE_2);
         pk_.getEvolutions().addEntry(_evo2, e2_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);

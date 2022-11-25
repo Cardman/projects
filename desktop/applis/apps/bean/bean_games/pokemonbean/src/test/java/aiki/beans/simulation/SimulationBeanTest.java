@@ -1522,4 +1522,32 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void evoSelTreeValueSecond() {
         assertEq(P_POK_02_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
     }
+    @Test
+    public void getEvolutionsAfterFightTree() {
+        assertSizeEq(3,callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()));
+    }
+    @Test
+    public void getEvolutionsAfterFightTreeFirstKey() {
+        assertEq(P_POK_00,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),0)));
+    }
+    @Test
+    public void getEvolutionsAfterFightTreeFirstValue() {
+        assertEq(P_POK_00_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),0)));
+    }
+    @Test
+    public void getEvolutionsAfterFightTreeSecondKey() {
+        assertEq(P_POK_01,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),1)));
+    }
+    @Test
+    public void getEvolutionsAfterFightTreeSecondValue() {
+        assertEq(P_POK_01_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),1)));
+    }
+    @Test
+    public void getEvolutionsAfterFightTreeThirdKey() {
+        assertEq(P_POK_02,first(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
+    }
+    @Test
+    public void getEvolutionsAfterFightTreeThirdValue() {
+        assertEq(P_POK_02_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
+    }
 }

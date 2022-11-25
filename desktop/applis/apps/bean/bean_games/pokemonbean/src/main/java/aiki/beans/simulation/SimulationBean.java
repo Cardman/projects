@@ -887,11 +887,11 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         }
         DataBase data_ = getDataBase();
         //check if all pokemon have the maximum moves
-        for (PokemonPlayer p: simulation.getTeam()) {
-            if (p.getMoves().size() != data_.getNbMaxMoves()) {
-                return;
-            }
-        }
+//        for (PokemonPlayer p: simulation.getTeam()) {
+//            if (p.getMoves().size() != data_.getNbMaxMoves()) {
+//                return;
+//            }
+//        }
         enableEvolutions = false;
         //simulation.validateTeam();
         simulation.setFirstEvolutions(data_);
