@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.beans.AikiBeansStd;
 import aiki.beans.facade.simulation.enums.TeamCrud;
 import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
@@ -1261,7 +1262,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void pokemonPlayerGetHappiness() {
-        assertEq(16,callPokemonPlayerGetHappiness(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
+        assertEq(48,callPokemonPlayerGetHappiness(elt(callSimulationBeanTeamAfterFightGet(pkPlayerFighterSimulateOneFight()),0)));
     }
     @Test
     public void pokemonPlayergetWonExpSinceLastLevel() {
@@ -1281,7 +1282,7 @@ public final class SimulationBeanTest extends InitDbSimulation {
     }
     @Test
     public void getLevelAfterFight() {
-        assertEq(49,callSimulationBeanGetLevelAfterFight(pkPlayerFighterSimulateOneFight(),0));
+        assertEq(65,callSimulationBeanGetLevelAfterFight(pkPlayerFighterSimulateOneFight(),0));
     }
     @Test
     public void getAbilityAfterFight() {
@@ -1666,5 +1667,33 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void virtualLeague() {
         assertTrue(callSimulationBeanOkGet(simuLeagueVirtual()));
+    }
+    @Test
+    public void realLeagueLevel1() {
+        assertEq(95,callSimulationBeanGetLevelAfterFight(simuLeagueReal(),0));
+    }
+    @Test
+    public void realLeagueLevel2() {
+        assertEq(95,callSimulationBeanGetLevelAfterFight(simuLeagueReal(),1));
+    }
+    @Test
+    public void virtualLeagueLevel1() {
+        assertEq(95,callSimulationBeanGetLevelAfterFight(simuLeagueVirtual(),0));
+    }
+    @Test
+    public void virtualLeagueLevel2() {
+        assertEq(95,callSimulationBeanGetLevelAfterFight(simuLeagueVirtual(),1));
+    }
+    @Test
+    public void lightReal1() {
+        assertEq(71,callSimulationBeanGetLevelAfterFight(simuLeagueRealSec(),0));
+    }
+    @Test
+    public void lightReal2() {
+        assertEq(71,callSimulationBeanGetLevelAfterFight(simuLeagueRealSec(),1));
+    }
+    @Test
+    public void exit() {
+        assertEq(AikiBeansStd.WEB_HTML_INDEX_HTML,quit());
     }
 }

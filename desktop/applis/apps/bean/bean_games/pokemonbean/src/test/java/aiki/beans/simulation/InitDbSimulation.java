@@ -1514,6 +1514,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
     }
+    protected static String quit(){
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = init(pk_, all_, mapping_);
+        return navigateData(new SimulationBeanQuit(),simu_);
+    }
     protected static Struct validateDiff(int _nbTeam){
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -4090,6 +4097,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
         simpleTeam(pk_, all_, mapping_, simu_);
         return simu_;
     }
+    protected static Struct simuLeagueRealSec() {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 3, 1);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoice(), simu_);
+        simpleTeamLight(pk_, all_, mapping_, simu_);
+        return simu_;
+    }
     protected static Struct simuLeagueVirtual() {
         PkData pk_ = pkDataByFacade(dbFull());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -4130,6 +4147,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
         transitSimu(_pk, _all, _mapping, new SimulationBeanNextFight(),_simu);
         transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesAfterFight(),_simu);
+        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"1","1");
+        transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
+        moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
+        moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
+    }
+    private static void simpleTeamLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        pk(_pk, _all, _mapping, _simu,0);
+        pk(_pk, _all, _mapping, _simu,1);
         transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");

@@ -333,6 +333,11 @@ public class FightSimulation {
         allyTeam.clear();
         allyTeamAll.clear();
         allyTeam.addAllElts(_choice.get(0).getAllyTeam());
+        if (!allyTeam.isEmpty()) {
+            fightType = FightType.TMP_TRAINER;
+        } else {
+            fightType = FightType.DRESSEUR_LIGUE;
+        }
         maxActions.add(_choice.get(0).getNbMaxActions());
         mult.add((byte) _choice.get(0).getMultiplicity());
         foeTeams.add(_choice.get(0).getFoeTeam());

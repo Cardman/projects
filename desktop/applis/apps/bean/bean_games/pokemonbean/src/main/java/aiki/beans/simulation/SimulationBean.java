@@ -1,5 +1,6 @@
 package aiki.beans.simulation;
 
+import aiki.beans.AikiBeansStd;
 import aiki.beans.CommonBean;
 import aiki.beans.DifficultyCommon;
 import aiki.beans.WithDifficultyCommon;
@@ -1400,7 +1401,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         getForms().removeKey(CST_COORDS);
         stepNumber = 0;
         ok = true;
-        return CST_LEVEL;
+        return AikiBeansStd.WEB_HTML_INDEX_HTML;
     }
 
 
