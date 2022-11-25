@@ -1462,4 +1462,44 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void back() {
         assertTrue(callSimulationBeanIsDiffState(pkPlayerFighterSimulateAfterFightCancel4()));
     }
+    @Test
+    public void evoSelFirst() {
+        assertSizeEq(1,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()));
+    }
+    @Test
+    public void evoSelKeyFirst() {
+        assertEq(P_POK_01,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()),0)));
+    }
+    @Test
+    public void evoSelValueFirst() {
+        assertEq(P_POK_01_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwo()),0)));
+    }
+    @Test
+    public void evoSelSecond() {
+        assertSizeEq(1,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()));
+    }
+    @Test
+    public void evoSelKeySecond() {
+        assertEq(P_POK_02,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()),0)));
+    }
+    @Test
+    public void evoSelValueSecond() {
+        assertEq(P_POK_02_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoOnce()),0)));
+    }
+    @Test
+    public void evoSelThird() {
+        assertSizeEq(1,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()));
+    }
+    @Test
+    public void evoSelKeyThird() {
+        assertEq(P_POK_03,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()),0)));
+    }
+    @Test
+    public void evoSelValueThird() {
+        assertEq(P_POK_03_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoTwice()),0)));
+    }
+    @Test
+    public void evoSelFourth() {
+        assertSizeEq(0,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoThreeTimes()));
+    }
 }
