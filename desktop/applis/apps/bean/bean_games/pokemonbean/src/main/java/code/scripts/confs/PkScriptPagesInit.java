@@ -505,7 +505,7 @@ private static final String M_CLICK_SUCCESSFUL_STATUS_1="clickSuccessfulStatus()
 private static final String M_EDIT="edit";
 //private static final String M_VALIDATE_DIFF_CHOICE="validateDiffChoice";
 //private static final String M_CANCEL_DIFF_CHOICE="cancelDiffChoice";
-private static final String M_VALIDATE_FOE_CHOICE="validateFoeChoice";
+//private static final String M_VALIDATE_FOE_CHOICE="validateFoeChoice";
 //private static final String M_VALIDATE_FOE_CHOICE_FREE="validateFoeChoiceFree";
 //private static final String M_VALIDATE_TEAM="validateTeam";
 //private static final String M_VALIDATE_FOE_CHOICE_SKIP_EVOLUTIONS="validateFoeChoiceSkipEvolutions";
@@ -1071,7 +1071,7 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_ADD_PK_TRAINER,new EntryNav(POKEMON_EDIT,AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMONTRAINER_HTML));
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_VALIDATE_DIFF_CHOICE);
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_CANCEL_DIFF_CHOICE);
-        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_VALIDATE_FOE_CHOICE);
+//        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_VALIDATE_FOE_CHOICE);
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_VALIDATE_FOE_CHOICE_FREE);
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_CANCEL_TEAM);
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_VALIDATE_TEAM);

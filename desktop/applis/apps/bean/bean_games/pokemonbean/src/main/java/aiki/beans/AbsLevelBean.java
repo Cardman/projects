@@ -33,7 +33,7 @@ public abstract class AbsLevelBean extends CommonBean {
     private CustList<AreaApparition> wildPokemonAreas = new CustList<AreaApparition>();
     private DictionaryComparator<Short,String> neighbours;
 
-    protected void initTiles() {
+    protected void initTiles(boolean _addBorder) {
         wildPokemonAreas = new CustList<AreaApparition>();
         neighbours = DictionaryComparatorUtil.buildStringPlaces(getDataBase().getMap());
         levelIndex = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -59,8 +59,8 @@ public abstract class AbsLevelBean extends CommonBean {
         int sideLength_ = data_.getMap().getSideLength();
         if (co_.isInside()) {
             Point ptInside_ = co_.getInsideBuilding();
-            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles(),sideLength_);
-            feedImages(data_.getBackLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles(),sideLength_);
+            feedImages(data_.getLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getTiles(),sideLength_, _addBorder);
+            feedImages(data_.getBackLevelImage((short) pl_, IndexConstants.FIRST_INDEX, ptInside_), getWhiteTiles(),sideLength_, _addBorder);
         } else {
             outside = true;
             int lev_ = co_.getLevel().getLevelIndex();
@@ -76,8 +76,8 @@ public abstract class AbsLevelBean extends CommonBean {
             if (level_ instanceof LevelWithWildPokemon) {
                 wildPokemonAreas = ((LevelWithWildPokemon) level_).getWildPokemonAreas();
             }
-            feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles(),sideLength_);
-            feedImages(data_.getBackLevelImage((short) pl_, (byte) lev_), getWhiteTiles(),sideLength_);
+            feedImages(data_.getLevelImage((short) pl_, (byte) lev_), getTiles(),sideLength_, _addBorder);
+            feedImages(data_.getBackLevelImage((short) pl_, (byte) lev_), getWhiteTiles(),sideLength_, _addBorder);
         }
         if (place_ instanceof InitializedPlace) {
             for (PlaceInterConnectCoords n: ((InitializedPlace)place_).getPointsWithCitiesAndOtherRoads().entryList()){
@@ -86,8 +86,10 @@ public abstract class AbsLevelBean extends CommonBean {
         }
     }
 
-    private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de, int _side) {
-        DataBase.updateBorders(_map,_side);
+    private static void feedImages(Points<int[][]> _map, DictionaryComparator<Point, String> _de, int _side, boolean _addBorder) {
+        if (_addBorder) {
+            DataBase.updateBorders(_map, _side);
+        }
         for (CommonParam<Point,int[][]> pt_: _map.entryList()) {
             _de.put(pt_.getKey(), BaseSixtyFourUtil.getStringByImage(pt_.getValue()));
         }

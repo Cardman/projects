@@ -30,7 +30,7 @@ public class MapLevelBean extends AbsLevelBean {
 
     @Override
     public void beforeDisplaying() {
-        initTiles();
+        initTiles(true);
 //        proponeLink = getForms().getValBool(CST_PROPONE_LINK);
 //        proponeTile = getForms().getValBool(CST_PROPONE_TILE);
 //        seeArea = getForms().getValBool(CST_SEE_AREA);

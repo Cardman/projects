@@ -471,7 +471,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             coords.setNumberPlace((short)_indexOne);
             coords.setLevel(new LevelPoint());
             coords.getLevel().setLevelIndex((byte)_indexTwo);
-            coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().first()).getTrainerCoords()));
+            coords.getLevel().setPoint(new Point(((LevelLeague)l_.getLevelsList().get(_indexTwo)).getTrainerCoords()));
             getForms().put(CST_COORDS, coords);
             noFight = IndexConstants.FIRST_INDEX;
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;

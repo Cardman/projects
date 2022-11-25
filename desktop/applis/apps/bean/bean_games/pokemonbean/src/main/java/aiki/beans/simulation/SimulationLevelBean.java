@@ -20,7 +20,7 @@ public class SimulationLevelBean extends AbsLevelBean {
 
     @Override
     public void beforeDisplaying() {
-        initTiles();
+        initTiles(false);
         noFight = getForms().getValInt(CST_NO_FIGHT);
     }
     public String clickTile(int _index) {
@@ -35,8 +35,31 @@ public class SimulationLevelBean extends AbsLevelBean {
         DataBase data_ = getDataBase();
         Place p_ = data_.getMap().getPlace(pl_);
         //getForms().put(FROM_LIST, false);
-        if (p_ instanceof City) {
-            return city(pt_, (short) pl_, (City) p_);
+        if (p_ instanceof City&&sel_.isInside()) {
+            City c_ = (City) p_;
+            Point ptInside_ = sel_.getInsideBuilding();
+            Building b_ = c_.getBuildings().getVal(ptInside_);
+            Gym g_ = (Gym) b_;
+            if (g_.getIndoor().getGymTrainers().contains(pt_)) {
+                Coords coords_ = new Coords();
+                coords_.setNumberPlace((short) pl_);
+                coords_.setLevel(new LevelPoint());
+                coords_.affectInside(new Point(ptInside_));
+                coords_.getLevel().setPoint(new Point(pt_));
+                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_NO_FIGHT, noFight);
+                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+            }
+            if (Point.eq(g_.getIndoor().getGymLeaderCoords(), pt_)) {
+                Coords coords_ = new Coords();
+                coords_.setNumberPlace((short) pl_);
+                coords_.setLevel(new LevelPoint());
+                coords_.affectInside(new Point(ptInside_));
+                coords_.getLevel().setPoint(new Point(pt_));
+                getForms().put(CST_COORDS, coords_);
+                getForms().put(CST_NO_FIGHT, noFight);
+                return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+            }
         }
         if (!(p_ instanceof Campaign)) {
             return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
@@ -57,10 +80,7 @@ public class SimulationLevelBean extends AbsLevelBean {
             CharacterInRoadCave char_ = l_.getCharacters().getVal(pt_);
             if (char_ instanceof TrainerMultiFights) {
                 TrainerMultiFights tr_ = (TrainerMultiFights) char_;
-                if (tr_.getTeamsRewards().size() <= noFight) {
-                    noFight = tr_.getTeamsRewards().size();
-                    noFight--;
-                }
+                updateNbFight(tr_);
                 getForms().put(CST_NO_FIGHT, noFight);
                 Coords coords_ = new Coords();
                 coords_.setNumberPlace((short) pl_);
@@ -88,31 +108,11 @@ public class SimulationLevelBean extends AbsLevelBean {
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
 
-    private String city(Point _pt, short _pl, City _p) {
-        Point ptInside_ = getForms().getValCoords(CST_COORDS).getInsideBuilding();
-        Building b_ = _p.getBuildings().getVal(ptInside_);
-        Gym g_ = (Gym) b_;
-        if (g_.getIndoor().getGymTrainers().contains(_pt)) {
-            Coords coords_ = new Coords();
-            coords_.setNumberPlace(_pl);
-            coords_.setLevel(new LevelPoint());
-            coords_.affectInside(new Point(ptInside_));
-            coords_.getLevel().setPoint(new Point(_pt));
-            getForms().put(CST_COORDS, coords_);
-            getForms().put(CST_NO_FIGHT, noFight);
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+    private void updateNbFight(TrainerMultiFights _tr) {
+        if (_tr.getTeamsRewards().size() <= noFight) {
+            noFight = _tr.getTeamsRewards().size();
+            noFight--;
         }
-        if (Point.eq(g_.getIndoor().getGymLeaderCoords(), _pt)) {
-            Coords coords_ = new Coords();
-            coords_.setNumberPlace(_pl);
-            coords_.setLevel(new LevelPoint());
-            coords_.affectInside(new Point(ptInside_));
-            coords_.getLevel().setPoint(new Point(_pt));
-            getForms().put(CST_COORDS, coords_);
-            getForms().put(CST_NO_FIGHT, noFight);
-            return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
-        }
-        return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATIONLEVEL_HTML;
     }
 
     public int getNoFight() {

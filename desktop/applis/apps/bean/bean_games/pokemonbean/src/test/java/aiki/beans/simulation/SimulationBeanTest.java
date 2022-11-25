@@ -1,6 +1,7 @@
 package aiki.beans.simulation;
 
 import aiki.beans.facade.simulation.enums.TeamCrud;
+import aiki.db.DataBase;
 import aiki.facade.enums.SelectedBoolean;
 import aiki.game.fight.Fighter;
 import aiki.map.levels.enums.EnvironmentType;
@@ -1549,5 +1550,105 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void getEvolutionsAfterFightTreeThirdValue() {
         assertEq(P_POK_02_TR,second(elt(callSimulationBeanEvolutionsAfterFightGet(pkPlayerFighterSimulateAfterFightOneLight()),2)));
+    }
+    @Test
+    public void getPlaces() {
+        assertSizeEq(4,callSimulationBeanPlacesGet(chooseTrainer()));
+    }
+    @Test
+    public void getRealStepNumber() {
+        assertEq(2,callSimulationBeanGetRealStepNumber(chooseTrainer()));
+    }
+    @Test
+    public void layersSingle() {
+        assertSizeEq(1,callSimulationBeanLayers(chooseTrainer(),0));
+    }
+    @Test
+    public void layersMult() {
+        assertSizeEq(2,callSimulationBeanLayers(chooseTrainer(),2));
+    }
+    @Test
+    public void multLayersSingle() {
+        assertFalse(callSimulationBeanIsMultiLayer(chooseTrainer(),0));
+    }
+    @Test
+    public void multLayersMult() {
+        assertTrue(callSimulationBeanIsMultiLayer(chooseTrainer(),2));
+    }
+    @Test
+    public void getNoFight1() {
+        assertEq(0,callSimulationLevelBeanNoFightGet(chooseTrainerLevelZero(0)));
+    }
+    @Test
+    public void getNoFight2() {
+        assertEq(0,callSimulationLevelBeanNoFightGet(chooseTrainerLevelZero(1)));
+    }
+    @Test
+    public void getNoFight3() {
+        assertEq(0,callSimulationLevelBeanNoFightGet(chooseTrainerLevel(2,0)));
+    }
+    @Test
+    public void getNoFight4() {
+        assertEq(0,callSimulationLevelBeanNoFightGet(chooseTrainerLevel(2,1)));
+    }
+    @Test
+    public void getNoFight5() {
+        assertEq(-1,callSimulationLevelBeanNoFightGet(chooseTrainerLevelZero(1,-1,1)));
+    }
+    @Test
+    public void getNoFight6() {
+        assertEq(-1,callSimulationLevelBeanNoFightGet(chooseTrainerLevelZero(0,-1,1)));
+    }
+    @Test
+    public void getNoFight7() {
+        assertEq(2,callSimulationLevelBeanNoFightGet(chooseTrainerLevel(1,2,0)));
+    }
+    @Test
+    public void getTrainerNameNo() {
+        assertEq(DataBase.EMPTY_STRING,callSimulationBeanGetTrainerName(chooseTrainer()));
+    }
+    @Test
+    public void getTrainerNameLeagueOne() {
+        assertEq(PL_4+" "+T_L_1+" 0",callSimulationBeanGetTrainerName(chooseTrainerLevel(3,0)));
+    }
+    @Test
+    public void getTrainerNameLeagueTwo() {
+        assertEq(PL_4+" "+T_L_2+" 0",callSimulationBeanGetTrainerName(chooseTrainerLevel(3,1)));
+    }
+    @Test
+    public void getTrainerNameGymTr() {
+        assertEq(PL_2+" "+G_L_1+" 0",callSimulationBeanGetTrainerName(chooseTrainerLevelZero(1,-1,0)));
+    }
+    @Test
+    public void getTrainerNameGymLeader() {
+        assertEq(PL_2+" "+G_L_1+" 0",callSimulationBeanGetTrainerName(chooseTrainerLevelZero(1,0,2)));
+    }
+    @Test
+    public void getTrainerNameDual1() {
+        assertEq(PL_3+" 0 "+D_T_1+" "+D_T_2+" 0",callSimulationBeanGetTrainerName(chooseTrainerLevel(0,-1,1)));
+    }
+    @Test
+    public void getTrainerNameDual2() {
+        assertEq(PL_3+" 0 "+D_T_1+" "+D_T_2+" 0",callSimulationBeanGetTrainerName(chooseTrainerLevel(0,-1,2)));
+    }
+    @Test
+    public void getTrainerNameMult1() {
+        assertEq(PL_3+" 1  0",callSimulationBeanGetTrainerName(chooseTrainerLevel(1,0,1)));
+    }
+    @Test
+    public void getTrainerNameMult2() {
+        assertEq(PL_3+" 1  1",callSimulationBeanGetTrainerName(chooseTrainerLevel(1,1,1)));
+    }
+    @Test
+    public void getTrainerNameMult3() {
+        assertEq(PL_3+" 1  1",callSimulationBeanGetTrainerName(chooseTrainerLevel(1,2,1)));
+    }
+    @Test
+    public void okTrainer() {
+        assertTrue(callSimulationBeanOkGet(chooseTrainerLevelDualValidate()));
+    }
+    @Test
+    public void koTrainer() {
+        assertFalse(callSimulationBeanOkGet(chooseTrainerLevelDualValidateKo()));
     }
 }

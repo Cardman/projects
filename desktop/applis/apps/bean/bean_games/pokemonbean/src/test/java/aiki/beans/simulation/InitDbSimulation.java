@@ -21,7 +21,11 @@ import aiki.game.fight.*;
 import aiki.game.params.enums.*;
 import aiki.instances.*;
 import aiki.map.*;
+import aiki.map.buildings.*;
+import aiki.map.characters.*;
+import aiki.map.levels.*;
 import aiki.map.levels.enums.*;
+import aiki.map.places.*;
 import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
@@ -102,6 +106,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String I_BALL_TR = "I_BALL_TR";
     public static final String I_STONE_2 = "I_STONE2";
     public static final String I_STONE_2_TR = "I_STONE_2_TR";
+    public static final String DUAL = "dual";
+    public static final String SINGLE = "single";
+    public static final String DUAL_1 = "dual_1";
+    public static final String DUAL_2 = "dual_2";
+    public static final String SI = "si";
+    public static final String T_L_1 = "T L 1";
+    public static final String T_L_2 = "T L 2";
+    public static final String G_L_1 = "G L 1";
+    public static final String D_T_1 = "D T 1";
+    public static final String D_T_2 = "D T 2";
+    public static final String PL_1 = "PL 1";
+    public static final String PL_2 = "PL 2";
+    public static final String PL_3 = "PL 3";
+    public static final String PL_4 = "PL 4";
+    public static final String PL_5 = "PL 5";
+    public static final String PL_6 = "PL 6";
+    public static final String PL_7 = "PL 7";
+    public static final String PL_8 = "PL 8";
+    public static final String PL_9 = "PL 9";
 
     public static Struct callSimulationBeanAbilitiesAfterFightGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
@@ -4001,5 +4024,278 @@ public abstract class InitDbSimulation extends InitDbConstr {
     private static CustList<LevelMove> withLearn(CustList<LevelMove> _set, int _level, String _move) {
         _set.add(new LevelMove((short)_level,_move));
         return _set;
+    }
+    protected static Struct chooseTrainer() {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        return simu(pk_, all_, mapping_, 0);
+    }
+    protected static Struct chooseTrainerLevel(int _place, int _level) {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevel(),simu_,_place,_level);
+    }
+    protected static Struct chooseTrainerLevelZero(int _place) {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
+    }
+    protected static Struct chooseTrainerLevel(int _level, int _noFight, int _tile) {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        Struct sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, _level);
+        callSimulationLevelBeanNoFightSet(sel_,_noFight);
+        return transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,_tile);
+    }
+    protected static Struct chooseTrainerLevelZero(int _place, int _noFight, int _tile) {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        Struct sel_ = transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
+        callSimulationLevelBeanNoFightSet(sel_,_noFight);
+        return transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,_tile);
+    }
+    protected static Struct chooseTrainerLevelDualValidate() {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        Struct sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, 0);
+        callSimulationLevelBeanNoFightSet(sel_,0);
+        transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,1);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoice(),simu_);
+    }
+    protected static Struct chooseTrainerLevelDualValidateKo() {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoice(),simu_);
+    }
+//    protected static Struct addPkPlayerChangeMoves() {
+//        PkData pk_ = pkDataByFacade(db());
+//        StringMap<Struct> all_ = beanToSimu(pk_);
+//        StringMap<String> mapping_ = mappingToSimu();
+//        Struct simu_ = simu(pk_, all_, mapping_, 2);
+//        foeTeamsSample(pk_, all_, mapping_, simu_);
+//        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+//        assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,editing_));
+//        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
+//        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+//        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
+//        return transitSimu(pk_, all_, mapping_,new EditPokemonBeanEdit(),afterDel_);
+//    }
+    private static FacadeGame dbFull() {
+        FacadeGame d_ = db();
+        d_.getMap().addPlace(city());
+        d_.getMap().addPlace(city(trGymTrainer(),trGymLeader()));
+        d_.getMap().addPlace(cave());
+        d_.getMap().addPlace(league());
+        d_.getData().getTrainers().addEntry(DUAL,BaseSixtyFourUtil.getImageByString("AAACAAAWAAAX"));
+        d_.getData().getTrainers().addEntry(SINGLE,BaseSixtyFourUtil.getImageByString("AAABAAAW"));
+        d_.getData().getPeople().addEntry(DUAL_1,BaseSixtyFourUtil.getImageByString("AAABAAAX"));
+        d_.getData().getPeople().addEntry(DUAL_2,BaseSixtyFourUtil.getImageByString("AAABAAAY"));
+        d_.getData().getPeople().addEntry(SI,BaseSixtyFourUtil.getImageByString("AAABAAAZ"));
+        d_.getData().getPeople().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        d_.getData().getImages().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        d_.getData().getLinks().addEntry(NULL_REF,BaseSixtyFourUtil.getImageByString("AAAB////"));
+        return d_;
+    }
+    private static City city(GymTrainer _tr, GymLeader _leader) {
+        City c_ = city();
+        c_.setName(PL_2);
+        Gym g_ = Instances.newGym();
+        sqThree(g_.getIndoor());
+        g_.getIndoor().getGymTrainers().addEntry(newPoint(0,0),_tr);
+        g_.getIndoor().setGymLeader(_leader);
+        g_.getIndoor().setGymLeaderCoords(newPoint(2,0));
+        c_.getBuildings().addEntry(newPoint(2,0), g_);
+        return c_;
+    }
+    private static City city() {
+        City c_ = Instances.newCity();
+        c_.setName(PL_1);
+        sqThree(c_.getLevel());
+        PokemonCenter center_ = Instances.newPokemonCenter();
+        sqThree(center_.getLevel());
+        c_.getBuildings().addEntry(newPoint(0,0), center_);
+        return c_;
+    }
+    private static Cave cave() {
+        Cave c_ = Instances.newCave();
+        c_.setName(PL_3);
+        LevelCave first_ = Instances.newLevelCave();
+        sqThree(first_);
+        first_.getDualFights().addEntry(newPoint(2,0),dual());
+        c_.getLevels().add(first_);
+        LevelCave sec_ = Instances.newLevelCave();
+        sqThree(sec_);
+        sec_.getCharacters().addEntry(newPoint(1,0),trMult());
+        DealerItem dOne_ = Instances.newDealerItem();
+        dOne_.getItems().add(I_BALL);
+        sec_.getCharacters().addEntry(newPoint(1,1), dOne_);
+        c_.getLevels().add(sec_);
+        return c_;
+    }
+    protected static League league() {
+        League l_ = Instances.newLeague();
+        l_.setName(PL_4);
+        LevelLeague one_ = Instances.newLevelLeague();
+        one_.setTrainer(trLeagueOne());
+        sqThree(one_);
+        one_.setTrainerCoords(newPoint(1,1));
+        one_.setAccessPoint(newPoint(1,2));
+        one_.setNextLevelTarget(newPoint(1,0));
+        l_.getRooms().add(one_);
+        LevelLeague two_ = Instances.newLevelLeague();
+        two_.setTrainer(trLeagueTwo());
+        sqThree(two_);
+        two_.setAccessPoint(newPoint(1,2));
+        two_.setTrainerCoords(newPoint(1,1));
+        l_.getRooms().add(two_);
+        l_.setAccessCoords(newCoords(2,0,0,0));
+        return l_;
+    }
+    private static void sqThree(Level _l) {
+        Block bl_ = Instances.newBlock();
+        bl_.setHeight((short) 1);
+        bl_.setWidth((short) 1);
+        bl_.setTileFileName("");
+        _l.getBlocks().addEntry(newPoint(0,0),bl_);
+        _l.getBlocks().addEntry(newPoint(0,1),bl_);
+        _l.getBlocks().addEntry(newPoint(0,2),bl_);
+        _l.getBlocks().addEntry(newPoint(1,0),bl_);
+        _l.getBlocks().addEntry(newPoint(1,1),bl_);
+        _l.getBlocks().addEntry(newPoint(1,2),bl_);
+        _l.getBlocks().addEntry(newPoint(2,0),bl_);
+        _l.getBlocks().addEntry(newPoint(2,1),bl_);
+        _l.getBlocks().addEntry(newPoint(2,2),bl_);
+    }
+    protected static DualFight dual() {
+        DualFight d_ = Instances.newDualFight();
+        d_.setNames(new StringList(D_T_1, D_T_2));
+        d_.getFoeTrainer().setImageMaxiFileName(DUAL);
+        d_.getFoeTrainer().setImageMiniFileName(DUAL_1);
+        d_.getFoeTrainer().setImageMiniSecondTrainerFileName(DUAL_2);
+        d_.setPt(newPoint(1,0));
+        d_.getAlly().getTeam().add(wpOne(P_POK_02,A_SIM_1,18));
+        d_.getAlly().getTeam().add(wpTwo(P_POK_03,A_SIM_2,19));
+        d_.getFoeTrainer().getTeam().add(wpOne(P_POK_00,A_SIM_2,18));
+        d_.getFoeTrainer().getTeam().add(wpTwo(P_POK_01,A_SIM_1,19));
+        d_.getFoeTrainer().setReward((short) 25);
+        return d_;
+    }
+    protected static TrainerLeague trLeagueOne() {
+        TrainerLeague tmf_ = Instances.newTrainerLeague();
+        tmf_.setName(T_L_1);
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
+        mult((byte) 2, tmf_);
+        tmf_.getTeam().add(trp(P_POK_00,A_SIM_1,4));
+        tmf_.getTeam().add(trp(P_POK_01,A_SIM_2,4));
+        tmf_.getTeam().add(trp(P_POK_02,A_SIM_1,4));
+        tmf_.getTeam().add(trp(P_POK_03,A_SIM_2,4));
+        return tmf_;
+    }
+    protected static TrainerLeague trLeagueTwo() {
+        TrainerLeague tmf_ = Instances.newTrainerLeague();
+        tmf_.setName(T_L_2);
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
+        mult((byte) 2, tmf_);
+        tmf_.getTeam().add(trp(P_POK_04,A_SIM_1,5));
+        tmf_.getTeam().add(trp(P_POK_05,A_SIM_2,5));
+        tmf_.getTeam().add(trp(P_POK_06,A_SIM_1,5));
+        tmf_.getTeam().add(trp(P_POK_07,A_SIM_2,5));
+        return tmf_;
+    }
+    protected static GymLeader trGymLeader() {
+        GymLeader tmf_ = Instances.newGymLeader();
+        tmf_.setName(G_L_1);
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
+        mult((byte) 1, tmf_);
+        tmf_.getTeam().add(wpOne(P_POK_00,A_SIM_2,18));
+        tmf_.getTeam().add(wpTwo(P_POK_01,A_SIM_1,19));
+        tmf_.setTm((short)2);
+        return tmf_;
+    }
+    protected static GymTrainer trGymTrainer() {
+        GymTrainer tmf_ = Instances.newGymTrainer();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
+        mult((byte) 1, tmf_);
+        tmf_.getTeam().add(wpOne(P_POK_02,A_SIM_1,18));
+        tmf_.getTeam().add(wpTwo(P_POK_03,A_SIM_2,19));
+        return tmf_;
+    }
+    protected static TrainerMultiFights trMult() {
+        TrainerMultiFights tmf_ = Instances.newTrainerMultiFights();
+        tmf_.setImageMaxiFileName(SINGLE);
+        tmf_.setImageMiniFileName(SI);
+        mult((byte) 2, tmf_);
+        tmf_.getTeamsRewards().add(teamOne());
+        tmf_.getTeamsRewards().add(teamTwo());
+        return tmf_;
+    }
+
+    private static void mult(byte _m, Trainer _t) {
+        _t.setMultiplicityFight(_m);
+    }
+
+    protected static PokemonTeam teamOne() {
+        PokemonTeam t_ = teamBase(20);
+        t_.getTeam().add(wpOne(P_POK_00,A_SIM_1,7));
+        t_.getTeam().add(wpTwo(P_POK_01,A_SIM_2,9));
+        return t_;
+    }
+    protected static PokemonTeam teamTwo() {
+        PokemonTeam t_ = teamBase(15);
+        t_.getTeam().add(wpOne(P_POK_02,A_SIM_2,17));
+        t_.getTeam().add(wpTwo(P_POK_03,A_SIM_1,19));
+        return t_;
+    }
+
+    private static PokemonTeam teamBase(int _v) {
+        PokemonTeam t_ = Instances.newPokemonTeam();
+        t_.setReward((short) _v);
+        return t_;
+    }
+
+    protected static PkTrainer wpOne(String _name, String _ab, int _level) {
+        return trp(_name, _ab, _level, M_POK_04, M_POK_05);
+    }
+
+    protected static PkTrainer wpTwo(String _name, String _ab, int _level) {
+        return trp(_name, _ab, _level, M_POK_06, M_POK_07);
+    }
+    protected static PkTrainer trp(String _name, String _ab, int _level, String _one, String _second) {
+        PkTrainer pk_ = Instances.newPkTrainer();
+        pk_.setName(_name);
+        pk_.setLevel((short) _level);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setAbility(_ab);
+        pk_.setItem(NULL_REF);
+        pk_.getMoves().add(_one);
+        pk_.getMoves().add(_second);
+        return pk_;
+    }
+    protected static PkTrainer trp(String _name, String _ab, int _level) {
+        PkTrainer pk_ = Instances.newPkTrainer();
+        pk_.setName(_name);
+        pk_.setLevel((short) _level);
+        pk_.setGender(Gender.NO_GENDER);
+        pk_.setAbility(_ab);
+        pk_.setItem(NULL_REF);
+        pk_.getMoves().add(M_POK_00);
+        return pk_;
     }
 }
