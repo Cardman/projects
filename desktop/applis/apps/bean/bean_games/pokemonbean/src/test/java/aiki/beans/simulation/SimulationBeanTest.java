@@ -1502,4 +1502,24 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void evoSelFourth() {
         assertSizeEq(0,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTwoThreeTimes()));
     }
+    @Test
+    public void evoSelTree() {
+        assertSizeEq(2,callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()));
+    }
+    @Test
+    public void evoSelTreeKeyFirst() {
+        assertEq(P_POK_01,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),0)));
+    }
+    @Test
+    public void evoSelTreeValueFirst() {
+        assertEq(P_POK_01_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),0)));
+    }
+    @Test
+    public void evoSelTreeKeySecond() {
+        assertEq(P_POK_02,first(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
+    }
+    @Test
+    public void evoSelTreeValueSecond() {
+        assertEq(P_POK_02_TR,second(elt(callSimulationBeanAvailableEvosGet(pkPlayerValidateEvosSelectTree()),1)));
+    }
 }

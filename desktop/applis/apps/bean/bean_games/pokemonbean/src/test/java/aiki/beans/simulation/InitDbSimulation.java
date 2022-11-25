@@ -3426,6 +3426,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return evolutions(pk_, all_, mapping_, simu_);
     }
 
+
+    protected static Struct pkPlayerValidateEvosSelectTree() {
+        PkData pk_ = pkDataByFacade(dbLightSec());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        return evolutionsTree(pk_, all_, mapping_, simu_);
+    }
+
     protected static Struct pkPlayerValidateEvosSelectTwoOnce() {
         PkData pk_ = pkDataByFacade(dbLight());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -3475,6 +3484,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping, new SimulationBeanDisplayEvolutions(), _simu);
     }
 
+    private static Struct evolutionsTree(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        foeTeamsSampleLightTree(_pk, _all, _mapping, _simu);
+        playerTeamSampleLight(_pk, _all, _mapping, _simu);
+        callSimulationBeanSelectedPkSet(_simu,0);
+        return transitSimu(_pk, _all, _mapping, new SimulationBeanDisplayEvolutions(), _simu);
+    }
+
     private static void foeTeamsSampleLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_04_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
@@ -3486,6 +3502,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
         pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
+    }
+
+
+    private static void foeTeamsSampleLightTree(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        selectTeam(_simu,1);
+        pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_03_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
 
@@ -3529,9 +3560,60 @@ public abstract class InitDbSimulation extends InitDbConstr {
         facade_.getData().setRateBoost("1");
         facade_.getData().setRateBoostCriticalHit("2");
         facade_.getData().setDamageFormula("21");
-//        _db.setDefMove(_defMove);
-//        _db.setDefaultEggGroup(_defaultEggGoup);
-//        _db.setDefCategory("AUTRE");
+        facade_.getData().addConstNumTest(DataBase.PP_MAX,new Rate(20));
+        facade_.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_ECLOSION,new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_MAX,new Rate(255));
+        facade_.getData().addConstNumTest(DataBase.DEF_PKEQ,new Rate(4));
+        facade_.getData().addConstNumTest(DataBase.MAX_BONHEUR,new Rate(128));
+        facade_.getData().addConstNumTest(DataBase.MAX_IV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.MAX_EV,new Rate(32));
+        facade_.getData().addConstNumTest(DataBase.GAIN_BONHEUR_NIV, new Rate(2));
+        facade_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, new Rate(0));
+        facade_.getData().addConstNumTest(DataBase.MAX_BOOST, new Rate(6));
+        facade_.getData().addConstNumTest(DataBase.MIN_BOOST, new Rate(-6));
+        facade_.getData().addConstNumTest(DataBase.MIN_HP, new Rate(1));
+        facade_.getData().addConstNumTest(DataBase.BONUS_BOOST, new Rate("3/2"));
+        facade_.getData().addConstNumTest(DataBase.DEF_BASE_MOVE, new Rate("1"));
+        facade_.getData().setMap(dm());
+        trCore(facade_);
+        return facade_;
+    }
+    private static FacadeGame dbLightSec() {
+        FacadeGame facade_ = facade();
+        facade_.getData().completeMembers(M_POK_00,power(T_SIM_1, C_SIM_1, "10"));
+        facade_.getData().completeMembers(P_POK_00,specPk(P_POK_00,P_POK_01,20, P_POK_02,20,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
+        facade_.getData().completeMembers(P_POK_01,specPk(P_POK_00, withLearn(new CustList<LevelMove>(),1,M_POK_00)));
+        facade_.getData().completeMembers(P_POK_02,specPk(P_POK_00,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
+        facade_.getData().completeMembers(P_POK_03,specPk(P_POK_03,withLearn(new CustList<LevelMove>(),1,M_POK_00)));
+        facade_.getData().getExpGrowth().addEntry(ExpType.E,DataBase.VAR_PREFIX+Fighter.NIVEAU);
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.FACILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.DIFFICILE, "1");
+        facade_.getData().getRates().put(DifficultyWinPointsFight.TRES_DIFFICILE, "1");
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MIN, new LawNumber(lawOne(),(short)0));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CROISSANT, new LawNumber(lawOne(),(short)1));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.UNIFORME, new LawNumber(lawOne(),(short)2));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.DECROISSANT, new LawNumber(lawOne(),(short)3));
+        facade_.getData().getLawsDamageRate().put(DifficultyModelLaw.CONSTANT_MAX, new LawNumber(lawOne(),(short)4));
+        facade_.getData().completeMembers(I_NOTHING,Instances.newItemForBattle());
+        TypesDuos t_ = new TypesDuos();
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_1,T_SIM_2),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_1),Rate.one());
+        t_.addEntry(new TypesDuo(T_SIM_2,T_SIM_2),Rate.one());
+        facade_.getData().setTableTypes(t_);
+        facade_.getData().setTypes(new StringList(T_SIM_1,T_SIM_2));
+        facade_.getData().completeMembers(A_SIM_1,Instances.newAbilityData());
+        facade_.getData().completeMembers(A_SIM_2,Instances.newAbilityData());
+        facade_.getData().completeMembers(I_BALL,Instances.newBall());
+        facade_.getData().completeMembers(I_STONE,Instances.newItemForBattle());
+        facade_.getData().setCombos(Instances.newCombos());
+        facade_.getData().completeVariables();
+        facade_.getData().completeMembersCombos();
+        facade_.getData().setRateBoost("1");
+        facade_.getData().setRateBoostCriticalHit("2");
+        facade_.getData().setDamageFormula("21");
         facade_.getData().addConstNumTest(DataBase.PP_MAX,new Rate(20));
         facade_.getData().addConstNumTest(DataBase.DEF_MAX_ATT,new Rate(2));
         facade_.getData().addConstNumTest(DataBase.NIVEAU_PK_ECLOSION,new Rate(1));
@@ -3747,6 +3829,25 @@ public abstract class InitDbSimulation extends InitDbConstr {
         EvolutionLevelSimple e_ = Instances.newEvolutionLevelSimple();
         e_.setLevel((short) _lev);
         pk_.getEvolutions().addEntry(_evo, e_);
+        pk_.setLevMoves(_moves);
+        pk_.setExpEvo(ExpType.E);
+        pk_.setHiddenMoves(Shorts.newList());
+        pk_.setTechnicalMoves(Shorts.newList());
+        pk_.setMoveTutors(new StringList(M_POK_03));
+        return pk_;
+    }
+
+    private static PokemonData specPk(String _base, String _evo, int _lev, String _evo2, int _lev2, CustList<LevelMove> _moves) {
+        PokemonData pk_ = pk(new StringList("__"), GenderRepartition.NO_GENDER);
+        pk_.setTypes(new StringList(T_SIM_1));
+        pk_.setAbilities(new StringList(A_SIM_1,A_SIM_2));
+        pk_.setBaseEvo(_base);
+        EvolutionLevelSimple e_ = Instances.newEvolutionLevelSimple();
+        e_.setLevel((short) _lev);
+        pk_.getEvolutions().addEntry(_evo, e_);
+        EvolutionLevelSimple e2_ = Instances.newEvolutionLevelSimple();
+        e2_.setLevel((short) _lev2);
+        pk_.getEvolutions().addEntry(_evo2, e2_);
         pk_.setLevMoves(_moves);
         pk_.setExpEvo(ExpType.E);
         pk_.setHiddenMoves(Shorts.newList());
