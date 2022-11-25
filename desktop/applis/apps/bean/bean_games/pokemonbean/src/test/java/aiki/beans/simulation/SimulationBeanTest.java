@@ -1659,4 +1659,12 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void koTrainer() {
         assertFalse(callSimulationBeanOkGet(chooseTrainerLevelDualValidateKo()));
     }
+    @Test
+    public void realLeague() {
+        assertTrue(callSimulationBeanOkGet(simuLeagueReal()));
+    }
+    @Test
+    public void virtualLeague() {
+        assertTrue(callSimulationBeanOkGet(simuLeagueVirtual()));
+    }
 }

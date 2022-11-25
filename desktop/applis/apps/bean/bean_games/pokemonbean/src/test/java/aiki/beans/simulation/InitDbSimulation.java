@@ -4080,8 +4080,81 @@ public abstract class InitDbSimulation extends InitDbConstr {
         Struct simu_ = simu(pk_, all_, mapping_, 0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoice(),simu_);
     }
-//    protected static Struct addPkPlayerChangeMoves() {
-//        PkData pk_ = pkDataByFacade(db());
+    protected static Struct simuLeagueReal() {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 3, 0);
+        transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoice(), simu_);
+        simpleTeam(pk_, all_, mapping_, simu_);
+        return simu_;
+    }
+    protected static Struct simuLeagueVirtual() {
+        PkData pk_ = pkDataByFacade(dbFull());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        foeTeamsSampleSec(pk_, all_, mapping_, simu_);
+        simpleTeam(pk_, all_, mapping_, simu_);
+        return simu_;
+    }
+    private static void foeTeamsSampleSec(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        selectTeam(_simu,0);
+        pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_2_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_02_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
+        pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_2_TR, _pk, _all, _mapping, _simu, 4);
+        setMult(_simu,2);
+        selectTeam(_simu,1);
+        pkTrainerSelectPkNameCycle(false,P_POK_04_TR,A_SIM_1_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_05_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_06_TR,A_SIM_1_TR, _pk, _all, _mapping, _simu, 5);
+        pkTrainerSelectPkNameCycle(false,P_POK_07_TR,A_SIM_2_TR, _pk, _all, _mapping, _simu, 5);
+        setMult(_simu,2);
+        transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
+    }
+    private static void simpleTeam(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+        pk(_pk, _all, _mapping, _simu,0);
+        pk(_pk, _all, _mapping, _simu,1);
+        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"1","1");
+        transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
+        moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
+        moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanNextFight(),_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesAfterFight(),_simu);
+        transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
+        changeFighterPosition(_pk, _all, _mapping, _simu,0,"1","0");
+        changeFighterPosition(_pk, _all, _mapping, _simu,1,"1","1");
+        transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
+        moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
+        moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
+        moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
+        transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
+    }
+
+    private static void pk(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _teamIndex) {
+        Struct editing_ = editPkPlayer(_pk, _all, _mapping, _simu, P_POK_01_TR, A_SIM_1, _teamIndex, 41, TeamCrud.EDIT);
+        assertSame(editing_,chooseItemPkPlayer(I_BALL_TR, _pk, _all, _mapping,editing_));
+        Struct re_ = addMovePlayer(M_POK_01_TR, 0, _pk, _all, _mapping, editing_);
+        callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
+        Struct afterDel_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanDeleteMoves(), re_);
+        Struct af_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanEdit(), afterDel_);
+        assertSame(af_, _simu);
+    }
+
+    //    protected static Struct simuLeagueReal() {
+//        PkData pk_ = pkDataByFacade(dbFull());
 //        StringMap<Struct> all_ = beanToSimu(pk_);
 //        StringMap<String> mapping_ = mappingToSimu();
 //        Struct simu_ = simu(pk_, all_, mapping_, 2);
