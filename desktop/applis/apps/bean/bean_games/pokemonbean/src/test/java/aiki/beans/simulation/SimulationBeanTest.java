@@ -1604,6 +1604,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertEq(2,callSimulationLevelBeanNoFightGet(chooseTrainerLevel(1,2,0)));
     }
     @Test
+    public void getNoFight8() {
+        assertEq(2,callSimulationLevelBeanNoFightGet(chooseTrainerLevel(0,2,0)));
+    }
+    @Test
+    public void getNoFight9() {
+        assertEq(2,callSimulationLevelBeanNoFightGet(chooseTrainerLevel(1,2,4)));
+    }
+    @Test
     public void getTrainerNameNo() {
         assertEq(DataBase.EMPTY_STRING,callSimulationBeanGetTrainerName(chooseTrainer()));
     }
