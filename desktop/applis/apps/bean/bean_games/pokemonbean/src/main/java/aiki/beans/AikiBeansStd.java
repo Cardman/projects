@@ -8,6 +8,7 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansStd{
     public static final String WEB_HTML_INDEX_HTML="web/html/index.html";
+    public static final String WEB_HTML_COMBO_COMBOS_HTML = "web/html/combo/combos.html";
     public static final String BEAN_WELCOME = "welcome";
     public static final String TYPE_COMMON_BEAN = "aiki.beans.CommonBean";
     public static final String TYPE_WELCOME_BEAN = "aiki.beans.WelcomeBean";
@@ -72,7 +73,7 @@ public final class AikiBeansStd{
         methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(AikiBeansMapElementsStd.WEB_HTML_MAP_MAP_HTML)));
         methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/general/general.html")));
         methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html")));
-        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/combo/combos.html")));
+        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_COMBO_COMBOS_HTML)));
         methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/solution/solution.html")));
         methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/langs/langs.html")));
         _std.getStds().addEntry(TYPE_WELCOME_BEAN, type_);

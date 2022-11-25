@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.AikiBeansStd;
 import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.facade.comparators.ComparatorStringList;
@@ -60,7 +61,7 @@ public class FightHelpBean extends CommonBean {
     private StringList beginRoundStatus;
     private StringList deleteStatusMove;
     private StringList immuStatusAbility;
-    private StringList autoDamage;
+    private AbsMap<String,StatusBeginRoundAutoDamage> autoDamage;
     private String damgeFormula;
     private NatStringTreeMap<String> mapAutoDamage;
     private StringList prepaRoundMoves;
@@ -219,7 +220,6 @@ public class FightHelpBean extends CommonBean {
         long minBoost_ = data_.getMinBoost();
         long maxBoost_ = data_.getMaxBoost();
         initBoosts(minBoost_, maxBoost_);
-        StringMap<String> translatedTypes_ = data_.getTranslatedTypes().getVal(getLanguage());
         initSendingMembers();
         initPrivateMoves();
         movesHealingSubstitute = new StringList(data_.getMovesFullHeal());
@@ -252,38 +252,14 @@ public class FightHelpBean extends CommonBean {
         initAccuracyEvasinessElements();
         initStatisticsCalculationElements();
         initTypeDef();
-        movesTypesDefWeather = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (!move_.getTypesByWeather().isEmpty()) {
-                movesTypesDefWeather.add(m);
-            }
-        }
+        movesTypesDefWeather = movesTypesDefWeatherInit(data_);
         movesTypesDefWeather.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        abilitiesTypeDefMoves = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getTypeForMoves().isEmpty()) {
-                abilitiesTypeDefMoves.add(a);
-            }
-        }
+        abilitiesTypeDefMoves = abilitiesTypeDefMovesInit(data_);
         abilitiesTypeDefMoves.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesChangeTypeMoves = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getChangingBoostTypes().isEmpty()) {
-                abilitiesChangeTypeMoves.add(a);
-            }
-        }
+        abilitiesChangeTypeMoves = abilitiesChangeTypeMovesInit(data_);
         abilitiesChangeTypeMoves.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initMovesEffectSwitchMoveTypes();
-        abilitiesBreakImmu = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getBreakFoeImmune().isEmpty()) {
-                abilitiesBreakImmu.add(a);
-            }
-        }
+        abilitiesBreakImmu = abilitiesBreakImmuInit(data_);
         abilitiesBreakImmu.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initCriticalHitElements();
         //getMultEvtRateCh
@@ -297,335 +273,466 @@ public class FightHelpBean extends CommonBean {
 //                return _o1.getDamageType().compareTo(_o2.getDamageType());
 //            }
 //        });
-        efficiency = DictionaryComparatorUtil.buildTypesDuoRate(data_, getLanguage(), true, true);
-        types = new StringList();
-        for (TypesDuo t: data_.getTableTypes().getKeys()) {
+        efficiency = efficiencyInit(data_,getLanguage());
+        types = typesInit(data_,getLanguage());
+        initFormulaElements();
+    }
+    static StringList movesTypesDefWeatherInit(DataBase _db) {
+        StringList movesTypesDefWeather_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (!move_.getTypesByWeather().isEmpty()) {
+                movesTypesDefWeather_.add(m);
+            }
+        }
+        return movesTypesDefWeather_;
+    }
+    static StringList abilitiesTypeDefMovesInit(DataBase _db) {
+        StringList abilitiesTypeDefMoves_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getTypeForMoves().isEmpty()) {
+                abilitiesTypeDefMoves_.add(a);
+            }
+        }
+        return abilitiesTypeDefMoves_;
+    }
+    static StringList abilitiesChangeTypeMovesInit(DataBase _db) {
+        StringList abilitiesChangeTypeMoves_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getChangingBoostTypes().isEmpty()) {
+                abilitiesChangeTypeMoves_.add(a);
+            }
+        }
+        return abilitiesChangeTypeMoves_;
+    }
+    static StringList abilitiesBreakImmuInit(DataBase _db) {
+        StringList abilitiesBreakImmu_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getBreakFoeImmune().isEmpty()) {
+                abilitiesBreakImmu_.add(a);
+            }
+        }
+        return abilitiesBreakImmu_;
+    }
+    static DictionaryComparator<TypesDuo, Rate> efficiencyInit(DataBase _db, String _lg) {
+        DictionaryComparator<TypesDuo, Rate> efficiency_ = DictionaryComparatorUtil.buildTypesDuoRate(_db, _lg, true, true);
+        StringMap<String> translatedTypes_ = _db.getTranslatedTypes().getVal(_lg);
+        for (TypesDuo t: _db.getTableTypes().getKeys()) {
             TypesDuo t_ = new TypesDuo();
             t_.setPokemonType(translatedTypes_.getVal(t.getPokemonType()));
             t_.setDamageType(translatedTypes_.getVal(t.getDamageType()));
-            efficiency.put(t_, data_.getTableTypes().getVal(t));
-            types.add(translatedTypes_.getVal(t.getDamageType()));
+            efficiency_.put(t_, _db.getTableTypes().getVal(t));
         }
-        types.removeDuplicates();
-        types.sort();
-        initFormulaElements();
+        return efficiency_;
+    }
+    static StringList typesInit(DataBase _db, String _lg) {
+        StringMap<String> translatedTypes_ = _db.getTranslatedTypes().getVal(_lg);
+        StringList types_ = new StringList();
+        for (TypesDuo t: _db.getTableTypes().getKeys()) {
+            types_.add(translatedTypes_.getVal(t.getDamageType()));
+        }
+        types_.removeDuplicates();
+        types_.sort();
+        return types_;
+    }
+    static StringList movesTypesDefItemInit(DataBase _db) {
+        StringList movesTypesDefItem_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (!move_.getTypesByOwnedItem().isEmpty()) {
+                movesTypesDefItem_.add(m);
+            }
+        }
+        return movesTypesDefItem_;
+    }
+    static StringList itemsTypesDefInit(StringList _moves,DataBase _db) {
+        StringList itemsTypesDef_ = new StringList();
+        for (String m: _moves) {
+            MoveData move_ = _db.getMove(m);
+            itemsTypesDef_.addAllElts(move_.getTypesByOwnedItem().getKeys());
+        }
+        itemsTypesDef_.removeDuplicates();
+        StringUtil.removeObj(itemsTypesDef_, DataBase.EMPTY_STRING);
+        return itemsTypesDef_;
+    }
+    static StringList abilitiesRateStatisInit(DataBase _db) {
+        StringList abilitiesRateStatis_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultEvtRateSecEffectOwner().isZero()) {
+                abilitiesRateStatis_.add(a);
+            }
+        }
+        return abilitiesRateStatis_;
     }
 
     private void initTypeDef() {
         DataBase data_ = getDataBase();
-        movesTypesDefItem = new StringList();
-        itemsTypesDef = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (!move_.getTypesByOwnedItem().isEmpty()) {
-                itemsTypesDef.addAllElts(move_.getTypesByOwnedItem().getKeys());
-                movesTypesDefItem.add(m);
-            }
-        }
+        movesTypesDefItem = movesTypesDefItemInit(data_);
         movesTypesDefItem.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        itemsTypesDef.removeDuplicates();
-        StringUtil.removeObj(itemsTypesDef, DataBase.EMPTY_STRING);
+        itemsTypesDef = itemsTypesDefInit(movesTypesDefItem,data_);
         itemsTypesDef.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
     }
 
     private void initAbilitiesRateStatis() {
         DataBase data_ = getDataBase();
-        abilitiesRateStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultEvtRateSecEffectOwner().isZero()) {
-                abilitiesRateStatis.add(a);
-            }
-        }
+        abilitiesRateStatis = abilitiesRateStatisInit(data_);
         abilitiesRateStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
-    private void initAbilitiesPartStatis() {
-        DataBase data_ = getDataBase();
-        abilitiesPartStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+    static StringList abilitiesPartStatisInit(DataBase _db) {
+        StringList abilitiesPartStatis_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (!ab_.getImmuLowStatisTypes().isEmpty()) {
-                abilitiesPartStatis.add(a);
+                abilitiesPartStatis_.add(a);
             }
         }
+        return abilitiesPartStatis_;
+    }
+    private void initAbilitiesPartStatis() {
+        DataBase data_ = getDataBase();
+        abilitiesPartStatis = abilitiesPartStatisInit(data_);
         abilitiesPartStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
 
     private void initEffMoves() {
         DataBase data_ = getDataBase();
-        effMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        effMoves = effMovesInit(data_);
+        effMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList effMovesInit(DataBase _db) {
+        StringList effMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             if (move_.getSecEffectIfNoDamage()) {
-                effMoves.add(m);
+                effMoves_.add(m);
             }
         }
-        effMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return effMoves_;
     }
 
     private void initPressureAbilities() {
         DataBase data_ = getDataBase();
-        pressureAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        pressureAbilities = pressureAbilitiesInit(data_);
+        pressureAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList pressureAbilitiesInit(DataBase _db) {
+        StringList pressureAbilities_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (ab_.getNbUsedPp() > 0) {
-                pressureAbilities.add(a);
+                pressureAbilities_.add(a);
             }
         }
-        pressureAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return pressureAbilities_;
     }
 
     private void initMovesSecEffItems() {
         DataBase data_ = getDataBase();
-        movesSecEffItems = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesSecEffItems = movesSecEffItemsInit(data_);
+        movesSecEffItems.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesSecEffItemsInit(DataBase _db) {
+        StringList movesSecEffItems_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             if (!move_.getSecEffectsByItem().isEmpty()) {
-                movesSecEffItems.add(m);
+                movesSecEffItems_.add(m);
             }
         }
-        movesSecEffItems.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesSecEffItems_;
     }
 
     private void initBeginRoundStatusFoe() {
         DataBase data_ = getDataBase();
-        beginRoundStatusFoe = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
+        beginRoundStatusFoe = beginRoundStatusFoeInit(data_);
+        beginRoundStatusFoe.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+    }
+    static StringList beginRoundStatusFoeInit(DataBase _db) {
+        StringList beginRoundStatusFoe_ = new StringList();
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
             if (st_.getStatusType() != StatusType.INDIVIDUEL && st_ instanceof StatusBeginRound) {
-                beginRoundStatusFoe.add(s);
+                beginRoundStatusFoe_.add(s);
             }
         }
-        beginRoundStatusFoe.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+        return beginRoundStatusFoe_;
     }
 
     private void initCopyMoveTypesAb() {
         DataBase data_ = getDataBase();
-        copyMoveTypesAb = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        copyMoveTypesAb = copyMoveTypesAbInit(data_);
+    }
+    static StringList copyMoveTypesAbInit(DataBase _db) {
+        StringList copyMoveTypesAb_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (ab_.isCopyMovesTypes()) {
-                copyMoveTypesAb.add(a);
+                copyMoveTypesAb_.add(a);
             }
         }
+        return copyMoveTypesAb_;
     }
 
     private void initSubstitutingMoves() {
         DataBase data_ = getDataBase();
-        substitutingMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        substitutingMoves = substitutingMovesInit(data_);
+        substitutingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList substitutingMovesInit(DataBase _db) {
+        StringList substitutingMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             if (move_.getSwitchType() == SwitchType.LANCEUR) {
-                substitutingMoves.add(m);
+                substitutingMoves_.add(m);
             }
         }
-        substitutingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return substitutingMoves_;
     }
 
     private void initMovesEffectSwitchMoveTypes() {
         DataBase data_ = getDataBase();
-        movesTypeDefMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesTypeDefMoves = movesTypeDefMovesInit(data_);
+        movesTypeDefMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesChangeTypeMoves = movesChangeTypeMovesInit(data_);
+        movesChangeTypeMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesTypeDefMovesInit(DataBase _db) {
+        StringList movesTypeDefMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectSwitchMoveTypes && !((EffectSwitchMoveTypes) e).getReplacingTypes().isEmpty()) {
-                    movesTypeDefMoves.add(m);
+                    movesTypeDefMoves_.add(m);
                     break;
                 }
             }
         }
-        movesTypeDefMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesChangeTypeMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return movesTypeDefMoves_;
+    }
+    static StringList movesChangeTypeMovesInit(DataBase _db) {
+        StringList movesChangeTypeMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectSwitchMoveTypes && !((EffectSwitchMoveTypes) e).getChangeTypes().isEmpty()) {
-                    movesChangeTypeMoves.add(m);
+                    movesChangeTypeMoves_.add(m);
                     break;
                 }
             }
         }
-        movesChangeTypeMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesChangeTypeMoves_;
     }
 
     private void initPrivateMoves() {
         DataBase data_ = getDataBase();
-        privatingMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        privatingMoves = privatingMovesInit(data_);
+        privatingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList privatingMovesInit(DataBase _db) {
+        StringList privatingMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectRestriction && ((EffectRestriction) e).getChoiceRestriction() != MoveChoiceRestrictionType.NOTHING) {
-                    privatingMoves.add(m);
+                    privatingMoves_.add(m);
                     break;
                 }
             }
         }
-        privatingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return privatingMoves_;
     }
 
     private void initAccuracyEvasinessElements() {
         DataBase data_ = getDataBase();
-        movesIgnAcc = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (move_.getIgnVarAccurUserNeg() && move_.getTargetChoice() != TargetChoice.LANCEUR) {
-                movesIgnAcc.add(m);
-            }
-        }
+        movesIgnAcc = movesIgnAccInit(data_);
         movesIgnAcc.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesIgnEva = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (move_.getIgnVarEvasTargetPos() && move_.getTargetChoice() != TargetChoice.LANCEUR) {
-                movesIgnEva.add(m);
+        movesIgnEva = movesIgnEvaInit(data_);
+        movesIgnEva.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesGlobalAcc = movesGlobalAccInit(data_);
+        movesGlobalAcc.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesIgnAccInit(DataBase _db) {
+        StringList movesIgnAcc_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (move_.getIgnVarAccurUserNeg() && move_.getTargetChoice() != TargetChoice.LANCEUR) {
+                movesIgnAcc_.add(m);
             }
         }
-        movesIgnEva.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesGlobalAcc = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return movesIgnAcc_;
+    }
+    static StringList movesIgnEvaInit(DataBase _db) {
+        StringList movesIgnEva_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (move_.getIgnVarEvasTargetPos() && move_.getTargetChoice() != TargetChoice.LANCEUR) {
+                movesIgnEva_.add(m);
+            }
+        }
+        return movesIgnEva_;
+    }
+    static StringList movesGlobalAccInit(DataBase _db) {
+        StringList movesGlobalAcc_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal && !((EffectGlobal) e).getMultAccuracy().isZero()) {
-                    movesGlobalAcc.add(m);
+                    movesGlobalAcc_.add(m);
                     break;
                 }
             }
         }
-        movesGlobalAcc.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesGlobalAcc_;
     }
 
     private void initStatusElements() {
         DataBase data_ = getDataBase();
-        successfulStatus = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (!st_.getEffectsPartner().isEmpty() && st_.getEffectsPartner().first().getWeddingAlly()) {
-                successfulStatus.add(s);
-            }
-        }
+        successfulStatus = successfulStatusInit(data_);
         successfulStatus.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         initGlobalMovesStatus();
-        abilitiesPartStatus = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuStatusTypes().isEmpty()) {
-                abilitiesPartStatus.add(a);
-            }
-        }
+        abilitiesPartStatus = abilitiesPartStatusInit(data_);
         abilitiesPartStatus.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesFighterStatus = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuStatus().isEmpty()) {
-                abilitiesFighterStatus.add(a);
-            }
-        }
+        abilitiesFighterStatus = abilitiesFighterStatusInit(data_);
         abilitiesFighterStatus.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        itemsFighterStatus = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuStatus().isEmpty()) {
-                itemsFighterStatus.add(i);
+        itemsFighterStatus = itemsFighterStatusInit(data_);
+        itemsFighterStatus.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList successfulStatusInit(DataBase _db) {
+        StringList successfulStatus_ = new StringList();
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
+            if (!st_.getEffectsPartner().isEmpty() && st_.getEffectsPartner().first().getWeddingAlly()) {
+                successfulStatus_.add(s);
             }
         }
-        itemsFighterStatus.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return successfulStatus_;
+    }
+    static StringList abilitiesPartStatusInit(DataBase _db) {
+        StringList abilitiesPartStatus_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuStatusTypes().isEmpty()) {
+                abilitiesPartStatus_.add(a);
+            }
+        }
+        return abilitiesPartStatus_;
+    }
+    static StringList abilitiesFighterStatusInit(DataBase _db) {
+        StringList abilitiesFighterStatus_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuStatus().isEmpty()) {
+                abilitiesFighterStatus_.add(a);
+            }
+        }
+        return abilitiesFighterStatus_;
+    }
+    static StringList itemsFighterStatusInit(DataBase _db) {
+        StringList itemsFighterStatus_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuStatus().isEmpty()) {
+                itemsFighterStatus_.add(i);
+            }
+        }
+        return itemsFighterStatus_;
     }
 
     private void initGlobalMovesStatus() {
         DataBase data_ = getDataBase();
-        globalMovesStatus = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        globalMovesStatus = globalMovesStatusInit(data_);
+        globalMovesStatus.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList globalMovesStatusInit(DataBase _db) {
+        StringList globalMovesStatus_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal && !((EffectGlobal) e).getPreventStatus().isEmpty()) {
-                    globalMovesStatus.add(m);
+                    globalMovesStatus_.add(m);
                 }
             }
         }
-        globalMovesStatus.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return globalMovesStatus_;
     }
 
     private void initCriticalHitElements() {
         DataBase data_ = getDataBase();
-        abilitiesImmuCh = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isImmuCh()) {
-                abilitiesImmuCh.add(a);
-            }
-        }
+        abilitiesImmuCh = abilitiesImmuChInit(data_);
         abilitiesImmuCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initMovesBoostCh();
-        abilitesMultEvtCh = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultEvtRateCh().isZero()) {
-                abilitesMultEvtCh.add(a);
-            }
-        }
+        abilitesMultEvtCh = abilitesMultEvtChInit(data_);
         abilitesMultEvtCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitesMultRateCh = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultDamageCh().isZero()) {
-                abilitesMultRateCh.add(a);
+        abilitesMultRateCh = abilitesMultRateChInit(data_);
+        abilitesMultRateCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesImmuChInit(DataBase _db) {
+        StringList abilitiesImmuCh_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isImmuCh()) {
+                abilitiesImmuCh_.add(a);
             }
         }
-        abilitesMultRateCh.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesImmuCh_;
+    }
+    static StringList abilitesMultEvtChInit(DataBase _db) {
+        StringList abilitesMultEvtCh_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultEvtRateCh().isZero()) {
+                abilitesMultEvtCh_.add(a);
+            }
+        }
+        return abilitesMultEvtCh_;
+    }
+    static StringList abilitesMultRateChInit(DataBase _db) {
+        StringList abilitesMultRateCh_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultDamageCh().isZero()) {
+                abilitesMultRateCh_.add(a);
+            }
+        }
+        return abilitesMultRateCh_;
     }
 
     private void initMovesBoostCh() {
         DataBase data_ = getDataBase();
-        movesBoostCh = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesBoostCh = movesBoostChInit(data_);
+        movesBoostCh.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesBoostChInit(DataBase _db) {
+        StringList movesBoostCh_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectDamage && ((EffectDamage) e).getChRate() > 0) {
-                    movesBoostCh.add(m);
+                    movesBoostCh_.add(m);
                     break;
                 }
             }
         }
-        movesBoostCh.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesBoostCh_;
     }
 
     private void initStatisticsCalculationElements() {
         DataBase data_ = getDataBase();
-        abilitiesBoostingStat = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getBonusStatRank().isEmpty()) {
-                abilitiesBoostingStat.add(a);
-            }
-        }
+        abilitiesBoostingStat = abilitiesBoostingStatInit(data_);
         abilitiesBoostingStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initItemsBoostingStat();
         initAbItMultStat();
         initMultStatTeamGlobal();
-        abilitiesAllyMultStat = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultStatAlly().isEmpty()) {
-                abilitiesAllyMultStat.add(a);
-            }
-        }
+        abilitiesAllyMultStat = abilitiesAllyMultStatInit(data_);
         abilitiesAllyMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        statusMultStat = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() != StatusType.RELATION_UNIQUE && !st_.getMultStat().isEmpty()) {
-                statusMultStat.add(s);
-            }
-        }
+        statusMultStat = statusMultStatInit(data_);
         statusMultStat.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        abilitiesImmuMultStat = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuLowStatIfStatus().isEmpty()) {
-                abilitiesImmuMultStat.add(a);
-            }
-        }
+        abilitiesImmuMultStat = abilitiesImmuMultStatInit(data_);
         abilitiesImmuMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initComboMultStat();
 //        comboMultStat.sort(new NaturalComparator<StringList>(){
@@ -672,113 +779,185 @@ public class FightHelpBean extends CommonBean {
 //        });
         comboEvtStat.sortElts(new ComparatorStringList(data_, getLanguage(), false));
     }
+    static StringList abilitiesBoostingStatInit(DataBase _db) {
+        StringList abilitiesBoostingStat_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getBonusStatRank().isEmpty()) {
+                abilitiesBoostingStat_.add(a);
+            }
+        }
+        return abilitiesBoostingStat_;
+    }
+    static StringList abilitiesAllyMultStatInit(DataBase _db) {
+        StringList abilitiesAllyMultStat_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultStatAlly().isEmpty()) {
+                abilitiesAllyMultStat_.add(a);
+            }
+        }
+        return abilitiesAllyMultStat_;
+    }
+    static StringList statusMultStatInit(DataBase _db) {
+        StringList statusMultStat_ = new StringList();
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
+            if (st_.getStatusType() != StatusType.RELATION_UNIQUE && !st_.getMultStat().isEmpty()) {
+                statusMultStat_.add(s);
+            }
+        }
+        return statusMultStat_;
+    }
+    static StringList abilitiesImmuMultStatInit(DataBase _db) {
+        StringList abilitiesImmuMultStat_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuLowStatIfStatus().isEmpty()) {
+                abilitiesImmuMultStat_.add(a);
+            }
+        }
+        return abilitiesImmuMultStat_;
+    }
 
     private void initAbItMultStat() {
         DataBase data_ = getDataBase();
-        abilitiesMultStat = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultStat().isEmpty() || !ab_.getMultStatIfCat().isEmpty()) {
-                abilitiesMultStat.add(a);
-            }
-        }
+        abilitiesMultStat = abilitiesMultStatInit(data_);
         abilitiesMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        itemsMultStat = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultStat().isEmpty()) {
-                itemsMultStat.add(i);
+        itemsMultStat = itemsMultStatInit(data_);
+        itemsMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesMultStatInit(DataBase _db) {
+        StringList abilitiesMultStat_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultStat().isEmpty() || !ab_.getMultStatIfCat().isEmpty()) {
+                abilitiesMultStat_.add(a);
             }
         }
-        itemsMultStat.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesMultStat_;
+    }
+    static StringList itemsMultStatInit(DataBase _db) {
+        StringList itemsMultStat_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultStat().isEmpty()) {
+                itemsMultStat_.add(i);
+            }
+        }
+        return itemsMultStat_;
     }
 
     private void initMultStatTeamGlobal() {
         DataBase data_ = getDataBase();
-        movesGlobalMultStat = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesGlobalMultStat = movesGlobalMultStatInit(data_);
+        movesGlobalMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        initMultStatTeam();
+    }
+    static StringList movesGlobalMultStatInit(DataBase _db) {
+        StringList movesGlobalMultStat_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal && !((EffectGlobal) e).getMultStatIfContainsType().isEmpty()) {
-                    movesGlobalMultStat.add(m);
+                    movesGlobalMultStat_.add(m);
                     break;
                 }
             }
         }
-        movesGlobalMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        initMultStatTeam();
+        return movesGlobalMultStat_;
     }
 
     private void initMultStatTeam() {
         DataBase data_ = getDataBase();
-        movesTeamMultStat = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesTeamMultStat = movesTeamMultStatInit(data_);
+        movesTeamMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesFoeTeamMultStat = movesFoeTeamMultStatInit(data_);
+        movesFoeTeamMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesTeamMultStatInit(DataBase _db) {
+        StringList movesTeamMultStat_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectTeam && !((EffectTeam) e).getMultStatistic().isEmpty()) {
-                    movesTeamMultStat.add(m);
+                    movesTeamMultStat_.add(m);
                     break;
                 }
             }
         }
-        movesTeamMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesFoeTeamMultStat = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return movesTeamMultStat_;
+    }
+    static StringList movesFoeTeamMultStatInit(DataBase _db) {
+        StringList movesFoeTeamMultStat_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectTeam && !((EffectTeam) e).getMultStatisticFoe().isEmpty()) {
-                    movesFoeTeamMultStat.add(m);
+                    movesFoeTeamMultStat_.add(m);
                     break;
                 }
             }
         }
-        movesFoeTeamMultStat.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesFoeTeamMultStat_;
     }
 
     private void initComboMultStat() {
         DataBase data_ = getDataBase();
-        comboMultStat = new CustList<StringList>();
-        for (StringList g: data_.getCombos().getEffects().getKeys()) {
-            EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
+        comboMultStat = comboMultStatInit(data_,getLanguage());
+    }
+    static CustList<StringList> comboMultStatInit(DataBase _db, String _lg) {
+        CustList<StringList> comboMultStat_ = new CustList<StringList>();
+        for (StringList g: _db.getCombos().getEffects().getKeys()) {
+            EffectCombo effect_ = _db.getCombos().getEffects().getVal(g);
             if (effect_.estActifEquipe()) {
-                comboMultStat.add(new StringList(g));
+                comboMultStat_.add(new StringList(g));
             }
         }
-        for (StringList v: comboMultStat) {
-            v.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        for (StringList v: comboMultStat_) {
+            v.sortElts(DictionaryComparatorUtil.cmpMoves(_db,_lg));
         }
+        return comboMultStat_;
     }
 
     private void initComboEvtStat() {
         DataBase data_ = getDataBase();
-        comboEvtStat = new CustList<StringList>();
-        for (StringList g: data_.getCombos().getEffects().getKeys()) {
-            EffectCombo effect_ = data_.getCombos().getEffects().getVal(g);
+        comboEvtStat = comboEvtStatInit(data_,getLanguage());
+    }
+    static CustList<StringList> comboEvtStatInit(DataBase _db, String _lg) {
+        CustList<StringList> comboEvtStat_ = new CustList<StringList>();
+        for (StringList g: _db.getCombos().getEffects().getKeys()) {
+            EffectCombo effect_ = _db.getCombos().getEffects().getVal(g);
             if (!effect_.getMultEvtRateSecEff().isZero()) {
-                comboEvtStat.add(new StringList(g));
+                comboEvtStat_.add(new StringList(g));
             }
         }
-        for (StringList v: comboEvtStat) {
-            v.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        for (StringList v: comboEvtStat_) {
+            v.sortElts(DictionaryComparatorUtil.cmpMoves(_db,_lg));
         }
+        return comboEvtStat_;
     }
 
     private void initItemsBoostingStat() {
         DataBase data_ = getDataBase();
-        itemsBoostingStat = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && (!((ItemForBattle) it_).getMultStatRank().isEmpty() || !((ItemForBattle) it_).getMultStatPokemonRank().isEmpty())) {
-                itemsBoostingStat.add(i);
-            }
-        }
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && !((Berry) it_).getMultStat().isEmpty()) {
-                itemsBoostingStat.add(i);
-            }
-        }
+        itemsBoostingStat = itemsBoostingStatInit(data_);
         itemsBoostingStat.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList itemsBoostingStatInit(DataBase _db) {
+        StringList itemsBoostingStat_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && (!((ItemForBattle) it_).getMultStatRank().isEmpty() || !((ItemForBattle) it_).getMultStatPokemonRank().isEmpty())) {
+                itemsBoostingStat_.add(i);
+            }
+        }
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getMultStat().isEmpty()) {
+                itemsBoostingStat_.add(i);
+            }
+        }
+        return itemsBoostingStat_;
     }
 
     private void initSuccessEffectsElements() {
@@ -792,37 +971,13 @@ public class FightHelpBean extends CommonBean {
         initImmuTypes();
         initAbilitiesImmu();
         initItImmu();
-        abilitiesImmuSecEffOther = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isCancelSecEffectOther()) {
-                abilitiesImmuSecEffOther.add(a);
-            }
-        }
+        abilitiesImmuSecEffOther = abilitiesImmuSecEffOtherInit(data_);
         abilitiesImmuSecEffOther.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesImmuSecEffOwner = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isCancelSecEffectOwner()) {
-                abilitiesImmuSecEffOwner.add(a);
-            }
-        }
+        abilitiesImmuSecEffOwner = abilitiesImmuSecEffOwnerInit(data_);
         abilitiesImmuSecEffOwner.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesAchieveTarget = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isAchievedDisappearedPk()) {
-                abilitiesAchieveTarget.add(a);
-            }
-        }
+        abilitiesAchieveTarget = abilitiesAchieveTargetInit(data_);
         abilitiesAchieveTarget.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesBreakProtectMoves = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isBreakProtection()) {
-                abilitiesBreakProtectMoves.add(a);
-            }
-        }
+        abilitiesBreakProtectMoves = abilitiesBreakProtectMovesInit(data_);
         abilitiesBreakProtectMoves.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         movesProtecting = new StringList();
         movesProtecting.addAllElts(data_.getMovesProtAgainstDamageMoves());
@@ -833,362 +988,534 @@ public class FightHelpBean extends CommonBean {
         movesProtecting.removeDuplicates();
         movesProtecting.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
+    static StringList abilitiesImmuSecEffOtherInit(DataBase _db) {
+        StringList abilitiesImmuSecEffOther_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isCancelSecEffectOther()) {
+                abilitiesImmuSecEffOther_.add(a);
+            }
+        }
+        return abilitiesImmuSecEffOther_;
+    }
+    static StringList abilitiesImmuSecEffOwnerInit(DataBase _db) {
+        StringList abilitiesImmuSecEffOwner_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isCancelSecEffectOwner()) {
+                abilitiesImmuSecEffOwner_.add(a);
+            }
+        }
+        return abilitiesImmuSecEffOwner_;
+    }
+
+    static StringList abilitiesAchieveTargetInit(DataBase _db) {
+        StringList abilitiesAchieveTarget_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isAchievedDisappearedPk()) {
+                abilitiesAchieveTarget_.add(a);
+            }
+        }
+        return abilitiesAchieveTarget_;
+    }
+    static StringList abilitiesBreakProtectMovesInit(DataBase _db) {
+        StringList abilitiesBreakProtectMoves_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isBreakProtection()) {
+                abilitiesBreakProtectMoves_.add(a);
+            }
+        }
+        return abilitiesBreakProtectMoves_;
+    }
 
     private void initItemsCancelImmu() {
         DataBase data_ = getDataBase();
-        itemsCancelImmu = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
+        itemsCancelImmu = itemsCancelImmuInit(data_);
+        itemsCancelImmu.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList itemsCancelImmuInit(DataBase _db) {
+        StringList itemsCancelImmu_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
             if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getCancelImmuType()) {
-                itemsCancelImmu.add(i);
+                itemsCancelImmu_.add(i);
             }
         }
-        itemsCancelImmu.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return itemsCancelImmu_;
     }
 
     private void initAbilitiesImmu() {
         DataBase data_ = getDataBase();
-        abilitiesImmuAllies = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuAllyFromMoves().isEmpty()) {
-                abilitiesImmuAllies.add(a);
-            }
-        }
+        abilitiesImmuAllies = abilitiesImmuAlliesInit(data_);
         abilitiesImmuAllies.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesImmuAlliesDam = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isImmuDamageAllyMoves()) {
-                abilitiesImmuAlliesDam.add(a);
-            }
-        }
+        abilitiesImmuAlliesDam = abilitiesImmuAlliesDamInit(data_);
         abilitiesImmuAlliesDam.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesImmu = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuMove().isEmpty() || ab_.isImmuSufferedDamageLowEff()) {
-                abilitiesImmu.add(a);
+        abilitiesImmu = abilitiesImmuInit(data_);
+        abilitiesImmu.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesImmuAlliesInit(DataBase _db) {
+        StringList abilitiesImmuAllies_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuAllyFromMoves().isEmpty()) {
+                abilitiesImmuAllies_.add(a);
             }
         }
-        abilitiesImmu.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesImmuAllies_;
+    }
+    static StringList abilitiesImmuAlliesDamInit(DataBase _db) {
+        StringList abilitiesImmuAlliesDam_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isImmuDamageAllyMoves()) {
+                abilitiesImmuAlliesDam_.add(a);
+            }
+        }
+        return abilitiesImmuAlliesDam_;
+    }
+    static StringList abilitiesImmuInit(DataBase _db) {
+        StringList abilitiesImmu_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuMove().isEmpty() || ab_.isImmuSufferedDamageLowEff()) {
+                abilitiesImmu_.add(a);
+            }
+        }
+        return abilitiesImmu_;
     }
 
     private void initItImmu() {
         DataBase data_ = getDataBase();
-        itemsImmu = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuMoves().isEmpty()) {
-                itemsImmu.add(i);
-            }
-        }
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && !((Berry) it_).getHealHpBySuperEffMove().isZero()) {
-                itemsImmu.add(i);
-            }
-        }
+        itemsImmu = itemsImmuInit(data_);
         itemsImmu.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList itemsImmuInit(DataBase _db) {
+        StringList itemsImmu_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuMoves().isEmpty()) {
+                itemsImmu_.add(i);
+            }
+        }
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getHealHpBySuperEffMove().isZero()) {
+                itemsImmu_.add(i);
+            }
+        }
+        return itemsImmu_;
     }
 
     private void initImmuTypes() {
         DataBase data_ = getDataBase();
-        abilitiesImmuTypes = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuMoveTypesByWeather().isEmpty()) {
-                abilitiesImmuTypes.add(a);
-            }
-        }
+        abilitiesImmuTypes = abilitiesImmuTypesInit(data_);
         abilitiesImmuTypes.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        itemsImmuTypes = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuTypes().isEmpty()) {
-                itemsImmuTypes.add(i);
+        itemsImmuTypes = itemsImmuTypesInit(data_);
+        itemsImmuTypes.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList abilitiesImmuTypesInit(DataBase _db) {
+        StringList abilitiesImmuTypes_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuMoveTypesByWeather().isEmpty()) {
+                abilitiesImmuTypes_.add(a);
             }
         }
-        itemsImmuTypes.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return abilitiesImmuTypes_;
+    }
+    static StringList itemsImmuTypesInit(DataBase _db) {
+        StringList itemsImmuTypes_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getImmuTypes().isEmpty()) {
+                itemsImmuTypes_.add(i);
+            }
+        }
+        return itemsImmuTypes_;
     }
 
     private void initMovesBrImmu() {
         DataBase data_ = getDataBase();
-        movesGlobalBreakImmu = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (e instanceof EffectGlobal && !((EffectGlobal) e).getEfficiencyMoves().isEmpty()) {
-                    movesGlobalBreakImmu.add(m);
-                    break;
-                }
-            }
-        }
+        movesGlobalBreakImmu = movesGlobalBreakImmuInit(data_);
         movesGlobalBreakImmu.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesGlobalBreakImmuAb = new StringList();
-        abilitiesBreakable = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (e instanceof EffectGlobal && !((EffectGlobal) e).getCancelProtectingAbilities().isEmpty()) {
-                    abilitiesBreakable.addAllElts(((EffectGlobal) e).getCancelProtectingAbilities());
-                    movesGlobalBreakImmuAb.add(m);
-                    break;
-                }
-            }
-        }
+        movesGlobalBreakImmuAb = movesGlobalBreakImmuAbInit(data_);
+        abilitiesBreakable = abilitiesBreakableInit(movesGlobalBreakImmuAb,data_);
         movesGlobalBreakImmuAb.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         abilitiesBreakable.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList movesGlobalBreakImmuInit(DataBase _db) {
+        StringList movesGlobalBreakImmu_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getEfficiencyMoves().isEmpty()) {
+                    movesGlobalBreakImmu_.add(m);
+                    break;
+                }
+            }
+        }
+        return movesGlobalBreakImmu_;
+    }
+    static StringList movesGlobalBreakImmuAbInit(DataBase _db) {
+        StringList movesGlobalBreakImmuAb_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal && !((EffectGlobal) e).getCancelProtectingAbilities().isEmpty()) {
+                    movesGlobalBreakImmuAb_.add(m);
+                    break;
+                }
+            }
+        }
+        return movesGlobalBreakImmuAb_;
+    }
+    static StringList abilitiesBreakableInit(StringList _moves,DataBase _db) {
+        StringList abilitiesBreakable_ = new StringList();
+        for (String m: _moves) {
+            MoveData move_ = _db.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (e instanceof EffectGlobal) {
+                    abilitiesBreakable_.addAllElts(((EffectGlobal) e).getCancelProtectingAbilities());
+                    break;
+                }
+            }
+        }
+        return abilitiesBreakable_;
     }
 
     private void initDamageCalculationElements() {
         DataBase data_ = getDataBase();
         initMovesUserAllyDamage();
-        abilitiesTargetDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultDamageFoe().isEmpty() || !ab_.getMultSufferedDamageSuperEff().isZero()) {
-                abilitiesTargetDamage.add(a);
-            }
-        }
+        abilitiesTargetDamage = abilitiesTargetDamageInit(data_);
         abilitiesTargetDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initMovesTargetTeamDamage();
-        abilitiesUserIgnTargetTeam = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getIgnFoeTeamMove().isEmpty()) {
-                abilitiesUserIgnTargetTeam.add(a);
-            }
-        }
+        abilitiesUserIgnTargetTeam = abilitiesUserIgnTargetTeamInit(data_);
         abilitiesUserIgnTargetTeam.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesGlobal = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultPowerMovesTypesGlobal().isEmpty() || ab_.isReverseEffectsPowerMovesTypesGlobal()) {
-                abilitiesGlobal.add(a);
-            }
-        }
+        abilitiesGlobal = abilitiesGlobalInit(data_);
         abilitiesGlobal.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initMovesGlobal();
         initDamageDefElement();
         initAbilitiesUserDamage();
         movesIgn();
     }
-
+    static StringList abilitiesTargetDamageInit(DataBase _db) {
+        StringList abilitiesTargetDamage_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultDamageFoe().isEmpty() || !ab_.getMultSufferedDamageSuperEff().isZero()) {
+                abilitiesTargetDamage_.add(a);
+            }
+        }
+        return abilitiesTargetDamage_;
+    }
+    static StringList abilitiesUserIgnTargetTeamInit(DataBase _db) {
+        StringList abilitiesUserIgnTargetTeam_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getIgnFoeTeamMove().isEmpty()) {
+                abilitiesUserIgnTargetTeam_.add(a);
+            }
+        }
+        return abilitiesUserIgnTargetTeam_;
+    }
+    static StringList abilitiesGlobalInit(DataBase _db) {
+        StringList abilitiesGlobal_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultPowerMovesTypesGlobal().isEmpty() || ab_.isReverseEffectsPowerMovesTypesGlobal()) {
+                abilitiesGlobal_.add(a);
+            }
+        }
+        return abilitiesGlobal_;
+    }
     private void initDamageDefElement() {
         DataBase data_ = getDataBase();
-        itemsUserDamage = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultDamage().isEmpty()) {
-                itemsUserDamage.add(i);
-            }
-        }
+        itemsUserDamage = itemsUserDamageInit(data_);
         itemsUserDamage.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        abilitiesUserDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultDamage().isEmpty()) {
-                abilitiesUserDamage.add(a);
-            }
-        }
+        abilitiesUserDamage = abilitiesUserDamageInit(data_);
         abilitiesUserDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initMovesInvokDamage();
-        itemsTargetDamage = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && !((Berry) it_).getMultFoesDamage().isEmpty()) {
-                itemsTargetDamage.add(i);
-            }
-        }
+        itemsTargetDamage = itemsTargetDamageInit(data_);
         itemsTargetDamage.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         initMovesGlobalPrepaDamage();
-        statusDamage = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() != StatusType.INDIVIDUEL && st_.estActifPartenaire() && st_.getEffectsPartner().first().getWeddingAlly()) {
-                statusDamage.add(s);
+        statusDamage = statusDamageInit(data_);
+        statusDamage.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+    }
+    static StringList itemsUserDamageInit(DataBase _db) {
+        StringList itemsUserDamage_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultDamage().isEmpty()) {
+                itemsUserDamage_.add(i);
             }
         }
-        statusDamage.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+        return itemsUserDamage_;
+    }
+    static StringList abilitiesUserDamageInit(DataBase _db) {
+        StringList abilitiesUserDamage_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultDamage().isEmpty()) {
+                abilitiesUserDamage_.add(a);
+            }
+        }
+        return abilitiesUserDamage_;
+    }
+    static StringList itemsTargetDamageInit(DataBase _db) {
+        StringList itemsTargetDamage_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getMultFoesDamage().isEmpty()) {
+                itemsTargetDamage_.add(i);
+            }
+        }
+        return itemsTargetDamage_;
+    }
+    static StringList statusDamageInit(DataBase _db) {
+        StringList statusDamage_ = new StringList();
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
+            if (st_.getStatusType() != StatusType.INDIVIDUEL && st_.estActifPartenaire() && st_.getEffectsPartner().first().getWeddingAlly()) {
+                statusDamage_.add(s);
+            }
+        }
+        return statusDamage_;
     }
 
     private void initMovesUserAllyDamage() {
         DataBase data_ = getDataBase();
-        movesUserAllyDamage = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesUserAllyDamage = movesUserAllyDamageInit(data_);
+        movesUserAllyDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesUserAllyDamageInit(DataBase _db) {
+        StringList movesUserAllyDamage_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectAlly && !((EffectAlly) e).getMultAllyDamage().isZero()) {
-                    movesUserAllyDamage.add(m);
+                    movesUserAllyDamage_.add(m);
                     break;
                 }
             }
         }
-        movesUserAllyDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesUserAllyDamage_;
     }
 
     private void initMovesTargetTeamDamage() {
         DataBase data_ = getDataBase();
-        movesTargetTeamDamage = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesTargetTeamDamage = movesTargetTeamDamageInit(data_);
+        movesTargetTeamDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesTargetTeamDamageInit(DataBase _db) {
+        StringList movesTargetTeamDamage_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectTeam && !((EffectTeam) e).getMultDamage().isEmpty()) {
-                    movesTargetTeamDamage.add(m);
+                    movesTargetTeamDamage_.add(m);
                     break;
                 }
             }
         }
-        movesTargetTeamDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesTargetTeamDamage_;
     }
 
     private void initMovesGlobal() {
         DataBase data_ = getDataBase();
-        movesGlobal = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesGlobal = movesGlobalInit(data_);
+        movesGlobal.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesGlobalInit(DataBase _db) {
+        StringList movesGlobal_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal && (!((EffectGlobal) e).getMultPowerMoves().isEmpty() || !((EffectGlobal) e).getMultDamageTypesMoves().isEmpty())) {
-                    movesGlobal.add(m);
+                    movesGlobal_.add(m);
                     break;
                 }
             }
         }
-        movesGlobal.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesGlobal_;
     }
 
     private void initMovesInvokDamage() {
         DataBase data_ = getDataBase();
-        movesInvokDamage = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesInvokDamage = movesInvokDamageInit(data_);
+        movesInvokDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesInvokDamageInit(DataBase _db) {
+        StringList movesInvokDamage_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectInvoke && !((EffectInvoke) e).getRateInvokationMove().isZero()) {
-                    movesInvokDamage.add(m);
+                    movesInvokDamage_.add(m);
                     break;
                 }
             }
         }
-        movesInvokDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesInvokDamage_;
     }
 
     private void initMovesGlobalPrepaDamage() {
         DataBase data_ = getDataBase();
-        movesGlobalPrepaDamage = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesGlobalPrepaDamage = movesGlobalPrepaDamageInit(data_);
+        movesGlobalPrepaDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesGlobalPrepaDamageInit(DataBase _db) {
+        StringList movesGlobalPrepaDamage_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal && !((EffectGlobal) e).getMovesUsedByTargetedFighters().isEmpty() && !((EffectGlobal) e).getMultDamagePrepaRound().isEmpty()) {
-                    movesGlobalPrepaDamage.add(m);
+                    movesGlobalPrepaDamage_.add(m);
                     break;
                 }
             }
         }
-        movesGlobalPrepaDamage.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesGlobalPrepaDamage_;
     }
 
     private void initAbilitiesUserDamage() {
         DataBase data_ = getDataBase();
-        abilitiesUserTargetDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultAllyDamage().isZero()) {
-                abilitiesUserTargetDamage.add(a);
-            }
-        }
+        abilitiesUserTargetDamage = abilitiesUserTargetDamageInit(data_);
         abilitiesUserTargetDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesUserStabDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultStab().isZero()) {
-                abilitiesUserStabDamage.add(a);
+        abilitiesUserStabDamage = abilitiesUserStabDamageInit(data_);
+        abilitiesUserStabDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesUserTargetDamageInit(DataBase _db) {
+        StringList abilitiesUserTargetDamage_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultAllyDamage().isZero()) {
+                abilitiesUserTargetDamage_.add(a);
             }
         }
-        abilitiesUserStabDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesUserTargetDamage_;
+    }
+    static StringList abilitiesUserStabDamageInit(DataBase _db) {
+        StringList abilitiesUserStabDamage_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultStab().isZero()) {
+                abilitiesUserStabDamage_.add(a);
+            }
+        }
+        return abilitiesUserStabDamage_;
     }
 
     private void movesIgn() {
         DataBase data_ = getDataBase();
-        movesIgnLowAtt = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesIgnLowAtt = movesIgnLowAttInit(data_);
+        movesIgnLowAtt.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesIgnIncDef = movesIgnIncDefInit(data_);
+        movesIgnIncDef.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesIgnLowAttInit(DataBase _db) {
+        StringList movesIgnLowAtt_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectDamage && !((EffectDamage) e).getIgnVarStatUserNeg().isEmpty()) {
-                    movesIgnLowAtt.add(m);
+                    movesIgnLowAtt_.add(m);
                     break;
                 }
             }
         }
-        movesIgnLowAtt.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesIgnIncDef = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return movesIgnLowAtt_;
+    }
+    static StringList movesIgnIncDefInit(DataBase _db) {
+        StringList movesIgnIncDef_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectDamage && !((EffectDamage) e).getIgnVarStatTargetPos().isEmpty()) {
-                    movesIgnIncDef.add(m);
+                    movesIgnIncDef_.add(m);
                     break;
                 }
             }
         }
-        movesIgnIncDef.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesIgnIncDef_;
     }
 
     private void initPowerElements() {
         DataBase data_ = getDataBase();
-        damagingMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        damagingMoves = damagingMovesInit(data_);
+        damagingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        itemsUserPower = itemsUserPowerInit(data_);
+        itemsUserPower.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        initMovePowerUserTarget();
+        abilitiesUserPower = abilitiesUserPowerInit(data_);
+        abilitiesUserPower.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList damagingMovesInit(DataBase _db) {
+        StringList damagingMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectDamage) {
-                    damagingMoves.add(m);
+                    damagingMoves_.add(m);
                 }
             }
         }
-        damagingMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        itemsUserPower = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
+        return damagingMoves_;
+    }
+    static StringList itemsUserPowerInit(DataBase _db) {
+        StringList itemsUserPower_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
             if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getMultPower().isEmpty()) {
-                itemsUserPower.add(i);
+                itemsUserPower_.add(i);
             }
         }
-        itemsUserPower.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        initMovePowerUserTarget();
-        abilitiesUserPower = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        return itemsUserPower_;
+    }
+    static StringList abilitiesUserPowerInit(DataBase _db) {
+        StringList abilitiesUserPower_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (!ab_.getChangingBoostTypes().isEmpty()) {
-                abilitiesUserPower.add(a);
+                abilitiesUserPower_.add(a);
             }
         }
-        abilitiesUserPower.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesUserPower_;
     }
 
     private void initMovePowerUserTarget() {
         DataBase data_ = getDataBase();
-        movesUserPower = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesUserPower = movesUserPowerInit(data_);
+        movesUserPower.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesTargetPower = movesTargetPowerInit(data_);
+        movesTargetPower.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesUserPowerInit(DataBase _db) {
+        StringList movesUserPower_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectMultUsedMovePower) {
-                    movesUserPower.add(m);
+                    movesUserPower_.add(m);
                     break;
                 }
             }
         }
-        movesUserPower.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesTargetPower = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return movesUserPower_;
+    }
+    static StringList movesTargetPowerInit(DataBase _db) {
+        StringList movesTargetPower_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectMultSufferedMovePower) {
-                    movesTargetPower.add(m);
+                    movesTargetPower_.add(m);
                     break;
                 }
             }
         }
-        movesTargetPower.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesTargetPower_;
     }
 
     private void initWhileDamageElements() {
@@ -1196,71 +1523,85 @@ public class FightHelpBean extends CommonBean {
         movesProtAgainstKo = new StringList(data_.getMovesProtSingleTargetAgainstKo());
         movesProtAgainstKo.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         initItemsProtAgainstKo();
-        movesCannotKo = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (move_ instanceof DamagingMoveData && ((DamagingMoveData) move_).getCannotKo()) {
-                movesCannotKo.add(m);
-            }
-        }
+        movesCannotKo = movesCannotKoInit(data_);
         minHpNotKo = data_.getMinHp();
         movesCannotKo.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        itemsAbs = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getDrainedHpByDamageRate().isZero()) {
-                itemsAbs.add(i);
-            }
-        }
+        itemsAbs = itemsAbsInit(data_);
         itemsAbs.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         initWhileDamageAbilities();
         initRecoilMembers();
-        abilitiesKoTarget = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultStatIfKoFoe().isEmpty()) {
-                abilitiesKoTarget.add(a);
-            }
-        }
+        abilitiesKoTarget = abilitiesKoTargetInit(data_);
         abilitiesKoTarget.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initMovesKoTarget();
+    }
+    static StringList movesCannotKoInit(DataBase _db) {
+        StringList movesCannotKo_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (move_ instanceof DamagingMoveData && ((DamagingMoveData) move_).getCannotKo()) {
+                movesCannotKo_.add(m);
+            }
+        }
+        return movesCannotKo_;
+    }
+    static StringList itemsAbsInit(DataBase _db) {
+        StringList itemsAbs_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getDrainedHpByDamageRate().isZero()) {
+                itemsAbs_.add(i);
+            }
+        }
+        return itemsAbs_;
+    }
+    static StringList abilitiesKoTargetInit(DataBase _db) {
+        StringList abilitiesKoTarget_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultStatIfKoFoe().isEmpty()) {
+                abilitiesKoTarget_.add(a);
+            }
+        }
+        return abilitiesKoTarget_;
     }
 
     private void initMovesKoTarget() {
         DataBase data_ = getDataBase();
-        movesKoTarget = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        movesKoTarget = movesKoTargetInit(data_);
+        movesKoTarget.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList movesKoTargetInit(DataBase _db) {
+        StringList movesKoTarget_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectDamage && !((EffectDamage) e).getBoostStatisOnceKoFoe().isEmpty()) {
-                    movesKoTarget.add(m);
+                    movesKoTarget_.add(m);
                 }
             }
         }
-        movesKoTarget.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesKoTarget_;
     }
 
     private void initItemsProtAgainstKo() {
         DataBase data_ = getDataBase();
-        itemsProtAgainstKo = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
+        itemsProtAgainstKo = itemsProtAgainstKoInit(data_);
+        itemsProtAgainstKo.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList itemsProtAgainstKoInit(DataBase _db) {
+        StringList itemsProtAgainstKo_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
             if (it_ instanceof ItemForBattle && (!((ItemForBattle) it_).getProtectAgainstKo().isZero() || !((ItemForBattle) it_).getProtectAgainstKoIfFullHp().isZero())) {
-                itemsProtAgainstKo.add(i);
+                itemsProtAgainstKo_.add(i);
             }
         }
-        itemsProtAgainstKo.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return itemsProtAgainstKo_;
     }
 
     private void initWhileDamageAbilities() {
         DataBase data_ = getDataBase();
-        abilitiesRevAbs = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isInflictingDamageInsteadOfSuffering()) {
-                abilitiesRevAbs.add(a);
-            }
-        }
+        abilitiesRevAbs = abilitiesRevAbsInit(data_);
         abilitiesRevAbs.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initAbilitiesDamageStatis();
         initAbilitiesChangingTypesDamage();
@@ -1297,184 +1638,231 @@ public class FightHelpBean extends CommonBean {
         }
         abilitiesCopyAb.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
+    static StringList abilitiesRevAbsInit(DataBase _db) {
+        StringList abilitiesRevAbs_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isInflictingDamageInsteadOfSuffering()) {
+                abilitiesRevAbs_.add(a);
+            }
+        }
+        return abilitiesRevAbs_;
+    }
 
     private void initAbilitiesChangingTypesDamage() {
         DataBase data_ = getDataBase();
-        abilitiesChangingTypesDamage = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        abilitiesChangingTypesDamage = abilitiesChangingTypesDamageInit(data_);
+        abilitiesChangingTypesDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesChangingTypesDamageInit(DataBase _db) {
+        StringList abilitiesChangingTypesDamage_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (ab_.isChgtTypeByDamage()) {
-                abilitiesChangingTypesDamage.add(a);
+                abilitiesChangingTypesDamage_.add(a);
             }
         }
-        abilitiesChangingTypesDamage.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesChangingTypesDamage_;
     }
 
     private void initAbilitiesDamageStatis() {
         DataBase data_ = getDataBase();
-        abilitiesDamageStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        abilitiesDamageStatis = abilitiesDamageStatisInit(data_);
+        abilitiesDamageStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesDamageStatisInit(DataBase _db) {
+        StringList abilitiesDamageStatis_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (!ab_.getMaxStatisticsIfCh().isEmpty() || !ab_.getMultStatIfDamgeType().isEmpty() || !ab_.getMultStatIfDamageCat().isEmpty()) {
-                abilitiesDamageStatis.add(a);
+                abilitiesDamageStatis_.add(a);
             }
         }
-        abilitiesDamageStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesDamageStatis_;
     }
 
     private void initEndRoundUserMembers() {
         DataBase data_ = getDataBase();
-        abilitiesEndRound = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getBoostStatRankEndRound().isEmpty()) {
-                abilitiesEndRound.add(a);
-            }
-        }
+        abilitiesEndRound = abilitiesEndRoundInit(data_);
         abilitiesEndRound.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        berryEndRound = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && ((Berry) it_).getHealPp() > 0) {
-                berryEndRound.add(i);
+        berryEndRound = berryEndRoundInit(data_);
+        berryEndRound.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        movesChangingAttOrder = movesChangingAttOrderInit(data_);
+        movesChangingAttOrder.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList abilitiesEndRoundInit(DataBase _db) {
+        StringList abilitiesEndRound_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getBoostStatRankEndRound().isEmpty()) {
+                abilitiesEndRound_.add(a);
             }
         }
-        berryEndRound.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        movesChangingAttOrder = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return abilitiesEndRound_;
+    }
+    static StringList berryEndRoundInit(DataBase _db) {
+        StringList berryEndRound_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && ((Berry) it_).getHealPp() > 0) {
+                berryEndRound_.add(i);
+            }
+        }
+        return berryEndRound_;
+    }
+    static StringList movesChangingAttOrderInit(DataBase _db) {
+        StringList movesChangingAttOrder_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectOrder) {
-                    movesChangingAttOrder.add(m);
+                    movesChangingAttOrder_.add(m);
                 }
             }
         }
-        movesChangingAttOrder.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesChangingAttOrder_;
     }
 
     private void initBerryEndEffectMembers() {
         DataBase data_ = getDataBase();
-        berryUser = new StringList();
-        berryTarget = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && (!((Berry) it_).getHealHp().isZero() || !((Berry) it_).getHealHpRate().isZero())) {
-                berryUser.add(i);
-                berryTarget.add(i);
-            }
-        }
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && !((Berry) it_).getCategoryBoosting().isEmpty()) {
-                berryTarget.add(i);
-            }
-        }
+        berryUser = berryUserInit(data_);
+        berryTarget = berryTargetInit(data_);
         berryTarget.removeDuplicates();
         berryUser.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         berryTarget.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
     }
+    static StringList berryUserInit(DataBase _db) {
+        StringList berryUser_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && (!((Berry) it_).getHealHp().isZero() || !((Berry) it_).getHealHpRate().isZero())) {
+                berryUser_.add(i);
+            }
+        }
+        return berryUser_;
+    }
+    static StringList berryTargetInit(DataBase _db) {
+        StringList berryTarget_ = berryUserInit(_db);
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getCategoryBoosting().isEmpty()) {
+                berryTarget_.add(i);
+            }
+        }
+        return berryTarget_;
+    }
 
     private void initRecoilMembers() {
         DataBase data_ = getDataBase();
-        recoilItems = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getDamageRecoil().isZero()) {
-                recoilItems.add(i);
-            }
-        }
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && !((Berry) it_).getDamageRateRecoilFoe().isEmpty()) {
-                recoilItems.add(i);
-            }
-        }
+        recoilItems = recoilItemsInit(data_);
         recoilItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        recoilAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getRecoilDamageFoe().isZero()) {
-                recoilAbilities.add(a);
+        recoilAbilities = recoilAbilitiesInit(data_);
+        recoilAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList recoilItemsInit(DataBase _db) {
+        StringList recoilItems_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getDamageRecoil().isZero()) {
+                recoilItems_.add(i);
             }
         }
-        recoilAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getDamageRateRecoilFoe().isEmpty()) {
+                recoilItems_.add(i);
+            }
+        }
+        return recoilItems_;
+    }
+    static StringList recoilAbilitiesInit(DataBase _db) {
+        StringList recoilAbilities_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getRecoilDamageFoe().isZero()) {
+                recoilAbilities_.add(a);
+            }
+        }
+        return recoilAbilities_;
     }
 
     private void initStatisticsImmuElements() {
         DataBase data_ = getDataBase();
-        abilitiesFighterStatis = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuLowStat().isEmpty() || !ab_.getImmuLowStatIfStatus().isEmpty()) {
-                abilitiesFighterStatis.add(a);
-            }
-        }
+        abilitiesFighterStatis = abilitiesFighterStatisInit(data_);
         abilitiesFighterStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        itemsFighterStatis = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getImmuLowStatis()) {
-                itemsFighterStatis.add(i);
-            }
-        }
+        itemsFighterStatis = itemsFighterStatisInit(data_);
         itemsFighterStatis.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        abilitiesFighterStatisVar = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getMultVarBoost().isZero() || !ab_.getMultStatIfLowStat().isEmpty()) {
-                abilitiesFighterStatisVar.add(a);
+        abilitiesFighterStatisVar = abilitiesFighterStatisVarInit(data_);
+        abilitiesFighterStatisVar.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList abilitiesFighterStatisInit(DataBase _db) {
+        StringList abilitiesFighterStatis_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuLowStat().isEmpty() || !ab_.getImmuLowStatIfStatus().isEmpty()) {
+                abilitiesFighterStatis_.add(a);
             }
         }
-        abilitiesFighterStatisVar.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return abilitiesFighterStatis_;
+    }
+    static StringList itemsFighterStatisInit(DataBase _db) {
+        StringList itemsFighterStatis_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getImmuLowStatis()) {
+                itemsFighterStatis_.add(i);
+            }
+        }
+        return itemsFighterStatis_;
+    }
+    static StringList abilitiesFighterStatisVarInit(DataBase _db) {
+        StringList abilitiesFighterStatisVar_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getMultVarBoost().isZero() || !ab_.getMultStatIfLowStat().isEmpty()) {
+                abilitiesFighterStatisVar_.add(a);
+            }
+        }
+        return abilitiesFighterStatisVar_;
     }
 
     private void initProtectingMembers() {
         DataBase data_ = getDataBase();
-        protectItems = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && !((Berry) it_).getHealHpBySuperEffMove().isZero()) {
-                protectItems.add(i);
-            }
-        }
+        protectItems = protectItemsInit(data_);
         protectItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        protectAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getBoostStatRankProtected().isEmpty() || !ab_.getHealHpByTypeIfWeather().isEmpty()) {
-                protectAbilities.add(a);
-            }
-        }
+        protectAbilities = protectAbilitiesInit(data_);
         protectAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         protectMoves = new StringList(data_.getMovesCountering());
         protectMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList protectItemsInit(DataBase _db) {
+        StringList protectItems_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && !((Berry) it_).getHealHpBySuperEffMove().isZero()) {
+                protectItems_.add(i);
+            }
+        }
+        return protectItems_;
+    }
+    static StringList protectAbilitiesInit(DataBase _db) {
+        StringList protectAbilities_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getBoostStatRankProtected().isEmpty() || !ab_.getHealHpByTypeIfWeather().isEmpty()) {
+                protectAbilities_.add(a);
+            }
+        }
+        return protectAbilities_;
     }
 
     private void initInvokingMembers() {
         DataBase data_ = getDataBase();
         movesInvoking = new StringList(data_.getMovesInvoking());
         movesInvoking.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesThieving = new StringList();
-        movesAttracting = new StringList();
-        movesMirror = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            for (Effect e: move_.getEffects()) {
-                if (!(e instanceof EffectSwitchPointView)) {
-                    continue;
-                }
-                EffectSwitchPointView eff_ = (EffectSwitchPointView) e;
-                if (eff_.getPointViewChangement() == PointViewChangementType.THIEF_BONUSES) {
-                    movesThieving.add(m);
-                }
-                if (eff_.getPointViewChangement() == PointViewChangementType.ATTRACT_DAMAGES_MOVES) {
-                    movesAttracting.add(m);
-                }
-                if (eff_.getPointViewChangement() == PointViewChangementType.MIRROR_AGAINST_THROWER) {
-                    movesMirror.add(m);
-                }
-            }
-        }
+        movesThieving = movesThievingInit(data_);
+        movesAttracting = movesAttractingInit(data_);
+        movesMirror = movesMirrorInit(data_);
         movesThieving.removeDuplicates();
         movesThieving.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
         movesAttracting.removeDuplicates();
@@ -1482,256 +1870,420 @@ public class FightHelpBean extends CommonBean {
         movesMirror.removeDuplicates();
         movesMirror.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
+    static StringList movesThievingInit(DataBase _db) {
+        StringList movesThieving_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (!(e instanceof EffectSwitchPointView)) {
+                    continue;
+                }
+                EffectSwitchPointView eff_ = (EffectSwitchPointView) e;
+                if (eff_.getPointViewChangement() == PointViewChangementType.THIEF_BONUSES) {
+                    movesThieving_.add(m);
+                }
+            }
+        }
+        return movesThieving_;
+    }
+    static StringList movesAttractingInit(DataBase _db) {
+        StringList movesThieving_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (!(e instanceof EffectSwitchPointView)) {
+                    continue;
+                }
+                EffectSwitchPointView eff_ = (EffectSwitchPointView) e;
+                if (eff_.getPointViewChangement() == PointViewChangementType.ATTRACT_DAMAGES_MOVES) {
+                    movesThieving_.add(m);
+                }
+            }
+        }
+        return movesThieving_;
+    }
+    static StringList movesMirrorInit(DataBase _db) {
+        StringList movesThieving_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            for (Effect e: move_.getEffects()) {
+                if (!(e instanceof EffectSwitchPointView)) {
+                    continue;
+                }
+                EffectSwitchPointView eff_ = (EffectSwitchPointView) e;
+                if (eff_.getPointViewChangement() == PointViewChangementType.MIRROR_AGAINST_THROWER) {
+                    movesThieving_.add(m);
+                }
+            }
+        }
+        return movesThieving_;
+    }
 
     private void initBeginRoundPreparingMembers() {
         DataBase data_ = getDataBase();
-        prepaRoundMoves = new StringList();
-        disappearingRoundMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        prepaRoundMoves = prepaRoundMovesInit(data_);
+        disappearingRoundMoves = disappearingRoundMovesInit(data_);
+        prepaRoundMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        rechargeMoves = rechargeMovesInit(data_);
+        rechargeMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        disappearingRoundMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        speedPreparingItems = speedPreparingItemsInit(data_);
+        speedPreparingItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        immuRecharging = immuRechargingInit(data_);
+        immuRecharging.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList prepaRoundMovesInit(DataBase _db) {
+        StringList prepaRoundMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (move_.getNbPrepaRound() <= 0) {
+                continue;
+            }
+            prepaRoundMoves_.add(m);
+        }
+        return prepaRoundMoves_;
+    }
+    static StringList disappearingRoundMovesInit(DataBase _db) {
+        StringList disappearingRoundMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             if (move_.getNbPrepaRound() <= 0) {
                 continue;
             }
             if (move_.getDisappearBeforeUse()) {
-                disappearingRoundMoves.add(m);
+                disappearingRoundMoves_.add(m);
             }
-            prepaRoundMoves.add(m);
         }
-        prepaRoundMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        rechargeMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        return disappearingRoundMoves_;
+    }
+    static StringList rechargeMovesInit(DataBase _db) {
+        StringList rechargeMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             if (move_.getRechargeRound()) {
-                rechargeMoves.add(m);
+                rechargeMoves_.add(m);
             }
         }
-        rechargeMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        disappearingRoundMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        speedPreparingItems = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
+        return rechargeMoves_;
+    }
+    static StringList speedPreparingItemsInit(DataBase _db) {
+        StringList speedPreparingItems_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
             if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getAttacksSoon()) {
-                speedPreparingItems.add(i);
+                speedPreparingItems_.add(i);
             }
         }
-        speedPreparingItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        immuRecharging = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        return speedPreparingItems_;
+    }
+    static StringList immuRechargingInit(DataBase _db) {
+        StringList immuRecharging_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (ab_.isImmuRechargeRound()) {
-                immuRecharging.add(a);
+                immuRecharging_.add(a);
             }
         }
-        immuRecharging.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return immuRecharging_;
     }
 
     private void initBeginRoundStatusMembers() {
         DataBase data_ = getDataBase();
-        beginRoundStatus = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() != StatusType.RELATION_UNIQUE && st_ instanceof StatusBeginRound) {
-                beginRoundStatus.add(s);
-            }
-        }
+        beginRoundStatus = beginRoundStatusInit(data_);
         beginRoundStatus.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
-        deleteStatusMove = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
-            if (!move_.getDeletedStatus().isEmpty()) {
-                deleteStatusMove.add(m);
-            }
-        }
+        deleteStatusMove = deleteStatusMoveInit(data_);
         deleteStatusMove.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        immuStatusAbility = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getImmuStatusBeginRound().isEmpty()) {
-                immuStatusAbility.add(a);
-            }
-        }
+        immuStatusAbility = immuStatusAbilityInit(data_);
         immuStatusAbility.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        autoDamage = new StringList();
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_ instanceof StatusBeginRoundAutoDamage) {
-                autoDamage.add(s);
-            }
-        }
-        autoDamage.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
+        autoDamage = autoDamageInit(data_,getLanguage());
         damgeFormula = data_.getFormula(data_.getDamageFormula(), getLanguage());
         mapVar = new NatStringTreeMap<String>();
         mapVar.putAllMap(data_.getDescriptions(data_.getDamageFormula(), getLanguage()));
+        mapAutoDamage = mapAutoDamageInit(data_,getLanguage(), autoDamage);
+    }
+
+    static NatStringTreeMap<String> mapAutoDamageInit(DataBase _data, String _lg, AbsMap<String, StatusBeginRoundAutoDamage> _a) {
         NatStringTreeMap<String> mapAutoDamage_ = new NatStringTreeMap<String>();
         int len_;
-        len_ = autoDamage.size();
+        len_ = _a.size();
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            mapAutoDamage_.putAllMap(data_.getDescriptions(getNumericString(i), getLanguage()));
+            mapAutoDamage_.putAllMap(_data.getDescriptions(numString(_data, _a.getValue(i)), _lg));
         }
-        mapAutoDamage = mapAutoDamage_;
+        return mapAutoDamage_;
+    }
+
+    static StringList beginRoundStatusInit(DataBase _db) {
+        StringList beginRoundStatus_ = new StringList();
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
+            if (st_.getStatusType() != StatusType.RELATION_UNIQUE && st_ instanceof StatusBeginRound) {
+                beginRoundStatus_.add(s);
+            }
+        }
+        return beginRoundStatus_;
+    }
+    static StringList deleteStatusMoveInit(DataBase _db) {
+        StringList deleteStatusMove_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
+            if (!move_.getDeletedStatus().isEmpty()) {
+                deleteStatusMove_.add(m);
+            }
+        }
+        return deleteStatusMove_;
+    }
+    static StringList immuStatusAbilityInit(DataBase _db) {
+        StringList immuStatusAbility_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getImmuStatusBeginRound().isEmpty()) {
+                immuStatusAbility_.add(a);
+            }
+        }
+        return immuStatusAbility_;
+    }
+    static AbsMap<String,StatusBeginRoundAutoDamage> autoDamageInit(DataBase _db, String _lg) {
+        AbsMap<String,StatusBeginRoundAutoDamage> autoDamage_ = DictionaryComparatorUtil.buildStatusAutoData(_db,_lg);
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
+            if (st_ instanceof StatusBeginRoundAutoDamage) {
+                autoDamage_.addEntry(s, (StatusBeginRoundAutoDamage) st_);
+            }
+        }
+        return autoDamage_;
     }
 
     private void initSwitchingMembers() {
         DataBase data_ = getDataBase();
-        abilitiesSwitch = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getHealedHpRateBySwitch().isZero() || ab_.isHealedStatusBySwitch()) {
-                abilitiesSwitch.add(a);
-            }
-        }
+        abilitiesSwitch = abilitiesSwitchInit(data_);
         abilitiesSwitch.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        deletedStatusSwitch = new StringList();
-        for (String a: data_.getStatus().getKeys()) {
-            Status ab_ = data_.getStatus(a);
-            if (ab_.getDisabledEffIfSwitch()) {
-                deletedStatusSwitch.add(a);
-            }
-        }
-        for (String s: data_.getStatus().getKeys()) {
-            Status st_ = data_.getStatus(s);
-            if (st_.getStatusType() != StatusType.INDIVIDUEL) {
-                deletedStatusSwitch.add(s);
-            }
-        }
+        deletedStatusSwitch = deletedStatusSwitchInit(data_);
         deletedStatusSwitch.removeDuplicates();
         deletedStatusSwitch.sortElts(DictionaryComparatorUtil.cmpStatus(data_,getLanguage()));
         entryHazard = new StringList(data_.getMovesEffectWhileSending());
         entryHazard.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
     }
+    static StringList abilitiesSwitchInit(DataBase _db) {
+        StringList abilitiesSwitch_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getHealedHpRateBySwitch().isZero() || ab_.isHealedStatusBySwitch()) {
+                abilitiesSwitch_.add(a);
+            }
+        }
+        return abilitiesSwitch_;
+    }
+    static StringList deletedStatusSwitchInit(DataBase _db) {
+        StringList deletedStatusSwitch_ = new StringList();
+        for (String a: _db.getStatus().getKeys()) {
+            Status ab_ = _db.getStatus(a);
+            if (ab_.getDisabledEffIfSwitch()) {
+                deletedStatusSwitch_.add(a);
+            }
+        }
+        for (String s: _db.getStatus().getKeys()) {
+            Status st_ = _db.getStatus(s);
+            if (st_.getStatusType() != StatusType.INDIVIDUEL) {
+                deletedStatusSwitch_.add(s);
+            }
+        }
+        return deletedStatusSwitch_;
+    }
 
     private void initSpeedElements() {
         DataBase data_ = getDataBase();
-        abilitiesPrio = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getIncreasedPrio().isEmpty() || !ab_.getIncreasedPrioTypes().isEmpty()) {
-                abilitiesPrio.add(a);
-            }
-        }
+        abilitiesPrio = abilitiesPrioInit(data_);
         abilitiesPrio.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        slowAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isSlowing()) {
-                slowAbilities.add(a);
-            }
-        }
+        slowAbilities = slowAbilitiesInit(data_);
         slowAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        slowItems = new StringList();
-        for (String a: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(a);
-            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getAttackLast()) {
-                slowItems.add(a);
-            }
-        }
+        slowItems = slowItemsInit(data_);
         slowItems.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
         initReverseSpeedMoves();
         initItSpeed();
     }
+    static StringList abilitiesPrioInit(DataBase _db) {
+        StringList abilitiesPrio_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getIncreasedPrio().isEmpty() || !ab_.getIncreasedPrioTypes().isEmpty()) {
+                abilitiesPrio_.add(a);
+            }
+        }
+        return abilitiesPrio_;
+    }
+    static StringList slowAbilitiesInit(DataBase _db) {
+        StringList slowAbilities_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isSlowing()) {
+                slowAbilities_.add(a);
+            }
+        }
+        return slowAbilities_;
+    }
+    static StringList slowItemsInit(DataBase _db) {
+        StringList slowItems_ = new StringList();
+        for (String a: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(a);
+            if (it_ instanceof ItemForBattle && ((ItemForBattle) it_).getAttackLast()) {
+                slowItems_.add(a);
+            }
+        }
+        return slowItems_;
+    }
 
     private void initItSpeed() {
         DataBase data_ = getDataBase();
-        berrySpeed = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof Berry && ((Berry) it_).getLawForAttackFirst()) {
-                berrySpeed.add(i);
-            }
-        }
+        berrySpeed = berrySpeedInit(data_);
         berrySpeed.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        itemSpeed = new StringList();
-        for (String i: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(i);
-            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getLawForAttackFirst().events().isEmpty()) {
-                itemSpeed.add(i);
+        itemSpeed = itemSpeedInit(data_);
+        itemSpeed.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList berrySpeedInit(DataBase _db) {
+        StringList berrySpeed_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof Berry && ((Berry) it_).getLawForAttackFirst()) {
+                berrySpeed_.add(i);
             }
         }
-        itemSpeed.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return berrySpeed_;
+    }
+    static StringList itemSpeedInit(DataBase _db) {
+        StringList itemSpeed_ = new StringList();
+        for (String i: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(i);
+            if (it_ instanceof ItemForBattle && !((ItemForBattle) it_).getLawForAttackFirst().events().isEmpty()) {
+                itemSpeed_.add(i);
+            }
+        }
+        return itemSpeed_;
     }
 
     private void initReverseSpeedMoves() {
         DataBase data_ = getDataBase();
-        reverseSpeedMoves = new StringList();
-        for (String m: data_.getMoves().getKeys()) {
-            MoveData move_ = data_.getMove(m);
+        reverseSpeedMoves = reverseSpeedMovesInit(data_);
+        reverseSpeedMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+    }
+    static StringList reverseSpeedMovesInit(DataBase _db) {
+        StringList reverseSpeedMoves_ = new StringList();
+        for (String m: _db.getMoves().getKeys()) {
+            MoveData move_ = _db.getMove(m);
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal && ((EffectGlobal) e).getReverseOrderOfSortBySpeed()) {
-                    reverseSpeedMoves.add(m);
+                    reverseSpeedMoves_.add(m);
                     break;
                 }
             }
         }
-        reverseSpeedMoves.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return reverseSpeedMoves_;
     }
 
     private void initSendingMembers() {
         DataBase data_ = getDataBase();
         initSendingAbilities();
         initSendingItems();
-        changingTypesAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
+        changingTypesAbilities = changingTypesAbilitiesInit(data_);
+        changingTypesAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+    }
+    static StringList changingTypesAbilitiesInit(DataBase _db) {
+        StringList changingTypesAbilities_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
             if (ab_.isPlate()) {
-                changingTypesAbilities.add(a);
+                changingTypesAbilities_.add(a);
             }
         }
-        changingTypesAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
+        return changingTypesAbilities_;
     }
 
     private void initSendingItems() {
         DataBase data_ = getDataBase();
-        itemsSentBeginWeather = new StringList();
-        itemsSentBeginOther = new StringList();
-        for (String a: data_.getItems().getKeys()) {
-            Item it_ = data_.getItem(a);
+        itemsSentBeginWeather = itemsSentBeginWeatherInit(data_);
+        itemsSentBeginOther = itemsSentBeginOtherInit(data_);
+        itemsSentBeginOther.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        itemsSentBeginWeather.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+    }
+    static StringList itemsSentBeginWeatherInit(DataBase _db) {
+        StringList itemsSentBeginWeather_ = new StringList();
+        for (String a: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(a);
             if (!(it_ instanceof ItemForBattle) || !((ItemForBattle) it_).enabledSending()) {
                 continue;
             }
-            if (((ItemForBattle) it_).getEffectSending().first().getEnabledWeather().isEmpty() && !((ItemForBattle) it_).getEffectSending().first().getDisableWeather()) {
-                itemsSentBeginOther.add(a);
-            } else {
-                itemsSentBeginWeather.add(a);
+            if (!otherItBattle((ItemForBattle) it_)) {
+                itemsSentBeginWeather_.add(a);
             }
         }
-        itemsSentBeginOther.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
-        itemsSentBeginWeather.sortElts(DictionaryComparatorUtil.cmpItems(data_,getLanguage()));
+        return itemsSentBeginWeather_;
+    }
+    static StringList itemsSentBeginOtherInit(DataBase _db) {
+        StringList itemsSentBeginOther_ = new StringList();
+        for (String a: _db.getItems().getKeys()) {
+            Item it_ = _db.getItem(a);
+            if (!(it_ instanceof ItemForBattle) || !((ItemForBattle) it_).enabledSending()) {
+                continue;
+            }
+            if (otherItBattle((ItemForBattle) it_)) {
+                itemsSentBeginOther_.add(a);
+            }
+        }
+        return itemsSentBeginOther_;
+    }
+
+    private static boolean otherItBattle(ItemForBattle _it) {
+        return _it.getEffectSending().first().getEnabledWeather().isEmpty() && !_it.getEffectSending().first().getDisableWeather();
     }
 
     private void initSendingAbilities() {
         DataBase data_ = getDataBase();
         abilitiesSentBeginWeather = new StringList();
         abilitiesSentBeginOther = new StringList();
-        abilitiesSentStatis = new StringList();
+        StringMap<AbilityData> s_ = abilitiesSentStatisInit(data_);
+        abilitiesSentStatis = new StringList(s_.getKeys());
         copyAbilities = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.enabledSending()) {
-                continue;
-            }
-            abilitiesSentStatis.add(a);
-//            if (ab_.getEffectSending().first() instanceof EffectWhileSendingWithStatistic) {
-//                abilitiesSentStatis.add(a);
-//                continue;
-//            }
-            if (ab_.getEffectSending().first().getCopyingAbility()) {
-                copyAbilities.add(a);
-            } else if (ab_.getEffectSending().first().getEnabledWeather().isEmpty() && !ab_.getEffectSending().first().getDisableWeather()) {
-                abilitiesSentBeginOther.add(a);
-            } else {
-                abilitiesSentBeginWeather.add(a);
-            }
-        }
+        feed(s_,copyAbilities,abilitiesSentBeginOther,abilitiesSentBeginWeather);
         abilitiesSentStatis.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesSentBeginOther.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         abilitiesSentBeginWeather.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         copyAbilities.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
+    static StringMap<AbilityData> abilitiesSentStatisInit(DataBase _db) {
+        StringMap<AbilityData> abilitiesSentStatis_ = new StringMap<AbilityData>();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.enabledSending()) {
+                continue;
+            }
+            abilitiesSentStatis_.addEntry(a,ab_);
+        }
+        return abilitiesSentStatis_;
+    }
+    static void feed(StringMap<AbilityData> _s, StringList _copyAbilities, StringList _abilitiesSentBeginOther, StringList _abilitiesSentBeginWeather) {
+        for (EntryCust<String, AbilityData> a: _s.entryList()) {
+            AbilityData ab_ = a.getValue();
+//            if (ab_.getEffectSending().first() instanceof EffectWhileSendingWithStatistic) {
+//                abilitiesSentStatis.add(a);
+//                continue;
+//            }
+            if (ab_.getEffectSending().first().getCopyingAbility()) {
+                _copyAbilities.add(a.getKey());
+            } else if (ab_.getEffectSending().first().getEnabledWeather().isEmpty() && !ab_.getEffectSending().first().getDisableWeather()) {
+                _abilitiesSentBeginOther.add(a.getKey());
+            } else {
+                _abilitiesSentBeginWeather.add(a.getKey());
+            }
+        }
+    }
 
     private void initBoosts(long _minBoost, long _maxBoost) {
-        DataBase data_ = getDataBase();
+        boosts.addAllEntries(boostsInit(_minBoost,_maxBoost,getDataBase()));
+        boostsCh.addAllEntries(boostsChInit(_minBoost,_maxBoost,getDataBase()));
+    }
+    static LongTreeMap<Rate> boostsInit(long _minBoost, long _maxBoost, DataBase _db) {
+        LongTreeMap<Rate> boosts_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
-            String rateBoost_ = data_.getRateBoost();
+            String rateBoost_ = _db.getRateBoost();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
@@ -1739,10 +2291,14 @@ public class FightHelpBean extends CommonBean {
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
 //            boosts.put(b, res_);
-            boosts.put(b, data_.evaluateNumericable(rateBoost_, variables_, Rate.one()));
+            boosts_.addEntry(b, _db.evaluateNumericable(rateBoost_, variables_, Rate.one()));
         }
+        return boosts_;
+    }
+    static LongTreeMap<Rate> boostsChInit(long _minBoost, long _maxBoost, DataBase _db) {
+        LongTreeMap<Rate> boostsCh_ = new LongTreeMap<Rate>();
         for (long b = _minBoost; b <= _maxBoost; b++) {
-            String rateBoost_ = data_.getRateBoostCriticalHit();
+            String rateBoost_ = _db.getRateBoostCriticalHit();
 //            NumericString chNum_=new NumericString(rateBoost_);
             StringMap<String> variables_ = new StringMap<String>();
             variables_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.BOOST), Long.toString(b));
@@ -1750,8 +2306,9 @@ public class FightHelpBean extends CommonBean {
 //            chNum_.evaluateExp();
 //            Rate res_ = chNum_.toRate();
 //            boostsCh.put(b, res_);
-            boostsCh.put(b, data_.evaluateNumericable(rateBoost_, variables_, Rate.one()));
+            boostsCh_.addEntry(b, _db.evaluateNumericable(rateBoost_, variables_, Rate.one()));
         }
+        return boostsCh_;
     }
 
     private void initFormulaElements() {
@@ -1766,24 +2323,36 @@ public class FightHelpBean extends CommonBean {
         varFleeingFormula = new NatStringTreeMap<String>();
 
         varFleeingFormula.putAllMap(data_.getDescriptions(data_.getRateFleeing(), getLanguage()));
-        rates = new StringMap<String>();
-        for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
-            rates.put(d.getWinName(), data_.getFormula(data_.getRates().getVal(d), getLanguage()));
+        rates = ratesInit(data_,getLanguage());
+        varRates = varRatesInit(data_,getLanguage());
+        lawsRates = lawRatesInit(data_);
+        statisticAnim = Statistic.getStatisticsWithBoost();
+    }
+    static StringMap<String> ratesInit(DataBase _db, String _lg) {
+        StringMap<String> rates_ = new StringMap<String>();
+        for (DifficultyWinPointsFight d: _db.getRates().getKeys()) {
+            rates_.put(d.getWinName(), _db.getFormula(_db.getRates().getVal(d), _lg));
         }
-        varRates = new NatStringTreeMap<String>();
-        for (DifficultyWinPointsFight d: data_.getRates().getKeys()) {
-            varRates.putAllMap(data_.getDescriptions(data_.getRates().getVal(d), getLanguage()));
+        return rates_;
+    }
+    static NatStringTreeMap<String> varRatesInit(DataBase _db, String _lg) {
+        NatStringTreeMap<String> rates_ = new NatStringTreeMap<String>();
+        for (DifficultyWinPointsFight d: _db.getRates().getKeys()) {
+            rates_.putAllMap(_db.getDescriptions(_db.getRates().getVal(d), _lg));
         }
-        lawsRates = new StringMap<AbsBasicTreeMap<Rate, Rate>>();
-        for (DifficultyModelLaw d: data_.getLawsDamageRate().getKeys()) {
+        return rates_;
+    }
+    static StringMap<AbsBasicTreeMap<Rate, Rate>> lawRatesInit(DataBase _db) {
+        StringMap<AbsBasicTreeMap<Rate, Rate>> lawsRates_ = new StringMap<AbsBasicTreeMap<Rate, Rate>>();
+        for (DifficultyModelLaw d: _db.getLawsDamageRate().getKeys()) {
             DictionaryComparator<Rate,Rate> tree_ = DictionaryComparatorUtil.buildRateRate();
-            MonteCarloNumber law_ = data_.getLawsDamageRate().getVal(d).getLaw();
+            MonteCarloNumber law_ = _db.getLawsDamageRate().getVal(d).getLaw();
             for (Rate e: law_.events()) {
                 tree_.put(e, law_.normalizedRate(e));
             }
-            lawsRates.put(d.getModelName(), tree_);
+            lawsRates_.put(d.getModelName(), tree_);
         }
-        statisticAnim = Statistic.getStatisticsWithBoost();
+        return lawsRates_;
     }
 
     public String getTrStatistic(int _index) {
@@ -1817,16 +2386,13 @@ public class FightHelpBean extends CommonBean {
     }
     public String getFomula(int _index) {
         DataBase data_ = getDataBase();
-        return data_.getFormula(getNumericString(_index), getLanguage());
+        return data_.getFormula(numString(getDataBase(), autoDamage.getValue(_index)), getLanguage());
     }
 
-    private String getNumericString(int _index) {
-        String auto_ = autoDamage.get(_index);
-        DataBase data_ = getDataBase();
-        StatusBeginRoundAutoDamage st_ = (StatusBeginRoundAutoDamage) data_.getStatus(auto_);
-        String str_ = data_.getDamageFormula();
+    private static String numString(DataBase _data, StatusBeginRoundAutoDamage _st) {
+        String str_ = _data.getDamageFormula();
         StringMap<String> replace_ = new StringMap<String>();
-        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), st_.getPower().toNumberString());
+        replace_.put(StringUtil.concat(DataBase.VAR_PREFIX,Fight.POWER), _st.getPower().toNumberString());
         str_ = MathExpUtil.replaceWordsJoin(str_, replace_);
         return str_;
     }
@@ -1858,8 +2424,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSentBeginWeather.get(_index));
     }
     public String clickAbilitiesSentBegin(int _index) {
-        getForms().put(CST_ABILITY, abilitiesSentBeginWeather.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesSentBeginWeather.get(_index));
     }
     public String getTrAbilitiesSentBeginOth(int _index) {
         DataBase data_ = getDataBase();
@@ -1867,8 +2432,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSentBeginOther.get(_index));
     }
     public String clickAbilitiesSentBeginOth(int _index) {
-        getForms().put(CST_ABILITY, abilitiesSentBeginOther.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesSentBeginOther.get(_index));
     }
     public String getTrItemsSentBegin(int _index) {
         DataBase data_ = getDataBase();
@@ -2276,8 +2840,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(changingTypesAbilities.get(_index));
     }
     public String clickChangingTypesAbilities(int _index) {
-        getForms().put(CST_ABILITY, changingTypesAbilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(changingTypesAbilities.get(_index));
     }
     public String getTrAbilitiesSentStatis(int _index) {
         DataBase data_ = getDataBase();
@@ -2285,8 +2848,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSentStatis.get(_index));
     }
     public String clickAbilitiesSentStatis(int _index) {
-        getForms().put(CST_ABILITY, abilitiesSentStatis.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesSentStatis.get(_index));
     }
     public String getTrCopyAbilities(int _index) {
         DataBase data_ = getDataBase();
@@ -2294,8 +2856,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(copyAbilities.get(_index));
     }
     public String clickCopyAbilities(int _index) {
-        getForms().put(CST_ABILITY, copyAbilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(copyAbilities.get(_index));
     }
     public String getTrAbilitiesPrio(int _index) {
         DataBase data_ = getDataBase();
@@ -2303,8 +2864,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesPrio.get(_index));
     }
     public String clickAbilitiesPrio(int _index) {
-        getForms().put(CST_ABILITY, abilitiesPrio.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesPrio.get(_index));
     }
     public String getTrSlowAbilities(int _index) {
         DataBase data_ = getDataBase();
@@ -2312,8 +2872,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(slowAbilities.get(_index));
     }
     public String clickSlowAbilities(int _index) {
-        getForms().put(CST_ABILITY, slowAbilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(slowAbilities.get(_index));
     }
     public String getTrAbilitiesSwitch(int _index) {
         DataBase data_ = getDataBase();
@@ -2321,8 +2880,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesSwitch.get(_index));
     }
     public String clickAbilitiesSwitch(int _index) {
-        getForms().put(CST_ABILITY, abilitiesSwitch.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesSwitch.get(_index));
     }
     public String getTrImmuStatusAbility(int _index) {
         DataBase data_ = getDataBase();
@@ -2330,8 +2888,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(immuStatusAbility.get(_index));
     }
     public String clickImmuStatusAbility(int _index) {
-        getForms().put(CST_ABILITY, immuStatusAbility.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(immuStatusAbility.get(_index));
     }
     public String getTrImmuRecharging(int _index) {
         DataBase data_ = getDataBase();
@@ -2339,8 +2896,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(immuRecharging.get(_index));
     }
     public String clickImmuRecharging(int _index) {
-        getForms().put(CST_ABILITY, immuRecharging.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(immuRecharging.get(_index));
     }
     public String getTrCopyMoveTypesAb(int _index) {
         DataBase data_ = getDataBase();
@@ -2348,8 +2904,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(copyMoveTypesAb.get(_index));
     }
     public String clickCopyMoveTypesAb(int _index) {
-        getForms().put(CST_ABILITY, copyMoveTypesAb.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(copyMoveTypesAb.get(_index));
     }
     public String getTrPressureAbilities(int _index) {
         DataBase data_ = getDataBase();
@@ -2357,8 +2912,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(pressureAbilities.get(_index));
     }
     public String clickPressureAbilities(int _index) {
-        getForms().put(CST_ABILITY, pressureAbilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(pressureAbilities.get(_index));
     }
     public String getTrProtectAbilities(int _index) {
         DataBase data_ = getDataBase();
@@ -2366,8 +2920,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(protectAbilities.get(_index));
     }
     public String clickProtectAbilities(int _index) {
-        getForms().put(CST_ABILITY, protectAbilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(protectAbilities.get(_index));
     }
     public String getTrAbilitiesPartStatis(int _index) {
         DataBase data_ = getDataBase();
@@ -2375,8 +2928,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesPartStatis.get(_index));
     }
     public String clickAbilitiesPartStatis(int _index) {
-        getForms().put(CST_ABILITY, abilitiesPartStatis.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesPartStatis.get(_index));
     }
     public String getTrAbilitiesRateStatis(int _index) {
         DataBase data_ = getDataBase();
@@ -2384,8 +2936,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesRateStatis.get(_index));
     }
     public String clickAbilitiesRateStatis(int _index) {
-        getForms().put(CST_ABILITY, abilitiesRateStatis.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesRateStatis.get(_index));
     }
     public String getTrAbilitiesFighterStatis(int _index) {
         DataBase data_ = getDataBase();
@@ -2393,8 +2944,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesFighterStatis.get(_index));
     }
     public String clickAbilitiesFighterStatis(int _index) {
-        getForms().put(CST_ABILITY, abilitiesFighterStatis.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesFighterStatis.get(_index));
     }
     public String getTrAbilitiesFighterStatisVar(int _index) {
         DataBase data_ = getDataBase();
@@ -2402,8 +2952,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesFighterStatisVar.get(_index));
     }
     public String clickAbilitiesFighterStatisVar(int _index) {
-        getForms().put(CST_ABILITY, abilitiesFighterStatisVar.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesFighterStatisVar.get(_index));
     }
     public String getTrAbilitiesPartStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -2411,8 +2960,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesPartStatus.get(_index));
     }
     public String clickAbilitiesPartStatus(int _index) {
-        getForms().put(CST_ABILITY, abilitiesPartStatus.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesPartStatus.get(_index));
     }
     public String getTrAbilitiesFighterStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -2420,8 +2968,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesFighterStatus.get(_index));
     }
     public String clickAbilitiesFighterStatus(int _index) {
-        getForms().put(CST_ABILITY, abilitiesFighterStatus.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesFighterStatus.get(_index));
     }
     public String getTrAbilitiesRevAbs(int _index) {
         DataBase data_ = getDataBase();
@@ -2429,8 +2976,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesRevAbs.get(_index));
     }
     public String clickAbilitiesRevAbs(int _index) {
-        getForms().put(CST_ABILITY, abilitiesRevAbs.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesRevAbs.get(_index));
     }
     public String getTrAbilitiesDamageStatis(int _index) {
         DataBase data_ = getDataBase();
@@ -2438,8 +2984,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesDamageStatis.get(_index));
     }
     public String clickAbilitiesDamageStatis(int _index) {
-        getForms().put(CST_ABILITY, abilitiesDamageStatis.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesDamageStatis.get(_index));
     }
     public String getTrAbilitiesChangingTypesDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -2447,8 +2992,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesChangingTypesDamage.get(_index));
     }
     public String clickAbilitiesChangingTypesDamage(int _index) {
-        getForms().put(CST_ABILITY, abilitiesChangingTypesDamage.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesChangingTypesDamage.get(_index));
     }
     public String getTrAbilitiesTakingItem(int _index) {
         DataBase data_ = getDataBase();
@@ -2456,8 +3000,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesTakingItem.get(_index));
     }
     public String clickAbilitiesTakingItem(int _index) {
-        getForms().put(CST_ABILITY, abilitiesTakingItem.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesTakingItem.get(_index));
     }
     public String getTrAbilitiesStatisVarUser(int _index) {
         DataBase data_ = getDataBase();
@@ -2465,8 +3008,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesStatisVarUser.get(_index));
     }
     public String clickAbilitiesStatisVarUser(int _index) {
-        getForms().put(CST_ABILITY, abilitiesStatisVarUser.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesStatisVarUser.get(_index));
     }
     public String getTrAbilitiesStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -2474,8 +3016,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesStatus.get(_index));
     }
     public String clickAbilitiesStatus(int _index) {
-        getForms().put(CST_ABILITY, abilitiesStatus.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesStatus.get(_index));
     }
     public String getTrAbilitiesCopyAb(int _index) {
         DataBase data_ = getDataBase();
@@ -2483,8 +3024,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesCopyAb.get(_index));
     }
     public String clickAbilitiesCopyAb(int _index) {
-        getForms().put(CST_ABILITY, abilitiesCopyAb.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesCopyAb.get(_index));
     }
     public String getTrRecoilAbilities(int _index) {
         DataBase data_ = getDataBase();
@@ -2492,8 +3032,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(recoilAbilities.get(_index));
     }
     public String clickRecoilAbilities(int _index) {
-        getForms().put(CST_ABILITY, recoilAbilities.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(recoilAbilities.get(_index));
     }
     public String getTrAbilitiesKoTarget(int _index) {
         DataBase data_ = getDataBase();
@@ -2501,8 +3040,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesKoTarget.get(_index));
     }
     public String clickAbilitiesKoTarget(int _index) {
-        getForms().put(CST_ABILITY, abilitiesKoTarget.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesKoTarget.get(_index));
     }
     public String getTrAbilitiesEndRound(int _index) {
         DataBase data_ = getDataBase();
@@ -2510,8 +3048,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesEndRound.get(_index));
     }
     public String clickAbilitiesEndRound(int _index) {
-        getForms().put(CST_ABILITY, abilitiesEndRound.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesEndRound.get(_index));
     }
     public String getTrAbilitiesUserPower(int _index) {
         DataBase data_ = getDataBase();
@@ -2519,8 +3056,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserPower.get(_index));
     }
     public String clickAbilitiesUserPower(int _index) {
-        getForms().put(CST_ABILITY, abilitiesUserPower.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesUserPower.get(_index));
     }
     public String getTrAbilitiesTargetDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -2528,8 +3064,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesTargetDamage.get(_index));
     }
     public String clickAbilitiesTargetDamage(int _index) {
-        getForms().put(CST_ABILITY, abilitiesTargetDamage.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesTargetDamage.get(_index));
     }
     public String getTrAbilitiesGlobal(int _index) {
         DataBase data_ = getDataBase();
@@ -2537,8 +3072,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesGlobal.get(_index));
     }
     public String clickAbilitiesGlobal(int _index) {
-        getForms().put(CST_ABILITY, abilitiesGlobal.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesGlobal.get(_index));
     }
     public String getTrAbilitiesUserDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -2546,8 +3080,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserDamage.get(_index));
     }
     public String clickAbilitiesUserDamage(int _index) {
-        getForms().put(CST_ABILITY, abilitiesUserDamage.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesUserDamage.get(_index));
     }
     public String getTrAbilitiesUserTargetDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -2555,8 +3088,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserTargetDamage.get(_index));
     }
     public String clickAbilitiesUserTargetDamage(int _index) {
-        getForms().put(CST_ABILITY, abilitiesUserTargetDamage.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesUserTargetDamage.get(_index));
     }
     public String getTrAbilitiesUserStabDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -2564,8 +3096,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserStabDamage.get(_index));
     }
     public String clickAbilitiesUserStabDamage(int _index) {
-        getForms().put(CST_ABILITY, abilitiesUserStabDamage.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesUserStabDamage.get(_index));
     }
     public String getTrAbilitiesUserIgnTargetTeam(int _index) {
         DataBase data_ = getDataBase();
@@ -2573,8 +3104,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesUserIgnTargetTeam.get(_index));
     }
     public String clickAbilitiesUserIgnTargetTeam(int _index) {
-        getForms().put(CST_ABILITY, abilitiesUserIgnTargetTeam.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesUserIgnTargetTeam.get(_index));
     }
     public String getTrAbilitiesBreakable(int _index) {
         DataBase data_ = getDataBase();
@@ -2582,8 +3112,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBreakable.get(_index));
     }
     public String clickAbilitiesBreakable(int _index) {
-        getForms().put(CST_ABILITY, abilitiesBreakable.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesBreakable.get(_index));
     }
     public String getTrAbilitiesImmuTypes(int _index) {
         DataBase data_ = getDataBase();
@@ -2591,8 +3120,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuTypes.get(_index));
     }
     public String clickAbilitiesImmuTypes(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuTypes.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuTypes.get(_index));
     }
     public String getTrAbilitiesImmuAllies(int _index) {
         DataBase data_ = getDataBase();
@@ -2600,8 +3128,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuAllies.get(_index));
     }
     public String clickAbilitiesImmuAllies(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuAllies.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuAllies.get(_index));
     }
     public String getTrAbilitiesImmuAlliesDam(int _index) {
         DataBase data_ = getDataBase();
@@ -2609,8 +3136,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuAlliesDam.get(_index));
     }
     public String clickAbilitiesImmuAlliesDam(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuAlliesDam.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuAlliesDam.get(_index));
     }
     public String getTrAbilitiesImmu(int _index) {
         DataBase data_ = getDataBase();
@@ -2618,8 +3144,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmu.get(_index));
     }
     public String clickAbilitiesImmu(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmu.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmu.get(_index));
     }
     public String getTrAbilitiesImmuSecEffOther(int _index) {
         DataBase data_ = getDataBase();
@@ -2627,8 +3152,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuSecEffOther.get(_index));
     }
     public String clickAbilitiesImmuSecEffOther(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuSecEffOther.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuSecEffOther.get(_index));
     }
     public String getTrAbilitiesImmuSecEffOwner(int _index) {
         DataBase data_ = getDataBase();
@@ -2636,8 +3160,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuSecEffOwner.get(_index));
     }
     public String clickAbilitiesImmuSecEffOwner(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuSecEffOwner.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuSecEffOwner.get(_index));
     }
     public String getTrAbilitiesAchieveTarget(int _index) {
         DataBase data_ = getDataBase();
@@ -2645,8 +3168,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesAchieveTarget.get(_index));
     }
     public String clickAbilitiesAchieveTarget(int _index) {
-        getForms().put(CST_ABILITY, abilitiesAchieveTarget.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesAchieveTarget.get(_index));
     }
     public String getTrAbilitiesBreakProtectMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -2654,8 +3176,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBreakProtectMoves.get(_index));
     }
     public String clickAbilitiesBreakProtectMoves(int _index) {
-        getForms().put(CST_ABILITY, abilitiesBreakProtectMoves.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesBreakProtectMoves.get(_index));
     }
     public boolean abilityBoostNormalAny() {
         int len_;
@@ -2743,8 +3264,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBoostingStat.get(_index));
     }
     public String clickAbilitiesBoostingStat(int _index) {
-        getForms().put(CST_ABILITY, abilitiesBoostingStat.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesBoostingStat.get(_index));
     }
     public boolean abilityMultNormalAny() {
         int len_;
@@ -2836,8 +3356,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesMultStat.get(_index));
     }
     public String clickAbilitiesMultStat(int _index) {
-        getForms().put(CST_ABILITY, abilitiesMultStat.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesMultStat.get(_index));
     }
     public boolean abilityAllyMultNormalAny() {
         int len_;
@@ -2909,8 +3428,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesAllyMultStat.get(_index));
     }
     public String clickAbilitiesAllyMultStat(int _index) {
-        getForms().put(CST_ABILITY, abilitiesAllyMultStat.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesAllyMultStat.get(_index));
     }
     public boolean abilityImmuMultNormalAny() {
         int len_;
@@ -3002,8 +3520,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuMultStat.get(_index));
     }
     public String clickAbilitiesImmuMultStat(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuMultStat.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuMultStat.get(_index));
     }
     public String getTrAbilitiesTypeDefMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3011,8 +3528,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesTypeDefMoves.get(_index));
     }
     public String clickAbilitiesTypeDefMoves(int _index) {
-        getForms().put(CST_ABILITY, abilitiesTypeDefMoves.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesTypeDefMoves.get(_index));
     }
     public String getTrAbilitiesChangeTypeMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3020,8 +3536,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesChangeTypeMoves.get(_index));
     }
     public String clickAbilitiesChangeTypeMoves(int _index) {
-        getForms().put(CST_ABILITY, abilitiesChangeTypeMoves.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesChangeTypeMoves.get(_index));
     }
     public String getTrAbilitiesBreakImmu(int _index) {
         DataBase data_ = getDataBase();
@@ -3029,8 +3544,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesBreakImmu.get(_index));
     }
     public String clickAbilitiesBreakImmu(int _index) {
-        getForms().put(CST_ABILITY, abilitiesBreakImmu.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesBreakImmu.get(_index));
     }
     public String getTrAbilitiesImmuCh(int _index) {
         DataBase data_ = getDataBase();
@@ -3038,8 +3552,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitiesImmuCh.get(_index));
     }
     public String clickAbilitiesImmuCh(int _index) {
-        getForms().put(CST_ABILITY, abilitiesImmuCh.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitiesImmuCh.get(_index));
     }
     public String getTrAbilitiesMultEvtCh(int _index) {
         DataBase data_ = getDataBase();
@@ -3047,8 +3560,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitesMultEvtCh.get(_index));
     }
     public String clickAbilitiesMultEvtCh(int _index) {
-        getForms().put(CST_ABILITY, abilitesMultEvtCh.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitesMultEvtCh.get(_index));
     }
     public String getTrAbilitiesMultRateCh(int _index) {
         DataBase data_ = getDataBase();
@@ -3056,8 +3568,7 @@ public class FightHelpBean extends CommonBean {
         return translatedAbilities_.getVal(abilitesMultRateCh.get(_index));
     }
     public String clickAbilitiesMultRateCh(int _index) {
-        getForms().put(CST_ABILITY, abilitesMultRateCh.get(_index));
-        return CST_ABILITY;
+        return tryRedirectAb(abilitesMultRateCh.get(_index));
     }
     public String getTrPrivatingMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3065,8 +3576,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(privatingMoves.get(_index));
     }
     public String clickPrivatingMoves(int _index) {
-        getForms().put(CST_MOVE, privatingMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(privatingMoves.get(_index));
     }
     public String getTrMovesHealingSubstitute(int _index) {
         DataBase data_ = getDataBase();
@@ -3074,8 +3584,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesHealingSubstitute.get(_index));
     }
     public String clickMovesHealingSubstitute(int _index) {
-        getForms().put(CST_MOVE, movesHealingSubstitute.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesHealingSubstitute.get(_index));
     }
     public String getTrSubstitutingMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3083,8 +3592,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(substitutingMoves.get(_index));
     }
     public String clickSubstitutingMoves(int _index) {
-        getForms().put(CST_MOVE, substitutingMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(substitutingMoves.get(_index));
     }
     public String getTrReverseSpeedMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3092,8 +3600,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(reverseSpeedMoves.get(_index));
     }
     public String clickReverseSpeedMoves(int _index) {
-        getForms().put(CST_MOVE, reverseSpeedMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(reverseSpeedMoves.get(_index));
     }
     public String getTrEntryHazard(int _index) {
         DataBase data_ = getDataBase();
@@ -3101,8 +3608,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(entryHazard.get(_index));
     }
     public String clickEntryHazard(int _index) {
-        getForms().put(CST_MOVE, entryHazard.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(entryHazard.get(_index));
     }
     public String getTrDeleteStatusMove(int _index) {
         DataBase data_ = getDataBase();
@@ -3110,8 +3616,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(deleteStatusMove.get(_index));
     }
     public String clickDeleteStatusMove(int _index) {
-        getForms().put(CST_MOVE, deleteStatusMove.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(deleteStatusMove.get(_index));
     }
     public boolean isDisappearingUser(int _index) {
         DataBase data_ = getDataBase();
@@ -3125,8 +3630,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(prepaRoundMoves.get(_index));
     }
     public String clickPrepaRoundMoves(int _index) {
-        getForms().put(CST_MOVE, prepaRoundMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(prepaRoundMoves.get(_index));
     }
     public String getTrRechargeMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3134,8 +3638,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(rechargeMoves.get(_index));
     }
     public String clickRechargeMoves(int _index) {
-        getForms().put(CST_MOVE, rechargeMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(rechargeMoves.get(_index));
     }
     public String getTrMovesInvoking(int _index) {
         DataBase data_ = getDataBase();
@@ -3143,8 +3646,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesInvoking.get(_index));
     }
     public String clickMovesInvoking(int _index) {
-        getForms().put(CST_MOVE, movesInvoking.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesInvoking.get(_index));
     }
     public String getTrMovesThieving(int _index) {
         DataBase data_ = getDataBase();
@@ -3152,8 +3654,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesThieving.get(_index));
     }
     public String clickMovesThieving(int _index) {
-        getForms().put(CST_MOVE, movesThieving.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesThieving.get(_index));
     }
     public String getTrMovesAttracting(int _index) {
         DataBase data_ = getDataBase();
@@ -3161,8 +3662,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesAttracting.get(_index));
     }
     public String clickMovesAttracting(int _index) {
-        getForms().put(CST_MOVE, movesAttracting.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesAttracting.get(_index));
     }
     public String getTrMovesMirror(int _index) {
         DataBase data_ = getDataBase();
@@ -3170,8 +3670,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesMirror.get(_index));
     }
     public String clickMovesMirror(int _index) {
-        getForms().put(CST_MOVE, movesMirror.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesMirror.get(_index));
     }
     public String getTrMovesSecEffItems(int _index) {
         DataBase data_ = getDataBase();
@@ -3179,8 +3678,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesSecEffItems.get(_index));
     }
     public String clickMovesSecEffItems(int _index) {
-        getForms().put(CST_MOVE, movesSecEffItems.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesSecEffItems.get(_index));
     }
     public String getTrProtectMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3188,8 +3686,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(protectMoves.get(_index));
     }
     public String clickProtectMoves(int _index) {
-        getForms().put(CST_MOVE, protectMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(protectMoves.get(_index));
     }
     public String getTrEffMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3197,8 +3694,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(effMoves.get(_index));
     }
     public String clickEffMoves(int _index) {
-        getForms().put(CST_MOVE, effMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(effMoves.get(_index));
     }
     public boolean immuStatisTeamMoveAny() {
         int len_;
@@ -3280,8 +3776,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTeam.get(_index));
     }
     public String clickMovesTeam(int _index) {
-        getForms().put(CST_MOVE, movesTeam.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTeam.get(_index));
     }
     public String getTrGlobalMovesStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -3289,8 +3784,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(globalMovesStatus.get(_index));
     }
     public String clickGlobalMovesStatus(int _index) {
-        getForms().put(CST_MOVE, globalMovesStatus.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(globalMovesStatus.get(_index));
     }
     public String getTrMovesProtAgainstKo(int _index) {
         DataBase data_ = getDataBase();
@@ -3298,8 +3792,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesProtAgainstKo.get(_index));
     }
     public String clickMovesProtAgainstKo(int _index) {
-        getForms().put(CST_MOVE, movesProtAgainstKo.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesProtAgainstKo.get(_index));
     }
     public String getTrMovesCannotKo(int _index) {
         DataBase data_ = getDataBase();
@@ -3307,8 +3800,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesCannotKo.get(_index));
     }
     public String clickMovesCannotKo(int _index) {
-        getForms().put(CST_MOVE, movesCannotKo.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesCannotKo.get(_index));
     }
     public String getTrMovesKoTarget(int _index) {
         DataBase data_ = getDataBase();
@@ -3316,8 +3808,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesKoTarget.get(_index));
     }
     public String clickMovesKoTarget(int _index) {
-        getForms().put(CST_MOVE, movesKoTarget.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesKoTarget.get(_index));
     }
     public boolean attackFirst() {
         int len_;
@@ -3360,8 +3851,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesChangingAttOrder.get(_index));
     }
     public String clickMovesChangingAttOrder(int _index) {
-        getForms().put(CST_MOVE, movesChangingAttOrder.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesChangingAttOrder.get(_index));
     }
     public boolean withConstDamageAny() {
         int len_;
@@ -3417,8 +3907,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(damagingMoves.get(_index));
     }
     public String clickDamagingMoves(int _index) {
-        getForms().put(CST_MOVE, damagingMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(damagingMoves.get(_index));
     }
     public String getTrMovesUserPower(int _index) {
         DataBase data_ = getDataBase();
@@ -3426,8 +3915,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesUserPower.get(_index));
     }
     public String clickMovesUserPower(int _index) {
-        getForms().put(CST_MOVE, movesUserPower.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesUserPower.get(_index));
     }
     public String getTrMovesTargetPower(int _index) {
         DataBase data_ = getDataBase();
@@ -3435,8 +3923,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTargetPower.get(_index));
     }
     public String clickMovesTargetPower(int _index) {
-        getForms().put(CST_MOVE, movesTargetPower.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTargetPower.get(_index));
     }
     public String getTrMovesTargetTeamDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -3444,8 +3931,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTargetTeamDamage.get(_index));
     }
     public String clickMovesTargetTeamDamage(int _index) {
-        getForms().put(CST_MOVE, movesTargetTeamDamage.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTargetTeamDamage.get(_index));
     }
     public String getTrMovesGlobal(int _index) {
         DataBase data_ = getDataBase();
@@ -3453,8 +3939,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobal.get(_index));
     }
     public String clickMovesGlobal(int _index) {
-        getForms().put(CST_MOVE, movesGlobal.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesGlobal.get(_index));
     }
     public String getTrMovesInvokDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -3462,8 +3947,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesInvokDamage.get(_index));
     }
     public String clickMovesInvokDamage(int _index) {
-        getForms().put(CST_MOVE, movesInvokDamage.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesInvokDamage.get(_index));
     }
     public String getTrMovesGlobalPrepaDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -3471,8 +3955,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalPrepaDamage.get(_index));
     }
     public String clickMovesGlobalPrepaDamage(int _index) {
-        getForms().put(CST_MOVE, movesGlobalPrepaDamage.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesGlobalPrepaDamage.get(_index));
     }
     public String getTrMovesUserAllyDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -3480,8 +3963,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesUserAllyDamage.get(_index));
     }
     public String clickMovesUserAllyaDamage(int _index) {
-        getForms().put(CST_MOVE, movesUserAllyDamage.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesUserAllyDamage.get(_index));
     }
     public String getTrMovesIgnLowAtt(int _index) {
         DataBase data_ = getDataBase();
@@ -3489,8 +3971,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnLowAtt.get(_index));
     }
     public String clickMovesIgnLowAtt(int _index) {
-        getForms().put(CST_MOVE, movesIgnLowAtt.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesIgnLowAtt.get(_index));
     }
     public String getTrMovesIgnIncDef(int _index) {
         DataBase data_ = getDataBase();
@@ -3498,8 +3979,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnIncDef.get(_index));
     }
     public String clickMovesIgnIncDef(int _index) {
-        getForms().put(CST_MOVE, movesIgnIncDef.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesIgnIncDef.get(_index));
     }
     public String getTrMovesProtectingTypes(int _index) {
         DataBase data_ = getDataBase();
@@ -3507,8 +3987,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesProtectingTypes.get(_index));
     }
     public String clickMovesProtectingTypes(int _index) {
-        getForms().put(CST_MOVE, movesProtectingTypes.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesProtectingTypes.get(_index));
     }
     public String getTrMovesUnprotectingTypes(int _index) {
         DataBase data_ = getDataBase();
@@ -3516,8 +3995,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesUnprotectingTypes.get(_index));
     }
     public String clickMovesUnprotectingTypes(int _index) {
-        getForms().put(CST_MOVE, movesUnprotectingTypes.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesUnprotectingTypes.get(_index));
     }
     public String getTrMovesGlobalBreakImmu(int _index) {
         DataBase data_ = getDataBase();
@@ -3525,8 +4003,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalBreakImmu.get(_index));
     }
     public String clickMovesGlobalBreakImmu(int _index) {
-        getForms().put(CST_MOVE, movesGlobalBreakImmu.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesGlobalBreakImmu.get(_index));
     }
     public String getTrMovesGlobalBreakImmuAb(int _index) {
         DataBase data_ = getDataBase();
@@ -3534,8 +4011,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalBreakImmuAb.get(_index));
     }
     public String clickMovesGlobalBreakImmuAb(int _index) {
-        getForms().put(CST_MOVE, movesGlobalBreakImmuAb.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesGlobalBreakImmuAb.get(_index));
     }
     public String getTrMovesProtecting(int _index) {
         DataBase data_ = getDataBase();
@@ -3543,8 +4019,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesProtecting.get(_index));
     }
     public String clickMovesProtecting(int _index) {
-        getForms().put(CST_MOVE, movesProtecting.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesProtecting.get(_index));
     }
     public String getTrMovesIgnAcc(int _index) {
         DataBase data_ = getDataBase();
@@ -3552,8 +4027,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnAcc.get(_index));
     }
     public String clickMovesIgnAcc(int _index) {
-        getForms().put(CST_MOVE, movesIgnAcc.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesIgnAcc.get(_index));
     }
     public String getTrMovesIgnEva(int _index) {
         DataBase data_ = getDataBase();
@@ -3561,8 +4035,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesIgnEva.get(_index));
     }
     public String clickMovesIgnEva(int _index) {
-        getForms().put(CST_MOVE, movesIgnEva.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesIgnEva.get(_index));
     }
     public String getTrMovesGlobalAcc(int _index) {
         DataBase data_ = getDataBase();
@@ -3570,8 +4043,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalAcc.get(_index));
     }
     public String clickMovesGlobalAcc(int _index) {
-        getForms().put(CST_MOVE, movesGlobalAcc.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesGlobalAcc.get(_index));
     }
     public boolean moveGlobalMultNormalAny() {
         int len_;
@@ -3687,8 +4159,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesGlobalMultStat.get(_index));
     }
     public String clickMovesGlobalMultStat(int _index) {
-        getForms().put(CST_MOVE, movesGlobalMultStat.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesGlobalMultStat.get(_index));
     }
     public boolean moveTeamMultNormalAny() {
         int len_ = movesTeamMultStat.size();
@@ -3792,8 +4263,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTeamMultStat.get(_index));
     }
     public String clickMovesTeamMultStat(int _index) {
-        getForms().put(CST_MOVE, movesTeamMultStat.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTeamMultStat.get(_index));
     }
     public boolean moveFoeTeamMultNormalAny() {
         int len_;
@@ -3901,8 +4371,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesFoeTeamMultStat.get(_index));
     }
     public String clickMovesFoeTeamMultStat(int _index) {
-        getForms().put(CST_MOVE, movesFoeTeamMultStat.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesFoeTeamMultStat.get(_index));
     }
     public String getTrMovesTypesDefItem(int _index) {
         DataBase data_ = getDataBase();
@@ -3910,8 +4379,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTypesDefItem.get(_index));
     }
     public String clickMovesTypesDefItem(int _index) {
-        getForms().put(CST_MOVE, movesTypesDefItem.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTypesDefItem.get(_index));
     }
     public String getTrItemsTypesDef(int _index) {
         DataBase data_ = getDataBase();
@@ -3927,8 +4395,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTypesDefWeather.get(_index));
     }
     public String clickMovesTypesDefWeather(int _index) {
-        getForms().put(CST_MOVE, movesTypesDefWeather.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTypesDefWeather.get(_index));
     }
     public String getTrMovesTypeDefMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3936,8 +4403,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesTypeDefMoves.get(_index));
     }
     public String clickMovesTypeDefMoves(int _index) {
-        getForms().put(CST_MOVE, movesTypeDefMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesTypeDefMoves.get(_index));
     }
     public String getTrMovesChangeTypeMoves(int _index) {
         DataBase data_ = getDataBase();
@@ -3945,8 +4411,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesChangeTypeMoves.get(_index));
     }
     public String clickMovesChangeTypeMoves(int _index) {
-        getForms().put(CST_MOVE, movesChangeTypeMoves.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesChangeTypeMoves.get(_index));
     }
     public String getTrMovesBoostCh(int _index) {
         DataBase data_ = getDataBase();
@@ -3954,8 +4419,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(movesBoostCh.get(_index));
     }
     public String clickMovesBoostCh(int _index) {
-        getForms().put(CST_MOVE, movesBoostCh.get(_index));
-        return CST_MOVE;
+        return tryRedirectMv(movesBoostCh.get(_index));
     }
     public String getTrDeletedStatusSwitch(int _index) {
         DataBase data_ = getDataBase();
@@ -3963,8 +4427,7 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(deletedStatusSwitch.get(_index));
     }
     public String clickDeletedStatusSwitch(int _index) {
-        getForms().put(CST_STATUS, deletedStatusSwitch.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(deletedStatusSwitch.get(_index));
     }
     public boolean hasLawForAttackAny() {
         int len_;
@@ -4009,17 +4472,15 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(beginRoundStatus.get(_index));
     }
     public String clickBeginRoundStatus(int _index) {
-        getForms().put(CST_STATUS, beginRoundStatus.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(beginRoundStatus.get(_index));
     }
     public String getTrAutoDamage(int _index) {
         DataBase data_ = getDataBase();
         StringMap<String> translatedStatus_ = data_.getTranslatedStatus().getVal(getLanguage());
-        return translatedStatus_.getVal(autoDamage.get(_index));
+        return translatedStatus_.getVal(autoDamage.getKey(_index));
     }
     public String clickAutoDamage(int _index) {
-        getForms().put(CST_STATUS, autoDamage.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(autoDamage.getKey(_index));
     }
     public String getTrBeginRoundStatusFoe(int _index) {
         DataBase data_ = getDataBase();
@@ -4027,8 +4488,7 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(beginRoundStatusFoe.get(_index));
     }
     public String clickBeginRoundStatusFoe(int _index) {
-        getForms().put(CST_STATUS, beginRoundStatusFoe.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(beginRoundStatusFoe.get(_index));
     }
     public String getTrSuccessfulStatus(int _index) {
         DataBase data_ = getDataBase();
@@ -4036,8 +4496,7 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(successfulStatus.get(_index));
     }
     public String clickSuccessfulStatus(int _index) {
-        getForms().put(CST_STATUS, successfulStatus.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(successfulStatus.get(_index));
     }
     public String getTrStatusDamage(int _index) {
         DataBase data_ = getDataBase();
@@ -4045,8 +4504,7 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(statusDamage.get(_index));
     }
     public String clickStatusDamage(int _index) {
-        getForms().put(CST_STATUS, statusDamage.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(statusDamage.get(_index));
     }
     public boolean statusMultNormalAny() {
         int len_;
@@ -4118,8 +4576,7 @@ public class FightHelpBean extends CommonBean {
         return translatedStatus_.getVal(statusMultStat.get(_index));
     }
     public String clickStatusMultStat(int _index) {
-        getForms().put(CST_STATUS, statusMultStat.get(_index));
-        return CST_STATUS;
+        return tryRedirectSt(statusMultStat.get(_index));
     }
     public boolean comboMultNormalAny() {
         int len_;
@@ -4228,7 +4685,7 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickComboMultStat(int _index) {
         getForms().put(CST_COMBO, comboMultStat.get(_index));
-        return CST_COMBO;
+        return AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML;
     }
     public String getTrComboEvtStat(int _index) {
         DataBase data_ = getDataBase();
@@ -4241,7 +4698,7 @@ public class FightHelpBean extends CommonBean {
     }
     public String clickComboEvtStat(int _index) {
         getForms().put(CST_COMBO, comboEvtStat.get(_index));
-        return CST_COMBO;
+        return AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML;
     }
     public boolean nextRowAfter(int _index) {
         if (_index == IndexConstants.FIRST_INDEX) {
@@ -4264,8 +4721,7 @@ public class FightHelpBean extends CommonBean {
         return translatedMoves_.getVal(defaultMove);
     }
     public String clickDefaultMove() {
-        getForms().put(CST_MOVE, defaultMove);
-        return CST_MOVE;
+        return tryRedirectMv(defaultMove);
     }
 
     public int getDefaultBoostValue() {
@@ -4356,8 +4812,8 @@ public class FightHelpBean extends CommonBean {
         return immuStatusAbility;
     }
 
-    public StringList getAutoDamage() {
-        return autoDamage;
+    public CustList<String> getAutoDamage() {
+        return autoDamage.getKeys();
     }
 
     public NatStringTreeMap<String> getMapAutoDamage() {

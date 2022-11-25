@@ -12,6 +12,7 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import aiki.fight.pokemon.PokemonData;
 import aiki.fight.status.Status;
+import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.fight.util.*;
 import aiki.game.fight.ActivityOfMove;
 import aiki.game.fight.MoveTeamPosition;
@@ -109,6 +110,10 @@ public final class DictionaryComparatorUtil {
 
     public static DictionaryComparator<String,Status> buildStatusData(DataBase _data, String _language) {
         return new DictionaryComparator<String,Status>(_data.getTranslatedStatus().getVal(_language));
+    }
+
+    public static DictionaryComparator<String,StatusBeginRoundAutoDamage> buildStatusAutoData(DataBase _data, String _language) {
+        return new DictionaryComparator<String,StatusBeginRoundAutoDamage>(_data.getTranslatedStatus().getVal(_language));
     }
 
     public static DictionaryComparator<String,Rate> buildStatusRate(DataBase _data, String _language) {
