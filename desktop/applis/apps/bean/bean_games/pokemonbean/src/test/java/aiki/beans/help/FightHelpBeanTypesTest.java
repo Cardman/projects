@@ -1,17 +1,19 @@
 package aiki.beans.help;
 
-import aiki.comparators.DictionaryComparator;
 import aiki.facade.FacadeGame;
 import aiki.fight.util.TypesDuo;
 import code.maths.Rate;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
-public final class FightHelpBeanMovesEfficiencyTest extends InitDbFightHelp {
+public final class FightHelpBeanTypesTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        DictionaryComparator<TypesDuo, Rate> ls_ = FightHelpBean.efficiencyInit(db().getData(),EN);
-        assertEq(4,ls_.size());
+        StringList ls_ = FightHelpBean.typesInit(db().getData(),EN);
+        assertEq(2,ls_.size());
+        assertEq(T_TYPE1_TR,ls_.get(0));
+        assertEq(T_TYPE2_TR,ls_.get(1));
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();

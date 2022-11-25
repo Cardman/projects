@@ -2,26 +2,25 @@ package aiki.beans.help;
 
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
-import aiki.fight.util.TypeDamageBoost;
-import aiki.fight.util.TypesDuo;
+import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
-import code.maths.Rate;
+import code.util.IdList;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
-public final class FightHelpBeanMovesAbilitiesBreakImmuTest extends InitDbFightHelp {
+public final class FightHelpBeanAbilitiesPartStatisTest extends InitDbFightHelp {
     @Test
     public void movesTypesDefWeatherInitTest() {
-        StringList ls_ = FightHelpBean.abilitiesBreakImmuInit(db().getData());
+        StringList ls_ = FightHelpBean.abilitiesPartStatisInit(db().getData());
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         AbilityData t_ = Instances.newAbilityData();
-        t_.getBreakFoeImmune().add(new TypesDuo(T_TYPE1, T_TYPE1));
+        t_.getImmuLowStatisTypes().addEntry(NULL_REF,new IdList<Statistic>());
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newAbilityData());
         f_.getData().getTranslatedAbilities().addEntry(EN,new StringMap<String>());
