@@ -1605,37 +1605,13 @@ public class FightHelpBean extends CommonBean {
         abilitiesRevAbs.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
         initAbilitiesDamageStatis();
         initAbilitiesChangingTypesDamage();
-        abilitiesTakingItem = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isTakeItemByDamagingMove()) {
-                abilitiesTakingItem.add(a);
-            }
-        }
+        abilitiesTakingItem = abilitiesTakingItemInit(data_);
         abilitiesTakingItem.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesStatisVarUser = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getLowStatFoeHit().isEmpty()) {
-                abilitiesStatisVarUser.add(a);
-            }
-        }
+        abilitiesStatisVarUser = abilitiesStatisVarUserInit(data_);
         abilitiesStatisVarUser.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesStatus = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (!ab_.getSingleStatus().events().isEmpty()) {
-                abilitiesStatus.add(a);
-            }
-        }
+        abilitiesStatus = abilitiesStatusInit(data_);
         abilitiesStatus.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
-        abilitiesCopyAb = new StringList();
-        for (String a: data_.getAbilities().getKeys()) {
-            AbilityData ab_ = data_.getAbility(a);
-            if (ab_.isMumy()) {
-                abilitiesCopyAb.add(a);
-            }
-        }
+        abilitiesCopyAb = abilitiesCopyAbInit(data_);
         abilitiesCopyAb.sortElts(DictionaryComparatorUtil.cmpAbilities(data_,getLanguage()));
     }
     static StringList abilitiesRevAbsInit(DataBase _db) {
@@ -1647,6 +1623,46 @@ public class FightHelpBean extends CommonBean {
             }
         }
         return abilitiesRevAbs_;
+    }
+    static StringList abilitiesTakingItemInit(DataBase _db) {
+        StringList abilitiesTakingItem_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isTakeItemByDamagingMove()) {
+                abilitiesTakingItem_.add(a);
+            }
+        }
+        return abilitiesTakingItem_;
+    }
+    static StringList abilitiesStatisVarUserInit(DataBase _db) {
+        StringList abilitiesStatisVarUser_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getLowStatFoeHit().isEmpty()) {
+                abilitiesStatisVarUser_.add(a);
+            }
+        }
+        return abilitiesStatisVarUser_;
+    }
+    static StringList abilitiesStatusInit(DataBase _db) {
+        StringList abilitiesStatus_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (!ab_.getSingleStatus().events().isEmpty()) {
+                abilitiesStatus_.add(a);
+            }
+        }
+        return abilitiesStatus_;
+    }
+    static StringList abilitiesCopyAbInit(DataBase _db) {
+        StringList abilitiesCopyAb_ = new StringList();
+        for (String a: _db.getAbilities().getKeys()) {
+            AbilityData ab_ = _db.getAbility(a);
+            if (ab_.isMumy()) {
+                abilitiesCopyAb_.add(a);
+            }
+        }
+        return abilitiesCopyAb_;
     }
 
     private void initAbilitiesChangingTypesDamage() {
