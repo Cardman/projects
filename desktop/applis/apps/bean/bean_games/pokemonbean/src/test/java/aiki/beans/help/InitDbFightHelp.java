@@ -137,6 +137,10 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanAbilitiesSentBeginWeatherGet(),_str,_args);
     }
 
+    public static Struct callFightHelpBeanAbilitiesSentBeginOtherGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanAbilitiesSentBeginOtherGet(),_str,_args);
+    }
+
     public static Struct callFightHelpBeanAbilitiesSentStatisGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanAbilitiesSentStatisGet(),_str,_args);
     }
@@ -507,6 +511,10 @@ public abstract class InitDbFightHelp extends InitDbConstr {
 
     public static Struct callFightHelpBeanClickAbilitiesSentBegin(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanClickAbilitiesSentBegin(),_str,_args);
+    }
+
+    public static Struct callFightHelpBeanClickAbilitiesSentBeginOth(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanClickAbilitiesSentBeginOth(),_str,_args);
     }
 
     public static Struct callFightHelpBeanClickAbilitiesSentStatis(Struct _str, long... _args) {
@@ -1147,6 +1155,10 @@ public abstract class InitDbFightHelp extends InitDbConstr {
 
     public static Struct callFightHelpBeanGetTrAbilitiesSentBegin(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanGetTrAbilitiesSentBegin(),_str,_args);
+    }
+
+    public static Struct callFightHelpBeanGetTrAbilitiesSentBeginOth(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanGetTrAbilitiesSentBeginOth(),_str,_args);
     }
 
     public static Struct callFightHelpBeanGetTrAbilitiesSentStatis(Struct _str, long... _args) {

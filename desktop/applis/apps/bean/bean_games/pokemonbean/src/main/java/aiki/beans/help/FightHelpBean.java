@@ -4735,6 +4735,10 @@ public class FightHelpBean extends CommonBean {
         return movesHealingSubstitute;
     }
 
+    public StringList getAbilitiesSentBeginOther() {
+        return abilitiesSentBeginOther;
+    }
+
     public StringList getAbilitiesSentBeginWeather() {
         return abilitiesSentBeginWeather;
     }
