@@ -32,6 +32,10 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
         assertEq(Fight.TEMPS_TOUR,vars_.getKey(0));
         assertEq(TIME,vars_.getValue(0));
     }
+    @Test
+    public void getFomula() {
+        assertEq(Fight.TEMPS_TOUR+"+1",callFightHelpBeanGetFomula(bean(db()),0));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         StatusBeginRoundAutoDamage t_ = Instances.newStatusBeginRoundAutoDamage();
@@ -39,6 +43,7 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newStatusSimple());
         f_.getData().setDamageFormula(DataBase.VAR_PREFIX+Fight.TEMPS_TOUR+"+"+DataBase.VAR_PREFIX+Fight.POWER);
+        f_.getData().setCombos(Instances.newCombos());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_STA,M_STA_TR);

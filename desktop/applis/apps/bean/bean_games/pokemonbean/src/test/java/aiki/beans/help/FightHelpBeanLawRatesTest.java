@@ -8,6 +8,7 @@ import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;
 import code.util.AbsBasicTreeMap;
+import code.util.IdMap;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -27,6 +28,10 @@ public final class FightHelpBeanLawRatesTest extends InitDbFightHelp {
     public void count() {
         assertSizeEq(1,callFightHelpBeanLawsRatesGet(bean(db())));
     }
+    @Test
+    public void getTrLawRate() {
+        assertEq("U",callFightHelpBeanGetTrLawRate(bean(db()),0));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         MonteCarloNumber law_ = new MonteCarloNumber();
@@ -34,6 +39,8 @@ public final class FightHelpBeanLawRatesTest extends InitDbFightHelp {
         law_.addQuickEvent(Rate.newRate("3"),LgInt.newLgInt("1"));
         f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(law_,(short)1));
         f_.getData().setCombos(Instances.newCombos());
+        f_.getData().getTranslatedDiffModelLaw().addEntry(EN,new IdMap<DifficultyModelLaw,String>());
+        f_.getData().getTranslatedDiffModelLaw().getVal(EN).addEntry(DifficultyModelLaw.UNIFORME,"U");
         return f_;
     }
 }
