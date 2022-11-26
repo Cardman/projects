@@ -28,6 +28,7 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
+        t_.getEffects().add(Instances.newEffectStatistic());
         EffectGlobal e_ = Instances.newEffectGlobal();
         e_.getCancelProtectingAbilities().add(M_DAM_VAR);
         t_.getEffects().add(e_);
