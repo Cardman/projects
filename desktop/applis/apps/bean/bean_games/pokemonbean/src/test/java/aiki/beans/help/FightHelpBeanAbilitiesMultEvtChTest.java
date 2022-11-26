@@ -19,10 +19,10 @@ public final class FightHelpBeanAbilitiesMultEvtChTest extends InitDbFightHelp {
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
     }
-//    @Test
-//    public void init() {
-//        assertSizeEq(1,callFightHelpBeanAbilitiesMEC(bean(db())));
-//    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanAbilitesMultEvtChGet(bean(db())));
+    }
     @Test
     public void tr() {
         assertEq(M_DAM_TR,callFightHelpBeanGetTrAbilitiesMultEvtCh(bean(db()),0));

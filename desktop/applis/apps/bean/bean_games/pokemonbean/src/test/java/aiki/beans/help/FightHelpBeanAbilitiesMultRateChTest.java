@@ -18,10 +18,10 @@ public final class FightHelpBeanAbilitiesMultRateChTest extends InitDbFightHelp 
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
     }
-//    @Test
-//    public void init() {
-//        assertSizeEq(1,callFightHelpBeanAbilitiesMR(bean(db())));
-//    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanAbilitesMultRateChGet(bean(db())));
+    }
     @Test
     public void tr() {
         assertEq(M_DAM_TR,callFightHelpBeanGetTrAbilitiesMultRateCh(bean(db()),0));
