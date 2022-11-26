@@ -1,10 +1,12 @@
 package aiki.beans.help;
 
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundAutoDamage;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.AbsMap;
 import code.util.NatStringTreeMap;
@@ -35,6 +37,31 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
     @Test
     public void getFomula() {
         assertEq(Fight.TEMPS_TOUR+"+1",callFightHelpBeanGetFomula(bean(db()),0));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanAutoDamageGet(bean(db())));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrAutoDamage(bean(db()),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickAutoDamage(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickAutoDamage(b_,0);
+        return getValStatusId(b_);
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();

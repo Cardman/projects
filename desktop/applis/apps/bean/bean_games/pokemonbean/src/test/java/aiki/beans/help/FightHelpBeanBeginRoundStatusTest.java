@@ -1,9 +1,11 @@
 package aiki.beans.help;
 
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
 import code.util.StringList;
 import code.util.StringMap;
@@ -53,6 +55,31 @@ public final class FightHelpBeanBeginRoundStatusTest extends InitDbFightHelp {
     @Test
     public void hasLawForHealAny2() {
         assertTrue(callFightHelpBeanHasLawForHealAny(bean(dbLawHeal())));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanBeginRoundStatusGet(bean(db())));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrBeginRoundStatus(bean(db()),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickBeginRoundStatus(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickBeginRoundStatus(b_,0);
+        return getValStatusId(b_);
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();

@@ -1,11 +1,13 @@
 package aiki.beans.help;
 
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusSimple;
 import aiki.fight.status.StatusType;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -150,6 +152,31 @@ public final class FightHelpBeanStatusMultStatTest extends InitDbFightHelp {
     @Test
     public void moveTeamMultAccuracyAny2() {
         assertTrue(callFightHelpBeanStatusMultAccuracyAny(bean(db(Statistic.ACCURACY))));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanStatusMultStatGet(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrStatusMultStat(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        return toStr(callFightHelpBeanClickStatusMultStat(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        callFightHelpBeanClickStatusMultStat(b_,0);
+        return getValStatusId(b_);
     }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();

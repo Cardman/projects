@@ -1,10 +1,12 @@
 package aiki.beans.help;
 
+import aiki.beans.status.AikiBeansStatusStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -16,6 +18,31 @@ public final class FightHelpBeanStatusDamageTest extends InitDbFightHelp {
         StringList ls_ = FightHelpBean.statusDamageInit(db().getData());
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanStatusDamageGet(bean(db())));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrStatusDamage(bean(db()),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickStatusDamage(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickStatusDamage(b_,0);
+        return getValStatusId(b_);
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
