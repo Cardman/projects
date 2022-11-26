@@ -29,11 +29,15 @@ public final class FightHelpBeanStatusDamageTest extends InitDbFightHelp {
         e_.setStatusType(StatusType.RELATION_UNIQUE);
         e_.getEffectsPartner().add(Instances.newEffectPartnerStatus());
         f_.getData().completeMembers(M_STA, e_);
-        f_.getData().completeMembers(M_DAM_VAR, Instances.newStatusSimple());
+        StatusBeginRoundSimple u_ = Instances.newStatusBeginRoundSimple();
+        u_.setStatusType(StatusType.RELATION_UNIQUE);
+        f_.getData().completeMembers(M_DAM_VAR, u_);
+        f_.getData().completeMembers(M_DAM_BAD, Instances.newStatusBeginRoundSimple());
         f_.getData().getTranslatedStatus().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.getData().getTranslatedStatus().getVal(EN).addEntry(M_DAM_BAD,M_DAM_BAD_TR);
         return f_;
     }
 }

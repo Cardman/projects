@@ -18,6 +18,7 @@ public final class FightHelpBeanMovesTargetPowerTest extends InitDbFightHelp {
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
+        t_.getEffects().add(Instances.newEffectStatistic());
         t_.getEffects().add(Instances.newEffectMultSufferedMovePower());
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newStatusMoveData());

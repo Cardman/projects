@@ -1178,10 +1178,10 @@ public class FightHelpBean extends CommonBean {
             for (Effect e: move_.getEffects()) {
                 if (e instanceof EffectGlobal) {
                     abilitiesBreakable_.addAllElts(((EffectGlobal) e).getCancelProtectingAbilities());
-                    break;
                 }
             }
         }
+        abilitiesBreakable_.removeDuplicates();
         return abilitiesBreakable_;
     }
 

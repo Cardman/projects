@@ -19,6 +19,7 @@ public final class FightHelpBeanDamagingMovesTest extends InitDbFightHelp {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
         t_.getEffects().add(Instances.newEffectDamage());
+        t_.getEffects().add(Instances.newEffectStatistic());
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newStatusMoveData());
         f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
