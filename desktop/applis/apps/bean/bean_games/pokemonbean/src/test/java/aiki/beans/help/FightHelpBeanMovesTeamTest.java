@@ -1,10 +1,12 @@
 package aiki.beans.help;
 
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -68,6 +70,31 @@ public final class FightHelpBeanMovesTeamTest extends InitDbFightHelp {
     @Test
     public void immuChTeamMoveAny2() {
         assertTrue(callFightHelpBeanImmuChTeamMoveAny(bean(dbProtectAgainstCh())));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanMovesTeamGet(bean(dbProtectAgainstLowStat())));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrMovesTeam(bean(dbProtectAgainstLowStat()),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(dbProtectAgainstLowStat());
+        return toStr(callFightHelpBeanClickMovesTeam(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(dbProtectAgainstLowStat());
+        callFightHelpBeanClickMovesTeam(b_,0);
+        return getValMoveId(b_);
     }
     private static FacadeGame dbProtectAgainstLowStat() {
         FacadeGame f_ = facade();

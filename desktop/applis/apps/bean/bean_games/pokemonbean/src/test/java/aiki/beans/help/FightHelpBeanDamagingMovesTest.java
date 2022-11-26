@@ -1,9 +1,11 @@
 package aiki.beans.help;
 
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamage;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
@@ -65,6 +67,31 @@ public final class FightHelpBeanDamagingMovesTest extends InitDbFightHelp {
     @Test
     public void withMultAny2() {
         assertTrue(callFightHelpBeanWithMultDamageAny(bean(dbMult())));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanDamagingMovesGet(bean(db())));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrDamagingMoves(bean(db()),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickDamagingMoves(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickDamagingMoves(b_,0);
+        return getValMoveId(b_);
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
