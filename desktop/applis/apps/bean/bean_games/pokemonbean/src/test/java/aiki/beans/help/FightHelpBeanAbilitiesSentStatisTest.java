@@ -92,6 +92,22 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     public void clId3() {
         assertEq(M_DAM,clickId3());
     }
+    @Test
+    public void init4() {
+        assertSizeEq(1,callFightHelpBeanAbilitiesSentStatisGet(bean(dbGlobalWea())));
+    }
+    @Test
+    public void tr4() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrAbilitiesSentStatis(bean(dbGlobalWea()),0));
+    }
+    @Test
+    public void cl4() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,click4());
+    }
+    @Test
+    public void clId4() {
+        assertEq(M_DAM,clickId4());
+    }
     private String click1() {
         Struct b_ = bean(db());
         return toStr(callFightHelpBeanClickCopyAbilities(b_,0));
@@ -117,6 +133,15 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
     private String clickId3() {
         Struct b_ = bean(dbGlobalWea());
         callFightHelpBeanClickAbilitiesSentBegin(b_,0);
+        return getValAbilityId(b_);
+    }
+    private String click4() {
+        Struct b_ = bean(dbGlobalWea());
+        return toStr(callFightHelpBeanClickAbilitiesSentStatis(b_,0));
+    }
+    private String clickId4() {
+        Struct b_ = bean(dbGlobalWea());
+        callFightHelpBeanClickAbilitiesSentStatis(b_,0);
         return getValAbilityId(b_);
     }
     private static FacadeGame db() {
