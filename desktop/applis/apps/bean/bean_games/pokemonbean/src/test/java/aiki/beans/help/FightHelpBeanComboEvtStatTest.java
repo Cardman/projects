@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.AikiBeansStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.effects.EffectCombo;
 import aiki.fight.util.ListEffectCombo;
@@ -17,8 +18,19 @@ public final class FightHelpBeanComboEvtStatTest extends InitDbFightHelp {
         assertEq(1,ls_.size());
     }
     @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanComboEvtStatGet(bean(db())));
+    }
+    @Test
     public void tr() {
         assertEq(M_DAM_TR+" - "+M_STA_TR,callFightHelpBeanGetTrComboEvtStat(bean(db()),0));
+    }
+    @Test
+    public void cl() {
+        assertEq(AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML,clickDest());
+    }
+    private static String clickDest() {
+        return toStr(callFightHelpBeanClickComboEvtStat(bean(db()),0));
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();

@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.AikiBeansStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.effects.EffectCombo;
@@ -17,6 +18,10 @@ public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
     public void movesTypesDefWeatherInitTest() {
         CustList<StringList> ls_ = FightHelpBean.comboMultStatInit(db(Statistic.CRITICAL_HIT).getData(),EN);
         assertEq(2,ls_.size());
+    }
+    @Test
+    public void init() {
+        assertSizeEq(2,callFightHelpBeanComboMultStatGet(bean(db(Statistic.CRITICAL_HIT))));
     }
     @Test
     public void effectTeam1() {
@@ -97,6 +102,13 @@ public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
     @Test
     public void tr() {
         assertEq(M_DAM_TR+" - "+M_DAM_VAR_TR,callFightHelpBeanGetTrComboMultStat(bean(db(Statistic.ATTACK)),0));
+    }
+    @Test
+    public void cl() {
+        assertEq(AikiBeansStd.WEB_HTML_COMBO_COMBOS_HTML,clickDest());
+    }
+    private static String clickDest() {
+        return toStr(callFightHelpBeanClickComboMultStat(bean(db(Statistic.ATTACK)),0));
     }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
