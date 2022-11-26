@@ -199,6 +199,7 @@ public abstract class InitDbConstr extends InitDbBean {
         fac_.setZipName("");
         fac_.setData(data_);
         fac_.setLanguage(EN);
+        fac_.getData().setCombos(Instances.newCombos());
         return fac_;
     }
     protected static DamagingMoveData moveDam(TargetChoice _t) {
