@@ -16,6 +16,63 @@ public final class FightHelpBeanItemsMultStatTest extends InitDbFightHelp {
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
     }
+    @Test
+    public void itemMultNormal1() {
+        assertFalse(callFightHelpBeanItemMultNormal(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void itemMultNormal2() {
+        assertTrue(callFightHelpBeanItemMultNormal(bean(db(Statistic.SPECIAL_ATTACK)),0));
+    }
+    @Test
+    public void itemMultNormalAny1() {
+        assertFalse(callFightHelpBeanItemMultNormalAny(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void itemMultNormalAny2() {
+        assertTrue(callFightHelpBeanItemMultNormalAny(bean(db(Statistic.ATTACK))));
+    }
+    @Test
+    public void itemMultSpeed1() {
+        assertFalse(callFightHelpBeanItemMultSpeed(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void itemMultSpeed2() {
+        assertTrue(callFightHelpBeanItemMultSpeed(bean(db(Statistic.SPEED)),0));
+    }
+    @Test
+    public void itemMultSpeedAny1() {
+        assertFalse(callFightHelpBeanItemMultSpeedAny(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void itemMultSpeedAny2() {
+        assertTrue(callFightHelpBeanItemMultSpeedAny(bean(db(Statistic.SPEED))));
+    }
+    @Test
+    public void itemMultEvasinessAny1() {
+        assertFalse(callFightHelpBeanItemMultEvasinessAny(bean(db(Statistic.SPEED))));
+    }
+    @Test
+    public void itemMultEvasinessAny2() {
+        assertTrue(callFightHelpBeanItemMultEvasinessAny(bean(db(Statistic.EVASINESS))));
+    }
+    @Test
+    public void itemMultAccuracy1() {
+        assertFalse(callFightHelpBeanItemMultAccuracy(bean(db(Statistic.SPEED)),0));
+    }
+    @Test
+    public void itemMultAccuracy2() {
+        assertTrue(callFightHelpBeanItemMultAccuracy(bean(db(Statistic.ACCURACY)),0));
+    }
+    @Test
+    public void itemMultAccuracyAny1() {
+        assertFalse(callFightHelpBeanItemMultAccuracyAny(bean(db(Statistic.SPEED))));
+    }
+    @Test
+    public void itemMultAccuracyAny2() {
+        assertTrue(callFightHelpBeanItemMultAccuracyAny(bean(db(Statistic.ACCURACY))));
+    }
+
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         ItemForBattle t_ = Instances.newItemForBattle();
@@ -27,6 +84,7 @@ public final class FightHelpBeanItemsMultStatTest extends InitDbFightHelp {
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM_VAR,M_DAM_VAR_TR);
+        f_.getData().setCombos(Instances.newCombos());
         return f_;
     }
 }
