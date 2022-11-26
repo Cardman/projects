@@ -1,8 +1,10 @@
 package aiki.beans.help;
 
+import aiki.beans.items.AikiBeansItemsStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.ItemForBattle;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -14,6 +16,31 @@ public final class FightHelpBeanItemsUserPowerTest extends InitDbFightHelp {
         StringList ls_ = FightHelpBean.itemsUserPowerInit(db().getData());
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanItemsUserPowerGet(bean(db())));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrItemsUserPower(bean(db()),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickItemsUserPower(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickItemsUserPower(b_,0);
+        return getValItemId(b_);
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();

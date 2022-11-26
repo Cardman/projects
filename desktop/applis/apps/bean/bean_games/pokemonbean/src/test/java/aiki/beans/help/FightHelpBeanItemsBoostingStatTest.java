@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.items.AikiBeansItemsStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.items.Berry;
@@ -7,6 +8,7 @@ import aiki.fight.items.ItemForBattle;
 import aiki.fight.util.BoostHpRate;
 import aiki.fight.util.StatisticPokemon;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -195,6 +197,31 @@ public final class FightHelpBeanItemsBoostingStatTest extends InitDbFightHelp {
     @Test
     public void itemBoostAccuracyAny2() {
         assertTrue(callFightHelpBeanItemBoostAccuracyAny(bean(dbSpec(Statistic.ACCURACY))));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanItemsBoostingStatGet(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrItemsBoostingStat(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        return toStr(callFightHelpBeanClickItemsBoostingStat(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        callFightHelpBeanClickItemsBoostingStat(b_,0);
+        return getValItemId(b_);
     }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
