@@ -1,11 +1,14 @@
 package aiki.beans.help;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -24,6 +27,56 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
         StringList ls_ = FightHelpBean.abilitiesBreakableInit(FightHelpBean.movesGlobalBreakImmuAbInit(d_),d_);
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM_VAR));
+    }
+    @Test
+    public void initMv() {
+        assertSizeEq(1,callFightHelpBeanMovesGlobalBreakImmuAbGet(bean(db())));
+    }
+    @Test
+    public void trMv() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrMovesGlobalBreakImmuAb(bean(db()),0));
+    }
+    @Test
+    public void clMv1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,clickMv());
+    }
+    @Test
+    public void clIdMv1() {
+        assertEq(M_DAM,clickMvId());
+    }
+    private String clickMv() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickMovesGlobalBreakImmuAb(b_,0));
+    }
+    private String clickMvId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickMovesGlobalBreakImmuAb(b_,0);
+        return getValMoveId(b_);
+    }
+    @Test
+    public void initAb() {
+        assertSizeEq(1,callFightHelpBeanAbilitiesBreakableGet(bean(db())));
+    }
+    @Test
+    public void trAb() {
+        assertEq(M_DAM_VAR_TR,callFightHelpBeanGetTrAbilitiesBreakable(bean(db()),0));
+    }
+    @Test
+    public void clAb1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,clickAb());
+    }
+    @Test
+    public void clIdAb1() {
+        assertEq(M_DAM_VAR,clickAbId());
+    }
+    private String clickAb() {
+        Struct b_ = bean(db());
+        return toStr(callFightHelpBeanClickAbilitiesBreakable(b_,0));
+    }
+    private String clickAbId() {
+        Struct b_ = bean(db());
+        callFightHelpBeanClickAbilitiesBreakable(b_,0);
+        return getValAbilityId(b_);
     }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
