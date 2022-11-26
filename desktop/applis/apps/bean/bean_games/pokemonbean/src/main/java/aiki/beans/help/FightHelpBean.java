@@ -4711,9 +4711,6 @@ public class FightHelpBean extends CommonBean {
         int i_ = _def * types.size() + _off;
         return efficiency.getValue(i_).toNumberString();
     }
-    public String getTypes(int _index) {
-        return types.get(_index);
-    }
     public String getTrDefaultMove() {
         DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());

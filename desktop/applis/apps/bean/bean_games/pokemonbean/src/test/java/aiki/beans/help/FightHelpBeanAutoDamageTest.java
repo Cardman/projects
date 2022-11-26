@@ -39,8 +39,12 @@ public final class FightHelpBeanAutoDamageTest extends InitDbFightHelp {
         assertEq(Fight.TEMPS_TOUR+"+1",callFightHelpBeanGetFomula(bean(db()),0));
     }
     @Test
-    public void init() {
+    public void init1() {
         assertSizeEq(1,callFightHelpBeanAutoDamageGet(bean(db())));
+    }
+    @Test
+    public void init2() {
+        assertSizeEq(1,callFightHelpBeanMapAutoDamageGet(bean(db())));
     }
     @Test
     public void tr() {

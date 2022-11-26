@@ -30,6 +30,39 @@ public final class FightHelpBeanEfficiencyTest extends InitDbFightHelp {
     public void nextRowAfter4() {
         assertFalse(callFightHelpBeanNextRowAfter(bean(db()),3));
     }
+    @Test
+    public void getEfficiency() {
+        assertSizeEq(4,callFightHelpBeanEfficiencyGet(bean(db())));
+    }
+    @Test
+    public void getEfficiency1() {
+        assertEq("2",callFightHelpBeanGetEfficiency(bean(db()),0,0));
+    }
+    @Test
+    public void getEfficiency2() {
+        assertEq("4",callFightHelpBeanGetEfficiency(bean(db()),0,1));
+    }
+    @Test
+    public void getEfficiency3() {
+        assertEq("5",callFightHelpBeanGetEfficiency(bean(db()),1,0));
+    }
+    @Test
+    public void getEfficiency4() {
+        assertEq("3",callFightHelpBeanGetEfficiency(bean(db()),1,1));
+    }
+    @Test
+    public void getTypes() {
+        assertSizeEq(2,callFightHelpBeanTypesGet(bean(db())));
+    }
+    @Test
+    public void getTypes1() {
+        assertEq(T_TYPE1_TR,elt(callFightHelpBeanTypesGet(bean(db())),0));
+    }
+    @Test
+    public void getTypes2() {
+        assertEq(T_TYPE2_TR,elt(callFightHelpBeanTypesGet(bean(db())),1));
+    }
+
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().getTranslatedTypes().addEntry(EN,new StringMap<String>());

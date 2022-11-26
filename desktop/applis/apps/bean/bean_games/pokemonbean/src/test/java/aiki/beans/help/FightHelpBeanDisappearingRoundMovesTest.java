@@ -15,6 +15,10 @@ public final class FightHelpBeanDisappearingRoundMovesTest extends InitDbFightHe
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
     }
+    @Test
+    public void init1() {
+        assertSizeEq(1,callFightHelpBeanDisappearingRoundMovesGet(bean(db())));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
