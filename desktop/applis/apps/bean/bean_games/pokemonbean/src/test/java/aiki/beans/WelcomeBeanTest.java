@@ -7,8 +7,16 @@ import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.pokemon.AikiBeansPokemonStd;
 import aiki.beans.simulation.AikiBeansSimulationStd;
 import aiki.beans.status.AikiBeansStatusStd;
+import aiki.facade.FacadeGame;
 import code.expressionlanguage.structs.Struct;
+import code.formathtml.Navigation;
+import code.formathtml.analyze.blocks.AnaRendBlock;
+import code.scripts.pages.aiki.CssInit;
+import code.scripts.pages.aiki.MessagesInit;
+import code.scripts.pages.aiki.PagesInit;
 import code.util.CustList;
+import code.util.StringMap;
+import code.util.consts.Constants;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -110,5 +118,17 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,navigateSimulation(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_SIMULATION_STATE));
         assertSame(SimulationSteps.DIFF,forms(bean_).getValSimStep(CST_SIMULATION_STATE));
+    }
+    @Test
+    public void init() {
+        FacadeGame f_ = facade();
+        StringMap<String> builtMessages_ = MessagesInit.ms();
+        AnaRendBlock.adjust(builtMessages_);
+        StringMap<String> builtOther_ = CssInit.ms();
+        PkData pk_ = new PkData();
+        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DataGameInit(), PagesInit.build(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        pk_.setDataBase(f_);
+        pk_.initializeRendSessionDoc(nav_);
+        assertFalse(nav_.getHtmlText().isEmpty());
     }
 }
