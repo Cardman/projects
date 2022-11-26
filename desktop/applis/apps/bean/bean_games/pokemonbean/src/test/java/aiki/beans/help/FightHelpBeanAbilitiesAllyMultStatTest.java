@@ -1,9 +1,11 @@
 package aiki.beans.help;
 
+import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -80,6 +82,31 @@ public final class FightHelpBeanAbilitiesAllyMultStatTest extends InitDbFightHel
     @Test
     public void abilityAllyMultAccuracyAny2() {
         assertTrue(callFightHelpBeanAbilityAllyMultAccuracyAny(bean(db(Statistic.ACCURACY))));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanAbilitiesAllyMultStatGet(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrAbilitiesAllyMultStat(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        return toStr(callFightHelpBeanClickAbilitiesAllyMultStat(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        callFightHelpBeanClickAbilitiesAllyMultStat(b_,0);
+        return getValAbilityId(b_);
     }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
