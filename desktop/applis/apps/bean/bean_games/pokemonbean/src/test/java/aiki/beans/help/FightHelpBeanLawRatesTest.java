@@ -2,6 +2,7 @@ package aiki.beans.help;
 
 import aiki.facade.FacadeGame;
 import aiki.game.params.enums.DifficultyModelLaw;
+import aiki.instances.Instances;
 import aiki.util.LawNumber;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -22,12 +23,17 @@ public final class FightHelpBeanLawRatesTest extends InitDbFightHelp {
         assertEq(Rate.newRate("3"),b_.getValue(0).getKey(1));
         assertEq(Rate.newRate("1/4"),b_.getValue(0).getValue(1));
     }
+    @Test
+    public void count() {
+        assertSizeEq(1,callFightHelpBeanLawsRatesGet(bean(db())));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         MonteCarloNumber law_ = new MonteCarloNumber();
         law_.addQuickEvent(Rate.newRate("1"), LgInt.newLgInt("3"));
         law_.addQuickEvent(Rate.newRate("3"),LgInt.newLgInt("1"));
         f_.getData().getLawsDamageRate().addEntry(DifficultyModelLaw.UNIFORME,new LawNumber(law_,(short)1));
+        f_.getData().setCombos(Instances.newCombos());
         return f_;
     }
 }

@@ -1,7 +1,10 @@
 package aiki.beans.help;
 
 import aiki.beans.BeanPokemonCommonTs;
+import aiki.beans.PkData;
+import aiki.beans.PokemonBeanStruct;
 import aiki.beans.db.InitDbConstr;
+import aiki.facade.FacadeGame;
 import code.expressionlanguage.structs.Struct;
 
 public abstract class InitDbFightHelp extends InitDbConstr {
@@ -2180,5 +2183,11 @@ public abstract class InitDbFightHelp extends InitDbConstr {
 
     public static Struct callFightHelpBeanWonHappinessPointsLevelGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanWonHappinessPointsLevelGet(),_str,_args);
+    }
+    protected static Struct bean(FacadeGame _f) {
+        PkData pk_ = pkDataByFacade(_f);
+        PokemonBeanStruct str_ = pk_.beanFightHelpBean(EN);
+        beforeDisplaying(str_);
+        return str_;
     }
 }
