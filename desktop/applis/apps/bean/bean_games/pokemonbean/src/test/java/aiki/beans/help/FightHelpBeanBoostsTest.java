@@ -1,0 +1,23 @@
+package aiki.beans.help;
+
+import aiki.db.DataBase;
+import aiki.facade.FacadeGame;
+import aiki.game.fight.Fight;
+import code.maths.Rate;
+import code.util.LongTreeMap;
+import org.junit.Test;
+
+public final class FightHelpBeanBoostsTest extends InitDbFightHelp {
+    @Test
+    public void init() {
+        LongTreeMap<Rate> b_ = FightHelpBean.boostsInit(1, 1, db().getData());
+        assertEq(1,b_.size());
+        assertEq(1,b_.getKey(0));
+        assertEq(Rate.newRate("2"),b_.getValue(0));
+    }
+    private static FacadeGame db() {
+        FacadeGame f_ = facade();
+        f_.getData().setRateBoost(DataBase.VAR_PREFIX+ Fight.BOOST+"+1");
+        return f_;
+    }
+}
