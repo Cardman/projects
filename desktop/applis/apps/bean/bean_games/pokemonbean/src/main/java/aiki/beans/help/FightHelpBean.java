@@ -27,6 +27,7 @@ import aiki.fight.util.*;
 import aiki.game.fight.Fight;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
+import aiki.instances.Instances;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.maths.litteralcom.MathExpUtil;
@@ -4607,16 +4608,8 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultNormal(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        for (StringList s: data_.getCombos().getEffects().getKeys()) {
-            StringList tmp_ = new StringList(s);
-            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            if (!StringUtil.eqStrings(tmp_, combo_)) {
-                continue;
-            }
-            EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
-            return hasNormalStat(eff_.getMultStatisticFoe().getKeys());
-        }
-        return false;
+        EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
+        return hasNormalStat(eff_.getMultStatisticFoe().getKeys());
     }
     public boolean comboMultEvasinessAny() {
         int len_;
@@ -4631,16 +4624,8 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultEvasiness(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        for (StringList s: data_.getCombos().getEffects().getKeys()) {
-            StringList tmp_ = new StringList(s);
-            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            if (!StringUtil.eqStrings(tmp_, combo_)) {
-                continue;
-            }
-            EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
-            return eff_.getMultStatisticFoe().contains(Statistic.EVASINESS);
-        }
-        return false;
+        EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
+        return eff_.getMultStatisticFoe().contains(Statistic.EVASINESS);
     }
     public boolean comboMultSpeedAny() {
         int len_;
@@ -4655,16 +4640,8 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultSpeed(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        for (StringList s: data_.getCombos().getEffects().getKeys()) {
-            StringList tmp_ = new StringList(s);
-            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            if (!StringUtil.eqStrings(tmp_, combo_)) {
-                continue;
-            }
-            EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
-            return eff_.getMultStatisticFoe().contains(Statistic.SPEED);
-        }
-        return false;
+        EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
+        return eff_.getMultStatisticFoe().contains(Statistic.SPEED);
     }
     public boolean comboMultAccuracyAny() {
         int len_;
@@ -4679,16 +4656,22 @@ public class FightHelpBean extends CommonBean {
     public boolean comboMultAccuracy(int _index) {
         StringList combo_ = comboMultStat.get(_index);
         DataBase data_ = getDataBase();
-        for (StringList s: data_.getCombos().getEffects().getKeys()) {
+        EffectTeam eff_ = effectTeam(data_,combo_,getLanguage());
+        return eff_.getMultStatisticFoe().contains(Statistic.ACCURACY);
+    }
+    static EffectTeam effectTeam(DataBase _db, StringList _key, String _lg) {
+        for (StringList s: _db.getCombos().getEffects().getKeys()) {
             StringList tmp_ = new StringList(s);
-            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            if (!StringUtil.eqStrings(tmp_, combo_)) {
+            tmp_.sortElts(DictionaryComparatorUtil.cmpMoves(_db, _lg));
+            if (!StringUtil.eqStrings(tmp_, _key)) {
                 continue;
             }
-            EffectTeam eff_ = data_.getCombos().getEffects().getVal(s).getTeamMove().first();
-            return eff_.getMultStatisticFoe().contains(Statistic.ACCURACY);
+            EffectCombo ec_ = _db.getCombos().getEffects().getVal(s);
+            if (!ec_.getTeamMove().isEmpty()) {
+                return ec_.getTeamMove().first();
+            }
         }
-        return false;
+        return Instances.newEffectTeam();
     }
     public String getTrComboMultStat(int _index) {
         DataBase data_ = getDataBase();

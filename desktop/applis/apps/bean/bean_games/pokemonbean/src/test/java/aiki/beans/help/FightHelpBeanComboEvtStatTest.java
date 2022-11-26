@@ -16,6 +16,10 @@ public final class FightHelpBeanComboEvtStatTest extends InitDbFightHelp {
         CustList<StringList> ls_ = FightHelpBean.comboEvtStatInit(db().getData(),EN);
         assertEq(1,ls_.size());
     }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR+" - "+M_STA_TR,callFightHelpBeanGetTrComboEvtStat(bean(db()),0));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().completeMembers(M_DAM, Instances.newDamagingMoveData());

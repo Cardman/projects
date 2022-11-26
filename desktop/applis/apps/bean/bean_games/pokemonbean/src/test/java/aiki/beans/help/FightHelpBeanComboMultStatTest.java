@@ -18,6 +18,86 @@ public final class FightHelpBeanComboMultStatTest extends InitDbFightHelp {
         CustList<StringList> ls_ = FightHelpBean.comboMultStatInit(db(Statistic.CRITICAL_HIT).getData(),EN);
         assertEq(2,ls_.size());
     }
+    @Test
+    public void effectTeam1() {
+        assertEq(0,FightHelpBean.effectTeam(db(Statistic.CRITICAL_HIT).getData(),new StringList(M_STA,M_DAM_VAR),EN).getMultStatisticFoe().size());
+    }
+    @Test
+    public void effectTeam2() {
+        assertEq(0,FightHelpBean.effectTeam(db(Statistic.CRITICAL_HIT).getData(),new StringList(M_DAM_VAR,M_STA),EN).getMultStatisticFoe().size());
+    }
+    @Test
+    public void effectTeam3() {
+        assertEq(1,FightHelpBean.effectTeam(db(Statistic.CRITICAL_HIT).getData(),new StringList(M_DAM,M_STA),EN).getMultStatisticFoe().size());
+    }
+    @Test
+    public void comboMultNormal1() {
+        assertFalse(callFightHelpBeanComboMultNormal(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void comboMultNormal2() {
+        assertTrue(callFightHelpBeanComboMultNormal(bean(db(Statistic.ATTACK)),0));
+    }
+    @Test
+    public void comboMultNormalAny1() {
+        assertFalse(callFightHelpBeanComboMultNormalAny(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void comboMultNormalAny2() {
+        assertTrue(callFightHelpBeanComboMultNormalAny(bean(db(Statistic.ATTACK))));
+    }
+    @Test
+    public void comboMultEvasiness1() {
+        assertFalse(callFightHelpBeanComboMultEvasiness(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void comboMultEvasiness2() {
+        assertTrue(callFightHelpBeanComboMultEvasiness(bean(db(Statistic.EVASINESS)),0));
+    }
+    @Test
+    public void comboMultEvasinessAny1() {
+        assertFalse(callFightHelpBeanComboMultEvasinessAny(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void comboMultEvasinessAny2() {
+        assertTrue(callFightHelpBeanComboMultEvasinessAny(bean(db(Statistic.EVASINESS))));
+    }
+    @Test
+    public void comboMultSpeed1() {
+        assertFalse(callFightHelpBeanComboMultSpeed(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void comboMultSpeed2() {
+        assertTrue(callFightHelpBeanComboMultSpeed(bean(db(Statistic.SPEED)),0));
+    }
+    @Test
+    public void comboMultSpeedAny1() {
+        assertFalse(callFightHelpBeanComboMultSpeedAny(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void comboMultSpeedAny2() {
+        assertTrue(callFightHelpBeanComboMultSpeedAny(bean(db(Statistic.SPEED))));
+    }
+    @Test
+    public void comboMultAccuracy1() {
+        assertFalse(callFightHelpBeanComboMultAccuracy(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void comboMultAccuracy2() {
+        assertTrue(callFightHelpBeanComboMultAccuracy(bean(db(Statistic.ACCURACY)),0));
+    }
+    @Test
+    public void comboMultAccuracyAny1() {
+        assertFalse(callFightHelpBeanComboMultAccuracyAny(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void comboMultAccuracyAny2() {
+        assertTrue(callFightHelpBeanComboMultAccuracyAny(bean(db(Statistic.ACCURACY))));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR+" - "+M_DAM_VAR_TR,callFightHelpBeanGetTrComboMultStat(bean(db(Statistic.ATTACK)),0));
+    }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         f_.getData().completeMembers(M_DAM, Instances.newDamagingMoveData());
