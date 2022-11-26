@@ -154,6 +154,7 @@ public final class FightHelpBeanMovesTeamMultStatTest extends InitDbFightHelp {
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
+        t_.getEffects().add(Instances.newEffectStatistic());
         EffectTeam e_ = Instances.newEffectTeam();
         e_.getMultStatistic().addEntry(_st, Rate.one());
         t_.getEffects().add(e_);

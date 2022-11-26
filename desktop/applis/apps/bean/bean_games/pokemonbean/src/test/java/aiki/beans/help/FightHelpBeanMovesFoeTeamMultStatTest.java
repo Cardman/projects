@@ -156,6 +156,7 @@ public final class FightHelpBeanMovesFoeTeamMultStatTest extends InitDbFightHelp
         DamagingMoveData t_ = Instances.newDamagingMoveData();
         EffectTeam e_ = Instances.newEffectTeam();
         e_.getMultStatisticFoe().addEntry(_st, Rate.one());
+        t_.getEffects().add(Instances.newEffectStatistic());
         t_.getEffects().add(e_);
         f_.getData().completeMembers(M_DAM, t_);
         StatusMoveData s_ = Instances.newStatusMoveData();

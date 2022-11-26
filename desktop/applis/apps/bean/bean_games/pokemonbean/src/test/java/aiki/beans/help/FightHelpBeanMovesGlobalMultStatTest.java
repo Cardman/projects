@@ -155,6 +155,7 @@ public final class FightHelpBeanMovesGlobalMultStatTest extends InitDbFightHelp 
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
+        t_.getEffects().add(Instances.newEffectStatistic());
         EffectGlobal e_ = Instances.newEffectGlobal();
         e_.getMultStatIfContainsType().addEntry(new StatisticType(_st,NULL_REF), Rate.one());
         t_.getEffects().add(e_);
