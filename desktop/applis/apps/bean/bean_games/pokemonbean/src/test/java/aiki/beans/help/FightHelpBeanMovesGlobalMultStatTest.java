@@ -1,5 +1,6 @@
 package aiki.beans.help;
 
+import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.enums.Statistic;
 import aiki.fight.moves.DamagingMoveData;
@@ -7,6 +8,7 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.fight.util.StatisticType;
 import aiki.instances.Instances;
+import code.expressionlanguage.structs.Struct;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -151,6 +153,31 @@ public final class FightHelpBeanMovesGlobalMultStatTest extends InitDbFightHelp 
     @Test
     public void moveGlobalMultAccuracyAny2() {
         assertTrue(callFightHelpBeanMoveGlobalMultAccuracyAny(bean(db(Statistic.ACCURACY))));
+    }
+    @Test
+    public void init() {
+        assertSizeEq(1,callFightHelpBeanMovesGlobalMultStatGet(bean(db(Statistic.CRITICAL_HIT))));
+    }
+    @Test
+    public void tr() {
+        assertEq(M_DAM_TR,callFightHelpBeanGetTrMovesGlobalMultStat(bean(db(Statistic.CRITICAL_HIT)),0));
+    }
+    @Test
+    public void cl1() {
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,click());
+    }
+    @Test
+    public void clId1() {
+        assertEq(M_DAM,clickId());
+    }
+    private String click() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        return toStr(callFightHelpBeanClickMovesGlobalMultStat(b_,0));
+    }
+    private String clickId() {
+        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        callFightHelpBeanClickMovesGlobalMultStat(b_,0);
+        return getValMoveId(b_);
     }
     private static FacadeGame db(Statistic _st) {
         FacadeGame f_ = facade();

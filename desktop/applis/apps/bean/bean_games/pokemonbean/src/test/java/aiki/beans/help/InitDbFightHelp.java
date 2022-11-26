@@ -721,6 +721,10 @@ public abstract class InitDbFightHelp extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanClickMovesBoostCh(),_str,_args);
     }
 
+    public static Struct callFightHelpBeanClickChangeTypeMoves(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new FightHelpBeanClickMovesChangeTypeMoves(),_str,_args);
+    }
+
     public static Struct callFightHelpBeanClickMovesCannotKo(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightHelpBeanClickMovesCannotKo(),_str,_args);
     }
