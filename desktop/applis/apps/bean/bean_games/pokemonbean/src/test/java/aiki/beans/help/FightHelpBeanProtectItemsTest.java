@@ -22,7 +22,7 @@ public final class FightHelpBeanProtectItemsTest extends InitDbFightHelp {
         t_.setHealHpBySuperEffMove(Rate.one());
         f_.getData().completeMembers(M_DAM, t_);
         f_.getData().completeMembers(M_STA, Instances.newBall());
-        f_.getData().completeMembers(M_DAM_VAR, Instances.newItemForBattle());
+        f_.getData().completeMembers(M_DAM_VAR, Instances.newBerry());
         f_.getData().getTranslatedItems().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedItems().getVal(EN).addEntry(M_STA,M_STA_TR);
