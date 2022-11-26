@@ -16,6 +16,10 @@ public final class FightHelpBeanVarRatesTest extends InitDbFightHelp {
         assertEq(Fight.TEMPS_TOUR,b_.getKey(0));
         assertEq(TIME,b_.getValue(0));
     }
+    @Test
+    public void ini() {
+        assertSizeEq(1,callFightHelpBeanVarRatesGet(bean(db())));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().getRates().addEntry(DifficultyWinPointsFight.FACILE,DataBase.VAR_PREFIX+ Fight.TEMPS_TOUR);

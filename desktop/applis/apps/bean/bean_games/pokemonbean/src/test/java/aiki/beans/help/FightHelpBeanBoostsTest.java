@@ -15,6 +15,14 @@ public final class FightHelpBeanBoostsTest extends InitDbFightHelp {
         assertEq(1,b_.getKey(0));
         assertEq(Rate.newRate("2"),b_.getValue(0));
     }
+    @Test
+    public void ini() {
+        assertSizeEq(1,callFightHelpBeanBoostsGet(bean(db())));
+    }
+    @Test
+    public void form() {
+        assertEq("b+1",callFightHelpBeanRateFormulaGet(bean(db())));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         f_.getData().setRateBoost(DataBase.VAR_PREFIX+ Fight.BOOST+"+1");

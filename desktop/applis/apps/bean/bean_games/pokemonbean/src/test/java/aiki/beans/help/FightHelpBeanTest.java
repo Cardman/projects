@@ -37,6 +37,10 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         assertEq(1,callFightHelpBeanDefaultBoostValueGet(bean(db())));
     }
     @Test
+    public void getMinHpNotKo() {
+        assertEq(Rate.one(),callFightHelpBeanMinHpNotKoGet(bean(db())));
+    }
+    @Test
     public void tr() {
         assertEq(M_DAM_TR,callFightHelpBeanGetTrDefaultMove(bean(db())));
     }
@@ -71,6 +75,7 @@ public final class FightHelpBeanTest extends InitDbFightHelp{
         f_.getData().setCombos(Instances.newCombos());
         f_.getData().addConstNumTest(DataBase.BONUS_BOOST, Rate.one());
         f_.getData().addConstNumTest(DataBase.VALEUR_DEF_STATIS, Rate.one());
+        f_.getData().addConstNumTest(DataBase.MIN_HP, Rate.one());
         return f_;
     }
 }

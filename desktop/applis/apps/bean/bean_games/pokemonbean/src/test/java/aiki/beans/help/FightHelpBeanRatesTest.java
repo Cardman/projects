@@ -18,6 +18,10 @@ public final class FightHelpBeanRatesTest extends InitDbFightHelp {
         assertEq(Fight.TEMPS_TOUR,b_.getValue(0));
     }
     @Test
+    public void ini() {
+        assertSizeEq(1,callFightHelpBeanRatesGet(bean(db())));
+    }
+    @Test
     public void getTrLawRate() {
         assertEq("U",callFightHelpBeanGetTrDifficulty(bean(db()),0));
     }
