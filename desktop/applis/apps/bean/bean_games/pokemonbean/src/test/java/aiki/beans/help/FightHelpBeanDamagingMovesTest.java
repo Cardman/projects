@@ -2,7 +2,10 @@ package aiki.beans.help;
 
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
+import aiki.fight.moves.effects.EffectDamage;
 import aiki.instances.Instances;
+import code.maths.LgInt;
+import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -15,6 +18,54 @@ public final class FightHelpBeanDamagingMovesTest extends InitDbFightHelp {
         assertEq(1,ls_.size());
         assertTrue(StringUtil.contains(ls_,M_DAM));
     }
+    @Test
+    public void withCst1() {
+        assertFalse(callFightHelpBeanWithConstDamage(bean(db()),0));
+    }
+    @Test
+    public void withCst2() {
+        assertTrue(callFightHelpBeanWithConstDamage(bean(dbCst()),0));
+    }
+    @Test
+    public void withCstAny1() {
+        assertFalse(callFightHelpBeanWithConstDamageAny(bean(db())));
+    }
+    @Test
+    public void withCstAny2() {
+        assertTrue(callFightHelpBeanWithConstDamageAny(bean(dbCst())));
+    }
+    @Test
+    public void withRand1() {
+        assertFalse(callFightHelpBeanWithRandDamage(bean(db()),0));
+    }
+    @Test
+    public void withRand2() {
+        assertTrue(callFightHelpBeanWithRandDamage(bean(dbRand()),0));
+    }
+    @Test
+    public void withRandAny1() {
+        assertFalse(callFightHelpBeanWithRandDamageAny(bean(db())));
+    }
+    @Test
+    public void withRandAny2() {
+        assertTrue(callFightHelpBeanWithRandDamageAny(bean(dbRand())));
+    }
+    @Test
+    public void withMult1() {
+        assertFalse(callFightHelpBeanWithMultDamage(bean(db()),0));
+    }
+    @Test
+    public void withMult2() {
+        assertTrue(callFightHelpBeanWithMultDamage(bean(dbMult()),0));
+    }
+    @Test
+    public void withMultAny1() {
+        assertFalse(callFightHelpBeanWithMultDamageAny(bean(db())));
+    }
+    @Test
+    public void withMultAny2() {
+        assertTrue(callFightHelpBeanWithMultDamageAny(bean(dbMult())));
+    }
     private static FacadeGame db() {
         FacadeGame f_ = facade();
         DamagingMoveData t_ = Instances.newDamagingMoveData();
@@ -25,6 +76,52 @@ public final class FightHelpBeanDamagingMovesTest extends InitDbFightHelp {
         f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
         f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        f_.getData().setCombos(Instances.newCombos());
+        return f_;
+    }
+    private static FacadeGame dbCst() {
+        FacadeGame f_ = facade();
+        DamagingMoveData t_ = Instances.newDamagingMoveData();
+        EffectDamage c_ = Instances.newEffectDamage();
+        c_.setConstDamage(true);
+        t_.getEffects().add(c_);
+        t_.getEffects().add(Instances.newEffectStatistic());
+        f_.getData().completeMembers(M_DAM, t_);
+        f_.getData().completeMembers(M_STA, Instances.newStatusMoveData());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        f_.getData().setCombos(Instances.newCombos());
+        return f_;
+    }
+    private static FacadeGame dbRand() {
+        FacadeGame f_ = facade();
+        DamagingMoveData t_ = Instances.newDamagingMoveData();
+        EffectDamage c_ = Instances.newEffectDamage();
+        c_.getDamageLaw().addQuickEvent(NULL_REF, LgInt.one());
+        t_.getEffects().add(c_);
+        t_.getEffects().add(Instances.newEffectStatistic());
+        f_.getData().completeMembers(M_DAM, t_);
+        f_.getData().completeMembers(M_STA, Instances.newStatusMoveData());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        f_.getData().setCombos(Instances.newCombos());
+        return f_;
+    }
+    private static FacadeGame dbMult() {
+        FacadeGame f_ = facade();
+        DamagingMoveData t_ = Instances.newDamagingMoveData();
+        EffectDamage c_ = Instances.newEffectDamage();
+        c_.getMultDamageAgainst().addEntry(NULL_REF, Rate.one());
+        t_.getEffects().add(c_);
+        t_.getEffects().add(Instances.newEffectStatistic());
+        f_.getData().completeMembers(M_DAM, t_);
+        f_.getData().completeMembers(M_STA, Instances.newStatusMoveData());
+        f_.getData().getTranslatedMoves().addEntry(EN,new StringMap<String>());
+        f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_DAM,M_DAM_TR);
+        f_.getData().getTranslatedMoves().getVal(EN).addEntry(M_STA,M_STA_TR);
+        f_.getData().setCombos(Instances.newCombos());
         return f_;
     }
 }
