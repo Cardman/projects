@@ -68,7 +68,7 @@ private static final String C_P_180_56="msg_moves,const_power";
 private static final String C_P_180_57="aiki.beans.facade.dto.MoveLine";
 private static final String C_P_180_58="moves";
 private static final String C_P_180_59="d";
-private static final String C_P_180_60="{movesBean}";
+private static final String C_P_180_60="movesBean";
 private static final String C_P_180_61="aiki.beans.moves";
 private static final String C_P_180_62="MoveLineBean";
 private static final String C_P_180_63="$intern.index=([d])";

@@ -24,7 +24,7 @@ private static final String C_P_139_17="getTeamsRewards()";
 private static final String C_P_139_18="t";
 private static final String C_P_139_19="$int";
 private static final String C_P_139_20="{([t])}";
-private static final String C_P_139_21="{pageTeam}";
+private static final String C_P_139_21="pageTeam";
 private static final String C_P_139_22="aiki.beans.map.pokemon";
 private static final String C_P_139_23="PokemonTeamBean";
 private static final String C_P_139_24="$intern.trainer=trainer";

@@ -24,7 +24,7 @@ private static final String C_P_140_17="";
 private static final String C_P_140_18="msg_levelmap,level";
 private static final String C_P_140_19="{image}";
 private static final String C_P_140_20="{imageMini}";
-private static final String C_P_140_21="{pageTeam}";
+private static final String C_P_140_21="pageTeam";
 private static final String C_P_140_22="aiki.beans.map.pokemon";
 private static final String C_P_140_23="PokemonTeamBean";
 private static final String C_P_140_24="$intern.trainer=trainer";

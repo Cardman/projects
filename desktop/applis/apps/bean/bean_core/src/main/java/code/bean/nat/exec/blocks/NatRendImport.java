@@ -12,12 +12,12 @@ import code.util.CustList;
 
 public final class NatRendImport extends NatParentBlock {
 
-    private final NatExecTextPart textPart;
+    private final CustList<NatExecOperationNode> textPart;
 
     private final AbstractNatImpLgNames natImpLgNames;
 
     private final CustList<CustList<NatExecOperationNode>> fields;
-    public NatRendImport(NatExecTextPart _textPart, AbstractNatImpLgNames _natImpLgNames, CustList<CustList<NatExecOperationNode>> _f) {
+    public NatRendImport(CustList<NatExecOperationNode> _textPart, AbstractNatImpLgNames _natImpLgNames, CustList<CustList<NatExecOperationNode>> _f) {
         this.textPart = _textPart;
         natImpLgNames = _natImpLgNames;
         fields = _f;
@@ -30,7 +30,7 @@ public final class NatRendImport extends NatParentBlock {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
         }
-        String pageName_ = NatRenderingText.renderNat(textPart, _rendStack);
+        String pageName_ = BeanNatCommonLgNames.processString(BeanNatCommonLgNames.getAllArgs(textPart,_rendStack).lastValue().getArgument());
         NatDocumentBlock val_ = ((BeanNatCommonLgNames)natImpLgNames).getRenders().getVal(pageName_);
         String beanName_ = val_.getBeanName();
         Struct newBean_ = ((BeanNatCommonLgNames)natImpLgNames).getBeansStruct().getVal(beanName_);

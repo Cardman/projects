@@ -111,7 +111,7 @@ public final class NatRendForwardInfos {
         }
         if (_current instanceof NatAnaRendImport){
             NatAnaRendImport f_ = (NatAnaRendImport) _current;
-            NatExecTextPart part_ = toExecPartExt(f_.getRoots(),f_.getTexts());
+            CustList<NatExecOperationNode> part_ = getExecutableNodes(f_.getRoots());
             CustList<CustList<NatExecOperationNode>> fs_ = toExecPartExt(f_.getFields());
             return new NatRendImport(part_, f_.getNatImpLgNames(), fs_);
         }

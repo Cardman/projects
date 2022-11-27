@@ -8,7 +8,7 @@ private static final String C_P_103_1="end_foe";
 private static final String C_P_103_2="web/css/abilities.css";
 private static final String C_P_103_3="stylesheet";
 private static final String C_P_103_4="text/css";
-private static final String C_P_103_5="{endRoundHtml}";
+private static final String C_P_103_5="endRoundHtml";
 private static final String C_P_103_6="aiki.beans.endround";
 private static final String C_P_103_7="EffectEndRoundBean";
 private static final String C_P_103_8="$intern.index=index";

@@ -9,7 +9,7 @@ private static final String C_P_160_2="web/css/moves.css";
 private static final String C_P_160_3="stylesheet";
 private static final String C_P_160_4="text/css";
 private static final String C_P_160_5="msg_effmultusedmovepower,effect";
-private static final String C_P_160_6="{effectBean}";
+private static final String C_P_160_6="effectBean";
 private static final String C_P_160_7="aiki.beans.moves.effects";
 private static final String C_P_160_8="EffectBean";
 private static final String C_P_160_9="$intern.index=index";

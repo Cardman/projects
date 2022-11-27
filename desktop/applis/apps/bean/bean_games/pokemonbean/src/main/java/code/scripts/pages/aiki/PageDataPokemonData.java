@@ -63,7 +63,7 @@ private static final String C_P_181_56="msg_pkdata,get_evo";
 private static final String C_P_181_57="java.lang.String";
 private static final String C_P_181_58="evolutions";
 private static final String C_P_181_59="e";
-private static final String C_P_181_60="{getPage(([e]))}";
+private static final String C_P_181_60="getPage(([e]))";
 private static final String C_P_181_61="aiki.beans.pokemon.evolutions";
 private static final String C_P_181_62="EvolutionBean";
 private static final String C_P_181_63="$intern.index=([e])";

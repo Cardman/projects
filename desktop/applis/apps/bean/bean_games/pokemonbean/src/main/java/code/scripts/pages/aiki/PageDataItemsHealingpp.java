@@ -10,7 +10,7 @@ private static final String C_P_124_3="displayName";
 private static final String C_P_124_4="web/css/items.css";
 private static final String C_P_124_5="stylesheet";
 private static final String C_P_124_6="text/css";
-private static final String C_P_124_7="{healingItemBean}";
+private static final String C_P_124_7="healingItemBean";
 private static final String C_P_124_8="aiki.beans.items";
 private static final String C_P_124_9="ItemBean";
 private static final String C_P_124_10="$intern.name=name";

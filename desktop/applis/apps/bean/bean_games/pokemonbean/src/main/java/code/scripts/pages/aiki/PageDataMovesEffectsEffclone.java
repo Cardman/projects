@@ -10,7 +10,7 @@ private static final String C_P_148_3="stylesheet";
 private static final String C_P_148_4="text/css";
 private static final String C_P_148_5="msg_effclone,effect";
 private static final String C_P_148_6="hpRateClone";
-private static final String C_P_148_7="{effectBean}";
+private static final String C_P_148_7="effectBean";
 private static final String C_P_148_8="aiki.beans.moves.effects";
 private static final String C_P_148_9="EffectBean";
 private static final String C_P_148_10="$intern.index=index";

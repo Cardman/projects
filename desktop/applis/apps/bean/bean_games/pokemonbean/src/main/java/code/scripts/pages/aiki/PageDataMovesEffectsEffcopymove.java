@@ -12,7 +12,7 @@ private static final String C_P_151_5="msg_effcopymove,effect";
 private static final String C_P_151_6_LK="$clickDefaultMove()";
 private static final String C_P_151_6="msg_effcopymove,no_effect";
 private static final String C_P_151_7="{getTrDefaultMove()}";
-private static final String C_P_151_8="{effectBean}";
+private static final String C_P_151_8="effectBean";
 private static final String C_P_151_9="aiki.beans.moves.effects";
 private static final String C_P_151_10="EffectBean";
 private static final String C_P_151_11="$intern.index=index";

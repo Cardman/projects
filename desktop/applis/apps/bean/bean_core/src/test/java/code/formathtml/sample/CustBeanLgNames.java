@@ -104,6 +104,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private static final String INVOKE_METHOD = "invokeMethod";
     private static final String GO_TO_PAGE = "goToPage";
     private static final String GO_TO_PAGE3 = "goToPage3";
+    private static final String GO_TO_PAGE2 = "goToPage2";
     private static final String GO_TO_PAGE1 = "goToPage1";
     private static final String GO_TO_NULL_PAGE = "goToNullPage";
     private static final String GET_DOUBLE = "getDouble";
@@ -256,6 +257,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         fields_.add(new StandardField(TREE, TYPE_MAP,false,false, new SampleBeanOneTree(),null));
         fields_.add(new StandardField(STRINGS, TYPE_STRING_LIST, false, false,null,null));
         fields_.add(new StandardField(STRINGS_SEC, TYPE_STRING_LIST_SEC, false, false,null,null));
+        fields_.add(new StandardField(GO_TO_PAGE2, TYPE_STRING_LIST_SEC, false, false,new CstNatCaller("page2.html"),null));
         //params_ = new StringList(PRIM_INTEGER);
         method_ = new SpecNatMethod(GO_TO_PAGE3, STRING, false, MethodModifier.NORMAL, new CstNatCaller("page3.html"));
         methods_.add( method_);
@@ -324,6 +326,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         StringList params_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_BEAN_TWO, fields_, methods_, TYPE_BEAN);
+        fields_.add(new StandardField(GO_TO_PAGE2, TYPE_STRING_LIST_SEC, false, false,new CstNatCaller("page2.html"),null));
         fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false, new SampleCompositeInfo(),null));
         fields_.add(new StandardField(CHECKED, PRIM_BOOLEAN,false,false, new SampleBeanTwoChecked(),new SampleBeanTwoCheckedSet()));
         fields_.add(new StandardField(CHOOSE, STRING, false, false,null,null));

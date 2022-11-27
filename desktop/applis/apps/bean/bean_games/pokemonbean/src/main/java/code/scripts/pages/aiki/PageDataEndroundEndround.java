@@ -14,7 +14,7 @@ private static final String C_P_102_7="";
 private static final String C_P_102_8="msg_moves,index";
 private static final String C_P_102_9="getEvts()";
 private static final String C_P_102_10="e";
-private static final String C_P_102_11="{getPage(([e]))}";
+private static final String C_P_102_11="getPage(([e]))";
 private static final String C_P_102_12="aiki.beans.endround";
 private static final String C_P_102_13="EffectEndRoundBean";
 private static final String C_P_102_14="$intern.index=([e])";

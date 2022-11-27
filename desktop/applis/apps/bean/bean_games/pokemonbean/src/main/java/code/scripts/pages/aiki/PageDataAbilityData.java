@@ -32,7 +32,7 @@ private static final String C_P_98_26="java.lang.String";
 private static final String C_P_98_27="java.lang.String";
 private static final String C_P_98_28="{c} : {r}";
 private static final String C_P_98_29="sending";
-private static final String C_P_98_30="{effectSendBean}";
+private static final String C_P_98_30="effectSendBean";
 private static final String C_P_98_31="aiki.beans.effects";
 private static final String C_P_98_32="EffectWhileSendingBean";
 private static final String C_P_98_33="$intern.effect=getEffectSending()";

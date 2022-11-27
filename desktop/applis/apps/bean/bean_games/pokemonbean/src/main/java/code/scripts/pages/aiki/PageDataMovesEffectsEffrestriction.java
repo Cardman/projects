@@ -13,7 +13,7 @@ private static final String C_P_165_6="msg_effrestriction,effect_item";
 private static final String C_P_165_7="msg_effrestriction,effect_item_2";
 private static final String C_P_165_8="forbid()";
 private static final String C_P_165_9="msg_effrestriction,effect_move";
-private static final String C_P_165_10="{effectBean}";
+private static final String C_P_165_10="effectBean";
 private static final String C_P_165_11="aiki.beans.moves.effects";
 private static final String C_P_165_12="EffectBean";
 private static final String C_P_165_13="$intern.index=index";

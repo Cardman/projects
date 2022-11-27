@@ -14,7 +14,7 @@ private static final String C_P_100_7="";
 private static final String C_P_100_8="msg_combo,index";
 private static final String C_P_100_9="getCombosKey()";
 private static final String C_P_100_10="m";
-private static final String C_P_100_11="{combo}";
+private static final String C_P_100_11="combo";
 private static final String C_P_100_12="aiki.beans.effects";
 private static final String C_P_100_13="EffectComboBean";
 private static final String C_P_100_14="$intern.combos=combos";
