@@ -612,6 +612,7 @@ public final class AikiBeansHelpStd{
     private static final String ABILITES_MULT_EVT_CH = "abilitesMultEvtCh";
     private static final String ABILITES_MULT_RATE_CH = "abilitesMultRateCh";
     private static final String RATE_FORMULA = "rateFormula";
+    private static final String CLICK_RECHARGE_MOVES = "clickRechargeMoves";
     private static final String BOOSTS = "boosts";
     private static final String RATE_FORMULA_CH = "rateFormulaCh";
     private static final String BOOSTS_CH = "boostsCh";
@@ -861,6 +862,7 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(GET_TR_AUTO_DAMAGE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrAutoDamage()));
         methods_.add( new SpecNatMethod(GET_FOMULA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetFomula()));
         methods_.add( new SpecNatMethod(CLICK_PREPA_ROUND_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickPrepaRoundMoves()));
+        methods_.add( new SpecNatMethod(CLICK_RECHARGE_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickRechargeMoves()));
         methods_.add( new SpecNatMethod(GET_TR_PREPA_ROUND_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrPrepaRoundMoves()));
         methods_.add( new SpecNatMethod(CLICK_SPEED_PREPARING_ITEMS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickSpeedPreparingItems()));
         methods_.add( new SpecNatMethod(GET_TR_SPEED_PREPARING_ITEMS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrSpeedPreparingItems()));
