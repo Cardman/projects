@@ -39,16 +39,48 @@ public final class FightHelpBeanEfficiencyTest extends InitDbFightHelp {
         assertEq("2",callFightHelpBeanGetEfficiency(bean(db()),0,0));
     }
     @Test
+    public void getEfficiencyKey1() {
+        assertEq(T_TYPE1_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),0))));
+    }
+    @Test
+    public void getEfficiencyValue1() {
+        assertEq(T_TYPE1_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),0))));
+    }
+    @Test
     public void getEfficiency2() {
         assertEq("4",callFightHelpBeanGetEfficiency(bean(db()),0,1));
+    }
+    @Test
+    public void getEfficiencyKey2() {
+        assertEq(T_TYPE2_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),1))));
+    }
+    @Test
+    public void getEfficiencyValue2() {
+        assertEq(T_TYPE1_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),1))));
     }
     @Test
     public void getEfficiency3() {
         assertEq("5",callFightHelpBeanGetEfficiency(bean(db()),1,0));
     }
     @Test
+    public void getEfficiencyKey3() {
+        assertEq(T_TYPE1_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),2))));
+    }
+    @Test
+    public void getEfficiencyValue3() {
+        assertEq(T_TYPE2_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),2))));
+    }
+    @Test
     public void getEfficiency4() {
         assertEq("3",callFightHelpBeanGetEfficiency(bean(db()),1,1));
+    }
+    @Test
+    public void getEfficiencyKey4() {
+        assertEq(T_TYPE2_TR,callTypesDuoGetDamageType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),3))));
+    }
+    @Test
+    public void getEfficiencyValue4() {
+        assertEq(T_TYPE2_TR,callTypesDuoGetPokemonType(first(elt(callFightHelpBeanEfficiencyGet(bean(db())),3))));
     }
     @Test
     public void getTypes() {
