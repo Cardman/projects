@@ -12,9 +12,6 @@ public abstract class EquallablePkBeanUtil {
     public static void assertNull(Message _value) {
         Assert.assertNull(_value);
     }
-    public static void assertNotNull(Object _value) {
-        Assert.assertNotNull(_value);
-    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
