@@ -75,6 +75,8 @@ public final class AikiBeansHelpStd{
     private static final String GET_TR_DEFAULT_MOVE = "getTrDefaultMove";
     private static final String CLICK_ABILITIES_SENT_BEGIN = "clickAbilitiesSentBegin";
     private static final String GET_TR_ABILITIES_SENT_BEGIN = "getTrAbilitiesSentBegin";
+    private static final String CLICK_ABILITIES_SENT_BEGIN_OTH = "clickAbilitiesSentBeginOth";
+    private static final String GET_TR_ABILITIES_SENT_BEGIN_OTH = "getTrAbilitiesSentBeginOth";
     private static final String CLICK_ITEMS_SENT_BEGIN = "clickItemsSentBegin";
     private static final String GET_TR_ITEMS_SENT_BEGIN = "getTrItemsSentBegin";
     private static final String CLICK_ITEMS_SENT_BEGIN_OTH = "clickItemsSentBeginOth";
@@ -479,6 +481,7 @@ public final class AikiBeansHelpStd{
     private static final String PRIVATING_MOVES = "privatingMoves";
     private static final String MOVES_HEALING_SUBSTITUTE = "movesHealingSubstitute";
     private static final String ABILITIES_SENT_BEGIN_WEATHER = "abilitiesSentBeginWeather";
+    private static final String ABILITIES_SENT_BEGIN_OTHER = "abilitiesSentBeginOther";
     private static final String ITEMS_SENT_BEGIN_WEATHER = "itemsSentBeginWeather";
     private static final String ITEMS_SENT_BEGIN_OTHER = "itemsSentBeginOther";
     private static final String CHANGING_TYPES_ABILITIES = "changingTypesAbilities";
@@ -651,6 +654,7 @@ public final class AikiBeansHelpStd{
         fields_.add(new StandardField(PRIVATING_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanPrivatingMovesGet(),null));
         fields_.add(new StandardField(MOVES_HEALING_SUBSTITUTE, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanMovesHealingSubstituteGet(),null));
         fields_.add(new StandardField(ABILITIES_SENT_BEGIN_WEATHER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanAbilitiesSentBeginWeatherGet(),null));
+        fields_.add(new StandardField(ABILITIES_SENT_BEGIN_OTHER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanAbilitiesSentBeginOtherGet(),null));
         fields_.add(new StandardField(ITEMS_SENT_BEGIN_WEATHER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanItemsSentBeginWeatherGet(),null));
         fields_.add(new StandardField(ITEMS_SENT_BEGIN_OTHER, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanItemsSentBeginOtherGet(),null));
         fields_.add(new StandardField(CHANGING_TYPES_ABILITIES, BeanNatCommonLgNames.TYPE_LIST,false,false,new FightHelpBeanChangingTypesAbilitiesGet(),null));
@@ -811,6 +815,8 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(GET_TR_DEFAULT_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrDefaultMove()));
         methods_.add( new SpecNatMethod(CLICK_ABILITIES_SENT_BEGIN,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickAbilitiesSentBegin()));
         methods_.add( new SpecNatMethod(GET_TR_ABILITIES_SENT_BEGIN,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrAbilitiesSentBegin()));
+        methods_.add( new SpecNatMethod(CLICK_ABILITIES_SENT_BEGIN_OTH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickAbilitiesSentBeginOth()));
+        methods_.add( new SpecNatMethod(GET_TR_ABILITIES_SENT_BEGIN_OTH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrAbilitiesSentBeginOth()));
         methods_.add( new SpecNatMethod(CLICK_ITEMS_SENT_BEGIN,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickItemsSentBegin()));
         methods_.add( new SpecNatMethod(GET_TR_ITEMS_SENT_BEGIN,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrItemsSentBegin()));
         methods_.add( new SpecNatMethod(CLICK_ITEMS_SENT_BEGIN_OTH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickItemsSentBeginOth()));
