@@ -640,6 +640,7 @@ public final class AikiBeansHelpStd{
     private static final String GO_TO_ADD_2 = "f";
     private static final String GO_TO_SWITCH_ROUND = "w";
     private static final String GO_TO_BEGIN = "b";
+    private static final String CLICK_MOVES_CHANGE_TYPE_MOVES = "clickMovesChangeTypeMoves";
 
     private AikiBeansHelpStd(){}
     public static void build(PokemonStandards _std) {
@@ -1025,6 +1026,7 @@ public final class AikiBeansHelpStd{
         methods_.add( new SpecNatMethod(CLICK_MOVES_TYPE_DEF_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickMovesTypeDefMoves()));
         methods_.add( new SpecNatMethod(GET_TR_MOVES_TYPE_DEF_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrMovesTypeDefMoves()));
         methods_.add( new SpecNatMethod(GET_TR_MOVES_CHANGE_TYPE_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrMovesChangeTypeMoves()));
+        methods_.add( new SpecNatMethod(CLICK_MOVES_CHANGE_TYPE_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickMovesChangeTypeMoves()));
         methods_.add( new SpecNatMethod(CLICK_MOVES_GLOBAL_BREAK_IMMU,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickMovesGlobalBreakImmu()));
         methods_.add( new SpecNatMethod(GET_TR_MOVES_GLOBAL_BREAK_IMMU,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanGetTrMovesGlobalBreakImmu()));
         methods_.add( new SpecNatMethod(CLICK_MOVES_UNPROTECTING_TYPES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new FightHelpBeanClickMovesUnprotectingTypes()));
