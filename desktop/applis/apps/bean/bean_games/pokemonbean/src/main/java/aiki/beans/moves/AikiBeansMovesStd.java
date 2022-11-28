@@ -2,7 +2,6 @@ package aiki.beans.moves;
 
 import aiki.beans.AikiBeansStd;
 import aiki.beans.PokemonStandards;
-import aiki.beans.facade.dto.AikiBeansFacadeDtoStd;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
@@ -113,9 +112,9 @@ public final class AikiBeansMovesStd{
     private static final String MOVES_TM_LEARNT_BY_POKEMON = "movesTmLearntByPokemon";
     private static final String MOVES_HM_LEARNT_BY_POKEMON = "movesHmLearntByPokemon";
     private static final String MOVES_MT_LEARNT_BY_POKEMON = "movesMtLearntByPokemon";
-    private static final String INDEX = "index";
-    private static final String MOVE_LINE = "moveLine";
-    private static final String POWER = "power";
+//    private static final String INDEX = "index";
+//    private static final String MOVE_LINE = "moveLine";
+//    private static final String POWER = "power";
     private static final String TYPED_NAME = "typedName";
     private static final String CATEGORIES = "categories";
     private static final String TYPED_TYPE = "typedType";
@@ -125,14 +124,16 @@ public final class AikiBeansMovesStd{
     private static final String MIN_POWER = "minPower";
     private static final String MAX_POWER = "maxPower";
     private static final String MOVES = "moves";
-    private static final String MOVES_BEAN = "movesBean";
+//    private static final String MOVES_BEAN = "movesBean";
     private static final String LEARNT = "learnt";
     private static final String BOOLEANS = "booleans";
-    private static final String SORTED_MOVES = "sortedMoves";
+//    private static final String SORTED_MOVES = "sortedMoves";
+    private static final String CLICK_LINK = "clickLink";
+
     private AikiBeansMovesStd(){}
     public static void build(PokemonStandards _std) {
         buildMoveBean(_std);
-        buildMoveLineBean(_std);
+//        buildMoveLineBean(_std);
         buildMovesBean(_std);
     }
     private static void buildMoveBean(PokemonStandards _std){
@@ -234,23 +235,23 @@ public final class AikiBeansMovesStd{
         methods_.add( new SpecNatMethod(GET_TR_POKEMON_MT,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveBeanGetTrPokemonMt()));
         _std.getStds().addEntry(TYPE_MOVE_BEAN, type_);
     }
-    private static void buildMoveLineBean(PokemonStandards _std){
-        CustList<StandardField> fields_=new CustList<StandardField>();
-        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_MOVE_LINE_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanIndexGet(),new MoveLineBeanIndexSet()));
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanDisplayNameGet(),null));
-        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPpGet(),null));
-        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MoveLineBeanTypesGet(),null));
-        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanCategoryGet(),null));
-        fields_.add(new StandardField(MOVE_LINE,AikiBeansFacadeDtoStd.TYPE_MOVE_LINE,false,false,new MoveLineBeanMoveLineGet(),new MoveLineBeanMoveLineSet()));
-        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPriorityGet(),null));
-        fields_.add(new StandardField(ACCURACY,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanAccuracyGet(),null));
-        fields_.add(new StandardField(POWER,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanPowerGet(),null));
-        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,null,new MoveLineBeanSortedMovesSet()));
-        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveLineBeanClickMove()));
-        _std.getStds().addEntry(TYPE_MOVE_LINE_BEAN, type_);
-    }
+//    private static void buildMoveLineBean(PokemonStandards _std){
+//        CustList<StandardField> fields_=new CustList<StandardField>();
+//        CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
+//        SpecialNatClass type_ = new SpecialNatClass(TYPE_MOVE_LINE_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+//        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanIndexGet(),new MoveLineBeanIndexSet()));
+//        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanDisplayNameGet(),null));
+//        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPpGet(),null));
+//        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MoveLineBeanTypesGet(),null));
+//        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanCategoryGet(),null));
+//        fields_.add(new StandardField(MOVE_LINE,AikiBeansFacadeDtoStd.TYPE_MOVE_LINE,false,false,new MoveLineBeanMoveLineGet(),new MoveLineBeanMoveLineSet()));
+//        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPriorityGet(),null));
+//        fields_.add(new StandardField(ACCURACY,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanAccuracyGet(),null));
+//        fields_.add(new StandardField(POWER,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanPowerGet(),null));
+//        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,null,new MoveLineBeanSortedMovesSet()));
+//        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MoveLineBeanClickMove()));
+//        _std.getStds().addEntry(TYPE_MOVE_LINE_BEAN, type_);
+//    }
     private static void buildMovesBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
@@ -265,11 +266,12 @@ public final class AikiBeansMovesStd{
         fields_.add(new StandardField(MIN_POWER,BeanNatCommonLgNames.STRING,false,false,new MovesBeanMinPowerGet(),new MovesBeanMinPowerSet()));
         fields_.add(new StandardField(MAX_POWER,BeanNatCommonLgNames.STRING,false,false,new MovesBeanMaxPowerGet(),new MovesBeanMaxPowerSet()));
         fields_.add(new StandardField(MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MovesBeanMovesGet(),null));
-        fields_.add(new StandardField(MOVES_BEAN,BeanNatCommonLgNames.STRING,false,false,new MovesBeanMovesBeanGet(),null));
+//        fields_.add(new StandardField(MOVES_BEAN,BeanNatCommonLgNames.STRING,false,false,new MovesBeanMovesBeanGet(),null));
         fields_.add(new StandardField(LEARNT,BeanNatCommonLgNames.STRING,false,false,new MovesBeanLearntGet(),new MovesBeanLearntSet()));
-        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MovesBeanSortedMovesGet(),null));
+//        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MovesBeanSortedMovesGet(),null));
         fields_.add(new StandardField(BOOLEANS, BeanNatCommonLgNames.TYPE_MAP,false,false,new MovesBeanBooleansGet(),null));
         methods_.add( new SpecNatMethod(SEARCH,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MovesBeanSearch()));
+        methods_.add( new SpecNatMethod(CLICK_LINK,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MovesBeanClickLink()));
         _std.getStds().addEntry(TYPE_MOVES_BEAN, type_);
     }
 }

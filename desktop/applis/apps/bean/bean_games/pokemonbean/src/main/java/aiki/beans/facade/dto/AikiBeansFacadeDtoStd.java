@@ -25,6 +25,8 @@ public final class AikiBeansFacadeDtoStd{
     private static final String PP = "pp";
     private static final String CATEGORY = "category";
     private static final String PRIORITY = "priority";
+    private static final String ACCURACY = "accuracy";
+    private static final String POWER = "power";
     private AikiBeansFacadeDtoStd(){}
     public static void build(PokemonStandards _std) {
         buildItemLine(_std);
@@ -49,6 +51,16 @@ public final class AikiBeansFacadeDtoStd{
         fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLinePpGet(),null));
         fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false,new MoveLineCategoryGet(),null));
         fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLinePriorityGet(),null));
+//        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanIndexGet(),new MoveLineBeanIndexSet()));
+//        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanDisplayNameGet(),null));
+//        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPpGet(),null));
+//        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new MoveLineBeanTypesGet(),null));
+//        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanCategoryGet(),null));
+//        fields_.add(new StandardField(MOVE_LINE,AikiBeansFacadeDtoStd.TYPE_MOVE_LINE,false,false,new MoveLineBeanMoveLineGet(),new MoveLineBeanMoveLineSet()));
+//        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPriorityGet(),null));
+        fields_.add(new StandardField(ACCURACY,BeanNatCommonLgNames.STRING,false,false,new MoveLineAccuracyGet(),null));
+        fields_.add(new StandardField(POWER,BeanNatCommonLgNames.STRING,false,false,new MoveLinePowerGet(),null));
+//        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,null,new MoveLineBeanSortedMovesSet()));
         methods_.add( new SpecNatMethod(IS_DAMAGE_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveLineIsDamageMove()));
         methods_.add( new SpecNatMethod(IS_DIRECT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveLineIsDirect()));
         methods_.add( new SpecNatMethod(GET_TYPES, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MoveLineGetTypes()));

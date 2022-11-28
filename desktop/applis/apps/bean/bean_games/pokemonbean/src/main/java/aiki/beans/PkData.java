@@ -205,7 +205,7 @@ public final class PkData extends PokemonStandards {
         getBeansStruct().setValue(10, beanEvolutionTeamBean(_language));
         getBeansStruct().setValue(11, beanEvolutionMoveTypeBean(_language));
         getBeansStruct().setValue(12, beanMovesBean(_language));
-        getBeansStruct().setValue(13, beanMoveLineBean(_language));
+        getBeansStruct().setValue(13, beanMovesBean(_language));
         getBeansStruct().setValue(14, beanMoveBean(_language));
         getBeansStruct().setValue(15, beanEffectBean(_language));
         getBeansStruct().setValue(16, beanEffectDamageBean(_language));
@@ -355,9 +355,9 @@ public final class PkData extends PokemonStandards {
         return bean(new MovesBean(), _language);
     }
 
-    public PokemonBeanStruct beanMoveLineBean(String _language) {
-        return bean(new MoveLineBean(), _language);
-    }
+//    public PokemonBeanStruct beanMoveLineBean(String _language) {
+//        return bean(new MoveLineBean(), _language);
+//    }
 
     public PokemonBeanStruct beanMoveBean(String _language) {
         return bean(new MoveBean(), _language);

@@ -2,8 +2,6 @@ package aiki.beans.moves.effects;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.beans.PkData;
-import aiki.beans.moves.AikiBeansMovesStd;
-import aiki.beans.moves.MoveLineBeanClickMove;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.EffectDamageRate;

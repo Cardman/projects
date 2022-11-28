@@ -118,7 +118,7 @@ m_.addEntry("resources_pk/rom/web/html/moves/effects/effteamwhilesendingfoe.html
 m_.addEntry("resources_pk/rom/web/html/moves/effects/effunprotectfromtypes.html",PageDataMovesEffectsEffunprotectfromtypes.build());
 m_.addEntry("resources_pk/rom/web/html/moves/effects/effvarpp.html",PageDataMovesEffectsEffvarpp.build());
 m_.addEntry("resources_pk/rom/web/html/moves/effects/effwinmoney.html",PageDataMovesEffectsEffwinmoney.build());
-m_.addEntry("resources_pk/rom/web/html/moves/moveline.html",PageDataMovesMoveline.build());
+//m_.addEntry("resources_pk/rom/web/html/moves/moveline.html",PageDataMovesMoveline.build());
 m_.addEntry("resources_pk/rom/web/html/moves/moves.html",PageDataMovesMoves.build());
 m_.addEntry("resources_pk/rom/web/html/pokemon/data.html",PageDataPokemonData.build());
 m_.addEntry("resources_pk/rom/web/html/pokemon/evolutions/evohappy.html",PageDataPokemonEvolutionsEvohappy.build());

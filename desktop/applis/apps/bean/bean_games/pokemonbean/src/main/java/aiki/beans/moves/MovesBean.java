@@ -147,10 +147,9 @@ public class MovesBean extends WithFilterBean {
 //        }
 //        return false;
 //    }
-//    public String clickLink(int _number) {
-//        getForms().put(CST_MOVE,moves.get(_number).getName());
-//        return CST_MOVE;
-//    }
+    public String clickLink(int _number) {
+        return tryRedirectMv(moves.get(_number).getName());
+    }
 
     public StringMap<String> getCategories() {
         return categories;
@@ -160,7 +159,4 @@ public class MovesBean extends WithFilterBean {
         return moves;
     }
 
-    public StringList getSortedMoves() {
-        return sortedMoves;
-    }
 }
