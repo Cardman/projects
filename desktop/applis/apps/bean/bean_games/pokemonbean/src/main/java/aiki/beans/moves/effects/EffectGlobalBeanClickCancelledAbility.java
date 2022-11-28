@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectGlobalBeanClickCancelledAbility implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectGlobalBean) ((PokemonBeanStruct)_instance).getInstance()).clickCancelledAbility(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(( (EffectGlobalBean) ((PokemonBeanStruct)_instance).getInstance()).clickCancelledAbility(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct()));
     }
 }

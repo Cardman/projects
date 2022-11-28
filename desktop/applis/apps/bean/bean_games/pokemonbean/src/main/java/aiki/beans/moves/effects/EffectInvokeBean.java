@@ -49,19 +49,29 @@ public class EffectInvokeBean extends EffectBean {
         invokingAllyMove = effect_.getInvokingAllyMove();
         invokingTargetSuccesfulMove = effect_.getInvokingTargetSuccesfulMove();
         rateInvokationMove = effect_.getRateInvokationMove();
+        movesNotToBeInvoked = movesNotToBeInvoked(effect_);
+        invokingMoveByUserTypes = invokingMoveByUserTypes(effect_);
+    }
+
+    private DictionaryComparator<String, String> invokingMoveByUserTypes(Effect _eff) {
+        EffectInvoke effect_ = (EffectInvoke) _eff;
+        DictionaryComparator<String, String> invokingMoveByUserTypes_;
+        invokingMoveByUserTypes_ = DictionaryComparatorUtil.buildTypesStr(getDataBase(),getLanguage());
+        for (String e: effect_.getInvokingMoveByUserTypes().getKeys()) {
+            invokingMoveByUserTypes_.put(e, effect_.getInvokingMoveByUserTypes().getVal(e));
+        }
+        return invokingMoveByUserTypes_;
+    }
+
+    private StringList movesNotToBeInvoked(Effect _eff) {
+        EffectInvoke effect_ = (EffectInvoke) _eff;
         StringList movesNotToBeInvoked_;
         movesNotToBeInvoked_ = new StringList();
         for (String m: effect_.getMovesNotToBeInvoked()) {
             movesNotToBeInvoked_.add(m);
         }
-        movesNotToBeInvoked_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesNotToBeInvoked = movesNotToBeInvoked_;
-        DictionaryComparator<String, String> invokingMoveByUserTypes_;
-        invokingMoveByUserTypes_ = DictionaryComparatorUtil.buildTypesStr(data_,getLanguage());
-        for (String e: effect_.getInvokingMoveByUserTypes().getKeys()) {
-            invokingMoveByUserTypes_.put(e, effect_.getInvokingMoveByUserTypes().getVal(e));
-        }
-        invokingMoveByUserTypes = invokingMoveByUserTypes_;
+        movesNotToBeInvoked_.sortElts(DictionaryComparatorUtil.cmpMoves(getDataBase(),getLanguage()));
+        return movesNotToBeInvoked_;
     }
 
     public static StringList globalMoves(DataBase _data) {
@@ -103,9 +113,8 @@ public class EffectInvokeBean extends EffectBean {
         String st_ = globalMoves.get(_index);
         return tryRedirectMv(st_);
     }
-    public String clickMoveNotInvok(int _index) {
-        String st_ = movesNotToBeInvoked.get(_index);
-        return tryRedirectMv(st_);
+    public String clickMoveNotInvok(int _eff,int _index) {
+        return tryRedirectMv(movesNotToBeInvoked(getEffect(_eff)).get(_index));
     }
     public String getTrMoveNotInvok(int _index) {
         DataBase data_ = getDataBase();
@@ -113,9 +122,8 @@ public class EffectInvokeBean extends EffectBean {
         String st_ = movesNotToBeInvoked.get(_index);
         return translatedMoves_.getVal(st_);
     }
-    public String clickMoveUserTypes(int _index) {
-        String st_ = invokingMoveByUserTypes.getValue(_index);
-        return tryRedirectMv(st_);
+    public String clickMoveUserTypes(int _eff,int _index) {
+        return tryRedirectMv(invokingMoveByUserTypes(getEffect(_eff)).getValue(_index));
     }
     public boolean isType(int _index) {
         String st_ = invokingMoveByUserTypes.getKey(_index);

@@ -8,6 +8,6 @@ import code.expressionlanguage.structs.Struct;
 public class EffectInvokeBeanClickMoveNotInvok implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectInvokeBean) ((PokemonBeanStruct)_instance).getInstance()).clickMoveNotInvok(NumParsers.convertToNumber(_args[0]).intStruct()));
+        return new StringStruct(( (EffectInvokeBean) ((PokemonBeanStruct)_instance).getInstance()).clickMoveNotInvok(NumParsers.convertToNumber(_args[0]).intStruct(),NumParsers.convertToNumber(_args[1]).intStruct()));
     }
 }

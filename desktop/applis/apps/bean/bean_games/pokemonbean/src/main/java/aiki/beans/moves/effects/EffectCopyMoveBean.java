@@ -23,24 +23,14 @@ public class EffectCopyMoveBean extends EffectBean {
         EffectCopyMove effect_ = (EffectCopyMove) getEffect();
         copyingMoveForUser = effect_.getCopyingMoveForUser();
         copyingMoveForUserDef = effect_.getCopyingMoveForUserDef();
-        StringList movesNotToBeCopied_;
-        movesNotToBeCopied_ = new StringList();
-        for (String m: effect_.getMovesNotToBeCopied()) {
-            movesNotToBeCopied_.add(m);
-        }
         DataBase data_ = getDataBase();
         StringMap<String> translatedMoves_ = data_.getTranslatedMoves().getVal(getLanguage());
-        movesNotToBeCopied_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-        movesNotToBeCopied = movesNotToBeCopied_;
+        movesNotToBeCopied = movesNotToBeCopied(effect_);
         displayName = translatedMoves_.getVal(getMove());
         defaultMove = data_.getDefMove();
-        if (copyingMoveForUserDef) {
-            StringList movesTransforming_ = movesTransforming(data_);
-            movesTransforming_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
-            movesTransforming = movesTransforming_;
-        } else {
-            movesTransforming = new StringList();
-        }
+        StringList movesTransforming_ = movesTransforming(data_);
+        movesTransforming_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        movesTransforming = movesTransforming_;
     }
 
     public static StringList movesTransforming(DataBase _data) {
@@ -57,13 +47,27 @@ public class EffectCopyMoveBean extends EffectBean {
         }
         return movesTransforming_;
     }
+    private StringList movesNotToBeCopied(int _eff) {
+        EffectCopyMove effect_ = (EffectCopyMove) getEffect(_eff);
+        return movesNotToBeCopied(effect_);
+    }
+
+    private StringList movesNotToBeCopied(EffectCopyMove _eff) {
+        StringList movesNotToBeCopied_;
+        movesNotToBeCopied_ = new StringList();
+        for (String m: _eff.getMovesNotToBeCopied()) {
+            movesNotToBeCopied_.add(m);
+        }
+        DataBase data_ = getDataBase();
+        movesNotToBeCopied_.sortElts(DictionaryComparatorUtil.cmpMoves(data_,getLanguage()));
+        return movesNotToBeCopied_;
+    }
 
     public boolean copyMoveForUser() {
         return copyingMoveForUser > 0;
     }
-    public String clickMove(int _index) {
-        String move_ = movesNotToBeCopied.get(_index);
-        return tryRedirectMv(move_);
+    public String clickMove(int _eff, int _index) {
+        return tryRedirectMv(movesNotToBeCopied(_eff).get(_index));
     }
     public String getTrMove(int _index) {
         String move_ = movesNotToBeCopied.get(_index);

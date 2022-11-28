@@ -81,10 +81,10 @@ public final class EffectCopyMoveBeanTest extends InitDbMoveEffectCopy {
     }
     @Test
     public void clickMove1() {
-        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickMove(dispMoveEffCopyMove(true,1),0));
+        assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_DATA_HTML,callEffectCopyMoveBeanClickMove(dispMoveEffCopyMove(true,1),0,0));
     }
     @Test
     public void clickMove2() {
-        assertEq(M_WEA,callEffectCopyMoveBeanClickMoveId(dispMoveEffCopyMove(true,1),0));
+        assertEq(M_WEA,callEffectCopyMoveBeanClickMoveId(dispMoveEffCopyMove(true,1),0,0));
     }
 }

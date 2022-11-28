@@ -62,14 +62,14 @@ private static final String C_P_158_55="!isType(([c]))";
 private static final String C_P_158_56="msg_effinvoke,other_owned_type";
 private static final String C_P_158_57="isType(([c]))";
 private static final String C_P_158_58="{getTrUserTypes(([c]))}";
-private static final String C_P_158_59="$clickMoveUserTypes({([c])})";
+private static final String C_P_158_59="$clickMoveUserTypes({index},{([c])})";
 private static final String C_P_158_60="";
 private static final String C_P_158_61="{getTrMoveUserTypes(([c]))}";
 private static final String C_P_158_62="!movesNotToBeInvoked.isEmpty()";
 private static final String C_P_158_63="msg_effinvoke,moves_not_invoked";
 private static final String C_P_158_64="movesNotToBeInvoked";
 private static final String C_P_158_65="s";
-private static final String C_P_158_66="$clickMoveNotInvok({([s])})";
+private static final String C_P_158_66="$clickMoveNotInvok({index},{([s])})";
 private static final String C_P_158_67="";
 private static final String C_P_158_68="{getTrMoveNotInvok(([s]))}";
 private PageDataMovesEffectsEffinvoke(){}
