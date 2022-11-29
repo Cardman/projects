@@ -1,10 +1,8 @@
 package code.threads;
 
-public interface AbstractThreadFactory {
+public interface AbstractThreadFactory extends AbstractTimerRetriever {
     AbstractConcurrentMap<String, FileStruct> newMapStringFileStruct();
     AbstractDateFactory getDateFactory();
-    long nanos();
-    long millis();
 //    void yieldThread();
     boolean sleep(long _time);
     void newStartedThread(Runnable _runnable);

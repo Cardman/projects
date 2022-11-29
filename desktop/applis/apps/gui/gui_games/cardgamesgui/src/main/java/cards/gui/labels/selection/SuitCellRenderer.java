@@ -29,6 +29,13 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
         selectionne=_isSelected;
         _currentLab.setPreferredSize(new MetaDimension(100,10));
     }
+
+    @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
     @Override
     public void paintComponent(AbstractImage _g) {
         if(!selectionne) {

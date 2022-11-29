@@ -37,7 +37,7 @@ public class MapPanel {
                 tile_.setToolTipText(tooltip_);
             }
             tile_.addMouseListener(new TileListener(_scene, t.getXcoords(), t.getYcoords()));
-            container.add(tile_);
+            container.add(tile_.getPaintableLabel());
         }
         container.setPreferredSize(new MetaDimension(_facade.getMapWidth()*sideLength_, _facade.getMapHeight()*sideLength_));
     }

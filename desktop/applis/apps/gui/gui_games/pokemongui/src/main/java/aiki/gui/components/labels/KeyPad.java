@@ -2,15 +2,15 @@ package aiki.gui.components.labels;
 
 
 
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.map.enums.Direction;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public final class KeyPad extends AbsMetaLabel {
+public final class KeyPad extends AbsMetaLabelPk {
 
     private Direction direction;
 

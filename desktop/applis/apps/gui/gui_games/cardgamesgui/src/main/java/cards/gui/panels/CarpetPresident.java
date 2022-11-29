@@ -5,6 +5,7 @@ package cards.gui.panels;
 
 
 import cards.facade.Games;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import cards.president.enumerations.Playing;
@@ -29,7 +30,7 @@ public class CarpetPresident {
     private final CustList<AbsPlainLabel> labels = new CustList<AbsPlainLabel>();
 
     private AbsPanel centerDeck;
-    private final CustList<GraphicPresidentCard> listCards = new CustList<GraphicPresidentCard>();
+    private final CustList<AbsMetaLabelCard> listCards = new CustList<AbsMetaLabelCard>();
 
     private ByteMap<Playing> cards = new ByteMap<Playing>();
     private StringList pseudos = new StringList();
@@ -55,7 +56,7 @@ public class CarpetPresident {
             GraphicPresidentCard cg_=new GraphicPresidentCard(_lg,GuiConstants.RIGHT,!entered_, _compoFactory);
             cg_.setPreferredSize(GraphicPresidentCard.getDimension(entered_));
             cg_.setVisible(false);
-            centerDeck.add(cg_);
+            centerDeck.add(cg_.getPaintableLabel());
             listCards.add(cg_);
             entered_ = true;
         }
@@ -78,7 +79,7 @@ public class CarpetPresident {
 
     public void setTalonPresident(AbstractImageFactory _fact) {
 //        centerDeck.removeAll();
-        for (GraphicPresidentCard g: listCards) {
+        for (AbsMetaLabelCard g: listCards) {
             g.setVisible(false);
         }
 //        boolean entered_ = false;
@@ -93,7 +94,7 @@ public class CarpetPresident {
     }
 
     public void repaintValidate(AbstractImageFactory _fact) {
-        centerDeck.repaintChildren(_fact);
+        AbsMetaLabelCard.repaintChildren(listCards,_fact);
     }
 
     public void setTalonPresident(AbstractImageFactory _fact, String _lg, HandPresident _m, StringMap<StringMap<String>> _images) {
@@ -106,7 +107,7 @@ public class CarpetPresident {
         }
         for (int i = IndexConstants.FIRST_INDEX; i <len_; i++) {
             listCards.get(i).setVisible(true);
-            listCards.get(i).setCarteEnJeu(_fact,_lg,_m.carte(i), _images);
+            ((GraphicPresidentCard)listCards.get(i)).setCarteEnJeu(_fact,_lg,_m.carte(i), _images);
 //            listCards.get(i).repaint();
         }
         for (int i = len_; i < number; i++) {

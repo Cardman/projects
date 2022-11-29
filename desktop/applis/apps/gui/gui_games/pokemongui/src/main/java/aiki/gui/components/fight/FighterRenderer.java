@@ -43,6 +43,12 @@ public class FighterRenderer extends CustCellRender<Fighter> {
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
+    @Override
     public void getListCellRendererComponent(AbsPreparedLabel _currentLab, int _index,
                                              boolean _isSelected, boolean _cellHasFocus) {
         fighter = get(_index);

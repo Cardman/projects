@@ -10,7 +10,7 @@ public final class MockScrollPaneTest extends EquallableMockGuiUtil {
     }
     @Test
     public void s2() {
-        MockScrollPane s_ = new MockScrollPane(new MockMetaLabel());
+        MockScrollPane s_ = new MockScrollPane(new MockPaintableLabelAbs());
         s_.setViewportView(new MockPlainLabel(""));
         assertEq(1,s_.getChildren().size());
     }

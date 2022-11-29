@@ -137,9 +137,8 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(container.getWindow(), lg_,h_.getCards())) {
-            panneau1_.add(c);
+            panneau1_.add(c.getPaintableLabel());
         }
-        panneau1_.repaintChildren(container.getOwner().getImageFactory());
         panneau1_.validate();
     }
 

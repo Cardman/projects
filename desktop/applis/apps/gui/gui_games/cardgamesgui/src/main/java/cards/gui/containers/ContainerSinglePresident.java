@@ -612,7 +612,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
             graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
-            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new MetaDimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
@@ -620,7 +620,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
-            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
             ascenseur_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
@@ -691,10 +691,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
             c.addMouseListener(new ListenerCardPresidentSingleGame(this,c.getCard(), index_));
             str_ = curStr_;
             iter_++;
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     private void updateCardsInPanelPresidentDiscard(AbsPanel _panel, HandPresident _hand, boolean _inHand) {
@@ -703,7 +702,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
             index_++;
         }
         if (!_inHand) {
@@ -722,7 +721,6 @@ public class ContainerSinglePresident extends ContainerPresident implements
             }
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     @Override

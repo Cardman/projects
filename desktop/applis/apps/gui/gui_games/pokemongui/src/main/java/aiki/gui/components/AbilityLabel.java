@@ -1,13 +1,12 @@
 package aiki.gui.components;
 
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.StringUtil;
 
-public final class AbilityLabel extends AbsMetaLabel {
+public final class AbilityLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 

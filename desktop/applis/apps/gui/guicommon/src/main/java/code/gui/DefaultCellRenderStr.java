@@ -20,6 +20,13 @@ public final class DefaultCellRenderStr extends CustCellRender<Struct> {
         spec = _spec;
         fact = _fact;
     }
+
+    @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
     @Override
     public void getListCellRendererComponent(AbsPreparedLabel _currentLab,
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {

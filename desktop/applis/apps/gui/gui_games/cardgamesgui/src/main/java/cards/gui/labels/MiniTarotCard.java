@@ -7,14 +7,13 @@ package cards.gui.labels;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.tarot.enumerations.CardTarot;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public final class MiniTarotCard extends AbsMetaLabel {
+public final class MiniTarotCard extends AbsMetaLabelCard {
 
     static final String DEFAULT="Default";
 

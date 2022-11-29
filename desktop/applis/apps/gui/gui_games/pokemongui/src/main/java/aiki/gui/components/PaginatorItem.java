@@ -272,7 +272,7 @@ public final class PaginatorItem extends Paginator {
         getHeader().addString(getMessages().getVal(PRICE), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().addString(getMessages().getVal(NUMBER), side_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS);
         getHeader().setPreferredSize(new MetaDimension((int)widths_.getMaximum(1), Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
@@ -427,11 +427,11 @@ public final class PaginatorItem extends Paginator {
             l_.addMouseListener(new PaginatorEvent(this,i));
             list_.add(l_);
         }
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         //results.add(new JLabel(getMessages().getVal(ITEM)));
         for (ItemLabel l: list_) {
-            l.repaintLabel(getMain().getImageFactory());
-            results.add(l);
+            AbsMetaLabelPk.paintPk(getMain().getImageFactory(), l);
+            results.add(l.getPaintableLabel());
             getResultsLabels().add(l);
         }
     }

@@ -18,13 +18,8 @@ public final class MockCompoFactory implements AbsCompoFactory {
     }
 
     @Override
-    public AbsPaintableLabel newAbsPaintableLabel(AbsMetaLabelInt _absMetaLabel) {
-        return new MockPaintableLabel(_absMetaLabel);
-    }
-
-    @Override
     public AbsPaintableLabel newAbsPaintableLabel() {
-        return new MockPaintableLabelNo();
+        return new MockPaintableLabelAbs();
     }
 
     @Override
@@ -96,11 +91,6 @@ public final class MockCompoFactory implements AbsCompoFactory {
     @Override
     public AbsScrollPane newAbsScrollPane(AbsCustComponent _center) {
         return new MockScrollPane(_center);
-    }
-
-    @Override
-    public AbsScrollPane newAbsScrollPane(AbsMetaLabelComInt _center) {
-        return new MockScrollPane(_center.getPaintableLabel());
     }
 
     @Override

@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.walk.events.*;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
@@ -427,7 +428,7 @@ public class ScenePanel {
         }
         placeName.setText(facade.getCurrentPlace());
         sceneInteract.add(placeName, GuiConstants.BORDER_LAYOUT_NORTH);
-        sceneInteract.add(scene, GuiConstants.BORDER_LAYOUT_CENTER);
+        sceneInteract.add(scene.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
         initInteraction();
         if (fish != null) {
             enableIfPossibleFishing();
@@ -436,12 +437,13 @@ public class ScenePanel {
         buttonInteract.setEnabled(facade.getInterfaceType() != InterfaceType.RIEN);
         if (wasNull_) {
             component.add(sceneInteract, IndexConstants.FIRST_INDEX);
-            sceneInteract.repaintSecondChildren(window.getImageFactory());
-        } else {
-            panelMenu.repaintSecondChildren(window.getImageFactory());
+//            sceneInteract.repaintSecondChildren(window.getImageFactory());
+//        } else {
+//            panelMenu.repaintSecondChildren(window.getImageFactory());
 //            time.repaintLabel();
-            sceneInteract.repaintSecondChildren(window.getImageFactory());
+//            sceneInteract.repaintSecondChildren(window.getImageFactory());
         }
+        AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
         component.validate();
         scene.setFocus();
     }
@@ -468,8 +470,7 @@ public class ScenePanel {
         tm = window.getCompoFactory().newPlainButton();
         tm.addActionListener(new SelectTmToLearnEvent(this));
         menus_.add(tm);
-        Separator sep_ = new Separator(window.getCompoFactory());
-        menus_.add(sep_);
+        menus_.add(window.getCompoFactory().newAbsPaintableLabel());
         seeBoxes = window.getCompoFactory().newPlainButton();
         seeBoxes.addActionListener(new ConsultPokemonEvent(window, facade));
         menus_.add(seeBoxes);
@@ -482,13 +483,11 @@ public class ScenePanel {
         game = window.getCompoFactory().newPlainButton();
         game.addActionListener(new ShowGameProgressingEvent(window));
         menus_.add(game);
-        sep_ = new Separator(window.getCompoFactory());
-        menus_.add(sep_);
+        menus_.add(window.getCompoFactory().newAbsPaintableLabel());
         goBack = window.getCompoFactory().newPlainButton();
         goBack.addActionListener(new SetPlacesEvent(this));
         menus_.add(goBack);
-        sep_ = new Separator(window.getCompoFactory());
-        menus_.add(sep_);
+        menus_.add(window.getCompoFactory().newAbsPaintableLabel());
         server = window.getCompoFactory().newPlainButton();
         server.addActionListener(new ManageNetworkEvent(this));
         menus_.add(server);
@@ -693,7 +692,7 @@ public class ScenePanel {
         }
         window.setSavedGame(false);
         drawGameWalking(false);
-        scene.repaintLabel(window.getImageFactory());
+        AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
         exitInteractionPack();
     }
 
@@ -851,8 +850,7 @@ public class ScenePanel {
             selectEggBox = window.getCompoFactory().newPlainButton(messages.getVal(SELECT_EGG_BOX));
             selectEggBox.addActionListener(new SelectEggBoxEvent(this));
             storage_.add(selectEggBox);
-            Separator sep_ = new Separator(window.getCompoFactory());
-            storage_.add(sep_);
+            storage_.add(window.getCompoFactory().newAbsPaintableLabel());
             takeItem = window.getCompoFactory().newPlainButton(messages.getVal(TAKE_ITEM));
             takeItem.setEnabled(false);
             takeItem.addActionListener(new GearStorageEvent(this, StorageActions.TAKE_ITEM_BOX));
@@ -873,8 +871,7 @@ public class ScenePanel {
             switchPk.setEnabled(false);
             switchPk.addActionListener(new GearStorageEvent(this, StorageActions.SWITCH_TEAM_BOX));
             storage_.add(switchPk);
-            sep_ = new Separator(window.getCompoFactory());
-            storage_.add(sep_);
+            storage_.add(window.getCompoFactory().newAbsPaintableLabel());
             release = window.getCompoFactory().newPlainButton(messages.getVal(CST_RELEASE));
             release.setEnabled(false);
             release.addActionListener(new GearStorageEvent(this, StorageActions.RELEASE));
@@ -1532,10 +1529,10 @@ public class ScenePanel {
             for (String a: ab_) {
                 AbilityLabel lab_ = new AbilityLabel(facade.translateAbility(a), a, window.getCompoFactory());
                 lab_.addMouseListener(new AbilityWalkEvent(this, a));
-                abilities.add(lab_);
+                abilities.add(lab_.getPaintableLabel());
                 abilityLabels.add(lab_);
             }
-            abilities.add(new Separator(window.getCompoFactory()));
+            abilities.add(window.getCompoFactory().newAbsPaintableLabel());
         }
         AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(messages.getVal(EVOLVE));
         ok_.addActionListener(new EvolvePokemonEvent(this));
@@ -1622,7 +1619,7 @@ public class ScenePanel {
         facade.getPlayer().setChosenAbilityForEvolution(_ability);
         for (AbilityLabel l: abilityLabels) {
             l.setSelected(_ability);
-            l.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), l);
         }
     }
 
@@ -1752,7 +1749,7 @@ public class ScenePanel {
         goBack.setEnabled(enabled1_);
         boolean enabled_ = !_paintingScene;
         server.setEnabled(enabled_);
-        panelMenu.repaintSecondChildren(window.getImageFactory());
+//        panelMenu.repaintSecondChildren(window.getImageFactory());
     }
     public AbsPanel getComponent() {
         return component;

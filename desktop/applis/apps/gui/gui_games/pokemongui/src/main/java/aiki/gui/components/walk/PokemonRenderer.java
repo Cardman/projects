@@ -68,6 +68,12 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
+    @Override
     public void getListCellRendererComponent(
             AbsPreparedLabel _currentLab,
             int _index, boolean _selected, boolean _arg4) {

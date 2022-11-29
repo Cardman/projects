@@ -582,10 +582,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
             c.addMouseListener(new ListenerCardPresidentMultiGame(this,c.getCard(), index_));
             str_ = curStr_;
             iter_++;
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     private void updateCardsInPanelPresidentDiscard(AbsPanel _panel, HandPresident _hand, boolean _inHand) {
@@ -594,7 +593,7 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardPresidentDiscard(this,c.getCard(),index_,_inHand,c));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
             index_++;
         }
         if (!_inHand) {
@@ -613,7 +612,6 @@ public class ContainerMultiPresident extends ContainerPresident implements
             }
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     @Override

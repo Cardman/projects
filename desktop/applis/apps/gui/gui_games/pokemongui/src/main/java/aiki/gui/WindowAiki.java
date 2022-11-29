@@ -7,6 +7,7 @@ package aiki.gui;
 
 import aiki.db.*;
 import aiki.facade.SexListInt;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
@@ -183,6 +184,7 @@ public final class WindowAiki extends NetGroupFrame {
     private final FacadeGame facade;
 
     private AbsPanel beginGame;
+    private final CustList<AbsMetaLabelPk> labsBegin = new CustList<AbsMetaLabelPk>();
 
     private final IdMap<Sex,HeroLabel> herosLabels = new IdMap<Sex,HeroLabel>();
 
@@ -287,7 +289,7 @@ public final class WindowAiki extends NetGroupFrame {
         MenuItemUtils.setEnabledMenu(gameSave,false);
         MenuItemUtils.setEnabledMenu(dataGame,false);
         battle.setVisibleFrontBattle(false);
-        mainPanel.add(battle);
+        mainPanel.add(battle.getPaintableLabel());
         mainPanel.add(scenePanel.getComponent());
         time = new Clock(_list);
         mainPanel.add(time);
@@ -489,6 +491,7 @@ public final class WindowAiki extends NetGroupFrame {
             beginGame = getCompoFactory().newPageBox();
         }
         beginGame.removeAll();
+        labsBegin.clear();
         AbsPanel heros_ = getCompoFactory().newLineBox();
         for (Sex s: facade.getSexList().all()) {
             ImageHeroKey i_;
@@ -498,7 +501,8 @@ public final class WindowAiki extends NetGroupFrame {
             label_.setPreferredSize(new MetaDimension(imgTxt_[0].length, imgTxt_.length));
             label_.addMouseListener(new HeroSelect(this, s));
             herosLabels.put(s, label_);
-            heros_.add(label_);
+            labsBegin.add(label_);
+            heros_.add(label_.getPaintableLabel());
         }
         beginGame.add(heros_);
         AbsPanel nickname_ = getCompoFactory().newLineBox();
@@ -511,7 +515,7 @@ public final class WindowAiki extends NetGroupFrame {
         AbsPlainButton ok_ = getCompoFactory().newPlainButton(OK);
         ok_.addActionListener(new ConfirmNewGameEvent(this));
         beginGame.add(ok_);
-        beginGame.repaintSecondChildren(getImageFactory());
+        AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
         scenePanel.addBeginGame(beginGame);
     }
 
@@ -529,7 +533,7 @@ public final class WindowAiki extends NetGroupFrame {
         chosenSexAct = true;
         herosLabels.getVal(_sex).setSelected(true);
         herosLabels.getVal(_sex.getOppositeSex()).setSelected(false);
-        beginGame.repaintSecondChildren(getImageFactory());
+        AbsMetaLabelPk.repaintChildren(labsBegin,getImageFactory());
     }
 
     private void newGame() {
@@ -1315,7 +1319,7 @@ public final class WindowAiki extends NetGroupFrame {
         battle.enableAnimation(loadingConf.isEnableAnimation());
         battle.initializeFight(false);
         if (!_animate) {
-            battle.repaintLabel(getImageFactory());
+            AbsMetaLabelPk.paintPk(getImageFactory(), battle);
         }
 //        mainPanel.add(battle, CustList.FIRST_INDEX);
         inBattle = true;

@@ -4,7 +4,7 @@ import code.gui.AbsPaintableLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
-public abstract class MockPaintableLabelAbs extends MockCustComponent implements AbsPaintableLabel {
+public class MockPaintableLabelAbs extends MockCustComponent implements AbsPaintableLabel {
     private boolean empty = true;
     private int verticalAlignment;
     private int horizontalAlignment;

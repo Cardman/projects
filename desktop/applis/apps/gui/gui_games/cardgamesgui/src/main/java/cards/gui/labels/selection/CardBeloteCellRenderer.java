@@ -30,6 +30,12 @@ public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
+    @Override
     public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }

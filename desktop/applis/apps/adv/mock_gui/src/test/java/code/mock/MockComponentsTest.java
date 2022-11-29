@@ -222,7 +222,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ta_.setEditable(false);
         assertEq("hello world",((MockWrappedTextArea) ta_).getText());
         AbsPaintableLabel g_ = ab_.newAbsPaintableLabel();
-        g_.repaintLabel(pr_.getImageFactory());
+//        g_.repaintLabel(pr_.getImageFactory());
         b_.add(g_);
         AbsPlainButton but_ = ab_.newPlainButton();
         but_.setText("");
@@ -238,6 +238,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         b_.add(prep_);
         b_.add(ab_.newPreparedLabel(pr_.getImageFactory().newImageArgb(1,1)));
         b_.add(pr_.getImageFactory().newImageArgb(1,1).newAbsPreparedLabel());
+        b_.add(pr_.getImageFactory().newImageRgb(1,1,new MockPreparedLabel()).newAbsPreparedLabel());
         assertEq(1,prep_.getHeight());
         assertEq(1,prep_.getWidth());
         ab_.newCustCheckBox();
@@ -249,7 +250,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ch_.addActionListener(null);
         ch_.removeActionListener(null);
         assertEq(0,ch_.getActionListeners().size());
-        MockPaintableLabelAbs paint_ = (MockPaintableLabelAbs) ab_.newAbsPaintableLabel(new MockMetaLabel());
+        MockPaintableLabelAbs paint_ = (MockPaintableLabelAbs) ab_.newAbsPaintableLabel();
         paint_.setEmptyIcon();
         assertTrue(paint_.isEmpty());
         paint_.setIcon(pr_.getImageFactory(),pr_.getImageFactory().newImageArgb(1,1));
@@ -263,6 +264,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         img_.addMouseList(null);
         assertEq(1,((MockImgButton)img_).getAbsActionListeners().size());
         AbstractImage ig_ = pr_.getImageFactory().newImageArgb(1, 1);
+        pr_.getImageFactory().setIcon(new MockPreparedLabel(),ig_);
         ig_.drawLine(0,0,0,0);
         ig_.drawRect(0,0,0,0);
         ig_.drawOval(0,0,0,0);
@@ -275,7 +277,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq(8,ig_.toBytes().length);
         assertEq(8,ig_.writeImg("").length);
         ig_.setFont(ab_.newAbsolute());
-        ig_.setFont(new MockMetaLabel());
         ig_.setFont(new MetaFont("",0,0));
         ig_.setFont("",0,0);
         ig_.setColorBg(ab_.newAbsolute());
@@ -343,7 +344,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ab_.newTextField("");
         ab_.newTextField("",0);
         ab_.newAbsScrollPane(ab_.newAbsScrollPane());
-        ab_.newAbsScrollPane(new MockMetaLabel());
+//        ab_.newAbsScrollPane(new MockMetaLabel());
         ab_.newRadioButton();
         ab_.newRadioButton("");
         ab_.newRadioButton("",true);

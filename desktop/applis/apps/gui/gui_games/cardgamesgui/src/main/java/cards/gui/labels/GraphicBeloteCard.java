@@ -8,7 +8,6 @@ package cards.gui.labels;
 import cards.belote.enumerations.CardBelote;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.dialogs.FileConst;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -19,7 +18,7 @@ import code.images.BaseSixtyFourUtil;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class GraphicBeloteCard extends AbsMetaLabel {
+public final class GraphicBeloteCard extends AbsMetaLabelCard {
     static final String DEFAULT="Default";
 
     private CardBelote card;

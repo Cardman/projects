@@ -9,6 +9,6 @@ public interface AbsCustCellRender {
     int getWidth();
     void paintComponent(AbstractImage _g);
     void paintComponent(AbsPreparedLabel _component);
-    void fwd();
+    AbsCustCellRender fwd();
 
 }

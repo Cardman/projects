@@ -2,14 +2,14 @@ package aiki.gui.components.labels;
 
 
 
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.Paginator;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 
-public abstract class SelectableLabel extends AbsMetaLabel {
+public abstract class SelectableLabel extends AbsMetaLabelPk {
 
     protected static final int HEIGTH_CHARS = Paginator.HEIGTH_CHARS;
 

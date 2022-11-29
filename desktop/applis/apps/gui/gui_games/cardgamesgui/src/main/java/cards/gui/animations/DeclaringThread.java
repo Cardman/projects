@@ -27,7 +27,7 @@ public final class DeclaringThread implements Runnable {
         panelToSet.removeAll();
         for(CardBelote c: usDecl.getHand()) {
             MiniBeloteCard carte_=new MiniBeloteCard(lg_,c, window.getCompoFactory());
-            panelToSet.add(carte_);
+            panelToSet.add(carte_.getPaintableLabel());
         }
         panelToSet.validate();
     }

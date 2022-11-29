@@ -1,7 +1,6 @@
 package cards.gui.labels;
 
 
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
@@ -14,7 +13,7 @@ import code.util.core.IndexConstants;
 /**
     */
 
-public final class Graphic extends AbsMetaLabel {
+public final class Graphic extends AbsMetaLabelCard {
     private final CustList<Longs> scores;
     private final Longs sommes;
     private final CustList<Rate> sigmas;

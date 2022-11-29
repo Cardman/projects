@@ -1,14 +1,14 @@
 package aiki.gui.components.labels;
 
 
-import code.gui.AbsMetaLabel;
+import aiki.gui.components.AbsMetaLabelPk;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class TileLabel extends AbsMetaLabel {
+public final class TileLabel extends AbsMetaLabelPk {
 
     private AbstractImage image;
 

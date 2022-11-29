@@ -86,31 +86,31 @@ public final class FrameUtil {
         }
     }
 
-    public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabelInt _metaLabel) {
-        int w_ = _paintableLabel.getWidth();
-        int h_ = _paintableLabel.getHeight();
-        if (w_ <= 0 || h_ <= 0) {
-            _paintableLabel.setEmptyIcon();
-            return;
-        }
-        AbstractImage img_ = _fact.newImageArgb(w_, h_);
-//        CustGraphics gr_ = img_.getGraphics();
-        img_.setFont(_paintableLabel);
-        _metaLabel.paintComponent(img_);
-        _paintableLabel.setIcon(_fact,img_);
-    }
-    public static void repaintNo(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel) {
-        int w_ = _paintableLabel.getWidth();
-        int h_ = _paintableLabel.getHeight();
-        if (w_ <= 0 || h_ <= 0) {
-            _paintableLabel.setEmptyIcon();
-            return;
-        }
-        AbstractImage img_ = _fact.newImageArgb(w_, h_);
-//        CustGraphics gr_ = img_.getGraphics();
-        img_.setFont(_paintableLabel);
-        _paintableLabel.setIcon(_fact,img_);
-    }
+//    public static void repaint(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel, AbsMetaLabelInt _metaLabel) {
+//        int w_ = _paintableLabel.getWidth();
+//        int h_ = _paintableLabel.getHeight();
+//        if (w_ <= 0 || h_ <= 0) {
+//            _paintableLabel.setEmptyIcon();
+//            return;
+//        }
+//        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+////        CustGraphics gr_ = img_.getGraphics();
+//        img_.setFont(_paintableLabel);
+//        _metaLabel.paintComponent(img_);
+//        _paintableLabel.setIcon(_fact,img_);
+//    }
+//    public static void repaintNo(AbstractImageFactory _fact, AbsPaintableLabel _paintableLabel) {
+//        int w_ = _paintableLabel.getWidth();
+//        int h_ = _paintableLabel.getHeight();
+//        if (w_ <= 0 || h_ <= 0) {
+//            _paintableLabel.setEmptyIcon();
+//            return;
+//        }
+//        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+////        CustGraphics gr_ = img_.getGraphics();
+//        img_.setFont(_paintableLabel);
+//        _paintableLabel.setIcon(_fact,img_);
+//    }
     public static int pref(int _dim, int _pr) {
         if (_dim > 0) {
             return _dim;
@@ -129,36 +129,36 @@ public final class FrameUtil {
         return _img.newImageArgb(1,1).newAbsPreparedLabel();
     }
 
-    public static void repaintLists(AbstractImageFactory _fact, AbsPanel _panel) {
-        for (AbsCustComponent c: _panel.getChildren()) {
-            procCh(_fact, c);
-        }
-        _panel.validate();
-    }
+//    public static void repaintLists(AbstractImageFactory _fact, AbsPanel _panel) {
+//        for (AbsCustComponent c: _panel.getChildren()) {
+//            procCh(_fact, c);
+//        }
+//        _panel.validate();
+//    }
 
-    private static void procCh(AbstractImageFactory _fact, AbsCustComponent _c) {
-        if (_c instanceof AbsPaintableLabel) {
-            ((AbsPaintableLabel) _c).repaintLabel(_fact);
-        } else if (_c instanceof AbsPanel) {
-            for (AbsCustComponent d: _c.getChildren()) {
-                proc(_fact, d);
-            }
-            _c.validate();
-        }
-    }
+//    private static void procCh(AbstractImageFactory _fact, AbsCustComponent _c) {
+//        if (_c instanceof AbsPaintableLabel) {
+//            ((AbsPaintableLabel) _c).repaintLabel(_fact);
+//        } else if (_c instanceof AbsPanel) {
+//            for (AbsCustComponent d: _c.getChildren()) {
+//                proc(_fact, d);
+//            }
+//            _c.validate();
+//        }
+//    }
 
-    public static void repaintList(AbstractImageFactory _fact, AbsPanel _panel) {
-        for (AbsCustComponent c: _panel.getChildren()) {
-            proc(_fact, c);
-        }
-        _panel.validate();
-    }
+//    public static void repaintList(AbstractImageFactory _fact, AbsPanel _panel) {
+//        for (AbsCustComponent c: _panel.getChildren()) {
+//            proc(_fact, c);
+//        }
+//        _panel.validate();
+//    }
 
-    private static void proc(AbstractImageFactory _fact, AbsCustComponent _c) {
-        if (_c instanceof AbsPaintableLabel) {
-            ((AbsPaintableLabel) _c).repaintLabel(_fact);
-        }
-    }
+//    private static void proc(AbstractImageFactory _fact, AbsCustComponent _c) {
+//        if (_c instanceof AbsPaintableLabel) {
+//            ((AbsPaintableLabel) _c).repaintLabel(_fact);
+//        }
+//    }
 
     public static Ints selectedIndexes(int _selectedIndex) {
         if (_selectedIndex == -1) {
@@ -343,8 +343,7 @@ public final class FrameUtil {
     }
 
     public static AbsCustCellRender fwd(AbsCustCellRender _r) {
-        _r.fwd();
-        return _r;
+        return _r.fwd();
     }
 
     public static int firstOrNeg(Ints _selectedIndexes) {

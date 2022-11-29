@@ -37,6 +37,12 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         facade = _facade;
     }
 
+    @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
     public void setMaxWidth(AbsCustComponent _fm,NatStringTreeMap<BallNumberRate> _balls) {
         maxWidthImage = 0;
         maxWidthRate = 0;

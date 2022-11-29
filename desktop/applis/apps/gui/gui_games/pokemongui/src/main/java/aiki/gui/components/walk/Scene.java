@@ -4,6 +4,7 @@ package aiki.gui.components.walk;
 
 import aiki.comparators.ComparatorScreenCoords;
 import aiki.facade.FacadeGame;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.map.enums.Direction;
 import aiki.map.util.ScreenCoords;
 import code.gui.*;
@@ -17,7 +18,7 @@ import code.util.CustList;
 import code.util.TreeMap;
 import code.util.core.IndexConstants;
 
-public final class Scene extends AbsMetaLabel implements AbsMouseListenerIntRel {
+public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRel {
 
     private int sideLength;
 

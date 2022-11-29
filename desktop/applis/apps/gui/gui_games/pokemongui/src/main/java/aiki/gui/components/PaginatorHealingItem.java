@@ -592,7 +592,7 @@ public final class PaginatorHealingItem extends Paginator {
         getHeader().addString(StringUtil.concat(getMessages().getVal(NUMBER),SPACES), side_+nameWidth_);
         getHeader().addString(StringUtil.concat(getMessages().getVal(PRICE),SPACES), side_+nameWidth_+numberWidth_);
         getHeader().setPreferredSize(new MetaDimension(width_, Paginator.HEIGTH_CHARS + Paginator.HEIGTH_CHARS));
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageHealingItem());
@@ -798,10 +798,10 @@ public final class PaginatorHealingItem extends Paginator {
             l.setImagesResults(getMain().getImageFactory(),getFacade(), thirdColumn_, fourthColumn_, fifthColumn_);
         }
 //        results.add(new JLabel(getMessages().getVal(ITEM)));
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         for (HealingItemLabel l: list_) {
-            l.repaintLabel(getMain().getImageFactory());
-            results.add(l);
+            AbsMetaLabelPk.paintPk(getMain().getImageFactory(), l);
+            results.add(l.getPaintableLabel());
             getResultsLabels().add(l);
         }
     }

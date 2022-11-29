@@ -4,14 +4,14 @@ package aiki.gui.components.fight;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
-import code.gui.AbsMetaLabel;
+import aiki.gui.components.AbsMetaLabelPk;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class MiniTargetLabel extends AbsMetaLabel {
+public final class MiniTargetLabel extends AbsMetaLabelPk {
 
     private AbstractImage image;
 

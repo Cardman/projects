@@ -169,7 +169,7 @@ public abstract class Paginator {
             l_.setSelected(true);
         }
         for (SelectableLabel s: resultsLabels) {
-            s.repaintLabel(getMain().getImageFactory());
+            AbsMetaLabelPk.paintPk(getMain().getImageFactory(), s);
         }
     }
 

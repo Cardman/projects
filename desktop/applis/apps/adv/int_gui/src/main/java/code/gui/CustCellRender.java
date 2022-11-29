@@ -9,23 +9,21 @@ public abstract class CustCellRender<T> implements AbsCustCellRender {
     private AbsGraphicList<T> listGr;
     public abstract AbstractImageFactory getImageFactory();
     public void paintComponent(AbsPreparedLabel _component) {
-        AbstractImage buff_ = getImageFactory().newImageRgb(getWidth(),getHeight());
-        buff_.setFont(_component);
+        AbstractImage buff_ = getImageFactory().newImageRgb(getWidth(),getHeight(),_component);
         paintComponent(buff_);
-        _component.setIcon(getImageFactory(),buff_);
+        getImageFactory().setIcon(_component,buff_);
     }
 
     public T get(int _index) {
         return list.get(_index);
     }
 
-    @Override
-    public void fwd() {
-        setList(listGr.getList());
-    }
-
     public void setList(CustList<T> _list) {
         this.list = new CustList<T>(_list);
+    }
+
+    public AbsGraphicList<T> getListGr() {
+        return listGr;
     }
 
     public void setCurrent(AbsGraphicList<T> _graphicList) {

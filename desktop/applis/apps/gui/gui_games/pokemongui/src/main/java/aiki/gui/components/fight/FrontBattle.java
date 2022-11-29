@@ -9,8 +9,8 @@ import aiki.game.fight.TargetCoords;
 import aiki.game.fight.animations.*;
 import aiki.game.fight.enums.FightState;
 import aiki.gui.WindowAiki;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.dialogs.FrameHtmlData;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -22,7 +22,7 @@ import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
 
-public final class FrontBattle extends AbsMetaLabel {
+public final class FrontBattle extends AbsMetaLabelPk {
 
     private static final int NB_IMAGES = 128;
 
@@ -604,7 +604,7 @@ public final class FrontBattle extends AbsMetaLabel {
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     void drawAnimationInstant(AbstractImageFactory _fact, AnimationInt _animation) {
@@ -899,7 +899,7 @@ public final class FrontBattle extends AbsMetaLabel {
         }
 //        koPlayerTargets.removeDuplicates();
 //        koFoeTargets.removeDuplicates();
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
         /*if (_animation instanceof AnimationEffectDamage) {
             getGraphics().setColor(new Color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getBlue(), 255));
             getGraphics().drawString(number_, xIni, hMax_ + yIni);
@@ -914,7 +914,7 @@ public final class FrontBattle extends AbsMetaLabel {
         for (TargetLabel t: playerTargets.values()) {
             t.apply(this, facade);
         }
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     void setHerosOppositeSex(AbstractImage _oppositeSex, boolean _paintTwoHeros) {
@@ -944,7 +944,7 @@ public final class FrontBattle extends AbsMetaLabel {
             yPlayer = maxHeight * 3;
         }
         imageNumber = 0;
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     void drawAnimationFightIniInst() {
@@ -968,7 +968,7 @@ public final class FrontBattle extends AbsMetaLabel {
             keepAnimation = false;
             drawImages = false;
         }
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     public void initBall() {
@@ -982,7 +982,7 @@ public final class FrontBattle extends AbsMetaLabel {
         imageNumber = 0;
         xIni += maxWidth / 2;
         yIni += maxHeight / 2;
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     /**
@@ -1019,7 +1019,7 @@ public final class FrontBattle extends AbsMetaLabel {
             }
             caught = caught_;
         }
-        repaintLabel(battle.getWindow().getImageFactory());
+        AbsMetaLabelPk.paintPk(battle.getWindow().getImageFactory(), this);
     }
 
     public void setWild(boolean _wild) {

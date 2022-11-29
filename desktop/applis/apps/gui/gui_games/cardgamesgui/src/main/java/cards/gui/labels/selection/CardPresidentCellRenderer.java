@@ -30,6 +30,12 @@ public class CardPresidentCellRenderer extends CustCellRender<CardPresident> {
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
+    @Override
     public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }

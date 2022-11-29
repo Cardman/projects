@@ -481,7 +481,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         getPanelDiscardedTrumps().removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(), lg_,atouts_.getCards())) {
-            getPanelDiscardedTrumps().add(c);
+            getPanelDiscardedTrumps().add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c:atouts_)
@@ -493,7 +493,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //        }
         getPanelDiscardedTrumps().validate();
         getPanelDiscardedTrumps().setVisible(true);
-        getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
         //pack();
         SeenDiscardedTrumps dis_ = new SeenDiscardedTrumps();
         dis_.setDeclaringSlam(_discardedTrumps.isDeclaringSlam());
@@ -603,7 +602,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _card.getHandful().trier(getDisplayingTarot().getDisplaying().getSuits(), getDisplayingTarot().getDisplaying().isDecreasing());
         for(CardTarot c: _card.getHandful()) {
             MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
-            panelToSet_.add(carte_);
+            panelToSet_.add(carte_.getPaintableLabel());
         }
         panelToSet_.validate();
         relative_ = relative(card_.getTakerIndex());
@@ -964,7 +963,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotMultiDog(this, c.getCard(),_inHand,c));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
@@ -977,7 +976,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     private void updateCardsInPanelTarotCallBeforeDogMulti(AbsPanel _panel, HandTarot _hand) {
@@ -985,7 +983,7 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotMultiBeforeDog(this, c.getCard()));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c:_hand) {
@@ -997,7 +995,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotHandfulMulti(AbsPanel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
@@ -1006,17 +1003,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
             MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandfulMulti(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotMultiHandful(this, c,_included));
-            _panel.add(carte_);
+            _panel.add(carte_.getPaintableLabel());
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotJeuMulti(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotMultiGame(this, c.getCard()));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
@@ -1029,7 +1025,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
 
     @Override

@@ -1,7 +1,6 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
 
 import java.awt.*;
 
@@ -68,10 +67,6 @@ public final class Panel extends CustComponent implements AbsPanel {
         this.add(_comp.getComponent());
     }
 
-    public void add(AbsMetaLabelComInt _comp) {
-        add(_comp.getPaintableLabel());
-    }
-
     public void add(AbsCustComponent _comp) {
         FrameUtil.addOne(this,_comp);
     }
@@ -81,9 +76,6 @@ public final class Panel extends CustComponent implements AbsPanel {
         innAdd(_comp);
     }
 
-    public void add(AbsMetaLabelComInt _comp, int _index) {
-        add(_comp.getPaintableLabel(),_index);
-    }
     public void add(AbsCustComponent _comp, int _index) {
         FrameUtil.addIndex(this,_comp, _index);
     }
@@ -94,9 +86,6 @@ public final class Panel extends CustComponent implements AbsPanel {
         pa.add(((CustComponent) _comp).getNatComponent(), _index);
     }
 
-    public void add(AbsMetaLabelComInt _comp, String _constraints) {
-        add(_comp.getPaintableLabel(),_constraints);
-    }
     public void add(AbsCustComponent _comp, String _constraints) {
         FrameUtil.adCts(this,_comp, _constraints);
     }
@@ -130,14 +119,6 @@ public final class Panel extends CustComponent implements AbsPanel {
     public void innerRemoveAll() {
         getChildren().clear();
         pa.removeAll();
-    }
-
-    public void repaintSecondChildren(AbstractImageFactory _fact) {
-        FrameUtil.repaintLists(_fact, this);
-    }
-
-    public void repaintChildren(AbstractImageFactory _fact) {
-        FrameUtil.repaintList(_fact, this);
     }
 
     @Override

@@ -5,7 +5,6 @@ package cards.gui.labels;
 import cards.belote.BidBeloteSuit;
 import cards.consts.Suit;
 import cards.facade.Games;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.LabelButtonUtil;
 import code.gui.images.AbstractImage;
@@ -13,7 +12,7 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
-public final class SuitLabel extends AbsMetaLabel {
+public final class SuitLabel extends AbsMetaLabelCard {
 
     private static final String EMPTY_STRING = "";
 

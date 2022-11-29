@@ -13,6 +13,7 @@ import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.labels.LabelPoints;
 import cards.gui.labels.SuitLabel;
@@ -96,7 +97,7 @@ public abstract class ContainerBelote extends ContainerGame {
             l.setSelected(_suit);
         }
         for (SuitLabel l: bidsButtons) {
-            l.repaintLabel(getWindow().getImageFactory());
+            AbsMetaLabelCard.paintCard(getWindow().getImageFactory(), l);
         }
         getBidOk().setEnabled(getPts() > 0);
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
@@ -111,6 +112,7 @@ public abstract class ContainerBelote extends ContainerGame {
         for(CardBelote c: _hand) {
             GraphicBeloteCard carte_=new GraphicBeloteCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, compoFactory_, _fact.getImages());
             carte_.setPreferredSize(entered_);
+            AbsMetaLabelCard.paintCard(imageFactory_, carte_);
             list_.add(carte_);
             entered_ = true;
         }

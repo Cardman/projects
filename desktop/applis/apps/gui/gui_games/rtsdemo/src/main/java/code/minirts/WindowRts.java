@@ -13,6 +13,7 @@ import code.minirts.rts.RtsDirection;
 import code.minirts.rts.Facade;
 import code.scripts.messages.gui.MessPlayerGr;
 import code.threads.*;
+import code.util.CustList;
 import code.util.StringMap;
 
 
@@ -60,6 +61,7 @@ public final class WindowRts extends GroupFrame {
 
     public WindowRts(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
+        CustList<AbsMetaLabelRts> elts_ = new CustList<AbsMetaLabelRts>();
         stopped = _list.getThreadFactory().newAtomicBoolean();
         stopped.set(true);
         paused = _list.getThreadFactory().newAtomicBoolean();
@@ -85,6 +87,10 @@ public final class WindowRts extends GroupFrame {
         RtsKeyPad right_ = new RtsKeyPad(RtsDirection.RIGHT, getCompoFactory());
         RtsKeyPad up_ = new RtsKeyPad(RtsDirection.UP, getCompoFactory());
         RtsKeyPad down_ = new RtsKeyPad(RtsDirection.DOWN, getCompoFactory());
+        elts_.add(left_);
+        elts_.add(right_);
+        elts_.add(up_);
+        elts_.add(down_);
         RtsTask task_ = new RtsTask(battleground, this, facade);
         AbstractScheduledExecutorService t_ = getThreadFactory().newScheduledExecutorService();
 //        t_.scheduleAtFixedRate(task_,0,100, TimeUnit.MILLISECONDS);
@@ -94,10 +100,10 @@ public final class WindowRts extends GroupFrame {
         down_.addMouseListener(new RtsMouseTask(RtsDirection.DOWN, task_, t_));
         left_.addMouseListener(new RtsMouseTask(RtsDirection.LEFT, task_, t_));
         right_.addMouseListener(new RtsMouseTask(RtsDirection.RIGHT, task_, t_));
-        contentPane_.add(up_, GuiConstants.BORDER_LAYOUT_NORTH);
-        contentPane_.add(down_, GuiConstants.BORDER_LAYOUT_SOUTH);
-        contentPane_.add(left_, GuiConstants.BORDER_LAYOUT_WEST);
-        contentPane_.add(right_, GuiConstants.BORDER_LAYOUT_EAST);
+        contentPane_.add(up_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_NORTH);
+        contentPane_.add(down_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_SOUTH);
+        contentPane_.add(left_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_WEST);
+        contentPane_.add(right_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_EAST);
         animate.addActionListener(new Animate(this));
         AbsPanel buttons_ = getCompoFactory().newLineBox();
         buttons_.add(animate);
@@ -125,9 +131,10 @@ public final class WindowRts extends GroupFrame {
         setCursor(battlegroundWrapper_, wCurs_, hCurs_, pixels_);
         scene_.add(buttons_, GuiConstants.BORDER_LAYOUT_SOUTH);
         contentPane_.add(scene_, GuiConstants.BORDER_LAYOUT_CENTER);
-        battlegroundWrapper_.repaintSecondChildren(getImageFactory());
-        battleground.getContainer().repaintSecondChildren(getImageFactory());
-        contentPane_.repaintSecondChildren(getImageFactory());
+        AbsMetaLabelRts.repaintChildren(elts_,getImageFactory());
+//        battlegroundWrapper_.repaintSecondChildren(getImageFactory());
+//        battleground.getContainer().repaintSecondChildren(getImageFactory());
+//        contentPane_.repaintSecondChildren(getImageFactory());
         setContentPane(contentPane_);
         pack();
         setVisible(true);

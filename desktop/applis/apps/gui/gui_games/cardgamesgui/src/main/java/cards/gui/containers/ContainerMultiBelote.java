@@ -33,10 +33,7 @@ import cards.gui.events.ListenerBidBeloteMulti;
 import cards.gui.events.ListenerCardBeloteMultiGame;
 import cards.gui.events.SelectPointsEvent;
 import cards.gui.events.SelectSuitEvent;
-import cards.gui.labels.GraphicBeloteCard;
-import cards.gui.labels.LabelPoints;
-import cards.gui.labels.MiniBeloteCard;
-import cards.gui.labels.SuitLabel;
+import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.network.belote.actions.BiddingBelote;
@@ -138,7 +135,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
             suitLabel_.setPreferredSize(new MetaDimension(20,20));
             getBidsButtons().add(suitLabel_);
-            panelSuits_.add(suitLabel_);
+            panelSuits_.add(suitLabel_.getPaintableLabel());
         }
         panel_.add(panelSuits_);
         AbsPanel panelBids_ = getOwner().getCompoFactory().newLineBox();
@@ -162,7 +159,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             suitLabel_.setSuit(bid_, lg_);
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
 
-            panelBids_.add(suitLabel_);
+            panelBids_.add(suitLabel_.getPaintableLabel());
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelBids_);
@@ -506,7 +503,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             panelToSet_.removeAll();
             for (CardBelote c: _card.getDeclare().getHand()) {
                 MiniBeloteCard carte_ = new MiniBeloteCard(lg_,c, getOwner().getCompoFactory());
-                panelToSet_.add(carte_);
+                panelToSet_.add(carte_.getPaintableLabel());
             }
         }
         relative_ = relative(card_.getTakerIndex());
@@ -526,7 +523,7 @@ public class ContainerMultiBelote extends ContainerBelote implements
             AbsPanel panneau_ = getOwner().getCompoFactory().newLineBox();
             HandBelote cartesBeloteRebelote_ = _error.getCards();
             for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, cartesBeloteRebelote_.getCards())) {
-                panneau_.add(c);
+                panneau_.add(c.getPaintableLabel());
             }
             getOwner().getFrames().getMessageDialogAbs().input(getOwner().getCommonFrame(), panneau_,
                     getMessages().getVal(WindowCards.HAVE_TO_PLAY),
@@ -776,10 +773,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         String lg_ = getOwner().getLanguageKey();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_, _hand.getCards())) {
             c.addMouseListener(new ListenerCardBeloteMultiGame(this,c.getCard()));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
 //        boolean entered_ = false;
 //        for (CardBelote c: _hand) {
 //            GraphicBeloteCard carte_ = new GraphicBeloteCard(

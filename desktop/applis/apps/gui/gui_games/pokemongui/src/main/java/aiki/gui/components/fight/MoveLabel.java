@@ -6,7 +6,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.UsesOfMove;
 import aiki.game.fight.ChosenMoveInfos;
-import code.gui.AbsMetaLabel;
+import aiki.gui.components.AbsMetaLabelPk;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
@@ -16,7 +16,7 @@ import code.util.NatStringTreeMap;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class MoveLabel extends AbsMetaLabel {
+public final class MoveLabel extends AbsMetaLabelPk {
 
     private static final String SPACE = " ";
 

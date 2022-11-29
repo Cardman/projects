@@ -1,6 +1,7 @@
 package cards.gui.panels;
 
 
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -51,7 +52,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(0, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 4) {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
@@ -74,14 +75,14 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(4, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(3, carte_);
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 }
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 sub_.add(surPanneau_);
@@ -100,7 +101,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(2, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 4) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
@@ -111,7 +112,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(5, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else {
                     surPanneau_ = _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
@@ -134,14 +135,14 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(1, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 9) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(0, carte_);
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 }
                 surPanneau_.setBackground(GuiConstants.newColor(0, 125, 0));
                 sub_.add(surPanneau_);
@@ -162,7 +163,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(2, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
@@ -173,14 +174,14 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(1, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 7) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(0, carte_);
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 4) {
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
@@ -202,7 +203,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(3, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 2) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
@@ -213,7 +214,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(2, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 3) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
@@ -224,7 +225,7 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(4, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 5) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
@@ -235,14 +236,14 @@ public class CarpetTarot {
                     } else {
                         c_.cards.put(1, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 7) {
                     GraphicTarotCard carte_ = new GraphicTarotCard(_lg,
                             GuiConstants.RIGHT, true, _compoFactory);
                     carte_.setPreferredSize(GraphicTarotCard
                             .getMaxDimension());
                     c_.cards.put(0, carte_);
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 4) {
                     surPanneau_= _compoFactory.newLineBox();
                     surPanneau_.setPreferredSize(GraphicTarotCard.getDimensionForSeveralCards(_nombre));
@@ -280,7 +281,7 @@ public class CarpetTarot {
             GraphicTarotCard cg_ = new GraphicTarotCard(_lg,
                     GuiConstants.RIGHT, !entered_, _compoFactory);
             cg_.setPreferredSize(entered_);
-            centerDeck.add(cg_);
+            centerDeck.add(cg_.getPaintableLabel());
             entered_ = true;
         }
         centerDeck.validate();
@@ -294,7 +295,7 @@ public class CarpetTarot {
         for (byte joueur_ = 0; joueur_ < _nombreDeJoueurs; joueur_++) {
             GraphicTarotCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
-            place_.repaintLabel(_fact);
+            AbsMetaLabelCard.paintCard(_fact,place_);
         }
     }
 
@@ -305,7 +306,7 @@ public class CarpetTarot {
     public void setCarteTarot(AbstractImageFactory _fact, String _lg, byte _joueur, CardTarot _m, StringMap<StringMap<String>> _images) {
         GraphicTarotCard place_ = cards.getVal((int) _joueur);
         place_.setCarteEnJeu(_fact,_lg,_m, _images);
-        place_.repaintLabel(_fact);
+        AbsMetaLabelCard.paintCard(_fact,place_);
     }
 
     public AbsPanel getCenterDeck() {

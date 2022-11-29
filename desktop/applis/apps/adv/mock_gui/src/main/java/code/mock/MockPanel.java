@@ -1,7 +1,6 @@
 package code.mock;
 
 import code.gui.*;
-import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
 
 public final class MockPanel extends MockCustComponent implements AbsPanel {
@@ -31,11 +30,6 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     }
 
     @Override
-    public void add(AbsMetaLabelComInt _meta) {
-        add(_meta.getPaintableLabel());
-    }
-
-    @Override
     public void add(AbsCustComponent _c) {
         if (_c.getParent() == null) {
             innerAdd(_c);
@@ -49,11 +43,6 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     }
 
     @Override
-    public void add(AbsMetaLabelComInt _l, int _i) {
-        add(_l.getPaintableLabel(),_i);
-    }
-
-    @Override
     public void add(AbsCustComponent _c, int _i) {
         if (_c.getParent() == null) {
             innerAdd(_c, _i);
@@ -64,11 +53,6 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
     public void innerAdd(AbsCustComponent _c, int _i) {
         _c.setParent(this);
         getChildren().add(_i, _c);
-    }
-
-    @Override
-    public void add(AbsMetaLabelComInt _lab, String _s) {
-        add(_lab.getPaintableLabel(),_s);
     }
 
     @Override
@@ -123,28 +107,4 @@ public final class MockPanel extends MockCustComponent implements AbsPanel {
         getChildren().clear();
     }
 
-    @Override
-    public void repaintSecondChildren(AbstractImageFactory _i) {
-        for (AbsCustComponent c: getChildren()) {
-            if (c instanceof MockPaintableLabel) {
-                ((MockPaintableLabel) c).repaintLabel(_i);
-            }
-            if (c instanceof MockPanel) {
-                for (AbsCustComponent d: c.getChildren()) {
-                    if (d instanceof MockPaintableLabel) {
-                        ((MockPaintableLabel) d).repaintLabel(_i);
-                    }
-                }
-            }
-        }
-    }
-
-    @Override
-    public void repaintChildren(AbstractImageFactory _i) {
-        for (AbsCustComponent c: getChildren()) {
-            if (c instanceof MockPaintableLabel) {
-                ((MockPaintableLabel) c).repaintLabel(_i);
-            }
-        }
-    }
 }

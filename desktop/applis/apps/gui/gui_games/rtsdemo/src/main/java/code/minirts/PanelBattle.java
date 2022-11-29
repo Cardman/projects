@@ -38,7 +38,7 @@ public class PanelBattle {
         container.setOpaque(true);
         container.setBackground(GuiConstants.WHITE);
         selecting = new Selecting(_facade, _compoFactory);
-        container.add(selecting);
+        container.add(selecting.getPaintableLabel());
         container.add(content);
     }
 
@@ -59,7 +59,7 @@ public class PanelBattle {
         Soldier s_ = facade.getLastSoldier();
         UnitSoldier soldierLabel_ = new UnitSoldier(s_, _fact.getCompoFactory());
         soldierLabel_.setSize(new MetaDimension(p_.getWidth(), p_.getHeight()));
-        content.add(soldierLabel_);
+        content.add(soldierLabel_.getPaintableLabel());
         soldierLabel_.setLocation(_x, _y);
         soldierLabels.put(facade.getLastSoldierKey(),soldierLabel_);
         CustPoint curTopLeft_ = facade.getTopLeftPoint();
@@ -84,7 +84,7 @@ public class PanelBattle {
             }
             AbstractImage img_ = _fact.newImageArgb(w_, h_);
 //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(u_);
+            img_.setFont(u_.getPaintableLabel());
             u_.paintComponent(img_);
             u_.setIcon(_fact,img_);
         }
@@ -97,7 +97,7 @@ public class PanelBattle {
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
         if (paintSelection) {
             //            CustGraphics gr_ = new CustGraphics(img_.getGraphics());
-            img_.setFont(selecting);
+            img_.setFont(selecting.getPaintableLabel());
             Rect r_ = facade.getSelection();
             img_.setColor(GuiConstants.BLUE);
             img_.drawRect((int)r_.getLeft().ll(),(int) r_.getTop().ll(),(int) r_.getWidth().ll(), (int)r_.getHeight().ll());

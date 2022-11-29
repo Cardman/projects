@@ -2,6 +2,7 @@ package cards.gui.panels;
 
 
 import cards.consts.Role;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.CellPlayer;
 import code.gui.AbsPanel;
 import code.gui.images.AbstractImageFactory;
@@ -54,11 +55,11 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(0));
                         m_.cellsPlayers.put(0, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else {
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 }
-                m_.container.add(cell_);
+                m_.container.add(cell_.getPaintableLabel());
             }
         } else if(_nombreDeJoueurs==6) {
             m_.container = _compoFactory.newGrid(0,4);
@@ -74,7 +75,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(4));
                         m_.cellsPlayers.put(4, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==7) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {
@@ -84,7 +85,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(2));
                         m_.cellsPlayers.put(2, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==4) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {
@@ -94,7 +95,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(5));
                         m_.cellsPlayers.put(5, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==10) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {
@@ -104,21 +105,21 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(1));
                         m_.cellsPlayers.put(1, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==2) {
                     surPanneau_= _compoFactory.newLineBox();
                     cell_.setTextPlayer(_pseudos.get(3));
                     m_.cellsPlayers.put(3, cell_);
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==9) {
                     surPanneau_= _compoFactory.newLineBox();
                     cell_.setTextPlayer(_pseudos.get(0));
                     m_.cellsPlayers.put(0, cell_);
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else {
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 }
-                m_.container.add(cell_);
+                m_.container.add(cell_.getPaintableLabel());
             }
         } else if(_nombreDeJoueurs==3) {
             m_.container = _compoFactory.newGrid(0,3);
@@ -135,7 +136,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(2));
                         m_.cellsPlayers.put(2, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==2) {
                     if(m_.horaire) {
                         cell_.setTextPlayer(_pseudos.get(2));
@@ -144,15 +145,15 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(1));
                         m_.cellsPlayers.put(1, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==7) {
                     cell_.setTextPlayer(_pseudos.get(0));
                     m_.cellsPlayers.put(0, cell_);
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==4) {
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 }
-                m_.container.add(cell_);
+                m_.container.add(cell_.getPaintableLabel());
             }
         } else {
             m_.container = _compoFactory.newGrid(0,3);
@@ -169,7 +170,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(3));
                         m_.cellsPlayers.put(3, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==2) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {
@@ -179,7 +180,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(2));
                         m_.cellsPlayers.put(2, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==3) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {
@@ -189,7 +190,7 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(4));
                         m_.cellsPlayers.put(4, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==5) {
                     surPanneau_= _compoFactory.newLineBox();
                     if(m_.horaire) {
@@ -199,28 +200,28 @@ public final class MiniCarpet {
                         cell_.setTextPlayer(_pseudos.get(1));
                         m_.cellsPlayers.put(1, cell_);
                     }
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==7) {
                     surPanneau_= _compoFactory.newLineBox();
                     cell_.setTextPlayer(_pseudos.get(0));
                     m_.cellsPlayers.put(0, cell_);
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 } else if(i==4) {
-                    surPanneau_.add(cell_);
+                    surPanneau_.add(cell_.getPaintableLabel());
                 }
-                m_.container.add(cell_);
+                m_.container.add(cell_.getPaintableLabel());
             }
         }
         for (CellPlayer c: m_.cellsPlayers.values()) {
             c.setStatus(Role.DEFENDER);
-            c.repaintLabel(_fact);
+            AbsMetaLabelCard.paintCard(_fact,c);
         }
         return m_;
     }
 
     public void setStatus(AbstractImageFactory _fact,Role _st, int _player) {
         cellsPlayers.getVal(_player).setStatus(_st);
-        cellsPlayers.getVal(_player).repaintLabel(_fact);
+        AbsMetaLabelCard.paintCard(_fact,cellsPlayers.getVal(_player));
     }
 
     public AbsPanel getContainer() {

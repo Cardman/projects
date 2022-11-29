@@ -2,12 +2,12 @@ package aiki.gui.components.fight;
 
 
 import aiki.game.fight.enums.ActionType;
-import code.gui.AbsMetaLabel;
+import aiki.gui.components.AbsMetaLabelPk;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class ActionLabel extends AbsMetaLabel {
+public final class ActionLabel extends AbsMetaLabelPk {
 
     private String action;
 

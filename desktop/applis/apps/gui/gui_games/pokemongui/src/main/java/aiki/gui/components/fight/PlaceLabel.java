@@ -1,12 +1,12 @@
 package aiki.gui.components.fight;
 
 
-import code.gui.AbsMetaLabel;
+import aiki.gui.components.AbsMetaLabelPk;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class PlaceLabel extends AbsMetaLabel {
+public final class PlaceLabel extends AbsMetaLabelPk {
 
     private boolean selected;
 

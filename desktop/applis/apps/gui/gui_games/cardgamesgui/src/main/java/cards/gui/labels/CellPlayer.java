@@ -2,17 +2,15 @@ package cards.gui.labels;
 
 
 import cards.consts.Role;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 
-public final class CellPlayer extends AbsMetaLabel {
+public final class CellPlayer extends AbsMetaLabelCard {
 
     private Role st;
 
     private String textPlayer = "";
-
     public CellPlayer(AbsCompoFactory _compoFactory) {
         super(_compoFactory);
     }

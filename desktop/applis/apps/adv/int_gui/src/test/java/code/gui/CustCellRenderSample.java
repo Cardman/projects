@@ -25,6 +25,11 @@ public class CustCellRenderSample extends CustCellRender<String>{
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        return null;
+    }
+
+    @Override
     public AbstractImageFactory getImageFactory() {
         return new ImageFactorySample();
     }

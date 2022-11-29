@@ -3,7 +3,7 @@ package code.threads;
 public final class FileStruct {
     private byte[] content;
     private long lastDate;
-    public FileStruct(byte[] _content,AbstractThreadFactory _threadFact) {
+    public FileStruct(byte[] _content,AbstractTimerRetriever _threadFact) {
         setDatedContent(_content,_threadFact);
     }
     public FileStruct(byte[] _content, long _lastDate) {
@@ -15,7 +15,7 @@ public final class FileStruct {
         return content;
     }
 
-    public void setDatedContent(byte[] _content,AbstractThreadFactory _threadFact) {
+    public void setDatedContent(byte[] _content,AbstractTimerRetriever _threadFact) {
         setContent(_content);
         updateLastDate(_threadFact);
     }
@@ -28,7 +28,7 @@ public final class FileStruct {
         return lastDate;
     }
 
-    public void updateLastDate(AbstractThreadFactory _threadFact) {
+    public void updateLastDate(AbstractTimerRetriever _threadFact) {
         lastDate = _threadFact.millis();
     }
 }

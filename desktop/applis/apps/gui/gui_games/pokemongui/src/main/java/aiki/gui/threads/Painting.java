@@ -2,6 +2,7 @@ package aiki.gui.threads;
 
 import aiki.facade.FacadeGame;
 import aiki.gui.WindowAiki;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
 import code.gui.FrameUtil;
@@ -52,7 +53,7 @@ public final class Painting implements Runnable {
             facade.changeCamera();
             scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
             if (facade.isChangeToFightScene()) {
                 FrameUtil.invokeLater(new SetFightPanel(window), window.getFrames());
                 return;
@@ -67,14 +68,14 @@ public final class Painting implements Runnable {
                 facade.changeCamera();
                 scene.load(window.getImageFactory(),facade, false);
                 ThreadUtil.sleep(window.getThreadFactory(),pause * 5L);
-                scene.repaintLabel(window.getImageFactory());
+                AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
             } else {
                 facade.changeCamera(dir);
                 scene.load(window.getImageFactory(),facade, false);
                 for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
                     scene.setDelta(i - side, true);
                     ThreadUtil.sleep(window.getThreadFactory(),pause);
-                    scene.repaintLabel(window.getImageFactory());
+                    AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
                 }
             }
             FrameUtil.invokeLater(new SetFightPanel(window), window.getFrames());
@@ -85,7 +86,7 @@ public final class Painting implements Runnable {
             scene.load(window.getImageFactory(),facade, false);
             scene.setDelta(0, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
             FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
@@ -94,7 +95,7 @@ public final class Painting implements Runnable {
             facade.changeCamera();
             scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
             FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
@@ -103,7 +104,7 @@ public final class Painting implements Runnable {
         for (int i = IndexConstants.FIRST_INDEX; i <= side; i++) {
             scene.setDelta(i - side, true);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
-            scene.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
         }
         FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
     }

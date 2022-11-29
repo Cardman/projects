@@ -2,8 +2,8 @@ package aiki.gui.components.labels;
 
 
 
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.Paginator;
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
@@ -11,7 +11,7 @@ import code.gui.initialize.AbsCompoFactory;
 import code.images.IntPoint;
 import code.util.CustList;
 
-public final class Header extends AbsMetaLabel {
+public final class Header extends AbsMetaLabelPk {
 
     private CustList<WordPoint> strings = new CustList<WordPoint>();
 

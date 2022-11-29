@@ -16,9 +16,9 @@ import cards.president.sml.DocumentReaderPresidentUtil;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 import code.gui.GuiConstants;
+import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.cards.MessagesPresidentPresident;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
@@ -84,6 +84,12 @@ public abstract class ContainerPresident extends ContainerGame {
         for(CardPresident c: _hand) {
             GraphicPresidentCard carte_=new GraphicPresidentCard(imageFactory_,_lg, c, GuiConstants.RIGHT,!entered_, _fact.getCompoFactory(), _fact.getImages());
             carte_.setPreferredSize(entered_);
+            int w_ = carte_.getWidth();
+            int h_ = carte_.getHeight();
+            AbstractImage img_ = imageFactory_.newImageArgb(w_, h_);
+            img_.setFont(carte_.getPaintableLabel());
+            carte_.paintComponent(img_);
+            carte_.setIcon(imageFactory_,img_);
             list_.add(carte_);
             entered_ = true;
         }
@@ -130,20 +136,18 @@ public abstract class ContainerPresident extends ContainerGame {
         getPanelReceivedCards().removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_, getReceivedCards().getCards())) {
-            getPanelReceivedCards().add(c);
+            getPanelReceivedCards().add(c.getPaintableLabel());
         }
         getPanelReceivedCards().validate();
-        getPanelReceivedCards().repaintChildren(getWindow().getImageFactory());
     }
 
     public void updateCardsInPanelPresidentGiven() {
         getPanelGivenCards().removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicPresidentCard c: getGraphicCards(getWindow(),lg_,getGivenCards().getCards())) {
-            getPanelGivenCards().add(c);
+            getPanelGivenCards().add(c.getPaintableLabel());
         }
         getPanelGivenCards().validate();
-        getPanelGivenCards().repaintChildren(getWindow().getImageFactory());
     }
 
     public String pseudo() {

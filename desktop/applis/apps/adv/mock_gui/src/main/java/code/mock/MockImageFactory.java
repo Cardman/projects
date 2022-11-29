@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.images.BaseSixtyFourUtil;
@@ -14,6 +15,18 @@ public final class MockImageFactory implements AbstractImageFactory {
     @Override
     public AbstractImage newImageRgb(int _i, int _j) {
         return new MockImage(new int[_i][_j]);
+    }
+
+    @Override
+    public AbstractImage newImageRgb(int _i, int _j, AbsPreparedLabel _component) {
+        MockImage m_ = new MockImage(new int[_i][_j]);
+        m_.setFont(_component);
+        return m_;
+    }
+
+    @Override
+    public AbstractImage setIcon(AbsPreparedLabel _c, AbstractImage _i) {
+        return _i;
     }
 
     @Override

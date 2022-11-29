@@ -154,9 +154,8 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         panneau1_.removeAll();
         /*On place les cartes de l'utilisateur*/
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(container.getWindow(), lg_,partie_.getDeal().hand().getCards())) {
-            panneau1_.add(c);
+            panneau1_.add(c.getPaintableLabel());
         }
-        panneau1_.repaintChildren(container.getOwner().getImageFactory());
         panneau1_.validate();
     }
     @Override

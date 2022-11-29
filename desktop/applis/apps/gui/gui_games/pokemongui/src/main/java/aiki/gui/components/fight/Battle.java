@@ -9,6 +9,7 @@ package aiki.gui.components.fight;
 import aiki.comparators.ComparatorTr;
 import aiki.db.DataBase;
 import aiki.game.fight.*;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.threads.*;
 import aiki.sml.Resources;
 import aiki.facade.FacadeGame;
@@ -148,6 +149,7 @@ public class Battle extends ChildFrame {
     private AbsPanel abilitiesLearnPanel;
 
     private final CustList<AbilityLabel> abilityLabels = new CustList<AbilityLabel>();
+    private final CustList<AbsMetaLabelPk> abilityLabelsAbs = new CustList<AbsMetaLabelPk>();
 
     private FighterPanel fighterFrontPanel;
 
@@ -156,6 +158,7 @@ public class Battle extends ChildFrame {
     private AbsPanel panelPlaces;
 
     private final CustList<PlaceLabel> placesLabels = new CustList<PlaceLabel>();
+    private final CustList<AbsMetaLabelPk> placesLabelsAbs = new CustList<AbsMetaLabelPk>();
 
     private BallPanel ballPanel;
 
@@ -178,6 +181,7 @@ public class Battle extends ChildFrame {
     private TargetsPanel targets;
 
     private final CustList<MoveLabel> movesLabels = new CustList<MoveLabel>();
+    private final CustList<AbsMetaLabelPk> movesLabelsAbs = new CustList<AbsMetaLabelPk>();
 
     private AbsPanel fleeWeb;
 
@@ -321,7 +325,7 @@ public class Battle extends ChildFrame {
         }
         if (plLabelBack != null) {
             plLabelBack.setText(messages.getVal(GO_BACK));
-            plLabelBack.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), plLabelBack);
         }
         if (frontBattle != null) {
             frontBattle.translate();
@@ -480,17 +484,20 @@ public class Battle extends ChildFrame {
             forms.add(team);
             panelPlaces.removeAll();
             placesLabels.clear();
+            placesLabelsAbs.clear();
             byte mult_ = facade.getFight().getMult();
             for (byte p = IndexConstants.FIRST_INDEX; p < mult_; p++) {
                 PlaceLabel plLabel_ = new PlaceLabel(Long.toString(p), p, window.getCompoFactory());
                 plLabel_.addMouseListener(new SelectPlaceEvent(this, p));
-                panelPlaces.add(plLabel_);
+                panelPlaces.add(plLabel_.getPaintableLabel());
                 placesLabels.add(plLabel_);
+                placesLabelsAbs.add(plLabel_);
             }
             plLabelBack = new PlaceLabel(Fighter.BACK, window.getCompoFactory());
             plLabelBack.addMouseListener(new SelectPlaceEvent(this, Fighter.BACK));
-            panelPlaces.add(plLabelBack);
+            panelPlaces.add(plLabelBack.getPaintableLabel());
             placesLabels.add(plLabelBack);
+            placesLabelsAbs.add(plLabelBack);
             forms.add(panelPlaces);
 //            forms_.add(new JScrollPane(commentsErrors));
 //            c_ = new GridBagConstraints();
@@ -1103,7 +1110,7 @@ public class Battle extends ChildFrame {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getTemp().getChosenSubstitute());
             }
-            panelPlaces.repaintChildren(window.getImageFactory());
+            AbsMetaLabelPk.repaintChildren(placesLabelsAbs, window.getImageFactory());
         }
         enableClick = true;
     }
@@ -1126,7 +1133,7 @@ public class Battle extends ChildFrame {
             for (PlaceLabel p: placesLabels) {
                 p.setSelected(facade.getFight().getTemp().getChosenSubstitute());
             }
-            panelPlaces.repaintChildren(window.getImageFactory());
+            AbsMetaLabelPk.repaintChildren(placesLabelsAbs, window.getImageFactory());
         }
         enableClick = true;
     }
@@ -1202,6 +1209,7 @@ public class Battle extends ChildFrame {
 //        }
         abilitiesLearnPanel.removeAll();
         abilityLabels.clear();
+        abilityLabelsAbs.clear();
         abilitiesLearnPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_ABILITY)));
         StringList abilities_ = facade.getAbilities();
         StringList abilitiesCopy_ = new StringList(abilities_);
@@ -1219,10 +1227,11 @@ public class Battle extends ChildFrame {
 //            ab_.setSelected(facade.getAbility());
             ab_.addMouseListener(new AbilityFightEvent(this, a));
             abilityLabels.add(ab_);
-            abilitiesLearnPanel.add(ab_);
+            abilityLabelsAbs.add(ab_);
+            abilitiesLearnPanel.add(ab_.getPaintableLabel());
         }
+        AbsMetaLabelPk.repaintChildren(abilityLabelsAbs, window.getImageFactory());
         abilitiesLearnPanel.validate();
-        abilitiesLearnPanel.repaintChildren(window.getImageFactory());
         changeAbility(facade.getAbility());
     }
 
@@ -1240,7 +1249,7 @@ public class Battle extends ChildFrame {
             ActionLabel action_ = new ActionLabel(txt_, a, window.getCompoFactory());
             action_.addMouseListener(new FighterAction(this, a));
             action_.setSelected(a == facade.getFight().getTemp().getSelectedActionCurFighter());
-            actionType.add(action_);
+            actionType.add(action_.getPaintableLabel());
             maxWidth_ = NumberUtil.max(maxWidth_, action_.stringWidth(txt_));
             actionsLabels.add(action_);
         }
@@ -1254,7 +1263,7 @@ public class Battle extends ChildFrame {
         facade.changeAction(_action);
         for (ActionLabel a: actionsLabels) {
             a.setSelected(_action);
-            a.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), a);
         }
         actions.removeAll();
         actions.add(actionType);
@@ -1293,6 +1302,7 @@ public class Battle extends ChildFrame {
             }
             movesPanel.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_HEAL)));
             movesLabels.clear();
+            movesLabelsAbs.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
                 MoveLabel move_ = new MoveLabel(info_, m, facade, window.getCompoFactory());
@@ -1300,8 +1310,9 @@ public class Battle extends ChildFrame {
                     move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 }
                 move_.setSelected(facade.getFight().getTemp().getChosenMoveFront());
-                movesPanel.add(move_);
+                movesPanel.add(move_.getPaintableLabel());
                 movesLabels.add(move_);
+                movesLabelsAbs.add(move_);
             }
             if (wasNull_) {
                 actions.add(movesPanel);
@@ -1331,6 +1342,7 @@ public class Battle extends ChildFrame {
         } else {
             selectedItem.setText(messages.getVal(NO_ITEM));
             movesLabels.clear();
+            movesLabelsAbs.clear();
             if (movesPanel != null) {
 //                actions.remove(movesPanel);
                 movesPanel.setVisible(false);
@@ -1348,6 +1360,7 @@ public class Battle extends ChildFrame {
             AbsPanel movesPanel_ = window.getCompoFactory().newPageBox();
             movesPanel_.add(window.getCompoFactory().newPlainLabel(messages.getVal(SELECT_MOVE_ROUND)));
             movesLabels.clear();
+            movesLabelsAbs.clear();
             for (String m: moves_.getKeys()) {
                 ChosenMoveInfos info_ = moves_.getVal(m);
                 MoveLabel move_ = new MoveLabel(info_, m, facade, window.getCompoFactory());
@@ -1355,10 +1368,11 @@ public class Battle extends ChildFrame {
                 if (info_.isUsable()) {
                     move_.addMouseListener(new MoveEvent(this, info_.getName()));
                 }
-                movesPanel_.add(move_);
+                movesPanel_.add(move_.getPaintableLabel());
                 movesLabels.add(move_);
+                movesLabelsAbs.add(move_);
             }
-            movesPanel_.repaintChildren(window.getImageFactory());
+            AbsMetaLabelPk.repaintChildren(movesLabelsAbs, window.getImageFactory());
             actions.add(movesPanel_);
             boolean wasNull_ = targetsPanel == null;
             if (wasNull_) {
@@ -1384,7 +1398,7 @@ public class Battle extends ChildFrame {
         facade.chooseMove(_move);
         for (MoveLabel m: movesLabels) {
             m.setSelected(_move);
-            m.repaintLabel(window.getImageFactory());
+            AbsMetaLabelPk.paintPk(window.getImageFactory(), m);
         }
         if (facade.getFight().getTemp().getSelectedActionCurFighter() == ActionType.MOVE) {
 //            if (targetsPanel != null) {
@@ -1432,7 +1446,7 @@ public class Battle extends ChildFrame {
         for (PlaceLabel p: placesLabels) {
             p.setSelected(_index);
         }
-        panelPlaces.repaintChildren(window.getImageFactory());
+        AbsMetaLabelPk.repaintChildren(placesLabelsAbs, window.getImageFactory());
     }
 
     public void chooseEvolution() {
@@ -1467,7 +1481,8 @@ public class Battle extends ChildFrame {
         for (AbilityLabel a: abilityLabels) {
             a.setSelected(_ability);
         }
-        abilitiesLearnPanel.repaintChildren(window.getImageFactory());
+        AbsMetaLabelPk.repaintChildren(abilityLabelsAbs,window.getImageFactory());
+//        abilitiesLearnPanel.repaintChildren(window.getImageFactory());
     }
 
     private void initComments() {

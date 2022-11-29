@@ -1,7 +1,6 @@
 package code.gui.images;
 
 import code.gui.AbsCustComponent;
-import code.gui.AbsMetaLabelComInt;
 import code.gui.AbsPreparedLabel;
 
 
@@ -42,7 +41,6 @@ public interface AbstractImage {
     void setFont(String _name, int _style, int _size);
     void setFont(MetaFont _font);
     void setFont(AbsCustComponent _font);
-    void setFont(AbsMetaLabelComInt _font);
 
     void drawPolygon(int[] _w, int[] _y, int _n);
 

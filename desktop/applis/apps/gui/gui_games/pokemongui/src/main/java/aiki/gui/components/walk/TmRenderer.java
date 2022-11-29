@@ -29,6 +29,12 @@ public class TmRenderer extends CustCellRender<String> {
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
+    @Override
     public void getListCellRendererComponent(
             AbsPreparedLabel _currentLab, int _arg2,
             boolean _selected, boolean _arg4) {

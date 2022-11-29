@@ -1,33 +1,55 @@
-package code.gui;
+package aiki.gui.components;
 
+import code.gui.AbsPaintableLabel;
 import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
+import code.gui.initialize.AbsCompoFactory;
+import code.util.CustList;
+import code.util.core.NumberUtil;
 
-
-public abstract class AbsMetaLabelCom implements AbsMetaLabelComInt {
-
-    public void repaintLabel(AbstractImageFactory _fact){
-        getPaintableLabel().repaintLabel(_fact);
+public abstract class AbsMetaLabelPk {
+    private final AbsPaintableLabel paintableLabel;
+    protected AbsMetaLabelPk(AbsCompoFactory _compoFactory) {
+        paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
+
+    public static void repaintChildren(CustList<AbsMetaLabelPk> _panel, AbstractImageFactory _fact) {
+        for (AbsMetaLabelPk c: _panel) {
+            paintPk(_fact,c);
+        }
+    }
+
+    public static void paintPk(AbstractImageFactory _fact, AbsMetaLabelPk _carte) {
+        int w_ = _carte.getWidth();
+        int h_ = _carte.getHeight();
+        if (NumberUtil.signum(w_) + NumberUtil.signum(h_) <= 1) {
+            AbstractImage img_ = _fact.newImageArgb(1, 1);
+            img_.setFont(_carte.getPaintableLabel());
+            _carte.paintComponent(img_);
+            _carte.setIcon(_fact,img_);
+            return;
+        }
+        AbstractImage img_ = _fact.newImageArgb(w_, h_);
+        img_.setFont(_carte.getPaintableLabel());
+        _carte.paintComponent(img_);
+        _carte.setIcon(_fact,img_);
+    }
+    public AbsPaintableLabel getPaintableLabel() {
+        return paintableLabel;
+    }
+    public abstract void paintComponent(AbstractImage _g2);
+
+    public void setIcon(AbstractImageFactory _fact, AbstractImage _icon){
+        getPaintableLabel().setIcon(_fact, _icon);
+    }
+
     public void requestFocusInWindow(){
         getPaintableLabel().requestFocusInWindow();
     }
 
-    public void setEmptyIcon(){
-        getPaintableLabel().setEmptyIcon();
-    }
-    public void setIcon(AbstractImageFactory _fact, AbstractImage _icon){
-        getPaintableLabel().setIcon(_fact, _icon);
-    }
-    public void setVerticalAlignment(int _alignment){
-        getPaintableLabel().setVerticalAlignment(_alignment);
-    }
-    public void setHorizontalAlignment(int _alignment){
-        getPaintableLabel().setHorizontalAlignment(_alignment);
-    }
     public int getWidth(){
         return getPaintableLabel().getWidth();
     }
@@ -50,13 +72,6 @@ public abstract class AbsMetaLabelCom implements AbsMetaLabelComInt {
         getPaintableLabel().setBackground(_color);
     }
 
-    public void setForeground(int _color) {
-        getPaintableLabel().setForeground(_color);
-    }
-
-    public void setLocation(int _x, int _y) {
-        getPaintableLabel().setLocation(_x,_y);
-    }
     public void addMouseListener(AbsMouseListenerWithoutClick _mouseListener) {
         getPaintableLabel().addMouseListener(_mouseListener);
     }

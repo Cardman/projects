@@ -40,11 +40,7 @@ import cards.gui.events.ListenerBidBeloteSingle;
 import cards.gui.events.ListenerCardBeloteSingleGame;
 import cards.gui.events.SelectPointsEvent;
 import cards.gui.events.SelectSuitEvent;
-import cards.gui.labels.Graphic;
-import cards.gui.labels.GraphicBeloteCard;
-import cards.gui.labels.GraphicKey;
-import cards.gui.labels.LabelPoints;
-import cards.gui.labels.SuitLabel;
+import cards.gui.labels.*;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsBelote;
@@ -248,7 +244,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             bid_.setBid(BidBelote.SUIT);
             suitLabel_.setSuit(bid_, lg_);
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
-            panelSuits_.add(suitLabel_);
+            panelSuits_.add(suitLabel_.getPaintableLabel());
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelSuits_);
@@ -266,7 +262,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             suitLabel_.setSuit(bid_, lg_);
             suitLabel_.addMouseListener(new SelectSuitEvent(this,bid_));
 
-            panelBids_.add(suitLabel_);
+            panelBids_.add(suitLabel_.getPaintableLabel());
             getBidsButtons().add(suitLabel_);
         }
         panel_.add(panelBids_);
@@ -607,10 +603,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
                 AbsPanel panelToSet_ = getDeclaredHandfuls().getVal(DealBelote.NUMERO_UTILISATEUR);
                 panelToSet_.removeAll();
                 for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,usDecl_.getHand().getCards())) {
-                    panelToSet_.add(c);
+                    panelToSet_.add(c.getPaintableLabel());
                 }
                 panelToSet_.validate();
-                panelToSet_.repaintChildren(getWindow().getImageFactory());
 //                boolean entered_ = false;
 //                for(CardBelote c: usDecl_.getMain())
 //                {
@@ -636,7 +631,6 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
         getPanneauBoutonsJeu().removeAll();
-        getPanneauBoutonsJeu().repaintChildren(getWindow().getImageFactory());
         thread(new AnimationCardBelote(this));
         setThreadAnime(true);
 
@@ -736,7 +730,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int) getMaxAbsoluScore();
             graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
-            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
             graphique_.setLocation(0,(600-dimy_)/2);
             ascenseur_.setPreferredSize(new MetaDimension(300,200));
             panneau_=getOwner().getCompoFactory().newBorder();
@@ -744,7 +738,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
-            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
+            ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
             ascenseur_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
@@ -796,10 +790,9 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         String lg_ = getOwner().getLanguageKey();
         for (GraphicBeloteCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardBeloteSingleGame(this,c.getCard()));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
 //        boolean entered_ = false;
 //        for(CardBelote c: _hand)
 //        {

@@ -40,10 +40,7 @@ import cards.gui.events.ListenerCardTarotSingleHandful;
 import cards.gui.events.ListenerHandfulTarot;
 import cards.gui.events.ListenerMiseresTarot;
 import cards.gui.events.ListenerNoHandfulTarot;
-import cards.gui.labels.Graphic;
-import cards.gui.labels.GraphicKey;
-import cards.gui.labels.GraphicTarotCard;
-import cards.gui.labels.MiniTarotCard;
+import cards.gui.labels.*;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
 import cards.gui.panels.PanelTricksHandsTarot;
@@ -442,7 +439,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             HandTarot atouts_=partie_.getTricks().first().getCartes().couleur(Suit.TRUMP);
             if(!atouts_.estVide()) {
                 for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                    getPanelDiscardedTrumps().add(c);
+                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
                 }
 //                boolean entered_ = false;
 //                for(CardTarot c: atouts_)
@@ -454,7 +451,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
+//                AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
             }
         }
         for (TrickTarot t: partie_.unionPlis()) {
@@ -538,7 +535,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             if(!atouts_.estVide()) {
                 getPanelDiscardedTrumps().removeAll();
                 for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                    getPanelDiscardedTrumps().add(c);
+                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
                 }
 //                boolean entered_ = false;
 //                for(CardTarot c: atouts_)
@@ -550,7 +547,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
                 //pack();
             }
         }
@@ -755,7 +751,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
                 HandTarot atouts_=partie_.getPliEnCours().getCartes().couleur(Suit.TRUMP);
                 if(!atouts_.estVide()) {
                     for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                        getPanelDiscardedTrumps().add(c);
+                        getPanelDiscardedTrumps().add(c.getPaintableLabel());
                     }
 //                    boolean entered_ = false;
 //                    for(CardTarot c: atouts_)
@@ -767,7 +763,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                    }
                     getPanelDiscardedTrumps().setVisible(true);
                     getPanelDiscardedTrumps().validate();
-                    getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
+//                    AbsMetaLabelCard.repaintChildren(getPanelDiscardedTrumps(),getWindow().getImageFactory());
                     //pack();
                 }
             }
@@ -797,7 +793,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             panelToSet_.removeAll();
             for(CardTarot c: poignee_) {
                 MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
-                panelToSet_.add(carte_);
+                panelToSet_.add(carte_.getPaintableLabel());
             }
             pack();
         }
@@ -997,7 +993,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             setMaxAbsoluScore(NumberUtil.max(max_.ll(),getMaxAbsoluScore()));
             int dimy_=(int)getMaxAbsoluScore();
             graphique_.setPreferredSize(new MetaDimension(2000,dimy_));
-            AbsScrollPane locScroll_=getOwner().getCompoFactory().newAbsScrollPane(graphique_);
+            AbsScrollPane locScroll_=getOwner().getCompoFactory().newAbsScrollPane(graphique_.getPaintableLabel());
             graphique_.setLocation(0,(600-dimy_)/2);
             locScroll_.setPreferredSize(new MetaDimension(300,200));
             AbsPanel panneau_=getOwner().getCompoFactory().newBorder();
@@ -1005,7 +1001,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_CENTER);
             GraphicKey legende_=new GraphicKey(pseudos_,couleurs_, lg_, getOwner().getCompoFactory());
             legende_.setPreferredSize(new MetaDimension(300,15*(nombreJoueurs_+1)));
-            locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_);
+            locScroll_=getOwner().getCompoFactory().newAbsScrollPane(legende_.getPaintableLabel());
             locScroll_.setPreferredSize(new MetaDimension(300,100));
             panneau_.add(locScroll_,GuiConstants.BORDER_LAYOUT_SOUTH);
             onglets_.add(getMessages().getVal(WindowCards.SCORES_EVOLUTION),panneau_);
@@ -1137,7 +1133,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             getPanelDiscardedTrumps().removeAll();
             if(!atouts_.estVide()) {
                 for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,atouts_.getCards())) {
-                    getPanelDiscardedTrumps().add(c);
+                    getPanelDiscardedTrumps().add(c.getPaintableLabel());
                 }
 //                boolean entered_ = false;
 //                for(CardTarot c: atouts_)
@@ -1149,7 +1145,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //                }
                 getPanelDiscardedTrumps().setVisible(true);
                 getPanelDiscardedTrumps().validate();
-                getPanelDiscardedTrumps().repaintChildren(getWindow().getImageFactory());
             }
             addButtonNextTrickTarot(getMessages().getVal(WindowCards.GO_CARD_GAME), true);
         }
@@ -1230,7 +1225,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotSingleDog(this,c.getCard(),_inHand,c));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
@@ -1243,14 +1238,13 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotCallBeforeDog(AbsPanel _panel, HandTarot _hand) {
         _panel.removeAll();
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotSingleBeforeDog(this,c.getCard()));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
 //        boolean entered_ = false;
 //        for(CardTarot c:_hand) {
@@ -1262,7 +1256,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 //            entered_ = true;
 //        }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
     }
     private void updateCardsInPanelTarotHandful(AbsPanel _panel, HandTarot _hand, boolean _included) {
         _panel.removeAll();
@@ -1272,7 +1265,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
             MiniTarotCard carte_=new MiniTarotCard(lg_, c, getOwner().getCompoFactory());
 //            carte_.addMouseListener(new EcouteurCarteTarotHandful(_hand.carte(indice_),_included));
             carte_.addMouseListener(new ListenerCardTarotSingleHandful(this, c,_included));
-            _panel.add(carte_);
+            _panel.add(carte_.getPaintableLabel());
         }
     }
     private void updateCardsInPanelTarotJeu(AbsPanel _panel, HandTarot _hand) {
@@ -1280,10 +1273,9 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         String lg_ = getOwner().getLanguageKey();
         for (GraphicTarotCard c: getGraphicCards(getWindow(),lg_,_hand.getCards())) {
             c.addMouseListener(new ListenerCardTarotSingleGame(this, c.getCard()));
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
         _panel.validate();
-        _panel.repaintChildren(getWindow().getImageFactory());
 //        boolean entered_ = false;
 //        for(CardTarot c: _hand)
 //        {

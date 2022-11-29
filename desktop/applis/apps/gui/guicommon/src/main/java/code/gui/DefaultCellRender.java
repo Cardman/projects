@@ -20,6 +20,12 @@ public final class DefaultCellRender extends CustCellRender<String> {
         panel = _panel;
     }
 
+    @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
     public AbsPanel getPanel() {
         return panel;
     }

@@ -16,9 +16,9 @@ import cards.tarot.enumerations.Miseres;
 import cards.tarot.enumerations.TarotResoucesAccess;
 import cards.tarot.sml.DocumentReaderTarotUtil;
 import code.gui.*;
+import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.imgs.cards.CardsInit;
 import code.scripts.messages.cards.MessagesTarotTarot;
 import code.stream.StreamTextFile;
 import code.threads.AbstractAtomicBoolean;
@@ -105,6 +105,14 @@ public abstract class ContainerTarot extends ContainerGame{
         for(CardTarot c: _hand) {
             GraphicTarotCard carte_=new GraphicTarotCard(imageFactory_,_lg, c,GuiConstants.RIGHT,!entered_, _fact.getCompoFactory(), _fact.getImages());
             carte_.setPreferredSize(entered_);
+            int w_ = carte_.getWidth();
+            int h_ = carte_.getHeight();
+            AbstractImage img_ = imageFactory_.newImageArgb(w_, h_);
+            img_.setFont(carte_.getPaintableLabel());
+            carte_.paintComponent(img_);
+            carte_.setIcon(imageFactory_,img_);
+            list_.add(carte_);
+
             list_.add(carte_);
             entered_ = true;
         }

@@ -3,6 +3,7 @@ package aiki.gui.components.fight;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.game.fight.ChosableTargetName;
+import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.listeners.SelectFoeTarget;
 import aiki.gui.listeners.SelectPlayerTarget;
 import code.gui.AbsPanel;
@@ -74,10 +75,10 @@ public class TargetsPanel {
         }
         foeTargets.get(_index).setSelected(_index);
         for (MiniTargetLabel l: foeTargets) {
-            l.repaintLabel(_battle.getWindow().getImageFactory());
+            AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), l);
         }
         for (MiniTargetLabel l: playerTargets) {
-            l.repaintLabel(_battle.getWindow().getImageFactory());
+            AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), l);
         }
     }
 
@@ -90,10 +91,10 @@ public class TargetsPanel {
         }
         playerTargets.get(_index).setSelected(_index);
         for (MiniTargetLabel l: foeTargets) {
-            l.repaintLabel(_battle.getWindow().getImageFactory());
+            AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), l);
         }
         for (MiniTargetLabel l: playerTargets) {
-            l.repaintLabel(_battle.getWindow().getImageFactory());
+            AbsMetaLabelPk.paintPk(_battle.getWindow().getImageFactory(), l);
         }
     }
 
@@ -102,12 +103,12 @@ public class TargetsPanel {
             container = compoFactory.newGrid(0, 2);
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
@@ -117,22 +118,22 @@ public class TargetsPanel {
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX + 1)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX + 1));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX + 1).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX + 1)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX + 1));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX + 1).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
@@ -143,7 +144,7 @@ public class TargetsPanel {
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
@@ -151,22 +152,22 @@ public class TargetsPanel {
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+1));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+1).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+2));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+2).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+1));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+1).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
@@ -174,7 +175,7 @@ public class TargetsPanel {
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+2));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+2).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
@@ -185,46 +186,46 @@ public class TargetsPanel {
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+1));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+1).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+2));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+2).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (foeTargets.isValidIndex(IndexConstants.FIRST_INDEX+3)) {
-                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+3));
+                container.add(foeTargets.get(IndexConstants.FIRST_INDEX+3).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+1)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+1));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+1).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+2)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+2));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+2).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }
             if (playerTargets.isValidIndex(IndexConstants.FIRST_INDEX+3)) {
-                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+3));
+                container.add(playerTargets.get(IndexConstants.FIRST_INDEX+3).getPaintableLabel());
             } else {
                 container.add(compoFactory.newPlainLabel(DataBase.EMPTY_STRING));
             }

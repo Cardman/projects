@@ -1,6 +1,5 @@
 package code.minirts;
 
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
@@ -8,7 +7,7 @@ import code.minirts.rts.Soldier;
 
 
 
-public final class UnitSoldier extends AbsMetaLabel {
+public final class UnitSoldier extends AbsMetaLabelRts {
 
     private final Soldier soldier;
 

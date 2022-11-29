@@ -23,6 +23,12 @@ public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
     }
 
     @Override
+    public AbsCustCellRender fwd() {
+        setList(getListGr().getList());
+        return this;
+    }
+
+    @Override
     public AbstractImageFactory getImageFactory() {
         return window.getImageFactory();
     }

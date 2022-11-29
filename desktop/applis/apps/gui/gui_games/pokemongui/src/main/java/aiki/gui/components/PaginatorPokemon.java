@@ -429,7 +429,7 @@ public final class PaginatorPokemon extends Paginator {
         getHeader().addString(h_, secondCol_+thirdCol_);
         int w_ = getHeader().width(getMessages().getVal(CST_ITEM));
         getHeader().setPreferredSize(new MetaDimension(w_+secondCol_+thirdCol_, HEIGTH_CHARS+HEIGTH_CHARS));
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageFirstBox());
@@ -683,12 +683,12 @@ public final class PaginatorPokemon extends Paginator {
 //        header_.addString(getMessages().getVal(GENDER), maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixLevel_);
         //header_.setPreferredSize(new Dimension(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixLevel_ + maxPixGender_,10));
 //        results.add(new JLabel(POKEMON));
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         for (PokemonLabel l: list_) {
-            l.repaintLabel(getMain().getImageFactory());
+            AbsMetaLabelPk.paintPk(getMain().getImageFactory(), l);
             //l.setGenderCoord(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixItem_);
             //l.setPreferredSize(new Dimension(maxPixName_ + maxPixAbility_ + maxPixItem_ + maxPixLevel_ + maxPixGender_,10));
-            results.add(l);
+            results.add(l.getPaintableLabel());
             getResultsLabels().add(l);
         }
     }

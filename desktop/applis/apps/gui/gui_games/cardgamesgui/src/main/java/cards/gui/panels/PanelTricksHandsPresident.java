@@ -1,22 +1,17 @@
 package cards.gui.panels;
 
 
-
-
 import cards.gui.WindowCards;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.events.ListenerCards;
 import cards.gui.panels.events.ListenerTricks;
-import cards.president.DealPresident;
-import cards.president.DisplayingPresident;
-import cards.president.HandPresident;
-import cards.president.TrickPresident;
-import cards.president.TricksHandsPresident;
+import cards.president.*;
 import code.gui.*;
 import code.util.CustList;
-import code.util.*;
+import code.util.IntMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -78,7 +73,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<_numberPlayers; joueur_++) {
             sousPanneau3_= window.getCompoFactory().newLineBox();
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
-                sousPanneau3_.add(c);
+                sousPanneau3_.add(c.getPaintableLabel());
             }
 //            entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
@@ -175,13 +170,14 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK, String.valueOf(o_)))
         if (trickNumber.isSelectNullCurrent()) {
+            CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
             tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers);
             hands.removeAll();
             DealPresident dealt_ = tricksHands.getDistribution();
             for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
                 AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
-                    sousPanneau4_.add(c);
+                    sousPanneau4_.add(c.getPaintableLabel());
                 }
                 hands.add(sousPanneau4_);
             }
@@ -202,7 +198,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for(HandPresident h_:tricksHands.getProgressingTrick()) {
                 AbsPanel cards_ = window.getCompoFactory().newLineBox();
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards())) {
-                    cards_.add(c);
+                    cards_.add(c.getPaintableLabel());
+                    cardsLab_.add(c);
                 }
                 if (h_.estVide()) {
                     AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
@@ -235,7 +232,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for (CoordsHands c: panels_.getKeys()) {
                 gr_.add(panels_.getVal(c));
             }
-            gr_.repaintSecondChildren(window.getImageFactory());
+            repaintCards(cardsLab_);
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
             int nbCards_ = tricksHands.getProgressingTrick().total();
@@ -249,6 +246,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             return;
         }
 //        byte numeroPli_=Byte.parseByte(o_.toString());
+        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
         int numeroPli_= trickNumber.getCurrent();
         numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
         tricksHands.restoreHandsAtSelectedNumberedTrick(displayingPresident, numberPlayers, (byte) numeroPli_);
@@ -258,7 +256,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         for (byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
-                sousPanneau4_.add(c);
+                sousPanneau4_.add(c.getPaintableLabel());
             }
 //            boolean entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
@@ -295,7 +293,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for(HandPresident h_:tricks_.get(numeroPli_)) {
                 AbsPanel cards_ = window.getCompoFactory().newLineBox();
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards())) {
-                    cards_.add(c);
+                    cards_.add(c.getPaintableLabel());
+                    cardsLab_.add(c);
                 }
                 if (h_.estVide()) {
                     AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
@@ -327,7 +326,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             }
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
-            gr_.repaintSecondChildren(window.getImageFactory());
+            repaintCards(cardsLab_);
             int nbCards_ = tricks_.get(numeroPli_).total();
             int[] numerosJoueurs_=new int[nbCards_ + 1];
             for(byte indiceJoueur_ = IndexConstants.FIRST_INDEX; indiceJoueur_<=nbCards_; indiceJoueur_++) {
@@ -345,6 +344,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         CoordsHandsMap panels_ = new CoordsHandsMap();
 //        if (StringList.eq(CURRENT_TRICK,String.valueOf(o_)))
         if (trickNumber.isSelectNullCurrent()) {
+            CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
             Integer selected_ = cardNumberTrick.getCurrent();
             if (selected_ == null) {
                 return;
@@ -357,7 +357,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
                 AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
                 for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window, lg_,dealt_.hand(joueur_).getCards())) {
-                    sousPanneau4_.add(c);
+                    sousPanneau4_.add(c.getPaintableLabel());
                 }
                 hands.add(sousPanneau4_);
             }
@@ -380,7 +380,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 if(indice2_<=numeroCarte_) {
                     AbsPanel cards_ = window.getCompoFactory().newLineBox();
                     for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards())) {
-                        cards_.add(c);
+                        cards_.add(c.getPaintableLabel());
+                        cardsLab_.add(c);
                     }
                     if (h_.estVide()) {
                         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
@@ -415,7 +416,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             for (CoordsHands c: panels_.getKeys()) {
                 gr_.add(panels_.getVal(c));
             }
-            gr_.repaintSecondChildren(window.getImageFactory());
+            repaintCards(cardsLab_);
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
             parent.pack();
@@ -428,6 +429,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         if (selected_ == null) {
             return;
         }
+        CustList<AbsMetaLabelCard> cardsLab_ = new CustList<AbsMetaLabelCard>();
         numeroPli_ = tricksHands.getFilledTricksIndex(numeroPli_);
         byte numeroCarte_=(byte)(int)selected_;
         numeroCarte_--;
@@ -438,7 +440,7 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
         for(byte joueur_ = IndexConstants.FIRST_INDEX; joueur_<numberPlayers; joueur_++) {
             AbsPanel sousPanneau4_= window.getCompoFactory().newLineBox();
             for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,dealt_.hand(joueur_).getCards())) {
-                sousPanneau4_.add(c);
+                sousPanneau4_.add(c.getPaintableLabel());
             }
 //            boolean entered_ = false;
 //            for(CardPresident c: dealt_.main(joueur_))
@@ -475,7 +477,8 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
                 if(indice2_<=numeroCarte_) {
                     AbsPanel cards_ = window.getCompoFactory().newLineBox();
                     for (GraphicPresidentCard c: ContainerPresident.getGraphicCards(window,lg_,h_.getCards())) {
-                        cards_.add(c);
+                        cards_.add(c.getPaintableLabel());
+                        cardsLab_.add(c);
                     }
                     if (h_.estVide()) {
                         AbsPlainLabel etiquette2_=window.getCompoFactory().newPlainLabel(SPACE);
@@ -512,9 +515,20 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
             selectedTrick = gr_;
             cards.add(gr_,indexRem_);
         }
-        selectedTrick.repaintSecondChildren(window.getImageFactory());
+        repaintCards(cardsLab_);
         parent.pack();
 
+    }
+    private void repaintCards(CustList<AbsMetaLabelCard> _list) {
+        AbsMetaLabelCard.repaintChildren(_list, window.getImageFactory());
+//        for (GraphicPresidentCard g: _list) {
+//            int w_ = g.getWidth();
+//            int h_ = g.getHeight();
+//            AbstractImage img_ = window.getImageFactory().newImageArgb(w_, h_);
+//            img_.setFont(g);
+//            g.paintComponent(img_);
+//            g.setIcon(window.getImageFactory(),img_);
+//        }
     }
 
     public AbsPanel getContainer() {

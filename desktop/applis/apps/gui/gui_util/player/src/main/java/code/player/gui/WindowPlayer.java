@@ -118,7 +118,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         stop.addActionListener(new StopSong(this));
         actions_.add(stop);
         pane_.add(actions_);
-        scroll = getCompoFactory().newAbsScrollPane(songRend);
+        scroll = getCompoFactory().newAbsScrollPane(songRend.getPaintableLabel());
         scroll.setPreferredSize(new MetaDimension(256, 352));
         pane_.add(scroll);
         pane_.add(currentNoSong);

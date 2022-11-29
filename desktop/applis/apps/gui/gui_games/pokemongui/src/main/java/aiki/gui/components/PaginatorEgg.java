@@ -172,7 +172,7 @@ public final class PaginatorEgg extends Paginator {
         h_.append(getMessages().getVal(REMAIN_STEPS));
         getHeader().addString(h_.toString(), FIRST_PIXEL);
         getHeader().setPreferredSize(new MetaDimension(getHeader().width(h_.toString()), HEIGTH_CHARS));
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         _p.add(getMain().getCompoFactory().newAbsScrollPane(results));
         AbsPanel bottom_ = getMain().getCompoFactory().newLineBox();
         getNbResults().setValue(getFacade().getNbResultsPerPageEgg());
@@ -342,10 +342,10 @@ public final class PaginatorEgg extends Paginator {
         for (EggLabel l: list_) {
             l.setNameCoord(maxPixName_, maxPixSteps_, h_);
         }
-        results.add(getHeader());
+        results.add(getHeader().getPaintableLabel());
         for (EggLabel l: list_) {
-            l.repaintLabel(getMain().getImageFactory());
-            results.add(l);
+            AbsMetaLabelPk.paintPk(getMain().getImageFactory(), l);
+            results.add(l.getPaintableLabel());
             getResultsLabels().add(l);
         }
     }

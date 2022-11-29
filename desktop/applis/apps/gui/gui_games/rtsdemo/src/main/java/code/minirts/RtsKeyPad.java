@@ -1,6 +1,5 @@
 package code.minirts;
 
-import code.gui.AbsMetaLabel;
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
@@ -10,7 +9,7 @@ import code.minirts.rts.RtsDirection;
 
 
 
-public final class RtsKeyPad extends AbsMetaLabel {
+public final class RtsKeyPad extends AbsMetaLabelRts {
 
     private final RtsDirection direction;
 

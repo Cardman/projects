@@ -9,9 +9,9 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
     public void p1() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newPageBox();
-        p_.add(new MockPaintableLabel(new MockMetaLabel()));
+        p_.add(new MockPaintableLabelAbs());
         p_.add(new MockPlainLabel(""));
-        p_.repaintChildren(pr_.getImageFactory());
+//        p_.repaintChildren(pr_.getImageFactory());
         assertEq(2,p_.getComponentCount());
         assertSame(MockLayout.PAGE,((MockPanel)p_).getLayout());
     }
@@ -20,14 +20,16 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newLineBox();
         AbsPanel g_ = pr_.getCompoFactory().newGrid(1, 1);
-        MockPaintableLabel comp_ = new MockPaintableLabel(new MockMetaLabel());
+        MockPaintableLabelAbs comp_ = new MockPaintableLabelAbs();
         comp_.setSize(new MetaDimension(10,10));
         g_.add(comp_);
         g_.add(new MockPlainLabel(""));
         p_.add(g_);
-        p_.add(new MockPaintableLabel(new MockMetaLabel()));
-        p_.add(new MockPlainLabel(""));
-        p_.repaintSecondChildren(pr_.getImageFactory());
+        p_.add(new MockPaintableLabelAbs());
+        MockPlainLabel one_ = new MockPlainLabel("");
+        p_.add(one_,0);
+        p_.add(one_,0);
+//        p_.repaintSecondChildren(pr_.getImageFactory());
         assertEq(3,p_.getComponentCount());
     }
     @Test
@@ -44,12 +46,12 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newLineBox();
         AbsPanel g_ = pr_.getCompoFactory().newGrid(1, 1);
-        g_.add(new MockMetaLabel());
+        g_.add(new MockPaintableLabelAbs());
         g_.add(new MockPlainLabel(""));
         p_.add(g_);
-        p_.add(new MockPaintableLabel(new MockMetaLabel()));
+        p_.add(new MockPaintableLabelAbs());
         p_.add(new MockPlainLabel(""));
-        p_.repaintSecondChildren(pr_.getImageFactory());
+//        p_.repaintSecondChildren(pr_.getImageFactory());
         assertEq(3,p_.getComponentCount());
     }
     @Test
@@ -65,40 +67,30 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
     public void p6() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
-        p_.add(new MockMetaLabel(),0);
-        assertEq(1,p_.getComponentCount());
+        assertEq(0,p_.getComponentCount());
     }
     @Test
     public void p7() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
-        MockMetaLabel l_ = new MockMetaLabel();
-        p_.add(l_,0);
-        p_.add(l_,0);
-        assertEq(1,p_.getComponentCount());
+        assertEq(0,p_.getComponentCount());
     }
     @Test
     public void p8() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
-        p_.add(new MockMetaLabel(),"");
-        assertEq(1,p_.getComponentCount());
+        assertEq(0,p_.getComponentCount());
     }
     @Test
     public void p9() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
-        MockMetaLabel l_ = new MockMetaLabel();
-        p_.add(l_,"");
-        p_.add(l_,"");
-        assertEq(1,p_.getComponentCount());
+        assertEq(0,p_.getComponentCount());
     }
     @Test
     public void p10() {
         MockProgramInfosSample pr_ = init();
         AbsPanel p_ = pr_.getCompoFactory().newAbsolute();
-        p_.add(new MockMetaLabel(),"");
-        p_.remove(0);
         assertEq(0,p_.getComponentCount());
     }
     @Test
@@ -117,8 +109,11 @@ public final class MockPanelTest extends EquallableMockGuiUtil {
         MockPlainLabel l1_ = new MockPlainLabel("");
         MockPlainLabel l2_ = new MockPlainLabel("");
         p_.add(l1_,"");
+        p_.add(l1_,"");
         assertEq(-1,p_.remove(l2_));
         assertEq(1,p_.getComponentCount());
+        p_.remove(0);
+        assertEq(0,p_.getComponentCount());
     }
     @Test
     public void p13() {

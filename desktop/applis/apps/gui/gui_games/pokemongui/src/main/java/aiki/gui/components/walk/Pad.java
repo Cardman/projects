@@ -27,25 +27,25 @@ public class Pad {
         container.add(lblNewLabel_);
 
         up = new KeyPad(Direction.UP, _compoFactory);
-        container.add(up);
+        container.add(up.getPaintableLabel());
 
         AbsPlainLabel lblNewLabelSec_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelSec_);
 
         left = new KeyPad(Direction.LEFT, _compoFactory);
-        container.add(left);
+        container.add(left.getPaintableLabel());
 
         AbsPlainLabel lblNewLabelThird_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelThird_);
 
         right = new KeyPad(Direction.RIGHT, _compoFactory);
-        container.add(right);
+        container.add(right.getPaintableLabel());
 
         AbsPlainLabel lblNewLabelFour_ = _compoFactory.newPlainLabel(DataBase.EMPTY_STRING);
         container.add(lblNewLabelFour_);
 
         down = new KeyPad(Direction.DOWN, _compoFactory);
-        container.add(down);
+        container.add(down.getPaintableLabel());
     }
 
     public KeyPad getUp() {

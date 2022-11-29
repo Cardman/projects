@@ -130,11 +130,6 @@ public final class DefImage implements AbstractImage {
     }
 
     @Override
-    public void setFont(AbsMetaLabelComInt _font) {
-        graphics.setFont(((CustComponent)_font.getPaintableLabel()).getFont());
-    }
-
-    @Override
     public void drawPolygon(int[] _w, int[] _y, int _n) {
         graphics.drawPolygon(_w, _y, _n);
     }

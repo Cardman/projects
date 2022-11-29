@@ -25,9 +25,8 @@ public final class SimulationRefreshHandTarotDog implements Runnable {
         _panel.removeAll();
         String lg_ = _s.getOwner().getLanguageKey();
         for (GraphicTarotCard c: ContainerTarot.getGraphicCards(_s.getWindow(),lg_,_hand.getCards())) {
-            _panel.add(c);
+            _panel.add(c.getPaintableLabel());
         }
-        _panel.repaintChildren(_s.getOwner().getImageFactory());
         _panel.validate();
     }
 

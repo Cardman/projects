@@ -16,9 +16,6 @@ public final class ScrollPane extends CustComponent implements AbsScrollPane {
         getChildren().add(_center);
     }
 
-    public ScrollPane(AbsMetaLabelComInt _center) {
-        this(_center.getPaintableLabel());
-    }
     public ScrollPane(JScrollPane _scroll) {
         component = _scroll;
     }

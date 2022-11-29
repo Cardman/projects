@@ -1,22 +1,21 @@
 package cards.gui.panels;
 
 
-
-
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCards;
+import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
 import code.gui.AbsScrollPane;
 import code.gui.AbsTextArea;
-
 import code.gui.GuiConstants;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
-import code.util.*;
+import code.util.IntMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public class CarpetBelote {
@@ -64,7 +63,7 @@ public class CarpetBelote {
                     } else {
                         c_.cards.put(0, carte_);
                     }
-                    surPanneau_.add(carte_);
+                    surPanneau_.add(carte_.getPaintableLabel());
                 } else if (i == 4) {
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
                     c_.centerDeck = surPanneau_;
@@ -90,7 +89,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_, GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==5) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -104,7 +103,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==6) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -118,7 +117,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==8) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -132,7 +131,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==1) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -142,7 +141,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==10) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -152,7 +151,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -179,7 +178,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==2) {
                     if(c_.horaire) {
@@ -192,7 +191,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
                     jta_.append(StringUtil.concat(_pseudos.get(0),RETURN_LINE));
@@ -201,7 +200,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
                     surPanneau_.setPreferredSize(GraphicBeloteCard.getDimensionForSeveralCards(_nombre));
@@ -227,7 +226,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==2) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -241,7 +240,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==3) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -255,7 +254,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==5) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -269,7 +268,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==7) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -279,7 +278,7 @@ public class CarpetBelote {
                     panneau_.add(ascenseur_,GuiConstants.BORDER_LAYOUT_NORTH);
                     GraphicBeloteCard carte_=new GraphicBeloteCard(_lg,GuiConstants.RIGHT,true, _compoFactory);
                     carte_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-                    panneau_.add(carte_,GuiConstants.BORDER_LAYOUT_CENTER);
+                    panneau_.add(carte_.getPaintableLabel(),GuiConstants.BORDER_LAYOUT_CENTER);
                     surPanneau_.add(panneau_);
                 } else if(i==4) {
                     surPanneau_= _compoFactory.newLineBox();
@@ -301,7 +300,7 @@ public class CarpetBelote {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory(), _fact.getImages());
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());
-        centerDeck.add(cg_);
+        centerDeck.add(cg_.getPaintableLabel());
     }
 
     /**Place les dos des cartes (une pour chaque joueur) sur le tapis avant et apres chaque pli*/
@@ -309,7 +308,7 @@ public class CarpetBelote {
         for(byte joueur_=0;joueur_<_nombreDeJoueurs;joueur_++) {
             GraphicBeloteCard place_ = cards.getVal((int) joueur_);
             place_.setJeu(_lg);
-            place_.repaintLabel(_fact);
+            AbsMetaLabelCard.paintCard(_fact,place_);
         }
     }
     /**Met a jour la carte a jouer d'un joueur
@@ -317,7 +316,7 @@ public class CarpetBelote {
     public void setCarteBelote(AbstractImageFactory _fact, String _lg, byte _joueur, CardBelote _m, StringMap<StringMap<String>> _images) {
         GraphicBeloteCard place_= cards.getVal((int) _joueur);
         place_.setCarteEnJeu(_fact,_lg, _m, _images);
-        place_.repaintLabel(_fact);
+        AbsMetaLabelCard.paintCard(_fact,place_);
     }
 
     public AbsPanel getContainer() {

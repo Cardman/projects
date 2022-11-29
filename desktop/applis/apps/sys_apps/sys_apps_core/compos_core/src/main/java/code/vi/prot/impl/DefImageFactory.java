@@ -1,5 +1,6 @@
 package code.vi.prot.impl;
 
+import code.gui.AbsPreparedLabel;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 
@@ -18,6 +19,19 @@ public final class DefImageFactory implements AbstractImageFactory {
     @Override
     public AbstractImage newImageRgb(int _w, int _h) {
         return new DefImage(BufferedImage.TYPE_INT_RGB,_w,_h);
+    }
+
+    @Override
+    public AbstractImage newImageRgb(int _w, int _h, AbsPreparedLabel _component) {
+        AbstractImage buff_ = newImageRgb(_w,_h);
+        buff_.setFont(_component);
+        return buff_;
+    }
+
+    @Override
+    public AbstractImage setIcon(AbsPreparedLabel _c, AbstractImage _i) {
+        _c.setIcon(this,_i);
+        return _i;
     }
 
     @Override

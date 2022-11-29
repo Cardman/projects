@@ -8,7 +8,7 @@ import code.vi.prot.impl.DefImageFactory;
 
 import javax.swing.*;
 
-public abstract class PaintableLabelAbs extends CustComponent implements AbsPaintableLabel {
+public class PaintableLabelAbs extends CustComponent implements AbsPaintableLabel {
 
     private final JLabel label = new JLabel();
 
