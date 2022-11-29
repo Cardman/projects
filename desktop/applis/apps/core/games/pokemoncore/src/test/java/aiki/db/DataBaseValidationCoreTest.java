@@ -26,9 +26,7 @@ import aiki.map.levels.enums.EnvironmentType;
 import aiki.map.places.Place;
 import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
 import aiki.map.util.MiniMapCoordsList;
-import aiki.map.util.TileMiniMap;
 import aiki.tsts.TstsPerCentImpl;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -38,7 +36,31 @@ import code.util.core.BoolVal;
 import org.junit.Test;
 
 public final class DataBaseValidationCoreTest extends DataBaseValidationCommon {
-
+    @Test
+    public void patch() {
+        DataBase data_ = newData();
+        PokemonData p1_ = Instances.newPokemonData();
+        p1_.setGenderRep(GenderRepartition.NO_GENDER);
+        p1_.setBaseEvo(PIKACHU);
+        EvolutionStoneGender v1_ = Instances.newEvolutionStoneGender();
+        v1_.setGender(Gender.NO_GENDER);
+        p1_.getEvolutions().addEntry(PIKACHU2, v1_);
+        data_.completeMembers(PIKACHU,p1_);
+        PokemonData p2_ = Instances.newPokemonData();
+        p2_.setGenderRep(GenderRepartition.NO_GENDER);
+        p2_.setBaseEvo(PIKACHU);
+        EvolutionLevelGender v2_ = Instances.newEvolutionLevelGender();
+        v2_.setGender(Gender.NO_GENDER);
+        p2_.getEvolutions().addEntry(PIKACHU3, v2_);
+        data_.completeMembers(PIKACHU2, p2_);
+        PokemonData p3_ = Instances.newPokemonData();
+        p3_.setGenderRep(GenderRepartition.NO_GENDER);
+        p3_.setBaseEvo(PIKACHU);
+        data_.completeMembers(PIKACHU3, p3_);
+        data_.patchPartialEvos();
+        assertTrue(p1_.getEvolutions().getVal(PIKACHU2) instanceof EvolutionStoneSimple);
+        assertTrue(p2_.getEvolutions().getVal(PIKACHU3) instanceof EvolutionLevelSimple);
+    }
     @Test
     public void fail1Test() {
         DataBase data_ = newData();

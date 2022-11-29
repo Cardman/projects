@@ -909,6 +909,7 @@ public final class DocumentReaderAikiCoreUtil {
         if (!_l.get()) {
             return;
         }
+        data_.patchPartialEvos();
         data_.validate(_p, _l,_f.getSexList());
         if (!_l.get() || data_.isError()) {
             if (data_.isError()) {

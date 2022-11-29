@@ -20,8 +20,7 @@ import aiki.fight.pokemon.PokemonData;
 import aiki.fight.pokemon.PokemonFamily;
 import aiki.fight.pokemon.enums.ExpType;
 import aiki.fight.pokemon.enums.GenderRepartition;
-import aiki.fight.pokemon.evolution.Evolution;
-import aiki.fight.pokemon.evolution.EvolutionMove;
+import aiki.fight.pokemon.evolution.*;
 import aiki.fight.status.Status;
 import aiki.fight.status.StatusType;
 import aiki.fight.util.LevelMove;
@@ -1004,6 +1003,22 @@ public class DataBase {
         }
         if (!StringUtil.equalsSet(allPokemon_, pokedex.getKeys())) {
             setError(true);
+        }
+    }
+    public void patchPartialEvos() {
+        for (EntryCust<String, PokemonData> p: getPokedex().entryList()) {
+            for (EntryCust<String,Evolution> e: p.getValue().getEvolutions().entryList()) {
+                if (e.getValue() instanceof EvolutionStoneGender) {
+                    EvolutionStoneSimple n_ = new EvolutionStoneSimple();
+                    n_.setStone(((EvolutionStoneGender)e.getValue()).getStone());
+                    e.setValue(n_);
+                }
+                if (e.getValue() instanceof EvolutionLevelGender) {
+                    EvolutionLevelSimple n_ = new EvolutionLevelSimple();
+                    n_.setLevel(((EvolutionLevelGender)e.getValue()).getLevel());
+                    e.setValue(n_);
+                }
+            }
         }
     }
 
