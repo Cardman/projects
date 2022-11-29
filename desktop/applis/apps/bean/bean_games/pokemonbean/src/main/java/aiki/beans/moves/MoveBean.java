@@ -473,33 +473,28 @@ public class MoveBean extends CommonBean {
         return moves_;
     }
     public boolean typesDependOnWeatherAndItem() {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return !moveData_.getTypesByOwnedItem().isEmpty() && !moveData_.getTypesByWeather().isEmpty();
     }
     public boolean typesDependOnlyOnItem() {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return !moveData_.getTypesByOwnedItem().isEmpty() && moveData_.getTypesByWeather().isEmpty();
     }
     public boolean typesDependOnlyOnWeather() {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return moveData_.getTypesByOwnedItem().isEmpty() && !moveData_.getTypesByWeather().isEmpty();
     }
     public boolean isDamagingMove() {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return moveData_ instanceof DamagingMoveData;
     }
     public boolean isDamagingDirectMove() {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return WithFilterBean.direct(moveData_);
     }
     public boolean isZeroPriority() {
@@ -512,42 +507,36 @@ public class MoveBean extends CommonBean {
         return nbPrepaRound == 0;
     }
     public boolean isBeforePrimaryEffect(int _long) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return _long < moveData_.indexOfPrimaryEffect();
     }
     public boolean isPrimaryEffect(int _long) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return _long == moveData_.indexOfPrimaryEffect();
     }
     public boolean isAfterPrimaryEffect(int _long) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return _long > moveData_.indexOfPrimaryEffect();
     }
     public boolean isEndRoundEffect(int _long) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         return moveData_.getEffet(_long) instanceof EffectEndRound;
     }
 
     public boolean effPrimOrBeforeNotEndRound(int _index) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         int indPr_ = moveData_.indexOfPrimaryEffect();
         return _index <= indPr_ && !(moveData_.getEffet(_index) instanceof EffectEndRound);
     }
 
     public boolean effSecNotEndRound(int _index) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         int indPr_ = moveData_.indexOfPrimaryEffect();
         return _index > indPr_ && !(moveData_.getEffet(_index) instanceof EffectEndRound);
     }
@@ -886,9 +875,8 @@ public class MoveBean extends CommonBean {
         return targetChoice == TargetChoice.UNIQUE_IMPORTE;
     }
     public String getPage(int _long) {
-        String name_ = getForms().getValStr(CST_MOVE);
         DataBase data_ = getDataBase();
-        MoveData moveData_ = data_.getMove(name_);
+        MoveData moveData_ = data_.getMove(name);
         Effect eff_ = moveData_.getEffet(_long);
         if (eff_ instanceof EffectDamage) {
             return PAGE_DAMAGE;
