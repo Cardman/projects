@@ -1,6 +1,6 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
 import code.formathtml.Configuration;
@@ -20,7 +20,7 @@ public final class NatDocumentBlock extends NatParentBlock {
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);

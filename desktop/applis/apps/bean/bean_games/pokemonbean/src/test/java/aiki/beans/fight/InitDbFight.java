@@ -1,11 +1,9 @@
 package aiki.beans.fight;
 
 import aiki.beans.BeanPokemonCommonTs;
-import aiki.beans.CommonBean;
 import aiki.beans.InitDbBean;
 import aiki.beans.PkFight;
 import aiki.beans.facade.fight.*;
-import aiki.beans.fight.*;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.facade.enums.SelectedBoolean;
@@ -271,15 +269,15 @@ public abstract class InitDbFight extends InitDbBean {
     }
 
     public static String navigateFightPlayer(Struct _str, long... _args) {
-        return navigateFight(clickPlayerCaller(),"","",_str,_args);
+        return navigateFight(clickPlayerCaller(), "",_str,_args);
     }
 
     public static String navigateFightFoe(Struct _str, long... _args) {
-        return navigateFight(clickFoeCaller(),"","",_str,_args);
+        return navigateFight(clickFoeCaller(), "",_str,_args);
     }
 
     public static String navigateTeamFighter(Struct _str, long... _args) {
-        return navigateFight(clickTeamFighterCaller(),"","",_str,_args);
+        return navigateFight(clickTeamFighterCaller(), "",_str,_args);
     }
 
     public static NatCaller clickPlayerCaller() {
@@ -293,8 +291,9 @@ public abstract class InitDbFight extends InitDbBean {
     public static NatCaller clickTeamFighterCaller() {
         return new TeamBeanClickFighter();
     }
-    public static String navigateFight(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
-        return navigate(_caller,_url, PkScriptPagesInit.initConfFight(new Configuration()),_concat,_str,_args);
+    public static String navigateFight(NatCaller _caller, String _concat, Struct _str, long... _args) {
+        PkScriptPagesInit.initConfFight(new Configuration());
+        return navigate(_caller, _concat,_str,_args);
     }
 
     public static Struct callFighterBeanGetStatusRelatTeam(Struct _str, long... _args) {

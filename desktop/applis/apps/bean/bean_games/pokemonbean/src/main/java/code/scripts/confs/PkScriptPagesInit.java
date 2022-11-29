@@ -10,7 +10,6 @@ import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.AikiBeansMapPokemonStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.moves.effects.AikiBeansMovesEffectsStd;
-import aiki.beans.simulation.AikiBeansSimulationStd;
 import code.formathtml.Configuration;
 import code.formathtml.structs.BeanInfo;
 import code.util.CollCapacity;
@@ -147,7 +146,7 @@ private static final String DIFFICULTY="difficulty";
 private static final String EDITPOKEMON="editpokemon";
 private static final String EDITPOKEMONMOVES="editpokemonmoves";
 private static final String EDITTRAINERPOKEMON="edittrainerpokemon";
-private static final String EDIT_POKEMON_PLAYER="edit_pokemon_player";
+//private static final String EDIT_POKEMON_PLAYER="edit_pokemon_player";
 private static final String EFF="eff";
 private static final String EFFSENDING="effsending";
 //private static final String EFF_ACCURACY="eff_accuracy";
@@ -227,7 +226,7 @@ private static final String ITEMFORBATTLE="itemforbattle";
 private static final String ITEMS="items";
 private static final String LANGS="langs";
 //private static final String LEG_PK="leg_pk";
-private static final String LEVEL="level";
+//private static final String LEVEL="level";
 //private static final String LEVEL_MAP="level_map";
 private static final String LEVEL_SIMU="level_simu";
 //private static final String MOVE="move";
@@ -301,7 +300,7 @@ private static final String LEVEL_SIMU="level_simu";
 //private static final String M_CLICK_BERRY_TARGET_1="clickBerryTarget()";
 //private static final String M_CLICK_BERRY_USER_1="clickBerryUser()";
 //private static final String M_CLICK_BREAK_PROTECTION_MOVES_1="clickBreakProtectionMoves()";
-private static final String M_CLICK_BUILDING_2="clickBuilding(,)";
+//private static final String M_CLICK_BUILDING_2="clickBuilding(,)";
 //private static final String M_CLICK_CANCELLED_ABILITY_1="clickCancelledAbility()";
 //private static final String M_CLICK_CANCELLED_EFFECT_1="clickCancelledEffect()";
 //private static final String M_CLICK_CHANGING_TYPES_ABILITIES_1="clickChangingTypesAbilities()";
@@ -500,7 +499,7 @@ private static final String M_CLICK_BUILDING_2="clickBuilding(,)";
 //private static final String M_CLICK_WEATHER="clickWeather";
 //private static final String M_CLICK_WEATHER_1="clickWeather()";
 //private static final String M_DELETE_MOVES="deleteMoves";
-private static final String M_EDIT="edit";
+//private static final String M_EDIT="edit";
 //private static final String M_VALIDATE_DIFF_CHOICE="validateDiffChoice";
 //private static final String M_CANCEL_DIFF_CHOICE="cancelDiffChoice";
 //private static final String M_VALIDATE_FOE_CHOICE="validateFoeChoice";
@@ -593,7 +592,7 @@ private static final String TEAM="team";
 //private static final String WEB_HTML_MAP_ELEMENTS_SELLER_HTML="web/html/map/elements/seller.html";
 //private static final String WEB_HTML_MAP_ELEMENTS_TRAINER_MULTI_FIGHT_HTML="web/html/map/elements/trainer_multi_fight.html";
 //private static final String WEB_HTML_MAP_ELEMENTS_TRAINER_ONE_FIGHT_HTML="web/html/map/elements/trainer_one_fight.html";
-private static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
+//private static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
 //private static final String WEB_HTML_MOVES_DATA_HTML="web/html/moves/data.html";
 //private static final String WEB_HTML_MOVES_MOVES_HTML="web/html/moves/moves.html";
 //private static final String AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML="web/html/pokemon/data.html";
@@ -612,10 +611,10 @@ private static final String WEB_HTML_MAP_LEVEL_HTML="web/html/map/level.html";
 private static final String WEB_PK_HTML_POKEMON_HTML="web_pk/html/pokemon.html";
 private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.html";
 //private static final String WELCOME="welcome";
-private static final char NAV_SEP='.';
+//private static final char NAV_SEP='.';
     private PkScriptPagesInit(){
     }
-    public static StringMap<StringMap<String>> initConfData(Configuration _configuration){
+    public static void initConfData(Configuration _configuration){
         _configuration.setFirstUrl(AikiBeansStd.WEB_HTML_INDEX_HTML);
         _configuration.setPrefix(PREF);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(109));
@@ -729,7 +728,7 @@ private static final char NAV_SEP='.';
         NavBuilder.buildBeans(beans_,LANGS,AIKI_BEANS_HELP_LANGS_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
-        StringMap<StringMap<String>> nav_ = new StringMap<StringMap<String>>(new CollCapacity(351));
+//        StringMap<StringMap<String>> nav_ = new StringMap<StringMap<String>>(new CollCapacity(351));
 //        NavBuilder.buildNav(nav_,WELCOME+NAV_SEP+M_SEE_ALL_MOVES,new EntryNav(MOVES,WEB_HTML_MOVES_MOVES_HTML));
 //        NavBuilder.buildNav(nav_,WELCOME+NAV_SEP+M_SEE_LEARNT_MOVES,new EntryNav(MOVES,WEB_HTML_MOVES_MOVES_HTML));
 //        NavBuilder.buildNav(nav_,WELCOME+NAV_SEP+M_SEE_NOT_LEARNT_MOVES,new EntryNav(MOVES,WEB_HTML_MOVES_MOVES_HTML));
@@ -1006,7 +1005,7 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,HELP_FIGHT+NAV_SEP+M_CLICK_ITEMS_TYPES_DEF,new EntryNav(COMBO,WEB_HTML_ITEMS_ITEM_HTML),new EntryNav(ITEM,WEB_HTML_ITEMS_ITEM_HTML),new EntryNav(BALL,WEB_HTML_ITEMS_BALL_HTML),new EntryNav(BERRY,WEB_HTML_ITEMS_BERRY_HTML),new EntryNav(BOOST,WEB_HTML_ITEMS_BOOST_HTML),new EntryNav(EVOLVINGITEM,WEB_HTML_ITEMS_EVO_ITEM_HTML),new EntryNav(EVOLVINGSTONE,WEB_HTML_ITEMS_EVO_STONE_HTML),new EntryNav(FOSSIL,WEB_HTML_ITEMS_FOSSIL_HTML),new EntryNav(HEALINGHP,WEB_HTML_ITEMS_HEALINGHP_HTML),new EntryNav(HEALINGHPSTATUS,WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML),new EntryNav(HEALINGITEM,WEB_HTML_ITEMS_HEALINGITEM_HTML),new EntryNav(HEALINGPP,WEB_HTML_ITEMS_HEALINGPP_HTML),new EntryNav(HEALINGSTATUS,WEB_HTML_ITEMS_HEALINGSTATUS_HTML),new EntryNav(ITEMFORBATTLE,WEB_HTML_ITEMS_ITEMFORBATTLE_HTML),new EntryNav(REPEL,WEB_HTML_ITEMS_REPEL_HTML),new EntryNav(SELLINGITEM,WEB_HTML_ITEMS_SELLINGITEM_HTML));
 //        NavBuilder.buildNav(nav_,GAME_MAP+NAV_SEP+M_CLICK_LEVEL_ZERO_1,new EntryNav(LEVEL,WEB_HTML_MAP_LEVEL_HTML));
 //        NavBuilder.buildNav(nav_,GAME_MAP+NAV_SEP+M_CLICK_LEVEL_2,new EntryNav(LEVEL,WEB_HTML_MAP_LEVEL_HTML));
-        NavBuilder.buildNav(nav_,AikiBeansMapStd.BEAN_GAME_MAP+NAV_SEP+M_CLICK_BUILDING_2,new EntryNav(LEVEL,WEB_HTML_MAP_LEVEL_HTML));
+//        NavBuilder.buildNav(nav_,AikiBeansMapStd.BEAN_GAME_MAP+NAV_SEP+M_CLICK_BUILDING_2,new EntryNav(LEVEL,WEB_HTML_MAP_LEVEL_HTML));
 //        NavBuilder.buildNav(nav_,AikiBeansMapStd.BEAN_PK_TEAM+NAV_SEP+M_CLICK_NAME_2,new EntryNav(POKEMON,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML));
 //        NavBuilder.buildNav(nav_,AikiBeansMapStd.BEAN_PK_TEAM+NAV_SEP+M_CLICK_ABILITY_2,new EntryNav(ABILITY,AikiBeansAbilitiesStd.WEB_HTML_ABILITY_DATA_HTML));
 //        NavBuilder.buildNav(nav_,PK_TEAM+NAV_SEP+M_CLICK_ITEM_2,new EntryNav(ITEM,WEB_HTML_ITEMS_ITEM_HTML),new EntryNav(BALL,WEB_HTML_ITEMS_BALL_HTML),new EntryNav(BERRY,WEB_HTML_ITEMS_BERRY_HTML),new EntryNav(BOOST,WEB_HTML_ITEMS_BOOST_HTML),new EntryNav(EVOLVINGITEM,WEB_HTML_ITEMS_EVO_ITEM_HTML),new EntryNav(EVOLVINGSTONE,WEB_HTML_ITEMS_EVO_STONE_HTML),new EntryNav(FOSSIL,WEB_HTML_ITEMS_FOSSIL_HTML),new EntryNav(HEALINGHP,WEB_HTML_ITEMS_HEALINGHP_HTML),new EntryNav(HEALINGHPSTATUS,WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML),new EntryNav(HEALINGITEM,WEB_HTML_ITEMS_HEALINGITEM_HTML),new EntryNav(HEALINGPP,WEB_HTML_ITEMS_HEALINGPP_HTML),new EntryNav(HEALINGSTATUS,WEB_HTML_ITEMS_HEALINGSTATUS_HTML),new EntryNav(ITEMFORBATTLE,WEB_HTML_ITEMS_ITEMFORBATTLE_HTML),new EntryNav(REPEL,WEB_HTML_ITEMS_REPEL_HTML),new EntryNav(SELLINGITEM,WEB_HTML_ITEMS_SELLINGITEM_HTML));
@@ -1053,7 +1052,7 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,LEVEL_SIMU+NAV_SEP+M_CLICK_TILE_1,new EntryNav(SIMULATION,AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML));
 //        NavBuilder.buildNav(nav_,LEVEL_SIMU+NAV_SEP+M_CANCEL,new EntryNav(SIMULATION,AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML));
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_ADD,new EntryNav(ADD_POKEMON_PLAYER,AikiBeansSimulationStd.WEB_HTML_SIMULATION_ADDPOKEMON_HTML));
-        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_EDIT,new EntryNav(EDIT_POKEMON_PLAYER,AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML));
+//        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_EDIT,new EntryNav(EDIT_POKEMON_PLAYER,AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML));
 //        NavBuilder.buildNav(nav_,SIMULATION+NAV_SEP+M_SELECT_PK,new EntryNav(EDIT_POKEMON_PLAYER,AikiBeansSimulationStd.WEB_HTML_SIMULATION_EDITPOKEMON_HTML));
 //        NavBuilder.buildNav(nav_,ADDPOKEMON+NAV_SEP+M_CANCEL,new EntryNav(SIMULATION,AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML));
 //        NavBuilder.buildNav(nav_,ADDPOKEMON+NAV_SEP+M_ADD,new EntryNav(SIMULATION,AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML));
@@ -1128,9 +1127,8 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_POKEMON_1,new EntryNav(POKEMON,AikiBeansPokemonStd.WEB_HTML_POKEMON_DATA_HTML));
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_TM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_HM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
-        return nav_;
     }
-    public static StringMap<StringMap<String>> initConfFight(Configuration _configuration){
+    public static void initConfFight(Configuration _configuration){
         _configuration.setFirstUrl(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHT_HTML);
         _configuration.setPrefix(PREF);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(4));
@@ -1144,31 +1142,27 @@ private static final char NAV_SEP='.';
 //        NavBuilder.buildNav(nav_,FIGHT+NAV_SEP+M_CLICK_FOE,new EntryNav(TEAM,AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML));
 //        NavBuilder.buildNav(nav_,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,new EntryNav(FIGHTER,AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML));
 //        NavBuilder.buildNav(nav_,FIGHTER+NAV_SEP+M_CLICK_FIGHTER_2,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
-        return new StringMap<StringMap<String>>(new CollCapacity(0));
     }
-    public static StringMap<StringMap<String>> initConfDiff(Configuration _configuration){
+    public static void initConfDiff(Configuration _configuration){
         _configuration.setFirstUrl(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
         _configuration.setPrefix(PREF);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(2));
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
-        return new StringMap<StringMap<String>>(new CollCapacity(0));
     }
-    public static StringMap<StringMap<String>> initConfDetPk(Configuration _configuration){
+    public static void initConfDetPk(Configuration _configuration){
         _configuration.setFirstUrl(WEB_PK_HTML_POKEMON_HTML);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,POKEMON,AIKI_BEANS_GAME_POKEMON_PLAYER_BEAN);
         _configuration.setBeansInfos(beans_);
         _configuration.setPrefix(PREF);
-        return new StringMap<StringMap<String>>(new CollCapacity(0));
     }
-    public static StringMap<StringMap<String>> initConfProg(Configuration _configuration){
+    public static void initConfProg(Configuration _configuration){
         _configuration.setFirstUrl(WEB_PROG_HTML_GAMEPROG_HTML);
         StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,PROGRESSING,AIKI_BEANS_GAME_GAME_PROGRESSION_BEAN);
         _configuration.setBeansInfos(beans_);
         _configuration.setPrefix(PREF);
-        return new StringMap<StringMap<String>>(new CollCapacity(0));
     }
 }

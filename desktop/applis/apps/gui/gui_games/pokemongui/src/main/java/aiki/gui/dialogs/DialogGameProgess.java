@@ -11,7 +11,6 @@ import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -47,7 +46,7 @@ public final class DialogGameProgess {
         session = new RenderedPage(scrollSession_, _window.getFrames());
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
-        session.initializeOnlyConf(_pre, _facade.getLanguage());
+        session.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()));
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;

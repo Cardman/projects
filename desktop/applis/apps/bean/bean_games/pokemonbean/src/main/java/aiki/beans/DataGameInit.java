@@ -9,7 +9,7 @@ import code.scripts.confs.PkScriptPagesInit;
 public final class DataGameInit implements AbstractNativeInit {
     @Override
     public void initConf(Configuration _configuration, NatDualConfigurationContext _context) {
-        _context.setNavigation(PkScriptPagesInit.initConfData(_configuration));
+        PkScriptPagesInit.initConfData(_configuration);
     }
 
     @Override

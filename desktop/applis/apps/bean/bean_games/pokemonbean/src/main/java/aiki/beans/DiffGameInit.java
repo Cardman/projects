@@ -9,7 +9,7 @@ import code.scripts.confs.PkScriptPagesInit;
 public final class DiffGameInit implements AbstractNativeInit {
     @Override
     public void initConf(Configuration _configuration, NatDualConfigurationContext _context) {
-        _context.setNavigation(PkScriptPagesInit.initConfDiff(_configuration));
+        PkScriptPagesInit.initConfDiff(_configuration);
     }
 
     @Override

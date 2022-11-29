@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatLoopBlockStack;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.variables.VariableWrapperNat;
@@ -33,7 +33,7 @@ public final class NatRendForEachTable extends NatParentBlock {
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatLoopBlockStack c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
             RendBlockHelp.processVisitedLoop(this, _rendStack);
@@ -58,7 +58,7 @@ public final class NatRendForEachTable extends NatParentBlock {
         processLastElementLoop(l_, _rendStack);
     }
 
-    public static NatLoopBlockStack addedStack(NatImportingPage _nip, Struct _its, long _length, Argument _arg, NatParentBlock _block) {
+    public static NatLoopBlockStack addedStack(NatImportingPageAbs _nip, Struct _its, long _length, Argument _arg, NatParentBlock _block) {
         NatLoopBlockStack nl_ = stElt(_its, _length, _arg, _block);
         _nip.addBlock(nl_);
         return nl_;
@@ -83,7 +83,7 @@ public final class NatRendForEachTable extends NatParentBlock {
     }
 
     public void processLastElementLoop(NatLoopBlockStack _loopBlock, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<VariableWrapperNat> varsInfos_ = ip_.getRefParams();
         ConditionReturn has_ = iteratorHasNext(_loopBlock);
@@ -98,7 +98,7 @@ public final class NatRendForEachTable extends NatParentBlock {
                               StringMap<LoopVariable> _vars, StringMap<VariableWrapperNat> _varsInfos, NatRendStackCall _rendStackCall) {
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
         Struct iterator_ = _l.getContent().getStructIterator();
-        NatImportingPage call_ = _rendStackCall.getLastPage();
+        NatImportingPageAbs call_ = _rendStackCall.getLastPage();
         Argument nextPair_ = RendBlockHelp.nextCom(iterator_);
         Struct value_ = nextPair_.getStruct();
         Argument arg_ = RendBlockHelp.first(value_);
@@ -114,7 +114,7 @@ public final class NatRendForEachTable extends NatParentBlock {
         call_.getRendReadWrite().setRead(getFirstChild());
     }
 
-    public void removeAllVars(NatImportingPage _ip) {
+    public void removeAllVars(NatImportingPageAbs _ip) {
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableNameFirst);
         v_.removeKey(variableNameSecond);

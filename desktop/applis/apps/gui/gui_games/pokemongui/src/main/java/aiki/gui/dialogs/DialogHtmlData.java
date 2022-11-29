@@ -11,7 +11,6 @@ import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsFrameFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
@@ -111,7 +110,7 @@ public final class DialogHtmlData {
     public void initSession(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        session.initializeOnlyConf(_pre, _lg);
+        session.initializeOnlyConf(_pre, _lg, ((PokemonStandards)_pre.getBeanNatLgNames()));
 
         absDialog.setVisible(true);
     }

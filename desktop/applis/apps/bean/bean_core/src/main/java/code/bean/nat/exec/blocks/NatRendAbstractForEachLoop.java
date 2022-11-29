@@ -1,10 +1,7 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.exec.NatAbstractStask;
-import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatLoopBlockStack;
-import code.bean.nat.exec.NatRendStackCall;
+import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.expressionlanguage.Argument;
@@ -31,7 +28,7 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatAbstractStask c_ = ip_.getLastLoopIfPossible(this);
         if (c_ != null) {
             RendBlockHelp.processVisitedLoop(this, _rendStack);
@@ -50,7 +47,7 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
         processLastElementLoop(l_, _rendStack);
     }
     protected void putVar(NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         Struct struct_ = NullStruct.NULL_VALUE;
         ip_.putValueVar(getVariableName(), new VariableWrapperNat(struct_));
     }
@@ -61,7 +58,7 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
     }
 
     public void processLastElementLoop(NatLoopBlockStack _loopBlock, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         StringMap<LoopVariable> vars_ = ip_.getVars();
         StringMap<VariableWrapperNat> varsInfos_ = ip_.getRefParams();
         ConditionReturn hasNext_ = hasNext(_loopBlock);
@@ -76,7 +73,7 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
                                StringMap<LoopVariable> _vars,
                                StringMap<VariableWrapperNat> _varsInfos, NatRendStackCall _rendStackCall) {
         _l.getContent().setIndex(_l.getContent().getIndex() + 1);
-        NatImportingPage abs_ = _rendStackCall.getLastPage();
+        NatImportingPageAbs abs_ = _rendStackCall.getLastPage();
 
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
@@ -123,7 +120,7 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
         return variableName;
     }
 
-    public void removeAllVars(NatImportingPage _ip) {
+    public void removeAllVars(NatImportingPageAbs _ip) {
         StringMap<LoopVariable> v_ = _ip.getVars();
         v_.removeKey(variableName);
         _ip.removeRefVar(variableName);

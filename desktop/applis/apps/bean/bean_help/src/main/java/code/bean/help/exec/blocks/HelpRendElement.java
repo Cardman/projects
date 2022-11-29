@@ -1,6 +1,6 @@
 package code.bean.help.exec.blocks;
 
-import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatExecTextPart;
@@ -29,7 +29,7 @@ public abstract class HelpRendElement extends NatParentBlock implements RendElem
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
             HelpRendBlockHelp.processBlockAndRemove(_rendStack, this);

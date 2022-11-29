@@ -1,6 +1,5 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
@@ -185,32 +184,19 @@ public final class AnaRendBlockHelp {
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElse()))) {
             return new NatAnaRendElseCondition();
         }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSubmit()))) {
-            return new NatAnaRendSubmit(_elt);
-        }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordAnchor())) {
-            String href_ = _elt.getAttribute(StringUtil.concat(_prefix,_rendKeyWords.getAttrCommand()));
-            if (href_.isEmpty()) {
-                return new NatAnaRendInactiveAnchor(_elt);
-            }
-            return new NatAnaRendAnchor(_elt);
-        }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordImg())) {
-            return new NatAnaRendImg(_elt);
+            return new NatAnaRendImg(_elt,_builder);
         }
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordLink())) {
-            return new NatAnaRendLink(_elt);
+            return new NatAnaRendLink(_elt,_builder);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImg()))) {
-            return new NatAnaRendEscImg(_elt);
-        }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordForm())) {
-            return new NatAnaRendForm(_elt);
+            return new NatAnaRendEscImg(_elt,_builder);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordMessage()))) {
             return new NatAnaRendMessage(_elt);
         }
-        return input(_prefix, _rendKeyWords, _elt, _builder);
+        return input(_prefix, _rendKeyWords, _elt, _builder,_caller);
     }
 
     private static NatAnaRendParentBlock collection(RendKeyWords _rendKeyWords, BeanNatCommonLgNames _caller, Element _elt) {
@@ -231,46 +217,16 @@ public final class AnaRendBlockHelp {
         );
     }
 
-    private static NatAnaRendBlock input(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatBlockBuilder _builder) {
+    private static NatAnaRendBlock input(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatBlockBuilder _builder, BeanNatCommonLgNames _caller) {
         String tagName_ = _elt.getTagName();
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSelect()))) {
-            return new NatAnaRendSelect(_elt);
-        }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordInput())) {
-            if (StringUtil.quickEq(_elt.getAttribute(_rendKeyWords.getAttrType()), _rendKeyWords.getValueRadio())) {
-                return new NatAnaRendInput(_elt, true);
-            }
-            return new NatAnaRendInput(_elt, false);
-        }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordSpan()) && !_elt.getAttribute(StringUtil.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
-            return new NatAnaRendSpan(_elt);
-        }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordAnchor()))) {
-            return new NatAnaRendTitledAnchor(_elt);
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
+            return new NatAnaRendImport(_elt, _caller);
         }
         return _builder.defBlock(_prefix, _rendKeyWords, _elt);
     }
 
-    public static NatAnaRendBlock defBlock(String _prefix, RendKeyWords _rendKeyWords, Element _elt, AbstractNatImpLgNames _natImpLgNames) {
-        String tagName_ = _elt.getTagName();
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordImport()))) {
-            return new NatAnaRendImport(_elt, _natImpLgNames);
-        }
-        return new NatAnaRendStdElement(_elt);
-    }
-
     private static String newOffsetStringInfo(Element _elt, String _key) {
         return _elt.getAttribute(_key);
-    }
-
-    public static String lookForVar(StringList _varNames) {
-        String varLoc_ = TMP_LOC;
-        int indexLoc_ = 0;
-        while (StringUtil.contains(_varNames,varLoc_)) {
-            varLoc_ = StringUtil.concatNbs(TMP_LOC,indexLoc_);
-            indexLoc_++;
-        }
-        return varLoc_;
     }
 
     public static String tryGetContent(String _loc, String _relative, StringMap<String> _files, NatAnalyzingDoc _anaDoc) {

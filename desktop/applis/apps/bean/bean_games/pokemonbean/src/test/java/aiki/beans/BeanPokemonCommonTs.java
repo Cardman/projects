@@ -27,9 +27,29 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
 
-    public static String navigate(NatCaller _caller, String _url, StringMap<StringMap<String>> _navigation, String _concat, Struct _str, long... _args) {
+    public static String navigate(NatCaller _caller, String _concat, Struct _str, long... _args) {
         Struct res_ = callLongs(_caller, _str, _args);
-        return BeanNatCommonLgNames.getString(res_,_url,_navigation,BeanNatCommonLgNames.methName(_concat));
+//        BeanNatCommonLgNames.methName(_concat);
+        return BeanNatCommonLgNames.processString(res_);
+//        String urlDest_ = _currentUrl;
+//        assert _ret != NullStruct.NULL_VALUE;
+//        if (_ret != NullStruct.NULL_VALUE) {
+//            StringMap<String> cases_ = _navigation.getVal(_concat);
+//            String ca_ = BeanNatCommonLgNames.processString(_ret);
+//            assert cases_ == null;
+//            if (cases_ == null) {
+//                assert !ca_.isEmpty();
+////                if (ca_.isEmpty()) {
+////                    return _currentUrl;
+////                }
+//                return ca_;
+//            }
+//            urlDest_ = cases_.getVal(ca_);
+//            if (urlDest_ == null) {
+//                urlDest_ = _currentUrl;
+//            }
+//        }
+//        return urlDest_;
     }
 
 
@@ -83,19 +103,19 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         _pk.setForms(forms(_from),_to);
     }
 
-    public static void setBeanFormsBy(PokemonStandards _pk, Struct _to, Struct _from) {
-        _pk.setBeanForms(_from,_to);
-    }
+//    public static void setBeanFormsBy(PokemonStandards _pk, Struct _to, Struct _from) {
+//        _pk.setBeanForms(_from,_to);
+//    }
     public static Struct[] getLongArray(long... _ls){
         return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
     }
 
-    public static void assertSizeLongsEq(int _exp, Struct _result, int _index) {
-        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
-    }
-    public static void assertLongsEq(long _exp, Struct _result, int _index, int _second) {
-        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
-    }
+//    public static void assertSizeLongsEq(int _exp, Struct _result, int _index) {
+//        assertEq(_exp,(((NatArrayStruct)((NatArrayStruct)_result).get(_index)).getLength()));
+//    }
+//    public static void assertLongsEq(long _exp, Struct _result, int _index, int _second) {
+//        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
+//    }
 
     public static void assertEq(String _exp, Struct _result) {
         assertEq(_exp,((StringStruct)_result).getInstance());

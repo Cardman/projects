@@ -10,9 +10,6 @@ public abstract class BeanStruct extends AbNullStruct {
         bean = _bean;
     }
 
-    public StringMapObjectBase getForms() {
-        return getBean().getBaseForms();
-    }
     public Bean getBean() {
         return bean;
     }

@@ -1,7 +1,6 @@
 package code.bean.nat.exec.opers;
 
-import code.bean.nat.exec.NatArgumentsPair;
-import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.nat.fwd.opers.NatExecVariableContent;
@@ -54,7 +53,7 @@ public final class NatStdRefVariableOperation extends NatExecLeafOperation imple
 
     @Override
     public void calculate(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         VariableWrapperNat val_ = getWrapper(variableContent, ip_.getRefParams());
 //        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
 //        pair_.setWrapper(val_);

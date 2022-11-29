@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.AbstractNatImpLgNames;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
@@ -14,10 +14,10 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
 
     private NatOperationNode roots;
 
-    private final AbstractNatImpLgNames natImpLgNames;
+    private final BeanNatCommonLgNames natImpLgNames;
 
     private final CustList<NatOperationNode> fields = new CustList<NatOperationNode>();
-    NatAnaRendImport(Element _elt, AbstractNatImpLgNames _natImpLgNames) {
+    public NatAnaRendImport(Element _elt, BeanNatCommonLgNames _natImpLgNames) {
         super();
         elt = _elt;
         natImpLgNames = _natImpLgNames;
@@ -35,10 +35,8 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
                 for (Element f: c.getChildElements()) {
                     _anaDoc.setInternGlobalClass(fullName_);
                     String attribute_ = f.getAttribute(rendKeyWords_.getAttrPrepare());
-                    if (!attribute_.isEmpty()) {
-                        fields.add(NatRenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page));
-                        _anaDoc.setInternGlobalClass(AnaRendBlockHelp.EMPTY_STRING);
-                    }
+                    fields.add(NatRenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page));
+                    _anaDoc.setInternGlobalClass(AnaRendBlockHelp.EMPTY_STRING);
                 }
             }
         }
@@ -48,7 +46,7 @@ public final class NatAnaRendImport extends NatAnaRendParentBlock implements Nat
         return fields;
     }
 
-    public AbstractNatImpLgNames getNatImpLgNames() {
+    public BeanNatCommonLgNames getNatImpLgNames() {
         return natImpLgNames;
     }
 

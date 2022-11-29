@@ -26,16 +26,6 @@ public abstract class NatAbstractAffectOperation extends NatExecMethodOperation 
         return ((NatExecMethodOperation) root_).getChildrenNodes().last();
     }
 
-    public static NatExecOperationNode castDottedTo(NatExecOperationNode _root) {
-        NatExecOperationNode elt_;
-        if (!(_root instanceof NatAbstractDotOperation)) {
-            elt_ = _root;
-        } else {
-            elt_ = ((NatExecMethodOperation) _root).getChildrenNodes().last();
-        }
-        return elt_;
-    }
-
     public NatExecOperationNode getSettable() {
         return settable;
     }

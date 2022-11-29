@@ -1,10 +1,10 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.AbstractNatImpLgNames;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanStruct;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.stacks.RendReadWrite;
@@ -14,26 +14,28 @@ public final class NatRendImport extends NatParentBlock {
 
     private final CustList<NatExecOperationNode> textPart;
 
-    private final AbstractNatImpLgNames natImpLgNames;
+    private final BeanNatCommonLgNames natImpLgNames;
 
     private final CustList<CustList<NatExecOperationNode>> fields;
-    public NatRendImport(CustList<NatExecOperationNode> _textPart, AbstractNatImpLgNames _natImpLgNames, CustList<CustList<NatExecOperationNode>> _f) {
+    private final AbstractNatBlockBuilder bu;
+    public NatRendImport(CustList<NatExecOperationNode> _textPart, BeanNatCommonLgNames _natImpLgNames, CustList<CustList<NatExecOperationNode>> _f, AbstractNatBlockBuilder _builder) {
         this.textPart = _textPart;
         natImpLgNames = _natImpLgNames;
         fields = _f;
+        bu = _builder;
     }
 
     @Override
     public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = _rendStack.getLastPage();
+        NatImportingPageAbs ip_ = _rendStack.getLastPage();
         if (ip_.matchStatement(this)) {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);
             return;
         }
         String pageName_ = BeanNatCommonLgNames.processString(BeanNatCommonLgNames.getAllArgs(textPart,_rendStack).lastValue().getArgument());
-        NatDocumentBlock val_ = ((BeanNatCommonLgNames)natImpLgNames).getRenders().getVal(pageName_);
+        NatDocumentBlock val_ = natImpLgNames.getRenders().getVal(pageName_);
         String beanName_ = val_.getBeanName();
-        Struct newBean_ = ((BeanNatCommonLgNames)natImpLgNames).getBeansStruct().getVal(beanName_);
+        Struct newBean_ = natImpLgNames.getBeansStruct().getVal(beanName_);
         Struct mainBean_ = _rendStack.getMainBean();
         natImpLgNames.setBeanForms(mainBean_,
                 newBean_);
@@ -43,7 +45,7 @@ public final class NatRendImport extends NatParentBlock {
             ip_.setInternGlobal(null);
         }
         beforeDisp(newBean_);
-        NatImportingPage newIp_ = newImportingPage(ip_, val_, beanName_, _rendStack.getFormParts());
+        NatImportingPageAbs newIp_ = newImportingPage(ip_, val_, beanName_,_rendStack, bu);
         newIp_.setGlobalArgumentStruct(newBean_);
         NatIfStack if_ = new NatIfStack();
         if_.setLastBlock(this);
@@ -54,11 +56,10 @@ public final class NatRendImport extends NatParentBlock {
         _rendStack.addPage(newIp_);
     }
 
-    public static NatImportingPage newImportingPage(NatImportingPage _ip, NatDocumentBlock _val, String _beanName, NatFormParts _formParts) {
-        NatImportingPage newIp_ = new NatImportingPage();
+    public static NatImportingPageAbs newImportingPage(NatImportingPageAbs _ip, NatDocumentBlock _val, String _beanName, NatRendStackCall _rendStack, AbstractNatBlockBuilder _bu) {
+        NatImportingPageAbs newIp_ = _bu.fwd();
         newIp_.setBeanName(_beanName);
-        NatRendReadWrite rwLoc_ = new NatRendReadWrite();
-        rwLoc_.setConf(_formParts);
+        NatRendReadWrite rwLoc_ = _ip.newNatRendReadWrite(_rendStack);
         RendReadWrite rw_ = _ip.getRendReadWrite();
         rwLoc_.setDocument(rw_.getDocument());
         rwLoc_.setWrite(rw_.getWrite());

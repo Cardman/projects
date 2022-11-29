@@ -27,14 +27,8 @@ public final class AffectationNatOperation extends MethodNatOperation {
     }
 
     public static NatSettableElResult castDottedTo(NatOperationNode _root) {
-        NatSettableElResult elt_;
-        if (!(_root instanceof AbstractDotNatOperation)) {
-            elt_ = castTo(_root);
-        } else {
-            NatOperationNode beforeLast_ = ((MethodNatOperation)_root).getChildrenNodes().last();
-            elt_ = castTo(beforeLast_);
-        }
-        return elt_;
+        NatOperationNode beforeLast_ = ((MethodNatOperation)_root).getChildrenNodes().last();
+        return castTo(beforeLast_);
     }
 
     public static NatOperationNode getFirstToBeAnalyzed(MethodNatOperation _operation) {

@@ -11,13 +11,13 @@ public final class HelpRendBlockHelp {
     }
 
     public static void processBlockAndRemove(NatRendStackCall _rendStackCall, NatBlock _rendBlock) {
-        NatImportingPage ip_ = _rendStackCall.getLastPage();
+        NatImportingPageAbs ip_ = _rendStackCall.getLastPage();
         ip_.removeRendLastBlock();
         processBlock(_rendStackCall, _rendBlock);
     }
 
     public static void processBlock(NatRendStackCall _rendStackCall, NatBlock _rendBlock) {
-        NatImportingPage ip_ = _rendStackCall.getLastPage();
+        NatImportingPageAbs ip_ = _rendStackCall.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
         NatBlock nextSibling_ = _rendBlock.getNextSibling();
         if (nextSibling_ != null) {

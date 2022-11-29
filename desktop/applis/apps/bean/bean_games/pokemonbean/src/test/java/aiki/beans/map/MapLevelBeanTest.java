@@ -79,11 +79,11 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround5() {
-        assertEq("",callMapLevelBeanClickTileOnMap(1,11));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(1,11));
     }
     @Test
     public void clickForeGround6() {
-        assertEq("",callMapLevelBeanClickTileOnMap(2,10));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(2,10));
     }
     @Test
     public void clickForeGround7() {
@@ -131,15 +131,15 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround15() {
-        assertEq("",callMapLevelBeanClickTileOnMapTwice(1,12,12));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,12));
     }
     @Test
     public void clickForeGround17() {
-        assertEq("",callMapLevelBeanClickTileOnMapTwice(1,12,8));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,8));
     }
     @Test
     public void clickForeGround18() {
-        assertEq("",callMapLevelBeanClickTileOnMapTwice(1,12,6));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(1,12,6));
     }
     @Test
     public void clickForeGround19() {
@@ -151,7 +151,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround21() {
-        assertEq("",callMapLevelBeanClickTileOnMapTwice(0,12,13));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMapTwice(0,12,13));
     }
     @Test
     public void clickForeGround22() {
@@ -167,7 +167,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickForeGround25() {
-        assertEq("",callMapLevelBeanClickTileOnMap(8,0,11));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,0,11));
     }
     @Test
     public void clickForeGround26() {
@@ -251,7 +251,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
 //    }
     @Test
     public void clickTileOnMap1() {
-        assertEq("",callMapLevelBeanClickTileOnMap(4,18));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(4,18));
     }
     @Test
     public void clickTileOnMap2() {
@@ -259,15 +259,15 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickTileOnMap3() {
-        assertEq("",callMapLevelBeanClickTileOnMap(9,10));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(9,10));
     }
     @Test
     public void clickTileOnMap4() {
-        assertEq("",callMapLevelBeanClickTileOnMap(5,6));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,6));
     }
     @Test
     public void clickTileOnMap8() {
-        assertEq("",callMapLevelBeanClickTileOnMap(8,18));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(8,18));
     }
     @Test
     public void clickTileOnMap9() {
@@ -279,7 +279,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickTileOnMap11() {
-        assertEq("",callMapLevelBeanClickTileOnMap(5,8));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickTileOnMap(5,8));
     }
     @Test
     public void getWildPokemonAreas() {
@@ -315,7 +315,7 @@ public final class MapLevelBeanTest extends InitDbLevelMap {
     }
     @Test
     public void clickAreaOnMap1() {
-        assertEq("",callMapLevelBeanClickAreaOnMap(2,10));
+        assertEq(AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML,callMapLevelBeanClickAreaOnMap(2,10));
     }
     @Test
     public void clickAreaOnMap2() {

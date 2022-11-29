@@ -13,7 +13,7 @@ import code.scripts.confs.PkScriptPagesInit;
 
 public abstract class InitDbDifficultyBean extends InitDbBean {
     public static String navigateDiffChange(Struct _str, long... _args) {
-        return navigateDiff(new DifficultyBeanChange(), "","",_str,_args);
+        return navigateDiff(new DifficultyBeanChange(), "",_str,_args);
     }
 
     public static Struct callChange(Struct _str, String _args) {
@@ -21,8 +21,9 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
         return _str;
     }
 
-    public static String navigateDiff(NatCaller _caller, String _url, String _concat, Struct _str, long... _args) {
-        return navigate(_caller,_url, PkScriptPagesInit.initConfDiff(new Configuration()),_concat,_str,_args);
+    public static String navigateDiff(NatCaller _caller, String _concat, Struct _str, long... _args) {
+        PkScriptPagesInit.initConfDiff(new Configuration());
+        return navigate(_caller, _concat,_str,_args);
     }
 
     public static Struct callDifficultyBeanDamageRateLawFoeSet(Struct _str, String _args) {

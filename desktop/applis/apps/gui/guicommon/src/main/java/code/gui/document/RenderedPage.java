@@ -1,5 +1,7 @@
 package code.gui.document;
 
+import aiki.beans.BeanNatCommonLgNamesForm;
+import code.bean.nat.BeanNatCommonLgNamesInt;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -94,20 +96,20 @@ public final class RenderedPage implements ProcessingSession {
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(PreparedAnalyzed _stds) {
         navigation = _stds.getNavigation();
-        direct(_stds);
+        initDoc(_stds.getBeanNatLgNames());
     }
 
-    private void direct(PreparedAnalyzed _stds) {
-        standards = _stds.getBeanNatLgNames();
-        renderAction = new NatRenderAction(this, _stds.getBeanNatLgNames());
-        _stds.getBeanNatLgNames().initializeRendSessionDoc(navigation);
+    private void initDoc(BeanNatCommonLgNamesInt _stds) {
+        _stds.initializeRendSessionDoc(navigation);
         setupText();
     }
 
-    public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg) {
+    public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds) {
         navigation = _prepared.getNavigation();
         navigation.setLanguage(_lg);
-        direct(_prepared);
+        standards = _stds;
+        renderAction = new NatRenderAction(this, _stds);
+        initDoc(_stds);
     }
 
     public void initializeOnlyConf(AbstractContextCreator _creator,BeanCustLgNames _stds, Runnable _inst) {

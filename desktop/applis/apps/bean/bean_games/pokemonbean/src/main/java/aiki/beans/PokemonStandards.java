@@ -1,52 +1,44 @@
 package aiki.beans;
 
-import aiki.beans.facade.dto.ItemLine;
-import aiki.beans.facade.dto.MoveLine;
-import aiki.beans.facade.dto.PokemonLine;
-import aiki.beans.facade.map.dto.PlaceIndex;
+import aiki.beans.facade.dto.*;
+import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
-import aiki.beans.facade.solution.dto.PlaceTrainerDto;
-import aiki.beans.facade.solution.dto.StepDto;
-import aiki.beans.facade.solution.dto.WildPokemonDto;
-import aiki.beans.game.DifficultyCommonBean;
-import aiki.beans.validators.PositiveRateValidator;
-import aiki.beans.validators.RateValidator;
-import aiki.beans.validators.ShortValidator;
-import aiki.beans.validators.UnselectedRadio;
-import aiki.comparators.DictionaryComparator;
-import aiki.facade.FacadeGame;
-import aiki.facade.enums.SelectedBoolean;
-import aiki.fight.EndRoundMainElements;
-import aiki.fight.enums.Statistic;
-import aiki.fight.status.effects.EffectPartnerStatus;
+import aiki.beans.facade.solution.dto.*;
+import aiki.beans.game.*;
+import aiki.beans.validators.*;
+import aiki.comparators.*;
+import aiki.facade.*;
+import aiki.facade.enums.*;
+import aiki.fight.*;
+import aiki.fight.enums.*;
+import aiki.fight.status.effects.*;
 import aiki.fight.util.*;
-import aiki.game.params.enums.DifficultyModelLaw;
-import aiki.game.params.enums.DifficultyWinPointsFight;
-import aiki.map.levels.Level;
-import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.pokemon.PkTrainer;
-import aiki.map.pokemon.PokemonPlayer;
-import aiki.map.pokemon.PokemonTeam;
-import aiki.map.pokemon.WildPk;
-import aiki.map.pokemon.enums.Gender;
-import aiki.map.util.MiniMapCoords;
-import aiki.map.util.PlaceLevel;
-import aiki.util.Point;
+import aiki.game.params.enums.*;
+import aiki.map.levels.*;
+import aiki.map.levels.enums.*;
+import aiki.map.pokemon.*;
+import aiki.map.pokemon.enums.*;
+import aiki.map.util.*;
+import aiki.util.*;
 import code.bean.nat.*;
-import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatRendStackCall;
-import code.bean.nat.exec.blocks.NatDocumentBlock;
-import code.bean.nat.fwd.AbstractNatBlockBuilder;
-import code.bean.nat.fwd.AdvNatBlockBuilder;
-import code.expressionlanguage.functionid.MethodModifier;
+import code.bean.nat.exec.*;
+import code.bean.nat.exec.blocks.*;
+import code.bean.nat.exec.opers.*;
+import code.bean.nat.exec.variables.*;
+import code.bean.nat.fwd.*;
+import code.bean.validator.*;
+import code.expressionlanguage.*;
+import code.expressionlanguage.common.*;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
-import code.maths.LgInt;
-import code.maths.Rate;
+import code.formathtml.*;
+import code.formathtml.structs.*;
+import code.formathtml.util.*;
+import code.maths.*;
+import code.sml.*;
 import code.util.*;
-import code.util.core.BoolVal;
-import code.util.core.StringUtil;
-public abstract class PokemonStandards extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
+import code.util.core.*;
+public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesForm {
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
     public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
     public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";
@@ -88,7 +80,14 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
     private static final String IS_ZERO_OR_GT = "isZeroOrGt";
     private static final String ABS_NB = "absNb";
 
+    private static final String REF_TAG = "#";
+
+
     private FacadeGame dataBase;
+
+    private final StringMap<Validator> validators = new StringMap<Validator>();
+    private NatHtmlPage natPage;
+
     protected PokemonStandards(){
         getValidators().addEntry("positive_rate_validator",new PositiveRateValidator());
         getValidators().addEntry("rate_validator",new RateValidator());
@@ -147,28 +146,257 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
     }
 
     @Override
-    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = new NatImportingPage();
+    public HtmlPage getPage() {
+        return getNatPage();
+    }
+
+
+    public NatHtmlPage getNatPage() {
+        return natPage;
+    }
+
+    public void setNatPage(NatHtmlPage _nat) {
+        natPage = _nat;
+    }
+    public void processRendFormRequest(Navigation _nav, Element _elt) {
+        NatRendStackCallAdv st_ = new NatRendStackCallAdv();
+        st_.clearPages();
+        st_.setDocument(_nav.getDocument());
+        NatImportingPageAbs ip_ = new NatImportingPageForm();
+        st_.addPage(ip_);
+        long lg_ = natPage.getUrl();
+        Document doc_ = _nav.getDocument();
+        //retrieving form that is submitted
+        natPage.setForm(true);
+
+        //As soon as the form is retrieved, then process on it and exit from the loop
+
+        StringMap<Message> map_ = validateAll(natPage);
+        StringMap<String> errors_ = new StringMap<String>();
+        StringMap<StringList> errorsArgs_ = new StringMap<StringList>();
+        _nav.feedErr(map_, errors_, errorsArgs_);
+        //begin deleting previous errors
+        _nav.delPrevious(doc_, _elt);
+        //end deleting previous errors
+        if (!errors_.isEmpty()) {
+            _nav.processRendFormErrors(_elt, lg_, errors_, errorsArgs_, getPage());
+            st_.clearPages();
+            return;
+        }
+        //Setting values for bean
+        updateRendBean(natPage);
+        st_.clearPages();
+
+        //invoke application
+        processRendAnchorRequest(_nav, st_);
+    }
+
+    public StringMap<Message> validateAll(NatHtmlPage _htmlPage) {
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
+        containersMap_ = _htmlPage.getContainers();
+        long lg_ = _htmlPage.getUrl();
+        StringMap<Message> map_ = new StringMap<Message>();
+        for (EntryCust<Long, NatNodeContainer> e: containersMap_.getVal(lg_).entryList()) {
+            NodeContainer nCont_ = e.getValue();
+            NodeInformations nInfos_ = nCont_.getNodeInformation();
+            String valId_ = nInfos_.getValidator();
+            String id_ = nInfos_.getId();
+            Message messageTr_ = validate(nCont_,valId_);
+            if (messageTr_ != null) {
+                map_.put(id_, messageTr_);
+            }
+        }
+        return map_;
+    }
+
+    public static void updateRendBean(NatHtmlPage _htmlPage) {
+        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
+        containersMap_ = _htmlPage.getContainers();
+        long lg_ = _htmlPage.getUrl();
+        LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(lg_);
+        for (EntryCust<Long, NatNodeContainer> e: containers_.entryList()) {
+            NatNodeContainer nCont_ = e.getValue();
+            if (!nCont_.isEnabled()) {
+                continue;
+            }
+            Struct res_ = convert(nCont_);
+            setRendObject(e.getValue(), res_);
+        }
+    }
+
+
+    public static Struct convert(NatNodeContainer _container) {
+        String className_ = _container.getNodeInformation().getInputClass();
+        StringList values_ = _container.getValue();
+        return getStructToBeValidated(values_, className_);
+    }
+
+    public static Struct getStructToBeValidated(StringList _values, String _className) {
+        if (StringUtil.quickEq(_className,TYPE_RATE)) {
+            String value_ = BeanLgNames.oneElt(_values);
+            return new RateStruct(RateStruct.convertToRate(str(value_)));
+        }
+        if (StringUtil.quickEq(_className, STRING)) {
+            return BeanLgNames.wrapStd(_values);
+        }
+        return getStructToBeValidatedPrim(_values, _className);
+    }
+    private static Struct str(String _value) {
+        if (!Rate.isValid(_value)) {
+            return NullStruct.NULL_VALUE;
+        }
+        return new RateStruct(new Rate(_value));
+    }
+    public NatDocumentBlock getRender(String _one) {
+        return getRenders().getVal(StringUtil.getFirstToken(_one, REF_TAG));
+    }
+    public String getDest(String _one) {
+        return _one;
+    }
+
+    public static void setRendObject(NatNodeContainer _nodeContainer,
+                                     Struct _attribute) {
+        Struct obj_ = _nodeContainer.getUpdated();
+        NatCaller wr_ = _nodeContainer.getOpsWrite();
+        wr_.re(obj_,new Struct[]{_attribute});
+    }
+    public static Struct redirect(NatHtmlPage _htmlPage, NatRendStackCall _rendStack, Struct _gl){
+        Struct ret_;
+        if (_htmlPage.isForm()) {
+            int url_ = (int)_htmlPage.getUrl();
+            StringList varNames_ = _htmlPage.getFormsVars().get(url_);
+            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsFormExps().get(url_);
+            StringList args_ = _htmlPage.getFormsArgs().get(url_);
+            ret_ = redir(new Argument(_gl), varNames_, exps_, args_, _rendStack);
+        } else {
+            int url_ = (int)_htmlPage.getUrl();
+            StringList varNames_ = _htmlPage.getAnchorsVars().get(url_);
+            CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsExps().get(url_);
+            StringList args_ = _htmlPage.getAnchorsArgs().get(url_);
+            ret_= redir(new Argument(_gl), varNames_, exps_, args_, _rendStack);
+        }
+        return ret_;
+    }
+    public static void setGlobalArgumentStruct(Struct _obj, NatRendStackCall _rendStackCall) {
+        _rendStackCall.getLastPage().setGlobalArgumentStruct(_obj);
+    }
+
+    private static Struct used(NatHtmlPage _htmlPage) {
+        if (_htmlPage.isForm()) {
+            int url_ = (int)_htmlPage.getUrl();
+            return _htmlPage.getStructsForm().get(url_);
+        } else {
+            int url_ = (int)_htmlPage.getUrl();
+            return _htmlPage.getStructsAnc().get(url_);
+        }
+    }
+
+    public static Struct redir(Argument _bean, StringList _varNames, CustList<NatExecOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
+        NatImportingPageAbs ip_ = _rendStackCall.getLastPage();
+        int s_ = _varNames.size();
+        for (int i = 0; i< s_; i++) {
+            ip_.putValueVar(_varNames.get(i), new VariableWrapperNat(new LongStruct(NumberUtil.parseLongZero(_args.get(i)))));
+        }
+        Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
+        setGlobalArgumentStruct(_bean.getStruct(), _rendStackCall);
+        Argument argument_ = Argument.getNullableValue(getAllArgs(_exps, _rendStackCall).lastValue().getArgument());
+        setGlobalArgumentStruct(globalArgument_.getStruct(), _rendStackCall);
+        for (String n: _varNames) {
+            ip_.removeRefVar(n);
+        }
+        return argument_.getStruct();
+    }
+
+    public Message validate(NodeContainer _cont, String _validatorId) {
+        Validator validator_ = validators.getVal(_validatorId);
+        if (validator_ == null) {
+            return null;
+        }
+        StringList v_ = _cont.getValue();
+        return validator_.validate(v_);
+    }
+    @Override
+    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+        NatImportingPageAbs ip_ = new NatImportingPageForm();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
-        stringMapObject_.putAllMapGene(_bean);
+        stringMapObject_.putAllMapGene(form(_bean));
         String currentBeanName_;
-        NatDocumentBlock rendDocumentBlock_ = getRender(_dest,_curUrl);
+        NatDocumentBlock rendDocumentBlock_ = getRender(_dest);
         currentBeanName_ = rendDocumentBlock_.getBeanName();
         Struct bean_ = getBeanOrNull(currentBeanName_);
         setForms(stringMapObject_, bean_);
         _rendStack.clearPages();
-        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
-        return new InvokedPageOutput(getDest(_dest,_curUrl),res_);
+        ((NatRendStackCallAdv)_rendStack).getFormParts().initFormsSpec();
+        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack,ip_);
+        ((NatRendStackCallAdv)_rendStack).getHtmlPage().set(((NatRendStackCallAdv)_rendStack).getFormParts());
+        setNatPage(((NatRendStackCallAdv)_rendStack).getHtmlPage());
+        return new InvokedPageOutput(getDest(_dest),res_);
     }
+
+    static StringMapObjectBase form(Struct _bean) {
+        if (_bean instanceof PokemonBeanStruct) {
+            return ((PokemonBeanStruct)_bean).getForms();
+        }
+        return new StringMapObjectBase();
+    }
+
+    public void processRendAnchorRequest(Navigation _nav) {
+        NatRendStackCall rendStackCall_ = new NatRendStackCallAdv();
+        processRendAnchorRequest(_nav, rendStackCall_);
+    }
+    public void processRendAnchorRequest(Navigation _nav, NatRendStackCall _rendStack) {
+//        if (_ancElt == null) {
+//            return;
+//        }
+//        Configuration session_ = _nav.getSession();
+//        String actionCommand_ = _ancElt.getAttribute(StringUtil.concat(session_.getPrefix(),session_.getRendKeyWords().getAttrCommand()));
+        _rendStack.clearPages();
+        NatImportingPageAbs ip_ = new NatImportingPageForm();
+        _rendStack.addPage(ip_);
+//        int indexPoint_ = actionCommand_.indexOf(BeanLgNames.DOT);
+//        String beanName_ = actionCommand_
+//                .substring(0, indexPoint_);
+//        Struct bean_ = getBeanOrNull(beanName_);
+//        setGlobalArgumentStruct(bean_, _rendStack);
+        Struct gl_ = used(natPage);
+        Struct return_ = redirect(natPage, _rendStack, gl_);
+        //        String urlDest_ = _currentUrl;
+//        assert _ret != NullStruct.NULL_VALUE;
+//        if (_ret != NullStruct.NULL_VALUE) {
+//            StringMap<String> cases_ = _navigation.getVal(_concat);
+//            String ca_ = BeanNatCommonLgNames.processString(_ret);
+//            assert cases_ == null;
+//            if (cases_ == null) {
+//                assert !ca_.isEmpty();
+////                if (ca_.isEmpty()) {
+////                    return _currentUrl;
+////                }
+//                return ca_;
+//            }
+//            urlDest_ = cases_.getVal(ca_);
+//            if (urlDest_ == null) {
+//                urlDest_ = _currentUrl;
+//            }
+//        }
+//        return urlDest_;
+        String urlDest_ = BeanNatCommonLgNames.processString(return_);
+        proc(_nav, _rendStack, urlDest_, gl_);
+    }
+
+    public StringMap<Validator> getValidators() {
+        return validators;
+    }
+
 
     public void setForms(StringMapObject _forms, Struct _bean) {
         ((WithForms) ((PokemonBeanStruct) _bean).getBean()).setForms(_forms);
     }
 
     @Override
-    public void setBeanForms(Struct _mainBean, Struct _called) {
+    public BeanNatCommonLgNames setBeanForms(Struct _mainBean, Struct _called) {
         fwd((PokemonBeanStruct) _mainBean, (PokemonBeanStruct) _called);
+        return this;
     }
 
     public static void fwd(PokemonBeanStruct _mainBean, PokemonBeanStruct _called) {
@@ -176,6 +404,22 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
         StringMapObject formsMap_ = ((WithForms) _mainBean.getBean()).getForms();
         forms_.putAllMap(formsMap_);
     }
+
+    public void execute(boolean _form, Element _elt, Navigation _navigation) {
+        if (_form) {
+            processRendFormRequest(_navigation, _elt);
+        } else {
+            processRendAnchorRequest(_navigation);
+        }
+    }
+    public static Struct getStructToBeValidatedPrim(StringList _values, String _className) {
+        if (StringUtil.quickEq(_className,PRIM_BOOLEAN)) {
+            return BooleanStruct.of(StringUtil.quickEq(_values.first(),BeanLgNames.ON));
+        }
+        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
+        return new LongStruct(val_.getValue());
+    }
+
 
 //    public static PkTrainer toPkTrainer(Struct _inst) {
 //        if (!(_inst instanceof PkStruct)) {
@@ -900,6 +1144,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements A
 
     @Override
     protected AbstractNatBlockBuilder blockBuilder() {
-        return new AdvNatBlockBuilder(this);
+        return new AdvNatBlockBuilder();
+    }
+
+    @Override
+    protected NatRendStackCall newNatRendStackCall() {
+        return new NatRendStackCallAdv();
     }
 }

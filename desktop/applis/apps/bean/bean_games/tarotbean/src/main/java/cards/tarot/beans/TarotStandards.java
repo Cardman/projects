@@ -1,21 +1,16 @@
 package cards.tarot.beans;
 
-import cards.consts.beans.LineDealStruct;
-import cards.tarot.ResultsTarot;
-import cards.tarot.RulesTarot;
+import cards.consts.beans.*;
+import cards.tarot.*;
 import code.bean.nat.*;
-import code.bean.nat.exec.NatImportingPage;
-import code.bean.nat.exec.NatRendStackCall;
-import code.bean.nat.exec.blocks.NatDocumentBlock;
-import code.bean.nat.fwd.AbstractNatBlockBuilder;
-import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.expressionlanguage.functionid.MethodModifier;
+import code.bean.nat.exec.*;
+import code.bean.nat.exec.blocks.*;
+import code.bean.nat.fwd.*;
+import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
-import code.util.CustList;
-import code.util.EntryCust;
-import code.util.StringMap;
-import code.util.core.StringUtil;
+import code.formathtml.*;
+import code.util.*;
+import code.util.core.*;
 public abstract class TarotStandards extends BeanNatCommonLgNames {
     protected static final String TYPE_TAROT_BEAN = "cards.tarot.beans.TarotBean";
     static final String TYPE_RATE = "$Rate";
@@ -132,12 +127,12 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     }
 
     @Override
-    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = new NatImportingPage();
+    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+        NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
         _rendStack.clearPages();
-        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
+        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack,ip_);
         return new InvokedPageOutput(_dest,res_);
     }
 
@@ -230,5 +225,10 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     @Override
     protected AbstractNatBlockBuilder blockBuilder() {
         return new DefNatBlockBuilder();
+    }
+
+    @Override
+    protected NatRendStackCall newNatRendStackCall() {
+        return new NatRendStackCall();
     }
 }

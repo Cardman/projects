@@ -1,13 +1,13 @@
 package code.gui.document;
 
-import code.bean.nat.BeanNatCommonLgNames;
+import aiki.beans.BeanNatCommonLgNamesForm;
 import code.sml.Element;
 
 public final class NatRenderAction implements AbstractRenderAction {
     private final RenderedPage render;
-    private final BeanNatCommonLgNames std;
+    private final BeanNatCommonLgNamesForm std;
 
-    public NatRenderAction(RenderedPage _re, BeanNatCommonLgNames _stds) {
+    public NatRenderAction(RenderedPage _re, BeanNatCommonLgNamesForm _stds) {
         render = _re;
         std = _stds;
     }

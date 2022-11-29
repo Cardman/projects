@@ -2,6 +2,7 @@ package aiki.beans;
 
 import code.bean.Bean;
 import code.bean.nat.BeanStruct;
+import code.bean.nat.StringMapObjectBase;
 
 public final class PokemonBeanStruct extends BeanStruct {
 
@@ -11,6 +12,10 @@ public final class PokemonBeanStruct extends BeanStruct {
 
     public Bean getInstance() {
         return getBean();
+    }
+
+    public StringMapObjectBase getForms() {
+        return ((CommonBean)getBean()).getBaseForms();
     }
 
 

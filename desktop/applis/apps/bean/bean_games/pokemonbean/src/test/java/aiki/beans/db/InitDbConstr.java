@@ -4,7 +4,6 @@ import aiki.beans.*;
 import aiki.beans.effects.*;
 import aiki.beans.facade.map.dto.PlaceIndexGetPlace;
 import aiki.beans.facade.map.dto.PlaceIndexIndexGet;
-import aiki.beans.map.*;
 import aiki.beans.simulation.SimulationBeanSelectedTeamNumberGet;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
@@ -29,7 +28,6 @@ import aiki.map.characters.Person;
 import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
-import aiki.util.Point;
 import code.bean.nat.NatCaller;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
@@ -173,11 +171,10 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String ST_SPEED_TR="ST_SPEED_TR";
     protected static final String ST_HP_TR="ST_HP_TR";
     public static String navigateData(NatCaller _caller, Struct _str, long... _args) {
-        return navigateData(_caller,"",_str,_args);
+        PkScriptPagesInit.initConfData(new Configuration());
+        return navigate(_caller, "", _str, _args);
     }
-    public static String navigateData(NatCaller _caller, String _url, Struct _str, long... _args) {
-        return navigate(_caller,_url, PkScriptPagesInit.initConfData(new Configuration()),"",_str,_args);
-    }
+
     public static Struct callEffectWhileSendingBeanEffectSet(Struct _str, Struct _args) {
         return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);
     }

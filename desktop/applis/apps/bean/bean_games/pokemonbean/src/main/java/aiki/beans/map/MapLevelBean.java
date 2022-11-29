@@ -420,9 +420,10 @@ public class MapLevelBean extends AbsLevelBean {
             getForms().put(CST_AREA, _app);
             return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;
         }
-        return whenNoTile(_pt,_p, getForms());
+        whenNoTile(_pt,_p, getForms());
+        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
     }
-    static String whenNoTile(Point _pt, Place _p, StringMapObject _map) {
+    static void whenNoTile(Point _pt, Place _p, StringMapObject _map) {
         Coords co_ = _map.getValCoords(CST_COORDS);
         if (_p instanceof InitializedPlace && !co_.isInside()) {
             InitializedPlace i_ = (InitializedPlace) _p;
@@ -433,7 +434,7 @@ public class MapLevelBean extends AbsLevelBean {
                     if (Point.eq(moved_,p.getPlaceInterConnect().getSource()) && d == p.getPlaceInterConnect().getDir().getOpposite()) {
                         Coords c_ = p.getCoords();
                         _map.put(CST_COORDS,c_);
-                        return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
+                        return;
                     }
                 }
             }
@@ -445,7 +446,6 @@ public class MapLevelBean extends AbsLevelBean {
 //                }
 //            }
         }
-        return DataBase.EMPTY_STRING;
     }
 
 //    private IdList<Direction> points(Point _pt, InitializedPlace _i) {

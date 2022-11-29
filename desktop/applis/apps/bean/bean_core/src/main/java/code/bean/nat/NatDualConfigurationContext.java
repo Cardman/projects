@@ -16,8 +16,6 @@ public class NatDualConfigurationContext {
     private StringList addedFiles = new StringList();
     private StringList renderFiles = new StringList();
 
-    private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
-
     public NatDualConfigurationContext() {
         setAddedFiles(new StringList());
         setRenderFiles(new StringList());
@@ -89,14 +87,6 @@ public class NatDualConfigurationContext {
 
     public void setRenderFiles(StringList _renderFiles) {
         this.renderFiles = _renderFiles;
-    }
-
-    public StringMap<StringMap<String>> getNavigation() {
-        return navigation;
-    }
-
-    public void setNavigation(StringMap<StringMap<String>> _navigation) {
-        navigation = _navigation;
     }
 
 }

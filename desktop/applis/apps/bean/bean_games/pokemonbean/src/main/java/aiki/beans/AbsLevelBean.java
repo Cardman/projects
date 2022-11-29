@@ -107,7 +107,7 @@ public abstract class AbsLevelBean extends CommonBean {
         DataBase data_ = getDataBase();
         AreaApparition app_ = data_.getMap().getAreaByCoords(cp_);
         if (app_.isVirtual()) {
-            return "";
+            return AikiBeansMapElementsStd.WEB_HTML_MAP_LEVEL_HTML;
         }
         getForms().put(CST_AREA,app_);
         return AikiBeansMapElementsStd.WEB_HTML_MAP_ELEMENTS_AREA_HTML;

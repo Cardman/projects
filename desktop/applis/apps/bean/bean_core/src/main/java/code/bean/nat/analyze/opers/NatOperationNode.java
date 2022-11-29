@@ -3,6 +3,8 @@ package code.bean.nat.analyze.opers;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
+import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
@@ -37,13 +39,18 @@ public abstract class NatOperationNode {
     public abstract void analyze(NatAnalyzedCode _page);
 
     public static NatOperationNode createOperationNode(int _index,
-                                                       int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
-        return createOperationNodeBis(_index, _indexChild, _m, _op, _page);
+                                                       int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page, NatAnalyzingDoc _builder) {
+        return createOperationNodeBis(_index, _indexChild, _m, _op, _page,_builder);
     }
     private static NatOperationNode createOperationNodeBis(int _index,
-                                                           int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
+                                                           int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page, NatAnalyzingDoc _builder) {
         if (_op.getOpersNat().isEmpty()) {
-            return createLeaf(_index, _indexChild, _m, _op, _page);
+            String originalStr_ = _op.getValNat().getValue(IndexConstants.FIRST_INDEX);
+            String str_ = originalStr_.trim();
+            if (_builder.isInternGlobal() && StringUtil.quickEq(str_, NatRenderAnalysis.INTERN)) {
+                return new InternGlobalNatOperation(_index, _indexChild, _m, _op, _builder.getInternGlobalClass());
+            }
+            return NatOperationNode.createLeaf(_index, _indexChild, _m, _op, _page);
         }
         if (_op.getPrioNat() == NatElResolver.FCT_OPER_PRIO && _op.isCallDbArray()) {
             String fctName_ = _op.getFctName().trim();
@@ -62,7 +69,7 @@ public abstract class NatOperationNode {
         return new AffectationNatOperation(_index, _indexChild, _m, _op);
     }
 
-    private static NatOperationNode createLeaf(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
+    public static NatOperationNode createLeaf(int _index, int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzedCode _page) {
         String originalStr_ = _op.getValNat().getValue(IndexConstants.FIRST_INDEX);
         String str_ = originalStr_.trim();
         if (_m instanceof AbstractDotNatOperation) {

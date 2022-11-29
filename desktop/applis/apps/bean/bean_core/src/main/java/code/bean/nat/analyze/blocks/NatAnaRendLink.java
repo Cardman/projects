@@ -1,6 +1,7 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.sml.Element;
 import code.util.StringList;
 import code.util.StringMap;
@@ -8,8 +9,8 @@ import code.util.StringMap;
 public final class NatAnaRendLink extends NatAnaRendElement {
     private String content;
 
-    NatAnaRendLink(Element _elt) {
-        super(_elt);
+    NatAnaRendLink(Element _elt, AbstractNatBlockBuilder _builder) {
+        super(_elt, _builder);
     }
 
     void link(Element _read, StringList _list, NatAnalyzingDoc _anaDoc) {

@@ -9,7 +9,7 @@ import code.scripts.confs.PkScriptPagesInit;
 public final class DetPkGameInit implements AbstractNativeInit {
     @Override
     public void initConf(Configuration _configuration, NatDualConfigurationContext _context) {
-        _context.setNavigation(PkScriptPagesInit.initConfDetPk(_configuration));
+        PkScriptPagesInit.initConfDetPk(_configuration);
     }
 
     @Override

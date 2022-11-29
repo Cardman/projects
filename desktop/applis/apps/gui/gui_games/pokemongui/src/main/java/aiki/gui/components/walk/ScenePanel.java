@@ -776,7 +776,7 @@ public class ScenePanel {
             return;
         }
         ((PokemonStandards)task_.getBeanNatLgNames()).setDataBase(facade);
-        receivedPk.initializeOnlyConf(task_, facade.getLanguage());
+        receivedPk.initializeOnlyConf(task_, facade.getLanguage(), ((PokemonStandards)task_.getBeanNatLgNames()));
     }
 
     public void interact() {

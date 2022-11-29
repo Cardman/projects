@@ -7,6 +7,6 @@ import code.expressionlanguage.structs.Struct;
 public class SampleBeanOneMessage implements NatCaller {
     @Override
     public Struct re(Struct _instance, Struct[] _args) {
-        return(new StringStruct("Test {0}"));
+        return(new StringStruct("Test {0}2"));
     }
 }

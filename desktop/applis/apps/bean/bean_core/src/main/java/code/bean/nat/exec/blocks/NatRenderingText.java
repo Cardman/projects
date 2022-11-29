@@ -26,22 +26,7 @@ public final class NatRenderingText {
         return str_.toString();
     }
 
-    public static StringList renderAltListNat(NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {
-        CustList<CustList<NatExecOperationNode>> opExp_ = _textPart.getOpExp();
-        StringList texts_ = _textPart.getTexts();
-        int s_ = opExp_.size();
-        StringList str_ = new StringList();
-        for (int i = 0; i < s_; i++) {
-            str_.add(texts_.get(i));
-            CustList<NatExecOperationNode> exp_ = opExp_.get(i);
-            String st_ = calculate(exp_, _rendStackCall);
-            str_.add(st_);
-        }
-        str_.add(texts_.last());
-        return str_;
-    }
-
-    private static String calculate(CustList<NatExecOperationNode> _e, NatRendStackCall _rendStackCall) {
+    public static String calculate(CustList<NatExecOperationNode> _e, NatRendStackCall _rendStackCall) {
         Argument argument_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(_e, _rendStackCall).lastValue().getArgument());
         return BeanNatCommonLgNames.processString(argument_);
     }

@@ -8,6 +8,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.util.Coords;
 import code.bean.Bean;
+import code.bean.nat.StringMapObjectBase;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
 import code.util.NatStringTreeMap;
@@ -118,6 +119,8 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected static final char CST_LEFT_PAR = '(';
     protected static final char CST_RIGHT_PAR = ')';
     protected static final char CST_PIPE_CHAR = '|';
+
+    private StringMapObjectBase baseForms;
 
     private FacadeGame dataBase;
 
@@ -267,4 +270,13 @@ public abstract class CommonBean extends Bean implements WithFacade,WithForms {
     protected String tryRedirectSt(String _key, String _name, String _target, String _def) {
         return AbsRedirect.tryRedirect(this,new RedirectSt(_name,_def),_key,_target);
     }
+
+    public StringMapObjectBase getBaseForms() {
+        return baseForms;
+    }
+
+    public void setBaseForms(StringMapObjectBase _base) {
+        this.baseForms = _base;
+    }
+
 }

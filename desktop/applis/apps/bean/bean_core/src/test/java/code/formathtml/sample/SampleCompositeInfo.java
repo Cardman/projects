@@ -10,6 +10,7 @@ public class SampleCompositeInfo implements NatCaller {
 //        if (((SampleBeanStruct)_instance).getOthers().isEmpty()) {
 //            ((SampleBeanStruct)_instance).getOthers().addEntry("",new BeanThree());
 //        }
-        return new SampleBeanStruct(((SampleBeanStruct)_instance).getComposite());
+        return _instance;
+//        return new SampleBeanStruct(((SampleBeanStruct)_instance).getComposite());
     }
 }

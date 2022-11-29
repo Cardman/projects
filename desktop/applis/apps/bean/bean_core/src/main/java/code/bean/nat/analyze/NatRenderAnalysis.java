@@ -130,14 +130,7 @@ public final class NatRenderAnalysis {
 
     public static NatOperationNode createOperationNode(int _index,
                                                        int _indexChild, MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzingDoc _analyzingDoc, NatAnalyzedCode _page) {
-        if (_op.getOpersNat().isEmpty()) {
-            String originalStr_ = _op.getValNat().getValue(IndexConstants.FIRST_INDEX);
-            String str_ = originalStr_.trim();
-            if (_analyzingDoc.isInternGlobal() && StringUtil.quickEq(str_, INTERN)) {
-                return new InternGlobalNatOperation(_index, _indexChild, _m, _op, _analyzingDoc);
-            }
-        }
-        return NatOperationNode.createOperationNode(_index, _indexChild, _m, _op, _page);
+        return NatOperationNode.createOperationNode(_index, _indexChild, _m, _op, _page,_analyzingDoc);
     }
 
 }

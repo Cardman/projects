@@ -10,8 +10,8 @@ import code.util.StringMap;
 public final class NatRendLink extends NatRendElement {
     private final String content;
 
-    public NatRendLink(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, String _content) {
-        super(_read, _execAttributes, _execAttributesText);
+    public NatRendLink(Element _read, StringMap<NatExecTextPart> _execAttributes, String _content) {
+        super(_read, _execAttributes);
         this.content = _content;
     }
 

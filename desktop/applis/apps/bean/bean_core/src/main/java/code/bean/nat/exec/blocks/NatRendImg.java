@@ -11,8 +11,8 @@ public final class NatRendImg extends NatRendElement {
 
     private final NatExecTextPart textPart;
 
-    public NatRendImg(Element _read, StringMap<NatExecTextPart> _execAttributes, StringMap<NatExecTextPart> _execAttributesText, NatExecTextPart _textPart) {
-        super(_read, _execAttributes, _execAttributesText);
+    public NatRendImg(Element _read, StringMap<NatExecTextPart> _execAttributes, NatExecTextPart _textPart) {
+        super(_read, _execAttributes);
         this.textPart = _textPart;
     }
 

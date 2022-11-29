@@ -8,6 +8,7 @@ import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.exec.blocks.RendBlockHelp;
@@ -54,12 +55,12 @@ public final class HelpCaller {
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);
         NatDocumentBlock rendDocumentBlock_ = HelpRendForwardInfos.buildExec(analyzingDoc_, anaDoc_);
         rendStackCall_.init();
-        NatImportingPage ip_ = new NatImportingPage();
+        NatImportingPageAbs ip_ = new NatImportingPage();
         rendStackCall_.addPage(ip_);
         rendStackCall_.clearPages();
-        rendStackCall_.getFormParts().initFormsSpec();
+//        rendStackCall_.getFormParts().initFormsSpec();
         String beanName_ = rendDocumentBlock_.getBeanName();
-        RendBlockHelp.res(rendDocumentBlock_, _navigation.getSession(), rendStackCall_, beanName_, null);
+        RendBlockHelp.res(rendDocumentBlock_, _navigation.getSession(), rendStackCall_, beanName_, null,ip_);
         return rendStackCall_.getDocument();
     }
 

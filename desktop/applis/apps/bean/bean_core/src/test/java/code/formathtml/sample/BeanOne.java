@@ -1,14 +1,13 @@
 package code.formathtml.sample;
 
 import code.bean.Bean;
-import code.bean.nat.StringMapObjectBase;
 
 
 public class BeanOne extends Bean {
 
     public BeanOne() {
         setLanguage("");
-        setBaseForms(new StringMapObjectBase());
+//        setBaseForms(new StringMapObjectBase());
     }
 
     @Override

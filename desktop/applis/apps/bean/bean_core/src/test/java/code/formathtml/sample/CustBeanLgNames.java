@@ -3,6 +3,7 @@ package code.formathtml.sample;
 import code.bean.Bean;
 import code.bean.nat.*;
 import code.bean.nat.exec.NatImportingPage;
+import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
@@ -13,7 +14,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.util.*;
 
-public final class CustBeanLgNames extends BeanNatCommonLgNames implements AbstractNatImpLgNames {
+public final class CustBeanLgNames extends BeanNatCommonLgNames {
 
     private static final String TYPE_INTS = "code.formathtml.classes.Ints";
     private static final String GET_VALUE = "getValue";
@@ -33,6 +34,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     private static final String INTERN_METHOD = "internMethod";
     private static final String STRINGS = "strings";
     private static final String STRINGS_SEC = "strings2";
+    private static final String STRINGS_SE = "strings3";
     private static final String STRING_FCT = "string";
     private static final String MY_CHAR = "myChar";
     private static final String INTEGER = "integer";
@@ -328,18 +330,18 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         cl_ = new SpecialNatClass(TYPE_BEAN_TWO, fields_, methods_, TYPE_BEAN);
         fields_.add(new StandardField(GO_TO_PAGE2, TYPE_STRING_LIST_SEC, false, false,new CstNatCaller("page2.html"),null));
         fields_.add(new StandardField(COMPOSITE,TYPE_COMPOSITE,false,false, new SampleCompositeInfo(),null));
-        fields_.add(new StandardField(CHECKED, PRIM_BOOLEAN,false,false, new SampleBeanTwoChecked(),new SampleBeanTwoCheckedSet()));
+//        fields_.add(new StandardField(CHECKED, PRIM_BOOLEAN,false,false, new SampleBeanTwoChecked(),new SampleBeanTwoCheckedSet()));
         fields_.add(new StandardField(CHOOSE, STRING, false, false,null,null));
         fields_.add(new StandardField(CHOSEN_NUMBER, TYPE_ENUM_NUMBER, false, false,null,null));
         fields_.add(new StandardField(FIELD, STRING, false, false,null,null));
         fields_.add(new StandardField(NULLABLE_CHECKBOX, PRIM_BOOLEAN, false, false,null,null));
-        fields_.add(new StandardField(NULLABLE_INT, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
-        fields_.add(new StandardField(NULLABLE_INT_2, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
+//        fields_.add(new StandardField(NULLABLE_INT, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
+//        fields_.add(new StandardField(NULLABLE_INT_2, TYPE_RATE,false,false, new NaNuIntGet(), new NaNuIntSet()));
         fields_.add(new StandardField(RATE, TYPE_RATE, false, false,null,null));
         fields_.add(new StandardField(TYPED_INT, PRIM_INTEGER,false,false,new SampleStrFct(),new SampleStrFct()));
-        fields_.add(new StandardField(TYPED_INT2, PRIM_INTEGER,false,false,new SampleBeanTwoTypedInt(),new SampleBeanTwoTypedIntSet()));
-        fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));
-        fields_.add(new StandardField(TYPED_STRING, STRING,false,false, new SampleBeanTwoTypedString(),new SampleBeanTwoTypedStringSet()));
+//        fields_.add(new StandardField(TYPED_INT2, PRIM_INTEGER,false,false,new SampleBeanTwoTypedInt(),new SampleBeanTwoTypedIntSet()));
+//        fields_.add(new StandardField(TYPED_SHORT, PRIM_INTEGER,false,false, new SampleBeanTwoTypedShort(),new SampleBeanTwoTypedShortSet()));
+//        fields_.add(new StandardField(TYPED_STRING, STRING,false,false, new SampleBeanTwoTypedString(),new SampleBeanTwoTypedStringSet()));
         fields_.add(new StandardField(TYPED_STRING2, STRING,false,false, new SampleBeanTwoTypedString2(),new SampleBeanTwoTypedStringSet2()));
         //params_ = new StringList();
         method_ = new SpecNatMethod(GET_CHOSEN_NUMBERS, TYPE_LIST, false, MethodModifier.NORMAL, null);
@@ -565,15 +567,16 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(TYPE_COMPOSITE, fields_, methods_, OBJECT);
         fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN, false, false,null,null));
-        fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
-        fields_.add(new StandardField(INTEGER+2, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
+//        fields_.add(new StandardField(INTEGER, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
+//        fields_.add(new StandardField(INTEGER+2, PRIM_INTEGER,false,false,new SampleCompositeInteger(),new SampleCompositeIntegerSet()));
         fields_.add(new StandardField(INTEGER+0, PRIM_INTEGER,false,false,new SampleCompositeInteger0(),null));
         fields_.add(new StandardField(INTEGER+1, PRIM_INTEGER,false,false,new SampleCompositeInteger1(),null));
         fields_.add(new StandardField(MAP, TYPE_MAP, false, false,null,null));
 //        fields_.add(new StandardField(MY_CHAR, getContent().getPrimTypes().getAliasPrimChar(),false,false));
         fields_.add(new StandardField(STRING_FCT, STRING,false,false, new SampleStrFct(),new SampleStrFct()));
         fields_.add(new StandardField(STRINGS,TYPE_STRING_LIST,false,false, new SampleCompositeStrings(),null));
-        fields_.add(new StandardField(STRINGS_SEC,TYPE_STRING_LIST_SEC,false,false, new SampleCompositeStrings(),null));
+        fields_.add(new StandardField(STRINGS_SEC,TYPE_STRING_LIST_SEC,false,false, new SampleCompositeEmStrings(),null));
+        fields_.add(new StandardField(STRINGS_SE,TYPE_STRING_LIST_SEC,false,false, new SampleCompositeEmsStrings(),null));
         //params_ = new StringList();
         method_ = new SpecNatMethod(INTERN_METHOD, STRING, false, MethodModifier.NORMAL, null);
         methods_.add( method_);
@@ -819,33 +822,34 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         getStds().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
 
-    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, String _beanName, StringMapObjectBase _bean, String _language, NatRendStackCall _rendStack) {
-        NatImportingPage ip_ = new NatImportingPage();
+    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+        NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
-        StringMapObjectBase forms_ = new StringMapObjectBase();
-//        forms_.put("typedShort",0);
-//        forms_.put("typedInt2",0);
-        forms_.putAllMapBase(_bean);
-        String currentBeanName_;
-        NatDocumentBlock rendDocumentBlock_ = getRender(_dest,_curUrl);
-        currentBeanName_ = rendDocumentBlock_.getBeanName();
-        Struct bean_ = getBeanOrNull(currentBeanName_);
-        StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
-        StringMap<Struct> others_ = ((SampleBeanStruct) bean_).getOthers();
-        ((SampleBeanStruct) bean_).setForms(forms_);
-        ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
-        ((SampleBeanStruct) bean_).getOthers().addAllEntries(others_);
+//        StringMapObjectBase forms_ = new StringMapObjectBase();
+////        forms_.put("typedShort",0);
+////        forms_.put("typedInt2",0);
+//        forms_.putAllMapBase(_bean);
+//        String currentBeanName_;
+        NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
+//        currentBeanName_ = rendDocumentBlock_.getBeanName();
+//        Struct bean_ = getBeanOrNull(currentBeanName_);
+//        StringMap<Integer> oldMap_ = ((SampleBeanStruct) bean_).getMap();
+//        StringMap<Struct> others_ = ((SampleBeanStruct) bean_).getOthers();
+////        ((SampleBeanStruct) bean_).setForms(forms_);
+//        ((SampleBeanStruct) bean_).getMap().addAllEntries(oldMap_);
+//        ((SampleBeanStruct) bean_).getOthers().addAllEntries(others_);
         _rendStack.clearPages();
-        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack);
-        return new InvokedPageOutput(getDest(_dest,_curUrl),res_);
+        String res_ = getRes(rendDocumentBlock_, _conf, _rendStack,ip_);
+        return new InvokedPageOutput(_dest,res_);
     }
 
-    @Override
-    public void setBeanForms(Struct _mainBean, Struct _called) {
-        StringMapObjectBase forms_ = ((SampleBeanStruct)_called).getForms();
-        StringMapObjectBase formsMap_ = ((SampleBeanStruct)_mainBean).getForms();
-        forms_.putAllMapBase(formsMap_);
-    }
+//    @Override
+//    public BeanNatCommonLgNames setBeanForms(Struct _mainBean, Struct _called) {
+////        StringMapObjectBase forms_ = ((SampleBeanStruct)_called).getForms();
+////        StringMapObjectBase formsMap_ = ((SampleBeanStruct)_mainBean).getForms();
+////        forms_.putAllMapBase(formsMap_);
+//        return this;
+//    }
 
     @Override
     public void initBeans(Configuration _conf, String _language) {
@@ -856,7 +860,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
     }
 
     private SampleBeanStruct bean(Bean _bean) {
-        _bean.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
+//        _bean.getBaseForms().getBeansOthers().put("other",new BasicBeanStruct(new BeanThree()));
 //        _bean.getBaseForms().put("typedShort",0);
 //        _bean.getBaseForms().put("typedInt2",0);
         return (new SampleBeanStruct(_bean));
@@ -867,7 +871,12 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames implements Abstr
         return new DefNatBlockBuilder();
     }
 
-    public static NatArrayStruct getTree(AbsMap<String, Integer> _tree) {
-        return getStrInteger(_tree);
+//    public static NatArrayStruct getTree(AbsMap<String, Integer> _tree) {
+//        return getStrInteger(_tree);
+//    }
+
+    @Override
+    protected NatRendStackCall newNatRendStackCall() {
+        return new NatRendStackCall();
     }
 }

@@ -1,22 +1,20 @@
 package code.bean.nat.analyze.opers;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 
 public final class InternGlobalNatOperation extends LeafNatOperation {
-    private final NatAnalyzingDoc analyzingDoc;
+    private final String internGlobalClass;
 
     public InternGlobalNatOperation(int _indexInEl, int _indexChild,
-                                    MethodNatOperation _m, NatOperationsSequence _op, NatAnalyzingDoc _analyzingDoc) {
+                                    MethodNatOperation _m, NatOperationsSequence _op, String _intern) {
         super(_indexInEl, _indexChild, _m, _op);
-        analyzingDoc = _analyzingDoc;
+        internGlobalClass = _intern;
     }
 
     @Override
     public void analyze(NatAnalyzedCode _page) {
-        String arg_ = analyzingDoc.getInternGlobalClass();
-        setResultClass(arg_);
+        setResultClass(internGlobalClass);
     }
 
 }
