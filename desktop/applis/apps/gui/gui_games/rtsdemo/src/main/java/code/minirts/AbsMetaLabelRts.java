@@ -20,13 +20,13 @@ public abstract class AbsMetaLabelRts {
         }
     }
 
-    public static void paintRts(AbstractImageFactory _fact, AbsMetaLabelRts _carte) {
-        int w_ = _carte.getWidth();
-        int h_ = _carte.getHeight();
+    public static void paintRts(AbstractImageFactory _fact, AbsMetaLabelRts _rts) {
+        int w_ = _rts.getWidth();
+        int h_ = _rts.getHeight();
         AbstractImage img_ = _fact.newImageArgb(w_, h_);
-        img_.setFont(_carte.getPaintableLabel());
-        _carte.paintComponent(img_);
-        _carte.setIcon(_fact,img_);
+        img_.setFont(_rts.getPaintableLabel());
+        _rts.paintComponent(img_);
+        _rts.setIcon(_fact,img_);
     }
     public AbsPaintableLabel getPaintableLabel() {
         return paintableLabel;
