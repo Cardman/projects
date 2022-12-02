@@ -58,9 +58,9 @@ public class ScenePanel {
 
     private static final String SCENE_PANEL = "aiki.gui.components.walk.scenepanel";
 
-    private static final String LOCALHOST_OLD_IP = "127.0.0.1";
+//    private static final String LOCALHOST_OLD_IP = "127.0.0.1";
 
-    private static final String LOCALHOST_NEW_IP = "::1";
+//    private static final String LOCALHOST_NEW_IP = "::1";
 
     private static final String RETURN_LINE = "\n";
 
@@ -217,7 +217,7 @@ public class ScenePanel {
 
     private AbsPlainButton goBack;
 
-    private AbsPlainButton server;
+//    private AbsPlainButton server;
 
     private final AbsPlainButton attract;
     private AbsPanel movesLearnt;
