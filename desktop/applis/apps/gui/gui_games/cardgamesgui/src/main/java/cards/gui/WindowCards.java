@@ -46,7 +46,7 @@ import code.gui.events.*;
 import code.gui.images.*;
 import code.gui.initialize.*;
 //import code.gui.initialize.AbstractSocket;
-import code.network.*;
+//import code.network.*;
 //import code.network.enums.ErrorHostConnectionType;
 import code.scripts.messages.gui.*;
 import code.sml.*;
