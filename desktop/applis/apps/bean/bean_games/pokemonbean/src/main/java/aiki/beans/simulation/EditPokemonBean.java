@@ -15,6 +15,7 @@ import aiki.fight.items.Item;
 import aiki.fight.moves.MoveData;
 import code.maths.Rate;
 import code.util.*;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
 public class EditPokemonBean extends CommonBean {
@@ -136,11 +137,11 @@ public class EditPokemonBean extends CommonBean {
     }
     public String edit() {
         getForms().put(CST_ITEM_EDIT, item);
-        getForms().put(CST_POKEMON_EXPERIENCE, experience);
-        getForms().put(CST_POKEMON_HAPPINESS, happiness);
-        getForms().put(CST_POKEMON_HP, remainingHp);
+        getForms().put(CST_POKEMON_EXPERIENCE, experience.absNb());
+        getForms().put(CST_POKEMON_HAPPINESS, NumberUtil.max(happiness,0));
+        getForms().put(CST_POKEMON_HP, remainingHp.absNb());
         for (Statistic s: Statistic.getStatisticsWithBase()) {
-            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), ev.getVal(s).getEv());
+            getForms().put(StringUtil.concat(CST_POKEMON_EV_VAR,s.getStatName()), NumberUtil.max(ev.getVal(s).getEv(),0));
         }
         getForms().put(CST_HEAL_EDIT_PK, heal);
         getForms().put(CST_CATCHING_BALL, ball);

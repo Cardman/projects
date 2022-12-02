@@ -95,8 +95,8 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
             ((NatAnaRendForm)this).form(read,attributesNames_, _anaDoc, _page);
         } else if (this instanceof NatAnaRendInput) {
             ((NatAnaRendInput)this).input(read,attributesNames_, _anaDoc, _page);
-        } else if (this instanceof NatAnaRendSpan) {
-            ((NatAnaRendSpan)this).span(read,attributesNames_, _anaDoc, _page);
+//        } else if (this instanceof NatAnaRendSpan) {
+//            ((NatAnaRendSpan)this).span(read,attributesNames_, _anaDoc, _page);
         } else if (this instanceof NatAnaRendSubmit) {
             ((NatAnaRendSubmit)this).submit(read,attributesNames_, _anaDoc);
         } else if (this instanceof NatAnaRendTitledAnchor){

@@ -228,8 +228,8 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
             ((NatRendForm)this).form(_cont, created_, _rendStack);
         } else if (this instanceof NatRendInput) {
             ((NatRendInput)this).input(_cont, created_, read, _rendStack);
-        } else if (this instanceof NatRendSpan) {
-            ((NatRendSpan)this).span(_cont, created_, _rendStack);
+//        } else if (this instanceof NatRendSpan) {
+//            ((NatRendSpan)this).span(_cont, created_, _rendStack);
         } else if (this instanceof NatRendSubmit) {
             ((NatRendSubmit)this).submit(_cont, created_);
         } else if (this instanceof NatRendTitledAnchor) {

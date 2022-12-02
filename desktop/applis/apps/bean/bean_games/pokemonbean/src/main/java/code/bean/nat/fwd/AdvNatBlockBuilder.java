@@ -27,9 +27,9 @@ public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
         if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordInput())) {
             return new NatAnaRendInput(_elt, StringUtil.quickEq(_elt.getAttribute(_rendKeyWords.getAttrType()), _rendKeyWords.getValueRadio()));
         }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordSpan()) && !_elt.getAttribute(StringUtil.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
-            return new NatAnaRendSpan(_elt);
-        }
+//        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordSpan()) && !_elt.getAttribute(StringUtil.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
+//            return new NatAnaRendSpan(_elt);
+//        }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordAnchor()))) {
             return new NatAnaRendTitledAnchor(_elt);
         }
@@ -110,13 +110,13 @@ public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
             return new NatRendInput(f_.getRead(),part_,partText_,opRead_,opValue_,opsWrite_,
                     initIn(f_.getClassName(), false));
         }
-        if (_from instanceof NatAnaRendSpan){
-            NatAnaRendSpan f_ = (NatAnaRendSpan) _from;
-            StringMap<NatExecTextPart> part_ = NatRendForwardInfos.toExecPartExt(f_.getAttributes());
-            StringMap<NatExecTextPart> partText_ = NatRendForwardInfos.toExecPartExt(f_.getAttributesText());
-            NatExecTextPart partSub_ = NatRendForwardInfos.toExecPartExt(f_.getRoots(),f_.getTexts());
-            return new NatRendSpan(f_.getRead(),part_,partText_,partSub_,f_.getFormatted());
-        }
+//        if (_from instanceof NatAnaRendSpan){
+//            NatAnaRendSpan f_ = (NatAnaRendSpan) _from;
+//            StringMap<NatExecTextPart> part_ = NatRendForwardInfos.toExecPartExt(f_.getAttributes());
+//            StringMap<NatExecTextPart> partText_ = NatRendForwardInfos.toExecPartExt(f_.getAttributesText());
+//            NatExecTextPart partSub_ = NatRendForwardInfos.toExecPartExt(f_.getRoots(),f_.getTexts());
+//            return new NatRendSpan(f_.getRead(),part_,partText_,partSub_,f_.getFormatted());
+//        }
         if (_from instanceof NatAnaRendTitledAnchor){
             NatAnaRendTitledAnchor f_ = (NatAnaRendTitledAnchor) _from;
             StringMap<NatExecTextPart> part_ = NatRendForwardInfos.toExecPartExt(f_.getAttributes());

@@ -280,7 +280,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             pkPlayer_.setUsedBallCatching(ball_);
             int happy_ = getForms().getValInt(CST_POKEMON_HAPPINESS);
             getForms().removeKey(CST_POKEMON_HAPPINESS);
-            Rate hp_ = getForms().getValRate(CST_POKEMON_HP);
+            Rate hp_ = getForms().getValRate(CST_POKEMON_HP).absNb();
             getForms().removeKey(CST_POKEMON_HP);
             boolean heal_ = getForms().getValBool(CST_HEAL_EDIT_PK);
             getForms().removeKey(CST_HEAL_EDIT_PK);
@@ -292,7 +292,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
                 }
                 pkPlayer_.getEv().put(s, (short) ev_);
             }
-            if (Rate.strGreater(hp_, pkPlayer_.pvMax(data_)) || hp_.isZeroOrLt() || heal_) {
+            if (Rate.strGreater(hp_, pkPlayer_.pvMax(data_)) || heal_) {
                 pkPlayer_.setRemainingHp(pkPlayer_.pvMax(data_));
             } else {
                 pkPlayer_.setRemainingHp(hp_);
@@ -1438,7 +1438,7 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
     }
 
     public void setNbTeams(int _n) {
-        this.nbTeams = _n;
+        this.nbTeams = NumberUtil.max(_n,0);
         freeTeams = _n > 0;
         indexTeam = 0;
         foeTeams.clear();
