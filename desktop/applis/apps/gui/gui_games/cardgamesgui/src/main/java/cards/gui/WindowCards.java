@@ -344,7 +344,7 @@ public final class WindowCards extends GroupFrame {
 
     private static final char LINE_RETURN = '\n';
 
-    private BasicClient threadEmission;
+//    private BasicClient threadEmission;
 
     private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
