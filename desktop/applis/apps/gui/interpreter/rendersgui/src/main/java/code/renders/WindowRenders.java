@@ -11,7 +11,7 @@ import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.formathtml.util.DefaultInitialization;
 import code.gui.*;
 import code.gui.document.RenderedPage;
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.renders.utilcompo.LgNamesRenderUtils;
@@ -35,7 +35,7 @@ public final class WindowRenders extends GroupFrame {
     private final AbsTextField lgCode;
     private final AbsTextField path;
     private final RenderedPage session;
-    protected WindowRenders(String _lg, AbstractProgramInfos _list) {
+    public WindowRenders(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setJMenuBar(getCompoFactory().newMenuBar());
         menu = getCompoFactory().newMenu("file");
@@ -71,8 +71,9 @@ public final class WindowRenders extends GroupFrame {
         setContentPane(pane_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
     }
 
     public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page) {

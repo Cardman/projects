@@ -15,7 +15,7 @@ import code.gui.*;
 import code.gui.AbsMenuItem;
 
 
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmUnitGr;
@@ -61,7 +61,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final SimpleFilesFrame filesFrame;
     private final CommonExecution commonExecution;
 
-    protected WindowUnit(String _lg, AbstractProgramInfos _list) {
+    public WindowUnit(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setAccessFile("unit.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
@@ -133,8 +133,9 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         setContentPane(contentPane);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
         filesFrame = new SimpleFilesFrame(this,getTitle());
         commonExecution = new CommonExecution(unitMessages,doneTestsCount,currentMethod,resultsTable,results,progressBar);
     }

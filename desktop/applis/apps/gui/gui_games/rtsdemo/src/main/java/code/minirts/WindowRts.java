@@ -1,7 +1,7 @@
 package code.minirts;
 
 import code.gui.*;
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
@@ -138,8 +138,9 @@ public final class WindowRts extends GroupFrame {
         setContentPane(contentPane_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
         thread = new AnimationUnitSoldier(animate,pause,stop, battleground,this);
     }
 

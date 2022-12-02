@@ -426,9 +426,9 @@ public abstract class ContainerGame implements Containable {
         return window.getTrainingTarot();
     }
 
-    public AbsMenuItem getMultiStop() {
-        return window.getMultiStop();
-    }
+//    public AbsMenuItem getMultiStop() {
+//        return window.getMultiStop();
+//    }
 
     public AbsMenu getParameters() {
         return window.getParameters();

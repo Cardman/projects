@@ -1,4 +1,0 @@
-/**
-    */
-package cards.network.common;
-

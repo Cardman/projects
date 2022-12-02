@@ -1,7 +1,7 @@
 package code.player.gui;
 
 import code.gui.*;
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.AbsSoundRecord;
 import code.stream.StreamBinaryFile;
@@ -77,8 +77,9 @@ public final class WindowRecorder extends GroupFrame {
         setContentPane(container_);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
     }
     static void alignAddedTopLeft(AbsPanel _par,AbsCustComponent _compo){
         alignTopLeft(_compo);

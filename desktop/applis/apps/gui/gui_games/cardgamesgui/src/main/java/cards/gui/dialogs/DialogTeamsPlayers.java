@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
-import cards.gui.WindowCards;
-import cards.network.common.select.TeamsPlayers;
+import cards.gui.*;
+//import cards.network.common.select.TeamsPlayers;
 import code.gui.AbsPanel;
 
 import code.gui.AbsPlainLabel;

@@ -9,7 +9,7 @@ import code.converterimages.main.LaunchingConverter;
 import code.expressionlanguage.gui.unit.LaunchingAppUnitTests;
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.*;
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
@@ -117,8 +117,9 @@ public final class WindowApps extends GroupFrame {
 //        }
         panel_.setPreferredSize(new MetaDimension(256, 192));
         setContentPane(panel_);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
         setVisible(true);
         pack();
     }

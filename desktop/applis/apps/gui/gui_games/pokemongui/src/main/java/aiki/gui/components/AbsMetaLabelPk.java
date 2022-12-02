@@ -49,12 +49,11 @@ public abstract class AbsMetaLabelPk {
     public void requestFocusInWindow(){
         getPaintableLabel().requestFocusInWindow();
     }
-
     public int getWidth(){
-        return getPaintableLabel().getWidth();
+        return getPaintableLabel().getPreferredSizeValue().getWidth();
     }
     public int getHeight(){
-        return getPaintableLabel().getHeight();
+        return getPaintableLabel().getPreferredSizeValue().getHeight();
     }
     public int heightFont(){
         return getPaintableLabel().heightFont();

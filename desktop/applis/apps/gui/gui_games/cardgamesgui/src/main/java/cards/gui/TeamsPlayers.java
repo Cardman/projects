@@ -1,4 +1,4 @@
-package cards.network.common.select;
+package cards.gui;
 import code.util.CustList;
 import code.util.*;
 

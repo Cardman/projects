@@ -6,7 +6,7 @@ import code.gui.*;
 import code.gui.AbsMenuItem;
 
 
-import code.gui.events.QuittingEvent;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmGuiGr;
@@ -30,7 +30,7 @@ public final class WindowFull extends GroupFrame {
     private final StringMap<String> messages;
     private final GuiInterpreterElements currentElements;
 
-    protected WindowFull(String _lg, AbstractProgramInfos _list) {
+    public WindowFull(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
@@ -61,8 +61,9 @@ public final class WindowFull extends GroupFrame {
         setContentPane(contentPane);
         pack();
         setVisible(true);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
         String fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());

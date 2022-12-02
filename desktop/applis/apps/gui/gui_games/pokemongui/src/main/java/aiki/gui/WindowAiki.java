@@ -11,7 +11,7 @@ import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.dialogs.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
-import aiki.network.stream.*;
+//import aiki.network.stream.*;
 import aiki.sml.*;
 import aiki.facade.FacadeGame;
 import aiki.game.Game;
@@ -32,24 +32,24 @@ import aiki.gui.events.ShowDataFightEvent;
 import aiki.gui.events.ShowDataWebEvent;
 import aiki.gui.listeners.HeroSelect;
 import aiki.map.levels.enums.EnvironmentType;
-import aiki.map.pokemon.PokemonPlayer;
+/*import aiki.map.pokemon.PokemonPlayer;
 import aiki.network.NetAiki;
 import aiki.network.SendReceiveServerAiki;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
-import aiki.network.sml.DocumentWriterAikiMultiUtil;
+import aiki.network.sml.DocumentWriterAikiMultiUtil;*/
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuitEvent;
-import code.gui.events.QuittingEvent;
+//import code.gui.events.QuittingEvent;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
-import code.gui.initialize.AbstractSocket;
+//import code.gui.initialize.AbstractSocket;
 import code.network.*;
 import code.scripts.messages.gui.MessGuiPkGr;
-import code.sml.Document;
-import code.sml.Element;
+//import code.sml.Document;
+//import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.AbstractFile;
 import code.stream.AbstractFileCoreStream;
@@ -57,18 +57,19 @@ import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThread;
-import code.util.CustList;
-import code.util.IdMap;
+//import code.util.CustList;
+//import code.util.IdMap;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
-import code.util.core.BoolVal;
-import code.util.core.IndexConstants;
-import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
+import code.util.core.*;
+//import code.util.core.IndexConstants;
+//import code.util.core.NumberUtil;
+//import code.util.core.StringUtil;
 
-public final class WindowAiki extends NetGroupFrame {
+public final class WindowAiki extends GroupFrame {
+//public final class WindowAiki extends NetGroupFrame
     //implemented SettingInfosAfterCompiler
 
     public static final String OK = "ok";
@@ -240,7 +241,7 @@ public final class WindowAiki extends NetGroupFrame {
 
 //    private final boolean standalone;
 
-    private final NetAiki net = new NetAiki();
+    //private final NetAiki net = new NetAiki();
     private final SelectEgg selectEgg;
     private final SelectPokemon selectPokemon;
     private final SelectHealedMove selectHealedMove;
@@ -301,8 +302,9 @@ public final class WindowAiki extends NetGroupFrame {
         mainPanel.add(availableHelps);
         setContentPane(mainPanel);
         //setVisible(true);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new QuittingEvent(this));
+        exitMode(_list);
+//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        addWindowListener(new QuittingEvent(this));
         facade.setData(new DataBase(_list.getGenerator()));
         initMessages();
         setTitle(messages.getVal(TITLE));
@@ -316,7 +318,7 @@ public final class WindowAiki extends NetGroupFrame {
     /**server and client
      Method allowing the client to send a serializable object by its socket
      */
-    public void sendObjectOk() {
+    /*public void sendObjectOk() {
         trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
     }
     public void sendObject(QuitAiki _serializable) {
@@ -327,102 +329,103 @@ public final class WindowAiki extends NetGroupFrame {
     }
     public void sendObject(SentPokemon _serializable) {
         trySendString(DocumentWriterAikiMultiUtil.sentPokemon(_serializable), getSocket());
-    }
+    }*/
     @Override
     public void quit() {
-        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
-            QuitAiki quit_ = new QuitAiki();
-            quit_.setClosing(true);
-            quit_.setPlace(indexInGame);
-            quit_.setLocale(getLanguageKey());
-            sendObject(quit_);
-            return;
-        }
-        if (battle != null && isAliveThread()) {
-            return;
-        }
-//        if (compiling.isAlive()) {
-//            int adv_ = Constants.getPercentCompile();
-//            String message_ = getCompilingString();
-//            String formatted_ = MessageFormat.format(message_, adv_);
-//            showErrorMessageDialog(formatted_);
+        basicDispose();
+//        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
+//            QuitAiki quit_ = new QuitAiki();
+//            quit_.setClosing(true);
+//            quit_.setPlace(indexInGame);
+//            quit_.setLocale(getLanguageKey());
+//            sendObject(quit_);
 //            return;
 //        }
-        if (loadingConf == null) {
-            //LaunchingPokemon.decrement();
-            basicDispose();
-            return;
-        }
-        if (loadingConf.isSaveGameAtExit()) {
-            if (loadingConf.getLastSavedGame().isEmpty()) {
-                String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
-                loadingConf.setLastSavedGame(name_);
-                save(name_);
-                if (!getFileCoreStream().newFile(name_).exists()) {
-                    name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
-                    int index_ = 0;
-                    while (getFileCoreStream().newFile(name_).exists()) {
-                        name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
-                        index_++;
-                    }
-                    loadingConf.setLastSavedGame(name_);
-                    save(name_);
-                }
-            } else {
-                String path_ = getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath();
-                path_ = StringUtil.replaceBackSlash(path_);
-                save(path_);
-            }
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
-            //LaunchingPokemon.decrement();
-            basicDispose();
-        } else if (indexInGame == IndexConstants.INDEX_NOT_FOUND_ELT && !savedGame) {
-            if (facade.getGame() == null) {
-                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
-                //LaunchingPokemon.decrement();
-                basicDispose();
-                return;
-            }
-            int choix_=saving();
-            if(choix_!=GuiConstants.CANCEL_OPTION) {
-                if(choix_==GuiConstants.YES_OPTION) {
-                    String file_ = fileDialogSave();
-                    if (!file_.isEmpty()) {
-                        loadingConf.setLastSavedGame(file_);
-                        save(file_);
-                    }
-                }
-                savedGame = true;
-                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
-                //LaunchingPokemon.decrement();
-//                ecrireCoordonnees();
-//                CustList<FrameHtmlData> frames_ = new CustList<>();
-//                frames_.addAll(htmlDialogs);
-//                frames_.addAll(battle.getHtmlDialogs());
-//                for (FrameHtmlData f: frames_) {
-//                    f.dispose();
+//        if (battle != null && isAliveThread()) {
+//            return;
+//        }
+////        if (compiling.isAlive()) {
+////            int adv_ = Constants.getPercentCompile();
+////            String message_ = getCompilingString();
+////            String formatted_ = MessageFormat.format(message_, adv_);
+////            showErrorMessageDialog(formatted_);
+////            return;
+////        }
+//        if (loadingConf == null) {
+//            //LaunchingPokemon.decrement();
+//            basicDispose();
+//            return;
+//        }
+//        if (loadingConf.isSaveGameAtExit()) {
+//            if (loadingConf.getLastSavedGame().isEmpty()) {
+//                String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+//                loadingConf.setLastSavedGame(name_);
+//                save(name_);
+//                if (!getFileCoreStream().newFile(name_).exists()) {
+//                    name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+//                    int index_ = 0;
+//                    while (getFileCoreStream().newFile(name_).exists()) {
+//                        name_ = StringUtil.concat(StreamFolderFile.getCurrentPath(getFileCoreStream()),LoadingGame.DEFAULT_SAVE_GAME,Long.toString(index_),Resources.GAME_EXT);
+//                        index_++;
+//                    }
+//                    loadingConf.setLastSavedGame(name_);
+//                    save(name_);
 //                }
-//                clearHtmlDialogs();
-//                battle.clearHtmlDialogs();
-                basicDispose();
-            }
-        } else {
-            //LaunchingPokemon.decrement();
-//            ecrireCoordonnees();
-//            CustList<FrameHtmlData> frames_ = new CustList<>();
-//            frames_.addAll(htmlDialogs);
-//            frames_.addAll(battle.getHtmlDialogs());
-//            for (FrameHtmlData f: frames_) {
-//                f.dispose();
+//            } else {
+//                String path_ = getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath();
+//                path_ = StringUtil.replaceBackSlash(path_);
+//                save(path_);
 //            }
-//            clearHtmlDialogs();
-//            battle.clearHtmlDialogs();
-            basicDispose();
-//            Constants.exit();
-//            if (Standalone.isStandalone()) {
-//                Constants.exit();
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+//            //LaunchingPokemon.decrement();
+//            basicDispose();
+//        } else if (indexInGame == IndexConstants.INDEX_NOT_FOUND_ELT && !savedGame) {
+//            if (facade.getGame() == null) {
+//                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+//                //LaunchingPokemon.decrement();
+//                basicDispose();
+//                return;
 //            }
-        }
+//            int choix_=saving();
+//            if(choix_!=GuiConstants.CANCEL_OPTION) {
+//                if(choix_==GuiConstants.YES_OPTION) {
+//                    String file_ = fileDialogSave();
+//                    if (!file_.isEmpty()) {
+//                        loadingConf.setLastSavedGame(file_);
+//                        save(file_);
+//                    }
+//                }
+//                savedGame = true;
+//                StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+//                //LaunchingPokemon.decrement();
+////                ecrireCoordonnees();
+////                CustList<FrameHtmlData> frames_ = new CustList<>();
+////                frames_.addAll(htmlDialogs);
+////                frames_.addAll(battle.getHtmlDialogs());
+////                for (FrameHtmlData f: frames_) {
+////                    f.dispose();
+////                }
+////                clearHtmlDialogs();
+////                battle.clearHtmlDialogs();
+//                basicDispose();
+//            }
+//        } else {
+//            //LaunchingPokemon.decrement();
+////            ecrireCoordonnees();
+////            CustList<FrameHtmlData> frames_ = new CustList<>();
+////            frames_.addAll(htmlDialogs);
+////            frames_.addAll(battle.getHtmlDialogs());
+////            for (FrameHtmlData f: frames_) {
+////                f.dispose();
+////            }
+////            clearHtmlDialogs();
+////            battle.clearHtmlDialogs();
+//            basicDispose();
+////            Constants.exit();
+////            if (Standalone.isStandalone()) {
+////                Constants.exit();
+////            }
+//        }
     }
     @Override
     public void dispose() {
@@ -1138,7 +1141,7 @@ public final class WindowAiki extends NetGroupFrame {
 //        return false;
 //    }
 
-    @Override
+    /*@Override
     public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
         if (_first) {
             setIndexInGame(IndexConstants.FIRST_INDEX);
@@ -1250,7 +1253,7 @@ public final class WindowAiki extends NetGroupFrame {
                 //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
             }
         }
-    }
+    }*/
 
     private int saving() {
         //warning message
@@ -1577,7 +1580,7 @@ public final class WindowAiki extends NetGroupFrame {
         return LaunchingPokemon.getMainWindowClass();
     }
 
-    @Override
+    /*@Override
     public Document getDoc(String _object) {
         return DocumentReaderAikiMultiUtil.getDoc(_object);
     }
@@ -1585,7 +1588,7 @@ public final class WindowAiki extends NetGroupFrame {
     @Override
     public Exiting getExiting(Document _doc) {
         return DocumentReaderAikiMultiUtil.getExiting(_doc);
-    }
+    }*/
 
     public LoadFlag getLoadFlag() {
         return loadFlag;
@@ -1687,9 +1690,9 @@ public final class WindowAiki extends NetGroupFrame {
 //        preparedProgThread = _preparedProgThread;
 //    }
 
-    public NetAiki getNet() {
+    /*public NetAiki getNet() {
         return net;
-    }
+    }*/
 
     public SelectEgg getSelectEgg() {
         return selectEgg;

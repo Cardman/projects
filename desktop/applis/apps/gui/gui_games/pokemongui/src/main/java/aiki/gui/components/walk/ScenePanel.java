@@ -1,6 +1,6 @@
 package aiki.gui.components.walk;
 
-import aiki.beans.PokemonStandards;
+//import aiki.beans.PokemonStandards;
 import aiki.comparators.TrMovesComparator;
 import aiki.db.DataBase;
 import aiki.gui.components.AbsMetaLabelPk;
@@ -15,7 +15,7 @@ import aiki.gui.components.AbilityLabel;
 import aiki.gui.components.checks.MoveEvoCheckBox;
 import aiki.gui.components.checks.MoveTutorCheckBox;
 import aiki.gui.dialogs.DialogHtmlData;
-import aiki.gui.dialogs.DialogServerAiki;
+//import aiki.gui.dialogs.DialogServerAiki;
 import aiki.gui.dialogs.SelectEgg;
 import aiki.gui.dialogs.SelectHealedMove;
 import aiki.gui.dialogs.SelectHealingItem;
@@ -32,18 +32,18 @@ import aiki.gui.listeners.Task;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
-import aiki.network.NetAiki;
-import aiki.network.stream.SentPokemon;
+//import aiki.network.NetAiki;
+//import aiki.network.stream.SentPokemon;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.LgInt;
-import code.network.NetCreate;
-import code.network.SocketResults;
-import code.network.enums.ErrorHostConnectionType;
-import code.network.enums.IpType;
-import code.stream.StreamFolderFile;
+//import code.network.NetCreate;
+//import code.network.SocketResults;
+//import code.network.enums.ErrorHostConnectionType;
+//import code.network.enums.IpType;
+//import code.stream.StreamFolderFile;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.CustList;
@@ -82,23 +82,23 @@ public class ScenePanel {
 
     private static final String GO_BACK_MENU = "goBackMenu";
 
-    private static final String CST_SERVER = "server";
+//    private static final String CST_SERVER = "server";
 
     private static final String POKEMON_SELECT = "pokemonSelect";
 
     private static final String POKEMON_SELECT_TWO = "pokemonSelectTwo";
 
-    private static final String RECEIVED_POKEMON = "receivedPokemon";
+//    private static final String RECEIVED_POKEMON = "receivedPokemon";
 
     private static final String INTERACT = "interact";
 
     private static final String GO_BACK = "goBack";
 
-    private static final String TRADE = "trade";
+//    private static final String TRADE = "trade";
 
     private static final String EXIT = "exit";
 
-    private static final String READY = "ready";
+//    private static final String READY = "ready";
 
     private static final String SELECT_PK_BOX = "selectPkBox";
 
@@ -178,11 +178,11 @@ public class ScenePanel {
 
     private static final String SPACE = " ";
 
-    private static final String BUG = "bug";
+//    private static final String BUG = "bug";
 
-    private static final String UNKNOWN_HOST = "unknownHost";
+//    private static final String UNKNOWN_HOST = "unknownHost";
 
-    private static final String NOT_CONNECTED = "notConnected";
+//    private static final String NOT_CONNECTED = "notConnected";
 
     private static final String TITLE_COMMENTS = "titleComments";
 
@@ -287,13 +287,13 @@ public class ScenePanel {
 
     private boolean enabledClick = true;
 
-    private RenderedPage receivedPk;
+//    private RenderedPage receivedPk;
 
-    private AbsPanel panelNetWork;
+//    private AbsPanel panelNetWork;
 
-    private boolean enabledReady;
+//    private boolean enabledReady;
 
-    private AbsCustCheckBox readyCheck;
+//    private AbsCustCheckBox readyCheck;
 
     private final MapPanel mapPanel;
 
@@ -364,7 +364,7 @@ public class ScenePanel {
         host.setText(messages.getVal(SEE_HOSTED));
         game.setText(messages.getVal(SEE_GAME));
         goBack.setText(messages.getVal(GO_BACK_MENU));
-        server.setText(messages.getVal(CST_SERVER));
+//        server.setText(messages.getVal(CST_SERVER));
         if (interaction != null) {
             buttonInteract.setText(messages.getVal(INTERACT));
         }
@@ -488,9 +488,9 @@ public class ScenePanel {
         goBack.addActionListener(new SetPlacesEvent(this));
         menus_.add(goBack);
         menus_.add(window.getCompoFactory().newAbsPaintableLabel());
-        server = window.getCompoFactory().newPlainButton();
-        server.addActionListener(new ManageNetworkEvent(this));
-        menus_.add(server);
+//        server = window.getCompoFactory().newPlainButton();
+//        server.addActionListener(new ManageNetworkEvent(this));
+//        menus_.add(server);
         panelMenu.add(menus_);
         pad = new Pad(window.getCompoFactory());
         panelMenu.add(pad.getContainer());
@@ -617,37 +617,38 @@ public class ScenePanel {
     }
 
     public void manageNetwork() {
-        String lg_ = window.getLanguageKey();
-        DialogServerAiki.setDialogServer(window);
-        String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServer());
-        if (ip_ == null || ip_.isEmpty()) {
-            if (DialogServerAiki.getIpType(window.getDialogServer()) == IpType.IP_V6) {
-                ip_ = LOCALHOST_NEW_IP;
-            } else {
-                ip_ = LOCALHOST_OLD_IP;
-            }
-        }
-        if (!DialogServerAiki.isChoosen(window.getDialogServer())) {
-            return;
-        }
-        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
-        int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
-        if (DialogServerAiki.isCreate(window.getDialogServer())) {
-            window.createServer(ip_, DialogServerAiki.getIpType(window.getDialogServer()), port_);
-            return;
-        }
-        SocketResults connected_ = window.createClient(ip_, DialogServerAiki.getIpType(window.getDialogServer()), false, port_);
-        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
-            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
-                String formatted_ = messages.getVal(UNKNOWN_HOST);
-                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
-                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), formatted_,lg_,GuiConstants.ERROR_MESSAGE);
-                return;
-            }
-            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), messages.getVal(NOT_CONNECTED), lg_,GuiConstants.ERROR_MESSAGE);
-            return;
-        }
-        window.setIndexInGame(IndexConstants.SECOND_INDEX);
+        window.getLanguageKey();
+//        String lg_ = window.getLanguageKey();
+//        DialogServerAiki.setDialogServer(window);
+//        String ip_ = DialogServerAiki.getIpOrHostName(window.getDialogServer());
+//        if (ip_ == null || ip_.isEmpty()) {
+//            if (DialogServerAiki.getIpType(window.getDialogServer()) == IpType.IP_V6) {
+//                ip_ = LOCALHOST_NEW_IP;
+//            } else {
+//                ip_ = LOCALHOST_OLD_IP;
+//            }
+//        }
+//        if (!DialogServerAiki.isChoosen(window.getDialogServer())) {
+//            return;
+//        }
+//        String fileName_ = StringUtil.concat(StreamFolderFile.getCurrentPath(window.getFileCoreStream()), Resources.PORT_INI);
+//        int port_ = NetCreate.tryToGetPort(fileName_, NetAiki.getPort(), window.getFileCoreStream(), window.getStreams());
+//        if (DialogServerAiki.isCreate(window.getDialogServer())) {
+//            window.createServer(ip_, DialogServerAiki.getIpType(window.getDialogServer()), port_);
+//            return;
+//        }
+//        SocketResults connected_ = window.createClient(ip_, DialogServerAiki.getIpType(window.getDialogServer()), false, port_);
+//        if (connected_.getError() != ErrorHostConnectionType.NOTHING) {
+//            if (connected_.getError() == ErrorHostConnectionType.UNKNOWN_HOST) {
+//                String formatted_ = messages.getVal(UNKNOWN_HOST);
+//                formatted_ = StringUtil.simpleStringsFormat(formatted_, ip_);
+//                window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), formatted_,lg_,GuiConstants.ERROR_MESSAGE);
+//                return;
+//            }
+//            window.getFrames().getMessageDialogAbs().input(window.getCommonFrame(), messages.getVal(BUG), messages.getVal(NOT_CONNECTED), lg_,GuiConstants.ERROR_MESSAGE);
+//            return;
+//        }
+//        window.setIndexInGame(IndexConstants.SECOND_INDEX);
     }
 
     public void setPlaces() {
@@ -703,7 +704,7 @@ public class ScenePanel {
     }
 
     //called while connection to a server succeeds.
-    public void setNetworkPanel() {
+    /*public void setNetworkPanel() {
         MenuItemUtils.setEnabledMenu(window.getFolderLoad(),false);
         MenuItemUtils.setEnabledMenu(window.getZipLoad(),false);
         MenuItemUtils.setEnabledMenu(window.getGameLoad(),false);
@@ -725,9 +726,9 @@ public class ScenePanel {
         } else {
             panelOptions.add(exit_, GuiConstants.BORDER_LAYOUT_SOUTH);
         }
-    }
+    }*/
 
-    public void setTradable(ByteTreeMap< PokemonPlayer> _team) {
+    /*public void setTradable(ByteTreeMap< PokemonPlayer> _team) {
         ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
             teamPks_.put(e.getKey(), e.getValue());
@@ -750,9 +751,9 @@ public class ScenePanel {
         readyCheck.setEnabled(enabledReady);
         readyCheck.addActionListener(new ReadyEventAiki(window, readyCheck));
         panelNetWork.add(readyCheck);
-    }
+    }*/
 
-    public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
+    /*public void setTradableAfterTrading(ByteTreeMap< PokemonPlayer> _team) {
         enabledClick = false;
         ByteTreeMap<UsablePokemon> teamPks_ = new ByteTreeMap<UsablePokemon>();
         for (EntryCust<Byte, PokemonPlayer> e: _team.entryList()) {
@@ -776,7 +777,7 @@ public class ScenePanel {
         }
         ((PokemonStandards)task_.getBeanNatLgNames()).setDataBase(facade);
         receivedPk.initializeOnlyConf(task_, facade.getLanguage(), ((PokemonStandards)task_.getBeanNatLgNames()));
-    }
+    }*/
 
     public void interact() {
         endGame.setText(facade.getEndGameMessage());
@@ -1684,11 +1685,11 @@ public class ScenePanel {
         if (!enabledClick) {
             return;
         }
-        if (readyCheck.isSelected()) {
-            return;
-        }
+//        if (readyCheck.isSelected()) {
+//            return;
+//        }
         facade.setIndexTeamTrading(teamPan.getSelectedIndexSingle());
-        if (facade.isSelectedIndexTeamTrading()) {
+        /*if (facade.isSelectedIndexTeamTrading()) {
             enabledReady = true;
             SentPokemon sent_;
             sent_ = new SentPokemon();
@@ -1699,7 +1700,7 @@ public class ScenePanel {
             enabledReady = false;
             //disable ready button
         }
-        readyCheck.setEnabled(enabledReady);
+        readyCheck.setEnabled(enabledReady);*/
     }
 
     public void setTextArea(String _text, int _messageType) {
@@ -1747,8 +1748,8 @@ public class ScenePanel {
         game.setEnabled(enabled2_);
         boolean enabled1_ = !_paintingScene;
         goBack.setEnabled(enabled1_);
-        boolean enabled_ = !_paintingScene;
-        server.setEnabled(enabled_);
+//        boolean enabled_ = !_paintingScene;
+//        server.setEnabled(enabled_);
 //        panelMenu.repaintSecondChildren(window.getImageFactory());
     }
     public AbsPanel getComponent() {
