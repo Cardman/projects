@@ -632,6 +632,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
         }
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
     }
+    public boolean errorSelectedFoePk() {
+        return selectedFoePk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedFoeAction) != TeamCrud.REMOVE);
+    }
     public String getImageAlly(int _index) {
         DataBase data_ = getDataBase();
         PokemonTrainerDto pk_ = allyTeams.get(indexTeam).get(_index);
@@ -704,6 +707,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             getForms().put(CST_ADDING_TRAINER_PK, TeamCrud.REMOVE);
         }
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+    }
+    public boolean errorSelectedAllyPk() {
+        return selectedAllyPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAllyAction) != TeamCrud.REMOVE);
     }
     public String addPkTrainer() {
         DataBase data_ = getDataBase();
@@ -810,6 +816,9 @@ public class SimulationBean extends CommonBean  implements WithDifficultyCommon 
             simulation.removePokemonPlayer(index_);
         }
         return AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML;
+    }
+    public boolean errorSelectedPk() {
+        return selectedPk == IndexConstants.INDEX_NOT_FOUND_ELT || (TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.EDIT && TeamCrud.getTeamCrudByName(selectedAction) != TeamCrud.REMOVE);
     }
     public String add() {
         getForms().putPokedex(CST_POKEMON_SET_SIMU, new StringMap<PokemonData>());

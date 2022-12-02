@@ -642,6 +642,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectPk(),_str,_args);
     }
 
+    public static Struct callSimulationBeanErrorSelectedPkGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanErrorSelectedPkGet(),_str,_args);
+    }
+
     public static Struct callSimulationBeanSelectPkAfterFight(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectPkAfterFight(),_str,_args);
     }
@@ -654,12 +658,20 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedAllyActionGet(),_str,_args);
     }
 
+    public static Struct callSimulationBeanErrorSelectedAllyPkGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanErrorSelectedAllyPkGet(),_str,_args);
+    }
+
     public static Struct callSimulationBeanSelectedAllyPkGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedAllyPkGet(),_str,_args);
     }
 
     public static Struct callSimulationBeanSelectedFoeActionGet(Struct _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedFoeActionGet(),_str,_args);
+    }
+
+    public static Struct callSimulationBeanErrorSelectedFoePkGet(Struct _str, long... _args) {
+        return BeanPokemonCommonTs.callLongs(new SimulationBeanErrorSelectedFoePkGet(),_str,_args);
     }
 
     public static Struct callSimulationBeanSelectedFoePkGet(Struct _str, long... _args) {
@@ -1641,6 +1653,30 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanSelectedFoePkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectFoePk(),simu_);
     }
+    protected static Struct editNoFoePkStateSelectZero() {
+        Struct simu_ = editNoFoePkState();
+        callSimulationBeanSelectedFoePkSet(simu_,0);
+        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoFoePkStateSelectZero(TeamCrud _tc) {
+        Struct simu_ = editNoFoePkState();
+        callSimulationBeanSelectedFoePkSet(simu_,0);
+        callSimulationBeanSelectedFoeActionSet(simu_, _tc.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoFoePkStateSelectNo() {
+        Struct simu_ = editNoFoePkState();
+        callSimulationBeanSelectedFoePkSet(simu_,-1);
+        callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoFoePkState() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        return simu(pk_, all_, mapping_, 2);
+    }
     protected static Struct pkTrainerFoeRemove() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -1712,6 +1748,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanSelectedAllyPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectAllyPk(),simu_);
     }
+    protected static Struct editNoAllyPkStateSelectZero() {
+        Struct simu_ = editNoAllyPkState();
+        callSimulationBeanSelectedAllyPkSet(simu_,0);
+        callSimulationBeanSelectedAllyActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoAllyPkStateSelectZero(TeamCrud _tc) {
+        Struct simu_ = editNoAllyPkState();
+        callSimulationBeanSelectedAllyPkSet(simu_,0);
+        callSimulationBeanSelectedAllyActionSet(simu_, _tc.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoAllyPkStateSelectNo() {
+        Struct simu_ = editNoAllyPkState();
+        callSimulationBeanSelectedAllyPkSet(simu_,-1);
+        callSimulationBeanSelectedAllyActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoAllyPkState() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        return simu(pk_, all_, mapping_, 2);
+    }
+
     protected static Struct pkTrainerAllyRemove() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);
@@ -2237,6 +2298,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanSelectedPkSet(added_,-1);
         return navigateData(new SimulationBeanSelectPk(),added_);
     }
+    protected static Struct editNoPkStateSelectZero() {
+        Struct simu_ = editNoPkState();
+        callSimulationBeanSelectedPkSet(simu_,0);
+        callSimulationBeanSelectedActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoPkStateSelectZero(TeamCrud _tc) {
+        Struct simu_ = editNoPkState();
+        callSimulationBeanSelectedPkSet(simu_,0);
+        callSimulationBeanSelectedActionSet(simu_, _tc.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoPkStateSelectNo() {
+        Struct simu_ = editNoPkState();
+        callSimulationBeanSelectedPkSet(simu_,-1);
+        callSimulationBeanSelectedActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
+        return simu_;
+    }
+    protected static Struct editNoPkState() {
+        PkData pk_ = pkDataByFacade(db());
+        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<String> mapping_ = mappingToSimu();
+        return simu(pk_, all_, mapping_, 2);
+    }
+
     protected static Struct editEditSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
         StringMap<Struct> all_ = beanToSimu(pk_);

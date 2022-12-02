@@ -437,6 +437,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
         assertSizeEq(0,callSimulationBeanFoeTeamGet(pkTrainerLevelCancelAdd()));
     }
     @Test
+    public void selectFoePkInitBad() {
+        assertTrue(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero()));
+        assertTrue(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectNo()));
+        assertFalse(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero(TeamCrud.EDIT)));
+        assertFalse(callSimulationBeanErrorSelectedFoePkGet(editNoFoePkStateSelectZero(TeamCrud.REMOVE)));
+    }
+    @Test
     public void selectFoePkInit() {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoFoePk());
     }
@@ -479,6 +486,13 @@ public final class SimulationBeanTest extends InitDbSimulation {
     @Test
     public void getSelectedFoeAction() {
         assertEq(TeamCrud.EDIT.getTeamCrudString(),callSimulationBeanSelectedFoeActionGet(formEditSelectedFoePk()));
+    }
+    @Test
+    public void selectAllyPkInitBad() {
+        assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero()));
+        assertTrue(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectNo()));
+        assertFalse(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero(TeamCrud.EDIT)));
+        assertFalse(callSimulationBeanErrorSelectedAllyPkGet(editNoAllyPkStateSelectZero(TeamCrud.REMOVE)));
     }
     @Test
     public void selectAllyPkInit() {
@@ -700,6 +714,14 @@ public final class SimulationBeanTest extends InitDbSimulation {
     public void addPkPlayerTwice() {
         assertSizeEq(2,callSimulationBeanTeamGet(pkPlayerSelectPkNameTwice()));
     }
+    @Test
+    public void selectPkInitBad() {
+        assertTrue(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero()));
+        assertTrue(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectNo()));
+        assertFalse(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero(TeamCrud.EDIT)));
+        assertFalse(callSimulationBeanErrorSelectedPkGet(editNoPkStateSelectZero(TeamCrud.REMOVE)));
+    }
+
     @Test
     public void selectPlayerPkInit() {
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,editNoPlayerPk());
