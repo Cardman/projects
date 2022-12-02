@@ -5,7 +5,6 @@ import aiki.beans.facade.map.dto.*;
 import aiki.beans.facade.simulation.dto.*;
 import aiki.beans.facade.solution.dto.*;
 import aiki.beans.game.*;
-import aiki.beans.validators.*;
 import aiki.comparators.*;
 import aiki.facade.*;
 import aiki.facade.enums.*;
@@ -26,16 +25,13 @@ import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.exec.variables.*;
 import code.bean.nat.fwd.*;
-import code.bean.validator.*;
 import code.expressionlanguage.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
-import code.formathtml.structs.*;
 import code.formathtml.util.*;
 import code.maths.*;
-import code.sml.*;
 import code.util.*;
 import code.util.core.*;
 public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesForm {
@@ -85,14 +81,14 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     private FacadeGame dataBase;
 
-    private final StringMap<Validator> validators = new StringMap<Validator>();
+//    private final StringMap<Validator> validators = new StringMap<Validator>();
     private NatHtmlPage natPage;
 
     protected PokemonStandards(){
-        getValidators().addEntry("positive_rate_validator",new PositiveRateValidator());
-        getValidators().addEntry("rate_validator",new RateValidator());
-        getValidators().addEntry("short_validator",new ShortValidator());
-        getValidators().addEntry("selected_radio",new UnselectedRadio());
+//        getValidators().addEntry("positive_rate_validator",new PositiveRateValidator());
+//        getValidators().addEntry("rate_validator",new RateValidator());
+//        getValidators().addEntry("short_validator",new ShortValidator());
+//        getValidators().addEntry("selected_radio",new UnselectedRadio());
     }
     @Override
     public void buildOther() {
@@ -158,31 +154,31 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     public void setNatPage(NatHtmlPage _nat) {
         natPage = _nat;
     }
-    public void processRendFormRequest(Navigation _nav, Element _elt) {
+    public void processRendFormRequest(Navigation _nav) {
         NatRendStackCallAdv st_ = new NatRendStackCallAdv();
         st_.clearPages();
         st_.setDocument(_nav.getDocument());
         NatImportingPageAbs ip_ = new NatImportingPageForm();
         st_.addPage(ip_);
-        long lg_ = natPage.getUrl();
-        Document doc_ = _nav.getDocument();
+//        long lg_ = natPage.getUrl();
+//        Document doc_ = _nav.getDocument();
         //retrieving form that is submitted
         natPage.setForm(true);
 
         //As soon as the form is retrieved, then process on it and exit from the loop
 
-        StringMap<Message> map_ = validateAll(natPage);
-        StringMap<String> errors_ = new StringMap<String>();
-        StringMap<StringList> errorsArgs_ = new StringMap<StringList>();
-        _nav.feedErr(map_, errors_, errorsArgs_);
+//        StringMap<Message> map_ = validateAll(natPage);
+//        StringMap<String> errors_ = new StringMap<String>();
+//        StringMap<StringList> errorsArgs_ = new StringMap<StringList>();
+//        _nav.feedErr(map_, errors_, errorsArgs_);
         //begin deleting previous errors
-        _nav.delPrevious(doc_, _elt);
+//        _nav.delPrevious(doc_, _elt);
         //end deleting previous errors
-        if (!errors_.isEmpty()) {
-            _nav.processRendFormErrors(_elt, lg_, errors_, errorsArgs_, getPage());
-            st_.clearPages();
-            return;
-        }
+//        if (!errors_.isEmpty()) {
+//            _nav.processRendFormErrors(_elt, lg_, errors_, errorsArgs_, getPage());
+//            st_.clearPages();
+//            return;
+//        }
         //Setting values for bean
         updateRendBean(natPage);
         st_.clearPages();
@@ -191,23 +187,23 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         processRendAnchorRequest(_nav, st_);
     }
 
-    public StringMap<Message> validateAll(NatHtmlPage _htmlPage) {
-        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
-        containersMap_ = _htmlPage.getContainers();
-        long lg_ = _htmlPage.getUrl();
-        StringMap<Message> map_ = new StringMap<Message>();
-        for (EntryCust<Long, NatNodeContainer> e: containersMap_.getVal(lg_).entryList()) {
-            NodeContainer nCont_ = e.getValue();
-            NodeInformations nInfos_ = nCont_.getNodeInformation();
-            String valId_ = nInfos_.getValidator();
-            String id_ = nInfos_.getId();
-            Message messageTr_ = validate(nCont_,valId_);
-            if (messageTr_ != null) {
-                map_.put(id_, messageTr_);
-            }
-        }
-        return map_;
-    }
+//    public StringMap<Message> validateAll(NatHtmlPage _htmlPage) {
+//        LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
+//        containersMap_ = _htmlPage.getContainers();
+//        long lg_ = _htmlPage.getUrl();
+//        StringMap<Message> map_ = new StringMap<Message>();
+//        for (EntryCust<Long, NatNodeContainer> e: containersMap_.getVal(lg_).entryList()) {
+//            NodeContainer nCont_ = e.getValue();
+//            NodeInformations nInfos_ = nCont_.getNodeInformation();
+//            String valId_ = nInfos_.getValidator();
+//            String id_ = nInfos_.getId();
+//            Message messageTr_ = validate(nCont_,valId_);
+//            if (messageTr_ != null) {
+//                map_.put(id_, messageTr_);
+//            }
+//        }
+//        return map_;
+//    }
 
     public static void updateRendBean(NatHtmlPage _htmlPage) {
         LongMap<LongTreeMap<NatNodeContainer>> containersMap_;
@@ -307,14 +303,14 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return argument_.getStruct();
     }
 
-    public Message validate(NodeContainer _cont, String _validatorId) {
-        Validator validator_ = validators.getVal(_validatorId);
-        if (validator_ == null) {
-            return null;
-        }
-        StringList v_ = _cont.getValue();
-        return validator_.validate(v_);
-    }
+//    public Message validate(NodeContainer _cont, String _validatorId) {
+//        Validator validator_ = validators.getVal(_validatorId);
+//        if (validator_ == null) {
+//            return null;
+//        }
+//        StringList v_ = _cont.getValue();
+//        return validator_.validate(v_);
+//    }
     @Override
     public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPageForm();
@@ -384,9 +380,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         proc(_nav, _rendStack, urlDest_, gl_);
     }
 
-    public StringMap<Validator> getValidators() {
-        return validators;
-    }
+//    public StringMap<Validator> getValidators() {
+//        return validators;
+//    }
 
 
     public void setForms(StringMapObject _forms, Struct _bean) {
@@ -405,9 +401,9 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         forms_.putAllMap(formsMap_);
     }
 
-    public void execute(boolean _form, Element _elt, Navigation _navigation) {
+    public void execute(boolean _form, Navigation _navigation) {
         if (_form) {
-            processRendFormRequest(_navigation, _elt);
+            processRendFormRequest(_navigation);
         } else {
             processRendAnchorRequest(_navigation);
         }

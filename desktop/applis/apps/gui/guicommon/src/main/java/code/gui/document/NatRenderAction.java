@@ -13,7 +13,7 @@ public final class NatRenderAction implements AbstractRenderAction {
     }
     @Override
     public String execute(boolean _form, Element _elt) {
-        std.execute(_form, _elt, render.getNavigation());
+        std.execute(_form, render.getNavigation());
         return null;
     }
 }

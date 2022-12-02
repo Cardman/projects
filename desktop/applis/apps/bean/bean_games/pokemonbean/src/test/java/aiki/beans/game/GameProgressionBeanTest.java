@@ -827,8 +827,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
 
     private void goToPage(PkProg _pk, Navigation _nav, int _nb) {
         _pk.getNatPage().setUrl(_nb);
-        Element elt_ = DocumentBuilder.getFirstElementByAttribute(_nav.getDocument(), _nav.getSession().getRendKeyWords().getAttrNa(), Long.toString(_pk.getNatPage().getUrl()));
-        _pk.execute(false,elt_, _nav);
+        _pk.execute(false, _nav);
     }
 
 

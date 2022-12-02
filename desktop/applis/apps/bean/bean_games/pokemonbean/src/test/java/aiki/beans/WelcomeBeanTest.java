@@ -170,10 +170,10 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         v_.getNodeInformation().setValue(new StringList(""));
         c_.addEntry(0L, v_);
         form_.addEntry(0L, c_);
-        v_.getNodeInformation().setValidator("rate_validator");
+//        v_.getNodeInformation().setValidator("rate_validator");
         pk_.getNatPage().setContainers(form_);
-        pk_.getNatPage().setUrl(0);
-        pk_.processRendFormRequest(nav_,nav_.getDocument().getDocumentElement());
+        pk_.getPage().setUrl(0);
+//        pk_.processRendFormRequest(nav_,nav_.getDocument().getDocumentElement());
         v_.setOpsWrite(new CstNatCaller(""));
         CustList<LongTreeMap<NatNodeContainer>> st_ = new CustList<LongTreeMap<NatNodeContainer>>();
         st_.add(c_);

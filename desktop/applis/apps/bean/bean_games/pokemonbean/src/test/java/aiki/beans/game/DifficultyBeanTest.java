@@ -556,9 +556,8 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         choose(htmlPage_, 15, DifficultyModelLaw.CONSTANT_MAX.getModelName());
         choose(htmlPage_, 16, DifficultyModelLaw.CONSTANT_MIN.getModelName());
         htmlPage_.setUrl(0);
-        Element elt_ = DocumentBuilder.getFirstElementByAttribute(nav_.getDocument(), nav_.getSession().getRendKeyWords().getAttrNf(), Long.toString(htmlPage_.getUrl()));
 
-        pk_.execute(true,elt_,nav_);
+        pk_.execute(true, nav_);
 
 
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\"web_game/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
