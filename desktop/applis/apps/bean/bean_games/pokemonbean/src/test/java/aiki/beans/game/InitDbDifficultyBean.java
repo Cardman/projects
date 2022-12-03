@@ -6,6 +6,7 @@ import aiki.beans.PkDiff;
 import aiki.beans.PokemonBeanStruct;
 import aiki.facade.FacadeGame;
 import code.bean.nat.NatCaller;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.maths.Rate;
@@ -22,7 +23,7 @@ public abstract class InitDbDifficultyBean extends InitDbBean {
     }
 
     public static String navigateDiff(NatCaller _caller, String _concat, Struct _str, long... _args) {
-        PkScriptPagesInit.initConfDiff(new Configuration());
+        PkScriptPagesInit.initConfDiff(new NatConfigurationCore());
         return navigate(_caller, _concat,_str,_args);
     }
 

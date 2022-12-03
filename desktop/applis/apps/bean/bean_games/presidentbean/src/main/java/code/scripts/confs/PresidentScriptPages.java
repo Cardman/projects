@@ -1,8 +1,7 @@
 package code.scripts.confs;
 
 import code.bean.nat.NatDualConfigurationContext;
-import code.formathtml.Configuration;
-import code.formathtml.structs.BeanInfo;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.util.CollCapacity;
 import code.util.StringList;
 import code.util.StringMap;
@@ -42,17 +41,17 @@ public final class PresidentScriptPages {
 
     private PresidentScriptPages(){
     }
-    public static void initConfResults(Configuration _configuration){
+    public static void initConfResults(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(RES_PRESIDENT);
         _configuration.setPrefix(PRE_VALUE);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"results","cards.president.beans.PresidentBean");
         _configuration.setBeansInfos(beans_);
     }
-    public static void initConfRules(Configuration _configuration){
+    public static void initConfRules(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(RULES_PRESIDENT);
         _configuration.setPrefix(PRE_VALUE);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,"rules","cards.president.beans.RulesPresidentBean");
         _configuration.setBeansInfos(beans_);
     }

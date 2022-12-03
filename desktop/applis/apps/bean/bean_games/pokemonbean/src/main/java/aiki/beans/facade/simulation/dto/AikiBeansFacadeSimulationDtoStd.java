@@ -27,36 +27,36 @@ public final class AikiBeansFacadeSimulationDtoStd{
     private static void buildEvLine(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EV_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add(new StandardField(EV, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EvLineEvGet(),new EvLineEvSet()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(EV, BeanNatCommonLgNames.PRIM_INTEGER, new EvLineEvGet(),new EvLineEvSet()));
         _std.getStds().addEntry(TYPE_EV_LINE, type_);
     }
     private static void buildPokemonPlayerDto(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_PLAYER_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonPlayerDtoIndexGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonPlayerDtoIndexGet(),null));
         _std.getStds().addEntry(TYPE_POKEMON_PLAYER_DTO, type_);
     }
     private static void buildPokemonTrainerDto(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_TRAINER_DTO, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonTrainerDtoIndexGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonTrainerDtoIndexGet(),null));
         _std.getStds().addEntry(TYPE_POKEMON_TRAINER_DTO, type_);
     }
     private static void buildRadioLineMove(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_RADIO_LINE_MOVE, fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new RadioLineMoveIndexGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new RadioLineMoveIndexGet(),null));
         _std.getStds().addEntry(TYPE_RADIO_LINE_MOVE, type_);
     }
     private static void buildSelectLineMove(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_SELECT_LINE_MOVE, fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
-        fields_.add(new StandardField(SELECTED,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new SelectLineMoveSelectedGet(),new SelectLineMoveSelectedSet()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansFacadeDtoStd.TYPE_MOVE_LINE);
+        fields_.add(new StandardField(SELECTED,BeanNatCommonLgNames.PRIM_BOOLEAN, new SelectLineMoveSelectedGet(),new SelectLineMoveSelectedSet()));
         _std.getStds().addEntry(TYPE_SELECT_LINE_MOVE, type_);
     }
 }

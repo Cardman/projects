@@ -1,7 +1,7 @@
 package cards.gui.dialogs.help;
 
 
-import code.formathtml.Navigation;
+import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
 
 public class ElementHelp {
@@ -9,7 +9,7 @@ public class ElementHelp {
 
     private String file = "";
 
-    private Navigation navigation;
+    private NatNavigation navigation;
     private MetaDocument metaDocument;
 
     public ElementHelp(String _pnom) {
@@ -28,11 +28,11 @@ public class ElementHelp {
         return file;
     }
 
-    public Navigation getNavigation() {
+    public NatNavigation getNavigation() {
         return navigation;
     }
 
-    public void setNavigation(Navigation _navigation) {
+    public void setNavigation(NatNavigation _navigation) {
         this.navigation = _navigation;
     }
 

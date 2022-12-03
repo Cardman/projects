@@ -1,11 +1,8 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.common.ConstType;
 import code.util.StringMap;
 
 public final class NatAnaRendForEachTable extends NatAnaRendParentBlock implements NatRendBuildEl {
@@ -50,23 +47,13 @@ public final class NatAnaRendForEachTable extends NatAnaRendParentBlock implemen
     }
 
     public void putVariable(NatAnalyzedCode _page) {
-        AnaLoopVariable lv_ = new AnaLoopVariable();
-        _page.getLoopsVars().put(variableNameFirst, lv_);
-        AnaLocalVariable lInfo_ = new AnaLocalVariable();
-        lInfo_.setClassName(importedClassNameFirst);
-        lInfo_.setConstType(ConstType.FIX_VAR);
-        lInfo_.setFinalVariable(true);
-        _page.getInfosVars().put(variableNameFirst, lInfo_);
-        lv_ = new AnaLoopVariable();
-        _page.getLoopsVars().put(variableNameSecond, lv_);
-        lInfo_ = new AnaLocalVariable();
-        lInfo_.setClassName(importedClassNameSecond);
-        lInfo_.setConstType(ConstType.FIX_VAR);
-        lInfo_.setFinalVariable(true);
-        _page.getInfosVars().put(variableNameSecond, lInfo_);
+        _page.getLoopsVars().put(variableNameFirst, "");
+        _page.getInfosVars().put(variableNameFirst, importedClassNameFirst);
+        _page.getLoopsVars().put(variableNameSecond, "");
+        _page.getInfosVars().put(variableNameSecond, importedClassNameSecond);
     }
 
-    public void removeVars(StringMap<AnaLocalVariable> _infosVars, StringMap<AnaLoopVariable> _loopsVars) {
+    public void removeVars(StringMap<String> _infosVars, StringMap<String> _loopsVars) {
         _infosVars.removeKey(variableNameFirst);
         _loopsVars.removeKey(variableNameFirst);
         _infosVars.removeKey(variableNameSecond);

@@ -3,7 +3,7 @@ package aiki.gui.threads;
 import aiki.beans.PokemonStandards;
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatCommonLgNames;
-import code.formathtml.Navigation;
+import code.bean.nat.NatNavigation;
 import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.util.StringMap;
@@ -12,7 +12,7 @@ import code.util.consts.Constants;
 public final class PreparedRenderedPages implements PreparedAnalyzed {
     private final AbstractNativeInit init;
     private final PokemonStandards stds;
-    private Navigation navigation;
+    private NatNavigation navigation;
     private final String relative;
     private BeanNatCommonLgNames beanNatLgNames;
     private final StringMap<Document> built;
@@ -34,7 +34,7 @@ public final class PreparedRenderedPages implements PreparedAnalyzed {
         navigation = stds.nav(Constants.getAvailableLanguages(),"",init,built,builtOther,builtMessages,relative);
     }
 
-    public Navigation getNavigation() {
+    public NatNavigation getNavigation() {
         return navigation;
     }
 

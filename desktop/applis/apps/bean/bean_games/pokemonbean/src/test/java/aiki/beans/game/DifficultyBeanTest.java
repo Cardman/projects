@@ -11,6 +11,7 @@ import aiki.game.params.Difficulty;
 import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.bean.nat.NatHtmlPage;
+import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -505,7 +506,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Difficulty choice</title><link href=\"web_game/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -542,7 +543,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         NatHtmlPage htmlPage_ = pk_.getNatPage();

@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.sml.Element;
 import code.util.StringList;
@@ -14,8 +14,8 @@ public final class NatAnaRendLink extends NatAnaRendElement {
     }
 
     void link(Element _read, StringList _list, NatAnalyzingDoc _anaDoc) {
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrRel());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrHref());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrRel());
         String href_ = AnaRendBlockHelp.getCssHref(_read, _anaDoc.getRendKeyWords());
         StringMap<String> files_ = _anaDoc.getFiles();
         content = files_.getVal(href_);

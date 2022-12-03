@@ -42,6 +42,7 @@ import aiki.map.pokemon.enums.Gender;
 import aiki.util.CoordsLists;
 import aiki.util.LawNumber;
 import code.bean.nat.NatCaller;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.maths.LgInt;
@@ -292,7 +293,7 @@ public abstract class InitDbFight extends InitDbBean {
         return new TeamBeanClickFighter();
     }
     public static String navigateFight(NatCaller _caller, String _concat, Struct _str, long... _args) {
-        PkScriptPagesInit.initConfFight(new Configuration());
+        PkScriptPagesInit.initConfFight(new NatConfigurationCore());
         return navigate(_caller, _concat,_str,_args);
     }
 

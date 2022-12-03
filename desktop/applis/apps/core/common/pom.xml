@@ -15,6 +15,7 @@
 		<module>util</module>
 		<module>graphs</module>
 		<module>sml</module>
+		<module>sml_adv</module>
 		<module>maths</module>
 		<module>expressionlanguage</module>
 		<module>images</module>

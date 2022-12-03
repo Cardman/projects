@@ -2,6 +2,8 @@ package code.formathtml.nat;
 
 import code.bean.help.HelpCaller;
 import code.bean.nat.NatDualConfigurationContext;
+import code.bean.nat.NatNavigation;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.formathtml.Configuration;
 import code.formathtml.EquallableBeanHelpUtil;
 import code.formathtml.Navigation;
@@ -135,8 +137,8 @@ public final class HelpTest extends EquallableBeanHelpUtil {
     }
 
     public static String text(String _realFilePath, String _uniq, StringList _add, StringMap<String> _ms, String _messagesFolder, StringMap<String> _properties) {
-        Navigation navigation_= new Navigation();
-        Configuration session_ = new Configuration();
+        NatNavigation navigation_= new NatNavigation();
+        NatConfigurationCore session_ = new NatConfigurationCore();
         session_.setPrefix("c:");
         navigation_.setSession(session_);
         navigation_.setLanguage("en");

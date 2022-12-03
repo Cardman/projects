@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
@@ -19,11 +19,11 @@ public final class NatAnaRendImg extends NatAnaRendElement {
 
     void img(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         NatResultText res_ = new NatResultText();
-        String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
+        String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrSrc());
         res_.buildAna(pageName_, _anaDoc, _page);
         roots = res_.getOpExpRoot();
         texts = res_.getTexts();
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrSrc());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrSrc());
     }
 
     public CustList<NatOperationNode> getRoots() {

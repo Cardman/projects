@@ -5,6 +5,7 @@ import cards.belote.enumerations.*;
 import cards.consts.CoreResourcesAccess;
 import cards.consts.GameType;
 import cards.consts.Suit;
+import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -206,7 +207,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
         StringMap<String> other_ = MessBelotePage.ms();
         AnaRendBlock.adjust(other_);
         BeloteStandardsResults stds_ = new BeloteStandardsResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsBeloteLoader(), PagesBelotes.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsBeloteLoader(), PagesBelotes.build(),other_,other_,"");
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

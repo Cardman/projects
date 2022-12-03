@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.sml.Element;
 import code.util.StringList;
 

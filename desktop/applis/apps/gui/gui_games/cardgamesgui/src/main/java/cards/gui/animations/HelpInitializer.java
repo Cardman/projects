@@ -5,7 +5,7 @@ import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import code.bean.nat.NatDualConfigurationContext;
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.AbsMenuItem;
 import code.gui.MenuItemUtils;
@@ -42,7 +42,7 @@ public final class HelpInitializer implements Runnable {
     }
     @Override
     public void run() {
-        StringMap<Configuration> cf_ = HelpScriptPages.cf();
+        StringMap<NatConfigurationCore> cf_ = HelpScriptPages.cf();
         StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();

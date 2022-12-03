@@ -1,7 +1,6 @@
 package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.functionid.MethodAccessKind;
 
 public abstract class InvokingNatOperation extends MethodNatOperation implements NatPossibleIntermediateDotted {
     private String previousResultClass;
@@ -28,7 +27,7 @@ public abstract class InvokingNatOperation extends MethodNatOperation implements
     }
 
     @Override
-    public final void setPreviousResultClass(String _previousResultClass, MethodAccessKind _staticAccess) {
+    public final void setPreviousResultClass(String _previousResultClass) {
         previousResultClass = _previousResultClass;
     }
 

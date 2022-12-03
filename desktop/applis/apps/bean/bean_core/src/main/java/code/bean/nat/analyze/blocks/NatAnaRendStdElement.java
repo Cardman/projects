@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.sml.Element;
 import code.util.StringList;
@@ -13,6 +13,6 @@ public final class NatAnaRendStdElement extends NatAnaRendElement {
     }
 
     void sdtElement(StringList _list, NatAnalyzingDoc _anaDoc) {
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean()));
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrBean()));
     }
 }

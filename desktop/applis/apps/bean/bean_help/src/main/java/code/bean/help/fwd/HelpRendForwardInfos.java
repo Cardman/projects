@@ -3,7 +3,7 @@ package code.bean.help.fwd;
 import code.bean.help.analyze.HelpResultText;
 import code.bean.help.analyze.blocks.*;
 import code.bean.help.exec.blocks.*;
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.NatAnaRendBlock;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.exec.blocks.NatBlock;
@@ -35,7 +35,7 @@ public final class HelpRendForwardInfos {
 
     private static NatParentBlock completeHelp(NatAnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
-            if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
+            if (_loc instanceof HelpRendStdElement && StringUtil.quickEq(((HelpRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordsTags().getKeyWordBody())) {
                 _rendDoc.setBody((HelpRendStdElement)_loc);
             }
 //            _loc.setEscapedChars(_en.getEscapedChars());

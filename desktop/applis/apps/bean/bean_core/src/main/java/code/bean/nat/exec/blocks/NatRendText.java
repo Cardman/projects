@@ -1,11 +1,11 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.exec.*;
+import code.bean.nat.analyze.NatConfigurationCore;
+import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatRendStackCall;
-import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.stacks.RendReadWrite;
 import code.sml.Document;
+import code.sml.RendReadWrite;
 import code.sml.Text;
 
 public final class NatRendText extends NatBlock{
@@ -17,7 +17,7 @@ public final class NatRendText extends NatBlock{
     }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         NatImportingPageAbs lastPage_ = _rendStack.getLastPage();
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Document doc_ = rend_.getDocument();

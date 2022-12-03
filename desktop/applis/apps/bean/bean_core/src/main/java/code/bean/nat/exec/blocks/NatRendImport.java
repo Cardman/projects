@@ -2,12 +2,12 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.BeanStruct;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
-import code.formathtml.exec.stacks.RendReadWrite;
+import code.sml.RendReadWrite;
 import code.util.CustList;
 
 public final class NatRendImport extends NatParentBlock {
@@ -26,7 +26,7 @@ public final class NatRendImport extends NatParentBlock {
     }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
         if (ip_.matchStatement(this)) {
             RendBlockHelp.processBlockAndRemove(_rendStack, this);

@@ -2,19 +2,16 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecialNatClass;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
 import code.util.StringMap;
 
 public final class NatAnalyzedCode {
 
     /**Only used while throwing exception*/
 
-    private AnaFormattedRootBlock globalType = AnaFormattedRootBlock.defValue();
+    private String globalType = "";
 
-    private final StringMap<AnaLocalVariable> infosVars = new StringMap<AnaLocalVariable>();
-    private final StringMap<AnaLoopVariable> loopsVars = new StringMap<AnaLoopVariable>();
+    private final StringMap<String> infosVars = new StringMap<String>();
+    private final StringMap<String> loopsVars = new StringMap<String>();
 
     private BeanNatCommonLgNames stds;
 
@@ -31,18 +28,18 @@ public final class NatAnalyzedCode {
     }
 
     public String getGlobalClass() {
-        return globalType.getFormatted();
+        return globalType;
     }
 
-    public void setGlobalType(AnaFormattedRootBlock _globalType) {
+    public void setGlobalType(String _globalType) {
         globalType = _globalType;
     }
 
-    public StringMap<AnaLocalVariable> getInfosVars() {
+    public StringMap<String> getInfosVars() {
         return infosVars;
     }
 
-    public StringMap<AnaLoopVariable> getLoopsVars() {
+    public StringMap<String> getLoopsVars() {
         return loopsVars;
     }
 

@@ -4,6 +4,7 @@ import cards.consts.CoreResourcesAccess;
 import cards.consts.MixCardsChoice;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
+import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -101,7 +102,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         StringMap<String> other_ = MessTarotPage.ms();
         AnaRendBlock.adjust(other_);
         TarotStandardsRules stds_ = new TarotStandardsRules();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

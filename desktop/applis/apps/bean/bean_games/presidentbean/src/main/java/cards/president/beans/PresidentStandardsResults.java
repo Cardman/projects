@@ -5,7 +5,7 @@ import code.bean.Bean;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.util.CustList;
 
 public final class PresidentStandardsResults extends PresidentStandards {
@@ -24,9 +24,9 @@ public final class PresidentStandardsResults extends PresidentStandards {
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         fields_ = new CustList<StandardField>();
-        std_ = new SpecialNatClass(TYPE_PRESIDENT_BEAN, fields_, methods_, TYPE_BEAN);
-        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false, new PresidentBeanNicknames(), null));
-        fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false, new PresidentBeanLinesDeal(), null));
+        std_ = new SpecialNatClass(fields_, methods_, TYPE_BEAN);
+        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, new PresidentBeanNicknames(), null));
+        fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, new PresidentBeanLinesDeal(), null));
         getStds().addEntry(TYPE_PRESIDENT_BEAN, std_);
     }
 
@@ -35,7 +35,7 @@ public final class PresidentStandardsResults extends PresidentStandards {
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language) {
+    public void initBeans(NatConfigurationCore _conf, String _language) {
         getBeansStruct().setValue(0, beanResults(_language));
     }
 

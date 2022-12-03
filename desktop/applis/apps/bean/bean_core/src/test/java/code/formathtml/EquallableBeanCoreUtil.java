@@ -1,5 +1,6 @@
 package code.formathtml;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.expressionlanguage.structs.Struct;
 import code.scripts.confs.BeanPageCardsSample;
 import code.util.core.StringUtil;
@@ -27,8 +28,8 @@ public abstract class EquallableBeanCoreUtil {
         Assert.assertFalse(_value);
     }
 
-    public static Configuration newConfiguration() {
-        return new Configuration();
+    public static NatConfigurationCore newConfiguration() {
+        return new NatConfigurationCore();
     }
     public static String formatFile(String _folder, String _locale, String _relative) {
         return StringUtil.concat(_folder,"/",_locale,"/",_relative,".properties");

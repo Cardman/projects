@@ -4,7 +4,6 @@ import aiki.beans.endround.AikiBeansEndroundStd;
 import aiki.beans.map.*;
 import aiki.beans.map.elements.*;
 import code.bean.nat.*;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansStd{
     public static final String WEB_HTML_INDEX_HTML="web/html/index.html";
@@ -53,50 +52,50 @@ public final class AikiBeansStd{
     private static void buildCommonBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_COMMON_BEAN, fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
-        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_INDEX_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(AikiBeansEndroundStd.PAGE_END_ROUND)));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.TYPE_BEAN);
+        methods_.add( new SpecNatMethod(GO_TO_INDEX, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_INDEX_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_ENDROUND, BeanNatCommonLgNames.STRING, new CstNatCaller(AikiBeansEndroundStd.PAGE_END_ROUND)));
         _std.getStds().addEntry(TYPE_COMMON_BEAN, type_);
     }
     private static void buildWelcomeBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_WELCOME_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        methods_.add( new SpecNatMethod(CLICK_POKEDEX, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanClickPokedex()));
-        methods_.add( new SpecNatMethod(CLICK_ITEMS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanClickItems()));
-        methods_.add( new SpecNatMethod(SEE_ALL_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanSeeAllMoves()));
-        methods_.add( new SpecNatMethod(SEE_LEARNT_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanSeeLearntMoves()));
-        methods_.add( new SpecNatMethod(SEE_NOT_LEARNT_MOVES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanSeeNotLearntMoves()));
-        methods_.add( new SpecNatMethod(CLICK_ABILITIES,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanClickAbilities()));
-        methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanClickStatus()));
-        methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new WelcomeBeanClickSimulation()));
-        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(AikiBeansMapElementsStd.WEB_HTML_MAP_MAP_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/general/general.html")));
-        methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/round/helpround.html")));
-        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller(WEB_HTML_COMBO_COMBOS_HTML)));
-        methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/solution/solution.html")));
-        methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new CstNatCaller("web/html/langs/langs.html")));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        methods_.add( new SpecNatMethod(CLICK_POKEDEX, BeanNatCommonLgNames.STRING, new WelcomeBeanClickPokedex()));
+        methods_.add( new SpecNatMethod(CLICK_ITEMS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickItems()));
+        methods_.add( new SpecNatMethod(SEE_ALL_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeAllMoves()));
+        methods_.add( new SpecNatMethod(SEE_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeLearntMoves()));
+        methods_.add( new SpecNatMethod(SEE_NOT_LEARNT_MOVES,BeanNatCommonLgNames.STRING, new WelcomeBeanSeeNotLearntMoves()));
+        methods_.add( new SpecNatMethod(CLICK_ABILITIES,BeanNatCommonLgNames.STRING, new WelcomeBeanClickAbilities()));
+        methods_.add( new SpecNatMethod(CLICK_STATUS,BeanNatCommonLgNames.STRING, new WelcomeBeanClickStatus()));
+        methods_.add( new SpecNatMethod(CLICK_SIMULATION,BeanNatCommonLgNames.STRING, new WelcomeBeanClickSimulation()));
+        methods_.add( new SpecNatMethod(AikiBeansMapElementsStd.GM, BeanNatCommonLgNames.STRING, new CstNatCaller(AikiBeansMapElementsStd.WEB_HTML_MAP_MAP_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_GENERAL, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/general/general.html")));
+        methods_.add( new SpecNatMethod(GO_TO_HELPROUND, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/round/helpround.html")));
+        methods_.add( new SpecNatMethod(GO_TO_COMBOS, BeanNatCommonLgNames.STRING, new CstNatCaller(WEB_HTML_COMBO_COMBOS_HTML)));
+        methods_.add( new SpecNatMethod(GO_TO_SOLUTION, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/solution/solution.html")));
+        methods_.add( new SpecNatMethod(GO_TO_LANGS, BeanNatCommonLgNames.STRING, new CstNatCaller("web/html/langs/langs.html")));
         _std.getStds().addEntry(TYPE_WELCOME_BEAN, type_);
     }
     private static void buildAbsBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_ABS_LEVEL_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanPossibleMultiLayerGet(),null));
-        fields_.add(new StandardField(PLACE_NAME,BeanNatCommonLgNames.STRING,false,false,new MapLevelBeanPlaceNameGet(),null));
-        fields_.add(new StandardField(LEVEL_INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MapLevelBeanLevelIndexGet(),null));
-        fields_.add(new StandardField(OUTSIDE,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanOutsideGet(),null));
-        fields_.add(new StandardField(ROAD,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanRoadGet(),null));
-        fields_.add(new StandardField(GYM,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanGymGet(),null));
-        fields_.add(new StandardField(POKEMON_CENTER,BeanNatCommonLgNames.PRIM_BOOLEAN,false,false,new MapLevelBeanPokemonCenterGet(),null));
-        fields_.add(new StandardField(TILES, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanTilesGet(),null));
-        fields_.add(new StandardField(WHITE_TILES, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanWhiteTilesGet(),null));
-        fields_.add(new StandardField(NEIGHBOURS, BeanNatCommonLgNames.TYPE_MAP,false,false,new MapLevelBeanNeighboursGet(),null));
-        methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, false, MethodModifier.NORMAL,new MapLevelBeanGetMapWidth()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(POSSIBLE_MULTI_LAYER,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanPossibleMultiLayerGet(),null));
+        fields_.add(new StandardField(PLACE_NAME,BeanNatCommonLgNames.STRING, new MapLevelBeanPlaceNameGet(),null));
+        fields_.add(new StandardField(LEVEL_INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new MapLevelBeanLevelIndexGet(),null));
+        fields_.add(new StandardField(OUTSIDE,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanOutsideGet(),null));
+        fields_.add(new StandardField(ROAD,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanRoadGet(),null));
+        fields_.add(new StandardField(GYM,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanGymGet(),null));
+        fields_.add(new StandardField(POKEMON_CENTER,BeanNatCommonLgNames.PRIM_BOOLEAN, new MapLevelBeanPokemonCenterGet(),null));
+        fields_.add(new StandardField(TILES, BeanNatCommonLgNames.TYPE_MAP, new MapLevelBeanTilesGet(),null));
+        fields_.add(new StandardField(WHITE_TILES, BeanNatCommonLgNames.TYPE_MAP, new MapLevelBeanWhiteTilesGet(),null));
+        fields_.add(new StandardField(NEIGHBOURS, BeanNatCommonLgNames.TYPE_MAP, new MapLevelBeanNeighboursGet(),null));
+        methods_.add( new SpecNatMethod(GET_MAP_WIDTH, BeanNatCommonLgNames.PRIM_INTEGER, new MapLevelBeanGetMapWidth()));
 //        methods_.add( new SpecNatMethod(IS_FIRST_ROW,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MapLevelBeanIsFirstRow()));
-        methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickArea()));
-        methods_.add( new SpecNatMethod(CLICK_AREA_ON_MAP,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickAreaOnMap()));
-        methods_.add( new SpecNatMethod(CLICK_NEIGHBOUR,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new MapLevelBeanClickNeighbour()));
+        methods_.add( new SpecNatMethod(CLICK_AREA,BeanNatCommonLgNames.STRING, new MapLevelBeanClickArea()));
+        methods_.add( new SpecNatMethod(CLICK_AREA_ON_MAP,BeanNatCommonLgNames.STRING, new MapLevelBeanClickAreaOnMap()));
+        methods_.add( new SpecNatMethod(CLICK_NEIGHBOUR,BeanNatCommonLgNames.STRING, new MapLevelBeanClickNeighbour()));
         _std.getStds().addEntry(TYPE_ABS_LEVEL_BEAN, type_);
     }
 }

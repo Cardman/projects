@@ -29,6 +29,7 @@ import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
 import code.bean.nat.NatCaller;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.maths.LgInt;
@@ -171,7 +172,7 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String ST_SPEED_TR="ST_SPEED_TR";
     protected static final String ST_HP_TR="ST_HP_TR";
     public static String navigateData(NatCaller _caller, Struct _str, long... _args) {
-        PkScriptPagesInit.initConfData(new Configuration());
+        PkScriptPagesInit.initConfData(new NatConfigurationCore());
         return navigate(_caller, "", _str, _args);
     }
 

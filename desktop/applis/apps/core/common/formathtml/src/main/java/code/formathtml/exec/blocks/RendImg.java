@@ -8,8 +8,10 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
+import code.sml.ConfigurationCore;
 import code.sml.Element;
 import code.sml.Node;
+import code.sml.RendKeyWordsAttrs;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
@@ -33,18 +35,18 @@ public final class RendImg extends RendElement {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return true;
         }
-        if (!prImg(_cont, (Element) _nextWrite, pageName_)){
+        if (!prImg(_cont.getRend(), _cont.getRendKeyWords().group().getKeyWordsAttrs(), (Element) _nextWrite, pageName_)){
             ((Element) _nextWrite).setAttribute(_cont.getRendKeyWords().getAttrSrc(),"");
         }
         return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
-    public static boolean prImg(Configuration _cont, Element _nextWrite, String _link) {
+    public static boolean prImg(ConfigurationCore _cont, RendKeyWordsAttrs _attrs, Element _nextWrite, String _link) {
         String file_ = StringUtil.nullToEmpty(_cont.getFiles().getVal(_link));
         if (file_.isEmpty()) {
             return false;
         }
-        _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrSrc(),file_);
+        _nextWrite.setAttribute(_attrs.getAttrSrc(),file_);
         return true;
     }
 }

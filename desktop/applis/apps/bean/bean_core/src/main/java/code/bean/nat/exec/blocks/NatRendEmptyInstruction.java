@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
-import code.formathtml.Configuration;
 
 public final class NatRendEmptyInstruction extends NatRendPossibleEmpty {
 //    public NatRendEmptyInstruction() {
@@ -9,7 +9,7 @@ public final class NatRendEmptyInstruction extends NatRendPossibleEmpty {
 //    }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         RendBlockHelp.processBlock(_rendStack, this);
     }
 }

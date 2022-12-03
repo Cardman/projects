@@ -2,16 +2,18 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatCaller;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
-import code.bean.nat.exec.opers.*;
-import code.expressionlanguage.Argument;
+import code.bean.nat.exec.opers.NatAbstractDotOperation;
+import code.bean.nat.exec.opers.NatExecMethodOperation;
+import code.bean.nat.exec.opers.NatExecOperationNode;
+import code.bean.nat.exec.opers.NatSettableFieldOperation;
+import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.formathtml.FormParts;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.blocks.RendElem;
 import code.formathtml.util.IndexesFormInput;
 import code.formathtml.util.NodeInformations;
 import code.sml.Document;
@@ -19,7 +21,7 @@ import code.sml.Element;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class NatRendElementForm extends NatParentBlock implements RendElem {
+public abstract class NatRendElementForm extends NatParentBlock implements NatRendElem {
     private final Element read;
     private final StringMap<NatExecTextPart> natAttributes;
     private final StringMap<NatExecTextPart> natAttributesText;
@@ -30,7 +32,7 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
         this.natAttributesText = _execAttributesText;
     }
 
-    public static Argument fetchName(Configuration _cont, Element _read, Element _write, NatFieldUpdates _f, NatRendStackCall _rendStackCall) {
+    public static Struct fetchName(NatConfigurationCore _cont, Element _read, Element _write, NatFieldUpdates _f, NatRendStackCall _rendStackCall) {
 //        if (_f.getOpsWrite() == null) {
 //            return Argument.createVoid();
 //        }
@@ -47,17 +49,17 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
         NatArgumentsPair pair_ = args_.getValue(settable_.getOrder());
         CustList<Struct> obj_;
         if (((NatSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
-            obj_ = new CustList<Struct>(Argument.getNullableValue(pair_.getPreviousArgument()).getStruct());
+            obj_ = new CustList<Struct>(pair_.getPreviousArgument());
         } else {
-            obj_ = new CustList<Struct>(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
+            obj_ = new CustList<Struct>(_rendStackCall.getLastPage().getGlobalArgument());
         }
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
-        Argument arg_ = Argument.getNullableValue(pair_.getArgument());
-        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
+        Struct arg_ = pair_.getArgument();
+        String name_ = _read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrName());
         return prStack(_cont,_write,_f, new NatFetchedObjs(obj_, stack_,arg_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), RendBlock.DOT, name_));
     }
 
-    public static Argument prStack(Configuration _cont, Element _write, NatFieldUpdates _f, NatFetchedObjs _fetch, Argument _globalArgument, NatRendStackCall _rend, String _concat) {
+    public static Struct prStack(NatConfigurationCore _cont, Element _write, NatFieldUpdates _f, NatFetchedObjs _fetch, Struct _globalArgument, NatRendStackCall _rend, String _concat) {
         if ( _fetch.getStack().isEmpty()) {
             return _fetch.getArg();
         }
@@ -79,24 +81,24 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
             long old_ = currentInput_;
             nodeCont_.setAllObject(_fetch.getObj());
             nodeCont_.setOpsWrite(opsWrite_);
-            nodeCont_.setBean(_globalArgument.getStruct());
+            nodeCont_.setBean(_globalArgument);
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
-            nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
-            nodeInfos_.setId(RendBlock.getId(_cont,_write));
-            nodeInfos_.setInputClass(RendBlock.getInputClass(_cont, _write, _f));
+            nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getKeyWordsAttrs().getAttrValidator())));
+            nodeInfos_.setId(RendBlock.getId(_cont.getNat(),_write, _cont.getRendKeyWords()));
+            nodeInfos_.setInputClass(RendBlock.getInputClass(_cont.getNat(), _write, _f, _cont.getRendKeyWords()));
             _fetch.getStack().last().put(currentInput_, nodeCont_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
-            _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(old_));
+            _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrNi(), Long.toString(old_));
         } else {
-            _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(found_));
+            _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrNi(), Long.toString(found_));
         }
 //        attributesNames_.removeAllString(NUMBER_INPUT);
-        _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _concat);
+        _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrName(), _concat);
         return _fetch.getArg();
     }
 
-    public static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<NatExecOperationNode> _ops, NatRendStackCall _rendStackCall) {
+    public static void fetchValue(NatConfigurationCore _cont, Element _read, Element _write, CustList<NatExecOperationNode> _ops, NatRendStackCall _rendStackCall) {
 //        String name_ = _read.getAttribute(_cont.getRendKeyWords().getAttrName());
 //        if (name_.isEmpty()) {
 //            return;
@@ -104,27 +106,21 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
 //        if (_ops.isEmpty()) {
 //            return;
 //        }
-        if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordInput())) {
-            Argument o_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(_ops, _rendStackCall).lastValue().getArgument());
-            if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getAttrType()),_cont.getRendKeyWords().getValueCheckbox())) {
-                if (Argument.isTrueValue(o_)) {
-                    _write.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
+        if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordsTags().getKeyWordInput())) {
+            Struct o_ = BeanNatCommonLgNames.getAllArgs(_ops, _rendStackCall).lastValue().getArgument();
+            if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrType()),_cont.getRendKeyWords().getKeyWordsValues().getValueCheckbox())) {
+                if (BooleanStruct.isTrue(o_)) {
+                    _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked(), _cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
                 } else {
-                    _write.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
+                    _write.removeAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
                 }
             } else {
-                o_ = convertField(o_);
+                o_ = nullValueToEmpty(o_);
                 String value_ = BeanNatCommonLgNames.processString(o_);
-                _write.setAttribute(_cont.getRendKeyWords().getAttrValue(), value_);
+                _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrValue(), value_);
             }
         }
-        _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrVarValue()));
-    }
-
-    private static Argument convertField(Argument _o) {
-        Struct o_ = _o.getStruct();
-        o_ = nullValueToEmpty(o_);
-        return new Argument(o_);
+        _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordsAttrs().getAttrVarValue()));
     }
 
     public static Struct nullValueToEmpty(Struct _o) {
@@ -136,10 +132,10 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
     }
 
     static String getStringKey(Struct _instance) {
-        return BeanNatCommonLgNames.processString(new Argument(_instance));
+        return BeanNatCommonLgNames.processString(_instance);
     }
 
-    public static void processLink(Configuration _cont, Element _nextWrite, NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {
+    public static void processLink(NatConfigurationCore _cont, Element _nextWrite, NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {
 //        String href_ = _read.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()));
 //        if (!href_.startsWith(CALL_METHOD)) {
 //            _rendStackCall.getFormParts().getAnchorsArgs().add(new StringList());
@@ -153,7 +149,7 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
 //        String render_ = StringUtil.join(alt_,"");
 //        String beanName_ = _rendStackCall.getLastPage().getBeanName();
 //        _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(CALL_METHOD,beanName_,DOT,render_));
-        _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), RendBlockHelp.EMPTY_STRING);
+        _nextWrite.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrHref(), RendBlockHelp.EMPTY_STRING);
         incrAncNbNonCont(_cont, _nextWrite, ((NatRendStackCallAdv)_rendStackCall).getFormParts().getIndexes());
     }
 
@@ -169,11 +165,11 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
     public static void feed(StringList _varNames, CustList<NatExecOperationNode> _anc, NatRendStackCall _rendStackCall) {
         ((NatRendStackCallAdv)_rendStackCall).getFormParts().getCallsExps().add(_anc);
         ((NatRendStackCallAdv)_rendStackCall).getFormParts().getAnchorsVars().add(_varNames);
-        ((NatRendStackCallAdv)_rendStackCall).getFormParts().getStructsAnc().add(_rendStackCall.getLastPage().getGlobalArgument().getStruct());
+        ((NatRendStackCallAdv)_rendStackCall).getFormParts().getStructsAnc().add(_rendStackCall.getLastPage().getGlobalArgument());
     }
 
-    public static void incrAncNbNonCont(Configuration _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
-        RendBlock.incrAncNb(_cont, _nextEltWrite, _indexes);
+    public static void incrAncNbNonCont(NatConfigurationCore _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
+        RendBlock.incrAncNb(_cont.getNat(), _nextEltWrite, _indexes, _cont.getRendKeyWords());
         RendBlock.incr(_indexes);
     }
 
@@ -208,7 +204,7 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
     }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {
@@ -235,7 +231,7 @@ public abstract class NatRendElementForm extends NatParentBlock implements RendE
         } else if (this instanceof NatRendTitledAnchor) {
             ((NatRendTitledAnchor)this).titled(_cont, created_, _rendStack);
         } else {
-            ownerDocument_.renameNode(created_, _cont.getRendKeyWords().getKeyWordSpan());
+            ownerDocument_.renameNode(created_, _cont.getRendKeyWords().getKeyWordsTags().getKeyWordSpan());
         }
         for (EntryCust<String, NatExecTextPart> e: natAttributes.entryList()) {
             NatExecTextPart res_ = e.getValue();

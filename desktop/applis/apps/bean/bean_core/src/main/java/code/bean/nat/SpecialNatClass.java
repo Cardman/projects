@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.expressionlanguage.stds.StandardType;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -12,15 +11,11 @@ public final class SpecialNatClass {
 
     private final StringList directInterfaces = new StringList();
 
-    private final String name;
-    private final String packageName;
 
     private final CustList<SpecNatMethod> methods;
 
     private final CustList<StandardField> fields;
-    public SpecialNatClass(String _name, CustList<StandardField> _fields, CustList<SpecNatMethod> _methods, String _superClass) {
-        name = StandardType.getNamePart(_name);
-        packageName = StandardType.getPackagePart(_name);
+    public SpecialNatClass(CustList<StandardField> _fields, CustList<SpecNatMethod> _methods, String _superClass) {
         methods = _methods;
         superClass = _superClass;
         fields = _fields;

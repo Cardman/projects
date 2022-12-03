@@ -8,6 +8,7 @@ import cards.consts.CoreResourcesAccess;
 import cards.consts.GameType;
 import cards.consts.Role;
 import cards.consts.Suit;
+import code.bean.nat.NatNavigation;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessBelotePage;
@@ -79,7 +80,7 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
         StringMap<String> other_ = MessBelotePage.ms();
         AnaRendBlock.adjust(other_);
         BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,other_,"");
         stds_.setDataBase(results(game1(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

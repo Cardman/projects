@@ -3,6 +3,7 @@ package cards.president.beans;
 import cards.consts.GameType;
 import cards.president.*;
 import cards.president.enumerations.CardPresident;
+import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -44,7 +45,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         StringMap<String> other_ = MessPresidentPage.ms();
         AnaRendBlock.adjust(other_);
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
         stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -57,7 +58,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
         StringMap<String> other_ = MessPresidentPage.ms();
         AnaRendBlock.adjust(other_);
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
         stds_.setDataBase(build(game(),fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4)));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/president.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

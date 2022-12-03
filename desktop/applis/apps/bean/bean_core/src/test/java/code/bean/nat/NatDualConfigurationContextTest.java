@@ -19,7 +19,7 @@ public final class NatDualConfigurationContextTest extends EquallableBeanCoreUti
         props_.addEntry("prop2","prop2");
         d_.setProperties(props_);
         d_.setMessagesFolder("sample");
-        Navigation nav_ = new Navigation();
+        NatNavigation nav_ = new NatNavigation();
         nav_.setLanguages(Constants.getAvailableLanguages());
         StringMap<String> other_ = new StringMap<String>();
         other_.addEntry("elt.css","*{}");

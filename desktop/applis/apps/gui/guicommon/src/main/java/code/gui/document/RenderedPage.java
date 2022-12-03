@@ -2,6 +2,7 @@ package code.gui.document;
 
 import aiki.beans.BeanNatCommonLgNamesForm;
 import code.bean.nat.BeanNatCommonLgNamesInt;
+import code.bean.nat.NatNavigation;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -15,6 +16,8 @@ import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.Document;
+import code.sml.NavigationCore;
+import code.sml.RendKeyWordsGroup;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
@@ -31,6 +34,8 @@ public final class RenderedPage implements ProcessingSession {
     private DualPanel page;
     private final AbsScrollPane scroll;
     private Navigation navigation;
+    private RendKeyWordsGroup keys;
+    private NavigationCore navCore;
     private final IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
     private FindEvent finding;
 
@@ -67,20 +72,22 @@ public final class RenderedPage implements ProcessingSession {
     public void initNav() {
         navigation = new Navigation();
         navigation.setSession(new Configuration());
+        navCore = navigation.getCore();
+        keys = navigation.getSession().getRendKeyWords().group();
     }
 
     public void setFiles(StringMap<String> _web) {
-        navigation.setFiles(_web);
+        navCore.setFiles(_web);
     }
 
     public void setLanguage(String _language) {
-        navigation.setLanguage(_language);
-        navigation.setLanguages(Constants.getAvailableLanguages());
+        navCore.setLanguage(_language);
+        navCore.setLanguages(Constants.getAvailableLanguages());
     }
 
     public void setLanguage(String _language, StringList _languages) {
-        navigation.setLanguage(_language);
-        navigation.setLanguages(_languages);
+        navCore.setLanguage(_language);
+        navCore.setLanguages(_languages);
     }
 
     public void setProcess(CustList<AbstractImage> _process) {
@@ -88,28 +95,33 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(Navigation _nav,MetaDocument _metaDoc) {
-        navigation = _nav;
+    public void initialize(NatNavigation _nav,MetaDocument _metaDoc) {
+        navCore = _nav.getBean();
+        keys = _nav.getSession().getRendKeyWords();
         FrameUtil.invokeLater(new WindowPage(_metaDoc, scroll, this), getGene());
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
     public void initialize(PreparedAnalyzed _stds) {
-        navigation = _stds.getNavigation();
-        initDoc(_stds.getBeanNatLgNames());
+        NatNavigation n_ = _stds.getNavigation();
+        navCore = n_.getBean();
+        keys = n_.getSession().getRendKeyWords();
+        initDoc(_stds.getBeanNatLgNames(),n_);
     }
 
-    private void initDoc(BeanNatCommonLgNamesInt _stds) {
-        _stds.initializeRendSessionDoc(navigation);
+    private void initDoc(BeanNatCommonLgNamesInt _stds, NatNavigation _nat) {
+        _stds.initializeRendSessionDoc(_nat);
         setupText();
     }
 
     public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds) {
-        navigation = _prepared.getNavigation();
-        navigation.setLanguage(_lg);
+        NatNavigation n_ = _prepared.getNavigation();
+        navCore = n_.getBean();
+        keys = n_.getSession().getRendKeyWords();
+        navCore.setLanguage(_lg);
         standards = _stds;
-        renderAction = new NatRenderAction(this, _stds);
-        initDoc(_stds);
+        renderAction = new NatRenderAction(_stds,n_);
+        initDoc(_stds,n_);
     }
 
     public void initializeOnlyConf(AbstractContextCreator _creator,BeanCustLgNames _stds, Runnable _inst) {
@@ -173,15 +185,15 @@ public final class RenderedPage implements ProcessingSession {
     }
 
     private void setupText() {
-        Document doc_ = navigation.getDocument();
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,navigation.getSession().getRendKeyWords());
+        Document doc_ = navCore.getDocument();
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys);
         FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
     }
     void directScroll(MetaDocument _meta) {
-        if (frame != null && !navigation.getTitle().isEmpty()) {
-            frame.setTitle(navigation.getTitle());
+        if (frame != null && !navCore.getTitle().isEmpty()) {
+            frame.setTitle(navCore.getTitle());
         }
-        String ref_ = navigation.getReferenceScroll();
+        String ref_ = navCore.getReferenceScroll();
         if (!ref_.isEmpty()) {
             MetaSearchableLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
             DualComponent c_ = getRefs().getVal(lab_);
@@ -224,6 +236,15 @@ public final class RenderedPage implements ProcessingSession {
     public Navigation getNavigation() {
         return navigation;
     }
+
+    public RendKeyWordsGroup getKeys() {
+        return keys;
+    }
+
+    public NavigationCore getNavCore() {
+        return navCore;
+    }
+
     public AbsScrollPane getScroll() {
         return scroll;
     }

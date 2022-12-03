@@ -8,14 +8,14 @@ import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.blocks.NatBlock;
 import code.bean.nat.exec.blocks.NatExecTextPart;
 import code.bean.nat.exec.blocks.NatRendStdElement;
-import code.formathtml.errors.RendKeyWords;
 import code.sml.Element;
+import code.sml.RendKeyWordsGroup;
 import code.util.StringMap;
 
 public final class DefNatBlockBuilder implements AbstractNatBlockBuilder {
 
     @Override
-    public NatAnaRendBlock defBlock(String _prefix, RendKeyWords _rendKeyWords, Element _elt) {
+    public NatAnaRendBlock defBlock(String _prefix, RendKeyWordsGroup _rendKeyWords, Element _elt) {
         return new NatAnaRendStdElement(_elt,this);
     }
 

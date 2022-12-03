@@ -3,7 +3,9 @@ package code.bean.help;
 import code.bean.help.analyze.blocks.HelpAnaRendBlockHelp;
 import code.bean.help.fwd.HelpRendForwardInfos;
 import code.bean.nat.NatDualConfigurationContext;
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.bean.nat.NatNavigation;
+import code.sml.NatAnalyzingDoc;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
@@ -12,10 +14,6 @@ import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.exec.blocks.RendBlockHelp;
-import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
-import code.formathtml.Configuration;
-import code.formathtml.Navigation;
-import code.formathtml.structs.BeanInfo;
 import code.sml.Document;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -25,10 +23,10 @@ public final class HelpCaller {
 
     }
 
-    public static Document text(NatDualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
+    public static Document text(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _uniq, StringMap<String> _ms, String _language) {
         NatRendStackCall rendStackCall_ = new NatRendStackCall();
         StringMap<String> files_ = NatDualConfigurationContext.files(_navigation,_contextConf,_ms,_ms,"");
-        Configuration session_ = _navigation.getSession();
+        NatConfigurationCore session_ = _navigation.getSession();
 //        for (String a : _contextConf.getAddedFiles()) {
 //            files_.put(a, _ms.getVal(a));
 //        }
@@ -42,15 +40,17 @@ public final class HelpCaller {
         session_.setFirstUrl(_realFilePath);
         _navigation.setFiles(files_);
         NatAnalyzedCode page_ = NatAnalyzedCode.setInnerAnalyzing();
-        Configuration conf_ = _navigation.getSession();
+        NatConfigurationCore conf_ = _navigation.getSession();
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        StringMap<BeanInfo> beansInfos_ = new StringMap<BeanInfo>();
+        StringMap<String> beansInfos_ = new StringMap<String>();
         conf_.getBeansInfos().addAllEntries(beansInfos_);
         analyzingDoc_.setLanguages(_navigation.getLanguages());
         _navigation.getSession().setCurrentLanguage(_language);
 
         _navigation.getSession().setFiles(_navigation.getFiles());
-        analyzingDoc_.setup(_navigation.getSession(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
+        NatConfigurationCore c_ = _navigation.getSession();
+        analyzingDoc_.setRendKeyWords(c_.getRendKeyWords());
+        analyzingDoc_.setupCommon(c_.getNat(), _contextConf.getProperties(), _contextConf.getMessagesFolder());
         NatAnaRendDocumentBlock anaDoc_ = HelpAnaRendBlockHelp.newRendDocumentBlock(analyzingDoc_.getPrefix(), _uniq, analyzingDoc_.getRendKeyWords());
         buildFctInstructions(anaDoc_,analyzingDoc_, page_);
         NatDocumentBlock rendDocumentBlock_ = HelpRendForwardInfos.buildExec(analyzingDoc_, anaDoc_);
@@ -65,8 +65,8 @@ public final class HelpCaller {
     }
 
     public static void buildFctInstructions(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrBean())));
-        _page.setGlobalType(AnaFormattedRootBlock.defValue());
+        _doc.setBeanName(_doc.getElt().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrBean())));
+        _page.setGlobalType("");
         AnaRendBlockHelp.loop(_doc, _anaDoc, _page);
     }
 }

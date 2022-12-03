@@ -6,7 +6,6 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansPokemonEvolutionsStd{
     public static final String TYPE_EVOLUTION_BEAN = "aiki.beans.pokemon.evolutions.EvolutionBean";
@@ -53,80 +52,80 @@ public final class AikiBeansPokemonEvolutionsStd{
     private static void buildEvolutionBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EvolutionBeanIndexGet(),new EvolutionBeanIndexSet()));
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new EvolutionBeanDisplayNameGet(),null));
-        fields_.add(new StandardField(DISPLAY_BASE,BeanNatCommonLgNames.STRING,false,false,new EvolutionBeanDisplayBaseGet(),null));
-        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING,false,false,null,new EvolutionBeanNameSet()));
-        fields_.add(new StandardField(BASE,BeanNatCommonLgNames.STRING,false,false,null,new EvolutionBeanBaseSet()));
-        methods_.add( new SpecNatMethod(CLICK_EVO,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionBeanClickEvo()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER, new EvolutionBeanIndexGet(),new EvolutionBeanIndexSet()));
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING, new EvolutionBeanDisplayNameGet(),null));
+        fields_.add(new StandardField(DISPLAY_BASE,BeanNatCommonLgNames.STRING, new EvolutionBeanDisplayBaseGet(),null));
+        fields_.add(new StandardField(NAME,BeanNatCommonLgNames.STRING, null,new EvolutionBeanNameSet()));
+        fields_.add(new StandardField(BASE,BeanNatCommonLgNames.STRING, null,new EvolutionBeanBaseSet()));
+        methods_.add( new SpecNatMethod(CLICK_EVO,BeanNatCommonLgNames.STRING, new EvolutionBeanClickEvo()));
         _std.getStds().addEntry(TYPE_EVOLUTION_BEAN, type_);
     }
     private static void buildEvolutionHappinessBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_HAPPINESS_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(MIN,BeanNatCommonLgNames.PRIM_LONG,false,false,new EvolutionHappinessBeanMinGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(MIN,BeanNatCommonLgNames.PRIM_LONG, new EvolutionHappinessBeanMinGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_HAPPINESS_BEAN, type_);
     }
     private static void buildEvolutionItemBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_ITEM_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING,false,false,new EvolutionItemBeanItemGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionItemBeanClickItem()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(ITEM,BeanNatCommonLgNames.STRING, new EvolutionItemBeanItemGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, new EvolutionItemBeanClickItem()));
         _std.getStds().addEntry(TYPE_EVOLUTION_ITEM_BEAN, type_);
     }
     private static void buildEvolutionLevelBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new EvolutionLevelBeanLevelGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(LEVEL, BeanNatCommonLgNames.PRIM_INTEGER, new EvolutionLevelBeanLevelGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_LEVEL_BEAN, type_);
     }
     private static void buildEvolutionLevelGenderBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN);
-        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false,new EvolutionLevelGenderBeanGenderGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_LEVEL_BEAN);
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING, new EvolutionLevelGenderBeanGenderGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_LEVEL_GENDER_BEAN, type_);
     }
     private static void buildEvolutionMoveBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING,false,false,new EvolutionMoveBeanMoveGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionMoveBeanClickMove()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(MOVE,BeanNatCommonLgNames.STRING, new EvolutionMoveBeanMoveGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, new EvolutionMoveBeanClickMove()));
         _std.getStds().addEntry(TYPE_EVOLUTION_MOVE_BEAN, type_);
     }
     private static void buildEvolutionMoveTypeBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_MOVE_TYPE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(TYPE,BeanNatCommonLgNames.STRING,false,false,new EvolutionMoveTypeBeanTypeGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(TYPE,BeanNatCommonLgNames.STRING, new EvolutionMoveTypeBeanTypeGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_MOVE_TYPE_BEAN, type_);
     }
     private static void buildEvolutionStoneBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(STONE,BeanNatCommonLgNames.STRING,false,false,new EvolutionStoneBeanStoneGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_STONE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionStoneBeanClickStone()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(STONE,BeanNatCommonLgNames.STRING, new EvolutionStoneBeanStoneGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_STONE,BeanNatCommonLgNames.STRING, new EvolutionStoneBeanClickStone()));
         _std.getStds().addEntry(TYPE_EVOLUTION_STONE_BEAN, type_);
     }
     private static void buildEvolutionStoneGenderBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_STONE_GENDER_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN);
-        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING,false,false,new EvolutionStoneGenderBeanGenderGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_STONE_BEAN);
+        fields_.add(new StandardField(GENDER,BeanNatCommonLgNames.STRING, new EvolutionStoneGenderBeanGenderGet(),null));
         _std.getStds().addEntry(TYPE_EVOLUTION_STONE_GENDER_BEAN, type_);
     }
     private static void buildEvolutionTeamBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EVOLUTION_TEAM_BEAN, fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
-        fields_.add(new StandardField(OTHER,BeanNatCommonLgNames.STRING,false,false,new EvolutionTeamBeanOtherGet(),null));
-        methods_.add( new SpecNatMethod(CLICK_TEAM,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new EvolutionTeamBeanClickTeam()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansPokemonEvolutionsStd.TYPE_EVOLUTION_BEAN);
+        fields_.add(new StandardField(OTHER,BeanNatCommonLgNames.STRING, new EvolutionTeamBeanOtherGet(),null));
+        methods_.add( new SpecNatMethod(CLICK_TEAM,BeanNatCommonLgNames.STRING, new EvolutionTeamBeanClickTeam()));
         _std.getStds().addEntry(TYPE_EVOLUTION_TEAM_BEAN, type_);
     }
 }

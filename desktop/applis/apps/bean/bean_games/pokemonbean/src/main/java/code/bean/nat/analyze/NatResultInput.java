@@ -3,6 +3,7 @@ package code.bean.nat.analyze;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.*;
 import code.sml.Element;
+import code.sml.NatAnalyzingDoc;
 
 public final class NatResultInput {
 
@@ -12,7 +13,7 @@ public final class NatResultInput {
     private final NatOperationNode settable;
 
     public NatResultInput(Element _read, String _varValue, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrName());
+        String name_ = _read.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrName());
         opsReadRoot = NatRenderAnalysis.getRootAnalyzedOperations(name_, 0, _anaDoc, _page);
         NatOperationNode settable_ = castDottedTo(opsReadRoot);
         classNameNat = settable_.getNames();

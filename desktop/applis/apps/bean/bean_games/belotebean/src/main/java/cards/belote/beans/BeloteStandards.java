@@ -3,12 +3,11 @@ package cards.belote.beans;
 import cards.belote.*;
 import cards.consts.beans.*;
 import code.bean.nat.*;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.*;
 import code.util.*;
 
 public abstract class BeloteStandards extends BeanNatCommonLgNames {
@@ -41,10 +40,10 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
     private void buildBeloteBean(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_BELOTE_BEAN, fields_, methods_, TYPE_BEAN);
-        methods_.add( new SpecNatMethod(PLAY_GAME, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new BeloteBeanPlayGame()));
-        methods_.add( new SpecNatMethod(GET_NICKNAMES, TYPE_LIST, false, MethodModifier.NORMAL,new BeloteBeanGetNicknames()));
-        methods_.add( new SpecNatMethod(GET_SCORES, TYPE_LIST, false, MethodModifier.NORMAL,new BeloteBeanGetScores()));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, TYPE_BEAN);
+        methods_.add( new SpecNatMethod(PLAY_GAME, PRIM_BOOLEAN, new BeloteBeanPlayGame()));
+        methods_.add( new SpecNatMethod(GET_NICKNAMES, TYPE_LIST, new BeloteBeanGetNicknames()));
+        methods_.add( new SpecNatMethod(GET_SCORES, TYPE_LIST, new BeloteBeanGetScores()));
         getStds().addEntry(TYPE_BELOTE_BEAN, std_);
     }
     private void buildLineDeal(){
@@ -53,24 +52,24 @@ public abstract class BeloteStandards extends BeanNatCommonLgNames {
     private void buildSumDeclaringPlayer(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(DECLARING, TYPE_LIST, false, false,new BeloteSumDeclaringPlayerDeclaring(),null));
-        fields_.add( new StandardField(SUM, PRIM_INTEGER, false, false,new BeloteSumDeclaringPlayerSum(),null));
-        fields_.add( new StandardField(NICKNAME, STRING, false, false,new BeloteSumDeclaringPlayerNickname(),null));
-        fields_.add( new StandardField(STATUT, STRING, false, false,new BeloteSumDeclaringPlayerStatut(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(DECLARING, TYPE_LIST, new BeloteSumDeclaringPlayerDeclaring(),null));
+        fields_.add( new StandardField(SUM, PRIM_INTEGER, new BeloteSumDeclaringPlayerSum(),null));
+        fields_.add( new StandardField(NICKNAME, STRING, new BeloteSumDeclaringPlayerNickname(),null));
+        fields_.add( new StandardField(STATUT, STRING, new BeloteSumDeclaringPlayerStatut(),null));
         getStds().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
     }
     private void buildDeclaringPlayerValue(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_DECLARING_PLAYER_VALUE, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(DECLARING, STRING, false, false,new DeclaringPlayerValueDeclaring(),null));
-        fields_.add( new StandardField(VALUE, PRIM_INTEGER, false, false,new DeclaringPlayerValueValue(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(DECLARING, STRING, new DeclaringPlayerValueDeclaring(),null));
+        fields_.add( new StandardField(VALUE, PRIM_INTEGER, new DeclaringPlayerValueValue(),null));
         getStds().addEntry(TYPE_DECLARING_PLAYER_VALUE, std_);
     }
 
     @Override
-    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);

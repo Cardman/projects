@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.sml.Element;
@@ -23,7 +23,7 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = buildAttrNames(_anaDoc, read);
-        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
+        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
         if (this instanceof NatAnaRendImg) {
             ((NatAnaRendImg)this).img(read,attributesNames_, _anaDoc, _page);
@@ -47,7 +47,7 @@ public abstract class NatAnaRendElement extends NatAnaRendParentBlock implements
         for (int i = 0; i < nbAttrs_; i++) {
             attributesNames_.add(mapAttr_.item(i).getName());
         }
-        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getAttrId());
+        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrId());
         return attributesNames_;
     }
 

@@ -97,7 +97,7 @@ public final class SubmitFormTest extends CommonRender {
     }
 
     private static MetaDocument getMetaDocument(Navigation _nav) {
-        return MetaDocument.newInstance(_nav.getDocument(),_nav.getSession().getRendKeyWords());
+        return MetaDocument.newInstance(_nav.getDocument(),_nav.getSession().getRendKeyWords().group());
     }
 
     @Test

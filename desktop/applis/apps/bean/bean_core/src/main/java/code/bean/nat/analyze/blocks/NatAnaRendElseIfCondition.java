@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 
 public final class NatAnaRendElseIfCondition extends NatAnaRendCondition {
     NatAnaRendElseIfCondition(String _condition) {

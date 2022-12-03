@@ -10,8 +10,7 @@ import aiki.beans.map.elements.*;
 import aiki.beans.map.pokemon.AikiBeansMapPokemonStd;
 import aiki.beans.moves.AikiBeansMovesStd;
 import aiki.beans.moves.effects.AikiBeansMovesEffectsStd;
-import code.formathtml.Configuration;
-import code.formathtml.structs.BeanInfo;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.util.CollCapacity;
 import code.util.StringMap;
 
@@ -614,10 +613,10 @@ private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.
 //private static final char NAV_SEP='.';
     private PkScriptPagesInit(){
     }
-    public static void initConfData(Configuration _configuration){
+    public static void initConfData(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(AikiBeansStd.WEB_HTML_INDEX_HTML);
         _configuration.setPrefix(PREF);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(109));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(109));
         NavBuilder.buildBeans(beans_,AikiBeansStd.BEAN_WELCOME,AIKI_BEANS_WELCOME_BEAN);
         NavBuilder.buildBeans(beans_,POKEDEX,AIKI_BEANS_POKEMON_POKEDEX_BEAN);
         NavBuilder.buildBeans(beans_,POKEMON,AIKI_BEANS_POKEMON_POKEMON_BEAN);
@@ -1128,10 +1127,10 @@ private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_TM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
 //        NavBuilder.buildNav(nav_,GERERAL_DATA+NAV_SEP+M_CLICK_HM_1,new EntryNav(MOVE,WEB_HTML_MOVES_DATA_HTML));
     }
-    public static void initConfFight(Configuration _configuration){
+    public static void initConfFight(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHT_HTML);
         _configuration.setPrefix(PREF);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(4));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(4));
         NavBuilder.buildBeans(beans_,FIGHTER,AIKI_BEANS_FIGHT_FIGHTER_BEAN);
         NavBuilder.buildBeans(beans_,TEAM,AIKI_BEANS_FIGHT_TEAM_BEAN);
         NavBuilder.buildBeans(beans_,FIGHT,AIKI_BEANS_FIGHT_FIGHT_BEAN);
@@ -1143,24 +1142,24 @@ private static final String WEB_PROG_HTML_GAMEPROG_HTML="web_prog/html/gameprog.
 //        NavBuilder.buildNav(nav_,TEAM+NAV_SEP+M_CLICK_FIGHTER_1,new EntryNav(FIGHTER,AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML));
 //        NavBuilder.buildNav(nav_,FIGHTER+NAV_SEP+M_CLICK_FIGHTER_2,new EntryNav(FIGHTER,WEB_FIGHT_HTML_FIGHTER_HTML));
     }
-    public static void initConfDiff(Configuration _configuration){
+    public static void initConfDiff(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
         _configuration.setPrefix(PREF);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(2));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(2));
         NavBuilder.buildBeans(beans_,DIFFICULTY,AIKI_BEANS_GAME_DIFFICULTY_BEAN);
         NavBuilder.buildBeans(beans_,AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,AikiBeansGameStd.TYPE_DIFFICULTY_COMMON_BEAN);
         _configuration.setBeansInfos(beans_);
     }
-    public static void initConfDetPk(Configuration _configuration){
+    public static void initConfDetPk(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(WEB_PK_HTML_POKEMON_HTML);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,POKEMON,AIKI_BEANS_GAME_POKEMON_PLAYER_BEAN);
         _configuration.setBeansInfos(beans_);
         _configuration.setPrefix(PREF);
     }
-    public static void initConfProg(Configuration _configuration){
+    public static void initConfProg(NatConfigurationCore _configuration){
         _configuration.setFirstUrl(WEB_PROG_HTML_GAMEPROG_HTML);
-        StringMap<BeanInfo> beans_ = new StringMap<BeanInfo>(new CollCapacity(1));
+        StringMap<String> beans_ = new StringMap<String>(new CollCapacity(1));
         NavBuilder.buildBeans(beans_,PROGRESSING,AIKI_BEANS_GAME_GAME_PROGRESSION_BEAN);
         _configuration.setBeansInfos(beans_);
         _configuration.setPrefix(PREF);

@@ -1,6 +1,7 @@
 package code.gui.document;
 
 import code.bean.nat.BeanNatCommonLgNames;
+import code.sml.RendKeyWordsGroup;
 import code.formathtml.render.MetaDocument;
 import code.gui.FrameUtil;
 import code.sml.Document;
@@ -26,12 +27,14 @@ public final class ThreadRefresh implements Runnable {
         if (!page.isProcessing()) {
             return;
         }
-        Document doc_ = page.getNavigation().getDocument();
+        Document doc_ = page.getNavCore().getDocument();
+//        Document doc_ = page.getNavigation().getDocument();
         if (doc_ == null) {
             finish();
             return;
         }
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,new RendKeyWordsGroup());
+//        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
         FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
     }
 

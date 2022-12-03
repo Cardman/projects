@@ -1,14 +1,14 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.expressionlanguage.Argument;
-import code.formathtml.Configuration;
+import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.stacks.RendReadWrite;
 import code.sml.Document;
 import code.sml.Element;
+import code.sml.RendReadWrite;
 import code.sml.Text;
 import code.util.CustList;
 import code.util.StringList;
@@ -31,12 +31,12 @@ public final class NatRendMessage extends NatParentBlock {
     }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         int l_ = args.size();
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         for (int i = 0; i< l_; i++) {
-            Argument arg_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument());
+            Struct arg_ = BeanNatCommonLgNames.getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument();
             String res_;
             res_ = BeanNatCommonLgNames.processString(arg_);
             objects_.add(res_);

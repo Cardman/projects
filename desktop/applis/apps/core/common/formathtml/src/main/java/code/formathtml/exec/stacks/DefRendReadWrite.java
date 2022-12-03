@@ -2,6 +2,7 @@ package code.formathtml.exec.stacks;
 
 import code.formathtml.exec.DefFormParts;
 import code.formathtml.exec.blocks.RendBlock;
+import code.sml.RendReadWrite;
 
 public final class DefRendReadWrite extends RendReadWrite {
 

@@ -4,14 +4,15 @@ import code.bean.nat.NatCaller;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;
-import code.bean.nat.analyze.opers.*;
+import code.bean.nat.analyze.opers.NatOperationNode;
+import code.bean.nat.analyze.opers.SettableFieldNatOperation;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatImportingPageForm;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.formathtml.errors.RendKeyWords;
 import code.sml.Element;
+import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -19,31 +20,31 @@ import code.util.core.StringUtil;
 public final class AdvNatBlockBuilder implements AbstractNatBlockBuilder {
 
     @Override
-    public NatAnaRendBlock defBlock(String _prefix, RendKeyWords _rendKeyWords, Element _elt) {
+    public NatAnaRendBlock defBlock(String _prefix, RendKeyWordsGroup _rendKeyWords, Element _elt) {
         String tagName_ = _elt.getTagName();
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSelect()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordSelect()))) {
             return new NatAnaRendSelect(_elt);
         }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordInput())) {
-            return new NatAnaRendInput(_elt, StringUtil.quickEq(_elt.getAttribute(_rendKeyWords.getAttrType()), _rendKeyWords.getValueRadio()));
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordInput())) {
+            return new NatAnaRendInput(_elt, StringUtil.quickEq(_elt.getAttribute(_rendKeyWords.getKeyWordsAttrs().getAttrType()), _rendKeyWords.getKeyWordsValues().getValueRadio()));
         }
 //        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordSpan()) && !_elt.getAttribute(StringUtil.concat(_prefix, _rendKeyWords.getAttrFor())).isEmpty()) {
 //            return new NatAnaRendSpan(_elt);
 //        }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordAnchor()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordAnchor()))) {
             return new NatAnaRendTitledAnchor(_elt);
         }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordSubmit()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordSubmit()))) {
             return new NatAnaRendSubmit(_elt);
         }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordAnchor())) {
-            String href_ = _elt.getAttribute(StringUtil.concat(_prefix,_rendKeyWords.getAttrCommand()));
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordAnchor())) {
+            String href_ = _elt.getAttribute(StringUtil.concat(_prefix,_rendKeyWords.getKeyWordsAttrs().getAttrCommand()));
             if (href_.isEmpty()) {
                 return new NatAnaRendInactiveAnchor(_elt);
             }
             return new NatAnaRendAnchor(_elt);
         }
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordForm())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordForm())) {
             return new NatAnaRendForm(_elt);
         }
         return new NatAnaRendStdElement(_elt, this);

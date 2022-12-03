@@ -22,6 +22,7 @@ import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.DualConfigurationContext;
+import code.sml.ConfigurationCore;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
@@ -33,34 +34,31 @@ public final class Configuration {
 
     private static final String SEP = ":";
 
-    private static final String EMPTY_STRING = "";
-
-    private static final int DEFAULT_TAB_WIDTH = 4;
-
-    private String firstUrl = EMPTY_STRING;
+    private final ConfigurationCore rend = new ConfigurationCore();
+//    private String firstUrl = EMPTY_STRING;
 
     private StringMap<BeanInfo> beansInfos = new StringMap<BeanInfo>();
 
     private StringMap<StringMap<String>> navigation = new StringMap<StringMap<String>>();
 
-    private int tabWidth = DEFAULT_TAB_WIDTH;
+//    private int tabWidth = DEFAULT_TAB_WIDTH;
 
     private StringMap<ValidatorInfo> lateValidators = new StringMap<ValidatorInfo>();
 
-    private String prefix = EMPTY_STRING;
+//    private String prefix = EMPTY_STRING;
 
-    private String currentLanguage = "";
+//    private String currentLanguage = "";
     private final RendKeyWords rendKeyWords = new RendKeyWords();
-    private StringMap<String> files = new StringMap<String>();
+//    private StringMap<String> files = new StringMap<String>();
 
     public void init(DualConfigurationContext _dual) {
         updatePref();
-        _dual.getRenderFiles().removeAllString(firstUrl);
-        _dual.getRenderFiles().add(firstUrl);
+        _dual.getRenderFiles().removeAllString(rend.getFirstUrl());
+        _dual.getRenderFiles().add(rend.getFirstUrl());
     }
 
     public void updatePref() {
-        prefix = StringUtil.concat(prefix,SEP);
+        rend.setPrefix(StringUtil.concat(rend.getPrefix(), SEP));
     }
 
     public void initInstancesPattern(AnalyzedPageEl _page, AnalyzingDoc _anaDoc, FileBlock _conf) {
@@ -160,12 +158,16 @@ public final class Configuration {
         ClassesUtil.processAnonymous(_page);
     }
 
+    public ConfigurationCore getRend() {
+        return rend;
+    }
+
     public String getFirstUrl() {
-        return firstUrl;
+        return rend.getFirstUrl();
     }
 
     public void setFirstUrl(String _firstUrl) {
-        firstUrl = _firstUrl;
+        rend.setFirstUrl(_firstUrl);
     }
 
     public StringMap<BeanInfo> getBeansInfos() {
@@ -185,20 +187,20 @@ public final class Configuration {
     }
 
     public int getTabWidth() {
-        return tabWidth;
+        return rend.getTabWidth();
     }
 
     public void setTabWidth(int _tabWidth) {
-        tabWidth = _tabWidth;
+        rend.setTabWidth(_tabWidth);
     }
 
 
     public String getPrefix() {
-        return prefix;
+        return rend.getPrefix();
     }
 
     public void setPrefix(String _prefix) {
-        prefix = _prefix;
+        rend.setPrefix(_prefix);
     }
 
     public StringMap<ValidatorInfo> getLateValidators() {
@@ -215,20 +217,20 @@ public final class Configuration {
     }
 
     public String getCurrentLanguage() {
-        return currentLanguage;
+        return rend.getCurrentLanguage();
     }
 
     public void setCurrentLanguage(String _currentLanguage) {
-        currentLanguage = _currentLanguage;
+        rend.setCurrentLanguage(_currentLanguage);
     }
 
 
     public void setFiles(StringMap<String> _files) {
-        files = _files;
+        rend.setFiles(_files);
     }
 
     public StringMap<String> getFiles() {
-        return files;
+        return rend.getFiles();
     }
 
 }

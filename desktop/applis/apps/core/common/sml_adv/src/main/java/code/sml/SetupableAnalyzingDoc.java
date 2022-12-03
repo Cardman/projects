@@ -1,7 +1,5 @@
-package code.formathtml.analyze;
+package code.sml;
 
-import code.formathtml.Configuration;
-import code.formathtml.errors.RendKeyWords;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -9,7 +7,6 @@ public abstract class SetupableAnalyzingDoc {
     private StringList languages = new StringList();
 
     private String internGlobalClass="";
-    private RendKeyWords rendKeyWords = new RendKeyWords();
 
     private int nextIndex;
     private String prefix = "";
@@ -21,9 +18,7 @@ public abstract class SetupableAnalyzingDoc {
 
     protected SetupableAnalyzingDoc() {
     }
-    public abstract void setup(Configuration _conf, StringMap<String> _properties, String _messagesFolder);
-    protected void setupCommon(Configuration _conf, StringMap<String> _properties, String _messagesFolder) {
-        rendKeyWords = _conf.getRendKeyWords();
+    public void setupCommon(ConfigurationCore _conf, StringMap<String> _properties, String _messagesFolder) {
         prefix = _conf.getPrefix();
         setProperties(_properties);
         setMessagesFolder(_messagesFolder);
@@ -63,10 +58,6 @@ public abstract class SetupableAnalyzingDoc {
 
     public void setNextIndex(int _nextIndex) {
         this.nextIndex = _nextIndex;
-    }
-
-    public RendKeyWords getRendKeyWords() {
-        return rendKeyWords;
     }
 
     public String getPrefix() {

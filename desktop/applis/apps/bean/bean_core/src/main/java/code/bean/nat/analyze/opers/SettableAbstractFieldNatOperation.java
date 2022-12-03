@@ -2,7 +2,6 @@ package code.bean.nat.analyze.opers;
 
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.fwd.opers.NatAnaSettableOperationContent;
-import code.expressionlanguage.functionid.MethodAccessKind;
 
 public abstract class SettableAbstractFieldNatOperation extends
         AbstractFieldNatOperation implements NatSettableElResult {
@@ -22,10 +21,6 @@ public abstract class SettableAbstractFieldNatOperation extends
         variable = _variable;
     }
 
-    @Override
-    public void setPreviousResultClass(String _previousResultClass, MethodAccessKind _staticAccess) {
-        setPreviousResultClass(_previousResultClass);
-    }
 
     public boolean isVariable() {
         return variable;

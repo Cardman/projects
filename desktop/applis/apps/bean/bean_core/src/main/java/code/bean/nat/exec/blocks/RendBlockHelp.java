@@ -1,13 +1,12 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.*;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.structs.*;
-import code.formathtml.Configuration;
 import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.exec.stacks.RendReadWrite;
+import code.sml.RendReadWrite;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
@@ -21,11 +20,11 @@ public final class RendBlockHelp {
     private RendBlockHelp(){
     }
 
-    public static String res(NatDocumentBlock _rend, Configuration _conf, NatRendStackCall _rendStackCall, String _beanName, Struct _bean,NatImportingPageAbs _pa) {
+    public static String res(NatDocumentBlock _rend, NatConfigurationCore _conf, NatRendStackCall _rendStackCall, String _beanName, Struct _bean, NatImportingPageAbs _pa) {
         NatImportingPageAbs ip_ = _pa.fwd();
         int tabWidth_ = _conf.getTabWidth();
         ip_.setBeanName(_beanName);
-        ip_.setGlobalArgumentStruct(Argument.getNull(_bean));
+        ip_.setGlobalArgumentStruct(_bean);
         _rendStackCall.addPage(ip_);
         FullDocument doc_ = DocumentBuilder.newXmlDocument(tabWidth_);
         appendChild(doc_,(Element) null, _rend.getElt());
@@ -49,9 +48,9 @@ public final class RendBlockHelp {
                 read_.processEl(_conf, _rendStackCall);
             }
         }
-        _rendStackCall.setBeanName(doc_.getDocumentElement().getAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean())));
-        doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrBean()));
-        doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getAttrAlias()));
+        _rendStackCall.setBeanName(doc_.getDocumentElement().getAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getKeyWordsAttrs().getAttrBean())));
+        doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getKeyWordsAttrs().getAttrBean()));
+        doc_.getDocumentElement().removeAttribute(StringUtil.concat(_conf.getPrefix(), _conf.getRendKeyWords().getKeyWordsAttrs().getAttrAlias()));
         _rendStackCall.setDocument(doc_);
         _rendStackCall.clearPages();
         return doc_.export();
@@ -195,39 +194,36 @@ public final class RendBlockHelp {
     }
 
     private static ConditionReturn evaluateCondition(NatRendStackCall _rendStackCall, NatRendOperationNodeListOff _condition) {
-        Argument arg_ = Argument.getNullableValue(BeanNatCommonLgNames.getAllArgs(_condition.getList(), _rendStackCall).lastValue().getArgument());
-        if (BooleanStruct.isTrue(arg_.getStruct())) {
+        Struct arg_ = BeanNatCommonLgNames.getAllArgs(_condition.getList(), _rendStackCall).lastValue().getArgument();
+        if (BooleanStruct.isTrue(arg_)) {
             return ConditionReturn.YES;
         }
         return ConditionReturn.NO;
     }
 
-    static Argument nasNextCom(Struct _arg) {
+    static Struct nasNextCom(Struct _arg) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
-        return new Argument(BooleanStruct.of(simpleItrStruct_.hasNext()));
+        return BooleanStruct.of(simpleItrStruct_.hasNext());
     }
 
-    static Argument nextCom(Struct _arg) {
+    static Struct nextCom(Struct _arg) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
-        Struct resObj_ = simpleItrStruct_.next();
-        return new Argument(resObj_);
+        return simpleItrStruct_.next();
     }
 
-    static Argument first(Struct _arg) {
+    static Struct first(Struct _arg) {
         PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg);
-        Struct resObj_ = pairStruct_.getFirst();
-        return new Argument(resObj_);
+        return pairStruct_.getFirst();
     }
 
-    static Argument second(Struct _arg) {
+    static Struct second(Struct _arg) {
         PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg);
-        Struct resObj_ = pairStruct_.getSecond();
-        return new Argument(resObj_);
+        return pairStruct_.getSecond();
     }
 
-    static Argument iterator(Struct _arg) {
+    static Struct iterator(Struct _arg) {
         NatArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
-        return new Argument(new SimpleItrStruct(array_));
+        return new SimpleItrStruct(array_);
     }
 
     public static void setupOverrides(StringMap<SpecialNatClass> _standardsTypes) {

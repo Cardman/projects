@@ -6,16 +6,19 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.Configuration;
 import code.formathtml.errors.RendAnalysisMessages;
+import code.formathtml.errors.RendKeyWords;
 import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanLgNames;
 import code.sml.DocumentBuilder;
 import code.sml.EncodedChar;
+import code.sml.SetupableAnalyzingDoc;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringMap;
 
 public final class AnalyzingDoc extends SetupableAnalyzingDoc {
+    private RendKeyWords rendKeyWords = new RendKeyWords();
 
     private RendAnalysisMessages rendAnalysisMessages = new RendAnalysisMessages();
     private final IdMap<OperationNode, BeanInfo> beansInfos = new IdMap<OperationNode, BeanInfo>();
@@ -42,7 +45,8 @@ public final class AnalyzingDoc extends SetupableAnalyzingDoc {
     }
 
     public void setup(Configuration _conf, StringMap<String> _properties, String _messagesFolder) {
-        setupCommon(_conf, _properties, _messagesFolder);
+        rendKeyWords = _conf.getRendKeyWords();
+        setupCommon(_conf.getRend(), _properties, _messagesFolder);
         beansInfosBefore = _conf.getBeansInfos();
     }
 
@@ -82,4 +86,7 @@ public final class AnalyzingDoc extends SetupableAnalyzingDoc {
         return beansInfosBefore;
     }
 
+    public RendKeyWords getRendKeyWords() {
+        return rendKeyWords;
+    }
 }

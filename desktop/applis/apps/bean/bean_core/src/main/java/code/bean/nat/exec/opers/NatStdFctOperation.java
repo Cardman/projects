@@ -5,7 +5,6 @@ import code.bean.nat.SpecNatMethod;
 import code.bean.nat.exec.NatArgumentsPair;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.fwd.opers.NatExecStdFctContent;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.IdMap;
@@ -20,24 +19,22 @@ public final class NatStdFctOperation extends NatSettableCallFctOperation implem
         standardMethod = _stdFctContent.getStandardMethod();
     }
 
-    public static Struct[] getObjects(Argument... _args) {
-        int len_ = _args.length;
+    public static Struct[] getObjects(CustList<Struct> _args) {
+        int len_ = _args.size();
         Struct[] classes_ = new Struct[len_];
         for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
-            classes_[i] = _args[i].getStruct();
+            classes_[i] = _args.get(i);
         }
         return classes_;
     }
 
     @Override
     public void calculate(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack) {
-        Argument previous_ = getPreviousArg(this,_nodes, _rendStack);
-        CustList<Argument> firstArgs_ = getArguments(_nodes,this);
-        Struct[] args_ = getObjects(Argument.toArgArray(firstArgs_));
-        Struct instance_ = previous_.getStruct();
+        Struct previous_ = getPreviousArg(this,_nodes, _rendStack);
+        CustList<Struct> firstArgs_ = getArguments(_nodes,this);
+        Struct[] args_ = getObjects(firstArgs_);
         NatCaller caller_ = standardMethod.getCaller();
-        Argument argres_ = new Argument(caller_.re(instance_, args_));
-        calcArg(_nodes, argres_);
+        calcArg(_nodes, caller_.re(previous_, args_));
     }
 
 }

@@ -15,6 +15,7 @@ import aiki.game.params.Difficulty;
 import aiki.instances.Instances;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.enums.Gender;
+import code.bean.nat.NatNavigation;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.images.BaseSixtyFourUtil;
@@ -450,7 +451,7 @@ public final class PokemonPlayerBeanTest extends InitDbPkBean {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkInd pk_ = new PkInd();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DetPkGameInit(), PagesInit.buildInd(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac_);
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the pokemon PIKA</title><link href=\"web_pk/css/pokemon.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +

@@ -3,12 +3,11 @@ package code.bean.nat.analyze.opers;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -81,10 +80,9 @@ public abstract class NatOperationNode {
         if (_op.isVarIndex()) {
             return new FinalVariableNatOperation(_index, _indexChild, _m, _op, true);
         }
-        AnaLocalVariable val_ = _page.getInfosVars().getVal(str_);
+        String val_ = _page.getInfosVars().getVal(str_);
         if (val_ != null) {
-            val_.setUsed(true);
-            return new FinalVariableNatOperation(_index, _indexChild, _m, _op,val_.getClassName(), false);
+            return new FinalVariableNatOperation(_index, _indexChild, _m, _op,val_, false);
         }
         return new SettableFieldNatOperation(_index, _indexChild, _m, _op,new NatStandardFieldOperation(_op));
     }

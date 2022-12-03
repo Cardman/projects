@@ -1,7 +1,4 @@
-package code.formathtml.exec.stacks;
-
-import code.sml.Document;
-import code.sml.Element;
+package code.sml;
 
 public class RendReadWrite {
 

@@ -5,6 +5,7 @@ import cards.consts.GameType;
 import cards.consts.Role;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
+import code.bean.nat.NatNavigation;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.Rate;
@@ -276,7 +277,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         StringMap<String> other_ = MessTarotPage.ms();
         AnaRendBlock.adjust(other_);
         TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
         stds_.setDataBase(resultsFive(game4(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -293,7 +294,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         StringMap<String> other_ = MessTarotPage.ms();
         AnaRendBlock.adjust(other_);
         TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
         stds_.setDataBase(resultsFive(game7(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
@@ -310,7 +311,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         StringMap<String> other_ = MessTarotPage.ms();
         AnaRendBlock.adjust(other_);
         TarotStandardsDetailResults stds_ = new TarotStandardsDetailResults();
-        Navigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
+        NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsTarotLoader(), PagesTarots.buildDetails(),other_,other_,"");
         stds_.setDataBase(resultsFive(game8(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +

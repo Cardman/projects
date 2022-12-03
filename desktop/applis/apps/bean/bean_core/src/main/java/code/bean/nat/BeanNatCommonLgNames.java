@@ -6,11 +6,7 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.*;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.*;
-import code.formathtml.structs.*;
 import code.sml.*;
 import code.util.*;
 import code.util.core.*;
@@ -50,7 +46,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     protected BeanNatCommonLgNames() {
     }
 
-    public String getRes(NatDocumentBlock _rend, Configuration _conf, NatRendStackCall _rendStackCall,NatImportingPageAbs _pa) {
+    public String getRes(NatDocumentBlock _rend, NatConfigurationCore _conf, NatRendStackCall _rendStackCall,NatImportingPageAbs _pa) {
         String beanName_ = _rend.getBeanName();
         Struct bean_ = beansStruct.getVal(beanName_);
         _rendStackCall.setMainBean(bean_);
@@ -65,13 +61,13 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 
     public abstract void buildOther();
 
-    public void preInitBeans(Configuration _conf) {
-        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
+    public void preInitBeans(NatConfigurationCore _conf) {
+        for (EntryCust<String, String> e: _conf.getBeansInfos().entryList()) {
             beansStruct.addEntry(e.getKey(), NullStruct.NULL_VALUE);
         }
     }
 
-    public abstract void initBeans(Configuration _conf, String _language);
+    public abstract void initBeans(NatConfigurationCore _conf, String _language);
 //    public void initBeans(Configuration _conf, String _language) {
 //        int index_ = 0;
 //        for (EntryCust<String, BeanInfo> e: _conf.getBeansInfos().entryList()) {
@@ -88,13 +84,13 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         return beansStruct.getVal(_beanName);
     }
 
-    public Navigation nav(StringList _languages, String _lg,AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel) {
-        Navigation nav_ = new Navigation();
-        nav_.setSession(new Configuration());
+    public NatNavigation nav(StringList _languages, String _lg,AbstractNativeInit _init, StringMap<Document> _built, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel) {
+        NatConfigurationCore session_ = new NatConfigurationCore();
+        NatNavigation nav_ = new NatNavigation();
+        nav_.setSession(session_);
         nav_.setLanguage(_lg);
         nav_.setLanguages(_languages);
         NativeConfigurationLoader nat_ = new NativeConfigurationLoader(this, _init);
-        Configuration session_ = new Configuration();
         NatDualConfigurationContext d_ = nat_.getDualConfigurationContext(session_);
         nat_.getForwards();
         d_.init(session_);
@@ -131,22 +127,22 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         CustList<SpecNatMethod> methods_;
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
-        std_ = new SpecialNatClass(TYPE_BEAN, fields_, methods_, OBJECT);
-        method_ = new SpecNatMethod(IS_EMPTY, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT, new NatStringIsEmpty());
+        std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        method_ = new SpecNatMethod(IS_EMPTY, PRIM_BOOLEAN, new NatStringIsEmpty());
         methods_.add(method_);
         stds.addEntry(TYPE_BEAN, std_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
-        cl_ = new SpecialNatClass(TYPE_LIST, fields_, methods_, OBJECT);
+        cl_ = new SpecialNatClass(fields_, methods_, OBJECT);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
-        method_ = new SpecNatMethod(IS_EMPTY, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT, new NatArrayIsEmpty());
+        method_ = new SpecNatMethod(IS_EMPTY, PRIM_BOOLEAN, new NatArrayIsEmpty());
         methods_.add(method_);
         getIterables().put(TYPE_LIST, OBJECT);
         stds.addEntry(TYPE_LIST, cl_);
         methods_ = new CustList<SpecNatMethod>();
-        cl_ = new SpecialNatClass(TYPE_MAP, fields_, methods_, OBJECT);
-        method_ = new SpecNatMethod(IS_EMPTY, PRIM_BOOLEAN, false, MethodModifier.ABSTRACT, new NatArrayIsEmpty());
+        cl_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        method_ = new SpecNatMethod(IS_EMPTY, PRIM_BOOLEAN, new NatArrayIsEmpty());
         methods_.add(method_);
         cl_.getDirectInterfaces().add(TYPE_COUNTABLE);
         cl_.getDirectInterfaces().add(TYPE_ENTRIES);
@@ -154,10 +150,10 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         stds.addEntry(TYPE_MAP, cl_);
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
-        std_ = new SpecialNatClass(TYPE_ITERATOR, fields_, methods_, OBJECT);
+        std_ = new SpecialNatClass(fields_, methods_, OBJECT);
         stds.addEntry(TYPE_ITERATOR, std_);
         methods_ = new CustList<SpecNatMethod>();
-        cl_ = new SpecialNatClass(TYPE_VALIDATOR, fields_, methods_, OBJECT);
+        cl_ = new SpecialNatClass(fields_, methods_, OBJECT);
         stds.addEntry(TYPE_VALIDATOR, cl_);
     }
 
@@ -165,13 +161,13 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     public StringMap<SpecialNatClass> getStds() {
         return stds;
     }
-    public void initializeRendSessionDoc(Navigation _nav) {
+    public void initializeRendSessionDoc(NatNavigation _nav) {
         NatRendStackCall rendStackCall_ = newNatRendStackCall();
         initializeRendSessionDoc(_nav, rendStackCall_);
     }
-    public void initializeRendSessionDoc(Navigation _nav, NatRendStackCall _rendStackCall) {
+    public void initializeRendSessionDoc(NatNavigation _nav, NatRendStackCall _rendStackCall) {
         _rendStackCall.init();
-        Configuration session_ = _nav.getSession();
+        NatConfigurationCore session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
         initBeans(session_,lg_);
         String currentUrl_ = session_.getFirstUrl();
@@ -180,9 +176,9 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     }
     protected abstract NatRendStackCall newNatRendStackCall();
 
-    protected void proc(Navigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean) {
+    protected void proc(NatNavigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean) {
         _rendStack.clearPages();
-        Configuration session_ = _nav.getSession();
+        NatConfigurationCore session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
         InvokedPageOutput res_ = processAfterInvoke(session_, _actionCommand,_nav.getCurrentUrl(), _bean, lg_, _rendStack);
         _nav.setCurrentBeanName(_rendStack.getBeanName());
@@ -200,7 +196,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 //        return methodName_;
 //    }
 
-    protected abstract InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack);
+    protected abstract InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack);
 
 //    @Override
 //    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
@@ -310,16 +306,18 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         }
         return array_;
     }
-    public void setupAll(StringMap<Document> _docs, Navigation _nav, Configuration _conf, AbstractNatBlockBuilder _builder, NatDualConfigurationContext _context) {
+    public void setupAll(StringMap<Document> _docs, NatNavigation _nav, NatConfigurationCore _conf, AbstractNatBlockBuilder _builder, NatDualConfigurationContext _context) {
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
-        StringMap<BeanInfo> beansInfos_ = _conf.getBeansInfos();
+        StringMap<String> beansInfos_ = _conf.getBeansInfos();
         preInitBeans(_nav.getSession());
         analyzingDoc_.setLanguages(_nav.getLanguages());
         _nav.getSession().setCurrentLanguage(_nav.getLanguage());
 
         getRenders().clear();
         _nav.getSession().setFiles(_nav.getFiles());
-        analyzingDoc_.setup(_nav.getSession(), _context.getProperties(), _context.getMessagesFolder());
+        NatConfigurationCore conf_ = _nav.getSession();
+        analyzingDoc_.setRendKeyWords(conf_.getRendKeyWords());
+        analyzingDoc_.setupCommon(conf_.getNat(), _context.getProperties(), _context.getMessagesFolder());
 
 
         natCode.setStds(this);
@@ -335,11 +333,6 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         }
 //        StringMap<AnaRendDocumentBlock> d_ = _nav.analyzedDocs(_docs,page_, this, analyzingDoc_, _dual.getContext());
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, getRenders(),_builder);
-    }
-
-    public static String processString(Argument _arg) {
-        Struct struct_ = _arg.getStruct();
-        return processString(struct_);
     }
 
     public static String processString(Struct _struct) {

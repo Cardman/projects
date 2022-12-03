@@ -1,8 +1,8 @@
 package code.bean.nat;
 
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 
 public interface AbstractNativeInit {
-    void initConf(Configuration _configuration, NatDualConfigurationContext _context);
+    void initConf(NatConfigurationCore _configuration, NatDualConfigurationContext _context);
     void initAna(NatDualConfigurationContext _d);
 }

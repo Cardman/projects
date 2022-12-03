@@ -38,12 +38,12 @@ public abstract class AbstractThreadActions implements Runnable {
         if (!page.isProcessing()) {
             return;
         }
-        Document doc_ = page.getNavigation().getDocument();
+        Document doc_ = page.getNavCore().getDocument();
         if (doc_ == null) {
             finish();
             return;
         }
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getKeys());
         FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
     }
 

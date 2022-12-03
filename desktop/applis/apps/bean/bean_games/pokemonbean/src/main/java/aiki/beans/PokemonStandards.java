@@ -20,14 +20,12 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.*;
 import code.bean.nat.*;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.exec.variables.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.*;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
 import code.formathtml.util.*;
@@ -104,40 +102,40 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     private static void buildRate(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_RATE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new RateIsZero()));
-        methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new RateIsZeroOrGt()));
-        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, false, MethodModifier.NORMAL,new RateAbsNb()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        methods_.add( new SpecNatMethod(IS_ZERO,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZero()));
+        methods_.add( new SpecNatMethod(IS_ZERO_OR_GT,BeanNatCommonLgNames.PRIM_BOOLEAN, new RateIsZeroOrGt()));
+        methods_.add( new SpecNatMethod(ABS_NB,BeanNatCommonLgNames.TYPE_RATE, new RateAbsNb()));
         _std.getStds().addEntry(TYPE_RATE, type_);
     }
     private static void buildLgInt(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_LG_INT, fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
         _std.getStds().addEntry(TYPE_LG_INT, type_);
     }
     private static void buildRateValidator(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_RATE_VALIDATOR, fields_, methods_, TYPE_VALIDATOR);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_RATE_VALIDATOR, type_);
     }
     private static void buildPositiveRateValidator(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POSITIVE_RATE_VALIDATOR, fields_, methods_, TYPE_VALIDATOR);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_POSITIVE_RATE_VALIDATOR, type_);
     }
     private static void buildShortValidator(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_SHORT_VALIDATOR, fields_, methods_, TYPE_VALIDATOR);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_SHORT_VALIDATOR, type_);
     }
     private static void buildUnselectedRadio(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_UNSELECTED_RADIO, fields_, methods_, TYPE_VALIDATOR);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         _std.getStds().addEntry(TYPE_UNSELECTED_RADIO, type_);
     }
 
@@ -154,7 +152,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     public void setNatPage(NatHtmlPage _nat) {
         natPage = _nat;
     }
-    public void processRendFormRequest(Navigation _nav) {
+    public void processRendFormRequest(NatNavigation _nav) {
         NatRendStackCallAdv st_ = new NatRendStackCallAdv();
         st_.clearPages();
         st_.setDocument(_nav.getDocument());
@@ -263,13 +261,13 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
             StringList varNames_ = _htmlPage.getFormsVars().get(url_);
             CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsFormExps().get(url_);
             StringList args_ = _htmlPage.getFormsArgs().get(url_);
-            ret_ = redir(new Argument(_gl), varNames_, exps_, args_, _rendStack);
+            ret_ = redir(_gl, varNames_, exps_, args_, _rendStack);
         } else {
             int url_ = (int)_htmlPage.getUrl();
             StringList varNames_ = _htmlPage.getAnchorsVars().get(url_);
             CustList<NatExecOperationNode> exps_ = _htmlPage.getCallsExps().get(url_);
             StringList args_ = _htmlPage.getAnchorsArgs().get(url_);
-            ret_= redir(new Argument(_gl), varNames_, exps_, args_, _rendStack);
+            ret_= redir(_gl, varNames_, exps_, args_, _rendStack);
         }
         return ret_;
     }
@@ -287,20 +285,20 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
     }
 
-    public static Struct redir(Argument _bean, StringList _varNames, CustList<NatExecOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
+    public static Struct redir(Struct _bean, StringList _varNames, CustList<NatExecOperationNode> _exps, StringList _args, NatRendStackCall _rendStackCall) {
         NatImportingPageAbs ip_ = _rendStackCall.getLastPage();
         int s_ = _varNames.size();
         for (int i = 0; i< s_; i++) {
             ip_.putValueVar(_varNames.get(i), new VariableWrapperNat(new LongStruct(NumberUtil.parseLongZero(_args.get(i)))));
         }
-        Argument globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
-        setGlobalArgumentStruct(_bean.getStruct(), _rendStackCall);
-        Argument argument_ = Argument.getNullableValue(getAllArgs(_exps, _rendStackCall).lastValue().getArgument());
-        setGlobalArgumentStruct(globalArgument_.getStruct(), _rendStackCall);
+        Struct globalArgument_ = _rendStackCall.getLastPage().getGlobalArgument();
+        setGlobalArgumentStruct(_bean, _rendStackCall);
+        Struct argument_ = getAllArgs(_exps, _rendStackCall).lastValue().getArgument();
+        setGlobalArgumentStruct(globalArgument_, _rendStackCall);
         for (String n: _varNames) {
             ip_.removeRefVar(n);
         }
-        return argument_.getStruct();
+        return argument_;
     }
 
 //    public Message validate(NodeContainer _cont, String _validatorId) {
@@ -312,7 +310,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 //        return validator_.validate(v_);
 //    }
     @Override
-    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPageForm();
         _rendStack.addPage(ip_);
         StringMapObject stringMapObject_ = new StringMapObject();
@@ -337,11 +335,11 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         return new StringMapObjectBase();
     }
 
-    public void processRendAnchorRequest(Navigation _nav) {
+    public void processRendAnchorRequest(NatNavigation _nav) {
         NatRendStackCall rendStackCall_ = new NatRendStackCallAdv();
         processRendAnchorRequest(_nav, rendStackCall_);
     }
-    public void processRendAnchorRequest(Navigation _nav, NatRendStackCall _rendStack) {
+    public void processRendAnchorRequest(NatNavigation _nav, NatRendStackCall _rendStack) {
 //        if (_ancElt == null) {
 //            return;
 //        }
@@ -401,7 +399,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         forms_.putAllMap(formsMap_);
     }
 
-    public void execute(boolean _form, Navigation _navigation) {
+    public void execute(boolean _form, NatNavigation _navigation) {
         if (_form) {
             processRendFormRequest(_navigation);
         } else {
@@ -412,8 +410,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         if (StringUtil.quickEq(_className,PRIM_BOOLEAN)) {
             return BooleanStruct.of(StringUtil.quickEq(_values.first(),BeanLgNames.ON));
         }
-        LongInfo val_ = NumParsers.parseLong(_values.first(), 10);
-        return new LongStruct(val_.getValue());
+        return new LongStruct(NumberUtil.parseLongZero(_values.first()));
     }
 
 

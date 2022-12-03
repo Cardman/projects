@@ -3,9 +3,8 @@ package cards.tarot.beans;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.functionid.MethodModifier;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.util.CustList;
 
 public final class TarotStandardsResults extends TarotStandards {
@@ -49,42 +48,42 @@ public final class TarotStandardsResults extends TarotStandards {
     private void buildResultsTarotBean(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_RESULTS_TAROT_BEAN, fields_, methods_, TYPE_TAROT_BEAN);
-        fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, PRIM_INTEGER, false, false,new ResultsTarotBeanNumberOudlersTaker(),null));
-        fields_.add( new StandardField(NEEDLY_SCORES_TAKER, PRIM_INTEGER, false, false,new ResultsTarotBeanNeedlyScoresTaker(),null));
-        fields_.add( new StandardField(SCORE_TAKER, PRIM_INTEGER, false, false,new ResultsTarotBeanScoreTaker(),null));
-        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, PRIM_INTEGER, false, false,new ResultsTarotBeanDifferenceScoreTaker(),null));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, PRIM_INTEGER, false, false,new ResultsTarotBeanAdditionnalBonusesAttack(),null));
-        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, PRIM_INTEGER, false, false,new ResultsTarotBeanAdditionnalBonusesDefense(),null));
-        fields_.add( new StandardField(SCORE_TAKER_WITHOUT_DECLARING, PRIM_INTEGER, false, false,new ResultsTarotBeanScoreTakerWithoutDeclaring(),null));
-        fields_.add( new StandardField(MAX_DOUBLED_DIFFERENCE, PRIM_INTEGER, false, false,new ResultsTarotBeanMaxDoubledDifference(),null));
-        fields_.add( new StandardField(MAX_DIFFERENCE, PRIM_INTEGER, false, false,new ResultsTarotBeanMaxDifference(),null));
-        fields_.add( new StandardField(INITIAL_USER_POSITION, PRIM_INTEGER, false, false,new ResultsTarotBeanInitialUserPosition(),null));
-        fields_.add( new StandardField(FINAL_USER_POSITION, PRIM_INTEGER, false, false,new ResultsTarotBeanFinalUserPosition(),null));
-        fields_.add( new StandardField(TAKER, STRING, false, false,new ResultsTarotBeanTaker(),null));
-        fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, STRING, false, false,new ResultsTarotBeanAloneTrumpAcePlayer(),null));
-        fields_.add( new StandardField(CALLED_PLAYERS, TYPE_LIST, false, false,new ResultsTarotBeanCalledPlayers(),null));
-        fields_.add( new StandardField(CALLED_CARDS_LIST, TYPE_LIST, false, false,new ResultsTarotBeanCalledCardsList(),null));
-        fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, false, false,new ResultsTarotBeanLinesDeal(),null));
-        methods_.add( new SpecNatMethod(WIN, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanWin()));
-        methods_.add( new SpecNatMethod(EQUALITY, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanEquality()));
-        methods_.add( new SpecNatMethod(LOOSE, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanLoose()));
-        methods_.add( new SpecNatMethod(SUCCESSFUL_BID, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanSuccessfulBid()));
-        methods_.add( new SpecNatMethod(MID_BID, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanMidBid()));
-        methods_.add( new SpecNatMethod(FAILED_BID, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanFailedBid()));
-        methods_.add( new SpecNatMethod(SUCCESSFUL_DECLARED_SLAM_ATTACK, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanSuccessfulDeclaredSlamAttack()));
-        methods_.add( new SpecNatMethod(SUCCESSFUL_NO_DECLARED_SLAM_ATTACK, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanSuccessfulNoDeclaredSlamAttack()));
-        methods_.add( new SpecNatMethod(FAILED_SLAM_ATTACK, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanFailedSlamAttack()));
-        methods_.add( new SpecNatMethod(NO_SLAM_ATTACK, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanNoSlamAttack()));
-        methods_.add( new SpecNatMethod(SLAM_DEFENSE, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanSlamDefense()));
-        methods_.add( new SpecNatMethod(NO_SLAM_DEFENSE, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new ResultsTarotBeanNoSlamDefense()));
-        methods_.add( new SpecNatMethod(ABSOLUTE_DIFF, PRIM_INTEGER, false, MethodModifier.NORMAL,new ResultsTarotBeanAbsoluteDiff()));
-        methods_.add( new SpecNatMethod(BID_STRING, STRING, false, MethodModifier.NORMAL,new ResultsTarotBeanBidString()));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, TYPE_TAROT_BEAN);
+        fields_.add( new StandardField(NUMBER_OUDLERS_TAKER, PRIM_INTEGER, new ResultsTarotBeanNumberOudlersTaker(),null));
+        fields_.add( new StandardField(NEEDLY_SCORES_TAKER, PRIM_INTEGER, new ResultsTarotBeanNeedlyScoresTaker(),null));
+        fields_.add( new StandardField(SCORE_TAKER, PRIM_INTEGER, new ResultsTarotBeanScoreTaker(),null));
+        fields_.add( new StandardField(DIFFERENCE_SCORE_TAKER, PRIM_INTEGER, new ResultsTarotBeanDifferenceScoreTaker(),null));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_ATTACK, PRIM_INTEGER, new ResultsTarotBeanAdditionnalBonusesAttack(),null));
+        fields_.add( new StandardField(ADDITIONNAL_BONUSES_DEFENSE, PRIM_INTEGER, new ResultsTarotBeanAdditionnalBonusesDefense(),null));
+        fields_.add( new StandardField(SCORE_TAKER_WITHOUT_DECLARING, PRIM_INTEGER, new ResultsTarotBeanScoreTakerWithoutDeclaring(),null));
+        fields_.add( new StandardField(MAX_DOUBLED_DIFFERENCE, PRIM_INTEGER, new ResultsTarotBeanMaxDoubledDifference(),null));
+        fields_.add( new StandardField(MAX_DIFFERENCE, PRIM_INTEGER, new ResultsTarotBeanMaxDifference(),null));
+        fields_.add( new StandardField(INITIAL_USER_POSITION, PRIM_INTEGER, new ResultsTarotBeanInitialUserPosition(),null));
+        fields_.add( new StandardField(FINAL_USER_POSITION, PRIM_INTEGER, new ResultsTarotBeanFinalUserPosition(),null));
+        fields_.add( new StandardField(TAKER, STRING, new ResultsTarotBeanTaker(),null));
+        fields_.add( new StandardField(ALONE_TRUMP_ACE_PLAYER, STRING, new ResultsTarotBeanAloneTrumpAcePlayer(),null));
+        fields_.add( new StandardField(CALLED_PLAYERS, TYPE_LIST, new ResultsTarotBeanCalledPlayers(),null));
+        fields_.add( new StandardField(CALLED_CARDS_LIST, TYPE_LIST, new ResultsTarotBeanCalledCardsList(),null));
+        fields_.add( new StandardField(LINES_DEAL, TYPE_LIST, new ResultsTarotBeanLinesDeal(),null));
+        methods_.add( new SpecNatMethod(WIN, PRIM_BOOLEAN, new ResultsTarotBeanWin()));
+        methods_.add( new SpecNatMethod(EQUALITY, PRIM_BOOLEAN, new ResultsTarotBeanEquality()));
+        methods_.add( new SpecNatMethod(LOOSE, PRIM_BOOLEAN, new ResultsTarotBeanLoose()));
+        methods_.add( new SpecNatMethod(SUCCESSFUL_BID, PRIM_BOOLEAN, new ResultsTarotBeanSuccessfulBid()));
+        methods_.add( new SpecNatMethod(MID_BID, PRIM_BOOLEAN, new ResultsTarotBeanMidBid()));
+        methods_.add( new SpecNatMethod(FAILED_BID, PRIM_BOOLEAN, new ResultsTarotBeanFailedBid()));
+        methods_.add( new SpecNatMethod(SUCCESSFUL_DECLARED_SLAM_ATTACK, PRIM_BOOLEAN, new ResultsTarotBeanSuccessfulDeclaredSlamAttack()));
+        methods_.add( new SpecNatMethod(SUCCESSFUL_NO_DECLARED_SLAM_ATTACK, PRIM_BOOLEAN, new ResultsTarotBeanSuccessfulNoDeclaredSlamAttack()));
+        methods_.add( new SpecNatMethod(FAILED_SLAM_ATTACK, PRIM_BOOLEAN, new ResultsTarotBeanFailedSlamAttack()));
+        methods_.add( new SpecNatMethod(NO_SLAM_ATTACK, PRIM_BOOLEAN, new ResultsTarotBeanNoSlamAttack()));
+        methods_.add( new SpecNatMethod(SLAM_DEFENSE, PRIM_BOOLEAN, new ResultsTarotBeanSlamDefense()));
+        methods_.add( new SpecNatMethod(NO_SLAM_DEFENSE, PRIM_BOOLEAN, new ResultsTarotBeanNoSlamDefense()));
+        methods_.add( new SpecNatMethod(ABSOLUTE_DIFF, PRIM_INTEGER, new ResultsTarotBeanAbsoluteDiff()));
+        methods_.add( new SpecNatMethod(BID_STRING, STRING, new ResultsTarotBeanBidString()));
         getStds().addEntry(TYPE_RESULTS_TAROT_BEAN, std_);
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language) {
+    public void initBeans(NatConfigurationCore _conf, String _language) {
         getBeansStruct().setValue(0,beanResults(_language));
     }
 

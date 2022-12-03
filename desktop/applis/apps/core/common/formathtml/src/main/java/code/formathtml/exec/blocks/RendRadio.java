@@ -14,6 +14,7 @@ import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
 import code.sml.Element;
 import code.sml.Node;
+import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -39,9 +40,9 @@ public final class RendRadio extends RendInput {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return true;
         }
-        Struct res_ = arg_.getArg().getStruct();
+        Struct res_ = arg_.getArg();
         if (!opsConverterFieldValue.isEmpty()) {
-            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getArg().getStruct(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
+            LocalVariable locVar_ = LocalVariable.newLocalVariable(arg_.getArg(), _ctx.getStandards().getContent().getCoreNames().getAliasObject());
             _rendStack.getLastPage().putValueVar("0", new VariableWrapper(locVar_));
             Argument argConv_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(opsConverterFieldValue, _ctx, _rendStack).lastValue().getArgument());
             _rendStack.getLastPage().removeRefVar("0");
@@ -57,17 +58,17 @@ public final class RendRadio extends RendInput {
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return true;
             }
-            procDefValue(_cont, elt_, strObj_);
+            procDefValue(elt_, strObj_, _cont.getRendKeyWords().group());
         }
         prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
         return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
-    public static void procDefValue(Configuration _cont, Element _elt, String _strObj) {
-        if (StringUtil.quickEq(_elt.getAttribute(_cont.getRendKeyWords().getAttrValue()), _strObj)) {
-            _elt.setAttribute(_cont.getRendKeyWords().getAttrChecked(), _cont.getRendKeyWords().getAttrChecked());
+    public static void procDefValue(Element _elt, String _strObj, RendKeyWordsGroup _k) {
+        if (StringUtil.quickEq(_elt.getAttribute(_k.getKeyWordsAttrs().getAttrValue()), _strObj)) {
+            _elt.setAttribute(_k.getKeyWordsAttrs().getAttrChecked(), _k.getKeyWordsAttrs().getAttrChecked());
         } else {
-            _elt.removeAttribute(_cont.getRendKeyWords().getAttrChecked());
+            _elt.removeAttribute(_k.getKeyWordsAttrs().getAttrChecked());
         }
     }
 }

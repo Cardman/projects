@@ -1,7 +1,7 @@
 package code.bean.nat.exec;
 
 import code.bean.nat.exec.blocks.NatBlock;
-import code.formathtml.exec.stacks.RendReadWrite;
+import code.sml.RendReadWrite;
 
 public class NatRendReadWrite extends RendReadWrite {
 

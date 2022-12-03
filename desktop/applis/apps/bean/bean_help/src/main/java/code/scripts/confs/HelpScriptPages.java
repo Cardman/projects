@@ -1,6 +1,6 @@
 package code.scripts.confs;
 
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.util.CollCapacity;
 import code.util.StringMap;
 
@@ -8,8 +8,8 @@ public final class HelpScriptPages {
     private HelpScriptPages() {
 
     }
-    public static StringMap<Configuration> cf(){
-        StringMap<Configuration> m = new StringMap<Configuration>(new CollCapacity(71));
+    public static StringMap<NatConfigurationCore> cf(){
+        StringMap<NatConfigurationCore> m = new StringMap<NatConfigurationCore>(new CollCapacity(71));
         m.addEntry("resources_cards/help/aide_generale.xml",initConf("resources_cards/help/aide_generale.html"));
         m.addEntry("resources_cards/help/aide_generale/logiciel.xml",initConf("resources_cards/help/aide_generale/logiciel.html"));
         m.addEntry("resources_cards/help/aide_generale/jeux.xml",initConf("resources_cards/help/aide_generale/jeux.html"));
@@ -83,8 +83,8 @@ public final class HelpScriptPages {
         m.addEntry("resources_cards/help/aide_generale/logiciel/menus/parametres/affichage/tarot.xml",initConf("resources_cards/help/aide_generale/logiciel/menus/parametres/affichage/tarot.html"));
         return m;
     }
-    static Configuration initConf(String _url){
-        Configuration conf_ = new Configuration();
+    static NatConfigurationCore initConf(String _url){
+        NatConfigurationCore conf_ = new NatConfigurationCore();
         conf_.setFirstUrl(_url);
         return conf_;
     }

@@ -1,6 +1,5 @@
 package code.bean.nat.exec.variables;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.structs.Struct;
 
 public final class VariableWrapperNat {
@@ -10,8 +9,8 @@ public final class VariableWrapperNat {
     public VariableWrapperNat(Struct _local) {
         element = _local;
     }
-    public void setValue(Argument _right) {
-        element= _right.getStruct();
+    public void setValue(Struct _right) {
+        element= _right;
     }
 
     public Struct getValue() {

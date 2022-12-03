@@ -1,6 +1,6 @@
 package code.bean.nat;
 
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 
 public final class NativeConfigurationLoader {
     private final BeanNatCommonLgNames stds;
@@ -15,13 +15,13 @@ public final class NativeConfigurationLoader {
         stds.setupNative(stds.getNatCode());
     }
 
-    public NatDualConfigurationContext getDualConfigurationContext(Configuration _configuration) {
+    public NatDualConfigurationContext getDualConfigurationContext(NatConfigurationCore _configuration) {
         NatDualConfigurationContext d_ = new NatDualConfigurationContext();
         specificLoadBegin(_configuration, d_);
         return d_;
     }
 
-    public void specificLoadBegin(Configuration _configuration, NatDualConfigurationContext _context) {
+    public void specificLoadBegin(NatConfigurationCore _configuration, NatDualConfigurationContext _context) {
         init.initConf(_configuration,_context);
         init.initAna(_context);
     }

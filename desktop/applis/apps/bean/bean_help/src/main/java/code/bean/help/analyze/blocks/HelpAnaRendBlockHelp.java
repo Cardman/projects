@@ -4,11 +4,7 @@ import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnaRendBlock;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnaRendParentBlock;
-import code.formathtml.errors.RendKeyWords;
-import code.sml.Document;
-import code.sml.Element;
-import code.sml.Node;
-import code.sml.Text;
+import code.sml.*;
 import code.util.core.StringUtil;
 
 public final class HelpAnaRendBlockHelp {
@@ -16,7 +12,7 @@ public final class HelpAnaRendBlockHelp {
     private HelpAnaRendBlockHelp() {
     }
 
-    public static NatAnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, RendKeyWords _rendKeyWords) {
+    public static NatAnaRendDocumentBlock newRendDocumentBlock(String _prefix, Document _doc, RendKeyWordsGroup _rendKeyWords) {
         Element documentElement_ = _doc.getDocumentElement();
         Node curNode_ = documentElement_;
         NatAnaRendDocumentBlock out_ = new NatAnaRendDocumentBlock(documentElement_);
@@ -61,7 +57,7 @@ public final class HelpAnaRendBlockHelp {
         }
     }
 
-    private static NatAnaRendBlock newRendBlockEsc(String _prefix, Node _elt, RendKeyWords _rendKeyWords) {
+    private static NatAnaRendBlock newRendBlockEsc(String _prefix, Node _elt, RendKeyWordsGroup _rendKeyWords) {
         NatAnaRendBlock bl_;
         if (_elt instanceof Text) {
             Text t_ = (Text) _elt;
@@ -91,12 +87,12 @@ public final class HelpAnaRendBlockHelp {
         return bl_;
     }
 
-    private static NatAnaRendParentBlock element(String _prefix, Element _elt, RendKeyWords _rendKeyWords) {
+    private static NatAnaRendParentBlock element(String _prefix, Element _elt, RendKeyWordsGroup _rendKeyWords) {
         String tagName_ = _elt.getTagName();
-        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordImg())) {
+        if (StringUtil.quickEq(tagName_, _rendKeyWords.getKeyWordsTags().getKeyWordImg())) {
             return new HelpAnaRendImg(_elt);
         }
-        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordMessage()))) {
+        if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordsTags().getKeyWordMessage()))) {
             return new HelpAnaRendMessage(_elt);
         }
         return input(_elt);

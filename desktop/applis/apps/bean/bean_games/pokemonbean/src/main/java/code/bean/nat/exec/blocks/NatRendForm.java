@@ -1,12 +1,11 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.NatRendStackCallAdv;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendElem;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -14,7 +13,7 @@ import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 
-public final class NatRendForm extends NatRendElementForm implements RendElem {
+public final class NatRendForm extends NatRendElementForm implements NatRendElem {
     private final CustList<NatExecOperationNode> opForm;
 
     private final StringList varNames;
@@ -25,7 +24,7 @@ public final class NatRendForm extends NatRendElementForm implements RendElem {
         this.varNames = _varNames;
     }
 
-    void form(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
+    void form(NatConfigurationCore _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         NatFormParts formParts_ = ((NatRendStackCallAdv)_rendStack).getFormParts();
         formParts_.getContainersMapStack().add(new LongTreeMap<NatNodeContainer>());
         formParts_.getCallsFormExps().add(opForm);
@@ -41,12 +40,12 @@ public final class NatRendForm extends NatRendElementForm implements RendElem {
         StringList arg_ = new StringList();
 //        String render_ = StringUtil.join(alt_,"");
         ((NatRendStackCallAdv)_rendStack).getFormParts().getFormsArgs().add(arg_);
-        ((NatRendStackCallAdv)_rendStack).getFormParts().getStructsForm().add(_rendStack.getLastPage().getGlobalArgument().getStruct());
+        ((NatRendStackCallAdv)_rendStack).getFormParts().getStructsForm().add(_rendStack.getLastPage().getGlobalArgument());
 //        String beanName_ = _rendStack.getLastPage().getBeanName();
 //        elt_.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrCommand()), StringUtil.concat(RendBlockHelp.CALL_METHOD,beanName_, RendBlockHelp.DOT,render_));
-        elt_.setAttribute(_cont.getRendKeyWords().getAttrAction(), RendBlockHelp.EMPTY_STRING);
+        elt_.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrAction(), RendBlockHelp.EMPTY_STRING);
         currentForm_ = ((NatRendStackCallAdv)_rendStack).getFormParts().getCurrentForm();
-        elt_.setAttribute(_cont.getRendKeyWords().getAttrNf(), Long.toString(currentForm_ - 1));
+        elt_.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrNf(), Long.toString(currentForm_ - 1));
     }
 
 //    public static void procCstRef(Configuration _cont, Element _elt, NatFormParts _formParts) {

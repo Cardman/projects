@@ -20,27 +20,20 @@ import code.util.core.StringUtil;
 
 public final class Navigation {
 
-    private static final String REF_TAG = "#";
-
-    private static final String EMPTY_STRING = "";
-
     private Configuration session;
+    private final NavigationCore core = new NavigationCore();
 
-    private String htmlText = "";
+//    private String htmlText = "";
 
-    private String referenceScroll = "";
+//    private String referenceScroll = "";
 
-    private String language = "";
-    private StringList languages = new StringList();
-
-    private StringMap<String> files = new StringMap<String>();
 
     private Struct dataBaseStruct = NullStruct.NULL_VALUE;
 
-    private String title = EMPTY_STRING;
-    private Document document;
-    private String currentUrl = "";
-    private String currentBeanName = "";
+//    private String title = EMPTY_STRING;
+//    private Document document;
+//    private String currentUrl = "";
+//    private String currentBeanName = "";
 
     public DualAnalyzedContext loadConfiguration(String _cont, String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad) {
         DocumentResult res_ = DocumentBuilder.parseSaxNotNullRowCol(_cont);
@@ -72,20 +65,20 @@ public final class Navigation {
     }
 
     public void setLanguage(String _language) {
-        language = _language;
-        session.setCurrentLanguage(language);
+        core.setLanguage(_language);
+        session.setCurrentLanguage(_language);
     }
 
     public String getHtmlText() {
-        return htmlText;
+        return core.getHtmlText();
     }
 
     public Document getDocument() {
-        return document;
+        return core.getDocument();
     }
 
     public String getReferenceScroll() {
-        return referenceScroll;
+        return core.getReferenceScroll();
     }
 
     public Struct getDataBaseStruct() {
@@ -93,7 +86,7 @@ public final class Navigation {
     }
 
     public StringMap<String> getFiles() {
-        return files;
+        return core.getFiles();
     }
 
     public void feedErr(StringMap<Message> _map, StringMap<String> _errors, StringMap<StringList> _errorsArgs) {
@@ -146,7 +139,7 @@ public final class Navigation {
                 if (!message_.isEmpty()) {
                     error_ = StringUtil.simpleStringsFormat(message_,_errorsArgs.getVal(i));
                 }
-                Text text_ = document.createTextNode(error_);
+                Text text_ = core.getDocument().createTextNode(error_);
                 elt_.appendChild(text_);
                 count_++;
             }
@@ -154,7 +147,7 @@ public final class Navigation {
         in(_formElement, _id, _page);
         se(_formElement, _id, _page);
         ta(_formElement, _id, _page);
-        setupText(document.export());
+        core.setupText(core.getDocument().export(),session.getRendKeyWords().getKeyWordHead(),session.getRendKeyWords().getAttrTitle());
     }
 
     private void in(Element _formElement, long _id, HtmlPage _page) {
@@ -237,7 +230,7 @@ public final class Navigation {
             for (int j = IndexConstants.FIRST_INDEX; j < ch_; j++) {
                 elt_.removeChild(children_.item(j));
             }
-            Text text_ = document.createTextNode(nCont_.getValue().first());
+            Text text_ = core.getDocument().createTextNode(nCont_.getValue().first());
             elt_.appendChild(text_);
         }
     }
@@ -256,35 +249,7 @@ public final class Navigation {
     }
 
     public boolean setupText(String _text, Document _document) {
-        if (_text.isEmpty()) {
-            return false;
-        }
-        document = _document;
-        setupText(_text);
-        return true;
-    }
-    public void setupText(String _text) {
-        ElementList nodes_;
-        title = EMPTY_STRING;
-        nodes_ = document.getElementsByTagName(session.getRendKeyWords().getKeyWordHead());
-        int size_ = nodes_.getLength();
-        for (int i = IndexConstants.FIRST_INDEX; i < size_; i++) {
-            Element node_ = nodes_.item(i);
-            ElementList subNodes_ = node_.getElementsByTagName(session.getRendKeyWords().getAttrTitle());
-            int subListSize_ = subNodes_.getLength();
-            for (int j = IndexConstants.FIRST_INDEX; j < subListSize_; j++) {
-                Element subNode_ = subNodes_.item(j);
-                title = subNode_.getTextContent().trim();
-            }
-        }
-        htmlText = _text;
-        StringList tokens_ = StringUtil.splitStrings(getCurrentUrl(), REF_TAG);
-        if (tokens_.size() > IndexConstants.ONE_ELEMENT) {
-            referenceScroll = tokens_.get(IndexConstants.SECOND_INDEX);
-            setCurrentUrl(tokens_.first());
-        } else {
-            referenceScroll = EMPTY_STRING;
-        }
+        return core.setupText(_text,_document,session.getRendKeyWords().getKeyWordHead(),session.getRendKeyWords().getAttrTitle());
     }
 
     public Configuration getSession() {
@@ -295,24 +260,28 @@ public final class Navigation {
         session = _session;
     }
 
+    public NavigationCore getCore() {
+        return core;
+    }
+
     public void setFiles(StringMap<String> _files) {
-        files = _files;
+        getCore().setFiles(_files);
     }
 
     public String getLanguage() {
-        return language;
+        return core.getLanguage();
     }
 
     public String getTitle() {
-        return title;
+        return core.getTitle();
     }
 
     public StringList getLanguages() {
-        return languages;
+        return core.getLanguages();
     }
 
     public void setLanguages(StringList _languages) {
-        languages = _languages;
+        core.setLanguages(_languages);
     }
 
     public void setDataBaseStruct(Struct _dataBaseStruct) {
@@ -320,18 +289,18 @@ public final class Navigation {
     }
 
     public String getCurrentUrl() {
-        return currentUrl;
+        return core.getCurrentUrl();
     }
 
     public void setCurrentUrl(String _v) {
-        this.currentUrl = _v;
+        this.core.setCurrentUrl(_v);
     }
 
     public String getCurrentBeanName() {
-        return currentBeanName;
+        return core.getCurrentBeanName();
     }
 
     public void setCurrentBeanName(String _v) {
-        this.currentBeanName = _v;
+        this.core.setCurrentBeanName(_v);
     }
 }

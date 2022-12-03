@@ -3,7 +3,7 @@ package code.bean.nat.exec.opers;
 import code.bean.nat.exec.NatArgumentsPair;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.fwd.opers.NatExecVariableContent;
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.Struct;
 import code.util.IdMap;
 
 public final class NatFinalVariableOperation extends NatExecLeafOperation implements NatRendCalculableOperation {
@@ -17,7 +17,7 @@ public final class NatFinalVariableOperation extends NatExecLeafOperation implem
 
     @Override
     public void calculate(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStack) {
-        Argument arg_ = NatStdRefVariableOperation.getIndexLoop(variableContent, _rendStack.getLastPage().getVars());
+        Struct arg_ = NatStdRefVariableOperation.getIndexLoop(variableContent, _rendStack.getLastPage().getVars());
         calcArg(_nodes, arg_);
     }
 

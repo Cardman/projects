@@ -2,6 +2,7 @@ package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.analyze.*;
 import code.bean.nat.analyze.opers.NatOperationNode;
+import code.sml.NatAnalyzingDoc;
 import code.util.*;
 import code.util.core.*;
 

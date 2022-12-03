@@ -5,7 +5,6 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansFacadeDtoStd{
     public static final String TYPE_ITEM_LINE = "aiki.beans.facade.dto.ItemLine";
@@ -36,21 +35,21 @@ public final class AikiBeansFacadeDtoStd{
     private static void buildItemLine(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_ITEM_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new ItemLineDisplayNameGet(),null));
-        fields_.add(new StandardField(PRICE, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new ItemLinePriceGet(),null));
-        fields_.add(new StandardField(DESCRIPTION_CLASS,BeanNatCommonLgNames.STRING,false,false,new ItemLineDescriptionClassGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING, new ItemLineDisplayNameGet(),null));
+        fields_.add(new StandardField(PRICE, BeanNatCommonLgNames.PRIM_INTEGER, new ItemLinePriceGet(),null));
+        fields_.add(new StandardField(DESCRIPTION_CLASS,BeanNatCommonLgNames.STRING, new ItemLineDescriptionClassGet(),null));
         _std.getStds().addEntry(TYPE_ITEM_LINE, type_);
     }
 
     private static void buildMoveLine(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_MOVE_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new MoveLineDisplayNameGet(),null));
-        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLinePpGet(),null));
-        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false,new MoveLineCategoryGet(),null));
-        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLinePriorityGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING, new MoveLineDisplayNameGet(),null));
+        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER, new MoveLinePpGet(),null));
+        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING, new MoveLineCategoryGet(),null));
+        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER, new MoveLinePriorityGet(),null));
 //        fields_.add(new StandardField(INDEX, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanIndexGet(),new MoveLineBeanIndexSet()));
 //        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanDisplayNameGet(),null));
 //        fields_.add(new StandardField(PP, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPpGet(),null));
@@ -58,21 +57,21 @@ public final class AikiBeansFacadeDtoStd{
 //        fields_.add(new StandardField(CATEGORY,BeanNatCommonLgNames.STRING,false,false,new MoveLineBeanCategoryGet(),null));
 //        fields_.add(new StandardField(MOVE_LINE,AikiBeansFacadeDtoStd.TYPE_MOVE_LINE,false,false,new MoveLineBeanMoveLineGet(),new MoveLineBeanMoveLineSet()));
 //        fields_.add(new StandardField(PRIORITY, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new MoveLineBeanPriorityGet(),null));
-        fields_.add(new StandardField(ACCURACY,BeanNatCommonLgNames.STRING,false,false,new MoveLineAccuracyGet(),null));
-        fields_.add(new StandardField(POWER,BeanNatCommonLgNames.STRING,false,false,new MoveLinePowerGet(),null));
+        fields_.add(new StandardField(ACCURACY,BeanNatCommonLgNames.STRING, new MoveLineAccuracyGet(),null));
+        fields_.add(new StandardField(POWER,BeanNatCommonLgNames.STRING, new MoveLinePowerGet(),null));
 //        fields_.add(new StandardField(SORTED_MOVES, BeanNatCommonLgNames.TYPE_LIST,false,false,null,new MoveLineBeanSortedMovesSet()));
-        methods_.add( new SpecNatMethod(IS_DAMAGE_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveLineIsDamageMove()));
-        methods_.add( new SpecNatMethod(IS_DIRECT,BeanNatCommonLgNames.PRIM_BOOLEAN, false, MethodModifier.NORMAL,new MoveLineIsDirect()));
-        methods_.add( new SpecNatMethod(GET_TYPES, BeanNatCommonLgNames.TYPE_LIST, false, MethodModifier.NORMAL,new MoveLineGetTypes()));
+        methods_.add( new SpecNatMethod(IS_DAMAGE_MOVE,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveLineIsDamageMove()));
+        methods_.add( new SpecNatMethod(IS_DIRECT,BeanNatCommonLgNames.PRIM_BOOLEAN, new MoveLineIsDirect()));
+        methods_.add( new SpecNatMethod(GET_TYPES, BeanNatCommonLgNames.TYPE_LIST, new MoveLineGetTypes()));
         _std.getStds().addEntry(TYPE_MOVE_LINE, type_);
     }
     private static void buildPokemonLine(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_POKEMON_LINE, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING,false,false,new PokemonLineDisplayNameGet(),null));
-        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST,false,false,new PokemonLineTypesGet(),null));
-        fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.PRIM_INTEGER,false,false,new PokemonLineEvolutionsGet(),null));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add(new StandardField(DISPLAY_NAME,BeanNatCommonLgNames.STRING, new PokemonLineDisplayNameGet(),null));
+        fields_.add(new StandardField(TYPES, BeanNatCommonLgNames.TYPE_LIST, new PokemonLineTypesGet(),null));
+        fields_.add(new StandardField(EVOLUTIONS, BeanNatCommonLgNames.PRIM_INTEGER, new PokemonLineEvolutionsGet(),null));
         _std.getStds().addEntry(TYPE_POKEMON_LINE, type_);
     }
 }

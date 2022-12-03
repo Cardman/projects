@@ -1,12 +1,9 @@
 package code.bean.nat.analyze.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.analyze.variables.AnaLoopVariable;
-import code.expressionlanguage.common.ConstType;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
@@ -48,16 +45,13 @@ public final class NatAnaRendForEachLoop extends NatAnaRendParentBlock implement
         if (toInfer_) {
             importedClassName = last_;
         }
-        AnaLoopVariable lv_ = new AnaLoopVariable();
-        _page.getLoopsVars().put(variableName, lv_);
-        AnaLocalVariable lInfo_ = new AnaLocalVariable();
+        _page.getLoopsVars().put(variableName, "");
+        String lInfo_;
         if (!importedClassName.isEmpty()) {
-            lInfo_.setClassName(importedClassName);
+            lInfo_=importedClassName;
         } else {
-            lInfo_.setClassName(BeanNatCommonLgNames.OBJECT);
+            lInfo_=BeanNatCommonLgNames.OBJECT;
         }
-        lInfo_.setConstType(ConstType.FIX_VAR);
-        lInfo_.setFinalVariable(true);
         _page.getInfosVars().put(variableName, lInfo_);
     }
 
@@ -85,7 +79,7 @@ public final class NatAnaRendForEachLoop extends NatAnaRendParentBlock implement
         return className.trim().isEmpty();
     }
 
-    public void removeVars(StringMap<AnaLocalVariable> _infosVars, StringMap<AnaLoopVariable> _loopsVars) {
+    public void removeVars(StringMap<String> _infosVars, StringMap<String> _loopsVars) {
         _infosVars.removeKey(variableName);
         _loopsVars.removeKey(variableName);
     }

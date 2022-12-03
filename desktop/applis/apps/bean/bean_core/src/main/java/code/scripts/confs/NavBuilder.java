@@ -1,6 +1,5 @@
 package code.scripts.confs;
 
-import code.formathtml.structs.*;
 import code.util.*;
 
 public final class NavBuilder {
@@ -12,11 +11,7 @@ public final class NavBuilder {
 //        }
 //        _nav.addEntry(BeanNatCommonLgNames.methName(_key),n_);
 //    }
-    public static void buildBeans(StringMap<BeanInfo> _nav, String _key, String _value) {
-        BeanInfo b_ = new BeanInfo();
-        b_.setScope("session");
-        b_.setClassName(_value);
-        b_.setResolvedClassName(_value);
-        _nav.addEntry(_key,b_);
+    public static void buildBeans(StringMap<String> _nav, String _key, String _value) {
+        _nav.addEntry(_key,_value);
     }
 }

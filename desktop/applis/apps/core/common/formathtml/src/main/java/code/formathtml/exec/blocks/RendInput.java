@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
 import code.formathtml.exec.RendStackCall;
@@ -41,7 +42,7 @@ public abstract class RendInput extends RendElement {
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 CustList<LongTreeMap<DefNodeContainer>> stack_;
                 stack_ = _rendStackCall.getFormParts().getContainersMapStack();
-                return new DefFetchedObjs("",null, new CustList<Struct>(), stack_, Argument.createVoid(), "");
+                return new DefFetchedObjs("",null, new CustList<Struct>(), stack_, NullStruct.NULL_VALUE, "");
             }
         } else {
             idRad_ = "";

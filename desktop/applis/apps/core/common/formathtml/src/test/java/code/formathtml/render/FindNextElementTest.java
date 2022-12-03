@@ -34,7 +34,7 @@ public final class FindNextElementTest extends EquallableRenderUtil {
 
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWords());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWords().group());
     }
 
     @Test

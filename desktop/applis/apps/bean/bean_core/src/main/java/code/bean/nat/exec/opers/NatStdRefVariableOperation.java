@@ -4,12 +4,7 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.nat.fwd.opers.NatExecVariableContent;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.ArgumentWrapper;
-import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -22,14 +17,13 @@ public final class NatStdRefVariableOperation extends NatExecLeafOperation imple
         variableContent = _variableContent;
     }
 
-    public static Argument getIndexLoop(NatExecVariableContent _varCont, StringMap<LoopVariable> _vars) {
+    public static Struct getIndexLoop(NatExecVariableContent _varCont, StringMap<Integer> _vars) {
         return getIndexLoop(_varCont.getVariableName(), _vars);
     }
 
-    public static Argument getIndexLoop(String _val, StringMap<LoopVariable> _vars) {
-        LoopVariable locVar_ = _vars.getVal(_val);
-        IntStruct str_ = new IntStruct((int) locVar_.getIndex());
-        return new Argument(str_);
+    public static Struct getIndexLoop(String _val, StringMap<Integer> _vars) {
+        int locVar_ = _vars.getVal(_val);
+        return new IntStruct(locVar_);
     }
 
     public static VariableWrapperNat getWrapper(NatExecVariableContent _varCont, StringMap<VariableWrapperNat> _refParams) {
@@ -40,15 +34,11 @@ public final class NatStdRefVariableOperation extends NatExecLeafOperation imple
         return _refParams.getVal(_val);
     }
 
-    public static Argument getArgValue(VariableWrapperNat _w) {
-        return new Argument(getValue(_w));
-    }
-
     public static Struct getValue(VariableWrapperNat _w) {
         if (_w == null) {
             return NullStruct.NULL_VALUE;
         }
-        return Argument.getNull(_w.getValue());
+        return _w.getValue();
     }
 
     @Override
@@ -57,8 +47,7 @@ public final class NatStdRefVariableOperation extends NatExecLeafOperation imple
         VariableWrapperNat val_ = getWrapper(variableContent, ip_.getRefParams());
 //        ArgumentsPair pair_ = getArgumentPair(_nodes, this);
 //        pair_.setWrapper(val_);
-        Argument arg_ = new ArgumentWrapper(getArgValue(val_), null).getValue();
-        calcArg(_nodes, arg_);
+        calcArg(_nodes, getValue(val_));
     }
 
 

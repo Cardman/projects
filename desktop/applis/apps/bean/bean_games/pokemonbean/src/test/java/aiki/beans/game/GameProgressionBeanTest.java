@@ -9,6 +9,7 @@ import aiki.game.player.enums.Sex;
 import aiki.map.enums.Direction;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
+import code.bean.nat.NatNavigation;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.LgInt;
@@ -583,7 +584,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac(progress(),GIRL,Sex.GIRL));
         pk_.initializeRendSessionDoc(nav_);
         String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -707,7 +708,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(fac(progress(),BOY,Sex.BOY));
         pk_.initializeRendSessionDoc(nav_);
         String firstPage_ = "<html xmlns:c=\"javahtml\"><head><title>Game progression</title><link href=\"web_prog/css/difficulty.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -825,7 +826,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
         assertEq(firstPage_,nav_.getHtmlText());
     }
 
-    private void goToPage(PkProg _pk, Navigation _nav, int _nb) {
+    private void goToPage(PkProg _pk, NatNavigation _nav, int _nb) {
         _pk.getNatPage().setUrl(_nb);
         _pk.execute(false, _nav);
     }

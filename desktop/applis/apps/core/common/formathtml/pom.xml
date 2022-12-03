@@ -13,8 +13,8 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-            <groupId>sml</groupId>
-            <artifactId>sml</artifactId>
+            <groupId>sml_adv</groupId>
+            <artifactId>sml_adv</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

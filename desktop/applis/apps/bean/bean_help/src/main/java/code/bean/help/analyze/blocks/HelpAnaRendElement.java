@@ -1,7 +1,7 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.help.analyze.HelpResultText;
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.*;
 import code.sml.Element;
 import code.util.StringList;
@@ -21,7 +21,7 @@ public abstract class HelpAnaRendElement extends NatAnaRendParentBlock implement
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = NatAnaRendElement.buildAttrNames(_anaDoc,read);
-        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
+        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
         processAttributes(_doc,read,attributesNames_, _anaDoc, _page);
         for (String a: attributesNames_) {

@@ -1,7 +1,7 @@
 package code.bean.help.analyze.blocks;
 
 import code.bean.help.analyze.HelpResultText;
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.sml.Element;
@@ -17,10 +17,10 @@ public final class HelpAnaRendImg extends HelpAnaRendElement {
     @Override
     protected void processAttributes(NatAnaRendDocumentBlock _doc, Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         HelpResultText res_ = new HelpResultText();
-        String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getAttrSrc());
+        String pageName_ = _read.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrSrc());
         res_.buildAna(pageName_);
         texts = res_.getTexts();
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrSrc());
+        _list.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrSrc());
     }
 
     public StringList getTexts() {

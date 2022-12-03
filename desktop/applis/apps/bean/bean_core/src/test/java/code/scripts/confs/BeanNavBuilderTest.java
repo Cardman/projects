@@ -15,7 +15,7 @@ public class BeanNavBuilderTest extends EquallableBeanCoreUtil {
 //    }
     @Test
     public void test2(){
-        StringMap<BeanInfo> n_ = new StringMap<BeanInfo>();
+        StringMap<String> n_ = new StringMap<String>();
         NavBuilder.buildBeans(n_,"","");
         assertEq(1,n_.size());
     }

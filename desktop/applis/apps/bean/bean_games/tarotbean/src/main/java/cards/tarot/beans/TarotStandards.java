@@ -3,12 +3,11 @@ package cards.tarot.beans;
 import cards.consts.beans.*;
 import cards.tarot.*;
 import code.bean.nat.*;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.*;
 import code.util.*;
 import code.util.core.*;
 public abstract class TarotStandards extends BeanNatCommonLgNames {
@@ -61,65 +60,65 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     private void buildTarotBean(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_TAROT_BEAN, fields_, methods_, TYPE_BEAN);
-        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, false, false,new TarotBeanNicknames(),null));
-        methods_.add( new SpecNatMethod(PLAY_CLASSIC_GAME, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new TarotBeanPlayClassicGame()));
-        methods_.add( new SpecNatMethod(PLAY_VARIANT_MODE_GAME, PRIM_BOOLEAN, false, MethodModifier.NORMAL,new TarotBeanPlayVariantModeGame()));
-        methods_.add( new SpecNatMethod(GET_NICKNAMES, TYPE_LIST, false, MethodModifier.NORMAL,new TarotBeanGetNicknames()));
-        methods_.add( new SpecNatMethod(GET_SCORES, TYPE_LIST, false, MethodModifier.NORMAL,new TarotBeanGetScores()));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, TYPE_BEAN);
+        fields_.add( new StandardField(NICKNAMES, TYPE_LIST, new TarotBeanNicknames(),null));
+        methods_.add( new SpecNatMethod(PLAY_CLASSIC_GAME, PRIM_BOOLEAN, new TarotBeanPlayClassicGame()));
+        methods_.add( new SpecNatMethod(PLAY_VARIANT_MODE_GAME, PRIM_BOOLEAN, new TarotBeanPlayVariantModeGame()));
+        methods_.add( new SpecNatMethod(GET_NICKNAMES, TYPE_LIST, new TarotBeanGetNicknames()));
+        methods_.add( new SpecNatMethod(GET_SCORES, TYPE_LIST, new TarotBeanGetScores()));
         getStds().addEntry(TYPE_TAROT_BEAN, std_);
     }
     private void buildSumDeclaringPlayer(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_SUM_DECLARING_PLAYER, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(SUM, PRIM_INTEGER, false, false,new TarotSumDeclaringPlayerSum(),null));
-        fields_.add( new StandardField(STATUS, STRING, false, false,new TarotSumDeclaringPlayerStatus(),null));
-        fields_.add( new StandardField(NICKNAME, STRING, false, false,new TarotSumDeclaringPlayerNickname(),null));
-        fields_.add( new StandardField(HANDFULS, TYPE_MAP, false, false,new TarotSumDeclaringPlayerHandfuls(),null));
-        fields_.add( new StandardField(MISERES, TYPE_MAP, false, false,new TarotSumDeclaringPlayerMiseres(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(SUM, PRIM_INTEGER, new TarotSumDeclaringPlayerSum(),null));
+        fields_.add( new StandardField(STATUS, STRING, new TarotSumDeclaringPlayerStatus(),null));
+        fields_.add( new StandardField(NICKNAME, STRING, new TarotSumDeclaringPlayerNickname(),null));
+        fields_.add( new StandardField(HANDFULS, TYPE_MAP, new TarotSumDeclaringPlayerHandfuls(),null));
+        fields_.add( new StandardField(MISERES, TYPE_MAP, new TarotSumDeclaringPlayerMiseres(),null));
         getStds().addEntry(TYPE_SUM_DECLARING_PLAYER, std_);
     }
     private void buildScoresPlayers(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_SCORES_PLAYERS, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(SUM, PRIM_INTEGER, false, false,new ScoresPlayersSum(),null));
-        fields_.add( new StandardField(NICKNAME, STRING, false, false,new ScoresPlayersNickname(),null));
-        fields_.add( new StandardField(SCORE, PRIM_INTEGER, false, false,new ScoresPlayersScore(),null));
-        fields_.add( new StandardField(RATE, TYPE_RATE, false, false,new ScoresPlayersRate(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(SUM, PRIM_INTEGER, new ScoresPlayersSum(),null));
+        fields_.add( new StandardField(NICKNAME, STRING, new ScoresPlayersNickname(),null));
+        fields_.add( new StandardField(SCORE, PRIM_INTEGER, new ScoresPlayersScore(),null));
+        fields_.add( new StandardField(RATE, TYPE_RATE, new ScoresPlayersRate(),null));
         getStds().addEntry(TYPE_SCORES_PLAYERS, std_);
     }
     private void buildRankingPlayerVariantGame(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_RANKING_PLAYER_VARIANT_GAME, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NICKNAME, STRING, false, false,new RankingPlayerVariantGameNickname(),null));
-        fields_.add( new StandardField(POSITION_DIFF, PRIM_INTEGER, false, false,new RankingPlayerVariantGamePositionDiff(),null));
-        fields_.add( new StandardField(POSITION_OUDLERS, PRIM_INTEGER, false, false,new RankingPlayerVariantGamePositionOudlers(),null));
-        fields_.add( new StandardField(POSITION_CHARACTERS, PRIM_INTEGER, false, false,new RankingPlayerVariantGamePositionCharacters(),null));
-        fields_.add( new StandardField(POSITION_STRENGTH_CHARACTERS, PRIM_INTEGER, false, false,new RankingPlayerVariantGamePositionStrengthCharacters(),null));
-        fields_.add( new StandardField(FINAL_POSITION, PRIM_INTEGER, false, false,new RankingPlayerVariantGameFinalPosition(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, new RankingPlayerVariantGameNickname(),null));
+        fields_.add( new StandardField(POSITION_DIFF, PRIM_INTEGER, new RankingPlayerVariantGamePositionDiff(),null));
+        fields_.add( new StandardField(POSITION_OUDLERS, PRIM_INTEGER, new RankingPlayerVariantGamePositionOudlers(),null));
+        fields_.add( new StandardField(POSITION_CHARACTERS, PRIM_INTEGER, new RankingPlayerVariantGamePositionCharacters(),null));
+        fields_.add( new StandardField(POSITION_STRENGTH_CHARACTERS, PRIM_INTEGER, new RankingPlayerVariantGamePositionStrengthCharacters(),null));
+        fields_.add( new StandardField(FINAL_POSITION, PRIM_INTEGER, new RankingPlayerVariantGameFinalPosition(),null));
         getStds().addEntry(TYPE_RANKING_PLAYER_VARIANT_GAME, std_);
     }
     private void buildPointsPlayerVariantGame(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_POINTS_PLAYER_VARIANT_GAME, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NICKNAME, STRING, false, false,new PointsPlayerVariantGameNickname(),null));
-        fields_.add( new StandardField(RATE, PRIM_INTEGER, false, false,new PointsPlayerVariantGameRate(),null));
-        fields_.add( new StandardField(SCORE, PRIM_INTEGER, false, false,new PointsPlayerVariantGameScore(),null));
-        fields_.add( new StandardField(MINIMUM_POINTS, PRIM_INTEGER, false, false,new PointsPlayerVariantGameMinimumPoints(),null));
-        fields_.add( new StandardField(DIFFERENCE_SCORE, TYPE_RATE, false, false,new PointsPlayerVariantGameDifferenceScore(),null));
-        fields_.add( new StandardField(POINTS_TRICKS, TYPE_RATE, false, false,new PointsPlayerVariantGamePointsTricks(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, new PointsPlayerVariantGameNickname(),null));
+        fields_.add( new StandardField(RATE, PRIM_INTEGER, new PointsPlayerVariantGameRate(),null));
+        fields_.add( new StandardField(SCORE, PRIM_INTEGER, new PointsPlayerVariantGameScore(),null));
+        fields_.add( new StandardField(MINIMUM_POINTS, PRIM_INTEGER, new PointsPlayerVariantGameMinimumPoints(),null));
+        fields_.add( new StandardField(DIFFERENCE_SCORE, TYPE_RATE, new PointsPlayerVariantGameDifferenceScore(),null));
+        fields_.add( new StandardField(POINTS_TRICKS, TYPE_RATE, new PointsPlayerVariantGamePointsTricks(),null));
         getStds().addEntry(TYPE_POINTS_PLAYER_VARIANT_GAME, std_);
     }
     private void buildBonusesPlayers(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_BONUSES_PLAYERS, fields_, methods_, OBJECT);
-        fields_.add( new StandardField(NICKNAME, STRING, false, false,new BonusesPlayersNickname(),null));
-        fields_.add( new StandardField(BONUS, PRIM_INTEGER, false, false,new BonusesPlayersBonus(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, OBJECT);
+        fields_.add( new StandardField(NICKNAME, STRING, new BonusesPlayersNickname(),null));
+        fields_.add( new StandardField(BONUS, PRIM_INTEGER, new BonusesPlayersBonus(),null));
         getStds().addEntry(TYPE_BONUSES_PLAYERS, std_);
     }
     private void buildLineDeal(){
@@ -127,7 +126,7 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     }
 
     @Override
-    public InvokedPageOutput processAfterInvoke(Configuration _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);

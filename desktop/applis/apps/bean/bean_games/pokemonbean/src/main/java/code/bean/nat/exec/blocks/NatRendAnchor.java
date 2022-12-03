@@ -1,8 +1,8 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.formathtml.Configuration;
 import code.sml.Element;
 import code.sml.Node;
 import code.util.CustList;
@@ -24,7 +24,7 @@ public final class NatRendAnchor extends NatRendElementForm {
         this.textPart = _textPart;
     }
 
-    void anchor(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
+    void anchor(NatConfigurationCore _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         NatRendElementForm.feed(varNames, opExpAnch, _rendStack);
         NatRendElementForm.processLink(_cont, (Element) _nextWrite, textPart, _rendStack);
     }

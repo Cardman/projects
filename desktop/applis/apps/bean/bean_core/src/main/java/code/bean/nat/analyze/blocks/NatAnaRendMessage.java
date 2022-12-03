@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.sml.Element;
@@ -24,10 +24,10 @@ public final class NatAnaRendMessage extends NatAnaRendParentBlock implements Na
     @Override
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         roots = new CustList<NatOperationNode>();
-        String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+        String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrValue());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);
         for (Element n: elt.getChildElements()) {
-            String attribute_ = n.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+            String attribute_ = n.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrValue());
             args.add(AnaRendBlockHelp.EMPTY_STRING);
             roots.add(NatRenderAnalysis.getRootAnalyzedOperations(attribute_, 0, _anaDoc, _page));
         }

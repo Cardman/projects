@@ -15,7 +15,7 @@ public final class AikiBeansItemsEffectsStd{
     private static void buildEffectEndRoundItemBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_EFFECT_END_ROUND_ITEM_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         _std.getStds().addEntry(TYPE_EFFECT_END_ROUND_ITEM_BEAN, type_);
     }
 }

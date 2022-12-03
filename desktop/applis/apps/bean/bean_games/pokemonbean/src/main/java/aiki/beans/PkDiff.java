@@ -2,7 +2,7 @@ package aiki.beans;
 
 import aiki.beans.game.AikiBeansGameStd;
 import aiki.beans.game.DifficultyBean;
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 
 public final class PkDiff extends PokemonStandards {
     @Override
@@ -12,7 +12,7 @@ public final class PkDiff extends PokemonStandards {
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language) {
+    public void initBeans(NatConfigurationCore _conf, String _language) {
         getBeansStruct().setValue(0, beanDiff(_language));
         getBeansStruct().setValue(1, beanDiffCommon(_language));
 

@@ -6,7 +6,6 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
-import code.expressionlanguage.functionid.MethodModifier;
 import code.util.CustList;
 public final class AikiBeansSolutionStd{
     public static final String TYPE_SOLUTION_BEAN = "aiki.beans.solution.SolutionBean";
@@ -19,9 +18,9 @@ public final class AikiBeansSolutionStd{
     private static void buildSolutionBean(PokemonStandards _std){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass type_ = new SpecialNatClass(TYPE_SOLUTION_BEAN, fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
-        fields_.add(new StandardField(STEPS, BeanNatCommonLgNames.TYPE_LIST,false,false,new SolutionBeanStepsGet(),null));
-        methods_.add( new SpecNatMethod(GET_PLACE,BeanNatCommonLgNames.STRING, false, MethodModifier.NORMAL,new SolutionBeanGetPlace()));
+        SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
+        fields_.add(new StandardField(STEPS, BeanNatCommonLgNames.TYPE_LIST, new SolutionBeanStepsGet(),null));
+        methods_.add( new SpecNatMethod(GET_PLACE,BeanNatCommonLgNames.STRING, new SolutionBeanGetPlace()));
         _std.getStds().addEntry(TYPE_SOLUTION_BEAN, type_);
     }
 }

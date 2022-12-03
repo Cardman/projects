@@ -1,7 +1,6 @@
 package code.bean.nat;
 
-import code.formathtml.Configuration;
-import code.formathtml.Navigation;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.sml.Document;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.EntryCust;
@@ -29,13 +28,13 @@ public class NatDualConfigurationContext {
         return docs_;
     }
 
-    public void init(Configuration _conf) {
+    public void init(NatConfigurationCore _conf) {
         _conf.updatePref();
         String firstUrl_ = _conf.getFirstUrl();
         getRenderFiles().removeAllString(firstUrl_);
         getRenderFiles().add(firstUrl_);
     }
-    public static StringMap<String> files(Navigation _nav, NatDualConfigurationContext _d, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel){
+    public static StringMap<String> files(NatNavigation _nav, NatDualConfigurationContext _d, StringMap<String> _other, StringMap<String> _otherMessage,  String _rel){
         StringMap<String> files_ = new StringMap<String>();
         for (String a : _d.getAddedFiles()) {
             String val_ = _other.getVal(_rel + a);

@@ -1,14 +1,14 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
+import code.expressionlanguage.structs.Struct;
 
 public abstract class FetchedObjs {
-    private final Argument arg;
-    protected FetchedObjs(Argument _arg) {
+    private final Struct arg;
+    protected FetchedObjs(Struct _arg) {
         this.arg = _arg;
     }
 
-    public Argument getArg() {
+    public Struct getArg() {
         return arg;
     }
 

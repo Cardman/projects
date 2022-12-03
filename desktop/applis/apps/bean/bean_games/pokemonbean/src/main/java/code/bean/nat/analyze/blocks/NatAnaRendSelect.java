@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
@@ -21,12 +21,12 @@ public final class NatAnaRendSelect extends NatAnaRendParentBlock implements Nat
 
     @Override
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        NatResultInput r_ = new NatResultInput(elt,_anaDoc.getRendKeyWords().getAttrVarValue(), _anaDoc, _page);
+        NatResultInput r_ = new NatResultInput(elt,_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrVarValue(), _anaDoc, _page);
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();
         resultInput = r_;
         classNameNat = r_.getClassNameNat();
-        String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrMap());
+        String map_ = elt.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrMap());
         rootMap = NatRenderAnalysis.getRootAnalyzedOperations(map_, 0, _anaDoc, _page);
     }
 

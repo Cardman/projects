@@ -6,6 +6,7 @@ import code.bean.nat.analyze.opers.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
+import code.sml.NatAnalyzingDoc;
 import code.util.*;
 import code.util.core.*;
 
@@ -47,7 +48,7 @@ public final class NatRendForwardInfos {
 
     private static NatParentBlock complete(NatAnalyzingDoc _anaDoc, NatDocumentBlock _rendDoc, NatParentBlock _curPar, NatBlock _loc) {
         if (_loc != null) {
-            if (_loc instanceof NatRendStdElement && StringUtil.quickEq(((NatRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordBody())) {
+            if (_loc instanceof NatRendStdElement && StringUtil.quickEq(((NatRendStdElement) _loc).getRead().getTagName(), _anaDoc.getRendKeyWords().getKeyWordsTags().getKeyWordBody())) {
                 _rendDoc.setBody((NatRendStdElement)_loc);
             }
 //            _loc.setEscapedChars(_en.getEscapedChars());

@@ -1,6 +1,6 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.sml.Element;
@@ -25,21 +25,21 @@ public final class NatAnaRendInput extends NatAnaRendElementSpec {
     }
 
     private static void removeAttrs(StringList _ls, NatAnalyzingDoc _anaDoc) {
-        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrChecked());
-        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrValue());
-        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrName());
-        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrClassName()));
-        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrNi());
-        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertValue()));
-        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertFieldValue()));
-        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrConvertField()));
-        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrVarValue()));
-        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrValidator()));
-        _ls.removeAllString(_anaDoc.getRendKeyWords().getAttrType());
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrValue());
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrName());
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrClassName()));
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrNi());
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrConvertValue()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrConvertFieldValue()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrConvertField()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrVarValue()));
+        _ls.removeAllString(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrValidator()));
+        _ls.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrType());
     }
 
     void processAnaInput(Element _read, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        NatResultInput r_ = new NatResultInput(_read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrVarValue()), _anaDoc, _page);
+        NatResultInput r_ = new NatResultInput(_read, StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrVarValue()), _anaDoc, _page);
         resultInput = r_;
         rootRead = r_.getOpsReadRoot();
         rootValue = r_.getOpsValueRoot();

@@ -2,10 +2,9 @@ package cards.gui.animations;
 
 import code.bean.help.HelpCaller;
 import code.bean.nat.NatDualConfigurationContext;
-import code.formathtml.Configuration;
-import code.formathtml.Navigation;
+import code.bean.nat.NatNavigation;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.formathtml.render.MetaDocument;
-import code.formathtml.util.DualConfigurationContext;
 import code.sml.Document;
 import code.util.StringList;
 import code.util.StringMap;
@@ -16,15 +15,15 @@ public final class PreparedRenderPagesCards {
     private static final String IMPLICIT_LANGUAGE = "//";
 
     private final StringMap<String> ms;
-    private final Configuration session;
+    private final NatConfigurationCore session;
     private final String firstUrl;
     private MetaDocument metaDocument;
     private final StringMap<Document> built;
     private final String lg;
-    private Navigation navigation;
+    private NatNavigation navigation;
 
     private final NatDualConfigurationContext contextConf;
-    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, Configuration _session, NatDualConfigurationContext _contextConf, String _firstUrl) {
+    public PreparedRenderPagesCards(StringMap<Document> _built, StringMap<String> _ms, NatConfigurationCore _session, NatDualConfigurationContext _contextConf, String _firstUrl) {
         lg = "";
         built = _built;
         ms = _ms;
@@ -34,7 +33,7 @@ public final class PreparedRenderPagesCards {
     }
 
     public void run() {
-        navigation= new Navigation();
+        navigation= new NatNavigation();
         session.setPrefix("c:");
         getNavigation().setSession(session);
         getNavigation().setLanguage(lg);
@@ -43,17 +42,17 @@ public final class PreparedRenderPagesCards {
         metaDocument = MetaDocument.newInstance(rendStackCall_, getNavigation().getSession().getRendKeyWords());
     }
 
-    private Document textSt(NatDualConfigurationContext _contextConf, Navigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
+    private Document textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {
         return HelpCaller.text(_contextConf, _navigation, _realFilePath, _val, _ms, lg);
     }
 
-    private String realPath(Navigation _navigation) {
+    private String realPath(NatNavigation _navigation) {
         return getRealFilePath(lg,_navigation.getSession().getFirstUrl());
     }
     static String getRealFilePath(String _lg, String _link) {
         return StringUtil.replace(_link, IMPLICIT_LANGUAGE, StringUtil.concat(SEPARATOR_PATH,_lg,SEPARATOR_PATH));
     }
-    public Navigation getNavigation() {
+    public NatNavigation getNavigation() {
         return navigation;
     }
     public MetaDocument getMetaDocument() {

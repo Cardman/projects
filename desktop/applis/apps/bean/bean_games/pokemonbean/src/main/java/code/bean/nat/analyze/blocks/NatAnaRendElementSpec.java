@@ -1,10 +1,9 @@
 package code.bean.nat.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
@@ -24,9 +23,9 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
     }
 
     public static NatResultTextForm buildAnchor(Element _read, StringList _list, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        _list.removeAllString(_anaDoc.getRendKeyWords().getAttrHref());
-        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
-        String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()));
+        _list.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrHref());
+        _list.removeAllString(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrCommand()));
+        String href_ = _read.getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrCommand()));
         NatResultTextForm r_ = new NatResultTextForm();
         r_.setOpExpRoot(new CustList<NatOperationNode>());
         String lk_ = href_.substring(1);
@@ -42,19 +41,17 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
         r_.setVarNames(varNames_);
         int i_ = 0;
         for (String v:varNames_) {
-            AnaLocalVariable lv_ = new AnaLocalVariable();
-            lv_.setClassName(opExpRoot_.get(i_).getNames());
-            _page.getInfosVars().addEntry(v,lv_);
+            _page.getInfosVars().addEntry(v,opExpRoot_.get(i_).getNames());
             formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
             i_++;
         }
         String pref_ = r_.quickRender(lk_, formArg_);
         int left_ = lk_.indexOf('(');
         String right_ = lk_.substring(0, left_);
-        String bean_ = _read.getOwnerDocument().getDocumentElement().getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrBean()));
+        String bean_ = _read.getOwnerDocument().getDocumentElement().getAttribute(StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrBean()));
         String tmp_ = bean_+'.'+right_;
         r_.setOpExpAnchorRoot(NatRenderAnalysis.getRootAnalyzedOperations(pref_, 0, _anaDoc, _page));
-        _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrCommand()),tmp_);
+        _read.setAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrCommand()),tmp_);
         for (String v:varNames_) {
             _page.getInfosVars().removeKey(v);
         }
@@ -75,13 +72,13 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
         StringList attributesNames_ = buildAttrNames(_anaDoc, read);
-        String id_ = read.getAttribute(_anaDoc.getRendKeyWords().getAttrId());
+        String id_ = read.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrId());
         if (!id_.isEmpty()) {
             NatResultTextForm r_ = new NatResultTextForm();
             r_.buildAna(id_, _anaDoc, _page);
-            attributesText.put(_anaDoc.getRendKeyWords().getAttrId(),r_);
+            attributesText.put(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrId(),r_);
         }
-        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getAttrGroupId());
+        String prefGr_ = StringUtil.concat(prefixWrite_, _anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrGroupId());
         attributesNames_.removeAllString(prefGr_);
         String groupId_ = read.getAttribute(prefGr_);
         if (!groupId_.isEmpty()) {
@@ -117,7 +114,7 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
         for (int i = 0; i < nbAttrs_; i++) {
             attributesNames_.add(mapAttr_.item(i).getName());
         }
-        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getAttrId());
+        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrId());
         return attributesNames_;
     }
 

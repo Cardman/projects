@@ -1,6 +1,6 @@
 package code.bean.nat.exec.blocks;
 
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.formathtml.exec.blocks.RendLink;
 import code.sml.Document;
 import code.sml.Element;
@@ -15,10 +15,10 @@ public final class NatRendLink extends NatRendElement {
         this.content = _content;
     }
 
-    void link(Configuration _cont, Node _nextWrite) {
+    void link(NatConfigurationCore _cont, Node _nextWrite) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
-        RendLink.procLink(_cont, content,ownerDocument_);
+        RendLink.procLink(_cont.getRendKeyWords().getKeyWordsTags(), content,ownerDocument_);
     }
 
 }

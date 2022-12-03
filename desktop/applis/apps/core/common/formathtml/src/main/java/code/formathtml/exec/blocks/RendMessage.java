@@ -10,7 +10,7 @@ import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
-import code.formathtml.exec.stacks.RendReadWrite;
+import code.sml.RendReadWrite;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanLgNames;
 import code.sml.*;
@@ -110,7 +110,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 Element eltRead_ = (Element) read_;
                 Element created_ = appendedChild(ownerDocument_, write_, eltRead_);
                 processImportedNode(_cont, created_, _beanName);
-                incrAncNb(_cont, created_, _formParts.getIndexes());
+                incrAncNb(_cont.getRend(), created_, _formParts.getIndexes(), _cont.getRendKeyWords().group());
                 Node firstChild_ = read_.getFirstChild();
                 if (firstChild_ != null) {
                     write_ = created_;

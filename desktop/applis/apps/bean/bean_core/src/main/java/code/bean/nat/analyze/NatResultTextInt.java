@@ -1,6 +1,7 @@
 package code.bean.nat.analyze;
 
 import code.bean.nat.analyze.blocks.*;
+import code.sml.NatAnalyzingDoc;
 
 public interface NatResultTextInt {
 

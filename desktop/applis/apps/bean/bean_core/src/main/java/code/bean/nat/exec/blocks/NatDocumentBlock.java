@@ -1,9 +1,9 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatRendReadWrite;
 import code.bean.nat.exec.NatRendStackCall;
-import code.formathtml.Configuration;
 import code.sml.Element;
 
 public final class NatDocumentBlock extends NatParentBlock {
@@ -19,7 +19,7 @@ public final class NatDocumentBlock extends NatParentBlock {
     }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {

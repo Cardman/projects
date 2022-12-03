@@ -2,6 +2,7 @@ package code.bean.nat.analyze;
 
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
 import code.bean.nat.analyze.opers.NatOperationNode;
+import code.sml.NatAnalyzingDoc;
 import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;

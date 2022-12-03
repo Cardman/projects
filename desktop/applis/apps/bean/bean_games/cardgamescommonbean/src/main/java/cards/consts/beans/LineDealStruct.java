@@ -22,9 +22,9 @@ public final class LineDealStruct  extends AbNullStruct {
     public static void buildLineDeal(StringMap<SpecialNatClass> _types) {
         CustList<StandardField> fields_ = new CustList<StandardField>();
         CustList<SpecNatMethod> methods_ = new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_LINE_DEAL, fields_, methods_, BeanNatCommonLgNames.OBJECT);
-        fields_.add( new StandardField(NUMBER, BeanNatCommonLgNames.PRIM_INTEGER, false, false, new LineDealNumber(),null));
-        fields_.add( new StandardField(SCORES, BeanNatCommonLgNames.TYPE_LIST, false, false, new LineDealScores(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, BeanNatCommonLgNames.OBJECT);
+        fields_.add( new StandardField(NUMBER, BeanNatCommonLgNames.PRIM_INTEGER, new LineDealNumber(),null));
+        fields_.add( new StandardField(SCORES, BeanNatCommonLgNames.TYPE_LIST, new LineDealScores(),null));
         _types.addEntry(TYPE_LINE_DEAL, std_);
     }
 

@@ -3,6 +3,7 @@ package aiki.beans.fight;
 import aiki.beans.FightGameInit;
 import aiki.beans.PkFight;
 import aiki.game.fight.Fight;
+import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Navigation;
 import code.formathtml.analyze.blocks.AnaRendBlock;
@@ -110,7 +111,7 @@ public final class FightBeanTest extends InitDbFight {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(facadeCalculation5(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +
@@ -144,7 +145,7 @@ public final class FightBeanTest extends InitDbFight {
         AnaRendBlock.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
-        Navigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
+        NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
         pk_.setDataBase(facadeCalculation7(dbBaseCalc()));
         pk_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Data about the current fight</title><link href=\"web_fight/css/fight.css\" rel=\"stylesheet\" type=\"text/css\"/><style>p{\n" +

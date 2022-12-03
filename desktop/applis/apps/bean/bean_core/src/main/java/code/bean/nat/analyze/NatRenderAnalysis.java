@@ -5,9 +5,8 @@ import code.bean.nat.analyze.instr.NatDelimiters;
 import code.bean.nat.analyze.instr.NatElResolver;
 import code.bean.nat.analyze.instr.NatOperationsSequence;
 import code.bean.nat.analyze.opers.*;
-import code.expressionlanguage.functionid.MethodAccessKind;
-import code.expressionlanguage.functionid.MethodId;
 import code.maths.litteralcom.StrTypes;
+import code.sml.NatAnalyzingDoc;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -64,9 +63,8 @@ public final class NatRenderAnalysis {
             if (next_ != null) {
                 if (par_ instanceof AbstractDotNatOperation) {
                     NatPossibleIntermediateDotted possible_ = (NatPossibleIntermediateDotted) next_;
-                    MethodAccessKind static_ = MethodId.getKind(false);
                     possible_.setIntermediateDotted();
-                    possible_.setPreviousResultClass(current_.getNames(), static_);
+                    possible_.setPreviousResultClass(current_.getNames());
                 }
                 par_.appendChild(next_);
                 return next_;

@@ -1,6 +1,5 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.util.DefNodeContainer;
@@ -15,7 +14,7 @@ public final class DefFetchedObjs extends FetchedObjs {
     private final CustList<LongTreeMap<DefNodeContainer>> stack;
 
     private final String inputName;
-    public DefFetchedObjs(String _idRad, AbstractWrapper _input, CustList<Struct> _allObj, CustList<LongTreeMap<DefNodeContainer>> _stack, Argument _arg, String _inp) {
+    public DefFetchedObjs(String _idRad, AbstractWrapper _input, CustList<Struct> _allObj, CustList<LongTreeMap<DefNodeContainer>> _stack, Struct _arg, String _inp) {
         super(_arg);
         rad = _idRad;
         input = _input;

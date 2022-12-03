@@ -1,8 +1,8 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.formathtml.Configuration;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.Node;
@@ -28,18 +28,18 @@ public final class NatRendTitledAnchor extends NatRendElementForm {
         this.textPart = _textPart;
     }
 
-    void titled(Configuration _cont, Node _nextWrite, NatRendStackCall _rendStack) {
+    void titled(NatConfigurationCore _cont, Node _nextWrite, NatRendStackCall _rendStack) {
         Element curWr_ = (Element) _nextWrite;
         Document ownerDocument_ = curWr_.getOwnerDocument();
 //        ImportingPage ip_ = _cont.getLastPage();
 //        ip_.setProcessingAttribute(ATTRIBUTE_VALUE_SUBMIT);
 //        ip_.setOffset(var_.length()+1);
 //        ip_.setLookForAttrValue(true);
-        curWr_.removeAttribute(_cont.getRendKeyWords().getAttrValue());
-        curWr_.removeAttribute(_cont.getRendKeyWords().getAttrEscapedAmp());
+        curWr_.removeAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrValue());
+        curWr_.removeAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrEscapedAmp());
         StringList objects_ = new StringList();
-        curWr_.setAttribute(_cont.getRendKeyWords().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
-        ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordAnchor());
+        curWr_.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrTitle(), StringUtil.simpleStringsFormat(preformatted.getVal(_cont.getCurrentLanguage()), objects_));
+        ownerDocument_.renameNode(curWr_, _cont.getRendKeyWords().getKeyWordsTags().getKeyWordAnchor());
         NatRendElementForm.feed(varNames, opExpAnch, _rendStack);
         NatRendElementForm.processLink(_cont, curWr_, textPart, _rendStack);
     }

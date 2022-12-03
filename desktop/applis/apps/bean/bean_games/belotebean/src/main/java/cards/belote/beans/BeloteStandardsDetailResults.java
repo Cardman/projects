@@ -3,8 +3,8 @@ package cards.belote.beans;
 import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.util.CustList;
 
 public final class BeloteStandardsDetailResults extends BeloteStandards {
@@ -20,13 +20,13 @@ public final class BeloteStandardsDetailResults extends BeloteStandards {
     private void buildDetailsResultsBeloteBean(){
         CustList<StandardField> fields_=new CustList<StandardField>();
         CustList<SpecNatMethod> methods_=new CustList<SpecNatMethod>();
-        SpecialNatClass std_ = new SpecialNatClass(TYPE_DETAILS_RESULTS_BELOTE_BEAN, fields_, methods_, TYPE_BELOTE_BEAN);
-        fields_.add( new StandardField(DECLARING, TYPE_LIST, false, false,new DetailsResultsBeloteBeanDeclaring(),null));
+        SpecialNatClass std_ = new SpecialNatClass(fields_, methods_, TYPE_BELOTE_BEAN);
+        fields_.add( new StandardField(DECLARING, TYPE_LIST, new DetailsResultsBeloteBeanDeclaring(),null));
         getStds().addEntry(TYPE_DETAILS_RESULTS_BELOTE_BEAN, std_);
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language) {
+    public void initBeans(NatConfigurationCore _conf, String _language) {
         getBeansStruct().setValue(0,beanDetailResults(_language));
     }
 

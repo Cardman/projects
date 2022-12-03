@@ -1,6 +1,6 @@
 package code.bean.help.analyze.blocks;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.blocks.*;
 import code.sml.Element;
 import code.util.StringMap;
@@ -18,7 +18,7 @@ public final class HelpAnaRendMessage extends NatAnaRendParentBlock implements N
 
     @Override
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
-        String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getAttrValue());
+        String value_ = elt.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrValue());
         preformatted = AnaRendBlockHelp.getPre(value_, _anaDoc);
 
     }

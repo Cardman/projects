@@ -1,14 +1,13 @@
 package code.bean.nat.exec.blocks;
 
+import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
-import code.formathtml.Configuration;
-import code.formathtml.exec.blocks.RendElem;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.EntryCust;
 import code.util.StringMap;
 
-public abstract class NatRendElement extends NatParentBlock implements RendElem {
+public abstract class NatRendElement extends NatParentBlock implements NatRendElem {
     private final Element read;
     private final StringMap<NatExecTextPart> natAttributes;
 
@@ -22,7 +21,7 @@ public abstract class NatRendElement extends NatParentBlock implements RendElem 
     }
 
     @Override
-    public void processEl(Configuration _cont, NatRendStackCall _rendStack) {
+    public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
         NatRendReadWrite rw_ = ip_.getRendReadWrite();
         if (ip_.matchStatement(this)) {

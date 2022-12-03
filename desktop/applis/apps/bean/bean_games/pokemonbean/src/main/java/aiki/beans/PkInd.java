@@ -3,7 +3,7 @@ package aiki.beans;
 import aiki.beans.facade.game.dto.AikiBeansFacadeGameDtoStd;
 import aiki.beans.game.AikiBeansGameStd;
 import aiki.beans.game.PokemonPlayerBean;
-import code.formathtml.Configuration;
+import code.bean.nat.analyze.NatConfigurationCore;
 
 public final class PkInd extends PokemonStandards{
     public void buildAddon() {
@@ -13,7 +13,7 @@ public final class PkInd extends PokemonStandards{
     }
 
     @Override
-    public void initBeans(Configuration _conf, String _language) {
+    public void initBeans(NatConfigurationCore _conf, String _language) {
         getBeansStruct().setValue(0, beanPk(_language));
     }
 

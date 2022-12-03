@@ -2,28 +2,44 @@ package code.bean.nat.exec;
 
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.variables.VariableWrapperNat;
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.exec.variables.LoopVariable;
-import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.AbsImportingPage;
+import code.expressionlanguage.structs.*;
 import code.util.*;
 
-public abstract class NatImportingPageAbs extends AbsImportingPage {
+public abstract class NatImportingPageAbs {
 
     private NatRendReadWrite rendReadWrite;
 
     private final CustList<NatAbstractStask> rendBlockStacks = new CustList<NatAbstractStask>();
 
-    private Argument globalArgument = Argument.createVoid();
-    private final StringMap<LoopVariable> vars = new StringMap<LoopVariable>();
+    private Struct globalArgument = NullStruct.NULL_VALUE;
+    private final StringMap<Integer> vars = new StringMap<Integer>();
     private final StringMap<VariableWrapperNat> refParams = new StringMap<VariableWrapperNat>();
+    private Struct internGlobal;
 
-    public Argument getGlobalArgument() {
+    private String beanName;
+
+    public String getBeanName() {
+        return beanName;
+    }
+
+    public void setBeanName(String _beanName) {
+        beanName = _beanName;
+    }
+
+    public Struct getInternGlobal() {
+        return internGlobal;
+    }
+
+    public void setInternGlobal(Struct _internGlobal) {
+        internGlobal = _internGlobal;
+    }
+
+    public Struct getGlobalArgument() {
         return globalArgument;
     }
 
     public void setGlobalArgumentStruct(Struct _obj) {
-        globalArgument = new Argument(_obj);
+        globalArgument = _obj;
     }
 
     public StringMap<VariableWrapperNat> getRefParams() {
@@ -34,7 +50,7 @@ public abstract class NatImportingPageAbs extends AbsImportingPage {
         refParams.removeKey(_key);
     }
 
-    public StringMap<LoopVariable> getVars() {
+    public StringMap<Integer> getVars() {
         return vars;
     }
 

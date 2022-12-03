@@ -1,13 +1,12 @@
 package code.bean.nat.analyze.instr;
 
-import code.bean.nat.analyze.NatAnalyzingDoc;
+import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
-import code.expressionlanguage.analyze.instr.ElResolver;
-import code.expressionlanguage.analyze.instr.StackOperators;
-import code.expressionlanguage.common.StringExpUtil;
+import code.maths.litteralcom.MathExpUtil;
 import code.maths.litteralcom.StrTypes;
 import code.util.Ints;
 import code.util.core.IndexConstants;
+import code.util.core.NumberUtil;
 
 
 public final class NatElResolver {
@@ -42,8 +41,6 @@ public final class NatElResolver {
 
     private static NatDelimiters commonCheck(String _string, int _minIndex, NatDelimiters _d, NatAnalyzingDoc _anaDoc) {
 
-        StackOperators parsBrackets_;
-        parsBrackets_ = new StackOperators();
         int len_ = _string.length();
         int i_ = _minIndex;
         Ints callings_ = new Ints();
@@ -53,13 +50,13 @@ public final class NatElResolver {
             if (nextInd_ > i_) {
                 i_ = nextInd_;
             } else {
-                if (StringExpUtil.isTypeLeafChar(curChar_)) {
+                if (MathExpUtil.isWordChar(curChar_)) {
                     nextInd_ = processWords(_string, _d, i_, callings_);
                 }
                 if (nextInd_ > i_) {
                     i_ = nextInd_;
                 } else {
-                    i_ = processOperators(_string, _d, i_, parsBrackets_, callings_);
+                    i_ = processOperators(_string, _d, i_, callings_);
                 }
             }
         }
@@ -67,7 +64,7 @@ public final class NatElResolver {
     }
 
     private static int processAfterInstuctionKeyWord(String _string, NatAnalyzingDoc _anaDoc, int _nextIndex) {
-        if (_anaDoc.isInternGlobal() && StringExpUtil.startsWithKeyWord(_string, _nextIndex, NatRenderAnalysis.INTERN)) {
+        if (_anaDoc.isInternGlobal() && startsWithKeyWord(_string, _nextIndex, NatRenderAnalysis.INTERN)) {
             int afterSuper_ = _nextIndex + NatRenderAnalysis.INTERN.length();
             return _string.indexOf('.', afterSuper_);
         }
@@ -78,9 +75,9 @@ public final class NatElResolver {
         int len_ = _string.length();
         int i_ = _nextIndex;
         int beginWord_ = i_;
-        i_ = ElResolver.incrAfterWord(i_,_string);
+        i_ = incrAfterWord(i_,_string);
         String word_ = _string.substring(beginWord_, i_);
-        int nextPar_ = StringExpUtil.nextPrintCharIs(i_, len_, _string, PAR_LEFT);
+        int nextPar_ = nextPrintCharIs(i_, len_, _string, PAR_LEFT);
         if (nextPar_ > -1) {
             _callings.add(nextPar_);
         } else {
@@ -93,10 +90,50 @@ public final class NatElResolver {
         return i_;
     }
 
+    public static int incrAfterWord(int _i, String _string) {
+        int len_ = _string.length();
+        int i_ = _i;
+        while (i_ < len_) {
+            char locChar_ = _string.charAt(i_);
+            if (!MathExpUtil.isWordChar(locChar_)) {
+                break;
+            }
+            i_++;
+        }
+        return i_;
+    }
+
+    public static boolean startsWithKeyWord(String _found, int _start, String _keyWord) {
+        if (!_found.startsWith(_keyWord,_start)) {
+            return false;
+        }
+        int offset_ = _keyWord.length() + _start;
+        if (offset_ >= _found.length()) {
+            return true;
+        }
+        char first_ = _found.charAt(offset_);
+        return !MathExpUtil.isWordChar(first_);
+    }
+
+    public static int nextPrintCharIs(int _j, int _len, String _string, char _ch) {
+        int j_ = nextPrintChar(_j,_len,_string);
+        if (j_ < 0) {
+            return -1;
+        }
+        if (_string.charAt(j_) != _ch) {
+            return -1;
+        }
+        return j_;
+    }
+    public static int nextPrintChar(int _j, int _len, String _string) {
+        int len_ = NumberUtil.min(_len,_string.length());
+        if (_j >= len_) {
+            return -1;
+        }
+        return _j;
+    }
     private static int processOperators(String _string,
-                                        NatDelimiters _dout, int _nextIndex, StackOperators _parsBrackets, Ints _callings) {
-        StackOperators parsBrackets_;
-        parsBrackets_ = _parsBrackets;
+                                        NatDelimiters _dout, int _nextIndex, Ints _callings) {
 
         int len_ = _string.length();
         int i_ = _nextIndex;
@@ -108,10 +145,6 @@ public final class NatElResolver {
                 return i_;
             }
             _callings.add(i_);
-            parsBrackets_.addEntry(i_, curChar_);
-        }
-        if (curChar_ == PAR_RIGHT) {
-            parsBrackets_.removeLast();
         }
         if (curChar_ == ANN_ARR_RIGHT) {
             _dout.setIndexEnd(i_-1);
