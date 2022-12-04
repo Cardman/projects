@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.effects.EffectWhileSendingWithStatistic;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -109,38 +109,38 @@ public final class FightHelpBeanAbilitiesSentStatisTest extends InitDbFightHelp 
         assertEq(M_DAM,clickId4());
     }
     private String click1() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickCopyAbilities(b_,0));
     }
     private String clickId1() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickCopyAbilities(b_,0);
         return getValAbilityId(b_);
     }
     private String click2() {
-        Struct b_ = bean(dbGlobal());
+        NaSt b_ = bean(dbGlobal());
         return toStr(callFightHelpBeanClickAbilitiesSentBeginOth(b_,0));
     }
     private String clickId2() {
-        Struct b_ = bean(dbGlobal());
+        NaSt b_ = bean(dbGlobal());
         callFightHelpBeanClickAbilitiesSentBeginOth(b_,0);
         return getValAbilityId(b_);
     }
     private String click3() {
-        Struct b_ = bean(dbGlobalWea());
+        NaSt b_ = bean(dbGlobalWea());
         return toStr(callFightHelpBeanClickAbilitiesSentBegin(b_,0));
     }
     private String clickId3() {
-        Struct b_ = bean(dbGlobalWea());
+        NaSt b_ = bean(dbGlobalWea());
         callFightHelpBeanClickAbilitiesSentBegin(b_,0);
         return getValAbilityId(b_);
     }
     private String click4() {
-        Struct b_ = bean(dbGlobalWea());
+        NaSt b_ = bean(dbGlobalWea());
         return toStr(callFightHelpBeanClickAbilitiesSentStatis(b_,0));
     }
     private String clickId4() {
-        Struct b_ = bean(dbGlobalWea());
+        NaSt b_ = bean(dbGlobalWea());
         callFightHelpBeanClickAbilitiesSentStatis(b_,0);
         return getValAbilityId(b_);
     }

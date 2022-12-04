@@ -7,7 +7,7 @@ import aiki.facade.FacadeGame;
 import aiki.instances.Instances;
 import aiki.map.pokemon.enums.Gender;
 import code.bean.nat.RateStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloBoolean;
@@ -232,15 +232,15 @@ public final class CommonBeanTest extends InitDbWelcome {
         return new RedirectSt(_key, DEF_DIR);
     }
 
-    public static Struct callRateAbsNb(Struct _str, long... _args) {
+    public static NaSt callRateAbsNb(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new RateAbsNb(),_str,_args);
     }
 
-    public static Struct callRateIsZero(Struct _str, long... _args) {
+    public static NaSt callRateIsZero(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new RateIsZero(),_str,_args);
     }
 
-    public static Struct callRateIsZeroOrGt(Struct _str, long... _args) {
+    public static NaSt callRateIsZeroOrGt(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new RateIsZeroOrGt(),_str,_args);
     }
     private String value(StringMapObject _forms) {

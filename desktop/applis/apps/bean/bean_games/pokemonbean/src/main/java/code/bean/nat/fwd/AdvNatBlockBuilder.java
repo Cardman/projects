@@ -1,6 +1,6 @@
 package code.bean.nat.fwd;
 
-import code.bean.nat.NatCaller;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatResultInput;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.blocks.*;

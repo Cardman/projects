@@ -2,11 +2,11 @@ package aiki.beans.status;
 
 import aiki.beans.EffectPartnerStatusStruct;
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class StatusBeanGetEffectPartner implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         return new EffectPartnerStatusStruct(( (StatusBean) ((PokemonBeanStruct)_instance).getInstance()).getEffectPartner());
     }
 }

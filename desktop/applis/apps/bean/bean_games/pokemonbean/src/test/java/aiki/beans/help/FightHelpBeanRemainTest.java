@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.effects.*;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringMap;
 import org.junit.Test;
@@ -141,11 +141,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId8());
     }
     private String click1() {
-        Struct b_ = bean(db1());
+        NaSt b_ = bean(db1());
         return toStr(callFightHelpBeanClickMovesHealingSubstitute(b_,0));
     }
     private String clickId1() {
-        Struct b_ = bean(db1());
+        NaSt b_ = bean(db1());
         callFightHelpBeanClickMovesHealingSubstitute(b_,0);
         return getValMoveId(b_);
     }
@@ -162,11 +162,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click2() {
-        Struct b_ = bean(db2());
+        NaSt b_ = bean(db2());
         return toStr(callFightHelpBeanClickEntryHazard(b_,0));
     }
     private String clickId2() {
-        Struct b_ = bean(db2());
+        NaSt b_ = bean(db2());
         callFightHelpBeanClickEntryHazard(b_,0);
         return getValMoveId(b_);
     }
@@ -182,11 +182,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click3() {
-        Struct b_ = bean(db3());
+        NaSt b_ = bean(db3());
         return toStr(callFightHelpBeanClickMovesInvoking(b_,0));
     }
     private String clickId3() {
-        Struct b_ = bean(db3());
+        NaSt b_ = bean(db3());
         callFightHelpBeanClickMovesInvoking(b_,0);
         return getValMoveId(b_);
     }
@@ -202,11 +202,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click4() {
-        Struct b_ = bean(db4());
+        NaSt b_ = bean(db4());
         return toStr(callFightHelpBeanClickProtectMoves(b_,0));
     }
     private String clickId4() {
-        Struct b_ = bean(db4());
+        NaSt b_ = bean(db4());
         callFightHelpBeanClickProtectMoves(b_,0);
         return getValMoveId(b_);
     }
@@ -222,11 +222,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click5() {
-        Struct b_ = bean(db5());
+        NaSt b_ = bean(db5());
         return toStr(callFightHelpBeanClickMovesProtAgainstKo(b_,0));
     }
     private String clickId5() {
-        Struct b_ = bean(db5());
+        NaSt b_ = bean(db5());
         callFightHelpBeanClickMovesProtAgainstKo(b_,0);
         return getValMoveId(b_);
     }
@@ -243,11 +243,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click6() {
-        Struct b_ = bean(db6());
+        NaSt b_ = bean(db6());
         return toStr(callFightHelpBeanClickMovesProtectingTypes(b_,0));
     }
     private String clickId6() {
-        Struct b_ = bean(db6());
+        NaSt b_ = bean(db6());
         callFightHelpBeanClickMovesProtectingTypes(b_,0);
         return getValMoveId(b_);
     }
@@ -263,11 +263,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click7() {
-        Struct b_ = bean(db7());
+        NaSt b_ = bean(db7());
         return toStr(callFightHelpBeanClickMovesUnprotectingTypes(b_,0));
     }
     private String clickId7() {
-        Struct b_ = bean(db7());
+        NaSt b_ = bean(db7());
         callFightHelpBeanClickMovesUnprotectingTypes(b_,0);
         return getValMoveId(b_);
     }
@@ -283,11 +283,11 @@ public final class FightHelpBeanRemainTest extends InitDbFightHelp {
         return f_;
     }
     private String click8() {
-        Struct b_ = bean(db8());
+        NaSt b_ = bean(db8());
         return toStr(callFightHelpBeanClickMovesProtecting(b_,0));
     }
     private String clickId8() {
-        Struct b_ = bean(db8());
+        NaSt b_ = bean(db8());
         callFightHelpBeanClickMovesProtecting(b_,0);
         return getValMoveId(b_);
     }

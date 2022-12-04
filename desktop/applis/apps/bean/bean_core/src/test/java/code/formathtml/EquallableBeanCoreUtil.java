@@ -1,7 +1,7 @@
 package code.formathtml;
 
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.scripts.confs.BeanPageCardsSample;
 import code.util.core.StringUtil;
 import org.junit.Assert;
@@ -16,7 +16,7 @@ public abstract class EquallableBeanCoreUtil {
         Assert.assertNotNull(_value);
     }
 
-    public static void assertNotNull(Struct _value) {
+    public static void assertNotNull(NaSt _value) {
         Assert.assertNotNull(_value);
     }
 

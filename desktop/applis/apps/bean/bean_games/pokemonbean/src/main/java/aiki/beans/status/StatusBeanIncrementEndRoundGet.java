@@ -1,12 +1,12 @@
 package aiki.beans.status;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class StatusBeanIncrementEndRoundGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (StatusBean) ((PokemonBeanStruct)_instance).getInstance()).getIncrementEndRound());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (StatusBean) ((PokemonBeanStruct)_instance).getInstance()).getIncrementEndRound());
     }
 }

@@ -4,7 +4,7 @@ import aiki.beans.FightGameInit;
 import aiki.beans.PkFight;
 import aiki.game.fight.Fight;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
@@ -64,7 +64,7 @@ public final class FightBeanTest extends InitDbFight {
 
     @Test
     public void clickPlayer() {
-        Struct fBean_ = displaying(beanFight(EN, facade(db())));
+        NaSt fBean_ = displaying(beanFight(EN, facade(db())));
         assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,navigateFightPlayer(fBean_));
         assertTrue(forms(fBean_).contains(NO_TEAM));
         assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
@@ -73,7 +73,7 @@ public final class FightBeanTest extends InitDbFight {
 
     @Test
     public void clickFoe() {
-        Struct fBean_ = displaying(beanFight(EN, facade(db())));
+        NaSt fBean_ = displaying(beanFight(EN, facade(db())));
         assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_TEAM_HTML,navigateFightFoe(fBean_));
         assertTrue(forms(fBean_).contains(NO_TEAM));
         assertEq(Fight.CST_FOE,forms(fBean_).getValInt(NO_TEAM));

@@ -1,12 +1,12 @@
 package aiki.beans.effects;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EffectWhileSendingBeanEnabledWeatherGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance()).getEnabledWeather());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (EffectWhileSendingBean) ((PokemonBeanStruct)_instance).getInstance()).getEnabledWeather());
     }
 }

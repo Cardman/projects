@@ -2,11 +2,11 @@ package aiki.beans.facade.solution.dto;
 
 import aiki.beans.PokemonStandards;
 import aiki.beans.StepDtoStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class StepDtoGetPokemon implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         return PokemonStandards.getPlLevWildPkDto(( ((StepDtoStruct) _instance).getInstance()).getPokemon());
     }
 }

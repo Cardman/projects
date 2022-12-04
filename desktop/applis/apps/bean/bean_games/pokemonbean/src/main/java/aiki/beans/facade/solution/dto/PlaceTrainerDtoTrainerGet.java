@@ -1,12 +1,12 @@
 package aiki.beans.facade.solution.dto;
 
 import aiki.beans.PlaceTrainerDtoStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PlaceTrainerDtoTrainerGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( ((PlaceTrainerDtoStruct) _instance).getInstance()).getTrainer());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( ((PlaceTrainerDtoStruct) _instance).getInstance()).getTrainer());
     }
 }

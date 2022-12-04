@@ -1,12 +1,12 @@
 package aiki.beans.facade.simulation.dto;
 
 import aiki.beans.MvLineStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class SelectLineMoveSelectedGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(((SelectLineMove) ((MvLineStruct) _instance).getWildPk()).isSelected());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(((SelectLineMove) ((MvLineStruct) _instance).getWildPk()).isSelected());
     }
 }

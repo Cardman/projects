@@ -1,14 +1,14 @@
 package cards.consts.beans;
 
 import cards.consts.LineDeal;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public final class LineDealNumber implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
+    public NaSt re(NaSt _instance, NaSt[] _args) {
         LineDeal instance_ = ((LineDealStruct)_instance).getLineDeal();
-        return new IntStruct(instance_.getNumber());
+        return new NaNbSt(instance_.getNumber());
     }
 }

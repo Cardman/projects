@@ -2,12 +2,12 @@ package aiki.beans.map;
 
 import aiki.beans.AbsLevelBean;
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class MapLevelBeanLevelIndexGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (AbsLevelBean) ((PokemonBeanStruct)_instance).getInstance()).getLevelIndex());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (AbsLevelBean) ((PokemonBeanStruct)_instance).getInstance()).getLevelIndex());
     }
 }

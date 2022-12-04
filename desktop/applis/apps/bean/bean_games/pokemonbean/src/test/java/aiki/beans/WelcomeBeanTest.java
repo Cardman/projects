@@ -14,7 +14,7 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.*;
@@ -26,7 +26,7 @@ import org.junit.Test;
 public final class WelcomeBeanTest extends InitDbWelcome {
     @Test
     public void display1() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         displaying(bean_);
         CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
         assertEq(2,keys_.size());
@@ -35,7 +35,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void display2() {
-        Struct bean_ = beanWelcome(feedDbBase());
+        NaSt bean_ = beanWelcome(feedDbBase());
         displaying(bean_);
         CustList<String> keys_ = forms(bean_).getValMoveData(CST_LEARNT_MOVES).getKeys();
         assertEq(2,keys_.size());
@@ -44,7 +44,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void allMoves1() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,navigateAllMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertFalse(forms(bean_).contains(CST_LEARNT));
@@ -61,7 +61,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void learntMoves() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,navigateLearntMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertTrue(forms(bean_).contains(CST_LEARNT));
@@ -75,7 +75,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void notLearntMoves() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansMovesStd.WEB_HTML_MOVES_MOVES_HTML,navigateNotLearntMoves(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_MOVES_SET));
         assertTrue(forms(bean_).contains(CST_LEARNT));
@@ -89,35 +89,35 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     }
     @Test
     public void abilities() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansAbilitiesStd.WEB_HTML_ABILITY_ABILITIES_HTML,navigateAbilities(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_ABILITIES_SET));
         assertTrue(forms(bean_).getValAbilityData(CST_ABILITIES_SET).isEmpty());
     }
     @Test
     public void items() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML,navigateItems(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
         assertTrue(forms(bean_).getValItemData(CST_ITEMS_SET).isEmpty());
     }
     @Test
     public void pokedex() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansPokemonStd.WEB_HTML_POKEMON_POKEDEX_HTML,navigatePokedex(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_POKEMON_SET));
         assertTrue(forms(bean_).getValPokemonData(CST_POKEMON_SET).isEmpty());
     }
     @Test
     public void status() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_STATUS_HTML,navigateStatus(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));
         assertTrue(forms(bean_).getValStatusData(CST_STATUS_SET).isEmpty());
     }
     @Test
     public void simulation() {
-        Struct bean_ = beanWelcome(feedDb());
+        NaSt bean_ = beanWelcome(feedDb());
         assertEq(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML,navigateSimulation(displaying(bean_)));
         assertTrue(forms(bean_).contains(CST_SIMULATION_STATE));
         assertSame(SimulationSteps.DIFF,forms(bean_).getValSimStep(CST_SIMULATION_STATE));
@@ -159,7 +159,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         PokemonStandards.getStructToBeValidatedPrim(new StringList(PokemonStandards.ON),PokemonStandards.PRIM_BOOLEAN);
         CustList<NatExecOperationNode> exps_ = new CustList<NatExecOperationNode>();
         exps_.add(new NatSettableFieldOperation(true,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
-        PokemonStandards.redir(NullStruct.NULL_VALUE,new StringList(""), exps_,new StringList(""),r_);
+        PokemonStandards.redir(NaNu.NULL_VALUE,new StringList(""), exps_,new StringList(""),r_);
         PokemonStandards.getStructToBeValidated(new StringList(""),PokemonStandards.TYPE_RATE);
         LongMap<LongTreeMap<NatNodeContainer>> form_ = new LongMap<LongTreeMap<NatNodeContainer>>();
         LongTreeMap<NatNodeContainer> c_ = new LongTreeMap<NatNodeContainer>();
@@ -182,14 +182,14 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         st_.add(second_);
         r_.getFormParts().getInputs().add(0L);
         up_.setRad(true);
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<Struct>(), st_), r_,"");
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<Struct>(), st_), r_,"");
+        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<NaSt>(), st_), r_,"");
+        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<NaSt>(), st_), r_,"");
         NatExecTextPart txtPart_ = new NatExecTextPart();
         txtPart_.setOpExp(new CustList<CustList<NatExecOperationNode>>());
         txtPart_.getOpExp().add(exps_);
         txtPart_.getTexts().add("");
         NatRendElementForm.renderAltListNat(txtPart_,r_);
-        NatRendElementForm.nullValueToEmpty(NullStruct.NULL_VALUE);
+        NatRendElementForm.nullValueToEmpty(NaNu.NULL_VALUE);
         NatDotOperation root_ = new NatDotOperation(1);
         root_.appendChild(new NatSettableFieldOperation(false,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
         NatRendElementForm.castDottedTo(root_);
@@ -199,7 +199,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         s_.put("2","");
         s_.put("3", Rate.zero());
         s_.put("4", new StringList());
-        s_.put("5", new StringStruct(""));
+        s_.put("5", new NaStSt(""));
         assertTrue(s_.containsBase("0"));
         assertTrue(s_.containsBase("1"));
         assertTrue(s_.containsBase("2"));

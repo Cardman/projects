@@ -1,13 +1,13 @@
 package aiki.beans.simulation;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class SimulationBeanSimulateFight implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         ( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).simulateFight();
-        return new StringStruct(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML);
+        return new NaStSt(AikiBeansSimulationStd.WEB_HTML_SIMULATION_SIMULATION_HTML);
     }
 }

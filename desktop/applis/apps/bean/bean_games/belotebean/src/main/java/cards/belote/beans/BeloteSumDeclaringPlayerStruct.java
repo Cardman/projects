@@ -1,8 +1,8 @@
 package cards.belote.beans;
 
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 
-public final class BeloteSumDeclaringPlayerStruct extends AbNullStruct {
+public final class BeloteSumDeclaringPlayerStruct extends NaNuSt {
     private final BeloteSumDeclaringPlayer sumDeclaringPlayer;
 
     public BeloteSumDeclaringPlayerStruct(BeloteSumDeclaringPlayer _sumDeclaringPlayer) {

@@ -7,7 +7,7 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 
 public abstract class PresidentStandards extends BeanNatCommonLgNames {
     private RulesPresident dataBaseRules;
@@ -16,7 +16,7 @@ public abstract class PresidentStandards extends BeanNatCommonLgNames {
     }
 
     @Override
-    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);

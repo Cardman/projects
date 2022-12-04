@@ -16,106 +16,106 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InitDbMoves extends InitDbConstr {
 
-    public static Struct callMovesBeanCategorySet(Struct _str, String _args) {
+    public static NaSt callMovesBeanCategorySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanCategorySet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMaxAccuracySet(Struct _str, String _args) {
+    public static NaSt callMovesBeanMaxAccuracySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanMaxAccuracySet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMaxPowerSet(Struct _str, String _args) {
+    public static NaSt callMovesBeanMaxPowerSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanMaxPowerSet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMinAccuracySet(Struct _str, String _args) {
+    public static NaSt callMovesBeanMinAccuracySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanMinAccuracySet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMinPowerSet(Struct _str, String _args) {
+    public static NaSt callMovesBeanMinPowerSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanMinPowerSet(),_str,_args);
     }
 
-    public static Struct callMovesBeanTypedNameSet(Struct _str, String _args) {
+    public static NaSt callMovesBeanTypedNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanTypedNameSet(),_str,_args);
     }
 
-    public static Struct callMovesBeanTypedTypeSet(Struct _str, String _args) {
+    public static NaSt callMovesBeanTypedTypeSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanTypedTypeSet(),_str,_args);
     }
 
-    public static Struct callMovesBeanWholeWordSet(Struct _str, boolean _args) {
+    public static NaSt callMovesBeanWholeWordSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new MovesBeanWholeWordSet(),_str,_args);
     }
 
-    public static Struct callMovesBeanLearntSet(Struct _str, String _args) {
+    public static NaSt callMovesBeanLearntSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new MovesBeanLearntSet(),_str,_args);
     }
 
-    public static Struct callMovesBeanCategoriesGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanCategoriesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanCategoriesGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanCategoryGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanCategoryGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanCategoryGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMaxAccuracyGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanMaxAccuracyGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMaxAccuracyGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMaxPowerGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanMaxPowerGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMaxPowerGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMinAccuracyGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanMinAccuracyGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMinAccuracyGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMinPowerGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanMinPowerGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMinPowerGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanBooleansGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanBooleansGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanBooleansGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanMovesGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanMovesGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanSearch(Struct _str, long... _args) {
+    public static NaSt callMovesBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanSearch(),_str,_args);
     }
 
-    public static Struct callMovesBeanTypedNameGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanTypedNameGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanTypedTypeGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanTypedTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanTypedTypeGet(),_str,_args);
     }
 
-    public static Struct callMovesBeanWholeWordGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanWholeWordGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanWholeWordGet(),_str,_args);
     }
 
-    public static Struct callMoveLineBeanAccuracyGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanAccuracyGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineAccuracyGet(),dispLine(feedDb(), _index),_args);
     }
 
-    public static Struct callMoveLineBeanCategoryGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanCategoryGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineCategoryGet(),dispLine(feedDb(), _index),_args);
     }
 
-    public static Struct callMoveLineBeanDisplayNameGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanDisplayNameGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineDisplayNameGet(),dispLine(feedDb(), _index),_args);
     }
 
@@ -123,86 +123,86 @@ public abstract class InitDbMoves extends InitDbConstr {
 //        return toInt(BeanPokemonCommonTs.callLongs(new MoveLineBeanIndexGet(),_str,_args));
 //    }
 
-    public static Struct callMoveLineBeanPowerGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanPowerGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLinePowerGet(),dispLine(feedDb(), _index),_args);
     }
 
-    public static Struct callMoveLineBeanPpGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanPpGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLinePpGet(),dispLine(feedDb(), _index),_args);
     }
 
-    public static Struct callMoveLineBeanPriorityGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanPriorityGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLinePriorityGet(),dispLine(feedDb(), _index),_args);
     }
 
-    public static Struct callMoveLineBeanTypesGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanTypesGet(int _index, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineGetTypes(),dispLine(feedDb(), _index),_args);
     }
 
-    public static Struct callMovesBeanLearntGet(Struct _str, long... _args) {
+    public static NaSt callMovesBeanLearntGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MovesBeanLearntGet(),_str,_args);
     }
 
     public static String goToLine(int _index) {
-        Struct bean_ = moveLine(_index);
+        NaSt bean_ = moveLine(_index);
         return navigateData(clickMovesBeanMove(), bean_, _index);
     }
 
     public static String goToLineId(int _index) {
-        Struct moveline_ = moveLine(_index);
+        NaSt moveline_ = moveLine(_index);
         navigateData(clickMovesBeanMove(), moveline_, _index);
         return getValMoveId(moveline_);
     }
 
-    private static Struct moveLine(int _index) {
+    private static NaSt moveLine(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<Struct> all_ = beanToMoves(pk_);
+        StringMap<NaSt> all_ = beanToMoves(pk_);
         return transitToAllMoves(pk_, all_, _index, mappingToMoves());
     }
 
-    protected static Struct dispLine(FacadeGame _fac, int _index) {
+    protected static NaSt dispLine(FacadeGame _fac, int _index) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToMoves(pk_);
-        Struct moves_ = transitToAllMoves(pk_, all_, _index, mappingToMoves());
+        StringMap<NaSt> all_ = beanToMoves(pk_);
+        NaSt moves_ = transitToAllMoves(pk_, all_, _index, mappingToMoves());
         return elt(callMovesBeanMovesGet(moves_),_index);
     }
 
-    protected static Struct transitToAllMoves(PkData _pk, StringMap<Struct> _all,int _index, StringMap<String> _mapping) {
-        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+    protected static NaSt transitToAllMoves(PkData _pk, StringMap<NaSt> _all,int _index, StringMap<String> _mapping) {
+        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
         transit(_pk,new MovesBeanSearch(),moves_,moves_);
         return displayMoveLine(_all, _index,_mapping);
     }
 
-    protected static Struct dispAllMoves(FacadeGame _fac) {
+    protected static NaSt dispAllMoves(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllMoves(pk_);
     }
 
-    private static Struct dispAllMoves(PkData _pk) {
-        StringMap<Struct> all_ = beanToMoves(_pk);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+    private static NaSt dispAllMoves(PkData _pk) {
+        StringMap<NaSt> all_ = beanToMoves(_pk);
+        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
+        NaSt moves_ = all_.getVal(AikiBeansMovesStd.BEAN_MOVES);
         transit(_pk,new WelcomeBeanSeeAllMoves(),welcome_,moves_);
         return moves_;
     }
 
-    protected static Struct dispAllMovesSearch(FacadeGame _fac) {
+    protected static NaSt dispAllMovesSearch(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        Struct moves_ = dispAllMoves(pk_);
+        NaSt moves_ = dispAllMoves(pk_);
         transit(pk_,new MovesBeanSearch(),moves_,moves_);
         return moves_;
     }
 
-    protected static String navigateMovesSearch(Struct _moves) {
+    protected static String navigateMovesSearch(NaSt _moves) {
         return navigateData(new MovesBeanSearch(), _moves);
     }
 
-    private static Struct displayMoveLine(StringMap<Struct> _all, int _index, StringMap<String> _mapping) {
-        Struct moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
+    private static NaSt displayMoveLine(StringMap<NaSt> _all, int _index, StringMap<String> _mapping) {
+        NaSt moves_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVES);
 //        Struct moveline_ = byStr(_all, _mapping, callMovesBeanMovesBeanGet(moves_));
 //        fwdLineFull(moveline_, moves_, _index);
 //        beforeDisplaying(moveline_);
@@ -241,35 +241,35 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    private static Struct callMoveLineBeanIndexSet(Struct _str, int _args) {
 //        return BeanPokemonCommonTs.callInt(new MoveLineBeanIndexSet(),_str,_args);
 //    }
-    public static Struct callMoveLineBeanMoveLineGet(int _index, long... _args) {
+    public static NaSt callMoveLineBeanMoveLineGet(int _index, long... _args) {
         return dispLine(feedDb(), _index);
 //        return BeanPokemonCommonTs.callLongs(new MoveLineBeanMoveLineGet(),dispLine(feedDb(), _index),_args);
     }
-    public static Struct callMoveLineIsDamageMove(Struct _str, long... _args) {
+    public static NaSt callMoveLineIsDamageMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineIsDamageMove(),_str,_args);
     }
 
-    public static Struct callMoveLineCategoryGet(Struct _str, long... _args) {
+    public static NaSt callMoveLineCategoryGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineCategoryGet(),_str,_args);
     }
 
-    public static Struct callMoveLineDisplayNameGet(Struct _str, long... _args) {
+    public static NaSt callMoveLineDisplayNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineDisplayNameGet(),_str,_args);
     }
 
-    public static Struct callMoveLineGetTypes(Struct _str, long... _args) {
+    public static NaSt callMoveLineGetTypes(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineGetTypes(),_str,_args);
     }
 
-    public static Struct callMoveLinePpGet(Struct _str, long... _args) {
+    public static NaSt callMoveLinePpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLinePpGet(),_str,_args);
     }
 
-    public static Struct callMoveLinePriorityGet(Struct _str, long... _args) {
+    public static NaSt callMoveLinePriorityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLinePriorityGet(),_str,_args);
     }
 
-    public static Struct callMoveLineIsDirect(Struct _str, long... _args) {
+    public static NaSt callMoveLineIsDirect(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveLineIsDirect(),_str,_args);
     }
 //    private static Struct callMoveLineBeanMoveLineSet(Struct _str, Struct _args) {
@@ -281,8 +281,8 @@ public abstract class InitDbMoves extends InitDbConstr {
 //    private static Struct callMoveLineBeanSortedMovesSet(Struct _str, Struct _args) {
 //        return BeanPokemonCommonTs.callStruct(new MoveLineBeanSortedMovesSet(),_str,_args);
 //    }
-    public static StringMap<Struct> beanToMoves(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToMoves(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansMovesStd.BEAN_MOVES,_pk.beanMovesBean(EN));
 //        map_.addEntry(AikiBeansMovesStd.BEAN_MOVE_LINE,_pk.beanMoveLineBean(EN));
@@ -372,9 +372,9 @@ public abstract class InitDbMoves extends InitDbConstr {
         _dam.getEffects().add(_ef);
     }
 
-    protected static Struct transitMove(int _index, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
-        Struct moveline_ = transitToAllMoves(_pk, _all, _index, _mapping);
-        Struct mbean_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVE);
+    protected static NaSt transitMove(int _index, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+        NaSt moveline_ = transitToAllMoves(_pk, _all, _index, _mapping);
+        NaSt mbean_ = _all.getVal(AikiBeansMovesStd.BEAN_MOVE);
         transit(_pk,new MovesBeanClickLink(), moveline_, mbean_,_index);
         return mbean_;
     }

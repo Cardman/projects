@@ -2,7 +2,7 @@ package code.bean.nat.exec;
 
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.variables.VariableWrapperNat;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.util.*;
 
 public abstract class NatImportingPageAbs {
@@ -11,10 +11,10 @@ public abstract class NatImportingPageAbs {
 
     private final CustList<NatAbstractStask> rendBlockStacks = new CustList<NatAbstractStask>();
 
-    private Struct globalArgument = NullStruct.NULL_VALUE;
+    private NaSt globalArgument = NaNu.NULL_VALUE;
     private final StringMap<Integer> vars = new StringMap<Integer>();
     private final StringMap<VariableWrapperNat> refParams = new StringMap<VariableWrapperNat>();
-    private Struct internGlobal;
+    private NaSt internGlobal;
 
     private String beanName;
 
@@ -26,19 +26,19 @@ public abstract class NatImportingPageAbs {
         beanName = _beanName;
     }
 
-    public Struct getInternGlobal() {
+    public NaSt getInternGlobal() {
         return internGlobal;
     }
 
-    public void setInternGlobal(Struct _internGlobal) {
+    public void setInternGlobal(NaSt _internGlobal) {
         internGlobal = _internGlobal;
     }
 
-    public Struct getGlobalArgument() {
+    public NaSt getGlobalArgument() {
         return globalArgument;
     }
 
-    public void setGlobalArgumentStruct(Struct _obj) {
+    public void setGlobalArgumentStruct(NaSt _obj) {
         globalArgument = _obj;
     }
 

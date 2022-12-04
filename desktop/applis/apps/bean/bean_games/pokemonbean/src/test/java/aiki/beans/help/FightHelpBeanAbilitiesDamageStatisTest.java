@@ -7,7 +7,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.util.StatisticCategory;
 import aiki.fight.util.StatisticType;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -49,11 +49,11 @@ public final class FightHelpBeanAbilitiesDamageStatisTest extends InitDbFightHel
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickAbilitiesDamageStatis(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickAbilitiesDamageStatis(b_,0);
         return getValAbilityId(b_);
     }

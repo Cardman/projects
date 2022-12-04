@@ -3,7 +3,7 @@ package code.scripts.confs;
 import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.formathtml.structs.Message;
 import org.junit.Assert;
 
@@ -21,7 +21,7 @@ public abstract class EquallablePkBeanUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(Struct _expected, Struct _result) {
+    public static void assertSame(NaSt _expected, NaSt _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(Statistic _expected, Statistic _result) {

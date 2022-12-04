@@ -1,11 +1,10 @@
 package code.bean.nat.exec;
 
 import code.bean.nat.exec.blocks.NatParentBlock;
-import code.expressionlanguage.exec.stacks.LoopBlockStackContent;
 
 public class NatLoopBlockStack implements NatAbstractStask{
 
-    private final LoopBlockStackContent content = new LoopBlockStackContent();
+    private final NatLoopBlockStackContent content = new NatLoopBlockStackContent();
     private NatParentBlock natBlock;
 
     public void setBlock(NatParentBlock _block) {
@@ -22,7 +21,7 @@ public class NatLoopBlockStack implements NatAbstractStask{
         natBlock = _bl;
     }
 
-    public LoopBlockStackContent getContent() {
+    public NatLoopBlockStackContent getContent() {
         return content;
     }
 }

@@ -2,7 +2,7 @@ package aiki.beans.map;
 
 import aiki.beans.BeanPokemonCommonTs;
 import aiki.util.Coords;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 
 public abstract class InitDbLevelMap extends InitDbMap {
 
@@ -30,13 +30,13 @@ public abstract class InitDbLevelMap extends InitDbMap {
     }
 
     public static String callMapLevelBeanClickTileOnMapMv(int _place, int _level, int _tile) {
-        Struct bean_ = dispMapLevel(_place, _level);
+        NaSt bean_ = dispMapLevel(_place, _level);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValMoveId(bean_);
     }
 
     public static String callMapLevelBeanClickTileOnMapIt(int _place, int _level, int _tile) {
-        Struct bean_ = dispMapLevel(_place, _level);
+        NaSt bean_ = dispMapLevel(_place, _level);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValItemId(bean_);
     }
@@ -66,28 +66,28 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return getValPlaceLevelId(bean_);
 //    }
     public static String callMapLevelBeanClickTileOnMapTwice(int _place, int _tile, int _second) {
-        Struct bean_ = dispMapLevelZero(_place);
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return callMapLevelBeanClickTileOnMap(bean_,_second);
     }
 
     public static Coords callMapLevelBeanClickTileOnMapId(int _place, int _tile) {
-        Struct bean_ = dispMapLevelZero(_place);
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValPlaceLevelId(bean_);
     }
 
     public static Coords callMapLevelBeanClickTileOnMapId(int _place, int _level, int _tile) {
-        Struct bean_ = dispMapLevel(_place,_level);
+        NaSt bean_ = dispMapLevel(_place,_level);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         return getValPlaceLevelId(bean_);
     }
-    public static String callMapLevelBeanClickTileOnMap(Struct _str, int _tile) {
+    public static String callMapLevelBeanClickTileOnMap(NaSt _str, int _tile) {
         return navigateData(new MapLevelBeanClickTileOnMap(),_str,_tile);
     }
 
-    public static Struct callMapLevelBeanClickTileOnMapStruct(Struct _str, int _tile) {
+    public static NaSt callMapLevelBeanClickTileOnMapStruct(NaSt _str, int _tile) {
         return callLongs(new MapLevelBeanClickTileOnMap(),_str,_tile);
     }
 //    public static String callMapLevelBeanClickForeGround(Struct _str, int _tile) {
@@ -101,18 +101,18 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanDirsGet(),bean_);
 //    }
 
-    public static Struct callMapLevelBeanGetMapWidth(int _place) {
+    public static NaSt callMapLevelBeanGetMapWidth(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanGetMapWidth(),dispMapLevelZero(_place));
     }
 
-    public static Struct callMapLevelBeanGymGet(int _place, int _tile) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanGymGet(int _place, int _tile) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanGymGet(),bean_);
     }
 
-    public static Struct callMapLevelBeanIsAccessibleByBeatingSomeTrainers(int _place, int _level, int _tile) {
+    public static NaSt callMapLevelBeanIsAccessibleByBeatingSomeTrainers(int _place, int _level, int _tile) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsAccessibleByBeatingSomeTrainers(),dispMapLevel(_place, _level),_tile);
     }
 
@@ -127,22 +127,22 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFirstRow(),_str,_args);
 //    }
 
-    public static Struct callMapLevelBeanIsFossile(int _place, int _tile, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanIsFossile(int _place, int _tile, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsFossile(),bean_,_cell);
     }
 
-    public static Struct callMapLevelBeanIsHealer(int _place, int _tile, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanIsHealer(int _place, int _tile, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHealer(),bean_,_cell);
     }
 
-    public static Struct callMapLevelBeanIsHost(int _place, int _tile, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanIsHost(int _place, int _tile, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsHost(),bean_,_cell);
@@ -155,8 +155,8 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsLeft(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanIsMoveTutors(int _place, int _tile, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanIsMoveTutors(int _place, int _tile, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsMoveTutors(),bean_,_cell);
@@ -169,15 +169,15 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsRight(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanIsStorage(int _place, int _tile, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanIsStorage(int _place, int _tile, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsStorage(),bean_,_cell);
     }
 
-    public static Struct callMapLevelBeanIsStorage(int _place, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanIsStorage(int _place, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsStorage(),bean_,_cell);
     }
 
@@ -188,19 +188,19 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanIsUp(),bean_,_second);
 //    }
 
-    public static Struct callMapLevelBeanLevelIndexGet(int _place, int _level) {
+    public static NaSt callMapLevelBeanLevelIndexGet(int _place, int _level) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanLevelIndexGet(),dispMapLevel(_place, _level));
     }
 
-    public static Struct callMapLevelBeanOutsideGet(int _place) {
+    public static NaSt callMapLevelBeanOutsideGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanOutsideGet(),dispMapLevelZero(_place));
     }
 
-    public static Struct callMapLevelBeanClickArea(Struct _str, int _index) {
+    public static NaSt callMapLevelBeanClickArea(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),_str,_index);
     }
 
-    public static Struct callMapLevelBeanClickArea(int _place, int _index) {
+    public static NaSt callMapLevelBeanClickArea(int _place, int _index) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanClickArea(),dispMapLevelZero(_place),_index);
     }
 
@@ -208,43 +208,43 @@ public abstract class InitDbLevelMap extends InitDbMap {
         return navigateData(new MapLevelBeanClickAreaOnMap(),dispMapLevelZero(_place),_tile);
     }
 
-    public static Struct callMapLevelBeanWhiteTilesGet(int _place) {
+    public static NaSt callMapLevelBeanWhiteTilesGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanWhiteTilesGet(),dispMapLevelZero(_place));
     }
 
-    public static Struct callMapLevelBeanNeighboursGet(int _place) {
+    public static NaSt callMapLevelBeanNeighboursGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanNeighboursGet(),dispMapLevelZero(_place));
     }
 
     public static String callMapLevelBeanClickNeighbour(int _place, int _index) {
         return navigateData(new MapLevelBeanClickNeighbour(),dispMapLevelZero(_place),_index);
     }
-    public static Struct callMapLevelBeanAreas(int _place) {
+    public static NaSt callMapLevelBeanAreas(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanAreas(),dispMapLevelZero(_place));
     }
-    public static Struct callMapLevelBeanOutsideGet(int _place, int _tile) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanOutsideGet(int _place, int _tile) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanOutsideGet(),bean_);
     }
 
-    public static Struct callMapLevelBeanPlaceNameGet(int _place, int _level) {
+    public static NaSt callMapLevelBeanPlaceNameGet(int _place, int _level) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanPlaceNameGet(),dispMapLevel(_place, _level));
     }
 
-    public static Struct callMapLevelBeanPokemonCenterGet(int _place, int _tile) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanPokemonCenterGet(int _place, int _tile) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanPokemonCenterGet(),bean_);
     }
 
-    public static Struct callMapLevelBeanPossibleMultiLayerGet(int _place) {
+    public static NaSt callMapLevelBeanPossibleMultiLayerGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanPossibleMultiLayerGet(),dispMapLevelZero(_place));
     }
 
-    public static Struct callMapLevelBeanPossibleMultiLayerGet(int _place, int _level) {
+    public static NaSt callMapLevelBeanPossibleMultiLayerGet(int _place, int _level) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanPossibleMultiLayerGet(),dispMapLevel(_place, _level));
     }
 
@@ -256,11 +256,11 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanProponeTileGet(),_str,_args);
 //    }
 
-    public static Struct callMapLevelBeanRoadGet(int _place, int _level) {
+    public static NaSt callMapLevelBeanRoadGet(int _place, int _level) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanRoadGet(),dispMapLevel(_place, _level));
     }
 
-    public static Struct callMapLevelBeanRoadGet(int _place) {
+    public static NaSt callMapLevelBeanRoadGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanRoadGet(),dispMapLevelZero(_place));
     }
 
@@ -272,16 +272,16 @@ public abstract class InitDbLevelMap extends InitDbMap {
 //        return BeanPokemonCommonTs.callLongs(new MapLevelBeanSeeAreaGet(),_str,_args);
 //    }
 
-    public static Struct callMapLevelBeanTilesGet(int _place, int _level) {
+    public static NaSt callMapLevelBeanTilesGet(int _place, int _level) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanTilesGet(),dispMapLevel(_place, _level));
     }
 
-    public static Struct callMapLevelBeanTilesGet(int _place) {
+    public static NaSt callMapLevelBeanTilesGet(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanTilesGet(),dispMapLevelZero(_place));
     }
 
-    public static Struct callMapLevelBeanWithoutTitle(int _place, int _tile, int _cell) {
-        Struct bean_ = dispMapLevelZero(_place);
+    public static NaSt callMapLevelBeanWithoutTitle(int _place, int _tile, int _cell) {
+        NaSt bean_ = dispMapLevelZero(_place);
         callMapLevelBeanClickTileOnMap(bean_,_tile);
         beforeDisplaying(bean_);
         return BeanPokemonCommonTs.callLongs(new MapLevelBeanWithoutTitle(),bean_,_cell);

@@ -28,9 +28,9 @@ import aiki.map.characters.Person;
 import aiki.map.levels.AreaApparition;
 import aiki.map.pokemon.WildPk;
 import aiki.util.Coords;
-import code.bean.nat.NatCaller;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -171,12 +171,12 @@ public abstract class InitDbConstr extends InitDbBean {
     protected static final String ST_DEF_SPE_TR="ST_DEF_SPE_TR";
     protected static final String ST_SPEED_TR="ST_SPEED_TR";
     protected static final String ST_HP_TR="ST_HP_TR";
-    public static String navigateData(NatCaller _caller, Struct _str, long... _args) {
+    public static String navigateData(NatCaller _caller, NaSt _str, long... _args) {
         PkScriptPagesInit.initConfData(new NatConfigurationCore());
         return navigate(_caller, "", _str, _args);
     }
 
-    public static Struct callEffectWhileSendingBeanEffectSet(Struct _str, Struct _args) {
+    public static NaSt callEffectWhileSendingBeanEffectSet(NaSt _str, NaSt _args) {
         return BeanPokemonCommonTs.callStruct(new EffectWhileSendingBeanEffectSet(),_str,_args);
     }
 
@@ -360,84 +360,84 @@ public abstract class InitDbConstr extends InitDbBean {
         return pk_;
     }
 
-    public static Struct callEffectWhileSendingBeanCancelChgtStatGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanCancelChgtStatGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCancelChgtStatGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanCancelLowStatGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanCancelLowStatGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCancelLowStatGet(),_str,_args);
     }
 
-    public static String callEffectWhileSendingBeanClickWeather(Struct _str, long... _args) {
+    public static String callEffectWhileSendingBeanClickWeather(NaSt _str, long... _args) {
         return navigateData(new EffectWhileSendingBeanClickWeather(),_str,_args);
     }
 
-    public static String callEffectWhileSendingBeanClickWeatherId(Struct _str, long... _args) {
+    public static String callEffectWhileSendingBeanClickWeatherId(NaSt _str, long... _args) {
         callEffectWhileSendingBeanClickWeather(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static Struct callEffectWhileSendingBeanCopyBoostGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanCopyBoostGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCopyBoostGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanCopyingAbilityGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanCopyingAbilityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanCopyingAbilityGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanDefaultBoostGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanDefaultBoostGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanDefaultBoostGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanDisableWeatherGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanDisableWeatherGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanDisableWeatherGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanEnabledWeatherGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanEnabledWeatherGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanEnabledWeatherGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanEvtRateGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanEvtRateGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanEvtRateGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanEvtRatePerCentGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanEvtRatePerCentGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanEvtRatePerCentGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanGetFail(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanGetFail(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetFail(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanGetRate(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanGetRate(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetRate(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanGetSwapFail(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanGetSwapFail(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetSwapFail(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanGetTrWeather(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanGetTrWeather(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanGetTrWeather(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanIsAlwaysEnabled(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanIsAlwaysEnabled(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanIsAlwaysEnabled(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanMapVarsFailGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanMapVarsFailGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanMapVarsFailGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanMapVarsStatisticsGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanMapVarsStatisticsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanMapVarsStatisticsGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanMultWeightGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanMultWeightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanMultWeightGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanNotEmptyVarBoost(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanNotEmptyVarBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanNotEmptyVarBoost(),_str,_args);
     }
 
@@ -445,138 +445,138 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanPlateGet(),_str,_args);
 //    }
 
-    public static Struct callEffectWhileSendingBeanRandomStatis(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanRandomStatis(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanRandomStatis(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanReasonsGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanReasonsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanReasonsGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanStatisVarRankGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanStatisVarRankGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanStatisVarRankGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanStatisticGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanStatisticGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanStatisticGet(),_str,_args);
     }
 
-    public static Struct callEffectWhileSendingBeanSwapBoostStatisGet(Struct _str, long... _args) {
+    public static NaSt callEffectWhileSendingBeanSwapBoostStatisGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWhileSendingBeanSwapBoostStatisGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedTeamNumberGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str,_args);
     }
 
-    public static Struct callBoostHpRateGetBoost(Struct _str, long... _args) {
+    public static NaSt callBoostHpRateGetBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostHpRateGetBoost(),_str,_args);
     }
 
-    public static Struct callBoostHpRateGetHpRate(Struct _str, long... _args) {
+    public static NaSt callBoostHpRateGetHpRate(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostHpRateGetHpRate(),_str,_args);
     }
 
-    public static Struct callCategoryMultGetCategory(Struct _str, long... _args) {
+    public static NaSt callCategoryMultGetCategory(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CategoryMultGetCategory(),_str,_args);
     }
 
-    public static Struct callCategoryMultGetMult(Struct _str, long... _args) {
+    public static NaSt callCategoryMultGetMult(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CategoryMultGetMult(),_str,_args);
     }
 
-    public static Struct callEfficiencyRateGetEff(Struct _str, long... _args) {
+    public static NaSt callEfficiencyRateGetEff(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EfficiencyRateGetEff(),_str,_args);
     }
 
-    public static Struct callEfficiencyRateGetHpRate(Struct _str, long... _args) {
+    public static NaSt callEfficiencyRateGetHpRate(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EfficiencyRateGetHpRate(),_str,_args);
     }
-    public static Struct callEffectPartnerStatusGetMultDamageAgainstFoe(Struct _str, long... _args) {
+    public static NaSt callEffectPartnerStatusGetMultDamageAgainstFoe(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectPartnerStatusGetMultDamageAgainstFoe(),_str,_args);
     }
 
-    public static Struct callEffectPartnerStatusGetRestoredHpRateLovedAlly(Struct _str, long... _args) {
+    public static NaSt callEffectPartnerStatusGetRestoredHpRateLovedAlly(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectPartnerStatusGetRestoredHpRateLovedAlly(),_str,_args);
     }
 
-    public static Struct callEffectPartnerStatusGetWeddingAlly(Struct _str, long... _args) {
+    public static NaSt callEffectPartnerStatusGetWeddingAlly(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectPartnerStatusGetWeddingAlly(),_str,_args);
     }
 
-    public static Struct callPkTrainerGetItem(Struct _str, long... _args) {
+    public static NaSt callPkTrainerGetItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PkTrainerGetItem(),_str,_args);
     }
 
-    public static Struct callPkTrainerGetLevel(Struct _str, long... _args) {
+    public static NaSt callPkTrainerGetLevel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PkTrainerGetLevel(),_str,_args);
     }
 
-    public static Struct callPkTrainerGetMoves(Struct _str, long... _args) {
+    public static NaSt callPkTrainerGetMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PkTrainerGetMoves(),_str,_args);
     }
-    public static Struct callPlaceGetName(Struct _str, long... _args) {
+    public static NaSt callPlaceGetName(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PlaceGetName(),_str,_args);
     }
 
-    public static Struct callPokemonPlayerGetHappiness(Struct _str, long... _args) {
+    public static NaSt callPokemonPlayerGetHappiness(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonPlayerGetHappiness(),_str,_args);
     }
 
-    public static Struct callPokemonPlayerGetItem(Struct _str, long... _args) {
+    public static NaSt callPokemonPlayerGetItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonPlayerGetItem(),_str,_args);
     }
 
-    public static Struct callPokemonPlayerGetWonExpSinceLastLevel(Struct _str, long... _args) {
+    public static NaSt callPokemonPlayerGetWonExpSinceLastLevel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonPlayerGetWonExpSinceLastLevel(),_str,_args);
     }
 
 
-    public static Struct callTypeDamageBoostGetBoost(Struct _str, long... _args) {
+    public static NaSt callTypeDamageBoostGetBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TypeDamageBoostGetBoost(),_str,_args);
     }
 
-    public static Struct callTypesDuoGetDamageType(Struct _str, long... _args) {
+    public static NaSt callTypesDuoGetDamageType(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TypesDuoGetDamageType(),_str,_args);
     }
 
-    public static Struct callTypesDuoGetPokemonType(Struct _str, long... _args) {
+    public static NaSt callTypesDuoGetPokemonType(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TypesDuoGetPokemonType(),_str,_args);
     }
 
-    public static Struct callWildPkGetItem(Struct _str, long... _args) {
+    public static NaSt callWildPkGetItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WildPkGetItem(),_str,_args);
     }
 
-    public static Struct callWildPkGetLevel(Struct _str, long... _args) {
+    public static NaSt callWildPkGetLevel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WildPkGetLevel(),_str,_args);
     }
 
-    protected static String getValItemId(Struct _bean) {
+    protected static String getValItemId(NaSt _bean) {
         return forms(_bean).getValStr(CST_ITEM);
     }
 
-    protected static String getValMoveId(Struct _bean) {
+    protected static String getValMoveId(NaSt _bean) {
         return forms(_bean).getValStr(CST_MOVE);
     }
 
-    protected static String getValPkId(Struct _bean) {
+    protected static String getValPkId(NaSt _bean) {
         return forms(_bean).getValStr(CST_PK);
     }
 
-    protected static String getValStatusId(Struct _bean) {
+    protected static String getValStatusId(NaSt _bean) {
         return forms(_bean).getValStr(CST_STATUS);
     }
 
-    protected static String getValAbilityId(Struct _bean) {
+    protected static String getValAbilityId(NaSt _bean) {
         return forms(_bean).getValStr(CST_ABILITY);
     }
 
-    protected static boolean containsPlaceLevelId(Struct _bean) {
+    protected static boolean containsPlaceLevelId(NaSt _bean) {
         return forms(_bean).contains(CST_COORDS);
     }
 
-    protected static Coords getValPlaceLevelId(Struct _bean) {
+    protected static Coords getValPlaceLevelId(NaSt _bean) {
         return forms(_bean).getValCoords(CST_COORDS);
     }
 //
@@ -588,24 +588,24 @@ public abstract class InitDbConstr extends InitDbBean {
 //        return forms(_bean).getValPt(CST_CURRENT_TILE);
 //    }
 
-    protected static AreaApparition getValArea(Struct _bean) {
+    protected static AreaApparition getValArea(NaSt _bean) {
         return forms(_bean).getValArea(CST_AREA);
     }
-    protected static Person getValPers(Struct _key){
+    protected static Person getValPers(NaSt _key){
         return forms(_key).getValPers(CST_PERSON);
     }
-    protected static Ally getValAlly(Struct _key){
+    protected static Ally getValAlly(NaSt _key){
         return forms(_key).getValAlly(CST_ALLY);
     }
-    protected static WildPk getValPk(Struct _key){
+    protected static WildPk getValPk(NaSt _key){
         return forms(_key).getValPk(CST_LEG_PK);
     }
 
-    public static Struct callPlaceIndexGetPlace(Struct _str, long... _args) {
+    public static NaSt callPlaceIndexGetPlace(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PlaceIndexGetPlace(),_str,_args);
     }
 
-    public static Struct callPlaceIndexIndexGet(Struct _str, long... _args) {
+    public static NaSt callPlaceIndexIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PlaceIndexIndexGet(),_str,_args);
     }
 }

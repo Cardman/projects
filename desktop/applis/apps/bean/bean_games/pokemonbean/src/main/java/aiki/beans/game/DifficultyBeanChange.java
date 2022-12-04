@@ -1,13 +1,13 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class DifficultyBeanChange implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         ( (DifficultyBean) ((PokemonBeanStruct)_instance).getInstance()).change();
-        return new StringStruct(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
+        return new NaStSt(AikiBeansGameStd.WEB_GAME_HTML_DIFFICULTY_HTML);
     }
 }

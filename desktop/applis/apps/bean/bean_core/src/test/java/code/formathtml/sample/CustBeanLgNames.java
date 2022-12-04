@@ -9,7 +9,7 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.*;
 
 public final class CustBeanLgNames extends BeanNatCommonLgNames {
@@ -820,7 +820,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
         getStds().addEntry(TYPE_SIMPLE_DATA_BASE, cl_);
     }
 
-    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
 //        StringMapObjectBase forms_ = new StringMapObjectBase();

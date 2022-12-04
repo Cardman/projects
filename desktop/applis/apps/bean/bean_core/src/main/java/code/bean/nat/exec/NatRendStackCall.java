@@ -1,6 +1,6 @@
 package code.bean.nat.exec;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.sml.Document;
 import code.util.CustList;
 
@@ -12,7 +12,7 @@ public class NatRendStackCall {
 
     private String beanName="";
 
-    private Struct mainBean;
+    private NaSt mainBean;
 
     public void init() {
         document = null;
@@ -26,11 +26,11 @@ public class NatRendStackCall {
         document = _document;
     }
 
-    public Struct getMainBean() {
+    public NaSt getMainBean() {
         return mainBean;
     }
 
-    public void setMainBean(Struct _mainBean) {
+    public void setMainBean(NaSt _mainBean) {
         mainBean = _mainBean;
     }
 
@@ -57,7 +57,7 @@ public class NatRendStackCall {
         return importing;
     }
 
-    public Struct getInternGlobal() {
+    public NaSt getInternGlobal() {
         return getLastPage().getInternGlobal();
     }
 

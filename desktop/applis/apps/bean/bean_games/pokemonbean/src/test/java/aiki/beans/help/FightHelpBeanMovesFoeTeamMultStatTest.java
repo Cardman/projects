@@ -7,7 +7,7 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -169,11 +169,11 @@ public final class FightHelpBeanMovesFoeTeamMultStatTest extends InitDbFightHelp
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
         return toStr(callFightHelpBeanClickMovesFoeTeamMultStat(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
         callFightHelpBeanClickMovesFoeTeamMultStat(b_,0);
         return getValMoveId(b_);
     }

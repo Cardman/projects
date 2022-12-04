@@ -1,12 +1,12 @@
 package aiki.beans.abilities;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class AbilityBeanNbUsedPpGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getNbUsedPp());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getNbUsedPp());
     }
 }

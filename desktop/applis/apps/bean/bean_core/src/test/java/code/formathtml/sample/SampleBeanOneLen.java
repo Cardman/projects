@@ -1,13 +1,13 @@
 package code.formathtml.sample;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public class SampleBeanOneLen implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
-        return(new IntStruct(NumParsers.getString(_args[0]).getInstance().length()));
+    public NaSt re(NaSt _instance, NaSt[] _args) {
+        return(new NaNbSt(NaPa.getString(_args[0]).getInstance().length()));
     }
 }

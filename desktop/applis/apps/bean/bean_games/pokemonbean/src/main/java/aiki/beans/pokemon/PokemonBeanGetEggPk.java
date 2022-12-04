@@ -1,13 +1,13 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokemonBeanGetEggPk implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getEggPk(NumParsers.convertToNumber(_args[0]).intStruct()));
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getEggPk(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 }

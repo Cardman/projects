@@ -6,72 +6,72 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 
 public abstract class InitDbWelcome extends InitDbConstr {
 
-    public static String navigateAbilities(Struct _str) {
+    public static String navigateAbilities(NaSt _str) {
         return navigateData(new WelcomeBeanClickAbilities(),_str);
     }
-    public static String navigateItems(Struct _str) {
+    public static String navigateItems(NaSt _str) {
         return navigateData(new WelcomeBeanClickItems(),_str);
     }
-    public static String navigatePokedex(Struct _str) {
+    public static String navigatePokedex(NaSt _str) {
         return navigateData(new WelcomeBeanClickPokedex(),_str);
     }
-    public static String navigateSimulation(Struct _str) {
+    public static String navigateSimulation(NaSt _str) {
         return navigateData(new WelcomeBeanClickSimulation(),_str);
     }
-    public static String navigateStatus(Struct _str) {
+    public static String navigateStatus(NaSt _str) {
         return navigateData(new WelcomeBeanClickStatus(),_str);
     }
-    public static String navigateAllMoves(Struct _str) {
+    public static String navigateAllMoves(NaSt _str) {
         return navigateData(new WelcomeBeanSeeAllMoves(),_str);
     }
 
-    public static String navigateLearntMoves(Struct _str) {
+    public static String navigateLearntMoves(NaSt _str) {
         return navigateData(new WelcomeBeanSeeLearntMoves(),_str);
     }
 
-    public static String navigateNotLearntMoves(Struct _str) {
+    public static String navigateNotLearntMoves(NaSt _str) {
         return navigateData(new WelcomeBeanSeeNotLearntMoves(),_str);
     }
-    public static Struct beanWelcome(FacadeGame _dataBase) {
+    public static NaSt beanWelcome(FacadeGame _dataBase) {
         PkData pk_ = pkDataByFacade(_dataBase);
         return pk_.beanWelcomeBean(EN);
     }
-    public static Struct callWelcomeBeanClickAbilities(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanClickAbilities(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickAbilities(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanClickItems(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanClickItems(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickItems(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanClickPokedex(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanClickPokedex(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickPokedex(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanClickSimulation(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanClickSimulation(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickSimulation(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanClickStatus(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanClickStatus(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanClickStatus(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanSeeAllMoves(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanSeeAllMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeAllMoves(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanSeeLearntMoves(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanSeeLearntMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeLearntMoves(),_str,_args);
     }
 
-    public static Struct callWelcomeBeanSeeNotLearntMoves(Struct _str, long... _args) {
+    public static NaSt callWelcomeBeanSeeNotLearntMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new WelcomeBeanSeeNotLearntMoves(),_str,_args);
     }
 

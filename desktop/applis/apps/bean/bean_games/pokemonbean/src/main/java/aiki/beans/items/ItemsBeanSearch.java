@@ -1,12 +1,12 @@
 package aiki.beans.items;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class ItemsBeanSearch implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (ItemsBean) ((PokemonBeanStruct)_instance).getInstance()).search());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (ItemsBean) ((PokemonBeanStruct)_instance).getInstance()).search());
     }
 }

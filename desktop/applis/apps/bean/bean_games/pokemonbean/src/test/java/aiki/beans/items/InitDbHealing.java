@@ -5,51 +5,51 @@ import aiki.beans.PkData;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbHealing extends InitDbItem {
 
-    public static String callHealingItemBeanClickHappiness(Struct _str, long... _args) {
+    public static String callHealingItemBeanClickHappiness(NaSt _str, long... _args) {
         return navigateData(new HealingItemBeanClickHappiness(),_str,_args);
     }
 
-    public static String callHealingItemBeanClickHappinessId(Struct _str, long... _args) {
+    public static String callHealingItemBeanClickHappinessId(NaSt _str, long... _args) {
         callHealingItemBeanClickHappiness(_str,_args);
         return getValItemId(_str);
     }
 
-    public static Struct callHealingItemBeanGetTrHappiness(Struct _str, long... _args) {
+    public static NaSt callHealingItemBeanGetTrHappiness(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingItemBeanGetTrHappiness(),_str,_args);
     }
 
-    public static Struct callHealingItemBeanHappinessGet(Struct _str, long... _args) {
+    public static NaSt callHealingItemBeanHappinessGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingItemBeanHappinessGet(),_str,_args);
     }
 
-    public static Struct callHealingItemBeanHealingItemBeanGet(Struct _str, long... _args) {
+    public static NaSt callHealingItemBeanHealingItemBeanGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingItemBeanHealingItemBeanGet(),_str,_args);
     }
 
-    public static Struct callHealingItemBeanHealingTeamGet(Struct _str, long... _args) {
+    public static NaSt callHealingItemBeanHealingTeamGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingItemBeanHealingTeamGet(),_str,_args);
     }
 
-    public static Struct callHealingItemBeanIsBall(Struct _str, long... _args) {
+    public static NaSt callHealingItemBeanIsBall(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingItemBeanIsBall(),_str,_args);
     }
 
-    public static StringMap<Struct> beanToHealing(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToHealing(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGITEM,_pk.beanHealingItemBean(EN));
         return map_;
     }
 
-    protected static Struct healSimple(boolean _healingMoveFullpp) {
+    protected static NaSt healSimple(boolean _healingMoveFullpp) {
         PkData pk_ = pkDataByFacade(feedDbSimple(_healingMoveFullpp));
-        StringMap<Struct> all_ = beanToHealing(pk_);
+        StringMap<NaSt> all_ = beanToHealing(pk_);
         callHealingItemBeanHealingItemBeanGet(all_.getVal(AikiBeansItemsStd.BEAN_HEALINGITEM));
         return dispLine(AikiBeansItemsStd.BEAN_HEALINGITEM, pk_, all_);
     }

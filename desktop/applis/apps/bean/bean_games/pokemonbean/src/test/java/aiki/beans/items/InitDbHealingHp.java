@@ -7,24 +7,24 @@ import aiki.facade.FacadeGame;
 import aiki.fight.items.HealingHp;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbHealingHp extends InitDbHealing {
 
-    public static Struct callHealingHpBeanHpGet() {
+    public static NaSt callHealingHpBeanHpGet() {
         return BeanPokemonCommonTs.callLongs(new HealingHpBeanHpGet(),ppDb());
     }
-    public static StringMap<Struct> beanToHealingHp(PkData _pk) {
-        StringMap<Struct> map_ = beanToHealing(_pk);
+    public static StringMap<NaSt> beanToHealingHp(PkData _pk) {
+        StringMap<NaSt> map_ = beanToHealing(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGHP,_pk.beanHealingHpBean(EN));
         return map_;
     }
-    protected static Struct ppDb() {
+    protected static NaSt ppDb() {
         PkData pk_ = pkDataByFacade(feedDbHp());
-        StringMap<Struct> all_ = beanToHealingHp(pk_);
+        StringMap<NaSt> all_ = beanToHealingHp(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_HEALINGHP, pk_, all_);
     }
 

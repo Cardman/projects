@@ -1,8 +1,8 @@
 package aiki.beans;
 
 import code.bean.nat.*;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.EquallablePkBeanUtil;
@@ -16,19 +16,19 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     public static final String EN = "en";
     protected static final char NAV_SEP='.';
 
-    public static void transit(PokemonStandards _stds, NatCaller _caller, Struct _first, Struct _second, long... _args) {
+    public static void transit(PokemonStandards _stds, NatCaller _caller, NaSt _first, NaSt _second, long... _args) {
         callLongs(_caller, _first, _args);
         setFormsBy(_stds,_second,_first);
         beforeDisplaying(_second);
     }
 
-    public static StringMapObject forms(Struct _str) {
+    public static StringMapObject forms(NaSt _str) {
         return ((CommonBean)((PokemonBeanStruct)_str).getInstance()).getForms();
     }
 
 
-    public static String navigate(NatCaller _caller, String _concat, Struct _str, long... _args) {
-        Struct res_ = callLongs(_caller, _str, _args);
+    public static String navigate(NatCaller _caller, String _concat, NaSt _str, long... _args) {
+        NaSt res_ = callLongs(_caller, _str, _args);
 //        BeanNatCommonLgNames.methName(_concat);
         return BeanNatCommonLgNames.processString(res_);
 //        String urlDest_ = _currentUrl;
@@ -53,60 +53,60 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
     }
 
 
-    public static Struct callRate(NatCaller _caller, Struct _str, Rate _args) {
-        _caller.re(_str,new Struct[]{new RateStruct(_args)});
+    public static NaSt callRate(NatCaller _caller, NaSt _str, Rate _args) {
+        _caller.re(_str,new NaSt[]{new RateStruct(_args)});
         return _str;
     }
-    public static Struct callBool(NatCaller _caller, Struct _str, boolean _args) {
-        _caller.re(_str,new Struct[]{BooleanStruct.of(_args)});
+    public static NaSt callBool(NatCaller _caller, NaSt _str, boolean _args) {
+        _caller.re(_str,new NaSt[]{NaBoSt.of(_args)});
         return _str;
     }
-    public static Struct callInt(NatCaller _caller, Struct _str, int _args) {
-        _caller.re(_str,new Struct[]{new IntStruct(_args)});
+    public static NaSt callInt(NatCaller _caller, NaSt _str, int _args) {
+        _caller.re(_str,new NaSt[]{new NaNbSt(_args)});
         return _str;
     }
-    public static Struct callString(NatCaller _caller, Struct _str, String _args) {
-        _caller.re(_str,new Struct[]{new StringStruct(_args)});
+    public static NaSt callString(NatCaller _caller, NaSt _str, String _args) {
+        _caller.re(_str,new NaSt[]{new NaStSt(_args)});
         return _str;
     }
 
-    public static Struct callLongs(NatCaller _caller, Struct _str, long... _args) {
+    public static NaSt callLongs(NatCaller _caller, NaSt _str, long... _args) {
         return _caller.re(_str,getLongArray(_args));
     }
-    public static Struct callStruct(NatCaller _caller, Struct _str, Struct _args) {
-        _caller.re(_str,new Struct[]{_args});
+    public static NaSt callStruct(NatCaller _caller, NaSt _str, NaSt _args) {
+        _caller.re(_str,new NaSt[]{_args});
         return _str;
     }
 
-    public static int toInt(Struct _str) {
-        return NumParsers.convertToNumber(_str).intStruct();
+    public static int toInt(NaSt _str) {
+        return NaPa.convertToNumber(_str).intStruct();
     }
 
-    public static Struct byStr(StringMap<Struct> _all, StringMap<String> _mapping, Struct _resultAsString) {
+    public static NaSt byStr(StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _resultAsString) {
         return _all.getVal(_mapping.getVal(toStr(_resultAsString)));
     }
 
-    protected static String toStr(Struct _resultAsString) {
+    protected static String toStr(NaSt _resultAsString) {
         return BeanNatCommonLgNames.processString(_resultAsString);
     }
 
-    public Struct displaying(Struct _b) {
+    public NaSt displaying(NaSt _b) {
         beforeDisplaying(_b);
         return _b;
     }
 
-    public static void beforeDisplaying(Struct _bean) {
+    public static void beforeDisplaying(NaSt _bean) {
         ((BeanStruct)_bean).beforeDisplaying();
     }
 
-    public static void setFormsBy(PokemonStandards _pk, Struct _to, Struct _from) {
+    public static void setFormsBy(PokemonStandards _pk, NaSt _to, NaSt _from) {
         _pk.setForms(forms(_from),_to);
     }
 
 //    public static void setBeanFormsBy(PokemonStandards _pk, Struct _to, Struct _from) {
 //        _pk.setBeanForms(_from,_to);
 //    }
-    public static Struct[] getLongArray(long... _ls){
+    public static NaSt[] getLongArray(long... _ls){
         return BeanNatCommonLgNames.getLongArray(Longs.newList(_ls)).getInstance();
     }
 
@@ -117,13 +117,13 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 //        assertEq(_exp,((NatArrayStruct)(((NatArrayStruct)_result).get(_index))).get(_second));
 //    }
 
-    public static void assertEq(String _exp, Struct _result) {
-        assertEq(_exp,((StringStruct)_result).getInstance());
+    public static void assertEq(String _exp, NaSt _result) {
+        assertEq(_exp,((NaStSt)_result).getInstance());
     }
-    public static void assertEq(LgInt _exp, Struct _result) {
+    public static void assertEq(LgInt _exp, NaSt _result) {
         assertEq(_exp,((LgIntStruct)_result).getInstance());
     }
-    public static void assertEq(Rate _exp, Struct _result) {
+    public static void assertEq(Rate _exp, NaSt _result) {
         assertEq(_exp,((RateStruct)_result).getInstance());
     }
     public static void assertEq(LgInt _exp, LgInt _result) {
@@ -134,25 +134,25 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         assertEq(_exp.toNumberString(),_result.toNumberString());
         assertTrue(_exp.eq(_result));
     }
-    public static void assertEq(long _exp, Struct _result) {
-        assertEq(_exp,(((NumberStruct)_result).longStruct()));
+    public static void assertEq(long _exp, NaSt _result) {
+        assertEq(_exp,(((NaNbSt)_result).longStruct()));
     }
-    public static void assertTrue(Struct _value) {
-        assertSame(BooleanStruct.of(true),_value);
+    public static void assertTrue(NaSt _value) {
+        assertSame(NaBoSt.of(true),_value);
     }
-    public static void assertFalse(Struct _value) {
-        assertSame(BooleanStruct.of(false),_value);
+    public static void assertFalse(NaSt _value) {
+        assertSame(NaBoSt.of(false),_value);
     }
-    public static void assertSizeEq(int _exp, Struct _result) {
+    public static void assertSizeEq(int _exp, NaSt _result) {
         assertEq(_exp,(((NatArrayStruct)_result).getLength()));
     }
-    public static Struct elt(Struct _arr, int _index) {
+    public static NaSt elt(NaSt _arr, int _index) {
         return ((NatArrayStruct)_arr).get(_index);
     }
-    public static Struct first(Struct _arr) {
+    public static NaSt first(NaSt _arr) {
         return ((PairStruct)_arr).getFirst();
     }
-    public static Struct second(Struct _arr) {
+    public static NaSt second(NaSt _arr) {
         return ((PairStruct)_arr).getSecond();
     }
 }

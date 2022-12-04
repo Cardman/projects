@@ -16,7 +16,7 @@ import code.bean.nat.exec.blocks.RendBlockHelp;
 import code.bean.nat.exec.opers.NatStdRefVariableOperation;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.formathtml.sample.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -51,7 +51,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         RendBlockHelp.processElse(null,stack_);
         RendBlockHelp.processElseIf(null,stack_);
         NatStdRefVariableOperation.getValue(null);
-        PairStruct struct_ = new PairStruct(NullStruct.NULL_VALUE, NullStruct.NULL_VALUE);
+        PairStruct struct_ = new PairStruct(NaNu.NULL_VALUE, NaNu.NULL_VALUE);
         BeanNatCommonLgNames.processString(struct_);
 //        NatRendImport.beforeDisp(null);
 //        BeanNatCommonLgNames.methName("(0,1)");
@@ -76,7 +76,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         PageCardsCommon.ad(element_,fullDocument_.createElement(""));
         PageCardsCommon.tx(fullDocument_,"");
         PageCardsCommon.br(element_,fullDocument_);
-        assertEq("0",RateStruct.convertToRate(NullStruct.NULL_VALUE).toNumberString());
+        assertEq("0",RateStruct.convertToRate(NaNu.NULL_VALUE).toNumberString());
         assertEq("1",RateStruct.convertToRate(new RateStruct(Rate.one())).toNumberString());
         assertEq("1",new RateStruct(Rate.one()).getDisplayedString().getInstance());
         assertEq("1",new LgIntStruct(LgInt.one()).getDisplayedString().getInstance());
@@ -95,6 +95,19 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         nav_.getTitle();
         nav_.getDocument();
         nav_.getReferenceScroll();
+        new NaNbSt(2).sameReference(new NaNbSt(3));
+        new NaNbSt(2).sameReference(new NaNbSt(2));
+        new NaNbSt(2).sameReference(new NaStSt(""));
+        assertEq(2,new NaNbSt(2).intStruct());
+        new NaStSt("2").sameReference(new NaStSt("3"));
+        new NaStSt("2").sameReference(new NaStSt("2"));
+        new NaStSt("2").sameReference(new NaNbSt(2));
+        assertFalse(NaBoSt.isFalse(NaBoSt.of(true)));
+        assertFalse(NaBoSt.isFalse(NaBoSt.of(false).neg()));
+        assertTrue(NaBoSt.isFalse(NaBoSt.of(true).neg()));
+        assertTrue(NaBoSt.isFalse(NaBoSt.of(false)));
+        assertTrue(NaNu.NULL_VALUE.sameReference(NaNu.NULL_VALUE));
+        assertFalse(NaNu.NULL_VALUE.sameReference(new NaNbSt(2)));
 //        StringMapObjectBase s_ = new StringMapObjectBase();
 //        s_.put("0",0);
 //        s_.put("1",false);
@@ -1317,7 +1330,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
 //        beanTwo_.setBaseForms(new StringMapObjectBase());
         NatArrayStruct v2_ = new NatArrayStruct(1);
-        v2_.set(0,new StringStruct(""));
+        v2_.set(0,new NaStSt(""));
 //        SampleBeanStruct v2_ = init(beanTwo_);
 //        v2_.setTypedString2("TITLE");
         CustBeanLgNames lgNames_ = stds();
@@ -1360,7 +1373,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
 //        beanTwo_.setBaseForms(new StringMapObjectBase());
         NatArrayStruct v2_ = new NatArrayStruct(1);
-        v2_.set(0,new StringStruct(""));
+        v2_.set(0,new NaStSt(""));
 //        SampleBeanStruct v2_ = init(beanTwo_);
 //        v2_.setTypedString2("TITLE");
         CustBeanLgNames lgNames_ = stds();
@@ -1406,7 +1419,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         BeanTwo beanTwo_ = new BeanTwo();
 //        beanTwo_.setBaseForms(new StringMapObjectBase());
         NatArrayStruct v2_ = new NatArrayStruct(1);
-        v2_.set(0,new StringStruct(""));
+        v2_.set(0,new NaStSt(""));
 //        SampleBeanStruct v2_ = init(beanTwo_);
 //        v2_.setTypedString2("TITLE");
         CustBeanLgNames lgNames_ = stds();
@@ -2736,7 +2749,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        return _adv.getRenders().getVal("page1.html");
 //    }
 
-    private static NatDocumentBlock buildRendWithTwoNativeBean2(String _html, String _htmlTwo, SampleBeanStruct _v1, Struct _v2, NatConfigurationCore _configuration, NatAnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
+    private static NatDocumentBlock buildRendWithTwoNativeBean2(String _html, String _htmlTwo, SampleBeanStruct _v1, NaSt _v2, NatConfigurationCore _configuration, NatAnalyzingDoc _analyzingDoc, CustBeanLgNames _adv, NatAnalyzedCode _analyzing, NatDualConfigurationContext _dual) {
         StringMap<String> beansInfos_ = _configuration.getBeansInfos();
         addBeanInfo(_adv,"bean_one", _v1, beansInfos_, _configuration,"code.formathtml.classes.BeanOne");
         addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration,"code.formathtml.classes.BeanTwo");
@@ -2783,7 +2796,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         return _renders.getVal("page1.html");
     }
 
-    private static void addBeanInfo(CustBeanLgNames _adv,String _id, Struct _str, StringMap<String> _beansInfos, NatConfigurationCore _configuration, String _clName) {
+    private static void addBeanInfo(CustBeanLgNames _adv,String _id, NaSt _str, StringMap<String> _beansInfos, NatConfigurationCore _configuration, String _clName) {
 //        BeanInfo b_ = new BeanInfo();
 //        clName(b_,_clName);
         _beansInfos.addEntry(_id,_clName);

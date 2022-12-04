@@ -1,13 +1,13 @@
 package aiki.beans.fight;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class FightCalculationBeanIsBackTargetTeam implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (FightCalculationBean) ((PokemonBeanStruct)_instance).getInstance()).isBackTargetTeam(NumParsers.convertToNumber(_args[0]).intStruct()));
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(( (FightCalculationBean) ((PokemonBeanStruct)_instance).getInstance()).isBackTargetTeam(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 }

@@ -7,7 +7,7 @@ import cards.belote.enumerations.DealingBelote;
 import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
 import code.sml.NavigationCore;
@@ -43,7 +43,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void getAnnoncesAutorisees() {
-        Struct res_ = callRulesBeloteBeanAnnoncesAutorisees(displaying(beanRules(EN, rules())));
+        NaSt res_ = callRulesBeloteBeanAnnoncesAutorisees(displaying(beanRules(EN, rules())));
         assertSizeEq(1,res_);
         assertEq(HUNDRED,res_,0);
     }
@@ -65,7 +65,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void getEncheresAutorisees() {
-        Struct res_ = callRulesBeloteBeanEncheresAutorisees(displaying(beanRules(EN, rules())));
+        NaSt res_ = callRulesBeloteBeanEncheresAutorisees(displaying(beanRules(EN, rules())));
         assertSizeEq(3,res_);
         assertEq(FOLD,res_,0);
         assertEq(SUIT,res_,1);

@@ -4,7 +4,7 @@ import cards.consts.GameType;
 import cards.tarot.*;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.NavigationCore;
@@ -173,13 +173,13 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void calledPlayers() {
-        Struct pl_ = callResultsTarotBeanCalledPlayers(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt pl_ = callResultsTarotBeanCalledPlayers(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, pl_);
         assertEq("1", elt(pl_,0));
     }
     @Test
     public void calledCards() {
-        Struct pl_ = callResultsTarotBeanCalledCardsList(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt pl_ = callResultsTarotBeanCalledCardsList(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, pl_);
         assertEq(HEART_KING, elt(pl_,0));
     }
@@ -225,7 +225,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void ld() {
-        Struct res_ = callResultsTarotBeanLinesDeal(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt res_ = callResultsTarotBeanLinesDeal(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, res_);
         assertSizeEq(5, res_,0);
         assertNumberEq(0, res_,0);
@@ -237,7 +237,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     }
     @Test
     public void scores() {
-        Struct res_ = callTarotBeanGetScores(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt res_ = callTarotBeanGetScores(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(1, res_);
         assertSizeLongsEq(5, res_,0);
         assertLongsEq(1730, res_,0,0);
@@ -249,7 +249,7 @@ public final class ResultsTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void nicknames() {
         assertSizeEq(5,callTarotBeanNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0)))));
-        Struct pl_ = callTarotBeanGetNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
+        NaSt pl_ = callTarotBeanGetNicknames(displaying(beanResultsTarot(EN, resultsFive(game4(), 0))));
         assertSizeEq(5, pl_);
         assertEq("0", elt(pl_,0));
         assertEq("1", elt(pl_,1));

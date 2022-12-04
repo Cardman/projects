@@ -1,13 +1,13 @@
 package aiki.beans.map;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class MapBeanIsMultiLayer implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (MapBean) ((PokemonBeanStruct)_instance).getInstance()).isMultiLayer(NumParsers.convertToNumber(_args[0]).intStruct()));
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(( (MapBean) ((PokemonBeanStruct)_instance).getInstance()).isMultiLayer(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 }

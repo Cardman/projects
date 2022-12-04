@@ -4,7 +4,7 @@ import cards.consts.GameType;
 import cards.president.*;
 import cards.president.enumerations.CardPresident;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
 import code.sml.NavigationCore;
@@ -15,7 +15,7 @@ import org.junit.Test;
 public final class PresidentBeanTest extends BeanPresidentCommonTs {
     @Test
     public void getNickNames() {
-        Struct res_ = callPresidentBeanNicknames(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4))));
+        NaSt res_ = callPresidentBeanNicknames(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4))));
         assertSizeEq(4,res_);
         assertEq("0",res_,0);
         assertEq("1",res_,1);
@@ -24,7 +24,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
     }
     @Test
     public void getLinesDeal() {
-        Struct res_ = callPresidentBeanLinesDeal(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4))));
+        NaSt res_ = callPresidentBeanLinesDeal(displaying(beanResults(EN, build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4))));
         assertSizeEq(2,res_);
         assertSizeEq(4,res_,0);
         assertNumberEq(0,res_,0);

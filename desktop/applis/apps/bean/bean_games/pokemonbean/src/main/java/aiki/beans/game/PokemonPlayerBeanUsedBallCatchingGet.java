@@ -1,12 +1,12 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokemonPlayerBeanUsedBallCatchingGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance()).getUsedBallCatching());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (PokemonPlayerBean) ((PokemonBeanStruct)_instance).getInstance()).getUsedBallCatching());
     }
 }

@@ -1,10 +1,10 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.AbNullStruct;
-import code.expressionlanguage.structs.StringStruct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.maths.LgInt;
 
-public final class LgIntStruct extends AbNullStruct implements NatDisplayableStruct {
+public final class LgIntStruct extends NaNuSt implements NatDisplayableStruct {
 
     private final LgInt value;
     public LgIntStruct(LgInt _instance) {
@@ -16,7 +16,7 @@ public final class LgIntStruct extends AbNullStruct implements NatDisplayableStr
     }
 
     @Override
-    public StringStruct getDisplayedString() {
-        return new StringStruct(getInstance().toNumberString());
+    public NaStSt getDisplayedString() {
+        return new NaStSt(getInstance().toNumberString());
     }
 }

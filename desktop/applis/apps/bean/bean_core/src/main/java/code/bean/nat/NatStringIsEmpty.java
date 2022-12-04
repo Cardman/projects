@@ -1,12 +1,12 @@
 package code.bean.nat;
 
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public final class NatStringIsEmpty implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
-        return BooleanStruct.of(NumParsers.getString(_args[0]).getInstance().isEmpty());
+    public NaSt re(NaSt _instance, NaSt[] _args) {
+        return NaBoSt.of(NaPa.getString(_args[0]).getInstance().isEmpty());
     }
 }

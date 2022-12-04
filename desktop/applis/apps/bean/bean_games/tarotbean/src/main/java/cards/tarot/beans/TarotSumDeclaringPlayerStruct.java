@@ -1,8 +1,8 @@
 package cards.tarot.beans;
 
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 
-public final class TarotSumDeclaringPlayerStruct extends AbNullStruct {
+public final class TarotSumDeclaringPlayerStruct extends NaNuSt {
     private final TarotSumDeclaringPlayer sumDeclaringPlayer;
 
     public TarotSumDeclaringPlayerStruct(TarotSumDeclaringPlayer _sumDeclaringPlayer) {

@@ -5,8 +5,8 @@ import aiki.beans.PkFight;
 import aiki.db.DataBase;
 import aiki.game.fight.Fight;
 import aiki.game.fight.Fighter;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -587,22 +587,22 @@ public final class TeamBeanTest extends InitDbFight {
 
     @Test
     public void clickFighter() {
-        Struct fBean_ = playerPath();
+        NaSt fBean_ = playerPath();
         assertEq(AikiBeansFightStd.WEB_FIGHT_HTML_FIGHTER_HTML,navigateTeamFighter(fBean_,1));
         assertTrue(forms(fBean_).contains(NO_TEAM));
         assertTrue(forms(fBean_).contains(NO_FIGHTER));
         assertEq(Fight.CST_PLAYER,forms(fBean_).getValInt(NO_TEAM));
         assertEq(1,forms(fBean_).getValInt(NO_FIGHTER));
     }
-    private Struct foePath() {
+    private NaSt foePath() {
         return beanTeam(clickFoeCaller());
     }
 
-    private Struct playerPath() {
+    private NaSt playerPath() {
         return beanTeam(clickPlayerCaller());
     }
 
-    private Struct beanTeam(NatCaller _caller) {
+    private NaSt beanTeam(NatCaller _caller) {
         PkFight stds_ = new PkFight();
         return beanTeam(stds_,_caller);
     }

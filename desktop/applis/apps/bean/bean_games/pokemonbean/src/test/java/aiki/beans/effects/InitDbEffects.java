@@ -11,7 +11,7 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.util.*;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.*;
 import code.util.*;
 
@@ -26,39 +26,39 @@ public abstract class InitDbEffects extends InitDbConstr {
     public static final String M_STA_02_TR = "M_STA_02_TR";
     public static final String M_STA_03_TR = "M_STA_03_TR";
     public static final String EV_TR = "EV_TR";
-    public static void fwdComboDto(Struct _update, Struct _use) {
+    public static void fwdComboDto(NaSt _update, NaSt _use) {
         callEffectComboBeanCombosSet(_update,callCombosBeanCombosGet(_use));
     }
 
-    public static Struct callEffectComboBeanCombosSet(Struct _str, Struct _args) {
+    public static NaSt callEffectComboBeanCombosSet(NaSt _str, NaSt _args) {
         return BeanPokemonCommonTs.callStruct(new EffectComboBeanCombosSet(),_str,_args);
     }
 
-    public static Struct callCombosBeanCombosGet(Struct _str, long... _args) {
+    public static NaSt callCombosBeanCombosGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CombosBeanCombosGet(),_str,_args);
     }
 
-    public static Struct callCombosBeanComboGet(Struct _str, long... _args) {
+    public static NaSt callCombosBeanComboGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CombosBeanComboGet(),_str,_args);
     }
 
-    public static Struct callCombosBeanGetCombosKey() {
+    public static NaSt callCombosBeanGetCombosKey() {
         return BeanPokemonCommonTs.callLongs(new CombosBeanGetCombosKey(),dispAllCombos());
     }
 
-    protected static Struct dispAllCombos() {
+    protected static NaSt dispAllCombos() {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<Struct> all_ = beanToCombosSet(pk_);
-        Struct combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
+        StringMap<NaSt> all_ = beanToCombosSet(pk_);
+        NaSt combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
         beforeDisplaying(combos_);
         return combos_;
     }
 
-    protected static Struct dispAllCombos(int _ind) {
+    protected static NaSt dispAllCombos(int _ind) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<Struct> all_ = beanToCombosSet(pk_);
-        Struct combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
-        Struct combo_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBO);
+        StringMap<NaSt> all_ = beanToCombosSet(pk_);
+        NaSt combos_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBOS);
+        NaSt combo_ = all_.getVal(AikiBeansEffectsStd.BEAN_COMBO);
         beforeDisplaying(combos_);
         callCombosBeanComboGet(combos_);
         fwdComboDto(combo_,combos_);
@@ -67,12 +67,12 @@ public abstract class InitDbEffects extends InitDbConstr {
         return combo_;
     }
 
-    public static Struct callEffectComboBeanIndexSet(Struct _str, int _args) {
+    public static NaSt callEffectComboBeanIndexSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EffectComboBeanIndexSet(),_str,_args);
     }
 
-    public static StringMap<Struct> beanToCombosSet(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToCombosSet(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansEffectsStd.BEAN_COMBO,_pk.beanEffectComboBean(EN));
         map_.addEntry(AikiBeansEffectsStd.BEAN_COMBOS,_pk.beanCombosBean(EN));
         return map_;

@@ -1,12 +1,12 @@
 package aiki.beans.game;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class GameProgressionBeanNicknameGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance()).getNickname());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance()).getNickname());
     }
 }

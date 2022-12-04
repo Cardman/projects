@@ -1,12 +1,12 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokemonBeanExpRateGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new LongStruct(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getExpRate());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getExpRate());
     }
 }

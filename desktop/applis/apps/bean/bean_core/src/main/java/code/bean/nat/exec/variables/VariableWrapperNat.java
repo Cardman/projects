@@ -1,19 +1,19 @@
 package code.bean.nat.exec.variables;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 
 public final class VariableWrapperNat {
 
-    private Struct element;
+    private NaSt element;
 
-    public VariableWrapperNat(Struct _local) {
+    public VariableWrapperNat(NaSt _local) {
         element = _local;
     }
-    public void setValue(Struct _right) {
+    public void setValue(NaSt _right) {
         element= _right;
     }
 
-    public Struct getValue() {
+    public NaSt getValue() {
         return element;
     }
 

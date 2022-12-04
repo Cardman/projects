@@ -1,16 +1,16 @@
 package code.formathtml.sample;
 
 import code.bean.nat.NatArrayStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public class SampleCompositeEmStrings implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
+    public NaSt re(NaSt _instance, NaSt[] _args) {
         NatArrayStruct arr_ = new NatArrayStruct(2);
-        arr_.set(0,new StringStruct(""));
-        arr_.set(1,new StringStruct("SECOND"));
+        arr_.set(0,new NaStSt(""));
+        arr_.set(1,new NaStSt("SECOND"));
         return arr_;
     }
 }

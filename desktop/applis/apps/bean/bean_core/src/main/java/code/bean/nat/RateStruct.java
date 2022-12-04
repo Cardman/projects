@@ -1,18 +1,18 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.AbNullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.maths.Rate;
 
-public final class RateStruct extends AbNullStruct implements NatDisplayableStruct {
+public final class RateStruct extends NaNuSt implements NatDisplayableStruct {
 
     private final Rate value;
     public RateStruct(Rate _instance) {
         value = _instance;
     }
 
-    public static Rate convertToRate(Struct _r) {
+    public static Rate convertToRate(NaSt _r) {
         if (_r instanceof RateStruct) {
             return ((RateStruct)_r).getInstance();
         }
@@ -24,7 +24,7 @@ public final class RateStruct extends AbNullStruct implements NatDisplayableStru
     }
 
     @Override
-    public StringStruct getDisplayedString() {
-        return new StringStruct(getInstance().toNumberString());
+    public NaStSt getDisplayedString() {
+        return new NaStSt(getInstance().toNumberString());
     }
 }

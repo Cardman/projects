@@ -1,12 +1,12 @@
 package aiki.beans.pokemon.evolutions;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EvolutionStoneBeanStoneGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EvolutionStoneBean) ((PokemonBeanStruct)_instance).getInstance()).getStone());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (EvolutionStoneBean) ((PokemonBeanStruct)_instance).getInstance()).getStone());
     }
 }

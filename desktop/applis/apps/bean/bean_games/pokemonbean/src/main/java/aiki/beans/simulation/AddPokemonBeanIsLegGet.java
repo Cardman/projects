@@ -2,10 +2,10 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 public class AddPokemonBeanIsLegGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (AddPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg());
     }
 }

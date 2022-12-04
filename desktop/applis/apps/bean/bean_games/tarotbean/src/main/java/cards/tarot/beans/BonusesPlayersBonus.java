@@ -1,11 +1,11 @@
 package cards.tarot.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public final class BonusesPlayersBonus implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct((((BonusesPlayersStruct)_instance).getBonusesPlayers()).getBonus());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt((((BonusesPlayersStruct)_instance).getBonusesPlayers()).getBonus());
     }
 }

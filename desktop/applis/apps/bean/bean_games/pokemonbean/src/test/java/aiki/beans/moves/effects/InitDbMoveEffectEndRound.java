@@ -12,33 +12,33 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectEndRound extends InitDbMoveEffect {
 
-    public static Struct callEffectEndRoundMoveBeanEndRoundRankGet(Struct _str, long... _args) {
+    public static NaSt callEffectEndRoundMoveBeanEndRoundRankGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanEndRoundRankGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(Struct _str, long... _args) {
+    public static NaSt callEffectEndRoundMoveBeanMapVarsFailEndRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanMapVarsFailEndRoundGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundMoveBeanReasonsEndRoundGet(Struct _str, long... _args) {
+    public static NaSt callEffectEndRoundMoveBeanReasonsEndRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundMoveBeanReasonsEndRoundGet(),_str,_args);
     }
-    protected static Struct dispMoveEffEndRound() {
+    protected static NaSt dispMoveEffEndRound() {
         return dispMoveEffEndRound(feedDbMoveEffDataDam());
     }
-    protected static Struct dispMoveEffEndRound(FacadeGame _fac) {
+    protected static NaSt dispMoveEffEndRound(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectEndRound(pk_);
+        StringMap<NaSt> all_ = beanToEffectEndRound(pk_);
         StringMap<String> mapping_ = mappingToEffectEndRound();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectEndRound(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectEndRound(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ENDROUND,_pk.beanEffectEndRoundMoveBean(EN));
         return map_;
     }

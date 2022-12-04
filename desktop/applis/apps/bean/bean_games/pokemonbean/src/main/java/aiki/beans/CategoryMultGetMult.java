@@ -1,11 +1,11 @@
 package aiki.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class CategoryMultGetMult implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( ((CategoryMultStruct) _instance).getInstance()).getMult());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( ((CategoryMultStruct) _instance).getInstance()).getMult());
     }
 }

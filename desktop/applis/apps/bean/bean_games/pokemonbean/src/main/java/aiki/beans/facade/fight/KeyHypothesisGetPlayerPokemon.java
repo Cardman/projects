@@ -1,12 +1,12 @@
 package aiki.beans.facade.fight;
 
 import aiki.beans.fight.KeyHypothesisStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class KeyHypothesisGetPlayerPokemon implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( ((KeyHypothesisStruct) _instance).getInstance()).getPlayerPokemon());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( ((KeyHypothesisStruct) _instance).getInstance()).getPlayerPokemon());
     }
 }

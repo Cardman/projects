@@ -1,13 +1,13 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokemonBeanGetEv implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getEv(NumParsers.convertToNumber(_args[0]).intStruct()));
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (PokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getEv(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 }

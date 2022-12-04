@@ -2,11 +2,11 @@ package aiki.beans.facade.dto;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 
 public class MoveLineAccuracyGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( ((MvLineStruct) _instance).getWildPk()).getAccuracy());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( ((MvLineStruct) _instance).getWildPk()).getAccuracy());
     }
 }

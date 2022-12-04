@@ -6,7 +6,7 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.sml.*;
 import code.util.*;
 import code.util.core.*;
@@ -37,7 +37,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     protected static final char BEGIN_ARGS = '(';
 
     private final StringMap<String> iterables = new StringMap<String>();
-    private final StringMap<Struct> beansStruct = new StringMap<Struct>();
+    private final StringMap<NaSt> beansStruct = new StringMap<NaSt>();
 
     private final StringMap<NatDocumentBlock> renders = new StringMap<NatDocumentBlock>();
     private final StringMap<SpecialNatClass> stds = new StringMap<SpecialNatClass>();
@@ -48,7 +48,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 
     public String getRes(NatDocumentBlock _rend, NatConfigurationCore _conf, NatRendStackCall _rendStackCall,NatImportingPageAbs _pa) {
         String beanName_ = _rend.getBeanName();
-        Struct bean_ = beansStruct.getVal(beanName_);
+        NaSt bean_ = beansStruct.getVal(beanName_);
         _rendStackCall.setMainBean(bean_);
         NatRendImport.beforeDisp(bean_);
         return RendBlockHelp.res(_rend, _conf, _rendStackCall, beanName_, bean_,_pa);
@@ -63,7 +63,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 
     public void preInitBeans(NatConfigurationCore _conf) {
         for (EntryCust<String, String> e: _conf.getBeansInfos().entryList()) {
-            beansStruct.addEntry(e.getKey(), NullStruct.NULL_VALUE);
+            beansStruct.addEntry(e.getKey(), NaNu.NULL_VALUE);
         }
     }
 
@@ -76,11 +76,11 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 //        }
 //    }
 
-    protected Struct getBeanOrNull(String _currentBeanName) {
+    protected NaSt getBeanOrNull(String _currentBeanName) {
         return getBean(_currentBeanName);
     }
 
-    private Struct getBean(String _beanName) {
+    private NaSt getBean(String _beanName) {
         return beansStruct.getVal(_beanName);
     }
 
@@ -171,12 +171,12 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         String lg_ = _nav.getLanguage();
         initBeans(session_,lg_);
         String currentUrl_ = session_.getFirstUrl();
-        Struct bean_ = getBeanOrNull(_nav.getCurrentBeanName());
+        NaSt bean_ = getBeanOrNull(_nav.getCurrentBeanName());
         proc(_nav, _rendStackCall, currentUrl_, bean_);
     }
     protected abstract NatRendStackCall newNatRendStackCall();
 
-    protected void proc(NatNavigation _nav, NatRendStackCall _rendStack, String _actionCommand, Struct _bean) {
+    protected void proc(NatNavigation _nav, NatRendStackCall _rendStack, String _actionCommand, NaSt _bean) {
         _rendStack.clearPages();
         NatConfigurationCore session_ = _nav.getSession();
         String lg_ = _nav.getLanguage();
@@ -196,7 +196,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 //        return methodName_;
 //    }
 
-    protected abstract InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack);
+    protected abstract InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack);
 
 //    @Override
 //    public void beforeDisplaying(Struct _arg, Configuration _cont, ContextEl _ctx, StackCall _stack, RendStackCall _rendStack) {
@@ -222,7 +222,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (Long s:_ls) {
-            arr_.set(j_,new LongStruct(s));
+            arr_.set(j_,new NaNbSt(s));
             j_++;
         }
         return arr_;
@@ -232,7 +232,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;
         for (String s:_ls) {
-            arr_.set(j_,new StringStruct(StringUtil.nullToEmpty(s)));
+            arr_.set(j_,new NaStSt(StringUtil.nullToEmpty(s)));
             j_++;
         }
         return arr_;
@@ -241,7 +241,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String,Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
@@ -253,7 +253,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
     }
 
     @Override
-    public BeanNatCommonLgNames setBeanForms(Struct _mainBean, Struct _called){
+    public BeanNatCommonLgNames setBeanForms(NaSt _mainBean, NaSt _called){
         return this;
     }
     public void setupNative(NatAnalyzedCode _page) {
@@ -274,7 +274,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
 //    }
 
 
-    public StringMap<Struct> getBeansStruct() {
+    public StringMap<NaSt> getBeansStruct() {
         return beansStruct;
     }
 
@@ -282,14 +282,14 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         return renders;
     }
 
-    public static PairStruct getPairStruct(Struct _arg) {
+    public static PairStruct getPairStruct(NaSt _arg) {
         if (_arg instanceof PairStruct) {
             return (PairStruct)_arg;
         }
-        return new PairStruct(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE);
+        return new PairStruct(NaNu.NULL_VALUE,NaNu.NULL_VALUE);
     }
 
-    public static SimpleItrStruct getSimpleItrStruct(Struct _arg) {
+    public static SimpleItrStruct getSimpleItrStruct(NaSt _arg) {
         if (_arg instanceof SimpleItrStruct) {
             return (SimpleItrStruct)_arg;
         }
@@ -297,7 +297,7 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         return new SimpleItrStruct(array_);
     }
 
-    public static NatArrayStruct getArray(Struct _arg) {
+    public static NatArrayStruct getArray(NaSt _arg) {
         NatArrayStruct array_;
         if (_arg instanceof NatArrayStruct) {
             array_ = (NatArrayStruct) _arg;
@@ -335,13 +335,13 @@ public abstract class BeanNatCommonLgNames implements BeanNatCommonLgNamesInt, A
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, getRenders(),_builder);
     }
 
-    public static String processString(Struct _struct) {
-        if (_struct instanceof NumberStruct) {
-            return Long.toString(((NumberStruct) _struct).longStruct());
-        }
-        if (_struct instanceof StringStruct) {
-            return ((StringStruct) _struct).getInstance();
-        }
+    public static String processString(NaSt _struct) {
+//        if (_struct instanceof NaNbSt) {
+//            return Long.toString(((NaNbSt) _struct).longStruct());
+//        }
+//        if (_struct instanceof NaStSt) {
+//            return ((NaStSt) _struct).getInstance();
+//        }
         if (_struct instanceof NatDisplayableStruct) {
             return ((NatDisplayableStruct) _struct).getDisplayedString().getInstance();
         }

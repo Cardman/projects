@@ -1,12 +1,12 @@
 package aiki.beans.pokemon.evolutions;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.LongStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EvolutionHappinessBeanMinGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new LongStruct(( (EvolutionHappinessBean) ((PokemonBeanStruct)_instance).getInstance()).getMin());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (EvolutionHappinessBean) ((PokemonBeanStruct)_instance).getInstance()).getMin());
     }
 }

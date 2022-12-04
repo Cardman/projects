@@ -12,7 +12,7 @@ import aiki.game.params.enums.DifficultyModelLaw;
 import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.bean.nat.NatHtmlPage;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
@@ -591,7 +591,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         _page.getContainer(0, _nbId).getNodeInformation().setValue(new StringList(_value));
     }
 
-    private DifficultyCommon result(Struct _str) {
+    private DifficultyCommon result(NaSt _str) {
         return ((DifficultyCommonBean) ((PokemonBeanStruct) _str).getInstance()).getDifficultyCommon();
     }
     private Rate rt() {

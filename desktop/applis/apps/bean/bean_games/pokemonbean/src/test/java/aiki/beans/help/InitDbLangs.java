@@ -10,7 +10,7 @@ import aiki.fight.moves.enums.*;
 import aiki.instances.*;
 import aiki.map.levels.enums.*;
 import aiki.map.pokemon.enums.*;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.*;
 
 public abstract class InitDbLangs extends InitDbConstr {
@@ -18,126 +18,126 @@ public abstract class InitDbLangs extends InitDbConstr {
     public static final String C_CA = "C_CA";
     public static final String T_T = "T_T";
 
-    public static Struct callLangsBeanGetKeysAbilities() {
+    public static NaSt callLangsBeanGetKeysAbilities() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysAbilities(),str());
     }
 
-    public static Struct callLangsBeanGetKeysBooleans() {
+    public static NaSt callLangsBeanGetKeysBooleans() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysBooleans(),str());
     }
 
-    public static Struct callLangsBeanGetKeysCategories() {
+    public static NaSt callLangsBeanGetKeysCategories() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysCategories(),str());
     }
 
-    public static Struct callLangsBeanGetKeysDesc() {
+    public static NaSt callLangsBeanGetKeysDesc() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysDesc(),str());
     }
 
-    public static Struct callLangsBeanGetKeysEnvironments() {
+    public static NaSt callLangsBeanGetKeysEnvironments() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysEnvironments(),str());
     }
 
-    public static Struct callLangsBeanGetKeysGenders() {
+    public static NaSt callLangsBeanGetKeysGenders() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysGenders(),str());
     }
 
-    public static Struct callLangsBeanGetKeysItems() {
+    public static NaSt callLangsBeanGetKeysItems() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysItems(),str());
     }
 
-    public static Struct callLangsBeanGetKeysMath() {
+    public static NaSt callLangsBeanGetKeysMath() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysMath(),str());
     }
 
-    public static Struct callLangsBeanGetKeysMoves() {
+    public static NaSt callLangsBeanGetKeysMoves() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysMoves(),str());
     }
 
-    public static Struct callLangsBeanGetKeysPokemon() {
+    public static NaSt callLangsBeanGetKeysPokemon() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysPokemon(),str());
     }
 
-    public static Struct callLangsBeanGetKeysStatistics() {
+    public static NaSt callLangsBeanGetKeysStatistics() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysStatistics(),str());
     }
 
-    public static Struct callLangsBeanGetKeysStatus() {
+    public static NaSt callLangsBeanGetKeysStatus() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysStatus(),str());
     }
 
-    public static Struct callLangsBeanGetKeysTargets() {
+    public static NaSt callLangsBeanGetKeysTargets() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysTargets(),str());
     }
 
-    public static Struct callLangsBeanGetKeysTypes() {
+    public static NaSt callLangsBeanGetKeysTypes() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetKeysTypes(),str());
     }
 
-    public static Struct callLangsBeanGetRowAbility(int _args) {
+    public static NaSt callLangsBeanGetRowAbility(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowAbility(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowBoolean(int _args) {
+    public static NaSt callLangsBeanGetRowBoolean(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowBoolean(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowCategory(int _args) {
+    public static NaSt callLangsBeanGetRowCategory(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowCategory(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowDesc(int _args) {
+    public static NaSt callLangsBeanGetRowDesc(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowDesc(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowEnvironment(int _args) {
+    public static NaSt callLangsBeanGetRowEnvironment(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowEnvironment(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowGender(int _args) {
+    public static NaSt callLangsBeanGetRowGender(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowGender(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowItem(int _args) {
+    public static NaSt callLangsBeanGetRowItem(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowItem(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowMath(int _args) {
+    public static NaSt callLangsBeanGetRowMath(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowMath(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowMove(int _args) {
+    public static NaSt callLangsBeanGetRowMove(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowMove(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowPokemon(int _args) {
+    public static NaSt callLangsBeanGetRowPokemon(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowPokemon(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowStatistic(int _args) {
+    public static NaSt callLangsBeanGetRowStatistic(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowStatistic(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowStatus(int _args) {
+    public static NaSt callLangsBeanGetRowStatus(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowStatus(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowTarget(int _args) {
+    public static NaSt callLangsBeanGetRowTarget(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowTarget(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetRowType(int _args) {
+    public static NaSt callLangsBeanGetRowType(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetRowType(),str(),_args);
     }
 
-    public static Struct callLangsBeanGetTrLang(int _args) {
+    public static NaSt callLangsBeanGetTrLang(int _args) {
         return BeanPokemonCommonTs.callLongs(new LangsBeanGetTrLang(),str(),_args);
     }
 
-    public static Struct callLangsBeanLanguagesGet() {
+    public static NaSt callLangsBeanLanguagesGet() {
         return BeanPokemonCommonTs.callLongs(new LangsBeanLanguagesGet(),str());
     }
-    protected static Struct str() {
+    protected static NaSt str() {
         PkData pk_ = pkDataByFacade(db());
         PokemonBeanStruct bean_ = pk_.beanLangsBean(EN);
         beforeDisplaying(bean_);

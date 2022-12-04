@@ -4,7 +4,7 @@ import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -32,7 +32,7 @@ public final class NatRendMessage extends NatParentBlock {
         StringList objects_ = new StringList();
         StringList anchorArg_ = new StringList();
         for (int i = 0; i< l_; i++) {
-            Struct arg_ = BeanNatCommonLgNames.getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument();
+            NaSt arg_ = BeanNatCommonLgNames.getAllArgs(opExp.get(i), _rendStack).lastValue().getArgument();
             String res_;
             res_ = BeanNatCommonLgNames.processString(arg_);
             objects_.add(res_);

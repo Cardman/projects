@@ -1,12 +1,12 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EffectFullHpRateBeanRestoredHpGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (EffectFullHpRateBean) ((PokemonBeanStruct)_instance).getInstance()).getRestoredHp());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (EffectFullHpRateBean) ((PokemonBeanStruct)_instance).getInstance()).getRestoredHp());
     }
 }

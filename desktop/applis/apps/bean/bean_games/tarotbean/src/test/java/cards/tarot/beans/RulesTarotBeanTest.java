@@ -5,7 +5,7 @@ import cards.consts.MixCardsChoice;
 import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
 import code.sml.NavigationCore;
@@ -40,14 +40,14 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
 
     @Test
     public void getMiseres() {
-        Struct res_ = callRulesTarotBeanMiseres(displaying(beanRules(EN, rules())));
+        NaSt res_ = callRulesTarotBeanMiseres(displaying(beanRules(EN, rules())));
         assertSizeEq(1, res_);
         assertEq(LOW_CARDS, res_,0);
     }
 
     @Test
     public void getBids() {
-        Struct res_ = callRulesTarotBeanContrats(displaying(beanRules(EN, rules())));
+        NaSt res_ = callRulesTarotBeanContrats(displaying(beanRules(EN, rules())));
         assertSizeEq(3, res_);
         assertEq(FOLD, res_,0);
         assertEq(GUARD, res_,1);
@@ -56,7 +56,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
 
     @Test
     public void getHanfuls() {
-        Struct res_ = callRulesTarotBeanPoigneesAutorisees(displaying(beanRules(EN, rules())));
+        NaSt res_ = callRulesTarotBeanPoigneesAutorisees(displaying(beanRules(EN, rules())));
         assertSizeEq(4, res_);
         assertFirstEq(ONE, elt(res_,0));
         assertSecondEq(8, elt(res_,0));

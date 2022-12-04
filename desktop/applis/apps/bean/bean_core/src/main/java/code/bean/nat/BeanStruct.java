@@ -1,9 +1,9 @@
 package code.bean.nat;
 
 import code.bean.Bean;
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 
-public abstract class BeanStruct extends AbNullStruct {
+public abstract class BeanStruct extends NaNuSt {
     private final Bean bean;
 
     protected BeanStruct(Bean _bean) {

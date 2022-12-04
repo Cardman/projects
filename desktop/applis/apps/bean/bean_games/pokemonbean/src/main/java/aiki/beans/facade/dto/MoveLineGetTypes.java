@@ -2,11 +2,11 @@ package aiki.beans.facade.dto;
 
 import aiki.beans.MvLineStruct;
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class MoveLineGetTypes implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         return BeanNatCommonLgNames.getStringArray(( ((MvLineStruct) _instance).getWildPk()).getTypes());
     }
 }

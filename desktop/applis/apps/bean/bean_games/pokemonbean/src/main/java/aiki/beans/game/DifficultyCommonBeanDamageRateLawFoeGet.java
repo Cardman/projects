@@ -2,10 +2,10 @@ package aiki.beans.game;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 public class DifficultyCommonBeanDamageRateLawFoeGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(((DifficultyCommonBean)((PokemonBeanStruct)_instance).getInstance()).getDamageRateLawFoe());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(((DifficultyCommonBean)((PokemonBeanStruct)_instance).getInstance()).getDamageRateLawFoe());
     }
 }

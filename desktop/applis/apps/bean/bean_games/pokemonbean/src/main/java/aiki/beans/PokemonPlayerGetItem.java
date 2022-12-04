@@ -1,12 +1,12 @@
 package aiki.beans;
 
 import aiki.map.pokemon.PokemonPlayer;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokemonPlayerGetItem implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (PokemonPlayer) ((PkStruct)_instance).getWildPk()).getItem());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (PokemonPlayer) ((PkStruct)_instance).getWildPk()).getItem());
     }
 }

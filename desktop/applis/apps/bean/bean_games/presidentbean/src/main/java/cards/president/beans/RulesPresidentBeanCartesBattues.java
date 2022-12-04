@@ -1,13 +1,13 @@
 package cards.president.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public class RulesPresidentBeanCartesBattues implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
+    public NaSt re(NaSt _instance, NaSt[] _args) {
         RulesPresidentBean rules_ = (RulesPresidentBean) ((PresidentBeanStruct)_instance).getInstance();
-        return new StringStruct(rules_.getCartesBattues());
+        return new NaStSt(rules_.getCartesBattues());
     }
 }

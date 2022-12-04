@@ -4,7 +4,7 @@ import aiki.beans.abilities.AikiBeansAbilitiesStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -35,11 +35,11 @@ public final class FightHelpBeanAbilitiesUserTargetDamageTest extends InitDbFigh
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickAbilitiesUserTargetDamage(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickAbilitiesUserTargetDamage(b_,0);
         return getValAbilityId(b_);
     }

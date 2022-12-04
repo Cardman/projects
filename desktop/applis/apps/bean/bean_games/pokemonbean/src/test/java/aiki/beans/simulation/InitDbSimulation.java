@@ -30,7 +30,7 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.util.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.images.*;
 import code.maths.*;
 import code.maths.montecarlo.*;
@@ -126,23 +126,23 @@ public abstract class InitDbSimulation extends InitDbConstr {
     public static final String PL_8 = "PL 8";
     public static final String PL_9 = "PL 9";
 
-    public static Struct callSimulationBeanAbilitiesAfterFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAbilitiesAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAbilitiesGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAbilitiesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilitiesGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAbilityAfterFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAbilityAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAbilityAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAdd(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAdd(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAdd(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAddPkTrainer(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAddPkTrainer(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAddPkTrainer(),_str,_args);
     }
 //
@@ -154,79 +154,79 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanAllowedSwitchPlacesEndRoundGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanAllyChoiceGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAllyChoiceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAllyChoiceGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAllyTeamGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAllyTeamGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAllyTeamGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAvailableEvosGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanAvailableEvosGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanAvailableEvosGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelDiffChoice(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelDiffChoice(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelDiffChoice(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelEvo(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelEvo(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelEvo(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelEvolutions(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelEvolutions(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelEvolutions(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelEvolutionsAfterFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelEvolutionsAfterFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelEvolutionsAfterFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelFrontFighters(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelFrontFighters(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelFrontFighters(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelMoves(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelMoves(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelMovesEvos(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelMovesEvos(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelMovesEvos(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelMovesSets(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelMovesSets(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelMovesSets(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCancelTeam(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCancelTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCancelTeam(),_str,_args);
     }
 
-    public static Struct callSimulationBeanChangeFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanChangeFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanChangeFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanChangeFightWhileEnd(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanChangeFightWhileEnd(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanChangeFightWhileEnd(),_str,_args);
     }
 
-    public static Struct callSimulationBeanChosenEvoGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanChosenEvoGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanChosenEvoGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanClickLevel(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanClickLevel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevel(),_str,_args);
     }
 
-    public static Struct callSimulationBeanClickLevelZero(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanClickLevelZero(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanClickLevelZero(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCommentsGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCommentsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCommentsGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCurrentAbilityGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanCurrentAbilityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanCurrentAbilityGet(),_str,_args);
     }
 
@@ -254,15 +254,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanDiffWinningExpPtsFightGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanDisplayComments(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanDisplayComments(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanDisplayComments(),_str,_args);
     }
 
-    public static Struct callSimulationBeanDisplayEvolutions(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanDisplayEvolutions(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanDisplayEvolutions(),_str,_args);
     }
 
-    public static Struct callSimulationBeanDisplayIfErrorGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanDisplayIfErrorGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanDisplayIfErrorGet(),_str,_args);
     }
 
@@ -274,203 +274,203 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanEndFightIfOneTeamKoGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanEnvironmentGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanEnvironmentGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanEnvironmentGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanEnvironmentsGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanEnvironmentsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanEnvironmentsGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanEvolutionAfterFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanEvolutionAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanEvolutionAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanEvolutionsAfterFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanEvolutionsAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanEvolutionsAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanFoeTeamGet(Struct _str) {
+    public static NaSt callSimulationBeanFoeTeamGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanFoeTeamGet(),_str);
     }
 
-    public static Struct callSimulationBeanFreeTeamsGet(int _team) {
+    public static NaSt callSimulationBeanFreeTeamsGet(int _team) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanFreeTeamsGet(),initByTeam(_team));
     }
 
-    public static Struct callSimulationBeanGetAbility(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetAbility(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbility(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetAbilityAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetAbilityAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetAbilityAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetAbilityAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetAbilityFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetAbilityFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetAbilityFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGender(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetGender(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGender(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGenderAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetGenderAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGenderAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetGenderAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetGenderFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetGenderFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetGenderFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImage(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetImage(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImage(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImageAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetImageAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImageAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetImageAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetImageFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetImageFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetImageFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItem(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetItem(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItem(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItemAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetItemAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItemAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetItemAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetItemFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetItemFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetItemFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetKoFoes(Struct _str) {
+    public static NaSt callSimulationBeanGetKoFoes(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetKoFoes(),_str);
     }
 
-    public static Struct callSimulationBeanGetKoPlayers(Struct _str) {
+    public static NaSt callSimulationBeanGetKoPlayers(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetKoPlayers(),_str);
     }
 
-    public static Struct callSimulationBeanGetLevel(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetLevel(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevel(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetLevelAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetLevelAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetLevelAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetLevelAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetLevelFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetLevelFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetLevelFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMoves(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetMoves(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMoves(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMovesAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetMovesAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMovesAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetMovesAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetMovesFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetMovesFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetMovesFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetName(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetName(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetName(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNameAfterFight(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetNameAfterFight(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameAfterFight(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNameAlly(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetNameAlly(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameAlly(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNameFoe(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetNameFoe(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNameFoe(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetNotKoFrontFoes(Struct _str) {
+    public static NaSt callSimulationBeanGetNotKoFrontFoes(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetNotKoFrontFoes(),_str);
     }
 
-    public static Struct callSimulationBeanGetRealStepNumber(Struct _str) {
+    public static NaSt callSimulationBeanGetRealStepNumber(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetRealStepNumber(),_str);
     }
 
-    public static Struct callSimulationBeanGetRemainingLifeRate(Struct _str, int _index) {
+    public static NaSt callSimulationBeanGetRemainingLifeRate(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetRemainingLifeRate(),_str,_index);
     }
 
-    public static Struct callSimulationBeanGetTrainerName(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanGetTrainerName(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanGetTrainerName(),_str,_args);
     }
 
-    public static Struct callSimulationBeanHideComments(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanHideComments(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanHideComments(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIndexTeamGet(Struct _str) {
+    public static NaSt callSimulationBeanIndexTeamGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIndexTeamGet(),_str);
     }
 
-    public static Struct callSimulationBeanIsAvailableAbilities(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsAvailableAbilities(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsAvailableAbilities(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsAvailableMoves(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsAvailableMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsAvailableMoves(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsDiffState(Struct _str) {
+    public static NaSt callSimulationBeanIsDiffState(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsDiffState(),_str);
     }
 
-    public static Struct callSimulationBeanIsEvolutionAfterFightState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsEvolutionAfterFightState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsEvolutionAfterFightState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsEvolutionsState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsEvolutionsState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsEvolutionsState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsFightAfter(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsFightAfter(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsFightAfter(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsFoeState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsFoeState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsFoeState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsFrontState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsFrontState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsFrontState(),_str,_args);
     }
 
@@ -478,7 +478,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsHardSimulationIssue(),_str,_args);
 //    }
 //
-    public static Struct callSimulationBeanIsIssue(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsIssue(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssue(),_str,_args);
     }
 
@@ -486,15 +486,15 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsIssueAfterFight(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanIsMovesFightState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsMovesFightState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsMovesFightState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsMovesState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsMovesState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsMovesState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsMultiLayer(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsMultiLayer(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsMultiLayer(),_str,_args);
     }
 //
@@ -522,11 +522,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSendingIssue(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanIsSimulationState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsSimulationState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsSimulationState(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIsTeamState(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanIsTeamState(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanIsTeamState(),_str,_args);
     }
 
@@ -542,67 +542,67 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanIvPlayerGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanKeptMovesAfterFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanKeptMovesAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanKeptMovesAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanKeptMovesGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanKeptMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanKeptMovesGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanLayers(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanLayers(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanLayers(),_str,_args);
     }
 
-    public static Struct callSimulationBeanLevelEvoGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanLevelEvoGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanLevelEvoGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanMovesSetGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanMovesSetGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanMovesSetGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanMultiplicityGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanMultiplicityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanMultiplicityGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanNbTeamsGet(int _team) {
+    public static NaSt callSimulationBeanNbTeamsGet(int _team) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNbTeamsGet(),initByTeam(_team));
     }
 
-    public static Struct callSimulationBeanSelectedTeamNumberGet(Struct _str) {
+    public static NaSt callSimulationBeanSelectedTeamNumberGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedTeamNumberGet(),_str);
     }
 
-    public static Struct callSimulationBeanNextFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanNextFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNextFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanNumberNecessaryPointsForGrowingLevel(Struct _str, int _index) {
+    public static NaSt callSimulationBeanNumberNecessaryPointsForGrowingLevel(NaSt _str, int _index) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNumberNecessaryPointsForGrowingLevel(),_str,_index);
     }
 
-    public static Struct callSimulationBeanNumbers(int _teams) {
+    public static NaSt callSimulationBeanNumbers(int _teams) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanNumbers(),validateDiff(_teams));
     }
 
-    public static Struct callSimulationBeanOkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanOkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanOkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanPlaceFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanPlaceFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanPlaceFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanPlacesFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanPlacesFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanPlacesFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanPlacesGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanPlacesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanPlacesGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanQuit(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanQuit(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanQuit(),_str,_args);
     }
 
@@ -626,79 +626,79 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanRestoredMovesEndFightGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanRoundGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanRoundGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectAllyPk(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectAllyPk(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectAllyPk(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectFoePk(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectFoePk(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectFoePk(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectPk(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectPk(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectPk(),_str,_args);
     }
 
-    public static Struct callSimulationBeanErrorSelectedPkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanErrorSelectedPkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanErrorSelectedPkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectPkAfterFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectPkAfterFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectPkAfterFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedActionGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedActionGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedActionGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedAllyActionGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedAllyActionGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedAllyActionGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanErrorSelectedAllyPkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanErrorSelectedAllyPkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanErrorSelectedAllyPkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedAllyPkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedAllyPkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedAllyPkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedFoeActionGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedFoeActionGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedFoeActionGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanErrorSelectedFoePkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanErrorSelectedFoePkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanErrorSelectedFoePkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedFoePkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedFoePkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedFoePkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedIndex(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedIndex(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedIndex(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedIndexForMoves(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedIndexForMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedIndexForMoves(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedMoveGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedMoveGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedPkGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedPkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedPkGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedRoundGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSelectedRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSelectedRoundGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSimulateFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanSimulateFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanSimulateFight(),_str,_args);
     }
 
@@ -710,91 +710,91 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanStillPossibleFleeGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanTargetFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanTargetFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanTargetFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanTargetGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanTargetGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanTargetGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanTeamAfterFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanTeamAfterFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanTeamAfterFightGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanTeamGet(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanTeamGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanTeamGet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateDiffChoice(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateDiffChoice(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateDiffChoice(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateEvo(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateEvo(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateEvo(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateEvolutionAfterFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateEvolutionAfterFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateEvolutionAfterFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateEvolutions(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateEvolutions(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateEvolutions(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateFoeChoice(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateFoeChoice(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateFoeChoice(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateFoeChoiceFree(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateFoeChoiceFree(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateFoeChoiceFree(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateFoeChoiceSkipEvolutions(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateFoeChoiceSkipEvolutions(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateFoeChoiceSkipEvolutions(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateFrontFighter(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateFrontFighter(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateFrontFighter(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateFrontFighters(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateFrontFighters(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateFrontFighters(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateMoves(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateMoves(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateMovesAbilityAfterFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateMovesAbilityAfterFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateMovesAbilityAfterFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateMovesAfterFight(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateMovesAfterFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateMovesAfterFight(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateMovesChoice(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateMovesChoice(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateMovesChoice(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateMovesSets(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateMovesSets(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateMovesSets(),_str,_args);
     }
 
-    public static Struct callSimulationBeanValidateTeam(Struct _str, long... _args) {
+    public static NaSt callSimulationBeanValidateTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationBeanValidateTeam(),_str,_args);
     }
 
-    public static Struct callSimulationBeanAbilityAfterFightSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanAbilityAfterFightSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanAbilityAfterFightSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanChosenEvoSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanChosenEvoSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanChosenEvoSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanCurrentAbilitySet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanCurrentAbilitySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanCurrentAbilitySet(),_str,_args);
     }
 
@@ -810,39 +810,39 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callString(new SimulationBeanDiffWinningExpPtsFightSet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanEnvironmentSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanEnvironmentSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanEnvironmentSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanEvolutionAfterFightSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanEvolutionAfterFightSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanEvolutionAfterFightSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanPlaceFightSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanPlaceFightSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanPlaceFightSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedActionSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanSelectedActionSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanSelectedActionSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedAllyActionSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanSelectedAllyActionSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanSelectedAllyActionSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedFoeActionSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanSelectedFoeActionSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanSelectedFoeActionSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedRoundSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanSelectedRoundSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanSelectedRoundSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanTargetSet(Struct _str, String _args) {
+    public static NaSt callSimulationBeanTargetSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SimulationBeanTargetSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanIndexTeamSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanIndexTeamSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanIndexTeamSet(),_str,_args);
     }
 
@@ -854,31 +854,31 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callInt(new SimulationBeanIvPlayerSet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanLevelEvoSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanLevelEvoSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanLevelEvoSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanMultiplicitySet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanMultiplicitySet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanMultiplicitySet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanNbTeamsSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanNbTeamsSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanNbTeamsSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedAllyPkSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanSelectedAllyPkSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanSelectedAllyPkSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedFoePkSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanSelectedFoePkSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanSelectedFoePkSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedMoveSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanSelectedMoveSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanSelectedMoveSet(),_str,_args);
     }
 
-    public static Struct callSimulationBeanSelectedPkSet(Struct _str, int _args) {
+    public static NaSt callSimulationBeanSelectedPkSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationBeanSelectedPkSet(),_str,_args);
     }
 
@@ -890,7 +890,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callBool(new SimulationBeanAllowedSwitchPlacesEndRoundSet(),_str,_args);
 //    }
 
-    public static Struct callSimulationBeanAllyChoiceSet(Struct _str, boolean _args) {
+    public static NaSt callSimulationBeanAllyChoiceSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new SimulationBeanAllyChoiceSet(),_str,_args);
     }
 
@@ -945,180 +945,180 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationBeanWinTrainerExpGet(),_str,_args);
 //    }
 
-    public static Struct callAddPokemonBeanAbilitySet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanAbilitySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanAbilitySet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanGenderSet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanGenderSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanGenderSet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanHasEvoSet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanHasEvoSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanHasEvoSet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanIsEvoSet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanIsEvoSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanIsEvoSet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanIsLegSet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanIsLegSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanIsLegSet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanTypedNameSet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanTypedNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanTypedNameSet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanTypedTypeSet(Struct _str, String _args) {
+    public static NaSt callAddPokemonBeanTypedTypeSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AddPokemonBeanTypedTypeSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanBallSet(Struct _str, String _args) {
+    public static NaSt callEditPokemonBeanBallSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new EditPokemonBeanBallSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanCategorySet(Struct _str, String _args) {
+    public static NaSt callEditPokemonMovesBeanCategorySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new EditPokemonMovesBeanCategorySet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanTypedNameSet(Struct _str, String _args) {
+    public static NaSt callEditPokemonMovesBeanTypedNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new EditPokemonMovesBeanTypedNameSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanTypedTypeSet(Struct _str, String _args) {
+    public static NaSt callEditPokemonMovesBeanTypedTypeSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new EditPokemonMovesBeanTypedTypeSet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanGenderSet(Struct _str, String _args) {
+    public static NaSt callEditTrainerPokemonBeanGenderSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new EditTrainerPokemonBeanGenderSet(),_str,_args);
     }
 
-    public static Struct callSelectAbilityBeanTypedAbilitySet(Struct _str, String _args) {
+    public static NaSt callSelectAbilityBeanTypedAbilitySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectAbilityBeanTypedAbilitySet(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanTypedClassSet(Struct _str, String _args) {
+    public static NaSt callSelectItemBeanTypedClassSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectItemBeanTypedClassSet(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanTypedNameSet(Struct _str, String _args) {
+    public static NaSt callSelectItemBeanTypedNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectItemBeanTypedNameSet(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanTypedPriceSet(Struct _str, String _args) {
+    public static NaSt callSelectItemBeanTypedPriceSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectItemBeanTypedPriceSet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanHasEvoSet(Struct _str, String _args) {
+    public static NaSt callSelectPokemonBeanHasEvoSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectPokemonBeanHasEvoSet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanIsEvoSet(Struct _str, String _args) {
+    public static NaSt callSelectPokemonBeanIsEvoSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectPokemonBeanIsEvoSet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanIsLegSet(Struct _str, String _args) {
+    public static NaSt callSelectPokemonBeanIsLegSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectPokemonBeanIsLegSet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanTypedNameSet(Struct _str, String _args) {
+    public static NaSt callSelectPokemonBeanTypedNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectPokemonBeanTypedNameSet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanTypedTypeSet(Struct _str, String _args) {
+    public static NaSt callSelectPokemonBeanTypedTypeSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new SelectPokemonBeanTypedTypeSet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanClickLink(Struct _str, int _args) {
+    public static NaSt callAddPokemonBeanClickLink(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new AddPokemonBeanClickLink(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanLevelSet(Struct _str, int _args) {
+    public static NaSt callAddPokemonBeanLevelSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new AddPokemonBeanLevelSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanHappinessSet(Struct _str, int _args) {
+    public static NaSt callEditPokemonBeanHappinessSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EditPokemonBeanHappinessSet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanLevelSet(Struct _str, int _args) {
+    public static NaSt callEditTrainerPokemonBeanLevelSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EditTrainerPokemonBeanLevelSet(),_str,_args);
     }
 
 
-    public static Struct callSimulationLevelBeanNoFightSet(Struct _str, int _args) {
+    public static NaSt callSimulationLevelBeanNoFightSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new SimulationLevelBeanNoFightSet(),_str,_args);
     }
 
-    public static Struct callSelectLineMoveSelectedSet(Struct _str, boolean _args) {
+    public static NaSt callSelectLineMoveSelectedSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new SelectLineMoveSelectedSet(),_str,_args);
     }
 
 
-    public static Struct callAddPokemonBeanWholeWordSet(Struct _str, boolean _args) {
+    public static NaSt callAddPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new AddPokemonBeanWholeWordSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanHealSet(Struct _str, boolean _args) {
+    public static NaSt callEditPokemonBeanHealSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new EditPokemonBeanHealSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanAvailableMovesOnlySet(Struct _str, boolean _args) {
+    public static NaSt callEditPokemonMovesBeanAvailableMovesOnlySet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new EditPokemonMovesBeanAvailableMovesOnlySet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanWholeWordSet(Struct _str, boolean _args) {
+    public static NaSt callEditPokemonMovesBeanWholeWordSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new EditPokemonMovesBeanWholeWordSet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanAllyPkSet(Struct _str, boolean _args) {
+    public static NaSt callEditTrainerPokemonBeanAllyPkSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new EditTrainerPokemonBeanAllyPkSet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanWholeWordSet(Struct _str, boolean _args) {
+    public static NaSt callSelectPokemonBeanWholeWordSet(NaSt _str, boolean _args) {
         return BeanPokemonCommonTs.callBool(new SelectPokemonBeanWholeWordSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanExperienceSet(Struct _str, Rate _args) {
+    public static NaSt callEditPokemonBeanExperienceSet(NaSt _str, Rate _args) {
         return BeanPokemonCommonTs.callRate(new EditPokemonBeanExperienceSet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanRemainingHpSet(Struct _str, Rate _args) {
+    public static NaSt callEditPokemonBeanRemainingHpSet(NaSt _str, Rate _args) {
         return BeanPokemonCommonTs.callRate(new EditPokemonBeanRemainingHpSet(),_str,_args);
     }
 
-    public static Struct callEvLineEvGet(Struct _str, long... _args) {
+    public static NaSt callEvLineEvGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EvLineEvGet(),_str,_args);
     }
-    public static Struct callEvLineEvSet(Struct _str, int _args) {
+    public static NaSt callEvLineEvSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EvLineEvSet(),_str,_args);
     }
-    public static Struct callDifficultyBeanComGet(Struct _str, long... _args) {
+    public static NaSt callDifficultyBeanComGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new DifficultyBeanComGet(),_str,_args);
     }
-    public static Struct callDifficultyBeanComSet(Struct _str, Struct _diffCom) {
+    public static NaSt callDifficultyBeanComSet(NaSt _str, NaSt _diffCom) {
         return BeanPokemonCommonTs.callStruct(new DifficultyBeanComSet(),_str,_diffCom);
     }
 
-    public static Struct callPokemonPlayerDtoIndexGet(Struct _str, long... _args) {
+    public static NaSt callPokemonPlayerDtoIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonPlayerDtoIndexGet(),_str,_args);
     }
 
-    public static Struct callPokemonTrainerDtoIndexGet(Struct _str, long... _args) {
+    public static NaSt callPokemonTrainerDtoIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new PokemonTrainerDtoIndexGet(),_str,_args);
     }
-    public static Struct callRadioLineMoveIndexGet(Struct _str, long... _args) {
+    public static NaSt callRadioLineMoveIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new RadioLineMoveIndexGet(),_str,_args);
     }
 
-    public static Struct callSelectLineMoveSelectedGet(Struct _str, long... _args) {
+    public static NaSt callSelectLineMoveSelectedGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectLineMoveSelectedGet(),_str,_args);
     }
 //    public static Struct callSimulationLevelBeanCancel(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanCancel(),_str,_args);
 //    }
 
-    public static Struct callSimulationLevelBeanClickTile(Struct _str, long... _args) {
+    public static NaSt callSimulationLevelBeanClickTile(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanClickTile(),_str,_args);
     }
 
@@ -1138,7 +1138,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanLevelIndexGet(),_str,_args);
 //    }
 
-    public static Struct callSimulationLevelBeanNoFightGet(Struct _str, long... _args) {
+    public static NaSt callSimulationLevelBeanNoFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SimulationLevelBeanNoFightGet(),_str,_args);
     }
 
@@ -1167,399 +1167,399 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //    }
 
 
-    public static Struct callAddPokemonBeanAbilitiesGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanAbilitiesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAbilitiesGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanAbilityGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanAbilityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAbilityGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanAdd(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanAdd(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanAdd(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanBooleansGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanBooleansGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanBooleansGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanCancel(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanCancel(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanGenderGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanGenderGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGenderGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanGendersGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanGendersGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGendersGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanGetMiniImage() {
+    public static NaSt callAddPokemonBeanGetMiniImage() {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanGetMiniImage(),pkPlayerSelectPkName(""),0);
     }
 
-    public static Struct callAddPokemonBeanHasEvoGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanHasEvoGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanHasEvoGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanIsEvoGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanIsEvoGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanIsEvoGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanIsLegGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanIsLegGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanIsLegGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanLevelGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanLevelGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanLevelGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanNamePkGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanNamePkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanNamePkGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanPokedexGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanPokedexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanPokedexGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanSearch(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanSearch(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanTypedNameGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanTypedNameGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanTypedTypeGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanTypedTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanTypedTypeGet(),_str,_args);
     }
 
-    public static Struct callAddPokemonBeanWholeWordGet(Struct _str, long... _args) {
+    public static NaSt callAddPokemonBeanWholeWordGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AddPokemonBeanWholeWordGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanAddMoves(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanAddMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanAddMoves(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanBallGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanBallGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanBallGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanBallsGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanBallsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanBallsGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanCancel(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanCancel(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanChooseItem(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanChooseItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanChooseItem(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanDeleteMoves(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanDeleteMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanDeleteMoves(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanEdit(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanEdit(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanEdit(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanEvGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanEvGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanEvGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanExperienceGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanExperienceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanExperienceGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanGetTranslatedStatistic(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanGetTranslatedStatistic(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanGetTranslatedStatistic(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanHappinessGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanHappinessGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanHappinessGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanHealGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanHealGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanHealGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanLevelGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanLevelGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanLevelGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanMovesGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanMovesGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanNamePkGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanNamePkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanNamePkGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanRemainingHpGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanRemainingHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanRemainingHpGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanTranslateItem(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanTranslateItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanTranslateItem(),_str,_args);
     }
 
-    public static Struct callEditPokemonBeanTranslateName(Struct _str, long... _args) {
+    public static NaSt callEditPokemonBeanTranslateName(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonBeanTranslateName(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanAddMoves(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanAddMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanAddMoves(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanAvailableMovesOnlyGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanAvailableMovesOnlyGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanAvailableMovesOnlyGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanCancel(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCancel(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanCategoriesGet(Struct _str) {
+    public static NaSt callEditPokemonMovesBeanCategoriesGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCategoriesGet(),_str);
     }
 
-    public static Struct callEditPokemonMovesBeanCategoryGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanCategoryGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanCategoryGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanMovesGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanMovesGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanPlayerGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanPlayerGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanPlayerGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanSearch(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanSearch(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanTypedNameGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanTypedNameGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanTypedTypeGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanTypedTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanTypedTypeGet(),_str,_args);
     }
 
-    public static Struct callEditPokemonMovesBeanWholeWordGet(Struct _str, long... _args) {
+    public static NaSt callEditPokemonMovesBeanWholeWordGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditPokemonMovesBeanWholeWordGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanAddGet(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanAddGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAddGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanAddMoves(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanAddMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAddMoves(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanAllyPkGet(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanAllyPkGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanAllyPkGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanCancel(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanCancel(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanChooseAbility(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanChooseAbility(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanChooseAbility(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanChooseItem(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanChooseItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanChooseItem(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanChooseName(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanChooseName(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanChooseName(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanDeleteMoves(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanDeleteMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanDeleteMoves(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanGenderGet(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanGenderGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGenderGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanGendersGet(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanGendersGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGendersGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanGetTranslatedAbility(Struct _str) {
+    public static NaSt callEditTrainerPokemonBeanGetTranslatedAbility(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedAbility(),_str);
     }
 
-    public static Struct callEditTrainerPokemonBeanGetTranslatedItem(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanGetTranslatedItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedItem(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanGetTranslatedName(Struct _str) {
+    public static NaSt callEditTrainerPokemonBeanGetTranslatedName(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanGetTranslatedName(),_str);
     }
 
-    public static Struct callEditTrainerPokemonBeanLevelGet(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanLevelGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanLevelGet(),_str,_args);
     }
 
-    public static Struct callEditTrainerPokemonBeanMovesGet(Struct _str) {
+    public static NaSt callEditTrainerPokemonBeanMovesGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanMovesGet(),_str);
     }
 
-    public static Struct callEditTrainerPokemonBeanValidateTrainerPk(Struct _str, long... _args) {
+    public static NaSt callEditTrainerPokemonBeanValidateTrainerPk(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EditTrainerPokemonBeanValidateTrainerPk(),_str,_args);
     }
 
-    public static Struct callSelectAbilityBeanCancel(Struct _str, long... _args) {
+    public static NaSt callSelectAbilityBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanCancel(),_str,_args);
     }
 
-    public static Struct callSelectAbilityBeanClickAbility(Struct _str, long... _args) {
+    public static NaSt callSelectAbilityBeanClickAbility(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanClickAbility(),_str,_args);
     }
 
-    public static Struct callSelectAbilityBeanGetTrAbility() {
+    public static NaSt callSelectAbilityBeanGetTrAbility() {
         return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanGetTrAbility(),pkTrainerSelectAb(""),1);
     }
 
-    public static Struct callSelectAbilityBeanSearch(Struct _str, long... _args) {
+    public static NaSt callSelectAbilityBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanSearch(),_str,_args);
     }
 
-    public static Struct callSelectAbilityBeanSortedAbilitiesGet(Struct _str) {
+    public static NaSt callSelectAbilityBeanSortedAbilitiesGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanSortedAbilitiesGet(),_str);
     }
 
-    public static Struct callSelectAbilityBeanTypedAbilityGet(Struct _str) {
+    public static NaSt callSelectAbilityBeanTypedAbilityGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SelectAbilityBeanTypedAbilityGet(),_str);
     }
 
-    public static Struct callSelectItemBeanCancel(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanCancel(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanCancelItem(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanCancelItem(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanCancelItem(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanClickLink(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanClickLink(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanClickLink(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanGetMiniImage() {
+    public static NaSt callSelectItemBeanGetMiniImage() {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanGetMiniImage(),pkTrainerSelectItName(""),0);
     }
 
-    public static Struct callSelectItemBeanItemsGet(Struct _str) {
+    public static NaSt callSelectItemBeanItemsGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanItemsGet(),_str);
     }
 
-    public static Struct callSelectItemBeanSearch(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanSearch(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanTypedClassGet(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanTypedClassGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanTypedClassGet(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanTypedNameGet(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanTypedNameGet(),_str,_args);
     }
 
-    public static Struct callSelectItemBeanTypedPriceGet(Struct _str, long... _args) {
+    public static NaSt callSelectItemBeanTypedPriceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectItemBeanTypedPriceGet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanBooleansGet(Struct _str) {
+    public static NaSt callSelectPokemonBeanBooleansGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanBooleansGet(),_str);
     }
 
-    public static Struct callSelectPokemonBeanCancel(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanCancel(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanCancel(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanClickLink(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanClickLink(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanClickLink(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanGetMiniImage() {
+    public static NaSt callSelectPokemonBeanGetMiniImage() {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanGetMiniImage(),pkTrainerSelectPkName(""),0);
     }
 
-    public static Struct callSelectPokemonBeanHasEvoGet(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanHasEvoGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanHasEvoGet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanIsEvoGet(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanIsEvoGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanIsEvoGet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanIsLegGet(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanIsLegGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanIsLegGet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanPokedexGet(Struct _str) {
+    public static NaSt callSelectPokemonBeanPokedexGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanPokedexGet(),_str);
     }
 
-    public static Struct callSelectPokemonBeanSearch(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanSearch(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanTypedNameGet(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanTypedNameGet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanTypedTypeGet(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanTypedTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanTypedTypeGet(),_str,_args);
     }
 
-    public static Struct callSelectPokemonBeanWholeWordGet(Struct _str, long... _args) {
+    public static NaSt callSelectPokemonBeanWholeWordGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SelectPokemonBeanWholeWordGet(),_str,_args);
     }
     protected static String quit(){
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = init(pk_, all_, mapping_);
+        NaSt simu_ = init(pk_, all_, mapping_);
         return navigateData(new SimulationBeanQuit(),simu_);
     }
-    protected static Struct validateDiff(int _nbTeam){
+    protected static NaSt validateDiff(int _nbTeam){
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         return simu(pk_,all_,mapping_,_nbTeam);
     }
 
-    protected static Struct initByTeam(int _nbTeam) {
+    protected static NaSt initByTeam(int _nbTeam) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         return init(_nbTeam,pk_,all_,mappingToSimu());
     }
-    protected static Struct init(int _nbTeam, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
-        Struct simu_ = init(_pk, _all, _mapping);
+    protected static NaSt init(int _nbTeam, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+        NaSt simu_ = init(_pk, _all, _mapping);
         callSimulationBeanNbTeamsSet(simu_, _nbTeam);
         return simu_;
     }
-    protected static Struct selectTeam(Struct _simu, int _indexTeam) {
+    protected static NaSt selectTeam(NaSt _simu, int _indexTeam) {
         callSimulationBeanIndexTeamSet(_simu, _indexTeam);
         beforeDisplaying(_simu);
         return _simu;
     }
-    protected static Struct pkTrainerTwoTeamsNextOk() {
+    protected static NaSt pkTrainerTwoTeamsNextOk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
@@ -1574,11 +1574,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         setMult(simu_,2);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
     }
-    protected static Struct pkTrainerTwoTeamsNextOkAlly() {
+    protected static NaSt pkTrainerTwoTeamsNextOkAlly() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 1);
+        NaSt simu_ = simu(pk_, all_, mapping_, 1);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
@@ -1587,11 +1587,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         setMult(simu_,2);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
     }
-    protected static Struct pkTrainerTwoTeamsNextAdjMult() {
+    protected static NaSt pkTrainerTwoTeamsNextAdjMult() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
@@ -1606,315 +1606,315 @@ public abstract class InitDbSimulation extends InitDbConstr {
         setMult(simu_,8);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
     }
-    protected static Struct pkTrainerTwoTeamsNextKo() {
+    protected static NaSt pkTrainerTwoTeamsNextKo() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 1);
+        NaSt simu_ = simu(pk_, all_, mapping_, 1);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoiceFree(),simu_);
     }
-    protected static Struct pkTrainerTwoTeams() {
+    protected static NaSt pkTrainerTwoTeams() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         selectTeam(simu_,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         selectTeam(simu_,1);
         return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
     }
-    protected static Struct dispSimu() {
+    protected static NaSt dispSimu() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         return init(pk_, all_, mappingToSimu());
     }
 
-    private static Struct init(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
-        Struct from_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
-        Struct dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
+    private static NaSt init(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+        NaSt from_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+        NaSt dCom_ = _all.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON);
         beforeDisplaying(from_);
-        Struct simu_ = transitSimu(_pk, _all, _mapping, new WelcomeBeanClickSimulation(), from_);
+        NaSt simu_ = transitSimu(_pk, _all, _mapping, new WelcomeBeanClickSimulation(), from_);
         callDifficultyBeanComSet(dCom_,callDifficultyBeanComGet(simu_));
         beforeDisplaying(dCom_);
         return simu_;
     }
-    protected static Struct pkTrainer() {
+    protected static NaSt pkTrainer() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         return goToAddPkTrainer(pk_,all_,mapping_,simu_);
     }
     protected static String editNoFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         callSimulationBeanSelectedFoePkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectFoePk(),simu_);
     }
-    protected static Struct editNoFoePkStateSelectZero() {
-        Struct simu_ = editNoFoePkState();
+    protected static NaSt editNoFoePkStateSelectZero() {
+        NaSt simu_ = editNoFoePkState();
         callSimulationBeanSelectedFoePkSet(simu_,0);
         callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoFoePkStateSelectZero(TeamCrud _tc) {
-        Struct simu_ = editNoFoePkState();
+    protected static NaSt editNoFoePkStateSelectZero(TeamCrud _tc) {
+        NaSt simu_ = editNoFoePkState();
         callSimulationBeanSelectedFoePkSet(simu_,0);
         callSimulationBeanSelectedFoeActionSet(simu_, _tc.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoFoePkStateSelectNo() {
-        Struct simu_ = editNoFoePkState();
+    protected static NaSt editNoFoePkStateSelectNo() {
+        NaSt simu_ = editNoFoePkState();
         callSimulationBeanSelectedFoePkSet(simu_,-1);
         callSimulationBeanSelectedFoeActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoFoePkState() {
+    protected static NaSt editNoFoePkState() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         return simu(pk_, all_, mapping_, 2);
     }
-    protected static Struct pkTrainerFoeRemove() {
+    protected static NaSt pkTrainerFoeRemove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        Struct second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        NaSt second_ = pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         callSimulationBeanSelectedFoeActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(second_,0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePk(),second_);
     }
     protected static String editNoSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,-1);
         return navigateData(new SimulationBeanSelectFoePk(),added_);
     }
-    protected static Struct editEditSelectedFoePk() {
+    protected static NaSt editEditSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectFoePk(),added_);
     }
-    protected static Struct formEditSelectedFoePk() {
+    protected static NaSt formEditSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
         return added_;
     }
-    protected static Struct editEditSelectedFoePkAddMove() {
+    protected static NaSt editEditSelectedFoePkAddMove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
-        Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectFoePk(), added_);
+        NaSt editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectFoePk(), added_);
         addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
     }
     protected static String editForgetSelectedFoePk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedFoeActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedFoePkSet(added_,0);
         return navigateData(new SimulationBeanSelectFoePk(),added_);
     }
     protected static String editNoAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         callSimulationBeanSelectedAllyPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectAllyPk(),simu_);
     }
-    protected static Struct editNoAllyPkStateSelectZero() {
-        Struct simu_ = editNoAllyPkState();
+    protected static NaSt editNoAllyPkStateSelectZero() {
+        NaSt simu_ = editNoAllyPkState();
         callSimulationBeanSelectedAllyPkSet(simu_,0);
         callSimulationBeanSelectedAllyActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoAllyPkStateSelectZero(TeamCrud _tc) {
-        Struct simu_ = editNoAllyPkState();
+    protected static NaSt editNoAllyPkStateSelectZero(TeamCrud _tc) {
+        NaSt simu_ = editNoAllyPkState();
         callSimulationBeanSelectedAllyPkSet(simu_,0);
         callSimulationBeanSelectedAllyActionSet(simu_, _tc.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoAllyPkStateSelectNo() {
-        Struct simu_ = editNoAllyPkState();
+    protected static NaSt editNoAllyPkStateSelectNo() {
+        NaSt simu_ = editNoAllyPkState();
         callSimulationBeanSelectedAllyPkSet(simu_,-1);
         callSimulationBeanSelectedAllyActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoAllyPkState() {
+    protected static NaSt editNoAllyPkState() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         return simu(pk_, all_, mapping_, 2);
     }
 
-    protected static Struct pkTrainerAllyRemove() {
+    protected static NaSt pkTrainerAllyRemove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
-        Struct second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
+        NaSt second_ = pkTrainerSelectPkNameCycle(true,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
         callSimulationBeanSelectedAllyActionSet(second_, TeamCrud.REMOVE.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(second_,0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPk(),second_);
     }
     protected static String editNoSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,-1);
         return navigateData(new SimulationBeanSelectAllyPk(),added_);
     }
-    protected static Struct editEditSelectedAllyPk() {
+    protected static NaSt editEditSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanSelectAllyPk(),added_);
     }
-    protected static Struct formEditSelectedAllyPk() {
+    protected static NaSt formEditSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
         return added_;
     }
-    protected static Struct editEditSelectedAllyPkAddMove() {
+    protected static NaSt editEditSelectedAllyPkAddMove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
-        Struct editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectAllyPk(), added_);
+        NaSt editing_ = transitSimu(pk_, all_, mapping_, new SimulationBeanSelectAllyPk(), added_);
         addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
     }
     protected static String editForgetSelectedAllyPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt added_ = pkTrainerSelectPkNameCycle(true, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedAllyActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedAllyPkSet(added_,0);
         return navigateData(new SimulationBeanSelectAllyPk(),added_);
     }
-    protected static Struct pkTrainerIndex() {
+    protected static NaSt pkTrainerIndex() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, pk_, all_, mapping_, simu_, 4);
         return pkTrainerSelectPkNameCycle(false,P_POK_01_TR,A_SIM_2_TR,pk_,all_,mapping_,simu_, 5);
     }
-    protected static Struct pkTrainerLevel(int _level) {
+    protected static NaSt pkTrainerLevel(int _level) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         return pkTrainerSelectPkNameCycle(false,P_POK_00_TR,A_SIM_1_TR,pk_,all_,mapping_,simu_, _level);
     }
-    protected static Struct pkTrainerLevelCancelAdd() {
+    protected static NaSt pkTrainerLevelCancelAdd() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
         return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanCancel(), editPkTrainer_);
     }
-    protected static Struct pkTrainerLevelRestoreMoves() {
+    protected static NaSt pkTrainerLevelRestoreMoves() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_,all_,mapping_,simu_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(editPkTrainer_),0),true);
-        Struct after_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), editPkTrainer_);
+        NaSt after_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), editPkTrainer_);
         callEditTrainerPokemonBeanAllyPkSet(after_,false);
         return transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanValidateTrainerPk(), after_);
     }
-    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
-        Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
-        Struct retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
-        Struct selAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
+    private static NaSt pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _level) {
+        NaSt editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
+        NaSt retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
+        NaSt selAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
         callEditTrainerPokemonBeanAllyPkSet(selAb_, _ally);
         callEditTrainerPokemonBeanLevelSet(selAb_, _level);
         genderSet(selAb_);
-        Struct afterAddEdit_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), selAb_);
+        NaSt afterAddEdit_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), selAb_);
         assertSame(afterAddEdit_,_simu);
         return afterAddEdit_;
     }
 
-    private static Struct pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, String _item, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
-        Struct editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
-        Struct retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
-        Struct retAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
+    private static NaSt pkTrainerSelectPkNameCycle(boolean _ally, String _name, String _ability, String _item, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _level) {
+        NaSt editPkTrainer_ = goToAddPkTrainer(_pk, _all, _mapping, _simu);
+        NaSt retPk_ = chooseName(_name, _pk, _all, _mapping, editPkTrainer_);
+        NaSt retAb_ = chooseAbility(_ability, _pk, _all, _mapping, retPk_);
         assertSame(retAb_, chooseItemPkTrainer(_item,_pk,_all,_mapping,retAb_));
         callEditTrainerPokemonBeanAllyPkSet(retAb_, _ally);
         callEditTrainerPokemonBeanLevelSet(retAb_, _level);
         genderSet(retAb_);
-        Struct afterAddEdit_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
+        NaSt afterAddEdit_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanValidateTrainerPk(), retAb_);
         assertSame(afterAddEdit_,_simu);
         return afterAddEdit_;
     }
 
-    private static void genderSet(Struct _str) {
+    private static void genderSet(NaSt _str) {
         callEditTrainerPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
     }
 
-    private static void genderSetPl(Struct _str) {
+    private static void genderSetPl(NaSt _str) {
         callAddPokemonBeanGenderSet(_str,Gender.NO_GENDER.getGenderName());
     }
 
-    private static Struct chooseName(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
-        Struct selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _str);
+    private static NaSt chooseName(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _str) {
+        NaSt selPk_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _str);
         callSelectPokemonBeanTypedNameSet(selPk_, _name);
-        Struct afSel_ = transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
+        NaSt afSel_ = transitSimu(_pk, _all, _mapping, new SelectPokemonBeanSearch(), selPk_);
         assertSame(afSel_,_str);
         return afSel_;
     }
 
-    private static Struct chooseAbility(String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _str) {
-        Struct selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _str);
+    private static NaSt chooseAbility(String _ability, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _str) {
+        NaSt selAb_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _str);
         callSelectAbilityBeanTypedAbilitySet(selAb_, _ability);
-        Struct afSel_ = transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
+        NaSt afSel_ = transitSimu(_pk, _all, _mapping, new SelectAbilityBeanSearch(), selAb_);
         assertSame(afSel_,_str);
         return afSel_;
     }
@@ -1929,415 +1929,415 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }*/
-    protected static Struct pkTrainerSelectPkCancel() {
+    protected static NaSt pkTrainerSelectPkCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanCancel(),selPk_);
     }
 
-    protected static Struct pkTrainerSelectPkName(String _name) {
+    protected static NaSt pkTrainerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSelectPkHasEvo(String _name) {
+    protected static NaSt pkTrainerSelectPkHasEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanHasEvoSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSelectPkIsEvo(String _name) {
+    protected static NaSt pkTrainerSelectPkIsEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanIsEvoSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSelectPkIsLeg(String _name) {
+    protected static NaSt pkTrainerSelectPkIsLeg(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanIsLegSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSelectPkRow(int _row) {
+    protected static NaSt pkTrainerSelectPkRow(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanTypedNameSet(selPk_,"");
-        Struct rSe_ = transitSimu(pk_, all_, mapping_, new SelectPokemonBeanSearch(), selPk_);
+        NaSt rSe_ = transitSimu(pk_, all_, mapping_, new SelectPokemonBeanSearch(), selPk_);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanClickLink(),rSe_,_row);
     }
-    protected static Struct pkTrainerSelectPkType(String _type, boolean _wholeWord) {
+    protected static NaSt pkTrainerSelectPkType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseName(), editPkTrainer_);
         callSelectPokemonBeanTypedTypeSet(selPk_,_type);
         callSelectPokemonBeanWholeWordSet(selPk_,_wholeWord);
         return transitSimu(pk_,all_,mapping_,new SelectPokemonBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSelectPk() {
+    protected static NaSt pkTrainerSelectPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return goToSelectPk(pk_, all_, mapping_, editPkTrainer_);
     }
-    protected static Struct pkTrainerSelectPkAllyInfo(boolean _ally) {
+    protected static NaSt pkTrainerSelectPkAllyInfo(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
         return editPkTrainer_;
     }
-    protected static Struct pkTrainerSelectAbCancel() {
+    protected static NaSt pkTrainerSelectAbCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
         return transitSimu(pk_,all_,mapping_,new SelectAbilityBeanCancel(),selPk_);
     }
-    protected static Struct pkTrainerSelectAb(int _row) {
+    protected static NaSt pkTrainerSelectAb(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
         callSelectAbilityBeanTypedAbilitySet(selAb_,"");
-        Struct rSe_ = transitSimu(pk_,all_,mapping_,new SelectAbilityBeanSearch(),selAb_);
+        NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectAbilityBeanSearch(),selAb_);
         return transitSimu(pk_,all_,mapping_,new SelectAbilityBeanClickAbility(),rSe_,_row);
     }
-    protected static Struct pkTrainerSelectAb(String _name) {
+    protected static NaSt pkTrainerSelectAb(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseAbility(), editPkTrainer_);
         callSelectAbilityBeanTypedAbilitySet(selAb_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectAbilityBeanSearch(),selAb_);
     }
-    protected static Struct pkTrainerSelectAb() {
+    protected static NaSt pkTrainerSelectAb() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return goToSelectAb(pk_, all_, mapping_, editPkTrainer_);
     }
-    protected static Struct pkTrainerSelectItCancel() {
+    protected static NaSt pkTrainerSelectItCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
-        Struct rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanCancelItem(),selPk_);
-        Struct twice_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), rSe_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanCancelItem(),selPk_);
+        NaSt twice_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), rSe_);
         callSelectItemBeanTypedNameSet(twice_,I_BALL_TR);
-        Struct againEditPk_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),twice_);
-        Struct nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), againEditPk_);
+        NaSt againEditPk_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),twice_);
+        NaSt nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), againEditPk_);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanCancel(),nextIt_);
     }
-    protected static Struct pkTrainerSelectItCancelRem() {
+    protected static NaSt pkTrainerSelectItCancelRem() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
         callSelectItemBeanTypedNameSet(selPk_,"");
-        Struct rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selPk_);
-        Struct againEditPk_ = transitSimu(pk_, all_, mapping_, new SelectItemBeanClickLink(), rSe_, 0);
-        Struct nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), againEditPk_);
+        NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selPk_);
+        NaSt againEditPk_ = transitSimu(pk_, all_, mapping_, new SelectItemBeanClickLink(), rSe_, 0);
+        NaSt nextIt_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), againEditPk_);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanCancelItem(),nextIt_);
     }
-    protected static Struct pkTrainerSelectItName(int _row) {
+    protected static NaSt pkTrainerSelectItName(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
         callSelectItemBeanTypedNameSet(selAb_,"");
-        Struct rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
+        NaSt rSe_ = transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanClickLink(),rSe_,_row);
     }
-    protected static Struct pkTrainerSelectItName(String _name) {
+    protected static NaSt pkTrainerSelectItName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return chooseItemPkTrainer(_name, pk_, all_, mapping_, editPkTrainer_);
     }
 
-    private static Struct chooseItemPkTrainer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
-        Struct selIt_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _editPkTrainer);
+    private static NaSt chooseItemPkTrainer(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkTrainer) {
+        NaSt selIt_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _editPkTrainer);
         return chooseItemGene(_name, _pk, _all, _mapping, selIt_);
     }
 
-    private static Struct chooseItemPkPlayer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
-        Struct selIt_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _editPkTrainer);
+    private static NaSt chooseItemPkPlayer(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkTrainer) {
+        NaSt selIt_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _editPkTrainer);
         return chooseItemGene(_name, _pk, _all, _mapping, selIt_);
     }
 
-    private static Struct chooseItemGene(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _selIt) {
+    private static NaSt chooseItemGene(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _selIt) {
         callSelectItemBeanTypedNameSet(_selIt, _name);
         return transitSimu(_pk, _all, _mapping, new SelectItemBeanSearch(), _selIt);
     }
-    protected static Struct pkTrainerSelectItPrice() {
+    protected static NaSt pkTrainerSelectItPrice() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
         callSelectItemBeanTypedPriceSet(selAb_,"");
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
     }
-    protected static Struct pkTrainerSelectItCl(String _name) {
+    protected static NaSt pkTrainerSelectItCl(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selAb_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanChooseItem(), editPkTrainer_);
         callSelectItemBeanTypedClassSet(selAb_,_name);
         return transitSimu(pk_,all_,mapping_,new SelectItemBeanSearch(),selAb_);
     }
-    protected static Struct pkTrainerSelectItName() {
+    protected static NaSt pkTrainerSelectItName() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return goToSelectIt(pk_, all_, mapping_, editPkTrainer_);
     }
 
-    protected static Struct pkTrainerSetMovesName(String _name) {
+    protected static NaSt pkTrainerSetMovesName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
         callEditPokemonMovesBeanTypedNameSet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
     }
 
-    protected static Struct pkTrainerSetMovesCat(String _name) {
+    protected static NaSt pkTrainerSetMovesCat(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
         callEditPokemonMovesBeanCategorySet(selPk_,_name);
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSetMovesCancel() {
+    protected static NaSt pkTrainerSetMovesCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel(),selPk_);
     }
-    protected static Struct pkTrainerSetMovesRemove() {
+    protected static NaSt pkTrainerSetMovesRemove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
         return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanDeleteMoves(),re_);
     }
-    protected static Struct addPkTrainerChangeMoves(boolean _ally) {
+    protected static NaSt addPkTrainerChangeMoves(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt re_ = addMoveTrainer(M_POK_01_TR, 0, pk_, all_, mapping_, editPkTrainer_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(re_),0),true);
-        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), re_);
+        NaSt afterDel_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanDeleteMoves(), re_);
         callEditTrainerPokemonBeanAllyPkSet(afterDel_,_ally);
         return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),afterDel_);
     }
-    protected static Struct addPkTrainerChangeItem(boolean _ally) {
+    protected static NaSt addPkTrainerChangeItem(boolean _ally) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         assertSame(editPkTrainer_, chooseItemPkTrainer(I_BALL_TR,pk_,all_,mapping_,editPkTrainer_));
         callEditTrainerPokemonBeanAllyPkSet(editPkTrainer_, _ally);
         return transitSimu(pk_, all_, mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editPkTrainer_);
     }
-    protected static Struct pkTrainerSetMovesNameAdd(String _name, int _row) {
+    protected static NaSt pkTrainerSetMovesNameAdd(String _name, int _row) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return addMoveTrainer(_name, _row, pk_, all_, mapping_, editPkTrainer_);
     }
 
-    private static Struct addMoveTrainer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkTrainer) {
-        Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
+    private static NaSt addMoveTrainer(String _name, int _row, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkTrainer) {
+        NaSt editMoves_ = transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _editPkTrainer);
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
     }
 
-    private static Struct addMovePlayer(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer) {
-        Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
+    private static NaSt addMovePlayer(String _name, int _row, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkPlayer) {
+        NaSt editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_,false);
         return addMoveGene(_name, _row, _pk, _all, _mapping, editMoves_);
     }
 
-    private static Struct searchMovePlayer(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editPkPlayer, boolean _flag) {
-        Struct editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
+    private static NaSt searchMovePlayer(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editPkPlayer, boolean _flag) {
+        NaSt editMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanAddMoves(), _editPkPlayer);
         callEditPokemonMovesBeanAvailableMovesOnlySet(editMoves_, _flag);
         callEditPokemonMovesBeanTypedNameSet(editMoves_, _name);
         return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), editMoves_);
     }
 
-    private static Struct addMoveGene(String _name, int _row, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _editMoves) {
+    private static NaSt addMoveGene(String _name, int _row, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _editMoves) {
         callEditPokemonMovesBeanTypedNameSet(_editMoves, _name);
-        Struct foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), _editMoves);
+        NaSt foundMoves_ = transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanSearch(), _editMoves);
         callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(foundMoves_), _row),true);
         return transitSimu(_pk, _all, _mapping, new EditPokemonMovesBeanAddMoves(), foundMoves_);
     }
-    protected static Struct pkTrainerSetMovesType(String _type, boolean _wholeWord) {
+    protected static NaSt pkTrainerSetMovesType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
-        Struct selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt selPk_ = transitSimu(pk_, all_, mapping_, new EditTrainerPokemonBeanAddMoves(), editPkTrainer_);
         callEditPokemonMovesBeanTypedTypeSet(selPk_,_type);
         callEditPokemonMovesBeanWholeWordSet(selPk_,_wholeWord);
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanSearch(),selPk_);
     }
-    protected static Struct pkTrainerSetMoves() {
+    protected static NaSt pkTrainerSetMoves() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt editPkTrainer_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         return goToSetMovesTrainer(pk_, all_, mapping_, editPkTrainer_);
     }
-    protected static Struct pkTrainer(boolean _select) {
+    protected static NaSt pkTrainer(boolean _select) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
-        Struct edit_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt edit_ = goToAddPkTrainer(pk_, all_, mapping_, simu_);
         callSelectLineMoveSelectedSet(elt(callEditTrainerPokemonBeanMovesGet(edit_),0),_select);
         return edit_;
     }
     protected static String editNoPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,-1);
         return navigateData(new SimulationBeanSelectPk(),simu_);
     }
-    protected static Struct pkPlayerRemove() {
+    protected static NaSt pkPlayerRemove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         return editPkPlayer(pk_, all_, mapping_, simu_, P_POK_01_TR, A_SIM_2_TR, 0, 5, TeamCrud.REMOVE);
     }
     protected static String editNoSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
+        NaSt added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_,-1);
         return navigateData(new SimulationBeanSelectPk(),added_);
     }
-    protected static Struct editNoPkStateSelectZero() {
-        Struct simu_ = editNoPkState();
+    protected static NaSt editNoPkStateSelectZero() {
+        NaSt simu_ = editNoPkState();
         callSimulationBeanSelectedPkSet(simu_,0);
         callSimulationBeanSelectedActionSet(simu_, TeamCrud.NOTHING.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoPkStateSelectZero(TeamCrud _tc) {
-        Struct simu_ = editNoPkState();
+    protected static NaSt editNoPkStateSelectZero(TeamCrud _tc) {
+        NaSt simu_ = editNoPkState();
         callSimulationBeanSelectedPkSet(simu_,0);
         callSimulationBeanSelectedActionSet(simu_, _tc.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoPkStateSelectNo() {
-        Struct simu_ = editNoPkState();
+    protected static NaSt editNoPkStateSelectNo() {
+        NaSt simu_ = editNoPkState();
         callSimulationBeanSelectedPkSet(simu_,-1);
         callSimulationBeanSelectedActionSet(simu_, TeamCrud.EDIT.getTeamCrudString());
         return simu_;
     }
-    protected static Struct editNoPkState() {
+    protected static NaSt editNoPkState() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         return simu(pk_, all_, mapping_, 2);
     }
 
-    protected static Struct editEditSelectedPlayerPk() {
+    protected static NaSt editEditSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
     }
-    protected static Struct editEditSelectedPlayerPkForm(boolean _heal, Rate _exp, Rate _hp) {
+    protected static NaSt editEditSelectedPlayerPkForm(boolean _heal, Rate _exp, Rate _hp) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callEditPokemonBeanHealSet(editing_, _heal);
         callEditPokemonBeanBallSet(editing_,I_BALL);
         callEditPokemonBeanExperienceSet(editing_, _exp);
@@ -2346,166 +2346,166 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callEvLineEvSet(second(elt(callEditPokemonBeanEvGet(editing_),2)),33);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
     }
-    protected static Struct editEditSelectedPlayerPkFormNoMove() {
+    protected static NaSt editEditSelectedPlayerPkFormNoMove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(editing_),0),true);
         transitSimu(pk_,all_,mapping_,new EditPokemonBeanDeleteMoves(),editing_);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
     }
-    protected static Struct editEditSelectedPlayerPkFormCancel() {
+    protected static NaSt editEditSelectedPlayerPkFormCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(editing_),0),true);
         transitSimu(pk_,all_,mapping_,new EditPokemonBeanDeleteMoves(),editing_);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanCancel(),editing_);
     }
-    protected static Struct editEditSelectedPlayerPkHeal(boolean _heal) {
-        Struct h_ = editEditSelectedPlayerPk();
+    protected static NaSt editEditSelectedPlayerPkHeal(boolean _heal) {
+        NaSt h_ = editEditSelectedPlayerPk();
         callEditPokemonBeanHealSet(h_,_heal);
         return h_;
     }
-    protected static Struct editEditSelectedPlayerPkItem() {
+    protected static NaSt editEditSelectedPlayerPkItem() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(edit_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,edit_));
         return edit_;
     }
-    protected static Struct editEditSelectedPlayerPkItemCancelItem() {
+    protected static NaSt editEditSelectedPlayerPkItemCancelItem() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        Struct chosen_ = chooseItemPkPlayer(I_BALL_TR, pk_, all_, mapping_, edit_);
-        Struct redo_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanChooseItem(), chosen_);
+        NaSt edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt chosen_ = chooseItemPkPlayer(I_BALL_TR, pk_, all_, mapping_, edit_);
+        NaSt redo_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanChooseItem(), chosen_);
         return transitSimu(pk_, all_, mapping_, new SelectItemBeanCancelItem(), redo_);
     }
-    protected static Struct editEditSelectedPlayerPkItemCancel() {
+    protected static NaSt editEditSelectedPlayerPkItemCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        Struct first_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanChooseItem(), edit_);
-        Struct back_ = transitSimu(pk_, all_, mapping_, new SelectItemBeanCancel(), first_);
+        NaSt edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt first_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanChooseItem(), edit_);
+        NaSt back_ = transitSimu(pk_, all_, mapping_, new SelectItemBeanCancel(), first_);
         return chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,back_);
     }
-    protected static Struct editEditSelectedPlayerPkItemPart(int _row) {
+    protected static NaSt editEditSelectedPlayerPkItemPart(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        Struct chosen_ = chooseItemPkPlayer("", pk_, all_, mapping_, edit_);
+        NaSt edit_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt chosen_ = chooseItemPkPlayer("", pk_, all_, mapping_, edit_);
         return transitSimu(pk_, all_, mapping_, new SelectItemBeanClickLink(), chosen_,_row);
     }
-    protected static Struct formEditSelectedPlayerPk() {
+    protected static NaSt formEditSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
+        NaSt added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedActionSet(added_, TeamCrud.EDIT.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_,0);
         return added_;
     }
-    protected static Struct editEditSelectedPlayerPkAddMove() {
+    protected static NaSt editEditSelectedPlayerPkAddMove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         addMovePlayer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanEdit(),editing_);
     }
-    protected static Struct editEditSelectedPlayerPkListMoves() {
+    protected static NaSt editEditSelectedPlayerPkListMoves() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         return transitSimu(pk_,all_,mapping_, new EditPokemonBeanAddMoves(),editing_);
     }
-    protected static Struct editEditSelectedPlayerPkListMoves(String _name, boolean _flag) {
+    protected static NaSt editEditSelectedPlayerPkListMoves(String _name, boolean _flag) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         return searchMovePlayer(_name,pk_,all_,mapping_,editing_,_flag);
     }
-    protected static Struct editEditSelectedPlayerPkListMovesCancel() {
+    protected static NaSt editEditSelectedPlayerPkListMovesCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        Struct se_ = searchMovePlayer(M_POK_04_TR, pk_, all_, mapping_, editing_, false);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt se_ = searchMovePlayer(M_POK_04_TR, pk_, all_, mapping_, editing_, false);
         callSelectLineMoveSelectedSet(elt(callEditPokemonMovesBeanMovesGet(se_),0),true);
         return transitSimu(pk_,all_,mapping_,new EditPokemonMovesBeanCancel(),se_);
     }
 
-    private static Struct editPkPlayer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
-        Struct added_ = pkTrainerSelectPkPlayerNameCycle(_name, _ab, _pk, _all, _mapping, _simu, _level);
+    private static NaSt editPkPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, String _name, String _ab, int _index, int _level, TeamCrud _mode) {
+        NaSt added_ = pkTrainerSelectPkPlayerNameCycle(_name, _ab, _pk, _all, _mapping, _simu, _level);
         callSimulationBeanSelectedActionSet(added_, _mode.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_, _index);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanSelectPk(), added_);
     }
 
-    protected static Struct pkPlayerSetMovesRemove() {
+    protected static NaSt pkPlayerSetMovesRemove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
-        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
         callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
         return transitSimu(pk_,all_,mapping_,new EditPokemonBeanDeleteMoves(),re_);
     }
     protected static String editForgetSelectedPlayerPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
+        NaSt added_ = pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR, A_SIM_1, pk_, all_, mapping_, simu_, 4);
         callSimulationBeanSelectedActionSet(added_, TeamCrud.NOTHING.getTeamCrudString());
         callSimulationBeanSelectedPkSet(added_,0);
         return navigateData(new SimulationBeanSelectPk(),added_);
     }
-    protected static Struct addPkPlayerChangeMoves() {
+    protected static NaSt addPkPlayerChangeMoves() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,editing_));
-        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
+        NaSt re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
         callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
-        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
+        NaSt afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
         return transitSimu(pk_, all_, mapping_,new EditPokemonBeanEdit(),afterDel_);
     }
 //    protected static Struct editEditSelectedPlayerPkAddMove() {
@@ -2520,80 +2520,80 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        addMoveTrainer(M_POK_01_TR,0,pk_,all_,mapping_,editing_);
 //        return transitSimu(pk_,all_,mapping_,new EditTrainerPokemonBeanValidateTrainerPk(),editing_);
 //    }
-    private static Struct pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _level) {
-        Struct addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
+    private static NaSt pkTrainerSelectPkPlayerNameCycle(String _name, String _ability, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _level) {
+        NaSt addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
-        Struct afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
+        NaSt afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
         callAddPokemonBeanAbilitySet(afSearch_,_ability);
         callAddPokemonBeanLevelSet(afSearch_,_level);
-        Struct afterAddEdit_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanAdd(), afSearch_);
+        NaSt afterAddEdit_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanAdd(), afSearch_);
         assertSame(afterAddEdit_,_simu);
         return afterAddEdit_;
     }
-    protected static Struct pkPlayerSelectPk() {
+    protected static NaSt pkPlayerSelectPk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return goToAddPkPlayer(pk_, all_, mapping_, simu_);
     }
-    protected static Struct pkPlayerSelectPkCancel() {
+    protected static NaSt pkPlayerSelectPkCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanCancel(),addPk_);
     }
 
-    protected static Struct pkPlayerSelectPkNameAbility(String _name) {
+    protected static NaSt pkPlayerSelectPkNameAbility(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return pkPlAb(_name, pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerSelectPkNameTwice() {
+    protected static NaSt pkPlayerSelectPkNameTwice() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1,pk_,all_,mapping_,simu_,40);
         return pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_2,pk_,all_,mapping_,simu_,39);
     }
 
-    protected static Struct pkPlayerValidateEvosNoSelect() {
+    protected static NaSt pkPlayerValidateEvosNoSelect() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,-1);
         return transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
     }
 
-    protected static Struct pkPlayerValidateEvosSelect() {
+    protected static NaSt pkPlayerValidateEvosSelect() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
         return transitSimu(pk_, all_, mapping_,new SimulationBeanDisplayEvolutions(),simu_);
     }
 
-    protected static Struct pkPlayerValidateEvoValues() {
+    protected static NaSt pkPlayerValidateEvoValues() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
@@ -2603,11 +2603,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return simu_;
     }
 
-    protected static Struct pkPlayerValidateEvoValidate() {
+    protected static NaSt pkPlayerValidateEvoValidate() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
@@ -2617,21 +2617,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
     }
 
-    protected static Struct pkPlayerEvoThenFighters() {
+    protected static NaSt pkPlayerEvoThenFighters() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         return validEvos(pk_, all_, mapping_,simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersImmediateValid() {
+    protected static NaSt pkPlayerEvoFightersImmediateValid() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2639,44 +2639,44 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFrontFighter(),simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersFormValid() {
+    protected static NaSt pkPlayerEvoFightersFormValid() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
         return changeFighterPosition(pk_, all_, mapping_, simu_, 0, "0", "0");
     }
 
-    protected static Struct pkPlayerEvoFightersWithoutFronts() {
+    protected static NaSt pkPlayerEvoFightersWithoutFronts() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFrontFighters(), simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFronts() {
+    protected static NaSt pkPlayerEvoFightersSufficientFronts() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
         return fighterPositions(pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMove(int _index) {
+    protected static NaSt pkPlayerEvoFightersSufficientFrontsFormMove(int _index) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2686,11 +2686,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return simu_;
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(int _index, String _ab) {
+    protected static NaSt pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuick(int _index, String _ab) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2700,11 +2700,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesAbilities(_ab, pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(int _index, String _ab) {
+    protected static NaSt pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesQuickTwice(int _index, String _ab) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2715,11 +2715,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesAbilities("", pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk() {
+    protected static NaSt pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersOk() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2727,11 +2727,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesSet(pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerEvoFighterChoice(int _index, int _round) {
+    protected static NaSt pkPlayerEvoFighterChoice(int _index, int _round) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2743,11 +2743,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return simu_;
     }
 
-    protected static Struct pkPlayerEvoFighterChoiceAfter(int _index, int _round, boolean _allyChoice, int _move, int _target) {
+    protected static NaSt pkPlayerEvoFighterChoiceAfter(int _index, int _round, boolean _allyChoice, int _move, int _target) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2756,11 +2756,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return moveChoice(_index, _round, _allyChoice, _move, _target, pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerEvoFighterSimulate() {
+    protected static NaSt pkPlayerEvoFighterSimulate() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2769,11 +2769,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
     }
 
-    protected static Struct pkPlayerEvoFighterSimulateStMove() {
+    protected static NaSt pkPlayerEvoFighterSimulateStMove() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2783,11 +2783,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
     }
 
-    protected static Struct pkPlayerEvoFighterSimulateStMoveCancel() {
+    protected static NaSt pkPlayerEvoFighterSimulateStMoveCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2799,11 +2799,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelFrontFighters(), simu_);
     }
 
-    protected static Struct pkPlayerEvoFighterSimulateStMoveCancel2() {
+    protected static NaSt pkPlayerEvoFighterSimulateStMoveCancel2() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -2816,21 +2816,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutions(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulate() {
+    protected static NaSt pkPlayerFighterSimulate() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         return oneFight(pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateComment() {
+    protected static NaSt pkPlayerFighterSimulateComment() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2839,11 +2839,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return callSimulationBeanCommentsGet(simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFight() {
+    protected static NaSt pkPlayerFighterSimulateAfterFight() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2851,11 +2851,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightCancel() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2863,11 +2863,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFightWhileEnd(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightCancel2() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightCancel2() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2876,11 +2876,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanChangeFight(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightCancel3() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightCancel3() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2890,11 +2890,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelMovesEvos(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightCancel4() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightCancel4() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2907,11 +2907,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelDiffChoice(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightOne() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightOne() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2921,11 +2921,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightOneValidate() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightOneValidate() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2940,11 +2940,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesAfterFight(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightCancelOne() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightCancelOne() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         oneFight(pk_, all_, mapping_, simu_);
@@ -2957,52 +2957,52 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanCancelEvolutionsAfterFight(), simu_);
     }
 
-    private static Struct oneFight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt oneFight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         fighterPositions(_pk, _all, _mapping, _simu);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(), moveChoices(_pk, _all, _mapping, _simu));
     }
 
-    protected static Struct pkPlayerFighterSimulateOneFight() {
+    protected static NaSt pkPlayerFighterSimulateOneFight() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 1);
+        NaSt simu_ = simu(pk_, all_, mapping_, 1);
         foeTeamSample(pk_, all_, mapping_, simu_);
         playerTeamSampleSkip(pk_, all_, mapping_, simu_);
         fighterPositions(pk_, all_, mapping_, simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
     }
 
-    protected static Struct pkPlayerFighterSkipEvosStateBadNbCount() {
+    protected static NaSt pkPlayerFighterSkipEvosStateBadNbCount() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
+        NaSt editing_ = editPkPlayer(pk_, all_, mapping_, simu_, P_POK_00_TR, A_SIM_1, 0, 4, TeamCrud.EDIT);
         assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,pk_, all_, mapping_,editing_));
-        Struct re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
+        NaSt re_ = addMovePlayer(M_POK_01_TR, 0, pk_, all_, mapping_, editing_);
         callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
-        Struct afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
+        NaSt afterDel_ = transitSimu(pk_, all_, mapping_, new EditPokemonBeanDeleteMoves(), re_);
         transitSimu(pk_, all_, mapping_,new EditPokemonBeanEdit(),afterDel_);
         pkTrainerSelectPkPlayerNameCycle(P_POK_04_TR,A_SIM_1, pk_, all_, mapping_, simu_,41);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoiceSkipEvolutions(), simu_);
     }
 
-    protected static Struct pkPlayerFighterSkipEvosStateEmpty() {
+    protected static NaSt pkPlayerFighterSkipEvosStateEmpty() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoiceSkipEvolutions(), simu_);
     }
 
-    protected static Struct pkPlayerEvoFighterSimulateKo() {
+    protected static NaSt pkPlayerEvoFighterSimulateKo() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -3011,11 +3011,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoicesKo(pk_, all_, mapping_, simu_));
     }
 
-    protected static Struct pkPlayerEvoFighterSimulateKos() {
+    protected static NaSt pkPlayerEvoFighterSimulateKos() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSampleInv(pk_, all_, mapping_, simu_);
         playerTeamSampleInv(pk_, all_, mapping_, simu_);
         transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvolutions(),simu_);
@@ -3024,24 +3024,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSimulateFight(), moveChoices(pk_, all_, mapping_, simu_));
     }
 
-    private static Struct moveChoices(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt moveChoices(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
         moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
         moveChoice(0,1,0,0,_pk,_all,_mapping,_simu);
         return moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
     }
 
-    private static Struct moveChoicesKo(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt moveChoicesKo(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
         moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
         moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
         return moveChoice(1,0,0,1,_pk,_all,_mapping,_simu);
     }
 
-    private static Struct moveChoice(int _index, int _round, int _move, int _target, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt moveChoice(int _index, int _round, int _move, int _target, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         return moveChoice(_index,_round,false,_move,_target,_pk,_all,_mapping,_simu);
     }
-    private static Struct moveChoice(int _index, int _round, boolean _allyChoice, int _move, int _target, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt moveChoice(int _index, int _round, boolean _allyChoice, int _move, int _target, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         callSimulationBeanSelectedPkSet(_simu, _index);
         callSimulationBeanSelectedRoundSet(_simu,Long.toString(_round));
         beforeDisplaying(_simu);
@@ -3051,11 +3051,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesChoice(), _simu);
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
+    protected static NaSt pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersKo() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -3070,11 +3070,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesSets(), simu_);
     }
 
-    protected static Struct pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel() {
+    protected static NaSt pkPlayerEvoFightersSufficientFrontsFormMoveValidateMovesAllFightersCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         validEvos(pk_, all_, mapping_,simu_);
@@ -3090,7 +3090,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanValidateMovesSets(), simu_);
     }
 
-    private static Struct movesSet(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt movesSet(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         withoutAbility(0, _pk, _all, _mapping, _simu);
         withAbility(1,A_SIM_1, _pk, _all, _mapping, _simu);
         withoutAbility(2, _pk, _all, _mapping, _simu);
@@ -3098,7 +3098,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMovesSets(), _simu);
     }
 
-    private static Struct withAbility(int _index, String _ab, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt withAbility(int _index, String _ab, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         callSimulationBeanSelectedPkSet(_simu, _index);
         beforeDisplaying(_simu);
         movesAbilities(_ab, _pk, _all, _mapping, _simu);
@@ -3106,7 +3106,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesAbilities("", _pk, _all, _mapping, _simu);
     }
 
-    private static Struct withoutAbility(int _index, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt withoutAbility(int _index, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         callSimulationBeanSelectedPkSet(_simu, _index);
         beforeDisplaying(_simu);
         movesAbilities("", _pk, _all, _mapping, _simu);
@@ -3114,12 +3114,12 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return movesAbilities("", _pk, _all, _mapping, _simu);
     }
 
-    private static Struct movesAbilities(String _ab, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt movesAbilities(String _ab, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         callSimulationBeanCurrentAbilitySet(_simu, _ab);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateMoves(), _simu);
     }
 
-    private static Struct fighterPositions(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt fighterPositions(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         changeFighterPosition(_pk, _all, _mapping, _simu,1,"0","1");
         changeFighterPosition(_pk, _all, _mapping, _simu,2,"0",Long.toString(Fighter.BACK));
@@ -3131,24 +3131,24 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
     }
 
-    private static Struct changeFighterPosition(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _index, String _round, String _place) {
+    private static NaSt changeFighterPosition(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _index, String _round, String _place) {
         callSimulationBeanSelectedPkSet(_simu, _index);
         callSimulationBeanSelectedRoundSet(_simu, _round);
         callSimulationBeanPlaceFightSet(_simu, _place);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighter(),_simu);
     }
 
-    private static Struct validEvos(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt validEvos(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         validEvo(_pk, _all, _mapping, _simu,1);
         validEvo(_pk, _all, _mapping, _simu,3);
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateEvolutions(),_simu);
     }
 
-    protected static Struct pkPlayerValidateEvoValidateThenCancel() {
+    protected static NaSt pkPlayerValidateEvoValidateThenCancel() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         playerTeamSample(pk_, all_, mapping_, simu_);
         callSimulationBeanSelectedPkSet(simu_,1);
@@ -3158,7 +3158,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
         return transitSimu(pk_, all_, mapping_,new SimulationBeanCancelEvo(),simu_);
     }
-    private static void validEvo(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _index) {
+    private static void validEvo(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _index) {
         callSimulationBeanSelectedPkSet(_simu,_index);
         transitSimu(_pk, _all, _mapping,new SimulationBeanDisplayEvolutions(),_simu);
         callSimulationBeanChosenEvoSet(_simu,P_POK_03);
@@ -3179,16 +3179,16 @@ public abstract class InitDbSimulation extends InitDbConstr {
 //        return transitSimu();
 //    }
 
-    protected static Struct pkPlayerValidateEvos() {
+    protected static NaSt pkPlayerValidateEvos() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return playerTeamSample(pk_, all_, mapping_, simu_);
     }
 
-    private static Struct playerTeamSample(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt playerTeamSample(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
@@ -3196,8 +3196,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
     }
 
-    private static Struct playerTeamSampleSkip(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
-        Struct editing_ = editPkPlayer(_pk, _all, _mapping, _simu, P_POK_04_TR, A_SIM_1, 0, 41, TeamCrud.EDIT);
+    private static NaSt playerTeamSampleSkip(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+        NaSt editing_ = editPkPlayer(_pk, _all, _mapping, _simu, P_POK_04_TR, A_SIM_1, 0, 41, TeamCrud.EDIT);
         assertSame(editing_,chooseItemPkPlayer(I_BALL_TR,_pk, _all, _mapping,editing_));
         assertSame(_simu,transitSimu(_pk, _all, _mapping,new EditPokemonBeanEdit(),editing_));
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
@@ -3206,7 +3206,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
     }
 
-    private static Struct playerTeamSampleInv(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt playerTeamSampleInv(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_02_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
         pkTrainerSelectPkPlayerNameCycle(P_POK_01_TR,A_SIM_1, _pk, _all, _mapping, _simu,4);
@@ -3214,29 +3214,29 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
     }
 
-    protected static Struct pkPlayerValidateEvosKo() {
+    protected static NaSt pkPlayerValidateEvosKo() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateTeam(),simu_);
     }
-    private static Struct pkPlAb(String _name, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
-        Struct addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
+    private static NaSt pkPlAb(String _name, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
+        NaSt addPk_ = goToAddPkPlayer(_pk, _all, _mapping, _simu);
         callAddPokemonBeanTypedNameSet(addPk_, _name);
-        Struct afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
+        NaSt afSearch_ = transitSimu(_pk, _all, _mapping, new AddPokemonBeanSearch(), addPk_);
         callAddPokemonBeanAbilitySet(afSearch_,A_SIM_2);
         callAddPokemonBeanLevelSet(afSearch_,40);
         genderSetPl(afSearch_);
         return afSearch_;
     }
 
-    protected static Struct pkPlayerSelectPkNameAdded(String _name) {
+    protected static NaSt pkPlayerSelectPkNameAdded(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
 //        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
@@ -3244,89 +3244,89 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),pkPlAb(_name,pk_,all_,mapping_,simu_));
     }
 
-    protected static Struct pkPlayerSelectPkNameQuickAdded() {
+    protected static NaSt pkPlayerSelectPkNameQuickAdded() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
 //        callAddPokemonBeanTypedNameSet(addPk_,_name);
 //        Struct afSearch_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
         return transitSimu(pk_, all_, mapping_, new AddPokemonBeanAdd(),addPk_);
     }
-    protected static Struct pkPlayerSelectPkName(String _name) {
+    protected static NaSt pkPlayerSelectPkName(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanTypedNameSet(addPk_,_name);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
     }
-    protected static Struct pkPlayerSelectPkHasEvo(String _name) {
+    protected static NaSt pkPlayerSelectPkHasEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanHasEvoSet(addPk_,_name);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
     }
-    protected static Struct pkPlayerSelectPkIsEvo(String _name) {
+    protected static NaSt pkPlayerSelectPkIsEvo(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanIsEvoSet(addPk_,_name);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
     }
-    protected static Struct pkPlayerSelectPkIsLeg(String _name) {
+    protected static NaSt pkPlayerSelectPkIsLeg(String _name) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanIsLegSet(addPk_,_name);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
     }
-    protected static Struct pkPlayerSelectPkRow(int _row) {
+    protected static NaSt pkPlayerSelectPkRow(int _row) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanTypedNameSet(addPk_,"");
-        Struct rSe_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
+        NaSt rSe_ = transitSimu(pk_, all_, mapping_, new AddPokemonBeanSearch(), addPk_);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanClickLink(),rSe_,_row);
     }
-    protected static Struct pkPlayerSelectPkType(String _type, boolean _wholeWord) {
+    protected static NaSt pkPlayerSelectPkType(String _type, boolean _wholeWord) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
-        Struct addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
+        NaSt addPk_ = goToAddPkPlayer(pk_, all_, mapping_, simu_);
         callAddPokemonBeanTypedTypeSet(addPk_,_type);
         callAddPokemonBeanWholeWordSet(addPk_,_wholeWord);
         return transitSimu(pk_,all_,mapping_,new AddPokemonBeanSearch(),addPk_);
     }
-    protected static Struct pkPlayer() {
+    protected static NaSt pkPlayer() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSample(pk_, all_, mapping_, simu_);
         return goToAddPkPlayer(pk_,all_,mapping_,simu_);
     }
 
-    private static void foeTeamsSample(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamsSample(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
@@ -3342,7 +3342,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
 
-    private static void foeTeamSample(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamSample(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
@@ -3352,7 +3352,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
 
-    private static void foeTeamsSampleInv(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamsSampleInv(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 40);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 40);
@@ -3367,60 +3367,60 @@ public abstract class InitDbSimulation extends InitDbConstr {
         setMult(_simu,2);
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
-    private static void setMult(Struct _simu, int _value) {
+    private static void setMult(NaSt _simu, int _value) {
         callSimulationBeanEnvironmentSet(_simu, EnvironmentType.ROAD.getEnvName());
         callSimulationBeanMultiplicitySet(_simu,_value);
         beforeDisplaying(_simu);
     }
 
-    private static Struct goToSelectPk(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+    private static NaSt goToSelectPk(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseName(), _struct);
     }
-    private static Struct goToSelectAb(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+    private static NaSt goToSelectAb(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseAbility(), _struct);
     }
-    private static Struct goToSelectIt(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+    private static NaSt goToSelectIt(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanChooseItem(), _struct);
     }
-    private static Struct goToSelectItPlayer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+    private static NaSt goToSelectItPlayer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
         return transitSimu(_pk, _all, _mapping, new EditPokemonBeanChooseItem(), _struct);
     }
-    private static Struct goToSetMovesTrainer(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _struct) {
+    private static NaSt goToSetMovesTrainer(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _struct) {
         return transitSimu(_pk, _all, _mapping, new EditTrainerPokemonBeanAddMoves(), _struct);
     }
-    private static Struct simu(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, int _nbTeam) {
-        Struct simu_ = init(_nbTeam, _pk, _all, _mapping);
+    private static NaSt simu(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, int _nbTeam) {
+        NaSt simu_ = init(_nbTeam, _pk, _all, _mapping);
         transitSimu(_pk,_all,_mapping, new SimulationBeanValidateDiffChoice(), simu_);
         return simu_;
     }
 
-    protected static Struct goToAddPkTrainer(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    protected static NaSt goToAddPkTrainer(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         return transitSimu(_stds,_all,_mapping,new SimulationBeanAddPkTrainer(),_simu);
     }
 
-    protected static Struct goToAddPkPlayer(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    protected static NaSt goToAddPkPlayer(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         return transitSimu(_stds,_all,_mapping,new SimulationBeanAdd(),_simu);
     }
 
-    public static Struct transitSimu(PokemonStandards _stds, StringMap<Struct> _all, StringMap<String> _mapping, NatCaller _caller, Struct _first, long... _args) {
+    public static NaSt transitSimu(PokemonStandards _stds, StringMap<NaSt> _all, StringMap<String> _mapping, NatCaller _caller, NaSt _first, long... _args) {
         String url_ = navigateData(_caller, _first, _args);
-        Struct dest_ = _all.getVal(_mapping.getVal(url_));
+        NaSt dest_ = _all.getVal(_mapping.getVal(url_));
         setFormsBy(_stds,dest_,_first);
         beforeDisplaying(dest_);
         return dest_;
     }
     protected static Rate integration() {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = init(pk_, all_, mapping_);
+        NaSt simu_ = init(pk_, all_, mapping_);
         callSimulationBeanNbTeamsSet(simu_, 2);
         callRate(new DifficultyCommonBeanWinTrainerExpSet(),all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON),Rate.newRate("5/7"));
-        Struct result_ = callDifficultyBeanComGet(transitSimu(pk_,all_,mapping_, new SimulationBeanValidateDiffChoice(), simu_));
+        NaSt result_ = callDifficultyBeanComGet(transitSimu(pk_,all_,mapping_, new SimulationBeanValidateDiffChoice(), simu_));
         return ((DifficultyCommonStruct)result_).getInstance().getWinTrainerExp();
     }
 
-    public static Struct transitSimuRem(PokemonStandards _stds, NatCaller _caller, Struct _first, long... _args) {
+    public static NaSt transitSimuRem(PokemonStandards _stds, NatCaller _caller, NaSt _first, long... _args) {
         String url_ = navigateData(_caller, _first, _args);
         assertTrue(url_.isEmpty());
 //        Struct dest_ = _all.getVal(_mapping.getVal(url_));
@@ -3428,8 +3428,8 @@ public abstract class InitDbSimulation extends InitDbConstr {
         beforeDisplaying(_first);
         return _first;
     }
-    public static StringMap<Struct> beanToSimu(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToSimu(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON,_pk.beanDiffCommon(EN));
         map_.addEntry(AikiBeansSimulationStd.BEAN_SIMULATION,_pk.beanSimulationBean(EN));
@@ -3536,39 +3536,39 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return facade_;
     }
 
-    protected static Struct pkPlayerValidateEvosSelectTwo() {
+    protected static NaSt pkPlayerValidateEvosSelectTwo() {
         PkData pk_ = pkDataByFacade(dbLight());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         return evolutions(pk_, all_, mapping_, simu_);
     }
 
 
-    protected static Struct pkPlayerValidateEvosSelectTree() {
+    protected static NaSt pkPlayerValidateEvosSelectTree() {
         PkData pk_ = pkDataByFacade(dbLightSec());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         return evolutionsTree(pk_, all_, mapping_, simu_);
     }
 
-    protected static Struct pkPlayerValidateEvosSelectTwoOnce() {
+    protected static NaSt pkPlayerValidateEvosSelectTwoOnce() {
         PkData pk_ = pkDataByFacade(dbLight());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         evolutions(pk_, all_, mapping_, simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
         return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
     }
 
-    protected static Struct pkPlayerValidateEvosSelectTwoTwice() {
+    protected static NaSt pkPlayerValidateEvosSelectTwoTwice() {
         PkData pk_ = pkDataByFacade(dbLight());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         evolutions(pk_, all_, mapping_, simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
@@ -3578,11 +3578,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
     }
 
-    protected static Struct pkPlayerValidateEvosSelectTwoThreeTimes() {
+    protected static NaSt pkPlayerValidateEvosSelectTwoThreeTimes() {
         PkData pk_ = pkDataByFacade(dbLight());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         evolutions(pk_, all_, mapping_, simu_);
         callSimulationBeanChosenEvoSet(simu_,P_POK_01);
         callSimulationBeanLevelEvoSet(simu_,41);
@@ -3595,21 +3595,21 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_,new SimulationBeanValidateEvo(),simu_);
     }
 
-    private static Struct evolutions(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt evolutions(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         foeTeamsSampleLight(_pk, _all, _mapping, _simu);
         playerTeamSampleLight(_pk, _all, _mapping, _simu);
         callSimulationBeanSelectedPkSet(_simu,0);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanDisplayEvolutions(), _simu);
     }
 
-    private static Struct evolutionsTree(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt evolutionsTree(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         foeTeamsSampleLightTree(_pk, _all, _mapping, _simu);
         playerTeamSampleLight(_pk, _all, _mapping, _simu);
         callSimulationBeanSelectedPkSet(_simu,0);
         return transitSimu(_pk, _all, _mapping, new SimulationBeanDisplayEvolutions(), _simu);
     }
 
-    private static void foeTeamsSampleLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamsSampleLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_04_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_04_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
@@ -3624,7 +3624,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
     }
 
 
-    private static void foeTeamsSampleLightTree(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamsSampleLightTree(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
@@ -3638,7 +3638,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
 
-    private static Struct playerTeamSampleLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt playerTeamSampleLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateTeam(),_simu);
     }
@@ -3752,11 +3752,11 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return facade_;
     }
 
-    protected static Struct pkPlayerFighterSimulateAfterFightOneLight() {
+    protected static NaSt pkPlayerFighterSimulateAfterFightOneLight() {
         PkData pk_ = pkDataByFacade(dbLightThree());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSampleVeryLight(pk_, all_, mapping_, simu_);
         playerTeamSampleLightSkip(pk_, all_, mapping_, simu_);
         fighterPositionsLight(pk_, all_, mapping_, simu_);
@@ -3767,10 +3767,10 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return transitSimu(pk_, all_, mapping_, new SimulationBeanSelectPkAfterFight(), simu_);
     }
 
-    private static Struct moveChoicesLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt moveChoicesLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         return moveChoice(0,0,0,0,_pk,_all,_mapping,_simu);
     }
-    private static void foeTeamsSampleVeryLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamsSampleVeryLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_03_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         selectTeam(_simu,1);
@@ -3778,7 +3778,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
 
-    private static Struct playerTeamSampleLightSkip(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt playerTeamSampleLightSkip(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pkTrainerSelectPkPlayerNameCycle(P_POK_00_TR,A_SIM_1, _pk, _all, _mapping, _simu,41);
         return transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
     }
@@ -3840,7 +3840,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         return facade_;
     }
 
-    private static Struct fighterPositionsLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static NaSt fighterPositionsLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         changeFighterPosition(_pk, _all, _mapping, _simu,0,"0","0");
         return transitSimu(_pk, _all, _mapping, new SimulationBeanValidateFrontFighters(), _simu);
     }
@@ -4118,91 +4118,91 @@ public abstract class InitDbSimulation extends InitDbConstr {
         _set.add(new LevelMove((short)_level,_move));
         return _set;
     }
-    protected static Struct chooseTrainer() {
+    protected static NaSt chooseTrainer() {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
         return simu(pk_, all_, mapping_, 0);
     }
-    protected static Struct chooseTrainerLevel(int _place, int _level) {
+    protected static NaSt chooseTrainerLevel(int _place, int _level) {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevel(),simu_,_place,_level);
     }
-    protected static Struct chooseTrainerLevelZero(int _place) {
+    protected static NaSt chooseTrainerLevelZero(int _place) {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
     }
-    protected static Struct chooseTrainerLevel(int _level, int _noFight, int _tile) {
+    protected static NaSt chooseTrainerLevel(int _level, int _noFight, int _tile) {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
-        Struct sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, _level);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, _level);
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
         return transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,_tile);
     }
-    protected static Struct chooseTrainerLevelZero(int _place, int _noFight, int _tile) {
+    protected static NaSt chooseTrainerLevelZero(int _place, int _noFight, int _tile) {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
-        Struct sel_ = transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt sel_ = transitSimu(pk_,all_,mapping_,new SimulationBeanClickLevelZero(),simu_,_place);
         callSimulationLevelBeanNoFightSet(sel_,_noFight);
         return transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,_tile);
     }
-    protected static Struct chooseTrainerLevelDualValidate() {
+    protected static NaSt chooseTrainerLevelDualValidate() {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
-        Struct sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, 0);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt sel_ = transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 2, 0);
         callSimulationLevelBeanNoFightSet(sel_,0);
         transitSimu(pk_,all_,mapping_,new SimulationLevelBeanClickTile(),sel_,1);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoice(),simu_);
     }
-    protected static Struct chooseTrainerLevelDualValidateKo() {
+    protected static NaSt chooseTrainerLevelDualValidateKo() {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
         return transitSimu(pk_,all_,mapping_,new SimulationBeanValidateFoeChoice(),simu_);
     }
-    protected static Struct simuLeagueReal() {
+    protected static NaSt simuLeagueReal() {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
         transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 3, 0);
         transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoice(), simu_);
         simpleTeam(pk_, all_, mapping_, simu_);
         return simu_;
     }
-    protected static Struct simuLeagueRealSec() {
+    protected static NaSt simuLeagueRealSec() {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 0);
+        NaSt simu_ = simu(pk_, all_, mapping_, 0);
         transitSimu(pk_, all_, mapping_, new SimulationBeanClickLevel(), simu_, 3, 1);
         transitSimu(pk_, all_, mapping_, new SimulationBeanValidateFoeChoice(), simu_);
         simpleTeamLight(pk_, all_, mapping_, simu_);
         return simu_;
     }
-    protected static Struct simuLeagueVirtual() {
+    protected static NaSt simuLeagueVirtual() {
         PkData pk_ = pkDataByFacade(dbFull());
-        StringMap<Struct> all_ = beanToSimu(pk_);
+        StringMap<NaSt> all_ = beanToSimu(pk_);
         StringMap<String> mapping_ = mappingToSimu();
-        Struct simu_ = simu(pk_, all_, mapping_, 2);
+        NaSt simu_ = simu(pk_, all_, mapping_, 2);
         foeTeamsSampleSec(pk_, all_, mapping_, simu_);
         simpleTeam(pk_, all_, mapping_, simu_);
         return simu_;
     }
-    private static void foeTeamsSampleSec(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void foeTeamsSampleSec(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         selectTeam(_simu,0);
         pkTrainerSelectPkNameCycle(false, P_POK_00_TR, A_SIM_1_TR, _pk, _all, _mapping, _simu, 4);
         pkTrainerSelectPkNameCycle(false, P_POK_01_TR, A_SIM_2_TR, _pk, _all, _mapping, _simu, 4);
@@ -4217,7 +4217,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         setMult(_simu,2);
         transitSimu(_pk, _all, _mapping,new SimulationBeanValidateFoeChoiceFree(), _simu);
     }
-    private static void simpleTeam(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void simpleTeam(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pk(_pk, _all, _mapping, _simu,0);
         pk(_pk, _all, _mapping, _simu,1);
         transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
@@ -4245,7 +4245,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         moveChoice(1,1,0,1,_pk,_all,_mapping,_simu);
         transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
     }
-    private static void simpleTeamLight(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu) {
+    private static void simpleTeamLight(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu) {
         pk(_pk, _all, _mapping, _simu,0);
         pk(_pk, _all, _mapping, _simu,1);
         transitSimu(_pk,_all,_mapping,new SimulationBeanValidateFoeChoiceSkipEvolutions(),_simu);
@@ -4261,13 +4261,13 @@ public abstract class InitDbSimulation extends InitDbConstr {
         transitSimu(_pk, _all, _mapping, new SimulationBeanSimulateFight(),_simu);
     }
 
-    private static void pk(PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping, Struct _simu, int _teamIndex) {
-        Struct editing_ = editPkPlayer(_pk, _all, _mapping, _simu, P_POK_01_TR, A_SIM_1, _teamIndex, 41, TeamCrud.EDIT);
+    private static void pk(PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping, NaSt _simu, int _teamIndex) {
+        NaSt editing_ = editPkPlayer(_pk, _all, _mapping, _simu, P_POK_01_TR, A_SIM_1, _teamIndex, 41, TeamCrud.EDIT);
         assertSame(editing_,chooseItemPkPlayer(I_BALL_TR, _pk, _all, _mapping,editing_));
-        Struct re_ = addMovePlayer(M_POK_01_TR, 0, _pk, _all, _mapping, editing_);
+        NaSt re_ = addMovePlayer(M_POK_01_TR, 0, _pk, _all, _mapping, editing_);
         callSelectLineMoveSelectedSet(elt(callEditPokemonBeanMovesGet(re_),0),true);
-        Struct afterDel_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanDeleteMoves(), re_);
-        Struct af_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanEdit(), afterDel_);
+        NaSt afterDel_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanDeleteMoves(), re_);
+        NaSt af_ = transitSimu(_pk, _all, _mapping, new EditPokemonBeanEdit(), afterDel_);
         assertSame(af_, _simu);
     }
 

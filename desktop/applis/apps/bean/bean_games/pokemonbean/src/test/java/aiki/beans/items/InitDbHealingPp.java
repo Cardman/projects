@@ -5,45 +5,45 @@ import aiki.beans.PkData;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbHealingPp extends InitDbHealing {
 
-    public static Struct callHealingPpBeanHealedMovePpGet(Struct _str, long... _args) {
+    public static NaSt callHealingPpBeanHealedMovePpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealedMovePpGet(),_str,_args);
     }
 
-    public static Struct callHealingPpBeanHealingAllMovesFullppGet(Struct _str, long... _args) {
+    public static NaSt callHealingPpBeanHealingAllMovesFullppGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealingAllMovesFullppGet(),_str,_args);
     }
 
-    public static Struct callHealingPpBeanHealingAllMovesPpGet(Struct _str, long... _args) {
+    public static NaSt callHealingPpBeanHealingAllMovesPpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealingAllMovesPpGet(),_str,_args);
     }
 
-    public static Struct callHealingPpBeanHealingMoveFullppGet(Struct _str, long... _args) {
+    public static NaSt callHealingPpBeanHealingMoveFullppGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingPpBeanHealingMoveFullppGet(),_str,_args);
     }
 
-    public static Struct callHealingPpBeanLimitedPpMove(Struct _str, long... _args) {
+    public static NaSt callHealingPpBeanLimitedPpMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingPpBeanLimitedPpMove(),_str,_args);
     }
 
-    public static Struct callHealingPpBeanLimitedPpMoves(Struct _str, long... _args) {
+    public static NaSt callHealingPpBeanLimitedPpMoves(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new HealingPpBeanLimitedPpMoves(),_str,_args);
     }
 
-    public static StringMap<Struct> beanToHealingPp(PkData _pk) {
-        StringMap<Struct> map_ = beanToHealing(_pk);
+    public static StringMap<NaSt> beanToHealingPp(PkData _pk) {
+        StringMap<NaSt> map_ = beanToHealing(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_HEALINGPP,_pk.beanHealingPpBean(EN));
         return map_;
     }
-    protected static Struct ppDb(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
+    protected static NaSt ppDb(boolean _healingMoveFullpp, boolean _healingAllMovesPp, int _healingAllMovesFullpp, int _healedMovePp) {
         PkData pk_ = pkDataByFacade(feedDbPp(_healingMoveFullpp, _healingAllMovesPp, _healingAllMovesFullpp, _healedMovePp));
-        StringMap<Struct> all_ = beanToHealingPp(pk_);
+        StringMap<NaSt> all_ = beanToHealingPp(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_HEALINGPP, pk_, all_);
     }
 

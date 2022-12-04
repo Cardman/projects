@@ -10,62 +10,62 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
 
-    public static String callEffectStatusBeanClickLink(Struct _str, long... _args) {
+    public static String callEffectStatusBeanClickLink(NaSt _str, long... _args) {
         return navigateData(new EffectStatusBeanClickLink(),_str,_args);
     }
 
-    public static String callEffectStatusBeanClickLinkId(Struct _str, long... _args) {
+    public static String callEffectStatusBeanClickLinkId(NaSt _str, long... _args) {
         callEffectStatusBeanClickLink(_str, _args);
         return getValStatusId(_str);
     }
-    public static String callEffectStatusBeanClickLinkDeleted(Struct _str, long... _args) {
+    public static String callEffectStatusBeanClickLinkDeleted(NaSt _str, long... _args) {
         return navigateData(new EffectStatusBeanClickLinkDeleted(),_str,_args);
     }
 
-    public static String callEffectStatusBeanClickLinkDeletedId(Struct _str, long... _args) {
+    public static String callEffectStatusBeanClickLinkDeletedId(NaSt _str, long... _args) {
         callEffectStatusBeanClickLinkDeleted(_str, _args);
         return getValStatusId(_str);
     }
 
-    public static Struct callEffectStatusBeanDeletedStatusGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanDeletedStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanDeletedStatusGet(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanGetFail(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanGetFail(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanGetFail(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanGetTrLink(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanGetTrLink(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanGetTrLink(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanGetTrLinkDeleted(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanGetTrLinkDeleted(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanGetTrLinkDeleted(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanIsStatus(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanIsStatus(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanIsStatus(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanKoUserHealSubstGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanKoUserHealSubstGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanKoUserHealSubstGet(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanLawStatusGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanLawStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanLawStatusGet(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanMapVarsStatusGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanMapVarsStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanMapVarsStatusGet(),_str,_args);
     }
 
-    public static Struct callEffectStatusBeanStatusFromUserGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatusBeanStatusFromUserGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatusBeanStatusFromUserGet(),_str,_args);
     }
 
@@ -74,17 +74,17 @@ public abstract class InitDbMoveEffectStatus extends InitDbMoveEffect {
         f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         return f_;
     }
-    protected static Struct dispMoveEffStatus(FacadeGame _fac, int _index) {
+    protected static NaSt dispMoveEffStatus(FacadeGame _fac, int _index) {
         return dispMoveEffStatus(_fac, _index,0);
     }
-    protected static Struct dispMoveEffStatus(FacadeGame _fac, int _index, int _indexEff) {
+    protected static NaSt dispMoveEffStatus(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectStatus(pk_);
+        StringMap<NaSt> all_ = beanToEffectStatus(pk_);
         StringMap<String> mapping_ = mappingToEffectStatus();
         return transitEffect(_index,_indexEff,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectStatus(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectStatus(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_STATUS,_pk.beanEffectStatusBean(EN));
         return map_;
     }

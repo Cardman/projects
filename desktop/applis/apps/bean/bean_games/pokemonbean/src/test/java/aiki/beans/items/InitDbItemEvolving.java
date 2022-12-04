@@ -8,7 +8,7 @@ import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.fight.pokemon.evolution.EvolutionItem;
 import aiki.fight.pokemon.evolution.EvolutionStoneSimple;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.util.StringList;
 import code.util.StringMap;
@@ -21,21 +21,21 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return callEvolvingItemBeanClickPokemon(healEvoItem());
     }
 
-    public static String callEvolvingItemBeanClickPokemon(Struct _str) {
+    public static String callEvolvingItemBeanClickPokemon(NaSt _str) {
         return navigateData(new EvolvingItemBeanClickPokemon(),_str,0);
     }
 
     public static String callEvolvingItemBeanClickPokemonId() {
-        Struct it_ = healEvoItem();
+        NaSt it_ = healEvoItem();
         callEvolvingItemBeanClickPokemon(it_);
         return getValPkId(it_);
     }
 
-    public static Struct callEvolvingItemBeanGetTrPokemon() {
+    public static NaSt callEvolvingItemBeanGetTrPokemon() {
         return BeanPokemonCommonTs.callLongs(new EvolvingItemBeanGetTrPokemon(),healEvoItem(),0);
     }
 
-    public static Struct callEvolvingItemBeanPokemonGet() {
+    public static NaSt callEvolvingItemBeanPokemonGet() {
         return BeanPokemonCommonTs.callLongs(new EvolvingItemBeanPokemonGet(),healEvoItem());
     }
 
@@ -43,21 +43,21 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return callEvolvingStoneBeanClickPokemon(healEvoStone());
     }
 
-    public static String callEvolvingStoneBeanClickPokemon(Struct _str) {
+    public static String callEvolvingStoneBeanClickPokemon(NaSt _str) {
         return navigateData(new EvolvingStoneBeanClickPokemon(),_str,0);
     }
 
     public static String callEvolvingStoneBeanClickPokemonId() {
-        Struct it_ = healEvoStone();
+        NaSt it_ = healEvoStone();
         callEvolvingStoneBeanClickPokemon(it_);
         return getValPkId(it_);
     }
 
-    public static Struct callEvolvingStoneBeanGetTrPokemon() {
+    public static NaSt callEvolvingStoneBeanGetTrPokemon() {
         return BeanPokemonCommonTs.callLongs(new EvolvingStoneBeanGetTrPokemon(),healEvoStone(),0);
     }
 
-    public static Struct callEvolvingStoneBeanPokemonGet() {
+    public static NaSt callEvolvingStoneBeanPokemonGet() {
         return BeanPokemonCommonTs.callLongs(new EvolvingStoneBeanPokemonGet(),healEvoStone());
     }
 
@@ -65,33 +65,33 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return callFossilBeanClickPokemon(healFossil());
     }
 
-    public static String callFossilBeanClickPokemon(Struct _str) {
+    public static String callFossilBeanClickPokemon(NaSt _str) {
         return navigateData(new FossilBeanClickPokemon(),_str,0);
     }
 
     public static String callFossilBeanClickPokemonId() {
-        Struct it_ = healFossil();
+        NaSt it_ = healFossil();
         callFossilBeanClickPokemon(it_);
         return getValPkId(it_);
     }
 
-    public static Struct callFossilBeanGetTrPokemon() {
+    public static NaSt callFossilBeanGetTrPokemon() {
         return BeanPokemonCommonTs.callLongs(new FossilBeanGetTrPokemon(),healFossil(),0);
     }
 
-    public static Struct callFossilBeanLevelGet() {
+    public static NaSt callFossilBeanLevelGet() {
         return BeanPokemonCommonTs.callLongs(new FossilBeanLevelGet(),healFossil());
     }
 
-    public static StringMap<Struct> beanToEvoItem(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToEvoItem(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_EVO_ITEM,_pk.beanEvolvingItemBean(EN));
         return map_;
     }
 
-    protected static Struct healEvoItem() {
+    protected static NaSt healEvoItem() {
         PkData pk_ = pkDataByFacade(feedDbEvoItem());
-        StringMap<Struct> all_ = beanToEvoItem(pk_);
+        StringMap<NaSt> all_ = beanToEvoItem(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_EVO_ITEM, pk_, all_);
     }
 
@@ -111,15 +111,15 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return facade_;
     }
 
-    public static StringMap<Struct> beanToEvoStone(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToEvoStone(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_EVO_STONE,_pk.beanEvolvingStoneBean(EN));
         return map_;
     }
 
-    protected static Struct healEvoStone() {
+    protected static NaSt healEvoStone() {
         PkData pk_ = pkDataByFacade(feedDbEvoStone());
-        StringMap<Struct> all_ = beanToEvoStone(pk_);
+        StringMap<NaSt> all_ = beanToEvoStone(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_EVO_STONE, pk_, all_);
     }
 
@@ -139,15 +139,15 @@ public abstract class InitDbItemEvolving extends InitDbItem {
         return facade_;
     }
 
-    public static StringMap<Struct> beanToFossil(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToFossil(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_FOSSIL,_pk.beanFossilBean(EN));
         return map_;
     }
 
-    protected static Struct healFossil() {
+    protected static NaSt healFossil() {
         PkData pk_ = pkDataByFacade(feedDbFossil());
-        StringMap<Struct> all_ = beanToFossil(pk_);
+        StringMap<NaSt> all_ = beanToFossil(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_FOSSIL, pk_, all_);
     }
 

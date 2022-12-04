@@ -4,7 +4,7 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.variables.VariableWrapperNat;
 import code.bean.nat.fwd.opers.NatExecVariableContent;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.util.IdMap;
 import code.util.StringMap;
 
@@ -17,13 +17,13 @@ public final class NatStdRefVariableOperation extends NatExecLeafOperation imple
         variableContent = _variableContent;
     }
 
-    public static Struct getIndexLoop(NatExecVariableContent _varCont, StringMap<Integer> _vars) {
+    public static NaSt getIndexLoop(NatExecVariableContent _varCont, StringMap<Integer> _vars) {
         return getIndexLoop(_varCont.getVariableName(), _vars);
     }
 
-    public static Struct getIndexLoop(String _val, StringMap<Integer> _vars) {
+    public static NaSt getIndexLoop(String _val, StringMap<Integer> _vars) {
         int locVar_ = _vars.getVal(_val);
-        return new IntStruct(locVar_);
+        return new NaNbSt(locVar_);
     }
 
     public static VariableWrapperNat getWrapper(NatExecVariableContent _varCont, StringMap<VariableWrapperNat> _refParams) {
@@ -34,9 +34,9 @@ public final class NatStdRefVariableOperation extends NatExecLeafOperation imple
         return _refParams.getVal(_val);
     }
 
-    public static Struct getValue(VariableWrapperNat _w) {
+    public static NaSt getValue(VariableWrapperNat _w) {
         if (_w == null) {
-            return NullStruct.NULL_VALUE;
+            return NaNu.NULL_VALUE;
         }
         return _w.getValue();
     }

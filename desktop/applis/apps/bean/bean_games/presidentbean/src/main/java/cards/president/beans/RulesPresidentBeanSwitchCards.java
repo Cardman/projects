@@ -1,13 +1,13 @@
 package cards.president.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public class RulesPresidentBeanSwitchCards implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
+    public NaSt re(NaSt _instance, NaSt[] _args) {
         RulesPresidentBean rules_ = (RulesPresidentBean) ((PresidentBeanStruct)_instance).getInstance();
-        return BooleanStruct.of(rules_.isSwitchCards());
+        return NaBoSt.of(rules_.isSwitchCards());
     }
 }

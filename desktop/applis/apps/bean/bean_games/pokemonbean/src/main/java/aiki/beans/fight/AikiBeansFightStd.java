@@ -11,10 +11,10 @@ import aiki.game.fight.util.CopiedMove;
 import aiki.game.fight.util.MoveTarget;
 import aiki.util.TeamPositionList;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.ByteStruct;
-import code.expressionlanguage.structs.ShortStruct;
-import code.expressionlanguage.structs.StringStruct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.util.*;
 import code.util.core.BoolVal;
 
@@ -311,7 +311,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<Byte, MoveTarget> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new MoveTargetStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new MoveTargetStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -342,7 +342,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, TeamPositionList> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()), getTeamPos(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()), getTeamPos(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -357,7 +357,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, ByteTreeMap<Anticipation>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getByAn(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getByAn(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -368,7 +368,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, ByteTreeMap<StacksOfUses>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),getBySt(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),getBySt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -379,7 +379,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<Byte, Anticipation> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new AnticipationStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new AnticipationStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -390,7 +390,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<Byte, StacksOfUses> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new ByteStruct(e.getKey()),new StacksOfUsesStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaNbSt(e.getKey()),new StacksOfUsesStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -423,7 +423,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<MoveTeamPosition, Short> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new ShortStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -434,7 +434,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<MoveTeamPosition, BoolVal> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()), BooleanStruct.of(e.getValue() == BoolVal.TRUE));
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()), NaBoSt.of(e.getValue() == BoolVal.TRUE));
             arr_.set(j_,p_);
             j_++;
         }
@@ -445,7 +445,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<MoveTeamPosition, String> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new StringStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new MoveTeamPositionStruct(e.getKey()),new NaStSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -456,7 +456,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, CopiedMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new CopiedMoveStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new CopiedMoveStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -478,7 +478,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, SufferedDamageCategory> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new SufferedDamageCategoryStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new SufferedDamageCategoryStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -489,7 +489,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, ActivityOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new ActivityOfMoveStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -500,7 +500,7 @@ public final class AikiBeansFightStd{
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, MultPowerMoves> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new MultPowerMovesStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new MultPowerMovesStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }

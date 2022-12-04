@@ -1,12 +1,12 @@
 package aiki.beans.effects;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EffectWhileSendingBeanRandomStatis implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(((EffectWhileSendingBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().randomStatis());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(((EffectWhileSendingBean) ((PokemonBeanStruct) _instance).getInstance()).getEffectStatisticCommon().randomStatis());
     }
 }

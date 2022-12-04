@@ -1,22 +1,22 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.AbNullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
-public final class PairStruct extends AbNullStruct {
-    private final Struct first;
-    private final Struct second;
+public final class PairStruct extends NaNuSt {
+    private final NaSt first;
+    private final NaSt second;
 
-    public PairStruct(Struct _first, Struct _second) {
+    public PairStruct(NaSt _first, NaSt _second) {
         this.first = _first;
         this.second = _second;
     }
 
-    public Struct getFirst() {
+    public NaSt getFirst() {
         return first;
     }
 
-    public Struct getSecond() {
+    public NaSt getSecond() {
         return second;
     }
 }

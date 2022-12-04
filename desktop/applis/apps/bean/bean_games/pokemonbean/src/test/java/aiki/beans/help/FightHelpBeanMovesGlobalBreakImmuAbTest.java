@@ -8,7 +8,7 @@ import aiki.fight.moves.DamagingMoveData;
 import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectGlobal;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -45,11 +45,11 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
         assertEq(M_DAM,clickMvId());
     }
     private String clickMv() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickMovesGlobalBreakImmuAb(b_,0));
     }
     private String clickMvId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickMovesGlobalBreakImmuAb(b_,0);
         return getValMoveId(b_);
     }
@@ -70,11 +70,11 @@ public final class FightHelpBeanMovesGlobalBreakImmuAbTest extends InitDbFightHe
         assertEq(M_DAM_VAR,clickAbId());
     }
     private String clickAb() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickAbilitiesBreakable(b_,0));
     }
     private String clickAbId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickAbilitiesBreakable(b_,0);
         return getValAbilityId(b_);
     }

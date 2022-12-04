@@ -2,8 +2,8 @@ package aiki.beans.fight;
 
 import aiki.beans.PkFight;
 import aiki.facade.FacadeGame;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import org.junit.Test;
@@ -788,19 +788,19 @@ public final class FighterBeanTest extends InitDbFight {
     public void getFoeSt() {
         assertEq(PIKACHU_TR, callFighterBeanGetStatusRelatTeam(playerPath(0),0));
     }
-    private Struct foePath(long..._args) {
+    private NaSt foePath(long..._args) {
         return beanFighter(clickFoeCaller(),_args);
     }
 
-    private Struct playerPath(long..._args) {
+    private NaSt playerPath(long..._args) {
         return beanFighter(clickPlayerCaller(),_args);
     }
 
-    private Struct beanFighter(NatCaller _caller,long..._args) {
+    private NaSt beanFighter(NatCaller _caller,long..._args) {
         FacadeGame facade_ = facadeFighters(dbFighter());
         PkFight stds_ = new PkFight();
-        Struct bFighter_ = beanFighter(stds_,EN, facade_);
-        Struct bTeam_ = beanTeam(stds_,_caller,facade_);
+        NaSt bFighter_ = beanFighter(stds_,EN, facade_);
+        NaSt bTeam_ = beanTeam(stds_,_caller,facade_);
         transit(stds_, clickTeamFighterCaller(),bTeam_,bFighter_,_args);
         return bFighter_;
     }

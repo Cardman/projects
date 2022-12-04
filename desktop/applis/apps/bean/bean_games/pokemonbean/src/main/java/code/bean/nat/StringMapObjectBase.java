@@ -1,6 +1,6 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -12,7 +12,7 @@ public class StringMapObjectBase {
     private final StringMap<String> mapString = new StringMap<String>();
     private final StringMap<StringList> mapStringList = new StringMap<StringList>();
     private final StringMap<BoolVal> mapBoolean = new StringMap<BoolVal>();
-    private final StringMap<Struct> beansOthers = new StringMap<Struct>();
+    private final StringMap<NaSt> beansOthers = new StringMap<NaSt>();
 
     public static BoolVal to(boolean _v) {
         if (_v) {
@@ -73,7 +73,7 @@ public class StringMapObjectBase {
         mapStringList.put(_key, _v);
     }
 
-    public void put(String _key, Struct _v) {
+    public void put(String _key, NaSt _v) {
         beansOthers.put(_key, _v);
     }
     public Rate getValRate(String _key) {
@@ -100,7 +100,7 @@ public class StringMapObjectBase {
         return _i;
     }
 
-    public StringMap<Struct> getBeansOthers() {
+    public StringMap<NaSt> getBeansOthers() {
         return beansOthers;
     }
 

@@ -1,12 +1,12 @@
 package aiki.beans.facade.game.dto;
 
 import aiki.beans.game.StatisticInfoPkPlayerStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class StatisticInfoPkPlayerGetName implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( ((StatisticInfoPkPlayerStruct) _instance).getInstance()).getName());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( ((StatisticInfoPkPlayerStruct) _instance).getInstance()).getName());
     }
 }

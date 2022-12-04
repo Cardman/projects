@@ -1,7 +1,7 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 
 public interface NatCaller {
-    Struct re(Struct _instance, Struct[] _args);
+    NaSt re(NaSt _instance, NaSt[] _args);
 }

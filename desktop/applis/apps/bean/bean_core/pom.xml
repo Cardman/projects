@@ -14,8 +14,8 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-            <groupId>expressionlanguage</groupId>
-            <artifactId>expressionlanguage</artifactId>
+            <groupId>maths</groupId>
+            <artifactId>maths</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 		<dependency>

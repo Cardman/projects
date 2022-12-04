@@ -2,11 +2,11 @@ package aiki.beans.game;
 
 import aiki.beans.PokemonBeanStruct;
 import aiki.beans.PokemonStandards;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class GameProgressionBeanNotAtAllFamiliesBaseGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         return PokemonStandards.getStrListStrList(( (GameProgressionBean) ((PokemonBeanStruct)_instance).getInstance()).getNotAtAllFamiliesBase());
     }
 }

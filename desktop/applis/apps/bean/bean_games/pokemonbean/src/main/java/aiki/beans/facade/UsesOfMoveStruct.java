@@ -4,7 +4,7 @@ import aiki.beans.ParamNatStruct;
 import aiki.game.UsesOfMove;
 import code.bean.nat.NatArrayStruct;
 import code.bean.nat.PairStruct;
-import code.expressionlanguage.structs.StringStruct;
+import code.bean.nat.*;
 import code.util.AbsMap;
 import code.util.EntryCust;
 
@@ -17,7 +17,7 @@ public final class UsesOfMoveStruct extends ParamNatStruct<UsesOfMove> {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<String, UsesOfMove> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StringStruct(e.getKey()),new UsesOfMoveStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(e.getKey()),new UsesOfMoveStruct(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }

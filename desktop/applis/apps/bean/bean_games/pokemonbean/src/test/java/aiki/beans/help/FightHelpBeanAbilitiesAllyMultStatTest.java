@@ -5,7 +5,7 @@ import aiki.facade.FacadeGame;
 import aiki.fight.abilities.AbilityData;
 import aiki.fight.enums.Statistic;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -100,11 +100,11 @@ public final class FightHelpBeanAbilitiesAllyMultStatTest extends InitDbFightHel
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
         return toStr(callFightHelpBeanClickAbilitiesAllyMultStat(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db(Statistic.CRITICAL_HIT));
+        NaSt b_ = bean(db(Statistic.CRITICAL_HIT));
         callFightHelpBeanClickAbilitiesAllyMultStat(b_,0);
         return getValAbilityId(b_);
     }

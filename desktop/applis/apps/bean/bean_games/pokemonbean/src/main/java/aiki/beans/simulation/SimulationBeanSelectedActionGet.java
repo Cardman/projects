@@ -2,10 +2,10 @@ package aiki.beans.simulation;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 public class SimulationBeanSelectedActionGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getSelectedAction());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (SimulationBean) ((PokemonBeanStruct)_instance).getInstance()).getSelectedAction());
     }
 }

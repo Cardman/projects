@@ -2,11 +2,11 @@ package aiki.beans.pokemon;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 
 public class PokedexBeanHasEvoGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (WithFilterBean) ((PokemonBeanStruct)_instance).getInstance()).getHasEvo());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (WithFilterBean) ((PokemonBeanStruct)_instance).getInstance()).getHasEvo());
     }
 }

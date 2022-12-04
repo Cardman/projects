@@ -20,7 +20,7 @@ import aiki.map.pokemon.*;
 import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.Coords;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.*;
 import code.maths.*;
 import code.util.*;
@@ -52,58 +52,58 @@ public abstract class InitDbSolution extends InitDbConstr {
     public static final String D_T_1 = "D T 1";
     public static final String D_T_2 = "D T 2";
 
-    public static Struct callSolutionBeanGetPlace(int _step, int _place) {
+    public static NaSt callSolutionBeanGetPlace(int _step, int _place) {
         return BeanPokemonCommonTs.callLongs(new SolutionBeanGetPlace(),dispSol(),_step,_place);
     }
 
-    public static Struct callSolutionBeanStepsGet() {
+    public static NaSt callSolutionBeanStepsGet() {
         return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),dispSol());
     }
 
-    public static Struct callSolutionBeanStepsTwiceGet() {
+    public static NaSt callSolutionBeanStepsTwiceGet() {
         return BeanPokemonCommonTs.callLongs(new SolutionBeanStepsGet(),dispSolTwice());
     }
 
-    public static Struct callPlaceTrainerDtoPlaceGet(Struct _str) {
+    public static NaSt callPlaceTrainerDtoPlaceGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoPlaceGet(),_str);
     }
 
-    public static Struct callPlaceTrainerDtoTrainerGet(Struct _str) {
+    public static NaSt callPlaceTrainerDtoTrainerGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new PlaceTrainerDtoTrainerGet(),_str);
     }
 
-    public static Struct callStepDtoGetNames(Struct _str) {
+    public static NaSt callStepDtoGetNames(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new StepDtoGetNames(),_str);
     }
 
-    public static Struct callStepDtoGetPokemon(Struct _str) {
+    public static NaSt callStepDtoGetPokemon(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new StepDtoGetPokemon(),_str);
     }
 
-    public static Struct callWildPokemonDtoGenderGet(Struct _str) {
+    public static NaSt callWildPokemonDtoGenderGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new WildPokemonDtoGenderGet(),_str);
     }
 
-    public static Struct callWildPokemonDtoImageGet(Struct _str) {
+    public static NaSt callWildPokemonDtoImageGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new WildPokemonDtoImageGet(),_str);
     }
 
-    public static Struct callWildPokemonDtoNameGet(Struct _str) {
+    public static NaSt callWildPokemonDtoNameGet(NaSt _str) {
         return BeanPokemonCommonTs.callLongs(new WildPokemonDtoNameGet(),_str);
     }
-    protected static Struct dispSol() {
+    protected static NaSt dispSol() {
         PkData pk_ = pkDataByFacade(db());
         return dispSol(pk_);
     }
-    protected static Struct dispSolTwice() {
+    protected static NaSt dispSolTwice() {
         PkData pk_ = pkDataByFacade(db());
-        Struct bean_ = dispSol(pk_);
+        NaSt bean_ = dispSol(pk_);
         beforeDisplaying(bean_);
         return bean_;
     }
 
-    private static Struct dispSol(PkData _pk) {
-        Struct welcome_ = _pk.beanSolutionBean(EN);
+    private static NaSt dispSol(PkData _pk) {
+        NaSt welcome_ = _pk.beanSolutionBean(EN);
         beforeDisplaying(welcome_);
         return welcome_;
     }

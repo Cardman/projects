@@ -1,14 +1,13 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.AbArrayStruct;
+import code.bean.nat.*;
 
-public final class NatArrayStruct extends AbArrayStruct {
+public final class NatArrayStruct extends NaAr {
 
     public NatArrayStruct(int _nb) {
         super(_nb);
     }
 
-    @Override
     public String getClassName() {
         return "";
     }

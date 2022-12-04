@@ -3,7 +3,7 @@ package cards.consts.beans;
 import cards.consts.LineDeal;
 import code.bean.nat.NatArrayStruct;
 import code.bean.nat.SpecialNatClass;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -15,7 +15,7 @@ public final class LineDealStructTest extends EquallableCardConstBeanUtil {
     }
     @Test
     public void getScores() {
-        Struct arr_ = callLineDealScores(lineDeal(3, 5, 9));
+        NaSt arr_ = callLineDealScores(lineDeal(3, 5, 9));
         assertSizeEq(2,arr_);
         assertEq(5,arr_,0);
         assertEq(9,arr_,1);

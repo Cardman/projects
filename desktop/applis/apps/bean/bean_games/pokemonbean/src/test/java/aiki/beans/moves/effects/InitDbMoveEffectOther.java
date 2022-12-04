@@ -13,198 +13,198 @@ import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
 import aiki.map.levels.enums.EnvironmentType;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
 
 
-    public static Struct callEffectAllyBeanMultAllyDamageGet(Struct _str, long... _args) {
+    public static NaSt callEffectAllyBeanMultAllyDamageGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectAllyBeanMultAllyDamageGet(),_str,_args);
     }
 
-    public static String callEffectBatonPassBeanClickMove(Struct _str, long... _args) {
+    public static String callEffectBatonPassBeanClickMove(NaSt _str, long... _args) {
         return navigateData(new EffectBatonPassBeanClickMove(),_str,_args);
     }
 
-    public static String callEffectBatonPassBeanClickMoveId(Struct _str, long... _args) {
+    public static String callEffectBatonPassBeanClickMoveId(NaSt _str, long... _args) {
         callEffectBatonPassBeanClickMove(_str, _args);
         return getValMoveId(_str);
     }
 
-    public static Struct callEffectBatonPassBeanGetTrMove(Struct _str, long... _args) {
+    public static NaSt callEffectBatonPassBeanGetTrMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBatonPassBeanGetTrMove(),_str,_args);
     }
 
-    public static Struct callEffectBatonPassBeanMovesGet(Struct _str, long... _args) {
+    public static NaSt callEffectBatonPassBeanMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBatonPassBeanMovesGet(),_str,_args);
     }
 
-    public static String callEffectCloneBeanClickMoveBatonPass(Struct _str, long... _args) {
+    public static String callEffectCloneBeanClickMoveBatonPass(NaSt _str, long... _args) {
         return navigateData(new EffectCloneBeanClickMoveBatonPass(),_str,_args);
     }
 
-    public static String callEffectCloneBeanClickMoveBatonPassId(Struct _str, long... _args) {
+    public static String callEffectCloneBeanClickMoveBatonPassId(NaSt _str, long... _args) {
         callEffectCloneBeanClickMoveBatonPass(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectCloneBeanClickMoveEndRound(Struct _str, long... _args) {
+    public static String callEffectCloneBeanClickMoveEndRound(NaSt _str, long... _args) {
         return navigateData(new EffectCloneBeanClickMoveEndRound(),_str,_args);
     }
 
-    public static String callEffectCloneBeanClickMoveEndRoundId(Struct _str, long... _args) {
+    public static String callEffectCloneBeanClickMoveEndRoundId(NaSt _str, long... _args) {
         callEffectCloneBeanClickMoveEndRound(_str, _args);
         return getValMoveId(_str);
     }
-    public static String callEffectCloneBeanClickMoveSending(Struct _str, long... _args) {
+    public static String callEffectCloneBeanClickMoveSending(NaSt _str, long... _args) {
         return navigateData(new EffectCloneBeanClickMoveSending(),_str,_args);
     }
 
-    public static String callEffectCloneBeanClickMoveSendingId(Struct _str, long... _args) {
+    public static String callEffectCloneBeanClickMoveSendingId(NaSt _str, long... _args) {
         callEffectCloneBeanClickMoveSending(_str, _args);
         return getValMoveId(_str);
     }
-    public static Struct callEffectCloneBeanGetTrMovesBatonPass(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanGetTrMovesBatonPass(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanGetTrMovesBatonPass(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanGetTrMovesEndRound(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanGetTrMovesEndRound(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanGetTrMovesEndRound(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanGetTrMovesSending(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanGetTrMovesSending(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanGetTrMovesSending(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanHpRateCloneGet(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanHpRateCloneGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanHpRateCloneGet(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanMovesBatonPassGet(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanMovesBatonPassGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanMovesBatonPassGet(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanMovesEndRoundGet(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanMovesEndRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanMovesEndRoundGet(),_str,_args);
     }
 
-    public static Struct callEffectCloneBeanMovesSendingGet(Struct _str, long... _args) {
+    public static NaSt callEffectCloneBeanMovesSendingGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCloneBeanMovesSendingGet(),_str,_args);
     }
 
-    public static Struct callEffectCommonStatisticsBeanCommonValueGet(Struct _str, long... _args) {
+    public static NaSt callEffectCommonStatisticsBeanCommonValueGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCommonStatisticsBeanCommonValueGet(),_str,_args);
     }
 
-    public static Struct callEffectCommonStatisticsBeanGetTrStatistic(Struct _str, long... _args) {
+    public static NaSt callEffectCommonStatisticsBeanGetTrStatistic(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCommonStatisticsBeanGetTrStatistic(),_str,_args);
     }
 
-    public static Struct callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(Struct _str, long... _args) {
+    public static NaSt callEffectCommonStatisticsBeanMapVarsCommonStatisticsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCommonStatisticsBeanMapVarsCommonStatisticsGet(),_str,_args);
     }
 
 
-    public static Struct callEffectCounterAttackBeanDroppedStatDirectMoveGet(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanDroppedStatDirectMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanDroppedStatDirectMoveGet(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanGetMapVarsFailCounter(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanGetMapVarsFailCounter(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanGetMapVarsFailCounter(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanGetTrDroppedStatDirectMove(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanGetTrDroppedStatDirectMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanGetTrDroppedStatDirectMove(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanGetTrSufferingDamageTypes(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanGetTrSufferingDamageTypes(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanGetTrSufferingDamageTypes(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanReasonsCounterGet(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanReasonsCounterGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanReasonsCounterGet(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanReasonsProtectGet(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanReasonsProtectGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanReasonsProtectGet(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanSufferingDamageDirectMoveGet(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanSufferingDamageDirectMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanSufferingDamageDirectMoveGet(),_str,_args);
     }
 
-    public static Struct callEffectCounterAttackBeanSufferingDamageTypesGet(Struct _str, long... _args) {
+    public static NaSt callEffectCounterAttackBeanSufferingDamageTypesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectCounterAttackBeanSufferingDamageTypesGet(),_str,_args);
     }
 
-    public static Struct callEffectFullHpRateBeanClosestFoeDamageRateHpGet(Struct _str, long... _args) {
+    public static NaSt callEffectFullHpRateBeanClosestFoeDamageRateHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectFullHpRateBeanClosestFoeDamageRateHpGet(),_str,_args);
     }
 
-    public static Struct callEffectFullHpRateBeanLeftUserHpGet(Struct _str, long... _args) {
+    public static NaSt callEffectFullHpRateBeanLeftUserHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectFullHpRateBeanLeftUserHpGet(),_str,_args);
     }
 
-    public static Struct callEffectFullHpRateBeanMapVarsRestoredGet(Struct _str, long... _args) {
+    public static NaSt callEffectFullHpRateBeanMapVarsRestoredGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectFullHpRateBeanMapVarsRestoredGet(),_str,_args);
     }
 
-    public static Struct callEffectFullHpRateBeanRestoredHpGet(Struct _str, long... _args) {
+    public static NaSt callEffectFullHpRateBeanRestoredHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectFullHpRateBeanRestoredHpGet(),_str,_args);
     }
 
 
 
-    public static Struct callEffectMultSufferedMovePowerBeanGetTrType(Struct _str, long... _args) {
+    public static NaSt callEffectMultSufferedMovePowerBeanGetTrType(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectMultSufferedMovePowerBeanGetTrType(),_str,_args);
     }
 
-    public static Struct callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(Struct _str, long... _args) {
+    public static NaSt callEffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectMultSufferedMovePowerBeanMultMovePowerFctTypeGet(),_str,_args);
     }
 
-    public static Struct callEffectMultUsedMovePowerBeanGetTrType(Struct _str, long... _args) {
+    public static NaSt callEffectMultUsedMovePowerBeanGetTrType(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectMultUsedMovePowerBeanGetTrType(),_str,_args);
     }
 
-    public static Struct callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(Struct _str, long... _args) {
+    public static NaSt callEffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectMultUsedMovePowerBeanMultMovePowerFctTypeGet(),_str,_args);
     }
 
-    public static Struct callEffectOrderBeanTargetAttacksLastGet(Struct _str, long... _args) {
+    public static NaSt callEffectOrderBeanTargetAttacksLastGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectOrderBeanTargetAttacksLastGet(),_str,_args);
     }
 
 
-    public static Struct callEffectRemainedHpRateBeanRateHpGet(Struct _str, long... _args) {
+    public static NaSt callEffectRemainedHpRateBeanRateHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectRemainedHpRateBeanRateHpGet(),_str,_args);
     }
 
-    public static Struct callEffectRemainedHpRateBeanWinHpGet(Struct _str, long... _args) {
+    public static NaSt callEffectRemainedHpRateBeanWinHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectRemainedHpRateBeanWinHpGet(),_str,_args);
     }
 
 
 
-    public static Struct callEffectVarPPBeanDeletePpGet(Struct _str, long... _args) {
+    public static NaSt callEffectVarPPBeanDeletePpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectVarPPBeanDeletePpGet(),_str,_args);
     }
 
-    public static Struct callEffectWinMoneyBeanWinningRateBySumTargetUserGet(Struct _str, long... _args) {
+    public static NaSt callEffectWinMoneyBeanWinningRateBySumTargetUserGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectWinMoneyBeanWinningRateBySumTargetUserGet(),_str,_args);
     }
-    protected static Struct dispMoveEffFullHpRate() {
+    protected static NaSt dispMoveEffFullHpRate() {
         return dispMoveEffFullHpRate(feedDbMoveEffDataFullHpRate());
     }
-    protected static Struct dispMoveEffFullHpRate(FacadeGame _fac) {
+    protected static NaSt dispMoveEffFullHpRate(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectFullHpRate(pk_);
+        StringMap<NaSt> all_ = beanToEffectFullHpRate(pk_);
         StringMap<String> mapping_ = mappingToEffectFullHpRate();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectFullHpRate(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectFullHpRate(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_FULLHPRATE,_pk.beanEffectFullHpRateBean(EN));
         return map_;
     }
@@ -251,17 +251,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.setLeftUserHp(Rate.one());
         return e_;
     }
-    protected static Struct dispMoveEffCounterAttack() {
+    protected static NaSt dispMoveEffCounterAttack() {
         return dispMoveEffCounterAttack(feedDbMoveEffDataCounterAttack());
     }
-    protected static Struct dispMoveEffCounterAttack(FacadeGame _fac) {
+    protected static NaSt dispMoveEffCounterAttack(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectCounterAttack(pk_);
+        StringMap<NaSt> all_ = beanToEffectCounterAttack(pk_);
         StringMap<String> mapping_ = mappingToEffectCounterAttack();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectCounterAttack(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectCounterAttack(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COUNTER_ATTACK,_pk.beanEffectCounterAttackBean(EN));
         return map_;
     }
@@ -310,17 +310,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.getDroppedStatDirectMove().addEntry(Statistic.SPEED,(byte)1);
         return e_;
     }
-    protected static Struct dispMoveEffAlly() {
+    protected static NaSt dispMoveEffAlly() {
         return dispMoveEffAlly(feedDbMoveEffDataAlly());
     }
-    protected static Struct dispMoveEffAlly(FacadeGame _fac) {
+    protected static NaSt dispMoveEffAlly(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectAlly(pk_);
+        StringMap<NaSt> all_ = beanToEffectAlly(pk_);
         StringMap<String> mapping_ = mappingToEffectAlly();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectAlly(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectAlly(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ALLY,_pk.beanEffectAllyBean(EN));
         return map_;
     }
@@ -365,17 +365,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         e_.setMultAllyDamage(Rate.one());
         return e_;
     }
-    protected static Struct dispMoveEffBatonPass() {
+    protected static NaSt dispMoveEffBatonPass() {
         return dispMoveEffBatonPass(feedDbMoveEffDataBatonPass());
     }
-    protected static Struct dispMoveEffBatonPass(FacadeGame _fac) {
+    protected static NaSt dispMoveEffBatonPass(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectBatonPass(pk_);
+        StringMap<NaSt> all_ = beanToEffectBatonPass(pk_);
         StringMap<String> mapping_ = mappingToEffectBatonPass();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectBatonPass(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectBatonPass(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_BATONPASS,_pk.beanEffectBatonPassBean(EN));
         return map_;
     }
@@ -412,17 +412,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
     protected static EffectBatonPass effBatonPass() {
         return Instances.newEffectBatonPass();
     }
-    protected static Struct dispMoveEffClone() {
+    protected static NaSt dispMoveEffClone() {
         return dispMoveEffClone(feedDbMoveEffDataClone());
     }
-    protected static Struct dispMoveEffClone(FacadeGame _fac) {
+    protected static NaSt dispMoveEffClone(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectClone(pk_);
+        StringMap<NaSt> all_ = beanToEffectClone(pk_);
         StringMap<String> mapping_ = mappingToEffectClone();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectClone(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectClone(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_CLONE,_pk.beanEffectCloneBean(EN));
         return map_;
     }
@@ -494,17 +494,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.setHpRateClone(Rate.one());
         return cl_;
     }
-    protected static Struct dispMoveEffCommonStatistics() {
+    protected static NaSt dispMoveEffCommonStatistics() {
         return dispMoveEffCommonStatistics(feedDbMoveEffDataCommonStatistics());
     }
-    protected static Struct dispMoveEffCommonStatistics(FacadeGame _fac) {
+    protected static NaSt dispMoveEffCommonStatistics(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectCommonStatistics(pk_);
+        StringMap<NaSt> all_ = beanToEffectCommonStatistics(pk_);
         StringMap<String> mapping_ = mappingToEffectCommonStatistics();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectCommonStatistics(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectCommonStatistics(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_COMMONSTATISTICS,_pk.beanEffectCommonStatisticsBean(EN));
         return map_;
     }
@@ -542,17 +542,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.getCommonValue().addEntry(Statistic.SPEED,DataBase.VAR_PREFIX+Fight.TEMPS_TOUR);
         return cl_;
     }
-    protected static Struct dispMoveEffOrder(boolean _targetAttacksLast) {
+    protected static NaSt dispMoveEffOrder(boolean _targetAttacksLast) {
         return dispMoveEffOrder(feedDbMoveEffDataOrder(_targetAttacksLast));
     }
-    protected static Struct dispMoveEffOrder(FacadeGame _fac) {
+    protected static NaSt dispMoveEffOrder(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectOrder(pk_);
+        StringMap<NaSt> all_ = beanToEffectOrder(pk_);
         StringMap<String> mapping_ = mappingToEffectOrder();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectOrder(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectOrder(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ORDER,_pk.beanEffectOrderBean(EN));
         return map_;
     }
@@ -590,17 +590,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.setTargetAttacksLast(_targetAttacksLast);
         return cl_;
     }
-    protected static Struct dispMoveEffRemainedHpRate(Rate _targetAttacksLast) {
+    protected static NaSt dispMoveEffRemainedHpRate(Rate _targetAttacksLast) {
         return dispMoveEffRemainedHpRate(feedDbMoveEffDataRemainedHpRate(_targetAttacksLast));
     }
-    protected static Struct dispMoveEffRemainedHpRate(FacadeGame _fac) {
+    protected static NaSt dispMoveEffRemainedHpRate(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectRemainedHpRate(pk_);
+        StringMap<NaSt> all_ = beanToEffectRemainedHpRate(pk_);
         StringMap<String> mapping_ = mappingToEffectRemainedHpRate();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectRemainedHpRate(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectRemainedHpRate(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_REMAINEDHPRATE,_pk.beanEffectRemainedHpRateBean(EN));
         return map_;
     }
@@ -639,17 +639,17 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         return cl_;
     }
 
-    protected static Struct dispMoveEffMultMovePower(int _indexEff) {
+    protected static NaSt dispMoveEffMultMovePower(int _indexEff) {
         return dispMoveEffMultMovePower(feedDbMoveEffDataMultMovePower(), _indexEff);
     }
-    protected static Struct dispMoveEffMultMovePower(FacadeGame _fac, int _indexEff) {
+    protected static NaSt dispMoveEffMultMovePower(FacadeGame _fac, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectMultMovePower(pk_);
+        StringMap<NaSt> all_ = beanToEffectMultMovePower(pk_);
         StringMap<String> mapping_ = mappingToEffectMultMovePower();
         return transitEffect(0, _indexEff,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectMultMovePower(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectMultMovePower(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTSUFFEREDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_MULTUSEDMOVEPOWER,_pk.beanEffectMultMovePowerBean(EN));
         return map_;
@@ -695,25 +695,25 @@ public abstract class InitDbMoveEffectOther extends InitDbMoveEffect {
         cl_.getMultMovePowerFctType().addEntry(T_TYPE2,Rate.newRate("2"));
         return cl_;
     }
-    protected static Struct dispMoveEffVarPp() {
+    protected static NaSt dispMoveEffVarPp() {
         EffectVarPP e_ = Instances.newEffectVarPP();
         e_.setDeletePp((short) 1);
         return dispMoveEffOther(feedDbMoveEffDataOther(e_));
     }
-    protected static Struct dispMoveEffWinMoney() {
+    protected static NaSt dispMoveEffWinMoney() {
         EffectWinMoney e_ = Instances.newEffectWinMoney();
         e_.setWinningRateBySumTargetUser(Rate.one());
         return dispMoveEffOther(feedDbMoveEffDataOther(e_));
     }
 
-    protected static Struct dispMoveEffOther(FacadeGame _fac) {
+    protected static NaSt dispMoveEffOther(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectOther(pk_);
+        StringMap<NaSt> all_ = beanToEffectOther(pk_);
         StringMap<String> mapping_ = mappingToEffectOther();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectOther(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectOther(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_VARPP,_pk.beanEffectVarPPBean(EN));
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_WINMONEY,_pk.beanEffectWinMoneyBean(EN));
         return map_;

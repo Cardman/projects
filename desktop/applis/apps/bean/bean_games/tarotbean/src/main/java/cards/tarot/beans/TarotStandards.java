@@ -7,7 +7,7 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.fwd.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.util.*;
 import code.util.core.*;
 public abstract class TarotStandards extends BeanNatCommonLgNames {
@@ -126,7 +126,7 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
     }
 
     @Override
-    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, Struct _bean, String _language, NatRendStackCall _rendStack) {
+    public InvokedPageOutput processAfterInvoke(NatConfigurationCore _conf, String _dest, String _curUrl, NaSt _bean, String _language, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = new NatImportingPage();
         _rendStack.addPage(ip_);
         NatDocumentBlock rendDocumentBlock_ = getRenders().getVal(_dest);
@@ -196,7 +196,7 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String, Short> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new StringStruct(StringUtil.nullToEmpty(e.getKey())),new ShortStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }
@@ -206,7 +206,7 @@ public abstract class TarotStandards extends BeanNatCommonLgNames {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int i_ = 0;
         for (EntryCust<String, Integer> e: _map.entryList()){
-            PairStruct p_ = new PairStruct(new StringStruct(StringUtil.nullToEmpty(e.getKey())),new IntStruct(e.getValue()));
+            PairStruct p_ = new PairStruct(new NaStSt(StringUtil.nullToEmpty(e.getKey())),new NaNbSt(e.getValue()));
             arr_.set(i_,p_);
             i_++;
         }

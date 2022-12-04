@@ -1,12 +1,12 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokedexBeanTypedMinNbPossEvosGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedMinNbPossEvos());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getTypedMinNbPossEvos());
     }
 }

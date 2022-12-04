@@ -1,9 +1,9 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.AbNullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
-public final class SimpleItrStruct extends AbNullStruct {
+public final class SimpleItrStruct extends NaNuSt {
     private final NatArrayStruct array;
     private int index;
     private final int length;
@@ -17,8 +17,8 @@ public final class SimpleItrStruct extends AbNullStruct {
         return index < length;
     }
 
-    public Struct next() {
-        Struct element_ = array.get(index);
+    public NaSt next() {
+        NaSt element_ = array.get(index);
         index++;
         return element_;
     }

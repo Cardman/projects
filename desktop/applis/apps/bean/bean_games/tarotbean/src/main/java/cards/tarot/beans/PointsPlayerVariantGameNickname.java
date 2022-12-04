@@ -1,11 +1,11 @@
 package cards.tarot.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public final class PointsPlayerVariantGameNickname implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct((((PointsPlayerVariantGameStruct)_instance).getPointsPlayerVariantGame()).getNickname());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt((((PointsPlayerVariantGameStruct)_instance).getPointsPlayerVariantGame()).getNickname());
     }
 }

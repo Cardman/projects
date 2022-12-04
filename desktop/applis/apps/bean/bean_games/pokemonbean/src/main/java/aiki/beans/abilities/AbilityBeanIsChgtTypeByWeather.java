@@ -1,13 +1,13 @@
 package aiki.beans.abilities;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class AbilityBeanIsChgtTypeByWeather implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).isChgtTypeByWeather(NumParsers.convertToNumber(_args[0]).intStruct()));
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).isChgtTypeByWeather(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 }

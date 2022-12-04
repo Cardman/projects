@@ -2,10 +2,10 @@ package aiki.beans.pokemon;
 
 import aiki.beans.*;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 public class PokedexBeanIsLegGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getIsLeg());
     }
 }

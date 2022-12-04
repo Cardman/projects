@@ -1,12 +1,12 @@
 package aiki.beans.fight;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class FightBeanClickFoe implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (FightBean) ((PokemonBeanStruct)_instance).getInstance()).clickFoe());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (FightBean) ((PokemonBeanStruct)_instance).getInstance()).clickFoe());
     }
 }

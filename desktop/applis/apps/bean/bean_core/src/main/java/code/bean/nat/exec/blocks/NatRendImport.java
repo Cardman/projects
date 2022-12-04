@@ -6,7 +6,7 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.sml.RendReadWrite;
 import code.util.CustList;
 
@@ -35,8 +35,8 @@ public final class NatRendImport extends NatParentBlock {
         String pageName_ = BeanNatCommonLgNames.processString(BeanNatCommonLgNames.getAllArgs(textPart,_rendStack).lastValue().getArgument());
         NatDocumentBlock val_ = natImpLgNames.getRenders().getVal(pageName_);
         String beanName_ = val_.getBeanName();
-        Struct newBean_ = natImpLgNames.getBeansStruct().getVal(beanName_);
-        Struct mainBean_ = _rendStack.getMainBean();
+        NaSt newBean_ = natImpLgNames.getBeansStruct().getVal(beanName_);
+        NaSt mainBean_ = _rendStack.getMainBean();
         natImpLgNames.setBeanForms(mainBean_,
                 newBean_);
         for (CustList<NatExecOperationNode> l:fields) {
@@ -67,7 +67,7 @@ public final class NatRendImport extends NatParentBlock {
         newIp_.setRendReadWrite(rwLoc_);
         return newIp_;
     }
-    public static void beforeDisp(Struct _arg) {
+    public static void beforeDisp(NaSt _arg) {
         if (!(_arg instanceof BeanStruct)) {
             return;
         }

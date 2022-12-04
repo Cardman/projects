@@ -1,8 +1,8 @@
 package cards.belote.beans;
 
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 
-public final class DeclaringPlayerValueStruct extends AbNullStruct {
+public final class DeclaringPlayerValueStruct extends NaNuSt {
     private final DeclaringPlayerValue declaringPlayerValue;
 
     public DeclaringPlayerValueStruct(DeclaringPlayerValue _declaringPlayerValue) {

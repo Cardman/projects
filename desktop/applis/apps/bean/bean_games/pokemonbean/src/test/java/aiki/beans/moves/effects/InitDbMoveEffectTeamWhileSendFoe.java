@@ -11,70 +11,70 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectTeamWhileSendFoe extends InitDbMoveEffect {
 
-    public static String callEffectTeamWhileSendFoeBeanClickStatus(Struct _str, long... _args) {
+    public static String callEffectTeamWhileSendFoeBeanClickStatus(NaSt _str, long... _args) {
         return navigateData(new EffectTeamWhileSendFoeBeanClickStatus(),_str,_args);
     }
 
-    public static String callEffectTeamWhileSendFoeBeanClickStatusId(Struct _str, long... _args) {
+    public static String callEffectTeamWhileSendFoeBeanClickStatusId(NaSt _str, long... _args) {
         callEffectTeamWhileSendFoeBeanClickStatus(_str, _args);
         return getValStatusId(_str);
     }
-    public static Struct callEffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanDamageRateAgainstFoeGet(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanDeletedByFoeTypesGet(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanGetTranslatedStatistic(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanGetTranslatedStatistic(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanGetTranslatedStatistic(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanGetTranslatedStatus(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanGetTranslatedStatus(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanGetTranslatedStatus(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanGetTranslatedType(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanGetTranslatedType(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanGetTranslatedType(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanMapVarsDamageSentFoeGet(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanMapVarsFailSendingGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanMapVarsFailSendingGet(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanReasonsSendingGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanReasonsSendingGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanReasonsSendingGet(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanStatisticsGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanStatisticsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanStatisticsGet(),_str,_args);
     }
 
-    public static Struct callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(Struct _str, long... _args) {
+    public static NaSt callEffectTeamWhileSendFoeBeanStatusByNbUsesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectTeamWhileSendFoeBeanStatusByNbUsesGet(),_str,_args);
     }
-    protected static Struct dispMoveEffTeamSend(FacadeGame _fac, int _index) {
+    protected static NaSt dispMoveEffTeamSend(FacadeGame _fac, int _index) {
         return dispMoveEffTeamSend(_fac, _index,0);
     }
-    protected static Struct dispMoveEffTeamSend(FacadeGame _fac, int _index, int _indexEff) {
+    protected static NaSt dispMoveEffTeamSend(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectTeamSend(pk_);
+        StringMap<NaSt> all_ = beanToEffectTeamSend(pk_);
         StringMap<String> mapping_ = mappingToEffectTeamSend();
         return transitEffect(_index,_indexEff,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectTeamSend(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectTeamSend(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_TEAMWHILESENDINGFOE,_pk.beanEffectTeamWhileSendFoeBean(EN));
         return map_;
     }

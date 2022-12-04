@@ -1,6 +1,6 @@
 package cards.president.beans;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.ints.Countable;
 import org.junit.Assert;
 
@@ -15,7 +15,7 @@ public abstract class EquallablePresidentBeanUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(Struct _expected, Struct _result) {
+    public static void assertSame(NaSt _expected, NaSt _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(String _expected, String _result) {

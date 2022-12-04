@@ -1,8 +1,8 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 
 public interface AbstractNatImpLgNames {
-    BeanNatCommonLgNames setBeanForms(Struct _mainBean,
-                      Struct _called);
+    BeanNatCommonLgNames setBeanForms(NaSt _mainBean,
+                      NaSt _called);
 }

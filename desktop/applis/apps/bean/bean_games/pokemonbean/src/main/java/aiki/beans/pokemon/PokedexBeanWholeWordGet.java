@@ -1,12 +1,12 @@
 package aiki.beans.pokemon;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class PokedexBeanWholeWordGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getWholeWord());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(( (PokedexBean) ((PokemonBeanStruct)_instance).getInstance()).getWholeWord());
     }
 }

@@ -20,7 +20,7 @@ import aiki.map.pokemon.enums.*;
 import aiki.map.util.*;
 import aiki.util.Coords;
 import aiki.util.Point;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.*;
 import code.maths.Rate;
 import code.util.*;
@@ -144,12 +144,12 @@ public abstract class InitDbMap extends InitDbConstr {
         return callMapBeanClickLevel(dispMap(),_place,_level);
     }
 
-    public static String callMapBeanClickLevel(Struct _str, int _place, int _level) {
+    public static String callMapBeanClickLevel(NaSt _str, int _place, int _level) {
         return navigateData(new MapBeanClickLevel(),_str,_place,_level);
     }
 
     public static Coords callMapBeanClickLevelId(int _place, int _level) {
-        Struct bean_ = dispMap();
+        NaSt bean_ = dispMap();
         callMapBeanClickLevel(bean_,_place,_level);
         return getValPlaceLevelId(bean_);
     }
@@ -157,63 +157,63 @@ public abstract class InitDbMap extends InitDbConstr {
         return callMapBeanClickLevelZero(dispMap(),_place);
     }
 
-    public static String callMapBeanClickLevelZero(Struct _str, int  _place) {
+    public static String callMapBeanClickLevelZero(NaSt _str, int  _place) {
         return navigateData(new MapBeanClickLevelZero(),_str,_place);
     }
 
     public static Coords callMapBeanClickLevelZeroId(int _place) {
-        Struct bean_ = dispMap();
+        NaSt bean_ = dispMap();
         callMapBeanClickLevelZero(bean_,_place);
         return getValPlaceLevelId(bean_);
     }
-    public static Struct callMapBeanIsMultiLayer(int _place) {
+    public static NaSt callMapBeanIsMultiLayer(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapBeanIsMultiLayer(),dispMap(),_place);
     }
 
-    public static Struct callMapBeanLayers(int _place) {
+    public static NaSt callMapBeanLayers(int _place) {
         return BeanPokemonCommonTs.callLongs(new MapBeanLayers(),dispMap(),_place);
     }
 
-    public static Struct callMapBeanPlacesGet() {
+    public static NaSt callMapBeanPlacesGet() {
         return BeanPokemonCommonTs.callLongs(new MapBeanPlacesGet(),dispMap());
     }
 
-    protected static Struct dispMap() {
+    protected static NaSt dispMap() {
         PkData pk_ = pkDataByFacade(db());
         return dispMap(pk_);
     }
 
-    private static Struct dispMap(PkData _pk) {
-        StringMap<Struct> all_ = beanToMap(_pk);
-        Struct welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+    private static NaSt dispMap(PkData _pk) {
+        StringMap<NaSt> all_ = beanToMap(_pk);
+        NaSt welcome_ = all_.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
         beforeDisplaying(welcome_);
         return welcome_;
     }
 
-    protected static Struct dispMapLevel(int _place, int _level) {
+    protected static NaSt dispMapLevel(int _place, int _level) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToMap(pk_);
+        StringMap<NaSt> all_ = beanToMap(pk_);
         return transitLevel(_place, _level, pk_, all_);
     }
 
-    protected static Struct transitLevel(int _place, int _level, PkData _pk, StringMap<Struct> _all) {
-        Struct welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+    protected static NaSt transitLevel(int _place, int _level, PkData _pk, StringMap<NaSt> _all) {
+        NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
         beforeDisplaying(welcome_);
-        Struct moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
         transit(_pk,new MapBeanClickLevel(),welcome_,moves_, _place, _level);
         return moves_;
     }
 
-    protected static Struct dispMapLevelZero(int _place) {
+    protected static NaSt dispMapLevelZero(int _place) {
         PkData pk_ = pkDataByFacade(db());
-        StringMap<Struct> all_ = beanToMap(pk_);
+        StringMap<NaSt> all_ = beanToMap(pk_);
         return transitLevelZero(_place, pk_, all_);
     }
 
-    protected static Struct transitLevelZero(int _place, PkData _pk, StringMap<Struct> _all) {
-        Struct welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
+    protected static NaSt transitLevelZero(int _place, PkData _pk, StringMap<NaSt> _all) {
+        NaSt welcome_ = _all.getVal(AikiBeansMapStd.BEAN_GAME_MAP);
         beforeDisplaying(welcome_);
-        Struct moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
+        NaSt moves_ = _all.getVal(AikiBeansMapStd.BEAN_LEVEL_MAP);
         transit(_pk,new MapBeanClickLevelZero(),welcome_,moves_, _place);
         return moves_;
     }
@@ -228,8 +228,8 @@ public abstract class InitDbMap extends InitDbConstr {
         transit(_pk,new PokedexBeanClickLink(),pks_,pk_,_index);
         return pk_;
     }*/
-    public static StringMap<Struct> beanToMap(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToMap(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansMapStd.BEAN_GAME_MAP,_pk.beanMapBean(EN));
         map_.addEntry(AikiBeansMapStd.BEAN_LEVEL_MAP,_pk.beanMapLevelBean(EN));
         map_.addEntry(AikiBeansMapStd.BEAN_PK_TEAM,_pk.beanPokemonTeamBean(EN));

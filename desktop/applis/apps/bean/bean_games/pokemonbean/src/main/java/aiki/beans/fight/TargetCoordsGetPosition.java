@@ -1,11 +1,11 @@
 package aiki.beans.fight;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class TargetCoordsGetPosition implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( ((TargetCoordsStruct) _instance).getInstance()).getPosition());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( ((TargetCoordsStruct) _instance).getInstance()).getPosition());
     }
 }

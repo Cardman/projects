@@ -1,12 +1,12 @@
 package aiki.beans.facade.dto;
 
 import aiki.beans.MvLineStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class MoveLineIsDirect implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( ((MvLineStruct) _instance).getWildPk()).isDirect());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(( ((MvLineStruct) _instance).getWildPk()).isDirect());
     }
 }

@@ -3,7 +3,7 @@ package code.bean.nat.exec.blocks;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -27,7 +27,7 @@ public final class NatRenderingText {
     }
 
     public static String calculate(CustList<NatExecOperationNode> _e, NatRendStackCall _rendStackCall) {
-        Struct argument_ = BeanNatCommonLgNames.getAllArgs(_e, _rendStackCall).lastValue().getArgument();
+        NaSt argument_ = BeanNatCommonLgNames.getAllArgs(_e, _rendStackCall).lastValue().getArgument();
         return BeanNatCommonLgNames.processString(argument_);
     }
 }

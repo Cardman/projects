@@ -4,50 +4,50 @@ import aiki.beans.BeanPokemonCommonTs;
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.enums.TargetChoice;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbBoost extends InitDbItem {
 
-    public static String callBoostBeanClickHappiness(Struct _str, long... _args) {
+    public static String callBoostBeanClickHappiness(NaSt _str, long... _args) {
         return navigateData(new BoostBeanClickHappiness(),_str,_args);
     }
 
-    public static String callBoostBeanClickHappinessId(Struct _str, long... _args) {
+    public static String callBoostBeanClickHappinessId(NaSt _str, long... _args) {
         callBoostBeanClickHappiness(_str,_args);
         return getValItemId(_str);
     }
 
-    public static Struct callBoostBeanEvsGet(Struct _str, long... _args) {
+    public static NaSt callBoostBeanEvsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanEvsGet(),_str,_args);
     }
 
-    public static Struct callBoostBeanGetTrEv(Struct _str, long... _args) {
+    public static NaSt callBoostBeanGetTrEv(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanGetTrEv(),_str,_args);
     }
 
-    public static Struct callBoostBeanGetTrHappiness(Struct _str, long... _args) {
+    public static NaSt callBoostBeanGetTrHappiness(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanGetTrHappiness(),_str,_args);
     }
 
-    public static Struct callBoostBeanHappinessGet(Struct _str, long... _args) {
+    public static NaSt callBoostBeanHappinessGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanHappinessGet(),_str,_args);
     }
 
-    public static Struct callBoostBeanIsBall(Struct _str, long... _args) {
+    public static NaSt callBoostBeanIsBall(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanIsBall(),_str,_args);
     }
 
-    public static Struct callBoostBeanMaxEvGet(Struct _str, long... _args) {
+    public static NaSt callBoostBeanMaxEvGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanMaxEvGet(),_str,_args);
     }
 
-    public static Struct callBoostBeanWinPpGet(Struct _str, long... _args) {
+    public static NaSt callBoostBeanWinPpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new BoostBeanWinPpGet(),_str,_args);
     }
-    protected static Struct boostDb() {
+    protected static NaSt boostDb() {
         return dispLine(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
     }
 

@@ -6,7 +6,7 @@ import cards.consts.CoreResourcesAccess;
 import cards.consts.GameType;
 import cards.consts.Suit;
 import code.bean.nat.NatNavigation;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
 import code.sml.NavigationCore;
@@ -99,68 +99,68 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void calledPlayersList() {
-        Struct res_ = callResultsBeloteBeanCalledPlayersList(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanCalledPlayersList(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(1, res_);
         assertEq("2", res_,0);
     }
 
     @Test
     public void takerNickname() {
-        Struct res_ = callResultsBeloteBeanTakerNickname(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanTakerNickname(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq("0", res_);
     }
 
     @Test
     public void differenceScoreTaker() {
-        Struct res_ = callResultsBeloteBeanDifferenceScoreTaker(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanDifferenceScoreTaker(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void absoluteDiff() {
-        Struct res_ = callResultsBeloteBeanAbsoluteDiff(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanAbsoluteDiff(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void pointsAttaqueSansPrime() {
-        Struct res_ = callResultsBeloteBeanPointsAttaqueSansPrime(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsAttaqueSansPrime(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(152, res_);
     }
 
     @Test
     public void pointsAttaqueDefinitif() {
-        Struct res_ = callResultsBeloteBeanPointsAttaqueDefinitif(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsAttaqueDefinitif(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void pointsAttaqueTemporaire() {
-        Struct res_ = callResultsBeloteBeanPointsAttaqueTemporaire(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsAttaqueTemporaire(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(262, res_);
     }
 
     @Test
     public void pointsDefenseDefinitif() {
-        Struct res_ = callResultsBeloteBeanPointsDefenseDefinitif(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsDefenseDefinitif(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(0, res_);
     }
 
     @Test
     public void pointsDefenseSansPrime() {
-        Struct res_ = callResultsBeloteBeanPointsDefenseSansPrime(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsDefenseSansPrime(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(0, res_);
     }
 
     @Test
     public void pointsDefenseTemporaire() {
-        Struct res_ = callResultsBeloteBeanPointsDefenseTemporaire(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanPointsDefenseTemporaire(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertEq(0, res_);
     }
 
     @Test
     public void linesDeal() {
-        Struct res_ = callResultsBeloteBeanLinesDeal(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callResultsBeloteBeanLinesDeal(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(1, res_);
         assertSizeEq(4, res_,0);
         assertNumberEq(0, res_,0);
@@ -182,7 +182,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void getNickNames() {
-        Struct res_ = callBeloteBeanGetNicknames(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callBeloteBeanGetNicknames(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(4, res_);
         assertEq("0", res_,0);
         assertEq("1", res_,1);
@@ -192,7 +192,7 @@ public final class ResultsBeloteBeanTest extends BeanBeloteCommonTs {
 
     @Test
     public void getScores() {
-        Struct res_ = callBeloteBeanGetScores(displaying(beanResultsBelote(EN, results(game1(), 0))));
+        NaSt res_ = callBeloteBeanGetScores(displaying(beanResultsBelote(EN, results(game1(), 0))));
         assertSizeEq(1, res_);
         assertSizeLongsEq(4, res_,0);
         assertLongsEq(262, res_,0,0);

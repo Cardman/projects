@@ -13,7 +13,7 @@ import aiki.fight.status.*;
 import aiki.fight.util.ListEffectCombo;
 import aiki.game.fight.Fight;
 import aiki.instances.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringList;
@@ -92,7 +92,7 @@ public abstract class InitDbEndRound extends InitDbConstr {
     public static final String M_END_28_TR="M_END_28_TR";
     public static final String M_END_29_TR="M_END_29_TR";
     public static final String M_END_30_TR="M_END_30_TR";
-    public static Struct callEffectEndRoundBeanAbilityGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanAbilityGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanAbilityGet(),dispEndRound(_ev));
     }
 
@@ -100,12 +100,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundBeanClickAbility(dispEndRound(_ev));
     }
 
-    public static String callEffectEndRoundBeanClickAbility(Struct _str) {
+    public static String callEffectEndRoundBeanClickAbility(NaSt _str) {
         return navigateData(new EffectEndRoundBeanClickAbility(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
     public static String callEffectEndRoundBeanClickAbilityId(int _ev) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundBeanClickAbility(bean_);
         return getValAbilityId(bean_);
     }
@@ -114,12 +114,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundBeanClickItem(dispEndRound(_ev));
     }
 
-    public static String callEffectEndRoundBeanClickItem(Struct _str) {
+    public static String callEffectEndRoundBeanClickItem(NaSt _str) {
         return navigateData(new EffectEndRoundBeanClickItem(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
     public static String callEffectEndRoundBeanClickItemId(int _ev) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundBeanClickItem(bean_);
         return getValItemId(bean_);
     }
@@ -127,11 +127,11 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundBeanClickMove(dispEndRound(_ev));
     }
 
-    public static String callEffectEndRoundBeanClickMove(Struct _str) {
+    public static String callEffectEndRoundBeanClickMove(NaSt _str) {
         return navigateData(new EffectEndRoundBeanClickMove(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
     public static String callEffectEndRoundBeanClickMoveId(int _ev) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundBeanClickMove(bean_);
         return getValMoveId(bean_);
     }
@@ -139,11 +139,11 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundBeanClickMoves(dispEndRound(_ev),_ind);
     }
 
-    public static String callEffectEndRoundBeanClickMoves(Struct _str, int _ind) {
+    public static String callEffectEndRoundBeanClickMoves(NaSt _str, int _ind) {
         return navigateData(new EffectEndRoundBeanClickMoves(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
     }
     public static String callEffectEndRoundBeanClickMovesId(int _ev, int _ind) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundBeanClickMoves(bean_,_ind);
         return getValMoveId(bean_);
     }
@@ -152,12 +152,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundBeanClickStatus(dispEndRound(_ev));
     }
 
-    public static String callEffectEndRoundBeanClickStatus(Struct _str) {
+    public static String callEffectEndRoundBeanClickStatus(NaSt _str) {
         return navigateData(new EffectEndRoundBeanClickStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
     public static String callEffectEndRoundBeanClickStatusId(int _ev) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundBeanClickStatus(bean_);
         return getValStatusId(bean_);
     }
@@ -165,74 +165,74 @@ public abstract class InitDbEndRound extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanEndRoundHtmlGet(),_str,_args);
 //    }
 
-    public static Struct callEffectEndRoundBeanEndRoundRankGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanEndRoundRankGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanEndRoundRankGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanGetTrMoves(int _ev, int _ind) {
+    public static NaSt callEffectEndRoundBeanGetTrMoves(int _ev, int _ind) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanGetTrMoves(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundBeanIndexGet(Struct _str, long... _args) {
+    public static NaSt callEffectEndRoundBeanIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanIndexGet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundBeanItemGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanItemGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanItemGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanMapVarsFailEndRoundGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanMapVarsFailEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMapVarsFailEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanMoveGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanMoveGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMoveGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanMovesGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanMovesGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanMovesGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanReasonsEndRoundGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanReasonsEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanReasonsEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundBeanStatusGet(int _ev) {
+    public static NaSt callEffectEndRoundBeanStatusGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundBeanStatusGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEndRoundBeanGetEvts(Struct _str, long... _args) {
+    public static NaSt callEndRoundBeanGetEvts(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EndRoundBeanGetEvts(),_str,_args);
     }
 
-    public static Struct callEndRoundBeanGetPage(Struct _str, long... _args) {
+    public static NaSt callEndRoundBeanGetPage(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EndRoundBeanGetPage(),_str,_args);
     }
-    public static Struct callEffectEndRoundBeanIndexSet(Struct _str, int _args) {
+    public static NaSt callEffectEndRoundBeanIndexSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EffectEndRoundBeanIndexSet(),_str,_args);
     }
 
-    public static Struct callEffectEndRoundFoeBeanInflictedRateHpTargetGet(int _ev) {
+    public static NaSt callEffectEndRoundFoeBeanInflictedRateHpTargetGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundFoeBeanInflictedRateHpTargetGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanDamageEndRoundGet(int _ev) {
+    public static NaSt callEffectEndRoundGlobalBeanDamageEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanDamageEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanHealingEndRoundGet(int _ev) {
+    public static NaSt callEffectEndRoundGlobalBeanHealingEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanHealingEndRoundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanHealingEndRoundGroundGet(int _ev) {
+    public static NaSt callEffectEndRoundGlobalBeanHealingEndRoundGroundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanHealingEndRoundGroundGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanImmuneTypesGet(int _ev) {
+    public static NaSt callEffectEndRoundGlobalBeanImmuneTypesGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanImmuneTypesGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
+    public static NaSt callEffectEndRoundGlobalBeanPuttingKoGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundGlobalBeanPuttingKoGet(),dispEndRound(_ev));
     }
 
@@ -240,12 +240,12 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundIndividualBeanClickDamageStatus(dispEndRound(_ev),_ind);
     }
 
-    public static String callEffectEndRoundIndividualBeanClickDamageStatus(Struct _str, int _ind) {
+    public static String callEffectEndRoundIndividualBeanClickDamageStatus(NaSt _str, int _ind) {
         return navigateData(new EffectEndRoundIndividualBeanClickDamageStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
     }
 
     public static String callEffectEndRoundIndividualBeanClickDamageStatusId(int _ev, int _ind) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundIndividualBeanClickDamageStatus(bean_,_ind);
         return getValStatusId(bean_);
     }
@@ -254,79 +254,79 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundIndividualBeanClickUserStatus(dispEndRound(_ev));
     }
 
-    public static String callEffectEndRoundIndividualBeanClickUserStatus(Struct _str) {
+    public static String callEffectEndRoundIndividualBeanClickUserStatus(NaSt _str) {
         return navigateData(new EffectEndRoundIndividualBeanClickUserStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)));
     }
 
     public static String callEffectEndRoundIndividualBeanClickUserStatusId(int _ev) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundIndividualBeanClickUserStatus(bean_);
         return getValStatusId(bean_);
     }
-    public static Struct callEffectEndRoundIndividualBeanDeleteAllStatusGet(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanDeleteAllStatusGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanDeleteAllStatusGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanGetTrDamageStatus(int _ev, int _ind) {
+    public static NaSt callEffectEndRoundIndividualBeanGetTrDamageStatus(int _ev, int _ind) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrDamageStatus(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanGetTrType(int _ev, int _ind) {
+    public static NaSt callEffectEndRoundIndividualBeanGetTrType(int _ev, int _ind) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrType(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanGetTrUserStatus(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanGetTrUserStatus(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanGetTrUserStatus(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanHealHpByOwnerTypesGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanHealHpByOwnerTypesGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanHealHpGet(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanHealHpGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanHealHpGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanIsType(int _ev,int _ind) {
+    public static NaSt callEffectEndRoundIndividualBeanIsType(int _ev,int _ind) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanIsType(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundIndividualBeanMultDamageStatusGet(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanMultDamageStatusGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanMultDamageStatusGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanRecoilDamageGet(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanRecoilDamageGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanRecoilDamageGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundIndividualBeanUserStatusEndRoundGet(int _ev) {
+    public static NaSt callEffectEndRoundIndividualBeanUserStatusEndRoundGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundIndividualBeanUserStatusEndRoundGet(),dispEndRound(_ev));
     }
 
     public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(int _ev, int _ind) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         return callEffectEndRoundMultiRelationBeanClickDamageStatus(bean_,_ind);
     }
 
     public static String callEffectEndRoundMultiRelationBeanClickDamageStatusId(int _ev, int _ind) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundMultiRelationBeanClickDamageStatus(bean_,_ind);
         return getValStatusId(bean_);
     }
 
-    public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(Struct _str, int _ind) {
+    public static String callEffectEndRoundMultiRelationBeanClickDamageStatus(NaSt _str, int _ind) {
         return navigateData(new EffectEndRoundMultiRelationBeanClickDamageStatus(),_str,toInt(callEffectEndRoundBeanIndexGet(_str)),_ind);
     }
 
-    public static Struct callEffectEndRoundMultiRelationBeanDamageByStatusGet(int _ev) {
+    public static NaSt callEffectEndRoundMultiRelationBeanDamageByStatusGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanDamageByStatusGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundMultiRelationBeanGetTrDamageStatus(int _ev, int _ind) {
+    public static NaSt callEffectEndRoundMultiRelationBeanGetTrDamageStatus(int _ev, int _ind) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundMultiRelationBeanGetTrDamageStatus(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundPositionRelationBeanHealHpGet(int _ev){
+    public static NaSt callEffectEndRoundPositionRelationBeanHealHpGet(int _ev){
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionRelationBeanHealHpGet(),dispEndRound(_ev));
     }
 
@@ -334,28 +334,28 @@ public abstract class InitDbEndRound extends InitDbConstr {
         return callEffectEndRoundPositionTargetBeanClickTargetRelationMove(dispEndRound(_ev),_ind);
     }
 
-    public static String callEffectEndRoundPositionTargetBeanClickTargetRelationMove(Struct _str, int _ind) {
+    public static String callEffectEndRoundPositionTargetBeanClickTargetRelationMove(NaSt _str, int _ind) {
         return navigateData(new EffectEndRoundPositionTargetBeanClickTargetRelationMove(),_str,_ind);
     }
 
     public static String callEffectEndRoundPositionTargetBeanClickTargetRelationMoveId(int _ev, int _ind) {
-        Struct bean_ = dispEndRound(_ev);
+        NaSt bean_ = dispEndRound(_ev);
         callEffectEndRoundPositionTargetBeanClickTargetRelationMove(bean_,_ind);
         return getValMoveId(bean_);
     }
-    public static Struct callEffectEndRoundPositionTargetBeanGetMovesSameCategory(int _ev) {
+    public static NaSt callEffectEndRoundPositionTargetBeanGetMovesSameCategory(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetMovesSameCategory(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(int _ev, int _ind) {
+    public static NaSt callEffectEndRoundPositionTargetBeanGetTrTargetRelationMove(int _ev, int _ind) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundPositionTargetBeanGetTrTargetRelationMove(),dispEndRound(_ev),_ind);
     }
 
-    public static Struct callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(int _ev) {
+    public static NaSt callEffectEndRoundSingleRelationBeanLawForEnablingEffectGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanLawForEnablingEffectGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(int _ev) {
+    public static NaSt callEffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundSingleRelationBeanRateDamageFunctionOfNbRoundsGet(),dispEndRound(_ev));
     }
 //
@@ -363,44 +363,44 @@ public abstract class InitDbEndRound extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanEndRoundStatusHtmlGet(),_str,_args);
 //    }
 
-    public static Struct callEffectEndRoundStatusBeanInflictedRateHpTargetGet(int _ev) {
+    public static NaSt callEffectEndRoundStatusBeanInflictedRateHpTargetGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusBeanInflictedRateHpTargetGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(int _ev) {
+    public static NaSt callEffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundStatusRelationBeanThievedHpRateTargetToUserGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundTeamBeanDeleteAllStatusAllyGet(int _ev) {
+    public static NaSt callEffectEndRoundTeamBeanDeleteAllStatusAllyGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundTeamBeanDeleteAllStatusAllyGet(),dispEndRound(_ev));
     }
 
-    public static Struct callEffectEndRoundTeamBeanDeleteAllStatusGet(int _ev) {
+    public static NaSt callEffectEndRoundTeamBeanDeleteAllStatusGet(int _ev) {
         return BeanPokemonCommonTs.callLongs(new EffectEndRoundTeamBeanDeleteAllStatusGet(),dispEndRound(_ev));
     }
-    protected static Struct dispEndRoundEvts() {
+    protected static NaSt dispEndRoundEvts() {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<Struct> all_ = beanToEndRound(pk_);
+        StringMap<NaSt> all_ = beanToEndRound(pk_);
         return callEndRoundBeanGetEvts(transitToAllPks(all_));
     }
-    protected static Struct dispEndRound(int _index) {
+    protected static NaSt dispEndRound(int _index) {
         PkData pk_ = pkDataByFacade(feedDb());
-        StringMap<Struct> all_ = beanToEndRound(pk_);
+        StringMap<NaSt> all_ = beanToEndRound(pk_);
         StringMap<String> mapping_ = mappingToEndRound();
-        Struct pkbean_ = transitToAllPks(all_);
-        Struct evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
+        NaSt pkbean_ = transitToAllPks(all_);
+        NaSt evobean_ = byStr(all_, mapping_, callEndRoundBeanGetPage(pkbean_, _index));
         callEffectEndRoundBeanIndexSet(evobean_,_index);
         beforeDisplaying(evobean_);
         return evobean_;
     }
 
-    protected static Struct transitToAllPks(StringMap<Struct> _all) {
-        Struct welcome_ = _all.getVal(AikiBeansEndroundStd.BEAN_ENDROUND);
+    protected static NaSt transitToAllPks(StringMap<NaSt> _all) {
+        NaSt welcome_ = _all.getVal(AikiBeansEndroundStd.BEAN_ENDROUND);
         beforeDisplaying(welcome_);
         return welcome_;
     }
-    public static StringMap<Struct> beanToEndRound(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToEndRound(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansEndroundStd.BEAN_ENDROUND,_pk.beanEndRoundBean(EN));
         map_.addEntry(AikiBeansEndroundStd.BEAN_END,_pk.beanEffectEndRoundBean(EN));
         map_.addEntry(AikiBeansEndroundStd.BEAN_END_FOE,_pk.beanEffectEndRoundFoeBean(EN));

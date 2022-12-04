@@ -10,115 +10,115 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffect extends InitDbMove {
 
-    public static Struct callEffectBeanEffectBeanGet(Struct _str, long... _args) {
+    public static NaSt callEffectBeanEffectBeanGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanEffectBeanGet(),_str,_args);
     }
 
-    public static Struct callEffectBeanIndexGet(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIndexGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIndexGet(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAdjAdv(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAdjAdv(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAdjAdv(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAdjMult(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAdjMult(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAdjMult(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAdjUniq(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAdjUniq(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAdjUniq(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAllie(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAllie(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAllie(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAllies(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAllies(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAllies(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAnyFoe(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAnyFoe(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAnyFoe(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsAutreUniq(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsAutreUniq(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsAutreUniq(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsGlobale(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsGlobale(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsGlobale(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsLanceur(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsLanceur(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsLanceur(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsPseudoGlobale(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsPseudoGlobale(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsPseudoGlobale(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsTousAdv(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsTousAdv(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsTousAdv(),_str,_args);
     }
 
-    public static Struct callEffectBeanIsUniqueImporte(Struct _str, long... _args) {
+    public static NaSt callEffectBeanIsUniqueImporte(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanIsUniqueImporte(),_str,_args);
     }
 
-    public static Struct callEffectBeanMapVarsFailGet(Struct _str, long... _args) {
+    public static NaSt callEffectBeanMapVarsFailGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanMapVarsFailGet(),_str,_args);
     }
 
-    public static Struct callEffectBeanMoveGet(Struct _str, long... _args) {
+    public static NaSt callEffectBeanMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanMoveGet(),_str,_args);
     }
 
-    public static Struct callEffectBeanNeedSuccessFirstEffectGet(Struct _str, long... _args) {
+    public static NaSt callEffectBeanNeedSuccessFirstEffectGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanNeedSuccessFirstEffectGet(),_str,_args);
     }
 
-    public static Struct callEffectBeanReasonsGet(Struct _str, long... _args) {
+    public static NaSt callEffectBeanReasonsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectBeanReasonsGet(),_str,_args);
     }
 
-    public static Struct callEffectBeanMoveSet(Struct _str, String _args) {
+    public static NaSt callEffectBeanMoveSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new EffectBeanMoveSet(),_str,_args);
     }
 
-    public static Struct callEffectBeanIndexSet(Struct _str, int _args) {
+    public static NaSt callEffectBeanIndexSet(NaSt _str, int _args) {
         return BeanPokemonCommonTs.callInt(new EffectBeanIndexSet(),_str,_args);
     }
-    protected static Struct dispMoveEffDamage(FacadeGame _fac, int _index) {
+    protected static NaSt dispMoveEffDamage(FacadeGame _fac, int _index) {
         return dispMoveEffDamage(_fac, _index,0);
     }
-    protected static Struct dispMoveEffDamage(FacadeGame _fac, int _index, int _indexEff) {
+    protected static NaSt dispMoveEffDamage(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectDamage(pk_);
+        StringMap<NaSt> all_ = beanToEffectDamage(pk_);
         StringMap<String> mapping_ = mappingToEffectDamage();
         return transitEffect(_index, _indexEff, pk_, all_, mapping_);
     }
 
-    protected static Struct transitEffect(int _index, int _indexEff, PkData _pk, StringMap<Struct> _all, StringMap<String> _mapping) {
-        Struct mbean_ = transitMove(_index, _pk, _all, _mapping);
+    protected static NaSt transitEffect(int _index, int _indexEff, PkData _pk, StringMap<NaSt> _all, StringMap<String> _mapping) {
+        NaSt mbean_ = transitMove(_index, _pk, _all, _mapping);
         int noEff_ = toInt(elt(callMoveBeanEffectsGet(mbean_), _indexEff));
-        Struct eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
+        NaSt eff_ = byStr(_all, _mapping, callMoveBeanGetPage(mbean_, noEff_));
         fwdEffect(eff_,mbean_, noEff_);
         beforeDisplaying(eff_);
         return eff_;
     }
 
-    public static void fwdEffect(Struct _update, Struct _use, int _index) {
+    public static void fwdEffect(NaSt _update, NaSt _use, int _index) {
         callEffectBeanIndexSet(_update,_index);
         callEffectBeanMoveSet(_update,toStr(callMoveBeanNameGet(_use)));
     }
-    public static StringMap<Struct> beanToEffectDamage(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectDamage(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE,_pk.beanEffectDamageBean(EN));
         return map_;
     }
@@ -127,8 +127,8 @@ public abstract class InitDbMoveEffect extends InitDbMove {
         map_.addEntry(AikiBeansMovesEffectsStd.WEB_HTML_MOVES_EFFECTS_EFFDAMAGE_HTML,AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE);
         return map_;
     }
-    public static StringMap<Struct> beanToEffect(PkData _pk) {
-        StringMap<Struct> map_ = beanToMove(_pk);
+    public static StringMap<NaSt> beanToEffect(PkData _pk) {
+        StringMap<NaSt> map_ = beanToMove(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT,_pk.beanEffectBean(EN));
         return map_;
     }

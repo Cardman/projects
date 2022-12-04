@@ -1,12 +1,12 @@
 package cards.president.beans;
 
 import cards.consts.beans.LineDealStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public class PresidentBeanLinesDeal implements NatCaller {
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
+    public NaSt re(NaSt _instance, NaSt[] _args) {
         return LineDealStruct.getLineDealArray(((PresidentBean)((PresidentBeanStruct)_instance).getInstance()).getLinesDeal());
     }
 }

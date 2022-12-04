@@ -1,22 +1,22 @@
 package code.bean.nat.exec;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 
 public final class NatArgumentsPair {
 
-    private Struct argument;
-    private Struct previousArgument;
-    public Struct getArgument() {
+    private NaSt argument;
+    private NaSt previousArgument;
+    public NaSt getArgument() {
         return argument;
     }
-    public void setArgument(Struct _argument) {
+    public void setArgument(NaSt _argument) {
         argument = _argument;
     }
 
-    public Struct getPreviousArgument() {
+    public NaSt getPreviousArgument() {
         return previousArgument;
     }
-    public void setPreviousArgument(Struct _previousArgument) {
+    public void setPreviousArgument(NaSt _previousArgument) {
         previousArgument = _previousArgument;
     }
 

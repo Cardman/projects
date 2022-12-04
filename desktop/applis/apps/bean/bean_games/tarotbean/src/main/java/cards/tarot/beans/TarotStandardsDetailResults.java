@@ -4,7 +4,7 @@ import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 
 public final class TarotStandardsDetailResults extends TarotStandards {
@@ -58,7 +58,7 @@ public final class TarotStandardsDetailResults extends TarotStandards {
         getStds().addEntry(TYPE_DETAILS_RESULTS_TAROT_BEAN, std_);
     }
 
-    Struct beanDetailResults(String _language) {
+    NaSt beanDetailResults(String _language) {
         return bean(new DetailsResultsTarotBean(), _language);
     }
 }

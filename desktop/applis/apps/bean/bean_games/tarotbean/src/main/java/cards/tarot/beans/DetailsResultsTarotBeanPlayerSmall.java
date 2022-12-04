@@ -1,11 +1,11 @@
 package cards.tarot.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public final class DetailsResultsTarotBeanPlayerSmall implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(((DetailsResultsTarotBean) ((TarotBeanStruct)_instance).getInstance()).getPlayerSmall());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(((DetailsResultsTarotBean) ((TarotBeanStruct)_instance).getInstance()).getPlayerSmall());
     }
 }

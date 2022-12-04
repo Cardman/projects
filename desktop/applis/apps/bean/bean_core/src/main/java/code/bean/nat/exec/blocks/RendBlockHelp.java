@@ -3,7 +3,7 @@ package code.bean.nat.exec.blocks;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
-import code.expressionlanguage.structs.*;
+import code.bean.nat.*;
 import code.sml.*;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -15,7 +15,7 @@ public final class RendBlockHelp {
     private RendBlockHelp(){
     }
 
-    public static String res(NatDocumentBlock _rend, NatConfigurationCore _conf, NatRendStackCall _rendStackCall, String _beanName, Struct _bean, NatImportingPageAbs _pa) {
+    public static String res(NatDocumentBlock _rend, NatConfigurationCore _conf, NatRendStackCall _rendStackCall, String _beanName, NaSt _bean, NatImportingPageAbs _pa) {
         NatImportingPageAbs ip_ = _pa.fwd();
         int tabWidth_ = _conf.getTabWidth();
         ip_.setBeanName(_beanName);
@@ -189,34 +189,34 @@ public final class RendBlockHelp {
     }
 
     private static BoolVal evaluateCondition(NatRendStackCall _rendStackCall, NatRendOperationNodeListOff _condition) {
-        Struct arg_ = BeanNatCommonLgNames.getAllArgs(_condition.getList(), _rendStackCall).lastValue().getArgument();
-        if (BooleanStruct.isTrue(arg_)) {
+        NaSt arg_ = BeanNatCommonLgNames.getAllArgs(_condition.getList(), _rendStackCall).lastValue().getArgument();
+        if (NaBoSt.isTrue(arg_)) {
             return BoolVal.TRUE;
         }
         return BoolVal.FALSE;
     }
 
-    static Struct nasNextCom(Struct _arg) {
+    static NaSt nasNextCom(NaSt _arg) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
-        return BooleanStruct.of(simpleItrStruct_.hasNext());
+        return NaBoSt.of(simpleItrStruct_.hasNext());
     }
 
-    static Struct nextCom(Struct _arg) {
+    static NaSt nextCom(NaSt _arg) {
         SimpleItrStruct simpleItrStruct_ = BeanNatCommonLgNames.getSimpleItrStruct(_arg);
         return simpleItrStruct_.next();
     }
 
-    static Struct first(Struct _arg) {
+    static NaSt first(NaSt _arg) {
         PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg);
         return pairStruct_.getFirst();
     }
 
-    static Struct second(Struct _arg) {
+    static NaSt second(NaSt _arg) {
         PairStruct pairStruct_ = BeanNatCommonLgNames.getPairStruct(_arg);
         return pairStruct_.getSecond();
     }
 
-    static Struct iterator(Struct _arg) {
+    static NaSt iterator(NaSt _arg) {
         NatArrayStruct array_ = BeanNatCommonLgNames.getArray(_arg);
         return new SimpleItrStruct(array_);
     }

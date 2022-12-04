@@ -11,70 +11,70 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
     protected static final String ST_ACC_TR="ST_ACC_TR";
-    public static Struct callEffectStatisticBeanCancelChgtStatGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanCancelChgtStatGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanCancelChgtStatGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanCancelLowStatGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanCancelLowStatGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanCancelLowStatGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanCopyBoostGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanCopyBoostGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanCopyBoostGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanDefaultBoostGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanDefaultBoostGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanDefaultBoostGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanEvtRateGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanEvtRateGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanEvtRateGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanEvtRatePerCentGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanEvtRatePerCentGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanEvtRatePerCentGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanGetFail(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanGetFail(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanGetFail(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanGetRate(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanGetRate(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanGetRate(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanGetSwapFail(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanGetSwapFail(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanGetSwapFail(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanIsAlwaysEnabled(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanIsAlwaysEnabled(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanIsAlwaysEnabled(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanMapVarsStatisticsGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanMapVarsStatisticsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanMapVarsStatisticsGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanNotEmptyVarBoost(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanNotEmptyVarBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanNotEmptyVarBoost(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanRandomStatis(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanRandomStatis(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanRandomStatis(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanStatisVarRankGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanStatisVarRankGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanStatisVarRankGet(),_str,_args);
     }
 
-    public static Struct callEffectStatisticBeanSwapBoostStatisGet(Struct _str, long... _args) {
+    public static NaSt callEffectStatisticBeanSwapBoostStatisGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectStatisticBeanSwapBoostStatisGet(),_str,_args);
     }
 
@@ -83,17 +83,17 @@ public abstract class InitDbMoveEffectStatistic extends InitDbMoveEffect {
         f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         return f_;
     }
-    protected static Struct dispMoveEffStatis(FacadeGame _fac, int _index) {
+    protected static NaSt dispMoveEffStatis(FacadeGame _fac, int _index) {
         return dispMoveEffStatis(_fac, _index,0);
     }
-    protected static Struct dispMoveEffStatis(FacadeGame _fac, int _index, int _indexEff) {
+    protected static NaSt dispMoveEffStatis(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectStatis(pk_);
+        StringMap<NaSt> all_ = beanToEffectStatis(pk_);
         StringMap<String> mapping_ = mappingToEffectStatis();
         return transitEffect(_index,_indexEff,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectStatis(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectStatis(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_STATIS,_pk.beanEffectStatisticBean(EN));
         return map_;
     }

@@ -6,7 +6,7 @@ import aiki.fight.status.StatusBeginRoundSimple;
 import aiki.fight.status.StatusType;
 import aiki.fight.status.effects.EffectPartnerStatus;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -36,11 +36,11 @@ public final class FightHelpBeanStatusDamageTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickStatusDamage(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickStatusDamage(b_,0);
         return getValStatusId(b_);
     }

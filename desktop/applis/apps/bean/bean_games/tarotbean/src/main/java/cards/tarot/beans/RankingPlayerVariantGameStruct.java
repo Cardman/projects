@@ -1,8 +1,8 @@
 package cards.tarot.beans;
 
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 
-public final class RankingPlayerVariantGameStruct extends AbNullStruct {
+public final class RankingPlayerVariantGameStruct extends NaNuSt {
     private final RankingPlayerVariantGame rankingPlayerVariantGame;
 
     public RankingPlayerVariantGameStruct(RankingPlayerVariantGame _rankingPlayerVariantGame) {

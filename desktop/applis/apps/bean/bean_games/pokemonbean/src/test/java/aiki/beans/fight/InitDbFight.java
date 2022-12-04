@@ -41,9 +41,9 @@ import aiki.map.pokemon.WildPk;
 import aiki.map.pokemon.enums.Gender;
 import aiki.util.CoordsLists;
 import aiki.util.LawNumber;
-import code.bean.nat.NatCaller;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -128,156 +128,156 @@ public abstract class InitDbFight extends InitDbBean {
 //    private static final String M_CLICK_FIGHTER_1="clickFighter()";
     //private static final String M_CLICK_FIGHTER_2="clickFighter(,)";
 
-    public static Struct beanFight(String _language, FacadeGame _dataBase) {
+    public static NaSt beanFight(String _language, FacadeGame _dataBase) {
         return beanFight(new PkFight(),_language,_dataBase);
     }
 
-    public static Struct callFightCalculationBeanGetFighterWildFight(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanGetFighterWildFight(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanGetFighterWildFight(),_str,_args);
     }
-    public static Struct callFightCalculationBeanGetFighter(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanGetFighter(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanGetFighter(),_str,_args);
     }
-    public static Struct callFightCalculationBeanSortedFightersWildFightGet(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanSortedFightersWildFightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanSortedFightersWildFightGet(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanSortedFightersGet(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanSortedFightersGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanSortedFightersGet(),_str,_args);
     }
-    public static Struct callFightCalculationBeanGetTargetNameAllyChoice(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanGetTargetNameAllyChoice(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanGetTargetNameAllyChoice(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanGetTargetNameAllyChoiceCondition(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanGetTargetNameAllyChoiceCondition(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanGetTargetNameAllyChoiceCondition(),_str,_args);
     }
-    public static Struct callFightCalculationBeanIsFoeTargetChoiceTeam(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanIsFoeTargetChoiceTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanIsFoeTargetChoiceTeam(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanIsFoeTargetTeam(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanIsFoeTargetTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanIsFoeTargetTeam(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanIsBackTargetChoiceTeam(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanIsBackTargetChoiceTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanIsBackTargetChoiceTeam(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanIsBackTargetTeam(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanIsBackTargetTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanIsBackTargetTeam(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanAllyChoiceGet(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanAllyChoiceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanAllyChoiceGet(),_str,_args);
     }
-    public static Struct callFightCalculationBeanGetTargetNameFoeChoice(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanGetTargetNameFoeChoice(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanGetTargetNameFoeChoice(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanGetFoeFighterName(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanGetFoeFighterName(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanGetFoeFighterName(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanIsChosenTarget(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanIsChosenTarget(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanIsChosenTarget(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanIsFoeTargetChTeam(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanIsFoeTargetChTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanIsFoeTargetChTeam(),_str,_args);
     }
-    public static Struct callMoveTargetGetTarget(Struct _str, long... _args) {
+    public static NaSt callMoveTargetGetTarget(NaSt _str, long... _args) {
         return callTargetCoordsGetPosition(BeanPokemonCommonTs.callLongs(new MoveTargetGetTarget(),_str,_args));
     }
 
-    public static Struct callMoveTargetGetMove(Struct _str, long... _args) {
+    public static NaSt callMoveTargetGetMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveTargetGetMove(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanFoeChoicesGet(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanFoeChoicesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanFoeChoicesGet(),_str,_args);
     }
-    public static Struct callKeyHypothesisIsBelongsToUser(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisIsBelongsToUser(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisIsBelongsToUser(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetMove(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetMove(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetDamage(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetDamage(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetDamage(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetDamageSecond(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetDamageSecond(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetDamageSecond(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetPlayerPokemon(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetPlayerPokemon(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetPlayerPokemon(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetTargetPokemon(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetTargetPokemon(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetTargetPokemon(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetNumberPlayer(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetNumberPlayer(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetNumberPlayer(),_str,_args);
     }
 
-    public static Struct callKeyHypothesisGetNumberTarget(Struct _str, long... _args) {
+    public static NaSt callKeyHypothesisGetNumberTarget(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new KeyHypothesisGetNumberTarget(),_str,_args);
     }
 
-    public static Struct callFightCalculationBeanDamageGet(Struct _str, long... _args) {
+    public static NaSt callFightCalculationBeanDamageGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightCalculationBeanDamageGet(),_str,_args);
     }
-    public Struct beanFightCalculation(FacadeGame _dataBase) {
+    public NaSt beanFightCalculation(FacadeGame _dataBase) {
         return displaying(beanFightCalculation(new PkFight(),EN,_dataBase));
     }
 
-    public static Struct beanFightCalculation(PkFight _stds,String _language, FacadeGame _dataBase) {
+    public static NaSt beanFightCalculation(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
         return _stds.beanFightCalculation(_language);
     }
 
-    public static Struct beanFight(PkFight _stds,String _language, FacadeGame _dataBase) {
+    public static NaSt beanFight(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
         return _stds.beanFight(_language);
     }
 
-    public static Struct beanTeam(PkFight _stds,String _language, FacadeGame _dataBase) {
+    public static NaSt beanTeam(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
         return _stds.beanTeam(_language);
     }
 
-    public static Struct beanFighter(PkFight _stds,String _language, FacadeGame _dataBase) {
+    public static NaSt beanFighter(PkFight _stds,String _language, FacadeGame _dataBase) {
         _stds.setDataBase(_dataBase);
         return _stds.beanFighter(_language);
     }
 
 
-    protected Struct beanTeam(PkFight _pkFight,NatCaller _caller) {
+    protected NaSt beanTeam(PkFight _pkFight,NatCaller _caller) {
         FacadeGame facade_ = facadeBigTeams(dbTeam());
         return beanTeam(_pkFight, _caller, facade_);
     }
 
-    protected Struct beanTeam(PkFight _pkFight, NatCaller _caller, FacadeGame _facade) {
-        Struct bFigtht_ = beanFight(_pkFight,EN, _facade);
-        Struct bTeam_ = beanTeam(_pkFight,EN, _facade);
+    protected NaSt beanTeam(PkFight _pkFight, NatCaller _caller, FacadeGame _facade) {
+        NaSt bFigtht_ = beanFight(_pkFight,EN, _facade);
+        NaSt bTeam_ = beanTeam(_pkFight,EN, _facade);
         transit(_pkFight, _caller,displaying(bFigtht_),bTeam_);
         return bTeam_;
     }
 
-    public static String navigateFightPlayer(Struct _str, long... _args) {
+    public static String navigateFightPlayer(NaSt _str, long... _args) {
         return navigateFight(clickPlayerCaller(), "",_str,_args);
     }
 
-    public static String navigateFightFoe(Struct _str, long... _args) {
+    public static String navigateFightFoe(NaSt _str, long... _args) {
         return navigateFight(clickFoeCaller(), "",_str,_args);
     }
 
-    public static String navigateTeamFighter(Struct _str, long... _args) {
+    public static String navigateTeamFighter(NaSt _str, long... _args) {
         return navigateFight(clickTeamFighterCaller(), "",_str,_args);
     }
 
@@ -292,463 +292,463 @@ public abstract class InitDbFight extends InitDbBean {
     public static NatCaller clickTeamFighterCaller() {
         return new TeamBeanClickFighter();
     }
-    public static String navigateFight(NatCaller _caller, String _concat, Struct _str, long... _args) {
+    public static String navigateFight(NatCaller _caller, String _concat, NaSt _str, long... _args) {
         PkScriptPagesInit.initConfFight(new NatConfigurationCore());
         return navigate(_caller, _concat,_str,_args);
     }
 
-    public static Struct callFighterBeanGetStatusRelatTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGetStatusRelatTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGetStatusRelatTeam(),_str,_args);
     }
-    public static Struct callFighterBeanGetIncrTrappingMovesTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGetIncrTrappingMovesTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGetIncrTrappingMovesTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanGetIncrTrackingMovesTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGetIncrTrackingMovesTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGetIncrTrackingMovesTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanGetIncrPrivateMovesTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGetIncrPrivateMovesTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGetIncrPrivateMovesTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanGetIncrUserAccuracyTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGetIncrUserAccuracyTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGetIncrUserAccuracyTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanIsFoeTrappingMovesTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsFoeTrappingMovesTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsFoeTrappingMovesTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanIsFoeTrackingMovesTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsFoeTrackingMovesTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsFoeTrackingMovesTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanIsFoeStatusRelatTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsFoeStatusRelatTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsFoeStatusRelatTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanIsFoePrivateMovesTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsFoePrivateMovesTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsFoePrivateMovesTeam(),_str,_args);
     }
 
-    public static Struct callFighterBeanIsFoeIncrUserAccuracyTeam(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsFoeIncrUserAccuracyTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsFoeIncrUserAccuracyTeam(),_str,_args);
     }
-    public static Struct callStatisticInfoGetEv(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoGetEv(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoGetEv(),_str,_args);
     }
 
-    public static Struct callStatisticInfoGetIv(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoGetIv(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoGetIv(),_str,_args);
     }
 
-    public static Struct callStatisticInfoGetDisplayStatistic(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoGetDisplayStatistic(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoGetDisplayStatistic(),_str,_args);
     }
 
-    public static Struct callStatisticInfoGetStatisBoost(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoGetStatisBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoGetStatisBoost(),_str,_args);
     }
 
-    public static Struct callStatisticInfoGetStatisBase(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoGetStatisBase(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoGetStatisBase(),_str,_args);
     }
 
-    public static Struct callStatisticInfoIsBase(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoIsBase(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoIsBase(),_str,_args);
     }
 
-    public static Struct callStatisticInfoIsBoost(Struct _str, long... _args) {
+    public static NaSt callStatisticInfoIsBoost(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatisticInfoIsBoost(),_str,_args);
     }
-    public static Struct callFighterBeanStatisticsGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanStatisticsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanStatisticsGet(),_str,_args);
     }
-    public static Struct callCopiedMoveGetMove(Struct _str, long... _args) {
+    public static NaSt callCopiedMoveGetMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CopiedMoveGetMove(),_str,_args);
     }
 
-    public static Struct callCopiedMoveGetPp(Struct _str, long... _args) {
+    public static NaSt callCopiedMoveGetPp(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new CopiedMoveGetPp(),_str,_args);
     }
 
-    public static Struct callMultPowerMovesGetMultSuffering(Struct _str, long... _args) {
+    public static NaSt callMultPowerMovesGetMultSuffering(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MultPowerMovesGetMultSuffering(),_str,_args);
     }
 
-    public static Struct callMultPowerMovesGetMultInflicted(Struct _str, long... _args) {
+    public static NaSt callMultPowerMovesGetMultInflicted(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MultPowerMovesGetMultInflicted(),_str,_args);
     }
 
-    public static Struct callSufferedDamageCategoryGetUsing(Struct _str, long... _args) {
+    public static NaSt callSufferedDamageCategoryGetUsing(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SufferedDamageCategoryGetUsing(),_str,_args);
     }
 
-    public static Struct callSufferedDamageCategoryGetRound(Struct _str, long... _args) {
+    public static NaSt callSufferedDamageCategoryGetRound(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new SufferedDamageCategoryGetRound(),_str,_args);
     }
 
-    public static Struct callFighterBeanDamageRateByTypeGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanDamageRateByTypeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanDamageRateByTypeGet(),_str,_args);
     }
-    public static Struct callFighterBeanCopiedMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCopiedMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCopiedMovesGet(),_str,_args);
     }
-    public static Struct callFighterBeanDamageSufferedCategGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanDamageSufferedCategGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanDamageSufferedCategGet(),_str,_args);
     }
 
-    public static Struct callAffectedMoveGetActivity(Struct _str, long... _args) {
+    public static NaSt callAffectedMoveGetActivity(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AffectedMoveGetActivity(),_str,_args);
     }
 
-    public static Struct callAffectedMoveGetMove(Struct _str, long... _args) {
+    public static NaSt callAffectedMoveGetMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AffectedMoveGetMove(),_str,_args);
     }
-    public static Struct callFighterBeanTrckingMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanTrckingMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanTrackingMovesGet(),_str,_args);
     }
-    public static Struct callFighterBeanTrappingMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanTrappingMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanTrappingMovesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanPrivateMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanPrivateMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanPrivateMovesGet(),_str,_args);
     }
-    public static Struct callFighterBeanStatusRelatGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanStatusRelatGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanStatusRelatGet(),_str,_args);
     }
-    public static Struct callFighterBeanEnabledMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanEnabledMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanEnabledMovesGet(),_str,_args);
     }
-    public static Struct callFighterBeanStatusGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanStatusGet(),_str,_args);
     }
-    public static Struct callFighterBeanNbUsesMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNbUsesMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNbUsesMovesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanMovesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanCurrentMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCurrentMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCurrentMovesGet(),_str,_args);
     }
-    public static Struct callFighterBeanLastSufferedMoveTypesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanLastSufferedMoveTypesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanLastSufferedMoveTypesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanProtectedAgainstMoveTypesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanProtectedAgainstMoveTypesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanProtectedAgainstMoveTypesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanTypesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanTypesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanTypesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanAlreadyInvokedMovesRoundGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanAlreadyInvokedMovesRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanAlreadyInvokedMovesRoundGet(),_str,_args);
     }
-    public static Struct callFighterBeanWonExpSinceLastLevelGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanWonExpSinceLastLevelGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanWonExpSinceLastLevelGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanNecessaryPointsNextLevelGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNecessaryPointsNextLevelGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNecessaryPointsNextLevelGet(),_str,_args);
     }
-    public static Struct callFighterFighterBeanHappinessGet(Struct _str, long... _args) {
+    public static NaSt callFighterFighterBeanHappinessGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanHappinessGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanCloneStrGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCloneStrGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCloneStrGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanCloneGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCloneGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCloneGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanHeightStrGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanHeightStrGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanHeightStrGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanHeightGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanHeightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanHeightGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanWeightStrGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanWeightStrGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanWeightStrGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanWeightGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanWeightGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanWeightGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanRemainingHpStrGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanRemainingHpStrGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanRemainingHpStrGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanRemainingHpGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanRemainingHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanRemainingHpGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanRemainingHpStrPerCentGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanRemainingHpStrPerCentGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanRemainingHpStrPerCentGet(),_str,_args);
     }
-    public static Struct callFighterBeanLevelGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanLevelGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanLevelGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanNbPrepaRoundGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNbPrepaRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNbPrepaRoundGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanNbRoundsGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNbRoundsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNbRoundsGet(),_str,_args);
     }
 
 
-    public static Struct callFighterBeanNbRepeatingSuccessfulMovesGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNbRepeatingSuccessfulMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNbRepeatingSuccessfulMovesGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanLastUsedMoveGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanLastUsedMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanLastUsedMoveGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanUsedMoveLastRoundGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanUsedMoveLastRoundGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanUsedMoveLastRoundGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanLastSufferedMoveGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanLastSufferedMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanLastSufferedMoveGet(),_str,_args);
     }
-    public static Struct callFighterBeanLastSuccessfulMoveGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanLastSuccessfulMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanLastSuccessfulMoveGet(),_str,_args);
     }
-    public static Struct callFighterBeanLastUsedItemGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanLastUsedItemGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanLastUsedItemGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanExpItemGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanExpItemGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanExpItemGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanItemGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanItemGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanItemGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanAbilityGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanAbilityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanAbilityGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanCurrentAbilityGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCurrentAbilityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCurrentAbilityGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanCurrentNameGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCurrentNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCurrentNameGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanCurrentGenderGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanCurrentGenderGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanCurrentGenderGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanGenderGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGenderGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGenderGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanGroundPlaceSubstGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGroundPlaceSubstGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGroundPlaceSubstGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanGroundPlaceGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanGroundPlaceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanGroundPlaceGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanUsedBallCatchingGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanUsedBallCatchingGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanUsedBallCatchingGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanNicknameGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNicknameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNicknameGet(),_str,_args);
     }
-    public static Struct callMoveTeamPositionGetMove(Struct _str, long... _args) {
+    public static NaSt callMoveTeamPositionGetMove(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new MoveTeamPositionGetMove(),_str,_args);
     }
-    public static Struct callFighterBeanIncrUserAccuracyGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIncrUserAccuracyGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIncrUserAccuracyGet(),_str,_args);
     }
-    public static Struct callFighterBeanEnabledMovesForAllyGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanEnabledMovesForAllyGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanEnabledMovesForAllyGet(),_str,_args);
     }
-    public static Struct callFighterBeanBelongingToPlayerGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanBelongingToPlayerGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanBelongingToPlayerGet(),_str,_args);
     }
-    public static Struct callFighterBeanIsBackSubst(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsBackSubst(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsBackSubst(),_str,_args);
     }
-    public static Struct callFighterBeanIsBack(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsBack(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsBack(),_str,_args);
     }
-    public static Struct callFighterBeanIsEnabled(Struct _str, long... _args) {
+    public static NaSt callFighterBeanIsEnabled(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanIsEnabled(),_str,_args);
     }
 
-    public static Struct callFighterBeanChangedGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanChangedGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanChangedGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanActedGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanActedGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanActedGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanSuccessfulMoveGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanSuccessfulMoveGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanSuccessfulMoveGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanUsingItemGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanUsingItemGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanUsingItemGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanDisappearedGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanDisappearedGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanDisappearedGet(),_str,_args);
     }
 
-    public static Struct callFighterBeanNeedingToRechargeGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNeedingToRechargeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNeedingToRechargeGet(),_str,_args);
     }
-    public static Struct callFighterBeanNameGet(Struct _str, long... _args) {
+    public static NaSt callFighterBeanNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FighterBeanNameGet(),_str,_args);
     }
-    public static Struct callTeamBeanPlayerFightersAgainstFoeGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanPlayerFightersAgainstFoeGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanPlayerFightersAgainstFoeGet(),_str,_args);
     }
 
-    public static Struct callTeamBeanGetPlayerFigtherAgainstFoe(Struct _str, long... _args) {
+    public static NaSt callTeamBeanGetPlayerFigtherAgainstFoe(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanGetPlayerFigtherAgainstFoe(),_str,_args);
     }
 
-    public static Struct callTeamBeanGetFoeFigtherAgainstFoe(Struct _str, long... _args) {
+    public static NaSt callTeamBeanGetFoeFigtherAgainstFoe(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanGetFoeFigtherAgainstFoe(),_str,_args);
     }
 
-    public static Struct callTeamBeanEnabledMovesGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanEnabledMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanEnabledMovesGet(),_str,_args);
     }
 
-    public static Struct callTeamBeanEnabledMovesByGroupGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanEnabledMovesByGroupGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanEnabledMovesByGroupGet(),_str,_args);
     }
 
-    public static Struct callTeamBeanGetKey(Struct _str, long... _args) {
+    public static NaSt callTeamBeanGetKey(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanGetKey(),_str,_args);
     }
 
-    public static Struct callStacksOfUsesGetNbRounds(Struct _str, long... _args) {
+    public static NaSt callStacksOfUsesGetNbRounds(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StacksOfUsesGetNbRounds(),_str,_args);
     }
 
-    public static Struct callStacksOfUsesIsFirstStacked(Struct _str, long... _args) {
+    public static NaSt callStacksOfUsesIsFirstStacked(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StacksOfUsesIsFirstStacked(),_str,_args);
     }
 
-    public static Struct callStacksOfUsesIsLastStacked(Struct _str, long... _args) {
+    public static NaSt callStacksOfUsesIsLastStacked(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StacksOfUsesIsLastStacked(),_str,_args);
     }
 
-    public static Struct callAnticipationGetTargetPositionValue(Struct _str, long... _args) {
+    public static NaSt callAnticipationGetTargetPositionValue(NaSt _str, long... _args) {
         return callTargetCoordsGetPosition(BeanPokemonCommonTs.callLongs(new AnticipationGetTargetPosition(),_str,_args));
     }
 
-    public static Struct callTargetCoordsGetPosition(Struct _str, long... _args) {
+    public static NaSt callTargetCoordsGetPosition(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TargetCoordsGetPosition(),_str,_args);
     }
 
-    public static Struct callAnticipationGetDamage(Struct _str, long... _args) {
+    public static NaSt callAnticipationGetDamage(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AnticipationGetDamage(),_str,_args);
     }
 
-    public static Struct callAnticipationGetNbRounds(Struct _str, long... _args) {
+    public static NaSt callAnticipationGetNbRounds(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AnticipationGetNbRounds(),_str,_args);
     }
 
-    public static Struct callAnticipationIsIncrementing(Struct _str, long... _args) {
+    public static NaSt callAnticipationIsIncrementing(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AnticipationIsIncrementing(),_str,_args);
     }
 
-    public static Struct callTeamBeanMovesAnticipationGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanMovesAnticipationGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanMovesAnticipationGet(),_str,_args);
     }
 
-    public static Struct callTeamBeanIsBackMovesAnticipationTeam(Struct _str, long... _args) {
+    public static NaSt callTeamBeanIsBackMovesAnticipationTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanIsBackMovesAnticipationTeam(),_str,_args);
     }
 
-    public static Struct callTeamBeanIsFoeMovesAnticipationTeam(Struct _str, long... _args) {
+    public static NaSt callTeamBeanIsFoeMovesAnticipationTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanIsFoeMovesAnticipationTeam(),_str,_args);
     }
 
-    public static Struct callTeamBeanIsPlayerMovesAnticipationTeam(Struct _str, long... _args) {
+    public static NaSt callTeamBeanIsPlayerMovesAnticipationTeam(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanIsPlayerMovesAnticipationTeam(),_str,_args);
     }
-    public static Struct callTeamBeanTeamBeanHealAfterGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanTeamBeanHealAfterGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanHealAfterGet(),_str,_args);
     }
 
-    public static Struct callTeamBeanEnabledMovesWhileSendingFoeUsesGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanEnabledMovesWhileSendingFoeUsesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanEnabledMovesWhileSendingFoeUsesGet(),_str,_args);
     }
 
-    public static Struct callTeamBeanNbUsesMovesGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanNbUsesMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanNbUsesMovesGet(),_str,_args);
     }
-    public static Struct callTeamBeanGetTrPokemonLink(Struct _str, long... _args) {
+    public static NaSt callTeamBeanGetTrPokemonLink(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanGetTrPokemonLink(),_str,_args);
     }
 
-    public static Struct callTeamBeanGetMembers(Struct _str, long... _args) {
+    public static NaSt callTeamBeanGetMembers(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanGetMembers(),_str,_args);
     }
-    public static Struct callTeamBeanFoeTeamGet(Struct _str, long... _args) {
+    public static NaSt callTeamBeanFoeTeamGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new TeamBeanFoeTeamGet(),_str,_args);
     }
 
-    public static Struct callFightBeanMultGet(Struct _str, long... _args) {
+    public static NaSt callFightBeanMultGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightBeanMultGet(),_str,_args);
     }
 
-    public static Struct callFightBeanEnabledMovesGet(Struct _str, long... _args) {
+    public static NaSt callFightBeanEnabledMovesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightBeanEnabledMovesGet(),_str,_args);
     }
 
-    public static Struct callFightBeanIsStillEnabled(Struct _str, long... _args) {
+    public static NaSt callFightBeanIsStillEnabled(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightBeanIsStillEnabled(),_str,_args);
     }
 
-    public static Struct callFightBeanWinningMoneyGet(Struct _str, long... _args) {
+    public static NaSt callFightBeanWinningMoneyGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightBeanWinningMoneyGet(),_str,_args);
     }
 
-    public static Struct callFightBeanNbRoundsGet(Struct _str, long... _args) {
+    public static NaSt callFightBeanNbRoundsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightBeanNbRoundsGet(),_str,_args);
     }
 
-    public static Struct callFightBeanNbFleeAttemptGet(Struct _str, long... _args) {
+    public static NaSt callFightBeanNbFleeAttemptGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new FightBeanNbFleeAttemptGet(),_str,_args);
     }
 
-    public static Struct callActivityOfMoveGetNbTurn(Struct _str, long... _args) {
+    public static NaSt callActivityOfMoveGetNbTurn(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ActivityOfMoveGetNbTurn(),_str,_args);
     }
 
-    public static Struct callActivityOfMoveIsEnabled(Struct _str, long... _args) {
+    public static NaSt callActivityOfMoveIsEnabled(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ActivityOfMoveIsEnabled(),_str,_args);
     }
 
-    public static Struct callActivityOfMoveIsIncrementCount(Struct _str, long... _args) {
+    public static NaSt callActivityOfMoveIsIncrementCount(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ActivityOfMoveIsIncrementCount(),_str,_args);
     }
 

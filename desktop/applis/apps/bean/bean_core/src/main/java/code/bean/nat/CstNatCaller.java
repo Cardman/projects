@@ -1,7 +1,7 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
 public final class CstNatCaller implements NatCaller {
 
@@ -12,7 +12,7 @@ public final class CstNatCaller implements NatCaller {
     }
 
     @Override
-    public Struct re(Struct _instance, Struct[] _args) {
-        return new StringStruct(value);
+    public NaSt re(NaSt _instance, NaSt[] _args) {
+        return new NaStSt(value);
     }
 }

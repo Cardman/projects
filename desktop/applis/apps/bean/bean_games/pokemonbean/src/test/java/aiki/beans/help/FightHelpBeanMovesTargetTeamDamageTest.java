@@ -8,7 +8,7 @@ import aiki.fight.moves.effects.EffectAlly;
 import aiki.fight.moves.effects.EffectTeam;
 import aiki.fight.util.CategoryMult;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -39,11 +39,11 @@ public final class FightHelpBeanMovesTargetTeamDamageTest extends InitDbFightHel
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickMovesTargetTeamDamage(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickMovesTargetTeamDamage(b_,0);
         return getValMoveId(b_);
     }

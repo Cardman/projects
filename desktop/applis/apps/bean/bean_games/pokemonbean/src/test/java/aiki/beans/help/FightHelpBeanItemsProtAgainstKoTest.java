@@ -4,7 +4,7 @@ import aiki.beans.items.AikiBeansItemsStd;
 import aiki.facade.FacadeGame;
 import aiki.fight.items.ItemForBattle;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;
@@ -41,11 +41,11 @@ public final class FightHelpBeanItemsProtAgainstKoTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickItemsProtAgainstKo(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickItemsProtAgainstKo(b_,0);
         return getValItemId(b_);
     }

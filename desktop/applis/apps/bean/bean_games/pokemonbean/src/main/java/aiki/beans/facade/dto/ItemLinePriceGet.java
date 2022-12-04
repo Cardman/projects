@@ -1,12 +1,12 @@
 package aiki.beans.facade.dto;
 
 import aiki.beans.ItLineStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class ItemLinePriceGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( ((ItLineStruct) _instance).getWildPk()).getPrice());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( ((ItLineStruct) _instance).getWildPk()).getPrice());
     }
 }

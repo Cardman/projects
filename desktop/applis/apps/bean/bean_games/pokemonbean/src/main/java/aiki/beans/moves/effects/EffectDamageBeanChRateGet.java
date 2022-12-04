@@ -1,12 +1,12 @@
 package aiki.beans.moves.effects;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EffectDamageBeanChRateGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( (EffectDamageBean) ((PokemonBeanStruct)_instance).getInstance()).getChRate());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( (EffectDamageBean) ((PokemonBeanStruct)_instance).getInstance()).getChRate());
     }
 }

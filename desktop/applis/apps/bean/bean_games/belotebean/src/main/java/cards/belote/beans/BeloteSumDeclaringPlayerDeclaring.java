@@ -1,10 +1,10 @@
 package cards.belote.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class BeloteSumDeclaringPlayerDeclaring implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         return BeloteStandards.getDeclaringPlayerValueArray((((BeloteSumDeclaringPlayerStruct)_instance).getSumDeclaringPlayer()).getDeclaring());
     }
 }

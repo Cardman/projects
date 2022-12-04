@@ -1,14 +1,14 @@
 package aiki.beans.simulation;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class EditTrainerPokemonBeanLevelSet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getCommon().setLevel(NumParsers.convertToNumber(_args[0]).intStruct());
-        return NullStruct.NULL_VALUE;
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        ( (EditTrainerPokemonBean) ((PokemonBeanStruct)_instance).getInstance()).getCommon().setLevel(NaPa.convertToNumber(_args[0]).intStruct());
+        return NaNu.NULL_VALUE;
     }
 }

@@ -1,13 +1,13 @@
 package aiki.beans.abilities;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class AbilityBeanGetTrLowStatFoeHit implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getTrLowStatFoeHit(NumParsers.convertToNumber(_args[0]).intStruct()));
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getTrLowStatFoeHit(NaPa.convertToNumber(_args[0]).intStruct()));
     }
 }

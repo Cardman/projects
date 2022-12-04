@@ -8,7 +8,7 @@ import aiki.fight.items.HealingPp;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.fight.pokemon.enums.GenderRepartition;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.util.StringList;
 import code.util.StringMap;
@@ -17,53 +17,53 @@ public abstract class InitDbItem extends InitDbItems{
     public static final String I_BASE_TR = "B_BASE_TR";
     public static final String I_BASE = "B_BASE";
 
-    public static String callItemBeanClickItems(Struct _str, long... _args) {
+    public static String callItemBeanClickItems(NaSt _str, long... _args) {
         return navigateData(new ItemBeanClickItems(),_str,_args);
     }
 
-    public static Struct callItemBeanDescriptionGet(Struct _str, long... _args) {
+    public static NaSt callItemBeanDescriptionGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanDescriptionGet(),_str,_args);
     }
 
-    public static Struct callItemBeanDisplayNameGet(Struct _str, long... _args) {
+    public static NaSt callItemBeanDisplayNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanDisplayNameGet(),_str,_args);
     }
 
-    public static Struct callItemBeanItemBeanGet(Struct _str, long... _args) {
+    public static NaSt callItemBeanItemBeanGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanItemBeanGet(),_str,_args);
     }
 
-    public static Struct callItemBeanItemImageGet(Struct _str, long... _args) {
+    public static NaSt callItemBeanItemImageGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanItemImageGet(),_str,_args);
     }
 
-    public static Struct callItemBeanNameGet(Struct _str, long... _args) {
+    public static NaSt callItemBeanNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanNameGet(),_str,_args);
     }
 
-    public static Struct callItemBeanPriceGet(Struct _str, long... _args) {
+    public static NaSt callItemBeanPriceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemBeanPriceGet(),_str,_args);
     }
-    public static Struct callItemBeanNameSet(Struct _str, String _args) {
+    public static NaSt callItemBeanNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new ItemBeanNameSet(),_str,_args);
     }
-    public static StringMap<Struct> beanToItemSample(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToItemSample(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_BOOST,_pk.beanBoostBean(EN));
         return map_;
     }
-    protected static Struct itemLineSample() {
+    protected static NaSt itemLineSample() {
         return dispLine(feedDbItem(), AikiBeansItemsStd.BEAN_BOOST);
     }
 
-    protected static Struct dispLine(FacadeGame _fac, String _key) {
+    protected static NaSt dispLine(FacadeGame _fac, String _key) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToItemSample(pk_);
+        StringMap<NaSt> all_ = beanToItemSample(pk_);
         return dispLine(_key, pk_, all_);
     }
 
-    protected static Struct dispLine(String _key, PkData _pk, StringMap<Struct> _all) {
-        Struct res_ = transitToAllItems(_pk, _all, _key);
+    protected static NaSt dispLine(String _key, PkData _pk, StringMap<NaSt> _all) {
+        NaSt res_ = transitToAllItems(_pk, _all, _key);
         callItemBeanItemBeanGet(res_);
         callItemBeanNameSet(_all.getVal(AikiBeansItemsStd.BEAN_ITEM),toStr(callItemBeanNameGet(res_)));
         return res_;

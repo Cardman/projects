@@ -9,17 +9,17 @@ import aiki.fight.moves.enums.SwitchType;
 import aiki.fight.moves.enums.TargetChoice;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
 
-    public static Struct callEffectDamageRateBeanRateDamageGet(Struct _str, long... _args) {
+    public static NaSt callEffectDamageRateBeanRateDamageGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectDamageRateBeanRateDamageGet(),_str,_args);
     }
 
-    public static Struct callEffectDamageRateBeanWinHpGet(Struct _str, long... _args) {
+    public static NaSt callEffectDamageRateBeanWinHpGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new EffectDamageRateBeanWinHpGet(),_str,_args);
     }
 
@@ -28,17 +28,17 @@ public abstract class InitDbMoveEffectDamageRate extends InitDbMoveEffect{
         f_.getData().getLitterals().getVal(EN).addEntry(Fight.TEMPS_TOUR, TAB+Fight.TEMPS_TOUR+TAB+TIME);
         return f_;
     }
-    protected static Struct dispMoveEffDamageRate(FacadeGame _fac, int _index) {
+    protected static NaSt dispMoveEffDamageRate(FacadeGame _fac, int _index) {
         return dispMoveEffDamageRate(_fac, _index,0);
     }
-    protected static Struct dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
+    protected static NaSt dispMoveEffDamageRate(FacadeGame _fac, int _index, int _indexEff) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectDamageRate(pk_);
+        StringMap<NaSt> all_ = beanToEffectDamageRate(pk_);
         StringMap<String> mapping_ = mappingToEffectDamageRate();
         return transitEffect(_index,_indexEff,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectDamageRate(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectDamageRate(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_DAMAGE_RATE,_pk.beanEffectDamageRateBean(EN));
         return map_;
     }

@@ -6,7 +6,7 @@ import aiki.fight.moves.*;
 import aiki.fight.moves.effects.*;
 import aiki.fight.moves.enums.*;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringMap;
 
 public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
@@ -16,14 +16,14 @@ public abstract class InitDbMoveEffectLightDisplay extends InitDbMoveEffect {
     protected static String dispMoveEffAccuracy() {
         return toStr(callEffectBeanMoveGet(dispMoveEffAccuracy(feedDbMoveEffDataAccuracy(Instances.newEffectAccuracy()))));
     }
-    protected static Struct dispMoveEffAccuracy(FacadeGame _fac) {
+    protected static NaSt dispMoveEffAccuracy(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
-        StringMap<Struct> all_ = beanToEffectAccuracy(pk_);
+        StringMap<NaSt> all_ = beanToEffectAccuracy(pk_);
         StringMap<String> mapping_ = mappingToEffectAccuracy();
         return transitEffect(0,0,pk_,all_,mapping_);
     }
-    public static StringMap<Struct> beanToEffectAccuracy(PkData _pk) {
-        StringMap<Struct> map_ = beanToEffect(_pk);
+    public static StringMap<NaSt> beanToEffectAccuracy(PkData _pk) {
+        StringMap<NaSt> map_ = beanToEffect(_pk);
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_ACCURACY,_pk.beanEffectBean(EN));
         map_.addEntry(AikiBeansMovesEffectsStd.BEAN_EFFECT_SWITCHPOSITION,_pk.beanEffectBean(EN));
         return map_;

@@ -2,12 +2,12 @@ package cards.consts.beans;
 
 import cards.consts.LineDeal;
 import code.bean.nat.*;
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringMap;
 
-public final class LineDealStruct  extends AbNullStruct {
+public final class LineDealStruct  extends NaNuSt {
     static final String TYPE_LINE_DEAL = "cards.beans.LineDeal";
     private static final String SCORES = "scores";
     private static final String NUMBER = "number";

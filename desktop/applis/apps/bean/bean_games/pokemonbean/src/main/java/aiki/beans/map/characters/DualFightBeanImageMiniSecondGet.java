@@ -1,12 +1,12 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class DualFightBeanImageMiniSecondGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (DualFightBean) ((PokemonBeanStruct)_instance).getInstance()).getImageMiniSecond());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (DualFightBean) ((PokemonBeanStruct)_instance).getInstance()).getImageMiniSecond());
     }
 }

@@ -1,11 +1,11 @@
 package cards.belote.beans;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public final class RulesBeloteBeanSousCoupeAdv implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(((RulesBeloteBean) ((BeloteBeanStruct)_instance).getInstance()).isSousCoupeAdv());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(((RulesBeloteBean) ((BeloteBeanStruct)_instance).getInstance()).isSousCoupeAdv());
     }
 }

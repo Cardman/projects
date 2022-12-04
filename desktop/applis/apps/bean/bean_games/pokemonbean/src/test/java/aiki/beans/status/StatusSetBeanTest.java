@@ -1,6 +1,6 @@
 package aiki.beans.status;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -16,13 +16,13 @@ public final class StatusSetBeanTest extends InitDbStatusSet {
     }
     @Test
     public void typedNameSet() {
-        Struct bean_ = dispAllStatus();
+        NaSt bean_ = dispAllStatus();
         callStatusSetBeanTypedStatusSet(bean_,M_DAM_TR);
         assertEq(M_DAM_TR,callStatusSetBeanTypedStatusGet(bean_));
     }
     @Test
     public void search1() {
-        Struct bean_ = dispAllStatus();
+        NaSt bean_ = dispAllStatus();
         assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_STATUS_HTML, navigateStatusSearch(bean_));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));
         CustList<String> keys_ = forms(bean_).getValStatusData(CST_STATUS_SET).getKeys();
@@ -43,7 +43,7 @@ public final class StatusSetBeanTest extends InitDbStatusSet {
     }
     @Test
     public void search2() {
-        Struct bean_ = dispAllStatus();
+        NaSt bean_ = dispAllStatus();
         callStatusSetBeanTypedStatusSet(bean_,S_STA_00_TR);
         assertEq(AikiBeansStatusStd.WEB_HTML_STATUS_DATA_HTML, navigateStatusSearch(bean_));
         assertTrue(forms(bean_).contains(CST_STATUS_SET));

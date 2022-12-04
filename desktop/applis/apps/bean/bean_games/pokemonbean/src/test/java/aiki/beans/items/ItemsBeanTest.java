@@ -1,6 +1,6 @@
 package aiki.beans.items;
 
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -24,25 +24,25 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void typedNameSet() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,C_CAT);
         assertEq(C_CAT,callItemsBeanTypedNameGet(bean_));
     }
     @Test
     public void typedClassSet() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedClassSet(bean_,C_CAT);
         assertEq(C_CAT,callItemsBeanTypedClassGet(bean_));
     }
     @Test
     public void typedPriceSet() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedPriceSet(bean_,C_CAT);
         assertEq(C_CAT,callItemsBeanTypedPriceGet(bean_));
     }
     @Test
     public void search1() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
         CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
@@ -64,7 +64,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search2() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
         CustList<String> keys_ = forms(bean_).getValItemData(CST_ITEMS_SET).getKeys();
@@ -86,7 +86,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search3() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,"*HEAL*");
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -100,7 +100,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search4() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedClassSet(bean_,"*HEAL*");
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -114,7 +114,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search5() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedPriceSet(bean_,"1");
         callItemsBeanTypedNameSet(bean_,"*B*");
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
@@ -127,7 +127,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search6() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedPriceSet(bean_,"1");
         callItemsBeanTypedClassSet(bean_,"*B*L*");
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
@@ -139,7 +139,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search7() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedPriceSet(bean_,"1");
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -151,7 +151,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search8() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_BALL);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -160,7 +160,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search9() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_BALL_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -171,7 +171,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search10() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_BERRY_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BERRY_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -182,7 +182,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search11() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_BOOST_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BOOST_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -193,7 +193,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search12() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_EVO_ITEM_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_EVO_ITEM_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -204,7 +204,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search13() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_EVO_STONE_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_EVO_STONE_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -215,7 +215,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search14() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_FOSSIL_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_FOSSIL_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -226,7 +226,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search15() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_HEAL_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGITEM_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -237,7 +237,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search16() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_HEAL_HP_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGHP_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -248,7 +248,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search17() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_HEAL_PP_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGPP_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -259,7 +259,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search18() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_HEAL_HP_STATUS_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGHPSTATUS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -270,7 +270,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search19() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_HEAL_STATUS_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_HEALINGSTATUS_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -281,7 +281,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search20() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_ITEMBATTLE_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMFORBATTLE_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -292,7 +292,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search21() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_REPEL_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_REPEL_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -303,7 +303,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search22() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         callItemsBeanTypedNameSet(bean_,I_SELLING_TR);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_SELLINGITEM_HTML, navigateItemsSearch(bean_));
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -314,7 +314,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void search23() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_ITEMS_HTML, navigateItemsSearch(bean_));
         beforeDisplaying(bean_);
         assertTrue(forms(bean_).contains(CST_ITEMS_SET));
@@ -326,7 +326,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void clickLink() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         navigateItemsSearch(bean_);
         beforeDisplaying(bean_);
         assertEq(AikiBeansItemsStd.WEB_HTML_ITEMS_BALL_HTML,callItemsBeanClickLink(bean_,0));
@@ -334,7 +334,7 @@ public final class ItemsBeanTest extends InitDbItems {
     }
     @Test
     public void getMiniImage() {
-        Struct bean_ = dispAllItems(feedDb());
+        NaSt bean_ = dispAllItems(feedDb());
         navigateItemsSearch(bean_);
         beforeDisplaying(bean_);
         assertEq(MAX_RAI,callItemsBeanGetMiniImage(bean_,0));

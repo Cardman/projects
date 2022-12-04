@@ -1,11 +1,11 @@
 package aiki.beans.fight;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.IntStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class ActivityOfMoveGetNbTurn implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new IntStruct(( ((ActivityOfMoveStruct) _instance).getInstance()).getNbTurn());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaNbSt(( ((ActivityOfMoveStruct) _instance).getInstance()).getNbTurn());
     }
 }

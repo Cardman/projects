@@ -1,11 +1,11 @@
 package aiki.beans.effects;
 
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class CombosBeanComboGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(CombosBean.COMBO);
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(CombosBean.COMBO);
     }
 }

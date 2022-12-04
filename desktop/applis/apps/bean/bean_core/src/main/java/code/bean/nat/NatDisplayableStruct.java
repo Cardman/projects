@@ -1,8 +1,8 @@
 package code.bean.nat;
 
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 
-public interface NatDisplayableStruct extends Struct {
-    StringStruct getDisplayedString();
+public interface NatDisplayableStruct extends NaSt {
+    NaStSt getDisplayedString();
 }

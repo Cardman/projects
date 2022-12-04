@@ -2,7 +2,7 @@ package code.bean.nat.exec.opers;
 
 import code.bean.nat.exec.NatArgumentsPair;
 import code.bean.nat.exec.NatRendStackCall;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 import code.util.IdMap;
 
@@ -19,20 +19,20 @@ public abstract class NatExecOperationNode implements NatRendCalculableOperation
     }
 
 
-    public static CustList<Struct> getArguments(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatExecMethodOperation _method) {
-        CustList<Struct> a_ = new CustList<Struct>();
+    public static CustList<NaSt> getArguments(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatExecMethodOperation _method) {
+        CustList<NaSt> a_ = new CustList<NaSt>();
         for (NatExecOperationNode o: _method.getChildrenNodes()) {
             a_.add(getArgument(_nodes, o));
         }
         return a_;
     }
-    protected static Struct getArgument(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatExecOperationNode _node) {
+    protected static NaSt getArgument(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatExecOperationNode _node) {
         int order_ = _node.getOrder();
         return _nodes.getValue(order_).getArgument();
     }
 
-    protected Struct getPreviousArg(NatExecPossibleIntermediateDotted _possible, IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStackCall) {
-        Struct previous_;
+    protected NaSt getPreviousArg(NatExecPossibleIntermediateDotted _possible, IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NatRendStackCall _rendStackCall) {
+        NaSt previous_;
         if (_possible.isIntermediateDottedOperation()) {
             previous_ = _nodes.getValue(getOrder()).getPreviousArgument();
         } else {
@@ -49,7 +49,7 @@ public abstract class NatExecOperationNode implements NatRendCalculableOperation
         return order;
     }
 
-    protected void calcArg(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, Struct _out) {
+    protected void calcArg(IdMap<NatExecOperationNode, NatArgumentsPair> _nodes, NaSt _out) {
         NatExecPossibleIntermediateDotted n_ = getSiblingSet();
         if (n_ != null) {
             _nodes.getValue(n_.getOrder()).setPreviousArgument(_out);

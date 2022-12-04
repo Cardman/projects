@@ -1,12 +1,12 @@
 package aiki.beans.abilities;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class AbilityBeanIgnFoeStatisBoostGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return BooleanStruct.of(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getIgnFoeStatisBoost());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return NaBoSt.of(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getIgnFoeStatisBoost());
     }
 }

@@ -7,7 +7,7 @@ import aiki.facade.FacadeGame;
 import aiki.fight.items.*;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.*;
 import code.util.StringMap;
@@ -15,25 +15,25 @@ import code.util.StringMap;
 public abstract class InitDbItemOther extends InitDbItem {
 
 
-    public static Struct callBallBeanCatchingRateGet() {
+    public static NaSt callBallBeanCatchingRateGet() {
         return BeanPokemonCommonTs.callLongs(new BallBeanCatchingRateGet(),ballBean());
     }
 
-    public static Struct callBallBeanMapVarsGet() {
+    public static NaSt callBallBeanMapVarsGet() {
         return BeanPokemonCommonTs.callLongs(new BallBeanMapVarsGet(),ballBean());
     }
 
-    public static Struct callRepelBeanStepsGet() {
+    public static NaSt callRepelBeanStepsGet() {
         return BeanPokemonCommonTs.callLongs(new RepelBeanStepsGet(),repelBean());
     }
 
-    protected static Struct sellBean() {
+    protected static NaSt sellBean() {
         PkData pk_ = pkDataByFacade(feedDbSell());
-        StringMap<Struct> all_ = beanToSell(pk_);
+        StringMap<NaSt> all_ = beanToSell(pk_);
         return callItemBeanPriceGet(dispLine(AikiBeansItemsStd.BEAN_SELLINGITEM, pk_, all_));
     }
-    public static StringMap<Struct> beanToSell(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToSell(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_SELLINGITEM,_pk.beanSellingItemBean(EN));
         return map_;
     }
@@ -43,13 +43,13 @@ public abstract class InitDbItemOther extends InitDbItem {
         s_.setPrice(1);
         return feedDbItem(s_);
     }
-    protected static Struct repelBean() {
+    protected static NaSt repelBean() {
         PkData pk_ = pkDataByFacade(feedDbRepel());
-        StringMap<Struct> all_ = beanToRepel(pk_);
+        StringMap<NaSt> all_ = beanToRepel(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_REPEL, pk_, all_);
     }
-    public static StringMap<Struct> beanToRepel(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToRepel(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_REPEL,_pk.beanRepelBean(EN));
         return map_;
     }
@@ -59,13 +59,13 @@ public abstract class InitDbItemOther extends InitDbItem {
         r_.setSteps(1);
         return feedDbItem(r_);
     }
-    protected static Struct ballBean() {
+    protected static NaSt ballBean() {
         PkData pk_ = pkDataByFacade(feedDbBall());
-        StringMap<Struct> all_ = beanToBall(pk_);
+        StringMap<NaSt> all_ = beanToBall(pk_);
         return dispLine(AikiBeansItemsStd.BEAN_BALL, pk_, all_);
     }
-    public static StringMap<Struct> beanToBall(PkData _pk) {
-        StringMap<Struct> map_ = beanToItem(_pk);
+    public static StringMap<NaSt> beanToBall(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItem(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_BALL,_pk.beanBallBean(EN));
         return map_;
     }

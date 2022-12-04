@@ -7,7 +7,7 @@ import aiki.fight.moves.StatusMoveData;
 import aiki.fight.moves.effects.EffectRestriction;
 import aiki.fight.moves.effects.enums.MoveChoiceRestrictionType;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -37,11 +37,11 @@ public final class FightHelpBeanPrivatingMovesTest extends InitDbFightHelp {
         assertEq(M_DAM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickPrivatingMoves(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickPrivatingMoves(b_,0);
         return getValMoveId(b_);
     }

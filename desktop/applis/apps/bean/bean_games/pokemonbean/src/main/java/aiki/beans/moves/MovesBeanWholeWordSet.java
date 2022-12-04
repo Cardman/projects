@@ -1,14 +1,14 @@
 package aiki.beans.moves;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class MovesBeanWholeWordSet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        ( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).setWholeWord(BooleanStruct.isTrue(_args[0]));
-        return NullStruct.NULL_VALUE;
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        ( (MovesBean) ((PokemonBeanStruct)_instance).getInstance()).setWholeWord(NaBoSt.isTrue(_args[0]));
+        return NaNu.NULL_VALUE;
     }
 }

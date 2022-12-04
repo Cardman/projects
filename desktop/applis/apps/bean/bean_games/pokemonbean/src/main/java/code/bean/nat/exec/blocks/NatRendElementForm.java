@@ -1,17 +1,17 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.NatCaller;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatAbstractDotOperation;
 import code.bean.nat.exec.opers.NatExecMethodOperation;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.opers.NatSettableFieldOperation;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.sml.FormParts;
 import code.sml.IndexesFormInput;
 import code.sml.NavigationCore;
@@ -32,7 +32,7 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         this.natAttributesText = _execAttributesText;
     }
 
-    public static Struct fetchName(NatConfigurationCore _cont, Element _read, Element _write, NatFieldUpdates _f, NatRendStackCall _rendStackCall) {
+    public static NaSt fetchName(NatConfigurationCore _cont, Element _read, Element _write, NatFieldUpdates _f, NatRendStackCall _rendStackCall) {
 //        if (_f.getOpsWrite() == null) {
 //            return Argument.createVoid();
 //        }
@@ -47,14 +47,14 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         NatExecOperationNode settable_ = castDottedTo(root_);
         CustList<LongTreeMap<NatNodeContainer>> stack_ = ((NatRendStackCallAdv)_rendStackCall).getFormParts().getContainersMapStack();
         NatArgumentsPair pair_ = args_.getValue(settable_.getOrder());
-        CustList<Struct> obj_;
+        CustList<NaSt> obj_;
         if (((NatSettableFieldOperation) settable_).isIntermediateDottedOperation()) {
-            obj_ = new CustList<Struct>(pair_.getPreviousArgument());
+            obj_ = new CustList<NaSt>(pair_.getPreviousArgument());
         } else {
-            obj_ = new CustList<Struct>(_rendStackCall.getLastPage().getGlobalArgument());
+            obj_ = new CustList<NaSt>(_rendStackCall.getLastPage().getGlobalArgument());
         }
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
-        Struct arg_ = pair_.getArgument();
+        NaSt arg_ = pair_.getArgument();
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrName());
         prStack(_cont,_write,_f, new NatFetchedObjs(obj_, stack_), _rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
         return arg_;
@@ -106,9 +106,9 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
 //            return;
 //        }
         if (StringUtil.quickEq(_read.getTagName(),_cont.getRendKeyWords().getKeyWordsTags().getKeyWordInput())) {
-            Struct o_ = BeanNatCommonLgNames.getAllArgs(_ops, _rendStackCall).lastValue().getArgument();
+            NaSt o_ = BeanNatCommonLgNames.getAllArgs(_ops, _rendStackCall).lastValue().getArgument();
             if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrType()),_cont.getRendKeyWords().getKeyWordsValues().getValueCheckbox())) {
-                if (BooleanStruct.isTrue(o_)) {
+                if (NaBoSt.isTrue(o_)) {
                     _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked(), _cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
                 } else {
                     _write.removeAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrChecked());
@@ -122,15 +122,15 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordsAttrs().getAttrVarValue()));
     }
 
-    public static Struct nullValueToEmpty(Struct _o) {
-        Struct o_ = _o;
-        if (o_ == NullStruct.NULL_VALUE) {
-            o_ = new StringStruct(RendBlockHelp.EMPTY_STRING);
+    public static NaSt nullValueToEmpty(NaSt _o) {
+        NaSt o_ = _o;
+        if (o_ == NaNu.NULL_VALUE) {
+            o_ = new NaStSt(RendBlockHelp.EMPTY_STRING);
         }
         return o_;
     }
 
-    static String getStringKey(Struct _instance) {
+    static String getStringKey(NaSt _instance) {
         return BeanNatCommonLgNames.processString(_instance);
     }
 

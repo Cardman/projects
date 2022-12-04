@@ -1,12 +1,12 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class TrainerBeanGetTrMove implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
-        return new StringStruct(( (TrainerBean) ((PokemonBeanStruct)_instance).getInstance()).getTrMove());
+    public NaSt re(NaSt _instance, NaSt[] _args){
+        return new NaStSt(( (TrainerBean) ((PokemonBeanStruct)_instance).getInstance()).getTrMove());
     }
 }

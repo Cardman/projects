@@ -10,7 +10,7 @@ import aiki.fight.enums.Statistic;
 import aiki.fight.util.*;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.maths.*;
 import code.util.*;
 
@@ -18,11 +18,11 @@ public abstract class InitDbAbilities extends InitDbConstr {
 
     protected static final String A_ABILITY2="B_ABILITY";
     protected static final String A_ABILITY2_TR="B_ABILITY_TR";
-    public static Struct callAbilitiesBeanClickAbility(Struct _str, long... _args) {
+    public static NaSt callAbilitiesBeanClickAbility(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilitiesBeanClickAbility(),_str,_args);
     }
 
-    public static Struct callAbilitiesBeanGetTrAbility(Struct _str, long... _args) {
+    public static NaSt callAbilitiesBeanGetTrAbility(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilitiesBeanGetTrAbility(),_str,_args);
     }
 
@@ -30,11 +30,11 @@ public abstract class InitDbAbilities extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new AbilitiesBeanSearch(),_str,_args);
 //    }
 
-    public static Struct callAbilitiesBeanSortedAbilitiesGet(Struct _str, long... _args) {
+    public static NaSt callAbilitiesBeanSortedAbilitiesGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilitiesBeanSortedAbilitiesGet(),_str,_args);
     }
 
-    public static Struct callAbilitiesBeanTypedAbilityGet(Struct _str, long... _args) {
+    public static NaSt callAbilitiesBeanTypedAbilityGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new AbilitiesBeanTypedAbilityGet(),_str,_args);
     }
 //    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
@@ -43,45 +43,45 @@ public abstract class InitDbAbilities extends InitDbConstr {
 //    public static Struct callAbilityBeanGetEffectSending(Struct _str, long... _args) {
 //        return BeanPokemonCommonTs.callLongs(new AbilityBeanGetEffectSending(),_str,_args);
 //    }
-    public static Struct callAbilitiesBeanTypedAbilitySet(Struct _str, String _args) {
+    public static NaSt callAbilitiesBeanTypedAbilitySet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new AbilitiesBeanTypedAbilitySet(),_str,_args);
     }
 
-    protected static String navigateAbilitiesSearch(Struct _moves) {
+    protected static String navigateAbilitiesSearch(NaSt _moves) {
         return navigateData(new AbilitiesBeanSearch(), _moves);
     }
-    protected static Struct transitToAllAbilities(PkData _pk, StringMap<Struct> _all, int _index) {
-        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+    protected static NaSt transitToAllAbilities(PkData _pk, StringMap<NaSt> _all, int _index) {
+        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct items_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
+        NaSt items_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(),welcome_,items_);
         transit(_pk,new AbilitiesBeanSearch(),items_,items_);
-        Struct itData_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITY);
+        NaSt itData_ = _all.getVal(AikiBeansAbilitiesStd.BEAN_ABILITY);
         transit(_pk,new AbilitiesBeanClickAbility(),items_, itData_,_index);
         return itData_;
     }
-    protected static Struct dispAllAbilities(FacadeGame _fac) {
+    protected static NaSt dispAllAbilities(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllAbilities(pk_);
     }
 
-    private static Struct dispAllAbilities(PkData _pk) {
-        StringMap<Struct> all_ = beanToAbilities(_pk);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+    private static NaSt dispAllAbilities(PkData _pk) {
+        StringMap<NaSt> all_ = beanToAbilities(_pk);
+        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
+        NaSt moves_ = all_.getVal(AikiBeansAbilitiesStd.BEAN_ABILITIES);
         transit(_pk,new WelcomeBeanClickAbilities(),welcome_,moves_);
         return moves_;
     }
-    public static StringMap<Struct> beanToAbilities(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToAbilities(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansAbilitiesStd.BEAN_ABILITIES,_pk.beanAbilitiesBean(EN));
         return map_;
     }
 
-    public static StringMap<Struct> beanToAbility(PkData _pk) {
-        StringMap<Struct> map_ = beanToAbilities(_pk);
+    public static StringMap<NaSt> beanToAbility(PkData _pk) {
+        StringMap<NaSt> map_ = beanToAbilities(_pk);
         map_.addEntry(AikiBeansAbilitiesStd.BEAN_ABILITY,_pk.beanAbilityBean(EN));
         return map_;
     }

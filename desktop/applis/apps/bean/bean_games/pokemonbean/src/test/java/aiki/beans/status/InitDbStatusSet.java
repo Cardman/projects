@@ -11,7 +11,7 @@ import aiki.fight.status.*;
 import aiki.fight.status.effects.*;
 import aiki.game.fight.*;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.*;
 import code.maths.*;
 import code.util.*;
@@ -51,72 +51,72 @@ public abstract class InitDbStatusSet extends InitDbConstr {
         return callStatusSetBeanClickStatus(dispAllStatusSearch(),_args);
     }
 
-    public static String callStatusSetBeanClickStatus(Struct _str, long... _args) {
+    public static String callStatusSetBeanClickStatus(NaSt _str, long... _args) {
         return navigateData(new StatusSetBeanClickStatus(),_str,_args);
     }
 
     public static String callStatusSetBeanClickStatusId(long... _args) {
-        Struct bean_ = dispAllStatusSearch();
+        NaSt bean_ = dispAllStatusSearch();
         callStatusSetBeanClickStatus(bean_,_args);
         return getValStatusId(bean_);
     }
 
-    public static Struct callStatusSetBeanGetTrStatus(Struct _str, long... _args) {
+    public static NaSt callStatusSetBeanGetTrStatus(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanGetTrStatus(),_str,_args);
     }
 
-    public static Struct callStatusSetBeanSearch(Struct _str, long... _args) {
+    public static NaSt callStatusSetBeanSearch(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanSearch(),_str,_args);
     }
 
-    public static Struct callStatusSetBeanSortedStatusGet(Struct _str, long... _args) {
+    public static NaSt callStatusSetBeanSortedStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanSortedStatusGet(),_str,_args);
     }
 
-    public static Struct callStatusSetBeanTypedStatusGet(Struct _str, long... _args) {
+    public static NaSt callStatusSetBeanTypedStatusGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new StatusSetBeanTypedStatusGet(),_str,_args);
     }
 
-    public static Struct callStatusSetBeanTypedStatusSet(Struct _str, String _args) {
+    public static NaSt callStatusSetBeanTypedStatusSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new StatusSetBeanTypedStatusSet(),_str,_args);
     }
 
-    protected static Struct dispAllStatus() {
+    protected static NaSt dispAllStatus() {
         PkData pk_ = pkDataByFacade(feedDb());
         return dispAllStatus(pk_);
     }
 
-    private static Struct dispAllStatus(PkData _pk) {
-        StringMap<Struct> all_ = beanToStatusSet(_pk);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+    private static NaSt dispAllStatus(PkData _pk) {
+        StringMap<NaSt> all_ = beanToStatusSet(_pk);
+        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
+        NaSt moves_ = all_.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
         transit(_pk,new WelcomeBeanClickStatus(),welcome_,moves_);
         return moves_;
     }
 
-    protected static Struct dispAllStatusSearch() {
+    protected static NaSt dispAllStatusSearch() {
         PkData pk_ = pkDataByFacade(feedDb());
-        Struct moves_ = dispAllStatus(pk_);
+        NaSt moves_ = dispAllStatus(pk_);
         transit(pk_,new StatusSetBeanSearch(),moves_,moves_);
         return moves_;
     }
 
-    protected static Struct transitToAllStatus(PkData _pk, StringMap<Struct> _all,int _index) {
-        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+    protected static NaSt transitToAllStatus(PkData _pk, StringMap<NaSt> _all,int _index) {
+        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct pks_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
-        Struct pk_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS);
+        NaSt pks_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS_SET);
+        NaSt pk_ = _all.getVal(AikiBeansStatusStd.BEAN_STATUS);
         transit(_pk,new WelcomeBeanClickStatus(),welcome_,pks_);
         transit(_pk,new StatusSetBeanSearch(),pks_,pks_);
         transit(_pk,new StatusSetBeanClickStatus(),pks_,pk_,_index);
         return pk_;
     }
-    protected static String navigateStatusSearch(Struct _moves) {
+    protected static String navigateStatusSearch(NaSt _moves) {
         return navigateData(new StatusSetBeanSearch(), _moves);
     }
-    public static StringMap<Struct> beanToStatusSet(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToStatusSet(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansStatusStd.BEAN_STATUS_SET,_pk.beanStatusSetBean(EN));
         return map_;

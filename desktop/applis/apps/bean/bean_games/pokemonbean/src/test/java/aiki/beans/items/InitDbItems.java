@@ -17,7 +17,7 @@ import aiki.fight.util.EfficiencyRate;
 import aiki.fight.util.StatisticPokemon;
 import aiki.game.fight.Fight;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.images.BaseSixtyFourUtil;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -75,26 +75,26 @@ public abstract class InitDbItems extends InitDbConstr {
     protected static final String I_REPEL = "I_REPEL";
     protected static final String I_SELLING = "I_SELLING";
 
-    public static Struct callItemLineDescriptionClassGet(Struct _str, long... _args) {
+    public static NaSt callItemLineDescriptionClassGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemLineDescriptionClassGet(),_str,_args);
     }
 
-    public static Struct callItemLineDisplayNameGet(Struct _str, long... _args) {
+    public static NaSt callItemLineDisplayNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemLineDisplayNameGet(),_str,_args);
     }
 
-    public static Struct callItemLinePriceGet(Struct _str, long... _args) {
+    public static NaSt callItemLinePriceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemLinePriceGet(),_str,_args);
     }
-    public static String callItemsBeanClickLink(Struct _str, long... _args) {
+    public static String callItemsBeanClickLink(NaSt _str, long... _args) {
         return navigateData(new ItemsBeanClickLink(),_str,_args);
     }
 
-    public static Struct callItemsBeanGetMiniImage(Struct _str, long... _args) {
+    public static NaSt callItemsBeanGetMiniImage(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanGetMiniImage(),_str,_args);
     }
 
-    public static Struct callItemsBeanItemsGet(Struct _str, long... _args) {
+    public static NaSt callItemsBeanItemsGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanItemsGet(),_str,_args);
     }
 
@@ -102,26 +102,26 @@ public abstract class InitDbItems extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new ItemsBeanSearch(),_str,_args);
 //    }
 
-    public static Struct callItemsBeanTypedClassGet(Struct _str, long... _args) {
+    public static NaSt callItemsBeanTypedClassGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedClassGet(),_str,_args);
     }
 
-    public static Struct callItemsBeanTypedNameGet(Struct _str, long... _args) {
+    public static NaSt callItemsBeanTypedNameGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedNameGet(),_str,_args);
     }
 
-    public static Struct callItemsBeanTypedPriceGet(Struct _str, long... _args) {
+    public static NaSt callItemsBeanTypedPriceGet(NaSt _str, long... _args) {
         return BeanPokemonCommonTs.callLongs(new ItemsBeanTypedPriceGet(),_str,_args);
     }
-    public static Struct callItemsBeanTypedClassSet(Struct _str, String _args) {
+    public static NaSt callItemsBeanTypedClassSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new ItemsBeanTypedClassSet(),_str,_args);
     }
 
-    public static Struct callItemsBeanTypedNameSet(Struct _str, String _args) {
+    public static NaSt callItemsBeanTypedNameSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new ItemsBeanTypedNameSet(),_str,_args);
     }
 
-    public static Struct callItemsBeanTypedPriceSet(Struct _str, String _args) {
+    public static NaSt callItemsBeanTypedPriceSet(NaSt _str, String _args) {
         return BeanPokemonCommonTs.callString(new ItemsBeanTypedPriceSet(),_str,_args);
     }
 //    public static void fwdEffectWhileSendingWithStatistic(Struct _update, Struct _use) {
@@ -131,36 +131,36 @@ public abstract class InitDbItems extends InitDbConstr {
 //        return BeanPokemonCommonTs.callLongs(new ItemForBattleBeanGetEffectSending(),_str,_args);
 //    }
 
-    protected static String navigateItemsSearch(Struct _moves) {
+    protected static String navigateItemsSearch(NaSt _moves) {
         return navigateData(new ItemsBeanSearch(), _moves);
     }
 
-    protected static Struct transitToAllItems(PkData _pk, StringMap<Struct> _all, String _it) {
-        Struct welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
+    protected static NaSt transitToAllItems(PkData _pk, StringMap<NaSt> _all, String _it) {
+        NaSt welcome_ = _all.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        NaSt items_ = _all.getVal(AikiBeansItemsStd.BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems(),welcome_,items_);
         transit(_pk,new ItemsBeanSearch(),items_,items_);
-        Struct itData_ = _all.getVal(_it);
+        NaSt itData_ = _all.getVal(_it);
         transit(_pk,new ItemsBeanClickLink(),items_, itData_, 0);
         return itData_;
     }
 
-    protected static Struct dispAllItems(FacadeGame _fac) {
+    protected static NaSt dispAllItems(FacadeGame _fac) {
         PkData pk_ = pkDataByFacade(_fac);
         return dispAllItems(pk_);
     }
 
-    private static Struct dispAllItems(PkData _pk) {
-        StringMap<Struct> all_ = beanToItems(_pk);
-        Struct welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
+    private static NaSt dispAllItems(PkData _pk) {
+        StringMap<NaSt> all_ = beanToItems(_pk);
+        NaSt welcome_ = all_.getVal(AikiBeansStd.BEAN_WELCOME);
         beforeDisplaying(welcome_);
-        Struct moves_ = all_.getVal(AikiBeansItemsStd.BEAN_ITEMS);
+        NaSt moves_ = all_.getVal(AikiBeansItemsStd.BEAN_ITEMS);
         transit(_pk,new WelcomeBeanClickItems(),welcome_,moves_);
         return moves_;
     }
-    public static StringMap<Struct> beanToItems(PkData _pk) {
-        StringMap<Struct> map_ = new StringMap<Struct>();
+    public static StringMap<NaSt> beanToItems(PkData _pk) {
+        StringMap<NaSt> map_ = new StringMap<NaSt>();
         map_.addEntry(AikiBeansStd.BEAN_WELCOME,_pk.beanWelcomeBean(EN));
         map_.addEntry(AikiBeansItemsStd.BEAN_ITEMS,_pk.beanItemsBean(EN));
         return map_;
@@ -223,8 +223,8 @@ public abstract class InitDbItems extends InitDbConstr {
         return facade_;
     }
 
-    public static StringMap<Struct> beanToItem(PkData _pk) {
-        StringMap<Struct> map_ = beanToItems(_pk);
+    public static StringMap<NaSt> beanToItem(PkData _pk) {
+        StringMap<NaSt> map_ = beanToItems(_pk);
         map_.addEntry(AikiBeansItemsStd.BEAN_ITEM,_pk.beanSellingItemBean(EN));
         return map_;
     }

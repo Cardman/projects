@@ -2,11 +2,11 @@ package aiki.beans.map.characters;
 
 import aiki.beans.AllyStruct;
 import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 public class DualFightBeanAllyGet implements NatCaller{
     @Override
-    public Struct re(Struct _instance, Struct[] _args){
+    public NaSt re(NaSt _instance, NaSt[] _args){
         return new AllyStruct(( (DualFightBean) ((PokemonBeanStruct)_instance).getInstance()).getAlly());
     }
 }

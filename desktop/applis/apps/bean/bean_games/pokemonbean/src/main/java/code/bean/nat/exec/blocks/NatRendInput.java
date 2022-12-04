@@ -1,11 +1,11 @@
 package code.bean.nat.exec.blocks;
 
-import code.bean.nat.NatCaller;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.sml.Element;
 import code.sml.NavigationCore;
 import code.sml.Node;
@@ -29,15 +29,15 @@ public final class NatRendInput extends NatRendElementForm {
 
     void input(NatConfigurationCore _cont, Node _nextWrite, Element _read, NatRendStackCall _rendStack) {
         Element elt_ = (Element) _nextWrite;
-        Struct arg_ = processIndexes(_cont, _read, elt_, _rendStack);
+        NaSt arg_ = processIndexes(_cont, _read, elt_, _rendStack);
         if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrType()), _cont.getRendKeyWords().getKeyWordsValues().getValueRadio())) {
             String strObj_ = NatRendElementForm.getStringKey(arg_);
             NavigationCore.procDefValue(elt_,strObj_, _cont.getRendKeyWords());
         }
     }
 
-    Struct processIndexes(NatConfigurationCore _cont, Element _read, Element _write, NatRendStackCall _rendStackCall) {
-        Struct arg_ = NatRendElementForm.fetchName(_cont, _read, _write, fieldUpdates, _rendStackCall);
+    NaSt processIndexes(NatConfigurationCore _cont, Element _read, Element _write, NatRendStackCall _rendStackCall) {
+        NaSt arg_ = NatRendElementForm.fetchName(_cont, _read, _write, fieldUpdates, _rendStackCall);
         NatRendElementForm.fetchValue(_cont,_read,_write,opsValue, _rendStackCall);
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordsAttrs().getAttrConvertValue()));
         _write.removeAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getKeyWordsAttrs().getAttrConvertField()));

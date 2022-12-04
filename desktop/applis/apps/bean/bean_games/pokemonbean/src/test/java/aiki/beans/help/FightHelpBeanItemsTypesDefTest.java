@@ -5,7 +5,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.fight.moves.DamagingMoveData;
 import aiki.instances.Instances;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -36,11 +36,11 @@ public final class FightHelpBeanItemsTypesDefTest extends InitDbFightHelp {
         assertEq(I_ITEM,clickId());
     }
     private String click() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         return toStr(callFightHelpBeanClickItemsTypesDef(b_,0));
     }
     private String clickId() {
-        Struct b_ = bean(db());
+        NaSt b_ = bean(db());
         callFightHelpBeanClickItemsTypesDef(b_,0);
         return getValItemId(b_);
     }

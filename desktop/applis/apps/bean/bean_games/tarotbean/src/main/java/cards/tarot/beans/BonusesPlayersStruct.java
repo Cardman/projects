@@ -1,8 +1,8 @@
 package cards.tarot.beans;
 
-import code.expressionlanguage.structs.AbNullStruct;
+import code.bean.nat.*;
 
-public final class BonusesPlayersStruct extends AbNullStruct {
+public final class BonusesPlayersStruct extends NaNuSt {
     private final BonusesPlayers bonusesPlayers;
 
     public BonusesPlayersStruct(BonusesPlayers _bonusesPlayers) {

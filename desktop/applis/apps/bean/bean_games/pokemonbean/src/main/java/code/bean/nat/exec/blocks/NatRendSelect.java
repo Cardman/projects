@@ -1,13 +1,13 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.BeanNatCommonLgNames;
-import code.bean.nat.NatCaller;
+import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
+import code.bean.nat.*;
 import code.sml.Document;
 import code.sml.Element;
 import code.sml.NavigationCore;
@@ -35,8 +35,8 @@ public final class NatRendSelect extends NatParentBlock {
 
     @Override
     public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
-        Struct value_ = BeanNatCommonLgNames.getAllArgs(opsValue, _rendStack).lastValue().getArgument();
-        Struct map_ = BeanNatCommonLgNames.getAllArgs(opsMap, _rendStack).lastValue().getArgument();
+        NaSt value_ = BeanNatCommonLgNames.getAllArgs(opsValue, _rendStack).lastValue().getArgument();
+        NaSt map_ = BeanNatCommonLgNames.getAllArgs(opsMap, _rendStack).lastValue().getArgument();
         RendReadWrite rw_ = _rendStack.getLastPage().getRendReadWrite();
         Document doc_ = rw_.getDocument();
         Element docElementSelect_ = appendChild(doc_,rw_,_cont.getRendKeyWords().getKeyWordsTags().getKeyWordSelect());
@@ -54,39 +54,39 @@ public final class NatRendSelect extends NatParentBlock {
         NavigationCore.simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
         return currentNode_;
     }
-    private static void processOptionsMapEnumName(NatConfigurationCore _conf, Struct _extractedMap,
-                                                  Document _docSelect, Element _docElementSelect, Struct _returnedVarValue) {
-        CustList<Struct> obj_ = values(_returnedVarValue);
-        Struct l_ = RendBlockHelp.iterator(_extractedMap);
+    private static void processOptionsMapEnumName(NatConfigurationCore _conf, NaSt _extractedMap,
+                                                  Document _docSelect, Element _docElementSelect, NaSt _returnedVarValue) {
+        CustList<NaSt> obj_ = values(_returnedVarValue);
+        NaSt l_ = RendBlockHelp.iterator(_extractedMap);
         processOptions(_conf, _docSelect, _docElementSelect, obj_, l_);
     }
 
-    private static void processOptions(NatConfigurationCore _conf, Document _docSelect, Element _docElementSelect, CustList<Struct> _obj, Struct _l) {
+    private static void processOptions(NatConfigurationCore _conf, Document _docSelect, Element _docElementSelect, CustList<NaSt> _obj, NaSt _l) {
         while (true) {
-            Struct hasNext_ = RendBlockHelp.nasNextCom(_l);
-            if (BooleanStruct.isFalse(hasNext_)) {
+            NaSt hasNext_ = RendBlockHelp.nasNextCom(_l);
+            if (NaBoSt.isFalse(hasNext_)) {
                 break;
             }
-            Struct entry_ = RendBlockHelp.nextCom(_l);
-            Struct o_ = RendBlockHelp.first(entry_);
+            NaSt entry_ = RendBlockHelp.nextCom(_l);
+            NaSt o_ = RendBlockHelp.first(entry_);
             Element option_ = _docSelect.createElement(_conf.getRendKeyWords().getKeyWordsTags().getKeyWordOption());
             String value_ = NatRendElementForm.getStringKey(o_);
             option_.setAttribute(_conf.getRendKeyWords().getKeyWordsAttrs().getAttrValue(),value_);
-            for (Struct n: _obj) {
+            for (NaSt n: _obj) {
                 if (n.sameReference(o_)) {
                     option_.setAttribute(_conf.getRendKeyWords().getKeyWordsAttrs().getAttrSelected(), _conf.getRendKeyWords().getKeyWordsAttrs().getAttrSelected());
                     break;
                 }
             }
-            Struct second_ = RendBlockHelp.second(entry_);
+            NaSt second_ = RendBlockHelp.second(entry_);
             String txt_ = BeanNatCommonLgNames.processString(second_);
             option_.appendChild(_docSelect.createTextNode(txt_));
             _docElementSelect.appendChild(option_);
         }
     }
 
-    private static CustList<Struct> values(Struct _returnedVarValue) {
-        IdList<Struct> obj_ = new IdList<Struct>();
+    private static CustList<NaSt> values(NaSt _returnedVarValue) {
+        IdList<NaSt> obj_ = new IdList<NaSt>();
         obj_.add(_returnedVarValue);
         return obj_;
     }

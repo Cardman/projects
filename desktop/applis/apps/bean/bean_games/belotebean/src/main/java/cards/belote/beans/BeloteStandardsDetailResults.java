@@ -4,7 +4,7 @@ import code.bean.nat.SpecNatMethod;
 import code.bean.nat.SpecialNatClass;
 import code.bean.nat.StandardField;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.expressionlanguage.structs.Struct;
+import code.bean.nat.*;
 import code.util.CustList;
 
 public final class BeloteStandardsDetailResults extends BeloteStandards {
@@ -30,7 +30,7 @@ public final class BeloteStandardsDetailResults extends BeloteStandards {
         getBeansStruct().setValue(0,beanDetailResults(_language));
     }
 
-    Struct beanDetailResults(String _language) {
+    NaSt beanDetailResults(String _language) {
         return bean(new DetailsResultsBeloteBean(), _language);
     }
 }
