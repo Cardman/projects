@@ -1,16 +1,16 @@
 package cards.gui.menus;
 
 import cards.facade.enumerations.GameEnum;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.events.AbsActionListener;
 
 public class DisplayingGameEvent implements AbsActionListener {
 
-    private WindowCards window;
+    private WindowCardsInt window;
 
     private GameEnum gameEnum;
 
-    public DisplayingGameEvent(WindowCards _window, GameEnum _gameEnum) {
+    public DisplayingGameEvent(WindowCardsInt _window, GameEnum _gameEnum) {
         window = _window;
         gameEnum = _gameEnum;
     }

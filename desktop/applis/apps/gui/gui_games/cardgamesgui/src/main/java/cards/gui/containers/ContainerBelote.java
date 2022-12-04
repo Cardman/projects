@@ -10,7 +10,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.belote.sml.DocumentReaderBeloteUtil;
 import cards.consts.Suit;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -34,7 +34,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class ContainerBelote extends ContainerGame {
+public abstract class ContainerBelote extends ContainerSingleImpl {
 
     public static final String EMPTY="";
     public static final String TAB="\t";
@@ -64,7 +64,7 @@ public abstract class ContainerBelote extends ContainerGame {
     private BidBelote bidType = BidBelote.FOLD;
     private AbsPlainButton bidOk;
     private CardBelote carteSurvoleeBelote;
-    ContainerBelote(WindowCards _window) {
+    ContainerBelote(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }
@@ -103,7 +103,7 @@ public abstract class ContainerBelote extends ContainerGame {
         //ajouterTexteDansZone(pseudo()+INTRODUCTION_PTS+bid_+RETURN_LINE_CHAR);
     }
 
-    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCards _fact, String _lg, CustList<CardBelote> _hand) {
+    public static CustList<GraphicBeloteCard> getGraphicCards(WindowCardsInt _fact, String _lg, CustList<CardBelote> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         AbsCompoFactory compoFactory_ = _fact.getCompoFactory();
         CustList<GraphicBeloteCard> list_;

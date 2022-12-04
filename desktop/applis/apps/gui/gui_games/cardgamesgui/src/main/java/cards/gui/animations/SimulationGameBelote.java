@@ -4,6 +4,7 @@ import cards.belote.*;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuBelote;
 
 /**This class thread is independant from EDT,
@@ -12,9 +13,11 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
     private final Games partieSimulee = new Games();
     private final ContainerSimuBelote container;
     private final SimulatingBelote simulatingBelote;
+    private final WindowCards win;
     /**This class thread is independant from EDT*/
-    public SimulationGameBelote(ContainerSimuBelote _container) {
+    public SimulationGameBelote(ContainerSimuBelote _container, WindowCards _wc) {
         container = _container;
+        win = _wc;
         HandBelote pile_=HandBelote.pileBase();
         DealBelote donne_=new DealBelote(0L,pile_);
         RulesBelote regles_ = container.getWindow().getReglesBelote();
@@ -33,7 +36,7 @@ public final class SimulationGameBelote implements Runnable,SimulationGame {
     @Override
     public void stopSimulation() {
         container.setArretDemo(true);
-        container.getOwner().menuSoloGames();
+        win.menuSoloGames();
     }
     private GameBelote partieBeloteSimulee() {
         return partieSimulee.partieBelote();

@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.tarot.RulesTarot;
 import code.gui.AbsPanel;
@@ -19,7 +19,7 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogRulesTarot(String _titre, WindowCards _fenetre, RulesTarot _rulesTarot) {
+    public static void initDialogRulesTarot(String _titre, WindowCardsInt _fenetre, RulesTarot _rulesTarot) {
         //super(_titre, _fenetre,_rulesTarot);
         _fenetre.getDialogRulesTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesTarot().getCardDialog().setTitle(_titre);
@@ -28,11 +28,11 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         _fenetre.getDialogRulesTarot().getJt().removeAll();
     }
 
-    public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
+    public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         _window.getDialogRulesTarot().setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
     }
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
+    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         validated = false;
         AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);

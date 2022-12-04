@@ -3,7 +3,7 @@ package cards.gui.panels;
 
 
 import cards.consts.Suit;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.labels.selection.CardTarotCellRenderer;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
@@ -11,7 +11,6 @@ import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsCompoFactory;
 import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -23,7 +22,7 @@ public final class TarotCardsScrollableList extends CardsScrollableList {
     private final AbsGraphicList<CardTarot> liste;
     private final AbsPlainLabel remCards;
 
-    public TarotCardsScrollableList(WindowCards _window, int _nb, int _pmax, String _titre) {
+    public TarotCardsScrollableList(WindowCardsInt _window, int _nb, int _pmax, String _titre) {
         super(_window.getCompoFactory());
         liste = _window.getCardFactories().getGeneTarot().createMult(_window.getImageFactory(),new CardTarotCellRenderer(_window));
         setMax(_pmax);

@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.FileConst;
 import cards.president.*;
@@ -15,8 +16,10 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     private final Games partieSimulee = new Games();
     private final ContainerSimuPresident container;
     private final SimulatingPresident simulatingPresident;
+    private final WindowCards win;
     /**This class thread is independant from EDT*/
-    public SimulationGamePresident(ContainerSimuPresident _container) {
+    public SimulationGamePresident(ContainerSimuPresident _container, WindowCards _wc) {
+        win = _wc;
         container = _container;
         RulesPresident regles_ = container.getWindow().getReglesPresident();
         HandPresident pile_=HandPresident.stack(regles_.getNbStacks());
@@ -37,7 +40,7 @@ public final class SimulationGamePresident implements Runnable,SimulationGame {
     @Override
     public void stopSimulation() {
         container.setArretDemo(true);
-        container.getOwner().menuSoloGames();
+        win.menuSoloGames();
     }
 
     private GamePresident partiePresidentSimulee() {

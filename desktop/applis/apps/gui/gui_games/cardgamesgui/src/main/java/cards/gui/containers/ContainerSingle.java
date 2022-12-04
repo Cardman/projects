@@ -1,5 +1,7 @@
 package cards.gui.containers;
 
+import cards.gui.WindowCards;
+
 public interface ContainerSingle extends ContainerPlayableGame {
 
     void nextTrick();
@@ -19,4 +21,8 @@ public interface ContainerSingle extends ContainerPlayableGame {
     void aideAuJeu();
 
     void conseil();
+
+    boolean isPasse();
+    void setPasse(boolean _passe);
+    WindowCards window();
 }

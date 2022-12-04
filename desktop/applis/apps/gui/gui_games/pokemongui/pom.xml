@@ -14,8 +14,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>network</groupId>
-			<artifactId>network</artifactId>
+			<groupId>guicommon</groupId>
+			<artifactId>guicommon</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

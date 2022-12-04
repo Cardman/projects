@@ -3,6 +3,7 @@ package cards.gui.panels;
 
 import cards.consts.Suit;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.selection.SuitCellRenderer;
 import code.gui.AbsGraphicList;
@@ -20,7 +21,7 @@ public final class SuitsScrollableList extends ScrollableList {
     private StringMap<String> messages = new StringMap<String>();
 //    private EnumList<Suit> suits;
     private final AbsGraphicList<Suit> liste;
-    public SuitsScrollableList(IdList<Suit> _couleurs, int _nb, WindowCards _window) {
+    public SuitsScrollableList(IdList<Suit> _couleurs, int _nb, WindowCardsInt _window) {
         super(_window.getCompoFactory());
         String lg_ = _window.getLanguageKey();
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, lg_, ACCESS);

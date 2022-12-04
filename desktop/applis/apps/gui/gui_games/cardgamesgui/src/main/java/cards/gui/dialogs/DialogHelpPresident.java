@@ -4,6 +4,7 @@ import cards.consts.CardChar;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.president.enumerations.CardPresident;
 import code.gui.AbsDialog;
 import code.gui.AbsPanel;
@@ -38,7 +39,7 @@ public final class DialogHelpPresident {
         absDialog.setResizable(false);
         absDialog.setVisible(true);
     }
-    public static void setTitleDialog(WindowCards _fenetre, String _title) {
+    public static void setTitleDialog(WindowCardsInt _fenetre, String _title) {
         _fenetre.getDialogHelpPresident().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogHelpPresident().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpPresident().absDialog.setTitle(_title);
@@ -79,7 +80,7 @@ public final class DialogHelpPresident {
         voir();
     }
 
-    private void initMessageName(WindowCards _parent) {
+    private void initMessageName(WindowCardsInt _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), absDialog.getAccessFile());
     }

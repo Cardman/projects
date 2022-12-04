@@ -2,7 +2,7 @@ package cards.gui.dialogs;
 
 
 import cards.belote.RulesBelote;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
@@ -19,7 +19,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogRulesBelote(String _titre, WindowCards _fenetre, RulesBelote _rulesBelote) {
+    public static void initDialogRulesBelote(String _titre, WindowCardsInt _fenetre, RulesBelote _rulesBelote) {
         _fenetre.getDialogRulesBelote().setMain(_fenetre);
         _fenetre.getDialogRulesBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesBelote().getCardDialog().setTitle(_titre);
@@ -30,7 +30,7 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
     }
 
     @Override
-    public void setDialogue(WindowCards _parent) {
+    public void setDialogue(WindowCardsInt _parent) {
         validated = false;
         AbsPanel container_=_parent.getCompoFactory().newBorder();
         initMessageName(_parent);

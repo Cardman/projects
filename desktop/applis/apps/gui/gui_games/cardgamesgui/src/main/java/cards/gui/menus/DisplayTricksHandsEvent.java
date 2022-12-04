@@ -1,13 +1,13 @@
 package cards.gui.menus;
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.events.AbsActionListener;
 
 public class DisplayTricksHandsEvent implements AbsActionListener {
 
-    private WindowCards window;
+    private WindowCardsInt window;
 
-    public DisplayTricksHandsEvent(WindowCards _window) {
+    public DisplayTricksHandsEvent(WindowCardsInt _window) {
         window = _window;
     }
 

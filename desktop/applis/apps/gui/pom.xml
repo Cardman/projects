@@ -13,10 +13,10 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>guicommon</module>
-		<module>network</module>
 		<module>interpreter</module>
 		<module>gui_games</module>
 		<module>gui_util</module>
+		<module>network</module>
 		<module>applications</module>
 	</modules>
 	<dependencies>

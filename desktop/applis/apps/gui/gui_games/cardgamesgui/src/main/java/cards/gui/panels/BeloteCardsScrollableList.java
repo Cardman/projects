@@ -6,13 +6,12 @@ import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.labels.selection.CardBeloteCellRenderer;
 import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsCompoFactory;
 import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -25,7 +24,7 @@ public final class BeloteCardsScrollableList extends CardsScrollableList {
     private final AbsGraphicList<CardBelote> liste;
     private final AbsPlainLabel remCards;
 
-    public BeloteCardsScrollableList(WindowCards _parent, int _nb, int _pmax, String _titre) {
+    public BeloteCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre) {
         super(_parent.getCompoFactory());
         liste = _parent.getCardFactories().getGeneBelote().createMult(_parent.getImageFactory(),new CardBeloteCellRenderer(_parent));
         setMax(_pmax);

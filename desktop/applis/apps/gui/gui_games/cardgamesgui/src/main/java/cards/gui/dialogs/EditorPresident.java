@@ -5,6 +5,7 @@ import cards.consts.GameType;
 import cards.facade.Nicknames;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.StringComboBox;
 import cards.gui.dialogs.enums.SaveDealMode;
 import cards.gui.dialogs.events.*;
@@ -109,7 +110,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
+    public void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
         getJt().removeAll();
         AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);
@@ -126,13 +127,13 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void validateRulesDeal(WindowCards _parent) {
+    public void validateRulesDeal(WindowCardsInt _parent) {
         validateRules();
         getReglesPresident().getCommon().setNbDeals(getNbGames().getValue());
         distribuer(_parent);
     }
 
-    private void distribuer(WindowCards _parent) {
+    private void distribuer(WindowCardsInt _parent) {
         getCardDialog().setTitle(getMessages().getVal(DEALING_CARDS));
         AbsPanel c=_parent.getCompoFactory().newBorder();
         AbsPanel panneau_=_parent.getCompoFactory().newLineBox();
@@ -246,7 +247,7 @@ public final class EditorPresident extends DialogPresident implements SetterSele
     }
 
     @Override
-    public void backToRules(WindowCards _parent) {
+    public void backToRules(WindowCardsInt _parent) {
         nombreCartesSelectionneesPrecedent=0;
         nombreCartesSelectionnees = 0;
         partieSauvegardee=false;

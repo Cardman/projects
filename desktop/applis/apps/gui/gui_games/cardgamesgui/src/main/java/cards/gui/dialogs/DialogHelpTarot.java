@@ -4,7 +4,7 @@ package cards.gui.dialogs;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.tarot.HandTarot;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
@@ -35,7 +35,7 @@ public final class DialogHelpTarot {
         compo = _fact.getCompoFactory();
     }
 
-    public static void setTitleDialog(WindowCards _fenetre, String _title) {
+    public static void setTitleDialog(WindowCardsInt _fenetre, String _title) {
         _fenetre.getDialogHelpTarot().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogHelpTarot().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpTarot().absDialog.setTitle(_title);

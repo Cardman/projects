@@ -1,19 +1,19 @@
 package cards.gui.animations;
-import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSimu;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
 public final class StopDemo implements Runnable {
 
-    private ContainerGame container;
+    private ContainerSimu container;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public StopDemo(ContainerGame _container) {
+    public StopDemo(ContainerSimu _container) {
         container = _container;
     }
 
     @Override
     public void run() {
-        container.getOwner().menuSoloGames();
+        container.window().menuSoloGames();
     }
 }

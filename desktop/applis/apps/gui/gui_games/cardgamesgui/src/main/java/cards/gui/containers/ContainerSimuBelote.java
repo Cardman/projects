@@ -4,11 +4,13 @@ import cards.gui.animations.SimulationGameBelote;
 
 public class ContainerSimuBelote extends ContainerBelote implements ContainerSimu {
 
-    private SimulationGameBelote animationSimulation;
+//    private SimulationGameBelote animationSimulation;
+    private final WindowCards win;
     public ContainerSimuBelote(WindowCards _window) {
         super(_window);
-        animationSimulation=new SimulationGameBelote(this);
-        getOwner().getThreadFactory().newStartedThread(animationSimulation);
+        win = _window;
+//        animationSimulation=new SimulationGameBelote(this,_window);
+        getOwner().getThreadFactory().newStartedThread(new SimulationGameBelote(this,_window));
     }
 
     @Override
@@ -16,5 +18,9 @@ public class ContainerSimuBelote extends ContainerBelote implements ContainerSim
         tapisBelote().retirerCartes();
     }
 
+    @Override
+    public WindowCards window() {
+        return win;
+    }
 }
 

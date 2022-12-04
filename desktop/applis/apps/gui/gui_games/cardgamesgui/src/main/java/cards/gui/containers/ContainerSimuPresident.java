@@ -4,10 +4,11 @@ import cards.gui.animations.SimulationGamePresident;
 
 public class ContainerSimuPresident extends ContainerPresident implements
         ContainerSimu {
-
+    private final WindowCards win;
     public ContainerSimuPresident(WindowCards _window) {
         super(_window);
-        getOwner().getThreadFactory().newStartedThread(new SimulationGamePresident(this));
+        win = _window;
+        getOwner().getThreadFactory().newStartedThread(new SimulationGamePresident(this,_window));
     }
 
     @Override
@@ -16,4 +17,8 @@ public class ContainerSimuPresident extends ContainerPresident implements
 //        tapisPresident().repaintValidate();
     }
 
+    @Override
+    public WindowCards window() {
+        return win;
+    }
 }

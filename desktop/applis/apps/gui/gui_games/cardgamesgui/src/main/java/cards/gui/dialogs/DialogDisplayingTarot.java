@@ -7,6 +7,7 @@ package cards.gui.dialogs;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.AddSuitEvent;
 import cards.gui.dialogs.events.RemoveSuitEvent;
 import cards.gui.dialogs.events.ValidateDisplayingEvent;
@@ -45,7 +46,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void setDialogDisplayingTarot(String _titre, WindowCards _fenetre) {
+    public static void setDialogDisplayingTarot(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
@@ -57,7 +58,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         _fenetre.getDialogDisplayingTarot().setDialogue(_fenetre);
     }
 
-    private void initMessageName(WindowCards _parent) {
+    private void initMessageName(WindowCardsInt _parent) {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile());
     }
@@ -66,7 +67,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         return _dialog.displayingTarot;
     }
 
-    public void setDialogue(WindowCards _window) {
+    public void setDialogue(WindowCardsInt _window) {
         initMessageName(_window);
         AbsPanel container_=_window.getCompoFactory().newBorder();
         AbsPanel panneau_=_window.getCompoFactory().newGrid(0,2);
@@ -138,7 +139,7 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         listeChoix.removeItem(listeChoix.getSelectedIndex());
     }
     @Override
-    public void removeSuit(WindowCards _window) {
+    public void removeSuit(WindowCardsInt _window) {
         String lg_ = _window.getLanguageKey();
         //Retirer du tri
         if(orderedSuits.nombreDeCouleurs()<5||listeChoix.getItemCount()<5) {

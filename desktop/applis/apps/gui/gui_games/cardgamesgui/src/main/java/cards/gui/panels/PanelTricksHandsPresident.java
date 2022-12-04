@@ -2,6 +2,7 @@ package cards.gui.panels;
 
 
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.AbsMetaLabelCard;
@@ -36,14 +37,14 @@ public class PanelTricksHandsPresident implements ViewablePanelTricksHands {
     private final ChangeableTitle parent;
     private final byte numberPlayers;
     private final DisplayingPresident displayingPresident;
-    private final WindowCards window;
+    private final WindowCardsInt window;
     private final AbsPanel container;
 
     public PanelTricksHandsPresident(ChangeableTitle _parent,
             TricksHandsPresident _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingPresident _displayingPresident, WindowCards _window) {
+            DisplayingPresident _displayingPresident, WindowCardsInt _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;

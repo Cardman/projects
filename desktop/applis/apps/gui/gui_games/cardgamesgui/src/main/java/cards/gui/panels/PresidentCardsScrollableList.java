@@ -3,7 +3,7 @@ package cards.gui.panels;
 
 
 import cards.consts.Suit;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.labels.selection.CardPresidentCellRenderer;
 import cards.president.HandPresident;
 import cards.president.enumerations.CardPresident;
@@ -11,7 +11,6 @@ import code.gui.AbsGraphicList;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbsCompoFactory;
 import code.util.IdList;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
@@ -23,7 +22,7 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
     private final AbsGraphicList<CardPresident> liste;
     private final AbsPlainLabel remCards;
 
-    public PresidentCardsScrollableList(WindowCards _parent, int _nb, int _pmax, String _titre) {
+    public PresidentCardsScrollableList(WindowCardsInt _parent, int _nb, int _pmax, String _titre) {
         super(_parent.getCompoFactory());
         liste = _parent.getCardFactories().getGenePresident().createMult(_parent.getImageFactory(),new CardPresidentCellRenderer(_parent));
         setMax(_pmax);

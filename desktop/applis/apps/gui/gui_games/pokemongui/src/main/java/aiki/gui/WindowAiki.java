@@ -46,7 +46,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 //import code.gui.initialize.AbstractSocket;
-import code.network.*;
+//import code.network.*;
 import code.scripts.messages.gui.MessGuiPkGr;
 //import code.sml.Document;
 //import code.sml.Element;
@@ -143,7 +143,7 @@ public final class WindowAiki extends GroupFrame {
     
 //    private Timer timer;
 
-    private BasicClient threadEmission;
+//    private BasicClient threadEmission;
 
     private LoadingGame loadingConf;
 
@@ -253,7 +253,7 @@ public final class WindowAiki extends GroupFrame {
     private final DialogGameProgess dialogGameProgess;
     private final DialogHtmlData dialogHtmlData;
     private final DialogSoftParams softParams;
-    private final DialogServerAiki dialogServer;
+//    private final DialogServerAiki dialogServer;
     private final AikiFactory aikiFactory;
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
@@ -269,7 +269,7 @@ public final class WindowAiki extends GroupFrame {
         dialogGameProgess = new DialogGameProgess(_list);
         dialogHtmlData = new DialogHtmlData(_list);
         softParams = new DialogSoftParams(_list);
-        dialogServer = new DialogServerAiki(_list);
+//        dialogServer = new DialogServerAiki(_list);
         loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
         aikiFactory = _aikiFactory;
         setAccessFile(DIALOG_ACCESS);
@@ -1410,13 +1410,13 @@ public final class WindowAiki extends GroupFrame {
         return loadingConf.isEnabledKeyPad();
     }
 
-    public BasicClient getThreadEmission() {
-        return threadEmission;
-    }
-
-    public void setThreadEmission(BasicClient _threadEmission) {
-        threadEmission = _threadEmission;
-    }
+//    public BasicClient getThreadEmission() {
+//        return threadEmission;
+//    }
+//
+//    public void setThreadEmission(BasicClient _threadEmission) {
+//        threadEmission = _threadEmission;
+//    }
 
 //    public Timer getTimer() {
 //        return timer;
@@ -1738,9 +1738,9 @@ public final class WindowAiki extends GroupFrame {
         return softParams;
     }
 
-    public DialogServerAiki getDialogServer() {
-        return dialogServer;
-    }
+//    public DialogServerAiki getDialogServer() {
+//        return dialogServer;
+//    }
 
     public AikiFactory getAikiFactory() {
         return aikiFactory;

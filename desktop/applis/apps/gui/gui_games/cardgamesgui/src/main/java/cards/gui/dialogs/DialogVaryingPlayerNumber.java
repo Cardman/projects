@@ -1,8 +1,8 @@
 package cards.gui.dialogs;
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 
 public interface DialogVaryingPlayerNumber {
 
-    void validateNbPlayers(WindowCards _lg);
+    void validateNbPlayers(WindowCardsInt _lg);
 }

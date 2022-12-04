@@ -5,7 +5,7 @@ package cards.gui.labels.selection;
 import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -17,8 +17,8 @@ import code.util.core.NumberUtil;
 public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
     private CardBelote card;
     private boolean selectionne;
-    private final WindowCards window;
-    public CardBeloteCellRenderer(WindowCards _window) {
+    private final WindowCardsInt window;
+    public CardBeloteCellRenderer(WindowCardsInt _window) {
         window = _window;
     }
     @Override

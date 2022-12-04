@@ -18,7 +18,7 @@ public final class GoSimulateGame implements Runnable {
 
     @Override
     public void run() {
-        container.pack();
+//        container.pack();
         simulation.start();
     }
 }

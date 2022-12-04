@@ -3,6 +3,7 @@ package cards.gui.animations;
 import cards.consts.GameType;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
+import cards.gui.WindowCards;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.tarot.*;
 
@@ -15,10 +16,11 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
     private final ContainerSimuTarot container;
 
     private final SimulatingTarot simulatingTarot;
-
+    private final WindowCards win;
     /**This class thread is independant from EDT*/
-    public SimulationGameTarot(ContainerSimuTarot _container) {
+    public SimulationGameTarot(ContainerSimuTarot _container, WindowCards _wc) {
         container = _container;
+        win = _wc;
         HandTarot pile_=HandTarot.pileBase();
         DealTarot donne_=new DealTarot(0L,pile_);
         RulesTarot regles_ = container.getWindow().getReglesTarot();
@@ -37,7 +39,7 @@ public final class SimulationGameTarot implements Runnable,SimulationGame {
     @Override
     public void stopSimulation() {
         container.setArretDemo(true);
-        container.getOwner().menuSoloGames();
+        win.menuSoloGames();
     }
     private GameTarot partieTarotSimulee() {
         return partieSimulee.partieTarot();

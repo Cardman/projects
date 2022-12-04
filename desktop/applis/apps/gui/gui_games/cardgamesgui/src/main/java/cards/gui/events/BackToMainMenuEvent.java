@@ -1,13 +1,13 @@
 package cards.gui.events;
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.events.AbsActionListener;
 
 public class BackToMainMenuEvent implements AbsActionListener {
 
-    private WindowCards window;
+    private WindowCardsInt window;
 
-    public BackToMainMenuEvent(WindowCards _window) {
+    public BackToMainMenuEvent(WindowCardsInt _window) {
         window = _window;
     }
 

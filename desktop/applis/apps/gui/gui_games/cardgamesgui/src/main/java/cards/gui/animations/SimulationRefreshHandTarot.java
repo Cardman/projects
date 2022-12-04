@@ -1,5 +1,6 @@
 package cards.gui.animations;
-import cards.gui.containers.ContainerGame;
+
+import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.labels.GraphicTarotCard;
 import cards.tarot.HandTarot;
@@ -10,12 +11,12 @@ import code.gui.AbsPanel;
 Thread safe class*/
 public final class SimulationRefreshHandTarot implements Runnable {
 
-    private ContainerGame container;
+    private ContainerSimuTarot container;
 
     private HandTarot hand;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public SimulationRefreshHandTarot(ContainerGame _container, HandTarot _hand) {
+    public SimulationRefreshHandTarot(ContainerSimuTarot _container, HandTarot _hand) {
         container = _container;
         hand = _hand;
     }

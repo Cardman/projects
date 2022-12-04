@@ -4,11 +4,13 @@ import cards.gui.animations.SimulationGameTarot;
 
 public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu {
 
-    private SimulationGameTarot animationSimulation;
+//    private SimulationGameTarot animationSimulation;
+    private final WindowCards win;
     public ContainerSimuTarot(WindowCards _window) {
         super(_window);
-        animationSimulation=new SimulationGameTarot(this);
-        getOwner().getThreadFactory().newStartedThread(animationSimulation);
+        win = _window;
+//        animationSimulation=new SimulationGameTarot(this,_window);
+        getOwner().getThreadFactory().newStartedThread(new SimulationGameTarot(this,_window));
     }
 
     @Override
@@ -16,5 +18,9 @@ public class ContainerSimuTarot extends ContainerTarot implements ContainerSimu 
         tapisTarot().retirerCartes();
     }
 
+    @Override
+    public WindowCards window() {
+        return win;
+    }
 }
 

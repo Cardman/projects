@@ -1,6 +1,6 @@
 package cards.gui.animations;
-import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
+import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.president.HandPresident;
 import code.gui.AbsPanel;
@@ -10,12 +10,12 @@ import code.gui.AbsPanel;
 Thread safe class*/
 public final class SimulationRefreshHandPresident implements Runnable {
 
-    private ContainerGame container;
+    private ContainerSimuPresident container;
 
     private HandPresident hand;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public SimulationRefreshHandPresident(ContainerGame _container, HandPresident _hand) {
+    public SimulationRefreshHandPresident(ContainerSimuPresident _container, HandPresident _hand) {
         container = _container;
         hand = _hand;
     }

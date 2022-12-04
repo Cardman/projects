@@ -1,9 +1,9 @@
 package cards.gui.containers;
 
-import cards.gui.WindowCards;
+import cards.facade.SoftParams;
 
 public final class ContainerNoGame extends ContainerGame {
-    public ContainerNoGame(WindowCards _window) {
-        super(_window);
+    public ContainerNoGame() {
+        setParametres(new SoftParams());
     }
 }

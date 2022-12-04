@@ -1,6 +1,6 @@
 package cards.gui.dialogs;
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.panels.CardsScrollableList;
 import code.gui.AbsPanel;
 
@@ -16,8 +16,8 @@ public interface SetterSelectedCardList {
     AbsPanel getPanelsCards();
     AbsPlainLabel getLabelSelectCards();
     CustList<CardsScrollableList> getHands(boolean _addStack);
-    void validateRulesDeal(WindowCards _parent);
-    void backToRules(WindowCards _parent);
+    void validateRulesDeal(WindowCardsInt _parent);
+    void backToRules(WindowCardsInt _parent);
     void deplacerCartes();
     void cancelDeal();
     boolean isSetToNullGame();

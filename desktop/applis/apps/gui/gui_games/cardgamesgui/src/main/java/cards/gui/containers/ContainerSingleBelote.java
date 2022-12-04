@@ -68,9 +68,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
 
     private boolean clickedBid;
     private boolean clickedPass;
+    private final WindowCards win;
 
     public ContainerSingleBelote(WindowCards _window) {
         super(_window);
+        win = _window;
     }
     public GameBelote partieBelote() {
         return getPar().partieBelote();
@@ -751,7 +753,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setBid(game_.getBid());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingBelote(), game_.getNombreDeJoueurs());
-        WindowCards ow_ = getOwner();
+        WindowCardsInt ow_ = getOwner();
         ascenseur_=getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(ow_.getCommonFrame(), tricksHands_, nombreJoueurs_, pseudosBelote(), getDisplayingBelote(),ow_).getContainer());
         ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.HANDS_TRICKS),ascenseur_);
@@ -825,7 +827,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         tricksHands_.setBid(game_.getBid());
         tricksHands_.setTricks(game_.getTricks(), game_.getNombreDeJoueurs());
         DialogTricksBelote.setDialogTricksBelote(getMessages().getVal(WindowCards.HANDS_TRICKS_BELOTE), getWindow());
-        WindowCards ow_ = getOwner();
+        WindowCardsInt ow_ = getOwner();
         DialogTricksBelote.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosBelote(), getDisplayingBelote(),ow_);
 
     }
@@ -941,7 +943,7 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
     }
     @Override
     public void stopPlaying() {
-        getOwner().menuSoloGames();
+        win.menuSoloGames();
     }
     @Override
     public void replay() {
@@ -950,6 +952,11 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
         partie_.initPartie();
         mettreEnPlaceIhmBelote();
+    }
+
+    @Override
+    public WindowCards window() {
+        return win;
     }
 }
 

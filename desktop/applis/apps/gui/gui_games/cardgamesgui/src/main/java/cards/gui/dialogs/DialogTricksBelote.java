@@ -5,7 +5,7 @@ package cards.gui.dialogs;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.TricksHandsBelote;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.panels.PanelTricksHandsBelote;
 import code.gui.AbsScrollPane;
 
@@ -19,7 +19,7 @@ public final class DialogTricksBelote extends DialogCards {
     public DialogTricksBelote(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
     }
-    public static void setDialogTricksBelote(String _titre, WindowCards _fenetre) {
+    public static void setDialogTricksBelote(String _titre, WindowCardsInt _fenetre) {
         //super(_titre, _fenetre, true);
         _fenetre.getDialogTricksBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogTricksBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -30,13 +30,13 @@ public final class DialogTricksBelote extends DialogCards {
 
     public static void init(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote, WindowCards _ow) {
+            DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
         _ow.getDialogTricksBelote().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow);
     }
 
     private void setDialogue(TricksHandsBelote _tricksHands,
             byte _numberPlayers, StringList _pseudos,
-            DisplayingBelote _displayingBelote, WindowCards _ow) {
+            DisplayingBelote _displayingBelote, WindowCardsInt _ow) {
         _tricksHands.sortHands(_displayingBelote, _numberPlayers);
         AbsScrollPane scroll_ = _ow.getCompoFactory().newAbsScrollPane(new PanelTricksHandsBelote(getCardDialog(),
                 _tricksHands, _numberPlayers, _pseudos, _displayingBelote, _ow).getContainer());

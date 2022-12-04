@@ -5,6 +5,7 @@ package cards.gui.dialogs;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ListenerChangeSlide;
 import cards.gui.dialogs.events.ListenerParameters;
 import code.gui.*;
@@ -47,7 +48,7 @@ public final class DialogSoft extends DialogCards {
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogSoft(String _titre, WindowCards _fenetre) {
+    public static void initDialogSoft(String _titre, WindowCardsInt _fenetre) {
         _fenetre.getDialogSoft().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogSoft().getCardDialog().setTitle(_titre);
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
@@ -61,10 +62,10 @@ public final class DialogSoft extends DialogCards {
         return _dialog.parametres;
     }
 
-    public static void setDialogSoft(String _menu, WindowCards _fenetre) {
+    public static void setDialogSoft(String _menu, WindowCardsInt _fenetre) {
         _fenetre.getDialogSoft().setDialogue(_menu, _fenetre);
     }
-    private void setDialogue(String _menu, WindowCards _fenetre) {
+    private void setDialogue(String _menu, WindowCardsInt _fenetre) {
         menu = _menu;
         String lg_ = _fenetre.getLanguageKey();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();

@@ -2,12 +2,10 @@ package cards.gui.containers;
 
 import cards.belote.DisplayingBelote;
 import cards.belote.RulesBelote;
-import cards.consts.CoreResourcesAccess;
 import cards.facade.Games;
 import cards.facade.Nicknames;
 import cards.facade.SoftParams;
 import cards.facade.enumerations.GameEnum;
-import cards.gui.WindowCards;
 import cards.gui.animations.CardAnimState;
 import cards.gui.dialogs.FileConst;
 import cards.gui.panels.Carpet;
@@ -17,13 +15,10 @@ import cards.president.DisplayingPresident;
 import cards.president.RulesPresident;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.RulesTarot;
-import cards.tarot.enumerations.ChoiceTarot;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.scripts.messages.cards.MessagesCommonCommon;
 import code.stream.StreamTextFile;
-import code.threads.AbstractAtomicBoolean;
-import code.util.IdMap;
+import code.stream.core.TechStreams;
 import code.util.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -43,7 +38,6 @@ public abstract class ContainerGame implements Containable {
     private AbsPanel actionsHistory;
     private AbsPanel panneauBoutonsJeu;
     private AbsPanel panelHand;
-    private WindowCards window;
     /**Parametres d'informations sur
     des pseudonymes*/
     private Nicknames pseudosJoueurs;
@@ -57,11 +51,10 @@ public abstract class ContainerGame implements Containable {
     private String raisonCourante=EMPTY_STRING;
     private boolean threadAnime;
     private boolean aJoueCarte;
-    private final AbstractAtomicBoolean pause;
+//    private final AbstractAtomicBoolean pause;
     private AbsTextArea events;
     private MiniCarpet mini;
     /**Est vrai si et seulement si le jeu est en pause*/
-    private final AbstractAtomicBoolean passe;
     private CardAnimState state;
     /**Parametres de lancement, de jouerie*/
     private SoftParams parametres=new SoftParams();
@@ -73,12 +66,30 @@ public abstract class ContainerGame implements Containable {
     private ByteMap<AbsPanel> declaredHandfuls = new ByteMap<AbsPanel>();
     private Carpet tapis = new Carpet();
     private boolean changerPileFin;
-    public ContainerGame(WindowCards _window) {
-        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
-        pause = _window.getThreadFactory().newAtomicBoolean();
-        passe = _window.getThreadFactory().newAtomicBoolean();
-        setWindow(_window);
-        setParametres(_window.getParametresLogiciel());
+//    protected ContainerGame(WindowCards _window) {
+////        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
+////        pause = _window.getThreadFactory().newAtomicBoolean();
+//
+////        setWindow(_window);
+//        setParametres(_window.getParametresLogiciel());
+//        setReglesTarot(_window.getReglesTarot());
+//        setReglesPresident(_window.getReglesPresident());
+//        setReglesBelote(_window.getReglesBelote());
+//        setDisplayingBelote(_window.getDisplayingBelote());
+//        setDisplayingPresident(_window.getDisplayingPresident());
+//        setDisplayingTarot(_window.getDisplayingTarot());
+//        setPseudosJoueurs(_window.getPseudosJoueurs());
+//
+//        setMessages(_window.getMessages());
+//    }
+    protected ContainerGame() {
+    }
+    protected ContainerGame(ContainerNoGame _window) {
+//        pseudosJoueurs=new Nicknames(_window.getLanguageKey());
+//        pause = _window.getThreadFactory().newAtomicBoolean();
+
+//        setWindow(_window);
+        setParametres(_window.getParametres());
         setReglesTarot(_window.getReglesTarot());
         setReglesPresident(_window.getReglesPresident());
         setReglesBelote(_window.getReglesBelote());
@@ -89,7 +100,6 @@ public abstract class ContainerGame implements Containable {
 
         setMessages(_window.getMessages());
     }
-
     @Override
     public boolean isSimple() {
         return true;
@@ -140,27 +150,6 @@ public abstract class ContainerGame implements Containable {
 
     public void ajouterTexteDansZone(String _texte) {
         getEvents().append(_texte);
-    }
-
-    public void revalidate() {
-        getWindow().revalidateFrame();
-    }
-
-    public void pack() {
-        getWindow().pack();
-    }
-
-    public final WindowCards getOwner() {
-        return getWindow();
-    }
-    protected AbsPanel getPane() {
-        return getWindow().getPane();
-    }
-    public void setContentPane(AbsPanel _container) {
-        getWindow().setContentPane(_container);
-    }
-    public void saveCurrentGame(String _file) {
-        getPar().sauvegarderPartieEnCours(_file, getWindow().getStreams());
     }
     public boolean playingSingleGame() {
         return getPar().enCoursDePartie();
@@ -231,7 +220,7 @@ public abstract class ContainerGame implements Containable {
     public StringMap<String> getMessages() {
         return messages;
     }
-    protected void setMessages(StringMap<String> _messages) {
+    public void setMessages(StringMap<String> _messages) {
         messages = _messages;
     }
     public DisplayingBelote getDisplayingBelote() {
@@ -273,7 +262,7 @@ public abstract class ContainerGame implements Containable {
     public SoftParams getParametres() {
         return parametres;
     }
-    protected void setParametres(SoftParams _parametres) {
+    public void setParametres(SoftParams _parametres) {
         parametres = _parametres;
     }
     public AbsTextArea getEvents() {
@@ -282,12 +271,7 @@ public abstract class ContainerGame implements Containable {
     public void setEvents(AbsTextArea _events) {
         events = _events;
     }
-    public boolean isPasse() {
-        return passe.get();
-    }
-    public void setPasse(boolean _passe) {
-        passe.set(_passe);
-    }
+
     public String getRaisonCourante() {
         return raisonCourante;
     }
@@ -303,25 +287,25 @@ public abstract class ContainerGame implements Containable {
     public Games getPar() {
         return par;
     }
-    protected void setPar(Games _par) {
+    public void setPar(Games _par) {
         par = _par;
     }
-    protected RulesBelote getReglesBelote() {
+    public RulesBelote getReglesBelote() {
         return reglesBelote;
     }
-    protected void setReglesBelote(RulesBelote _reglesBelote) {
+    public void setReglesBelote(RulesBelote _reglesBelote) {
         reglesBelote = _reglesBelote;
     }
-    protected RulesPresident getReglesPresident() {
+    public RulesPresident getReglesPresident() {
         return reglesPresident;
     }
-    protected void setReglesPresident(RulesPresident _reglesPresident) {
+    public void setReglesPresident(RulesPresident _reglesPresident) {
         reglesPresident = _reglesPresident;
     }
-    protected RulesTarot getReglesTarot() {
+    public RulesTarot getReglesTarot() {
         return reglesTarot;
     }
-    protected void setReglesTarot(RulesTarot _reglesTarot) {
+    public void setReglesTarot(RulesTarot _reglesTarot) {
         reglesTarot = _reglesTarot;
     }
     public AbsPanel getPanelHand() {
@@ -345,143 +329,70 @@ public abstract class ContainerGame implements Containable {
     public void setPanneauBoutonsJeu(AbsPanel _panneauBoutonsJeu) {
         panneauBoutonsJeu = _panneauBoutonsJeu;
     }
-    public WindowCards getWindow() {
-        return window;
-    }
-    protected void setWindow(WindowCards _window) {
-        window = _window;
-    }
     public Nicknames getPseudosJoueurs() {
         return pseudosJoueurs;
     }
-    protected void setPseudosJoueurs(Nicknames _pseudosJoueurs) {
+    public void setPseudosJoueurs(Nicknames _pseudosJoueurs) {
         pseudosJoueurs = _pseudosJoueurs;
     }
-
-    public AbsMenu getFile() {
-        return window.getFile();
+    public void saveCurrentGame(String _file, TechStreams _tech) {
+        getPar().sauvegarderPartieEnCours(_file, _tech);
     }
+//    public AbsMenu getFile() {
+//        return window.getFile();
+//    }
 
-    public AbsMenuItem getLoad() {
-        return window.getLoad();
-    }
+//    public AbsMenuItem getLoad() {
+//        return window.getLoad();
+//    }
 
-    public AbsMenuItem getSave() {
-        return window.getSave();
-    }
-
-    public AbsMenuItem getChange() {
-        return window.getChange();
-    }
-
-    public AbsMenuItem getExit() {
-        return window.getExit();
-    }
-
-    public AbsMenu getDeal() {
-        return window.getDeal();
-    }
-
-    public AbsMenuItem getConsulting() {
-        return window.getConsulting();
-    }
-
-    public AbsCheckBoxMenuItem getPause() {
-        return window.getPause();
-    }
-
-    public AbsMenuItem getHelpGame() {
-        return window.getHelpGame();
-    }
-
-    public AbsMenuItem getTricksHands() {
-        return window.getTricksHands();
-    }
-
-    public AbsMenuItem getTeams() {
-        return window.getTeams();
-    }
-
-    public AbsMenu getEdit() {
-        return window.getEdit();
-    }
-
-    public IdMap<GameEnum,AbsMenuItem> getEditGames() {
-        return window.getEditGames();
-    }
-
-    public AbsMenu getDemo() {
-        return window.getDemo();
-    }
-
-    public IdMap<GameEnum,AbsMenuItem> getDemoGames() {
-        return window.getDemoGames();
-    }
-
-    public AbsMenu getTraining() {
-        return window.getTraining();
-    }
-
-    public IdMap<ChoiceTarot,AbsMenuItem> getTrainingTarot() {
-        return window.getTrainingTarot();
-    }
+//    public AbsMenu getDeal() {
+//        return window.getDeal();
+//    }
 
 //    public AbsMenuItem getMultiStop() {
 //        return window.getMultiStop();
 //    }
 
-    public AbsMenu getParameters() {
-        return window.getParameters();
-    }
+//    public AbsMenu getParameters() {
+//        return window.getParameters();
+//    }
 
-    public IdMap<GameEnum,AbsMenuItem> getRulesGames() {
-        return window.getRulesGames();
-    }
+//    public IdMap<GameEnum,AbsMenuItem> getRulesGames() {
+//        return window.getRulesGames();
+//    }
 
-    public AbsMenuItem getPlayers() {
-        return window.getPlayers();
-    }
+//    public AbsMenuItem getPlayers() {
+//        return window.getPlayers();
+//    }
+//
+//    public AbsMenuItem getLaunching() {
+//        return window.getLaunching();
+//    }
+//
+//    public AbsMenuItem getTiming() {
+//        return window.getTiming();
+//    }
+//
+//    public AbsMenuItem getInteract() {
+//        return window.getInteract();
+//    }
 
-    public AbsMenuItem getLaunching() {
-        return window.getLaunching();
-    }
+//    public AbsMenuItem getLanguage() {
+//        return window.getLanguage();
+//    }
+//
+//    public AbsMenu getDisplaying() {
+//        return window.getDisplaying();
+//    }
 
-    public AbsMenuItem getTiming() {
-        return window.getTiming();
-    }
+//    public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
+//        return window.getDisplayingGames();
+//    }
 
-    public AbsMenuItem getInteract() {
-        return window.getInteract();
-    }
-
-    public AbsMenuItem getLanguage() {
-        return window.getLanguage();
-    }
-
-    public AbsMenu getDisplaying() {
-        return window.getDisplaying();
-    }
-
-    public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
-        return window.getDisplayingGames();
-    }
-
-    public AbsMenu getHelp() {
-        return window.getHelp();
-    }
-
-    public AbsMenuItem getGeneralHelp() {
-        return window.getGeneralHelp();
-    }
-
-    public void setOwner(Ownable _owner) {
-        window.setOwner(_owner);
-    }
-
-    public String readCoreResource() {
-        return MessagesCommonCommon.ms().getVal(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER, "/",getOwner().getLanguageKey(), "/",CoreResourcesAccess.NOM_FICHIER));
-//        return ResourceFiles.ressourceFichier(StringUtil.concat(CoreResourcesAccess.NOM_DOSSIER,ResourceFiles.SEPARATEUR,getOwner().getLanguageKey(),ResourceFiles.SEPARATEUR,CoreResourcesAccess.NOM_FICHIER));
-    }
+//    public void setOwner(Ownable _owner) {
+//        window.setOwner(_owner);
+//    }
 
     public CardAnimState getState() {
         return state;
@@ -489,10 +400,6 @@ public abstract class ContainerGame implements Containable {
 
     public void setState(CardAnimState _s) {
         this.state = _s;
-    }
-
-    public void thread(Runnable _animContratBelote) {
-        getOwner().getThreadFactory().newStartedThread(_animContratBelote);
     }
 
 }

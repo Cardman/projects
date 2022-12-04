@@ -6,6 +6,7 @@ package cards.gui.panels;
 
 
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -41,13 +42,13 @@ public class PanelTricksHandsTarot implements ViewablePanelTricksHands {
 
     private final byte numberPlayers;
     private final DisplayingTarot displayingTarot;
-    private final WindowCards window;
+    private final WindowCardsInt window;
     private final AbsPanel container;
     public PanelTricksHandsTarot(ChangeableTitle _parent,
             TricksHandsTarot _tricksHands,
             byte _numberPlayers,
             StringList _pseudos,
-            DisplayingTarot _displayingTarot, WindowCards _window) {
+            DisplayingTarot _displayingTarot, WindowCardsInt _window) {
         window = _window;
         String lg_ = window.getLanguageKey();
         numberPlayers = _numberPlayers;

@@ -3,7 +3,7 @@ package cards.gui.containers;
 
 
 import cards.facade.enumerations.GameEnum;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicPresidentCard;
@@ -27,7 +27,7 @@ import code.util.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public abstract class ContainerPresident extends ContainerGame {
+public abstract class ContainerPresident extends ContainerSingleImpl {
 
     public static final String EMPTY="";
     public static final String TAB="\t";
@@ -66,7 +66,7 @@ public abstract class ContainerPresident extends ContainerGame {
 
     private int nbStacks = 1;
 
-    ContainerPresident(WindowCards _window) {
+    ContainerPresident(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }
@@ -76,7 +76,7 @@ public abstract class ContainerPresident extends ContainerGame {
         return false;
     }
 
-    public static CustList<GraphicPresidentCard> getGraphicCards(WindowCards _fact, String _lg, CustList<CardPresident> _hand) {
+    public static CustList<GraphicPresidentCard> getGraphicCards(WindowCardsInt _fact, String _lg, CustList<CardPresident> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         CustList<GraphicPresidentCard> list_;
         list_ = new CustList<GraphicPresidentCard>();

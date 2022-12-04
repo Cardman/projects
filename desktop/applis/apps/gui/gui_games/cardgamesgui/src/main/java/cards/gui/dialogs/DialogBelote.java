@@ -8,6 +8,7 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.*;
@@ -57,7 +58,7 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(WindowCards _window, AbsSpinner _nbGames, String _lg) {
+    protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, String _lg) {
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
@@ -155,8 +156,8 @@ public abstract class DialogBelote extends DialogCards {
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
-    public abstract void setDialogue(WindowCards _parent);
-    protected void initMessageName(WindowCards _parent) {
+    public abstract void setDialogue(WindowCardsInt _parent);
+    protected void initMessageName(WindowCardsInt _parent) {
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
     /**Enregistre les informations dans une variable et ferme la boite de dialogue*/

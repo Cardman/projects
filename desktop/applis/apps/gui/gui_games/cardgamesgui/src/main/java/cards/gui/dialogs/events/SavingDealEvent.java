@@ -2,7 +2,7 @@ package cards.gui.dialogs.events;
 
 
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.SetterSelectedCardList;
 import cards.gui.dialogs.enums.SaveDealMode;
 import code.gui.*;
@@ -14,8 +14,8 @@ public class SavingDealEvent implements AbsActionListener {
 
     private SaveDealMode mode;
 
-    private WindowCards window;
-    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, WindowCards _window) {
+    private WindowCardsInt window;
+    public SavingDealEvent(SetterSelectedCardList _dialog, SaveDealMode _mode, WindowCardsInt _window) {
         dialog = _dialog;
         mode = _mode;
         window = _window;

@@ -1,5 +1,6 @@
 package cards.gui.dialogs;
-import cards.gui.WindowCards;
+
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.AbsDialog;
 import code.gui.AbsTabbedPane;
@@ -13,7 +14,7 @@ abstract class DialogCards {
 
     private final AbsTabbedPane jt;
     private final AbsCompoFactory compoFactory;
-    private WindowCards main;
+    private WindowCardsInt main;
     private final AbsDialog cardDialog;
     private final ClosingEditorCards clos;
 
@@ -41,10 +42,10 @@ abstract class DialogCards {
         return cardDialog;
     }
 
-    public void setMain(WindowCards _main) {
+    public void setMain(WindowCardsInt _main) {
         main = _main;
     }
-    public WindowCards getMain() {
+    public WindowCardsInt getMain() {
         return main;
     }
     public void closeWindow() {

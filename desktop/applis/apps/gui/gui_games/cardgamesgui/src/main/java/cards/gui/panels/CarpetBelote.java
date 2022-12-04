@@ -3,7 +3,7 @@ package cards.gui.panels;
 
 import cards.belote.HandBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.labels.AbsMetaLabelCard;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
@@ -296,7 +296,7 @@ public class CarpetBelote {
         centerDeck.validate();
     }
 
-    public void setTalonBelote(WindowCards _fact, String _lg, HandBelote _m) {
+    public void setTalonBelote(WindowCardsInt _fact, String _lg, HandBelote _m) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         GraphicBeloteCard cg_=new GraphicBeloteCard(imageFactory_,_lg,_m.premiereCarte(),GuiConstants.RIGHT,true, _fact.getCompoFactory(), _fact.getImages());
         cg_.setPreferredSize(GraphicBeloteCard.getMaxDimension());

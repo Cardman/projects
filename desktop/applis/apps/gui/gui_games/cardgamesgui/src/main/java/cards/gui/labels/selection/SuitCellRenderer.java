@@ -4,7 +4,7 @@ package cards.gui.labels.selection;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -17,8 +17,8 @@ import code.util.core.NumberUtil;
 public class SuitCellRenderer extends CustCellRender<Suit> {
     private Suit couleur;
     private boolean selectionne;
-    private final WindowCards window;
-    public SuitCellRenderer(WindowCards _window) {
+    private final WindowCardsInt window;
+    public SuitCellRenderer(WindowCardsInt _window) {
         window = _window;
     }
     /**Donne la facon de presenter une couleur dans une liste avec un symbole et un nom*/

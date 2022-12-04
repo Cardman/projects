@@ -4,7 +4,7 @@ package cards.gui.labels.selection;
 
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.AbstractImage;
@@ -17,8 +17,8 @@ import code.util.core.NumberUtil;
 public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
     private CardTarot card;
     private boolean selectionne;
-    private final WindowCards window;
-    public CardTarotCellRenderer(WindowCards _window) {
+    private final WindowCardsInt window;
+    public CardTarotCellRenderer(WindowCardsInt _window) {
         window = _window;
     }
 

@@ -1,7 +1,7 @@
 package cards.gui.dialogs;
 
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.AbsPanel;
@@ -19,7 +19,7 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogRulesPresident(String _titre, WindowCards _fenetre, RulesPresident _rulesPresident) {
+    public static void initDialogRulesPresident(String _titre, WindowCardsInt _fenetre, RulesPresident _rulesPresident) {
         _fenetre.getDialogRulesPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogRulesPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
@@ -27,12 +27,12 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         _fenetre.getDialogRulesPresident().getJt().removeAll();
     }
 
-    public static void setPresidentDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
+    public static void setPresidentDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         _window.getDialogRulesPresident().setDialogue(_enabledChangingNbPlayers, _nbPlayers, _window);
     }
 
     @Override
-    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window) {
+    public void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
         validated = false;
         AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);

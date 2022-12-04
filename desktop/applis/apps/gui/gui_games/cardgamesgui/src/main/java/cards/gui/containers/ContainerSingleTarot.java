@@ -74,18 +74,19 @@ import code.util.core.StringUtil;
 public class ContainerSingleTarot extends ContainerTarot implements ContainerSingle,ContainerPlayableTarot {
 
     private BidTarot contratUtilisateur = BidTarot.FOLD;
-
+    private final WindowCards win;
     public ContainerSingleTarot(WindowCards _window) {
         super(_window);
         initButtonValidateDogTarot();
         initSlamButtonTarot();
+        win = _window;
     }
 
-    public ContainerSingleTarot(WindowCards _window, String _file) {
-        super(_window);
-        initButtonValidateDogTarot();
-        initSlamButtonTarot();
-    }
+//    public ContainerSingleTarot(WindowCards _window, String _file) {
+//        super(_window);
+//        initButtonValidateDogTarot();
+//        initSlamButtonTarot();
+//    }
 
     private void placerTarot() {
         //Activer le menu Fichier/Sauvegarder
@@ -1012,7 +1013,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingTarot(), game_.getNombreDeJoueurs());
-        WindowCards ow_ = getOwner();
+        WindowCardsInt ow_ = getOwner();
         AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(ow_.getCommonFrame(),tricksHands_,
                 nombreJoueurs_,
                 pseudosTarot(),
@@ -1353,7 +1354,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         tricksHands_.setDistributionCopy(game_.getDistribution());
         tricksHands_.setPreneur(game_.getPreneur());
         tricksHands_.setTricks(game_.unionPlis(), game_.getNombreDeJoueurs());
-        WindowCards ow_ = getOwner();
+        WindowCardsInt ow_ = getOwner();
         DialogTricksTarot.setDialogTricksTarot(getMessages().getVal(WindowCards.HANDS_TRICKS_TAROT), ow_);
         DialogTricksTarot.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosTarot(), getDisplayingTarot(),ow_);
     }
@@ -1417,7 +1418,7 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
 
     @Override
     public void stopPlaying() {
-        getOwner().menuSoloGames();
+        win.menuSoloGames();
     }
 
     @Override
@@ -1427,6 +1428,11 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         partie_.restituerMainsDepartRejouerDonne(plisFaits_, partie_.getNombreDeJoueurs());
         partie_.initPartie();
         mettreEnPlaceIhmTarot();
+    }
+
+    @Override
+    public WindowCards window() {
+        return win;
     }
 }
 

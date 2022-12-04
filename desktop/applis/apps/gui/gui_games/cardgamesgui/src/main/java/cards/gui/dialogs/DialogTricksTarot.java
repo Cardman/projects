@@ -1,14 +1,11 @@
 package cards.gui.dialogs;
 
 
-
-
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.panels.PanelTricksHandsTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.TricksHandsTarot;
 import code.gui.AbsScrollPane;
-
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
@@ -19,7 +16,7 @@ public final class DialogTricksTarot extends DialogCards {
     public DialogTricksTarot(AbstractProgramInfos _frameFactory) {
         super(_frameFactory, null);
     }
-    public static void setDialogTricksTarot(String _titre, WindowCards _fenetre) {
+    public static void setDialogTricksTarot(String _titre, WindowCardsInt _fenetre) {
         _fenetre.getDialogTricksTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogTricksTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogTricksTarot().getCardDialog().setTitle(_titre);
@@ -27,11 +24,11 @@ public final class DialogTricksTarot extends DialogCards {
         _fenetre.getDialogTricksTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
     public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,
-            StringList _pseudos, DisplayingTarot _displayingTarot, WindowCards _window) {
+            StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {
         _window.getDialogTricksTarot().setDialogue(_tricksHands, _numberPlayers, _pseudos, _displayingTarot,_window);
     }
     private void setDialogue(TricksHandsTarot _tricksHands, byte _numberPlayers,
-            StringList _pseudos, DisplayingTarot _displayingTarot, WindowCards _window) {
+            StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {
 
         _tricksHands.sortHands(_displayingTarot, _numberPlayers);
         AbsScrollPane scroll_ = _window.getCompoFactory().newAbsScrollPane(new PanelTricksHandsTarot(getCardDialog(),

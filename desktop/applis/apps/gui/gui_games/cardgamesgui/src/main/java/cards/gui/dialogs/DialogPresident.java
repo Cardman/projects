@@ -4,6 +4,7 @@ import cards.consts.MixCardsChoice;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.ClosingEditorCards;
 import cards.gui.dialogs.events.ListenerEqualityPlaying;
@@ -60,13 +61,13 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
         super(_frameFactory, _ch);
     }
 
-    public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCards _window);
+    public abstract void setDialogue(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window);
 
-    protected void initMessageName(WindowCards _parent) {
+    protected void initMessageName(WindowCardsInt _parent) {
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
 
-    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
+    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -181,7 +182,7 @@ public abstract class DialogPresident extends DialogCards implements DialogVaryi
     }
 
     @Override
-    public void validateNbPlayers(WindowCards _window) {
+    public void validateNbPlayers(WindowCardsInt _window) {
         int minStacks_ = RulesPresident.getNbMinStacks(nbJoueurs.getValue());
         int maxStacks_ = RulesPresident.getNbMaxStacks(nbJoueurs.getValue());
         int v_ = nbStacks.getValue();

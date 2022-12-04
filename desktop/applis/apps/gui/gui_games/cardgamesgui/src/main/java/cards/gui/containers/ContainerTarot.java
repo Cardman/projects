@@ -3,7 +3,7 @@ package cards.gui.containers;
 
 
 import cards.facade.enumerations.GameEnum;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicTarotCard;
@@ -31,7 +31,7 @@ import code.util.StringList;
 import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
-public abstract class ContainerTarot extends ContainerGame{
+public abstract class ContainerTarot extends ContainerSingleImpl{
 
     public static final String EMPTY="";
     protected static final String TAB="\t";
@@ -68,7 +68,7 @@ public abstract class ContainerTarot extends ContainerGame{
     private AbsPlainButton slamButton;
 
 
-    ContainerTarot(WindowCards _window) {
+    ContainerTarot(WindowCardsInt _window) {
         super(_window);
         arretDemo = _window.getThreadFactory().newAtomicBoolean();
     }
@@ -97,7 +97,7 @@ public abstract class ContainerTarot extends ContainerGame{
                         StreamTextFile.SEPARATEUR,GameEnum.TAROT.name(),FileConst.DECK_EXT),_tmpUserFolderSl.getFileCoreStream(), _tmpUserFolderSl.getStreams()));
     }
 
-    public static CustList<GraphicTarotCard> getGraphicCards(WindowCards _fact, String _lg, CustList<CardTarot> _hand) {
+    public static CustList<GraphicTarotCard> getGraphicCards(WindowCardsInt _fact, String _lg, CustList<CardTarot> _hand) {
         AbstractImageFactory imageFactory_ = _fact.getImageFactory();
         CustList<GraphicTarotCard> list_;
         list_ = new CustList<GraphicTarotCard>();

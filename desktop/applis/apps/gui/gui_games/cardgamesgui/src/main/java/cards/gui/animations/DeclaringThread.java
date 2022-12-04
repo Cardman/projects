@@ -1,7 +1,7 @@
 package cards.gui.animations;
 import cards.belote.DeclareHandBelote;
 import cards.belote.enumerations.CardBelote;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.labels.MiniBeloteCard;
 import code.gui.AbsPanel;
 
@@ -12,10 +12,10 @@ public final class DeclaringThread implements Runnable {
     private AbsPanel panelToSet;
 
     private DeclareHandBelote usDecl;
-    private WindowCards window;
+    private WindowCardsInt window;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public DeclaringThread(AbsPanel _panelToSet, DeclareHandBelote _usDecl, WindowCards _window) {
+    public DeclaringThread(AbsPanel _panelToSet, DeclareHandBelote _usDecl, WindowCardsInt _window) {
         panelToSet = _panelToSet;
         usDecl = _usDecl;
         window = _window;

@@ -11,6 +11,7 @@ import cards.facade.Games;
 import cards.facade.enumerations.GameEnum;
 import cards.gameresults.sml.DocumentReaderCardsResultsUtil;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.animations.AddTextEvents;
 import cards.gui.animations.AnimationCardPresident;
 import cards.gui.animations.SettingPresidentHand;
@@ -63,14 +64,15 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     //    private boolean clickedDiscard;
 //    private boolean clickedNoPlay;
-
+    private final WindowCards win;
     public ContainerSinglePresident(WindowCards _window) {
         super(_window);
+        win = _window;
     }
 
-    public ContainerSinglePresident(WindowCards _window, String _nomFichier) {
-        super(_window);
-    }
+//    public ContainerSinglePresident(WindowCards _window, String _nomFichier) {
+//        super(_window);
+//    }
 
     public GamePresident partiePresident() {
         return getPar().partiePresident();
@@ -633,7 +635,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
         tricksHands_.sortHands(getDisplayingPresident(), game_.getNombreDeJoueurs());
-        WindowCards ow_ = getOwner();
+        WindowCardsInt ow_ = getOwner();
         AbsScrollPane panelCards_ = getOwner().getCompoFactory().newAbsScrollPane(new PanelTricksHandsPresident(ow_.getCommonFrame(), tricksHands_,
                 nombreJoueurs_,
                 pseudosPresident(),
@@ -736,7 +738,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
         tricksHands_.setRanks(game_.getRanks());
         tricksHands_.setSwitchedCards(game_.getSwitchedCards());
         tricksHands_.setTricks(game_.unionPlis(), game_.getProgressingTrick(), game_.getNombreDeJoueurs());
-        WindowCards ow_ = getOwner();
+        WindowCardsInt ow_ = getOwner();
         DialogTricksPresident.setDialogTricksPresident(getMessages().getVal(WindowCards.HANDS_TRICKS_PRESIDENT), ow_);
         DialogTricksPresident.init(tricksHands_, game_.getNombreDeJoueurs(), pseudosPresident(), getDisplayingPresident(),ow_);
 
@@ -808,7 +810,7 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
     @Override
     public void stopPlaying() {
-        getOwner().menuSoloGames();
+        win.menuSoloGames();
     }
 
     @Override
@@ -820,4 +822,8 @@ public class ContainerSinglePresident extends ContainerPresident implements
         mettreEnPlaceIhmPresident();
     }
 
+    @Override
+    public WindowCards window() {
+        return win;
+    }
 }

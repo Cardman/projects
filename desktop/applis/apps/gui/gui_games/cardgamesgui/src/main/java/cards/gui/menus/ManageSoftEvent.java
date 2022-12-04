@@ -1,15 +1,15 @@
 package cards.gui.menus;
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.events.AbsActionListener;
 
 public class ManageSoftEvent implements AbsActionListener {
 
-    private WindowCards window;
+    private WindowCardsInt window;
 
     private String key;
 
-    public ManageSoftEvent(WindowCards _window, String _key) {
+    public ManageSoftEvent(WindowCardsInt _window, String _key) {
         window = _window;
         key = _key;
     }

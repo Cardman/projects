@@ -1,7 +1,7 @@
 package cards.gui.animations;
 import cards.belote.HandBelote;
 import cards.gui.containers.ContainerBelote;
-import cards.gui.containers.ContainerGame;
+import cards.gui.containers.ContainerSimuBelote;
 import cards.gui.labels.GraphicBeloteCard;
 import code.gui.AbsPanel;
 
@@ -10,12 +10,12 @@ import code.gui.AbsPanel;
 Thread safe class*/
 public final class SimulationRefreshHandBelote implements Runnable {
 
-    private ContainerGame container;
+    private ContainerSimuBelote container;
 
     private HandBelote hand;
 
     /**This class thread is used by EDT (invokeLater of SwingUtilities)*/
-    public SimulationRefreshHandBelote(ContainerGame _container, HandBelote _hand) {
+    public SimulationRefreshHandBelote(ContainerSimuBelote _container, HandBelote _hand) {
         container = _container;
         hand = _hand;
     }

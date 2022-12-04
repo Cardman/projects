@@ -5,7 +5,7 @@ import cards.gui.WindowCards;
 import cards.gui.animations.HelpInitializer;
 import cards.gui.animations.PreparedPagesCards;
 import cards.gui.dialogs.FileConst;
-import cards.gui.interfaces.ResultCardsServerInteractImpl;
+//import cards.gui.interfaces.ResultCardsServerInteractImpl;
 import cards.president.beans.*;
 import cards.tarot.beans.*;
 import code.gui.SoftApplicationCore;
@@ -47,7 +47,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> president_ = generateAnalyzedPresident(lgs_);
         StringMap<StringMap<PreparedPagesCards>> tarot_ = generateAnalyzedTarot(lgs_);
         WindowCards window_ = new WindowCards(language, list, belote_,president_,tarot_,cardFactories);
-        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
+//        window_.setResultCardsServerInteract(new ResultCardsServerInteractImpl());
         SoftApplicationCore.setLocation(window_.getCommonFrame(), topLeft);
         window_.pack();
         window_.setVisible(true);

@@ -23,7 +23,7 @@ public final class DialogTeamsPlayers extends DialogCards {
         super(_frameFactory, null);
         getCardDialog().setAccessFile(DIALOG_ACCESS);
     }
-    public static void initDialogTeamsPlayers(WindowCards _fenetre) {
+    public static void initDialogTeamsPlayers(WindowCardsInt _fenetre) {
         _fenetre.getDialogTeamsPlayers().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
 //        DIALOG.messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), DIALOG.getClass());
         _fenetre.getDialogTeamsPlayers().messages = WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _fenetre.getLanguageKey(), _fenetre.getDialogTeamsPlayers().getCardDialog().getAccessFile());

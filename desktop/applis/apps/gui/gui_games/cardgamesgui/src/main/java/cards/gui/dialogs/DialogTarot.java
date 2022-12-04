@@ -3,6 +3,7 @@ package cards.gui.dialogs;
 import cards.consts.MixCardsChoice;
 import cards.facade.Games;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.comboboxes.ComboBoxEnumCards;
 import cards.gui.dialogs.events.*;
 import cards.tarot.HandTarot;
@@ -72,7 +73,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window) {
+    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -249,13 +250,13 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         getJt().add(getMessages().getVal(REPARTITION),players);
     }
 
-    protected void initMessageName(WindowCards _parent) {
+    protected void initMessageName(WindowCardsInt _parent) {
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, _parent.getLanguageKey(), getCardDialog().getAccessFile()));
     }
 
     /**Met en place le contenu de la boite de dialogue
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
-    public abstract void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCards _window);
+    public abstract void setDialogue(boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window);
 
     public void validateHandful() {
         int valeur_ = poigneesAutorisees.getVal(listeChoixFive.getCurrentElement());
@@ -263,7 +264,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
     }
 
     @Override
-    public void validateNbPlayers(WindowCards _window) {
+    public void validateNbPlayers(WindowCardsInt _window) {
         String lg_ = _window.getLanguageKey();
         int nombreJoueursSel_= nbJoueurs.getValue();
         listeChoixFour.getReal().clear();

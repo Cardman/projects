@@ -8,7 +8,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Order;
 import cards.consts.Suit;
 import cards.facade.Games;
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
@@ -38,7 +38,7 @@ public final class DialogHelpBelote {
         absDialog.setResizable(false);
         absDialog.setVisible(true);
     }
-    public static void setTitleDialog(WindowCards _fenetre, String _title) {
+    public static void setTitleDialog(WindowCardsInt _fenetre, String _title) {
         _fenetre.getDialogHelpBelote().absDialog.setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogHelpBelote().absDialog.setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogHelpBelote().absDialog.setTitle(_title);

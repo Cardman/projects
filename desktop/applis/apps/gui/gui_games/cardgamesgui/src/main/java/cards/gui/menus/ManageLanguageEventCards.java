@@ -1,13 +1,13 @@
 package cards.gui.menus;
 
-import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import code.gui.events.AbsActionListener;
 
 public class ManageLanguageEventCards implements AbsActionListener {
 
-    private WindowCards window;
+    private WindowCardsInt window;
 
-    public ManageLanguageEventCards(WindowCards _window) {
+    public ManageLanguageEventCards(WindowCardsInt _window) {
         window = _window;
     }
 

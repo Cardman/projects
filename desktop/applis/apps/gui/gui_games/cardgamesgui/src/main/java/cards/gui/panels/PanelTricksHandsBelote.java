@@ -11,6 +11,7 @@ import cards.belote.TrickBelote;
 import cards.belote.TricksHandsBelote;
 import cards.belote.enumerations.CardBelote;
 import cards.gui.WindowCards;
+import cards.gui.WindowCardsInt;
 import cards.gui.containers.ContainerBelote;
 import cards.gui.dialogs.FileConst;
 import cards.gui.labels.GraphicBeloteCard;
@@ -40,7 +41,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
     private final ChangeableTitle parent;
     private final byte numberPlayers;
     private final DisplayingBelote displayingBelote;
-    private final WindowCards window;
+    private final WindowCardsInt window;
     private final AbsPanel container;
 
     public PanelTricksHandsBelote(ChangeableTitle _parent,
@@ -48,7 +49,7 @@ public class PanelTricksHandsBelote implements ViewablePanelTricksHands {
             byte _numberPlayers,
             StringList _pseudos,
             DisplayingBelote _displayingBelote,
-                                  WindowCards _window) {
+                                  WindowCardsInt _window) {
         window= _window;
         numberPlayers = _numberPlayers;
         displayingBelote = _displayingBelote;
