@@ -1,0 +1,80 @@
+package cards.network.president.displaying.players;
+import cards.network.common.PlayerActionGame;
+import cards.president.HandPresident;
+import cards.president.enumerations.CardPresident;
+import cards.president.enumerations.Playing;
+import code.util.*;
+
+
+public final class RefreshHandPlayingPresident extends PlayerActionGame {
+
+    private CardPresident playedCard;
+
+    private byte index;
+
+    private boolean pass;
+
+    private HandPresident playedHand;
+
+    private ByteMap<Playing> status;
+
+    private byte nextPlayer;
+
+    private boolean reversed;
+
+    public CardPresident getPlayedCard() {
+        return playedCard;
+    }
+
+    public void setPlayedCard(CardPresident _playedCard) {
+        playedCard = _playedCard;
+    }
+
+    public byte getIndex() {
+        return index;
+    }
+
+    public void setIndex(byte _index) {
+        index = _index;
+    }
+
+    public boolean isPass() {
+        return pass;
+    }
+
+    public void setPass(boolean _pass) {
+        pass = _pass;
+    }
+
+    public HandPresident getPlayedHand() {
+        return playedHand;
+    }
+
+    public void setPlayedHand(HandPresident _playedHand) {
+        playedHand = _playedHand;
+    }
+
+    public ByteMap<Playing> getStatus() {
+        return status;
+    }
+
+    public void setStatus(ByteMap<Playing> _status) {
+        status = _status;
+    }
+
+    public byte getNextPlayer() {
+        return nextPlayer;
+    }
+
+    public void setNextPlayer(byte _nextPlayer) {
+        nextPlayer = _nextPlayer;
+    }
+
+    public boolean isReversed() {
+        return reversed;
+    }
+
+    public void setReversed(boolean _reversed) {
+        reversed = _reversed;
+    }
+}
