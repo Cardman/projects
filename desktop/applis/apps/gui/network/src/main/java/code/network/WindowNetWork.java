@@ -1,5 +1,21 @@
 package code.network;
 
+import aiki.db.DataBase;
+import aiki.db.LoadFlag;
+import aiki.db.PerCent;
+import aiki.facade.FacadeGame;
+import aiki.game.Game;
+import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
+import aiki.gui.components.walk.ScenePanelMulti;
+import aiki.gui.dialogs.DialogServerAiki;
+import aiki.gui.events.LoadGameEventAiki;
+import aiki.gui.events.LoadZipEvent;
+import aiki.gui.events.SaveGameEventAiki;
+import aiki.gui.threads.*;
+import aiki.main.AfterLoadZip;
+import aiki.main.AikiFactory;
+import aiki.sml.*;
 import cards.belote.*;
 import cards.belote.sml.*;
 import cards.consts.*;
@@ -47,11 +63,16 @@ import code.sml.util.*;
 import code.stream.StreamFolderFile;
 import code.stream.*;
 import code.util.*;
+import code.util.consts.Constants;
 import code.util.core.*;
 import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
+import aiki.map.pokemon.*;
+import aiki.network.*;
+import aiki.network.sml.*;
+import aiki.network.stream.*;
 
-public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt {
+public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt, WindowAikiInt {
 
     public static final String TOO_GAME = "tooGame";
 
@@ -65,6 +86,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public static final String NO_PLAY_NOW = "noPlayNow";
 
+    public static final String ERROR_LOADING = "errorLoading";
 //    public static final String ALREADY_PLAYED = "alreadyPlayed";
 //
 //    public static final String ALONE_TAKER = "aloneTaker";
@@ -317,6 +339,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     private static final String TOO_MANY = "tooMany";
 
+    private static final String NO_TRADE = "noTrade";
     private static final String UNKNOWN_HOST = "unknownHost";
 
     private static final String NOT_CONNECTED = "notConnected";
@@ -329,6 +352,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private static final String F_SIX = "F6";
     private static final String EMPTY_STRING = "";
     private static final String LAST_SAVED_GAME = "lastSavedGame";
+    private static final String FOLDER_LOAD = "folderLoad";
+    private static final String ZIP_LOAD = "zipLoad";
+    private static final String GAME_LOAD = "gameLoad";
+    private static final String GAME_SAVE = "gameSave";
 
     private static final char LINE_RETURN = '\n';
 
@@ -337,6 +364,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
     private ContainerGame containerGame;
+    private final LoadFlag loadFlag;
     private final Clock clock;
 
     private final AbsPlainLabel lastSavedGameDate;
@@ -433,15 +461,42 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private final DialogNicknames dialogNicknames;
     private final DialogSoft dialogSoft;
     private final DialogServerCards dialogServer;
+    private final DialogServerAiki dialogServerAiki;
     private final CardFactories cardFactories;
     private ResultCardsServerInteract resultCardsServerInteract;
     private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
+    private final NetAiki netAiki = new NetAiki();
+    private final AikiFactory aikiFactory;
+    private StringMap<String> messages = new StringMap<String>();
+    private final FacadeGame facade;
+    private final ScenePanelMulti scenePanel;
+//    private AbsMenu file;
+
+    private AbsMenuItem zipLoad;
+
+    private AbsMenuItem folderLoad;
+
+    private AbsMenuItem gameLoad;
+
+    private AbsMenuItem gameSave;
+//    private boolean savedGame;
+    private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
+    private PreparedRenderedPages preparedPkNetTask;
+    private boolean cards;
     public WindowNetWork(String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
                        StringMap<StringMap<PreparedPagesCards>> _president,
                        StringMap<StringMap<PreparedPagesCards>> _tarot,
-                       CardFactories _cardFactories) {
+                       CardFactories _cardFactories, AikiFactory _aikiFactory) {
         super(_lg, _list);
+        loadFlag = new LoadFlagImpl(_list.getThreadFactory().newAtomicBoolean());
+        facade = new FacadeGame();
+        StringList lgs_ = Constants.getAvailableLanguages();
+        facade.setLanguages(lgs_);
+        StringMap<String> displayLanguages_ = LoadRes.dis();
+        facade.setDisplayLanguages(displayLanguages_);
+        facade.setSimplyLanguage(_lg);
+        scenePanel = new ScenePanelMulti(this, facade);
         dialogDisplayingBelote = new DialogDisplayingBelote(_list);
         dialogDisplayingTarot = new DialogDisplayingTarot(_list);
         dialogDisplayingPresident = new DialogDisplayingPresident(_list);
@@ -457,6 +512,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        editorBelote = new EditorBelote(_list);
 //        editorPresident = new EditorPresident(_list);
 //        editorTarot = new EditorTarot(_list);
+        dialogServerAiki = new DialogServerAiki(_list);
         dialogTeamsPlayers = new DialogTeamsPlayers(_list);
 //        dialogNicknames = new DialogNicknames(_list);
         dialogSoft = new DialogSoft(_list);
@@ -529,6 +585,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            ((ContainerSingle)containerGame).modify();
 //        }
         exitMode(_list);
+        aikiFactory = _aikiFactory;
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
     }
@@ -739,6 +796,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public void loop(Document _readObject, AbstractSocket _socket) {
+        if (!isCards()) {
+            loopAiki(_readObject, _socket);
+            return;
+        }
         Element elt_ = _readObject.getDocumentElement();
         String tagName_ = DocumentReaderCardsMultiUtil.tagName(elt_);
         if (StringUtil.quickEq(DocumentReaderCardsMultiUtil.TYPE_ENABLED_QUIT,tagName_)) {
@@ -993,6 +1054,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public void quitNetwork(Exiting _exit, AbstractSocket _socket) {
+        if (!isCards()) {
+            quitNetworkAiki(_exit, _socket);
+            return;
+        }
         menuPrincipal();
         closeConnexion(_exit,_socket);
         if (_exit != null && _exit.isClosing()) {
@@ -1004,6 +1069,130 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
             getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
             //JOptionPane.showMessageDialog(window, window.getTooManyString(), window.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+    public void loopAiki(Document _readObject, AbstractSocket _socket) {
+        Element elt_ = _readObject.getDocumentElement();
+        PlayerActionBeforeGameAiki playerActionBeforeGame_ = DocumentReaderAikiMultiUtil.getPlayerActionBeforeGame(elt_);
+        if (playerActionBeforeGame_ instanceof IndexOfArrivingAiki) {
+            if (!StringUtil.quickEq(((IndexOfArrivingAiki) playerActionBeforeGame_).getServerName(), NetAiki.getPokemon())) {
+                NewPlayerAiki p_ = new NewPlayerAiki();
+                p_.setAcceptable(false);
+                p_.setArriving(true);
+                p_.setIndex(indexInGame);
+                p_.setLanguage(getLanguageKey());
+                p_.setPseudo(facade.getGame().getPlayer().getNickname());
+                NetAiki.sendObject(_socket,p_);
+                return;
+            }
+            NewPlayerAiki p_ = new NewPlayerAiki();
+            p_.setAcceptable(true);
+            p_.setArriving(true);
+            p_.setIndex(indexInGame);
+            //p_.setPseudo(pseudo());
+            p_.setLanguage(getLanguageKey());
+            p_.setPseudo(facade.getGame().getPlayer().getNickname());
+            if (indexInGame == IndexConstants.FIRST_INDEX) {
+                scenePanel.setNetworkPanel();
+            }
+            pack();
+            NetAiki.sendObject(_socket,p_);
+            return;
+        }
+        String tagName_ = DocumentReaderAikiMultiUtil.tagName(elt_);
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_INIT_TRADING,tagName_)) {
+            if (indexInGame == IndexConstants.FIRST_INDEX) {
+                facade.initTrading();
+                CheckCompatibility ch_ = new CheckCompatibility();
+                ch_.setData(facade.getExchangeData());
+                ch_.setIndex(indexInGame);
+                ch_.setTeam(facade.getGame().getPlayer().getTeam());
+                NetAiki.sendObject(_socket,ch_);
+                return;
+            }
+            if (indexInGame == IndexConstants.SECOND_INDEX) {
+                facade.initTrading();
+                CheckCompatibility ch_ = new CheckCompatibility();
+                ch_.setData(facade.getExchangeData());
+                ch_.setIndex(indexInGame);
+                ch_.setTeam(facade.getGame().getPlayer().getTeam());
+                NetAiki.sendObject(_socket,ch_);
+                return;
+            }
+            return;
+        }
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_OK,tagName_)) {
+            facade.applyTrading();
+            ByteTreeMap< PokemonPlayer> tree_ = facade.getExchangeData().getTeam(facade.getGame().getPlayer().getTeam());
+            scenePanel.setTradableAfterTrading(tree_);
+            pack();
+        }
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_NET_POKEMON,tagName_)) {
+            NetPokemon net_ = DocumentReaderAikiMultiUtil.getNetPokemon(elt_);
+            if (indexInGame == IndexConstants.SECOND_INDEX) {
+                scenePanel.setNetworkPanel();
+            }
+            scenePanel.setTradable(net_.getTradablePokemon());
+            pack();
+            return;
+        }
+        if (StringUtil.quickEq(DocumentReaderAikiMultiUtil.TYPE_POKEMON_PLAYER,tagName_)) {
+            PokemonPlayer pk_ = DocumentReaderAikiCoreUtil.getPokemonPlayer(elt_);
+            facade.receivePokemonPlayer(pk_);
+            scenePanel.seeNetPokemonDetail();
+        }
+    }
+
+//    @Override
+    public void quitNetworkAiki(Exiting _exit, AbstractSocket _socket) {
+        exitFromTrading();
+        resetIndexInGame();
+        closeConnexion(_exit,_socket);
+        if (_exit != null && _exit.isClosing()) {
+            basicDispose();
+            return;
+        }
+        pack();
+        if (_exit != null && _exit.isForced() && !_exit.isBusy()) {
+            if (_exit.isTooManyPlayers()) {
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getTooManyString(), getTooManyString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(window, MainWindow.getTooManyString(), MainWindow.getTooManyString(), JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                getFrames().getMessageDialogAbs().input(getCommonFrame(), getNoTradeString(), getNoTradeString(), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(window, MainWindow.getNoTradeString(), MainWindow.getNoTradeString(), JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    public void resetIndexInGame() {
+        setIndexInGame(IndexConstants.INDEX_NOT_FOUND_ELT);
+    }
+
+    public void setIndexInGame(byte _indexInGame) {
+        indexInGame = _indexInGame;
+    }
+
+    public byte getIndexInGame() {
+        return indexInGame;
+    }
+    public void exitFromTrading() {
+//        setSavedGame(false);
+        facade.closeTrading();
+        scenePanel.exitInteraction();
+        en(true);
+    }
+
+    private void en(boolean _b) {
+//        MenuItemUtils.setEnabledMenu(newGame,_b);
+//        MenuItemUtils.setEnabledMenu(params,_b);
+        MenuItemUtils.setEnabledMenu(zipLoad,_b);
+        MenuItemUtils.setEnabledMenu(gameLoad,_b);
+    }
+//    public String getTooManyString() {
+//        return messages.getVal(TOO_MANY);
+//    }
+
+    public String getNoTradeString() {
+        return messages.getVal(NO_TRADE);
     }
 
 //    public boolean isForceBye() {
@@ -1144,6 +1333,23 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void initFileMenu() {
         /* Fichier */
         file=getCompoFactory().newMenu(getMessages().getVal(CST_FILE));
+        zipLoad = getCompoFactory().newMenuItem();
+        zipLoad.addActionListener(new LoadZipEvent(this,false));
+        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
+        file.addMenuItem(zipLoad);
+        folderLoad = getCompoFactory().newMenuItem();
+        folderLoad.addActionListener(new LoadZipEvent(this,true));
+        folderLoad.setAccelerator(GuiConstants.VK_D, GuiConstants.CTRL_DOWN_MASK);
+        file.addMenuItem(folderLoad);
+        gameLoad = getCompoFactory().newMenuItem();
+        gameLoad.addActionListener(new LoadGameEventAiki(this));
+        gameLoad.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
+        file.addMenuItem(gameLoad);
+        gameSave = getCompoFactory().newMenuItem();
+        gameSave.addActionListener(new SaveGameEventAiki(this));
+        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
+        file.addMenuItem(gameSave);
+        file.addSeparator();
         /* Fichier/Charger "accessible n'importe quand"*/
 //        load=getCompoFactory().newMenuItem(getMessages().getVal(CST_LOAD));
 //        load.addActionListener(new LoadGameEventCards(this));
@@ -1912,6 +2118,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         if (result_ == null) {
             return;
         }
+        setCards(true);
         GameEnum choosenGameMultiPlayers_ = _jeuBouton;
         if (choosenGameMultiPlayers_ == GameEnum.TAROT) {
             containerGame = new ContainerMultiTarot(this, result_.isCreate(), result_.getNbPlayers());
@@ -1976,6 +2183,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void translate() {
         initMessageName();
         String lg_ = getLanguageKey();
+        zipLoad.setText(messages.getVal(ZIP_LOAD));
+        folderLoad.setText(messages.getVal(FOLDER_LOAD));
+        gameLoad.setText(messages.getVal(GAME_LOAD));
+        gameSave.setText(messages.getVal(GAME_SAVE));
         file.setText(getMessages().getVal(CST_FILE));
 //        load.setText(getMessages().getVal(CST_LOAD));
 //        save.setText(getMessages().getVal(CST_SAVE));
@@ -2030,6 +2241,175 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
     }
 
+    @Override
+    public void loadZip(boolean _f) {
+        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
+            return;
+        }
+        String fileName_;
+        if (_f) {
+            fileName_ = getFolderOpenDialogInt().input(getCommonFrame(), getLanguageKey(), false);
+        } else {
+            fileName_ = fileDialogLoad(Resources.ZIPPED_DATA_EXT, true);
+        }
+        if (fileName_.isEmpty()) {
+            return;
+        }
+        PerCent p_ = new PerCentIncr(getThreadFactory().newAtomicInteger());
+        loadFlag.set(true);
+        LoadingThreadMulti load_ = new LoadingThreadMulti(this, fileName_,p_, new DefLoadingData(facade.getLanguages(), facade.getDisplayLanguages(), facade.getSexList()));
+        getThreadFactory().newStartedThread(load_);
+    }
+    private String fileDialogLoad(String _ext, boolean _zipFile) {
+        String path_;
+        if (_zipFile) {
+//            if (loadingConf != null && loadingConf.isLoadHomeFolder()) {
+//                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
+//            } else {
+                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, StreamFolderFile.getCurrentPath(getFileCoreStream()));
+//            }
+//            FileOpenDialog.setFileOpenDialog(this,Constants.getLanguage(),true, _ext, SoftApplication.getFolderJarPath(), Resources.EXCLUDED);
+        } else {
+//            if (loadingConf.isSaveHomeFolder()) {
+//                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, getFrames().getHomePath());
+//            } else {
+                path_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, _ext, DataBase.EMPTY_STRING);
+//            }
+        }
+        if (path_ == null) {
+            path_ = DataBase.EMPTY_STRING;
+        }
+        return path_;
+    }
+
+    public void loadGame() {
+        if (!NumberUtil.eq(indexInGame, IndexConstants.INDEX_NOT_FOUND_ELT)) {
+            return;
+        }
+//        if (!savedGame && facade.getGame() != null) {
+//            int choix_=saving();
+//            if(choix_==GuiConstants.CANCEL_OPTION) {
+//                return;
+//            }
+//            loadingConf.setLastSavedGame(DataBase.EMPTY_STRING);
+//            if(choix_==GuiConstants.YES_OPTION) {
+//                String file_ = fileDialogSave();
+//                if (!file_.isEmpty()) {
+//                    loadingConf.setLastSavedGame(file_);
+//                    save(file_);
+//                    dateLastSaved = Clock.getDateTimeText(getThreadFactory());
+////                    lastSavedGameDate.setText(MessageFormat.format(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+//                    lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+//                    savedGame = true;
+//                }
+//            }
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+//        }
+        String fileName_ = fileDialogLoad(Resources.GAME_EXT, false);
+        if (fileName_.isEmpty()) {
+            return;
+        }
+        boolean error_ = false;
+        DataBase db_ = facade.getData();
+        Game game_ = WindowAiki.load(fileName_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
+        if (game_ != null) {
+            facade.load(game_);
+            MenuItemUtils.setEnabledMenu(gameSave,true);
+            facade.changeCamera();
+            drawGame();
+//            savedGame = true;
+//            if (battle != null) {
+//                battle.resetWindows();
+//            }
+        } else {
+            error_ = true;
+        }
+        if (error_) {
+            showErrorMessageDialog(fileName_);
+        }
+    }
+
+    public boolean showErrorMessageDialog(String _fileName) {
+        if (_fileName.isEmpty()) {
+            return false;
+        }
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+        return true;
+    }
+
+    private void drawGame() {
+        scenePanel.setMessages();
+//        if (facade.isChangeToFightScene()) {
+//            if (battle != null) {
+//                battle.setWild(false);
+//            }
+//            setFight(false, false);
+//            return;
+//        }
+        drawGameWalking();
+        pack();
+    }
+    public void drawGameWalking() {
+//        MenuItemUtils.setEnabledMenu(difficulty,true);
+//        battle.setVisibleFrontBattle(false);
+        scenePanel.getComponent().setVisible(true);
+//        inBattle = false;
+//        MenuItemUtils.setEnabledMenu(dataBattle,false);
+        scenePanel.drawGameWalking();
+    }
+    public void saveGame() {
+        String fileName_ = fileDialogSave();
+        if (fileName_.isEmpty()) {
+            return;
+        }
+        save(fileName_);
+//        fileName_ = StringUtil.replaceBackSlash(fileName_);
+//        loadingConf.setLastSavedGame(fileName_);
+        dateLastSaved = Clock.getDateTimeText(getThreadFactory());
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+//        savedGame = true;
+    }
+    private String fileDialogSave() {
+        String path_;
+//        boolean saveConfig_ = false;
+//        if (loadingConf.isSaveHomeFolder()) {
+//            saveConfig_ = true;
+//            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, getFrames().getHomePath());
+//        } else {
+            path_=getFileSaveDialogInt().input(getCommonFrame(), getLanguageKey(), true, Resources.GAME_EXT, DataBase.EMPTY_STRING);
+//        }
+        if (path_ == null) {
+            path_ = DataBase.EMPTY_STRING;
+//        } else if (saveConfig_) {
+//            loadingConf.setLastSavedGame(path_);
+//            loadingConf.setLastRom(facade.getZipName());
+//            String configPath_ = StringUtil.replaceExtension(path_, Resources.GAME_EXT, Resources.CONF_EXT);
+//            //String configPath_ = path_.replaceAll(StringList.quote(Resources.GAME_EXT)+StringList.END_REG_EXP, Resources.CONF_EXT);
+//            StreamTextFile.saveTextFile(configPath_, DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+//            //configPath_ +=
+        }
+        return path_;
+    }
+    public void save(String _fileName) {
+        Game game_ = facade.getGame();
+        if (game_ == null) {
+            return;
+        }
+        game_.setZippedRom(facade.getZipName());
+        StreamTextFile.saveTextFile(_fileName, DocumentWriterAikiCoreUtil.setGame(game_),getStreams());
+    }
+    public void sendObjectOk() {
+        trySendString(DocumentWriterAikiMultiUtil.ok(), getSocket());
+    }
+    public void sendObject(QuitAiki _serializable) {
+        trySendString(DocumentWriterAikiMultiUtil.playerActionGameAiki(_serializable), getSocket());
+    }
+    public void sendObject(ReadyAiki _serializable) {
+        trySendString(DocumentWriterAikiMultiUtil.playerActionBeforeGameAiki(_serializable), getSocket());
+    }
+    public void sendObject(SentPokemon _serializable) {
+        trySendString(DocumentWriterAikiMultiUtil.sentPokemon(_serializable), getSocket());
+    }
     @Override
     public AbstractSocket initIndexInGame(boolean _first, AbstractSocket _socket) {
         return _socket;
@@ -2191,11 +2571,17 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public Document getDoc(String _object) {
+        if (!isCards()) {
+            return DocumentReaderAikiMultiUtil.getDoc(_object);
+        }
         return DocumentReaderCardsMultiUtil.getDoc(_object);
     }
 
     @Override
     public Exiting getExiting(Document _doc) {
+        if (!isCards()) {
+            return DocumentReaderAikiMultiUtil.getExiting(_doc);
+        }
         return DocumentReaderCardsMultiUtil.getExiting(_doc);
     }
 
@@ -2326,5 +2712,100 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void setResultCardsServerInteract(ResultCardsServerInteract _r) {
         this.resultCardsServerInteract = _r;
     }
+    public NetAiki getNetAiki() {
+        return netAiki;
+    }
 
+    public PreparedRenderedPages getPreparedPkNetTask() {
+        return preparedPkNetTask;
+    }
+
+    public void setPreparedPkNetTask(PreparedRenderedPages _preparedPkTask) {
+        preparedPkNetTask = _preparedPkTask;
+    }
+
+    public void processLoad(String _fileName, PerCent _p, LoadingData _load) {
+        StringMap<String> files_ = StreamFolderFile.getFiles(_fileName,getFileCoreStream(),getStreams());
+        DocumentReaderAikiCoreUtil.loadRomAndCheck(getGenerator(),facade,_fileName, files_,_p,loadFlag);
+        if (!facade.isLoadedData()) {
+            LoadRes.loadResources(getGenerator(), facade, _p, loadFlag, _load);
+        }
+        if (!loadFlag.get()) {
+            return;
+        }
+        facade.clearGame();
+        facade.initializePaginatorTranslations();
+//        inBattle = false;
+//        ThreadInvoker.invokeNow(getThreadFactory(),new ReinitComponents(this), getFrames());
+//        battle.setVisible(false);
+//        scenePanel.reinit();
+//        String ext_ = StringList.escape(CLASS_FILES_EXT)+StringList.END_REG_EXP;
+//        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filter(ext_));
+//        compiling = new ForwardingJavaCompiler(this, facade.getData().getJavaBeans(), StreamZipFile.getFilesInJar().filterEndsWith(CLASS_FILES_EXT));
+//        ForwardingJavaCompiler.initialize(this, facade.isCompileFiles());
+//        for (EntryCust<String, String> e: facade.getData().getJavaBeans().entryList()) {
+//            ForwardingJavaCompiler.addSourceCode(e.getKey(), e.getValue());
+//        }
+//        ThreadInvoker.invokeNow(new AfterCompiling(this, false, false));
+        ThreadInvoker.invokeNow(getThreadFactory(),new AfterLoadZip(this), getFrames());
+//        loadingConf.setLastRom(_fileName);
+//        pack();
+//        //reInitAllSession
+//        for (FrameHtmlData f: htmlDialogs) {
+//            f.reInitAllSession(Resources.CONFIG_DATA, facade.getLanguage(), facade.getData(), facade.getData().getWebFiles());
+//            f.pack();
+//        }
+//        if (battle != null) {
+//            battle.closeWindows();
+//        }
+    }
+
+    public void afterLoadZip() {
+//        MenuItemUtils.setEnabledMenu(dataGame,true);
+        MenuItemUtils.setEnabledMenu(gameLoad,true);
+        MenuItemUtils.setEnabledMenu(gameSave,false);
+//        if (exporting != null && exporting.isAlive()) {
+//            return;
+//        }
+//        if (loadingConf == null) {
+//            return;
+//        }
+//        AbstractNameValidating def_ = getFrames().getValidator();
+//        if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
+//            loadingConf.setExport("");
+//        }
+//        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
+//        exporting.start();
+    }
+    @Override
+    public AikiFactory getAikiFactory() {
+        return aikiFactory;
+    }
+
+    public DialogServerAiki getDialogServerAiki() {
+        return dialogServerAiki;
+    }
+    public AbsMenuItem getFolderLoad() {
+        return folderLoad;
+    }
+
+    public AbsMenuItem getZipLoad() {
+        return zipLoad;
+    }
+
+    public AbsMenuItem getGameLoad() {
+        return gameLoad;
+    }
+
+    public LoadFlag getLoadFlag() {
+        return loadFlag;
+    }
+
+    public boolean isCards() {
+        return cards;
+    }
+
+    public void setCards(boolean _c) {
+        this.cards = _c;
+    }
 }

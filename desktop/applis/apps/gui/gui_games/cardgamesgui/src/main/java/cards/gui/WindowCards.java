@@ -369,8 +369,8 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean partieSauvegardee;
 
-    private boolean single = true;
-    private boolean forceBye;
+//    private boolean single = true;
+//    private boolean forceBye;
 
     //file menu
 
@@ -1017,9 +1017,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         }
     }*/
 
-    public boolean isForceBye() {
-        return forceBye;
-    }
+//    public boolean isForceBye() {
+//        return forceBye;
+//    }
 //    public void menuMultiGames() {
 //        containerGame = noGame();
 //        MenuItemUtils.setEnabledMenu(change,false);
@@ -1472,7 +1472,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         if (!(containerGame instanceof ContainerSingle)) {
             return;
         }
-        ((ContainerSingle)containerGame).setPasse(! ((ContainerSingle)containerGame).isPasse());
+        ((ContainerSingle)containerGame).setPasse(!((ContainerSingle)containerGame).isPasse());
     }
     public void displayHelpGame() {
 //        if (!helpGame.isEnabled()) {
@@ -2080,9 +2080,9 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         return fichier_;
     }
 
-    public void setSingle(boolean _single) {
-        single = _single;
-    }
+//    public void setSingle(boolean _single) {
+//        single = _single;
+//    }
 
     public AbsMenu getFile() {
         return file;

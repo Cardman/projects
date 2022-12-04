@@ -1,13 +1,13 @@
 package aiki.gui.components.walk.events;
 
-import aiki.gui.components.walk.ScenePanel;
+import aiki.gui.components.walk.ScenePanelMulti;
 import code.gui.events.AbsActionListener;
 
 public class ManageNetworkEvent implements AbsActionListener {
 
-    private ScenePanel scene;
+    private ScenePanelMulti scene;
 
-    public ManageNetworkEvent(ScenePanel _scene) {
+    public ManageNetworkEvent(ScenePanelMulti _scene) {
         scene = _scene;
     }
 

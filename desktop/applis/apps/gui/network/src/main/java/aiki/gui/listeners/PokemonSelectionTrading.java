@@ -1,13 +1,13 @@
 package aiki.gui.listeners;
-import aiki.gui.components.walk.ScenePanel;
+import aiki.gui.components.walk.*;
 import code.gui.ListSelection;
 import code.gui.SelectionInfo;
 
 public class PokemonSelectionTrading implements ListSelection {
 
-    private ScenePanel window;
+    private ScenePanelMulti window;
 
-    public PokemonSelectionTrading(ScenePanel _window) {
+    public PokemonSelectionTrading(ScenePanelMulti _window) {
         window = _window;
     }
 

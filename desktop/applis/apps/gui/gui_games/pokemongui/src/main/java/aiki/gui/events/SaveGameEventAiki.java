@@ -1,13 +1,13 @@
 package aiki.gui.events;
 
-import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import code.gui.events.AbsActionListener;
 
 public class SaveGameEventAiki implements AbsActionListener {
 
-    private WindowAiki window;
+    private WindowAikiInt window;
 
-    public SaveGameEventAiki(WindowAiki _window) {
+    public SaveGameEventAiki(WindowAikiInt _window) {
         window = _window;
     }
 

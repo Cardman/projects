@@ -3,14 +3,13 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
-import aiki.gui.WindowAiki;
+import aiki.gui.WindowAikiInt;
 import aiki.gui.listeners.PokemonHostEvent;
 import aiki.gui.listeners.PokemonSelectionItems;
 import aiki.gui.listeners.PokemonSelectionMoveTutor;
 import aiki.gui.listeners.PokemonSelectionStorage;
 import aiki.gui.listeners.PokemonSelectionTeam;
 import aiki.gui.listeners.PokemonSelectionTm;
-import aiki.gui.listeners.PokemonSelectionTrading;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.AbsGraphicList;
@@ -43,7 +42,7 @@ public final class TeamPanel {
     private final AbsPlainLabel nbRemainPlaces;
 
     private final AbsPanel container;
-    public TeamPanel(WindowAiki _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
+    public TeamPanel(WindowAikiInt _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
         facade = _facade;
         PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
         liste = _parent.getAikiFactory().getGeneUsPkPanel().createSimple(_parent.getImageFactory(), render_);
@@ -134,8 +133,8 @@ public final class TeamPanel {
         liste.setListener(new PokemonSelectionStorage(_window));
     }
 
-    public void addListenerTrading(ScenePanel _window) {
-        liste.setListener(new PokemonSelectionTrading(_window));
+    public AbsGraphicList<UsablePokemon> getListe() {
+        return liste;
     }
 
 //    public boolean isSingleSelected() {

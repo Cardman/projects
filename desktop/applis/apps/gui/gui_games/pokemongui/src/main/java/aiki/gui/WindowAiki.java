@@ -68,7 +68,7 @@ import code.util.core.*;
 //import code.util.core.NumberUtil;
 //import code.util.core.StringUtil;
 
-public final class WindowAiki extends GroupFrame {
+public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //public final class WindowAiki extends NetGroupFrame
     //implemented SettingInfosAfterCompiler
 
@@ -98,9 +98,9 @@ public final class WindowAiki extends GroupFrame {
 
     private static final String SUCCESSFUL_LOADING = "successfulLoading";
 
-    private static final String TOO_MANY = "tooMany";
+//    private static final String TOO_MANY = "tooMany";
 
-    private static final String NO_TRADE = "noTrade";
+//    private static final String NO_TRADE = "noTrade";
 
     private static final String LAST_SAVED_GAME = "lastSavedGame";
 
@@ -475,14 +475,6 @@ public final class WindowAiki extends GroupFrame {
         }
         scenePanel.initMessages(getLanguageKey());
         battle.getBattle().initMessages();
-    }
-
-    public String getTooManyString() {
-        return messages.getVal(TOO_MANY);
-    }
-
-    public String getNoTradeString() {
-        return messages.getVal(NO_TRADE);
     }
 
     public String getOpenedHtmlString() {
