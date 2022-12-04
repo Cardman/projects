@@ -8,10 +8,9 @@ import cards.belote.enumerations.DeclaresBelote;
 import cards.consts.MixCardsChoice;
 import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
+import code.sml.NavigationCore;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.BoolVal;
@@ -96,7 +95,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
     @Test
     public void init() {
         StringMap<String> other_ = MessBelotePage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         BeloteStandardsRules stds_ = new BeloteStandardsRules();
         NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesBeloteLoader(), PagesBelotes.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));

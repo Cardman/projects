@@ -1,4 +1,4 @@
-package code.formathtml.util;
+package code.sml;
 import code.util.StringList;
 
 
@@ -8,6 +8,9 @@ public class NodeInformations {
     private String inputClass = "";
     private String validator = "";
     private StringList value = new StringList();
+
+    private boolean enabled;
+
     public String getId() {
         return id;
     }
@@ -34,4 +37,13 @@ public class NodeInformations {
     public void setValue(StringList _value) {
         value = _value;
     }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean _enabled) {
+        enabled = _enabled;
+    }
+
 }

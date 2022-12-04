@@ -117,7 +117,7 @@ public final class Navigation {
     }
 
     public void processRendFormErrors(Element _formElement, long _id,
-                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, HtmlPage _page) {
+                                      StringMap<String> _errors, StringMap<StringList> _errorsArgs, HtmlPageInt _page) {
         StringList idFormats_ = _page.getFormatIdMap().getVal(_id);
         for (String i : _errors.getKeys()) {
             int count_ = 0;
@@ -150,7 +150,7 @@ public final class Navigation {
         core.setupText(core.getDocument().export(),session.getRendKeyWords().getKeyWordHead(),session.getRendKeyWords().getAttrTitle());
     }
 
-    private void in(Element _formElement, long _id, HtmlPage _page) {
+    private void in(Element _formElement, long _id, HtmlPageInt _page) {
         ElementList inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordInput());
         int lengthInputs_ = inputs_.getLength();
         for (int i = IndexConstants.FIRST_INDEX; i < lengthInputs_; i++) {
@@ -194,7 +194,7 @@ public final class Navigation {
         }
     }
 
-    private void se(Element _formElement, long _id, HtmlPage _page) {
+    private void se(Element _formElement, long _id, HtmlPageInt _page) {
         ElementList inputs_;
         int lengthInputs_;
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordSelect());
@@ -216,7 +216,7 @@ public final class Navigation {
         }
     }
 
-    private void ta(Element _formElement, long _id, HtmlPage _page) {
+    private void ta(Element _formElement, long _id, HtmlPageInt _page) {
         ElementList inputs_;
         int lengthInputs_;
         inputs_ = _formElement.getElementsByTagName(session.getRendKeyWords().getKeyWordTextarea());
@@ -235,7 +235,7 @@ public final class Navigation {
         }
     }
 
-    private static NodeInformations getValue(long _id, String _idInput, HtmlPage _htmlPage) {
+    private static NodeInformations getValue(long _id, String _idInput, HtmlPageInt _htmlPage) {
         NodeContainer val_;
         if (_idInput.isEmpty()) {
             val_ = null;

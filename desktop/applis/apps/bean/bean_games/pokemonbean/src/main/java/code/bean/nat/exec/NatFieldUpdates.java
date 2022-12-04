@@ -2,7 +2,7 @@ package code.bean.nat.exec;
 
 import code.bean.nat.NatCaller;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.formathtml.util.FieldUpdates;
+import code.sml.FieldUpdates;
 import code.util.CustList;
 
 public final class NatFieldUpdates extends FieldUpdates {

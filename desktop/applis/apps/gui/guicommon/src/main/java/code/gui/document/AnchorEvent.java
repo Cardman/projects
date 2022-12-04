@@ -1,11 +1,11 @@
 package code.gui.document;
 
-import code.formathtml.HtmlPage;
 import code.gui.AbsCtrlKeyState;
 import code.gui.AbsMouseButtons;
 import code.gui.AbsMouseLocation;
 import code.gui.events.AbsMouseListenerIntRel;
 import code.sml.Element;
+import code.sml.HtmlPageInt;
 
 public final class AnchorEvent implements AbsMouseListenerIntRel {
 
@@ -25,7 +25,7 @@ public final class AnchorEvent implements AbsMouseListenerIntRel {
         for (DualAnimatedImage d: page.getAnims()) {
             d.stop();
         }
-        HtmlPage htmlPage_ = page.getStandards().getPage();
+        HtmlPageInt htmlPage_ = page.getStandards().getPage();
         htmlPage_.setForm(false);
         htmlPage_.setUrl(nb);
         page.getGene().getThreadFactory().newStartedThread(EventThreadActions.inst(page, false,anchor));

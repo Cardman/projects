@@ -2,7 +2,7 @@ package code.bean.nat.exec;
 
 import code.bean.nat.exec.blocks.NatRendElem;
 import code.bean.nat.exec.blocks.NatRendForm;
-import code.formathtml.exec.blocks.RendBlock;
+import code.sml.NavigationCore;
 import code.util.CustList;
 import code.util.LongTreeMap;
 import code.util.Longs;
@@ -14,7 +14,7 @@ public final class NatImportingPageForm extends NatImportingPageAbs {
         NatAbstractStask last_ = getRendBlockStacks().last();
         if (last_ instanceof NatIfStack) {
             if (((NatIfStack)last_).getBlock() instanceof NatRendElem) {
-                getRendReadWrite().setWrite(RendBlock.getParentNode(getRendReadWrite()));
+                getRendReadWrite().setWrite(NavigationCore.getParentNode(getRendReadWrite()));
             }
             if (((NatIfStack)last_).getBlock() instanceof NatRendForm) {
                 CustList<LongTreeMap<NatNodeContainer>> map_ = ((NatRendReadWriteAdv)getRendReadWrite()).getConf().getContainersMapStack();

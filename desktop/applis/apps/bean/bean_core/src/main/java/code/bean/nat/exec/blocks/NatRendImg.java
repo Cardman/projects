@@ -2,8 +2,8 @@ package code.bean.nat.exec.blocks;
 
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
-import code.formathtml.exec.blocks.RendImg;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.sml.Node;
 import code.util.StringMap;
 
@@ -22,6 +22,6 @@ public final class NatRendImg extends NatRendElement {
     }
 
     public static void prImg(NatConfigurationCore _cont, Element _nextWrite, String _pageName) {
-        RendImg.prImg(_cont.getNat(),_cont.getRendKeyWords().getKeyWordsAttrs(), _nextWrite, _pageName);
+        NavigationCore.prImg(_cont.getNat(),_cont.getRendKeyWords().getKeyWordsAttrs(), _nextWrite, _pageName);
     }
 }

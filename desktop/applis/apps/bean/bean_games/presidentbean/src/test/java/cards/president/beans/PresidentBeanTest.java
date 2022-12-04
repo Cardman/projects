@@ -5,10 +5,9 @@ import cards.president.*;
 import cards.president.enumerations.CardPresident;
 import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
+import code.sml.NavigationCore;
 import code.util.*;
 import code.util.consts.Constants;
 import org.junit.Test;
@@ -43,7 +42,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
     @Test
     public void init1() {
         StringMap<String> other_ = MessPresidentPage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
         NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
         stds_.setDataBase(build(fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4), (byte) 2, (byte) 1, (byte) 3, (byte) 4));
@@ -56,7 +55,7 @@ public final class PresidentBeanTest extends BeanPresidentCommonTs {
     @Test
     public void init2() {
         StringMap<String> other_ = MessPresidentPage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         PresidentStandardsResults stds_ = new PresidentStandardsResults();
         NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new ResultsPresidentLoader(),PagesPresidents.build(),other_,other_,"");
         stds_.setDataBase(build(game(),fourPseudos("0", "1", "2", "3"), oneDeal(1, 3, 2, 4)));

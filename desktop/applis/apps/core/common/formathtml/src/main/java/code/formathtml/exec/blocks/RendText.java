@@ -4,6 +4,7 @@ import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
+import code.sml.NavigationCore;
 import code.sml.RendReadWrite;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
@@ -31,7 +32,7 @@ public final class RendText extends RendLeaf implements RendWithEl {
         if (_ctx.callsOrException(_rendStack.getStackCall())) {
             return;
         }
-        simpleAppendChild(doc_,rend_,t_);
+        NavigationCore.simpleAppendChild(doc_,rend_,t_);
         processBlock(_cont, _stds, _ctx, _rendStack);
     }
 }

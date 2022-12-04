@@ -12,10 +12,10 @@ import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.FormParts;
-import code.formathtml.exec.blocks.RendBlock;
-import code.formathtml.util.IndexesFormInput;
-import code.formathtml.util.NodeInformations;
+import code.sml.FormParts;
+import code.sml.IndexesFormInput;
+import code.sml.NavigationCore;
+import code.sml.NodeInformations;
 import code.sml.Document;
 import code.sml.Element;
 import code.util.*;
@@ -56,12 +56,13 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
 //            objClasses_ = new StringList(NumParsers.getSingleNameOrEmpty(settable_.getResultClass().getNames()));
         Struct arg_ = pair_.getArgument();
         String name_ = _read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrName());
-        return prStack(_cont,_write,_f, new NatFetchedObjs(obj_, stack_,arg_), _rendStackCall.getLastPage().getGlobalArgument(),_rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), RendBlock.DOT, name_));
+        prStack(_cont,_write,_f, new NatFetchedObjs(obj_, stack_), _rendStackCall, StringUtil.concat(_rendStackCall.getLastPage().getBeanName(), DOT, name_));
+        return arg_;
     }
 
-    public static Struct prStack(NatConfigurationCore _cont, Element _write, NatFieldUpdates _f, NatFetchedObjs _fetch, Struct _globalArgument, NatRendStackCall _rend, String _concat) {
+    public static void prStack(NatConfigurationCore _cont, Element _write, NatFieldUpdates _f, NatFetchedObjs _fetch, NatRendStackCall _rend, String _concat) {
         if ( _fetch.getStack().isEmpty()) {
-            return _fetch.getArg();
+            return;
         }
         long found_ = -1;
         if (_f.isRad()) {
@@ -81,11 +82,10 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
             long old_ = currentInput_;
             nodeCont_.setAllObject(_fetch.getObj());
             nodeCont_.setOpsWrite(opsWrite_);
-            nodeCont_.setBean(_globalArgument);
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
             nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getKeyWordsAttrs().getAttrValidator())));
-            nodeInfos_.setId(RendBlock.getId(_cont.getNat(),_write, _cont.getRendKeyWords()));
-            nodeInfos_.setInputClass(RendBlock.getInputClass(_cont.getNat(), _write, _f, _cont.getRendKeyWords()));
+            nodeInfos_.setId(NavigationCore.getId(_cont.getNat(),_write, _cont.getRendKeyWords()));
+            nodeInfos_.setInputClass(NavigationCore.getInputClass(_cont.getNat(), _write, _f, _cont.getRendKeyWords()));
             _fetch.getStack().last().put(currentInput_, nodeCont_);
             currentInput_++;
             inputs_.set(inputs_.getLastIndex(),currentInput_);
@@ -95,7 +95,6 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         }
 //        attributesNames_.removeAllString(NUMBER_INPUT);
         _write.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrName(), _concat);
-        return _fetch.getArg();
     }
 
     public static void fetchValue(NatConfigurationCore _cont, Element _read, Element _write, CustList<NatExecOperationNode> _ops, NatRendStackCall _rendStackCall) {
@@ -169,8 +168,8 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
     }
 
     public static void incrAncNbNonCont(NatConfigurationCore _cont, Element _nextEltWrite, IndexesFormInput _indexes) {
-        RendBlock.incrAncNb(_cont.getNat(), _nextEltWrite, _indexes, _cont.getRendKeyWords());
-        RendBlock.incr(_indexes);
+        _nextEltWrite.setAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrNa(), Long.toString(_indexes.getAnchor()));
+        IndexesFormInput.incr(_indexes);
     }
 
     public static StringList renderAltListNat(NatExecTextPart _textPart, NatRendStackCall _rendStackCall) {

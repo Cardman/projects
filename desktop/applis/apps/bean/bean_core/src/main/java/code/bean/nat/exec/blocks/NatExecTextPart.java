@@ -1,7 +1,7 @@
 package code.bean.nat.exec.blocks;
 
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.formathtml.exec.blocks.ExecTextPart;
+import code.sml.ExecTextPart;
 import code.util.CustList;
 
 public final class NatExecTextPart extends ExecTextPart {

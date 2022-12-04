@@ -14,11 +14,7 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.opers.*;
-import code.expressionlanguage.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.*;
-import code.formathtml.analyze.blocks.*;
-import code.formathtml.util.*;
 import code.maths.*;
 import code.scripts.pages.aiki.*;
 import code.sml.*;
@@ -130,7 +126,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
     public void init() {
         FacadeGame f_ = facade();
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkData pk_ = new PkData();
         StringMap<Document> b_ = PagesInit.build();
@@ -160,7 +156,7 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         NatFieldUpdates up_ = new NatFieldUpdates();
         new NatRendInput(radi_,new StringMap<NatExecTextPart>(),new StringMap<NatExecTextPart>(),exps2_,exps2_,null, up_).processEl(new NatConfigurationCore(), r_);
         PokemonStandards.getStructToBeValidatedPrim(new StringList(""),PokemonStandards.PRIM_BOOLEAN);
-        PokemonStandards.getStructToBeValidatedPrim(new StringList(BeanLgNames.ON),PokemonStandards.PRIM_BOOLEAN);
+        PokemonStandards.getStructToBeValidatedPrim(new StringList(PokemonStandards.ON),PokemonStandards.PRIM_BOOLEAN);
         CustList<NatExecOperationNode> exps_ = new CustList<NatExecOperationNode>();
         exps_.add(new NatSettableFieldOperation(true,0,new NatExecFieldOperationContent(new NatAnaFieldOperationContent()),new NatExecSettableOperationContent(new NatAnaSettableOperationContent())));
         PokemonStandards.redir(NullStruct.NULL_VALUE,new StringList(""), exps_,new StringList(""),r_);
@@ -186,8 +182,8 @@ public final class WelcomeBeanTest extends InitDbWelcome {
         st_.add(second_);
         r_.getFormParts().getInputs().add(0L);
         up_.setRad(true);
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<Struct>(), st_,NullStruct.NULL_VALUE),NullStruct.NULL_VALUE,r_,"");
-        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<Struct>(), st_,NullStruct.NULL_VALUE),NullStruct.NULL_VALUE,r_,"");
+        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<Struct>(), st_), r_,"");
+        NatRendElementForm.prStack(new NatConfigurationCore(),b_.getValue(0).createElement(""),up_,new NatFetchedObjs(new CustList<Struct>(), st_), r_,"");
         NatExecTextPart txtPart_ = new NatExecTextPart();
         txtPart_.setOpExp(new CustList<CustList<NatExecOperationNode>>());
         txtPart_.getOpExp().add(exps_);

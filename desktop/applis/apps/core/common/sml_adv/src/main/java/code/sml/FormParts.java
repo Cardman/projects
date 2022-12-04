@@ -1,12 +1,11 @@
-package code.formathtml;
+package code.sml;
 
-import code.formathtml.util.IndexesFormInput;
 import code.util.CustList;
 import code.util.LongMap;
 import code.util.Longs;
 import code.util.StringList;
 
-public abstract class FormParts {
+public class FormParts {
 
     private IndexesFormInput indexes;
 
@@ -15,8 +14,6 @@ public abstract class FormParts {
     private Longs formsNb = new Longs();
     private Longs inputs = new Longs();
     private long currentForm;
-    protected FormParts(){
-    }
 
     public void initForms() {
         indexes = new IndexesFormInput();

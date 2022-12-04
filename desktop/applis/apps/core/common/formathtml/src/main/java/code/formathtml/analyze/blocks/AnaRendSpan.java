@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -28,7 +29,7 @@ public final class AnaRendSpan extends AnaRendElement implements AnaRendElementA
         _page.zeroOffset();
         rootFor = getRootAnalyzedOperations(0,_anaDoc,_page,resultExpressionFor);
         for (String l: _anaDoc.getLanguages()) {
-            formatted.addEntry(l,EMPTY_STRING);
+            formatted.addEntry(l, NavigationCore.EMPTY_STRING);
         }
         String valueMessage_ = getRead().getAttribute(StringUtil.concat(_anaDoc.getPrefix(),_anaDoc.getRendKeyWords().getAttrValueMessage()));
         if (!valueMessage_.isEmpty()) {

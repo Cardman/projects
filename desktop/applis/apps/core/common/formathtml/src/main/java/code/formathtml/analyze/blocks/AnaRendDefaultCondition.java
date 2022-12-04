@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.sml.NavigationCore;
 
 public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
 
@@ -29,7 +30,7 @@ public final class AnaRendDefaultCondition extends AnaRendSwitchPartCondition {
             un_.setIndexFile(getOffset());
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDef(),
                     _page.getKeyWords().getKeyWordDefault(),
-                    EMPTY_STRING,
+                    NavigationCore.EMPTY_STRING,
                     _page.getKeyWords().getKeyWordSwitch());
             AnalyzingDoc.addError(un_, _page);
         } else {

@@ -6,7 +6,6 @@ import cards.gui.dialogs.help.HelpIndexes;
 import cards.gui.dialogs.help.HelpIndexesTree;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.AbsMenuItem;
 import code.gui.MenuItemUtils;
 import code.scripts.confs.HelpScriptConfPages;
@@ -16,6 +15,7 @@ import code.scripts.imgs.cards.CardsInit;
 import code.scripts.pages.cards.HelpCards;
 import code.sml.Document;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.sml.Node;
 import code.stream.StreamTextFile;
 import code.util.CustList;
@@ -46,7 +46,7 @@ public final class HelpInitializer implements Runnable {
         StringMap<NatDualConfigurationContext> ct_ = HelpScriptPagesImgs.ct();
         StringMap<Document> built_ = HelpCards.build();
         StringMap<StringMap<String>> builtMs_ = HelpCards.ms();
-        AnaRendBlock.adjustMap(builtMs_);
+        NavigationCore.adjustMap(builtMs_);
         for (String l:Constants.getAvailableLanguages()) {
             HelpIndexesTree tree_ = new HelpIndexesTree();
             Document doc_ = HelpScriptConfPages.infoLg().getVal(l);

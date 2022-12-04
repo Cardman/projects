@@ -9,10 +9,9 @@ import cards.consts.GameType;
 import cards.consts.Role;
 import cards.consts.Suit;
 import code.bean.nat.NatNavigation;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessBelotePage;
 import code.scripts.pages.cards.PagesBelotes;
+import code.sml.NavigationCore;
 import code.util.CustList;
 import code.util.Longs;
 import code.util.StringList;
@@ -78,7 +77,7 @@ public final class DetailsResultsBeloteBeanTest extends BeanBeloteCommonTs {
     @Test
     public void init() {
         StringMap<String> other_ = MessBelotePage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         BeloteStandardsDetailResults stds_ = new BeloteStandardsDetailResults();
         NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new DetailsBeloteLoader(), PagesBelotes.buildDetails(),other_,other_,"");
         stds_.setDataBase(results(game1(), 0));

@@ -4,7 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.formathtml.Configuration;
-import code.formathtml.FormParts;
+import code.sml.FormParts;
 import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -86,7 +86,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 RendReadWrite rend_ = lastPage_.getRendReadWrite();
                 Document doc_ = rend_.getDocument();
                 Text t_ = doc_.createTextNode(EMPTY_STRING);
-                simpleAppendChild(doc_,rend_,t_);
+                NavigationCore.simpleAppendChild(doc_,rend_,t_);
                 t_.appendData(preRend_);
                 processBlock(_cont, _stds, _ctx, _rendStack);
                 return;
@@ -120,7 +120,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
             } else {
                 Text txt_ = (Text) read_;
                 Text t_ = ownerDocument_.createTextNode(txt_.getTextContent());
-                simpleAppendChild(ownerDocument_,write_,t_);
+                NavigationCore.simpleAppendChild(ownerDocument_,write_,t_);
             }
             while (read_ != null) {
                 Node nextSibling_ = read_.getNextSibling();
@@ -130,7 +130,7 @@ public final class RendMessage extends RendParentBlock implements RendWithEl {
                 }
                 Element parentNode_ = read_.getParentNode();
                 if (parentNode_ != root_) {
-                    write_ = getParentNode(write_);
+                    write_ = NavigationCore.getParentNode(write_);
                 }
                 read_ = getNode(root_, parentNode_);
             }

@@ -1,10 +1,7 @@
-package code.formathtml.util;
+package code.sml;
 
-public abstract class FieldUpdates {
+public class FieldUpdates {
     private String className = "";
-    protected FieldUpdates() {
-    }
-
 
     public String getClassName() {
         return className;

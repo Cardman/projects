@@ -52,7 +52,7 @@ public final class AnaRendMessage extends AnaRendParentBlock implements AnaRendB
                 roots.add(null);
                 continue;
             }
-            args.add(EMPTY_STRING);
+            args.add(NavigationCore.EMPTY_STRING);
             quoted.add(BoolVal.FALSE);
             escape(_anaDoc, e);
             ResultExpression res_ = resultExpressionList.get(index_);

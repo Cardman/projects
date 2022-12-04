@@ -27,12 +27,17 @@ import code.bean.nat.exec.opers.*;
 import code.bean.nat.exec.variables.*;
 import code.bean.nat.fwd.*;
 import code.expressionlanguage.structs.*;
-import code.formathtml.*;
-import code.formathtml.util.*;
 import code.maths.*;
+import code.sml.HtmlPageInt;
+import code.sml.NavigationCore;
 import code.util.*;
 import code.util.core.*;
 public abstract class PokemonStandards extends BeanNatCommonLgNames implements BeanNatCommonLgNamesForm {
+
+    public static final String ON = "on";
+
+    public static final String EMPTY_STRING = "";
+
     public static final String TYPE_ACTIVITY_OF_MOVE = "aiki.game.fight.ActivityOfMove";
     public static final String TYPE_MOVE_TARGET = "aiki.game.fight.util.MoveTarget";
     public static final String TYPE_TARGET_COORDS = "aiki.game.fight.TargetCoords";
@@ -140,7 +145,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
 
     @Override
-    public HtmlPage getPage() {
+    public HtmlPageInt getPage() {
         return getNatPage();
     }
 
@@ -210,7 +215,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         LongTreeMap< NatNodeContainer> containers_ = containersMap_.getVal(lg_);
         for (EntryCust<Long, NatNodeContainer> e: containers_.entryList()) {
             NatNodeContainer nCont_ = e.getValue();
-            if (!nCont_.isEnabled()) {
+            if (!nCont_.getNodeInformation().isEnabled()) {
                 continue;
             }
             Struct res_ = convert(nCont_);
@@ -221,17 +226,17 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public static Struct convert(NatNodeContainer _container) {
         String className_ = _container.getNodeInformation().getInputClass();
-        StringList values_ = _container.getValue();
+        StringList values_ = _container.getNodeInformation().getValue();
         return getStructToBeValidated(values_, className_);
     }
 
     public static Struct getStructToBeValidated(StringList _values, String _className) {
+        String value_ = NavigationCore.oneElt(_values);
         if (StringUtil.quickEq(_className,TYPE_RATE)) {
-            String value_ = BeanLgNames.oneElt(_values);
             return new RateStruct(RateStruct.convertToRate(str(value_)));
         }
         if (StringUtil.quickEq(_className, STRING)) {
-            return BeanLgNames.wrapStd(_values);
+            return new StringStruct(value_);
         }
         return getStructToBeValidatedPrim(_values, _className);
     }
@@ -250,7 +255,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
 
     public static void setRendObject(NatNodeContainer _nodeContainer,
                                      Struct _attribute) {
-        Struct obj_ = _nodeContainer.getUpdated();
+        Struct obj_ = _nodeContainer.getAllObject().first();
         NatCaller wr_ = _nodeContainer.getOpsWrite();
         wr_.re(obj_,new Struct[]{_attribute});
     }
@@ -408,7 +413,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
     }
     public static Struct getStructToBeValidatedPrim(StringList _values, String _className) {
         if (StringUtil.quickEq(_className,PRIM_BOOLEAN)) {
-            return BooleanStruct.of(StringUtil.quickEq(_values.first(),BeanLgNames.ON));
+            return BooleanStruct.of(StringUtil.quickEq(_values.first(),ON));
         }
         return new LongStruct(NumberUtil.parseLongZero(_values.first()));
     }

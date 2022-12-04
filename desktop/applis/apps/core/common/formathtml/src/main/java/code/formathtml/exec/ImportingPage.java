@@ -12,6 +12,7 @@ import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.blocks.*;
 import code.formathtml.exec.stacks.*;
 import code.formathtml.util.DefNodeContainer;
+import code.sml.NavigationCore;
 import code.util.*;
 
 public final class ImportingPage extends AbsImportingPage {
@@ -149,7 +150,7 @@ public final class ImportingPage extends AbsImportingPage {
         RendAbstractStask last_ = rendBlockStacks.last();
         if (last_ instanceof RendIfStack) {
             if (((RendIfStack)last_).getBlock() instanceof RendElem) {
-                rendReadWrite.setWrite(RendBlock.getParentNode(rendReadWrite));
+                rendReadWrite.setWrite(NavigationCore.getParentNode(rendReadWrite));
             }
             if (((RendIfStack)last_).getBlock() instanceof RendForm) {
                 CustList<LongTreeMap<DefNodeContainer>> map_ = rendReadWrite.getConf().getContainersMapStack();

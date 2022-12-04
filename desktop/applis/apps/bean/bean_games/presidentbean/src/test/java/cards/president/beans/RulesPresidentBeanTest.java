@@ -5,10 +5,9 @@ import cards.president.RulesPresident;
 import cards.president.enumerations.EqualtyPlaying;
 import cards.president.enumerations.PresidentResoucesAccess;
 import code.bean.nat.NatNavigation;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessPresidentPage;
 import code.scripts.pages.cards.PagesPresidents;
+import code.sml.NavigationCore;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import org.junit.Test;
@@ -117,7 +116,7 @@ public final class RulesPresidentBeanTest extends BeanPresidentCommonTs {
     @Test
     public void init() {
         StringMap<String> other_ = MessPresidentPage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         PresidentStandardsRules stds_ = new PresidentStandardsRules();
         NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesPresidentLoader(),PagesPresidents.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(true, true, true, true, true, 4, 1));

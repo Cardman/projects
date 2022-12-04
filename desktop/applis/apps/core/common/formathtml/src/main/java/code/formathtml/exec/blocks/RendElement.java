@@ -12,6 +12,7 @@ import code.formathtml.exec.stacks.RendIfStack;
 import code.formathtml.util.BeanLgNames;
 import code.sml.Document;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.sml.Node;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -48,7 +49,7 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
             return;
         }
         Document ownerDocument_ = rw_.getDocument();
-        Element created_ = appendChild(ownerDocument_, read);
+        Element created_ = NavigationCore.appendChild(ownerDocument_, read);
         for (EntryCust<String, CustList<RendDynOperationNode>> e: execAttributesText.entryList()) {
             IdMap<RendDynOperationNode, ArgumentsPair> args_ = RenderExpUtil.getAllArgs(e.getValue(), _ctx, _rendStack);
             String txt_ = RendInput.idRad(args_,_ctx,_rendStack);
@@ -69,7 +70,7 @@ public abstract class RendElement extends RendParentBlock implements RendElem, R
             return;
         }
         if (!after) {
-            simpleAppendChild(ownerDocument_, rw_, created_);
+            NavigationCore.simpleAppendChild(ownerDocument_, rw_, created_);
         }
         addEltStack(ip_, rw_, created_, this);
     }

@@ -12,6 +12,9 @@ public abstract class EquallableSmlAdvUtil {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
     }
+    public static void assertNull(Node _value) {
+        Assert.assertNull(_value);
+    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }

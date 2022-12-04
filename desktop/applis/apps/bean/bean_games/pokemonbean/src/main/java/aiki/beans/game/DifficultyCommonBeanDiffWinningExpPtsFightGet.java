@@ -1,12 +1,11 @@
 package aiki.beans.game;
 
-import aiki.beans.PokemonBeanStruct;
-import code.bean.nat.NatCaller;
-import code.expressionlanguage.structs.Struct;
-import code.formathtml.util.BeanLgNames;
+import aiki.beans.*;
+import code.bean.nat.*;
+import code.expressionlanguage.structs.*;
 public class DifficultyCommonBeanDiffWinningExpPtsFightGet implements NatCaller{
     @Override
     public Struct re(Struct _instance, Struct[] _args){
-        return BeanLgNames.wrapStd(((DifficultyCommonBean)((PokemonBeanStruct)_instance).getInstance()).getDiffWinningExpPtsFight());
+        return new StringStruct(((DifficultyCommonBean)((PokemonBeanStruct)_instance).getInstance()).getDiffWinningExpPtsFight());
     }
 }

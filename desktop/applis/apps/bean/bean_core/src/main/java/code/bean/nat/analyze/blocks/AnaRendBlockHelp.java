@@ -3,7 +3,6 @@ package code.bean.nat.analyze.blocks;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.sml.NatAnalyzingDoc;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.*;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.StringList;
@@ -11,6 +10,9 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class AnaRendBlockHelp {
+    public static final String LEFT_PAR = "(";
+    public static final String RIGHT_PAR = ")";
+    public static final String COMMA = ",";
     static final String TMP_LOC = "tmpLoc";
     static final String EMPTY_STRING = "";
 
@@ -61,14 +63,14 @@ public final class AnaRendBlockHelp {
         }
     }
     public static StringMap<String> getPre(String _value, NatAnalyzingDoc _analyzingDoc) {
-        StringList elts_ = StringUtil.splitStrings(_value, AnaRendBlock.COMMA);
+        StringList elts_ = StringUtil.splitStrings(_value, COMMA);
         String var_ = elts_.first();
         String fileName_ = getProperty(var_, _analyzingDoc);
         StringMap<String> pres_ = new StringMap<String>();
         for (String l: _analyzingDoc.getLanguages()) {
             StringMap<String> files_ = _analyzingDoc.getFiles();
             String content_ = tryGetContent(l, fileName_, files_, _analyzingDoc);
-            StringMap<String> messages_ = AnaRendBlock.getMessages(content_);
+            StringMap<String> messages_ = NavigationCore.getMessages(content_);
             String key_ = elts_.last();
             String format_ = messages_.getVal(key_);
             pres_.addEntry(l,format_);

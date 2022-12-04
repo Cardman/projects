@@ -14,8 +14,8 @@
 	<packaging>jar</packaging>
 	<dependencies>
 		<dependency>
-            <groupId>formathtml</groupId>
-            <artifactId>formathtml</artifactId>
+            <groupId>expressionlanguage</groupId>
+            <artifactId>expressionlanguage</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
 		<dependency>

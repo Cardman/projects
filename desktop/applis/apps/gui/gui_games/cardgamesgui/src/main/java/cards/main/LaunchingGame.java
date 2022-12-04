@@ -8,11 +8,11 @@ import cards.gui.dialogs.FileConst;
 import cards.gui.interfaces.ResultCardsServerInteractImpl;
 import cards.president.beans.*;
 import cards.tarot.beans.*;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.pages.cards.*;
+import code.sml.NavigationCore;
 import code.threads.AbstractThread;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -66,7 +66,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> belote_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesBelote_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessBelotePage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         for (String l: _lgs) {
             rulesBelote_.addEntry(l,new PreparedPagesCards(l,new BeloteStandardsRules(), new RulesBeloteLoader(), PagesBelotes.buildRules(), other_));
         }
@@ -89,7 +89,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> president_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesPresident_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessPresidentPage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         for (String l: _lgs) {
             rulesPresident_.addEntry(l,new PreparedPagesCards(l,new PresidentStandardsRules(), new RulesPresidentLoader(), PagesPresidents.buildRules(), other_));
         }
@@ -107,7 +107,7 @@ public final class LaunchingGame implements Runnable {
         StringMap<StringMap<PreparedPagesCards>> tarot_ = new StringMap<StringMap<PreparedPagesCards>>();
         StringMap<PreparedPagesCards> rulesTarot_ = new StringMap<PreparedPagesCards>();
         StringMap<String> other_ = MessTarotPage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         for (String l: _lgs) {
             rulesTarot_.addEntry(l,new PreparedPagesCards(l,new TarotStandardsRules(), new RulesTarotLoader(), PagesTarots.buildRules(), other_));
         }

@@ -3,15 +3,10 @@ package code.bean.nat.exec.blocks;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.structs.*;
-import code.formathtml.exec.blocks.RendBlock;
-import code.sml.RendReadWrite;
-import code.sml.Document;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
-import code.sml.FullDocument;
+import code.sml.*;
 import code.util.*;
+import code.util.core.BoolVal;
 import code.util.core.StringUtil;
 
 public final class RendBlockHelp {
@@ -61,8 +56,8 @@ public final class RendBlockHelp {
     public static Element appendChild(Document _doc, Element _parent, Element _read) {
         String tagName_ = _read.getTagName();
         Element currentNode_ = _doc.createElement(tagName_);
-        RendBlock.setNormalAttributes(_read, currentNode_);
-        RendBlock.simpleAppendChild(_doc, _parent, currentNode_);
+        NavigationCore.setNormalAttributes(_read, currentNode_);
+        NavigationCore.simpleAppendChild(_doc, _parent, currentNode_);
         return currentNode_;
     }
     private static boolean isNextIfParts(NatBlock _n) {
@@ -126,7 +121,7 @@ public final class RendBlockHelp {
             processBlockAndRemove(_rendStack, _cond);
             return;
         }
-        ConditionReturn toEnter_ = evaluateCondition(_rendStack, _cond.getCondition());
+        BoolVal toEnter_ = evaluateCondition(_rendStack, _cond.getCondition());
         NatIfStack if_ = new NatIfStack();
         if_.setLastBlock(_cond);
         NatBlock n_ = _cond.getNextSibling();
@@ -137,7 +132,7 @@ public final class RendBlockHelp {
         if_.setBlock(_cond);
         if_.setCurrentVisitedBlock(_cond);
         ip_.addBlock(if_);
-        if (toEnter_ == ConditionReturn.YES) {
+        if (toEnter_ == BoolVal.TRUE) {
             if_.setEntered(true);
             rw_.setRead(_cond.getFirstChild());
         } else {
@@ -158,8 +153,8 @@ public final class RendBlockHelp {
         }
         if_.setCurrentVisitedBlock(_cond);
         if (!((NatIfStack) if_).isEntered()) {
-            ConditionReturn assert_ = evaluateCondition(_rendStackCall, _cond.getCondition());
-            if (assert_ == ConditionReturn.YES) {
+            BoolVal assert_ = evaluateCondition(_rendStackCall, _cond.getCondition());
+            if (assert_ == BoolVal.TRUE) {
                 ((NatIfStack) if_).setEntered(true);
                 rw_.setRead(_cond.getFirstChild());
                 return;
@@ -193,12 +188,12 @@ public final class RendBlockHelp {
         processBlockAndRemove(_rendStackCall, _cond);
     }
 
-    private static ConditionReturn evaluateCondition(NatRendStackCall _rendStackCall, NatRendOperationNodeListOff _condition) {
+    private static BoolVal evaluateCondition(NatRendStackCall _rendStackCall, NatRendOperationNodeListOff _condition) {
         Struct arg_ = BeanNatCommonLgNames.getAllArgs(_condition.getList(), _rendStackCall).lastValue().getArgument();
         if (BooleanStruct.isTrue(arg_)) {
-            return ConditionReturn.YES;
+            return BoolVal.TRUE;
         }
-        return ConditionReturn.NO;
+        return BoolVal.FALSE;
     }
 
     static Struct nasNextCom(Struct _arg) {

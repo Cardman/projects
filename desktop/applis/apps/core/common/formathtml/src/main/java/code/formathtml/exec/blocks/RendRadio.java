@@ -13,11 +13,10 @@ import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.DefFieldUpdates;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.sml.Node;
-import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import code.util.StringMap;
-import code.util.core.StringUtil;
 
 public final class RendRadio extends RendInput {
     private final CustList<RendDynOperationNode> idRadio;
@@ -58,17 +57,10 @@ public final class RendRadio extends RendInput {
             if (_ctx.callsOrException(_rendStack.getStackCall())) {
                 return true;
             }
-            procDefValue(elt_, strObj_, _cont.getRendKeyWords().group());
+            NavigationCore.procDefValue(elt_, strObj_, _cont.getRendKeyWords().group());
         }
         prStack(_cont,elt_,arg_,_rendStack.getLastPage().getGlobalArgument(),_rendStack);
         return _ctx.callsOrException(_rendStack.getStackCall());
     }
 
-    public static void procDefValue(Element _elt, String _strObj, RendKeyWordsGroup _k) {
-        if (StringUtil.quickEq(_elt.getAttribute(_k.getKeyWordsAttrs().getAttrValue()), _strObj)) {
-            _elt.setAttribute(_k.getKeyWordsAttrs().getAttrChecked(), _k.getKeyWordsAttrs().getAttrChecked());
-        } else {
-            _elt.removeAttribute(_k.getKeyWordsAttrs().getAttrChecked());
-        }
-    }
 }

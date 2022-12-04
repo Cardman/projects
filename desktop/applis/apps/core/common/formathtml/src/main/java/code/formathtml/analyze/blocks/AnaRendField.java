@@ -7,6 +7,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.sml.NavigationCore;
 
 public final class AnaRendField extends AnaRendParentBlock implements AnaRendBuildEl {
     private final String prepare;
@@ -37,7 +38,7 @@ public final class AnaRendField extends AnaRendParentBlock implements AnaRendBui
             _page.zeroOffset();
             _page.setSumOffset(resultExpression.getSumOffset());
             root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
-            _anaDoc.setInternGlobalClass(EMPTY_STRING);
+            _anaDoc.setInternGlobalClass(NavigationCore.EMPTY_STRING);
         }
     }
 

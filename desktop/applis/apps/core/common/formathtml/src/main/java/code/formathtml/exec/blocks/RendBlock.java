@@ -18,7 +18,7 @@ import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
-import code.formathtml.FormParts;
+import code.sml.FormParts;
 import code.formathtml.exec.*;
 import code.formathtml.exec.opers.*;
 import code.formathtml.exec.stacks.*;
@@ -26,6 +26,7 @@ import code.formathtml.fwd.RendGeneLinkTypes;
 import code.formathtml.util.*;
 import code.sml.*;
 import code.util.*;
+import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class RendBlock {
@@ -129,6 +130,34 @@ public abstract class RendBlock {
         return _n instanceof RendAbstractCatchEval || _n instanceof RendFinallyEval;
     }
 
+    private static boolean hasToIncr(ConfigurationCore _cont, Element _nextEltWrite, RendKeyWordsGroup _k) {
+        return StringUtil.quickEq(_nextEltWrite.getTagName(), _k.getKeyWordsTags().getKeyWordAnchor())
+                && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _k.getKeyWordsAttrs().getAttrCommand()))
+                || !_nextEltWrite.getAttribute(_k.getKeyWordsAttrs().getAttrHref()).isEmpty());
+    }
+
+    public static void incrAncNb(ConfigurationCore _cont, Element _nextEltWrite, IndexesFormInput _indexes, RendKeyWordsGroup _k) {
+        if (hasToIncr(_cont, _nextEltWrite, _k)) {
+            _nextEltWrite.setAttribute(_k.getKeyWordsAttrs().getAttrNa(), Long.toString(_indexes.getAnchor()));
+        }
+    }
+
+    public static Element appendedChild(Document _doc, Element _parent, Element _read) {
+        String tagName_ = _read.getTagName();
+        Element currentNode_ = _doc.createElement(tagName_);
+        NavigationCore.setNormalAttributes(_read, currentNode_);
+        NavigationCore.simpleAppendChild(_doc, _parent, currentNode_);
+        return currentNode_;
+    }
+
+    public static void procLink(RendKeyWordsTags _cont, String _fileContent, Document _ownerDocument) {
+        ElementList heads_ = _ownerDocument.getElementsByTagName(_cont.getKeyWordHead());
+        if (_fileContent != null && heads_.getLength() == IndexConstants.ONE_ELEMENT) {
+            Element head_ = heads_.item(IndexConstants.FIRST_INDEX);
+            NavigationCore.prHeader(_cont, _fileContent, _ownerDocument, head_);
+        }
+    }
+
     protected final void setParent(RendParentBlock _b) {
         parent = _b;
     }
@@ -159,13 +188,13 @@ public abstract class RendBlock {
         _nextWrite.setAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn()), _read.getAttribute(StringUtil.concat(_cont.getPrefix(),_cont.getRendKeyWords().getAttrSgn())));
         _nextWrite.setAttribute(_cont.getRendKeyWords().getAttrHref(), EMPTY_STRING);
         incrAncNb(_cont.getRend(), _nextWrite, _rendStackCall.getFormParts().getIndexes(), _cont.getRendKeyWords().group());
-        incr(_rendStackCall.getFormParts().getIndexes());
+        IndexesFormInput.incr(_rendStackCall.getFormParts().getIndexes());
     }
 
     public static void procCstAnc(Configuration _cont, Element _nextWrite, FormParts _formParts) {
         hideLink(_cont, _nextWrite);
         incrAncNb(_cont.getRend(), _nextWrite, _formParts.getIndexes(), _cont.getRendKeyWords().group());
-        incr(_formParts.getIndexes());
+        IndexesFormInput.incr(_formParts.getIndexes());
     }
 
     public static void hideLink(Configuration _cont, Element _nextWrite) {
@@ -174,34 +203,6 @@ public abstract class RendBlock {
         }
     }
 
-    private static boolean hasToIncr(ConfigurationCore _cont, Element _nextEltWrite, RendKeyWordsGroup _k) {
-        return StringUtil.quickEq(_nextEltWrite.getTagName(), _k.getKeyWordsTags().getKeyWordAnchor())
-                && (_nextEltWrite.hasAttribute(StringUtil.concat(_cont.getPrefix(), _k.getKeyWordsAttrs().getAttrCommand()))
-                || !_nextEltWrite.getAttribute(_k.getKeyWordsAttrs().getAttrHref()).isEmpty());
-    }
-
-    public static void incrAncNb(ConfigurationCore _cont, Element _nextEltWrite, IndexesFormInput _indexes, RendKeyWordsGroup _k) {
-        if (hasToIncr(_cont, _nextEltWrite, _k)) {
-            _nextEltWrite.setAttribute(_k.getKeyWordsAttrs().getAttrNa(), Long.toString(_indexes.getAnchor()));
-        }
-    }
-
-    public static void incr(IndexesFormInput _indexes) {
-        long currentAnchor_ = _indexes.getAnchor();
-        currentAnchor_++;
-        _indexes.setAnchor(currentAnchor_);
-    }
-
-    public static void appendText(String _fileContent, Document _ownerDocument, Element _eltStyle) {
-        CustList<Node> chNode_ = _eltStyle.getChildNodes();
-        if (chNode_.isEmpty()) {
-            Text text_ = _ownerDocument.createTextNode(_fileContent);
-            _eltStyle.appendChild(text_);
-        } else {
-            Text text_ = (Text) chNode_.last();
-            text_.appendData(_fileContent);
-        }
-    }
     public static String getCssHref(Configuration _cont,Element _link) {
         if (!StringUtil.quickEq(_link.getAttribute(_cont.getRendKeyWords().getAttrRel()),_cont.getRendKeyWords().getValueStyle())) {
             return null;
@@ -210,54 +211,6 @@ public abstract class RendBlock {
             return null;
         }
         return _link.getAttribute(_cont.getRendKeyWords().getAttrHref());
-    }
-
-    public static Element appendChild(Document _doc, Element _read) {
-        String tagName_ = _read.getTagName();
-        Element currentNode_ = _doc.createElement(tagName_);
-        setNormalAttributes(_read, currentNode_);
-        return currentNode_;
-    }
-
-    public static Element appendedChild(Document _doc, Element _parent, Element _read) {
-        String tagName_ = _read.getTagName();
-        Element currentNode_ = _doc.createElement(tagName_);
-        setNormalAttributes(_read, currentNode_);
-        simpleAppendChild(_doc, _parent, currentNode_);
-        return currentNode_;
-    }
-
-    public static void simpleAppendChild(Document _doc, RendReadWrite _rw, Node _currentNode) {
-        simpleAppendChild(_doc,_rw.getWrite(),_currentNode);
-    }
-    public static void simpleAppendChild(Document _doc, Element _parent, Node _currentNode) {
-        if (_parent == null) {
-            _doc.appendChild(_currentNode);
-        } else {
-            _parent.appendChild(_currentNode);
-        }
-    }
-    public static Element getParentNode(RendReadWrite _rw) {
-        Element wr_ = _rw.getWrite();
-        return getParentNode(wr_);
-    }
-
-    public static Element getParentNode(Element _elt) {
-        if (_elt == null) {
-            return null;
-        }
-        return _elt.getParentNode();
-    }
-
-    public static void setNormalAttributes(Element _read, Element _write) {
-        NamedNodeMap map_ = _read.getAttributes();
-        int nbAttrs_ = map_.getLength();
-        for (int i = 0; i < nbAttrs_; i++) {
-            Attr at_ = map_.item(i);
-            String name_ = at_.getName();
-            String value_ = at_.getValue();
-            _write.setAttribute(name_, value_);
-        }
     }
 
     protected static Argument iteratorMultTable(Struct _arg, BeanLgNames _advStandards, ContextEl _ctx, RendStackCall _rendStack) {
@@ -434,8 +387,8 @@ public abstract class RendBlock {
             nodeCont_.setArrayConverter(_f.isArrayConverter());
             nodeCont_.setBean(_globalArgument.getStruct());
             NodeInformations nodeInfos_ = nodeCont_.getNodeInformation();
-            String id_ = getId(_cont.getRend(), _write, _cont.getRendKeyWords().group());
-            String class_ = getInputClass(_cont.getRend(), _write, _f, _cont.getRendKeyWords().group());
+            String id_ = NavigationCore.getId(_cont.getRend(), _write, _cont.getRendKeyWords().group());
+            String class_ = NavigationCore.getInputClass(_cont.getRend(), _write, _f, _cont.getRendKeyWords().group());
             nodeInfos_.setValidator(_write.getAttribute(StringUtil.concat(_cont.getPrefix(), _cont.getRendKeyWords().getAttrValidator())));
             nodeInfos_.setId(id_);
             nodeInfos_.setInputClass(class_);
@@ -476,22 +429,6 @@ public abstract class RendBlock {
             _write.setAttribute(_cont.getRendKeyWords().getAttrNi(), Long.toString(found_));
         }
         _write.setAttribute(_cont.getRendKeyWords().getAttrName(), _fetch.getInputName());
-    }
-
-    public static String getInputClass(ConfigurationCore _cont, Element _write, FieldUpdates _f, RendKeyWordsGroup _k) {
-        String class_ = _write.getAttribute(StringUtil.concat(_cont.getPrefix(), _k.getKeyWordsAttrs().getAttrClassName()));
-        if (class_.isEmpty()) {
-            class_ = _f.getClassName();
-        }
-        return class_;
-    }
-
-    public static String getId(ConfigurationCore _cont, Element _write, RendKeyWordsGroup _k) {
-        String id_ = _write.getAttribute(_k.getKeyWordsAttrs().getAttrId());
-        if (id_.isEmpty()) {
-            id_ = _write.getAttribute(StringUtil.concat(_cont.getPrefix(), _k.getKeyWordsAttrs().getAttrGroupId()));
-        }
-        return id_;
     }
 
     protected static void fetchValue(Configuration _cont, Element _read, Element _write, CustList<RendDynOperationNode> _ops, CustList<RendDynOperationNode> _opsConv, ContextEl _ctx, RendStackCall _rendStackCall) {

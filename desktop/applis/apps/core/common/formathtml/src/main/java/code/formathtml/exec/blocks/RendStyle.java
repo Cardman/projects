@@ -7,10 +7,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
-import code.sml.Document;
-import code.sml.Element;
-import code.sml.ElementList;
-import code.sml.Node;
+import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -47,8 +44,8 @@ public final class RendStyle extends RendElement {
         }
         ImportingPage ip_ = _rendStack.getLastPage();
         DefRendReadWrite rw_ = ip_.getRendReadWrite();
-        simpleAppendChild(ownerDocument_, rw_, _nextWrite);
-        appendText(StringUtil.join(filesContents_, RETURN_LINE),ownerDocument_,curWr_);
+        NavigationCore.simpleAppendChild(ownerDocument_, rw_, _nextWrite);
+        NavigationCore.appendText(StringUtil.join(filesContents_, RETURN_LINE),ownerDocument_,curWr_);
         return _ctx.callsOrException(_rendStack.getStackCall());
     }
 }

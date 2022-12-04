@@ -9,9 +9,7 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
 import code.bean.nat.fwd.AbstractNatBlockBuilder;
 import code.bean.nat.fwd.DefNatBlockBuilder;
-import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Configuration;
 import code.util.*;
 
 public final class CustBeanLgNames extends BeanNatCommonLgNames {
@@ -156,8 +154,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     public CustBeanLgNames() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -170,8 +168,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     public void buildOther() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -214,22 +212,22 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
         buildRateEq();
         buildSimpleDataBase();
         buildNatTreeMapStringInteger();
-        constructors_ = new CustList<StandardConstructor>();
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         cl_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         getStds().addEntry(TYPE_MY_VALIDATOR, cl_);
-        constructors_ = new CustList<StandardConstructor>();
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         cl_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         getStds().addEntry(TYPE_MY_VALIDATOR_ENUM, cl_);
-        constructors_ = new CustList<StandardConstructor>();
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         cl_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
         getStds().addEntry(TYPE_MY_VALIDATOR_ENUMS, cl_);
-        constructors_ = new CustList<StandardConstructor>();
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         cl_ = new SpecialNatClass(fields_, methods_, TYPE_VALIDATOR);
@@ -238,8 +236,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanOne() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -320,8 +318,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanTwo() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -374,8 +372,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanThree() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -389,8 +387,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanFour() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -411,8 +409,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanFive() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -436,8 +434,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanSix() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -450,8 +448,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanSeven() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -489,8 +487,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanEight() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -563,7 +561,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
         StringList params_;
-        StandardConstructor ctor_;
+//        StandardConstructor ctor_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(fields_, methods_, OBJECT);
         fields_.add(new StandardField(DISPLAYED, PRIM_BOOLEAN, null,null));
@@ -610,8 +608,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildBeanUtil() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -627,8 +625,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildEnumNumber() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -639,8 +637,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildEnumNumbers() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -673,7 +671,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
         StringList params_;
-        StandardConstructor ctor_;
+//        StandardConstructor ctor_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(fields_, methods_, TYPE_LIST);
         //params_ = new StringList(OBJECT);
@@ -694,7 +692,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
         StringList params_;
-        StandardConstructor ctor_;
+//        StandardConstructor ctor_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(fields_, methods_, TYPE_LIST);
         //params_ = new StringList(PRIM_INTEGER);
@@ -708,8 +706,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildEncapsFields() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
@@ -769,8 +767,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildRate() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -785,7 +783,7 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;
         StringList params_;
-        StandardConstructor ctor_;
+//        StandardConstructor ctor_;
         SpecialNatClass cl_;
         cl_ = new SpecialNatClass(fields_, methods_, OBJECT);
         //params_ = new StringList(TYPE_RATE_EQ);
@@ -797,8 +795,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildNatTreeMapStringInteger() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecialNatClass cl_;
@@ -808,8 +806,8 @@ public final class CustBeanLgNames extends BeanNatCommonLgNames {
     private void buildSimpleDataBase() {
         CustList<StandardField> fields_;
         CustList<SpecNatMethod> methods_;
-        CustList<StandardConstructor> constructors_;
-        constructors_ = new CustList<StandardConstructor>();
+//        CustList<StandardConstructor> constructors_;
+//        constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<StandardField>();
         methods_ = new CustList<SpecNatMethod>();
         SpecNatMethod method_;

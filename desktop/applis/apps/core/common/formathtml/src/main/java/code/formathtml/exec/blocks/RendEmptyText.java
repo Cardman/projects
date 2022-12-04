@@ -29,7 +29,7 @@ public final class RendEmptyText extends RendPossibleEmpty {
         RendReadWrite rend_ = lastPage_.getRendReadWrite();
         Document doc_ = rend_.getDocument();
         Text t_ = doc_.createTextNode(EMPTY_STRING);
-        simpleAppendChild(doc_,rend_,t_);
+        NavigationCore.simpleAppendChild(doc_,rend_,t_);
         t_.appendData(expression);
         processBlock(_cont, _stds, _ctx, _rendStack);
     }

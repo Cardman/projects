@@ -6,11 +6,11 @@ import code.bean.nat.exec.NatImportingPageAbs;
 import code.bean.nat.exec.NatLoopBlockStack;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.variables.VariableWrapperNat;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public final class NatRendForEachTable extends NatParentBlock {
@@ -78,8 +78,8 @@ public final class NatRendForEachTable extends NatParentBlock {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
         StringMap<Integer> vars_ = ip_.getVars();
         StringMap<VariableWrapperNat> varsInfos_ = ip_.getRefParams();
-        ConditionReturn has_ = iteratorHasNext(_loopBlock);
-        boolean hasNext_ = has_ == ConditionReturn.YES;
+        BoolVal has_ = iteratorHasNext(_loopBlock);
+        boolean hasNext_ = has_ == BoolVal.TRUE;
         if (hasNext_) {
             incrementLoop(_loopBlock, vars_,varsInfos_, _rendStack);
         } else {
@@ -112,12 +112,12 @@ public final class NatRendForEachTable extends NatParentBlock {
         _ip.removeRefVar(variableNameFirst);
         _ip.removeRefVar(variableNameSecond);
     }
-    private static ConditionReturn iteratorHasNext(NatLoopBlockStack _rendLastStack) {
+    private static BoolVal iteratorHasNext(NatLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
         Struct arg_ = RendBlockHelp.nasNextCom(strIter_);
         if (BooleanStruct.isTrue(arg_)) {
-            return ConditionReturn.YES;
+            return BoolVal.TRUE;
         }
-        return ConditionReturn.NO;
+        return BoolVal.FALSE;
     }
 }

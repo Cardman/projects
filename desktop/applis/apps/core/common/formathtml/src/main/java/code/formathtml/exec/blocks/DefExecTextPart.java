@@ -1,6 +1,7 @@
 package code.formathtml.exec.blocks;
 
 import code.formathtml.exec.opers.RendDynOperationNode;
+import code.sml.ExecTextPart;
 import code.util.CustList;
 
 public final class DefExecTextPart extends ExecTextPart {

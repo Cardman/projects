@@ -1,7 +1,6 @@
 package code.bean.nat;
 
 import code.formathtml.EquallableBeanCoreUtil;
-import code.formathtml.Navigation;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.util.StringMap;

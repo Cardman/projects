@@ -4,7 +4,6 @@ import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.sml.Element;
 import code.sml.NamedNodeMap;
 import code.util.CustList;
@@ -42,7 +41,7 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
         int i_ = 0;
         for (String v:varNames_) {
             _page.getInfosVars().addEntry(v,opExpRoot_.get(i_).getNames());
-            formArg_.add(StringUtil.concat(AnaRendBlock.LEFT_PAR, v,AnaRendBlock.RIGHT_PAR));
+            formArg_.add(StringUtil.concat(AnaRendBlockHelp.LEFT_PAR, v,AnaRendBlockHelp.RIGHT_PAR));
             i_++;
         }
         String pref_ = r_.quickRender(lk_, formArg_);

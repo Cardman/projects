@@ -10,15 +10,12 @@ import aiki.map.enums.Direction;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import code.bean.nat.NatNavigation;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -581,7 +578,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
     @Test
     public void nav1() {
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
         NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
@@ -705,7 +702,7 @@ public final class GameProgressionBeanTest extends InitDbGameProgressionBean {
     @Test
     public void nav2() {
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkProg pk_ = new PkProg();
         NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new ProgGameInit(),PagesInit.buildProg(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);

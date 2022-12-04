@@ -1,7 +1,7 @@
 package code.scripts.confs;
 
 import code.formathtml.EquallableBeanCoreUtil;
-import code.formathtml.structs.BeanInfo;
+//import code.formathtml.structs.BeanInfo;
 import code.util.StringMap;
 import org.junit.Test;
 

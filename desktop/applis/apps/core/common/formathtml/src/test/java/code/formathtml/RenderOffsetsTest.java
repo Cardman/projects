@@ -7,6 +7,7 @@ import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.common.RendBlockUtil;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.sml.NavigationCore;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -475,7 +476,7 @@ public final class RenderOffsetsTest extends CommonRender {
     public void adjust1() {
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry("","");
-        AnaRendBlock.adjust(m_);
+        NavigationCore.adjust(m_);
         assertEq(1,m_.size());
         assertEq("",m_.firstValue());
     }
@@ -485,7 +486,7 @@ public final class RenderOffsetsTest extends CommonRender {
         StringMap<String> m_ = new StringMap<String>();
         m_.addEntry("","");
         l_.addEntry("", m_);
-        AnaRendBlock.adjustMap(l_);
+        NavigationCore.adjustMap(l_);
         assertEq(1,l_.size());
         assertEq(1,l_.firstValue().size());
         assertEq("",l_.firstValue().firstValue());

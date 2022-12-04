@@ -4,14 +4,15 @@ import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.HtmlPage;
-import code.formathtml.util.NodeContainer;
+import code.sml.HtmlPage;
+import code.sml.HtmlPageInt;
+import code.sml.NodeContainer;
 import code.util.CustList;
 import code.util.LongMap;
 import code.util.LongTreeMap;
 import code.util.StringList;
 
-public final class NatHtmlPage extends HtmlPage {
+public final class NatHtmlPage extends HtmlPage implements HtmlPageInt {
     private LongMap<LongTreeMap<NatNodeContainer>> containers = new LongMap<LongTreeMap<NatNodeContainer>>();
 
     private CustList<CustList<NatExecOperationNode>> callsExps = new CustList<CustList<NatExecOperationNode>>();

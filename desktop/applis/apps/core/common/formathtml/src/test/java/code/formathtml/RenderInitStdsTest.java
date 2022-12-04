@@ -22,6 +22,7 @@ import code.formathtml.exec.opers.RendDimensionArrayInstancing;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.util.*;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.util.*;
 import org.junit.Test;
 
@@ -80,7 +81,7 @@ public final class RenderInitStdsTest extends CommonRender {
         RendBlock.setVisited(rendStackCall_.getLastPage(),null);
         assertNull(RendBlock.hasBlockBreak(rendStackCall_.getLastPage(),""));
         assertNull(RendBlock.hasBlockContinue(conf_,null,null, rendStackCall_.getLastPage(),"", rendStackCall_));
-        assertNull(RendBlock.getParentNode((Element)null));
+        assertNull(NavigationCore.getParentNode((Element)null));
         RendDynOperationNode.getArgumentPair(new IdMap<RendDynOperationNode, ArgumentsPair>(),null);
         RendDynOperationNode.getFirstNode(null);
         assertNull(RendDynOperationNode.getParentOrNull(null));

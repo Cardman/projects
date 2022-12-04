@@ -6,13 +6,13 @@ import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.DefLoadingData;
 import aiki.sml.LoadingGame;
 import aiki.sml.Resources;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.gui.SoftApplicationCore;
 import code.gui.TopLeftFrame;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -46,7 +46,7 @@ public final class CreateMainWindowAiki implements Runnable {
     @Override
     public void run() {
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PreparedRenderedPages dataWeb_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new DataGameInit(), PagesInit.build(), builtMessages_, builtOther_, new PkData());
         PreparedRenderedPages fight_ = new PreparedRenderedPages(Resources.ACCESS_TO_DEFAULT_FILES, new FightGameInit(), PagesInit.buildFight(), builtMessages_, builtOther_, new PkFight());

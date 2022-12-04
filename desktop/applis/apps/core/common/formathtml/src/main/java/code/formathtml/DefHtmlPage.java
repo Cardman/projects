@@ -3,12 +3,14 @@ package code.formathtml;
 import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.DefFormParts;
 import code.formathtml.util.DefNodeContainer;
-import code.formathtml.util.NodeContainer;
+import code.sml.HtmlPage;
+import code.sml.HtmlPageInt;
+import code.sml.NodeContainer;
 import code.util.CustList;
 import code.util.LongMap;
 import code.util.LongTreeMap;
 
-public final class DefHtmlPage extends HtmlPage{
+public final class DefHtmlPage extends HtmlPage implements HtmlPageInt {
     private LongMap<LongTreeMap<DefNodeContainer>> containers = new LongMap<LongTreeMap<DefNodeContainer>>();
 
     private CustList<AnchorCall> callsExps = new CustList<AnchorCall>();

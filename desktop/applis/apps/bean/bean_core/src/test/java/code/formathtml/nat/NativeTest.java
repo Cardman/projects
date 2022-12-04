@@ -3,12 +3,12 @@ package code.formathtml.nat;
 import code.bean.*;
 import code.bean.nat.*;
 import code.bean.nat.analyze.instr.NatElResolver;
+import code.formathtml.EquallableBeanCoreUtil;
 import code.sml.NatAnalyzingDoc;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.analyze.blocks.AnaRendBlockHelp;
 import code.bean.nat.analyze.blocks.NatAnaRendDocumentBlock;
 import code.bean.nat.analyze.blocks.NatAnalyzedCode;
-import code.bean.nat.analyze.opers.NatOperationNode;
 import code.bean.nat.exec.NatImportingPage;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.blocks.NatDocumentBlock;
@@ -17,9 +17,7 @@ import code.bean.nat.exec.opers.NatStdRefVariableOperation;
 import code.bean.nat.fwd.DefNatBlockBuilder;
 import code.bean.nat.fwd.NatRendForwardInfos;
 import code.expressionlanguage.structs.*;
-import code.formathtml.*;
 import code.formathtml.sample.*;
-import code.formathtml.structs.*;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.confs.*;
@@ -41,7 +39,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 
         NatAnalyzingDoc analyzingDoc_ = new NatAnalyzingDoc();
         setLocalFiles(analyzingDoc_,init_, conf_, new NatDualConfigurationContext());
-        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
+//        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, new StringMap<NatAnaRendDocumentBlock>(), lgNames_.getRenders(),null);
         setFirst(conf_, lgNames_.getRenders());
         assertNotNull(BeanNatCommonLgNames.getPairStruct(null));
@@ -729,6 +727,22 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertEq("<html><body><link/></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
     }
     @Test
+    public void process3LkTest() {
+        String locale_ = "en";
+        String folder_ = "messages";
+        String relative_ = "sample/file";
+        String content_ = "one=Click";
+        String html_ = "<html c:bean='bean_one'><body><head><link/></head></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put(EquallableBeanCoreUtil.formatFile(folder_,locale_,relative_), content_);
+        BeanOne bean_ = new BeanOne();
+        SampleBeanStruct v_ = init(bean_);
+//        getStrings(v_).add("FIRST");
+//        getStrings(v_).add("SECOND");
+        //setInteger(v_);
+        assertEq("<html><body><head><link/><style></style></head></body></html>", getNatRes(folder_, relative_, html_, files_, v_));
+    }
+    @Test
     public void process2SpTest() {
         String locale_ = "en";
         String folder_ = "messages";
@@ -1080,10 +1094,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        assertEq("page2.html", n_.getCurrentUrl());
 //    }
 
-    private static void clName(BeanInfo _i, String _cl) {
-        _i.setClassName(_cl);
-        _i.setResolvedClassName(_cl);
-    }
+//    private static void clName(BeanInfo _i, String _cl) {
+//        _i.setClassName(_cl);
+//        _i.setResolvedClassName(_cl);
+//    }
 
 //    @Test
 //    public void processNat_Test() {
@@ -2652,10 +2666,10 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        return analyzingDoc_;
 //    }
 
-    private static void lgs(Navigation _nav, NatAnalyzingDoc _analyzingDoc) {
-        _analyzingDoc.setLanguages(_nav.getLanguages());
-        _nav.getSession().setCurrentLanguage(_nav.getLanguage());
-    }
+//    private static void lgs(Navigation _nav, NatAnalyzingDoc _analyzingDoc) {
+//        _analyzingDoc.setLanguages(_nav.getLanguages());
+//        _nav.getSession().setCurrentLanguage(_nav.getLanguage());
+//    }
 
     private static void init(CustBeanLgNames _adv, NatNavigation _nav) {
         _adv.initializeRendSessionDoc(_nav);
@@ -2677,7 +2691,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         setLocalFiles(analyzingDoc_, initNat_, config_, dual_);
         DefNatBlockBuilder b_ = new DefNatBlockBuilder();
         StringMap<NatAnaRendDocumentBlock> d_ = analyze(config_, analyzingDoc_, beansInfos_, lgNames_, initNat_, dual_, b_, _html);
-        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
+//        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(analyzingDoc_, d_, lgNames_.getRenders(),b_);
         setFirst(config_, lgNames_.getRenders());
         NatRendStackCall build_ = new NatRendStackCall();
@@ -2728,7 +2742,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         addBeanInfo(_adv,"bean_two", _v2, beansInfos_, _configuration,"code.formathtml.classes.BeanTwo");
         DefNatBlockBuilder b_ = new DefNatBlockBuilder();
         StringMap<NatAnaRendDocumentBlock> d_ = analyze2(_configuration, _analyzingDoc, beansInfos_, _adv, _analyzing, _dual, b_, _html, _htmlTwo);
-        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
+//        IdMap<NatOperationNode, ValidatorInfo> lateValidators_ = new IdMap<NatOperationNode, ValidatorInfo>();
         NatRendForwardInfos.buildExec(_analyzingDoc, d_, _adv.getRenders(),b_);
         setFirst(_configuration, _adv.getRenders());
         return _adv.getRenders().getVal("page1.html");

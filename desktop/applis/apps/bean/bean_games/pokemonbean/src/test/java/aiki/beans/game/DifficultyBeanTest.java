@@ -13,14 +13,11 @@ import aiki.game.params.enums.DifficultyWinPointsFight;
 import code.bean.nat.NatHtmlPage;
 import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
-import code.sml.DocumentBuilder;
-import code.sml.Element;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -503,7 +500,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
         diff(fac_).setRateWinningExpPtsFight(rt());
         diff(fac_).setRateWinMoneyBase(rt());
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
         NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
@@ -540,7 +537,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     public void nav() {
         FacadeGame fac_ = facTr(16);
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkDiff pk_ = new PkDiff();
         NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new DiffGameInit(), PagesInit.buildDiff(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
@@ -590,7 +587,7 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     }
 
     private void choose(NatHtmlPage _page, int _nbId, String _value) {
-        _page.getContainer(0, _nbId).setEnabled(true);
+        _page.getContainer(0, _nbId).getNodeInformation().setEnabled(true);
         _page.getContainer(0, _nbId).getNodeInformation().setValue(new StringList(_value));
     }
 

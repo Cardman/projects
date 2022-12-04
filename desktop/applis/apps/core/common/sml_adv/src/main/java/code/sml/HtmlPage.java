@@ -1,20 +1,16 @@
-package code.formathtml;
+package code.sml;
 
-import code.formathtml.util.NodeContainer;
 import code.util.LongMap;
 import code.util.StringList;
 import code.util.core.IndexConstants;
 
-public abstract class HtmlPage {
+public class HtmlPage {
 
     private LongMap<StringList> formatIdMap = new LongMap<StringList>();
 
     private long url = IndexConstants.INDEX_NOT_FOUND_ELT;
 
     private boolean form;
-    protected HtmlPage() {
-    }
-
     public void setBase(FormParts _form) {
         setFormatIdMap(_form.getFormatIdMap());
     }
@@ -43,5 +39,4 @@ public abstract class HtmlPage {
         formatIdMap = _formatIdMap;
     }
 
-    public abstract NodeContainer getContainer(long _formNb, long _nbId);
 }

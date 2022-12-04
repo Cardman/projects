@@ -2,6 +2,7 @@ package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.sml.NavigationCore;
 
 public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaRendBreakableBlock {
     AnaRendFinallyEval(int _offset) {
@@ -17,7 +18,7 @@ public final class AnaRendFinallyEval extends AnaRendParentBlock implements AnaR
         AnaRendBlock p_ = getPreviousSibling();
         while (!(p_ instanceof AnaRendTryEval)) {
             if (p_ == null) {
-                return EMPTY_STRING;
+                return NavigationCore.EMPTY_STRING;
             }
             p_ = p_.getPreviousSibling();
         }

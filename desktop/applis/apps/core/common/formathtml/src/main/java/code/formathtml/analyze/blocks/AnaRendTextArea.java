@@ -12,6 +12,7 @@ import code.expressionlanguage.functionid.MethodAccessKind;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.ResultInput;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -22,9 +23,9 @@ public final class AnaRendTextArea extends AnaRendElement implements AnaRendBuil
     private ClassMethodIdReturn rootConverter;
     private ClassMethodIdReturn rootConverterField;
 
-    private String idClass = EMPTY_STRING;
-    private String idName = EMPTY_STRING;
-    private String className = EMPTY_STRING;
+    private String idClass = NavigationCore.EMPTY_STRING;
+    private String idName = NavigationCore.EMPTY_STRING;
+    private String className = NavigationCore.EMPTY_STRING;
     private final ResultInput resultInput;
 
     public AnaRendTextArea(Element _elt, int _offset) {

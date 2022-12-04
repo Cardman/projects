@@ -55,12 +55,11 @@ import code.formathtml.structs.BeanInfo;
 import code.formathtml.structs.Message;
 import code.formathtml.structs.ValidatorInfo;
 import code.maths.montecarlo.AbstractGenerator;
-import code.sml.Document;
-import code.sml.Element;
+import code.sml.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgNames,WithPageInfos {
+public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgNames, WithPageInfos {
 
     private static final String REF_TAG = "#";
 
@@ -530,7 +529,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
     }
 
     @Override
-    public HtmlPage getPage() {
+    public HtmlPageInt getPage() {
         return getCustPage();
     }
 
@@ -723,11 +722,11 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
             return res_.getStruct();
         }
         String className_ = _container.getNodeInformation().getInputClass();
-        StringList values_ = _container.getValue();
+        StringList values_ = _container.getNodeInformation().getValue();
         return getStructToBeValidated(values_, className_, _context, _rendStackCall);
     }
-    private LocalVariable newLocVar(NodeContainer _container) {
-        StringList values_ = _container.getValue();
+    private LocalVariable newLocVar(DefNodeContainer _container) {
+        StringList values_ = _container.getNodeInformation().getValue();
         if (_container.isArrayConverter()) {
             int len_ = values_.size();
             ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(getAliasString()));
@@ -1122,14 +1121,14 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
         LongTreeMap< DefNodeContainer> containers_ = containersMap_.getVal(lg_);
         for (EntryCust<Long, DefNodeContainer> e: containers_.entryList()) {
             DefNodeContainer nCont_ = e.getValue();
-            if (!nCont_.isEnabled()) {
+            if (!nCont_.getNodeInformation().isEnabled()) {
                 continue;
             }
             Struct res_ = convert(nCont_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
                 return false;
             }
-            Struct procObj_ = e.getValue().getUpdated();
+            Struct procObj_ = e.getValue().getAllObject().first();
             setGlobalArgumentStruct(procObj_,_ctx,_rendStackCall);
             RendRequestUtil.setRendObject(e.getValue(), res_, _ctx, _rendStackCall);
             if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
@@ -1189,7 +1188,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
         CustList<Struct> params_ = _cont.getStructParam();
         int size_ = params_.size();
         ArrayStruct arr_ = new ArrayStruct(size_ +1,StringExpUtil.getPrettyArrayType(getAliasObject()));
-        arr_.set(0, _cont.getUpdated());
+        arr_.set(0, _cont.getAllObject().first());
         for (int i = 0; i < size_; i++) {
             arr_.set(i+1, params_.get(i));
         }

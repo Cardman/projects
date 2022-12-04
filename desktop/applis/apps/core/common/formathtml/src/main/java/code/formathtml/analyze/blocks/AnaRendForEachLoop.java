@@ -26,6 +26,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -101,7 +102,7 @@ public final class AnaRendForEachLoop extends AnaRendParentBlock implements AnaR
         if (!toInfer(_page)) {
             importedClassName = ResolvingTypes.resolveCorrectType(listLoopExpressionContent.getClassName(), _page).getResult(_page);
         } else {
-            importedClassName = EMPTY_STRING;
+            importedClassName = NavigationCore.EMPTY_STRING;
         }
         _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();

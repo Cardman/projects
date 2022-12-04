@@ -2,7 +2,7 @@ package code.scripts.confs;
 
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.analyze.NatConfigurationCore;
-import code.formathtml.Configuration;
+//import code.formathtml.Configuration;
 import code.sml.Document;
 import code.sml.FullDocument;
 import code.util.StringMap;

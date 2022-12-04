@@ -5,11 +5,12 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.sml.NavigationCore;
 import code.util.core.StringUtil;
 
 public final class AnaRendClass  extends AnaRendParentBlock implements AnaRendBuildEl {
     private final String name;
-    private String fullName=EMPTY_STRING;
+    private String fullName= NavigationCore.EMPTY_STRING;
     AnaRendClass(OffsetStringInfo _name, int _offset) {
         super(_offset);
         name = _name.getInfo();

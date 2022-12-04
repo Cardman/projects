@@ -5,10 +5,10 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.*;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.variables.VariableWrapperNat;
-import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
 public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
@@ -54,8 +54,8 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
         StringMap<Integer> vars_ = ip_.getVars();
         StringMap<VariableWrapperNat> varsInfos_ = ip_.getRefParams();
-        ConditionReturn hasNext_ = hasNext(_loopBlock);
-        if (hasNext_ == ConditionReturn.YES) {
+        BoolVal hasNext_ = hasNext(_loopBlock);
+        if (hasNext_ == BoolVal.TRUE) {
             incrementLoop(_loopBlock, vars_,varsInfos_, _rendStack);
         } else {
             _loopBlock.getContent().setFinished(true);
@@ -96,17 +96,17 @@ public abstract class NatRendAbstractForEachLoop extends NatParentBlock {
         return RendBlockHelp.nextCom(_l.getContent().getStructIterator());
     }
 
-    protected ConditionReturn hasNext(NatLoopBlockStack _l) {
+    protected BoolVal hasNext(NatLoopBlockStack _l) {
         return iteratorHasNext(_l);
     }
 
-    private static ConditionReturn iteratorHasNext(NatLoopBlockStack _rendLastStack) {
+    private static BoolVal iteratorHasNext(NatLoopBlockStack _rendLastStack) {
         Struct strIter_ = _rendLastStack.getContent().getStructIterator();
         Struct arg_ = RendBlockHelp.nasNextCom(strIter_);
         if (BooleanStruct.isTrue(arg_)) {
-            return ConditionReturn.YES;
+            return BoolVal.TRUE;
         }
-        return ConditionReturn.NO;
+        return BoolVal.FALSE;
     }
     protected String getVariableName() {
         return variableName;

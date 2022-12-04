@@ -8,7 +8,7 @@ import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.Configuration;
-import code.formathtml.FormParts;
+import code.sml.FormParts;
 import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.DefFormParts;
 import code.formathtml.exec.RendStackCall;

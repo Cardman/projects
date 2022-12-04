@@ -1,13 +1,13 @@
 package code.formathtml.render;
 
-import code.formathtml.HtmlPage;
-import code.formathtml.util.NodeContainer;
+import code.sml.HtmlPageInt;
+import code.sml.NodeContainer;
 import code.util.Ints;
 import code.util.StringList;
 
 public final class SubmitForm {
     private SubmitForm(){}
-    public static void submit(IntForm _form, HtmlPage _page) {
+    public static void submit(IntForm _form, HtmlPageInt _page) {
         _page.setForm(true);
         long formNb_ = _form.getNumber();
         _page.setUrl(formNb_);
@@ -38,40 +38,40 @@ public final class SubmitForm {
         }
     }
 
-    private static void input(HtmlPage _page, long _form, IntInput _input) {
+    private static void input(HtmlPageInt _page, long _form, IntInput _input) {
         if (_input.getFormNb() != _form) {
             return;
         }
         long nbId_ = _input.getGroup();
         NodeContainer nCont_ = _page.getContainer(_form,nbId_);
         if (_input instanceof IntTextArea) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntTextArea area_ = (IntTextArea) _input;
             nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
         } else if (_input instanceof IntTextField) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntTextField area_ = (IntTextField) _input;
             nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
         } else if (_input instanceof IntSpinner) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntSpinner area_ = (IntSpinner) _input;
             nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
         } else if (_input instanceof IntSlider) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntSlider area_ = (IntSlider) _input;
             nCont_.getNodeInformation().setValue(new StringList(area_.getValue()));
         } else if (_input instanceof IntCheckBox) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntCheckBox ch_ = (IntCheckBox) _input;
             nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
         } else if (_input instanceof IntRadioButton) {
             IntRadioButton ch_ = (IntRadioButton) _input;
             if (ch_.isChecked()) {
                 nCont_.getNodeInformation().setValue(new StringList(ch_.getValue()));
-                nCont_.setEnabled(true);
+                nCont_.getNodeInformation().setEnabled(true);
             }
         } else if (_input instanceof IntComboBox) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntComboBox c_ = (IntComboBox) _input;
             Ints selected_ = c_.getSelectedIndexes();
             if (selected_.isEmpty()) {
@@ -80,7 +80,7 @@ public final class SubmitForm {
                 nCont_.getNodeInformation().setValue(new StringList(c_.getValue(selected_.first())));
             }
         } else if (_input instanceof IntComboList) {
-            nCont_.setEnabled(true);
+            nCont_.getNodeInformation().setEnabled(true);
             IntComboList c_ = (IntComboList) _input;
             nCont_.getNodeInformation().setValue(c_.getValue());
         }

@@ -6,8 +6,8 @@ import code.bean.nat.exec.NatFieldUpdates;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.blocks.RendRadio;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.sml.Node;
 import code.util.CustList;
 import code.util.StringMap;
@@ -32,7 +32,7 @@ public final class NatRendInput extends NatRendElementForm {
         Struct arg_ = processIndexes(_cont, _read, elt_, _rendStack);
         if (StringUtil.quickEq(_read.getAttribute(_cont.getRendKeyWords().getKeyWordsAttrs().getAttrType()), _cont.getRendKeyWords().getKeyWordsValues().getValueRadio())) {
             String strObj_ = NatRendElementForm.getStringKey(arg_);
-            RendRadio.procDefValue(elt_,strObj_, _cont.getRendKeyWords());
+            NavigationCore.procDefValue(elt_,strObj_, _cont.getRendKeyWords());
         }
     }
 

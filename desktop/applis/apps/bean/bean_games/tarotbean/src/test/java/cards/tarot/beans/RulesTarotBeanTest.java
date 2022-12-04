@@ -6,10 +6,9 @@ import cards.tarot.RulesTarot;
 import cards.tarot.enumerations.*;
 import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.scripts.pages.cards.MessTarotPage;
 import code.scripts.pages.cards.PagesTarots;
+import code.sml.NavigationCore;
 import code.util.IdList;
 import code.util.StringMap;
 import code.util.consts.Constants;
@@ -100,7 +99,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
     @Test
     public void init() {
         StringMap<String> other_ = MessTarotPage.ms();
-        AnaRendBlock.adjust(other_);
+        NavigationCore.adjust(other_);
         TarotStandardsRules stds_ = new TarotStandardsRules();
         NatNavigation nav_ = stds_.nav(Constants.getAvailableLanguages(),EN,new RulesTarotLoader(), PagesTarots.buildRules(),other_,other_,"");
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));

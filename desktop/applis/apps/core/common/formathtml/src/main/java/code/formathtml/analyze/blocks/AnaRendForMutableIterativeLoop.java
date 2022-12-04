@@ -17,6 +17,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -25,7 +26,7 @@ public final class AnaRendForMutableIterativeLoop extends AnaRendParentBlock imp
     private final String label;
     private final int labelOffset;
 
-    private String importedClassName = EMPTY_STRING;
+    private String importedClassName = NavigationCore.EMPTY_STRING;
 
     private final ManyLoopExpressionsContent manyLoopExpressionsContent;
 

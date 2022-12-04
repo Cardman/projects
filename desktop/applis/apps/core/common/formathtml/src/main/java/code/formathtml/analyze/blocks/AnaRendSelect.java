@@ -20,6 +20,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.ResultInput;
 import code.formathtml.analyze.ResultText;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -33,10 +34,10 @@ public final class AnaRendSelect extends AnaRendElement implements AnaRendBuildE
     private ClassMethodIdReturn rootConverter;
     private ClassMethodIdReturn rootConverterField;
     private ClassMethodIdReturn rootConverterFieldValue;
-    private String idClass = EMPTY_STRING;
-    private String idName = EMPTY_STRING;
+    private String idClass = NavigationCore.EMPTY_STRING;
+    private String idName = NavigationCore.EMPTY_STRING;
     private boolean multiple;
-    private String className = EMPTY_STRING;
+    private String className = NavigationCore.EMPTY_STRING;
     private boolean arrayConverter;
     private final ResultInput resultInput;
 

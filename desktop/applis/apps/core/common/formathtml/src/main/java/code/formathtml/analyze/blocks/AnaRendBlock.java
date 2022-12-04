@@ -24,7 +24,6 @@ public abstract class AnaRendBlock {
     public static final String LEFT_PAR = "(";
     public static final String RIGHT_PAR = ")";
     static final String CALL_METHOD = "$";
-    static final String EMPTY_STRING = "";
     static final char RIGHT_EL = '}';
     static final char LEFT_EL = '{';
     static final char QUOTE = 39;
@@ -41,10 +40,6 @@ public abstract class AnaRendBlock {
 
     private static final char END_ESCAPED = ';';
     private static final char ENCODED = '&';
-    private static final char EQUALS = '=';
-    private static final String LINE_RETURN = "\n";
-    private static final String TAB = "\t";
-    private static final String BEFORE_LINE_RETURN = "\r\n";
     private AnaRendParentBlock parent;
 
     private AnaRendBlock nextSibling;
@@ -121,17 +116,6 @@ public abstract class AnaRendBlock {
             int off_ = _curWrite.getOffset();
             AnaRendEmptyInstruction empty_ = new AnaRendEmptyInstruction(off_);
             ((AnaRendParentBlock) _curWrite).appendChild(empty_);
-        }
-    }
-
-    public static void adjustMap(StringMap<StringMap<String>> _mes) {
-        for (StringMap<String> m: _mes.values()) {
-            adjust(m);
-        }
-    }
-    public static void adjust(StringMap<String> _mes) {
-        for (EntryCust<String,String> e: _mes.entryList()) {
-            e.setValue(DocumentBuilder.transformSpecialChars(e.getValue(),true,true));
         }
     }
 
@@ -524,7 +508,7 @@ public abstract class AnaRendBlock {
                 AnalyzingDoc.addError(badEl_, _page);
                 return new StringMap<String>();
             }
-            StringMap<String> messages_ = getMessages(StringUtil.nullToEmpty(content_));
+            StringMap<String> messages_ = NavigationCore.getMessages(StringUtil.nullToEmpty(content_));
             String key_ = elts_.last();
             String format_ = getQuickFormat(messages_, key_);
             if (format_ == null) {
@@ -554,7 +538,7 @@ public abstract class AnaRendBlock {
             if (indexCorrectMessages(content_) >= 0) {
                 return new StringMap<String>();
             }
-            StringMap<String> messages_ = getMessages(StringUtil.nullToEmpty(content_));
+            StringMap<String> messages_ = NavigationCore.getMessages(StringUtil.nullToEmpty(content_));
             String key_ = elts_.last();
             String format_ = getQuickFormat(messages_, key_);
             if (format_ == null) {
@@ -600,41 +584,19 @@ public abstract class AnaRendBlock {
             return 0;
         }
         int line_ = IndexConstants.FIRST_INDEX;
-        for (String l: StringUtil.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
+        for (String l: StringUtil.splitStrings(_content, NavigationCore.BEFORE_LINE_RETURN, NavigationCore.LINE_RETURN)) {
             line_++;
             if (l.isEmpty()) {
                 continue;
             }
-            if (!l.startsWith(TAB)) {
-                int indexSep_ = l.indexOf(EQUALS);
+            if (!l.startsWith(NavigationCore.TAB)) {
+                int indexSep_ = l.indexOf(NavigationCore.EQUAL);
                 if (indexSep_ < 0) {
                     return line_;
                 }
             }
         }
         return -1;
-    }
-
-    public static StringMap<String> getMessages(String _content) {
-        String lastKey_ = EMPTY_STRING;
-        StringMap<String> messages_ = new StringMap<String>();
-        for (String l: StringUtil.splitStrings(_content, BEFORE_LINE_RETURN, LINE_RETURN)) {
-            if (l.isEmpty()) {
-                continue;
-            }
-            if (l.startsWith(TAB)) {
-                String text_ = messages_.getVal(lastKey_);
-                if (text_ != null) {
-                    text_ = StringUtil.concat(text_,l.substring(1));
-                    messages_.put(lastKey_, text_);
-                }
-            } else {
-                int indexSep_ = l.indexOf(EQUALS);
-                lastKey_ = l.substring(0,indexSep_);
-                messages_.put(lastKey_, l.substring(indexSep_+1));
-            }
-        }
-        return messages_;
     }
 
     private static String getContentFile(StringMap<String> _files, String _fileName) {

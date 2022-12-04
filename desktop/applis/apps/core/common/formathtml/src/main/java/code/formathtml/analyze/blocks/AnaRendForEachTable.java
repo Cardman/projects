@@ -24,6 +24,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.options.KeyWords;
 import code.formathtml.analyze.AnalyzingDoc;
 import code.formathtml.analyze.RenderAnalysis;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -116,14 +117,14 @@ public final class AnaRendForEachTable extends AnaRendParentBlock implements Ana
         if (!toInferFirst(_page)) {
             importedClassNameFirst = ResolvingTypes.resolveCorrectType(tableLoopExpressionContent.getClassNameFirst(), _page).getResult(_page);
         } else {
-            importedClassNameFirst = EMPTY_STRING;
+            importedClassNameFirst = NavigationCore.EMPTY_STRING;
         }
         _page.setSumOffset(tableLoopExpressionContent.getClassNameOffsetSecond());
         _page.zeroOffset();
         if (!toInferSecond(_page)) {
             importedClassNameSecond = ResolvingTypes.resolveCorrectType(tableLoopExpressionContent.getClassNameSecond(), _page).getResult(_page);
         } else {
-            importedClassNameSecond = EMPTY_STRING;
+            importedClassNameSecond = NavigationCore.EMPTY_STRING;
         }
         _page.setSumOffset(resultExpression.getSumOffset());
         _page.zeroOffset();

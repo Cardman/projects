@@ -8,9 +8,9 @@ import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.blocks.RendBlock;
 import code.sml.Document;
 import code.sml.Element;
+import code.sml.NavigationCore;
 import code.sml.RendReadWrite;
 import code.util.CustList;
 import code.util.IdList;
@@ -51,7 +51,7 @@ public final class NatRendSelect extends NatParentBlock {
 
     public static Element appendChild(Document _doc, RendReadWrite _rw, String _read) {
         Element currentNode_ = _doc.createElement(_read);
-        RendBlock.simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
+        NavigationCore.simpleAppendChild(_doc, _rw.getWrite(), currentNode_);
         return currentNode_;
     }
     private static void processOptionsMapEnumName(NatConfigurationCore _conf, Struct _extractedMap,

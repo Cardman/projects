@@ -10,7 +10,7 @@ import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.render.MetaSearchableLabel;
 import code.formathtml.util.BeanCustLgNames;
-import code.formathtml.util.WithPageInfos;
+import code.sml.WithPageInfos;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsCompoFactory;

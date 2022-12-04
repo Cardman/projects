@@ -3,6 +3,7 @@ package code.formathtml.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.formathtml.analyze.AnalyzingDoc;
+import code.sml.NavigationCore;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -34,7 +35,7 @@ public final class AnaRendElseCondition extends AnaRendParentBlock implements An
         AnaRendBlock p_ = getPreviousSibling();
         while (!(p_ instanceof AnaRendIfCondition)) {
             if (p_ == null) {
-                return EMPTY_STRING;
+                return NavigationCore.EMPTY_STRING;
             }
             p_ = p_.getPreviousSibling();
         }

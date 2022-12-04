@@ -5,13 +5,12 @@ import aiki.beans.PkFight;
 import aiki.game.fight.Fight;
 import code.bean.nat.NatNavigation;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.Navigation;
-import code.formathtml.analyze.blocks.AnaRendBlock;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.scripts.pages.aiki.CssInit;
 import code.scripts.pages.aiki.MessagesInit;
 import code.scripts.pages.aiki.PagesInit;
+import code.sml.NavigationCore;
 import code.util.StringMap;
 import code.util.consts.Constants;
 import org.junit.Test;
@@ -108,7 +107,7 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void nav1() {
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
         NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);
@@ -142,7 +141,7 @@ public final class FightBeanTest extends InitDbFight {
     @Test
     public void nav2() {
         StringMap<String> builtMessages_ = MessagesInit.ms();
-        AnaRendBlock.adjust(builtMessages_);
+        NavigationCore.adjust(builtMessages_);
         StringMap<String> builtOther_ = CssInit.ms();
         PkFight pk_ = new PkFight();
         NatNavigation nav_ = pk_.nav(Constants.getAvailableLanguages(),EN,new FightGameInit(), PagesInit.buildFight(),builtOther_,builtMessages_,ACCESS_TO_DEFAULT_FILES);

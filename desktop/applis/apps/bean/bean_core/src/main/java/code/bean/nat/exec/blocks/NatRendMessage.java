@@ -5,11 +5,7 @@ import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.exec.NatRendStackCall;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.expressionlanguage.structs.Struct;
-import code.formathtml.exec.blocks.RendBlock;
-import code.sml.Document;
-import code.sml.Element;
-import code.sml.RendReadWrite;
-import code.sml.Text;
+import code.sml.*;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -51,7 +47,7 @@ public final class NatRendMessage extends NatParentBlock {
         Element write_ = _rendReadWrite.getWrite();
         Document ownerDocument_ = _rendReadWrite.getDocument();
         Text t_ = ownerDocument_.createTextNode(_textContent);
-        RendBlock.simpleAppendChild(ownerDocument_,write_,t_);
+        NavigationCore.simpleAppendChild(ownerDocument_,write_,t_);
     }
 
 }
