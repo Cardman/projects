@@ -2235,6 +2235,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         if (multiModeButton != null) {
             multiModeButton.setText(getMessages().getVal(CST_MULTI_MODE));
         }
+        scenePanel.initMessages(getLanguageKey());
 //        if (goHelpMenu != null) {
 //            goHelpMenu.setText(getMessages().getVal(CST_GO_HELP_MENU));
 //        }
