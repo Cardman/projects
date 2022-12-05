@@ -1,14 +1,23 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
+public final class NatArrayStruct extends NaNuSt {
 
-public final class NatArrayStruct extends NaAr {
+    private final NaSt[] instance;
 
-    public NatArrayStruct(int _nb) {
-        super(_nb);
+    public NatArrayStruct(int _len) {
+        instance = new NaSt[_len];
     }
 
-    public String getClassName() {
-        return "";
+    public int getLength() {
+        return getInstance().length;
+    }
+    public NaSt get(int _i) {
+        return instance[_i];
+    }
+    public void set(int _i, NaSt _str) {
+        instance[_i]=_str;
+    }
+    public NaSt[] getInstance() {
+        return instance;
     }
 }

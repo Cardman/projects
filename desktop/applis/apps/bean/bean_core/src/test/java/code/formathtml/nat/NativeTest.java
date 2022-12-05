@@ -64,7 +64,6 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        BeanNatCommonLgNames.getString(new StringStruct(""),"", navigation_,"");
 //        BeanNatCommonLgNames.getString(NullStruct.NULL_VALUE,"", new StringMap<StringMap<String>>(),"");
         assertNotNull(new BeanPageCardsSample().self());
-        assertTrue(new NatArrayStruct(0).getClassName().isEmpty());
 //        AffectationNatOperation.castDottedTo(new SettableFieldNatOperation(0,0,null,new NatOperationsSequence(),new NatStandardFieldOperation(new NatOperationsSequence())));
         PageCardsCommon.at("","");
         FullDocument fullDocument_ = DocumentBuilder.newDocumentBuilder().newDocument();
