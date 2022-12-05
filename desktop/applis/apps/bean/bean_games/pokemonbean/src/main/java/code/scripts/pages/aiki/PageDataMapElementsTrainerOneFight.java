@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMapElementsTrainerOneFight extends PageCardsCommon{
 private static final String C_P_140_0="javahtml";
 private static final String C_P_140_1="trainer_fight";
@@ -83,13 +82,13 @@ Element elt9_=el(_doc45,BODY);
 build0(elt9_,_doc45);
 build1(elt9_,_doc45);
 build2(elt9_,_doc45);
-build3(elt9_,_doc45);
+br(elt9_,_doc45);
 build4(elt9_,_doc45);
-build5(elt9_,_doc45);
+br(elt9_,_doc45);
 build6(elt9_,_doc45);
-build7(elt9_,_doc45);
+br(elt9_,_doc45);
 build8(elt9_,_doc45);
-build9(elt9_,_doc45);
+br(elt9_,_doc45);
 build10(elt9_,_doc45);
 build11(elt9_,_doc45);
 ad(elt0_,elt9_);
@@ -127,10 +126,6 @@ ad(_body,elt0_);
 Element elt2_=el(_doc45,BR);
 ad(_body,elt2_);
 }
-static void build3(Element _body,Document _doc45){
-Element elt0_=el(_doc45,BR);
-ad(_body,elt0_);
-}
 static void build4(Element _body,Document _doc45){
 Element elt0_=el(_doc45,A);
 CustList<Attr> attrs0_=al(2);
@@ -146,10 +141,6 @@ ad(_body,elt0_);
 Element elt2_=el(_doc45,BR);
 ad(_body,elt2_);
 }
-static void build5(Element _body,Document _doc45){
-Element elt0_=el(_doc45,BR);
-ad(_body,elt0_);
-}
 static void build6(Element _body,Document _doc45){
 Element elt0_=el(_doc45,C_IMG);
 CustList<Attr> attrs0_=al(1);
@@ -157,19 +148,11 @@ attrs0_.add(at(SRC,C_P_140_19));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
-static void build7(Element _body,Document _doc45){
-Element elt0_=el(_doc45,BR);
-ad(_body,elt0_);
-}
 static void build8(Element _body,Document _doc45){
 Element elt0_=el(_doc45,C_IMG);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(SRC,C_P_140_20));
 at(elt0_,attrs0_);
-ad(_body,elt0_);
-}
-static void build9(Element _body,Document _doc45){
-Element elt0_=el(_doc45,BR);
 ad(_body,elt0_);
 }
 static void build10(Element _body,Document _doc45){

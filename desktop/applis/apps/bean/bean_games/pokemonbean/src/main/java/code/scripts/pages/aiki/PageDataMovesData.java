@@ -2,7 +2,6 @@ package code.scripts.pages.aiki;
 import aiki.beans.moves.AikiBeansMovesStd;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMovesData extends PageCardsCommon{
 private static final String C_P_143_0="javahtml";
 private static final String C_P_143_1=AikiBeansMovesStd.BEAN_MOVE;
@@ -464,7 +463,7 @@ ad(elt0_,elt1_);
 Element elt6_=el(_doc48,BODY);
 build0(elt6_,_doc48);
 build1(elt6_,_doc48);
-build2(elt6_,_doc48);
+br(elt6_,_doc48);
 build3(elt6_,_doc48);
 build4(elt6_,_doc48);
 build5(elt6_,_doc48);
@@ -475,7 +474,7 @@ build9(elt6_,_doc48);
 build10(elt6_,_doc48);
 build11(elt6_,_doc48);
 build12(elt6_,_doc48);
-build13(elt6_,_doc48);
+hr(elt6_,_doc48);
 build14(elt6_,_doc48);
 build15(elt6_,_doc48);
 build16(elt6_,_doc48);
@@ -483,18 +482,18 @@ build17(elt6_,_doc48);
 build18(elt6_,_doc48);
 build19(elt6_,_doc48);
 build20(elt6_,_doc48);
-build21(elt6_,_doc48);
+br(elt6_,_doc48);
 build22(elt6_,_doc48);
 build23(elt6_,_doc48);
 build24(elt6_,_doc48);
 build25(elt6_,_doc48);
-build26(elt6_,_doc48);
+br(elt6_,_doc48);
 build27(elt6_,_doc48);
 build28(elt6_,_doc48);
 build29(elt6_,_doc48);
 build30(elt6_,_doc48);
 build31(elt6_,_doc48);
-build32(elt6_,_doc48);
+hr(elt6_,_doc48);
 build33(elt6_,_doc48);
 build34(elt6_,_doc48);
 build35(elt6_,_doc48);
@@ -503,7 +502,7 @@ build37(elt6_,_doc48);
 build38(elt6_,_doc48);
 build39(elt6_,_doc48);
 build40(elt6_,_doc48);
-build41(elt6_,_doc48);
+br(elt6_,_doc48);
 build42(elt6_,_doc48);
 build43(elt6_,_doc48);
 build44(elt6_,_doc48);
@@ -530,10 +529,6 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_P_143_9));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build2(Element _body,Document _doc48){
-Element elt0_=el(_doc48,BR);
 ad(_body,elt0_);
 }
 static void build3(Element _body,Document _doc48){
@@ -963,10 +958,6 @@ at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
-static void build13(Element _body,Document _doc48){
-Element elt0_=el(_doc48,HR);
-ad(_body,elt0_);
-}
 static void build14(Element _body,Document _doc48){
 Element elt0_=el(_doc48,H2);
 Element elt1_=el(_doc48,C_MESSAGE);
@@ -1323,10 +1314,6 @@ Element elt71_=el(_doc48,BR);
 ad(elt69_,elt71_);
 ad(_body,elt69_);
 }
-static void build21(Element _body,Document _doc48){
-Element elt0_=el(_doc48,BR);
-ad(_body,elt0_);
-}
 static void build22(Element _body,Document _doc48){
 Element elt0_=el(_doc48,H2);
 Element elt1_=el(_doc48,C_MESSAGE);
@@ -1405,10 +1392,6 @@ ad(elt2_,elt3_);
 ad(elt0_,elt2_);
 ad(_body,elt0_);
 }
-static void build26(Element _body,Document _doc48){
-Element elt0_=el(_doc48,BR);
-ad(_body,elt0_);
-}
 static void build27(Element _body,Document _doc48){
 Element elt0_=el(_doc48,C_IF);
 CustList<Attr> attrs0_=al(1);
@@ -1469,10 +1452,6 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_P_143_177));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build32(Element _body,Document _doc48){
-Element elt0_=el(_doc48,HR);
 ad(_body,elt0_);
 }
 static void build33(Element _body,Document _doc48){
@@ -1687,10 +1666,6 @@ ad(elt2_,elt3_);
 ad(elt0_,elt2_);
 Element elt6_=el(_doc48,BR);
 ad(elt0_,elt6_);
-ad(_body,elt0_);
-}
-static void build41(Element _body,Document _doc48){
-Element elt0_=el(_doc48,BR);
 ad(_body,elt0_);
 }
 static void build42(Element _body,Document _doc48){

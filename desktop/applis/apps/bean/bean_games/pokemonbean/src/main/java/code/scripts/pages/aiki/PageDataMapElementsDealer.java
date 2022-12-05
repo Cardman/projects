@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMapElementsDealer extends PageCardsCommon{
 private static final String C_P_134_0="javahtml";
 private static final String C_P_134_1="dealer";
@@ -60,9 +59,9 @@ Element elt5_=el(_doc39,BODY);
 build0(elt5_,_doc39);
 build1(elt5_,_doc39);
 build2(elt5_,_doc39);
-build3(elt5_,_doc39);
+br(elt5_,_doc39);
 build4(elt5_,_doc39);
-build5(elt5_,_doc39);
+br(elt5_,_doc39);
 build6(elt5_,_doc39);
 build7(elt5_,_doc39);
 build8(elt5_,_doc39);
@@ -101,10 +100,6 @@ ad(_body,elt0_);
 Element elt2_=el(_doc39,BR);
 ad(_body,elt2_);
 }
-static void build3(Element _body,Document _doc39){
-Element elt0_=el(_doc39,BR);
-ad(_body,elt0_);
-}
 static void build4(Element _body,Document _doc39){
 Element elt0_=el(_doc39,A);
 CustList<Attr> attrs0_=al(2);
@@ -119,10 +114,6 @@ ad(elt0_,elt1_);
 ad(_body,elt0_);
 Element elt2_=el(_doc39,BR);
 ad(_body,elt2_);
-}
-static void build5(Element _body,Document _doc39){
-Element elt0_=el(_doc39,BR);
-ad(_body,elt0_);
 }
 static void build6(Element _body,Document _doc39){
 Element elt0_=el(_doc39,C_IF);

@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageProgGameprog extends PageCardsCommon{
 private static final String C_P_212_0="javahtml";
 private static final String C_P_212_1="progressing";
@@ -104,25 +103,25 @@ build6(elt5_,_doc117);
 build7(elt5_,_doc117);
 build8(elt5_,_doc117);
 build9(elt5_,_doc117);
-build10(elt5_,_doc117);
+br(elt5_,_doc117);
 build11(elt5_,_doc117);
-build12(elt5_,_doc117);
+br(elt5_,_doc117);
 build13(elt5_,_doc117);
 build14(elt5_,_doc117);
-build15(elt5_,_doc117);
+br(elt5_,_doc117);
 build16(elt5_,_doc117);
 build17(elt5_,_doc117);
-build18(elt5_,_doc117);
+br(elt5_,_doc117);
 build19(elt5_,_doc117);
-build20(elt5_,_doc117);
+br(elt5_,_doc117);
 build21(elt5_,_doc117);
-build22(elt5_,_doc117);
+br(elt5_,_doc117);
 build23(elt5_,_doc117);
-build24(elt5_,_doc117);
+br(elt5_,_doc117);
 build25(elt5_,_doc117);
-build26(elt5_,_doc117);
+br(elt5_,_doc117);
 build27(elt5_,_doc117);
-build28(elt5_,_doc117);
+br(elt5_,_doc117);
 ad(elt0_,elt5_);
 _doc117.appendChild(elt0_);
 }
@@ -268,10 +267,6 @@ ad(elt1_,elt2_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
-static void build10(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
-ad(_body,elt0_);
-}
 static void build11(Element _body,Document _doc117){
 Element elt0_=el(_doc117,TABLE);
 Element elt1_=el(_doc117,CAPTION);
@@ -322,10 +317,6 @@ ad(elt9_,elt10_);
 ad(elt0_,elt9_);
 ad(_body,elt0_);
 }
-static void build12(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
-ad(_body,elt0_);
-}
 static void build13(Element _body,Document _doc117){
 Element elt0_=el(_doc117,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -346,10 +337,6 @@ Text txt0_=tx(_doc117,C_P_212_46);
 ad(elt2_,txt0_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build15(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
 ad(_body,elt0_);
 }
 static void build16(Element _body,Document _doc117){
@@ -374,10 +361,6 @@ ad(elt1_,elt2_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
-static void build18(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
-ad(_body,elt0_);
-}
 static void build19(Element _body,Document _doc117){
 Element elt0_=el(_doc117,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -388,10 +371,6 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_P_212_53));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build20(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
 ad(_body,elt0_);
 }
 static void build21(Element _body,Document _doc117){
@@ -406,10 +385,6 @@ at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
-static void build22(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
-ad(_body,elt0_);
-}
 static void build23(Element _body,Document _doc117){
 Element elt0_=el(_doc117,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -420,10 +395,6 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_P_212_57));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build24(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
 ad(_body,elt0_);
 }
 static void build25(Element _body,Document _doc117){
@@ -438,10 +409,6 @@ at(elt1_,attrs1_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
-static void build26(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
-ad(_body,elt0_);
-}
 static void build27(Element _body,Document _doc117){
 Element elt0_=el(_doc117,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -452,10 +419,6 @@ CustList<Attr> attrs1_=al(1);
 attrs1_.add(at(VALUE,C_P_212_61));
 at(elt1_,attrs1_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build28(Element _body,Document _doc117){
-Element elt0_=el(_doc117,BR);
 ad(_body,elt0_);
 }
 }

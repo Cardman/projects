@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMapElementsDualFight extends PageCardsCommon{
 private static final String C_P_135_0="javahtml";
 private static final String C_P_135_1="dual";
@@ -61,19 +60,19 @@ Element elt5_=el(_doc40,BODY);
 build0(elt5_,_doc40);
 build1(elt5_,_doc40);
 build2(elt5_,_doc40);
-build3(elt5_,_doc40);
+br(elt5_,_doc40);
 build4(elt5_,_doc40);
-build5(elt5_,_doc40);
+br(elt5_,_doc40);
 build6(elt5_,_doc40);
-build7(elt5_,_doc40);
+br(elt5_,_doc40);
 build8(elt5_,_doc40);
-build9(elt5_,_doc40);
+br(elt5_,_doc40);
 build10(elt5_,_doc40);
-build11(elt5_,_doc40);
+br(elt5_,_doc40);
 build12(elt5_,_doc40);
-build13(elt5_,_doc40);
+br(elt5_,_doc40);
 build14(elt5_,_doc40);
-build15(elt5_,_doc40);
+br(elt5_,_doc40);
 build16(elt5_,_doc40);
 ad(elt0_,elt5_);
 _doc40.appendChild(elt0_);
@@ -110,10 +109,6 @@ ad(_body,elt0_);
 Element elt2_=el(_doc40,BR);
 ad(_body,elt2_);
 }
-static void build3(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
-ad(_body,elt0_);
-}
 static void build4(Element _body,Document _doc40){
 Element elt0_=el(_doc40,A);
 CustList<Attr> attrs0_=al(2);
@@ -129,19 +124,11 @@ ad(_body,elt0_);
 Element elt2_=el(_doc40,BR);
 ad(_body,elt2_);
 }
-static void build5(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
-ad(_body,elt0_);
-}
 static void build6(Element _body,Document _doc40){
 Element elt0_=el(_doc40,C_IMG);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(SRC,C_P_135_15));
 at(elt0_,attrs0_);
-ad(_body,elt0_);
-}
-static void build7(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
 ad(_body,elt0_);
 }
 static void build8(Element _body,Document _doc40){
@@ -151,19 +138,11 @@ attrs0_.add(at(SRC,C_P_135_16));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
-static void build9(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
-ad(_body,elt0_);
-}
 static void build10(Element _body,Document _doc40){
 Element elt0_=el(_doc40,C_IMG);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(SRC,C_P_135_17));
 at(elt0_,attrs0_);
-ad(_body,elt0_);
-}
-static void build11(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
 ad(_body,elt0_);
 }
 static void build12(Element _body,Document _doc40){
@@ -188,16 +167,8 @@ ad(elt1_,elt2_);
 ad(elt0_,elt1_);
 ad(_body,elt0_);
 }
-static void build13(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
-ad(_body,elt0_);
-}
 static void build14(Element _body,Document _doc40){
 Element elt0_=el(_doc40,HR);
-ad(_body,elt0_);
-}
-static void build15(Element _body,Document _doc40){
-Element elt0_=el(_doc40,BR);
 ad(_body,elt0_);
 }
 static void build16(Element _body,Document _doc40){

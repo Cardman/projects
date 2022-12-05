@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataAbilityAbilities extends PageCardsCommon{
 private static final String C_P_96_0="javahtml";
 private static final String C_P_96_1="abilities";
@@ -58,7 +57,7 @@ Element elt5_=el(_doc1,BODY);
 build0(elt5_,_doc1);
 build1(elt5_,_doc1);
 build2(elt5_,_doc1);
-build3(elt5_,_doc1);
+br(elt5_,_doc1);
 build4(elt5_,_doc1);
 ad(elt0_,elt5_);
 _doc1.appendChild(elt0_);
@@ -107,10 +106,6 @@ CustList<Attr> attrs3_=al(1);
 attrs3_.add(at(MESSAGE,C_P_96_18));
 at(elt4_,attrs3_);
 ad(elt0_,elt4_);
-ad(_body,elt0_);
-}
-static void build3(Element _body,Document _doc1){
-Element elt0_=el(_doc1,BR);
 ad(_body,elt0_);
 }
 static void build4(Element _body,Document _doc1){

@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataSimulationSelectitem extends PageCardsCommon{
 private static final String C_P_199_0="javahtml";
 private static final String C_P_199_1="selectitem";
@@ -79,7 +78,7 @@ build0(elt5_,_doc104);
 build1(elt5_,_doc104);
 build2(elt5_,_doc104);
 build3(elt5_,_doc104);
-build4(elt5_,_doc104);
+br(elt5_,_doc104);
 build5(elt5_,_doc104);
 ad(elt0_,elt5_);
 _doc104.appendChild(elt0_);
@@ -171,10 +170,6 @@ CustList<Attr> attrs7_=al(1);
 attrs7_.add(at(MESSAGE,C_P_199_28));
 at(elt10_,attrs7_);
 ad(elt0_,elt10_);
-ad(_body,elt0_);
-}
-static void build4(Element _body,Document _doc104){
-Element elt0_=el(_doc104,BR);
 ad(_body,elt0_);
 }
 static void build5(Element _body,Document _doc104){

@@ -75,6 +75,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         PageCardsCommon.ad(element_,fullDocument_.createElement(""));
         PageCardsCommon.tx(fullDocument_,"");
         PageCardsCommon.br(element_,fullDocument_);
+        PageCardsCommon.hr(element_,fullDocument_);
         assertEq("0",RateStruct.convertToRate(NaNu.NULL_VALUE).toNumberString());
         assertEq("1",RateStruct.convertToRate(new RateStruct(Rate.one())).toNumberString());
         assertEq("1",new RateStruct(Rate.one()).getDisplayedString().getInstance());

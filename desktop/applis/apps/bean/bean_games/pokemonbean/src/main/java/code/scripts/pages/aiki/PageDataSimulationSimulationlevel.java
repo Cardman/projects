@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataSimulationSimulationlevel extends PageCardsCommon{
 private static final String C_P_202_0="javahtml";
 private static final String C_P_202_1="level_simu";
@@ -172,7 +171,7 @@ build0(elt23_,_doc107);
 build1(elt23_,_doc107);
 build2(elt23_,_doc107);
 build3(elt23_,_doc107);
-build4(elt23_,_doc107);
+br(elt23_,_doc107);
 ad(elt0_,elt23_);
 _doc107.appendChild(elt0_);
 }
@@ -252,10 +251,6 @@ at(elt3_,attrs3_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build4(Element _body,Document _doc107){
-Element elt0_=el(_doc107,BR);
 ad(_body,elt0_);
 }
 }

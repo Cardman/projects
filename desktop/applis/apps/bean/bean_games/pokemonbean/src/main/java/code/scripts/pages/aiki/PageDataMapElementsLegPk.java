@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMapElementsLegPk extends PageCardsCommon{
 private static final String C_P_136_0="javahtml";
 private static final String C_P_136_1="leg_pk";
@@ -78,17 +77,17 @@ Element elt6_=el(_doc41,BODY);
 build0(elt6_,_doc41);
 build1(elt6_,_doc41);
 build2(elt6_,_doc41);
-build3(elt6_,_doc41);
+br(elt6_,_doc41);
 build4(elt6_,_doc41);
-build5(elt6_,_doc41);
+br(elt6_,_doc41);
 build6(elt6_,_doc41);
-build7(elt6_,_doc41);
+br(elt6_,_doc41);
 build8(elt6_,_doc41);
 build9(elt6_,_doc41);
 build10(elt6_,_doc41);
-build11(elt6_,_doc41);
+br(elt6_,_doc41);
 build12(elt6_,_doc41);
-build13(elt6_,_doc41);
+br(elt6_,_doc41);
 build14(elt6_,_doc41);
 build15(elt6_,_doc41);
 build16(elt6_,_doc41);
@@ -96,8 +95,8 @@ build17(elt6_,_doc41);
 build18(elt6_,_doc41);
 build19(elt6_,_doc41);
 build20(elt6_,_doc41);
-build21(elt6_,_doc41);
-build22(elt6_,_doc41);
+br(elt6_,_doc41);
+br(elt6_,_doc41);
 ad(elt0_,elt6_);
 _doc41.appendChild(elt0_);
 }
@@ -133,10 +132,6 @@ ad(_body,elt0_);
 Element elt2_=el(_doc41,BR);
 ad(_body,elt2_);
 }
-static void build3(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
-ad(_body,elt0_);
-}
 static void build4(Element _body,Document _doc41){
 Element elt0_=el(_doc41,A);
 CustList<Attr> attrs0_=al(2);
@@ -152,19 +147,11 @@ ad(_body,elt0_);
 Element elt2_=el(_doc41,BR);
 ad(_body,elt2_);
 }
-static void build5(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
-ad(_body,elt0_);
-}
 static void build6(Element _body,Document _doc41){
 Element elt0_=el(_doc41,C_IMG);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(SRC,C_P_136_16));
 at(elt0_,attrs0_);
-ad(_body,elt0_);
-}
-static void build7(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
 ad(_body,elt0_);
 }
 static void build8(Element _body,Document _doc41){
@@ -194,10 +181,6 @@ ad(_body,elt0_);
 Text txt0_=tx(_doc41,C_P_136_21);
 ad(_body,txt0_);
 }
-static void build11(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
-ad(_body,elt0_);
-}
 static void build12(Element _body,Document _doc41){
 Element elt0_=el(_doc41,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -206,10 +189,6 @@ at(elt0_,attrs0_);
 ad(_body,elt0_);
 Text txt0_=tx(_doc41,C_P_136_23);
 ad(_body,txt0_);
-}
-static void build13(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
-ad(_body,elt0_);
 }
 static void build14(Element _body,Document _doc41){
 Element elt0_=el(_doc41,C_MESSAGE);
@@ -290,14 +269,6 @@ ad(elt3_,txt0_);
 ad(elt2_,elt3_);
 ad(elt1_,elt2_);
 ad(elt0_,elt1_);
-ad(_body,elt0_);
-}
-static void build21(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
-ad(_body,elt0_);
-}
-static void build22(Element _body,Document _doc41){
-Element elt0_=el(_doc41,BR);
 ad(_body,elt0_);
 }
 }

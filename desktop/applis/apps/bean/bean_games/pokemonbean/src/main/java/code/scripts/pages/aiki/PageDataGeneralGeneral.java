@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataGeneralGeneral extends PageCardsCommon{
 private static final String C_P_113_0="javahtml";
 private static final String C_P_113_1="gereral_data";
@@ -163,20 +162,20 @@ build3(elt5_,_doc18);
 build4(elt5_,_doc18);
 build5(elt5_,_doc18);
 build6(elt5_,_doc18);
-build7(elt5_,_doc18);
+br(elt5_,_doc18);
 build8(elt5_,_doc18);
 build9(elt5_,_doc18);
 build10(elt5_,_doc18);
-build11(elt5_,_doc18);
+br(elt5_,_doc18);
 build12(elt5_,_doc18);
 build13(elt5_,_doc18);
-build14(elt5_,_doc18);
+br(elt5_,_doc18);
 build15(elt5_,_doc18);
 build16(elt5_,_doc18);
 build17(elt5_,_doc18);
-build18(elt5_,_doc18);
+br(elt5_,_doc18);
 build19(elt5_,_doc18);
-build20(elt5_,_doc18);
+br(elt5_,_doc18);
 build21(elt5_,_doc18);
 build22(elt5_,_doc18);
 build23(elt5_,_doc18);
@@ -322,10 +321,6 @@ attrs0_.add(at(VALUE,C_P_113_23));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
-static void build7(Element _body,Document _doc18){
-Element elt0_=el(_doc18,BR);
-ad(_body,elt0_);
-}
 static void build8(Element _body,Document _doc18){
 Element elt0_=el(_doc18,MAP);
 CustList<Attr> attrs0_=al(2);
@@ -367,10 +362,6 @@ attrs0_.add(at(SRC,C_P_113_34));
 at(elt0_,attrs0_);
 ad(_body,elt0_);
 }
-static void build11(Element _body,Document _doc18){
-Element elt0_=el(_doc18,BR);
-ad(_body,elt0_);
-}
 static void build12(Element _body,Document _doc18){
 Element elt0_=el(_doc18,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -383,10 +374,6 @@ Element elt0_=el(_doc18,C_IMG);
 CustList<Attr> attrs0_=al(1);
 attrs0_.add(at(SRC,C_P_113_36));
 at(elt0_,attrs0_);
-ad(_body,elt0_);
-}
-static void build14(Element _body,Document _doc18){
-Element elt0_=el(_doc18,BR);
 ad(_body,elt0_);
 }
 static void build15(Element _body,Document _doc18){
@@ -416,10 +403,6 @@ ad(_body,elt0_);
 Text txt0_=tx(_doc18,C_P_113_41);
 ad(_body,txt0_);
 }
-static void build18(Element _body,Document _doc18){
-Element elt0_=el(_doc18,BR);
-ad(_body,elt0_);
-}
 static void build19(Element _body,Document _doc18){
 Element elt0_=el(_doc18,C_MESSAGE);
 CustList<Attr> attrs0_=al(1);
@@ -428,10 +411,6 @@ at(elt0_,attrs0_);
 ad(_body,elt0_);
 Text txt0_=tx(_doc18,C_P_113_43);
 ad(_body,txt0_);
-}
-static void build20(Element _body,Document _doc18){
-Element elt0_=el(_doc18,BR);
-ad(_body,elt0_);
 }
 static void build21(Element _body,Document _doc18){
 Element elt0_=el(_doc18,C_MESSAGE);

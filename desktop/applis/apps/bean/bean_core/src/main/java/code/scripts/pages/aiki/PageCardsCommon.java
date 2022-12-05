@@ -107,4 +107,7 @@ _elt.appendChild(_value);
 public static void br(Element _elt,Document _doc){
 _elt.appendChild(_doc.createElement(BR));
 }
+public static void hr(Element _elt,Document _doc){
+_elt.appendChild(_doc.createElement(HR));
+}
 }

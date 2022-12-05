@@ -1,7 +1,6 @@
 package code.scripts.pages.aiki;
 import code.sml.*;
 import code.util.*;
-import code.util.ints.*;
 final class PageDataMapElementsArea extends PageCardsCommon{
 private static final String C_P_133_0="javahtml";
 private static final String C_P_133_1="area";
@@ -101,10 +100,10 @@ Element elt5_=el(_doc38,BODY);
 build0(elt5_,_doc38);
 build1(elt5_,_doc38);
 build2(elt5_,_doc38);
-build3(elt5_,_doc38);
+br(elt5_,_doc38);
 build4(elt5_,_doc38);
 build5(elt5_,_doc38);
-build6(elt5_,_doc38);
+br(elt5_,_doc38);
 build7(elt5_,_doc38);
 build8(elt5_,_doc38);
 build9(elt5_,_doc38);
@@ -143,10 +142,6 @@ ad(_body,elt0_);
 Element elt2_=el(_doc38,BR);
 ad(_body,elt2_);
 }
-static void build3(Element _body,Document _doc38){
-Element elt0_=el(_doc38,BR);
-ad(_body,elt0_);
-}
 static void build4(Element _body,Document _doc38){
 Element elt0_=el(_doc38,A);
 CustList<Attr> attrs0_=al(2);
@@ -167,10 +162,6 @@ Element elt0_=el(_doc38,BR);
 ad(_body,elt0_);
 Text txt0_=tx(_doc38,C_P_133_15);
 ad(_body,txt0_);
-}
-static void build6(Element _body,Document _doc38){
-Element elt0_=el(_doc38,BR);
-ad(_body,elt0_);
 }
 static void build7(Element _body,Document _doc38){
 Element elt0_=el(_doc38,C_FOR);
