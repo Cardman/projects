@@ -1,5 +1,6 @@
 package code.stream.core;
 
+import code.threads.FileStruct;
 import code.util.core.IndexConstants;
 
 //very ugly implementation
@@ -17,7 +18,7 @@ public final class DefBinFact implements AbstractBinFact {
         while (true) {
             int read_ = reader_.read();
             if (read_ < IndexConstants.INDEX_NOT_FOUND_ELT) {
-                return null;
+                return new FileStruct(null,0).getContent();
             }
             if (read_ <= 0) {
                 break;

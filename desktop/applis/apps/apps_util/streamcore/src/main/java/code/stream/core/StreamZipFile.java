@@ -22,10 +22,9 @@ public final class StreamZipFile {
                 continue;
             }
             String dec_ = StringUtil.decode(e.getValue().getContent());
-            if (dec_ == null) {
-                continue;
+            if (dec_ != null) {
+                zipFiles_.addEntry(key_, _app.apply(dec_));
             }
-            zipFiles_.addEntry(key_, _app.apply(dec_));
         }
         return new ReadFiles(zipFiles_, OutputType.ZIP);
     }
