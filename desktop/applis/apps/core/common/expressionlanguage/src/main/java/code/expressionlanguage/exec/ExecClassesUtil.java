@@ -21,6 +21,7 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -162,6 +163,11 @@ public final class ExecClassesUtil {
             }
             st_.getInitializingTypeInfos().resetInitEnums(st_);
             ProcessMethod.initializeClass(res_,classBody_,_context, st_);
+        }
+        for (EntryCust<String, StringMap<Struct>> e: cl_.getCommon().getStaticFields().entryList()) {
+            for (EntryCust<String, Struct> f: e.getValue().entryList()) {
+                f.setValue(NullStruct.def(f.getValue()));
+            }
         }
         _context.setExiting(new NoExiting());
     }

@@ -1,7 +1,6 @@
 package code.expressionlanguage.fcts;
 
 import code.expressionlanguage.AbstractExiting;
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.GeneType;
@@ -43,8 +42,7 @@ public final class FctClassDefaultInstance0 extends FctClassDefaultInstanceAbs {
                 String idCl_ = StringExpUtil.getIdFromAllTypes(classFieldName_);
                 String fieldName_ = i_.getUniqueFieldName();
                 StringMap<StringMap<Struct>> staticFields_ = _cont.getClasses().getStaticFields();
-                Struct staticField_ = NumParsers.getStaticField(new ClassField(idCl_, fieldName_), staticFields_);
-                parent_ = Argument.getNull(staticField_);
+                parent_ = NullStruct.defNullValue(NumParsers.getStaticField(new ClassField(idCl_, fieldName_), staticFields_));
                 start_ = 1;
             }
         }

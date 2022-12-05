@@ -1,6 +1,7 @@
 package code.expressionlanguage.exec;
 
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -18,7 +19,7 @@ public final class ClassFieldStruct {
         CustList<ClassFieldStruct> sum_ = new CustList<ClassFieldStruct>();
         for (EntryCust<String, StringMap<Struct>> c: _staticFields.entryList()) {
             for (EntryCust<String, Struct> e: c.getValue().entryList()) {
-                if (e.getValue() == null) {
+                if (NullStruct.def(e.getValue()) == NullStruct.DEF_VALUE) {
                     continue;
                 }
                 sum_.add(new ClassFieldStruct(new ClassField(c.getKey(),e.getKey()),e.getValue()));

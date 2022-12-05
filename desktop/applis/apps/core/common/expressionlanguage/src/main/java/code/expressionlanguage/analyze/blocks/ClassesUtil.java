@@ -31,6 +31,7 @@ import code.expressionlanguage.common.*;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.linkage.ExportCst;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.*;
 import code.util.core.BoolVal;
@@ -2815,7 +2816,7 @@ public final class ClassesUtil {
             return;
         }
         for (String f: i_.getElements().getFieldName()) {
-            _values.put(f, null);
+            _values.put(f, NullStruct.DEF_VALUE);
         }
     }
 
@@ -2824,13 +2825,13 @@ public final class ClassesUtil {
             boolean calculatedValue_ = false;
             for (EntryCust<ClassField,ClassFieldBlock> e: _cstFields.entryList()) {
                 ClassField k_ = e.getKey();
-                if (NumParsers.getStaticField(k_, _page.getStaticFields()) == null) {
+                if (NullStruct.def(NumParsers.getStaticField(k_, _page.getStaticFields())) == NullStruct.DEF_VALUE) {
                     ClassFieldBlock cf_ = e.getValue();
                     FieldBlock f_ = cf_.getFieldName();
                     _page.setCurrentFile(f_.getFile());
                     CustList<OperationNode> ops_ = cf_.getClassName();
                     ReachOperationUtil.tryCalculate(f_, ops_, k_.getFieldName(), _page);
-                    if (NumParsers.getStaticField(k_, _page.getStaticFields()) != null) {
+                    if (NullStruct.def(NumParsers.getStaticField(k_, _page.getStaticFields())) != NullStruct.DEF_VALUE) {
                         calculatedValue_ = true;
                         break;
                     }

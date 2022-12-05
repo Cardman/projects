@@ -19,6 +19,7 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 import code.util.EntryCust;
@@ -132,8 +133,8 @@ public final class Classes {
 
     public Struct getStaticField(ClassField _clField, String _returnType, ContextEl _context) {
         StringMap<StringMap<Struct>> staticFields_ = getStaticFields();
-        Struct strInit_ = NumParsers.getStaticField(_clField, staticFields_);
-        if (strInit_ != null) {
+        Struct strInit_ = NullStruct.def(NumParsers.getStaticField(_clField, staticFields_));
+        if (strInit_ != NullStruct.DEF_VALUE) {
             return strInit_;
         }
         return ExecClassArgumentMatching.defaultValue(_returnType, _context);

@@ -74,6 +74,14 @@ public final class ClassesTest extends ProcessMethodCommon {
         AnaInherits.getOverridingFullTypeByBases(null,null);
         AnalyzedPageEl.getLocationFile(0,null,0);
         AnalyzedPageEl.getFileName(null);
+        assertSame(NullStruct.DEF_VALUE,NullStruct.def(null));
+        assertSame(NullStruct.DEF_VALUE,NullStruct.def(NullStruct.DEF_VALUE));
+        assertSame(NullStruct.NULL_VALUE,NullStruct.def(NullStruct.NULL_VALUE));
+        assertSame(NullStruct.NULL_VALUE,NullStruct.nullValue(NullStruct.DEF_VALUE));
+        assertSame(NullStruct.NULL_VALUE,NullStruct.nullValue(NullStruct.NULL_VALUE));
+        assertSame(NullStruct.NULL_VALUE,NullStruct.defNullValue(null));
+        assertSame(NullStruct.NULL_VALUE,NullStruct.defNullValue(NullStruct.DEF_VALUE));
+        assertSame(NullStruct.NULL_VALUE,NullStruct.defNullValue(NullStruct.NULL_VALUE));
     }
 
     @Test

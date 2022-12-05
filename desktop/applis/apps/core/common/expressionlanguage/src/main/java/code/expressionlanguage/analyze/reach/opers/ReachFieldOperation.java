@@ -9,6 +9,7 @@ import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.fwd.opers.AnaSettableOperationContent;
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.StringMap;
 
@@ -42,7 +43,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
         }
         StringMap<Struct> map_ = NumParsers.getStaticFieldMap(fieldId_.getClassName(), _page.getStaticFields());
         StringMap<StringMap<Struct>> staticFields_ = _page.getStaticFields();
-        Struct str_ = NumParsers.getStaticField(fieldId_, staticFields_);
+        Struct str_ = NullStruct.def(NumParsers.getStaticField(fieldId_, staticFields_));
         if (map_.isEmpty()) {
             Argument arg_ = new Argument(_page.getCalculator().getInnerSimpleResult(fieldId_));
             setSimpleArgumentAna(arg_);
@@ -54,7 +55,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
             setSimpleArgument(arg_);
             return;
         }
-        if (str_ != null) {
+        if (str_ != NullStruct.DEF_VALUE) {
             Argument arg_ = new Argument(str_);
             setSimpleArgumentAna(arg_);
             trySetDotParent(this, arg_, _page);
