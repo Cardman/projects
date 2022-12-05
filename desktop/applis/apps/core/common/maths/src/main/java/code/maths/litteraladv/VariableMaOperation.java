@@ -15,8 +15,8 @@ public final class VariableMaOperation extends LeafMaOperation {
 
     @Override
     void calculate(StringMap<MaStruct> _conf, MaError _error, MaDelimiters _del) {
-        MaStruct val_ = _conf.getVal(varName);
-        if (val_ != null) {
+        MaStruct val_ = MaNullStruct.def(_conf.getVal(varName));
+        if (val_ != MaNullStruct.NULL_VALUE) {
             setStruct(val_);
             return;
         }

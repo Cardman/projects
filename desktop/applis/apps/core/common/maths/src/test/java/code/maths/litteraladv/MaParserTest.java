@@ -3843,10 +3843,14 @@ public final class MaParserTest extends EquallableMathUtil {
 //    }
     @Test
     public void test(){
-        assertEqRate(null, null);
-        assertNotEq(null, new MaRateStruct(Rate.zero()));
-        assertNotEq(new MaRateStruct(Rate.zero()), null);
-        assertNull(MaNumParsers.tryGet(new CustList<MaOperationNode>(),0));
+//        assertEqRate(null, null);
+//        assertNotEq(null, new MaRateStruct(Rate.zero()));
+//        assertNotEq(new MaRateStruct(Rate.zero()), null);
+        MaStruct ms_ = MaNullStruct.NULL_VALUE;
+        assertTrue(!ms_.sameReference(null));
+        assertTrue(ms_.sameReference(MaNullStruct.NULL_VALUE));
+        assertEq("",ms_.displayRsult());
+        assertSame(MaNullStruct.NULL_VALUE,MaNumParsers.tryGet(new CustList<MaOperationNode>(),0));
         MaStackOperators m_ = new MaStackOperators();
         m_.add(0,' ');
         assertEq(0,m_.ind());
@@ -3878,15 +3882,18 @@ public final class MaParserTest extends EquallableMathUtil {
         assertEq("",ConstantMaOperation.nb(new CustList<StringBuilder>(),0));
     }
     private static String noVar(String _el) {
-        return processEl(_el, new CustList<Replacement>());
+        return processEl(new MaUserInput(_el,new CustList<Replacement>(),true));
     }
     private static String nullVar() {
         CustList<Replacement> conf_ = new CustList<Replacement>();
-        conf_.add(null);
-        return processEl("", conf_);
+        Replacement r_ = new Replacement();
+        r_.setNewString("");
+        r_.setOldString("");
+        conf_.add(r_);
+        return processEl(new MaUserInput("", conf_,true));
     }
     private static String nullMap() {
-        return processEl("", null);
+        return processEl(new MaUserInput("", new CustList<Replacement>(),false));
     }
     private static String oneVar(String _el,String _var,String _value) {
         CustList<Replacement> conf_ = new CustList<Replacement>();
@@ -3894,7 +3901,7 @@ public final class MaParserTest extends EquallableMathUtil {
         rep_.setOldString(_var);
         rep_.setNewString(_value);
         conf_.add(rep_);
-        return processEl(_el, conf_);
+        return processEl(new MaUserInput(_el, conf_,true));
     }
     private static String dupVar(String _el,String _var,String _value) {
         CustList<Replacement> conf_ = new CustList<Replacement>();
@@ -3906,7 +3913,7 @@ public final class MaParserTest extends EquallableMathUtil {
         rep_.setOldString(_var);
         rep_.setNewString(_value);
         conf_.add(rep_);
-        return processEl(_el, conf_);
+        return processEl(new MaUserInput(_el, conf_,true));
     }
     private static String twoVars(String _el,String _var,String _value,String _var2,String _value2) {
         CustList<Replacement> conf_ = new CustList<Replacement>();
@@ -3918,10 +3925,10 @@ public final class MaParserTest extends EquallableMathUtil {
         rep_.setOldString(_var2);
         rep_.setNewString(_value2);
         conf_.add(rep_);
-        return processEl(_el, conf_);
+        return processEl(new MaUserInput(_el, conf_,true));
     }
 
-    private static String processEl(String _el, CustList<Replacement> _conf) {
-        return MaParser.processEl(DefaultGenerator.oneElt(),new CustomSeedGene(),_el, _conf);
+    private static String processEl(MaUserInput _input) {
+        return MaParser.processEl(DefaultGenerator.oneElt(),new CustomSeedGene(),_input);
     }
 }

@@ -11,24 +11,24 @@ public final class MaParser {
     private MaParser() {
     }
 
-    public static String processEl(AbstractGenerator _gene, CustomSeedGene _cust, String _el, CustList<Replacement> _conf) {
-        String exp_ = StringUtil.nullToEmpty(_el);
-        if (_conf == null) {
+    public static String processEl(AbstractGenerator _gene, CustomSeedGene _cust, MaUserInput _input) {
+        String exp_ = StringUtil.nullToEmpty(_input.getEl());
+        if (!_input.isOk()) {
             return "#####"+exp_;
         }
         MaParameters aliases_ = new MaParameters(_gene,_cust);
-        String outStr_ = checkedAliases(exp_, _conf);
+        String outStr_ = checkedAliases(exp_, _input.getRepl());
         if (!outStr_.isEmpty()) {
             return outStr_;
         }
-        String outVars_ = checkedVariables(_conf);
+        String outVars_ = checkedVariables(_input.getRepl());
         if (!outVars_.isEmpty()) {
             return outVars_;
         }
         StringMap<MaStruct> values_ = new StringMap<MaStruct>();
         StringList varNames_ = new StringList();
         StringMap<String> repl_ = new StringMap<String>();
-        for (Replacement r: _conf) {
+        for (Replacement r: _input.getRepl()) {
 //            if (!r.getOldString().startsWith("#")) {
 //                String user_ = r.getOldString();
 //                values_.addEntry(user_,null);
@@ -36,7 +36,7 @@ public final class MaParser {
 //                repl_.addEntry(user_,r.getNewString());
 //            }
             String user_ = r.getOldString();
-            values_.addEntry(user_,null);
+            values_.addEntry(user_,MaNullStruct.NULL_VALUE);
             varNames_.add(user_);
             repl_.addEntry(user_,r.getNewString());
         }
@@ -64,11 +64,11 @@ public final class MaParser {
         boolean calculatedValue_ = false;
         int index_ = 0;
         for (EntryCust<String,String> e: _repl.entryList()) {
-            if (_values.getValue(index_) == null) {
+            if (_values.getValue(index_) == MaNullStruct.NULL_VALUE) {
                 String cf_ = StringUtil.nullToEmpty(e.getValue());
                 MaError err_ = new MaError();
                 MaStruct val_ = analyzeCalculate(cf_, _values, _aliases, err_, true, _varNames);
-                if (val_ != null) {
+                if (val_ != MaNullStruct.NULL_VALUE) {
                     _values.setValue(index_, val_);
                     calculatedValue_ = true;
                     break;
@@ -161,7 +161,7 @@ public final class MaParser {
 //                MaOperationNode.ALEA,MaOperationNode.STAT);
 //    }
     private static boolean koCoreRepl(Replacement _r) {
-        return _r == null || StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();
+        return StringUtil.nullToEmpty(_r.getOldString()).isEmpty() || StringUtil.nullToEmpty(_r.getNewString()).isEmpty();
     }
 
 //    private static boolean okKey(String _key) {
@@ -171,23 +171,23 @@ public final class MaParser {
     private static MaStruct analyzeCalculate(String _el, StringMap<MaStruct> _conf, MaParameters _mapping, MaError _err, boolean _procVar, StringList _varNames) {
         MaDelimiters d_ = checkSyntax(_el, _err,_varNames);
         if (_err.getOffset() > -1) {
-            return null;
+            return MaNullStruct.NULL_VALUE;
         }
         MaOperationsSequence opTwo_ = getOperationsSequence(IndexConstants.FIRST_INDEX, _el, d_);
         MaOperationNode op_ = MaOperationNode.createOperationNodeAndChild(IndexConstants.FIRST_INDEX, IndexConstants.FIRST_INDEX, null, opTwo_, _mapping);
         if (op_ == null) {
             _err.setOffset(0);
-            return null;
+            return MaNullStruct.NULL_VALUE;
         }
         CustList<MaOperationNode> all_ = getSortedDescNodes(op_, _err, d_, _mapping);
         if (_err.getOffset() > -1) {
-            return null;
+            return MaNullStruct.NULL_VALUE;
         }
         calculate(all_, _conf, _err,d_, _procVar);
         if (_err.getOffset() > -1) {
-            return null;
+            return MaNullStruct.NULL_VALUE;
         }
-        return op_.getStruct();
+        return MaNullStruct.def(op_.getStruct());
     }
 
     public static CustList<MaOperationNode> getSortedDescNodes(MaOperationNode _root, MaError _error, MaDelimiters _del, MaParameters _mapping) {
@@ -261,7 +261,7 @@ public final class MaParser {
             MaOperationNode o = _nodes.get(fr_);
             if (_procVar && o instanceof VariableMaOperation) {
                 String varName_ = ((VariableMaOperation) o).getVarName();
-                if (_context.getVal(varName_) == null) {
+                if (MaNullStruct.def(_context.getVal(varName_)) == MaNullStruct.NULL_VALUE) {
                     return;
                 }
             }

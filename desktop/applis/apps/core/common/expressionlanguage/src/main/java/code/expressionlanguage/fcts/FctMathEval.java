@@ -7,9 +7,11 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.maths.litteraladv.MaParser;
+import code.maths.litteraladv.MaUserInput;
 import code.maths.montecarlo.AbstractGenerator;
 import code.util.CustList;
 import code.util.Replacement;
@@ -29,6 +31,7 @@ public final class FctMathEval extends FctMath {
         AbstractGenerator generator_ = lgNames_.getGenerator();
         String val_ = NumParsers.getStringValue(_st);
         CustList<Replacement> repls_ = NumParsers.getReplValue(_seps);
-        return new ArgumentWrapper(new StringStruct(MaParser.processEl(generator_,_stackCall.getSeedCust(),val_,repls_)));
+        boolean ok_ = _seps instanceof ArrayStruct;
+        return new ArgumentWrapper(new StringStruct(MaParser.processEl(generator_,_stackCall.getSeedCust(),new MaUserInput(val_,repls_,ok_))));
     }
 }

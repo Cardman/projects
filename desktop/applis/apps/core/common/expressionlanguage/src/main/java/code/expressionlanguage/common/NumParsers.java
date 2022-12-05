@@ -1203,7 +1203,7 @@ public final class NumParsers {
     public static CustList<Replacement> getReplValue(Struct _seps) {
         CustList<Replacement> repls_;
         if (!(_seps instanceof ArrayStruct)) {
-            repls_ = null;
+            repls_ = new CustList<Replacement>();
         } else {
             repls_ = new CustList<Replacement>();
             ArrayStruct arrSep_ = (ArrayStruct) _seps;
@@ -1211,7 +1211,10 @@ public final class NumParsers {
             for (int i = 0; i < lenSeps_; i++) {
                 Struct curSep_ = arrSep_.get(i);
                 if (!(curSep_ instanceof ReplacementStruct)) {
-                    repls_.add(null);
+                    Replacement r_ = new Replacement();
+                    r_.setNewString("");
+                    r_.setNewString("");
+                    repls_.add(r_);
                 } else {
                     repls_.add(((ReplacementStruct)curSep_).getInstance());
                 }

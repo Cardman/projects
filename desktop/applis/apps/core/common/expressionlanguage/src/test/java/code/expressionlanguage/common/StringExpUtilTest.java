@@ -215,16 +215,16 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
         AnaClassArgumentMatching arg_ = new AnaClassArgumentMatching("$int");
         assertTrue(AnaTypeUtil.getQuickComponentType(arg_).getNames().isEmpty());
     }
-    @Test
-    public void getReplValue1() {
-        assertNull(NumParsers.getReplValue(null));
-    }
-    @Test
-    public void getReplValue2() {
-        ArrayStruct seps_ = new ArrayStruct(1, "");
-        seps_.set(0,new StringStruct("0"));
-        assertNull(NumParsers.getReplValue(seps_).first());
-    }
+//    @Test
+//    public void getReplValue1() {
+//        assertNull(NumParsers.getReplValue(null));
+//    }
+//    @Test
+//    public void getReplValue2() {
+//        ArrayStruct seps_ = new ArrayStruct(1, "");
+//        seps_.set(0,new StringStruct("0"));
+//        assertNull(NumParsers.getReplValue(seps_).first());
+//    }
     @Test
     public void getAllSepCommaTypes1Test(){
         assertEq(new StringList("Number","<<","$int"), StringExpUtil.getAllSepCommaTypes("Number,<<,$int"));

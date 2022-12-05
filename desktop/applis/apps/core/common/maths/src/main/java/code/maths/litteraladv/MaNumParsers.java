@@ -8,7 +8,7 @@ public final class MaNumParsers {
     private MaNumParsers() {
     }
     public static String toStrNb(MaStruct _this,MaError _error) {
-        if (_this == null) {
+        if (_this == MaNullStruct.NULL_VALUE) {
             return _error.display();
         }
         return _this.displayRsult();
@@ -21,9 +21,9 @@ public final class MaNumParsers {
 
     public static MaStruct tryGet(CustList<MaOperationNode> _childrenNodes, int _index) {
         if (!_childrenNodes.isValidIndex(_index)) {
-            return null;
+            return MaNullStruct.def(null);
         }
-        return _childrenNodes.get(_index).getStruct();
+        return MaNullStruct.def(_childrenNodes.get(_index).getStruct());
     }
 
     public static boolean eqNb(MaStruct _this, MaStruct _other, String _oper) {
@@ -42,12 +42,12 @@ public final class MaNumParsers {
         return false;
     }
     public static boolean eqNb(MaStruct _this, MaStruct _other) {
-        if (_this == null) {
-            return _other == null;
-        }
-        if (_other == null) {
-            return false;
-        }
+//        if (_this == null) {
+//            return _other == null;
+//        }
+//        if (_other == null) {
+//            return false;
+//        }
         return _this.sameReference(_other);
     }
     public static boolean cmpNb(MaRateStruct _this, MaRateStruct _other, String _oper) {
