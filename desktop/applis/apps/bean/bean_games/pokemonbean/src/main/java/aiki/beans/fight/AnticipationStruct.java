@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.Anticipation;
+import code.bean.nat.NaNuSt;
 
-public final class AnticipationStruct extends ParamNatStruct<Anticipation> {
+public final class AnticipationStruct extends NaNuSt {
+    private final Anticipation inst;
     public AnticipationStruct(Anticipation _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public Anticipation getAnticipation() {
-        return getInstance();
+        return inst;
     }
 }

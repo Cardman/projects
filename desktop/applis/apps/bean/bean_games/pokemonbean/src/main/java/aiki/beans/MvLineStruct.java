@@ -1,13 +1,15 @@
 package aiki.beans;
 
 import aiki.beans.facade.dto.MoveLine;
+import code.bean.nat.NaNuSt;
 
-public final class MvLineStruct extends ParamNatStruct<MoveLine> {
+public final class MvLineStruct extends NaNuSt {
+    private final MoveLine inst;
     public MvLineStruct(MoveLine _wildPk) {
-        super(_wildPk);
+        inst=(_wildPk);
     }
 
     public MoveLine getWildPk() {
-        return getInstance();
+        return inst;
     }
 }

@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.TargetCoords;
+import code.bean.nat.NaNuSt;
 
-public final class TargetCoordsStruct extends ParamNatStruct<TargetCoords> {
+public final class TargetCoordsStruct extends NaNuSt {
+    private final TargetCoords inst;
     public TargetCoordsStruct(TargetCoords _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public TargetCoords getTargetCoords() {
-        return getInstance();
+        return inst;
     }
 }

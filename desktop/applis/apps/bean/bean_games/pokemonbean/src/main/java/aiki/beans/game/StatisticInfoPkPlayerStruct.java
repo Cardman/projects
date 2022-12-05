@@ -1,13 +1,14 @@
 package aiki.beans.game;
 
-import aiki.beans.ParamNatStruct;
 import aiki.beans.facade.game.dto.StatisticInfoPkPlayer;
+import code.bean.nat.NaNuSt;
 
-public final class StatisticInfoPkPlayerStruct extends ParamNatStruct<StatisticInfoPkPlayer> {
+public final class StatisticInfoPkPlayerStruct extends NaNuSt {
+    private final StatisticInfoPkPlayer inst;
     public StatisticInfoPkPlayerStruct(StatisticInfoPkPlayer _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public StatisticInfoPkPlayer getStatisticInfoPkPlayer() {
-        return getInstance();
+        return inst;
     }
 }

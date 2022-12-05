@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.beans.facade.fight.KeyHypothesis;
+import code.bean.nat.NaNuSt;
 
-public final class KeyHypothesisStruct extends ParamNatStruct<KeyHypothesis> {
+public final class KeyHypothesisStruct extends NaNuSt {
+    private final KeyHypothesis inst;
     public KeyHypothesisStruct(KeyHypothesis _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public KeyHypothesis getKeyHypothesis() {
-        return getInstance();
+        return inst;
     }
 }

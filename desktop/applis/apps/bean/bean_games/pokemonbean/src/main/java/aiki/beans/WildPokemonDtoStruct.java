@@ -1,12 +1,14 @@
 package aiki.beans;
 
 import aiki.beans.facade.solution.dto.WildPokemonDto;
+import code.bean.nat.NaNuSt;
 
-public final class WildPokemonDtoStruct extends ParamNatStruct<WildPokemonDto> {
+public final class WildPokemonDtoStruct extends NaNuSt {
+    private final WildPokemonDto inst;
     public WildPokemonDtoStruct(WildPokemonDto _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public WildPokemonDto getWildPokemonDto() {
-        return getInstance();
+        return inst;
     }
 }

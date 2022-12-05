@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.beans.facade.fight.SufferedDamageCategory;
+import code.bean.nat.NaNuSt;
 
-public final class SufferedDamageCategoryStruct extends ParamNatStruct<SufferedDamageCategory> {
+public final class SufferedDamageCategoryStruct extends NaNuSt {
+    private final SufferedDamageCategory inst;
     public SufferedDamageCategoryStruct(SufferedDamageCategory _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public SufferedDamageCategory getSufferedDamageCategory() {
-        return getInstance();
+        return inst;
     }
 }

@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.util.CopiedMove;
+import code.bean.nat.NaNuSt;
 
-public final class CopiedMoveStruct extends ParamNatStruct<CopiedMove> {
+public final class CopiedMoveStruct extends NaNuSt {
+    private final CopiedMove inst;
     public CopiedMoveStruct(CopiedMove _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public CopiedMove getCopiedMove() {
-        return getInstance();
+        return inst;
     }
 }

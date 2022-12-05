@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.util.MoveTarget;
+import code.bean.nat.NaNuSt;
 
-public final class MoveTargetStruct extends ParamNatStruct<MoveTarget> {
+public final class MoveTargetStruct extends NaNuSt {
+    private final MoveTarget inst;
     public MoveTargetStruct(MoveTarget _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public MoveTarget getMoveTarget() {
-        return getInstance();
+        return inst;
     }
 }

@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.ActivityOfMove;
+import code.bean.nat.NaNuSt;
 
-public final class ActivityOfMoveStruct extends ParamNatStruct<ActivityOfMove> {
+public final class ActivityOfMoveStruct extends NaNuSt {
+    private final ActivityOfMove inst;
     public ActivityOfMoveStruct(ActivityOfMove _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public ActivityOfMove getActivityOfMove() {
-        return getInstance();
+        return inst;
     }
 }

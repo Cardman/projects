@@ -1,13 +1,14 @@
 package aiki.beans.game;
 
 import aiki.beans.DifficultyCommon;
-import aiki.beans.ParamNatStruct;
+import code.bean.nat.NaNuSt;
 
-public final class DifficultyCommonStruct extends ParamNatStruct<DifficultyCommon> {
+public final class DifficultyCommonStruct extends NaNuSt {
+    private final DifficultyCommon inst;
     public DifficultyCommonStruct(DifficultyCommon _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public DifficultyCommon getDifficultyCommon() {
-        return getInstance();
+        return inst;
     }
 }

@@ -1,20 +1,21 @@
 package aiki.beans.facade;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.UsesOfMove;
+import code.bean.nat.NaNuSt;
+import code.bean.nat.NaStSt;
 import code.bean.nat.NatArrayStruct;
 import code.bean.nat.PairStruct;
-import code.bean.nat.*;
 import code.util.AbsMap;
 import code.util.EntryCust;
 
-public final class UsesOfMoveStruct extends ParamNatStruct<UsesOfMove> {
+public final class UsesOfMoveStruct extends NaNuSt {
+    private final UsesOfMove inst;
     public UsesOfMoveStruct(UsesOfMove _instance) {
-        super(_instance);
+        inst=(_instance);
     }
 
     public UsesOfMove getUsesOfMove() {
-        return getInstance();
+        return inst;
     }
     public static NatArrayStruct getUsesStr(AbsMap<String, UsesOfMove> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());

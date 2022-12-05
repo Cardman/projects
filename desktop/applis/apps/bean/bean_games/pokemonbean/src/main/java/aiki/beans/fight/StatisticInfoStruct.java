@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.beans.facade.fight.StatisticInfo;
+import code.bean.nat.NaNuSt;
 
-public final class StatisticInfoStruct extends ParamNatStruct<StatisticInfo> {
+public final class StatisticInfoStruct extends NaNuSt {
+    private final StatisticInfo inst;
     public StatisticInfoStruct(StatisticInfo _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public StatisticInfo getStatisticInfo() {
-        return getInstance();
+        return inst;
     }
 }

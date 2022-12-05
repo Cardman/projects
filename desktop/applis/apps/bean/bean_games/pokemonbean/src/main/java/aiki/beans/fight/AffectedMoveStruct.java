@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.util.AffectedMove;
+import code.bean.nat.NaNuSt;
 
-public final class AffectedMoveStruct extends ParamNatStruct<AffectedMove> {
+public final class AffectedMoveStruct extends NaNuSt {
+    private final AffectedMove inst;
     public AffectedMoveStruct(AffectedMove _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public AffectedMove getAffectedMove() {
-        return getInstance();
+        return inst;
     }
 }

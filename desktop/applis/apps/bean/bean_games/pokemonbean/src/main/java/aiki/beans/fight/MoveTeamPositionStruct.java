@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.MoveTeamPosition;
+import code.bean.nat.NaNuSt;
 
-public final class MoveTeamPositionStruct extends ParamNatStruct<MoveTeamPosition> {
+public final class MoveTeamPositionStruct extends NaNuSt {
+    private final MoveTeamPosition inst;
     public MoveTeamPositionStruct(MoveTeamPosition _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public MoveTeamPosition getMoveTeamPosition() {
-        return getInstance();
+        return inst;
     }
 }

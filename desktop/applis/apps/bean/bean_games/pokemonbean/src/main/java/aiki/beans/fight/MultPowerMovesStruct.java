@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.beans.facade.fight.MultPowerMoves;
+import code.bean.nat.NaNuSt;
 
-public final class MultPowerMovesStruct extends ParamNatStruct<MultPowerMoves> {
+public final class MultPowerMovesStruct extends NaNuSt {
+    private final MultPowerMoves inst;
     public MultPowerMovesStruct(MultPowerMoves _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public MultPowerMoves getMultPowerMoves() {
-        return getInstance();
+        return inst;
     }
 }

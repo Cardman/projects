@@ -1,13 +1,14 @@
 package aiki.beans.fight;
 
-import aiki.beans.ParamNatStruct;
 import aiki.game.fight.StacksOfUses;
+import code.bean.nat.NaNuSt;
 
-public final class StacksOfUsesStruct extends ParamNatStruct<StacksOfUses> {
+public final class StacksOfUsesStruct extends NaNuSt {
+    private final StacksOfUses inst;
     public StacksOfUsesStruct(StacksOfUses _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public StacksOfUses getStacksOfUses() {
-        return getInstance();
+        return inst;
     }
 }

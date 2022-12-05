@@ -1,12 +1,14 @@
 package aiki.beans;
 
 import aiki.beans.facade.simulation.dto.PokemonPlayerDto;
+import code.bean.nat.NaNuSt;
 
-public final class PokemonPlayerDtoStruct extends ParamNatStruct<PokemonPlayerDto> {
+public final class PokemonPlayerDtoStruct extends NaNuSt {
+    private final PokemonPlayerDto inst;
     public PokemonPlayerDtoStruct(PokemonPlayerDto _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public PokemonPlayerDto getPokemonPlayerDto() {
-        return getInstance();
+        return inst;
     }
 }

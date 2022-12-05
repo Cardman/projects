@@ -1,13 +1,15 @@
 package aiki.beans;
 
 import aiki.beans.facade.dto.PokemonLine;
+import code.bean.nat.NaNuSt;
 
-public final class PkLineStruct extends ParamNatStruct<PokemonLine> {
+public final class PkLineStruct extends NaNuSt {
+    private final PokemonLine inst;
     public PkLineStruct(PokemonLine _wildPk) {
-        super(_wildPk);
+        inst=(_wildPk);
     }
 
     public PokemonLine getWildPk() {
-        return getInstance();
+        return inst;
     }
 }

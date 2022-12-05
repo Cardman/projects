@@ -1,12 +1,14 @@
 package aiki.beans;
 
 import aiki.beans.effects.ComboDto;
+import code.bean.nat.NaNuSt;
 
-public final class ComboDtoStruct extends ParamNatStruct<ComboDto> {
+public final class ComboDtoStruct extends NaNuSt {
+    private final ComboDto inst;
     public ComboDtoStruct(ComboDto _instance) {
-        super(_instance);
+        inst=(_instance);
     }
     public ComboDto getComboDto() {
-        return getInstance();
+        return inst;
     }
 }

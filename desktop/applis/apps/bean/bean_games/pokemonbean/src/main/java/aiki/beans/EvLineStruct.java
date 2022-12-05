@@ -1,13 +1,15 @@
 package aiki.beans;
 
 import aiki.beans.facade.simulation.dto.EvLine;
+import code.bean.nat.NaNuSt;
 
-public final class EvLineStruct extends ParamNatStruct<EvLine> {
+public final class EvLineStruct extends NaNuSt {
+    private final EvLine inst;
     public EvLineStruct(EvLine _evLine) {
-        super(_evLine);
+        inst=(_evLine);
     }
 
     public EvLine getEvLine() {
-        return getInstance();
+        return inst;
     }
 }
