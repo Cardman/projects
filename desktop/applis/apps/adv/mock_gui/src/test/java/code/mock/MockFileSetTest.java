@@ -2,6 +2,7 @@ package code.mock;
 
 import code.threads.FileStruct;
 import code.util.core.DefaultUniformingString;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -430,5 +431,14 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         assertEq(2, l2_.length);
         assertEq("tmp2", l2_[0]);
         assertEq("txt6", l2_[1]);
+    }
+    @Test
+    public void f53() {
+        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2,7,6),true,"/");
+        pr_.getFileCoreStream().newFile("tmp").mkdirs();
+        pr_.setCurrentPath("/tmp");
+        pr_.getStreams().getBinFact().writeFile("txt", NumberUtil.wrapByteArray((byte)-17,(byte)-65));
+        assertNull(pr_.getStreams().getTextFact().contentsOfFile("/tmp/txt",new DefaultUniformingString(),7));
+        assertTrue(pr_.getFileCoreStream().newFile("txt").exists());
     }
 }

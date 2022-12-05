@@ -5,7 +5,6 @@ package code.player.gui;
 
 
 import code.gui.*;
-import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
@@ -324,7 +323,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 return absClipStream_;
             }
         }
-        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.decode(_bytes));
+        byte[] bytesTr_ = parseBaseSixtyFourBinary(StringUtil.nullToEmpty(StringUtil.decode(_bytes)));
         if (isWav(bytesTr_)) {
             return openClip(bytesTr_);
         }

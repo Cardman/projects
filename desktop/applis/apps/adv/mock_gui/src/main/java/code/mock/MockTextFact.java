@@ -18,7 +18,11 @@ public final class MockTextFact implements AbstractTextFact {
         if (bytes_ == null) {
             return null;
         }
-        return _uni.apply(StringUtil.decode(bytes_));
+        String d_ = StringUtil.decode(bytes_);
+        if (d_ == null) {
+            return null;
+        }
+        return _uni.apply(d_);
     }
 
     @Override

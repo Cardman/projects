@@ -66,10 +66,9 @@ public final class StreamFolderFile {
                     continue;
                 }
                 String contentOfFile_ = StreamTextFile.contentsOfFile(f, _app,_fact,_zip);
-                if (contentOfFile_ == null) {
-                    continue;
+                if (contentOfFile_ != null) {
+                    zipFiles_.addEntry(f.substring(abs_.length() + 1), contentOfFile_);
                 }
-                zipFiles_.addEntry(f.substring(abs_.length()+1),contentOfFile_);
             }
             return new ReadFiles(zipFiles_, OutputType.FOLDER);
         }
@@ -91,16 +90,20 @@ public final class StreamFolderFile {
                     }
                     continue;
                 }
-                byte[] contentOfFile_ = StreamBinaryFile.loadFile(f, _zip);
-                if (contentOfFile_ == null) {
-                    continue;
-                }
-                zipFiles_.addEntry(f.substring(abs_.length()+1),new ContentTime(contentOfFile_,info_.lastModified()));
+                tryExtract(_zip, zipFiles_, abs_, f, info_);
             }
             return new ReadBinFiles(zipFiles_,zipFolders_, OutputType.FOLDER);
         }
         byte[] bytes_ = StreamBinaryFile.loadFile(_archiveOrFolder, _zip);
         return StreamZipFile.getZippedBinFiles(bytes_, _zip.getZipFact());
+    }
+
+    static void tryExtract(TechStreams _zip, StringMap<ContentTime> _zipFiles, String _abs, String _f, AbstractFile _info) {
+        byte[] contentOfFile_ = StreamBinaryFile.loadFile(_f, _zip);
+        if (contentOfFile_ == null) {
+            return;
+        }
+        _zipFiles.addEntry(_f.substring(_abs.length()+1),new ContentTime(contentOfFile_, _info.lastModified()));
     }
 
 }

@@ -7,7 +7,6 @@ import code.stream.core.TechStreams;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.DefaultUniformingString;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
@@ -69,14 +68,7 @@ public final class StreamTextFile {
     public static StringList files(String _folder,AbstractFileCoreStream _fact) {
         StringList files_ = new StringList();
         StringList current_ = new StringList(_folder);
-        String folder_ = _folder;
-        folder_ = _fact.newFile(folder_).getAbsolutePath();
-        folder_ = StringUtil.replaceBackSlash(folder_);
-        if (folder_.endsWith(StringUtil.concat(SEPARATEUR,_folder))) {
-            String suffix_ = StringUtil.concat(SEPARATEUR,_folder);
-            folder_ = folder_.substring(IndexConstants.FIRST_INDEX, folder_.length() - suffix_.length());
-            folder_ = StringUtil.concat(folder_,SEPARATEUR);
-        }
+        String folder_ = _fact.newFile(_folder).getAbsolutePath();
         while (true) {
             StringList new_ = new StringList();
             for (String c : current_) {
@@ -118,17 +110,11 @@ public final class StreamTextFile {
     }
 
     public static boolean saveTextFile(String _nomFichier, String _text, TechStreams _tech) {
-        if (_nomFichier == null) {
-            return false;
-        }
-        return write(_nomFichier, _text, false,_tech);
+        return write(StringUtil.nullToEmpty(_nomFichier), StringUtil.nullToEmpty(_text), false,_tech);
     }
 
     public static boolean logToFile(String _nomFichier, String _text, TechStreams _tech) {
-        if (_nomFichier == null) {
-            return false;
-        }
-        return write(_nomFichier, _text, true,_tech);
+        return write(StringUtil.nullToEmpty(_nomFichier), StringUtil.nullToEmpty(_text), true,_tech);
     }
 
     private static boolean write(String _nomFichier, String _text, boolean _append, TechStreams _tech) {
