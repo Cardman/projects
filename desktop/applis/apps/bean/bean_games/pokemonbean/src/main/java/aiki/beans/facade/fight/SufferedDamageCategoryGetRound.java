@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class SufferedDamageCategoryGetRound implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new RateStruct(( ((SufferedDamageCategoryStruct) _instance).getInstance()).getRound());
+        return new RateStruct(( ((SufferedDamageCategoryStruct) _instance).getSufferedDamageCategory()).getRound());
     }
 }

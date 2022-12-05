@@ -6,4 +6,7 @@ public final class PlaceTrainerDtoStruct extends ParamNatStruct<PlaceTrainerDto>
     public PlaceTrainerDtoStruct(PlaceTrainerDto _instance) {
         super(_instance);
     }
+    public PlaceTrainerDto getPlaceTrainerDto() {
+        return getInstance();
+    }
 }

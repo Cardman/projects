@@ -7,4 +7,7 @@ public final class StacksOfUsesStruct extends ParamNatStruct<StacksOfUses> {
     public StacksOfUsesStruct(StacksOfUses _instance) {
         super(_instance);
     }
+    public StacksOfUses getStacksOfUses() {
+        return getInstance();
+    }
 }

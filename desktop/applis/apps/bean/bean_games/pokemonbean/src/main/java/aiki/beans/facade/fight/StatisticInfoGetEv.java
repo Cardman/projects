@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class StatisticInfoGetEv implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((StatisticInfoStruct) _instance).getInstance()).getEv());
+        return new NaNbSt(( ((StatisticInfoStruct) _instance).getStatisticInfo()).getEv());
     }
 }

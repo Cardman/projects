@@ -6,4 +6,7 @@ public final class PokemonTrainerDtoStruct extends ParamNatStruct<PokemonTrainer
     public PokemonTrainerDtoStruct(PokemonTrainerDto _instance) {
         super(_instance);
     }
+    public PokemonTrainerDto getPokemonTrainerDto() {
+        return getInstance();
+    }
 }

@@ -560,7 +560,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<StatisticStatus, Byte> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new StatisticStatusStruct(e.getKey()),new NaNbSt(e.getValue()));
+            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,new NaNbSt(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -693,7 +693,7 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;
         for (EntryCust<PlaceLevel, CustList<WildPokemonDto>> e:_map.entryList()) {
-            PairStruct p_ = new PairStruct(new PlaceLevelStruct(e.getKey()),getWildPkDto(e.getValue()));
+            PairStruct p_ = new PairStruct(NaNu.NULL_VALUE,getWildPkDto(e.getValue()));
             arr_.set(j_,p_);
             j_++;
         }
@@ -763,24 +763,24 @@ public abstract class PokemonStandards extends BeanNatCommonLgNames implements B
         }
         return arr_;
     }
-    public static NatArrayStruct getPkTeam(CustList<PokemonTeam> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (PokemonTeam s:_ls) {
-            arr_.set(j_,new PokemonTeamStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
-    public static NatArrayStruct getSiSa(CustList<StatisticStatus> _ls) {
-        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
-        int j_ = 0;
-        for (StatisticStatus s:_ls) {
-            arr_.set(j_,new StatisticStatusStruct(s));
-            j_++;
-        }
-        return arr_;
-    }
+//    public static NatArrayStruct getPkTeam(CustList<PokemonTeam> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (PokemonTeam s:_ls) {
+//            arr_.set(j_,new PokemonTeamStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
+//    public static NatArrayStruct getSiSa(CustList<StatisticStatus> _ls) {
+//        NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
+//        int j_ = 0;
+//        for (StatisticStatus s:_ls) {
+//            arr_.set(j_,new StatisticStatusStruct(s));
+//            j_++;
+//        }
+//        return arr_;
+//    }
     public static NatArrayStruct getPlInd(CustList<PlaceIndex> _ls) {
         NatArrayStruct arr_ = new NatArrayStruct(_ls.size());
         int j_ = 0;

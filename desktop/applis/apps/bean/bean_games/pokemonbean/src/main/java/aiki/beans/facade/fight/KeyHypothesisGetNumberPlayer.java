@@ -8,6 +8,6 @@ import code.bean.nat.*;
 public class KeyHypothesisGetNumberPlayer implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((KeyHypothesisStruct) _instance).getInstance()).getNumberPlayer());
+        return new NaNbSt(( ((KeyHypothesisStruct) _instance).getKeyHypothesis()).getNumberPlayer());
     }
 }

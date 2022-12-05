@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class MultPowerMovesGetMultSuffering implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new RateStruct(( ((MultPowerMovesStruct) _instance).getInstance()).getMultSuffering());
+        return new RateStruct(( ((MultPowerMovesStruct) _instance).getMultPowerMoves()).getMultSuffering());
     }
 }

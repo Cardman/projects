@@ -3417,7 +3417,7 @@ public abstract class InitDbSimulation extends InitDbConstr {
         callSimulationBeanNbTeamsSet(simu_, 2);
         callRate(new DifficultyCommonBeanWinTrainerExpSet(),all_.getVal(AikiBeansGameStd.BEAN_DIFFICULTY_COMMON),Rate.newRate("5/7"));
         NaSt result_ = callDifficultyBeanComGet(transitSimu(pk_,all_,mapping_, new SimulationBeanValidateDiffChoice(), simu_));
-        return ((DifficultyCommonStruct)result_).getInstance().getWinTrainerExp();
+        return ((DifficultyCommonStruct)result_).getDifficultyCommon().getWinTrainerExp();
     }
 
     public static NaSt transitSimuRem(PokemonStandards _stds, NatCaller _caller, NaSt _first, long... _args) {

@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class PokemonPlayerDtoIndexGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((PokemonPlayerDtoStruct) _instance).getInstance()).getIndex());
+        return new NaNbSt(( ((PokemonPlayerDtoStruct) _instance).getPokemonPlayerDto()).getIndex());
     }
 }

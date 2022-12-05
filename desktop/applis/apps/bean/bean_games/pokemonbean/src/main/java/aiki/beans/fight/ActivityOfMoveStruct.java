@@ -7,4 +7,7 @@ public final class ActivityOfMoveStruct extends ParamNatStruct<ActivityOfMove> {
     public ActivityOfMoveStruct(ActivityOfMove _instance) {
         super(_instance);
     }
+    public ActivityOfMove getActivityOfMove() {
+        return getInstance();
+    }
 }

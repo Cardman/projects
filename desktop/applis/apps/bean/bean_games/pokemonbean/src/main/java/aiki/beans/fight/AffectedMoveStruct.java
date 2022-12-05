@@ -7,4 +7,7 @@ public final class AffectedMoveStruct extends ParamNatStruct<AffectedMove> {
     public AffectedMoveStruct(AffectedMove _instance) {
         super(_instance);
     }
+    public AffectedMove getAffectedMove() {
+        return getInstance();
+    }
 }

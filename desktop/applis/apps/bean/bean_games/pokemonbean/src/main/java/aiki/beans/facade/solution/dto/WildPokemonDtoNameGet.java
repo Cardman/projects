@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class WildPokemonDtoNameGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( ((WildPokemonDtoStruct) _instance).getInstance()).getName());
+        return new NaStSt(( ((WildPokemonDtoStruct) _instance).getWildPokemonDto()).getName());
     }
 }

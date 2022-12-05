@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class TargetCoordsGetPosition implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((TargetCoordsStruct) _instance).getInstance()).getPosition());
+        return new NaNbSt(( ((TargetCoordsStruct) _instance).getTargetCoords()).getPosition());
     }
 }

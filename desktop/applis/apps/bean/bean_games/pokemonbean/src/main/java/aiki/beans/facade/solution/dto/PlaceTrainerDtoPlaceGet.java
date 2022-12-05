@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class PlaceTrainerDtoPlaceGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( ((PlaceTrainerDtoStruct) _instance).getInstance()).getPlace());
+        return new NaStSt(( ((PlaceTrainerDtoStruct) _instance).getPlaceTrainerDto()).getPlace());
     }
 }

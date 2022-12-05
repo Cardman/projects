@@ -7,4 +7,7 @@ public final class TrainerPlaceNamesStruct extends ParamNatStruct<TrainerPlaceNa
     public TrainerPlaceNamesStruct(TrainerPlaceNames _instance) {
         super(_instance);
     }
+    public TrainerPlaceNames getTrainerPlaceNames() {
+        return getInstance();
+    }
 }

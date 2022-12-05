@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class AbilityBeanImmuLowStatIfStatusGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getSiSa(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getImmuLowStatIfStatus());
+        return PokemonStandards.arrId(( (AbilityBean) ((PokemonBeanStruct)_instance).getInstance()).getImmuLowStatIfStatus().size());
     }
 }

@@ -7,4 +7,7 @@ public final class StatisticInfoPkPlayerStruct extends ParamNatStruct<StatisticI
     public StatisticInfoPkPlayerStruct(StatisticInfoPkPlayer _instance) {
         super(_instance);
     }
+    public StatisticInfoPkPlayer getStatisticInfoPkPlayer() {
+        return getInstance();
+    }
 }

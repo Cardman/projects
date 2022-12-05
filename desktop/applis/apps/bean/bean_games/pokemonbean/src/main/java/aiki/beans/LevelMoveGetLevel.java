@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class LevelMoveGetLevel implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((LevelMoveStruct) _instance).getInstance()).getLevel());
+        return new NaNbSt(( ((LevelMoveStruct) _instance).getLevelMove()).getLevel());
     }
 }

@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class StatisticInfoPkPlayerGetName implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( ((StatisticInfoPkPlayerStruct) _instance).getInstance()).getName());
+        return new NaStSt(( ((StatisticInfoPkPlayerStruct) _instance).getStatisticInfoPkPlayer()).getName());
     }
 }

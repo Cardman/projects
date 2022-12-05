@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class KeyHypothesisGetPlayerPokemon implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( ((KeyHypothesisStruct) _instance).getInstance()).getPlayerPokemon());
+        return new NaStSt(( ((KeyHypothesisStruct) _instance).getKeyHypothesis()).getPlayerPokemon());
     }
 }

@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class ActivityOfMoveGetNbTurn implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((ActivityOfMoveStruct) _instance).getInstance()).getNbTurn());
+        return new NaNbSt(( ((ActivityOfMoveStruct) _instance).getActivityOfMove()).getNbTurn());
     }
 }

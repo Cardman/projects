@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class WildPokemonDtoGenderGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( ((WildPokemonDtoStruct) _instance).getInstance()).getGender());
+        return new NaStSt(( ((WildPokemonDtoStruct) _instance).getWildPokemonDto()).getGender());
     }
 }

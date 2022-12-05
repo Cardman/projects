@@ -7,4 +7,7 @@ public final class TargetCoordsStruct extends ParamNatStruct<TargetCoords> {
     public TargetCoordsStruct(TargetCoords _instance) {
         super(_instance);
     }
+    public TargetCoords getTargetCoords() {
+        return getInstance();
+    }
 }

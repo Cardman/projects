@@ -7,4 +7,7 @@ public final class MultPowerMovesStruct extends ParamNatStruct<MultPowerMoves> {
     public MultPowerMovesStruct(MultPowerMoves _instance) {
         super(_instance);
     }
+    public MultPowerMoves getMultPowerMoves() {
+        return getInstance();
+    }
 }

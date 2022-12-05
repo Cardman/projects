@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class UsesOfMoveGetCurrent implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((UsesOfMoveStruct) _instance).getInstance()).getCurrent());
+        return new NaNbSt(( ((UsesOfMoveStruct) _instance).getUsesOfMove()).getCurrent());
     }
 }

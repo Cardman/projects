@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class PokemonTrainerDtoIndexGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaNbSt(( ((PokemonTrainerDtoStruct) _instance).getInstance()).getIndex());
+        return new NaNbSt(( ((PokemonTrainerDtoStruct) _instance).getPokemonTrainerDto()).getIndex());
     }
 }

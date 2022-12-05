@@ -7,4 +7,7 @@ public final class KeyHypothesisStruct extends ParamNatStruct<KeyHypothesis> {
     public KeyHypothesisStruct(KeyHypothesis _instance) {
         super(_instance);
     }
+    public KeyHypothesis getKeyHypothesis() {
+        return getInstance();
+    }
 }

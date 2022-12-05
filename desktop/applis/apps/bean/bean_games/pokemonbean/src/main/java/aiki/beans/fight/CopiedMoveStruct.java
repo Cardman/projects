@@ -7,4 +7,7 @@ public final class CopiedMoveStruct extends ParamNatStruct<CopiedMove> {
     public CopiedMoveStruct(CopiedMove _instance) {
         super(_instance);
     }
+    public CopiedMove getCopiedMove() {
+        return getInstance();
+    }
 }

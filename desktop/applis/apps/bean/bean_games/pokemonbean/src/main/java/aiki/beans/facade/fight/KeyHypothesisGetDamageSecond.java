@@ -8,6 +8,6 @@ import code.bean.nat.*;
 public class KeyHypothesisGetDamageSecond implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new RateStruct(( ((KeyHypothesisStruct) _instance).getInstance()).getDamageSecond());
+        return new RateStruct(( ((KeyHypothesisStruct) _instance).getKeyHypothesis()).getDamageSecond());
     }
 }

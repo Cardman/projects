@@ -7,4 +7,7 @@ public final class StatisticInfoStruct extends ParamNatStruct<StatisticInfo> {
     public StatisticInfoStruct(StatisticInfo _instance) {
         super(_instance);
     }
+    public StatisticInfo getStatisticInfo() {
+        return getInstance();
+    }
 }

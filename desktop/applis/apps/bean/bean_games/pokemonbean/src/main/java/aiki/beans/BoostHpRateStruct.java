@@ -6,4 +6,7 @@ public final class BoostHpRateStruct extends ParamNatStruct<BoostHpRate> {
     public BoostHpRateStruct(BoostHpRate _instance) {
         super(_instance);
     }
+    public BoostHpRate getBoostHpRate(){
+        return getInstance();
+    }
 }

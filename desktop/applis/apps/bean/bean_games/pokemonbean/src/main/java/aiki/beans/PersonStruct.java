@@ -6,4 +6,7 @@ public final class PersonStruct extends ParamNatStruct<Person> {
     public PersonStruct(Person _instance) {
         super(_instance);
     }
+    public Person getPerson() {
+        return getInstance();
+    }
 }

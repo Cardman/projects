@@ -7,4 +7,7 @@ public final class DifficultyCommonStruct extends ParamNatStruct<DifficultyCommo
     public DifficultyCommonStruct(DifficultyCommon _instance) {
         super(_instance);
     }
+    public DifficultyCommon getDifficultyCommon() {
+        return getInstance();
+    }
 }

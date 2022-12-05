@@ -7,4 +7,7 @@ public final class MoveTeamPositionStruct extends ParamNatStruct<MoveTeamPositio
     public MoveTeamPositionStruct(MoveTeamPosition _instance) {
         super(_instance);
     }
+    public MoveTeamPosition getMoveTeamPosition() {
+        return getInstance();
+    }
 }

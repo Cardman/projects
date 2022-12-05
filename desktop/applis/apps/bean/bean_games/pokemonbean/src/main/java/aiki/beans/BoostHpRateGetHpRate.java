@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class BoostHpRateGetHpRate implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new RateStruct(( ((BoostHpRateStruct) _instance).getInstance()).getHpRate());
+        return new RateStruct(( ((BoostHpRateStruct) _instance).getBoostHpRate()).getHpRate());
     }
 }

@@ -6,4 +6,7 @@ public final class CategoryMultStruct extends ParamNatStruct<CategoryMult> {
     public CategoryMultStruct(CategoryMult _instance) {
         super(_instance);
     }
+    public CategoryMult getCategoryMult() {
+        return getInstance();
+    }
 }

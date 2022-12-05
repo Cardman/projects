@@ -6,6 +6,6 @@ import code.bean.nat.*;
 public class StacksOfUsesIsLastStacked implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return NaBoSt.of(( ((StacksOfUsesStruct) _instance).getInstance()).isLastStacked());
+        return NaBoSt.of(( ((StacksOfUsesStruct) _instance).getStacksOfUses()).isLastStacked());
     }
 }

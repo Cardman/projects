@@ -5,6 +5,6 @@ import code.bean.nat.*;
 public class AffectedMoveGetActivity implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new ActivityOfMoveStruct(( ((AffectedMoveStruct) _instance).getInstance()).getActivity());
+        return new ActivityOfMoveStruct(( ((AffectedMoveStruct) _instance).getAffectedMove()).getActivity());
     }
 }

@@ -7,4 +7,7 @@ public final class SufferedDamageCategoryStruct extends ParamNatStruct<SufferedD
     public SufferedDamageCategoryStruct(SufferedDamageCategory _instance) {
         super(_instance);
     }
+    public SufferedDamageCategory getSufferedDamageCategory() {
+        return getInstance();
+    }
 }

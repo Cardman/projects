@@ -7,4 +7,7 @@ public final class MoveTargetStruct extends ParamNatStruct<MoveTarget> {
     public MoveTargetStruct(MoveTarget _instance) {
         super(_instance);
     }
+    public MoveTarget getMoveTarget() {
+        return getInstance();
+    }
 }

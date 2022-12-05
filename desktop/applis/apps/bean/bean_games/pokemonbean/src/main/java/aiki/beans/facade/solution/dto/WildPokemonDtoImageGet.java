@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class WildPokemonDtoImageGet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new NaStSt(( ((WildPokemonDtoStruct) _instance).getInstance()).getImage());
+        return new NaStSt(( ((WildPokemonDtoStruct) _instance).getWildPokemonDto()).getImage());
     }
 }

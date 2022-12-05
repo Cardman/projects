@@ -6,4 +6,7 @@ public final class StepDtoStruct extends ParamNatStruct<StepDto> {
     public StepDtoStruct(StepDto _instance) {
         super(_instance);
     }
+    public StepDto getStepDto() {
+        return getInstance();
+    }
 }

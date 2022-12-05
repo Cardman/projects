@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class MultPowerMovesGetMultInflicted implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return new RateStruct(( ((MultPowerMovesStruct) _instance).getInstance()).getMultInflicted());
+        return new RateStruct(( ((MultPowerMovesStruct) _instance).getMultPowerMoves()).getMultInflicted());
     }
 }

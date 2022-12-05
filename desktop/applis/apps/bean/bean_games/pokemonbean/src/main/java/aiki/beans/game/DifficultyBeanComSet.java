@@ -8,7 +8,7 @@ import code.bean.nat.*;
 public class DifficultyBeanComSet implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        ((DifficultyCommonBean)((PokemonBeanStruct)_instance).getInstance()).setOwner(((DifficultyCommonStruct)_args[0]).getInstance());
+        ((DifficultyCommonBean)((PokemonBeanStruct)_instance).getInstance()).setOwner(((DifficultyCommonStruct)_args[0]).getDifficultyCommon());
         return NaNu.NULL_VALUE;
     }
 }

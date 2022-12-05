@@ -6,4 +6,7 @@ public final class ComboDtoStruct extends ParamNatStruct<ComboDto> {
     public ComboDtoStruct(ComboDto _instance) {
         super(_instance);
     }
+    public ComboDto getComboDto() {
+        return getInstance();
+    }
 }

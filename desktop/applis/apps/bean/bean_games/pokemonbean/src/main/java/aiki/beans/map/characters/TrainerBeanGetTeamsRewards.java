@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class TrainerBeanGetTeamsRewards implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getPkTeam(( (TrainerBean) ((PokemonBeanStruct)_instance).getInstance()).getTeamsRewards());
+        return PokemonStandards.arrId(( (TrainerBean) ((PokemonBeanStruct)_instance).getInstance()).getTeamsRewards().size());
     }
 }

@@ -13,6 +13,9 @@ public final class UsesOfMoveStruct extends ParamNatStruct<UsesOfMove> {
         super(_instance);
     }
 
+    public UsesOfMove getUsesOfMove() {
+        return getInstance();
+    }
     public static NatArrayStruct getUsesStr(AbsMap<String, UsesOfMove> _map) {
         NatArrayStruct arr_ = new NatArrayStruct(_map.size());
         int j_ = 0;

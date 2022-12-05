@@ -6,4 +6,7 @@ public final class LevelMoveStruct extends ParamNatStruct<LevelMove> {
     public LevelMoveStruct(LevelMove _instance) {
         super(_instance);
     }
+    public LevelMove getLevelMove() {
+        return getInstance();
+    }
 }

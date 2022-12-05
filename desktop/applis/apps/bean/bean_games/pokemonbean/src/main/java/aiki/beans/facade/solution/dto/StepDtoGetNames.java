@@ -7,6 +7,6 @@ import code.bean.nat.*;
 public class StepDtoGetNames implements NatCaller{
     @Override
     public NaSt re(NaSt _instance, NaSt[] _args){
-        return PokemonStandards.getPlTr(( ((StepDtoStruct) _instance).getInstance()).getNames());
+        return PokemonStandards.getPlTr(( ((StepDtoStruct) _instance).getStepDto()).getNames());
     }
 }
