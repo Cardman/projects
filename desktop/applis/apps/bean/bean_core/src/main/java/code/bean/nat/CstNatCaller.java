@@ -1,8 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
-import code.bean.nat.*;
-
 public final class CstNatCaller implements NatCaller {
 
     private final String value;
