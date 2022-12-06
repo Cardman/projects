@@ -2,6 +2,7 @@ package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
+import code.gui.AbsButton;
 import code.gui.AbsGroupFrame;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
@@ -14,6 +15,7 @@ import code.util.StringMap;
 public class ProgramInfosBase {
     private final CustList<AbsGroupFrame> frames = new CustList<AbsGroupFrame>();
     private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
+    private final StringMap<AbsButton> buttons = new StringMap<AbsButton>();
     private final String homePath;
     private final String tmpUserFolder;
     private final AbstractGenerator generator;
@@ -48,6 +50,9 @@ public class ProgramInfosBase {
         return counts;
     }
 
+    public StringMap<AbsButton> getButtons() {
+        return buttons;
+    }
 
     public AbstractAdvGraphicListGenerator getGeneStrCompo() {
         return geneStrCompo;

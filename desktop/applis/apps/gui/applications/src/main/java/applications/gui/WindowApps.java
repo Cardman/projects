@@ -54,6 +54,7 @@ public final class WindowApps extends GroupFrame {
         buttonPokemon = _list.getCompoFactory().newImgButton(LaunchingPokemon.getIcon(getImageFactory()));
         AbstractAtomicInteger at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPokemon.getMainWindowClass(), at_);
+        _list.getButtons().addEntry(LaunchingPokemon.getMainWindowClass(), buttonPokemon);
         buttonPokemon.addMouseList(new PokemonEvent(this,at_, _aikiFactory));
         linePokemon_.add(buttonPokemon);
         panel_.add(linePokemon_);
@@ -61,6 +62,7 @@ public final class WindowApps extends GroupFrame {
         buttonCards = _list.getCompoFactory().newImgButton(LaunchingCards.getIcon(getImageFactory()));
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingCards.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingCards.getMainWindowClass(), buttonCards);
         buttonCards.addMouseList(new CardsEvent(this,at_,_cardFactories));
         lineCards_.add(buttonCards);
         panel_.add(lineCards_);
@@ -68,6 +70,7 @@ public final class WindowApps extends GroupFrame {
         buttonTests = getCompoFactory().newPlainButton("3");
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingAppUnitTests.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingAppUnitTests.getMainWindowClass(), buttonTests);
         buttonTests.addActionListener(new AppUnitEvent(this,at_));
         lineTests_.add(buttonTests);
         panel_.add(lineTests_);
@@ -75,6 +78,7 @@ public final class WindowApps extends GroupFrame {
         buttonRenders = getCompoFactory().newPlainButton("4");
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingRenders.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingRenders.getMainWindowClass(), buttonTests);
         buttonRenders.addActionListener(new RenderEvent(this,at_));
         lineRenders_.add(buttonRenders);
         panel_.add(lineRenders_);
@@ -82,6 +86,7 @@ public final class WindowApps extends GroupFrame {
         buttonDemo = getCompoFactory().newPlainButton("5");
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingDemo.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingDemo.getMainWindowClass(), buttonDemo);
         buttonDemo.addActionListener(new DemoEvent(this,at_));
         lineDemo_.add(buttonDemo);
         panel_.add(lineDemo_);
@@ -89,6 +94,7 @@ public final class WindowApps extends GroupFrame {
         buttonPlayer = _list.getCompoFactory().newImgButton(LaunchingPlayer.getIcon(getImageFactory()));
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingPlayer.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingPlayer.getMainWindowClass(), buttonPlayer);
         buttonPlayer.addMouseList(new PlayerEvent(this,at_));
         linePlayer_.add(buttonPlayer);
         panel_.add(linePlayer_);
@@ -96,6 +102,7 @@ public final class WindowApps extends GroupFrame {
         buttonConverter = getCompoFactory().newPlainButton("7");
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingConverter.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingConverter.getMainWindowClass(),buttonConverter);
         buttonConverter.addActionListener(new ConverterEvent(this,at_));
         lineConverter_.add(buttonConverter);
         panel_.add(lineConverter_);
@@ -103,6 +110,7 @@ public final class WindowApps extends GroupFrame {
         buttonApps = getCompoFactory().newPlainButton("8");
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingFull.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingFull.getMainWindowClass(), buttonApps);
         buttonApps.addActionListener(new AppsEvent(this,at_));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);

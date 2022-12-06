@@ -363,6 +363,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         pr_.light();
         pr_.getHomePath();
         pr_.getCounts();
+        pr_.getButtons();
         pr_.getConfirmDialogAns();
         pr_.getConfirmDialogText();
         pr_.getFileOpenDialogInt();

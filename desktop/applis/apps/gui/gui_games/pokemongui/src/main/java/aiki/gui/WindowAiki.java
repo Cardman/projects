@@ -42,6 +42,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.QuitEvent;
 //import code.gui.events.QuittingEvent;
+import code.gui.events.QuittingEvent;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
@@ -303,8 +304,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         setContentPane(mainPanel);
         //setVisible(true);
         exitMode(_list);
-//        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new QuittingEvent(this));
         facade.setData(new DataBase(_list.getGenerator()));
         initMessages();
         setTitle(messages.getVal(TITLE));
@@ -332,6 +333,24 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     }*/
     @Override
     public void quit() {
+        AbsButton b_ = getFrames().getButtons().getVal(LaunchingPokemon.getMainWindowClass());
+        if (b_ != null) {
+            b_.setEnabled(false);
+        }
+        if (loadingConf != null && loadingConf.isSaveGameAtExit()) {
+            if (loadingConf.getLastSavedGame().isEmpty()) {
+                String name_ = StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),LoadingGame.DEFAULT_SAVE_GAME,Resources.GAME_EXT);
+                loadingConf.setLastSavedGame(name_);
+                save(name_);
+            } else {
+                String path_ = StringUtil.replaceBackSlash(getFileCoreStream().newFile(loadingConf.getLastSavedGame()).getAbsolutePath());
+                save(path_);
+            }
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingPokemon.getTempFolderSl(getFrames()),Resources.LOAD_CONFIG_FILE), DocumentWriterAikiCoreUtil.setLoadingGame(loadingConf),getStreams());
+        }
+        if (b_ != null) {
+            b_.setEnabled(true);
+        }
         basicDispose();
 //        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
 //            QuitAiki quit_ = new QuitAiki();

@@ -26,6 +26,12 @@ public final class ImgButton extends CustComponent implements AbsImgButton {
         label.addActionListener(new WrActionListener(_l));
     }
 
+    public boolean isEnabled() {
+        return label.isEnabled();
+    }
+    public void setEnabled(boolean _b) {
+        label.setEnabled(_b);
+    }
     @Override
     public JComponent getNatComponent() {
         return label;

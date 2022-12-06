@@ -17,6 +17,7 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     CustList<AbsGroupFrame> getFrames();
     AbsFrameFactory getFrameFactory();
     StringMap<AbstractAtomicInteger> getCounts();
+    StringMap<AbsButton> getButtons();
     TechStreams getStreams();
     AbstractFileCoreStream getFileCoreStream();
 

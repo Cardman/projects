@@ -87,6 +87,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq("",t_.getHomePath());
         assertEq("",t_.getTmpUserFolder());
         assertEq(0, t_.getCounts().size());
+        assertEq(0, t_.getButtons().size());
         assertEq(0, t_.getFrames().size());
     }
     @Test
