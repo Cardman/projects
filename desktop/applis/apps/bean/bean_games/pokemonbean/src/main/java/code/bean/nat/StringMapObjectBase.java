@@ -1,6 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.StringList;
 import code.util.StringMap;

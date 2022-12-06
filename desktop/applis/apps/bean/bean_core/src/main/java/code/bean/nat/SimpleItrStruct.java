@@ -1,8 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
-import code.bean.nat.*;
-
 public final class SimpleItrStruct extends NaNuSt {
     private final NatArrayStruct array;
     private int index;

@@ -5,7 +5,6 @@ import code.bean.nat.analyze.NatRenderAnalysis;
 import code.bean.nat.analyze.NatResultText;
 import code.bean.nat.analyze.opers.NatOperationNode;
 import code.sml.Element;
-import code.sml.NamedNodeMap;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -70,7 +69,7 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
     @Override
     public void buildExpressionLanguage(NatAnaRendDocumentBlock _doc, NatAnalyzingDoc _anaDoc, NatAnalyzedCode _page) {
         String prefixWrite_ = _anaDoc.getPrefix();
-        StringList attributesNames_ = buildAttrNames(_anaDoc, read);
+        StringList attributesNames_ = NatAnaRendElement.buildAttrNames(_anaDoc, read);
         String id_ = read.getAttribute(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrId());
         if (!id_.isEmpty()) {
             NatResultTextForm r_ = new NatResultTextForm();
@@ -104,17 +103,6 @@ public abstract class NatAnaRendElementSpec extends NatAnaRendParentBlock implem
             r_.buildIdAna(attr_, _anaDoc, _page);
             attributes.addEntry(a,r_);
         }
-    }
-
-    public static StringList buildAttrNames(NatAnalyzingDoc _anaDoc, Element _read) {
-        StringList attributesNames_ = new StringList();
-        NamedNodeMap mapAttr_ = _read.getAttributes();
-        int nbAttrs_ = mapAttr_.getLength();
-        for (int i = 0; i < nbAttrs_; i++) {
-            attributesNames_.add(mapAttr_.item(i).getName());
-        }
-        attributesNames_.removeAllString(_anaDoc.getRendKeyWords().getKeyWordsAttrs().getAttrId());
-        return attributesNames_;
     }
 
     public final Element getRead() {

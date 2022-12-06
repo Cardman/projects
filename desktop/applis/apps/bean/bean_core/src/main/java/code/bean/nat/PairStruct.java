@@ -1,8 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
-import code.bean.nat.*;
-
 public final class PairStruct extends NaNuSt {
     private final NaSt first;
     private final NaSt second;

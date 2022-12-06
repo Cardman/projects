@@ -19,6 +19,16 @@ import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 public abstract class CommonBean extends Bean implements WithFacade,WithForms {
+    public static final String GET_IMAGE = "getImage";
+    public static final String CLICK_NAME = "clickName";
+    public static final String GET_NAME = "getName";
+    public static final String GET_GENDER = "getGender";
+    public static final String CLICK_ABILITY = "clickAbility";
+    public static final String GET_ABILITY = "getAbility";
+    public static final String CLICK_ITEM = "clickItem";
+    public static final String GET_ITEM = "getItem";
+    public static final String CLICK_MOVE = "clickMove";
+    public static final String GET_MOVE = "getMove";
     protected static final String CST_ABILITIES = "abilities";
     protected static final String CST_ABILITIES_SET = "abilities_set";
     protected static final String CST_ABILITY = "ability";

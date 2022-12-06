@@ -3,7 +3,6 @@ package code.bean.nat;
 import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.opers.NatExecOperationNode;
-import code.bean.nat.*;
 import code.sml.HtmlPage;
 import code.sml.HtmlPageInt;
 import code.sml.NodeContainer;

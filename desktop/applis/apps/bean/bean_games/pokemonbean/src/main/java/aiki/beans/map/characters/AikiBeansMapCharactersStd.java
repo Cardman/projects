@@ -1,6 +1,7 @@
 package aiki.beans.map.characters;
 
 import aiki.beans.AikiBeansStd;
+import aiki.beans.CommonBean;
 import aiki.beans.PokemonStandards;
 import aiki.beans.map.elements.AikiBeansMapElementsStd;
 import code.bean.nat.*;
@@ -12,16 +13,10 @@ public final class AikiBeansMapCharactersStd{
     public static final String TYPE_SELLER_BEAN = "aiki.beans.map.characters.SellerBean";
     public static final String TYPE_TRAINER_BEAN = "aiki.beans.map.characters.TrainerBean";
     public static final String TYPE_TRAINER_ONE_FIGHT_BEAN = "aiki.beans.map.characters.TrainerOneFightBean";
-    private static final String GET_IMAGE = "getImage";
-    private static final String CLICK_NAME = "clickName";
     private static final String GET_NAME = "getName";
-    private static final String GET_GENDER = "getGender";
-    private static final String CLICK_ABILITY = "clickAbility";
-    private static final String GET_ABILITY = "getAbility";
     private static final String CLICK_ITEM = "clickItem";
     private static final String GET_ITEM = "getItem";
     private static final String CLICK_MOVE = "clickMove";
-    private static final String GET_MOVE = "getMove";
     private static final String GET_ITEMS = "getItems";
     private static final String GET_ALL_TM = "getAllTm";
     private static final String CLICK_TM = "clickTm";
@@ -51,16 +46,16 @@ public final class AikiBeansMapCharactersStd{
         SpecialNatClass type_ = new SpecialNatClass(fields_, methods_, AikiBeansStd.TYPE_COMMON_BEAN);
         fields_.add(new StandardField(TEAM, BeanNatCommonLgNames.TYPE_LIST, new AllyBeanTeamGet(),null));
         fields_.add(new StandardField(ALLY,PokemonStandards.TYPE_ALLY, null,new AllyBeanAllySet()));
-        methods_.add( new SpecNatMethod(GET_IMAGE,BeanNatCommonLgNames.STRING, new AllyBeanGetImage()));
-        methods_.add( new SpecNatMethod(CLICK_NAME,BeanNatCommonLgNames.STRING, new AllyBeanClickName()));
-        methods_.add( new SpecNatMethod(GET_NAME,BeanNatCommonLgNames.STRING, new AllyBeanGetName()));
-        methods_.add( new SpecNatMethod(GET_GENDER,BeanNatCommonLgNames.STRING, new AllyBeanGetGender()));
-        methods_.add( new SpecNatMethod(CLICK_ABILITY,BeanNatCommonLgNames.STRING, new AllyBeanClickAbility()));
-        methods_.add( new SpecNatMethod(GET_ABILITY,BeanNatCommonLgNames.STRING, new AllyBeanGetAbility()));
-        methods_.add( new SpecNatMethod(CLICK_ITEM,BeanNatCommonLgNames.STRING, new AllyBeanClickItem()));
-        methods_.add( new SpecNatMethod(GET_ITEM,BeanNatCommonLgNames.STRING, new AllyBeanGetItem()));
-        methods_.add( new SpecNatMethod(CLICK_MOVE,BeanNatCommonLgNames.STRING, new AllyBeanClickMove()));
-        methods_.add( new SpecNatMethod(GET_MOVE,BeanNatCommonLgNames.STRING, new AllyBeanGetMove()));
+        methods_.add( new SpecNatMethod(CommonBean.GET_IMAGE,BeanNatCommonLgNames.STRING, new AllyBeanGetImage()));
+        methods_.add( new SpecNatMethod(CommonBean.CLICK_NAME,BeanNatCommonLgNames.STRING, new AllyBeanClickName()));
+        methods_.add( new SpecNatMethod(CommonBean.GET_NAME,BeanNatCommonLgNames.STRING, new AllyBeanGetName()));
+        methods_.add( new SpecNatMethod(CommonBean.GET_GENDER,BeanNatCommonLgNames.STRING, new AllyBeanGetGender()));
+        methods_.add( new SpecNatMethod(CommonBean.CLICK_ABILITY,BeanNatCommonLgNames.STRING, new AllyBeanClickAbility()));
+        methods_.add( new SpecNatMethod(CommonBean.GET_ABILITY,BeanNatCommonLgNames.STRING, new AllyBeanGetAbility()));
+        methods_.add( new SpecNatMethod(CommonBean.CLICK_ITEM,BeanNatCommonLgNames.STRING, new AllyBeanClickItem()));
+        methods_.add( new SpecNatMethod(CommonBean.GET_ITEM,BeanNatCommonLgNames.STRING, new AllyBeanGetItem()));
+        methods_.add( new SpecNatMethod(CommonBean.CLICK_MOVE,BeanNatCommonLgNames.STRING, new AllyBeanClickMove()));
+        methods_.add( new SpecNatMethod(CommonBean.GET_MOVE,BeanNatCommonLgNames.STRING, new AllyBeanGetMove()));
         _std.getStds().addEntry(TYPE_ALLY_BEAN, type_);
     }
     private static void buildDealerBean(PokemonStandards _std){

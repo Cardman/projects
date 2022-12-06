@@ -42,12 +42,16 @@ public abstract class NatRendElement extends NatParentBlock implements NatRendEl
         } else if (this instanceof NatRendLink) {
             ((NatRendLink)this).link(_cont, created_);
         }
-        for (EntryCust<String, NatExecTextPart> e: natAttributes.entryList()) {
+        attributes(_rendStack, created_, natAttributes);
+        addEltStack(ip_,rw_,created_,this);
+    }
+
+    public static void attributes(NatRendStackCall _rendStack, Element _created, StringMap<NatExecTextPart> _map) {
+        for (EntryCust<String, NatExecTextPart> e: _map.entryList()) {
             NatExecTextPart res_ = e.getValue();
             String txt_ = NatRenderingText.renderNat(res_, _rendStack);
-            created_.setAttribute(e.getKey(),txt_);
+            _created.setAttribute(e.getKey(),txt_);
         }
-        addEltStack(ip_,rw_,created_,this);
     }
 
     public static void addEltStack(NatImportingPageAbs _nip, NatRendReadWrite _rw, Element _created, NatParentBlock _block) {

@@ -6,7 +6,6 @@ import code.bean.nat.exec.*;
 import code.bean.nat.exec.blocks.*;
 import code.bean.nat.exec.opers.*;
 import code.bean.nat.fwd.*;
-import code.bean.nat.*;
 import code.sml.*;
 import code.util.*;
 import code.util.core.*;

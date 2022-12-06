@@ -138,9 +138,9 @@ private static final String C_P_143_278="DiCo";
 private static final String C_P_143_279="$intern.c=c";
 private PageGameDifficulty(){}
 static Document build(){
-FullDocument doc_ = DocumentBuilder.newXmlDocument(4);
-build(doc_);
-return doc_;
+FullDocument docDiff_ = DocumentBuilder.newXmlDocument(4);
+build(docDiff_);
+return docDiff_;
 }
 static void build(Document _doc115){
 Element elt0_=el(_doc115,HTML);

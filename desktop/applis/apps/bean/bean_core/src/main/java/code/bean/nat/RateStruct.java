@@ -1,8 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
 import code.maths.Rate;
 
 public final class RateStruct extends NaNuSt implements NatDisplayableStruct {

@@ -1,7 +1,5 @@
 package code.bean.nat;
 
-import code.bean.nat.*;
-import code.bean.nat.*;
 import code.maths.LgInt;
 
 public final class LgIntStruct extends NaNuSt implements NatDisplayableStruct {

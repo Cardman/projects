@@ -8,10 +8,6 @@ import code.bean.nat.exec.opers.NatAbstractDotOperation;
 import code.bean.nat.exec.opers.NatExecMethodOperation;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.bean.nat.exec.opers.NatSettableFieldOperation;
-import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
-import code.bean.nat.*;
 import code.sml.FormParts;
 import code.sml.IndexesFormInput;
 import code.sml.NavigationCore;
@@ -197,11 +193,6 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         return elt_;
     }
 
-
-    public final Element getRead() {
-        return read;
-    }
-
     @Override
     public void processEl(NatConfigurationCore _cont, NatRendStackCall _rendStack) {
         NatImportingPageAbs ip_ = _rendStack.getLastPage();
@@ -212,11 +203,7 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         }
         Document ownerDocument_ = rw_.getDocument();
         Element created_ = RendBlockHelp.appendChild(ownerDocument_, rw_, getRead());
-        for (EntryCust<String, NatExecTextPart> e: natAttributesText.entryList()) {
-            NatExecTextPart res_ = e.getValue();
-            String txt_ = NatRenderingText.renderNat(res_, _rendStack);
-            created_.setAttribute(e.getKey(),txt_);
-        }
+        NatRendElement.attributes(_rendStack,created_,natAttributesText);
         if (this instanceof NatRendAnchor) {
             ((NatRendAnchor)this).anchor(_cont, created_, _rendStack);
         } else if (this instanceof NatRendForm) {
@@ -232,23 +219,13 @@ public abstract class NatRendElementForm extends NatParentBlock implements NatRe
         } else {
             ownerDocument_.renameNode(created_, _cont.getRendKeyWords().getKeyWordsTags().getKeyWordSpan());
         }
-        for (EntryCust<String, NatExecTextPart> e: natAttributes.entryList()) {
-            NatExecTextPart res_ = e.getValue();
-            String txt_ = NatRenderingText.renderNat(res_, _rendStack);
-            created_.setAttribute(e.getKey(),txt_);
-        }
-        addEltStack(ip_,rw_,created_,this);
+        NatRendElement.attributes(_rendStack,created_,natAttributes);
+        NatRendElement.addEltStack(ip_,rw_,created_,this);
     }
 
-    public static void addEltStack(NatImportingPageAbs _nip, NatRendReadWrite _rw, Element _created, NatParentBlock _block) {
-        NatIfStack nif_ = new NatIfStack();
-        nif_.setLastBlock(_block);
-        nif_.setBlock(_block);
-        nif_.setCurrentVisitedBlock(_block);
-        _nip.addBlock(nif_);
-        nif_.setEntered(true);
-        _rw.setRead(_block.getFirstChild());
-        _rw.setWrite(_created);
+
+    public final Element getRead() {
+        return read;
     }
 
 }
