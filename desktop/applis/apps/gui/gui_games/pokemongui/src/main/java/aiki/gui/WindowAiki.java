@@ -304,7 +304,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         setContentPane(mainPanel);
         //setVisible(true);
         exitMode(_list);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         facade.setData(new DataBase(_list.getGenerator()));
         initMessages();
