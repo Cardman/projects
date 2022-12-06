@@ -40,6 +40,7 @@ public final class LigDialog extends LigWindow implements AbsOtherDialog, Change
     }
 
     public void setContentPane(AbsPanel _contentPane) {
+        getCenter().setContentPane(((Panel)_contentPane).getNatComponent());
         contentPane = _contentPane;
     }
 

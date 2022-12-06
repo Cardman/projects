@@ -316,7 +316,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         mf_.removeWindowListener((AbsWindowListener) null);
         mf_.removeWindowListener((AbsWindowListenerClosing) null);
         mf_.setLocation(0,0);
-        mf_.setDefaultCloseOperation(0);
+//        mf_.setDefaultCloseOperation(0);
         mf_.setAccessFile(mf_.getAccessFile());
         mf_.setMainFrame(mf_.isMainFrame());
         mf_.setTitle(mf_.getTitle());
@@ -386,6 +386,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         sound_.recordSongInFile("");
         pr_.getThreadFactory().sleep(1);
         mf_.dispatchExit();
+        mf_.setVisible(false);
         assertFalse(mf_.isVisible());
     }
 }

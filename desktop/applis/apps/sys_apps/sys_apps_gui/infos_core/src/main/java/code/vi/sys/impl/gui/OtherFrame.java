@@ -103,11 +103,6 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
     }
 
     @Override
-    public void setDefaultCloseOperation(int _option) {
-        frame.setDefaultCloseOperation(_option);
-    }
-
-    @Override
     public void setVisible(boolean _v) {
         frame.setVisible(_v);
     }

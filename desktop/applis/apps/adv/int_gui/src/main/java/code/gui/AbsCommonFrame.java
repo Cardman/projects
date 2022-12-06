@@ -28,7 +28,7 @@ public interface AbsCommonFrame extends ChangeableTitle {
 
     CustList<AbsWindowListenerClosing> getWindowListenersDef();
     void dispatchExit();
-    void setDefaultCloseOperation(int _operation);
+
     void setIconImage(AbstractImage _image);
     String getAccessFile();
     void setAccessFile(String _accessFile);

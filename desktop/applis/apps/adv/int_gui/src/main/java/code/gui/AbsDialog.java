@@ -3,7 +3,6 @@ package code.gui;
 import code.gui.images.AbstractImageFactory;
 
 public interface AbsDialog extends ChangeableTitle {
-    void setDefaultCloseOperation(int _operation);
     void setResizable(boolean _resizable);
     void setLocationRelativeTo(AbsCommonFrame _onwer);
     void setLocationRelativeTo(AbsDialog _onwer);

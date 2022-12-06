@@ -141,9 +141,6 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,Placab
     public CustList<AbsWindowListener> getWindowListeners() {
         return mapWindow.getKeys();
     }
-    public void setDefaultCloseOperation(int _operation) {
-        dialog.setDefaultCloseOperation(_operation);
-    }
 
     @Override
     public Ownable getOwner() {

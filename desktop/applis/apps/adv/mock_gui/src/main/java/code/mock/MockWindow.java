@@ -211,10 +211,6 @@ public abstract class MockWindow implements WithListener{
         return getPane();
     }
 
-    public void setDefaultCloseOperation(int _i) {
-        setVisible(isVisible());
-    }
-
     public void setIconImage(AbstractImage _a) {
         setImageIconFrame(_a);
     }

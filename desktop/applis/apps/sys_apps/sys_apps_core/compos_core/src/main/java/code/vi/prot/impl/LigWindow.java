@@ -8,10 +8,14 @@ import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
 import code.util.CustList;
 import code.util.IdMap;
+import code.vi.prot.impl.gui.MenuBar;
 import code.vi.prot.impl.gui.events.WrWindowListener;
+
+import javax.swing.*;
 
 public abstract class LigWindow implements ChangeableTitle, WithListener {
     private String title="";
+    private final JRootPane center = new JRootPane();
 
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private boolean visible;
@@ -53,12 +57,8 @@ public abstract class LigWindow implements ChangeableTitle, WithListener {
     }
 
     @Override
-    public void setDefaultCloseOperation(int _option) {
-        setVisible(isVisible());
-    }
-    @Override
     public void setJMenuBar(AbsMenuBar _menu) {
-        setVisible(isVisible());
+        center.setJMenuBar(((MenuBar)_menu).getMeBar());
     }
     @Override
     public void setVisible(boolean _v) {
@@ -80,4 +80,7 @@ public abstract class LigWindow implements ChangeableTitle, WithListener {
         owner = _owner;
     }
 
+    public JRootPane getCenter() {
+        return center;
+    }
 }

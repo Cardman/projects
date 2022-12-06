@@ -13,8 +13,6 @@ public interface WithListener {
 
     CustList<AbsWindowListener> getWindowListeners();
 
-    void setDefaultCloseOperation(int _option);
-
     String getTitle();
     void setTitle(String _title);
     void setVisible(boolean _v);

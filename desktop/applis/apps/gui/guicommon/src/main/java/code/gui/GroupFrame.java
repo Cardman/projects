@@ -114,9 +114,9 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     //@Override
-    public void setDefaultCloseOperation(int _operation) {
-        commonFrame.setDefaultCloseOperation(_operation);
-    }
+//    public void setDefaultCloseOperation(int _operation) {
+//        commonFrame.setDefaultCloseOperation(_operation);
+//    }
 
     //@Override
     public void setFocusable(boolean _focusable) {

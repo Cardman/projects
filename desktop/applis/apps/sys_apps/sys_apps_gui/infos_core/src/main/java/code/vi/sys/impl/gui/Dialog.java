@@ -34,10 +34,6 @@ public final class Dialog implements AbsDialog {
         dial.setResizable(_resizable);
     }
 
-    public void setDefaultCloseOperation(int _operation) {
-        dial.setDefaultCloseOperation(_operation);
-    }
-
     @Override
     public void setLocationRelativeTo(AbsCommonFrame _onwer) {
         dial.setLocationRelativeTo(((CommonFrame)_onwer).getFrame());

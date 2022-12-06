@@ -124,9 +124,6 @@ public final class CommonFrame implements AbsCommonFrame {
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
-    public void setDefaultCloseOperation(int _operation) {
-        frame.setDefaultCloseOperation(_operation);
-    }
 
     public void setIconImage(AbstractImage _image) {
         frame.setIconImage(DefImageFactory.icon((DefImage) _image).getImage());

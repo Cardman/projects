@@ -7,5 +7,4 @@ public interface AbsOtherFrame extends WithListener {
 
     void setMainFrame(boolean _b);
 
-    void setDefaultCloseOperation(int _doNothingOnClose);
 }

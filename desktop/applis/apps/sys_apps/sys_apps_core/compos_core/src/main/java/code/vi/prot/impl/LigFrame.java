@@ -36,6 +36,7 @@ public final class LigFrame extends LigWindow implements AbsOtherFrame, Changeab
 
     @Override
     public void setContentPane(AbsPanel _p) {
+        getCenter().setContentPane(((Panel)_p).getNatComponent());
         pane = _p;
     }
 

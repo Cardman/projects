@@ -64,9 +64,9 @@ public abstract class ChildFrame implements AbsChildFrame {
     }
 
     //@Override
-    public void setDefaultCloseOperation(int _operation) {
-        absCommonFrame.setDefaultCloseOperation(_operation);
-    }
+//    public void setDefaultCloseOperation(int _operation) {
+//        absCommonFrame.setDefaultCloseOperation(_operation);
+//    }
 
     //@Override
     public void setFocusable(boolean _focusable) {
