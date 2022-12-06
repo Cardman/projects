@@ -7,9 +7,8 @@ import cards.gui.WindowCardsInt;
 import cards.gui.panels.PanelTricksHandsPresident;
 import cards.president.DisplayingPresident;
 import cards.president.TricksHandsPresident;
-import code.gui.AbsScrollPane;
+import code.gui.*;
 
-import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
@@ -25,7 +24,7 @@ public final class DialogTricksPresident extends DialogCards {
         _fenetre.getDialogTricksPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogTricksPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogTricksPresident().getCardDialog().setResizable(true);
-        _fenetre.getDialogTricksPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        _fenetre.getDialogTricksPresident().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public static void init(TricksHandsPresident _tricksHands,

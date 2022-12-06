@@ -125,9 +125,9 @@ public final class WindowApps extends GroupFrame {
 //        }
         panel_.setPreferredSize(new MetaDimension(256, 192));
         setContentPane(panel_);
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        addWindowListener(new QuittingEvent(this));
         setVisible(true);
         pack();
     }

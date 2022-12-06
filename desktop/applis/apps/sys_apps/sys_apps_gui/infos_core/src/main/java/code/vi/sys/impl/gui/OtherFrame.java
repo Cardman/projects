@@ -27,6 +27,10 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
 
+    public OtherFrame() {
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+    }
+
     public void setMainFrame(boolean _mainFrame) {
         mainFrame = _mainFrame;
     }

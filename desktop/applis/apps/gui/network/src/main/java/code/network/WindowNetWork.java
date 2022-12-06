@@ -584,7 +584,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //            MenuItemUtils.setEnabledMenu(change,true);
 //            ((ContainerSingle)containerGame).modify();
 //        }
-        exitMode(_list);
+//        exitMode(_list);
         aikiFactory = _aikiFactory;
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));

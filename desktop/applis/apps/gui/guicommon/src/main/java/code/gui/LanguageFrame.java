@@ -3,12 +3,13 @@ package code.gui;
 
 
 import code.gui.events.LanguageChoice;
+import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public final class LanguageFrame implements SetterLanguage {
+public final class LanguageFrame extends GroupFrame implements SetterLanguage {
 
     private static final String TITLE = " ";
 
@@ -24,7 +25,9 @@ public final class LanguageFrame implements SetterLanguage {
     private final AbsCommonFrame commonFrame;
 
     LanguageFrame(String _dir, String[] _args, SoftApplicationCore _soft, AbstractImage _icon) {
+        super("",_soft.getFrames());
         commonFrame = _soft.getFrames().getFrameFactory().newCommonFrame(Constants.getDefaultLanguage(),_soft.getFrames(), null);
+        _soft.getFrames().getFrames().add(this);
         dir = _dir;
         if (_icon != null) {
             commonFrame.setIconImage(_icon);
@@ -44,8 +47,9 @@ public final class LanguageFrame implements SetterLanguage {
             panneau_.add(radio_);
         }
         commonFrame.setContentPane(panneau_);
-        commonFrame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+//        commonFrame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         commonFrame.setLocationRelativeToNull();
+        commonFrame.addWindowListener(new QuittingEvent(this));
         commonFrame.setVisible(true);
         commonFrame.pack();
     }
@@ -56,6 +60,7 @@ public final class LanguageFrame implements SetterLanguage {
         commonFrame.dispose();
         SoftApplicationCore.saveLanguage(dir, _language,soft.getFrames().getStreams());
         commonFrame.getPane().removeAll();
+        getFrames().getFrames().removeLast();
         soft.launchFile(args,langue);
     }
 
@@ -64,5 +69,24 @@ public final class LanguageFrame implements SetterLanguage {
         return langue;
     }
 
+    @Override
+    public boolean canChangeLanguage() {
+        return false;
+    }
+
+    @Override
+    public void changeLanguage(String _language) {
+        quit();
+    }
+
+    @Override
+    public String getApplicationName() {
+        return "";
+    }
+
+    @Override
+    public void quit() {
+        basicDispose();
+    }
 }
 

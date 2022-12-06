@@ -135,7 +135,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         setContentPane(pane_);
         pack();
         setVisible(true);
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
     }

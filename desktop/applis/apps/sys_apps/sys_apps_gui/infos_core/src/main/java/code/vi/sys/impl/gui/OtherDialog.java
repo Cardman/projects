@@ -26,6 +26,7 @@ public final class OtherDialog implements AbsOtherDialog, ChangeableTitle,Placab
 
     public OtherDialog() {
         dialog = new JDialog();
+        dialog.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
     @Override

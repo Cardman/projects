@@ -133,7 +133,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         setContentPane(contentPane);
         pack();
         setVisible(true);
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
         filesFrame = new SimpleFilesFrame(this,getTitle());

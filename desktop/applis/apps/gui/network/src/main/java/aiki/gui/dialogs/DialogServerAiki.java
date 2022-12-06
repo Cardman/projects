@@ -86,7 +86,7 @@ public final class DialogServerAiki implements AbstractDialogServer{
         panel_.add(button_);
         pane_.add(panel_);
         absDialog.setContentPane(pane_);
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
     }
 

@@ -61,13 +61,13 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         commonFrame.setImageIconFrame(_imageIconFrame);
         setIconImage(_imageIconFrame);
     }
-    public void exitMode(AbstractProgramInfos _list) {
-        if (_list.getFrames().first() == this) {
-            setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-        } else {
-            setDefaultCloseOperation(GuiConstants.HIDE_ON_CLOSE);
-        }
-    }
+//    public void exitMode(AbstractProgramInfos _list) {
+//        if (_list.getFrames().first() == this) {
+//            setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+////        } else {
+////            setDefaultCloseOperation(GuiConstants.HIDE_ON_CLOSE);
+//        }
+//    }
 
     //@Override
     public AbstractProgramInfos getFrames() {

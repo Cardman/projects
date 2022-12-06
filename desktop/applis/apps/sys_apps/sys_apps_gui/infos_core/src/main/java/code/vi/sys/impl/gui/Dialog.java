@@ -25,7 +25,7 @@ public final class Dialog implements AbsDialog {
     private Ownable owner;
     public Dialog(AbsCloseableDialog _clos) {
         dial.setModal(true);
-        dial.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+        dial.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         dial.addWindowListener(new WrWindowListenerClos(new CrossClosingDialogListEvent(this,_clos)));
     }
 

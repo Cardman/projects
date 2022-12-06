@@ -138,7 +138,7 @@ public final class WindowRts extends GroupFrame {
         setContentPane(contentPane_);
         pack();
         setVisible(true);
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
         thread = new AnimationUnitSoldier(animate,pause,stop, battleground,this);

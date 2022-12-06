@@ -57,7 +57,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         setDialogIcon(_fenetre.getCommonFrame());
         setTitle(_titre);
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new ClosingChildFrameEvent(this));
         //window = _fenetre;
     }

@@ -144,7 +144,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         contentPane.add(scrErrs_);
         setContentPane(contentPane);
         addWindowListener(new ClosingChildFrameEvent(this));
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
         commonExecution = new CommonExecution(messages,doneTestsCount,currentMethod,resultsTable,results,progressBar);
     }

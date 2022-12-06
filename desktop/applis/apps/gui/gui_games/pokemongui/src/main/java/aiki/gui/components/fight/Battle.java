@@ -254,7 +254,7 @@ public class Battle extends ChildFrame {
 //        setLayout(grid);
         //add(new JScrollPane(actionsBattle));
         addWindowListener(new ClosingChildFrameEvent(this));
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     @Override

@@ -5,8 +5,7 @@ import cards.gui.WindowCardsInt;
 import cards.gui.panels.PanelTricksHandsTarot;
 import cards.tarot.DisplayingTarot;
 import cards.tarot.TricksHandsTarot;
-import code.gui.AbsScrollPane;
-import code.gui.GuiConstants;
+import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
@@ -21,7 +20,7 @@ public final class DialogTricksTarot extends DialogCards {
         _fenetre.getDialogTricksTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
         _fenetre.getDialogTricksTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogTricksTarot().getCardDialog().setResizable(true);
-        _fenetre.getDialogTricksTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        _fenetre.getDialogTricksTarot().getCardDialog().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
     public static void init(TricksHandsTarot _tricksHands, byte _numberPlayers,
             StringList _pseudos, DisplayingTarot _displayingTarot, WindowCardsInt _window) {

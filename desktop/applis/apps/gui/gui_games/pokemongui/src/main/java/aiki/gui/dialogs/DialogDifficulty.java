@@ -78,7 +78,7 @@ public final class DialogDifficulty {
         absDialog.setContentPane(panel_);
 //        timer = new Timer(200, new Chronometer(area_, session_, 0));
 //        timer.start();
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

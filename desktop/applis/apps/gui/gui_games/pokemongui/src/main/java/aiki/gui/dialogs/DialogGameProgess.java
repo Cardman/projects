@@ -68,7 +68,7 @@ public final class DialogGameProgess {
         panel_.add(field_);
         panel_.add(search_);
         absDialog.setContentPane(panel_);
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

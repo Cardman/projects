@@ -539,7 +539,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             MenuItemUtils.setEnabledMenu(change,true);
             ((ContainerSingle)containerGame).modify();
         }
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
     }

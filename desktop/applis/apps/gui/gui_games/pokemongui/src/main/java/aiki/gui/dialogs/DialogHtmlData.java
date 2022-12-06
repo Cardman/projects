@@ -103,7 +103,7 @@ public final class DialogHtmlData {
         absDialog.setContentPane(panel_);
 //        timer = new Timer(200, new Chronometer(area_, _session, 0));
 //        timer.start();
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
     }
 

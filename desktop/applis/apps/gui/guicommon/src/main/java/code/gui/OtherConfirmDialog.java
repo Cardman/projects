@@ -149,7 +149,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -165,7 +165,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -180,7 +180,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -195,7 +195,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -213,7 +213,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -233,7 +233,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -254,7 +254,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -276,7 +276,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -298,7 +298,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
@@ -321,7 +321,7 @@ public final class OtherConfirmDialog {
         buttons_.add(button_);
         content_.add(buttons_);
         dialog.setContentPane(content_);
-        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }

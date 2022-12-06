@@ -153,7 +153,7 @@ public final class DialogSoftParams {
         panel_.add(ok_);
         absDialog.setContentPane(panel_);
         absDialog.pack();
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
     }
 
     public void validateChoices() {

@@ -35,6 +35,7 @@ public final class CommonFrame implements AbsCommonFrame {
         languageKey = _languageKey;
         frames = _frames;
         imageIconFrame = _imageIconFrame;
+        frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
     }
 
     @Override
@@ -120,7 +121,7 @@ public final class CommonFrame implements AbsCommonFrame {
     }
 
     public void dispatchExit() {
-        frame.setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
     }
     public void setDefaultCloseOperation(int _operation) {

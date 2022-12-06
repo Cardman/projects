@@ -300,7 +300,7 @@ public abstract class FileDialog implements ChangeableTitle {
 
     @Override
     public void pack() {
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
         absDialog.setVisible(true);
     }

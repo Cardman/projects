@@ -71,7 +71,7 @@ public final class WindowRenders extends GroupFrame {
         setContentPane(pane_);
         pack();
         setVisible(true);
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
     }

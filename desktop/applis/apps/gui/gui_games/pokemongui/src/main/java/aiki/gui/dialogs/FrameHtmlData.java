@@ -57,7 +57,7 @@ public final class FrameHtmlData extends ChildFrame {
         panel_.add(search);
         setContentPane(panel_);
         addWindowListener(new ClosingChildFrameEvent(this));
-        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
     }
 

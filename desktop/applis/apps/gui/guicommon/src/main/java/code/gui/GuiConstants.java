@@ -75,10 +75,10 @@ public final class GuiConstants {
     public static final int ORANGE = (int) (256*256*256*255L+256*256*255L+256*200L);
     public static final int MAGENTA = (int) (256*256*256*255L+256*256*255L+255L);
     public static final int CYAN = (int) (256*256*256*255L+256*255L+255L);
-    public static final int DO_NOTHING_ON_CLOSE = 0;
-    public static final int HIDE_ON_CLOSE = 1;
-    public static final int EXIT_ON_CLOSE = 3;
-    public static final int DISPOSE_ON_CLOSE = 2;
+//    public static final int DO_NOTHING_ON_CLOSE = 0;
+//    public static final int HIDE_ON_CLOSE = 1;
+//    public static final int EXIT_ON_CLOSE = 3;
+//    public static final int DISPOSE_ON_CLOSE = 2;
     public static final int CENTER = 0;
     public static final int RIGHT = 4;
     public static final int TOP = 1;

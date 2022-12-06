@@ -51,7 +51,7 @@ public final class LanguageDialog implements SetterLanguage {
             panneau_.add(radio_);
         }
         absDialog.setContentPane(panneau_);
-        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+//        absDialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         absDialog.pack();
     }
 

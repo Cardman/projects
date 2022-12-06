@@ -64,7 +64,7 @@ public final class WindowConverter extends GroupFrame {
         setContentPane(content_);
         pack();
         setVisible(true);
-        exitMode(_list);
+//        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
 //        addWindowListener(new QuittingEvent(this));
     }
