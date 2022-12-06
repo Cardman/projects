@@ -21,6 +21,7 @@ import code.util.StringList;
 
 public final class GuiExecutingBlocks {
     private AbsPlainLabel textLabel;
+    private AbsPlainButton stop;
     private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
@@ -511,14 +512,12 @@ public final class GuiExecutingBlocks {
                     user_.add((Struct)w);
                 }
             }
-            if (user_.isEmpty()) {
-                if (_inst == frame) {
-                    _inst.removeWindowListener(eventClose);
-                    _inst.addWindowListener(eventClose);
+            if (user_.isEmpty() && _inst == frame) {
+                _inst.removeWindowListener(eventClose);
+                _inst.addWindowListener(eventClose);
 //                    _inst.getAbstractWindow().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
 //                } else {
 //                    _inst.getAbstractWindow().setDefaultCloseOperation(GuiConstants.HIDE_ON_CLOSE);
-                }
             }
         }
     }
@@ -559,5 +558,11 @@ public final class GuiExecutingBlocks {
         return new IntStruct(textLabel.stringWidth(_font.getFont(),((StringStruct)_string).getInstance()));
     }
 
+    public AbsPlainButton getStop() {
+        return stop;
+    }
 
+    public void setStop(AbsPlainButton _s) {
+        this.stop = _s;
+    }
 }

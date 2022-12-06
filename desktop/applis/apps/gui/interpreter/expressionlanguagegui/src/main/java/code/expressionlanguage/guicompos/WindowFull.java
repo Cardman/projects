@@ -26,6 +26,8 @@ public final class WindowFull extends GroupFrame {
     private final AbsPlainLabel content;
     private final AbsTextArea conf;
     private final AbsPlainButton launch;
+    private final AbsPlainButton coverage;
+    private final AbsPlainButton stop;
 
     private final StringMap<String> messages;
     private final GuiInterpreterElements currentElements;
@@ -56,6 +58,14 @@ public final class WindowFull extends GroupFrame {
         launch = getCompoFactory().newPlainButton(messages.getVal("launch"));
         launch.addActionListener(new ListenerLaunchApp(this));
         form.add(launch);
+        coverage = getCompoFactory().newPlainButton("coverage");
+        coverage.addActionListener(new CoverageAction(this));
+        coverage.setEnabled(false);
+        form.add(coverage);
+        stop = getCompoFactory().newPlainButton("stop");
+        stop.addActionListener(new StopAction(this));
+        stop.setEnabled(false);
+        form.add(stop);
         form.add(getCompoFactory().newPlainLabel(""));
         contentPane.add(form);
         setContentPane(contentPane);
@@ -63,7 +73,7 @@ public final class WindowFull extends GroupFrame {
         setVisible(true);
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        addWindowListener(new QuittingEvent(this));
     }
     public void selectFile() {
         String fichier_=getFileOpenDialogInt().input(getCommonFrame(),getLanguageKey(),true, "", getFrames().getHomePath());
@@ -89,9 +99,12 @@ public final class WindowFull extends GroupFrame {
         GuiRunnable current_ = GuiProcess.build("", txt_, getCurrentElements(),getFrames());
         currentElements.setGuiRunnable(current_);
         if (current_ == null) {
+            stop.setEnabled(true);
             return;
         }
+        ((LgNamesGui) current_.getContext().getStandards()).getGuiExecutingBlocks().setStop(stop);
         current_.run();
+        coverage.setEnabled(true);
     }
     public void launchFileConf(String _fichier, boolean _direct) {
         if (currentElements.getGuiRunnable() != null) {
@@ -119,6 +132,8 @@ public final class WindowFull extends GroupFrame {
         if (current_ != null&&current_.isVisible()) {
             return;
         }
+        coverage.setEnabled(false);
+        stop.setEnabled(false);
         basicDispose();
     }
 
@@ -141,4 +156,13 @@ public final class WindowFull extends GroupFrame {
         return currentElements;
     }
 
+    public void coverage() {
+        new CoveringCodeTask(currentElements.getGuiRunnable().getContext(), currentElements.getGuiRunnable().getContext().getExecutingOptions()).run();
+    }
+
+    public void stopAction() {
+        coverage.setEnabled(false);
+        stop.setEnabled(false);
+        ((LgNamesGui) currentElements.getGuiRunnable().getContext().getStandards()).getGuiExecutingBlocks().getGuiInterpreterElements().setGuiRunnable(null);
+    }
 }

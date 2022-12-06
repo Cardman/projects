@@ -131,7 +131,7 @@ public final class GuiProcess implements GuiRunnable {
         ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
         if (classBody_ == null) {
             context.getCustInit().removeThreadFromList(context);
-            lastThread();
+//            lastThread();
             return;
         }
         CustList<ExecOverridableBlock> methods_ = ExecClassesUtil.getMethodBodiesById(classBody_, id_);
@@ -149,18 +149,23 @@ public final class GuiProcess implements GuiRunnable {
         } else {
             context.getCustInit().removeThreadFromList(context);
         }
-        lastThread();
+//        lastThread();
     }
 
-    private void lastThread() {
-        if (!isVisible()) {
-            LgNamesGui lg_ = (LgNamesGui)context.getStandards();
-            context.disposeAll(lg_.getGuiExecutingBlocks(),StackCall.newInstance(InitPhase.NOTHING,context));
-        }
-    }
+//    private void lastThread() {
+//        if (!isVisible()) {
+//            LgNamesGui lg_ = (LgNamesGui)context.getStandards();
+//            context.disposeAll(lg_.getGuiExecutingBlocks(),StackCall.newInstance(InitPhase.NOTHING,context));
+//        }
+//    }
 
     @Override
     public boolean isVisible() {
         return ((LgNamesGui) context.getStandards()).getGuiExecutingBlocks().getFrame().isVisible();
+    }
+
+    @Override
+    public GuiContextEl getContext() {
+        return context;
     }
 }

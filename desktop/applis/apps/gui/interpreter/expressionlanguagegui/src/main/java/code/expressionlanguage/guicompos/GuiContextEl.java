@@ -3,6 +3,7 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.gui.AbsPlainButton;
 
 public final class GuiContextEl extends RunnableContextEl {
 
@@ -30,12 +31,21 @@ public final class GuiContextEl extends RunnableContextEl {
         _guiExecutingBlocks.getFrame().dispose();
         interrupt();
 //        getGuiInit().launchHooks(this, _stackCall);
-        _guiExecutingBlocks.getGuiInterpreterElements().setGuiRunnable(null);
-        new CoveringCodeTask(this, getExecutingOptions()).run();
+//        _guiExecutingBlocks.getGuiInterpreterElements().setGuiRunnable(null);
+//        new CoveringCodeTask(this, getExecutingOptions()).run();
     }
     public GuiInitializer getGuiInit() {
         return (GuiInitializer)getInit();
     }
 
+    @Override
+    public void interrupt() {
+        super.interrupt();
+        LgNamesGui standards_ = (LgNamesGui) getStandards();
+        AbsPlainButton s_ = standards_.getGuiExecutingBlocks().getStop();
+        if (s_ != null) {
+            s_.setEnabled(true);
+        }
+    }
 
 }

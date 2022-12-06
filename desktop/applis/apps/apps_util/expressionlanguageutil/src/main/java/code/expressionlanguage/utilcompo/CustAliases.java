@@ -182,6 +182,7 @@ public final class CustAliases {
     private static final String THREAD_EQ = "ThreadEq";
     private static final String START = "Start";
     private static final String JOIN = "Join";
+    private static final String INTERRUPT = "Interrupt";
     private static final String LENGTH_LI = "LengthLi";
     private static final String CUST_PAIR = "CustPair";
     private static final String LIST_TA = "ListTa";
@@ -234,6 +235,7 @@ public final class CustAliases {
     private String aliasCurrentThread;
     private String aliasStart;
     private String aliasThreadEq;
+    private String aliasInterrupt;
     private String aliasJoin;
     private String aliasJoinOthers;
     private String aliasSleep;
@@ -465,6 +467,8 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasThreadCurrentNanoTime, params_, _content.getPrimTypes().getAliasPrimLong(), false, MethodModifier.STATIC,new FctThreadNano(this));
         methods_.add( method_);
         method_ = new StandardMethod(aliasJoin, params_, _content.getNbAlias().getAliasBoolean(), false, MethodModifier.FINAL,new FctThreadJoin());
+        methods_.add( method_);
+        method_ = new StandardMethod(aliasInterrupt, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctInterrupt());
         methods_.add( method_);
         method_ = new StandardMethod(aliasJoinOthers, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadJoinOthers(this));
         methods_.add( method_);
@@ -1593,6 +1597,7 @@ public final class CustAliases {
         setAliasStart(LgNamesContent.get(_util, _cust, START));
         setAliasThreadEq(LgNamesContent.get(_util, _cust, THREAD_EQ));
         setAliasJoin(LgNamesContent.get(_util, _cust, JOIN));
+        setAliasInterrupt(LgNamesContent.get(_util, _cust, INTERRUPT));
         setAliasRun(LgNamesContent.get(_util, _cust, RUN));
         setAliasLengthLi(LgNamesContent.get(_util, _cust, LENGTH_LI));
         setAliasCustPair(LgNamesContent.get(_util, _cust, CUST_PAIR));
@@ -1744,6 +1749,7 @@ public final class CustAliases {
                 new KeyValueMemberName(END,getAliasEnd()),
                 new KeyValueMemberName(CURRENT_THREAD,getAliasCurrentThread()),
                 new KeyValueMemberName(JOIN,getAliasJoin()),
+                new KeyValueMemberName(INTERRUPT,getAliasInterrupt()),
                 new KeyValueMemberName(JOIN_OTHERS,getAliasJoinOthers()),
                 new KeyValueMemberName(GET_ID,getAliasGetId()),
                 new KeyValueMemberName(GET_PRIORITY,getAliasGetPriority()),
@@ -2094,6 +2100,13 @@ public final class CustAliases {
     }
     public void setAliasJoin(String _aliasJoin) {
         aliasJoin = _aliasJoin;
+    }
+
+    public String getAliasInterrupt() {
+        return aliasInterrupt;
+    }
+    public void setAliasInterrupt(String _aliasJoin) {
+        aliasInterrupt = _aliasJoin;
     }
 
     public String getAliasJoinOthers() {
