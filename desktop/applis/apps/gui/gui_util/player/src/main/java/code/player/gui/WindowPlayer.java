@@ -5,6 +5,7 @@ package code.player.gui;
 
 
 import code.gui.*;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.images.BaseSixtyFourUtil;
@@ -137,7 +138,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         setVisible(true);
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        addWindowListener(new QuittingEvent(this));
     }
 
     @Override

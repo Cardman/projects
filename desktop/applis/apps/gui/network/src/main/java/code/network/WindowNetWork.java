@@ -587,7 +587,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        exitMode(_list);
         aikiFactory = _aikiFactory;
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        addWindowListener(new QuittingEvent(this));
     }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);

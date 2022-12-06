@@ -79,7 +79,7 @@ public final class WindowRecorder extends GroupFrame {
         setVisible(true);
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        addWindowListener(new QuittingEvent(this));
     }
     static void alignAddedTopLeft(AbsPanel _par,AbsCustComponent _compo){
         alignTopLeft(_compo);

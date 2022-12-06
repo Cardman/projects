@@ -73,7 +73,7 @@ public final class WindowRenders extends GroupFrame {
         setVisible(true);
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
-//        addWindowListener(new QuittingEvent(this));
+        addWindowListener(new QuittingEvent(this));
     }
 
     public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page) {
