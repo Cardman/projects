@@ -288,7 +288,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         this.messages = _messages;
     }
 
-    protected boolean canChangeLanguageAll() {
+    public boolean canChangeLanguageAll() {
         return false;
 //        boolean canChange_ = true;
 //        for (GroupFrame g: frames.getFrames()) {

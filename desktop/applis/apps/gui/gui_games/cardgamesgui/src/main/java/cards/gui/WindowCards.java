@@ -7,11 +7,9 @@ package cards.gui;
 
 import cards.belote.*;
 import cards.belote.sml.*;
-import cards.consts.*;
 import cards.enumerations.*;
 import cards.facade.*;
 import cards.facade.enumerations.*;
-import cards.facade.sml.*;
 import cards.gui.animations.*;
 import cards.gui.containers.*;
 import cards.gui.dialogs.*;
@@ -335,36 +333,36 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     private static final String F_ONE = "F1";
     private static final String F_TWO = "F2";
     private static final String F_THREE = "F3";
-    private static final String F_FOUR = "F4";
-    private static final String F_FIVE = "F5";
-    private static final String F_SIX = "F6";
+//    private static final String F_FOUR = "F4";
+//    private static final String F_FIVE = "F5";
+//    private static final String F_SIX = "F6";
     private static final String EMPTY_STRING = "";
     private static final String LAST_SAVED_GAME = "lastSavedGame";
 
-    private static final char LINE_RETURN = '\n';
+//    private static final char LINE_RETURN = '\n';
 
 //    private BasicClient threadEmission;
 
     private final CustList<FrameGeneralHelp> helpFrames = new CustList<FrameGeneralHelp>();
 
-    private ContainerGame containerGame;
-    private final Clock clock;
+//    private ContainerGame containerGame;
+//    private final Clock clock;
 
     private final AbsPlainLabel lastSavedGameDate;
 
     private String dateLastSaved = EMPTY_STRING;
 
     /**Parametres de lancement, de jouerie*/
-    private SoftParams parametres=new SoftParams();
+//    private SoftParams parametres=new SoftParams();
     /**
     des pseudonymes*/
-    private Nicknames pseudosJoueurs;
-    private RulesBelote reglesBelote=new RulesBelote();
-    private DisplayingBelote displayingBelote = new DisplayingBelote();
-    private RulesPresident reglesPresident=new RulesPresident();
-    private DisplayingPresident displayingPresident = new DisplayingPresident();
-    private RulesTarot reglesTarot=new RulesTarot();
-    private DisplayingTarot displayingTarot = new DisplayingTarot();
+//    private Nicknames pseudosJoueurs;
+//    private RulesBelote reglesBelote=new RulesBelote();
+//    private DisplayingBelote displayingBelote = new DisplayingBelote();
+//    private RulesPresident reglesPresident=new RulesPresident();
+//    private DisplayingPresident displayingPresident = new DisplayingPresident();
+//    private RulesTarot reglesTarot=new RulesTarot();
+//    private DisplayingTarot displayingTarot = new DisplayingTarot();
     /**Est vrai si et seulement si une partie vient d'etre sauvegardee*/
     private boolean partieSauvegardee;
 
@@ -401,11 +399,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     private final IdMap<GameEnum,AbsMenuItem> rulesGames = new IdMap<GameEnum,AbsMenuItem>();
     private AbsMenuItem players;
     private AbsMenuItem launching;
-    private AbsMenuItem timing;
-    private AbsMenuItem interact;
-    private AbsMenuItem language;
-    private AbsMenu displaying;
-    private final IdMap<GameEnum,AbsMenuItem> displayingGames = new IdMap<GameEnum,AbsMenuItem>();
+//    private AbsMenuItem timing;
+//    private AbsMenuItem interact;
+//    private AbsMenuItem language;
+//    private AbsMenu displaying;
+//    private final IdMap<GameEnum,AbsMenuItem> displayingGames = new IdMap<GameEnum,AbsMenuItem>();
 
     //parameters help
 
@@ -420,106 +418,108 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     private AbsPlainLabel goHelpMenu;
 //    private final Net net = new Net();
 
-    private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
-    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
-    private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
+//    private final StringMap<StringMap<PreparedPagesCards>> preparedBelote;
+//    private final StringMap<StringMap<PreparedPagesCards>> preparedPresident;
+//    private final StringMap<StringMap<PreparedPagesCards>> preparedTarot;
     //private final boolean standalone;
     private HelpInitializer helpInitializerTask;
-    private final DialogDisplayingBelote dialogDisplayingBelote;
-    private final DialogDisplayingTarot dialogDisplayingTarot;
-    private final DialogDisplayingPresident dialogDisplayingPresident;
-    private final DialogHelpBelote dialogHelpBelote;
-    private final DialogHelpPresident dialogHelpPresident;
-    private final DialogHelpTarot dialogHelpTarot;
-    private final DialogRulesBelote dialogRulesBelote;
-    private final DialogRulesPresident dialogRulesPresident;
-    private final DialogRulesTarot dialogRulesTarot;
-    private final DialogTricksBelote dialogTricksBelote;
-    private final DialogTricksPresident dialogTricksPresident;
-    private final DialogTricksTarot dialogTricksTarot;
+//    private final DialogDisplayingBelote dialogDisplayingBelote;
+//    private final DialogDisplayingTarot dialogDisplayingTarot;
+//    private final DialogDisplayingPresident dialogDisplayingPresident;
+//    private final DialogHelpBelote dialogHelpBelote;
+//    private final DialogHelpPresident dialogHelpPresident;
+//    private final DialogHelpTarot dialogHelpTarot;
+//    private final DialogRulesBelote dialogRulesBelote;
+//    private final DialogRulesPresident dialogRulesPresident;
+//    private final DialogRulesTarot dialogRulesTarot;
+//    private final DialogTricksBelote dialogTricksBelote;
+//    private final DialogTricksPresident dialogTricksPresident;
+//    private final DialogTricksTarot dialogTricksTarot;
     private final EditorBelote editorBelote;
     private final EditorPresident editorPresident;
     private final EditorTarot editorTarot;
-    private final DialogTeamsPlayers dialogTeamsPlayers;
+//    private final DialogTeamsPlayers dialogTeamsPlayers;
     private final DialogNicknames dialogNicknames;
-    private final DialogSoft dialogSoft;
+//    private final DialogSoft dialogSoft;
 //    private final DialogServerCards dialogServer;
-    private final CardFactories cardFactories;
+//    private final CardFactories cardFactories;
 //    private ResultCardsServerInteract resultCardsServerInteract;
-    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
+//    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
+    private final WindowCardsCore core;
     public WindowCards(String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
                        StringMap<StringMap<PreparedPagesCards>> _president,
                        StringMap<StringMap<PreparedPagesCards>> _tarot,
                        CardFactories _cardFactories) {
         super(_lg, _list);
-        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
-        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
-        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
-        dialogHelpBelote = new DialogHelpBelote(_list);
-        dialogHelpPresident = new DialogHelpPresident(_list);
-        dialogHelpTarot = new DialogHelpTarot(_list);
-        dialogRulesBelote = new DialogRulesBelote(_list);
-        dialogRulesPresident = new DialogRulesPresident(_list);
-        dialogRulesTarot = new DialogRulesTarot(_list);
-        dialogTricksBelote = new DialogTricksBelote(_list);
-        dialogTricksPresident = new DialogTricksPresident(_list);
-        dialogTricksTarot = new DialogTricksTarot(_list);
+        core = new WindowCardsCore(_lg, _list, _belote, _president, _tarot, _cardFactories);
+//        dialogDisplayingBelote = new DialogDisplayingBelote(_list);
+//        dialogDisplayingTarot = new DialogDisplayingTarot(_list);
+//        dialogDisplayingPresident = new DialogDisplayingPresident(_list);
+//        dialogHelpBelote = new DialogHelpBelote(_list);
+//        dialogHelpPresident = new DialogHelpPresident(_list);
+//        dialogHelpTarot = new DialogHelpTarot(_list);
+//        dialogRulesBelote = new DialogRulesBelote(_list);
+//        dialogRulesPresident = new DialogRulesPresident(_list);
+//        dialogRulesTarot = new DialogRulesTarot(_list);
+//        dialogTricksBelote = new DialogTricksBelote(_list);
+//        dialogTricksPresident = new DialogTricksPresident(_list);
+//        dialogTricksTarot = new DialogTricksTarot(_list);
         editorBelote = new EditorBelote(_list);
         editorPresident = new EditorPresident(_list);
         editorTarot = new EditorTarot(_list);
-        dialogTeamsPlayers = new DialogTeamsPlayers(_list);
+//        dialogTeamsPlayers = new DialogTeamsPlayers(_list);
         dialogNicknames = new DialogNicknames(_list);
-        dialogSoft = new DialogSoft(_list);
+//        dialogSoft = new DialogSoft(_list);
 //        dialogServer = new DialogServerCards(_list);
-        cardFactories = _cardFactories;
-        preparedBelote = _belote;
-        preparedPresident = _president;
-        preparedTarot = _tarot;
-        pseudosJoueurs=new Nicknames(getLanguageKey());
+//        cardFactories = _cardFactories;
+//        preparedBelote = _belote;
+//        preparedPresident = _president;
+//        preparedTarot = _tarot;
+//        pseudosJoueurs=new Nicknames(getLanguageKey());
         setAccessFile(DIALOG_ACCESS);
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
         setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
-        clock = new Clock(_list);
+//        clock = new Clock(_list);
         lastSavedGameDate = getCompoFactory().newPlainLabel("");
-        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
-        if (!reglesBelote.isValidRules()) {
-            reglesBelote = new RulesBelote();
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote),getStreams());
-        }
-        displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE),getFileCoreStream(),getStreams()));
-        displayingBelote.validate();
-        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT),getFileCoreStream(),getStreams()));
-        if (!reglesPresident.isValidRules()) {
-            reglesPresident = new RulesPresident();
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident),getStreams());
-        }
-        displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT),getFileCoreStream(),getStreams()));
-        displayingPresident.validate();
-        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT),getFileCoreStream(),getStreams()));
-        if (!reglesTarot.isValidRules()) {
-            reglesTarot = new RulesTarot();
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot),getStreams());
-        }
-        displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT),getFileCoreStream(),getStreams()));
-        displayingTarot.validate();
-        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getFileCoreStream(),getStreams()));
-        parametres.setDelays();
+//        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
+//        if (!reglesBelote.isValidRules()) {
+//            reglesBelote = new RulesBelote();
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote),getStreams());
+//        }
+//        displayingBelote = DocumentReaderBeloteUtil.getDisplayingBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE),getFileCoreStream(),getStreams()));
+//        displayingBelote.validate();
+//        reglesPresident = DocumentReaderPresidentUtil.getRulesPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT),getFileCoreStream(),getStreams()));
+//        if (!reglesPresident.isValidRules()) {
+//            reglesPresident = new RulesPresident();
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident),getStreams());
+//        }
+//        displayingPresident = DocumentReaderPresidentUtil.getDisplayingPresident(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT),getFileCoreStream(),getStreams()));
+//        displayingPresident.validate();
+//        reglesTarot = DocumentReaderTarotUtil.getRulesTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT),getFileCoreStream(),getStreams()));
+//        if (!reglesTarot.isValidRules()) {
+//            reglesTarot = new RulesTarot();
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot),getStreams());
+//        }
+//        displayingTarot = DocumentReaderTarotUtil.getDisplayingTarot(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT),getFileCoreStream(),getStreams()));
+//        displayingTarot.validate();
+//        parametres = DocumentReaderCardsUnionUtil.getSoftParams(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getFileCoreStream(),getStreams()));
+//        parametres.setDelays();
 //        parametres.setLocale(_locale);
         initMessageName();
         lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
 
-        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
-        if (!pseudosJoueurs.isValidNicknames()) {
-            pseudosJoueurs = new Nicknames(getLanguageKey());
-            pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
-        }
+//        pseudosJoueurs = DocumentReaderCardsUnionUtil.getNicknames(getLanguageKey(),StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getFileCoreStream(),getStreams()));
+//        if (!pseudosJoueurs.isValidNicknames()) {
+//            pseudosJoueurs = new Nicknames(getLanguageKey());
+//            pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
+//        }
         /*Parametre de lancement*/
         initMenus();
 
-        if(parametres.getLancement().isEmpty()) {
+        if(core.getParametres().getLancement().isEmpty()) {
             menuPrincipal();
         } else {
             MenuItemUtils.setEnabledMenu(getTricksHands(),false);
@@ -528,15 +528,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             MenuItemUtils.setEnabledMenu(getLoad(),true);
             MenuItemUtils.setEnabledMenu(getEdit(),true);
             MenuItemUtils.setEnabledMenu(getTraining(),true);
-            if(parametres.getLancement().first()==GameEnum.BELOTE) {
-                containerGame = new ContainerSingleBelote(this);
-            } else if(parametres.getLancement().first()==GameEnum.PRESIDENT) {
-                containerGame = new ContainerSinglePresident(this);
+            if(core.getParametres().getLancement().first()==GameEnum.BELOTE) {
+                core.setContainerGame(new ContainerSingleBelote(this));
+            } else if(core.getParametres().getLancement().first()==GameEnum.PRESIDENT) {
+                core.setContainerGame(new ContainerSinglePresident(this));
             } else {
-                containerGame = new ContainerSingleTarot(this);
+                core.setContainerGame(new ContainerSingleTarot(this));
             }
             MenuItemUtils.setEnabledMenu(change,true);
-            ((ContainerSingle)containerGame).modify();
+            ((ContainerSingle) core.getContainerGame()).modify();
         }
 //        exitMode(_list);
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
@@ -561,32 +561,32 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         helpFrames.clear();
     }
     public SoftParams getParametresLogiciel() {
-        return new SoftParams(parametres);
+        return new SoftParams(core.getParametres());
     }
     public Nicknames getPseudosJoueurs() {
-        return new Nicknames(pseudosJoueurs);
+        return new Nicknames(core.getPseudosJoueurs());
     }
     public RulesBelote getReglesBelote() {
-        return new RulesBelote(reglesBelote);
+        return new RulesBelote(core.getReglesBelote());
     }
 
     public DisplayingBelote getDisplayingBelote() {
-        return new DisplayingBelote(displayingBelote);
+        return new DisplayingBelote(core.getDisplayingBelote());
     }
     public RulesPresident getReglesPresident() {
-        return new RulesPresident(reglesPresident);
+        return new RulesPresident(core.getReglesPresident());
     }
 
     public DisplayingPresident getDisplayingPresident() {
-        return new DisplayingPresident(displayingPresident);
+        return new DisplayingPresident(core.getDisplayingPresident());
     }
 
     public RulesTarot getReglesTarot() {
-        return new RulesTarot(reglesTarot);
+        return new RulesTarot(core.getReglesTarot());
     }
 
     public DisplayingTarot getDisplayingTarot() {
-        return new DisplayingTarot(displayingTarot);
+        return new DisplayingTarot(core.getDisplayingTarot());
     }
 
 //    @Override
@@ -596,7 +596,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        }
 //    }
     public Clock getClock() {
-        return clock;
+        return core.getClock();
     }
     public AbsPlainLabel getLastSavedGameDate() {
         return lastSavedGameDate;
@@ -686,44 +686,45 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         return confirm(getMessages().getVal(CST_SAVING),getMessages().getVal(CST_SAVING_TITLE));
     }
     private void changerNombreDePartiesEnQuittant() {
-        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
-        String content_ = StreamTextFile.contentsOfFile(fileName_,getFileCoreStream(),getStreams());
-        StringList vl_=new StringList();
-        boolean read_ = true;
-        StringList lines_ = new StringList();
-        if (content_ != null) {
-            lines_.addAllElts(StringUtil.splitChars(content_, LINE_RETURN));
-        } else {
-            read_ = false;
-        }
-        int total_ = GameEnum.values().length;
-        if (lines_.size() < total_) {
-            read_ = false;
-        }
-        if (read_) {
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_<total_; indice_++) {
-                vl_.add(lines_.get(indice_));
-            }
-        } else {
-            vl_=new StringList();
-            for (int indice_ = IndexConstants.FIRST_INDEX; indice_ < total_; indice_++) {
-                vl_.add("0");
-            }
-        }
-        //Si l'action de battre les cartes est faite a chaque lancement
-        //de logiciel alors le nombre de parties est remis a zero lors
-        //d'une fermeture de logiciel
-
-        if(reglesPresident.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.PRESIDENT.ordinal(), "0");
-        }
-        if(reglesBelote.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.BELOTE.ordinal(), "0");
-        }
-        if(reglesTarot.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
-            vl_.set(GameEnum.TAROT.ordinal(), "0");
-        }
-        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),getStreams());
+        core.changerNombreDePartiesEnQuittant(this);
+//        String fileName_ = StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DECK_FOLDER,StreamTextFile.SEPARATEUR,FileConst.DECK_FILE);
+//        String content_ = StreamTextFile.contentsOfFile(fileName_,getFileCoreStream(),getStreams());
+//        StringList vl_=new StringList();
+//        boolean read_ = true;
+//        StringList lines_ = new StringList();
+//        if (content_ != null) {
+//            lines_.addAllElts(StringUtil.splitChars(content_, LINE_RETURN));
+//        } else {
+//            read_ = false;
+//        }
+//        int total_ = GameEnum.values().length;
+//        if (lines_.size() < total_) {
+//            read_ = false;
+//        }
+//        if (read_) {
+//            for (int indice_ = IndexConstants.FIRST_INDEX; indice_<total_; indice_++) {
+//                vl_.add(lines_.get(indice_));
+//            }
+//        } else {
+//            vl_=new StringList();
+//            for (int indice_ = IndexConstants.FIRST_INDEX; indice_ < total_; indice_++) {
+//                vl_.add("0");
+//            }
+//        }
+//        //Si l'action de battre les cartes est faite a chaque lancement
+//        //de logiciel alors le nombre de parties est remis a zero lors
+//        //d'une fermeture de logiciel
+//
+//        if(reglesPresident.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
+//            vl_.set(GameEnum.PRESIDENT.ordinal(), "0");
+//        }
+//        if(reglesBelote.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
+//            vl_.set(GameEnum.BELOTE.ordinal(), "0");
+//        }
+//        if(reglesTarot.getCommon().getMixedCards() ==MixCardsChoice.EACH_LAUNCHING) {
+//            vl_.set(GameEnum.TAROT.ordinal(), "0");
+//        }
+//        StreamTextFile.saveTextFile(fileName_, StringUtil.join(vl_, LINE_RETURN),getStreams());
     }
     private void ecrireCoordonnees() {
         MetaPoint point_=getLocation();
@@ -1062,7 +1063,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        pack();
 //    }
     public void menuSoloGames() {
-        containerGame = noGame();
+        core.setContainerGame(noGame());
         MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
         MenuItemUtils.setEnabledMenu(getDemo(),true);
@@ -1072,17 +1073,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         MenuItemUtils.setEnabledMenu(getConsulting(),false);
         //Desactiver le menu Partie/Pause
         MenuItemUtils.setEnabledMenu(getPause(),false);
-        containerGame.setChangerPileFin(false);
-        containerGame.finirParties();
+        core.getContainerGame().setChangerPileFin(false);
+        core.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         AbsPanel container_=getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
         container_.add(getCompoFactory().newPlainLabel(StringUtil.simpleStringsFormat(getMessages().getVal(CST_WELCOME), pseudo())));
         /*Cree les boutons de jeu*/
-        String lg_ = getLanguageKey();
-        for (GameEnum jeu2_:GameEnum.values()) {
-            ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_,container_);
-        }
+        boutonsSolo(container_);
         AbsPlainButton button_ = getCompoFactory().newPlainButton(getMessages().getVal(CST_MAIN_MENU));
         button_.addActionListener(new BackToMainMenuEvent(this));
         container_.add(button_);
@@ -1093,17 +1091,24 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         container_.add(goHelpMenu);
         MenuItemUtils.setEnabledMenu(getSave(),false);
         MenuItemUtils.setEnabledMenu(getChange(),false);
-        container_.add(clock);
+        container_.add(core.getClock());
         container_.add(lastSavedGameDate);
         setContentPane(container_);
         pack();
+    }
+
+    private void boutonsSolo(AbsPanel _container) {
+        String lg_ = getLanguageKey();
+        for (GameEnum jeu2_:GameEnum.values()) {
+            ajouterBoutonPrincipal(jeu2_.toString(lg_),jeu2_, _container);
+        }
     }
 
     public void menuPrincipal() {
 //        MenuItemUtils.setEnabledMenu(getMultiStop(),false);
         MenuItemUtils.setEnabledMenu(getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getTeams(),false);
-        containerGame = noGame();
+        core.setContainerGame(noGame());
         MenuItemUtils.setEnabledMenu(change,false);
         //Activer le menu Partie/Demo
         MenuItemUtils.setEnabledMenu(getDemo(),true);
@@ -1119,7 +1124,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         for (AbsMenuItem m: getRulesGames().values()) {
             MenuItemUtils.setEnabledMenu(m,true);
         }
-        containerGame.finirParties();
+        core.getContainerGame().finirParties();
         setTitle(Launching.WELCOME.toString(getLanguageKey()));
         AbsPanel pane_ = getCompoFactory().newGrid(0,1);
         /*Pour montrer qu'on a de l'attention a l'utilisateur*/
@@ -1137,7 +1142,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             goHelpMenu = getCompoFactory().newPlainLabel(getMessages().getVal(CST_GO_HELP_MENU));
         }
         pane_.add(goHelpMenu);
-        pane_.add(clock);
+        pane_.add(core.getClock());
         pane_.add(lastSavedGameDate);
         setContentPane(pane_);
         MenuItemUtils.setEnabledMenu(getSave(),false);
@@ -1148,7 +1153,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         setMessages(WindowCards.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
     }
     public void loadGameBegin(String _file) {
-        containerGame = noGame();
+        core.setContainerGame(noGame());
         tryToLoadDeal(_file);
     }
     public ContainerNoGame noGame() {
@@ -1181,9 +1186,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         /* Fichier/Changer de jeu ACCESSIBLE n'importe quand sauf au menu principal,
         on y revient lorsque c'est accessible*/
         change=getCompoFactory().newMenuItem(getMessages().getVal(CST_CHANGE));
-        MenuItemUtils.setEnabledMenu(change,false);
-        change.addActionListener(new ChangeGameEvent(this));
-        change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
+        changeMode(this, change);
         file.addMenuItem(change);
         file.addSeparator();
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
@@ -1193,6 +1196,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         getJMenuBar().add(file);
     }
 
+    public static void changeMode(WindowCardsInt _w, AbsMenuItem _change) {
+        MenuItemUtils.setEnabledMenu(_change,false);
+        _change.addActionListener(new ChangeGameEvent(_w));
+        _change.setAccelerator(GuiConstants.VK_J, GuiConstants.CTRL_DOWN_MASK);
+    }
+
     public void loadGame() {
 //        if (!load.isEnabled()) {
 //            return;
@@ -1200,14 +1209,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        if (containerGame instanceof ContainerMulti) {
 //            return;
 //        }
-        if(containerGame.playingSingleGame()&&!partieSauvegardee) {
-            if(isPasse()||!containerGame.isThreadAnime()) {
+        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+            if(isPasse()||!core.getContainerGame().isThreadAnime()) {
                 int choix_=saving();
                 if(choix_!=GuiConstants.CANCEL_OPTION) {
                     if(choix_==GuiConstants.YES_OPTION) {
                         String fichier_=dialogueFichierSauvegarde();
                         if(!fichier_.isEmpty()) {
-                            containerGame.saveCurrentGame(fichier_,getStreams());
+                            core.getContainerGame().saveCurrentGame(fichier_,getStreams());
                             tryToLoadDeal();
                         }
                     } else {
@@ -1215,12 +1224,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
                     }
                 }
             }
-        } else if(isPasse()||!containerGame.isThreadAnime()) {
+        } else if(isPasse()||!core.getContainerGame().isThreadAnime()) {
             tryToLoadDeal();
         }
     }
     public boolean isPasse() {
-        return !(containerGame instanceof ContainerSingle) || ((ContainerSingle)containerGame).isPasse();
+        return !(core.getContainerGame() instanceof ContainerSingle) || ((ContainerSingle) core.getContainerGame()).isPasse();
     }
 
     private void tryToLoadDeal() {
@@ -1248,7 +1257,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             containerGame_.getPar().jouerBelote(par_);
             containerGame_.load();
             partieSauvegardee=false;
-            containerGame = containerGame_;
+            core.setContainerGame(containerGame_);
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
@@ -1263,7 +1272,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             containerGame_.getPar().jouerPresident(par_);
             containerGame_.load();
             partieSauvegardee=false;
-            containerGame = containerGame_;
+            core.setContainerGame(containerGame_);
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
@@ -1278,7 +1287,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             containerGame_.getPar().jouerTarot(par_);
             containerGame_.load();
             partieSauvegardee=false;
-            containerGame = containerGame_;
+            core.setContainerGame(containerGame_);
             MenuItemUtils.setEnabledMenu(change,true);
             return;
         }
@@ -1292,11 +1301,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        if (containerGame instanceof ContainerMulti) {
 //            return;
 //        }
-        if(isPasse()||!containerGame.isThreadAnime()) {
+        if(isPasse()||!core.getContainerGame().isThreadAnime()) {
             String fichier_=dialogueFichierSauvegarde();
 
             if(!fichier_.isEmpty()) {
-                containerGame.saveCurrentGame(fichier_,getStreams());
+                core.getContainerGame().saveCurrentGame(fichier_,getStreams());
                 dateLastSaved = Clock.getDateTimeText(getThreadFactory());
                 lastSavedGameDate.setText(StringUtil.simpleStringsFormat(getMessages().getVal(LAST_SAVED_GAME), dateLastSaved));
                 partieSauvegardee=true;
@@ -1311,14 +1320,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        if (containerGame instanceof ContainerMulti) {
 //            return;
 //        }
-        if(containerGame.playingSingleGame()&&!partieSauvegardee) {
-            if(isPasse()||!containerGame.isThreadAnime()) {
+        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+            if(isPasse()||!core.getContainerGame().isThreadAnime()) {
                 int choix_=saving();
                 if(choix_!=GuiConstants.CANCEL_OPTION) {
                     if(choix_==GuiConstants.YES_OPTION) {
                         String fichier_=dialogueFichierSauvegarde();
                         if(!fichier_.isEmpty()) {
-                            containerGame.saveCurrentGame(fichier_,getStreams());
+                            core.getContainerGame().saveCurrentGame(fichier_,getStreams());
                             menuSoloGames();
 //                            if (single) {
 //                                menuSoloGames();
@@ -1336,7 +1345,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
                     }
                 }
             }
-        } else if(isPasse()||!containerGame.isThreadAnime()) {
+        } else if(isPasse()||!core.getContainerGame().isThreadAnime()) {
             menuSoloGames();
 //            if (single) {
 //                menuSoloGames();
@@ -1428,11 +1437,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        if (!consulting.isEnabled()) {
 //            return;
 //        }
-        if (!(containerGame instanceof ContainerSingle)) {
+        if (!(core.getContainerGame() instanceof ContainerSingle)) {
             return;
         }
-        if(!containerGame.isThreadAnime()) {
-            ((ContainerSingle)containerGame).conseil();
+        if(!core.getContainerGame().isThreadAnime()) {
+            ((ContainerSingle) core.getContainerGame()).conseil();
         }
     }
     public void pause() {
@@ -1468,41 +1477,41 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //            containerGame.thread(new AnimationCardPresidentPause(((ContainerSinglePresident)containerGame)));
 //            return;
 //        }
-        if (!(containerGame instanceof ContainerSingle)) {
+        if (!(core.getContainerGame() instanceof ContainerSingle)) {
             return;
         }
-        ((ContainerSingle)containerGame).setPasse(!((ContainerSingle)containerGame).isPasse());
+        ((ContainerSingle) core.getContainerGame()).setPasse(!((ContainerSingle) core.getContainerGame()).isPasse());
     }
     public void displayHelpGame() {
 //        if (!helpGame.isEnabled()) {
 //            return;
 //        }
-        if (!(containerGame instanceof ContainerSingle)) {
+        if (!(core.getContainerGame() instanceof ContainerSingle)) {
             return;
         }
-        ((ContainerSingle)containerGame).aideAuJeu();
+        ((ContainerSingle) core.getContainerGame()).aideAuJeu();
     }
     public void displayTricksHands() {
 //        if (!tricksHands.isEnabled()) {
 //            return;
 //        }
-        if (!(containerGame instanceof ContainerPlayableGame)) {
+        if (!(core.getContainerGame() instanceof ContainerPlayableGame)) {
             return;
         }
-        ((ContainerPlayableGame)containerGame).showTricksHands();
+        ((ContainerPlayableGame) core.getContainerGame()).showTricksHands();
     }
     public void displayTeams() {
 //        if (!teams.isEnabled()) {
 //            return;
 //        }
-        if (containerGame instanceof ContainerSingleBelote) {
-            ((ContainerSingleBelote)containerGame).showTeams();
+        if (core.getContainerGame() instanceof ContainerSingleBelote) {
+            ((ContainerSingleBelote) core.getContainerGame()).showTeams();
         }
         /*if (containerGame instanceof ContainerMultiBelote) {
             ((ContainerMultiBelote)containerGame).showTeams();
         }*/
-        if (containerGame instanceof ContainerSingleTarot) {
-            ((ContainerSingleTarot)containerGame).showTeams();
+        if (core.getContainerGame() instanceof ContainerSingleTarot) {
+            ((ContainerSingleTarot) core.getContainerGame()).showTeams();
         }
         /*if (containerGame instanceof ContainerMultiTarot) {
             ((ContainerMultiTarot)containerGame).showTeams();
@@ -1523,28 +1532,28 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
-            if(containerGame.playingSingleGame()&&!partieSauvegardee) {
-                if(isPasse()||!containerGame.isThreadAnime()) {
+            if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+                if(isPasse()||!core.getContainerGame().isThreadAnime()) {
                     int choix_=saving();
                     if(choix_!=GuiConstants.CANCEL_OPTION) {
                         if(choix_==GuiConstants.YES_OPTION) {
                             String fichier_=dialogueFichierSauvegarde();
                             if(!fichier_.isEmpty()) {
-                                containerGame.saveCurrentGame(fichier_,getStreams());
-                                containerGame = new ContainerSingleBelote(this);
-                                ((ContainerSingleBelote)containerGame).editerBelote(partie_);
+                                core.getContainerGame().saveCurrentGame(fichier_,getStreams());
+                                core.setContainerGame(new ContainerSingleBelote(this));
+                                ((ContainerSingleBelote) core.getContainerGame()).editerBelote(partie_);
                                 MenuItemUtils.setEnabledMenu(change,true);
                             }
                         } else {
-                            containerGame = new ContainerSingleBelote(this);
-                            ((ContainerSingleBelote)containerGame).editerBelote(partie_);
+                            core.setContainerGame(new ContainerSingleBelote(this));
+                            ((ContainerSingleBelote) core.getContainerGame()).editerBelote(partie_);
                             MenuItemUtils.setEnabledMenu(change,true);
                         }
                     }
                 }
             } else {
-                containerGame = new ContainerSingleBelote(this);
-                ((ContainerSingleBelote)containerGame).editerBelote(partie_);
+                core.setContainerGame(new ContainerSingleBelote(this));
+                ((ContainerSingleBelote) core.getContainerGame()).editerBelote(partie_);
                 MenuItemUtils.setEnabledMenu(change,true);
             }
         } else if (_game == GameEnum.PRESIDENT) {
@@ -1560,29 +1569,29 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
-            if(containerGame.playingSingleGame()&&!partieSauvegardee) {
-                if(isPasse()||!containerGame.isThreadAnime()) {
+            if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+                if(isPasse()||!core.getContainerGame().isThreadAnime()) {
                     int choix_=saving();
                     if(choix_!=GuiConstants.CANCEL_OPTION) {
                         if(choix_==GuiConstants.YES_OPTION) {
                             String fichier_=dialogueFichierSauvegarde();
                             if(!fichier_.isEmpty()) {
-                                containerGame.saveCurrentGame(fichier_,getStreams());
+                                core.getContainerGame().saveCurrentGame(fichier_,getStreams());
 
-                                containerGame = new ContainerSinglePresident(this);
-                                ((ContainerSinglePresident) containerGame).editerPresident(partie_);
+                                core.setContainerGame(new ContainerSinglePresident(this));
+                                ((ContainerSinglePresident) core.getContainerGame()).editerPresident(partie_);
                                 MenuItemUtils.setEnabledMenu(change,true);
                             }
                         } else {
-                            containerGame = new ContainerSinglePresident(this);
-                            ((ContainerSinglePresident) containerGame).editerPresident(partie_);
+                            core.setContainerGame(new ContainerSinglePresident(this));
+                            ((ContainerSinglePresident) core.getContainerGame()).editerPresident(partie_);
                             MenuItemUtils.setEnabledMenu(change,true);
                         }
                     }
                 }
             } else {
-                containerGame = new ContainerSinglePresident(this);
-                ((ContainerSinglePresident) containerGame).editerPresident(partie_);
+                core.setContainerGame(new ContainerSinglePresident(this));
+                ((ContainerSinglePresident) core.getContainerGame()).editerPresident(partie_);
                 MenuItemUtils.setEnabledMenu(change,true);
             }
         } else if (_game == GameEnum.TAROT) {
@@ -1598,29 +1607,29 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
-            if(containerGame.playingSingleGame()&&!partieSauvegardee) {
-                if(isPasse()||!containerGame.isThreadAnime()) {
+            if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
+                if(isPasse()||!core.getContainerGame().isThreadAnime()) {
                     int choix_=saving();
                     if(choix_!=GuiConstants.CANCEL_OPTION) {
                         if(choix_==GuiConstants.YES_OPTION) {
                             String fichier_=dialogueFichierSauvegarde();
                             if(!fichier_.isEmpty()) {
-                                containerGame.saveCurrentGame(fichier_,getStreams());
+                                core.getContainerGame().saveCurrentGame(fichier_,getStreams());
 
-                                containerGame = new ContainerSingleTarot(this);
-                                ((ContainerSingleTarot) containerGame).editerTarot(partie_);
+                                core.setContainerGame(new ContainerSingleTarot(this));
+                                ((ContainerSingleTarot) core.getContainerGame()).editerTarot(partie_);
                                 MenuItemUtils.setEnabledMenu(change,true);
                             }
                         } else {
-                            containerGame = new ContainerSingleTarot(this);
-                            ((ContainerSingleTarot) containerGame).editerTarot(partie_);
+                            core.setContainerGame(new ContainerSingleTarot(this));
+                            ((ContainerSingleTarot) core.getContainerGame()).editerTarot(partie_);
                             MenuItemUtils.setEnabledMenu(change,true);
                         }
                     }
                 }
             } else {
-                containerGame = new ContainerSingleTarot(this);
-                ((ContainerSingleTarot) containerGame).editerTarot(partie_);
+                core.setContainerGame(new ContainerSingleTarot(this));
+                ((ContainerSingleTarot) core.getContainerGame()).editerTarot(partie_);
                 MenuItemUtils.setEnabledMenu(change,true);
             }
         }
@@ -1633,7 +1642,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
-            containerGame = new ContainerSimuBelote(this);
+            core.setContainerGame(new ContainerSimuBelote(this));
         } else if (_game == GameEnum.PRESIDENT) {
             if (!demo.isEnabled()) {
                 return;
@@ -1641,7 +1650,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
-            containerGame = new ContainerSimuPresident(this);
+            core.setContainerGame(new ContainerSimuPresident(this));
         } else if (_game == GameEnum.TAROT) {
             if (!demo.isEnabled()) {
                 return;
@@ -1649,7 +1658,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
             /*if (containerGame instanceof ContainerMulti) {
                 return;
             }*/
-            containerGame = new ContainerSimuTarot(this);
+            core.setContainerGame(new ContainerSimuTarot(this));
         }
     }
     public void trainingTarot(ChoiceTarot _ct) {
@@ -1658,23 +1667,23 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         }*/
         /*Si l'utilisateur a supprime le fichier de configurations alors a la fin
         de l'execution le fichier de configuration sera recree*/
-        if(containerGame.playingSingleGame()&&!partieSauvegardee) {
+        if(core.getContainerGame().playingSingleGame()&&!partieSauvegardee) {
             int choix_=saving();
             if(choix_!=GuiConstants.CANCEL_OPTION) {
                 if(choix_==GuiConstants.YES_OPTION) {
                     String fichier_=dialogueFichierSauvegarde();
                     if(!fichier_.isEmpty()) {
-                        containerGame.saveCurrentGame(fichier_,getStreams());
+                        core.getContainerGame().saveCurrentGame(fichier_,getStreams());
                     }
                 }
-                containerGame = new ContainerSingleTarot(this);
+                core.setContainerGame(new ContainerSingleTarot(this));
                 MenuItemUtils.setEnabledMenu(change,true);
-                ((ContainerSingleTarot) containerGame).jouerDonneEntrainement(_ct);
+                ((ContainerSingleTarot) core.getContainerGame()).jouerDonneEntrainement(_ct);
             }
         } else {
-            containerGame = new ContainerSingleTarot(this);
+            core.setContainerGame(new ContainerSingleTarot(this));
             MenuItemUtils.setEnabledMenu(change,true);
-            ((ContainerSingleTarot) containerGame).jouerDonneEntrainement(_ct);
+            ((ContainerSingleTarot) core.getContainerGame()).jouerDonneEntrainement(_ct);
         }
     }
 
@@ -1716,112 +1725,116 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         launching.addActionListener(new ManageSoftEvent(this, CST_LAUNCHING));
         launching.setAccelerator(GuiConstants.VK_L, GuiConstants.CTRL_DOWN_MASK);
         parameters.addMenuItem(launching);
-        timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
-        timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));
-        timing.setAccelerator(F_FOUR);
-        parameters.addMenuItem(timing);
-        interact=getCompoFactory().newMenuItem(getMessages().getVal(CST_INTERACT));
-        interact.addActionListener(new ManageSoftEvent(this, CST_INTERACT));
-        interact.setAccelerator(F_FIVE);
-        parameters.addMenuItem(interact);
-        language=getCompoFactory().newMenuItem(getMessages().getVal(CST_LANGUAGE));
-        language.addActionListener(new ManageLanguageEventCards(this));
-//        if (Standalone.isStandalone()) {
-//            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
-//            parameters.add(language);
-//        }
-        language.setAccelerator(F_SIX);
-        parameters.addMenuItem(language);
+        core.commonParametersMenu(parameters,this,this);
+//        timing=getCompoFactory().newMenuItem(getMessages().getVal(CST_TIMING));
+//        timing.addActionListener(new ManageSoftEvent(this, CST_TIMING));
+//        timing.setAccelerator(F_FOUR);
+//        parameters.addMenuItem(timing);
+//        interact=getCompoFactory().newMenuItem(getMessages().getVal(CST_INTERACT));
+//        interact.addActionListener(new ManageSoftEvent(this, CST_INTERACT));
+//        interact.setAccelerator(F_FIVE);
+//        parameters.addMenuItem(interact);
+//        language=getCompoFactory().newMenuItem(getMessages().getVal(CST_LANGUAGE));
+//        language.addActionListener(new ManageLanguageEventCards(this));
+////        if (Standalone.isStandalone()) {
+////            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
+////            parameters.add(language);
+////        }
+//        language.setAccelerator(F_SIX);
+//        parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
-        displaying=getCompoFactory().newMenu(getMessages().getVal(CST_DISPLAYING));
-        AbsMenuItem sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
-        sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
-        displaying.addMenuItem(sousSousMenu_);
-        displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
-        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
-        sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.PRESIDENT));
-        displaying.addMenuItem(sousSousMenu_);
-        displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
-        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
-        sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.TAROT));
-        displaying.addMenuItem(sousSousMenu_);
-        displayingGames.put(GameEnum.TAROT, sousSousMenu_);
-        parameters.addMenuItem(displaying);
-        getJMenuBar().add(parameters);
+//        displaying=getCompoFactory().newMenu(getMessages().getVal(CST_DISPLAYING));
+//        AbsMenuItem sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.BELOTE.toString(lg_));
+//        sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.BELOTE));
+//        displaying.addMenuItem(sousSousMenu_);
+//        displayingGames.put(GameEnum.BELOTE, sousSousMenu_);
+//        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.PRESIDENT.toString(lg_));
+//        sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.PRESIDENT));
+//        displaying.addMenuItem(sousSousMenu_);
+//        displayingGames.put(GameEnum.PRESIDENT, sousSousMenu_);
+//        sousSousMenu_ = getCompoFactory().newMenuItem(GameEnum.TAROT.toString(lg_));
+//        sousSousMenu_.addActionListener(new DisplayingGameEvent(this, GameEnum.TAROT));
+//        displaying.addMenuItem(sousSousMenu_);
+//        displayingGames.put(GameEnum.TAROT, sousSousMenu_);
+//        parameters.addMenuItem(displaying);
+//        getJMenuBar().add(parameters);
     }
     public void manageRules(GameEnum _game) {
         String lg_ = getLanguageKey();
         if (_game == GameEnum.BELOTE) {
-            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this,reglesBelote);
+            DialogRulesBelote.initDialogRulesBelote(_game.toString(lg_), this, core.getReglesBelote());
             RulesBelote reglesBelote_=DialogRulesBelote.getRegles(getDialogRulesBelote());
             if (!DialogRulesBelote.isValidated(getDialogRulesBelote())) {
                 return;
             }
-            reglesBelote = reglesBelote_;
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(reglesBelote),getStreams());
-            containerGame.setRulesBelote(reglesBelote);
+            core.setReglesBelote(reglesBelote_);
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE), DocumentWriterBeloteUtil.setRulesBelote(core.getReglesBelote()),getStreams());
+            core.getContainerGame().setRulesBelote(core.getReglesBelote());
         } else if (_game == GameEnum.PRESIDENT) {
-            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, reglesPresident);
+            DialogRulesPresident.initDialogRulesPresident(_game.toString(lg_), this, core.getReglesPresident());
             DialogRulesPresident.setPresidentDialog(true, 0,this);
             RulesPresident rules_ = DialogRulesPresident.getRegles(getDialogRulesPresident());
             if (!DialogRulesPresident.isValidated(getDialogRulesPresident())) {
                 return;
             }
-            reglesPresident = rules_;
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(reglesPresident),getStreams());
-            containerGame.setRulesPresident(reglesPresident);
+            core.setReglesPresident(rules_);
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_PRESIDENT), DocumentWriterPresidentUtil.setRulesPresident(core.getReglesPresident()),getStreams());
+            core.getContainerGame().setRulesPresident(core.getReglesPresident());
         } else if (_game == GameEnum.TAROT) {
-            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, reglesTarot);
+            DialogRulesTarot.initDialogRulesTarot(_game.toString(lg_), this, core.getReglesTarot());
             DialogRulesTarot.setTarotDialog(true,0,this);
             RulesTarot reglesTarot_=DialogRulesTarot.getRegles(getDialogRulesTarot());
             if (!DialogRulesTarot.isValidated(getDialogRulesTarot())) {
                 return;
             }
-            reglesTarot = reglesTarot_;
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(reglesTarot),getStreams());
-            containerGame.setRulesTarot(reglesTarot);
+            core.setReglesTarot(reglesTarot_);
+            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_TAROT), DocumentWriterTarotUtil.setRulesTarot(core.getReglesTarot()),getStreams());
+            core.getContainerGame().setRulesTarot(core.getReglesTarot());
         }
     }
     public void manageNicknames() {
         DialogNicknames.initDialogNicknames(getMessages().getVal(CST_PLAYERS), this);
-        pseudosJoueurs=DialogNicknames.getPseudos(getDialogNicknames());
-        pseudosJoueurs.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
-        containerGame.setNicknames(pseudosJoueurs);
+        core.setPseudosJoueurs(DialogNicknames.getPseudos(getDialogNicknames()));
+        core.getPseudosJoueurs().sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PLAYERS),getStreams());
+        core.getContainerGame().setNicknames(core.getPseudosJoueurs());
     }
     public void manageSoft(String _key) {
-        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
-        DialogSoft.setDialogSoft(_key, this);
-        parametres=DialogSoft.getParametres(getDialogSoft());
-        parametres.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getStreams());
-        containerGame.setSettings(parametres);
+        core.manageSoft(this,this,_key);
+//        DialogSoft.initDialogSoft(getMessages().getVal(_key), this);
+//        DialogSoft.setDialogSoft(_key, this);
+//        parametres=DialogSoft.getParametres(getDialogSoft());
+//        parametres.sauvegarder(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.PARAMS),getStreams());
+//        containerGame.setSettings(parametres);
     }
     public void manageLanguage() {
-        if (!canChangeLanguageAll()) {
-            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
-            return;
-        }
-        LanguageDialog.setLanguageDialog(this, getMessages().getVal(CST_LANGUAGE));
-        String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
-        LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingCards.getTempFolder(getFrames()));
+        core.manageLanguage(this);
+//        if (!canChangeLanguageAll()) {
+//            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
+//            return;
+//        }
+//        LanguageDialog.setLanguageDialog(this, getMessages().getVal(CST_LANGUAGE));
+//        String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
+//        LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingCards.getTempFolder(getFrames()));
     }
     public void displayingGame(GameEnum _game) {
-        String lg_ = getLanguageKey();
-        if (_game == GameEnum.BELOTE) {
-            DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), this);
-            displayingBelote=DialogDisplayingBelote.getDisplaying(getDialogDisplayingBelote());
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(displayingBelote),getStreams());
-            containerGame.setDisplayingBelote(displayingBelote);
-        } else if (_game == GameEnum.PRESIDENT) {
-            DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), this);
-            displayingPresident=DialogDisplayingPresident.getDisplaying(getDialogDisplayingPresident());
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(displayingPresident),getStreams());
-            containerGame.setDisplayingPresident(displayingPresident);
-        } else if (_game == GameEnum.TAROT) {
-            DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), this);
-            displayingTarot=DialogDisplayingTarot.getDisplaying(getDialogDisplayingTarot());
-            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(displayingTarot),getStreams());
-            containerGame.setDisplayingTarot(displayingTarot);
-        }
+        core.displayingGame(this,_game);
+//        String lg_ = getLanguageKey();
+//        if (_game == GameEnum.BELOTE) {
+//            DialogDisplayingBelote.setDialogDisplayingBelote(_game.toString(lg_), this);
+//            displayingBelote=DialogDisplayingBelote.getDisplaying(getDialogDisplayingBelote());
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_BELOTE), DocumentWriterBeloteUtil.setDisplayingBelote(displayingBelote),getStreams());
+//            containerGame.setDisplayingBelote(displayingBelote);
+//        } else if (_game == GameEnum.PRESIDENT) {
+//            DialogDisplayingPresident.setDialogDisplayingPresident(_game.toString(lg_), this);
+//            displayingPresident=DialogDisplayingPresident.getDisplaying(getDialogDisplayingPresident());
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_PRESIDENT), DocumentWriterPresidentUtil.setDisplayingPresident(displayingPresident),getStreams());
+//            containerGame.setDisplayingPresident(displayingPresident);
+//        } else if (_game == GameEnum.TAROT) {
+//            DialogDisplayingTarot.setDialogDisplayingTarot(_game.toString(lg_), this);
+//            displayingTarot=DialogDisplayingTarot.getDisplaying(getDialogDisplayingTarot());
+//            StreamTextFile.saveTextFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.DISPLAY_TAROT), DocumentWriterTarotUtil.setDisplayingTarot(displayingTarot),getStreams());
+//            containerGame.setDisplayingTarot(displayingTarot);
+//        }
     }
     //private JMenu help;
     private void initHelpMenu() {
@@ -1915,14 +1928,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     /**On ecoute les boutons du menu principal et des menus jeux*/
     public void beginGame(GameEnum _jeuBouton) {
         if(_jeuBouton==GameEnum.BELOTE) {
-            containerGame = new ContainerSingleBelote(this);
+            core.setContainerGame(new ContainerSingleBelote(this));
         } else if(_jeuBouton==GameEnum.PRESIDENT) {
-            containerGame = new ContainerSinglePresident(this);
+            core.setContainerGame(new ContainerSinglePresident(this));
         } else if(_jeuBouton==GameEnum.TAROT) {
-            containerGame = new ContainerSingleTarot(this);
+            core.setContainerGame(new ContainerSingleTarot(this));
         }
         MenuItemUtils.setEnabledMenu(change,true);
-        ((ContainerSingle)containerGame).modify();
+        ((ContainerSingle) core.getContainerGame()).modify();
         /*if (single) {
             if(_jeuBouton==GameEnum.BELOTE) {
                 containerGame = new ContainerSingleBelote(this);
@@ -1969,7 +1982,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         }*/
     }
     private String pseudo() {
-        return pseudosJoueurs.getPseudo();
+        return core.getPseudosJoueurs().getPseudo();
     }
 //    public void delegateServer() {
 //        ((ContainerMulti)containerGame).delegateServer();
@@ -1985,7 +1998,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 
     @Override
     public boolean canChangeLanguage() {
-        if (!containerGame.isSimple()) {
+        if (!core.getContainerGame().isSimple()) {
             return false;
         }
         if (!helpFrames.isEmpty()) {
@@ -2033,12 +2046,12 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         }
         players.setText(getMessages().getVal(CST_PLAYERS));
         launching.setText(getMessages().getVal(CST_LAUNCHING));
-        timing.setText(getMessages().getVal(CST_TIMING));
-        interact.setText(getMessages().getVal(CST_INTERACT));
-        language.setText(getMessages().getVal(CST_LANGUAGE));
-        displaying.setText(getMessages().getVal(CST_DISPLAYING));
+        core.getTiming().setText(getMessages().getVal(CST_TIMING));
+        core.getInteract().setText(getMessages().getVal(CST_INTERACT));
+        core.getLanguage().setText(getMessages().getVal(CST_LANGUAGE));
+        core.getDisplaying().setText(getMessages().getVal(CST_DISPLAYING));
         for (GameEnum g: GameEnum.values()) {
-            displayingGames.getVal(g).setText(g.toString(lg_));
+            core.getDisplayingGames().getVal(g).setText(g.toString(lg_));
         }
         help.setText(getMessages().getVal(CST_HELP));
         generalHelp.setText(getMessages().getVal(CST_GENERAL_HELP));
@@ -2063,7 +2076,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //    }
 
     public boolean isSaveHomeFolder() {
-        return parametres.isSaveHomeFolder();
+        return core.getParametres().isSaveHomeFolder();
     }
     public String save(AbsDialog _d) {
         String lg_ = getLanguageKey();
@@ -2172,23 +2185,23 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     }
 
     public AbsMenuItem getTiming() {
-        return timing;
+        return core.getTiming();
     }
 
     public AbsMenuItem getInteract() {
-        return interact;
+        return core.getInteract();
     }
 
     public AbsMenuItem getLanguage() {
-        return language;
+        return core.getLanguage();
     }
 
     public AbsMenu getDisplaying() {
-        return displaying;
+        return core.getDisplaying();
     }
 
     public IdMap<GameEnum,AbsMenuItem> getDisplayingGames() {
-        return displayingGames;
+        return core.getDisplayingGames();
     }
 
     public AbsMenu getHelp() {
@@ -2219,15 +2232,15 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //    }
 
     public StringMap<StringMap<PreparedPagesCards>> getPreparedBelote() {
-        return preparedBelote;
+        return core.getPreparedBelote();
     }
 
     public StringMap<StringMap<PreparedPagesCards>> getPreparedPresident() {
-        return preparedPresident;
+        return core.getPreparedPresident();
     }
 
     public StringMap<StringMap<PreparedPagesCards>> getPreparedTarot() {
-        return preparedTarot;
+        return core.getPreparedTarot();
     }
 
     public HelpInitializer getHelpInitializerTask() {
@@ -2239,51 +2252,51 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     }
 
     public DialogDisplayingBelote getDialogDisplayingBelote() {
-        return dialogDisplayingBelote;
+        return core.getDialogDisplayingBelote();
     }
 
     public DialogDisplayingTarot getDialogDisplayingTarot() {
-        return dialogDisplayingTarot;
+        return core.getDialogDisplayingTarot();
     }
 
     public DialogDisplayingPresident getDialogDisplayingPresident() {
-        return dialogDisplayingPresident;
+        return core.getDialogDisplayingPresident();
     }
 
     public DialogHelpBelote getDialogHelpBelote() {
-        return dialogHelpBelote;
+        return core.getDialogHelpBelote();
     }
 
     public DialogHelpPresident getDialogHelpPresident() {
-        return dialogHelpPresident;
+        return core.getDialogHelpPresident();
     }
 
     public DialogHelpTarot getDialogHelpTarot() {
-        return dialogHelpTarot;
+        return core.getDialogHelpTarot();
     }
 
     public DialogRulesBelote getDialogRulesBelote() {
-        return dialogRulesBelote;
+        return core.getDialogRulesBelote();
     }
 
     public DialogRulesPresident getDialogRulesPresident() {
-        return dialogRulesPresident;
+        return core.getDialogRulesPresident();
     }
 
     public DialogRulesTarot getDialogRulesTarot() {
-        return dialogRulesTarot;
+        return core.getDialogRulesTarot();
     }
 
     public DialogTricksBelote getDialogTricksBelote() {
-        return dialogTricksBelote;
+        return core.getDialogTricksBelote();
     }
 
     public DialogTricksPresident getDialogTricksPresident() {
-        return dialogTricksPresident;
+        return core.getDialogTricksPresident();
     }
 
     public DialogTricksTarot getDialogTricksTarot() {
-        return dialogTricksTarot;
+        return core.getDialogTricksTarot();
     }
 
     public EditorBelote getEditorBelote() {
@@ -2299,7 +2312,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     }
 
     public DialogTeamsPlayers getDialogTeamsPlayers() {
-        return dialogTeamsPlayers;
+        return core.getDialogTeamsPlayers();
     }
 
     public DialogNicknames getDialogNicknames() {
@@ -2307,7 +2320,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     }
 
     public DialogSoft getDialogSoft() {
-        return dialogSoft;
+        return core.getDialogSoft();
     }
 
 //    public DialogServerCards getDialogServer() {
@@ -2315,11 +2328,11 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //    }
 
     public CardFactories getCardFactories() {
-        return cardFactories;
+        return core.getCardFactories();
     }
 
     public StringMap<StringMap<String>> getImages() {
-        return images;
+        return core.getImages();
     }
 
     public AbsPlainButton getSingleModeButton() {
@@ -2331,7 +2344,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     }
 
     public void setImages(StringMap<StringMap<String>> _i) {
-        this.images = _i;
+        this.core.setImages(_i);
     }
 
 //    public ResultCardsServerInteract getResultCardsServerInteract() {
