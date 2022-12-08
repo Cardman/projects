@@ -243,7 +243,7 @@ public class ScenePanelMulti {
 
 //    private Pad pad;
 
-    private final AbsPlainLabel time;
+//    private final AbsPlainLabel time;
 
 //    private AbsCustCheckBox switchUsable;
 //
@@ -282,17 +282,21 @@ public class ScenePanelMulti {
 //        paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
         window = _window;
-        AbsPanel panelHoriz_ = compoFactory.newLineBox();
         initMenu();
-        panelHoriz_.add(panelMenu);
         panelOptions = compoFactory.newBorder();
-        panelHoriz_.add(panelOptions);
-        component.add(panelHoriz_);
-        time = window.getCompoFactory().newPlainLabel("");
-        component.add(time);
+        horizTrade();
+//        time = window.getCompoFactory().newPlainLabel("");
+        component.add(window.getCompoFactory().newPlainLabel(""));
         //gamePanel = new GamePanel(facade);
 //        mapPanel = new MapPanel();
         window.pack();
+    }
+
+    private void horizTrade() {
+        AbsPanel panelHoriz_ = compoFactory.newLineBox();
+        panelHoriz_.add(panelMenu);
+        panelHoriz_.add(panelOptions);
+        component.add(panelHoriz_);
     }
 
 //    public void reinit() {

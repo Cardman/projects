@@ -6,7 +6,6 @@ import aiki.game.*;
 import aiki.gui.*;
 import aiki.gui.components.walk.*;
 import aiki.gui.dialogs.*;
-import aiki.gui.events.*;
 import aiki.gui.threads.*;
 import aiki.main.*;
 import aiki.sml.*;
@@ -453,15 +452,16 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private StringMap<String> messages = new StringMap<String>();
     private final FacadeGame facade;
     private final ScenePanelMulti scenePanel;
+    private final WindowAikiCore aiki = new WindowAikiCore();
 //    private AbsMenu file;
 
-    private AbsMenuItem zipLoad;
-
-    private AbsMenuItem folderLoad;
-
-    private AbsMenuItem gameLoad;
-
-    private AbsMenuItem gameSave;
+//    private AbsMenuItem zipLoad;
+//
+//    private AbsMenuItem folderLoad;
+//
+//    private AbsMenuItem gameLoad;
+//
+//    private AbsMenuItem gameSave;
     private final WindowCardsCore netg;
 //    private boolean savedGame;
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
@@ -1181,8 +1181,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void en(boolean _b) {
 //        MenuItemUtils.setEnabledMenu(newGame,_b);
 //        MenuItemUtils.setEnabledMenu(params,_b);
-        MenuItemUtils.setEnabledMenu(zipLoad,_b);
-        MenuItemUtils.setEnabledMenu(gameLoad,_b);
+        MenuItemUtils.setEnabledMenu(aiki.getZipLoad(),_b);
+        MenuItemUtils.setEnabledMenu(aiki.getGameLoad(),_b);
     }
 //    public String getTooManyString() {
 //        return messages.getVal(TOO_MANY);
@@ -1334,22 +1334,23 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void initFileMenu() {
         /* Fichier */
         file=getCompoFactory().newMenu(getMessages().getVal(CST_FILE));
-        zipLoad = getCompoFactory().newMenuItem();
-        zipLoad.addActionListener(new LoadZipEvent(this,false));
-        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(zipLoad);
-        folderLoad = getCompoFactory().newMenuItem();
-        folderLoad.addActionListener(new LoadZipEvent(this,true));
-        folderLoad.setAccelerator(GuiConstants.VK_D, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(folderLoad);
-        gameLoad = getCompoFactory().newMenuItem();
-        gameLoad.addActionListener(new LoadGameEventAiki(this));
-        gameLoad.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(gameLoad);
-        gameSave = getCompoFactory().newMenuItem();
-        gameSave.addActionListener(new SaveGameEventAiki(this));
-        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(gameSave);
+        aiki.fileMenu(file,this,this);
+//        zipLoad = getCompoFactory().newMenuItem();
+//        zipLoad.addActionListener(new LoadZipEvent(this,false));
+//        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(zipLoad);
+//        folderLoad = getCompoFactory().newMenuItem();
+//        folderLoad.addActionListener(new LoadZipEvent(this,true));
+//        folderLoad.setAccelerator(GuiConstants.VK_D, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(folderLoad);
+//        gameLoad = getCompoFactory().newMenuItem();
+//        gameLoad.addActionListener(new LoadGameEventAiki(this));
+//        gameLoad.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(gameLoad);
+//        gameSave = getCompoFactory().newMenuItem();
+//        gameSave.addActionListener(new SaveGameEventAiki(this));
+//        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(gameSave);
         file.addSeparator();
         /* Fichier/Charger "accessible n'importe quand"*/
 //        load=getCompoFactory().newMenuItem(getMessages().getVal(CST_LOAD));
@@ -2189,10 +2190,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void translate() {
         initMessageName();
         String lg_ = getLanguageKey();
-        zipLoad.setText(messages.getVal(ZIP_LOAD));
-        folderLoad.setText(messages.getVal(FOLDER_LOAD));
-        gameLoad.setText(messages.getVal(GAME_LOAD));
-        gameSave.setText(messages.getVal(GAME_SAVE));
+        aiki.getZipLoad().setText(messages.getVal(ZIP_LOAD));
+        aiki.getFolderLoad().setText(messages.getVal(FOLDER_LOAD));
+        aiki.getGameLoad().setText(messages.getVal(GAME_LOAD));
+        aiki.getGameSave().setText(messages.getVal(GAME_SAVE));
         file.setText(getMessages().getVal(CST_FILE));
 //        load.setText(getMessages().getVal(CST_LOAD));
 //        save.setText(getMessages().getVal(CST_SAVE));
@@ -2321,7 +2322,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         Game game_ = WindowAiki.load(fileName_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
         if (game_ != null) {
             facade.load(game_);
-            MenuItemUtils.setEnabledMenu(gameSave,true);
+            MenuItemUtils.setEnabledMenu(aiki.getGameSave(),true);
             facade.changeCamera();
             drawGame();
 //            savedGame = true;
@@ -2769,8 +2770,8 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void afterLoadZip() {
 //        MenuItemUtils.setEnabledMenu(dataGame,true);
-        MenuItemUtils.setEnabledMenu(gameLoad,true);
-        MenuItemUtils.setEnabledMenu(gameSave,false);
+        MenuItemUtils.setEnabledMenu(aiki.getGameLoad(),true);
+        MenuItemUtils.setEnabledMenu(aiki.getGameSave(),false);
 //        if (exporting != null && exporting.isAlive()) {
 //            return;
 //        }
@@ -2793,15 +2794,15 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         return dialogServerAiki;
     }
     public AbsMenuItem getFolderLoad() {
-        return folderLoad;
+        return aiki.getFolderLoad();
     }
 
     public AbsMenuItem getZipLoad() {
-        return zipLoad;
+        return aiki.getZipLoad();
     }
 
     public AbsMenuItem getGameLoad() {
-        return gameLoad;
+        return aiki.getGameLoad();
     }
 
     public LoadFlag getLoadFlag() {

@@ -21,13 +21,10 @@ import aiki.gui.components.fight.FrontClickEvent;
 import aiki.gui.components.labels.HeroLabel;
 import aiki.gui.components.walk.ScenePanel;
 import aiki.gui.events.ConfirmNewGameEvent;
-import aiki.gui.events.LoadGameEventAiki;
-import aiki.gui.events.LoadZipEvent;
 import aiki.gui.events.ManageDifficultyEvent;
 import aiki.gui.events.ManageLanguageEventAiki;
 import aiki.gui.events.ManageParamsEvent;
 import aiki.gui.events.ProponeNewGameEvent;
-import aiki.gui.events.SaveGameEventAiki;
 import aiki.gui.events.ShowDataFightEvent;
 import aiki.gui.events.ShowDataWebEvent;
 import aiki.gui.listeners.HeroSelect;
@@ -149,14 +146,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     private LoadingGame loadingConf;
 
     private AbsMenu file;
-
-    private AbsMenuItem zipLoad;
-
-    private AbsMenuItem folderLoad;
-
-    private AbsMenuItem gameLoad;
-
-    private AbsMenuItem gameSave;
+//
+//    private AbsMenuItem zipLoad;
+//
+//    private AbsMenuItem folderLoad;
+//
+//    private AbsMenuItem gameLoad;
+//
+//    private AbsMenuItem gameSave;
 
     private AbsMenuItem language;
 
@@ -256,6 +253,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     private final DialogSoftParams softParams;
 //    private final DialogServerAiki dialogServer;
     private final AikiFactory aikiFactory;
+    private final WindowAikiCore core = new WindowAikiCore();
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
@@ -287,8 +285,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         scenePanel = new ScenePanel(this, facade);
         initBattle();
         initMenuBar();
-        MenuItemUtils.setEnabledMenu(gameLoad,false);
-        MenuItemUtils.setEnabledMenu(gameSave,false);
+        MenuItemUtils.setEnabledMenu(core.getGameLoad(),false);
+        MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
         MenuItemUtils.setEnabledMenu(dataGame,false);
         battle.setVisibleFrontBattle(false);
         mainPanel.add(battle.getPaintableLabel());
@@ -471,10 +469,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         DocumentReaderAikiCoreUtil.initMessages(facade.getData(),facade.getLanguage());
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, getLanguageKey(), getAccessFile());
         file.setText(messages.getVal(CST_FILE));
-        zipLoad.setText(messages.getVal(ZIP_LOAD));
-        folderLoad.setText(messages.getVal(FOLDER_LOAD));
-        gameLoad.setText(messages.getVal(GAME_LOAD));
-        gameSave.setText(messages.getVal(GAME_SAVE));
+        core.getZipLoad().setText(messages.getVal(ZIP_LOAD));
+        core.getFolderLoad().setText(messages.getVal(FOLDER_LOAD));
+        core.getGameLoad().setText(messages.getVal(GAME_LOAD));
+        core.getGameSave().setText(messages.getVal(GAME_SAVE));
         language.setText(messages.getVal(CST_LANGUAGE));
         params.setText(messages.getVal(CST_PARAMS));
         dataGame.setText(messages.getVal(DATA_GAME));
@@ -557,7 +555,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         facade.newGame(nickname.getText(), chosenSex);
         drawGame();
         savedGame = false;
-        MenuItemUtils.setEnabledMenu(gameSave,true);
+        MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
         loadingConf.setLastSavedGame(DataBase.EMPTY_STRING);
     }
 
@@ -650,8 +648,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 
     public void afterLoadZip() {
         MenuItemUtils.setEnabledMenu(dataGame,true);
-        MenuItemUtils.setEnabledMenu(gameLoad,true);
-        MenuItemUtils.setEnabledMenu(gameSave,false);
+        MenuItemUtils.setEnabledMenu(core.getGameLoad(),true);
+        MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
         if (exporting != null && exporting.isAlive()) {
             return;
         }
@@ -667,7 +665,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     }
 
     public void afterLoadGame() {
-        MenuItemUtils.setEnabledMenu(gameSave,true);
+        MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
         drawGame();
         savedGame = true;
     }
@@ -713,22 +711,23 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     private void initMenuBar() {
         AbsMenuBar bar_ = getCompoFactory().newMenuBar();
         file = getCompoFactory().newMenu();
-        zipLoad = getCompoFactory().newMenuItem();
-        zipLoad.addActionListener(new LoadZipEvent(this,false));
-        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(zipLoad);
-        folderLoad = getCompoFactory().newMenuItem();
-        folderLoad.addActionListener(new LoadZipEvent(this,true));
-        folderLoad.setAccelerator(GuiConstants.VK_D, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(folderLoad);
-        gameLoad = getCompoFactory().newMenuItem();
-        gameLoad.addActionListener(new LoadGameEventAiki(this));
-        gameLoad.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(gameLoad);
-        gameSave = getCompoFactory().newMenuItem();
-        gameSave.addActionListener(new SaveGameEventAiki(this));
-        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
-        file.addMenuItem(gameSave);
+        core.fileMenu(file,this,this);
+//        zipLoad = getCompoFactory().newMenuItem();
+//        zipLoad.addActionListener(new LoadZipEvent(this,false));
+//        zipLoad.setAccelerator(GuiConstants.VK_M, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(zipLoad);
+//        folderLoad = getCompoFactory().newMenuItem();
+//        folderLoad.addActionListener(new LoadZipEvent(this,true));
+//        folderLoad.setAccelerator(GuiConstants.VK_D, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(folderLoad);
+//        gameLoad = getCompoFactory().newMenuItem();
+//        gameLoad.addActionListener(new LoadGameEventAiki(this));
+//        gameLoad.setAccelerator(GuiConstants.VK_O, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(gameLoad);
+//        gameSave = getCompoFactory().newMenuItem();
+//        gameSave.addActionListener(new SaveGameEventAiki(this));
+//        gameSave.setAccelerator(GuiConstants.VK_S, GuiConstants.CTRL_DOWN_MASK);
+//        file.addMenuItem(gameSave);
         file.addSeparator();
         language = getCompoFactory().newMenuItem();
         language.addActionListener(new ManageLanguageEventAiki(this));
@@ -873,7 +872,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         Game game_ = load(fileName_, db_,getFileCoreStream(),getStreams(),facade.getSexList());
         if (game_ != null) {
             facade.load(game_);
-            MenuItemUtils.setEnabledMenu(gameSave,true);
+            MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
             facade.changeCamera();
             drawGame();
             savedGame = true;
@@ -1531,7 +1530,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     }
 
     public void disableBasicFight() {
-        MenuItemUtils.setEnabledMenu(gameSave,false);
+        MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
         disableCom();
     }
 
@@ -1544,7 +1543,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     }
 
     public void reenableBasicFight() {
-        MenuItemUtils.setEnabledMenu(gameSave,true);
+        MenuItemUtils.setEnabledMenu(core.getGameSave(),true);
         reenCom();
     }
 
@@ -1555,8 +1554,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     private void en(boolean _b) {
         MenuItemUtils.setEnabledMenu(newGame,_b);
         MenuItemUtils.setEnabledMenu(params,_b);
-        MenuItemUtils.setEnabledMenu(zipLoad,_b);
-        MenuItemUtils.setEnabledMenu(gameLoad,_b);
+        MenuItemUtils.setEnabledMenu(core.getZipLoad(),_b);
+        MenuItemUtils.setEnabledMenu(core.getGameLoad(),_b);
     }
 
     public ProgressingDialog getDialog() {
@@ -1564,15 +1563,15 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     }
 
     public AbsMenuItem getFolderLoad() {
-        return folderLoad;
+        return core.getFolderLoad();
     }
 
     public AbsMenuItem getZipLoad() {
-        return zipLoad;
+        return core.getZipLoad();
     }
 
     public AbsMenuItem getGameLoad() {
-        return gameLoad;
+        return core.getGameLoad();
     }
 
     public AbsMenuItem getNewGame() {
