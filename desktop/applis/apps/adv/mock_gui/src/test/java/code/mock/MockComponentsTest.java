@@ -13,8 +13,7 @@ import code.gui.images.MetaFont;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbsFrameFactory;
-import code.stream.AbsClipStream;
-import code.stream.AbsSoundRecord;
+import code.stream.*;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -88,7 +87,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         MockRunnable r_ = new MockRunnable();
         AbsCompoFactory ab_ = init_.getCompoFactory();
         ab_.invokeLater(r_);
-        ab_.stringWidth(new MetaFont("",0,1),"");
         assertFalse(r_.isStarted());
         ((MockCompoFactory)ab_).invoke();
         assertTrue(r_.isStarted());
@@ -389,5 +387,11 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         mf_.dispatchExit();
         mf_.setVisible(false);
         assertFalse(mf_.isVisible());
+    }
+    @Test
+    public void c15() {
+        MockProgramInfosSample init_ = init();
+        AbsCompoFactory ab_ = init_.getCompoFactory();
+        assertEq(10,ab_.stringWidth(new MetaFont("",0,2),"hello"));
     }
 }
