@@ -88,6 +88,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         MockRunnable r_ = new MockRunnable();
         AbsCompoFactory ab_ = init_.getCompoFactory();
         ab_.invokeLater(r_);
+        ab_.stringWidth(new MetaFont("",0,1),"");
         assertFalse(r_.isStarted());
         ((MockCompoFactory)ab_).invoke();
         assertTrue(r_.isStarted());
