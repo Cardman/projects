@@ -449,7 +449,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    private StringMap<StringMap<String>> images = new StringMap<StringMap<String>>();
     private final NetAiki netAiki = new NetAiki();
     private final AikiFactory aikiFactory;
-    private StringMap<String> messages = new StringMap<String>();
+    private StringMap<String> messagesAiki = new StringMap<String>();
     private final FacadeGame facade;
     private final ScenePanelMulti scenePanel;
     private final WindowAikiCore aiki = new WindowAikiCore();
@@ -467,6 +467,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private byte indexInGame = IndexConstants.INDEX_NOT_FOUND_ELT;
     private PreparedRenderedPages preparedPkNetTask;
     private boolean cards;
+    private AbsButton buttonClick;
     public WindowNetWork(String _lg, AbstractProgramInfos _list,
                        StringMap<StringMap<PreparedPagesCards>> _belote,
                        StringMap<StringMap<PreparedPagesCards>> _president,
@@ -511,7 +512,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         setFocusable(true);
         requestFocus();
         setFocusableWindowState(true);
-        setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
+//        setImageIconFrame(LaunchingCards.getIcon(getImageFactory()));
 //        clock = new Clock(_list);
         lastSavedGameDate = getCompoFactory().newPlainLabel("");
 //        reglesBelote = DocumentReaderBeloteUtil.getRulesBelote(StreamTextFile.contentsOfFile(StringUtil.concat(LaunchingCards.getTempFolderSl(getFrames()),FileConst.RULES_BELOTE),getFileCoreStream(),getStreams()));
@@ -548,6 +549,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        }
         /*Parametre de lancement*/
         initMenus();
+        translate();
 
         menuPrincipal();
 //        if(parametres.getLancement().isEmpty()) {
@@ -662,6 +664,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     @Override
     public void quit() {
         basicDispose();
+        getButtonClick().setEnabled(true);
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
                 return;
@@ -1189,7 +1192,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //    }
 
     public String getNoTradeString() {
-        return messages.getVal(NO_TRADE);
+        return messagesAiki.getVal(NO_TRADE);
     }
 
 //    public boolean isForceBye() {
@@ -1326,6 +1329,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void initMessageName() {
 //        messages = ExtractFromFiles.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, Constants.getLanguage(), getClass());
         setMessages(WindowNetWork.getMessagesFromLocaleClass(FileConst.FOLDER_MESSAGES_GUI, getLanguageKey(), getAccessFile()));
+        messagesAiki = WindowAiki.getMessagesFromLocaleClass(getLanguageKey());
     }
 //    public void loadGameBegin(String _file) {
 //        containerGame = new ContainerNoGame(this);
@@ -2190,10 +2194,10 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     private void translate() {
         initMessageName();
         String lg_ = getLanguageKey();
-        aiki.getZipLoad().setText(messages.getVal(ZIP_LOAD));
-        aiki.getFolderLoad().setText(messages.getVal(FOLDER_LOAD));
-        aiki.getGameLoad().setText(messages.getVal(GAME_LOAD));
-        aiki.getGameSave().setText(messages.getVal(GAME_SAVE));
+        aiki.getZipLoad().setText(messagesAiki.getVal(ZIP_LOAD));
+        aiki.getFolderLoad().setText(messagesAiki.getVal(FOLDER_LOAD));
+        aiki.getGameLoad().setText(messagesAiki.getVal(GAME_LOAD));
+        aiki.getGameSave().setText(messagesAiki.getVal(GAME_SAVE));
         file.setText(getMessages().getVal(CST_FILE));
 //        load.setText(getMessages().getVal(CST_LOAD));
 //        save.setText(getMessages().getVal(CST_SAVE));
@@ -2341,7 +2345,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         if (_fileName.isEmpty()) {
             return false;
         }
-        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+        getFrames().getMessageDialogAbs().input(getCommonFrame(), _fileName, messagesAiki.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
         return true;
     }
 
@@ -2374,7 +2378,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 //        fileName_ = StringUtil.replaceBackSlash(fileName_);
 //        loadingConf.setLastSavedGame(fileName_);
         dateLastSaved = Clock.getDateTimeText(getThreadFactory());
-        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messages.getVal(LAST_SAVED_GAME), dateLastSaved));
+        lastSavedGameDate.setText(StringUtil.simpleStringsFormat(messagesAiki.getVal(LAST_SAVED_GAME), dateLastSaved));
 //        savedGame = true;
     }
     private String fileDialogSave() {
@@ -2574,7 +2578,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     @Override
     public String getApplicationName() {
-        return LaunchingCards.getMainWindowClass();
+        return LaunchingNetwork.getMainWindowClass();
     }
 
     @Override
@@ -2815,5 +2819,13 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
 
     public void setCards(boolean _c) {
         this.cards = _c;
+    }
+
+    public AbsButton getButtonClick() {
+        return buttonClick;
+    }
+
+    public void setButtonClick(AbsButton _b) {
+        this.buttonClick = _b;
     }
 }

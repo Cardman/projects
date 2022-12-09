@@ -308,6 +308,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         initMessages();
         setTitle(messages.getVal(TITLE));
     }
+    public static StringMap<String> getMessagesFromLocaleClass(String _loc) {
+        return getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _loc, DIALOG_ACCESS);
+    }
     public static StringMap<String> getMessagesFromLocaleClass(String _folder, String _loc, String _class) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(_folder, _loc, _class);
         String loadedResourcesMessages_ = MessGuiPkGr.ms().getVal(fileName_);

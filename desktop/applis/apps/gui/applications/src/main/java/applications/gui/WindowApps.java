@@ -14,6 +14,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaPoint;
 import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
+import code.network.LaunchingNetwork;
 import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.threads.AbstractAtomicInteger;
@@ -40,6 +41,7 @@ public final class WindowApps extends GroupFrame {
     private final AbsPlainButton buttonDemo;
     private final AbsImgButton buttonPlayer;
     private final AbsPlainButton buttonConverter;
+    private final AbsPlainButton buttonNet;
 
     private final CustButtonGroup group = new CustButtonGroup();
 
@@ -114,6 +116,14 @@ public final class WindowApps extends GroupFrame {
         buttonApps.addActionListener(new AppsEvent(this,at_));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
+        AbsPanel lineNet_ = getCompoFactory().newLineBox();
+        buttonNet = getCompoFactory().newPlainButton("9");
+        at_ = _list.getThreadFactory().newAtomicInteger(0);
+        _list.getCounts().addEntry(LaunchingNetwork.getMainWindowClass(),at_);
+        _list.getButtons().addEntry(LaunchingNetwork.getMainWindowClass(), buttonNet);
+        buttonNet.addActionListener(new NetWorkEvent(this,at_,_cardFactories,_aikiFactory,buttonNet));
+        lineNet_.add(buttonNet);
+        panel_.add(lineNet_);
         panel_.add(new Clock(_list));
 //        for (String l: Constants.getAvailableLanguages()) {
 //            RadioButton radio_ = new RadioButton(Constants.getDisplayLanguage(l));
