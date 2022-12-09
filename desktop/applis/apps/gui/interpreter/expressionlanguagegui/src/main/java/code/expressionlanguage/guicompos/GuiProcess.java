@@ -160,11 +160,6 @@ public final class GuiProcess implements GuiRunnable {
 //    }
 
     @Override
-    public boolean isVisible() {
-        return ((LgNamesGui) context.getStandards()).getGuiExecutingBlocks().getFrame().isVisible();
-    }
-
-    @Override
     public GuiContextEl getContext() {
         return context;
     }

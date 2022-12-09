@@ -20,6 +20,7 @@ public final class DfFrame extends DfCompoCtor {
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
         FrameStruct fr_ = new FrameStruct(((LgNamesGui)_cont.getStandards()).getGuiExecutingBlocks().getLightFrameFactory().newOtherFrame());
+        fr_.addWindowListener(_guiEx.getEventClose());
         ((GuiContextEl)_cont).getGuiInit().getWindows().add(fr_,false);
         return new ArgumentWrapper(fr_);
     }

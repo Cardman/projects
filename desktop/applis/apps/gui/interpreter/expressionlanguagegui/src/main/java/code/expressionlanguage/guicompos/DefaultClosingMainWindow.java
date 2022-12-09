@@ -1,21 +1,18 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
 import code.gui.events.AbsWindowListenerClosing;
 
 public final class DefaultClosingMainWindow implements AbsWindowListenerClosing {
 
-    private final GuiExecutingBlocks executingBlocks;
     private final GuiContextEl context;
 
-    public DefaultClosingMainWindow(GuiExecutingBlocks _executingBlocks, GuiContextEl _context) {
-        this.executingBlocks = _executingBlocks;
+    public DefaultClosingMainWindow(GuiContextEl _context) {
         this.context = _context;
     }
 
     @Override
     public void windowClosing() {
-        context.disposeAll(executingBlocks, StackCall.newInstance(InitPhase.NOTHING,context));
+        context.interrupt();
+//        context.disposeAll(StackCall.newInstance(InitPhase.NOTHING,context));
     }
 }

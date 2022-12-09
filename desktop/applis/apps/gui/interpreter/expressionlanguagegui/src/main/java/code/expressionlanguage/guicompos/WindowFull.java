@@ -129,7 +129,7 @@ public final class WindowFull extends GroupFrame {
     @Override
     public void quit() {
         GuiRunnable current_ = currentElements.getGuiRunnable();
-        if (current_ != null&&current_.isVisible()) {
+        if (current_ != null) {
             return;
         }
         coverage.setEnabled(false);

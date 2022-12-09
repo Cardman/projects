@@ -40,6 +40,7 @@ public final class GuiAliases {
     private static final String SET_FONT = "SetFont";
     private static final String SPINNER = "Spinner";
     private static final String DISPOSE = "Dispose";
+    private static final String CLOSE_ALL = "CloseAll";
     private static final String GR_LIST = "GrList";
     private static final String GET_FONT = "GetFont";
     private static final String IMAGE = "Image";
@@ -719,6 +720,7 @@ public final class GuiAliases {
     private String aliasArgs;
     private String aliasPack;
     private String aliasDispose;
+    private String aliasCloseAll;
     private String aliasInput;
     private String aliasInputIsEnabled;
     private String aliasInputSetEnabled;
@@ -1464,7 +1466,10 @@ public final class GuiAliases {
         method_ = new StandardMethod(aliasGetWindowListeners, params_, StringExpUtil.getPrettyArrayType(aliasWindowListener), false, MethodModifier.FINAL, new FctWindowGetList(aliasWindowListener));
         methods_.add( method_);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowDispose(_guiEx));
+        method_ = new StandardMethod(aliasDispose, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowDispose());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCloseAll, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowCloseAll());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasWindowType, std_);
@@ -1539,9 +1544,9 @@ public final class GuiAliases {
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasFrame, fields_, constructors_, methods_, aliasWindowType, MethodModifier.FINAL, new DfFrame(_cust,_guiEx));
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, new FctFrameWindow(_cust,_guiEx));
-        methods_.add( method_);
+//        params_ = new StringList();
+//        method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, new FctFrameWindow(_cust,_guiEx));
+//        methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasArgs, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC, new FctFrameArgs(_cust,_guiEx));
         methods_.add( method_);
@@ -3075,6 +3080,7 @@ public final class GuiAliases {
         setAliasSetFont(LgNamesContent.get(_util, _cust, SET_FONT));
         setAliasSpinner(LgNamesContent.get(_util, _cust, SPINNER));
         setAliasDispose(LgNamesContent.get(_util, _cust, DISPOSE));
+        setAliasCloseAll(LgNamesContent.get(_util, _cust, CLOSE_ALL));
         setAliasGrList(LgNamesContent.get(_util, _cust, GR_LIST));
         setAliasGetFont(LgNamesContent.get(_util, _cust, GET_FONT));
         setAliasImage(LgNamesContent.get(_util, _cust, IMAGE));
@@ -4051,6 +4057,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(REMOVE_WINDOW_LISTENER,getAliasRemoveWindowListener()),
                 new KeyValueMemberName(GET_WINDOW_LISTENERS,getAliasGetWindowListeners()),
                 new KeyValueMemberName(DISPOSE,getAliasDispose()),
+                new KeyValueMemberName(CLOSE_ALL,getAliasCloseAll()),
                 new KeyValueMemberName(WINDOW_TYPE_RELATIVE,getAliasWindowTypeRelative()),
                 new KeyValueMemberName(IS_VISIBLE,getAliasIsVisible()),
                 new KeyValueMemberName(SET_VISIBLE,getAliasSetVisible()),
@@ -5765,6 +5772,14 @@ public final class GuiAliases {
 
     public void setAliasDispose(String _v) {
         this.aliasDispose = _v;
+    }
+
+    public String getAliasCloseAll() {
+        return aliasCloseAll;
+    }
+
+    public void setAliasCloseAll(String _v) {
+        this.aliasCloseAll = _v;
     }
 
     public String getAliasIsVisible() {

@@ -21,7 +21,7 @@ import code.util.StringList;
 
 public final class GuiExecutingBlocks {
     private AbsPlainButton stop;
-    private FrameStruct frame;
+//    private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
     private GuiInterpreterElements guiInterpreterElements;
@@ -72,17 +72,18 @@ public final class GuiExecutingBlocks {
         compoFactory = programInfos_.getCompoFactory();
         confirm = new OtherConfirmDialog(programInfos_);
     }
-    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
-        eventClose = new DefaultClosingMainWindow(this, _context);
-        AbsOtherFrame fr_ = guiInterpreterElements.getProgramInfos().getLightFrameFactory().newOtherFrame();
-        fr_.setMainFrame(true);
-//        fr_.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        frame = new FrameStruct(fr_);
-        _guiInit.getWindows().add(frame,false);
-        frame.getAbstractWindow().addWindowListener(eventClose);
-    }
-    public void forwardAndClear(GuiInitializer _guiInit, GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
-        initEventParts(_guiInit,_ctx);
+//    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
+////        eventClose = new DefaultClosingMainWindow(_context);
+////        AbsOtherFrame fr_ = guiInterpreterElements.getProgramInfos().getLightFrameFactory().newOtherFrame();
+////        fr_.setMainFrame(true);
+////        fr_.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+////        frame = new FrameStruct(fr_);
+////        _guiInit.getWindows().add(frame,false);
+////        frame.getAbstractWindow().addWindowListener(eventClose);
+//    }
+    public void forwardAndClear(GuiAliases _guiAliases, LgNamesContent _content, GuiContextEl _ctx, Classes _classes) {
+//        initEventParts(_guiInit,_ctx);
+        eventClose = new DefaultClosingMainWindow(_ctx);
         String aliasActListener_ = _guiAliases.getAliasActionListener();
         actionListener = _classes.getClassBody(aliasActListener_);
         String actionEvent_ = _guiAliases.getAliasActionEvent();
@@ -497,7 +498,9 @@ public final class GuiExecutingBlocks {
     }
     public void addWindowListener(WindowStruct _frame,Struct _event) {
         if (_event instanceof AbsWindowListener) {
-            _frame.removeWindowListener(eventClose);
+            if (_frame instanceof FrameStruct) {
+                _frame.removeWindowListener(eventClose);
+            }
             _frame.addWindowListener((AbsWindowListener)_event);
 //            _frame.getAbstractWindow().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         }
@@ -506,18 +509,21 @@ public final class GuiExecutingBlocks {
     public void removeWindowListener(WindowStruct _inst, Struct _event) {
         if (_event instanceof AbsWindowListener) {
             _inst.removeWindowListener((AbsWindowListener)_event);
-            CustList<Struct> user_ = new CustList<Struct>();
-            for (AbsWindowListener w: _inst.getWindowListeners()) {
-                if (w instanceof Struct) {
-                    user_.add((Struct)w);
+            if (_inst instanceof FrameStruct) {
+                CustList<Struct> user_ = new CustList<Struct>();
+                for (AbsWindowListener w : _inst.getWindowListeners()) {
+                    if (w instanceof Struct) {
+                        user_.add((Struct) w);
+                    }
                 }
-            }
-            if (user_.isEmpty() && _inst == frame) {
-                _inst.removeWindowListener(eventClose);
-                _inst.addWindowListener(eventClose);
+                if (user_.isEmpty()) {
+//            if (user_.isEmpty() && _inst == frame) {
+                    _inst.removeWindowListener(eventClose);
+                    _inst.addWindowListener(eventClose);
 //                    _inst.getAbstractWindow().setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
 //                } else {
 //                    _inst.getAbstractWindow().setDefaultCloseOperation(GuiConstants.HIDE_ON_CLOSE);
+                }
             }
         }
     }
@@ -539,8 +545,13 @@ public final class GuiExecutingBlocks {
     public AbstractAdvGraphicListGenerator getGraphicListGenerator(){
         return guiInterpreterElements.getProgramInfos().getGeneStrCompo();
     }
-    public FrameStruct getFrame() {
-        return frame;
+//    public FrameStruct getFrame() {
+//        return frame;
+//    }
+
+
+    public DefaultClosingMainWindow getEventClose() {
+        return eventClose;
     }
 
     public StringList getMainArgs() {
