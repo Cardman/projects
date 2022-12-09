@@ -12,7 +12,9 @@ import code.util.core.NumberUtil;
 
 public abstract class AbsMetaLabelPk {
     private final AbsPaintableLabel paintableLabel;
+    private final AbsCompoFactory factPk;
     protected AbsMetaLabelPk(AbsCompoFactory _compoFactory) {
+        factPk = _compoFactory;
         paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
 
@@ -46,9 +48,6 @@ public abstract class AbsMetaLabelPk {
         getPaintableLabel().setIcon(_fact, _icon);
     }
 
-    public void requestFocusInWindow(){
-        getPaintableLabel().requestFocusInWindow();
-    }
     public int getWidth(){
         return getPaintableLabel().getPreferredSizeValue().getWidth();
     }
@@ -60,15 +59,11 @@ public abstract class AbsMetaLabelPk {
     }
 
     public int stringWidth(String _string){
-        return getPaintableLabel().stringWidth(_string);
+        return factPk.stringWidth(getMetaFont(),_string);
     }
 
     public void setPreferredSize(MetaDimension _dim) {
         getPaintableLabel().setPreferredSize(_dim);
-    }
-
-    public void setBackground(int _color) {
-        getPaintableLabel().setBackground(_color);
     }
 
     public void addMouseListener(AbsMouseListenerWithoutClick _mouseListener) {
@@ -99,9 +94,6 @@ public abstract class AbsMetaLabelPk {
         return getPaintableLabel().getMetaFont().getRealSize();
     }
 
-    public void requestFocus(){
-        getPaintableLabel().requestFocus();
-    }
     public void setFocusable(boolean _focusable){
         getPaintableLabel().setFocusable(_focusable);
     }
@@ -113,12 +105,5 @@ public abstract class AbsMetaLabelPk {
         getPaintableLabel().setFont(_name, _style, _size);
     }
 
-    public void setOpaque(boolean _op) {
-        getPaintableLabel().setOpaque(_op);
-    }
-
-    public void setSize(MetaDimension _dimension) {
-        getPaintableLabel().setSize(_dimension);
-    }
 
 }

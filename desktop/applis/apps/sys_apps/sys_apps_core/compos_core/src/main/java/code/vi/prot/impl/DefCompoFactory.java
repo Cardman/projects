@@ -2,12 +2,14 @@ package code.vi.prot.impl;
 
 import code.gui.*;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 import code.vi.prot.impl.gui.*;
 
 import javax.swing.*;
 
 public final class DefCompoFactory implements AbsCompoFactory {
+    private final PlainLabel label = new PlainLabel("");
     @Override
     public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
         return new TreeGui(_node);
@@ -266,5 +268,10 @@ public final class DefCompoFactory implements AbsCompoFactory {
     @Override
     public AbsMenuItem newMenuItem(String _value) {
         return new MenuItem(_value);
+    }
+
+    @Override
+    public int stringWidth(MetaFont _font, String _string) {
+        return label.stringWidth(_font, _string);
     }
 }

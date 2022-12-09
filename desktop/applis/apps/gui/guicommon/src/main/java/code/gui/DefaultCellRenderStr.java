@@ -3,6 +3,7 @@ package code.gui;
 import code.expressionlanguage.structs.Struct;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
 
@@ -15,10 +16,12 @@ public final class DefaultCellRenderStr extends CustCellRender<Struct> {
     private boolean selectedStr;
     private final SpecSelectionCtx spec;
     private final AbstractImageFactory fact;
+    private final AbsCompoFactory compo;
 
-    public DefaultCellRenderStr(SpecSelectionCtx _spec,AbstractImageFactory _fact) {
+    public DefaultCellRenderStr(SpecSelectionCtx _spec, AbstractImageFactory _fact, AbsCompoFactory _compoFactory) {
         spec = _spec;
         fact = _fact;
+        compo = _compoFactory;
     }
 
     @Override
@@ -32,7 +35,7 @@ public final class DefaultCellRenderStr extends CustCellRender<Struct> {
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         textStr = spec.convertStr(get(_index));
         labelStr = _currentLab;
-        maxWidthStr = NumberUtil.max(maxWidthStr, labelStr.stringWidth(textStr));
+        maxWidthStr = NumberUtil.max(maxWidthStr, compo.stringWidth(labelStr.getMetaFont(),textStr));
         selectedStr = _isSelected;
     }
     public int getMaxWidth() {
@@ -54,7 +57,7 @@ public final class DefaultCellRenderStr extends CustCellRender<Struct> {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        FrameUtil.paintLabel(getMaxWidth(),_g, labelStr, textStr, selectedStr);
+        FrameUtil.paintLabel(getMaxWidth(),_g, labelStr, textStr, selectedStr,compo);
     }
     @Override
     public int getHeight() {

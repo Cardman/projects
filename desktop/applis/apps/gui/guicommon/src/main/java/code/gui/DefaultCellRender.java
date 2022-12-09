@@ -2,6 +2,7 @@ package code.gui;
 
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
 
@@ -13,10 +14,12 @@ public final class DefaultCellRender extends CustCellRender<String> {
     private String text;
     private boolean selected;
     private final AbstractImageFactory fact;
+    private final AbsCompoFactory compo;
     private final AbsPanel panel;
 
-    public DefaultCellRender(AbstractImageFactory _fact, AbsPanel _panel) {
+    public DefaultCellRender(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, AbsPanel _panel) {
         fact = _fact;
+        compo = _compoFactory;
         panel = _panel;
     }
 
@@ -35,9 +38,14 @@ public final class DefaultCellRender extends CustCellRender<String> {
                                              int _index, boolean _isSelected, boolean _cellHasFocus) {
         text = get(_index);
         label = _currentLab;
-        maxWidth = NumberUtil.max(maxWidth,label.stringWidth(text));
+        maxWidth = NumberUtil.max(maxWidth,compo.stringWidth(label.getMetaFont(),text));
         selected = _isSelected;
     }
+
+    public AbsCompoFactory getCompo() {
+        return compo;
+    }
+
     public int getMaxWidth() {
         return maxWidth;
     }
@@ -57,7 +65,7 @@ public final class DefaultCellRender extends CustCellRender<String> {
 
     @Override
     public void paintComponent(AbstractImage _g) {
-        FrameUtil.paintLabel(getMaxWidth(),_g, label, text, selected);
+        FrameUtil.paintLabel(getMaxWidth(),_g, label, text, selected,compo);
     }
 
     @Override

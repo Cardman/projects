@@ -16,7 +16,7 @@ public final class MockGraphicStringListGenerator implements AbstractGraphicStri
     }
 
     @Override
-    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _i, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _i, AbsCompoFactory _compoFactory, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
         MockCustGrList<String> gr_ = new MockCustGrList<String>();
         feed(_objects,gr_);
         gr_.setSelectedIndexes(_selectedIndexes);

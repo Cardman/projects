@@ -78,14 +78,14 @@ public final class MockCustComponentTest extends EquallableMockGuiUtil {
     public void c7() {
         MockTextField f_ = new MockTextField();
         assertEq(1,f_.heightFont());
-        assertEq(5,f_.stringWidth("hello"));
+        assertEq(5,f_.stringWidth(f_.getMetaFont(),"hello"));
     }
     @Test
     public void c8() {
         MockTextField f_ = new MockTextField();
         f_.setNullFont();
         assertEq(1,f_.heightFont());
-        assertEq(5,f_.stringWidth("hello"));
+        assertEq(5,f_.stringWidth(f_.getMetaFont(),"hello"));
     }
     @Test
     public void c9() {

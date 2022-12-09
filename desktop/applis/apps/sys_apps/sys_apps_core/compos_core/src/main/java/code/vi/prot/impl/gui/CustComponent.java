@@ -180,10 +180,6 @@ public abstract class CustComponent implements AbsCustComponent {
         return getNatComponent().getFontMetrics(_font).getHeight();
     }
 
-    public int stringWidth(String _string) {
-        return stringWidth(getNatComponent().getFont(),_string);
-    }
-
     @Override
     public int stringWidth(MetaFont _font, String _string) {
         return stringWidth(ft(_font),_string);

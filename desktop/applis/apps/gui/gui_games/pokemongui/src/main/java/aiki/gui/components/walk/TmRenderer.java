@@ -3,13 +3,14 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
+import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.maths.LgInt;
 
-public class TmRenderer extends CustCellRender<String> {
+public class TmRenderer extends CustCellRenderPk<String> {
 
     private final int sideLength;
 
@@ -26,12 +27,6 @@ public class TmRenderer extends CustCellRender<String> {
         fact = _fact;
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

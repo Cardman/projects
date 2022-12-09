@@ -4,6 +4,7 @@ package aiki.gui.components.fight;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.Fighter;
+import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -14,7 +15,7 @@ import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class FighterRenderer extends CustCellRender<Fighter> {
+public class FighterRenderer extends CustCellRenderPk<Fighter> {
 
     private static final String CST_KO = "KO";
     private static final String PER_CENT = " %";
@@ -40,12 +41,6 @@ public class FighterRenderer extends CustCellRender<Fighter> {
         fact = _fact;
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

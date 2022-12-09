@@ -7,7 +7,7 @@ import aiki.game.fight.BallNumberRate;
 import aiki.gui.WindowAiki;
 import code.gui.*;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 import code.util.Ints;
 import code.util.NatStringTreeMap;
 
@@ -22,14 +22,16 @@ public final class BallPanel {
     private final BallRenderer renderer;
 
     private final AbsPanel container;
+    private final AbsCompoFactory compoFactory;
 
     public BallPanel(WindowAiki _window, int _nb, String _titre, FacadeGame _facade) {
         renderer = new BallRenderer(_window.getFrames().getImageFactory(),_facade);
         listeBall = _window.getAikiFactory().getGeneBallNumberRate().createSimple(_window.getImageFactory(),renderer);
         facade = _facade;
-        container = _window.getFrames().getCompoFactory().newBorder();
+        compoFactory = _window.getFrames().getCompoFactory();
+        container = compoFactory.newBorder();
         container.setLoweredBorder();
-        title = _window.getFrames().getCompoFactory().newPlainLabel(_titre);
+        title = compoFactory.newPlainLabel(_titre);
         container.add(title, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
@@ -46,7 +48,7 @@ public final class BallPanel {
     public void initBalls() {
         listeBall.clear();
         NatStringTreeMap<BallNumberRate> map_ = facade.calculateCatchingRates();
-        renderer.setMaxWidth(title,map_);
+        renderer.setMaxWidth(title,map_,compoFactory);
         for (BallNumberRate b: map_.values()) {
             listeBall.add(b);
         }

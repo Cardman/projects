@@ -37,7 +37,7 @@ public interface AbsCustComponent {
     int getHeight();
     int heightFont();
     int heightFont(MetaFont _font);
-    int stringWidth(String _string);
+
     int stringWidth(MetaFont _font,String _string);
     MetaFont getMetaFont();
     void setNullFont();

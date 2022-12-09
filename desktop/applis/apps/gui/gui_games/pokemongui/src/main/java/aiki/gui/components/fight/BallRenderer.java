@@ -4,16 +4,18 @@ package aiki.gui.components.fight;
 
 import aiki.facade.FacadeGame;
 import aiki.game.fight.BallNumberRate;
+import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 import code.maths.Rate;
 import code.util.NatStringTreeMap;
 import code.util.core.StringUtil;
 
-public class BallRenderer extends CustCellRender<BallNumberRate> {
+public class BallRenderer extends CustCellRenderPk<BallNumberRate> {
 
     private static final String PERCENT = " %";
 
@@ -37,13 +39,7 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
         facade = _facade;
     }
 
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
-    }
-
-    public void setMaxWidth(AbsCustComponent _fm,NatStringTreeMap<BallNumberRate> _balls) {
+    public void setMaxWidth(AbsCustComponent _fm, NatStringTreeMap<BallNumberRate> _balls, AbsCompoFactory _compoFactory) {
         maxWidthImage = 0;
         maxWidthRate = 0;
         maxWidthNumber = 0;
@@ -51,11 +47,11 @@ public class BallRenderer extends CustCellRender<BallNumberRate> {
             int[][] img_ = facade.getData().getMiniItems().getVal(b.getName());
             AbstractImage b_ = ConverterGraphicBufferedImage.decodeToImage(fact,img_);
             Rate r_ = b.getRate();
-            int w_ = _fm.stringWidth(r_.toNumberString());
+            int w_ = _compoFactory.stringWidth(_fm.getMetaFont(),r_.toNumberString());
             if (w_ > maxWidthRate) {
                 maxWidthRate = w_;
             }
-            w_ = _fm.stringWidth(b.getNumber().toNumberString());
+            w_ = _compoFactory.stringWidth(_fm.getMetaFont(),b.getNumber().toNumberString());
             if (w_ > maxWidthNumber) {
                 maxWidthNumber = w_;
             }

@@ -17,6 +17,7 @@ import code.gui.AbsPanel;
 import code.gui.AbsPlainLabel;
 import code.gui.GuiConstants;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.*;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -42,19 +43,22 @@ public final class TeamPanel {
     private final AbsPlainLabel nbRemainPlaces;
 
     private final AbsPanel container;
+    private final AbsCompoFactory compoFactory;
+
     public TeamPanel(WindowAikiInt _parent, int _nb, String _titre, FacadeGame _facade, ByteTreeMap<UsablePokemon> _team, StringMap<String> _mess, boolean _single) {
         facade = _facade;
         PokemonRenderer render_ = new PokemonRenderer(_parent.getFrames(), facade, _single);
         liste = _parent.getAikiFactory().getGeneUsPkPanel().createSimple(_parent.getImageFactory(), render_);
-        container = render_.getFact().getCompoFactory().newBorder();
+        compoFactory = render_.getFact().getCompoFactory();
+        container = compoFactory.newBorder();
         container.setLoweredBorder();
-        AbsPlainLabel titrePanneau_ = render_.getFact().getCompoFactory().newPlainLabel(_titre);
+        AbsPlainLabel titrePanneau_ = compoFactory.newPlainLabel(_titre);
         container.add(titrePanneau_, GuiConstants.BORDER_LAYOUT_NORTH);
         //On peut slectionner plusieurs elements dans la liste listeCouleurs en
         //utilisant "ctrl + A", "ctrl", "maj+clic", comme dans explorer
         liste.setVisibleRowCount(_nb+1);
         renderer = render_;
-        nbRemainPlaces = render_.getFact().getCompoFactory().newPlainLabel("");
+        nbRemainPlaces = compoFactory.newPlainLabel("");
         initFighters(_team,_mess);
         int side_ = facade.getMap().getSideLength();
         container.add(liste.self(), GuiConstants.BORDER_LAYOUT_CENTER);
@@ -89,22 +93,22 @@ public final class TeamPanel {
         for (UsablePokemon l: _team.values()) {
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer pk_ = (PokemonPlayer) l;
-                int value_ = nbRemainPlaces.stringWidth(StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACES));
+                int value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(facade.translatePokemon(pk_.getName()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = nbRemainPlaces.stringWidth(StringUtil.concat(facade.translateAbility(pk_.getAbility()),SPACES));
+                value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(facade.translateAbility(pk_.getAbility()),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
-                value_ = nbRemainPlaces.stringWidth(StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
+                value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(pk_.getRemainingHp().toNumberString(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }
             }
             if (l instanceof PokemonPlayer) {
                 PokemonPlayer egg_ = (PokemonPlayer) l;
-                int value_ = nbRemainPlaces.stringWidth(StringUtil.concat(egg_.getName(),SPACES));
+                int value_ = compoFactory.stringWidth(nbRemainPlaces.getMetaFont(),StringUtil.concat(egg_.getName(),SPACES));
                 if (value_ > maxPixName_) {
                     maxPixName_ = value_;
                 }

@@ -2,6 +2,7 @@ package code.gui.initialize;
 
 import code.gui.*;
 import code.gui.images.AbstractImage;
+import code.gui.images.MetaFont;
 
 public interface AbsCompoFactory {
     AbsTreeGui newTreeGui(AbstractMutableTreeNode _node);
@@ -72,4 +73,5 @@ public interface AbsCompoFactory {
     AbsMenuItem newMenuItem();
 
     AbsMenuItem newMenuItem(String _value);
+    int stringWidth(MetaFont _font, String _string);
 }

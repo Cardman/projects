@@ -14,8 +14,10 @@ public final class WrappedLabel {
     private static final char LINE_RETURN = '\n';
     private final StringList lines = new StringList();
     private final AbsPaintableLabel paintableLabel;
+    private final AbsCompoFactory compo;
 
     public WrappedLabel(AbstractImageFactory _fact, String _text, AbsCompoFactory _compoFactory) {
+        compo = _compoFactory;
         paintableLabel = _compoFactory.newAbsPaintableLabel();
         lines.addAllElts(StringUtil.splitChars(_text, LINE_RETURN));
         setPreferredSize(_fact);
@@ -32,7 +34,7 @@ public final class WrappedLabel {
         int h_ = paintableLabel.heightFont() * nbLines_;
         int w_ = IndexConstants.SIZE_EMPTY;
         for (String l: lines) {
-            int wLine_ = paintableLabel.stringWidth(l);
+            int wLine_ = compo.stringWidth(paintableLabel.getMetaFont(),l);
             if (wLine_ > w_) {
                 w_ = wLine_;
             }

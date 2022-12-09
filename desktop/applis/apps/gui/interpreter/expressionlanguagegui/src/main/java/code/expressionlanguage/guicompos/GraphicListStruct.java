@@ -32,9 +32,9 @@ public final class GraphicListStruct extends InputStruct {
         AdvGraphicListPainter abs_ = new AdvGraphicListPainter(guiEx_.getImageFactory(), _ctx.getExecutionInfos());
         DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos());
         if (_simple) {
-            return graphicListGenerator_.createSimple(abs_, create_);
+            return graphicListGenerator_.createSimple(abs_, create_,guiEx_.getCompoFactory());
         }
-        return graphicListGenerator_.createMult(abs_, create_);
+        return graphicListGenerator_.createMult(abs_, create_,guiEx_.getCompoFactory());
     }
 
     private void init(GuiContextEl _ctx) {

@@ -3,6 +3,7 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
+import aiki.gui.components.CustCellRenderPk;
 import aiki.map.pokemon.Egg;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
@@ -17,7 +18,7 @@ import code.maths.Rate;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public class PokemonRenderer extends CustCellRender<UsablePokemon> {
+public class PokemonRenderer extends CustCellRenderPk<UsablePokemon> {
 
     private static final String PER_CENT = " %";
 
@@ -65,12 +66,6 @@ public class PokemonRenderer extends CustCellRender<UsablePokemon> {
 
     public void setCoords(int _coords) {
         coords = _coords;
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

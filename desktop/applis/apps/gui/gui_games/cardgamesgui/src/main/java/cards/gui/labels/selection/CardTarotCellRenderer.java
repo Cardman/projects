@@ -5,6 +5,7 @@ package cards.gui.labels.selection;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.labels.CustCellRenderCards;
 import cards.tarot.enumerations.CardTarot;
 import code.gui.*;
 import code.gui.images.AbstractImage;
@@ -14,18 +15,12 @@ import code.util.core.NumberUtil;
 
 /**
  */
-public class CardTarotCellRenderer extends CustCellRender<CardTarot>{
+public class CardTarotCellRenderer extends CustCellRenderCards<CardTarot> {
     private CardTarot card;
     private boolean selectionne;
     private final WindowCardsInt window;
     public CardTarotCellRenderer(WindowCardsInt _window) {
         window = _window;
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

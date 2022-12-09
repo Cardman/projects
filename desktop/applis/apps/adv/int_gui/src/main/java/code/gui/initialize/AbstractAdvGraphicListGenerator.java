@@ -6,7 +6,7 @@ import code.gui.SpecSelectionCtx;
 
 public interface AbstractAdvGraphicListGenerator {
 
-    AbsGraphicListStr createSimple(AbsGraphicListPainter _abs, SpecSelectionCtx _create);
-    AbsGraphicListStr createMult(AbsGraphicListPainter _abs, SpecSelectionCtx _create);
+    AbsGraphicListStr createSimple(AbsGraphicListPainter _abs, SpecSelectionCtx _create, AbsCompoFactory _compoFactory);
+    AbsGraphicListStr createMult(AbsGraphicListPainter _abs, SpecSelectionCtx _create, AbsCompoFactory _compoFactory);
     boolean isCust();
 }

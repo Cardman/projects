@@ -3,13 +3,15 @@ package aiki.gui.components.walk;
 
 
 import aiki.facade.FacadeGame;
+import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbsCompoFactory;
 
-public class ItemRenderer extends CustCellRender<String> {
+public class ItemRenderer extends CustCellRenderPk<String> {
 
     private final int sideLength;
 
@@ -26,18 +28,14 @@ public class ItemRenderer extends CustCellRender<String> {
     private int maxWordWidth;
 
     private final AbstractImageFactory fact;
+    private final AbsCompoFactory compo;
     private AbstractImage miniItem;
 
-    public ItemRenderer(AbstractImageFactory _fact, FacadeGame _facade) {
+    public ItemRenderer(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, FacadeGame _facade) {
         fact = _fact;
+        compo = _compoFactory;
         facade = _facade;
         sideLength = facade.getMap().getSideLength();
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override
@@ -53,7 +51,7 @@ public class ItemRenderer extends CustCellRender<String> {
         maxWordWidth = 0;
         for (String i: facade.getChosenItemsForBuyOrSell().getKeys()) {
             String disp_ = facade.translateItem(i);
-            int w_ = _currentLab.stringWidth(disp_);
+            int w_ = compo.stringWidth(_currentLab.getMetaFont(),disp_);
             if (w_ > maxWordWidth) {
                 maxWordWidth = w_;
             }

@@ -45,7 +45,7 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
     public Scene(AbsCompoFactory _compoFactory) {
         super(_compoFactory);
         setFocusable(true);
-        setBackground(GuiConstants.WHITE);
+        getPaintableLabel().setBackground(GuiConstants.WHITE);
     }
 
     public void setDimensions(FacadeGame _facade) {
@@ -264,7 +264,7 @@ public final class Scene extends AbsMetaLabelPk implements AbsMouseListenerIntRe
     }
 
     public void setFocus() {
-        requestFocus();
-        requestFocusInWindow();
+        getPaintableLabel().requestFocus();
+        getPaintableLabel().requestFocusInWindow();
     }
 }

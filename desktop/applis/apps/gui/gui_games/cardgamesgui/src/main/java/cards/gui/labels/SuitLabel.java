@@ -30,10 +30,10 @@ public final class SuitLabel extends AbsMetaLabelCard {
         bid = _bid;
         if (!bid.getCouleurDominante()) {
             setText(Games.toString(bid.getBid(),_lg));
-            setBackground(GuiConstants.WHITE);
-            setForeground(GuiConstants.newColor(0, 0, 127));
-            int h_ = heightFont();
-            int w_ = stringWidth(getText());
+            getPaintableLabel().setBackground(GuiConstants.WHITE);
+            getPaintableLabel().setForeground(GuiConstants.newColor(0, 0, 127));
+            int h_ = getPaintableLabel().heightFont();
+            int w_ = getFact().stringWidth(getPaintableLabel().getMetaFont(),getText());
             setPreferredSize(new MetaDimension(w_, h_));
         } else {
             setText(EMPTY_STRING);
@@ -56,8 +56,8 @@ public final class SuitLabel extends AbsMetaLabelCard {
     @Override
     public void paintComponent(AbstractImage _g) {
         if (!getText().isEmpty()) {
-            int h_ = heightFont();
-            int w_ = stringWidth(text);
+            int h_ = getPaintableLabel().heightFont();
+            int w_ = getFact().stringWidth(getPaintableLabel().getMetaFont(),text);
             LabelButtonUtil.paintDefaultLabel(_g, text, w_, getWidth(), h_, GuiConstants.newColor(0, 0, 127), GuiConstants.WHITE);
         } else {
             _g.setColor(GuiConstants.WHITE);

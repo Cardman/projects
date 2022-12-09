@@ -5,6 +5,7 @@ package cards.gui.labels.selection;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.labels.CustCellRenderCards;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -14,7 +15,7 @@ import code.util.core.NumberUtil;
 /**
     */
 
-public class SuitCellRenderer extends CustCellRender<Suit> {
+public class SuitCellRenderer extends CustCellRenderCards<Suit> {
     private Suit couleur;
     private boolean selectionne;
     private final WindowCardsInt window;
@@ -28,12 +29,6 @@ public class SuitCellRenderer extends CustCellRender<Suit> {
         couleur= get(_index);
         selectionne=_isSelected;
         _currentLab.setPreferredSize(new MetaDimension(100,10));
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

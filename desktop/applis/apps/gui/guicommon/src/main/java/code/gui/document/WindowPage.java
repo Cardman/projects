@@ -190,7 +190,7 @@ public final class WindowPage implements Runnable {
         if (_gr instanceof MetaOrderedList) {
             int len_ = _gr.getChildren().size();
             for (int i = 0; i < len_; i++) {
-                width_ = NumberUtil.max(width_, p_.stringWidth(Long.toString(i + 1L)));
+                width_ = NumberUtil.max(width_, page.getCompoFactory().stringWidth(p_.getMetaFont(),Long.toString(i + 1L)));
             }
         }
         return width_;

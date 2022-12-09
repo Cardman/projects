@@ -11,7 +11,9 @@ import code.util.CustList;
 
 public abstract class AbsMetaLabelCard {
     private final AbsPaintableLabel paintableLabel;
+    private final AbsCompoFactory fact;
     protected AbsMetaLabelCard(AbsCompoFactory _compoFactory) {
+        fact = _compoFactory;
         paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
 
@@ -32,6 +34,10 @@ public abstract class AbsMetaLabelCard {
 
     public abstract void paintComponent(AbstractImage _g2);
 
+    public AbsCompoFactory getFact() {
+        return fact;
+    }
+
     public AbsPaintableLabel getPaintableLabel() {
         return paintableLabel;
     }
@@ -51,24 +57,9 @@ public abstract class AbsMetaLabelCard {
     public int getHeight(){
         return getPaintableLabel().getPreferredSizeValue().getHeight();
     }
-    public int heightFont(){
-        return getPaintableLabel().heightFont();
-    }
-
-    public int stringWidth(String _string){
-        return getPaintableLabel().stringWidth(_string);
-    }
 
     public void setPreferredSize(MetaDimension _dim) {
         getPaintableLabel().setPreferredSize(_dim);
-    }
-
-    public void setBackground(int _color) {
-        getPaintableLabel().setBackground(_color);
-    }
-
-    public void setForeground(int _color) {
-        getPaintableLabel().setForeground(_color);
     }
 
     public void setLocation(int _x, int _y) {
@@ -83,9 +74,6 @@ public abstract class AbsMetaLabelCard {
     }
     public void setVisible(boolean _visible) {
         getPaintableLabel().setVisible(_visible);
-    }
-    public void setSize(MetaDimension _dimension) {
-        getPaintableLabel().setSize(_dimension);
     }
 
 }

@@ -20,7 +20,6 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class GuiExecutingBlocks {
-    private AbsPlainLabel textLabel;
     private AbsPlainButton stop;
     private FrameStruct frame;
     private StringList mainArgs;
@@ -64,12 +63,13 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintAdd;
     private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
+    private AbsCompoFactory compoFactory;
 
     public void initApplicationParts(StringList _mainArgs, GuiInterpreterElements _currentElements) {
         mainArgs = _mainArgs;
         guiInterpreterElements = _currentElements;
         AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
-        textLabel = programInfos_.getCompoFactory().newPlainLabel("");
+        compoFactory = programInfos_.getCompoFactory();
         confirm = new OtherConfirmDialog(programInfos_);
     }
     private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
@@ -555,7 +555,7 @@ public final class GuiExecutingBlocks {
         if (!(_string instanceof StringStruct)) {
             return new IntStruct(-1);
         }
-        return new IntStruct(textLabel.stringWidth(_font.getFont(),((StringStruct)_string).getInstance()));
+        return new IntStruct(compoFactory.stringWidth(_font.getFont(),((StringStruct)_string).getInstance()));
     }
 
     public AbsPlainButton getStop() {

@@ -22,7 +22,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
     }
 
     private GraphicStringList(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, boolean _simple, StringList _objects, Ints _selectedIndexes) {
-        super(_simple, _selectedIndexes,_objects, _objects, new DefaultGraphicListPainter(_fact), new DefaultCellRender(_fact, Panel.newPageBox()));
+        super(_simple, _selectedIndexes,_objects, _objects, new DefaultGraphicListPainter(_fact), new DefaultCellRender(_fact,_compoFactory, Panel.newPageBox()));
         fact = _fact;
         compoFactory = _compoFactory;
         elements = _objects;
@@ -37,7 +37,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
 
     @Override
     protected void repaintAll() {
-        LabelButtonUtil.repAll(this);
+        LabelButtonUtil.repAll(this,compoFactory);
     }
 
     public AbsCompoFactory getCompoFactory() {
@@ -59,7 +59,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
     }
 
     public void repaintSelect(int _index, boolean _sel) {
-        AbstractImage buff_ = LabelButtonUtil.repaintSelected(_index, _sel, this, (DefaultCellRender)getSimpleRender());
+        AbstractImage buff_ = LabelButtonUtil.repaintSelected(_index, _sel, this, (DefaultCellRender)getSimpleRender(),compoFactory);
         AbsPreparedLabel lab_ = getListComponents().get(_index);
         lab_.setIcon(fact,buff_);
     }
@@ -77,7 +77,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
 
     @Override
     public int getMaxWidth() {
-        return FrameUtil.maxWidth(this,getList());
+        return FrameUtil.maxWidth(this,getList(),compoFactory);
     }
     @Override
     protected void resetDimensions(){

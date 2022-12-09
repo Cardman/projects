@@ -288,12 +288,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
-    public int stringWidth(String _s) {
-        return stringWidth(metaFont,_s);
+    public int stringWidth(MetaFont _font, String _s) {
+        return strWidth(_font, _s);
     }
 
-    @Override
-    public int stringWidth(MetaFont _font, String _s) {
+    public static int strWidth(MetaFont _font, String _s) {
         if (_font == null) {
             return _s.length();
         }

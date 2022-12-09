@@ -1,7 +1,7 @@
 package code.mock;
 
 import code.gui.*;
-import code.gui.images.AbstractImage;
+import code.gui.images.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
@@ -276,5 +276,10 @@ public final class MockCompoFactory implements AbsCompoFactory {
     @Override
     public AbsMenuItem newMenuItem(String _value) {
         return new MockMenuItem(_value);
+    }
+
+    @Override
+    public int stringWidth(MetaFont _font, String _string) {
+        return MockCustComponent.strWidth(_font, _string);
     }
 }

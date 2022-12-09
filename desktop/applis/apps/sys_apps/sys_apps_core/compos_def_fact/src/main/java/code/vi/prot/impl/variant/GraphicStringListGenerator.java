@@ -14,7 +14,7 @@ public final class GraphicStringListGenerator implements AbstractGraphicStringLi
     }
 
     @Override
-    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
-        return new GraphicStringListMult(_fact,_objects, _selectedIndexes, _visibleRows);
+    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+        return new GraphicStringListMult(_fact,_compoFactory,_objects, _selectedIndexes, _visibleRows);
     }
 }

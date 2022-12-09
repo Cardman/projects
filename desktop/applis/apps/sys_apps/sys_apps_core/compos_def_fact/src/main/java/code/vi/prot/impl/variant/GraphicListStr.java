@@ -2,10 +2,11 @@ package code.vi.prot.impl.variant;
 
 import code.expressionlanguage.structs.Struct;
 import code.gui.*;
+import code.gui.initialize.AbsCompoFactory;
 
 public final class GraphicListStr extends GraphicList<Struct> implements AbsGraphicListStr {
-    public GraphicListStr(boolean _simple, AbsGraphicListPainter _graphicListPainter, SpecSelectionCtx _create) {
-        super(_simple, _graphicListPainter,  new DefaultCellRenderStr(_create,_graphicListPainter.getFact()));
+    public GraphicListStr(boolean _simple, AbsGraphicListPainter _graphicListPainter, SpecSelectionCtx _create, AbsCompoFactory _compoFactory) {
+        super(_simple, _graphicListPainter,  new DefaultCellRenderStr(_create,_graphicListPainter.getFact(),_compoFactory));
     }
 
     @Override

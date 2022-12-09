@@ -167,15 +167,15 @@ public final class FrameUtil {
         return Ints.newList(_selectedIndex);
     }
 
-    public static int maxWidth(AbsGraphicListCommon _current, CustList<String> _list) {
+    public static int maxWidth(AbsGraphicListCommon _current, CustList<String> _list, AbsCompoFactory _compoFactory) {
         AbsPanel panel_ = _current.getPanel();
-        return maxWidth(panel_, _list);
+        return maxWidth(panel_, _list,_compoFactory);
     }
 
-    public static int maxWidth(AbsPanel _current, CustList<String> _list) {
+    public static int maxWidth(AbsPanel _current, CustList<String> _list, AbsCompoFactory _compoFactory) {
         int width_ = 4;
         for (String s: _list) {
-            width_ = NumberUtil.max(width_, _current.stringWidth(s));
+            width_ = NumberUtil.max(width_, _compoFactory.stringWidth(_current.getMetaFont(),s));
         }
         return width_;
     }
@@ -723,9 +723,9 @@ public final class FrameUtil {
         _dest[_i] = _ints.get(_i);
     }
 
-    public static void paintLabel(int _render, AbstractImage _g, AbsPreparedLabel _label, String _text, boolean _selected) {
+    public static void paintLabel(int _render, AbstractImage _g, AbsPreparedLabel _label, String _text, boolean _selected, AbsCompoFactory _compo) {
         int h_ = _label.heightFont();
-        int w_ = _label.stringWidth(_text);
+        int w_ = _compo.stringWidth(_label.getMetaFont(),_text);
         if (_selected) {
             LabelButtonUtil.paintDefaultLabel(_g, _text, w_, _render, h_, GuiConstants.WHITE, GuiConstants.BLUE);
         } else {

@@ -48,7 +48,7 @@ public final class MoveLabel extends AbsMetaLabelPk {
             types_.add(type_);
         }
         text = StringUtil.concat(move,SPACE, StringUtil.join(types_, SPACE),SPACE,usesStr_);
-        setOpaque(true);
+        getPaintableLabel().setOpaque(true);
         setPreferredSize(new MetaDimension(150, 20));
     }
 

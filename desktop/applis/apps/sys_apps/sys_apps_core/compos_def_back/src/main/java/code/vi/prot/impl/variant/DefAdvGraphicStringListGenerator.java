@@ -13,14 +13,14 @@ import javax.swing.*;
 public final class DefAdvGraphicStringListGenerator implements AbstractGraphicStringListGenerator {
     @Override
     public AbsGraphicList<String> createStrList(AbstractImageFactory _fact, StringList _objects, AbsCompoFactory _compo) {
-        DefCustGrList<String> l_ = new DefCustGrList<String>(ListSelectionModel.SINGLE_SELECTION, new DefaultCellRender(_fact, Panel.newPageBox()));
+        DefCustGrList<String> l_ = new DefCustGrList<String>(ListSelectionModel.SINGLE_SELECTION, new DefaultCellRender(_fact,_compo, Panel.newPageBox()));
         FrameUtil.feed(l_,_objects);
         return l_;
     }
 
     @Override
-    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _fact, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
-        DefCustGrList<String> gr_ = new DefCustGrList<String>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION, new DefaultCellRender(_fact, Panel.newPageBox()));
+    public AbsGraphicList<String> createMultStrList(AbstractImageFactory _fact, AbsCompoFactory _compoFactory, StringList _objects, Ints _selectedIndexes, int _visibleRows) {
+        DefCustGrList<String> gr_ = new DefCustGrList<String>(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION, new DefaultCellRender(_fact,_compoFactory, Panel.newPageBox()));
         FrameUtil.feed(gr_,_objects);
         gr_.setSelectedIndexes(_selectedIndexes);
         return gr_;

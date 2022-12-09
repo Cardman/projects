@@ -4,13 +4,14 @@ package aiki.gui.components.fight;
 
 import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
+import aiki.gui.components.CustCellRenderPk;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.ConverterGraphicBufferedImage;
 import code.gui.images.MetaDimension;
 
-public class PokemonDataRenderer extends CustCellRender<String> {
+public class PokemonDataRenderer extends CustCellRenderPk<String> {
 
     private final int sideLength;
     private int height;
@@ -35,12 +36,6 @@ public class PokemonDataRenderer extends CustCellRender<String> {
 
     public void setNoEvo(String _noEvo) {
         noEvo = _noEvo;
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

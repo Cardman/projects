@@ -22,13 +22,13 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         graphicListString = _f.getGeneGraphicList().createStrList(_f.getImageFactory(),new StringList("4","5","6","7"), _f.getCompoFactory());
         graphicListString.setListener(new MockListSelection(1, this));
         getContentPane().add(graphicListString.scroll());
-        input = _f.getGeneGraphicList().createMultStrList(_f.getImageFactory(),new StringList("8","9","10","11"),new Ints(),2);
+        input = _f.getGeneGraphicList().createMultStrList(_f.getImageFactory(),_f.getCompoFactory(),new StringList("8","9","10","11"),new Ints(),2);
         input.setListener(new MockListSelection(2, this));
         getContentPane().add(input.getGlobal());
-        multList=_f.getGeneStrCompo().createMult(null,null);
+        multList=_f.getGeneStrCompo().createMult(null,null, guiEx_.getCompoFactory());
         multList.addListener(new MockListSelection(3,this));
         getContentPane().add(multList.scroll());
-        AbsGraphicListStr s_ = _f.getGeneStrCompo().createSimple(null, null);
+        AbsGraphicListStr s_ = _f.getGeneStrCompo().createSimple(null, null, guiEx_.getCompoFactory());
         getContentPane().add(s_.scroll());
         textField = _f.getCompoFactory().newTextField();
         getContentPane().add(textField);

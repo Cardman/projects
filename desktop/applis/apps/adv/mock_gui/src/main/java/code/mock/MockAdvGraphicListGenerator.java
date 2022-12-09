@@ -3,6 +3,7 @@ package code.mock;
 import code.gui.AbsGraphicListPainter;
 import code.gui.AbsGraphicListStr;
 import code.gui.SpecSelectionCtx;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractAdvGraphicListGenerator;
 
 public final class MockAdvGraphicListGenerator implements AbstractAdvGraphicListGenerator {
@@ -13,12 +14,12 @@ public final class MockAdvGraphicListGenerator implements AbstractAdvGraphicList
     }
 
     @Override
-    public AbsGraphicListStr createSimple(AbsGraphicListPainter _p, SpecSelectionCtx _s) {
+    public AbsGraphicListStr createSimple(AbsGraphicListPainter _p, SpecSelectionCtx _s, AbsCompoFactory _compoFactory) {
         return new MockCustGrListStr(cust);
     }
 
     @Override
-    public AbsGraphicListStr createMult(AbsGraphicListPainter _p, SpecSelectionCtx _s) {
+    public AbsGraphicListStr createMult(AbsGraphicListPainter _p, SpecSelectionCtx _s, AbsCompoFactory _compoFactory) {
         return new MockCustGrListStr(cust);
     }
 

@@ -15,7 +15,9 @@ public final class SongRenderer {
 
     private StringList songs = new StringList();
     private final AbsPaintableLabel paintableLabel;
+    private final AbsCompoFactory compo;
     public SongRenderer(AbsCompoFactory _compoFactory) {
+        compo = _compoFactory;
         paintableLabel = _compoFactory.newAbsPaintableLabel();
     }
 
@@ -30,7 +32,7 @@ public final class SongRenderer {
     public void setSize(AbstractImageFactory _fact) {
         int w_ = 0;
         for (String s: songs) {
-            int ws_ = paintableLabel.stringWidth(s);
+            int ws_ = compo.stringWidth(paintableLabel.getMetaFont(),s);
             if (ws_ > w_) {
                 w_ = ws_;
             }

@@ -55,9 +55,9 @@ public abstract class DualLabel extends DualLeaf {
         MetaStyle style_ = getComponent().getStyle();
         MetaFont copy_ = newFont(style_);
         int h_ = label.heightFont(copy_);
-        int w_ = label.stringWidth(copy_,text);
+        int w_ = getPage().getCompoFactory().stringWidth(copy_,text);
         if (w_ == 0) {
-            w_ = label.stringWidth(copy_," ");
+            w_ = getPage().getCompoFactory().stringWidth(copy_," ");
         }
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
         img_.setFont(copy_);
@@ -66,8 +66,8 @@ public abstract class DualLabel extends DualLeaf {
         img_.setColor(GuiConstants.ORANGE);
         for (SegmentPart s: segments) {
             int beginIndex_ = s.getBegin();
-            int b_ = label.stringWidth(copy_,text.substring(0, beginIndex_));
-            int d_ = label.stringWidth(copy_,text.substring(beginIndex_, s.getEnd()));
+            int b_ = getPage().getCompoFactory().stringWidth(copy_,text.substring(0, beginIndex_));
+            int d_ = getPage().getCompoFactory().stringWidth(copy_,text.substring(beginIndex_, s.getEnd()));
             img_.fillRect(b_, 0, d_, h_);
         }
         img_.setColor(GuiConstants.newColor(style_.getFgColor()));

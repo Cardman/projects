@@ -6,6 +6,7 @@ import cards.belote.enumerations.CardBelote;
 import cards.consts.Suit;
 import cards.facade.Games;
 import cards.gui.WindowCardsInt;
+import cards.gui.labels.CustCellRenderCards;
 import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -14,7 +15,7 @@ import code.util.core.NumberUtil;
 
 /**
  */
-public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
+public class CardBeloteCellRenderer extends CustCellRenderCards<CardBelote> {
     private CardBelote card;
     private boolean selectionne;
     private final WindowCardsInt window;
@@ -27,12 +28,6 @@ public class CardBeloteCellRenderer extends CustCellRender<CardBelote>{
         card= get(_index);
         selectionne=_isSelected;
         _currentLab.setPreferredSize(new MetaDimension(50,10));
-    }
-
-    @Override
-    public AbsCustCellRender fwd() {
-        setList(getListGr().getList());
-        return this;
     }
 
     @Override

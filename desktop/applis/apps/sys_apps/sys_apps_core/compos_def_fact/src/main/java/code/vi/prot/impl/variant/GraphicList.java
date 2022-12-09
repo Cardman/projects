@@ -58,7 +58,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = ((DefaultCellRender)_render).getPanel();
-        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls));
+        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls,((DefaultCellRender)_render).getCompo()));
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
         graphicListPainter = _graphicListPainter;
@@ -71,7 +71,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = ((DefaultCellRender)_render).getPanel();
-        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls));
+        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls,((DefaultCellRender)_render).getCompo()));
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
         graphicListPainter = new DefaultGraphicListPainter(_fact);
