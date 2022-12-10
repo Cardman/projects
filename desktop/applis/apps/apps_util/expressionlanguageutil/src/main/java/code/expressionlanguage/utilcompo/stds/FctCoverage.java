@@ -9,9 +9,11 @@ import code.expressionlanguage.exec.blocks.ExecFileBlock;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.LongStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.EntryTextStruct;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.util.StringMap;
 
 public final class FctCoverage implements StdCaller {
@@ -27,7 +29,9 @@ public final class FctCoverage implements StdCaller {
         String arrType_ = StringExpUtil.getPrettyArrayType(aliasEntryText);
         ArrayStruct arr_ = new ArrayStruct(len_,arrType_);
         for (int i = 0; i < len_; i++) {
-            arr_.set(i,new EntryTextStruct(new StringStruct(export_.getKey(i)),new StringStruct(export_.getValue(i))));
+            EntryTextStruct e_ = new EntryTextStruct(new StringStruct(export_.getKey(i)), new StringStruct(export_.getValue(i)));
+            e_.setLongTime(new LongStruct(((RunnableContextEl)_cont).getCurrentThreadFactory().millis()));
+            arr_.set(i, e_);
         }
         return new ArgumentWrapper(arr_);
     }
