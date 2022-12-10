@@ -11,7 +11,7 @@ public final class PreparedLabelStruct extends CustComponentStruct {
 
     public PreparedLabelStruct(AbstractImageFactory _fact, String _className) {
         super(_className);
-        textLabel = FrameUtil.prep(_fact);
+        textLabel = GuiBaseUtil.prep(_fact);
     }
     public PreparedLabelStruct(AbstractImageFactory _fact, AbsCompoFactory _comp, Struct _img, String _className) {
         super(_className);

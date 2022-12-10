@@ -2,7 +2,7 @@ package code.vi.prot.impl.variant;
 
 import code.gui.AbsPreparedLabel;
 import code.gui.CustCellRender;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.util.CustList;
 import code.vi.prot.impl.gui.CustComponent;
 
@@ -18,7 +18,7 @@ public final class DefCustSelList<T> implements ListCellRenderer {
     public DefCustSelList(CustList<T> _elts, CustCellRender<T> _render) {
         list = _elts;
         this.render = _render;
-        label = FrameUtil.prep(_render.getImageFactory());
+        label = GuiBaseUtil.prep(_render.getImageFactory());
     }
 
 

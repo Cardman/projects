@@ -98,7 +98,7 @@ public final class RenderedPage implements ProcessingSession {
     public void initialize(NatNavigation _nav,MetaDocument _metaDoc) {
         navCore = _nav.getBean();
         keys = _nav.getSession().getRendKeyWords();
-        FrameUtil.invokeLater(new WindowPage(_metaDoc, scroll, this), getGene());
+        GuiBaseUtil.invokeLater(new WindowPage(_metaDoc, scroll, this), getGene());
     }
 
     /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
@@ -187,7 +187,7 @@ public final class RenderedPage implements ProcessingSession {
     private void setupText() {
         Document doc_ = navCore.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys);
-        FrameUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
+        GuiBaseUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
     }
     void directScroll(MetaDocument _meta) {
         if (frame != null && !navCore.getTitle().isEmpty()) {

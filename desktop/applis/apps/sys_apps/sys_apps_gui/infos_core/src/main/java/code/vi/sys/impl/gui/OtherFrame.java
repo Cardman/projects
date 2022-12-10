@@ -29,6 +29,7 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
 
     public OtherFrame() {
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        frame.setContentPane(Panel.newLineBox().getNatComponent());
     }
 
     public void setMainFrame(boolean _mainFrame) {

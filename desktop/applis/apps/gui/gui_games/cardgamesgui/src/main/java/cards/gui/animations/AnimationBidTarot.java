@@ -6,7 +6,7 @@ import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
 import cards.tarot.enumerations.BidTarot;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -66,6 +66,6 @@ public final class AnimationBidTarot implements Runnable {
 //                return;
 //            }
         }
-        FrameUtil.invokeLater(new AfterAnimationBidTarot(_container), _container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new AfterAnimationBidTarot(_container), _container.getOwner().getFrames());
     }
 }

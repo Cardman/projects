@@ -26,6 +26,6 @@ public final class ThreadInvoker implements Runnable {
 
     @Override
     public void run() {
-        FrameUtil.invokeLater(thread, infos);
+        GuiBaseUtil.invokeLater(thread, infos);
     }
 }

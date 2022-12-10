@@ -1,6 +1,6 @@
 package code.network;
 
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
@@ -29,7 +29,7 @@ public final class BasicClient extends SendReceive {
             }
             Exiting exiting_ = getNet().getExiting(doc_);
             if (exiting_ != null) {
-                FrameUtil.invokeLater(new Quitting(exiting_, getNet(), getSocket()), getNet().getFrames());
+                GuiBaseUtil.invokeLater(new Quitting(exiting_, getNet(), getSocket()), getNet().getFrames());
                 return;
             }
             ThreadInvoker.invokeNow(getNet().getThreadFactory(),new LoopClient(getNet(),doc_, getSocket()), getNet().getFrames());

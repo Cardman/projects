@@ -6,7 +6,7 @@ import cards.belote.GameBelote;
 import cards.facade.Games;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -87,6 +87,6 @@ public final class AnimationBidBelote implements Runnable {
 //                return;
 //            }
         }
-        FrameUtil.invokeLater(new AfterAnimationBidBelote(_container), _container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new AfterAnimationBidBelote(_container), _container.getOwner().getFrames());
     }
 }

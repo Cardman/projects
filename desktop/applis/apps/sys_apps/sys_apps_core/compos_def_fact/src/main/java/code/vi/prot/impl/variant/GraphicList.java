@@ -96,7 +96,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
     public void add(int _index, T _elt) {
         list.add(_index, _elt);
-        AbsPreparedLabel lab_ = FrameUtil.prep(graphicListPainter.getFact());
+        AbsPreparedLabel lab_ = GuiBaseUtil.prep(graphicListPainter.getFact());
         addLab(_index, lab_);
     }
 
@@ -144,7 +144,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         panel_.add(_lab, _index);
     }
     public void set(int _index, T _elt) {
-        AbsPreparedLabel lab_ = FrameUtil.prep(graphicListPainter.getFact());
+        AbsPreparedLabel lab_ = GuiBaseUtil.prep(graphicListPainter.getFact());
         set(_index,lab_,_elt);
     }
     public int set(int _index, AbsPreparedLabel _lab, T _elt) {

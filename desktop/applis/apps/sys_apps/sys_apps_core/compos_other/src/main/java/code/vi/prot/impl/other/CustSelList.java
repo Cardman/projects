@@ -3,7 +3,7 @@ import javax.swing.ListCellRenderer;
 
 import code.gui.AbsPreparedLabel;
 import code.gui.CustCellRender;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.vi.prot.impl.gui.CustComponent;
 import code.util.CustList;
 import javax.swing.*;
@@ -18,7 +18,7 @@ public final class CustSelList<T> implements ListCellRenderer<T> {
     public CustSelList(CustList<T> _elts, CustCellRender<T> _render) {
         list = _elts;
         this.render = _render;
-        label = FrameUtil.prep(_render.getImageFactory());
+        label = GuiBaseUtil.prep(_render.getImageFactory());
     }
 
 

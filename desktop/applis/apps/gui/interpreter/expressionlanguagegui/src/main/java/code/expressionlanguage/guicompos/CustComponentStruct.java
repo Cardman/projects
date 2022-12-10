@@ -5,7 +5,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsCustComponent;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsKeyListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseMotionListener;
@@ -33,7 +33,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             if (_run.getExecutingOptions().isInvokeDirect()) {
                 _run.getCurrentThreadFactory().newStartedThread((Runnable) _r);
             } else {
-                FrameUtil.invokeLater((Runnable) _r, _frames);
+                GuiBaseUtil.invokeLater((Runnable) _r, _frames);
             }
 
         }

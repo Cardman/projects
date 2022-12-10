@@ -92,7 +92,7 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     @Override
     public void prepare() {
-        FrameUtil.invokeLater(new PrepareSimuBelote(this), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new PrepareSimuBelote(this), container.getOwner().getFrames());
     }
     void prepareGui() {
         container.setArretDemo(false);
@@ -181,12 +181,12 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
 
     @Override
     public void stopDemo() {
-        FrameUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
     }
 
     @Override
     public void endDeal() {
-        FrameUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new EndDealSimuBelote(this), container.getOwner().getFrames());
     }
 
     void endGuiDeal() {

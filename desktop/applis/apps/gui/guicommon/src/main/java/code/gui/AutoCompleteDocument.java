@@ -118,7 +118,7 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         if (skip()) {
             return;
         }
-        FrameUtil.invokeLater(new DocumentChanged(this), abs);
+        GuiBaseUtil.invokeLater(new DocumentChanged(this), abs);
     }
     void documentChanged() {
         // Updating results list

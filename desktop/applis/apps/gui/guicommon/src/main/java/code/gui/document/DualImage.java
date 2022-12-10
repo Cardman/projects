@@ -10,7 +10,7 @@ public abstract class DualImage extends DualLeaf {
     public DualImage(DualContainer _container, MetaImage _component,
             RenderedPage _page) {
         super(_container, _component, _page);
-        label = FrameUtil.prep(_page.getGene().getImageFactory());
+        label = GuiBaseUtil.prep(_page.getGene().getImageFactory());
         updateGraphics(label,_component);
     }
 

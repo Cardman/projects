@@ -1,7 +1,7 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaDocument;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.sml.Document;
 
 public abstract class AbstractThreadActions implements Runnable {
@@ -44,7 +44,7 @@ public abstract class AbstractThreadActions implements Runnable {
             return;
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getKeys());
-        FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
+        GuiBaseUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
     }
 
     protected void finish() {

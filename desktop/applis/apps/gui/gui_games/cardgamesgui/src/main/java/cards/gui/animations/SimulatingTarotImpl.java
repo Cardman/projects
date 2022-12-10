@@ -86,7 +86,7 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void prepare() {
-        FrameUtil.invokeLater(new PrepareSimuTarot(this), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new PrepareSimuTarot(this), container.getOwner().getFrames());
     }
 
     void prepareGui() {
@@ -177,12 +177,12 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
 
     @Override
     public void stopDemo() {
-        FrameUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
     }
 
     @Override
     public void endDeal() {
-        FrameUtil.invokeLater(new EndDealSimuTarot(this), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new EndDealSimuTarot(this), container.getOwner().getFrames());
     }
 
     void endGuiDeal() {

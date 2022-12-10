@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.images.AbstractImageFactory;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.util.CustList;
 
 public final class GuiBaseUtil {
@@ -64,5 +66,13 @@ public final class GuiBaseUtil {
         }
 
         return -1;
+    }
+
+    public static AbsPreparedLabel prep(AbstractImageFactory _img) {
+        return _img.newImageArgb(1,1).newAbsPreparedLabel();
+    }
+
+    public static void invokeLater(Runnable _r, AbstractLightProgramInfos _compoFactory) {
+        _compoFactory.getCompoFactory().invokeLater(_r);
     }
 }

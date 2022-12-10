@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.belote.DealBelote;
 import cards.belote.GameBelote;
 import cards.gui.containers.ContainerSingleBelote;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.ThreadInvoker;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -87,6 +87,6 @@ public final class AnimationCardBelote implements Runnable {
 //                return;
 //            }
         }
-        FrameUtil.invokeLater(new AfterAnimationCardBelote(_container), _container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new AfterAnimationCardBelote(_container), _container.getOwner().getFrames());
     }
 }

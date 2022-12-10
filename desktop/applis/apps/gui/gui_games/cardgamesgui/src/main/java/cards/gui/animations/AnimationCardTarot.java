@@ -3,7 +3,7 @@ package cards.gui.animations;
 import cards.gui.containers.ContainerSingleTarot;
 import cards.tarot.DealTarot;
 import cards.tarot.GameTarot;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.MenuItemUtils;
 import code.threads.ThreadUtil;
 import code.util.StringList;
@@ -85,6 +85,6 @@ public final class AnimationCardTarot implements Runnable {
 //                return;
 //            }
         }
-        FrameUtil.invokeLater(new AfterAnimationCardTarot(_container), _container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new AfterAnimationCardTarot(_container), _container.getOwner().getFrames());
     }
 }

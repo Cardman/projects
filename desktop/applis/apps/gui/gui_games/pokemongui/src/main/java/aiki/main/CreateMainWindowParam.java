@@ -6,7 +6,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.threads.PerCentIncr;
 import aiki.sml.LoadingData;
 import aiki.sml.LoadingGame;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractFuture;
@@ -73,7 +73,7 @@ public final class CreateMainWindowParam implements Runnable {
         sch_.shutdown();
         OpeningGame.end(window);
         window.setLoadingConf(load, false);
-        FrameUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_), window.getFrames());
+        GuiBaseUtil.invokeLater(new AfterLoadingBegin(window, stoppedLoading_, false, loadRom_), window.getFrames());
     }
 
     public WindowAiki getWindow() {

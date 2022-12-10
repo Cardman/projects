@@ -1,7 +1,9 @@
 package code.gui;
 
+import code.gui.events.*;
+import code.gui.initialize.*;
 import code.mock.*;
-import code.util.CustList;
+import code.util.*;
 import org.junit.Test;
 
 public class GuiBaseUtilTest extends EquallableGuiFctUtil {
@@ -31,4 +33,20 @@ public class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(-1, GuiBaseUtil.indexOf(new CustList<AbsCustComponent>(),null));
     }
 
+    @Test
+    public void prep() {
+        AbsPreparedLabel l_ = GuiBaseUtil.prep(new MockImageFactory());
+        assertEq(1, l_.getWidth());
+        assertEq(1, l_.getHeight());
+    }
+    @Test
+    public void invokeLater() {
+        MockProgramInfosSecSample init_ = new MockProgramInfosSecSample("","",0,new long[0],false,"/");
+        MockRunnable r_ = new MockRunnable();
+        AbsCompoFactory ab_ = init_.getCompoFactory();
+        GuiBaseUtil.invokeLater(r_,init_);
+        assertFalse(r_.isStarted());
+        ((MockCompoFactory)ab_).invoke();
+        assertTrue(r_.isStarted());
+    }
 }

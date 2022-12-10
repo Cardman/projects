@@ -3,10 +3,8 @@ package code.gui;
 import code.expressionlanguage.structs.Struct;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
-import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -120,13 +118,6 @@ public final class FrameUtil {
 
     public static void invokeLater(Runnable _r, AbsCompoFactory _compoFactory) {
         _compoFactory.invokeLater(_r);
-    }
-    public static void invokeLater(Runnable _r, AbstractLightProgramInfos _compoFactory) {
-        _compoFactory.getCompoFactory().invokeLater(_r);
-    }
-
-    public static AbsPreparedLabel prep(AbstractImageFactory _img) {
-        return _img.newImageArgb(1,1).newAbsPreparedLabel();
     }
 
 //    public static void repaintLists(AbstractImageFactory _fact, AbsPanel _panel) {
@@ -520,7 +511,7 @@ public final class FrameUtil {
         AbsPanel panel_ = _curr.getPanel();
         int index_ = 0;
         for (int i = 0; i < _len; i++) {
-            AbsPreparedLabel lab_ = prep(_graphicListPainter.getFact());
+            AbsPreparedLabel lab_ = GuiBaseUtil.prep(_graphicListPainter.getFact());
             _curr.getListComponents().add(lab_);
             panel_.add(lab_);
             AbsPreparedLabel c_ = _curr.getListComponents().get(index_);

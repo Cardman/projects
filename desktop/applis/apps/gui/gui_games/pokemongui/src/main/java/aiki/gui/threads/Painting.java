@@ -5,7 +5,7 @@ import aiki.gui.WindowAiki;
 import aiki.gui.components.AbsMetaLabelPk;
 import aiki.gui.components.walk.Scene;
 import aiki.map.enums.Direction;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.threads.ThreadUtil;
 import code.util.core.IndexConstants;
 
@@ -55,10 +55,10 @@ public final class Painting implements Runnable {
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
             if (facade.isChangeToFightScene()) {
-                FrameUtil.invokeLater(new SetFightPanel(window), window.getFrames());
+                GuiBaseUtil.invokeLater(new SetFightPanel(window), window.getFrames());
                 return;
             }
-            FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
+            GuiBaseUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
         scene.setAnimated(true);
@@ -78,7 +78,7 @@ public final class Painting implements Runnable {
                     AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
                 }
             }
-            FrameUtil.invokeLater(new SetFightPanel(window), window.getFrames());
+            GuiBaseUtil.invokeLater(new SetFightPanel(window), window.getFrames());
             return;
         }
         if (facade.getGame().getNbSteps() == 0) {
@@ -87,7 +87,7 @@ public final class Painting implements Runnable {
             scene.setDelta(0, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-            FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
+            GuiBaseUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
         if (facade.getGame().isPlaceChanged()) {
@@ -96,7 +96,7 @@ public final class Painting implements Runnable {
             scene.load(window.getImageFactory(),facade, false);
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
-            FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
+            GuiBaseUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
             return;
         }
         facade.changeCamera(dir);
@@ -106,6 +106,6 @@ public final class Painting implements Runnable {
             ThreadUtil.sleep(window.getThreadFactory(),pause);
             AbsMetaLabelPk.paintPk(window.getImageFactory(), scene);
         }
-        FrameUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
+        GuiBaseUtil.invokeLater(new SetInteractionScene(window), window.getFrames());
     }
 }

@@ -68,7 +68,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
             StreamTextFile.saveTextFile(f.getAbsolutePath(), StringUtil.join(dealsNumbers_, LINE_RETURN), getFrames().getStreams());
         }
         TopLeftFrame coordonnees_=loadCoords(getTempFolder(getFrames()), FileConst.COORDS, getFrames().getFileCoreStream(), getFrames().getStreams());
-        FrameUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),factories), getFrames());
+        GuiBaseUtil.invokeLater(new LaunchingGame(getFile(_args), _language,coordonnees_, getFrames(),factories), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

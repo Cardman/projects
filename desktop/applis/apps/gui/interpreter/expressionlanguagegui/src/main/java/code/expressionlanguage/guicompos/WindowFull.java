@@ -122,7 +122,7 @@ public final class WindowFull extends GroupFrame {
         if (_direct) {
             current_.run();
         } else {
-            FrameUtil.invokeLater(current_, getFrames());
+            GuiBaseUtil.invokeLater(current_, getFrames());
         }
     }
 

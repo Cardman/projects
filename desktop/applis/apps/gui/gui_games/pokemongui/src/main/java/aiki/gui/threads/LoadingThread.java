@@ -5,7 +5,7 @@ import aiki.main.OpeningGame;
 import aiki.sml.LoadingData;
 import aiki.db.PerCent;
 import aiki.gui.WindowAiki;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 
@@ -44,7 +44,7 @@ public final class LoadingThread implements Runnable {
             window.getDialog().getAbsDialog().setVisible(false);
             return;
         }
-        FrameUtil.invokeLater(new AfterLoadingThread(window, fileName), window.getFrames());
+        GuiBaseUtil.invokeLater(new AfterLoadingThread(window, fileName), window.getFrames());
         window = null;
     }
 }

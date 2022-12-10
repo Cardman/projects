@@ -74,7 +74,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     @Override
     public void prepare() {
-        FrameUtil.invokeLater(new PrepareSimuPresident(this), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new PrepareSimuPresident(this), container.getOwner().getFrames());
     }
 
     void prepareGui() {
@@ -161,12 +161,12 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     @Override
     public void stopDemo() {
-        FrameUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new StopDemo(container), container.getOwner().getFrames());
     }
 
     @Override
     public void displaySwitchedUserHand(Bytes _winners, Bytes _loosers, int _noDeal,CustList<HandPresident> _switchedCards) {
-        FrameUtil.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new DisplaySwitchedCardsSimuPresident(this,_winners,_loosers,_switchedCards), container.getOwner().getFrames());
     }
 
     void displayGuiSwitchedUserHand(Bytes _winners, Bytes _loosers, CustList<HandPresident> _switchedCards) {
@@ -223,7 +223,7 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
 
     @Override
     public void endDeal() {
-        FrameUtil.invokeLater(new EndDealSimuPresident(this), container.getOwner().getFrames());
+        GuiBaseUtil.invokeLater(new EndDealSimuPresident(this), container.getOwner().getFrames());
     }
 
     void endGuiDeal() {

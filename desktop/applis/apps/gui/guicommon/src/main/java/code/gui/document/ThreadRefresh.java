@@ -1,9 +1,9 @@
 package code.gui.document;
 
 import code.bean.nat.BeanNatCommonLgNames;
+import code.gui.GuiBaseUtil;
 import code.sml.RendKeyWordsGroup;
 import code.formathtml.render.MetaDocument;
-import code.gui.FrameUtil;
 import code.sml.Document;
 
 public final class ThreadRefresh implements Runnable {
@@ -35,7 +35,7 @@ public final class ThreadRefresh implements Runnable {
         }
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,new RendKeyWordsGroup());
 //        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,page.getNavigation().getSession().getRendKeyWords());
-        FrameUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
+        GuiBaseUtil.invokeLater(new WindowPage(metadoc_, page.getScroll(), page), page.getGene());
     }
 
     private void finish() {
