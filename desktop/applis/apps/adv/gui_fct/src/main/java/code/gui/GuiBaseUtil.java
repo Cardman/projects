@@ -75,4 +75,28 @@ public final class GuiBaseUtil {
     public static void invokeLater(Runnable _r, AbstractLightProgramInfos _compoFactory) {
         _compoFactory.getCompoFactory().invokeLater(_r);
     }
+
+    public static void setOrient(AbsSlider _slider,int _o) {
+        if (GuiConstants.getOrient(_o) == GuiConstants.HORIZONTAL) {
+            _slider.setHorizontal();
+        } else {
+            _slider.setVertical();
+        }
+    }
+
+    public static void setHorizProg(AbsProgressBar _bar, boolean _horiz) {
+        if (_horiz) {
+            _bar.setHorizontal();
+        } else {
+            _bar.setVertical();
+        }
+    }
+
+    public static void setSelectTable(AbsTableGui _table, boolean _mult) {
+        if (_mult) {
+            _table.setMultiSelect();
+        } else {
+            _table.setSingleSelect();
+        }
+    }
 }

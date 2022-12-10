@@ -1,7 +1,7 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsSlider;
-import code.gui.GuiConstants;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsChangeListener;
 import code.vi.prot.impl.gui.events.WrChangeListener;
 
@@ -61,7 +61,7 @@ public final class Slider extends CustComponent implements AbsSlider {
     }
 
     public void setOrientation(int _orientation) {
-        GuiConstants.setOrient(this,_orientation);
+        GuiBaseUtil.setOrient(this,_orientation);
     }
 
     @Override

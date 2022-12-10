@@ -1,7 +1,7 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsProgressBar;
-import code.gui.GuiConstants;
+import code.gui.GuiBaseUtil;
 
 import javax.swing.*;
 
@@ -27,7 +27,7 @@ public final class ProgressBar extends CustComponent implements AbsProgressBar {
 
     public void setHorizontal(boolean _bool) {
         horizontal = _bool;
-        GuiConstants.setHorizProg(this,_bool);
+        GuiBaseUtil.setHorizProg(this,_bool);
     }
 
     @Override

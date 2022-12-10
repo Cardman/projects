@@ -1,7 +1,7 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTableGui;
-import code.gui.GuiConstants;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsListSelectionListener;
 import code.gui.events.AbsMouseListener;
 import code.gui.events.AbsMouseListenerCl;
@@ -103,7 +103,7 @@ public final class TableGui extends CustComponent implements AbsTableGui {
 
     public void setMultiSelect(boolean _mult) {
         multiSelect = _mult;
-        GuiConstants.setSelectTable(this,_mult);
+        GuiBaseUtil.setSelectTable(this,_mult);
     }
 
     @Override

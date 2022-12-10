@@ -102,30 +102,6 @@ public final class GuiConstants {
         return HORIZONTAL;
     }
 
-    public static void setOrient(AbsSlider _slider,int _o) {
-        if (getOrient(_o) == HORIZONTAL) {
-            _slider.setHorizontal();
-        } else {
-            _slider.setVertical();
-        }
-    }
-
-    public static void setHorizProg(AbsProgressBar _bar, boolean _horiz) {
-        if (_horiz) {
-            _bar.setHorizontal();
-        } else {
-            _bar.setVertical();
-        }
-    }
-
-    public static void setSelectTable(AbsTableGui _table,boolean _mult) {
-        if (_mult) {
-            _table.setMultiSelect();
-        } else {
-            _table.setSingleSelect();
-        }
-    }
-
     public static int fontStyle(boolean _bold, boolean _italic) {
         int font_;
         if (_bold) {
