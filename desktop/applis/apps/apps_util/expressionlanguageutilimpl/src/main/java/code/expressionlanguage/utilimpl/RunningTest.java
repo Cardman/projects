@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.WarningShow;
@@ -91,7 +92,7 @@ public final class RunningTest implements Runnable {
             return;
         }
         opt_.setReadOnly(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesUtils(_infos,_progressingTests.getInterceptor()));
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getInterceptor()));
     }
 
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {

@@ -46,7 +46,7 @@ public final class GuiProcess implements GuiRunnable {
     private String mName;
     private AbstractProgramInfos programInfos;
 
-    public static GuiProcess build(String _conf, String _content, GuiInterpreterElements _currentElements,AbstractProgramInfos _original) {
+    public static GuiProcess build(String _conf, String _content, AbstractProgramInfos _original) {
         StringList mainArgs_ = new StringList(_conf);
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
@@ -90,7 +90,7 @@ public final class GuiProcess implements GuiRunnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _original.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _original.getFileCoreStream(), _original.getStreams()), new DefaultFileSystem(app_, validator_, _original.getFileCoreStream(), _original.getStreams()), new DefaultReporter(validator_, app_, false, new TechInfos(_original.getThreadFactory(), _original.getStreams()), _original.getFileCoreStream()), _original.getGenerator(), _original.getStreams().getZipFact(), _original.getThreadFactory());
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _original.getFileCoreStream(), _original.getStreams()), new DefaultFileSystem(app_, validator_, _original.getFileCoreStream(), _original.getStreams()), new DefaultReporter(_original,validator_, app_, false, new TechInfos(_original.getThreadFactory(), _original.getStreams()), _original.getFileCoreStream()), _original.getGenerator(), _original.getStreams().getZipFact(), _original.getThreadFactory());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {
@@ -98,7 +98,7 @@ public final class GuiProcess implements GuiRunnable {
         }
         opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui(fileInfos_, _original.getInterceptor());
-        ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _currentElements);
+        ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _original);
         ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());

@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 import code.util.StringMap;
@@ -26,6 +27,7 @@ public final class ExecutingOptions {
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
+    private AbstractLightProgramInfos lightProgramInfos;
 
     public ExecutingOptions(AbstractAtomicBoolean _inter) {
         interrupt = _inter;
@@ -184,5 +186,13 @@ public final class ExecutingOptions {
 
     public void setOutputFolder(String _outputFolder) {
         outputFolder = _outputFolder;
+    }
+
+    public AbstractLightProgramInfos getLightProgramInfos() {
+        return lightProgramInfos;
+    }
+
+    public void setLightProgramInfos(AbstractLightProgramInfos _l) {
+        this.lightProgramInfos = _l;
     }
 }

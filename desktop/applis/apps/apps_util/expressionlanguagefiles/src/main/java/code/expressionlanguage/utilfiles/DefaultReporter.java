@@ -2,6 +2,7 @@ package code.expressionlanguage.utilfiles;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.*;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -18,8 +19,10 @@ public final class DefaultReporter implements AbstractReporter {
     private final boolean memory;
     private final TechInfos threadFactory;
     private final AbstractFileCoreStream fileCoreStream;
+    private final AbstractLightProgramInfos li;
 
-    public DefaultReporter(AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, TechInfos _threadFactory, AbstractFileCoreStream _fact) {
+    public DefaultReporter(AbstractLightProgramInfos _light, AbstractNameValidating _nameValidating, UniformingString _uniformingString, boolean _memory, TechInfos _threadFactory, AbstractFileCoreStream _fact) {
+        li = _light;
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
         memory = _memory;
@@ -81,6 +84,7 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
+        _exec.setLightProgramInfos(li);
         StringList foldersConf_ = new StringList();
         if (!nameValidating.okPath(_exec.getMainThread(),'/','\\')) {
             return true;

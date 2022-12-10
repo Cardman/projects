@@ -2,6 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.stream.core.*;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThreadFactory;
@@ -23,16 +24,18 @@ public final class MemoryReporter implements AbstractReporter {
     private final UniformingString uniformingString;
     private final AbstractZipFact zipFact;
     private final AbstractThreadFactory threadFactory;
+    private final AbstractLightProgramInfos li;
     private final StringMap<ContentTime> reports = new StringMap<ContentTime>();
 
-    public MemoryReporter(byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString, AbstractZipFact _zipFact, AbstractThreadFactory _threadFactory) {
+    public MemoryReporter(AbstractLightProgramInfos _light, byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
         nameValidating = _nameValidating;
         uniformingString = _uniformingString;
-        zipFact = _zipFact;
-        threadFactory = _threadFactory;
+        li = _light;
+        zipFact = _light.getZipFact();
+        threadFactory = _light.getThreadFactory();
     }
 
     @Override
@@ -57,6 +60,7 @@ public final class MemoryReporter implements AbstractReporter {
 
     @Override
     public boolean koPaths(String _folderPath, ExecutingOptions _exec) {
+        _exec.setLightProgramInfos(li);
         if (!nameValidating.okPath(_exec.getOutputZip(),'/','\\')) {
             return true;
         }

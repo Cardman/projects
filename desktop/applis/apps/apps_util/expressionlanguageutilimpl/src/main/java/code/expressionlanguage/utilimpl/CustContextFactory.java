@@ -11,6 +11,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.guicompos.GuiFileBuilder;
+import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
@@ -21,46 +23,49 @@ import code.expressionlanguage.utilcompo.*;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
 import code.util.EntryCust;
+import code.util.StringList;
 import code.util.StringMap;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
     public static ResultContext buildDefKw(String _lang,
-                                                    Options _options, ExecutingOptions _exec, LgNamesWithNewAliases _undefinedLgNames, StringMap<String> _files) {
+                                                    Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         preinit(_lang, _options, _exec, mess_, kwl_, _undefinedLgNames);
         return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files);
     }
     public static void executeDefKw(String _lang,
-                                    Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesUtils _stds) {
+                                    Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesGui _stds) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
         preinit(_lang, _options, _exec, mess_, kwl_, _stds);
         execute(_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
     }
 
-    private static void preinit(String _lang, Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesWithNewAliases _aliases) {
+    private static void preinit(String _lang, Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
         preinitAliases(_lang, _exec, _mess, _kwl, _aliases);
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
     }
 
-    public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesWithNewAliases _aliases) {
+    public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
         if (!_lang.isEmpty()) {
             _aliases.getCustAliases().messages(_mess, _lang, _exec.getMessages());
             _aliases.getCustAliases().keyWord(_kwl, _lang, _exec.getKeyWords());
             _aliases.getCustAliases().otherAlias(_aliases.getContent(), _lang, _exec.getAliases());
+            _aliases.getGuiAliases().otherAliasGui(_aliases.addon(_lang),_exec.getAliases());
         } else {
             _aliases.getCustAliases().messages(_mess, _exec.getMessages(), new StringMap<String>());
             _aliases.getCustAliases().keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
             _aliases.getCustAliases().allAlias(_aliases.getContent(), _exec.getAliases(), new StringMap<String>());
+            _aliases.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
         }
     }
 
     public static void execute(Options _options, ExecutingOptions _exec,
                                AnalysisMessages _mess,
                                KeyWords _definedKw,
-                               LgNamesUtils _definedLgNames, StringMap<String> _files,
+                               LgNamesGui _definedLgNames, StringMap<String> _files,
                                ProgressingTests _progressingTests) {
         _progressingTests.init(_exec);
         ResultContext res_ = build(_options, _exec, _mess,_definedKw,
@@ -110,10 +115,11 @@ public final class CustContextFactory {
             }
         }
     }
-    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesWithNewAliases _definedLgNames, StringMap<String> _files) {
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         _definedLgNames.setExecutingOptions(_exec);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        CustFileBuilder fileBuilder_ = CustFileBuilder.newInstance(_definedLgNames.getContent(), _definedLgNames.getCustAliases());
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);

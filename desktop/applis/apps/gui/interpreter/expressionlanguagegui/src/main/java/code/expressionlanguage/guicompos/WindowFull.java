@@ -8,6 +8,7 @@ import code.gui.AbsMenuItem;
 
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
@@ -30,11 +31,13 @@ public final class WindowFull extends GroupFrame {
     private final AbsPlainButton stop;
 
     private final StringMap<String> messages;
-    private final GuiInterpreterElements currentElements;
+//    private final GuiInterpreterElements currentElements;
+    private AbstractLightProgramInfos light;
+    private GuiContextEl context;
 
     public WindowFull(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
-        currentElements = new GuiInterpreterElements(getFrames());
+//        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", getLanguageKey(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmGuiGr.ms().getVal(fileName_);
@@ -92,33 +95,39 @@ public final class WindowFull extends GroupFrame {
     }
 
     public void process() {
-        if (currentElements.getGuiRunnable() != null) {
+        if (light != null) {
             return;
         }
         String txt_ = conf.getText().trim();
-        GuiRunnable current_ = GuiProcess.build("", txt_, getCurrentElements(),getFrames());
-        currentElements.setGuiRunnable(current_);
+        GuiRunnable current_ = GuiProcess.build("", txt_, getFrames());
+//        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             stop.setEnabled(true);
             return;
         }
+        light = getFrames();
+        context = current_.getContext();
         ((LgNamesGui) current_.getContext().getStandards()).getGuiExecutingBlocks().setStop(stop);
         current_.run();
         coverage.setEnabled(true);
     }
     public void launchFileConf(String _fichier, boolean _direct) {
-        if (currentElements.getGuiRunnable() != null) {
+        if (light != null) {
             return;
         }
         String content_ = StreamTextFile.contentsOfFile(_fichier,getFileCoreStream(),getStreams());
         if (content_ == null) {
             return;
         }
-        GuiRunnable current_ = GuiProcess.build(_fichier, content_, getCurrentElements(),getFrames());
-        currentElements.setGuiRunnable(current_);
+        GuiRunnable current_ = GuiProcess.build(_fichier, content_, getFrames());
+//        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
+            stop.setEnabled(true);
             return;
         }
+        light = getFrames();
+        context = current_.getContext();
+        ((LgNamesGui) current_.getContext().getStandards()).getGuiExecutingBlocks().setStop(stop);
         if (_direct) {
             current_.run();
         } else {
@@ -128,8 +137,7 @@ public final class WindowFull extends GroupFrame {
 
     @Override
     public void quit() {
-        GuiRunnable current_ = currentElements.getGuiRunnable();
-        if (current_ != null) {
+        if (light != null) {
             return;
         }
         coverage.setEnabled(false);
@@ -152,17 +160,18 @@ public final class WindowFull extends GroupFrame {
         //
     }
 
-    public GuiInterpreterElements getCurrentElements() {
-        return currentElements;
-    }
+//    public GuiInterpreterElements getCurrentElements() {
+//        return currentElements;
+//    }
 
     public void coverage() {
-        new CoveringCodeTask(currentElements.getGuiRunnable().getContext(), currentElements.getGuiRunnable().getContext().getExecutingOptions()).run();
+        new CoveringCodeTask(context, context.getExecutingOptions()).run();
     }
 
     public void stopAction() {
         coverage.setEnabled(false);
         stop.setEnabled(false);
-        ((LgNamesGui) currentElements.getGuiRunnable().getContext().getStandards()).getGuiExecutingBlocks().getGuiInterpreterElements().setGuiRunnable(null);
+        light = null;
+//        ((LgNamesGui) context.getStandards()).getGuiExecutingBlocks().getGuiInterpreterElements().setGuiRunnable(null);
     }
 }

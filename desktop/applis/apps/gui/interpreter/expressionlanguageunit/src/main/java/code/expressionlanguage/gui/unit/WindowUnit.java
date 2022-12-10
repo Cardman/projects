@@ -238,7 +238,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
         return new FileInfos(buildLogger(validator_),
-                buildSystem(validator_), new DefaultReporter(validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
+                buildSystem(validator_), new DefaultReporter(getFrames().light(),validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
     }
 
     @Override

@@ -24,7 +24,7 @@ public final class GuiExecutingBlocks {
 //    private FrameStruct frame;
     private StringList mainArgs;
     private OtherConfirmDialog confirm;
-    private GuiInterpreterElements guiInterpreterElements;
+    private AbstractLightProgramInfos guiInterpreterElements;
     private ExecRootBlock actionListener;
     private ExecNamedFunctionBlock actionPerformed;
     private ExecRootBlock mouseListener;
@@ -65,12 +65,12 @@ public final class GuiExecutingBlocks {
     private DefaultClosingMainWindow eventClose;
     private AbsCompoFactory compoFactory;
 
-    public void initApplicationParts(StringList _mainArgs, GuiInterpreterElements _currentElements) {
+    public void initApplicationParts(StringList _mainArgs, AbstractLightProgramInfos _currentElements) {
         mainArgs = _mainArgs;
         guiInterpreterElements = _currentElements;
-        AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
-        compoFactory = programInfos_.getCompoFactory();
-        confirm = new OtherConfirmDialog(programInfos_);
+//        AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
+        compoFactory = _currentElements.getCompoFactory();
+        confirm = new OtherConfirmDialog(_currentElements);
     }
 //    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
 ////        eventClose = new DefaultClosingMainWindow(_context);
@@ -529,21 +529,21 @@ public final class GuiExecutingBlocks {
     }
 
     public AbstractLightProgramInfos getFrames() {
-        return guiInterpreterElements.getProgramInfos();
+        return guiInterpreterElements;
     }
 
     public AbstractImageFactory getImageFactory() {
-        return guiInterpreterElements.getProgramInfos().getImageFactory();
+        return guiInterpreterElements.getImageFactory();
     }
 
     public AbsCompoFactory getCompoFactory() {
-        return guiInterpreterElements.getProgramInfos().getCompoFactory();
+        return guiInterpreterElements.getCompoFactory();
     }
     public AbsLightFrameFactory getLightFrameFactory() {
-        return guiInterpreterElements.getProgramInfos().getLightFrameFactory();
+        return guiInterpreterElements.getLightFrameFactory();
     }
     public AbstractAdvGraphicListGenerator getGraphicListGenerator(){
-        return guiInterpreterElements.getProgramInfos().getGeneStrCompo();
+        return guiInterpreterElements.getGeneStrCompo();
     }
 //    public FrameStruct getFrame() {
 //        return frame;
@@ -558,9 +558,9 @@ public final class GuiExecutingBlocks {
         return mainArgs;
     }
 
-    public GuiInterpreterElements getGuiInterpreterElements() {
-        return guiInterpreterElements;
-    }
+//    public GuiInterpreterElements getGuiInterpreterElements() {
+//        return guiInterpreterElements;
+//    }
 
     public IntStruct stringWidth(FontStruct _font, Struct _string) {
         if (!(_string instanceof StringStruct)) {
