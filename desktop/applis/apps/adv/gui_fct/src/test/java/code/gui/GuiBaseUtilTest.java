@@ -49,4 +49,46 @@ public class GuiBaseUtilTest extends EquallableGuiFctUtil {
         ((MockCompoFactory)ab_).invoke();
         assertTrue(r_.isStarted());
     }
+    @Test
+    public void setOrient1() {
+        AbsCompoFactory init_ = init().getCompoFactory();
+        AbsSlider s_ = init_.newAbsSlider();
+        GuiBaseUtil.setOrient(s_,GuiConstants.HORIZONTAL);
+        assertEq(GuiConstants.HORIZONTAL,s_.getOrientation());
+    }
+    @Test
+    public void setOrient2() {
+        AbsCompoFactory init_ = init().getCompoFactory();
+        AbsSlider s_ = init_.newAbsSlider();
+        GuiBaseUtil.setOrient(s_,GuiConstants.VERTICAL);
+        assertEq(GuiConstants.VERTICAL,s_.getOrientation());
+    }
+    @Test
+    public void setOrientPr1() {
+        AbsCompoFactory init_ = init().getCompoFactory();
+        AbsProgressBar s_ = init_.newAbsProgressBar();
+        GuiBaseUtil.setHorizProg(s_,true);
+        assertTrue(s_.isHorizontal());
+    }
+    @Test
+    public void setOrientPr2() {
+        AbsCompoFactory init_ = init().getCompoFactory();
+        AbsProgressBar s_ = init_.newAbsProgressBar();
+        GuiBaseUtil.setHorizProg(s_,false);
+        assertFalse(s_.isHorizontal());
+    }
+    @Test
+    public void setSelectTable1() {
+        AbsCompoFactory init_ = init().getCompoFactory();
+        AbsTableGui s_ = init_.newTableGui("_");
+        GuiBaseUtil.setSelectTable(s_,true);
+        assertTrue(s_.isMultiSelect());
+    }
+    @Test
+    public void setSelectTable2() {
+        AbsCompoFactory init_ = init().getCompoFactory();
+        AbsTableGui s_ = init_.newTableGui("_");
+        GuiBaseUtil.setSelectTable(s_,false);
+        assertFalse(s_.isMultiSelect());
+    }
 }
