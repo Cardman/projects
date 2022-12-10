@@ -129,7 +129,6 @@ public final class OtherConfirmDialog {
         }
         if (_frame instanceof AbsOtherDialog) {
             pl_.setLocationRelativeTo(((AbsOtherDialog)_frame));
-            return;
         }
         if (_frame instanceof AbsOtherFrame) {
             pl_.setLocationRelativeTo(((AbsOtherFrame)_frame));
