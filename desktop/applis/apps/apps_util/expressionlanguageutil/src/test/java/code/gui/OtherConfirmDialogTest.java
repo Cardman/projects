@@ -32,6 +32,32 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         assertEq(OtherConfirmDialog.NO_OPTION,conf_.getAnswer());
     }
     @Test
+    public void yesNo3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showMiniDialogYesNo(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(1);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(1);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(OtherConfirmDialog.NO_OPTION,conf_.getAnswer());
+    }
+    @Test
+    public void yesNo4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showMiniDialogYesNo(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(1);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(1);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(OtherConfirmDialog.YES_OPTION,conf_.getAnswer());
+    }
+    @Test
     public void yesNoCancel1() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
@@ -65,6 +91,45 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         AbsPanel pane_ = conf_.getDialog().getContentPane();
         MockPanel buttons_ = (MockPanel) pane_.getComponent(1);
         MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(2);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(OtherConfirmDialog.CANCEL_OPTION,conf_.getAnswer());
+    }
+    @Test
+    public void yesNoCancel4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showMiniDialog(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(1);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(1);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(OtherConfirmDialog.YES_OPTION,conf_.getAnswer());
+    }
+    @Test
+    public void yesNoCancel5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showMiniDialog(pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(1);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(1);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(OtherConfirmDialog.NO_OPTION,conf_.getAnswer());
+    }
+    @Test
+    public void yesNoCancel6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showMiniDialog(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","yes","no","cancel");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(1);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(3);
         assertTrue(button_.isAccessible());
         button_.getActionListeners().first().action();
         assertFalse(conf_.getDialog().isVisible());
@@ -127,6 +192,38 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         assertFalse(conf_.getDialog().isVisible());
         assertEq("",conf_.textValue().getTypedText());
         assertEq(GuiConstants.NO_OPTION,conf_.textValue().getAnswer());
+    }
+    @Test
+    public void showTextField3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showTextField(pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockTextField field_ = (MockTextField) pane_.getComponent(1);
+        field_.setText("_");
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(2);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(1);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq("",conf_.textValue().getTypedText());
+        assertEq(GuiConstants.NO_OPTION,conf_.textValue().getAnswer());
+    }
+    @Test
+    public void showTextField4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showTextField(pr_.getImageFactory().newImageArgb(1,1),pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockTextField field_ = (MockTextField) pane_.getComponent(2);
+        field_.setText("_");
+        MockPanel buttons_ = (MockPanel) pane_.getComponent(3);
+        MockPlainButton button_ = (MockPlainButton) buttons_.getComponent(0);
+        assertTrue(button_.isAccessible());
+        button_.getActionListeners().first().action();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq("_",conf_.textValue().getTypedText());
+        assertEq(GuiConstants.YES_OPTION,conf_.textValue().getAnswer());
     }
     @Test
     public void showMessage1() {
