@@ -14,6 +14,7 @@ public interface AbsCustButtonGroup {
 
     AbsRadioButton getSelected();
 
+    void setSelected(AbsRadioButton _r);
     void clearSelection();
 
     int getButtonCount();

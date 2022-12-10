@@ -39,5 +39,6 @@ public final class ChangeRadioEvent implements AbsActionListener {
             }
         }
         radio.setSelected(true);
+        group.setSelected(radio);
     }
 }

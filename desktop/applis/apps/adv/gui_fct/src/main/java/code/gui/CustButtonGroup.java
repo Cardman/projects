@@ -62,6 +62,11 @@ public final class CustButtonGroup implements AbsCustButtonGroup {
         return selected;
     }
 
+    @Override
+    public void setSelected(AbsRadioButton _r) {
+        this.selected = _r;
+    }
+
     public void clearSelection() {
         for (AbsRadioButton c: group) {
             c.setSelected(false);

@@ -41,7 +41,7 @@ public class GuiBaseUtilTest extends EquallableGuiFctUtil {
     }
     @Test
     public void invokeLater() {
-        MockProgramInfosSecSample init_ = new MockProgramInfosSecSample("","",0,new long[0],false,"/");
+        MockProgramInfosSecSample init_ = init();
         MockRunnable r_ = new MockRunnable();
         AbsCompoFactory ab_ = init_.getCompoFactory();
         GuiBaseUtil.invokeLater(r_,init_);
