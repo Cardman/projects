@@ -65,16 +65,16 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
     }
 
     private void prSelect(AbsGraphicStringList _grList, int _selectedIndex) {
-        FrameUtil.prSelect(_grList, _selectedIndex, this);
+        SelectionUtil.prSelect(_grList, _selectedIndex, this);
     }
 
     public String getSelectedItem() {
-        return FrameUtil.selIt(this);
+        return SelectionUtil.selIt(this);
     }
 
     @Override
     public void addItem(String _object) {
-        FrameUtil.addIt(_object, this);
+        SelectionUtil.addIt(_object, this);
     }
 
     @Override
@@ -86,12 +86,12 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
     public void simpleRemoveAllItems() {
         grList.clearRevalidate();
         setSelectedIndex(-1);
-        FrameUtil.setNoSelected(this);
+        SelectionUtil.setNoSelected(this);
     }
 
     @Override
     public void removeAllItems() {
-        FrameUtil.remAllIts(this);
+        SelectionUtil.remAllIts(this);
     }
 
     public ListSelection getListener() {
@@ -110,17 +110,17 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
 
     @Override
     public CustList<ListSelection> getListeners() {
-        return FrameUtil.listeners(listener);
+        return SelectionUtil.listeners(listener);
     }
 
     @Override
     public void addListener(ListSelection _listener) {
-        FrameUtil.addList(_listener, this);
+        SelectionUtil.addList(_listener, this);
     }
 
     @Override
     public void removeListener(ListSelection _listener) {
-        FrameUtil.removeList(_listener, this);
+        SelectionUtil.removeList(_listener, this);
     }
 
     public AbsPanel getPanel() {
@@ -129,7 +129,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
 
     @Override
     public void popup() {
-        FrameUtil.pop(this);
+        SelectionUtil.pop(this);
     }
 
     public void showMenu() {
@@ -142,7 +142,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
     }
     @Override
     public void removeItem(int _index) {
-        FrameUtil.removeIt(_index, this);
+        SelectionUtil.removeIt(_index, this);
     }
 
     @Override
@@ -158,14 +158,14 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
     public void selectItem(int _index) {
         int old_ = getSelectedIndex();
         simpleSelectItem(_index);
-        FrameUtil.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_), compoFactory);
+        SelectionUtil.invokeLater(new SelectionComboEvent(_index, _index, this, getListener(), old_), compoFactory);
     }
     public void simpleSelectItem(int _index) {
-        FrameUtil.simpleSelect(_index, this);
+        SelectionUtil.simpleSelect(_index, this);
     }
 
     public void update() {
-        FrameUtil.updateLoc(this);
+        SelectionUtil.updateLoc(this);
     }
 
     public AbsGraphicStringList getGrList() {
@@ -197,7 +197,7 @@ public final class GraphicCombo extends CustComponent implements AbsGraphicCombo
 
     @Override
     public Ints getSelectedIndexes() {
-        return FrameUtil.selectedIndexes(selectedIndex);
+        return SelectionUtil.selectedIndexes(selectedIndex);
     }
 
     public boolean isEnabled() {

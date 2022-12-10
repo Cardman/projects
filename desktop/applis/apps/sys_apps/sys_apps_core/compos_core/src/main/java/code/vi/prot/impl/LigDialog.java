@@ -2,9 +2,10 @@ package code.vi.prot.impl;
 
 import code.gui.AbsOtherDialog;
 import code.gui.ChangeableTitle;
+import code.gui.PlacableWindow;
 import code.vi.prot.impl.gui.Panel;
 
-public final class LigDialog extends LigWindow implements AbsOtherDialog, ChangeableTitle {
+public final class LigDialog extends LigWindow implements AbsOtherDialog, ChangeableTitle, PlacableWindow {
 
     private boolean modal;
 

@@ -58,7 +58,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = ((DefaultCellRender)_render).getPanel();
-        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls,((DefaultCellRender)_render).getCompo()));
+        ((DefaultCellRender)_render).setMaxWidth(SelectionUtil.maxWidth(panel,_ls,((DefaultCellRender)_render).getCompo()));
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
         graphicListPainter = _graphicListPainter;
@@ -71,7 +71,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         list = new CustList<T>(_objects);
         simple = _simple;
         panel = ((DefaultCellRender)_render).getPanel();
-        ((DefaultCellRender)_render).setMaxWidth(FrameUtil.maxWidth(panel,_ls,((DefaultCellRender)_render).getCompo()));
+        ((DefaultCellRender)_render).setMaxWidth(SelectionUtil.maxWidth(panel,_ls,((DefaultCellRender)_render).getCompo()));
         panel.setAutoscrolls(true);
         scroll = new ScrollPane(panel);
         graphicListPainter = new DefaultGraphicListPainter(_fact);
@@ -88,7 +88,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
     public void selectEvent(int _firstIndex, int _lastIndex, boolean _methodAction) {
         ListSelection listener_ = getListener();
-        FrameUtil.selectEvent(_firstIndex, _lastIndex, _methodAction, listener_);
+        SelectionUtil.selectEvent(_firstIndex, _lastIndex, _methodAction, listener_);
     }
 
     public void add(T _elt) {
@@ -116,7 +116,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     public void addListeners(int _index, AbsPreparedLabel _lab) {
-        FrameUtil.addLists(this,_index, _lab);
+        SelectionUtil.addLists(this,_index, _lab);
     }
 
     public void addMultSel(int _index, AbsPreparedLabel _lab) {
@@ -128,14 +128,14 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         j_.setSelection(listener);
         _lab.addMouseListener(j_);
         indexableMouse.add(j_);
-        FrameUtil.reindex(indexableMouse);
-        FrameUtil.reindex(indexableKey);
+        SelectionUtil.reindex(indexableMouse);
+        SelectionUtil.reindex(indexableKey);
     }
 
     public void addSingleSel(int _index, AbsPreparedLabel _lab) {
         IndexableListener i_ = buildSingleSelect(_lab, _index);
         indexableMouse.add(i_);
-        FrameUtil.reindex(indexableMouse);
+        SelectionUtil.reindex(indexableMouse);
     }
 
     public void simpleAddLab(int _index, AbsPreparedLabel _lab) {
@@ -153,7 +153,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
             panel.remove(_index);
             panel.add(_lab,_index);
             listComponents.set(_index, _lab);
-            FrameUtil.singleMultSel(this,_index, _lab);
+            SelectionUtil.singleMultSel(this,_index, _lab);
             return _index;
         } catch (Exception e) {
             return -1;
@@ -169,18 +169,18 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         j_.setSelection(listener);
         _lab.addMouseListener(j_);
         indexableMouse.set(_index,j_);
-        FrameUtil.reindex(indexableMouse);
-        FrameUtil.reindex(indexableKey);
+        SelectionUtil.reindex(indexableMouse);
+        SelectionUtil.reindex(indexableKey);
     }
 
     public void singleSelSet(int _index, AbsPreparedLabel _lab) {
         IndexableListener i_ = buildSingleSelect(_lab, _index);
         indexableMouse.set(_index,i_);
-        FrameUtil.reindex(indexableMouse);
+        SelectionUtil.reindex(indexableMouse);
     }
 
     protected void repaintAdded(int _index) {
-        FrameUtil.repAdd(_index, render, listComponents);
+        SelectionUtil.repAdd(_index, render, listComponents);
     }
 
     protected IndexableListener buildSingleSelect(AbsPreparedLabel _lab,int _index) {
@@ -209,12 +209,12 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         panel_.remove(_index);
         selectedIndexes.removeObj(_index);
         resetDimensions();
-        FrameUtil.remSingleMult(_index,this);
+        SelectionUtil.remSingleMult(_index,this);
         updateGraphics();
     }
 
     public final void rebuild() {
-        FrameUtil.reb(this);
+        SelectionUtil.reb(this);
     }
 
     @Override
@@ -228,7 +228,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         getIndexableMouse().clear();
         getIndexableKey().clear();
         repaintAll();
-        FrameUtil.selectSingleOrMult(this);
+        SelectionUtil.selectSingleOrMult(this);
         resetDimensions();
     }
 
@@ -255,7 +255,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     protected void repaintAll() {
         AbsCustCellRender r_ = setted();
         int len_ = list.size();
-        FrameUtil.all(r_, len_, this, graphicListPainter);
+        SelectionUtil.all(r_, len_, this, graphicListPainter);
     }
 
     public int getVisibleRowCount() {
@@ -270,13 +270,13 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     public void addRange() {
         int min_ = NumberUtil.min(firstIndex, lastIndex);
         int max_ = NumberUtil.max(firstIndex, lastIndex);
-        FrameUtil.addIndexes(min_, max_, selectedIndexes);
+        SelectionUtil.addIndexes(min_, max_, selectedIndexes);
         selectedIndexes.removeDuplicates();
     }
 
     @Override
     public void updateGraphics() {
-        MetaDimension dimension_ = FrameUtil.updateDim(this);
+        MetaDimension dimension_ = SelectionUtil.updateDim(this);
         scroll.setPreferredSize(dimension_);
         scroll.revalidate();
     }
@@ -288,16 +288,16 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     public void clearRange() {
         int min_ = NumberUtil.min(firstIndex, lastIndex);
         int max_ = NumberUtil.max(firstIndex, lastIndex);
-        FrameUtil.removeIndexes(min_, max_, selectedIndexes);
+        SelectionUtil.removeIndexes(min_, max_, selectedIndexes);
     }
 
     public void setSelectedIndice(int _min) {
         selectedIndexes.clear();
-        FrameUtil.addSelect(_min, selectedIndexes);
+        SelectionUtil.addSelect(_min, selectedIndexes);
         selectedIndexes.removeDuplicates();
         AbsCustCellRender r_ = setted();
         int len_ = list.size();
-        FrameUtil.selectedIndex(r_, len_, listComponents, selectedIndexes);
+        SelectionUtil.selectedIndex(r_, len_, listComponents, selectedIndexes);
     }
 
     @Override
@@ -307,17 +307,17 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         selectedIndexes.removeDuplicates();
         AbsCustCellRender r_ = setted();
         int len_ = list.size();
-        FrameUtil.selectedIndex(r_, len_, getListComponents(), getSelectedIndexes());
+        SelectionUtil.selectedIndex(r_, len_, getListComponents(), getSelectedIndexes());
     }
 
     @Override
     public boolean selectOneAmongIntervalPaint(boolean _sel, int _index) {
-        return FrameUtil.intervalPaint(_sel, _index,this);
+        return SelectionUtil.intervalPaint(_sel, _index,this);
     }
 
     @Override
     public Interval selectIntervalKeyPaint(boolean _sel, int _index) {
-        return FrameUtil.interval(_sel,this);
+        return SelectionUtil.interval(_sel,this);
     }
 
     @Override
@@ -326,7 +326,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         int min_ = NumberUtil.min(getFirstIndex(), getLastIndex());
         int max_ = NumberUtil.max(getFirstIndex(), getLastIndex());
         AbsCustCellRender r_ = setted();
-        FrameUtil.paintSelected(_sel, min_, max_, r_, this);
+        SelectionUtil.paintSelected(_sel, min_, max_, r_, this);
         return new Interval(min_,max_);
     }
 
@@ -335,25 +335,25 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
         int firstIndex_ = getFirstIndex();
         int min_ = NumberUtil.min(firstIndex_, _index);
         int max_ = NumberUtil.max(firstIndex_, _index);
-        FrameUtil.updatedSelectedBis(_sel, min_, max_,this);
+        SelectionUtil.updatedSelectedBis(_sel, min_, max_,this);
         return new Interval(min_,max_);
     }
 
     @Override
     public void selectOneAmongIntervalPaintBase(boolean _sel, int _index) {
         setFirstIndex(_index);
-        FrameUtil.updatedSelected(_sel, _index, this);
+        SelectionUtil.updatedSelected(_sel, _index, this);
     }
 
     public AbsCustCellRender setted() {
-        return FrameUtil.fwd(render);
+        return SelectionUtil.fwd(render);
     }
 
     public void clearSelection() {
         AbsCustCellRender r_ = setted();
         CustList<T> copy_ = new CustList<T>(list);
         int len_ = list.size();
-        FrameUtil.paintList(r_, len_, this);
+        SelectionUtil.paintList(r_, len_, this);
         setFirstIndex(0);
         setLastIndex(copy_.size());
         clearRange();
@@ -366,11 +366,11 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     public int getMaxWidth() {
-        return FrameUtil.getBasicMaxWidth(0, this);
+        return SelectionUtil.getBasicMaxWidth(0, this);
     }
 
     protected void resetDimensions(){
-        MetaDimension dimension_ = FrameUtil.dimension(this);
+        MetaDimension dimension_ = SelectionUtil.dimension(this);
         scroll.setPreferredSize(dimension_);
         scroll.revalidate();
     }
@@ -380,7 +380,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     public void setListener(ListSelection _listener) {
-        FrameUtil.selection(_listener, this);
+        SelectionUtil.selection(_listener, this);
         simpleSetListener(_listener);
     }
 
@@ -394,17 +394,17 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
 
     @Override
     public CustList<ListSelection> getListeners() {
-        return FrameUtil.listeners(listener);
+        return SelectionUtil.listeners(listener);
     }
 
     @Override
     public void addListener(ListSelection _listener) {
-        FrameUtil.addList(_listener,this);
+        SelectionUtil.addList(_listener,this);
     }
 
     @Override
     public void removeListener(ListSelection _listener) {
-        FrameUtil.removeList(_listener,this);
+        SelectionUtil.removeList(_listener,this);
     }
 
     public void simpleSetListener(ListSelection _listener) {
@@ -449,7 +449,7 @@ public class GraphicList<T> extends CustComponent implements AbsGraphicListCommo
     }
 
     public int getSelectedIndex() {
-        return FrameUtil.firstOrNeg(selectedIndexes);
+        return SelectionUtil.firstOrNeg(selectedIndexes);
     }
 
     @Override

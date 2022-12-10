@@ -59,7 +59,7 @@ public final class OtherConfirmDialog {
         return showMiniDialogOk(_frame, _message, _title, _language).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogOk(WithListener _frame, String _message, String _title, String _language) {
+    public OtherConfirmDialog showMiniDialogOk(WithListener _frame, String _message, String _title, String _language) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initOk(_message, _title, _language);
@@ -70,7 +70,7 @@ public final class OtherConfirmDialog {
         return showMiniDialogOk(_img,_frame, _message, _title, _language).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogOk(AbstractImage _img,WithListener _frame, String _message, String _title, String _language) {
+    public OtherConfirmDialog showMiniDialogOk(AbstractImage _img,WithListener _frame, String _message, String _title, String _language) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initOk(_img,_message, _title, _language);
@@ -81,7 +81,7 @@ public final class OtherConfirmDialog {
         return showMiniDialogYesNo(_frame, _message, _title, _yes, _no).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogYesNo(WithListener _frame, String _message, String _title, String _yes, String _no) {
+    public OtherConfirmDialog showMiniDialogYesNo(WithListener _frame, String _message, String _title, String _yes, String _no) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initYesNo(_message, _title, _yes, _no);
@@ -92,7 +92,7 @@ public final class OtherConfirmDialog {
         return showMiniDialogYesNo(_img,_frame, _message, _title, _yes, _no).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialogYesNo(AbstractImage _img,WithListener _frame, String _message, String _title, String _yes, String _no) {
+    public OtherConfirmDialog showMiniDialogYesNo(AbstractImage _img,WithListener _frame, String _message, String _title, String _yes, String _no) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         initYesNo(_img,_message, _title, _yes, _no);
@@ -103,7 +103,7 @@ public final class OtherConfirmDialog {
         return showMiniDialog(_frame, _message, _title, _yes, _no,_cancel).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialog(WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
+    public OtherConfirmDialog showMiniDialog(WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         init(_message, _title, _yes, _no,_cancel);
@@ -114,7 +114,7 @@ public final class OtherConfirmDialog {
         return showMiniDialog(_img,_frame, _message, _title, _yes, _no,_cancel).getAnswer();
     }
 
-    private OtherConfirmDialog showMiniDialog(AbstractImage _img,WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
+    public OtherConfirmDialog showMiniDialog(AbstractImage _img,WithListener _frame, String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setModal(true);
         setLocationRelativeTo(_frame);
         init(_img,_message, _title, _yes, _no,_cancel);
@@ -122,9 +122,6 @@ public final class OtherConfirmDialog {
     }
 
     private void setLocationRelativeTo(WithListener _frame) {
-        if (!(dialog instanceof PlacableWindow)) {
-            return;
-        }
         PlacableWindow pl_ = (PlacableWindow)dialog;
         if (_frame == null) {
             pl_.setLocationRelativeToNull();
@@ -328,16 +325,22 @@ public final class OtherConfirmDialog {
 
     public void closeWindowText(int _answer) {
         answer = _answer;
-        typedText = EMPTY_STRING;
-        if (field != null) {
-            typedText = field.getText();
-        }
-        if (answer == NO_OPTION) {
-            typedText = null;
-        } else if (typedText == null) {
+        typedText = field.getText();
+        if (answer == GuiConstants.NO_OPTION) {
             typedText = EMPTY_STRING;
         }
         closeWindow();
+//        answer = _answer;
+//        typedText = EMPTY_STRING;
+//        if (field != null) {
+//            typedText = field.getText();
+//        }
+//        if (answer == NO_OPTION) {
+//            typedText = null;
+//        } else if (typedText == null) {
+//            typedText = EMPTY_STRING;
+//        }
+//        closeWindow();
     }
 
     public void closeWindow(int _answer) {
@@ -348,6 +351,14 @@ public final class OtherConfirmDialog {
     public void closeWindow() {
         dialog.setVisible(false);
         dialog.getContentPane().removeAll();
+    }
+
+    public AbsOtherDialog getDialog() {
+        return dialog;
+    }
+
+    public TextAnswerValue textValue() {
+        return new TextAnswerValue(answer,typedText);
     }
     public int getAnswer() {
         return answer;

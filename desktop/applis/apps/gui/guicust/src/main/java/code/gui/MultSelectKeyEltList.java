@@ -30,7 +30,7 @@ public final class MultSelectKeyEltList implements AbsKeyListenerReleased,Indexa
         if (interval_ == null) {
             return;
         }
-        FrameUtil.selectEvent(interval_.getMin(),  interval_.getMax(), false, selection);
+        SelectionUtil.selectEvent(interval_.getMin(),  interval_.getMax(), false, selection);
     }
 
     @Override

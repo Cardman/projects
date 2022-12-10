@@ -77,7 +77,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
 
     @Override
     public int getMaxWidth() {
-        return FrameUtil.maxWidth(this,getList(),compoFactory);
+        return SelectionUtil.maxWidth(this,getList(),compoFactory);
     }
     @Override
     protected void resetDimensions(){

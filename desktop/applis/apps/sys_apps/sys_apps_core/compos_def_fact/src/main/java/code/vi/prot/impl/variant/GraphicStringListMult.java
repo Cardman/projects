@@ -19,7 +19,7 @@ public final class GraphicStringListMult extends GraphicList<String> implements 
 
     @Override
     public int getMaxWidth() {
-        return FrameUtil.maxWidth(this,getList(),((DefaultCellRender)getSimpleRender()).getCompo());
+        return SelectionUtil.maxWidth(this,getList(),((DefaultCellRender)getSimpleRender()).getCompo());
     }
 
     @Override

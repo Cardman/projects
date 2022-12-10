@@ -21,7 +21,7 @@ public final class SimpleSelectEltList implements AbsMouseListenerIntRel, Indexa
     public void mouseReleased(AbsMouseLocation _location, AbsCtrlKeyState _keyState, AbsMouseButtons _buttons) {
         boolean sel_ = _buttons.isLeftMouseButton();
         graphicListPainter.selectPaint(grList,sel_,index);
-        FrameUtil.selectEvent(index, index, false, selection);
+        SelectionUtil.selectEvent(index, index, false, selection);
     }
 
     @Override

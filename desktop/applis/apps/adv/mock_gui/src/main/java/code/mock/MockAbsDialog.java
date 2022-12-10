@@ -1,13 +1,10 @@
 package code.mock;
 
-import code.gui.AbsCloseableDialog;
-import code.gui.AbsDialog;
-import code.gui.AbsOtherDialog;
-import code.gui.Iconifiable;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
-public abstract class MockAbsDialog extends MockWindow implements AbsDialog, AbsOtherDialog {
+public abstract class MockAbsDialog extends MockWindow implements AbsDialog, AbsOtherDialog, PlacableWindow {
 
     private boolean modal;
     private boolean resizable;
@@ -20,6 +17,16 @@ public abstract class MockAbsDialog extends MockWindow implements AbsDialog, Abs
     protected MockAbsDialog(AbsCloseableDialog _cl, AbstractProgramInfos _fr) {
         super(_fr);
         event = _cl;
+    }
+
+    @Override
+    public void setLocationRelativeTo(AbsOtherDialog _c) {
+        setResizable(isResizable());
+    }
+
+    @Override
+    public void setLocationRelativeTo(AbsOtherFrame _c) {
+        setModal(isModal());
     }
 
     public boolean isResizable() {

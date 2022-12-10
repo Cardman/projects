@@ -22,13 +22,15 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
     private boolean visible;
     private Ownable owner;
     private AbsPanel pane;
+    private int locationFirst;
+    private int locationSecond;
     protected LigWindow(AbsPanel _p) {
         pane = _p;
     }
 
     @Override
     public MetaPoint getLocationOnScreen() {
-        return new MetaPoint(0,0);
+        return new MetaPoint(locationFirst,locationSecond);
     }
 
     @Override
@@ -48,6 +50,25 @@ public abstract class LigWindow extends CustComponent implements ChangeableTitle
     public void setContentPane(AbsPanel _contentPane) {
         getCenter().setContentPane(((Panel)_contentPane).getNatComponent());
         pane = _contentPane;
+    }
+    public void setLocationRelativeTo(AbsOtherDialog _a) {
+        locationFirst = ((LigWindow)_a).getLocationOnScreen().getXcoord()+((LigWindow)_a).getWidth()/2;
+        locationSecond = ((LigWindow)_a).getLocationOnScreen().getYcoord()+((LigWindow)_a).getHeight()/2;
+    }
+
+    public void setLocationRelativeTo(AbsCustComponent _c) {
+        locationFirst = _c.getXcoords()+_c.getWidth()/2;
+        locationSecond = _c.getYcoords()+_c.getHeight()/2;
+    }
+
+    public void setLocationRelativeTo(AbsOtherFrame _f) {
+        locationFirst = ((LigWindow)_f).getLocationOnScreen().getXcoord()+((LigWindow)_f).getWidth()/2;
+        locationSecond = ((LigWindow)_f).getLocationOnScreen().getYcoord()+((LigWindow)_f).getHeight()/2;
+    }
+
+    public void setLocationRelativeToNull() {
+        locationFirst = 0;
+        locationSecond = 0;
     }
 
     public void dispose() {

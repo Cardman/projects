@@ -387,6 +387,8 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         mf_.dispatchExit();
         mf_.setVisible(false);
         assertFalse(mf_.isVisible());
+        new MockDialogSample(pr_).setLocationRelativeTo((AbsOtherDialog)adv_);
+        new MockDialogSample(pr_).setLocationRelativeTo((AbsOtherFrame)new MockCommonFrameSample(pr_));
     }
     @Test
     public void c15() {
