@@ -65,4 +65,8 @@ public final class WrappedLabel {
             i_++;
         }
     }
+
+    public StringList getLines() {
+        return lines;
+    }
 }
