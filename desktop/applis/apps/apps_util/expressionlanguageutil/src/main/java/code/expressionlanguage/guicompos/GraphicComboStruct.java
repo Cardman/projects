@@ -74,9 +74,9 @@ public final class GraphicComboStruct extends InputStruct {
         return out_;
     }
 
-    public void update() {
-        SelectionUtil.tryUp(graphicCombo);
-    }
+//    public void update() {
+//        SelectionUtil.tryUp(graphicCombo);
+//    }
     public ArrayStruct getSelectedIndexes(ContextEl _cont) {
         int selectedIndex_ = graphicCombo.getSelectedIndex();
         String arrInt_ = StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getPrimTypes().getAliasPrimInteger());

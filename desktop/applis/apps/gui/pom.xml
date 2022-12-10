@@ -18,6 +18,7 @@
 		<module>gui_util</module>
 		<module>network</module>
 		<module>applications</module>
+		<module>guicust</module>
 	</modules>
 	<dependencies>
 		<dependency>
