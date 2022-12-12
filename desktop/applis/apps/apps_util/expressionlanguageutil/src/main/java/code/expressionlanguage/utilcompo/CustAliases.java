@@ -1285,6 +1285,17 @@ public final class CustAliases {
         map_.put("{tt}",tr("tt", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
                 custAliasParameters.getAliasExecute0ExecuteSetupNoException0()));
+        map_.put("{tt0}",tr("tt0", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
+                custAliasParameters.getAliasExecute0ExecuteSetupNoException0()));
+        map_.put("{tt1}",tr("tt1", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
+                custAliasParameters.getAliasExecute0ExecuteSetupNoException0()));
+        map_.put("{exSerEx}",getAliasExecutorServiceExecute());
+        map_.put("{shutdown}",getAliasExecutorServiceShutdown());
+        map_.put("{shutdown}",getAliasExecutorServiceShutdown());
+        map_.put("{ExecutorService}",getAliasExecutorService());
+        map_.put("{Runnable}",getAliasRunnable());
         map_.put("{ex}",tr("ex", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2()));
         map_.put("{et2}",custAliasParameters.getAliasExecute0ExecuteSetupError0());
