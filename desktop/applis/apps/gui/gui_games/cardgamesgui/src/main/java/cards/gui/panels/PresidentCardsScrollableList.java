@@ -87,7 +87,7 @@ public final class PresidentCardsScrollableList extends CardsScrollableList {
                 indice_++;
             }
             if(i_>-1) {
-                liste.remove(indice_);
+                liste.remove(i_);
                 setNbCartesRestantes(getNbCartesRestantes() + 1);
             }
         }
