@@ -106,7 +106,7 @@ public final class CustContextFactory {
                 infos_.getReporter().coverFile(_exec, f.getKey(), f.getValue());
             }
         }
-        _progressingTests.setResults((RunnableContextEl) rCont_,arg_, _definedLgNames);
+        _progressingTests.setResults((RunnableContextEl) rCont_,Argument.getNullableValue(arg_), _definedLgNames);
     }
     public static void reportErrors(Options _options, ExecutingOptions _exec, ReportedMessages _reportedMessages, FileInfos _infos) {
         if (_options.isGettingErrors()) {

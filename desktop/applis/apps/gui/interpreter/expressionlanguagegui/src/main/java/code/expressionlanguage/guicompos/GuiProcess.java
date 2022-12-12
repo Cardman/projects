@@ -131,6 +131,7 @@ public final class GuiProcess implements GuiRunnable {
         ExecRootBlock classBody_ = context.getClasses().getClassBody(clName);
         if (classBody_ == null) {
             context.getCustInit().removeThreadFromList(context);
+            context.interrupt();
 //            lastThread();
             return;
         }
@@ -140,12 +141,16 @@ public final class GuiProcess implements GuiRunnable {
             ProcessMethod.initializeClass(clName, classBody_,context, st_);
             if (context.callsOrException(st_)) {
                 context.getCustInit().prExc(context, st_);
+                context.interrupt();
                 return;
             }
             CustList<Argument> args_ = new CustList<Argument>();
             Argument arg_ = new Argument();
             ExecNamedFunctionBlock fct_ = methods_.first();
-            RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(classBody_, clName), context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
+            Argument i_ = RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(classBody_, clName), context, new ExecTypeFunction(classBody_, fct_), st_, new ArgumentListCall());
+            if (i_ == null) {
+                context.interrupt();
+            }
         } else {
             context.getCustInit().removeThreadFromList(context);
         }

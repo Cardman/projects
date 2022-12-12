@@ -41,12 +41,17 @@ public class CustInitializer extends DefaultInitializer {
     String getCurrentTreadIdDate(RunnableContextEl _ctx) {
     	return _ctx.getIdDate();
 	}
-    public void prExc(RunnableContextEl _cont, StackCall _stackCall) {
+    public boolean prExc(RunnableContextEl _cont, StackCall _stackCall) {
         String error_ = ProcessMethod.error(_cont, _stackCall);
+        boolean er_;
         if (error_ != null) {
             log(_cont,error_);
+            er_ = true;
+        } else {
+            er_ = false;
         }
         removeThreadFromList(_cont);
+        return er_;
     }
 
     private static void log(RunnableContextEl _cont, String _txt) {
