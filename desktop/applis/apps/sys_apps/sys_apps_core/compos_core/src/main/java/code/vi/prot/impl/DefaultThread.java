@@ -36,7 +36,7 @@ final class DefaultThread implements AbstractThread {
         }
     }
 
-    private static Thread newThread(Runnable _runnable) {
+    static Thread newThread(Runnable _runnable) {
         return new Thread(_runnable);
     }
 

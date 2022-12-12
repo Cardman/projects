@@ -135,6 +135,7 @@ public final class CustAliasParameters {
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_1="Execute1ExecuteSetupError1";
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_2="Execute1ExecuteSetupError2";
     private static final String EXECUTOR_SERVICE_0_EXECUTE_0="ExecutorService0Execute0";
+    private static final String EXECUTOR_SERVICE_0_SUBMIT_0="ExecutorService0Submit0";
     private static final String EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0="ExecutorService1ExecutorService0";
 //    private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
     private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_0="RunnableImplicit0Implicit0";
@@ -352,6 +353,7 @@ public final class CustAliasParameters {
     private String aliasExecute1ExecuteSetupError1;
     private String aliasExecute1ExecuteSetupError2;
     private String aliasExecutorService0Execute0;
+    private String aliasExecutorService0Submit0;
     private String aliasExecutorService1ExecutorService0;
 //    private String aliasRunnableImplicit0Runner;
     private String aliasRunnableImplicit0Implicit0;
@@ -541,6 +543,7 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_0,aliasExecute0ExecuteSetupError0),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_1,aliasExecute0ExecuteSetupError1),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_2,aliasExecute0ExecuteSetupError2),new KeyValueMemberName(EXECUTE_0_EXECUTE_SETUP_ERROR_3,aliasExecute0ExecuteSetupError3)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_0,aliasExecute1ExecuteSetupError0),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_1,aliasExecute1ExecuteSetupError1),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_2,aliasExecute1ExecuteSetupError2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_EXECUTE_0,aliasExecutorService0Execute0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_SUBMIT_0,aliasExecutorService0Submit0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0,aliasExecutorService1ExecutorService0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RUNNABLE_IMPLICIT_0_IMPLICIT_0,aliasRunnableImplicit0Implicit0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RUNNABLE_IMPLICIT_0_IMPLICIT_1,aliasRunnableImplicit0Implicit1)));
@@ -715,6 +718,7 @@ public final class CustAliasParameters {
         aliasExecute1ExecuteSetupError1= LgNamesContent.get(_util, _cust, EXECUTE_1_EXECUTE_SETUP_ERROR_1);
         aliasExecute1ExecuteSetupError2= LgNamesContent.get(_util, _cust, EXECUTE_1_EXECUTE_SETUP_ERROR_2);
         aliasExecutorService0Execute0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_EXECUTE_0);
+        aliasExecutorService0Submit0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SUBMIT_0);
         aliasExecutorService1ExecutorService0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0);
         aliasRunnableImplicit0Implicit0= LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_IMPLICIT_0);
         aliasRunnableImplicit0Implicit1= LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_IMPLICIT_1);
@@ -1309,6 +1313,10 @@ public final class CustAliasParameters {
 
     public String getAliasExecutorService0Execute0() {
         return aliasExecutorService0Execute0;
+    }
+
+    public String getAliasExecutorService0Submit0() {
+        return aliasExecutorService0Submit0;
     }
 
     public String getAliasExecutorService1ExecutorService0() {

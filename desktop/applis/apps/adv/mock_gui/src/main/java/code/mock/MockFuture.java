@@ -9,6 +9,11 @@ public final class MockFuture implements AbstractFuture {
     }
     @Override
     public boolean cancel(boolean _b) {
-        return shutdown||_b;
+        return attendre()||_b;
+    }
+
+    @Override
+    public boolean attendre() {
+        return shutdown;
     }
 }

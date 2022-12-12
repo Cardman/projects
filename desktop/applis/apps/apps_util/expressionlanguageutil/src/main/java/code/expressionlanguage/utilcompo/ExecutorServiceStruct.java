@@ -4,10 +4,13 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractFuture;
 import code.threads.AbstractThreadFactory;
+import code.util.CustList;
 
 public final class ExecutorServiceStruct extends WithoutParentIdStruct {
     private final AbstractBaseExecutorService executorService;
+    private final CustList<AbstractFuture> futures = new CustList<AbstractFuture>();
 
     public ExecutorServiceStruct(AbstractThreadFactory _e) {
         this.executorService = _e.newExecutorService();
@@ -21,8 +24,17 @@ public final class ExecutorServiceStruct extends WithoutParentIdStruct {
         executorService.execute(_command);
     }
 
+    public void submit(Runnable _command) {
+        AbstractFuture s_ = executorService.submit(_command);
+        futures.add(s_);
+    }
+
     public void shutdown() {
+        for (AbstractFuture f: futures) {
+            f.attendre();
+        }
         executorService.shutdown();
+        futures.clear();
     }
     @Override
     public String getClassName(ContextEl _contextEl) {

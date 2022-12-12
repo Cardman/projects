@@ -13,4 +13,16 @@ public final class DefaultFuture implements AbstractFuture {
     public boolean cancel(boolean _mayInterruptIfRunning) {
         return future.cancel(_mayInterruptIfRunning);
     }
+
+    @Override
+    public boolean attendre() {
+        try {
+            future.get();
+            return true;
+        } catch (Exception e) {
+            DefaultThread.newThread(null).interrupt();
+            return false;
+        }
+    }
+
 }
