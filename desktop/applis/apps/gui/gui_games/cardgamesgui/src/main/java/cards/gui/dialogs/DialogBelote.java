@@ -58,7 +58,7 @@ public abstract class DialogBelote extends DialogCards {
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, String _lg) {
+    protected void initJt(WindowCardsInt _window, AbsSpinner _nbGames, String _lg, AbsTabbedPane _jt) {
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
         //Sous - panneau Battre les cartes
@@ -87,7 +87,7 @@ public abstract class DialogBelote extends DialogCards {
         }
 
         //Panneau Distribution
-        getJt().add(getMessages().getVal(DEALING),dealing_);
+        _jt.add(getMessages().getVal(DEALING),dealing_);
         AbsPanel bidding_=_window.getCompoFactory().newPageBox();
         //Panneau Annonces autorisees
         bidding_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_BIDS)));
@@ -118,7 +118,7 @@ public abstract class DialogBelote extends DialogCards {
         }
         bidding_.add(declaresFirstRound);
 
-        getJt().add(getMessages().getVal(DECLARING),bidding_);
+        _jt.add(getMessages().getVal(DECLARING),bidding_);
         AbsPanel trumping_ = _window.getCompoFactory().newGrid(0,1);
         //Panneau gestion des coupes
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,2);
@@ -144,14 +144,14 @@ public abstract class DialogBelote extends DialogCards {
         underTrumpingFoe.setSelected(getReglesBelote().getSousCoupeAdv());
         sousPanneau_.add(underTrumpingFoe);
         trumping_.add(sousPanneau_);
-        getJt().add(getMessages().getVal(RULES_TRUMPS),trumping_);
+        _jt.add(getMessages().getVal(RULES_TRUMPS),trumping_);
         //Panneau Calcul des scores
         AbsPanel endOfGame_=_window.getCompoFactory().newGrid(0,1);
         endOfGame_.add(getCompoFactory().newPlainLabel(getMessages().getVal(SCORING)));
         classic=getCompoFactory().newCustCheckBox(getMessages().getVal(ALL_POINTS_FOR_DEFENDER_TEAM));
         classic.setSelected(getReglesBelote().getComptePointsClassique());
         endOfGame_.add(classic);
-        getJt().add(getMessages().getVal(END_DEAL),endOfGame_);
+        _jt.add(getMessages().getVal(END_DEAL),endOfGame_);
     }
 
     /**Met en place le contenu de la boite de dialogue

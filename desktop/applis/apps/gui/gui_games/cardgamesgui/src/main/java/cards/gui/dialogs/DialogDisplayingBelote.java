@@ -53,7 +53,6 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingBelote().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingBelote().setMain(_fenetre);
-        _fenetre.getDialogDisplayingBelote().getJt().removeAll();
         _fenetre.getDialogDisplayingBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingBelote().displayingBelote = _fenetre.getDisplayingBelote();
         _fenetre.getDialogDisplayingBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -81,7 +80,8 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingBelote.getDisplaying().isClockwise());
         panneau_.add(checkClockwise);
-        getJt().add(messages.getVal(DEALING),panneau_);
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
+        jt_.add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
         panneau_=_window.getCompoFactory().newGrid(0,4);
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
@@ -121,9 +121,9 @@ public final class DialogDisplayingBelote extends DialogCards implements DialogD
         sortByTrump.setSelected(displayingBelote.getOrderBeforeBids()==Order.TRUMP);
         sousPanneau_.add(sortByTrump);
         panneau_.add(sousPanneau_);
-        getJt().add(messages.getVal(SORTING),panneau_);
+        jt_.add(messages.getVal(SORTING),panneau_);
 
-        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ValidateDisplayingEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);

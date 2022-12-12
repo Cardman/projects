@@ -58,7 +58,8 @@ public final class DialogNicknames extends DialogCards {
     Pour les jeux et les joueurs on a besoin d'onglets pour utiliser moins de place sur l'ecran*/
     public void setDialogue(WindowCards _fenetre) {
         String lg_ = _fenetre.getLanguageKey();
-        getJt().removeAll();
+        AbsTabbedPane jt_ = _fenetre.getCompoFactory().newAbsTabbedPane();
+        jt_.removeAll();
         AbsPanel container_=_fenetre.getCompoFactory().newBorder();
         //Panneau pseudos des joueurs belote
         AbsPanel sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
@@ -71,7 +72,7 @@ public final class DialogNicknames extends DialogCards {
             nicknamesBelote.add(pseudo_);
             i_++;
         }
-        getJt().add(GameEnum.BELOTE.toString(lg_),sousPanneau_);
+        jt_.add(GameEnum.BELOTE.toString(lg_),sousPanneau_);
         //Panneau pseudos des joueurs president
         sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         i_=0;
@@ -85,7 +86,7 @@ public final class DialogNicknames extends DialogCards {
         }
         AbsScrollPane scroll_ = _fenetre.getCompoFactory().newAbsScrollPane(sousPanneau_);
         scroll_.setPreferredSize(new MetaDimension(300, 400));
-        getJt().add(GameEnum.PRESIDENT.toString(lg_), scroll_);
+        jt_.add(GameEnum.PRESIDENT.toString(lg_), scroll_);
         //Panneau pseudos des joueurs tarot
         sousPanneau_=_fenetre.getCompoFactory().newGrid(0,1);
         i_=0;
@@ -97,8 +98,8 @@ public final class DialogNicknames extends DialogCards {
             nicknamesTarot.add(pseudo_);
             i_++;
         }
-        getJt().add(GameEnum.TAROT.toString(lg_),sousPanneau_);
-        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
+        jt_.add(GameEnum.TAROT.toString(lg_),sousPanneau_);
+        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         //Panneau pseudo du joueur
         sousPanneau_=_fenetre.getCompoFactory().newPageBox();
         sousPanneau_.add(getCompoFactory().newPlainLabel(messages.getVal(CST_NICKNAME)));

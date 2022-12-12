@@ -6,6 +6,7 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.president.RulesPresident;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.AbsTabbedPane;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -24,7 +25,6 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         _fenetre.getDialogRulesPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesPresident().setReglesPresident(_rulesPresident);
         _fenetre.getDialogRulesPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesPresident().getJt().removeAll();
     }
 
     public static void setPresidentDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
@@ -36,9 +36,10 @@ public final class DialogRulesPresident extends DialogPresident implements Dialo
         validated = false;
         AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);
-        initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window);
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
+        initJt(null, _enabledChangingNbPlayers, _nbPlayers, _window, jt_);
 
-        container_.add(getJt(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
         bouton_.addActionListener(new ValidateRulesEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);

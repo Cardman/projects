@@ -3,7 +3,6 @@ package cards.gui.dialogs;
 import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ClosingEditorCards;
 import code.gui.AbsDialog;
-import code.gui.AbsTabbedPane;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -12,7 +11,6 @@ import code.gui.initialize.AbstractProgramInfos;
 
 abstract class DialogCards {
 
-    private final AbsTabbedPane jt;
     private final AbsCompoFactory compoFactory;
     private WindowCardsInt main;
     private final AbsDialog cardDialog;
@@ -27,7 +25,6 @@ abstract class DialogCards {
             cardDialog = _frameFactory.getFrameFactory().newDialog();
         }
         compoFactory = _frameFactory.getCompoFactory();
-        jt = compoFactory.newAbsTabbedPane();
     }
 
     public ClosingEditorCards getClos() {
@@ -51,8 +48,5 @@ abstract class DialogCards {
     public void closeWindow() {
         cardDialog.closeWindow();
         cardDialog.getPane().removeAll();
-    }
-    AbsTabbedPane getJt() {
-        return jt;
     }
 }

@@ -73,7 +73,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //    }
 
-    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window) {
+    protected void initJt(AbsSpinner _nbGames, boolean _enabledChangingNbPlayers, int _nbPlayers, WindowCardsInt _window, AbsTabbedPane _jt) {
         String lg_ = _window.getLanguageKey();
         setNbGames(_nbGames);
         AbsPanel dealing_=_window.getCompoFactory().newGrid(0,2);
@@ -98,7 +98,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             dealing_.add(getNbGames());
         }
         //Panneau Distribution
-        getJt().add(getMessages().getVal(DEALING),dealing_);
+        _jt.add(getMessages().getVal(DEALING),dealing_);
         AbsPanel declaring_=_window.getCompoFactory().newPageBox();
         declaring_.add(getCompoFactory().newPlainLabel(getMessages().getVal(CST_BIDS)));
         bidding=_window.getCompoFactory().newLineBox();
@@ -144,7 +144,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
             miseres.add(caseCroix_);
         }
         declaring_.add(declaringMiseres);
-        getJt().add(getMessages().getVal(DECLARING),declaring_);
+        _jt.add(getMessages().getVal(DECLARING),declaring_);
 
         //Panneau Chelem
         AbsPanel bidding_ =_window.getCompoFactory().newGrid(0,3);
@@ -194,7 +194,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         allowPlayCalledSuit = getCompoFactory().newCustCheckBox(getMessages().getVal(ALLOW_PLAYING_CALLED_SUIT));
         allowPlayCalledSuit.setSelected(getReglesTarot().isAllowPlayCalledSuit());
         bidding_.add(allowPlayCalledSuit);
-        getJt().add(getMessages().getVal(RULES),bidding_);
+        _jt.add(getMessages().getVal(RULES),bidding_);
         //Panneau 4-5 joueurs
         players=_window.getCompoFactory().newGrid(2,0);
         sousPanneau_=_window.getCompoFactory().newGrid(2,0);
@@ -247,7 +247,7 @@ public abstract class DialogTarot extends DialogCards implements DialogVaryingPl
         listeChoixFour.setListener(new ListenerDealing(this));
         sousPanneau_.add(listeChoixFour.self());
         players.add(sousPanneau_);
-        getJt().add(getMessages().getVal(REPARTITION),players);
+        _jt.add(getMessages().getVal(REPARTITION),players);
     }
 
     protected void initMessageName(WindowCardsInt _parent) {

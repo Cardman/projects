@@ -52,7 +52,6 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingPresident().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingPresident().setMain(_fenetre);
-        _fenetre.getDialogDisplayingPresident().getJt().removeAll();
         _fenetre.getDialogDisplayingPresident().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingPresident().displayingPresident = _fenetre.getDisplayingPresident();
         _fenetre.getDialogDisplayingPresident().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -80,7 +79,8 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingPresident.getDisplaying().isClockwise());
         panneau_.add(checkClockwise);
-        getJt().add(messages.getVal(DEALING),panneau_);
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
+        jt_.add(messages.getVal(DEALING),panneau_);
         //Panneau Tri avant enchere
         panneau_=_window.getCompoFactory().newGrid(0,4);
 //        listeChoix=new ComboBoxSuit();
@@ -121,9 +121,9 @@ public final class DialogDisplayingPresident extends DialogCards implements Dial
         nbDealsDemo = getCompoFactory().newSpinner(displayingPresident.getNbDeals(),FileConst.MIN_DEALS,FileConst.MAX_DEALS,1);
         sousPanneau_.add(nbDealsDemo);
         panneau_.add(sousPanneau_);
-        getJt().add(messages.getVal(SORTING),panneau_);
+        jt_.add(messages.getVal(SORTING),panneau_);
 
-        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ValidateDisplayingEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);

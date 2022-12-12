@@ -50,7 +50,6 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         //super(_titre, _fenetre, true);
         _fenetre.getDialogDisplayingTarot().getCardDialog().setDialogIcon(_fenetre.getImageFactory(),_fenetre.getCommonFrame());
         _fenetre.getDialogDisplayingTarot().setMain(_fenetre);
-        _fenetre.getDialogDisplayingTarot().getJt().removeAll();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogDisplayingTarot().displayingTarot = _fenetre.getDisplayingTarot();
         _fenetre.getDialogDisplayingTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
@@ -78,7 +77,8 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         checkClockwise=getCompoFactory().newCustCheckBox(messages.getVal(CLOCK_WISE));
         checkClockwise.setSelected(displayingTarot.getDisplaying().isClockwise());
         panneau_.add(checkClockwise);
-        getJt().add(messages.getVal(DEALING),panneau_);
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
+        jt_.add(messages.getVal(DEALING),panneau_);
         //Panneau Tri
         AbsPanel sousPanneau_=_window.getCompoFactory().newGrid(0,3);
         listeChoix=new ComboBox<Suit>(_window.getFrames().getGeneComboBox().createCombo(_window.getImageFactory(),new StringList(), -1, _window.getCompoFactory()));
@@ -117,8 +117,8 @@ public final class DialogDisplayingTarot extends DialogCards implements DialogDi
         orderedSuits=new SuitsScrollableList(liste_,5, _window);
         liste_.clear();
         sousPanneau_.add(orderedSuits.getContainer());
-        getJt().add(messages.getVal(SORTING),sousPanneau_);
-        container_.add(getJt(),GuiConstants.BORDER_LAYOUT_CENTER);
+        jt_.add(messages.getVal(SORTING),sousPanneau_);
+        container_.add(jt_,GuiConstants.BORDER_LAYOUT_CENTER);
         bouton_=getCompoFactory().newPlainButton(messages.getVal(VALIDATE));
         bouton_.addActionListener(new ValidateDisplayingEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);

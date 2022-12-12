@@ -6,6 +6,7 @@ import cards.gui.dialogs.events.ValidateRulesEvent;
 import cards.tarot.RulesTarot;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.AbsTabbedPane;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -25,7 +26,6 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         _fenetre.getDialogRulesTarot().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesTarot().setReglesTarot(_rulesTarot);
         _fenetre.getDialogRulesTarot().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesTarot().getJt().removeAll();
     }
 
     public static void setTarotDialog(boolean _enabledChangingNbPlayers,int _nbPlayers, WindowCardsInt _window) {
@@ -36,8 +36,9 @@ public final class DialogRulesTarot extends DialogTarot implements DialogRules {
         validated = false;
         AbsPanel container_=_window.getCompoFactory().newBorder();
         initMessageName(_window);
-        initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window);
-        container_.add(getJt(), GuiConstants.BORDER_LAYOUT_CENTER);
+        AbsTabbedPane jt_ = _window.getCompoFactory().newAbsTabbedPane();
+        initJt(null,_enabledChangingNbPlayers,_nbPlayers, _window, jt_);
+        container_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
         bouton_.addActionListener(new ValidateRulesEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);

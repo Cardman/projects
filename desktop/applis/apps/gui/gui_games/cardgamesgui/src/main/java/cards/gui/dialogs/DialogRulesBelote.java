@@ -6,6 +6,7 @@ import cards.gui.WindowCardsInt;
 import cards.gui.dialogs.events.ValidateRulesEvent;
 import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
+import code.gui.AbsTabbedPane;
 import code.gui.GuiConstants;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -25,7 +26,6 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         _fenetre.getDialogRulesBelote().getCardDialog().setTitle(_titre);
         _fenetre.getDialogRulesBelote().setReglesBelote(_rulesBelote);
         _fenetre.getDialogRulesBelote().getCardDialog().setLocationRelativeTo(_fenetre.getCommonFrame());
-        _fenetre.getDialogRulesBelote().getJt().removeAll();
         _fenetre.getDialogRulesBelote().setDialogue(_fenetre);
     }
 
@@ -35,9 +35,10 @@ public final class DialogRulesBelote extends DialogBelote implements DialogRules
         AbsPanel container_=_parent.getCompoFactory().newBorder();
         initMessageName(_parent);
         String lg_ = _parent.getLanguageKey();
-        initJt(_parent,null,lg_);
+        AbsTabbedPane jt_ = _parent.getCompoFactory().newAbsTabbedPane();
+        initJt(_parent,null,lg_, jt_);
 
-        container_.add(getJt(), GuiConstants.BORDER_LAYOUT_CENTER);
+        container_.add(jt_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPlainButton bouton_=getCompoFactory().newPlainButton(getMessages().getVal(VALIDATE));
         bouton_.addActionListener(new ValidateRulesEvent(this));
         container_.add(bouton_,GuiConstants.BORDER_LAYOUT_SOUTH);
