@@ -136,6 +136,9 @@ public final class CustAliasParameters {
     private static final String EXECUTE_1_EXECUTE_SETUP_ERROR_2="Execute1ExecuteSetupError2";
     private static final String EXECUTOR_SERVICE_0_EXECUTE_0="ExecutorService0Execute0";
     private static final String EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0="ExecutorService1ExecutorService0";
+//    private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
+    private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_0="RunnableImplicit0Implicit0";
+    private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_1="RunnableImplicit0Implicit1";
     private static final String ASSERT_0_ASSERT_ASSERT_0="Assert0AssertAssert0";
     private static final String ASSERT_0_ASSERT_ASSERT_1="Assert0AssertAssert1";
     private static final String ASSERT_1_ASSERT_ASSERT_0="Assert1AssertAssert0";
@@ -350,6 +353,9 @@ public final class CustAliasParameters {
     private String aliasExecute1ExecuteSetupError2;
     private String aliasExecutorService0Execute0;
     private String aliasExecutorService1ExecutorService0;
+//    private String aliasRunnableImplicit0Runner;
+    private String aliasRunnableImplicit0Implicit0;
+    private String aliasRunnableImplicit0Implicit1;
     private String aliasAssert0AssertAssert0;
     private String aliasAssert0AssertAssert1;
     private String aliasAssert1AssertAssert0;
@@ -536,6 +542,8 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_0,aliasExecute1ExecuteSetupError0),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_1,aliasExecute1ExecuteSetupError1),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_2,aliasExecute1ExecuteSetupError2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_EXECUTE_0,aliasExecutorService0Execute0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0,aliasExecutorService1ExecutorService0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RUNNABLE_IMPLICIT_0_IMPLICIT_0,aliasRunnableImplicit0Implicit0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RUNNABLE_IMPLICIT_0_IMPLICIT_1,aliasRunnableImplicit0Implicit1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_0,aliasAssert0AssertAssert0),new KeyValueMemberName(ASSERT_0_ASSERT_ASSERT_1,aliasAssert0AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_0,aliasAssert1AssertAssert0),new KeyValueMemberName(ASSERT_1_ASSERT_ASSERT_1,aliasAssert1AssertAssert1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_0,aliasAssert2AssertAssert0),new KeyValueMemberName(ASSERT_2_ASSERT_ASSERT_1,aliasAssert2AssertAssert1)));
@@ -708,6 +716,8 @@ public final class CustAliasParameters {
         aliasExecute1ExecuteSetupError2= LgNamesContent.get(_util, _cust, EXECUTE_1_EXECUTE_SETUP_ERROR_2);
         aliasExecutorService0Execute0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_EXECUTE_0);
         aliasExecutorService1ExecutorService0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0);
+        aliasRunnableImplicit0Implicit0= LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_IMPLICIT_0);
+        aliasRunnableImplicit0Implicit1= LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_IMPLICIT_1);
         aliasAssert0AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_0);
         aliasAssert0AssertAssert1= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_1);
         aliasAssert1AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_1_ASSERT_ASSERT_0);
@@ -1303,6 +1313,14 @@ public final class CustAliasParameters {
 
     public String getAliasExecutorService1ExecutorService0() {
         return aliasExecutorService1ExecutorService0;
+    }
+
+    public String getAliasRunnableImplicit0Implicit0() {
+        return aliasRunnableImplicit0Implicit0;
+    }
+
+    public String getAliasRunnableImplicit0Implicit1() {
+        return aliasRunnableImplicit0Implicit1;
     }
 
     public String getAliasAssert0AssertAssert0() {

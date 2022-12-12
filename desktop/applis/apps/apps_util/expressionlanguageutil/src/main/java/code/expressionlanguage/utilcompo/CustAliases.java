@@ -224,6 +224,7 @@ public final class CustAliases {
     private static final String EXECUTOR_SERVICE="ExecutorService";
     private static final String EXECUTOR_SERVICE_SHUTDOWN="ExecutorServiceShutdown";
     private static final String EXECUTOR_SERVICE_EXECUTE ="ExecutorServiceExecute";
+    private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -237,6 +238,7 @@ public final class CustAliases {
     private String aliasExecutorService;
     private String aliasExecutorServiceShutdown;
     private String aliasExecutorServiceExecute;
+    private String aliasRunnableImplicit0Runner;
 //    private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
@@ -947,6 +949,17 @@ public final class CustAliases {
         map_.put("{abstract}", abstract_);
         map_.put("{void}", coreNames_.getAliasVoid());
         map_.put("{run}", aliasRun);
+        map_.put("{cast}", _keyWords.getKeyWordCast());
+        map_.put("{static}", _keyWords.getKeyWordStatic());
+        map_.put("{Fct}", reflect_.getAliasFct());
+        map_.put("{return}", _keyWords.getKeyWordReturn());
+        map_.put("{new}", _keyWords.getKeyWordNew());
+        map_.put("{this}", _keyWords.getKeyWordThis());
+        map_.put("{id}", _keyWords.getKeyWordId());
+        map_.put("{runner}", getAliasRunnableImplicit0Runner());
+        map_.put("{call}", reflect_.getAliasCall());
+        map_.put("{r01}", custAliasParameters.getAliasRunnableImplicit0Implicit0());
+        map_.put("{r02}", custAliasParameters.getAliasRunnableImplicit0Implicit1());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasRunnable, content_);
         content_ = properties.getVal("resources_lg/collections/list.txt");
@@ -1619,6 +1632,7 @@ public final class CustAliases {
         setAliasExecutorService(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE));
         setAliasExecutorServiceShutdown(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SHUTDOWN));
         setAliasExecutorServiceExecute(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_EXECUTE));
+        setAliasRunnableImplicit0Runner(LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_RUNNER));
         setAliasThreadSetAll(LgNamesContent.get(_util, _cust, THREAD_SET_ALL));
         setAliasThreadSetAdd(LgNamesContent.get(_util, _cust, THREAD_SET_ADD));
         setAliasThreadSetContains(LgNamesContent.get(_util, _cust, THREAD_SET_CONTAINS));
@@ -1718,6 +1732,9 @@ public final class CustAliases {
         ));
         f_.addEntry(getAliasEltDifference(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(INDEX,getAliasIndex())
+        ));
+        f_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(RUNNABLE_IMPLICIT_0_RUNNER,getAliasRunnableImplicit0Runner())
         ));
         f_.addEntry(getAliasInfoTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(INFO_TEST_COUNT,getAliasInfoTestCount()),
@@ -2051,6 +2068,14 @@ public final class CustAliases {
 
     public void setAliasExecutorServiceExecute(String _v) {
         this.aliasExecutorServiceExecute = _v;
+    }
+
+    public String getAliasRunnableImplicit0Runner() {
+        return aliasRunnableImplicit0Runner;
+    }
+
+    public void setAliasRunnableImplicit0Runner(String _v) {
+        this.aliasRunnableImplicit0Runner = _v;
     }
 
     public String getAliasThreadSetAll() {
