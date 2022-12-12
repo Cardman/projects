@@ -72,6 +72,11 @@ public final class DefaultThreadFactory implements AbstractThreadFactory {
     }
 
     @Override
+    public AbstractBaseExecutorService newExecutorService(int _nbThreads) {
+        return new DefaultExecutorService(_nbThreads);
+    }
+
+    @Override
     public AbstractAtomicBoolean newAtomicBoolean() {
         return new DefAtomicBoolean();
     }

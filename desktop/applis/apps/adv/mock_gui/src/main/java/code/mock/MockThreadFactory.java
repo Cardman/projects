@@ -72,6 +72,11 @@ public final class MockThreadFactory implements AbstractThreadFactory {
 
     @Override
     public AbstractBaseExecutorService newExecutorService() {
+        return newExecutorService(1);
+    }
+
+    @Override
+    public AbstractBaseExecutorService newExecutorService(int _nbThreads) {
         return baseExecutorService;
     }
 

@@ -12,6 +12,7 @@ public interface AbstractThreadFactory extends AbstractTimerRetriever {
     AbstractThread newThread();
     AbstractScheduledExecutorService newScheduledExecutorService();
     AbstractBaseExecutorService newExecutorService();
+    AbstractBaseExecutorService newExecutorService(int _nbThreads);
     AbstractAtomicBoolean newAtomicBoolean();
     AbstractAtomicBoolean newAtomicBoolean(boolean _value);
     AbstractAtomicInteger newAtomicInteger();

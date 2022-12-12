@@ -221,7 +221,9 @@ public final class CustAliases {
     private static final String AFTER = "After";
     private static final String SIZE_TA = "SizeTa";
     private static final String ASSERT = "Assert";
-
+    private static final String EXECUTOR_SERVICE="ExecutorService";
+    private static final String EXECUTOR_SERVICE_SHUTDOWN="ExecutorServiceShutdown";
+    private static final String EXECUTOR_SERVICE_EXECUTE ="ExecutorServiceExecute";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -232,6 +234,9 @@ public final class CustAliases {
     private String aliasThread;
     private String aliasThreadCurrentTime;
     private String aliasThreadCurrentNanoTime;
+    private String aliasExecutorService;
+    private String aliasExecutorServiceShutdown;
+    private String aliasExecutorServiceExecute;
 //    private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
@@ -540,6 +545,24 @@ public final class CustAliases {
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasThreadSet, std_);
+        methods_ = new CustList<StandardMethod>();
+        fields_ = new CustList<CstFieldInfo>();
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfExecutorService(infos.getThreadFactory()));
+        params_ = new StringList(aliasRunnable);
+        method_ = new StandardMethod(aliasExecutorServiceExecute, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Execute0()),new FctExecutorServiceExecute0());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown());
+        methods_.add( method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(infos.getThreadFactory()));
+        constructors_.add(ctor_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasExecutorService1ExecutorService0()),new FctExecutorService1(infos.getThreadFactory()));
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasExecutorService, std_);
 //        methods_ = new CustList<StandardMethod>();
 //        constructors_ = new CustList<StandardConstructor>();
 //        fields_ = new CustList<CstFieldInfo>();
@@ -1593,6 +1616,9 @@ public final class CustAliases {
         setAliasRunnable(LgNamesContent.get(_util, _cust, RUNNABLE));
         setAliasThread(LgNamesContent.get(_util, _cust, THREAD));
         setAliasThreadSet(LgNamesContent.get(_util, _cust, THREAD_SET));
+        setAliasExecutorService(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE));
+        setAliasExecutorServiceShutdown(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SHUTDOWN));
+        setAliasExecutorServiceExecute(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_EXECUTE));
         setAliasThreadSetAll(LgNamesContent.get(_util, _cust, THREAD_SET_ALL));
         setAliasThreadSetAdd(LgNamesContent.get(_util, _cust, THREAD_SET_ADD));
         setAliasThreadSetContains(LgNamesContent.get(_util, _cust, THREAD_SET_CONTAINS));
@@ -1765,6 +1791,9 @@ public final class CustAliases {
 //                new KeyValueMemberName(YIELD,getAliasYield()),
 //                new KeyValueMemberName(THREAD_EXIT_HOOK,getAliasThreadExitHook())));
 
+        m_.addEntry(getAliasExecutorService(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(EXECUTOR_SERVICE_EXECUTE, getAliasExecutorServiceExecute()),
+                new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
         m_.addEntry(getAliasThreadSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
                 new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
@@ -1927,6 +1956,7 @@ public final class CustAliases {
         StringMap<String> ref_ = new StringMap<String>();
         ref_.addEntry(THREAD,getAliasThread());
         ref_.addEntry(THREAD_SET,getAliasThreadSet());
+        ref_.addEntry(EXECUTOR_SERVICE,getAliasExecutorService());
 //        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
         ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
         ref_.addEntry(ATOMIC_INTEGER,getAliasAtomicInteger());
@@ -1997,6 +2027,30 @@ public final class CustAliases {
 
     public void setAliasThreadSet(String _aliasThreadSet) {
         aliasThreadSet = _aliasThreadSet;
+    }
+
+    public String getAliasExecutorService() {
+        return aliasExecutorService;
+    }
+
+    public void setAliasExecutorService(String _v) {
+        this.aliasExecutorService = _v;
+    }
+
+    public String getAliasExecutorServiceShutdown() {
+        return aliasExecutorServiceShutdown;
+    }
+
+    public void setAliasExecutorServiceShutdown(String _v) {
+        this.aliasExecutorServiceShutdown = _v;
+    }
+
+    public String getAliasExecutorServiceExecute() {
+        return aliasExecutorServiceExecute;
+    }
+
+    public void setAliasExecutorServiceExecute(String _v) {
+        this.aliasExecutorServiceExecute = _v;
     }
 
     public String getAliasThreadSetAll() {
