@@ -62,7 +62,7 @@ public final class ExecutorServiceStructTest extends EquallableElUtUtil {
         ArgumentListCall list_ = new ArgumentListCall();
         MockRunnableStruct s_ = new MockRunnableStruct("");
         list_.getArgumentWrappers().add(new ArgumentWrapper(s_));
-        new FctExecutorServiceSubmit0().call(null,null,essOne_, list_,null);
+        new FctFutureAttendre().call(null,null,new FctExecutorServiceSubmit0().call(null,null,essOne_, list_,null).getValue().getStruct(),null,null);
         new FctExecutorServiceShutdown().call(null,null,essOne_, null,null);
         new FctExecutorServiceExecute0().call(null,null,essOne_, list_,null);
         assertTrue(s_.isStarted());
