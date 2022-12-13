@@ -226,6 +226,8 @@ public final class CustAliases {
     private static final String EXECUTOR_SERVICE_EXECUTE ="ExecutorServiceExecute";
     private static final String EXECUTOR_SERVICE_SUBMIT ="ExecutorServiceSubmit";
     private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
+    private static final String FUTURE="Future";
+    private static final String FUTURE_WAIT="FutureWait";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -241,6 +243,8 @@ public final class CustAliases {
     private String aliasExecutorServiceExecute;
     private String aliasExecutorServiceSubmit;
     private String aliasRunnableImplicit0Runner;
+    private String aliasFuture;
+    private String aliasFutureWait;
 //    private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
@@ -557,7 +561,7 @@ public final class CustAliases {
         method_ = new StandardMethod(aliasExecutorServiceExecute, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Execute0()),new FctExecutorServiceExecute0());
         methods_.add( method_);
         params_ = new StringList(aliasRunnable);
-        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0());
+        method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0());
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown());
@@ -570,6 +574,15 @@ public final class CustAliases {
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasExecutorService, std_);
+        methods_ = new CustList<StandardMethod>();
+        fields_ = new CustList<CstFieldInfo>();
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasFuture, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctFutureAttendre());
+        methods_.add( method_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasFuture, std_);
 //        methods_ = new CustList<StandardMethod>();
 //        constructors_ = new CustList<StandardConstructor>();
 //        fields_ = new CustList<CstFieldInfo>();
@@ -1296,9 +1309,13 @@ public final class CustAliases {
         map_.put("{tt1}",tr("tt1", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
                 custAliasParameters.getAliasExecute0ExecuteSetupNoException0()));
+        map_.put("{tts0}",tr("tts0", _keyWords, primitiveTypes_, coreNames_,
+                custAliasParameters.getAliasExecute0ExecuteSetupError0(),custAliasParameters.getAliasExecute0ExecuteSetupError1(),custAliasParameters.getAliasExecute0ExecuteSetupError2(),
+                custAliasParameters.getAliasExecute0ExecuteSetupNoException0()));
         map_.put("{exSerEx}",getAliasExecutorServiceSubmit());
         map_.put("{shutdown}",getAliasExecutorServiceShutdown());
-        map_.put("{shutdown}",getAliasExecutorServiceShutdown());
+        map_.put("{wait}",getAliasFutureWait());
+        map_.put("{Future}",getAliasFuture());
         map_.put("{ExecutorService}",getAliasExecutorService());
         map_.put("{Runnable}",getAliasRunnable());
         map_.put("{ex}",tr("ex", _keyWords, primitiveTypes_, coreNames_,
@@ -1650,6 +1667,8 @@ public final class CustAliases {
         setAliasExecutorServiceExecute(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_EXECUTE));
         setAliasExecutorServiceSubmit(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SUBMIT));
         setAliasRunnableImplicit0Runner(LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_RUNNER));
+        setAliasFuture(LgNamesContent.get(_util, _cust, FUTURE));
+        setAliasFutureWait(LgNamesContent.get(_util, _cust, FUTURE_WAIT));
         setAliasThreadSetAll(LgNamesContent.get(_util, _cust, THREAD_SET_ALL));
         setAliasThreadSetAdd(LgNamesContent.get(_util, _cust, THREAD_SET_ADD));
         setAliasThreadSetContains(LgNamesContent.get(_util, _cust, THREAD_SET_CONTAINS));
@@ -1829,6 +1848,8 @@ public final class CustAliases {
                 new KeyValueMemberName(EXECUTOR_SERVICE_EXECUTE, getAliasExecutorServiceExecute()),
                 new KeyValueMemberName(EXECUTOR_SERVICE_SUBMIT, getAliasExecutorServiceSubmit()),
                 new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
+        m_.addEntry(getAliasFuture(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FUTURE_WAIT, getAliasFutureWait())));
         m_.addEntry(getAliasThreadSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
                 new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
@@ -1992,6 +2013,7 @@ public final class CustAliases {
         ref_.addEntry(THREAD,getAliasThread());
         ref_.addEntry(THREAD_SET,getAliasThreadSet());
         ref_.addEntry(EXECUTOR_SERVICE,getAliasExecutorService());
+        ref_.addEntry(FUTURE,getAliasFuture());
 //        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
         ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
         ref_.addEntry(ATOMIC_INTEGER,getAliasAtomicInteger());
@@ -2102,6 +2124,22 @@ public final class CustAliases {
 
     public void setAliasRunnableImplicit0Runner(String _v) {
         this.aliasRunnableImplicit0Runner = _v;
+    }
+
+    public String getAliasFuture() {
+        return aliasFuture;
+    }
+
+    public void setAliasFuture(String _v) {
+        this.aliasFuture = _v;
+    }
+
+    public String getAliasFutureWait() {
+        return aliasFutureWait;
+    }
+
+    public void setAliasFutureWait(String _v) {
+        this.aliasFutureWait = _v;
     }
 
     public String getAliasThreadSetAll() {
