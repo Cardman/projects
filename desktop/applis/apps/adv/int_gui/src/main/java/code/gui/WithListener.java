@@ -4,7 +4,7 @@ import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
 import code.util.CustList;
 
-public interface WithListener {
+public interface WithListener extends PlacableWindow {
     void addWindowListener(AbsWindowListener _l);
     AbsWindowListenerClosing addWindowListener(AbsWindowListenerClosing _l);
 

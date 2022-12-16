@@ -19,16 +19,6 @@ public abstract class MockAbsDialog extends MockWindow implements AbsDialog, Abs
         event = _cl;
     }
 
-    @Override
-    public void setLocationRelativeTo(AbsOtherDialog _c) {
-        setResizable(isResizable());
-    }
-
-    @Override
-    public void setLocationRelativeTo(AbsOtherFrame _c) {
-        setModal(isModal());
-    }
-
     public boolean isResizable() {
         return resizable;
     }

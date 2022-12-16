@@ -3,7 +3,6 @@ package code.expressionlanguage.guicompos;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.gui.AbsPanel;
-import code.gui.PlacableWindow;
 import code.gui.WithListener;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
@@ -35,18 +34,14 @@ public abstract class WindowStruct extends WithoutParentIdStruct {
     public abstract void pack();
     public void setLocationRelativeTo(Struct _c){
         WithListener abs_ = getAbstractWindow();
-        if (!(abs_ instanceof PlacableWindow)) {
-            return;
-        }
-        PlacableWindow pl_ = (PlacableWindow) abs_;
         if (_c instanceof CustComponentStruct) {
-            pl_.setLocationRelativeTo(((CustComponentStruct)_c).getComponent());
+            abs_.setLocationRelativeTo(((CustComponentStruct)_c).getComponent());
         } else if (_c instanceof DialogStruct) {
-            pl_.setLocationRelativeTo(((DialogStruct)_c).getDialog());
+            abs_.setLocationRelativeTo(((DialogStruct)_c).getDialog());
         } else if (_c instanceof FrameStruct) {
-            pl_.setLocationRelativeTo(((FrameStruct)_c).getCommonFrame());
+            abs_.setLocationRelativeTo(((FrameStruct)_c).getCommonFrame());
         } else {
-            pl_.setLocationRelativeToNull();
+            abs_.setLocationRelativeToNull();
         }
     }
     public boolean isVisible() {

@@ -9,7 +9,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.IdList;
 
-public abstract class MockWindow implements WithListener{
+public abstract class MockWindow implements WithListener, PlacableWindow{
     private final IdList<AbsWindowListenerClosing> windowClosListeners = new IdList<AbsWindowListenerClosing>();
     private final IdList<AbsWindowListener> windowListeners = new IdList<AbsWindowListener>();
     private String title;
@@ -32,6 +32,17 @@ public abstract class MockWindow implements WithListener{
         pane = _f.getCompoFactory().newLineBox();
         menu = _f.getCompoFactory().newMenuBar();
     }
+
+    @Override
+    public void setLocationRelativeTo(AbsOtherDialog _c) {
+        setVisible(isVisible());
+    }
+
+    @Override
+    public void setLocationRelativeTo(AbsOtherFrame _f) {
+        setVisible(isVisible());
+    }
+
 
     public void addWindowListener(AbsWindowListener _l) {
         windowListeners.add(_l);
@@ -151,8 +162,8 @@ public abstract class MockWindow implements WithListener{
     }
 
     public void setLocationRelativeToWindow(Iconifiable _a) {
-        if (_a instanceof MockAbsDialog) {
-            setLocationRelativeTo((MockAbsDialog)_a);
+        if (_a instanceof AbsDialog) {
+            setLocationRelativeTo((AbsDialog)_a);
         } else if (_a instanceof AbsCommonFrame) {
             setLocationRelativeTo((AbsCommonFrame)_a);
         } else {
