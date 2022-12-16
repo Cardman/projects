@@ -162,6 +162,15 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         assertEq(GuiConstants.OK_OPTION,conf_.getAnswer());
     }
     @Test
+    public void ok3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showMiniDialogOk(pr_.getLightFrameFactory().newOtherFrame(),"message","title","ok");
+        ((MockWindow)conf_.getDialog()).getWindowListenersDef().get(0).windowClosing();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(GuiConstants.OK_OPTION,conf_.getAnswer());
+    }
+    @Test
     public void showTextField1() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
         OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
@@ -224,6 +233,18 @@ public final class OtherConfirmDialogTest extends EquallableElUtUtil {
         assertFalse(conf_.getDialog().isVisible());
         assertEq("_",conf_.textValue().getTypedText());
         assertEq(GuiConstants.YES_OPTION,conf_.textValue().getAnswer());
+    }
+    @Test
+    public void showTextField5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), true, new MockFileSet(0, new long[0], StringUtil.wrapStringArray("/")));
+        OtherConfirmDialog conf_ = new OtherConfirmDialog(pr_);
+        conf_.showTextField(pr_.getLightFrameFactory().newOtherFrame(),"message","title","en","ok","cancel");
+        AbsPanel pane_ = conf_.getDialog().getContentPane();
+        MockTextField field_ = (MockTextField) pane_.getComponent(1);
+        field_.setText("_");
+        ((MockWindow)conf_.getDialog()).getWindowListenersDef().get(0).windowClosing();
+        assertFalse(conf_.getDialog().isVisible());
+        assertEq(GuiConstants.NO_OPTION,conf_.textValue().getAnswer());
     }
     @Test
     public void showMessage1() {
