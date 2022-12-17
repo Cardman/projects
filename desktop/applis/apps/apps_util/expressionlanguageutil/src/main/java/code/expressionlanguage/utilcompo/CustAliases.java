@@ -74,6 +74,7 @@ public final class CustAliases {
     private static final String FILE_LIST_DIRECTORIES = "FileListDirectories";
     private static final String LENGTH_ITR_TA = "LengthItrTa";
     private static final String EXECUTED_TEST_ANNOTATIONS = "ExecutedTestAnnotations";
+    private static final String EXECUTED_TEST_ARGS_ANNOT = "ExecutedTestArgsAnnot";
     private static final String PAIR_VAR_FIRST = "PairVarFirst";
     private static final String INDEX_ITR_LI = "IndexItrLi";
     private static final String LIST_ITER_TABLE = "ListIterTable";
@@ -218,6 +219,8 @@ public final class CustAliases {
     private static final String BEFORE = "Before";
     private static final String GET_TA = "GetTa";
     private static final String TEST = "Test";
+    private static final String ARGS_TEST = "ArgsTest";
+    private static final String ARGS_TEST_ARGS_VALUE = "ArgsTestArgsValue";
     private static final String EXECUTE = "Execute";
     private static final String AFTER = "After";
     private static final String SIZE_TA = "SizeTa";
@@ -382,6 +385,7 @@ public final class CustAliases {
     private String aliasResult;
     private String aliasExecutedTest;
     private String aliasTest;
+    private String aliasArgsTest;
     private String aliasAfter;
     private String aliasBefore;
     private String aliasParameters;
@@ -393,10 +397,12 @@ public final class CustAliases {
     private String aliasTestException;
     private String aliasTestNullException;
     private String aliasExecutedTestAnnotations;
+    private String aliasExecutedTestArgsAnnot;
     private String aliasExecutedTestTest;
     private String aliasExecutedTestBefore;
     private String aliasExecutedTestAfter;
     private String aliasExecutedTestMethod;
+    private String aliasArgsTestArgsValue;
 
     private String aliasResultSuccess;
     private String aliasResultTime;
@@ -1093,6 +1099,7 @@ public final class CustAliases {
 
         content_ = properties.getVal("resources_lg/tests/run.txt");
         map_.put("{a}",tr("a", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
+        map_.put("{r}",tr("r", _keyWords, primitiveTypes_, coreNames_,custAliasParameters.getAliasExecute0ExecuteTests0()));
         map_.put("{b}",tr("b", _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
         ));
@@ -1325,6 +1332,10 @@ public final class CustAliases {
         map_.put("{shutdown}",getAliasExecutorServiceShutdown());
         map_.put("{wait}",getAliasFutureWait());
         map_.put("{Future}",getAliasFuture());
+        map_.put("{Args}",getAliasArgsTest());
+        map_.put("{args}",getAliasArgs());
+        map_.put("{argsValue}",getAliasArgsTestArgsValue());
+        map_.put("{argsAnnot}",getAliasExecutedTestArgsAnnot());
         map_.put("{ExecutorService}",getAliasExecutorService());
         map_.put("{Runnable}",getAliasRunnable());
         map_.put("{ex}",tr("ex", _keyWords, primitiveTypes_, coreNames_,
@@ -1723,7 +1734,10 @@ public final class CustAliases {
         setAliasBefore(LgNamesContent.get(_util, _cust, BEFORE));
         setAliasGetTa(LgNamesContent.get(_util, _cust, GET_TA));
         setAliasTest(LgNamesContent.get(_util, _cust, TEST));
+        setAliasArgsTest(LgNamesContent.get(_util, _cust, ARGS_TEST));
+        setAliasArgsTestArgsValue(LgNamesContent.get(_util, _cust, ARGS_TEST_ARGS_VALUE));
         setAliasExecute(LgNamesContent.get(_util, _cust, EXECUTE));
+        setAliasExecutedTestArgsAnnot(LgNamesContent.get(_util, _cust, EXECUTED_TEST_ARGS_ANNOT));
         setAliasAfter(LgNamesContent.get(_util, _cust, AFTER));
         setAliasSizeTa(LgNamesContent.get(_util, _cust, SIZE_TA));
         setAliasAssert(LgNamesContent.get(_util, _cust, ASSERT));
@@ -1797,6 +1811,7 @@ public final class CustAliases {
         f_.addEntry(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(EXECUTED_TEST_AFTER,getAliasExecutedTestAfter()),
                 new KeyValueMemberName(EXECUTED_TEST_BEFORE,getAliasExecutedTestBefore()),
+                new KeyValueMemberName(EXECUTED_TEST_ARGS_ANNOT,getAliasExecutedTestArgsAnnot()),
                 new KeyValueMemberName(EXECUTED_TEST_ANNOTATIONS,getAliasExecutedTestAnnotations()),
                 new KeyValueMemberName(EXECUTED_TEST_METHOD,getAliasExecutedTestMethod()),
                 new KeyValueMemberName(EXECUTED_TEST_TEST,getAliasExecutedTestTest())
@@ -2002,6 +2017,9 @@ public final class CustAliases {
                 new KeyValueMemberName(TEST_EXCEPTION,getAliasTestException()),
                 new KeyValueMemberName(TEST_NULL_EXCEPTION,getAliasTestNullException())
         ));
+        m_.addEntry(getAliasArgsTest(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ARGS_TEST_ARGS_VALUE,getAliasArgsTestArgsValue())
+        ));
         m_.addEntry(getAliasAssert(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ASSERT_ASSERT,getAliasAssertAssert()),
                 new KeyValueMemberName(ASSERT_NOT,getAliasAssertAssertNot()),
@@ -2046,6 +2064,7 @@ public final class CustAliases {
         ref_.addEntry(AFTER,getAliasAfter());
         ref_.addEntry(PARAMETERS,getAliasParameters());
         ref_.addEntry(TEST,getAliasTest());
+        ref_.addEntry(ARGS_TEST,getAliasArgsTest());
         ref_.addEntry(ASSERT,getAliasAssert());
         ref_.addEntry(DIFFERENCE,getAliasDifference());
         ref_.addEntry(ELT_DIFFERENCE,getAliasEltDifference());
@@ -3232,6 +3251,30 @@ public final class CustAliases {
 
     public void setAliasTest(String _aliasTest) {
         this.aliasTest = _aliasTest;
+    }
+
+    public String getAliasArgsTest() {
+        return aliasArgsTest;
+    }
+
+    public void setAliasArgsTest(String _v) {
+        this.aliasArgsTest = _v;
+    }
+
+    public String getAliasExecutedTestArgsAnnot() {
+        return aliasExecutedTestArgsAnnot;
+    }
+
+    public void setAliasExecutedTestArgsAnnot(String _v) {
+        this.aliasExecutedTestArgsAnnot = _v;
+    }
+
+    public String getAliasArgsTestArgsValue() {
+        return aliasArgsTestArgsValue;
+    }
+
+    public void setAliasArgsTestArgsValue(String _v) {
+        this.aliasArgsTestArgsValue = _v;
     }
 
     public String getAliasAfter() {
