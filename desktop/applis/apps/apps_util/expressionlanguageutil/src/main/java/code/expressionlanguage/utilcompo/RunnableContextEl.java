@@ -6,6 +6,7 @@ import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
+import code.util.StringList;
 
 public class RunnableContextEl extends ContextEl implements Locking {
 
@@ -14,14 +15,24 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private final AbstractZipFact zipFact;
     private String idDate;
     private String currentDir;
+    private StringList args;
 
-    public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
+    public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_executionInfos);
+        args = _args;
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getInfos().getThreadFactory();
         thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean());
         currentDir = standards_.getExecutingOptions().getBaseFiles();
         zipFact = standards_.getInfos().getZipFact();
+    }
+
+    public StringList getArgs() {
+        return args;
+    }
+
+    public void setArgs(StringList _a) {
+        this.args = _a;
     }
 
     @Override

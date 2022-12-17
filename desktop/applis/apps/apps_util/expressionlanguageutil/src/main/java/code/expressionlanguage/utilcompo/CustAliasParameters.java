@@ -21,6 +21,7 @@ public final class CustAliasParameters {
     private static final String THREAD_SET_0_THREAD_SET_CONTAINS_0="ThreadSet0ThreadSetContains0";
     private static final String THREAD_SET_0_THREAD_SET_REMOVE_0="ThreadSet0ThreadSetRemove0";
     private static final String THREAD_SET_0_THREAD_SET_0="ThreadSet0ThreadSet0";
+    private static final String THREAD_0_ARGS_0="Thread0Args0";
     private static final String REENTRANT_LOCK_0_REENTRANT_LOCK_0="ReentrantLock0ReentrantLock0";
     private static final String ATOMIC_BOOLEAN_0_SET_ATOMIC_0="AtomicBoolean0SetAtomic0";
     private static final String ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_0="AtomicBoolean0CompareAndSetAtomic0";
@@ -239,6 +240,7 @@ public final class CustAliasParameters {
     private String aliasThreadSet0ThreadSetContains0;
     private String aliasThreadSet0ThreadSetRemove0;
     private String aliasThreadSet0ThreadSet0;
+    private String aliasThread0Args0;
     private String aliasReentrantLock0ReentrantLock0;
     private String aliasAtomicBoolean0SetAtomic0;
     private String aliasAtomicBoolean0CompareAndSetAtomic0;
@@ -456,6 +458,7 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_CONTAINS_0,aliasThreadSet0ThreadSetContains0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_REMOVE_0,aliasThreadSet0ThreadSetRemove0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_0,aliasThreadSet0ThreadSet0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_0_ARGS_0,aliasThread0Args0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(REENTRANT_LOCK_0_REENTRANT_LOCK_0,aliasReentrantLock0ReentrantLock0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ATOMIC_BOOLEAN_0_SET_ATOMIC_0,aliasAtomicBoolean0SetAtomic0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_0,aliasAtomicBoolean0CompareAndSetAtomic0),new KeyValueMemberName(ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_1,aliasAtomicBoolean0CompareAndSetAtomic1)));
@@ -604,6 +607,7 @@ public final class CustAliasParameters {
         aliasThreadSet0ThreadSetContains0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_CONTAINS_0);
         aliasThreadSet0ThreadSetRemove0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_REMOVE_0);
         aliasThreadSet0ThreadSet0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_0);
+        aliasThread0Args0 = LgNamesContent.get(_util, _cust, THREAD_0_ARGS_0);
         aliasReentrantLock0ReentrantLock0= LgNamesContent.get(_util, _cust, REENTRANT_LOCK_0_REENTRANT_LOCK_0);
         aliasAtomicBoolean0SetAtomic0= LgNamesContent.get(_util, _cust, ATOMIC_BOOLEAN_0_SET_ATOMIC_0);
         aliasAtomicBoolean0CompareAndSetAtomic0= LgNamesContent.get(_util, _cust, ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_0);
@@ -861,6 +865,10 @@ public final class CustAliasParameters {
 
     public String getAliasThreadSet0ThreadSet0() {
         return aliasThreadSet0ThreadSet0;
+    }
+
+    public String getAliasThread0Args0() {
+        return aliasThread0Args0;
     }
 
     public String getAliasReentrantLock0ReentrantLock0() {

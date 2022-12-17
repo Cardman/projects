@@ -33,7 +33,7 @@ public final class GuiAliases {
     private static final String PANEL = "Panel";
     private static final String PROG_BAR = "ProgBar";
     private static final String IMAGE_SET = "ImageSet";
-    private static final String ARGS = "Args";
+//    private static final String ARGS = "Args";
     private static final String KEY_EVENT = "KeyEvent";
     private static final String RADIO = "Radio";
     private static final String CHECK_BOX = "CheckBox";
@@ -717,7 +717,7 @@ public final class GuiAliases {
     private String aliasWindowSetContains;
     private String aliasWindowSetRemove;
     private String aliasWindowSetSnapshot;
-    private String aliasArgs;
+//    private String aliasArgs;
     private String aliasPack;
     private String aliasDispose;
     private String aliasCloseAll;
@@ -1547,9 +1547,9 @@ public final class GuiAliases {
 //        params_ = new StringList();
 //        method_ = new StandardMethod(aliasWindow, params_, aliasFrame, false, MethodModifier.STATIC, new FctFrameWindow(_cust,_guiEx));
 //        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasArgs, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC, new FctFrameArgs(_cust,_guiEx));
-        methods_.add( method_);
+//        params_ = new StringList();
+//        method_ = new StandardMethod(aliasArgs, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC, new FctFrameArgs(_cust,_guiEx));
+//        methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctFrame(_cust,_guiEx));
         constructors_.add(ctor_);
@@ -3073,7 +3073,6 @@ public final class GuiAliases {
         setAliasPanel(LgNamesContent.get(_util, _cust, PANEL));
         setAliasProgBar(LgNamesContent.get(_util, _cust, PROG_BAR));
         setAliasImageSet(LgNamesContent.get(_util, _cust, IMAGE_SET));
-        setAliasArgs(LgNamesContent.get(_util, _cust, ARGS));
         setAliasKeyEvent(LgNamesContent.get(_util, _cust, KEY_EVENT));
         setAliasRadio(LgNamesContent.get(_util, _cust, RADIO));
         setAliasCheckBox(LgNamesContent.get(_util, _cust, CHECK_BOX));
@@ -4029,8 +4028,7 @@ public final class GuiAliases {
                 new KeyValueMemberName(SET_CONTENT,getAliasSetContent()),
                 new KeyValueMemberName(GET_MENU_BAR,getAliasGetMenuBar()),
                 new KeyValueMemberName(SET_MENU_BAR,getAliasSetMenuBar()),
-                new KeyValueMemberName(WINDOW,getAliasWindow()),
-                new KeyValueMemberName(ARGS,getAliasArgs())));
+                new KeyValueMemberName(WINDOW,getAliasWindow())));
         _m.addEntry(getAliasWindowSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(WINDOW_SET_ADD,getAliasWindowSetAdd()),
                 new KeyValueMemberName(WINDOW_SET_ALL,getAliasWindowSetAll()),
@@ -5852,14 +5850,6 @@ public final class GuiAliases {
 
     public void setAliasWindowSetSnapshot(String _v) {
         this.aliasWindowSetSnapshot = _v;
-    }
-
-    public String getAliasArgs() {
-        return aliasArgs;
-    }
-
-    public void setAliasArgs(String _v) {
-        this.aliasArgs = _v;
     }
 
     public String getAliasMouseListener() {

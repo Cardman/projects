@@ -10,10 +10,10 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
 import code.expressionlanguage.exec.opers.ExecInvokingOperation;
 import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.NumParsers;
 
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class RunnableFunctionalInstance extends AbstractFunctionalInstanceImpl implements Runnable,
         FieldableStruct {
@@ -30,7 +30,7 @@ public final class RunnableFunctionalInstance extends AbstractFunctionalInstance
 
     @Override
     public void run() {
-        callMethod(new RunnableContextEl(InitPhase.NOTHING, executionInfos), getFunctional(), new CustList<Argument>());
+        callMethod(new RunnableContextEl(InitPhase.NOTHING, executionInfos, new StringList()), getFunctional(), new CustList<Argument>());
     }
 
     public static Argument callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {

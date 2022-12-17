@@ -14,11 +14,14 @@ import code.gui.AbsPreparedLabel;
 import code.gui.Interval;
 import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
 
-    public AdvGraphicListPainter(AbstractImageFactory _fact, CommonExecutionInfos _executionInfos) {
+    private final StringList args;
+    public AdvGraphicListPainter(AbstractImageFactory _fact, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_fact,_executionInfos);
+        args = _args;
     }
 
     @Override
@@ -135,7 +138,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(pair_.getType(),stds_.getGuiAliases().getAliasPaint()), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, getExecutionInfos());
+        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, getExecutionInfos(), args);
         RunnableStruct.setupThread(r_);
         return r_;
     }

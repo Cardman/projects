@@ -17,6 +17,7 @@ import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.gui.*;
 import code.gui.events.*;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class EventStruct implements WithParentStruct,EnumerableStruct,
         AbsAdvActionListener,Runnable, AbsMouseListener, AbsWindowListener,ListSelection,
@@ -27,6 +28,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
 
     private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
+    private final StringList args;
 
     private Struct parent;
 
@@ -34,7 +36,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
     private final int ordinal;
     private final String parentClassName;
 
-    public EventStruct(ContextEl _original, String _className,
+    public EventStruct(RunnableContextEl _original, String _className,
                        String _name, int _ordinal,
                        CustList<ClassFieldStruct> _fields, Struct _parent, String _parentClassName) {
         name = _name;
@@ -44,6 +46,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         parent = _parent;
         parentClassName = _parentClassName;
         executionInfos = _original.getExecutionInfos();
+        args = _original.getArgs();
     }
     @Override
     public String getName() {
@@ -307,7 +310,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         RunnableStruct.invoke(this,_r,_typeName,_methName, argList_);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos);
+        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos, args);
         RunnableStruct.setupThread(r_);
         return r_;
     }

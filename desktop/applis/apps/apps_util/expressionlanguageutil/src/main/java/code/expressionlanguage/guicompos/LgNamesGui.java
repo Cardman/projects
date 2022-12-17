@@ -17,9 +17,11 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 
 
@@ -75,7 +77,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     static EventFunctionalInstance newGuiFunctionnal(ContextEl _contextEl, ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
-        return new EventFunctionalInstance(_className.getFormatted(), _functional, fs_, _contextEl, _named);
+        return new EventFunctionalInstance(_className.getFormatted(), _functional, fs_, (RunnableContextEl) _contextEl, _named);
     }
 
     public StringMap<String> addon(String _lang) {
@@ -86,7 +88,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getInfos().getThreadFactory().newAtomicLong(), getCustAliases().getInterceptor())));
+        return new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getInfos().getThreadFactory().newAtomicLong(), getCustAliases().getInterceptor())), new StringList(getExecutingOptions().getArgs()));
     }
     @Override
     public AbstractConstantsCalculator newConstantsCalculator() {

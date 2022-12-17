@@ -4,12 +4,13 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.guicompos.stds.FctWindowCloseAll;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsPlainButton;
+import code.util.StringList;
 
 public final class GuiContextEl extends RunnableContextEl {
 
 
-    GuiContextEl(InitPhase _state, CommonExecutionInfos _executionInfos) {
-        super(_state, _executionInfos);
+    GuiContextEl(InitPhase _state, CommonExecutionInfos _executionInfos, StringList _args) {
+        super(_state, _executionInfos, _args);
     }
 
     @Override

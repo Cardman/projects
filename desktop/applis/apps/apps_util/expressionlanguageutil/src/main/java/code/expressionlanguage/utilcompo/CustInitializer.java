@@ -27,7 +27,7 @@ public class CustInitializer extends DefaultInitializer {
     protected Struct init(ContextEl _context, Struct _parent,
                           ExecFormattedRootBlock _className, String _fieldName, int _ordinal,
                           CustList<ClassFieldStruct> _fields) {
-        return new RunnableStruct(_context, _className.getFormatted(), _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
+        return new RunnableStruct((RunnableContextEl) _context, _className.getFormatted(), _fieldName, _ordinal, _fields, _parent, _parent.getClassName(_context));
     }
 
     @Override

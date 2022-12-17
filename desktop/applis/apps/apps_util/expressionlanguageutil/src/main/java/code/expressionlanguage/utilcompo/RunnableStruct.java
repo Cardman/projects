@@ -20,8 +20,10 @@ import code.expressionlanguage.structs.EnumerableStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithParentStruct;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class RunnableStruct implements WithParentStruct, EnumerableStruct,Runnable {
+    private final StringList args;
     private Struct parent;
 
     private final String className;
@@ -33,10 +35,11 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     private final String parentClassName;
     private final CommonExecutionInfos executionInfos;
 
-    RunnableStruct(ContextEl _original, String _className,
+    RunnableStruct(RunnableContextEl _original, String _className,
                    String _name, int _ordinal,
                    CustList<ClassFieldStruct> _fields, Struct _parent, String _parendClassName) {
         executionInfos = _original.getExecutionInfos();
+        args = _original.getArgs();
         name = _name;
         ordinal = _ordinal;
         className = _className;
@@ -95,7 +98,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     @Override
     public void run() {
-        RunnableContextEl r_ = new RunnableContextEl(InitPhase.NOTHING, executionInfos);
+        RunnableContextEl r_ = new RunnableContextEl(InitPhase.NOTHING, executionInfos, args);
         setupThread(r_);
         invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }

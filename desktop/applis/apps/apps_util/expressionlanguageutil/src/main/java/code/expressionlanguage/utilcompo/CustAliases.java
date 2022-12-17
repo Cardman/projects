@@ -182,6 +182,7 @@ public final class CustAliases {
     private static final String THREAD_EQ = "ThreadEq";
     private static final String START = "Start";
     private static final String JOIN = "Join";
+    private static final String ARGS = "Args";
     private static final String INTERRUPT = "Interrupt";
     private static final String COVERAGE = "Coverage";
     private static final String LENGTH_LI = "LengthLi";
@@ -251,6 +252,7 @@ public final class CustAliases {
     private String aliasThreadEq;
     private String aliasInterrupt;
     private String aliasCoverage;
+    private String aliasArgs;
     private String aliasJoin;
     private String aliasJoinOthers;
     private String aliasSleep;
@@ -487,6 +489,13 @@ public final class CustAliases {
         methods_.add( method_);
         method_ = new StandardMethod(aliasCoverage, params_, StringExpUtil.getPrettyArrayType(aliasEntryText), false, MethodModifier.STATIC,new FctCoverage(aliasEntryText));
         methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasArgs, params_, StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()), false, MethodModifier.STATIC, new FctArgsGet());
+        methods_.add( method_);
+        params_ = new StringList(StringExpUtil.getPrettyArrayType(_content.getCharSeq().getAliasString()));
+        method_ = new StandardMethod(aliasArgs, params_, _content.getCoreNames().getAliasVoid() , false, MethodModifier.STATIC, new StringList(custAliasParameters.getAliasThread0Args0()), new FctArgsSet());
+        methods_.add( method_);
+        params_ = new StringList();
         method_ = new StandardMethod(aliasJoinOthers, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.STATIC,new FctThreadJoinOthers(this));
         methods_.add( method_);
         method_ = new StandardMethod(aliasIsAlive, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctThreadIsAlive());
@@ -1678,6 +1687,7 @@ public final class CustAliases {
         setAliasThreadEq(LgNamesContent.get(_util, _cust, THREAD_EQ));
         setAliasJoin(LgNamesContent.get(_util, _cust, JOIN));
         setAliasInterrupt(LgNamesContent.get(_util, _cust, INTERRUPT));
+        setAliasArgs(LgNamesContent.get(_util, _cust, ARGS));
         setAliasCoverage(LgNamesContent.get(_util, _cust, COVERAGE));
         setAliasRun(LgNamesContent.get(_util, _cust, RUN));
         setAliasLengthLi(LgNamesContent.get(_util, _cust, LENGTH_LI));
@@ -1834,6 +1844,7 @@ public final class CustAliases {
                 new KeyValueMemberName(CURRENT_THREAD,getAliasCurrentThread()),
                 new KeyValueMemberName(JOIN,getAliasJoin()),
                 new KeyValueMemberName(INTERRUPT,getAliasInterrupt()),
+                new KeyValueMemberName(ARGS,getAliasArgs()),
                 new KeyValueMemberName(COVERAGE,getAliasCoverage()),
                 new KeyValueMemberName(JOIN_OTHERS,getAliasJoinOthers()),
                 new KeyValueMemberName(GET_ID,getAliasGetId()),
@@ -2256,6 +2267,14 @@ public final class CustAliases {
     }
     public void setAliasInterrupt(String _aliasJoin) {
         aliasInterrupt = _aliasJoin;
+    }
+
+    public String getAliasArgs() {
+        return aliasArgs;
+    }
+
+    public void setAliasArgs(String _v) {
+        this.aliasArgs = _v;
     }
 
     public String getAliasCoverage() {
