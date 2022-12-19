@@ -233,6 +233,7 @@ public final class CustAliases {
     private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
     private static final String FUTURE="Future";
     private static final String FUTURE_WAIT="FutureWait";
+    private static final String FUTURE_CANCEL="FutureCancel";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -250,6 +251,7 @@ public final class CustAliases {
     private String aliasRunnableImplicit0Runner;
     private String aliasFuture;
     private String aliasFutureWait;
+    private String aliasFutureCancel;
 //    private String aliasThreadExitHook;
     private String aliasCurrentThread;
     private String aliasStart;
@@ -597,6 +599,9 @@ public final class CustAliases {
         stdcl_ = new StandardClass(aliasFuture, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), StdClassModifier.ABSTRACT);
         params_ = new StringList();
         method_ = new StandardMethod(aliasFutureWait, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctFutureAttendre());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasFutureCancel, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL,new FctFutureCancel());
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasFuture, std_);
@@ -1693,6 +1698,7 @@ public final class CustAliases {
         setAliasRunnableImplicit0Runner(LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_RUNNER));
         setAliasFuture(LgNamesContent.get(_util, _cust, FUTURE));
         setAliasFutureWait(LgNamesContent.get(_util, _cust, FUTURE_WAIT));
+        setAliasFutureCancel(LgNamesContent.get(_util, _cust, FUTURE_CANCEL));
         setAliasThreadSetAll(LgNamesContent.get(_util, _cust, THREAD_SET_ALL));
         setAliasThreadSetAdd(LgNamesContent.get(_util, _cust, THREAD_SET_ADD));
         setAliasThreadSetContains(LgNamesContent.get(_util, _cust, THREAD_SET_CONTAINS));
@@ -1880,7 +1886,8 @@ public final class CustAliases {
                 new KeyValueMemberName(EXECUTOR_SERVICE_SUBMIT, getAliasExecutorServiceSubmit()),
                 new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
         m_.addEntry(getAliasFuture(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FUTURE_WAIT, getAliasFutureWait())));
+                new KeyValueMemberName(FUTURE_WAIT, getAliasFutureWait()),
+                new KeyValueMemberName(FUTURE_CANCEL, getAliasFutureCancel())));
         m_.addEntry(getAliasThreadSet(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
                 new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
@@ -2175,6 +2182,14 @@ public final class CustAliases {
 
     public void setAliasFutureWait(String _v) {
         this.aliasFutureWait = _v;
+    }
+
+    public String getAliasFutureCancel() {
+        return aliasFutureCancel;
+    }
+
+    public void setAliasFutureCancel(String _v) {
+        this.aliasFutureCancel = _v;
     }
 
     public String getAliasThreadSetAll() {

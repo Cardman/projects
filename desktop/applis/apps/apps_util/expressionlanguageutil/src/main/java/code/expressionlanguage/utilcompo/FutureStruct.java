@@ -16,6 +16,10 @@ public final class FutureStruct extends WithoutParentIdStruct {
         future.attendre();
     }
 
+    public boolean cancel() {
+        return future.cancel(false);
+    }
+
     @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesUtils)_contextEl.getStandards()).getCustAliases().getAliasFuture();
