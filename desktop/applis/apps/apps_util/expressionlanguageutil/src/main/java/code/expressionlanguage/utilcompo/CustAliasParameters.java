@@ -138,6 +138,12 @@ public final class CustAliasParameters {
     private static final String EXECUTOR_SERVICE_0_EXECUTE_0="ExecutorService0Execute0";
     private static final String EXECUTOR_SERVICE_0_SUBMIT_0="ExecutorService0Submit0";
     private static final String EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0="ExecutorService1ExecutorService0";
+    private static final String EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0="ExecutorService0ScheduleMillis0";
+    private static final String EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_1="ExecutorService0ScheduleMillis1";
+    private static final String EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_2="ExecutorService0ScheduleMillis2";
+    private static final String EXECUTOR_SERVICE_0_SCHEDULE_NANOS_0="ExecutorService0ScheduleNanos0";
+    private static final String EXECUTOR_SERVICE_0_SCHEDULE_NANOS_1="ExecutorService0ScheduleNanos1";
+    private static final String EXECUTOR_SERVICE_0_SCHEDULE_NANOS_2="ExecutorService0ScheduleNanos2";
 //    private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
     private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_0="RunnableImplicit0Implicit0";
     private static final String RUNNABLE_IMPLICIT_0_IMPLICIT_1="RunnableImplicit0Implicit1";
@@ -356,6 +362,12 @@ public final class CustAliasParameters {
     private String aliasExecute1ExecuteSetupError2;
     private String aliasExecutorService0Execute0;
     private String aliasExecutorService0Submit0;
+    private String aliasExecutorService0ScheduleMillis0;
+    private String aliasExecutorService0ScheduleMillis1;
+    private String aliasExecutorService0ScheduleMillis2;
+    private String aliasExecutorService0ScheduleNanos0;
+    private String aliasExecutorService0ScheduleNanos1;
+    private String aliasExecutorService0ScheduleNanos2;
     private String aliasExecutorService1ExecutorService0;
 //    private String aliasRunnableImplicit0Runner;
     private String aliasRunnableImplicit0Implicit0;
@@ -547,6 +559,8 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_0,aliasExecute1ExecuteSetupError0),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_1,aliasExecute1ExecuteSetupError1),new KeyValueMemberName(EXECUTE_1_EXECUTE_SETUP_ERROR_2,aliasExecute1ExecuteSetupError2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_EXECUTE_0,aliasExecutorService0Execute0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_SUBMIT_0,aliasExecutorService0Submit0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0,aliasExecutorService0ScheduleMillis0),new KeyValueMemberName(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_1,aliasExecutorService0ScheduleMillis1),new KeyValueMemberName(EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_2,aliasExecutorService0ScheduleMillis2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_0_SCHEDULE_NANOS_0,aliasExecutorService0ScheduleNanos0),new KeyValueMemberName(EXECUTOR_SERVICE_0_SCHEDULE_NANOS_1,aliasExecutorService0ScheduleNanos1),new KeyValueMemberName(EXECUTOR_SERVICE_0_SCHEDULE_NANOS_2,aliasExecutorService0ScheduleNanos2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0,aliasExecutorService1ExecutorService0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RUNNABLE_IMPLICIT_0_IMPLICIT_0,aliasRunnableImplicit0Implicit0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RUNNABLE_IMPLICIT_0_IMPLICIT_1,aliasRunnableImplicit0Implicit1)));
@@ -724,6 +738,12 @@ public final class CustAliasParameters {
         aliasExecutorService0Execute0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_EXECUTE_0);
         aliasExecutorService0Submit0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SUBMIT_0);
         aliasExecutorService1ExecutorService0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_1_EXECUTOR_SERVICE_0);
+        aliasExecutorService0ScheduleMillis0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_0);
+        aliasExecutorService0ScheduleMillis1= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_1);
+        aliasExecutorService0ScheduleMillis2= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SCHEDULE_MILLIS_2);
+        aliasExecutorService0ScheduleNanos0= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SCHEDULE_NANOS_0);
+        aliasExecutorService0ScheduleNanos1= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SCHEDULE_NANOS_1);
+        aliasExecutorService0ScheduleNanos2= LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_0_SCHEDULE_NANOS_2);
         aliasRunnableImplicit0Implicit0= LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_IMPLICIT_0);
         aliasRunnableImplicit0Implicit1= LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_IMPLICIT_1);
         aliasAssert0AssertAssert0= LgNamesContent.get(_util, _cust, ASSERT_0_ASSERT_ASSERT_0);
@@ -1325,6 +1345,30 @@ public final class CustAliasParameters {
 
     public String getAliasExecutorService0Submit0() {
         return aliasExecutorService0Submit0;
+    }
+
+    public String getAliasExecutorService0ScheduleMillis0() {
+        return aliasExecutorService0ScheduleMillis0;
+    }
+
+    public String getAliasExecutorService0ScheduleMillis1() {
+        return aliasExecutorService0ScheduleMillis1;
+    }
+
+    public String getAliasExecutorService0ScheduleMillis2() {
+        return aliasExecutorService0ScheduleMillis2;
+    }
+
+    public String getAliasExecutorService0ScheduleNanos0() {
+        return aliasExecutorService0ScheduleNanos0;
+    }
+
+    public String getAliasExecutorService0ScheduleNanos1() {
+        return aliasExecutorService0ScheduleNanos1;
+    }
+
+    public String getAliasExecutorService0ScheduleNanos2() {
+        return aliasExecutorService0ScheduleNanos2;
     }
 
     public String getAliasExecutorService1ExecutorService0() {

@@ -226,6 +226,10 @@ public final class CustAliases {
     private static final String AFTER = "After";
     private static final String SIZE_TA = "SizeTa";
     private static final String ASSERT = "Assert";
+    private static final String EXECUTOR_SERVICE_BASE="ExecutorServiceBase";
+    private static final String SCHEDULED_EXECUTOR_SERVICE="ScheduledExecutorService";
+    private static final String EXECUTOR_SERVICE_SCHEDULE_MILLIS="ExecutorServiceScheduleMillis";
+    private static final String EXECUTOR_SERVICE_SCHEDULE_NANOS="ExecutorServiceScheduleNanos";
     private static final String EXECUTOR_SERVICE="ExecutorService";
     private static final String EXECUTOR_SERVICE_SHUTDOWN="ExecutorServiceShutdown";
     private static final String EXECUTOR_SERVICE_EXECUTE ="ExecutorServiceExecute";
@@ -244,6 +248,10 @@ public final class CustAliases {
     private String aliasThread;
     private String aliasThreadCurrentTime;
     private String aliasThreadCurrentNanoTime;
+    private String aliasExecutorServiceBase;
+    private String aliasScheduledExecutorService;
+    private String aliasExecutorServiceScheduleMillis;
+    private String aliasExecutorServiceScheduleNanos;
     private String aliasExecutorService;
     private String aliasExecutorServiceShutdown;
     private String aliasExecutorServiceExecute;
@@ -575,15 +583,20 @@ public final class CustAliases {
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
-        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL, new DfExecutorService(infos.getThreadFactory()));
+        stdcl_ = new StandardClass(aliasExecutorServiceBase, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown());
+        methods_.add( method_);
+        _content.getStandards().addEntry(aliasExecutorServiceBase, stdcl_);
+        methods_ = new CustList<StandardMethod>();
+        fields_ = new CustList<CstFieldInfo>();
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfExecutorService(infos.getThreadFactory()));
         params_ = new StringList(aliasRunnable);
         method_ = new StandardMethod(aliasExecutorServiceExecute, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Execute0()),new FctExecutorServiceExecute0());
         methods_.add( method_);
         params_ = new StringList(aliasRunnable);
         method_ = new StandardMethod(aliasExecutorServiceSubmit, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0Submit0()),new FctExecutorServiceSubmit0());
-        methods_.add( method_);
-        params_ = new StringList();
-        method_ = new StandardMethod(aliasExecutorServiceShutdown, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new FctExecutorServiceShutdown());
         methods_.add( method_);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false,new FctExecutorService0(infos.getThreadFactory()));
@@ -593,6 +606,21 @@ public final class CustAliases {
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasExecutorService, std_);
+        methods_ = new CustList<StandardMethod>();
+        fields_ = new CustList<CstFieldInfo>();
+        constructors_ = new CustList<StandardConstructor>();
+        stdcl_ = new StandardClass(aliasScheduledExecutorService, fields_, constructors_, methods_, aliasExecutorServiceBase, MethodModifier.FINAL, new DfScheduledExecutorService(infos.getThreadFactory()));
+        params_ = new StringList(aliasRunnable,_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
+        method_ = new StandardMethod(aliasExecutorServiceScheduleMillis, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0ScheduleMillis0(),custAliasParameters.getAliasExecutorService0ScheduleMillis1(),custAliasParameters.getAliasExecutorService0ScheduleMillis2()),new FctScheduledExecutorMillis0());
+        methods_.add( method_);
+        params_ = new StringList(aliasRunnable,_content.getPrimTypes().getAliasPrimLong(),_content.getPrimTypes().getAliasPrimLong());
+        method_ = new StandardMethod(aliasExecutorServiceScheduleNanos, params_, aliasFuture, false, MethodModifier.FINAL,new StringList(custAliasParameters.getAliasExecutorService0ScheduleNanos0(),custAliasParameters.getAliasExecutorService0ScheduleNanos1(),custAliasParameters.getAliasExecutorService0ScheduleNanos2()),new FctScheduledExecutorNanos0());
+        methods_.add( method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,new FctScheduledExecutorService0(infos.getThreadFactory()));
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasScheduledExecutorService, std_);
         methods_ = new CustList<StandardMethod>();
         fields_ = new CustList<CstFieldInfo>();
         constructors_ = new CustList<StandardConstructor>();
@@ -1691,10 +1719,14 @@ public final class CustAliases {
         setAliasRunnable(LgNamesContent.get(_util, _cust, RUNNABLE));
         setAliasThread(LgNamesContent.get(_util, _cust, THREAD));
         setAliasThreadSet(LgNamesContent.get(_util, _cust, THREAD_SET));
+        setAliasExecutorServiceBase(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_BASE));
+        setAliasScheduledExecutorService(LgNamesContent.get(_util, _cust, SCHEDULED_EXECUTOR_SERVICE));
         setAliasExecutorService(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE));
         setAliasExecutorServiceShutdown(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SHUTDOWN));
         setAliasExecutorServiceExecute(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_EXECUTE));
         setAliasExecutorServiceSubmit(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SUBMIT));
+        setAliasExecutorServiceScheduleMillis(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SCHEDULE_MILLIS));
+        setAliasExecutorServiceScheduleNanos(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SCHEDULE_NANOS));
         setAliasRunnableImplicit0Runner(LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_RUNNER));
         setAliasFuture(LgNamesContent.get(_util, _cust, FUTURE));
         setAliasFutureWait(LgNamesContent.get(_util, _cust, FUTURE_WAIT));
@@ -1885,6 +1917,10 @@ public final class CustAliases {
                 new KeyValueMemberName(EXECUTOR_SERVICE_EXECUTE, getAliasExecutorServiceExecute()),
                 new KeyValueMemberName(EXECUTOR_SERVICE_SUBMIT, getAliasExecutorServiceSubmit()),
                 new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
+        m_.addEntry(getAliasScheduledExecutorService(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(EXECUTOR_SERVICE_SCHEDULE_MILLIS, getAliasExecutorServiceScheduleMillis()),
+                new KeyValueMemberName(EXECUTOR_SERVICE_SCHEDULE_NANOS, getAliasExecutorServiceScheduleNanos()),
+                new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
         m_.addEntry(getAliasFuture(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(FUTURE_WAIT, getAliasFutureWait()),
                 new KeyValueMemberName(FUTURE_CANCEL, getAliasFutureCancel())));
@@ -2054,6 +2090,8 @@ public final class CustAliases {
         ref_.addEntry(THREAD,getAliasThread());
         ref_.addEntry(THREAD_SET,getAliasThreadSet());
         ref_.addEntry(EXECUTOR_SERVICE,getAliasExecutorService());
+        ref_.addEntry(EXECUTOR_SERVICE_BASE,getAliasExecutorServiceBase());
+        ref_.addEntry(SCHEDULED_EXECUTOR_SERVICE,getAliasScheduledExecutorService());
         ref_.addEntry(FUTURE,getAliasFuture());
 //        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
         ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
@@ -2134,6 +2172,38 @@ public final class CustAliases {
 
     public void setAliasExecutorService(String _v) {
         this.aliasExecutorService = _v;
+    }
+
+    public String getAliasExecutorServiceBase() {
+        return aliasExecutorServiceBase;
+    }
+
+    public void setAliasExecutorServiceBase(String _v) {
+        this.aliasExecutorServiceBase = _v;
+    }
+
+    public String getAliasScheduledExecutorService() {
+        return aliasScheduledExecutorService;
+    }
+
+    public void setAliasScheduledExecutorService(String _v) {
+        this.aliasScheduledExecutorService = _v;
+    }
+
+    public String getAliasExecutorServiceScheduleMillis() {
+        return aliasExecutorServiceScheduleMillis;
+    }
+
+    public void setAliasExecutorServiceScheduleMillis(String _v) {
+        this.aliasExecutorServiceScheduleMillis = _v;
+    }
+
+    public String getAliasExecutorServiceScheduleNanos() {
+        return aliasExecutorServiceScheduleNanos;
+    }
+
+    public void setAliasExecutorServiceScheduleNanos(String _v) {
+        this.aliasExecutorServiceScheduleNanos = _v;
     }
 
     public String getAliasExecutorServiceShutdown() {

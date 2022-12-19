@@ -5,9 +5,10 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractShutdownExecutorService;
 import code.threads.AbstractThreadFactory;
 
-public final class ExecutorServiceStruct extends WithoutParentIdStruct {
+public final class ExecutorServiceStruct extends WithoutParentIdStruct implements AbsExecutorServiceStruct {
     private final AbstractBaseExecutorService executorService;
 
     public ExecutorServiceStruct(AbstractThreadFactory _e) {
@@ -26,9 +27,14 @@ public final class ExecutorServiceStruct extends WithoutParentIdStruct {
         return new FutureStruct(executorService.submit(_command));
     }
 
-    public void shutdown() {
-        executorService.shutdown();
+    public static void shutdown(AbstractShutdownExecutorService _ex) {
+        _ex.shutdown();
     }
+
+    public AbstractShutdownExecutorService getExecutorService() {
+        return executorService;
+    }
+
     @Override
     public String getClassName(ContextEl _contextEl) {
         return ((LgNamesUtils)_contextEl.getStandards()).getCustAliases().getAliasExecutorService();
