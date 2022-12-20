@@ -35,8 +35,8 @@ public final class WindowFull extends GroupFrame {
     private AbstractLightProgramInfos light;
     private GuiContextEl context;
 
-    public WindowFull(String _lg, CdmFactory _list) {
-        super(_lg, _list.getProgramInfos());
+    public WindowFull(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
+        super(_lg, _programInfos);
         cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
@@ -100,7 +100,7 @@ public final class WindowFull extends GroupFrame {
             return;
         }
         String txt_ = conf.getText().trim();
-        GuiRunnable current_ = GuiProcess.build("", txt_, cdmFactory);
+        GuiRunnable current_ = GuiProcess.build("", txt_, cdmFactory, getFrames());
 //        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             stop.setEnabled(true);
@@ -120,7 +120,7 @@ public final class WindowFull extends GroupFrame {
         if (content_ == null) {
             return;
         }
-        GuiRunnable current_ = GuiProcess.build(_fichier, content_, cdmFactory);
+        GuiRunnable current_ = GuiProcess.build(_fichier, content_, cdmFactory, getFrames());
 //        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             stop.setEnabled(true);

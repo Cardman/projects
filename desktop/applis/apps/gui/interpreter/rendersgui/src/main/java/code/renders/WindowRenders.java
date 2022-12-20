@@ -37,8 +37,8 @@ public final class WindowRenders extends GroupFrame {
     private final RenderedPage session;
     private final CdmFactory interceptor;
 
-    public WindowRenders(String _lg, CdmFactory _list) {
-        super(_lg, _list.getProgramInfos());
+    public WindowRenders(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
+        super(_lg, _programInfos);
         interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
         menu = getCompoFactory().newMenu("file");
@@ -53,7 +53,7 @@ public final class WindowRenders extends GroupFrame {
         pane_.add(lgCode);
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
-        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _list.getProgramInfos());
+        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos);
         session.initNav();
         session.setLanguage(_lg);
         session.setFrame(getCommonFrame());
@@ -159,7 +159,7 @@ public final class WindowRenders extends GroupFrame {
         }
         AbstractNameValidating validator_ = getValidator();
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, new RenderIssuer(session),getFileCoreStream(),getStreams()),
-                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(getFrames().light(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
+                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.setExecutingOptions(exec_);
         session.initNav();
         session.setLanguage(lg_,lgs_);

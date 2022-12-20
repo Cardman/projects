@@ -222,7 +222,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
 
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = parent.getValidator();
-        return FileInfos.buildMemoryFromFile(parent.getFrames().light(),parent.getGenerator(),
+        return FileInfos.buildMemoryFromFile(getFactory().getProgramInfos(),parent.getGenerator(),
                 validator_,unitIssuer, new MemInputFiles(confFile, src, files), parent.getFrames().getZipFact(), parent.getThreadFactory());
     }
 

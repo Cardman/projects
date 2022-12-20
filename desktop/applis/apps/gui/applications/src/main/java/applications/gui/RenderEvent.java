@@ -23,7 +23,7 @@ public final class RenderEvent extends AbstractEvent {
     protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingRenders l_;
-        l_ = new LaunchingRenders(cdmFactory);
+        l_ = new LaunchingRenders(_window.getFrames(),cdmFactory);
         l_.launch(lg_);
     }
 }

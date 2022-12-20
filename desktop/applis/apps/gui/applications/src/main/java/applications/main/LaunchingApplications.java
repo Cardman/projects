@@ -39,8 +39,8 @@ public class LaunchingApplications extends SoftApplicationCore {
     private final AikiFactory aikiFactory;
     private final CdmFactory cdmFactory;
 
-    public LaunchingApplications(CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
-        super(_cdm.getProgramInfos());
+    public LaunchingApplications(AbstractProgramInfos _infos,CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
+        super(_infos);
         cardFactories = _cardFactories;
         aikiFactory = _aikiFactory;
         cdmFactory = _cdm;
@@ -122,25 +122,25 @@ public class LaunchingApplications extends SoftApplicationCore {
                 }
                 if (linesFiles_.size() < 3) {
                     launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
-                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(cdmFactory);
+                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
                     launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
-                    LaunchingRenders launch_ = new LaunchingRenders(cdmFactory);
+                    LaunchingRenders launch_ = new LaunchingRenders(getFrames(),cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
                     launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
-                    LaunchingFull launch_ = new LaunchingFull(cdmFactory);
+                    LaunchingFull launch_ = new LaunchingFull(getFrames(),cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
-                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(cdmFactory);
+                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames(),cdmFactory);
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;

@@ -3,9 +3,7 @@ package code.renders;
 import code.gui.*;
 import code.gui.initialize.*;
 import code.gui.initialize.LoadLanguageUtil;
-import code.stream.*;
 import code.util.StringList;
-import code.util.*;
 import code.util.core.StringUtil;
 
 public class LaunchingRenders extends AdvSoftApplicationCore {
@@ -13,8 +11,8 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
     private static final String TEMP_FOLDER = "renders_sites";
 
     private final CdmFactory cdmFactory;
-    public LaunchingRenders(CdmFactory _cdm) {
-        super(_cdm.getProgramInfos());
+    public LaunchingRenders(AbstractProgramInfos _infos, CdmFactory _cdm) {
+        super(_infos);
         cdmFactory = _cdm;
     }
 
@@ -24,7 +22,7 @@ public class LaunchingRenders extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), cdmFactory), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowRenders(_language,getFile(_args), cdmFactory, getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

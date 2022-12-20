@@ -23,7 +23,7 @@ public final class AppUnitEvent extends AbstractEvent {
     protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingAppUnitTests l_;
-        l_ = new LaunchingAppUnitTests(cdmFactory);
+        l_ = new LaunchingAppUnitTests(_window.getFrames(),cdmFactory);
         l_.launch(lg_);
     }
 }

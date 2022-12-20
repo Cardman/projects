@@ -62,8 +62,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final SimpleFilesFrame filesFrame;
     private final CommonExecution commonExecution;
 
-    public WindowUnit(String _lg, CdmFactory _list) {
-        super(_lg, _list.getProgramInfos());
+    public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
+        super(_lg, _programInfos);
         interceptor = _list;
         setAccessFile("unit.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
@@ -240,7 +240,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
         return new FileInfos(buildLogger(validator_),
-                buildSystem(validator_), new DefaultReporter(getFrames().light(),validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
+                buildSystem(validator_), new DefaultReporter(getFactory().getProgramInfos(),validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
     }
 
     @Override

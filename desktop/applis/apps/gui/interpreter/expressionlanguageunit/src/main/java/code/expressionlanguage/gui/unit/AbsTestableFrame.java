@@ -14,10 +14,10 @@ public abstract class AbsTestableFrame implements TestableFrame {
     private final AbstractIssuer issuer;
     private final CdmFactory interceptor;
 
-    protected AbsTestableFrame(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, CdmFactory _inter) {
+    protected AbsTestableFrame(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, AbstractInterceptor _inter, AbstractAdvGraphicListGenerator _adv) {
         this.frames = _frames;
         this.issuer = _issuer;
-        interceptor = _inter;
+        interceptor = new CdmFactory(_frames,_inter,_adv);
     }
 
     @Override

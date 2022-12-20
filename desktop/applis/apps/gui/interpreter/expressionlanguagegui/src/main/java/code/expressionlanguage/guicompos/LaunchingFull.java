@@ -10,8 +10,8 @@ public class LaunchingFull extends AdvSoftApplicationCore {
     private static final String TEMP_FOLDER = "launcher";
 
     private final CdmFactory cdmFactory;
-    public LaunchingFull(CdmFactory _cdm) {
-        super(_cdm.getProgramInfos());
+    public LaunchingFull(AbstractProgramInfos _infos, CdmFactory _cdm) {
+        super(_infos);
         cdmFactory = _cdm;
     }
     protected static void loadLaungage(String[] _args, LaunchingFull _soft) {
@@ -20,7 +20,7 @@ public class LaunchingFull extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,getFile(_args), cdmFactory), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,getFile(_args), cdmFactory,getFrames()), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

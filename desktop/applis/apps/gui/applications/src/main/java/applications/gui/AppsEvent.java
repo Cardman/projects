@@ -23,7 +23,7 @@ public final class AppsEvent extends AbstractEvent {
     protected void launch(WindowApps _window) {
         String lg_ = _window.getLanguageKey();
         LaunchingFull l_;
-        l_ = new LaunchingFull(cdmFactory);
+        l_ = new LaunchingFull(_window.getFrames(),cdmFactory);
         l_.launch(lg_);
     }
 }
