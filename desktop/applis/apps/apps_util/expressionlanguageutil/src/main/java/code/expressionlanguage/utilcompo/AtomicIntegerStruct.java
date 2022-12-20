@@ -1,21 +1,15 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.expressionlanguage.WithoutParentIdClassStruct;
 import code.threads.AbstractAtomicInteger;
 
-public final class AtomicIntegerStruct extends WithoutParentIdStruct {
+public final class AtomicIntegerStruct extends WithoutParentIdClassStruct {
 
     private final AbstractAtomicInteger instance;
-    private final String className;
 
     public AtomicIntegerStruct(AbstractAtomicInteger _instance, String _className) {
+        super(_className);
         this.instance = _instance;
-        this.className = _className;
-    }
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
     }
 
     public AbstractAtomicInteger getInstance() {

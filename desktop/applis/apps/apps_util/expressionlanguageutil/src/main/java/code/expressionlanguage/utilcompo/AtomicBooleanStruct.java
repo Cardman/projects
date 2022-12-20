@@ -1,22 +1,15 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.structs.WithoutParentIdStruct;
+import code.expressionlanguage.WithoutParentIdClassStruct;
 import code.threads.AbstractAtomicBoolean;
 
-public final class AtomicBooleanStruct extends WithoutParentIdStruct {
+public final class AtomicBooleanStruct extends WithoutParentIdClassStruct {
 
     private final AbstractAtomicBoolean instance;
-    private final String className;
 
     public AtomicBooleanStruct(AbstractAtomicBoolean _instance, String _className) {
+        super(_className);
         this.instance = _instance;
-        this.className = _className;
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
     }
 
     public AbstractAtomicBoolean getInstance() {

@@ -4,6 +4,8 @@ import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
+import code.expressionlanguage.structs.BooleanStruct;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
@@ -39,8 +41,16 @@ public abstract class EquallableElUtUtil {
         Assert.assertNull(_value);
     }
 
+    public static void assertTrue(Struct _value) {
+        Assert.assertTrue(BooleanStruct.isTrue(_value));
+    }
+
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
+    }
+
+    public static void assertFalse(Struct _value) {
+        Assert.assertTrue(BooleanStruct.isFalse(_value));
     }
 
     public static void assertFalse(boolean _value) {

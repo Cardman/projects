@@ -67,4 +67,24 @@ public final class ExecutorServiceStructTest extends EquallableElUtUtil {
         new FctExecutorServiceExecute0().call(null,null,essOne_, list_,null);
         assertTrue(s_.isStarted());
     }
+    @Test
+    public void cancelFuture1() {
+        AbstractThreadFactory th_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"})).getThreadFactory();
+        ExecutorServiceStruct essOne_ = new ExecutorServiceStruct(th_,2);
+        ArgumentListCall list_ = new ArgumentListCall();
+        MockRunnableStruct s_ = new MockRunnableStruct("");
+        list_.getArgumentWrappers().add(new ArgumentWrapper(s_));
+        assertFalse(new FctFutureCancel().call(null,null,new FctExecutorServiceSubmit0().call(null,null,essOne_, list_,null).getValue().getStruct(),null,null).getValue().getStruct());
+    }
+    @Test
+    public void cancelFuture2() {
+        AbstractThreadFactory th_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"})).getThreadFactory();
+        ExecutorServiceStruct essOne_ = new ExecutorServiceStruct(th_,2);
+        ArgumentListCall list_ = new ArgumentListCall();
+        MockRunnableStruct s_ = new MockRunnableStruct("");
+        list_.getArgumentWrappers().add(new ArgumentWrapper(s_));
+        new FctExecutorServiceShutdown().call(null,null,essOne_, null,null);
+        ArgumentWrapper f_ = new FctExecutorServiceSubmit0().call(null, null, essOne_, list_, null);
+        assertTrue(new FctFutureCancel().call(null,null, f_.getValue().getStruct(),null,null).getValue().getStruct());
+    }
 }
