@@ -72,10 +72,10 @@ public abstract class EquallableElUtUtil {
         return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), true, _set);
+        return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
     }
-    public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, boolean _cust, MockFileSet _set) {
-        return new MockProgramInfos("", "", _s, _cust, _set);
+    public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
+        return new MockProgramInfos("", "", _s, _set);
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
