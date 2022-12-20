@@ -44,7 +44,7 @@ import aiki.util.LawNumber;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.*;
-import code.formathtml.Configuration;
+//import code.formathtml.Configuration;
 import code.maths.LgInt;
 import code.maths.Rate;
 import code.maths.montecarlo.MonteCarloNumber;

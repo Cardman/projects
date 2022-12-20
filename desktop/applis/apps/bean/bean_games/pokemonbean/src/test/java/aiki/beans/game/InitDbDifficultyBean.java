@@ -8,7 +8,7 @@ import aiki.facade.FacadeGame;
 import code.bean.nat.*;
 import code.bean.nat.analyze.NatConfigurationCore;
 import code.bean.nat.*;
-import code.formathtml.Configuration;
+//import code.formathtml.Configuration;
 import code.maths.Rate;
 import code.scripts.confs.PkScriptPagesInit;
 

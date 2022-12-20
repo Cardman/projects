@@ -4,14 +4,14 @@ import aiki.beans.facade.simulation.enums.SimulationSteps;
 import aiki.fight.enums.Statistic;
 import aiki.util.Coords;
 import code.bean.nat.*;
-import code.formathtml.structs.Message;
+//import code.formathtml.structs.Message;
 import org.junit.Assert;
 
 public abstract class EquallablePkBeanUtil {
 
-    public static void assertNull(Message _value) {
-        Assert.assertNull(_value);
-    }
+//    public static void assertNull(Message _value) {
+//        Assert.assertNull(_value);
+//    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
