@@ -1,10 +1,9 @@
 package code.gui;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbsCompoFactory;
-import code.gui.initialize.AbstractAdvGraphicListGenerator;
+//import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.gui.initialize.AbstractGraphicComboBoxGenerator;
 import code.gui.initialize.AbstractGraphicStringListGenerator;
 import code.maths.montecarlo.AbstractGenerator;
@@ -22,9 +21,6 @@ public abstract class EquallableIntGuiUtil {
     public static void assertNull(AbstractThreadFactory _expected) {
         Assert.assertNull(_expected);
     }
-    public static void assertNull(AbstractInterceptor _expected) {
-        Assert.assertNull(_expected);
-    }
     public static void assertNull(AbstractImageFactory _expected) {
         Assert.assertNull(_expected);
     }
@@ -37,9 +33,9 @@ public abstract class EquallableIntGuiUtil {
     public static void assertNull(AbstractGraphicComboBoxGenerator _expected) {
         Assert.assertNull(_expected);
     }
-    public static void assertNull(AbstractAdvGraphicListGenerator _expected) {
-        Assert.assertNull(_expected);
-    }
+//    public static void assertNull(AbstractAdvGraphicListGenerator _expected) {
+//        Assert.assertNull(_expected);
+//    }
     public static void assertNull(AbstractGenerator _expected) {
         Assert.assertNull(_expected);
     }

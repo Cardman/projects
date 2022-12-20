@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
+import code.gui.CdmFactory;
 import code.gui.Clock;
 
 public abstract class ProgressingTestsAbs implements ProgressingTests {
@@ -16,8 +17,8 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
     }
 
     @Override
-    public AbstractInterceptor getInterceptor() {
-        return mainWindow.getIntercept();
+    public CdmFactory getFactory() {
+        return mainWindow.getFactory();
     }
 
     @Override

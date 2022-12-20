@@ -11,7 +11,7 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
     private final GraphicComboGrInt graphicComboGrInt;
     private final AbsGraphicList<String> graphicListString;
     private final AbsGraphicList<String> input;
-    private final AbsGraphicListStr multList;
+//    private final AbsGraphicListStr multList;
     private final AbsTextField textField;
 
     public MockWithListSelectionSample(AbstractProgramInfos _f, String _lgKey) {
@@ -25,11 +25,11 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         input = _f.getGeneGraphicList().createMultStrList(_f.getImageFactory(),_f.getCompoFactory(),new StringList("8","9","10","11"),new Ints(),2);
         input.setListener(new MockListSelection(2, this));
         getContentPane().add(input.getGlobal());
-        multList=_f.getGeneStrCompo().createMult(null,null, _f.getCompoFactory());
-        multList.addListener(new MockListSelection(3,this));
-        getContentPane().add(multList.scroll());
-        AbsGraphicListStr s_ = _f.getGeneStrCompo().createSimple(null, null, _f.getCompoFactory());
-        getContentPane().add(s_.scroll());
+//        multList=_f.getGeneStrCompo().createMult(null, _f.getCompoFactory());
+//        multList.addListener(new MockListSelection(3,this));
+//        getContentPane().add(multList.scroll());
+//        AbsGraphicListStr s_ = _f.getGeneStrCompo().createSimple(null, _f.getCompoFactory());
+//        getContentPane().add(s_.scroll());
         textField = _f.getCompoFactory().newTextField();
         getContentPane().add(textField);
         pack();
@@ -41,10 +41,10 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
             textField.setText(Long.toString(graphicComboGrInt.getSelectedIndex()));
         } else if (_nb == 1){
             textField.setText(list(graphicListString.getSelectedIndexes()));
-        } else if (_nb == 2) {
-            textField.setText(list(input.getSelectedIndexes()));
         } else {
-            textField.setText(list(multList.getSelectedIndexes()));
+            textField.setText(list(input.getSelectedIndexes()));
+//        } else {
+//            textField.setText(list(multList.getSelectedIndexes()));
         }
     }
 
@@ -81,9 +81,9 @@ public final class MockWithListSelectionSample extends MockAbsCommonFrame implem
         return input;
     }
 
-    public AbsGraphicListStr getMultList() {
-        return multList;
-    }
+//    public AbsGraphicListStr getMultList() {
+//        return multList;
+//    }
 
     public String getText() {
         return textField.getText();

@@ -1,6 +1,6 @@
 package code.mock;
 
-import code.expressionlanguage.filenames.DefaultNameValidating;
+//import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.stream.FileListInfo;
 import code.stream.core.AbstractZipFact;
 import code.stream.core.ContentTime;
@@ -70,9 +70,9 @@ public final class MockZipFact implements AbstractZipFact {
 
     private boolean koPath(String _key) {
         if (_key.endsWith("/")) {
-            return !new DefaultNameValidating(new StringList()).okPath(_key.substring(0,_key.length()-1), '/');
+            return !new MockNameValidating().okPath(_key.substring(0,_key.length()-1), '/');
         }
-        return !new DefaultNameValidating(new StringList()).okPath(_key, '/');
+        return !new MockNameValidating().okPath(_key, '/');
     }
 
     private boolean ko(String _nb) {

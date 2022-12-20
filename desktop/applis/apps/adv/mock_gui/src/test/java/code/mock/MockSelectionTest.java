@@ -1,8 +1,8 @@
 package code.mock;
 
-import code.expressionlanguage.structs.NullStruct;
 import code.gui.AbsGraphicList;
 import code.gui.AbsGraphicListDef;
+import code.gui.ListSelection;
 import code.util.Ints;
 import code.util.core.NumberUtil;
 import org.junit.Test;
@@ -166,8 +166,10 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
         graphicListString_.setVisibleRowCount(4);
         assertEq(4, ((AbsGraphicListDef)graphicListString_).getVisibleRowCount());
         assertSame(graphicListString_.self(), graphicListString_.visible());
-        ((AbsGraphicListDef) graphicListString_).removeListener(((AbsGraphicListDef) graphicListString_).getListeners().first());
+        ListSelection fi_ = ((AbsGraphicListDef) graphicListString_).getListeners().first();
+        ((AbsGraphicListDef) graphicListString_).removeListener(fi_);
         assertEq(0, ((AbsGraphicListDef) graphicListString_).getListeners().size());
+        ((AbsGraphicListDef) graphicListString_).addListener(fi_);
     }
     @Test
     public void m21() {
@@ -271,17 +273,5 @@ public final class MockSelectionTest extends EquallableMockGuiUtil {
         graphicListString_.clearAllRange();
         assertTrue(graphicListString_.isSelectionEmpty());
         assertFalse(graphicListString_.isEmpty());
-    }
-    @Test
-    public void m34() {
-        MockWithListSelectionSample f_ = new MockWithListSelectionSample(init(), "");
-        f_.getMultList().add(NullStruct.NULL_VALUE);
-        f_.getMultList().setSelectedIndice(0);
-        assertEq("0",f_.getText());
-        f_.getMultList().setCustCell(null,null,null,null);
-        f_.getMultList().setDefCell(null,null);
-        f_.getMultList().updateGraphics();
-        assertTrue(f_.getMultList().isCust());
-        assertFalse(new MockWithListSelectionSample(initDef(), "").getMultList().isCust());
     }
 }

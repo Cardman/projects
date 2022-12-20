@@ -24,6 +24,7 @@ import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
+import code.gui.CdmFactory;
 import code.gui.Clock;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.StreamBinaryFile;
@@ -46,7 +47,7 @@ public final class GuiProcess implements GuiRunnable {
     private String mName;
     private AbstractProgramInfos programInfos;
 
-    public static GuiProcess build(String _conf, String _content, AbstractProgramInfos _original) {
+    public static GuiProcess build(String _conf, String _content, CdmFactory _original) {
         StringList mainArgs_ = new StringList(_conf);
         StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
         StringList linesFiles_ = new StringList();
@@ -59,9 +60,10 @@ public final class GuiProcess implements GuiRunnable {
         if (linesFiles_.size() < 3) {
             return null;
         }
+        AbstractProgramInfos pr_ = _original.getProgramInfos();
         String archive_ = linesFiles_.first();
         UniformingString app_ = new DefaultUniformingString();
-        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_, _original.getFileCoreStream(), _original.getStreams());
+        ReadFiles result_ = StreamFolderFile.getFiles(archive_, app_, pr_.getFileCoreStream(), pr_.getStreams());
         if (result_.getType() == OutputType.NOTHING) {
             return null;
         }
@@ -82,15 +84,16 @@ public final class GuiProcess implements GuiRunnable {
         }
 
 
-        ExecutingOptions exec_ = new ExecutingOptions(_original.getThreadFactory().newAtomicBoolean());
+        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        exec_.setListGenerator(_original);
         Options opt_ = new Options();
         RunningTest.setupOptionals(3, opt_, exec_,linesFiles_);
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
             mainArgs_.add(0, _conf);
         }
-        AbstractNameValidating validator_ = _original.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _original.getFileCoreStream(), _original.getStreams()), new DefaultFileSystem(app_, validator_, _original.getFileCoreStream(), _original.getStreams()), new DefaultReporter(_original,validator_, app_, false, new TechInfos(_original.getThreadFactory(), _original.getStreams()), _original.getFileCoreStream()), _original.getGenerator(), _original.getStreams().getZipFact(), _original.getThreadFactory());
+        AbstractNameValidating validator_ = pr_.getValidator();
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, pr_.getFileCoreStream(), pr_.getStreams()), new DefaultFileSystem(app_, validator_, pr_.getFileCoreStream(), pr_.getStreams()), new DefaultReporter(pr_,validator_, app_, false, new TechInfos(pr_.getThreadFactory(), pr_.getStreams()), pr_.getFileCoreStream()), pr_.getGenerator(), pr_.getStreams().getZipFact(), pr_.getThreadFactory());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {
@@ -98,29 +101,29 @@ public final class GuiProcess implements GuiRunnable {
         }
         opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui(fileInfos_, _original.getInterceptor());
-        ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _original);
+        ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, pr_);
         ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
-        String time_ = Clock.getDateTimeText("_", "_", "_", _original.getThreadFactory());
+        String time_ = Clock.getDateTimeText("_", "_", "_", pr_.getThreadFactory());
         if (!(cont_ instanceof GuiContextEl)) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
             byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
             if (bytes_ != null) {
-                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), _original.getFileCoreStream());
-                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_, _original.getStreams());
+                StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), pr_.getFileCoreStream());
+                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_, pr_.getStreams());
             }
             return null;
         }
         MemoryReporter.buildWarning(reportedMessages_,exec_,fileInfos_,time_);
-        GuiProcess pr_ = new GuiProcess();
-        pr_.executingOptions = exec_;
-        pr_.context = (GuiContextEl) cont_;
-        pr_.clName = clName_;
-        pr_.mName = mName_;
-        pr_.programInfos = _original;
-        return pr_;
+        GuiProcess pro_ = new GuiProcess();
+        pro_.executingOptions = exec_;
+        pro_.context = (GuiContextEl) cont_;
+        pro_.clName = clName_;
+        pro_.mName = mName_;
+        pro_.programInfos = pr_;
+        return pro_;
     }
     @Override
     public void run() {

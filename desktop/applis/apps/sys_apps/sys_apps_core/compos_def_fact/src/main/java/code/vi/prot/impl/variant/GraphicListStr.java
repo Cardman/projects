@@ -11,12 +11,12 @@ public final class GraphicListStr extends GraphicList<Struct> implements AbsGrap
 
     @Override
     public void setDefCell(Struct _grComp, SpecSelectionCtx _create) {
-        SelectionUtil.commonSet(_grComp, this);
+        SelectionUtil.commonSet(_grComp, getGraphicListPainter());
     }
 
     @Override
     public void setCustCell(Struct _grComp, AbsPreparedLabel _lab, Struct _labStruct, SpecSelectionStruct _cell) {
-        SelectionUtil.commonSet(_grComp, this);
+        SelectionUtil.commonSet(_grComp, getGraphicListPainter());
     }
 
     @Override

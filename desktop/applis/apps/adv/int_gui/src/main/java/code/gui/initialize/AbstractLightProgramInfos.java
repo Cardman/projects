@@ -1,7 +1,6 @@
 package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractZipFact;
@@ -17,6 +16,4 @@ public interface AbstractLightProgramInfos {
     AbsCompoFactory getCompoFactory();
     AbstractImageFactory getImageFactory();
     AbstractGraphicComboBoxGenerator getGeneComboBox();
-    AbstractAdvGraphicListGenerator getGeneStrCompo();
-    AbstractInterceptor getInterceptor();
 }

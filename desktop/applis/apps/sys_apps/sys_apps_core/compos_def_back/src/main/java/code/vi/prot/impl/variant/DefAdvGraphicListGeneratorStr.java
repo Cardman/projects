@@ -1,6 +1,5 @@
 package code.vi.prot.impl.variant;
 
-import code.gui.AbsGraphicListPainter;
 import code.gui.AbsGraphicListStr;
 import code.gui.SpecSelectionCtx;
 import code.gui.initialize.AbsCompoFactory;
@@ -11,12 +10,12 @@ import javax.swing.*;
 public final class DefAdvGraphicListGeneratorStr implements AbstractAdvGraphicListGenerator {
 
     @Override
-    public AbsGraphicListStr createMult(AbsGraphicListPainter _abs, SpecSelectionCtx _create, AbsCompoFactory _compoFactory) {
+    public AbsGraphicListStr createMult(SpecSelectionCtx _create, AbsCompoFactory _compoFactory) {
         return new DefCustGrListStr(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION,_create);
     }
 
     @Override
-    public AbsGraphicListStr createSimple(AbsGraphicListPainter _abs, SpecSelectionCtx _create, AbsCompoFactory _compoFactory) {
+    public AbsGraphicListStr createSimple(SpecSelectionCtx _create, AbsCompoFactory _compoFactory) {
         return new DefCustGrListStr( ListSelectionModel.SINGLE_SELECTION,_create);
     }
 

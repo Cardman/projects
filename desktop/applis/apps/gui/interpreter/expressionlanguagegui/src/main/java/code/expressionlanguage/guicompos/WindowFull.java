@@ -8,8 +8,7 @@ import code.gui.AbsMenuItem;
 
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractLightProgramInfos;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmGuiGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.stream.StreamTextFile;
@@ -31,12 +30,14 @@ public final class WindowFull extends GroupFrame {
     private final AbsPlainButton stop;
 
     private final StringMap<String> messages;
+    private final CdmFactory cdmFactory;
 //    private final GuiInterpreterElements currentElements;
     private AbstractLightProgramInfos light;
     private GuiContextEl context;
 
-    public WindowFull(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+    public WindowFull(String _lg, CdmFactory _list) {
+        super(_lg, _list.getProgramInfos());
+        cdmFactory = _list;
 //        currentElements = new GuiInterpreterElements(getFrames());
         setAccessFile("launcher.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/gui/messages", getLanguageKey(), getAccessFile());
@@ -99,7 +100,7 @@ public final class WindowFull extends GroupFrame {
             return;
         }
         String txt_ = conf.getText().trim();
-        GuiRunnable current_ = GuiProcess.build("", txt_, getFrames());
+        GuiRunnable current_ = GuiProcess.build("", txt_, cdmFactory);
 //        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             stop.setEnabled(true);
@@ -119,7 +120,7 @@ public final class WindowFull extends GroupFrame {
         if (content_ == null) {
             return;
         }
-        GuiRunnable current_ = GuiProcess.build(_fichier, content_, getFrames());
+        GuiRunnable current_ = GuiProcess.build(_fichier, content_, cdmFactory);
 //        currentElements.setGuiRunnable(current_);
         if (current_ == null) {
             stop.setEnabled(true);

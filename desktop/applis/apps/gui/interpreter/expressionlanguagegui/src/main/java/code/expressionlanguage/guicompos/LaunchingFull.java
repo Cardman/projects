@@ -1,8 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.gui.*;
-import code.gui.initialize.AbstractProgramInfos;
-import code.gui.initialize.LoadLanguageUtil;
+import code.gui.initialize.*;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
@@ -10,17 +9,18 @@ public class LaunchingFull extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "launcher";
 
-    public LaunchingFull(AbstractProgramInfos _frames) {
-        super(_frames);
+    private final CdmFactory cdmFactory;
+    public LaunchingFull(CdmFactory _cdm) {
+        super(_cdm.getProgramInfos());
+        cdmFactory = _cdm;
     }
-
     protected static void loadLaungage(String[] _args, LaunchingFull _soft) {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,getFile(_args), getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowFull(_language,getFile(_args), cdmFactory), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

@@ -64,13 +64,15 @@ public final class GuiExecutingBlocks {
     private ExecTypeFunction pairPaintSet;
     private DefaultClosingMainWindow eventClose;
     private AbsCompoFactory compoFactory;
+    private CdmFactory cdmFactory;
 
-    public void initApplicationParts(StringList _mainArgs, AbstractLightProgramInfos _currentElements) {
+    public void initApplicationParts(StringList _mainArgs, AbstractLightProgramInfos _currentElements, CdmFactory _cdm) {
         mainArgs = _mainArgs;
         guiInterpreterElements = _currentElements;
 //        AbstractLightProgramInfos programInfos_ = guiInterpreterElements.getProgramInfos();
         compoFactory = _currentElements.getCompoFactory();
         confirm = new OtherConfirmDialog(_currentElements);
+        cdmFactory = _cdm;
     }
 //    private void initEventParts(GuiInitializer _guiInit, GuiContextEl _context) {
 ////        eventClose = new DefaultClosingMainWindow(_context);
@@ -543,7 +545,7 @@ public final class GuiExecutingBlocks {
         return guiInterpreterElements.getLightFrameFactory();
     }
     public AbstractAdvGraphicListGenerator getGraphicListGenerator(){
-        return guiInterpreterElements.getGeneStrCompo();
+        return cdmFactory.getFact();
     }
 //    public FrameStruct getFrame() {
 //        return frame;

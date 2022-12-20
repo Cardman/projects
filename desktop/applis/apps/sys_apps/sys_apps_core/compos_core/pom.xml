@@ -14,8 +14,8 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>network</groupId>
-			<artifactId>network</artifactId>
+			<groupId>applications</groupId>
+			<artifactId>applications</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

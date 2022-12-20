@@ -29,12 +29,11 @@ public final class GraphicListStruct extends InputStruct {
     private static AbsGraphicListStr init(GuiContextEl _ctx,boolean _simple) {
         GuiExecutingBlocks guiEx_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
         AbstractAdvGraphicListGenerator graphicListGenerator_ = guiEx_.getGraphicListGenerator();
-        AdvGraphicListPainter abs_ = new AdvGraphicListPainter(guiEx_.getImageFactory(), _ctx.getExecutionInfos(),_ctx.getArgs());
         DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs());
         if (_simple) {
-            return graphicListGenerator_.createSimple(abs_, create_,guiEx_.getCompoFactory());
+            return graphicListGenerator_.createSimple(create_,guiEx_.getCompoFactory());
         }
-        return graphicListGenerator_.createMult(abs_, create_,guiEx_.getCompoFactory());
+        return graphicListGenerator_.createMult(create_,guiEx_.getCompoFactory());
     }
 
     private void init(GuiContextEl _ctx) {

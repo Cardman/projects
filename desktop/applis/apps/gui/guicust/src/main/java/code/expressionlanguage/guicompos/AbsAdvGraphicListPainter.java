@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.structs.Struct;
 import code.gui.AbsGraphicListPainterImpl;
 import code.gui.images.AbstractImageFactory;
 

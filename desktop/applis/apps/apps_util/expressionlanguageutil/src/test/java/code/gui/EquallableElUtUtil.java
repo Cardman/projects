@@ -56,7 +56,7 @@ public abstract class EquallableElUtUtil {
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), StringUtil.encode(_src), zipped_), _light.getZipFact(), _light.getThreadFactory());
-        return new LgNamesGui(infos_, _light.getInterceptor());
+        return new LgNamesGui(infos_, new MockInterceptor());
     }
 
     public static StringMap<ContentTime> init() {

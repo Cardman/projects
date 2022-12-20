@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.common.ParseLinesArgUtil;
-import code.expressionlanguage.options.WarningShow;
 import code.expressionlanguage.utilcompo.AbstractReporter;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
@@ -80,6 +79,7 @@ public final class RunningTest implements Runnable {
             return;
         }
         ExecutingOptions exec_ = new ExecutingOptions(_infos.getThreadFactory().newAtomicBoolean());
+        exec_.setListGenerator(_progressingTests.getFactory());
         Options opt_ = new Options();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
             lg_ = "";
@@ -92,7 +92,7 @@ public final class RunningTest implements Runnable {
             return;
         }
         opt_.setReadOnly(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getInterceptor()));
+        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getFactory().getInterceptor()));
     }
 
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {

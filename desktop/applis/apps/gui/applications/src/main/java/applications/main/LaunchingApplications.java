@@ -37,19 +37,21 @@ public class LaunchingApplications extends SoftApplicationCore {
 
     private final CardFactories cardFactories;
     private final AikiFactory aikiFactory;
+    private final CdmFactory cdmFactory;
 
-    public LaunchingApplications(AbstractProgramInfos _frames, CardFactories _cardFactories, AikiFactory _aikiFactory) {
-        super(_frames);
+    public LaunchingApplications(CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
+        super(_cdm.getProgramInfos());
         cardFactories = _cardFactories;
         aikiFactory = _aikiFactory;
+        cdmFactory = _cdm;
     }
 
     protected static void loadLaungage(String[] _args, LaunchingApplications _soft) {
         LoadLanguageUtil.loadLaungage(_soft, TEMP_FOLDER, _args);
     }
 
-    private static WindowApps getWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory) {
-        return new WindowApps(_lg, _list, _cardFactories, _aikiFactory);
+    private static WindowApps getWindow(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
+        return new WindowApps(_lg, _list, _cardFactories, _aikiFactory,_cdm);
     }
 
     @Override
@@ -60,7 +62,7 @@ public class LaunchingApplications extends SoftApplicationCore {
             if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
                 AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
                 if (img_ != null) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                     LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
@@ -71,7 +73,7 @@ public class LaunchingApplications extends SoftApplicationCore {
                 return;
             }
             if (DocumentReaderCardsUnionUtil.isContentObject(file_)) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                 LaunchingCards launch_ = new LaunchingCards(getFrames(),cardFactories);
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
@@ -79,7 +81,7 @@ public class LaunchingApplications extends SoftApplicationCore {
             Game gameOrNull_ = DocumentReaderAikiCoreUtil.getGameOrNull(file_,new SexListImpl());
             LoadingGame loadingGameOrNull_ = DocumentReaderAikiCoreUtil.getLoadingGameOrNull(file_);
             if (loadingGameOrNull_ != null || gameOrNull_ != null) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                 LaunchingPokemon launch_ = new LaunchingPokemon(getFrames(), aikiFactory);
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
@@ -89,18 +91,18 @@ public class LaunchingApplications extends SoftApplicationCore {
                 if (StringUtil.quickEq("smil",  doc_.getDocumentElement().getTagName())) {
                     SongList list_ = new SongList();
                     list_.addSongs(doc_);
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                     LaunchingPlayer launch_ = new LaunchingPlayer(getFrames());
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                 LaunchingDemo launch_ = new LaunchingDemo(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
             }
             if (file_.indexOf('\n') < 0) {
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                 LaunchingConverter launch_ = new LaunchingConverter(getFrames());
                 launch_.launchWithoutLanguage(_language, _args);
                 return;
@@ -119,31 +121,31 @@ public class LaunchingApplications extends SoftApplicationCore {
                     return;
                 }
                 if (linesFiles_.size() < 3) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory);
-                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames());
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 String possibleMethod_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
                 if (possibleMethod_.startsWith("initDb=")) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory);
-                    LaunchingRenders launch_ = new LaunchingRenders(getFrames());
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    LaunchingRenders launch_ = new LaunchingRenders(cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
                 if (possibleMethod_.startsWith("main=")) {
-                    launchWindow(_language, getFrames(), cardFactories, aikiFactory);
-                    LaunchingFull launch_ = new LaunchingFull(getFrames());
+                    launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                    LaunchingFull launch_ = new LaunchingFull(cdmFactory);
                     launch_.launchWithoutLanguage(_language, _args);
                     return;
                 }
-                launchWindow(_language, getFrames(), cardFactories, aikiFactory);
-                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(getFrames());
+                launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
+                LaunchingAppUnitTests launch_ = new LaunchingAppUnitTests(cdmFactory);
                 launch_.launchWithoutLanguage(_language, _args);
             }
             return;
         }
-        launchWindow(_language, getFrames(), cardFactories, aikiFactory);
+        launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
     }
 
     protected StringList getFile(String[] _args) {
@@ -155,9 +157,9 @@ public class LaunchingApplications extends SoftApplicationCore {
         }
         return files_;
     }
-    private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory) {
+    private static void launchWindow(String _language, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdm) {
         TopLeftFrame topLeft_ = loadCoords(getTempFolder(_list),COORDS, _list.getFileCoreStream(), _list.getStreams());
-        WindowApps w_ = getWindow(_language, _list, _cardFactories, _aikiFactory);
+        WindowApps w_ = getWindow(_language, _list, _cardFactories, _aikiFactory,_cdm);
         setLocation(w_.getCommonFrame(), topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {

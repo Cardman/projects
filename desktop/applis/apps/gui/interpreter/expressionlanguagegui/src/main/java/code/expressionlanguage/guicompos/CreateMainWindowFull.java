@@ -1,14 +1,15 @@
 package code.expressionlanguage.guicompos;
 
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.CdmFactory;
+import code.gui.initialize.*;
 import code.util.StringList;
 
 public final class CreateMainWindowFull implements Runnable {
-    private final AbstractProgramInfos list;
+    private final CdmFactory list;
     private final String language;
     private final StringList args;
 
-    public CreateMainWindowFull(String _language, StringList _args, AbstractProgramInfos _list) {
+    public CreateMainWindowFull(String _language, StringList _args, CdmFactory _list) {
         language = _language;
         args = _args;
         list = _list;

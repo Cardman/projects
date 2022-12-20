@@ -1,13 +1,12 @@
 package code.mock;
 
-import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.threads.FileStruct;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class MockFileSet {
     private static final String SL = "/";
-    private final DefaultNameValidating validating;
+    private final MockNameValidating validating;
     private final StringMap<FileStruct> files;
     private final MockMillis mockMillis;
     private final StringList roots;
@@ -15,7 +14,7 @@ public final class MockFileSet {
 
     public MockFileSet(long _initMillis, long[] _incrs, String[] _roots) {
         files = new StringMap<FileStruct>();
-        validating = new DefaultNameValidating(new StringList());
+        validating = new MockNameValidating();
         mockMillis = new MockMillis(_initMillis, _incrs);
         roots = new StringList(_roots);
         initRootsFolders();
@@ -30,7 +29,7 @@ public final class MockFileSet {
         return files;
     }
 
-    public DefaultNameValidating getValidating() {
+    public MockNameValidating getValidating() {
         return validating;
     }
 

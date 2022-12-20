@@ -4,7 +4,6 @@ import code.util.CustList;
 
 public interface AbsGraphicListCommon extends AbsGraphicListDefBase,WithListListener {
     AbsPanel getPanel();
-    AbsGraphicListPainter getGraphicListPainter();
     CustList<IndexableListener> getIndexableKey();
     CustList<IndexableListener> getIndexableMouse();
     int getSelectedValuesLsLen();

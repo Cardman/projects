@@ -1,7 +1,6 @@
 package code.gui;
 
 import code.gui.images.AbstractImage;
-import code.gui.initialize.AbsCompoFactory;
 import code.util.core.NumberUtil;
 
 
@@ -37,35 +36,7 @@ public final class LabelButtonUtil {
         _label.drawString(_text, 1, _h);
     }
 
-    public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr, DefaultCellRender _simpleRender, AbsCompoFactory _compoFactory) {
-        String elt_ = _curr.getElements().get(_index);
-        AbsPanel panel_ = _curr.getPanel();
-        _curr.setHeightList(NumberUtil.max(_curr.getHeightList(),panel_.heightFont()));
-        _simpleRender.setMaxWidth(NumberUtil.max(_simpleRender.getMaxWidth(),_compoFactory.stringWidth(panel_.getMetaFont(),elt_)));
-        AbstractImage buff_ = _curr.getFact().newImageRgb(_simpleRender.getWidth(),panel_.heightFont());
-//        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
-        buff_.setFont(panel_);
-        int h_ = panel_.heightFont();
-        int w_ = _compoFactory.stringWidth(panel_.getMetaFont(),elt_);
-        if (_sel) {
-            paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
-        } else {
-            paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
-        }
-        return buff_;
-    }
-
-    public static void repAll(AbsGraphicStringList _curr, AbsCompoFactory _compoFactory) {
-        AbsPanel panel_ =  _curr.getPanel();
-        int len_ =  _curr.getElements().size();
-        for (int i = 0; i < len_; i++) {
-            AbstractImage buff_ = repaintSelected(i,  _curr.getSelectedIndexes().containsObj(i), _curr, (DefaultCellRender)_curr.getSimpleRender(),_compoFactory);
-            AbsPreparedLabel lab_ = _curr.getCompoFactory().newPreparedLabel(buff_);
-            _curr.getListComponents().add(lab_);
-            panel_.add(lab_);
-        }
-    }
-//    static BufferedImage paintDefaultLabel(CustComponent _label, String _text, int _w,
+    //    static BufferedImage paintDefaultLabel(CustComponent _label, String _text, int _w,
 //                                           Color _front, Color _back) {
 //        Font font_ = _label.getFont();
 //        int h_ = _label.heightFont();

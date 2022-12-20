@@ -1,19 +1,19 @@
 package code.expressionlanguage.gui.unit;
 
 import code.gui.*;
-import code.gui.initialize.AbstractProgramInfos;
-import code.gui.initialize.LoadLanguageUtil;
-import code.stream.StreamTextFile;
-import code.util.StringList;
-import code.util.StringMap;
+import code.gui.initialize.*;
+import code.stream.*;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     private static final String TEMP_FOLDER = "UG";
 
-    public LaunchingAppUnitTests(AbstractProgramInfos _frames) {
-        super(_frames);
+    private final CdmFactory cdmFactory;
+    public LaunchingAppUnitTests(CdmFactory _cdm) {
+        super(_cdm.getProgramInfos());
+        cdmFactory = _cdm;
     }
 
     protected static void loadLaungage(String[] _args, LaunchingAppUnitTests _soft) {
@@ -22,7 +22,7 @@ public class LaunchingAppUnitTests extends AdvSoftApplicationCore {
 
     @Override
     protected void launch(String _language, String[] _args) {
-        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowUnit(_language,getFile(_args), getFrames()), getFrames());
+        ThreadInvoker.invokeNow(getFrames().getThreadFactory(),new CreateMainWindowUnit(_language,getFile(_args), cdmFactory), getFrames());
     }
 
     protected StringList getFile(String[] _args) {

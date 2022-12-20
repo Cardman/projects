@@ -27,4 +27,12 @@ public final class DefSpecSelectionCtx implements SpecSelectionCtx {
         r_.getCustInit().prExc(r_, stackCall_);
         return value_;
     }
+
+    public CommonExecutionInfos getExecutionInfos() {
+        return executionInfos;
+    }
+
+    public StringList getArgs() {
+        return args;
+    }
 }

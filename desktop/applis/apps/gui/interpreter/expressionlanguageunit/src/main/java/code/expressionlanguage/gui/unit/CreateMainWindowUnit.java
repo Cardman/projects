@@ -1,15 +1,15 @@
 package code.expressionlanguage.gui.unit;
 
-import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringList;
-import code.util.StringMap;
+import code.gui.CdmFactory;
+import code.gui.initialize.*;
+import code.util.*;
 
 public final class CreateMainWindowUnit implements Runnable {
-    private final AbstractProgramInfos list;
+    private final CdmFactory list;
     private String language;
     private StringList args;
 
-    public CreateMainWindowUnit(String _language, StringList _args, AbstractProgramInfos _list) {
+    public CreateMainWindowUnit(String _language, StringList _args, CdmFactory _list) {
         language = _language;
         args = _args;
         list = _list;

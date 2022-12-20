@@ -426,10 +426,9 @@ public final class SelectionUtil {
         _current.getLabel().setIcon(_current.getFact(),img_);
     }
 
-    public static void commonSet(Struct _grComp, AbsGraphicListCommon _graphicListStr) {
-        AbsGraphicListPainter graphicListPainter_ = _graphicListStr.getGraphicListPainter();
-        if (graphicListPainter_ != null) {
-            graphicListPainter_.setValue(_grComp);
+    public static void commonSet(Struct _grComp, AbsGraphicListPainter _p) {
+        if (_p != null) {
+            _p.setValue(_grComp);
         }
     }
 
@@ -444,5 +443,34 @@ public final class SelectionUtil {
             width_ = NumberUtil.max(width_, _compoFactory.stringWidth(_current.getMetaFont(),s));
         }
         return width_;
+    }
+
+    public static AbstractImage repaintSelected(int _index, boolean _sel, AbsGraphicStringList _curr, DefaultCellRender _simpleRender, AbsCompoFactory _compoFactory) {
+        String elt_ = _curr.getElements().get(_index);
+        AbsPanel panel_ = _curr.getPanel();
+        _curr.setHeightList(NumberUtil.max(_curr.getHeightList(),panel_.heightFont()));
+        _simpleRender.setMaxWidth(NumberUtil.max(_simpleRender.getMaxWidth(),_compoFactory.stringWidth(panel_.getMetaFont(),elt_)));
+        AbstractImage buff_ = _curr.getFact().newImageRgb(_simpleRender.getWidth(),panel_.heightFont());
+//        CustGraphics gr_ = new CustGraphics(buff_.getGraphics());
+        buff_.setFont(panel_);
+        int h_ = panel_.heightFont();
+        int w_ = _compoFactory.stringWidth(panel_.getMetaFont(),elt_);
+        if (_sel) {
+            LabelButtonUtil.paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.WHITE, GuiConstants.BLUE);
+        } else {
+            LabelButtonUtil.paintDefaultLabel(buff_, elt_, w_, _simpleRender.getMaxWidth(), h_, GuiConstants.BLACK, GuiConstants.WHITE);
+        }
+        return buff_;
+    }
+
+    public static void repAll(AbsGraphicStringList _curr, AbsCompoFactory _compoFactory) {
+        AbsPanel panel_ =  _curr.getPanel();
+        int len_ =  _curr.getElements().size();
+        for (int i = 0; i < len_; i++) {
+            AbstractImage buff_ = repaintSelected(i,  _curr.getSelectedIndexes().containsObj(i), _curr, (DefaultCellRender)_curr.getSimpleRender(),_compoFactory);
+            AbsPreparedLabel lab_ = _curr.getCompoFactory().newPreparedLabel(buff_);
+            _curr.getListComponents().add(lab_);
+            panel_.add(lab_);
+        }
     }
 }

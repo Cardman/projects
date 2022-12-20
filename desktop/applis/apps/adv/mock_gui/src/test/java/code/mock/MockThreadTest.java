@@ -99,21 +99,4 @@ public final class MockThreadTest extends EquallableMockGuiUtil {
         th_.setInterrupted(false);
         assertFalse(th_.isInterrupted());
     }
-    @Test
-    public void t17() {
-        MockRunnableStruct r_ = new MockRunnableStruct("");
-        MockThread th_ = new MockThread(r_, true, new MockAtomicLong());
-        th_.start();
-        assertTrue(r_.isStarted());
-    }
-    @Test
-    public void t18() {
-        MockRunnableStruct r_ = new MockRunnableStruct("");
-        assertFalse(r_.isStarted());
-    }
-    @Test
-    public void t19() {
-        MockRunnableStruct r_ = new MockRunnableStruct("");
-        assertEq("",r_.getClassName(null));
-    }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
-import code.gui.initialize.AbstractLightProgramInfos;
+import code.gui.CdmFactory;
+import code.gui.initialize.*;
 import code.threads.AbstractAtomicBoolean;
 import code.util.StringList;
 import code.util.StringMap;
@@ -28,6 +29,7 @@ public final class ExecutingOptions {
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
     private AbstractLightProgramInfos lightProgramInfos;
+    private CdmFactory listGenerator;
 
     public ExecutingOptions(AbstractAtomicBoolean _inter) {
         interrupt = _inter;
@@ -194,5 +196,13 @@ public final class ExecutingOptions {
 
     public void setLightProgramInfos(AbstractLightProgramInfos _l) {
         this.lightProgramInfos = _l;
+    }
+
+    public CdmFactory getListGenerator() {
+        return listGenerator;
+    }
+
+    public void setListGenerator(CdmFactory _l) {
+        this.listGenerator = _l;
     }
 }

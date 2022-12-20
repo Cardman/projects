@@ -73,17 +73,17 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     }
     @Test
     public void ls6() {
-        ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null,null,new CompoundedInitParts(null,null,null,null,null,null));
+        ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null, new CompoundedInitParts(null,null,null,null,null));
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
         assertNull(t_.getGeneComboBox());
         assertNull(t_.getGeneGraphicList());
-        assertNull(t_.getGeneStrCompo());
+//        assertNull(t_.getGeneStrCompo());
         assertNull(t_.getValidator());
         assertNull(t_.getZipFact());
         assertNull(t_.getImageFactory());
-        assertNull(t_.getInterceptor());
+//        assertNull(t_.getInterceptor());
         assertEq("",t_.getHomePath());
         assertEq("",t_.getTmpUserFolder());
         assertEq(0, t_.getCounts().size());

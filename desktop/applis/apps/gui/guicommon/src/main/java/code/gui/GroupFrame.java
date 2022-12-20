@@ -1,7 +1,6 @@
 package code.gui;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
@@ -318,9 +317,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     public AbstractThreadFactory getThreadFactory() {
         return getFrames().getThreadFactory();
     }
-    public AbstractInterceptor getInterceptor() {
-        return getFrames().getInterceptor();
-    }
+
     public TechStreams getStreams() {
         return getFrames().getStreams();
     }

@@ -72,7 +72,7 @@ public final class FileSaveDialogTest extends EquallableGuiCommonUtil {
         FileSaveDialog saver_ = new FileSaveDialog(pr_);
         FileSaveDialog.setFileSaveDialogByFrame(pr_.getFrameFactory().newCommonFrame("en",pr_,pr_.getImageFactory().newImageArgb(1,1)),"en",true,"","/tmp",saver_);
         assertTrue(saver_.isVisible());
-        saver_.getFileName().setText("?");
+        saver_.getFileName().setText("/"+ (char) 31);
         MockPlainButton c_ = (MockPlainButton) saver_.getButtons().getComponent(0);
         c_.getActionListeners().first().action();
         assertTrue(saver_.isVisible());

@@ -29,7 +29,7 @@ public final class GuiContextFactory {
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         _undefinedLgNames.setExecutingOptions(_exec);
-        _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements);
+        _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements,_exec.getListGenerator());
         return build(_options, _exec, mess_, kwl_, _undefinedLgNames, _files);
     }
 

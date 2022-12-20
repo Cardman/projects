@@ -37,7 +37,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
 
     @Override
     protected void repaintAll() {
-        LabelButtonUtil.repAll(this,compoFactory);
+        SelectionUtil.repAll(this,compoFactory);
     }
 
     public AbsCompoFactory getCompoFactory() {
@@ -59,7 +59,7 @@ public final class GraphicStringList extends GraphicList<String> implements AbsG
     }
 
     public void repaintSelect(int _index, boolean _sel) {
-        AbstractImage buff_ = LabelButtonUtil.repaintSelected(_index, _sel, this, (DefaultCellRender)getSimpleRender(),compoFactory);
+        AbstractImage buff_ = SelectionUtil.repaintSelected(_index, _sel, this, (DefaultCellRender)getSimpleRender(),compoFactory);
         AbsPreparedLabel lab_ = getListComponents().get(_index);
         lab_.setIcon(fact,buff_);
     }

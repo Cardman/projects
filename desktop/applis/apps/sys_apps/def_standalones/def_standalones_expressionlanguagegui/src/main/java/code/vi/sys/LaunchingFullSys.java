@@ -1,11 +1,15 @@
 package code.vi.sys;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
+import code.gui.CdmFactory;
+import code.vi.prot.impl.DefErrGenerator;
+import code.vi.prot.impl.DefInterceptor;
+import code.vi.prot.impl.variant.GraphicListGeneratorStr;
 import code.vi.sys.impl.variant.DefProgramInfos;
 
 public final class LaunchingFullSys extends LaunchingFull {
     public LaunchingFullSys() {
-        super(new DefProgramInfos());
+        super(new CdmFactory(new DefProgramInfos(),new DefInterceptor(new DefErrGenerator()),new GraphicListGeneratorStr()));
     }
     public static void loadLaungage(String[] _args) {
         LaunchingFull.loadLaungage(_args,new LaunchingFullSys());

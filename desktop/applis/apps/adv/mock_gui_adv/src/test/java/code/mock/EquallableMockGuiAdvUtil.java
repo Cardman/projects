@@ -1,6 +1,5 @@
 package code.mock;
 
-import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbstractMutableTreeNode;
 import code.gui.EnabledMenu;
@@ -33,9 +32,9 @@ public abstract class EquallableMockGuiAdvUtil {
     public static void assertNotNull(AbsCustComponent _expected) {
         Assert.assertNotNull(_expected);
     }
-    public static void assertNull(Struct _expected) {
-        Assert.assertNull(_expected);
-    }
+//    public static void assertNull(Struct _expected) {
+//        Assert.assertNull(_expected);
+//    }
     public static void assertNull(String[] _expected) {
         Assert.assertNull(_expected);
     }

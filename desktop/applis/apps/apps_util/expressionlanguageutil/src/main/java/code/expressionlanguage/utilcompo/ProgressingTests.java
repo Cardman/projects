@@ -4,9 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
+import code.gui.CdmFactory;
 
 public interface ProgressingTests {
-    AbstractInterceptor getInterceptor();
+    CdmFactory getFactory();
     void showWarnings(RunnableContextEl _ctx, ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos);
     void showErrors(ReportedMessages _reportedMessages, Options _opts, ExecutingOptions _exec, FileInfos _infos);
     void updateInfos(RunnableContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved);

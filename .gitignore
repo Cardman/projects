@@ -67,6 +67,16 @@
 !/desktop/applis/apps/apps_util/expressionlanguageutilimpl/src/
 !/desktop/applis/apps/apps_util/expressionlanguageutilimpl/src/**/
 !/desktop/applis/apps/apps_util/expressionlanguageutilimpl/src/**/*.java
+!/desktop/applis/apps/apps_util/expressionlanguageutilint/
+!/desktop/applis/apps/apps_util/expressionlanguageutilint/pom.xml
+!/desktop/applis/apps/apps_util/expressionlanguageutilint/src/
+!/desktop/applis/apps/apps_util/expressionlanguageutilint/src/**/
+!/desktop/applis/apps/apps_util/expressionlanguageutilint/src/**/*.java
+!/desktop/applis/apps/apps_util/expressionlanguageutilmock/
+!/desktop/applis/apps/apps_util/expressionlanguageutilmock/pom.xml
+!/desktop/applis/apps/apps_util/expressionlanguageutilmock/src/
+!/desktop/applis/apps/apps_util/expressionlanguageutilmock/src/**/
+!/desktop/applis/apps/apps_util/expressionlanguageutilmock/src/**/*.java
 !/desktop/applis/apps/apps_util/guidoc/
 !/desktop/applis/apps/apps_util/guidoc/pom.xml
 !/desktop/applis/apps/apps_util/guidoc/src/

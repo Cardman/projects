@@ -150,8 +150,8 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     }
 
     @Override
-    public AbstractInterceptor getIntercept() {
-        return parent.getInterceptor();
+    public CdmFactory getFactory() {
+        return parent.getFactory();
     }
 
     @Override

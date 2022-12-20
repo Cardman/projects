@@ -13,7 +13,7 @@ import java.io.ByteArrayInputStream;
 
 public abstract class ProgramInfosDeps extends ProgramInfos {
     protected ProgramInfosDeps(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator, AbstractAdvGraphicListGenerator _graphicListGenerator) {
-        super(_graphicStringListGenerator, _graphicComboBoxGenerator, _graphicListGenerator);
+        super(_graphicStringListGenerator, _graphicComboBoxGenerator);
     }
 
     @Override

@@ -47,7 +47,7 @@ public final class WindowApps extends GroupFrame {
 
     private final CustList<AbsRadioButton> radios = new CustList<AbsRadioButton>();
 
-    public WindowApps(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory) {
+    public WindowApps(String _lg, AbstractProgramInfos _list, CardFactories _cardFactories, AikiFactory _aikiFactory, CdmFactory _cdmFactory) {
         super(_lg, _list);
         setFocusableWindowState(true);
         setTitle(APPLICATIONS);
@@ -73,7 +73,7 @@ public final class WindowApps extends GroupFrame {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingAppUnitTests.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingAppUnitTests.getMainWindowClass(), buttonTests);
-        buttonTests.addActionListener(new AppUnitEvent(this,at_));
+        buttonTests.addActionListener(new AppUnitEvent(this,_cdmFactory,at_));
         lineTests_.add(buttonTests);
         panel_.add(lineTests_);
         AbsPanel lineRenders_ = getCompoFactory().newLineBox();
@@ -81,7 +81,7 @@ public final class WindowApps extends GroupFrame {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingRenders.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingRenders.getMainWindowClass(), buttonTests);
-        buttonRenders.addActionListener(new RenderEvent(this,at_));
+        buttonRenders.addActionListener(new RenderEvent(this,at_,_cdmFactory));
         lineRenders_.add(buttonRenders);
         panel_.add(lineRenders_);
         AbsPanel lineDemo_ = getCompoFactory().newLineBox();
@@ -113,7 +113,7 @@ public final class WindowApps extends GroupFrame {
         at_ = _list.getThreadFactory().newAtomicInteger(0);
         _list.getCounts().addEntry(LaunchingFull.getMainWindowClass(),at_);
         _list.getButtons().addEntry(LaunchingFull.getMainWindowClass(), buttonApps);
-        buttonApps.addActionListener(new AppsEvent(this,at_));
+        buttonApps.addActionListener(new AppsEvent(this,at_,_cdmFactory));
         lineApp_.add(buttonApps);
         panel_.add(lineApp_);
         AbsPanel lineNet_ = getCompoFactory().newLineBox();

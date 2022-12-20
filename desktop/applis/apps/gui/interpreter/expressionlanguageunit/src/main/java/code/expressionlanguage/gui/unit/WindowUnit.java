@@ -17,7 +17,7 @@ import code.gui.AbsMenuItem;
 
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractThread;
@@ -50,6 +50,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final AbsTableGui resultsTable;
     private final AbsTextArea results;
     private final AbsProgressBar progressBar;
+    private final CdmFactory interceptor;
 
     private RunningTest running;
     private AbstractThread th;
@@ -61,8 +62,9 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final SimpleFilesFrame filesFrame;
     private final CommonExecution commonExecution;
 
-    public WindowUnit(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+    public WindowUnit(String _lg, CdmFactory _list) {
+        super(_lg, _list.getProgramInfos());
+        interceptor = _list;
         setAccessFile("unit.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
         String loadedResourcesMessages_ = MessCdmUnitGr.ms().getVal(fileName_);
@@ -141,8 +143,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     }
 
     @Override
-    public AbstractInterceptor getIntercept() {
-        return getInterceptor();
+    public CdmFactory getFactory() {
+        return interceptor;
     }
 
     @Override

@@ -1,7 +1,5 @@
 package code.mock;
 
-import code.expressionlanguage.stds.AbstractInterceptorStdCaller;
-import code.expressionlanguage.structs.NullStruct;
 import code.gui.*;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
@@ -353,10 +351,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         AbsCustCheckBox coch_ = ab_.newCustCheckBox("", true);
         assertEq(0,new MockMouseCoords(0,0).getXcoord());
         assertEq(0,new MockMouseCoords(0,0).getYcoord());
-        AbstractInterceptorStdCaller int_ = pr_.getInterceptor().newInterceptorStdCaller("");
-        assertTrue(int_.exitAfterCallInt(new MockInitializer(),null,null));
-        assertTrue(int_.stop(new MockInitializer(),null,null));
-        assertTrue(int_.invoke(new MockStdCaller(),null,null,null,null,null).getValue().getStruct().sameReference(NullStruct.NULL_VALUE));
         pr_.getExcludedFolders();
         pr_.getZipFact();
         pr_.light();

@@ -22,12 +22,12 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     private int screenWidth;
     private int screenHeight;
 
-    protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
-        this(_h,_t,new DefaultGenerator(_se.getSe()),_se,_cust,_set);
+    protected MockAbsProgramInfos(String _h, String _t, MockEventListIncr _se, MockFileSet _set) {
+        this(_h,_t,new DefaultGenerator(_se.getSe()),_se, _set);
     }
-    private MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, boolean _cust, MockFileSet _set) {
-        super(_h,_t,_gene,new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),new MockAdvGraphicListGenerator(_cust),
-                new CompoundedInitParts(new MockThreadFactory(_gene, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory(),new MockInterceptor()));
+    private MockAbsProgramInfos(String _h, String _t, AbstractGenerator _gene, MockEventListIncr _se, MockFileSet _set) {
+        super(_h,_t,_gene,new MockGraphicStringListGenerator(),new MockGraphicComboBoxGenerator(),
+                new CompoundedInitParts(new MockThreadFactory(_gene, _set),new MockZipFact(),_set.getValidating(),new MockCompoFactory(),new MockImageFactory()));
         mockFileSet = _set;
         fileCoreStream = new MockFileCoreStream(_set);
         MockBinFact mockBinFact_ = new MockBinFact(getGenerator(), _set);

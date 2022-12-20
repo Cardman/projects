@@ -49,4 +49,7 @@ public final class DefaultGraphicListPainter extends AbsGraphicListPainterImpl {
         return fact;
     }
 
+    public void setFact(AbstractImageFactory _f) {
+        this.fact = _f;
+    }
 }

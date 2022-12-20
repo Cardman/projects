@@ -1,7 +1,6 @@
 package code.gui.initialize;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.utilcompo.AbstractInterceptor;
 import code.gui.AbsButton;
 import code.gui.AbsGroupFrame;
 import code.gui.images.AbstractImageFactory;
@@ -21,16 +20,14 @@ public class ProgramInfosBase {
     private final AbstractGenerator generator;
     private final AbstractGraphicStringListGenerator geneGraphicList;
     private final AbstractGraphicComboBoxGenerator geneComboBox;
-    private final AbstractAdvGraphicListGenerator geneStrCompo;
     private final CompoundedInitParts compoundedInitParts;
 
-    public ProgramInfosBase(String _h,String _t,AbstractGenerator _g, AbstractGraphicStringListGenerator _l, AbstractGraphicComboBoxGenerator _c, AbstractAdvGraphicListGenerator _s, CompoundedInitParts _parts) {
+    public ProgramInfosBase(String _h, String _t, AbstractGenerator _g, AbstractGraphicStringListGenerator _l, AbstractGraphicComboBoxGenerator _c, CompoundedInitParts _parts) {
         this.homePath = _h;
         this.tmpUserFolder = _t;
         this.generator = _g;
         this.geneGraphicList = _l;
         this.geneComboBox = _c;
-        this.geneStrCompo = _s;
         this.compoundedInitParts = _parts;
     }
 
@@ -54,9 +51,9 @@ public class ProgramInfosBase {
         return buttons;
     }
 
-    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
-        return geneStrCompo;
-    }
+//    public AbstractAdvGraphicListGenerator getGeneStrCompo() {
+//        return geneStrCompo;
+//    }
 
     public AbstractGenerator getGenerator() {
         return generator;
@@ -79,10 +76,6 @@ public class ProgramInfosBase {
 
     public AbstractImageFactory getImageFactory() {
         return compoundedInitParts.getImageFactory();
-    }
-
-    public AbstractInterceptor getInterceptor() {
-        return compoundedInitParts.getInterceptor();
     }
 
     public AbstractNameValidating getValidator() {

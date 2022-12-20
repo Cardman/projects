@@ -13,7 +13,7 @@ import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
-import code.gui.initialize.AbstractProgramInfos;
+import code.gui.initialize.*;
 import code.renders.utilcompo.LgNamesRenderUtils;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
@@ -35,8 +35,11 @@ public final class WindowRenders extends GroupFrame {
     private final AbsTextField lgCode;
     private final AbsTextField path;
     private final RenderedPage session;
-    public WindowRenders(String _lg, AbstractProgramInfos _list) {
-        super(_lg, _list);
+    private final CdmFactory interceptor;
+
+    public WindowRenders(String _lg, CdmFactory _list) {
+        super(_lg, _list.getProgramInfos());
+        interceptor = _list;
         setJMenuBar(getCompoFactory().newMenuBar());
         menu = getCompoFactory().newMenu("file");
         open = getCompoFactory().newMenuItem("open");
@@ -50,7 +53,7 @@ public final class WindowRenders extends GroupFrame {
         pane_.add(lgCode);
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
-        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _list);
+        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _list.getProgramInfos());
         session.initNav();
         session.setLanguage(_lg);
         session.setFrame(getCommonFrame());
@@ -127,6 +130,7 @@ public final class WindowRenders extends GroupFrame {
         String clName_ = "";
         String mName_ = "";
         ExecutingOptions exec_ = new ExecutingOptions(getThreadFactory().newAtomicBoolean());
+        exec_.setListGenerator(interceptor);
         String lg_ = getLanguageKey();
         StringList lgs_ = Constants.getAvailableLanguages();
         if (linesFiles_.size() > 2) {
@@ -155,7 +159,7 @@ public final class WindowRenders extends GroupFrame {
         }
         AbstractNameValidating validator_ = getValidator();
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(validator_, new RenderIssuer(session),getFileCoreStream(),getStreams()),
-                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(getFrames().light(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),getInterceptor());
+                new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(getFrames().light(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.setExecutingOptions(exec_);
         session.initNav();
         session.setLanguage(lg_,lgs_);

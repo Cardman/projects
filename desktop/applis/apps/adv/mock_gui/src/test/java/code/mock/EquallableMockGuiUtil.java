@@ -1,6 +1,5 @@
 package code.mock;
 
-import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.gui.EnabledMenu;
@@ -8,6 +7,7 @@ import code.gui.TextAnswerValue;
 import code.gui.images.AbstractImage;
 import code.stream.AbsClipStream;
 import code.stream.core.ContentTime;
+import code.threads.FileStruct;
 import code.threads.ThState;
 import code.util.StringMap;
 import code.util.core.NumberUtil;
@@ -32,7 +32,7 @@ public abstract class EquallableMockGuiUtil {
     public static void assertNotNull(AbsCustComponent _expected) {
         Assert.assertNotNull(_expected);
     }
-    public static void assertNull(Struct _expected) {
+    public static void assertNull(FileStruct _expected) {
         Assert.assertNull(_expected);
     }
     public static void assertNull(String[] _expected) {
@@ -52,6 +52,9 @@ public abstract class EquallableMockGuiUtil {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(AbsCustComponent _expected, AbsCustComponent _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(FileStruct _expected, FileStruct _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(MockLayout _expected, MockLayout _result) {

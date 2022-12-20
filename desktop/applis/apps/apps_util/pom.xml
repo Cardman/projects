@@ -15,6 +15,8 @@
 		<module>streamcore</module>
 		<module>threads</module>
 		<module>stream</module>
+		<module>expressionlanguageutilint</module>
+		<module>expressionlanguageutilmock</module>
 		<module>expressionlanguageutil</module>
 		<module>guidoc</module>
 		<module>expressionlanguageutilimpl</module>
