@@ -751,7 +751,7 @@ public class ScenePanelMulti {
             return;
         }
         ((PokemonStandards)task_.getBeanNatLgNames()).setDataBase(facade);
-        receivedPk.initializeOnlyConf(task_, facade.getLanguage(), ((PokemonStandards)task_.getBeanNatLgNames()));
+        FrameHtmlData.initializeOnlyConf(task_, facade.getLanguage(), ((PokemonStandards)task_.getBeanNatLgNames()), receivedPk);
     }
 
 //    public void interact() {

@@ -1,14 +1,14 @@
 package cards.gui.animations;
 
+import cards.gui.dialogs.PreparedAnalyzedCards;
 import code.bean.nat.AbstractNativeInit;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatNavigation;
-import code.gui.document.PreparedAnalyzed;
 import code.sml.Document;
 import code.util.StringMap;
 import code.util.consts.Constants;
 
-public abstract class AbstractPreparedPagesCards implements PreparedAnalyzed {
+public abstract class AbstractPreparedPagesCards implements PreparedAnalyzedCards {
     private final String lg;
     private final BeanNatCommonLgNames beanNatLgNames;
     private NatNavigation navigation;

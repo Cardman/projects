@@ -6,8 +6,12 @@ package cards.gui.dialogs;
 import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
+import code.bean.nat.BeanNatCommonLgNamesInt;
+import code.bean.nat.NatNavigation;
+import code.formathtml.render.MetaDocument;
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.document.WindowPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.util.CustList;
@@ -62,6 +66,24 @@ public final class FrameGeneralHelp extends ChildFrame {
         //window = _fenetre;
     }
 
+    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
+    public static void initialize(NatNavigation _nav, MetaDocument _metaDoc, RenderedPage _cur) {
+        coreInfos(_cur, _nav);
+        GuiBaseUtil.invokeLater(new WindowPage(_metaDoc, _cur.getScroll(), _cur), _cur.getGene());
+    }
+
+    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
+    public static void initialize(PreparedAnalyzedCards _stds, RenderedPage _cur) {
+        NatNavigation n_ = _stds.getNavigation();
+        coreInfos(_cur, n_);
+        ((BeanNatCommonLgNamesInt) _stds.getBeanNatLgNames()).initializeRendSessionDoc(n_);
+        _cur.setupText();
+    }
+
+    public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
+        _cur.setNavCore(_n.getBean());
+        _cur.setKeys(_n.getSession().getRendKeyWords());
+    }
     @Override
     public void closeWindow() {
         setVisible(false);
@@ -125,7 +147,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);
         arbre_.addTreeSelectionListener(new ListenerClickTree(racineBis, editor, arbre_));
-        editor.initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument());
+        initialize(racineBis.getElementLocal().getNavigation(),racineBis.getElementLocal().getMetaDocument(), editor);
         if (field == null) {
             field = _w.getCompoFactory().newTextField(20);
             search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));

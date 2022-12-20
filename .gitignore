@@ -67,6 +67,11 @@
 !/desktop/applis/apps/apps_util/expressionlanguageutilimpl/src/
 !/desktop/applis/apps/apps_util/expressionlanguageutilimpl/src/**/
 !/desktop/applis/apps/apps_util/expressionlanguageutilimpl/src/**/*.java
+!/desktop/applis/apps/apps_util/guidoc/
+!/desktop/applis/apps/apps_util/guidoc/pom.xml
+!/desktop/applis/apps/apps_util/guidoc/src/
+!/desktop/applis/apps/apps_util/guidoc/src/**/
+!/desktop/applis/apps/apps_util/guidoc/src/**/*.java
 !/desktop/applis/apps/apps_util/pom.xml
 !/desktop/applis/apps/apps_util/stream/
 !/desktop/applis/apps/apps_util/stream/pom.xml

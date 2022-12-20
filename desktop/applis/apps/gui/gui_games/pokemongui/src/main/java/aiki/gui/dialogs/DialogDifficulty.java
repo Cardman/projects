@@ -54,7 +54,7 @@ public final class DialogDifficulty {
         session = new RenderedPage(scrollSession_, window.getFrames());
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(facade);
-        session.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()));
+        FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()), session);
         AbsPanel panel_ = window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;

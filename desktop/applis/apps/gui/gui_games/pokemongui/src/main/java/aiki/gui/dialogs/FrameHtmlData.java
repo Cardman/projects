@@ -3,12 +3,16 @@ package aiki.gui.dialogs;
 
 
 
+import aiki.beans.BeanNatCommonLgNamesForm;
 import aiki.beans.PokemonStandards;
 import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
+import code.bean.nat.NatNavigation;
 import code.gui.*;
+import code.gui.document.NatRenderAction;
+import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
@@ -61,6 +65,20 @@ public final class FrameHtmlData extends ChildFrame {
         pack();
     }
 
+    public static void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
+        NatNavigation n_ = _prepared.getNavigation();
+        coreInfos(_cur, n_);
+        _cur.getNavCore().setLanguage(_lg);
+        _cur.setStandards(_stds);
+        _cur.setRenderAction(new NatRenderAction(_stds,n_));
+        _stds.initializeRendSessionDoc(n_);
+        _cur.setupText();
+    }
+
+    public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
+        _cur.setNavCore(_n.getBean());
+        _cur.setKeys(_n.getSession().getRendKeyWords());
+    }
     @Override
     public void closeWindow() {
         setVisible(false);
@@ -69,7 +87,7 @@ public final class FrameHtmlData extends ChildFrame {
     public void initSessionLg(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         setVisible(true);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        session.initializeOnlyConf(_pre, _lg,((PokemonStandards)_pre.getBeanNatLgNames()));
+        initializeOnlyConf(_pre, _lg,((PokemonStandards)_pre.getBeanNatLgNames()), session);
     }
 
     public ProgressingWebDialog getDialog() {

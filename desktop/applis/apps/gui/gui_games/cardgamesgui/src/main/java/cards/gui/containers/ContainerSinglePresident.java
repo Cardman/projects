@@ -24,9 +24,7 @@ import cards.gui.containers.events.NextTrickEvent;
 import cards.gui.containers.events.NoPlayPresidentEvent;
 import cards.gui.containers.events.ReplayEvent;
 import cards.gui.containers.events.StopPlayingEvent;
-import cards.gui.dialogs.DialogHelpPresident;
-import cards.gui.dialogs.DialogTricksPresident;
-import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentSingleGame;
 import cards.gui.labels.Graphic;
@@ -47,7 +45,6 @@ import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import cards.president.sml.DocumentWriterPresidentUtil;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.maths.Rate;
@@ -567,9 +564,9 @@ public class ContainerSinglePresident extends ContainerPresident implements
 
         AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
         if(partie_.getType()==GameType.RANDOM) {

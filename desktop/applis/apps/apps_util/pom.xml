@@ -16,6 +16,7 @@
 		<module>threads</module>
 		<module>stream</module>
 		<module>expressionlanguageutil</module>
+		<module>guidoc</module>
 		<module>expressionlanguageutilimpl</module>
 		<module>expressionlanguagefiles</module>
 	</modules>

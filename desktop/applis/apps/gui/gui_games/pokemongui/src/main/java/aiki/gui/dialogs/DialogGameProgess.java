@@ -46,7 +46,7 @@ public final class DialogGameProgess {
         session = new RenderedPage(scrollSession_, _window.getFrames());
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
-        session.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()));
+        FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()), session);
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;

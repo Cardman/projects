@@ -110,7 +110,7 @@ public final class DialogHtmlData {
     public void initSession(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        session.initializeOnlyConf(_pre, _lg, ((PokemonStandards)_pre.getBeanNatLgNames()));
+        FrameHtmlData.initializeOnlyConf(_pre, _lg, ((PokemonStandards)_pre.getBeanNatLgNames()), session);
 
         absDialog.setVisible(true);
     }

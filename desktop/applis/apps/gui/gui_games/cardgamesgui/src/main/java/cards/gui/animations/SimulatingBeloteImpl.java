@@ -11,12 +11,13 @@ import cards.gui.containers.ContainerBelote;
 import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuBelote;
 import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.FrameGeneralHelp;
+import cards.gui.dialogs.PreparedAnalyzedCards;
 import cards.gui.labels.GraphicBeloteCard;
 import cards.gui.panels.CarpetBelote;
 import cards.gui.panels.MiniCarpet;
 import code.gui.*;
 
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.threads.ThreadUtil;
@@ -203,9 +204,9 @@ public final class SimulatingBeloteImpl extends AbstractSimulatingBelote {
         RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());
-        PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
         AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(scroll_,scrollTxt_);

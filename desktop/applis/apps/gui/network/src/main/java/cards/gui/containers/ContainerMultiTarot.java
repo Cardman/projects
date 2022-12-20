@@ -16,10 +16,7 @@ import cards.gui.containers.events.ReadyEvent;
 import cards.gui.containers.events.SlamEvent;
 import cards.gui.containers.events.TakeDogEvent;
 import cards.gui.containers.events.ValidateDogEvent;
-import cards.gui.dialogs.DialogRulesTarot;
-import cards.gui.dialogs.DialogTeamsPlayers;
-import cards.gui.dialogs.DialogTricksTarot;
-import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.*;
 import cards.gui.events.ListenerBidTarotMulti;
 import cards.gui.events.ListenerCardTarotMultiBeforeDog;
 import cards.gui.events.ListenerCardTarotMultiDog;
@@ -53,7 +50,6 @@ import cards.tarot.enumerations.DealingTarot;
 import cards.tarot.enumerations.Handfuls;
 import cards.tarot.enumerations.Miseres;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
@@ -244,9 +240,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
 
         rulesTarotMulti.getCommon().setGeneral(readCoreResource());
         rulesTarotMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
-        editor.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor);
 
         scroll_.setPreferredSize(new MetaDimension(300,400));
         container_.add(scroll_);
@@ -307,9 +303,9 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         rulesTarotMulti = _rules;
         rulesTarotMulti.getCommon().setGeneral(readCoreResource());
         rulesTarotMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
-        editor.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor);
     }
     public void updateForBeginningGame(DealtHandTarot _hand) {
         repTarot = _hand.getRep();
@@ -1069,16 +1065,16 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         _res.getRes().setSpecific(readResource());
         AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
-        PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+        PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        editor_.initialize(sOne_);
+        FrameGeneralHelp.initialize(sOne_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),scroll_);
         ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
         editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
-        PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
+        PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        editor_.initialize(sTwo_);
+        FrameGeneralHelp.initialize(sTwo_, editor_);
         ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);

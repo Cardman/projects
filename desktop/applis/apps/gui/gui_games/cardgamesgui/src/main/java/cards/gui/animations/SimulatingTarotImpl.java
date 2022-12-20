@@ -8,6 +8,8 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerSimuTarot;
 import cards.gui.containers.ContainerTarot;
 import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.FrameGeneralHelp;
+import cards.gui.dialogs.PreparedAnalyzedCards;
 import cards.gui.labels.GraphicTarotCard;
 import cards.gui.panels.CarpetTarot;
 import cards.gui.panels.MiniCarpet;
@@ -16,7 +18,6 @@ import cards.tarot.beans.TarotStandards;
 import cards.tarot.enumerations.*;
 import code.gui.*;
 
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.threads.ThreadUtil;
@@ -198,9 +199,9 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());
-        PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
+        PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
 
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();

@@ -1,8 +1,5 @@
 package code.gui.document;
 
-import aiki.beans.BeanNatCommonLgNamesForm;
-import code.bean.nat.BeanNatCommonLgNamesInt;
-import code.bean.nat.NatNavigation;
 import code.expressionlanguage.ContextEl;
 import code.formathtml.Configuration;
 import code.formathtml.Navigation;
@@ -45,7 +42,7 @@ public final class RenderedPage implements ProcessingSession {
 
     private AbsTextArea area;
 
-    private ProgressingWebDialog dialog;
+    private ProgressDialogAdv dialog;
 
     private ChangeableTitle frame;
 
@@ -92,36 +89,6 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setProcess(CustList<AbstractImage> _process) {
         process = _process;
-    }
-
-    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(NatNavigation _nav,MetaDocument _metaDoc) {
-        navCore = _nav.getBean();
-        keys = _nav.getSession().getRendKeyWords();
-        GuiBaseUtil.invokeLater(new WindowPage(_metaDoc, scroll, this), getGene());
-    }
-
-    /**It is impossible to know by advance if there is an infinite loop in a custom java code =&gt; Give up on tests about dynamic initialize html pages*/
-    public void initialize(PreparedAnalyzed _stds) {
-        NatNavigation n_ = _stds.getNavigation();
-        navCore = n_.getBean();
-        keys = n_.getSession().getRendKeyWords();
-        initDoc(_stds.getBeanNatLgNames(),n_);
-    }
-
-    private void initDoc(BeanNatCommonLgNamesInt _stds, NatNavigation _nat) {
-        _stds.initializeRendSessionDoc(_nat);
-        setupText();
-    }
-
-    public void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds) {
-        NatNavigation n_ = _prepared.getNavigation();
-        navCore = n_.getBean();
-        keys = n_.getSession().getRendKeyWords();
-        navCore.setLanguage(_lg);
-        standards = _stds;
-        renderAction = new NatRenderAction(_stds,n_);
-        initDoc(_stds,n_);
     }
 
     public void initializeOnlyConf(AbstractContextCreator _creator,BeanCustLgNames _stds, Runnable _inst) {
@@ -184,7 +151,23 @@ public final class RenderedPage implements ProcessingSession {
         taskTimer = null;
     }
 
-    private void setupText() {
+    public void setNavCore(NavigationCore _n) {
+        this.navCore = _n;
+    }
+
+    public void setKeys(RendKeyWordsGroup _k) {
+        this.keys = _k;
+    }
+
+    public void setStandards(WithPageInfos _s) {
+        this.standards = _s;
+    }
+
+    public void setRenderAction(AbstractRenderAction _r) {
+        this.renderAction = _r;
+    }
+
+    public void setupText() {
         Document doc_ = navCore.getDocument();
         MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys);
         GuiBaseUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
@@ -252,7 +235,7 @@ public final class RenderedPage implements ProcessingSession {
         return page;
     }
 
-    public void setDialog(ProgressingWebDialog _dialog) {
+    public void setDialog(ProgressDialogAdv _dialog) {
         dialog = _dialog;
     }
 

@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.document.ProgressDialogAdv;
 import code.util.core.StringUtil;
 
 public class TaskPaintingLabel implements Runnable {
@@ -55,7 +56,7 @@ public class TaskPaintingLabel implements Runnable {
         return dialog;
     }
 
-    public void setDialog(ProgressDialog _dialog) {
+    public void setDialog(ProgressDialogAdv _dialog) {
         dialog = _dialog;
     }
 

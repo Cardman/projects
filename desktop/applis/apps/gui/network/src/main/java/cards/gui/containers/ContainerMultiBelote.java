@@ -25,10 +25,7 @@ import cards.gui.containers.events.FoldEvent;
 import cards.gui.containers.events.PlayFirstDealEvent;
 import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.ReadyEvent;
-import cards.gui.dialogs.DialogRulesBelote;
-import cards.gui.dialogs.DialogTeamsPlayers;
-import cards.gui.dialogs.DialogTricksBelote;
-import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.*;
 import cards.gui.events.ListenerBidBeloteMulti;
 import cards.gui.events.ListenerCardBeloteMultiGame;
 import cards.gui.events.SelectPointsEvent;
@@ -52,7 +49,6 @@ import cards.network.common.before.PlayersNamePresent;
 import cards.network.common.before.Ready;
 import cards.network.threads.Net;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
@@ -261,9 +257,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
         rulesBeloteMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        editor.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor);
 
         scroll_.setPreferredSize(new MetaDimension(300,400));
         container_.add(scroll_);
@@ -339,9 +335,9 @@ public class ContainerMultiBelote extends ContainerBelote implements
         rulesBeloteMulti = _rules;
         rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
         rulesBeloteMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        editor.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor);
     }
 
     public void updateForBeginningGame(DealtHandBelote _hand) {
@@ -826,16 +822,16 @@ public class ContainerMultiBelote extends ContainerBelote implements
 
         AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
-        PreparedAnalyzed sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
+        PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        editor_.initialize(sOne_);
+        FrameGeneralHelp.initialize(sOne_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),scroll_);
         AbsScrollPane ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
         editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
-        PreparedAnalyzed sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
+        PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        editor_.initialize(sTwo_);
+        FrameGeneralHelp.initialize(sTwo_, editor_);
         ascenseur_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),ascenseur_);
         container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);

@@ -4,6 +4,7 @@ package code.gui;
 
 import code.gui.animations.AnimatedImage;
 import code.gui.document.ProcessingSession;
+import code.gui.document.ProgressDialogAdv;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
@@ -13,7 +14,7 @@ import code.threads.AbstractScheduledExecutorService;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 
-public final class ProgressingWebDialog implements ProgressDialog {
+public final class ProgressingWebDialog implements ProgressDialogAdv {
 
     private static final int HEIGTH_ANIM = 100;
 

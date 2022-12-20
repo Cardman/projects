@@ -8,6 +8,8 @@ import cards.gui.containers.ContainerGame;
 import cards.gui.containers.ContainerPresident;
 import cards.gui.containers.ContainerSimuPresident;
 import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.FrameGeneralHelp;
+import cards.gui.dialogs.PreparedAnalyzedCards;
 import cards.gui.labels.GraphicPresidentCard;
 import cards.gui.panels.CarpetPresident;
 import cards.president.*;
@@ -15,7 +17,6 @@ import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.Playing;
 import code.gui.*;
 
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.threads.ThreadUtil;
@@ -238,9 +239,9 @@ public final class SimulatingPresidentImpl extends AbstractSimulatingPresident {
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         AbsScrollPane scroll_=container.getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
-        PreparedAnalyzed stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+        PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        editor_.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
         AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(scroll_,scrollTxt_);

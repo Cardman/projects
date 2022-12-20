@@ -1,5 +1,6 @@
 package cards.gui.dialogs.events;
 
+import cards.gui.dialogs.FrameGeneralHelp;
 import cards.gui.dialogs.help.ElementHelp;
 import cards.gui.dialogs.help.NodeHelp;
 import code.gui.*;
@@ -29,6 +30,6 @@ public class ListenerClickTree implements AbsShortListTree {
         }
         Ints indices_ = MutableTreeNodeUtil.getIndexes(sel_);
         ElementHelp element_ = node.element(indices_).getElementLocal();
-        editor.initialize(element_.getNavigation(),element_.getMetaDocument());
+        FrameGeneralHelp.initialize(element_.getNavigation(),element_.getMetaDocument(), editor);
     }
 }

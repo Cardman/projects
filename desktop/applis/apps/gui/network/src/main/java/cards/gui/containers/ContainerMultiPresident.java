@@ -15,9 +15,7 @@ import cards.gui.containers.events.NoPlayPresidentEvent;
 import cards.gui.containers.events.PlayFirstDealEvent;
 import cards.gui.containers.events.PlayNextDealEvent;
 import cards.gui.containers.events.ReadyEvent;
-import cards.gui.dialogs.DialogRulesPresident;
-import cards.gui.dialogs.DialogTricksPresident;
-import cards.gui.dialogs.FileConst;
+import cards.gui.dialogs.*;
 import cards.gui.events.ListenerCardPresidentDiscard;
 import cards.gui.events.ListenerCardPresidentMultiGame;
 import cards.gui.labels.GraphicPresidentCard;
@@ -40,7 +38,6 @@ import cards.president.beans.PresidentStandards;
 import cards.president.enumerations.CardPresident;
 import cards.president.enumerations.Playing;
 import code.gui.*;
-import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.network.WindowNetWork;
@@ -132,9 +129,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
         editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesPresidentMulti.getCommon().setGeneral(readCoreResource());
         rulesPresidentMulti.getCommon().setSpecific(readResource());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
-        editor.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor);
 
         scroll_.setPreferredSize(new MetaDimension(300,400));
         container_.add(scroll_);
@@ -210,9 +207,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
     public void updateRules(RulesPresident _rules) {
         rulesPresidentMulti = _rules;
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
-        editor.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor);
     }
 
     public void updateForBeginningGame(DealtHandPresident _hand) {
@@ -643,9 +640,9 @@ public class ContainerMultiPresident extends ContainerPresident implements
 
         AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
         RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
-        PreparedAnalyzed stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
+        PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
-        editor_.initialize(stds_);
+        FrameGeneralHelp.initialize(stds_, editor_);
         scroll_.setPreferredSize(new MetaDimension(300,300));
         onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),scroll_);
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
