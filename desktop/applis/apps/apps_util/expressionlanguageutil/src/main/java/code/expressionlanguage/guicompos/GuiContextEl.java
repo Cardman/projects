@@ -2,6 +2,7 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.guicompos.stds.FctWindowCloseAll;
+import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsPlainButton;
 import code.util.StringList;
@@ -9,7 +10,7 @@ import code.util.StringList;
 public final class GuiContextEl extends RunnableContextEl {
 
 
-    GuiContextEl(InitPhase _state, CommonExecutionInfos _executionInfos, StringList _args) {
+    GuiContextEl(Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_state, _executionInfos, _args);
     }
 

@@ -32,7 +32,7 @@ public final class FctThread implements StdCaller {
         } else {
             thread_ = custAliases.getInfos().getThreadFactory().newThread(null);
         }
-        ThreadStruct std_ = new ThreadStruct(thread_,custAliases.getInfos().getThreadFactory().newAtomicBoolean());
+        ThreadStruct std_ = new ThreadStruct(thread_,custAliases.getInfos().getThreadFactory().newAtomicBoolean(),runnable_);
         return new ArgumentWrapper(std_);
     }
 }

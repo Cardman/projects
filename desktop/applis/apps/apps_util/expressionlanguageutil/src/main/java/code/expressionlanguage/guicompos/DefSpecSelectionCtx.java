@@ -20,7 +20,7 @@ public final class DefSpecSelectionCtx implements SpecSelectionCtx {
 
     @Override
     public String convertStr(Struct _struct) {
-        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos, args);
+        GuiContextEl r_ = new GuiContextEl(null, executionInfos, args);
         RunnableStruct.setupThread(r_);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING, r_);
         String value_ = ProcessMethod.convertStr(_struct, r_, stackCall_);

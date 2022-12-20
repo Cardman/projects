@@ -53,7 +53,7 @@ public final class DefSpecSelectionStruct implements SpecSelectionStruct {
         return Argument.getNullableValue(RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(pair_.getType(), stds_.getGuiAliases().getAliasPaint()), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_));
     }
     private GuiContextEl newCtx(CommonExecutionInfos _executionInfos) {
-        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, _executionInfos, args);
+        GuiContextEl r_ = new GuiContextEl(null, _executionInfos, args);
         RunnableStruct.setupThread(r_);
         return r_;
     }

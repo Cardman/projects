@@ -24,10 +24,6 @@ public final class FctThreadRunnable implements StdCaller {
             custAliases.processFailInit(_cont, _stackCall);
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        Runnable r_ = ((ThreadStruct) _instance).getThread().getRunnable();
-        if (!(r_ instanceof Struct)) {
-            return new ArgumentWrapper(null);
-        }
-        return new ArgumentWrapper((Struct) r_);
+        return new ArgumentWrapper(((ThreadStruct) _instance).getRunnable());
     }
 }

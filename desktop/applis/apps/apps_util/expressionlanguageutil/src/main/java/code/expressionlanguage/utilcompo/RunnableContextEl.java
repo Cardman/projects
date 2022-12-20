@@ -2,6 +2,7 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.structs.Struct;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
@@ -17,12 +18,12 @@ public class RunnableContextEl extends ContextEl implements Locking {
     private String currentDir;
     private StringList args;
 
-    public RunnableContextEl(InitPhase _state, CommonExecutionInfos _executionInfos, StringList _args) {
+    public RunnableContextEl(Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_executionInfos);
         args = _args;
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
         threadFactory = standards_.getInfos().getThreadFactory();
-        thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean());
+        thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean(),_state);
         currentDir = standards_.getExecutingOptions().getBaseFiles();
         zipFact = standards_.getInfos().getZipFact();
     }

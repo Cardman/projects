@@ -138,7 +138,7 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         RunnableStruct.invoke(arg_, new ExecFormattedRootBlock(pair_.getType(),stds_.getGuiAliases().getAliasPaint()), _r,pair_, StackCall.newInstance(InitPhase.NOTHING,_r), argList_);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, getExecutionInfos(), args);
+        GuiContextEl r_ = new GuiContextEl(null, getExecutionInfos(), args);
         RunnableStruct.setupThread(r_);
         return r_;
     }

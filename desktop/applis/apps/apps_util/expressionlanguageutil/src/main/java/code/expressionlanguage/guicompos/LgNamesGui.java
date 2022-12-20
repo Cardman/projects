@@ -88,7 +88,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new GuiContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getInfos().getThreadFactory().newAtomicLong(), getCustAliases().getInterceptor())), new StringList(getExecutingOptions().getArgs()));
+        return new GuiContextEl(null, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getInfos().getThreadFactory().newAtomicLong(), getCustAliases().getInterceptor())), new StringList(getExecutingOptions().getArgs()));
     }
     @Override
     public AbstractConstantsCalculator newConstantsCalculator() {

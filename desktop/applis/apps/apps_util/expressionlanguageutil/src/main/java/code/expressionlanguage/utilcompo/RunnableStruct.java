@@ -98,7 +98,7 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
     }
     @Override
     public void run() {
-        RunnableContextEl r_ = new RunnableContextEl(InitPhase.NOTHING, executionInfos, args);
+        RunnableContextEl r_ = new RunnableContextEl(this, executionInfos, args);
         setupThread(r_);
         invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }

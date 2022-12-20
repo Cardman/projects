@@ -30,7 +30,7 @@ public final class RunnableFunctionalInstance extends AbstractFunctionalInstance
 
     @Override
     public void run() {
-        callMethod(new RunnableContextEl(InitPhase.NOTHING, executionInfos, new StringList()), getFunctional(), new CustList<Argument>());
+        callMethod(new RunnableContextEl(this, executionInfos, new StringList()), getFunctional(), new CustList<Argument>());
     }
 
     public static Argument callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {

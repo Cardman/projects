@@ -295,7 +295,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new RunnableContextEl(InitPhase.READ_ONLY_OTHERS, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong(),getCustAliases().getInterceptor())), new StringList());
+        return new RunnableContextEl(null, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong(),getCustAliases().getInterceptor())), new StringList());
     }
 
     @Override

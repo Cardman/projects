@@ -310,7 +310,7 @@ public final class EventStruct implements WithParentStruct,EnumerableStruct,
         RunnableStruct.invoke(this,_r,_typeName,_methName, argList_);
     }
     private GuiContextEl newCtx() {
-        GuiContextEl r_ = new GuiContextEl(InitPhase.NOTHING, executionInfos, args);
+        GuiContextEl r_ = new GuiContextEl(this, executionInfos, args);
         RunnableStruct.setupThread(r_);
         return r_;
     }
