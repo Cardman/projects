@@ -8,6 +8,7 @@ public interface AbstractThread {
     boolean isAlive();
     long getId();
     Runnable getThread();
+    Runnable getRunnable();
     boolean isInterrupted();
     void setInterrupted(boolean _interrupted);
 }

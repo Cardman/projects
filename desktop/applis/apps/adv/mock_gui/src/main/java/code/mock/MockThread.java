@@ -73,6 +73,11 @@ public final class MockThread implements AbstractThread {
 
     @Override
     public Runnable getThread() {
+        return getRunnable();
+    }
+
+    @Override
+    public Runnable getRunnable() {
         return runnable;
     }
 

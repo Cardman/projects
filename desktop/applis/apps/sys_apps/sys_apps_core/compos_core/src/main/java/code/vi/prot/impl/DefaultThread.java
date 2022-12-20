@@ -5,14 +5,17 @@ import code.threads.ThState;
 
 final class DefaultThread implements AbstractThread {
     private final Thread thread;
+    private final Runnable runnable;
     private boolean interrupted;
 
     DefaultThread(Runnable _runnable) {
         thread = newThread(_runnable);
+        runnable = _runnable;
     }
 
     DefaultThread() {
         thread = Thread.currentThread();
+        runnable = null;
     }
 
     static boolean simpleSleep(long _time) {
@@ -78,6 +81,11 @@ final class DefaultThread implements AbstractThread {
     @Override
     public Runnable getThread() {
         return thread;
+    }
+
+    @Override
+    public Runnable getRunnable() {
+        return runnable;
     }
 
     @Override
