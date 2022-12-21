@@ -8,7 +8,7 @@ import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import org.junit.*;
+import org.junit.Test;
 
 public final class AddonClassesTest extends EquallableElUtUtil {
     @Test

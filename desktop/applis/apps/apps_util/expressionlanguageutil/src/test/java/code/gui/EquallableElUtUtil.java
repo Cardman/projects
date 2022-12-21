@@ -16,7 +16,7 @@ import code.sml.Node;
 import code.stream.core.*;
 import code.util.*;
 import code.util.core.*;
-import org.junit.*;
+import org.junit.Assert;
 
 public abstract class EquallableElUtUtil {
     public static void assertNull(byte[] _expected) {

@@ -11,8 +11,8 @@ import code.util.core.StringUtil;
 
 public final class FolderStruct {
 
-    private StringMap<FileStruct> files = new StringMap<FileStruct>();
-    private StringMap<FolderStruct> folders = new StringMap<FolderStruct>();
+    private final StringMap<FileStruct> files = new StringMap<FileStruct>();
+    private final StringMap<FolderStruct> folders = new StringMap<FolderStruct>();
     private long lastDate;
     public FolderStruct(AbstractThreadFactory _threadFact) {
         setupDate(_threadFact);
