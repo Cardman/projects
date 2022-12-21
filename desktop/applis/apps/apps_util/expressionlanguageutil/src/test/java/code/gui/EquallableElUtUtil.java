@@ -1,11 +1,13 @@
 package code.gui;
 
+import code.expressionlanguage.*;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
-import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
@@ -68,7 +70,32 @@ public abstract class EquallableElUtUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), StringUtil.encode(_src), zipped_), _light.getZipFact(), _light.getThreadFactory());
         return new LgNamesGui(infos_, new MockInterceptor());
     }
+    public static ArgumentListCall one(Struct _arg) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_arg));
+        return new ArgumentListCall(ls_);
+    }
+    public static ArgumentListCall two(Struct _first, Struct _second) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_first));
+        ls_.add(new ArgumentWrapper(_second));
+        return new ArgumentListCall(ls_);
+    }
+    public static Struct call(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
+        return _caller.call(_exit, _cont, _instance, _firstArgs, _stackCall).getValue().getStruct();
+    }
 
+    public static Struct call(DfInstancer _caller, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
+        return _caller.call(_exit, _cont, _firstArgs, _stackCall).getValue().getStruct();
+    }
+    public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
+        return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new byte[0],new byte[0]), _light.getZipFact(), _light.getThreadFactory());
+    }
+    public static StackCall stack(Struct _sensible, InitPhase _phase) {
+        StackCall st_ = new StackCall(_phase,new CustomSeedGene());
+        st_.getInitializingTypeInfos().getSensibleFields().add(_sensible);
+        return st_;
+    }
     public static StringMap<ContentTime> init() {
         return new StringMap<ContentTime>();
     }

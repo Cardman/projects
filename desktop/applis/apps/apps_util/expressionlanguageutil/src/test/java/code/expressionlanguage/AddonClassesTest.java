@@ -1,6 +1,5 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
@@ -25,9 +24,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ExecutorServiceStruct essOne_ = new ExecutorServiceStruct(pr_.getThreadFactory(),2);
-        ArgumentListCall list_ = new ArgumentListCall();
-        MockRunnableStruct s_ = new MockRunnableStruct("");
-        list_.getArgumentWrappers().add(new ArgumentWrapper(s_));
-        assertEq(stds_.getCustAliases().getAliasFuture(),new FctExecutorServiceSubmit0().call(null,null,essOne_, list_,null).getValue().getStruct().getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+        ArgumentListCall list_ = one(new MockRunnableStruct(""));
+        assertEq(stds_.getCustAliases().getAliasFuture(),call(new FctExecutorServiceSubmit0(),null,null,essOne_, list_,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
 }
