@@ -128,4 +128,10 @@ public final class AtomicBooleanStructTest extends EquallableElUtUtil {
         assertFalse(v_.getInstance().get());
         assertFalse(st_.isFailInit());
     }
+    @Test
+    public void cl() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        AtomicBooleanStruct v_ = new AtomicBooleanStruct(pr_.getThreadFactory().newAtomicBoolean(),"");
+        assertEq("", v_.getClassName(null));
+    }
 }
