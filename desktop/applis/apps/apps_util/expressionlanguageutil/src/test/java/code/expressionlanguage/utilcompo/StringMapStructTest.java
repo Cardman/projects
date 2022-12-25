@@ -1,15 +1,11 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.*;
 import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.guicompos.LgNamesGui;
-import code.expressionlanguage.options.Options;
-import code.expressionlanguage.structs.ArrayStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.StringStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.guicompos.*;
+import code.expressionlanguage.options.*;
+import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
 import code.maths.montecarlo.*;

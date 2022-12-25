@@ -28,6 +28,9 @@ public abstract class EquallableElUtUtil {
     public static void assertNull(Struct _expected) {
         Assert.assertNull(_expected);
     }
+    public static void assertNull(Runnable _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(StringMap<ContentTime> _expected) {
         Assert.assertNull(_expected);
     }
