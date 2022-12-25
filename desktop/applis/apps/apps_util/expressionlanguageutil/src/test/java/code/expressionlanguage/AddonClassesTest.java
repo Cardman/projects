@@ -27,4 +27,11 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ArgumentListCall list_ = one(new MockRunnableStruct(""));
         assertEq(stds_.getCustAliases().getAliasFuture(),call(new FctExecutorServiceSubmit0(),null,null,essOne_, list_,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
+    @Test
+    public void strMap() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        assertEq(stds_.getCustAliases().getAliasTableStringObject(),call(new FctTastr(new MockInterceptor()),null,null,null, null,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+    }
 }

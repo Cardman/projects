@@ -25,6 +25,9 @@ public abstract class EquallableElUtUtil {
     public static void assertNull(String _expected) {
         Assert.assertNull(_expected);
     }
+    public static void assertNull(Struct _expected) {
+        Assert.assertNull(_expected);
+    }
     public static void assertNull(StringMap<ContentTime> _expected) {
         Assert.assertNull(_expected);
     }
@@ -33,6 +36,9 @@ public abstract class EquallableElUtUtil {
         Assert.assertEquals(_expected, _result);
     }
     public static void assertSame(OutputType _expected, OutputType _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertEq(long _expected, long _result) {
@@ -95,6 +101,9 @@ public abstract class EquallableElUtUtil {
         StackCall st_ = new StackCall(_phase,new CustomSeedGene());
         st_.getInitializingTypeInfos().getSensibleFields().add(_sensible);
         return st_;
+    }
+    public static StackCall stack(ContextEl _phase) {
+        return StackCall.newInstance(InitPhase.NOTHING,_phase);
     }
     public static StringMap<ContentTime> init() {
         return new StringMap<ContentTime>();
