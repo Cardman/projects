@@ -87,6 +87,14 @@ public abstract class EquallableElUtUtil {
         ls_.add(new ArgumentWrapper(_second));
         return new ArgumentListCall(ls_);
     }
+
+    public static ArgumentListCall three(Struct _first, Struct _second, Struct _third) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_first));
+        ls_.add(new ArgumentWrapper(_second));
+        ls_.add(new ArgumentWrapper(_third));
+        return new ArgumentListCall(ls_);
+    }
     public static Struct call(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         return _caller.call(_exit, _cont, _instance, _firstArgs, _stackCall).getValue().getStruct();
     }

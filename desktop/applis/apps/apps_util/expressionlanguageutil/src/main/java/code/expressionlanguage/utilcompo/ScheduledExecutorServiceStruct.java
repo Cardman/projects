@@ -23,7 +23,7 @@ public final class ScheduledExecutorServiceStruct extends WithoutParentIdStruct 
     public Struct scheduleAtFixedRateNanos(Runnable _command,
                                       long _initialDelay,
                                       long _period) {
-        return new FutureStruct(executorService.scheduleAtFixedRate(_command,_initialDelay,_period));
+        return new FutureStruct(executorService.scheduleAtFixedRateNanos(_command,_initialDelay,_period));
     }
 
     public AbstractShutdownExecutorService getExecutorService() {

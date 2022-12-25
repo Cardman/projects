@@ -50,4 +50,11 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Struct entry_ = pairs_.get(0);
         assertEq(stds_.getCustAliases().getAliasEntryStringObject(),entry_.getClassName(ctx_));
     }
+    @Test
+    public void scheduledExecutorServiceStruct() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        assertEq(stds_.getCustAliases().getAliasScheduledExecutorService(),new ScheduledExecutorServiceStruct(pr_.getThreadFactory()).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+    }
 }
