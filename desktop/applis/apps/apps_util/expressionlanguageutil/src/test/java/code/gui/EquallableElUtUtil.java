@@ -3,6 +3,7 @@ package code.gui;
 import code.expressionlanguage.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
@@ -33,6 +34,10 @@ public abstract class EquallableElUtUtil {
     }
     public static void assertNull(StringMap<ContentTime> _expected) {
         Assert.assertNull(_expected);
+    }
+    public static void assertEq(String _expected, Struct _result) {
+        Assert.assertNotNull(_result);
+        Assert.assertEquals(_expected, ((CharSequenceStruct)_result).toStringInstance());
     }
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
@@ -140,6 +145,10 @@ public abstract class EquallableElUtUtil {
     }
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
+    }
+    public static void memoryFileSystem(LgNamesGui _stds,AbstractProgramInfos _pr, MockNameFile... _files) {
+        AbstractFileSystem m_ = _stds.getCustAliases().getInfos().getFileSystem();
+        m_.build("",StreamZipFile.getZippedBinFiles(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)), _pr.getZipFact()));
     }
     public static double[] dbs(double... _args) {
         return _args;
