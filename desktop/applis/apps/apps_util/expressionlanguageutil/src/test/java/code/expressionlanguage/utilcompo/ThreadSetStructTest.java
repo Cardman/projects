@@ -52,6 +52,18 @@ public final class ThreadSetStructTest extends EquallableElUtUtil {
         assertTrue(st_.isFailInit());
     }
     @Test
+    public void init4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct thSet_ = call(new DfThreadSet(new MockInterceptor()), null, ctx_, null, st_);
+        Struct arr_ = call(new FctThreadSetSnap(), null, ctx_, thSet_, null, st_);
+        assertEq(0, ((ArrayStruct)arr_).getLength());
+        assertTrue(st_.calls());
+    }
+    @Test
     public void remove1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
