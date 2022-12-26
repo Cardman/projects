@@ -99,11 +99,15 @@ public abstract class EquallableElUtUtil {
         return new ArgumentListCall(ls_);
     }
     public static Struct call(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return _caller.call(_exit, _cont, _instance, _firstArgs, _stackCall).getValue().getStruct();
+        return value(_caller.call(_exit, _cont, _instance, _firstArgs, _stackCall));
     }
 
     public static Struct call(DfInstancer _caller, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return _caller.call(_exit, _cont, _firstArgs, _stackCall).getValue().getStruct();
+        return value(_caller.call(_exit, _cont, _firstArgs, _stackCall));
+    }
+
+    public static Struct value(ArgumentWrapper _a) {
+        return _a.getValue().getStruct();
     }
     public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
         return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new byte[0],new byte[0]), _light.getZipFact(), _light.getThreadFactory());

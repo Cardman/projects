@@ -19,7 +19,7 @@ public final class FctThreadJoin implements StdCaller {
         return toResult(((ThreadStruct) _instance).getThread().join());
     }
 
-    static ArgumentWrapper toResult(ThState _state) {
+    public static ArgumentWrapper toResult(ThState _state) {
         if (_state == ThState.INTERRUPTED) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
