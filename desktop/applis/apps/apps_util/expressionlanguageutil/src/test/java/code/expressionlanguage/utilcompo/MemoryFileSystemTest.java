@@ -224,6 +224,19 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         assertTrue(st_.calls());
     }
     @Test
+    public void isDirectory10() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/folder",(byte[]) null,5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertTrue(call(new FctFileIsDirectory(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("/base/folder\\")),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
     public void isFile1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
