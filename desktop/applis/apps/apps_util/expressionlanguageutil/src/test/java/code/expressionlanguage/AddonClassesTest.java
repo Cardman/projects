@@ -57,4 +57,13 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         assertEq(stds_.getCustAliases().getAliasScheduledExecutorService(),new ScheduledExecutorServiceStruct(pr_.getThreadFactory()).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
+    @Test
+    public void thread() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        assertEq(stds_.getCustAliases().getAliasThread(),call(new FctThread(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+    }
 }
