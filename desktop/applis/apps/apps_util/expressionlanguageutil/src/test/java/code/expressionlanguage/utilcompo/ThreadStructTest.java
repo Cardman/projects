@@ -1,8 +1,13 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
@@ -397,5 +402,182 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         call(new FctThreadJoinOthers(stds_.getCustAliases()), null, ctx_, th_, null, st_);
         call(new FctThreadJoinOthers(stds_.getCustAliases()), null, ctx_, r_.getThread(), null, st_);
         assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void sleepTh1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadSleep(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void sleepTh2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadSleep(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.calls());
+    }
+    @Test
+    public void sleepTh3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        assertFalse(call(new FctThreadSleep(stds_.getCustAliases()),null,ctx_,null,one(new IntStruct(-1)),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void sleepTh4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.25)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        assertFalse(call(new FctThreadSleep(stds_.getCustAliases()),null,ctx_,null,one(new IntStruct(1)),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void sleepTh5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        assertTrue(call(new FctThreadSleep(stds_.getCustAliases()),null,ctx_,null,one(new IntStruct(1)),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void print1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadPrint0(stds_.getCustAliases()),null,ctx_,null,null,st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void print2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadPrint0(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("")),st_);
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void print3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadPrint0(stds_.getCustAliases()),null,ctx_,null,one(call(new FctThread(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_)),st_);
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void print4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadPrint1(stds_.getCustAliases(),stds_.getExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void print5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        Options opt_ = new Options();
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_,new StringMap<String>()).getContext();
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadPrint2(stds_.getCustAliases(),stds_.getExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),new StringStruct("")),st_);
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void nanos1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadNano(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void nanos2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadNano(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void millis1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadMillis(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void millis2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        call(new FctThreadMillis(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.isFailInit());
+    }
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        _definedLgNames.getCustAliases().messages(_mess, "en", _exec.getMessages());
+        _definedLgNames.getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
+        _definedLgNames.getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
+        _definedLgNames.getGuiAliases().otherAliasGui(_definedLgNames.addon("en"),_exec.getAliases());
+        _definedLgNames.setExecutingOptions(_exec);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
+        page_.setLogErr(forwards_);
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultContext(reportedMessages_, page_.getMessages());
     }
 }
