@@ -9,7 +9,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ThreadSetStruct;
 
-public final class FctThreadsetContains implements StdCaller {
+public final class FctThreadSetContains implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ThreadSetStruct ins_ = (ThreadSetStruct)_instance;

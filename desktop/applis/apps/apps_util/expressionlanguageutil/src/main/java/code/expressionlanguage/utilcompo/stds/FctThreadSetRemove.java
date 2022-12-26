@@ -8,22 +8,18 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilcompo.ThreadSetStruct;
 
-public final class FctThreadsetAll implements StdCaller {
-    private final CustAliases custAliases;
-
-    public FctThreadsetAll(CustAliases _custAliases) {
-        this.custAliases = _custAliases;
-    }
-
+public final class FctThreadSetRemove implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        if (_stackCall.getInitializingTypeInfos().isWideInitEnums()) {
-            custAliases.processFailInit(_cont, _stackCall);
+        if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
+            _stackCall.getInitializingTypeInfos().failInitEnums();
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        return new ArgumentWrapper(((RunnableContextEl)_cont).getCustInit().getThreadSet());
+        ThreadSetStruct ins_ = (ThreadSetStruct)_instance;
+        Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
+        ins_.remove(arg_);
+        return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }
 }

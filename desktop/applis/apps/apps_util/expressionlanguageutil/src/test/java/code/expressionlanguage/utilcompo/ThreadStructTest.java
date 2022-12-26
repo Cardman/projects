@@ -10,7 +10,7 @@ import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import code.threads.ThState;
+import code.threads.*;
 import org.junit.Test;
 
 public final class ThreadStructTest extends EquallableElUtUtil {

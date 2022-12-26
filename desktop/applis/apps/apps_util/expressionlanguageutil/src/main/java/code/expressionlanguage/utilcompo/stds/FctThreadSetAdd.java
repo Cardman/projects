@@ -13,7 +13,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ThreadSetStruct;
 import code.expressionlanguage.utilcompo.ThreadStruct;
 
-public final class FctThreadsetAdd implements StdCaller {
+public final class FctThreadSetAdd implements StdCaller {
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         if (_stackCall.getInitializingTypeInfos().isContainedSensibleFields(_instance)) {
