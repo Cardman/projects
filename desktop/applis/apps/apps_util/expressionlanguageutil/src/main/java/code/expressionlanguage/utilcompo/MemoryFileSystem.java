@@ -139,11 +139,13 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         boolean success_;
         if (folder_) {
             FolderStruct del_ = curr_.getFolders().getVal(simpleName_);
-            if (!del_.getFolders().isEmpty()) {
-                return false;
-            }
-            if (!del_.getFiles().isEmpty()) {
-                return false;
+            if (del_ != null) {
+                if (!del_.getFolders().isEmpty()) {
+                    return false;
+                }
+                if (!del_.getFiles().isEmpty()) {
+                    return false;
+                }
             }
             int count_ = curr_.getFolders().size();
             curr_.getFolders().removeKey(simpleName_);
