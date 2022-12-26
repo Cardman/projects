@@ -75,9 +75,6 @@ public class CustInitializer extends DefaultInitializer {
     /**This method must be called only before exit, by one (main) thread only*/
     public void joinOthers(RunnableContextEl _ctx, StackCall _stackCall) {
         for (Struct s: threadSet.toSnapshotArray(_ctx, _stackCall).list()) {
-            if (!(s instanceof ThreadStruct)) {
-                continue;
-            }
             if (s.sameReference(_ctx.getThread())) {
                 continue;
             }

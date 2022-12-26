@@ -11,6 +11,7 @@ import code.gui.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.threads.*;
+import code.util.*;
 import org.junit.Test;
 
 public final class ThreadStructTest extends EquallableElUtUtil {
@@ -368,5 +369,33 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     @Test
     public void state3() {
         assertFalse(value(FctThreadJoin.toResult(ThState.ENDED)));
+    }
+    @Test
+    public void joinOthers1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        MockRunnableStruct s_ = new MockRunnableStruct("");
+        Struct th_ = call(new FctThread(stds_.getCustAliases()), null, ctx_, null, one(s_), st_);
+        call(new FctThreadJoinOthers(stds_.getCustAliases()), null, ctx_, th_, null, st_);
+        assertTrue(st_.isFailInit());
+    }
+    @Test
+    public void joinOthers2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        MockRunnableStruct s_ = new MockRunnableStruct("");
+        Struct th_ = call(new FctThread(stds_.getCustAliases()), null, ctx_, null, one(s_), st_);
+        GuiContextEl r_ = new GuiContextEl(NullStruct.NULL_VALUE,ctx_.getExecutionInfos(),new StringList());
+        RunnableStruct.setupThread((RunnableContextEl) ctx_);
+        RunnableStruct.setupThread(r_);
+        call(new FctThreadJoinOthers(stds_.getCustAliases()), null, ctx_, th_, null, st_);
+        call(new FctThreadJoinOthers(stds_.getCustAliases()), null, ctx_, r_.getThread(), null, st_);
+        assertFalse(st_.isFailInit());
     }
 }

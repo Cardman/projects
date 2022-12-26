@@ -10,7 +10,7 @@ import code.util.StringList;
 public final class GuiContextEl extends RunnableContextEl {
 
 
-    GuiContextEl(Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
+    public GuiContextEl(Struct _state, CommonExecutionInfos _executionInfos, StringList _args) {
         super(_state, _executionInfos, _args);
     }
 
