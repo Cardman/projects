@@ -793,4 +793,160 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         ((RunnableContextEl)ctx_).setCurrentDir("/base/");
         assertFalse(call(new FctFileDelete(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("/fake/file")),st_));
     }
+    @Test
+    public void rename1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/file"),NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.calls());
+    }
+    @Test
+    public void rename2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/file"),new StringStruct("/base/file/")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/file/"),new StringStruct("/base/file")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertTrue(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/file"),new StringStruct("/base/file2")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertTrue(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/"),new StringStruct("/base2/")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename6() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/fake"),new StringStruct("/base/file")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/fake/file"),new StringStruct("/base/file")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename8() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/file"),new StringStruct("/fake/file")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/file"),new StringStruct("/base/file")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename10() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/folder", (byte[]) null,5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/fake/"),new StringStruct("/base/folder/")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename11() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/folder", (byte[]) null,5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/fake/folder/"),new StringStruct("/base/folder/")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename12() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/folder", (byte[]) null,5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/folder/"),new StringStruct("/fake/folder/")),st_));
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void rename13() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/folder", (byte[]) null,5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertFalse(call(new FctFileRename(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("/base/folder/"),new StringStruct("/base/folder/")),st_));
+        assertTrue(st_.calls());
+    }
 }
