@@ -574,7 +574,7 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file2", StringUtil.encode("content"),5));
         ((RunnableContextEl)ctx_).setCurrentDir("/base/");
         assertTrue(call(new FctFileWrite(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("file2"),new StringStruct("second")),st_));
         assertEq("second",call(new FctFileRead(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("file2")),st_));
@@ -682,7 +682,7 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file2", StringUtil.encode("content"),5));
         ((RunnableContextEl)ctx_).setCurrentDir("/base/");
         ArrayStruct arr_ = new ArrayStruct(6,"");
         arr_.set(0,new CharStruct('s'));
