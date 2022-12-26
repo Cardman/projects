@@ -380,6 +380,19 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         assertTrue(st_.calls());
     }
     @Test
+    public void parentPath5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/folder", (byte[]) null,5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertEq("/base/",call(new FctFileGetParentPath(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("")),st_));
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
     public void currentDir1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -440,5 +453,38 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
         assertEq("/folder/",((RunnableContextEl)ctx_).getCurrentDir());
+    }
+    @Test
+    public void read1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertEq("content",call(new FctFileRead(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("file")),st_));
+    }
+    @Test
+    public void read2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertSame(NullStruct.NULL_VALUE,call(new FctFileRead(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("fake")),st_));
+    }
+    @Test
+    public void read3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ((RunnableContextEl)ctx_).setCurrentDir("/base/");
+        assertSame(NullStruct.NULL_VALUE,call(new FctFileRead(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("/fake/file")),st_));
     }
 }
