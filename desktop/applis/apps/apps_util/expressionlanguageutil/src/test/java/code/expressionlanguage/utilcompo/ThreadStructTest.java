@@ -128,7 +128,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         Struct th_ = call(new FctThread(stds_.getCustAliases()), null, ctx_, null, one(s_), st_);
         ((MockThread)((ThreadStruct)th_).getThread()).setAlive(false);
         call(new FctThreadSetPrio(), null, ctx_, th_, one(new IntStruct(7)),st_);
-        assertEq(7,NumParsers.convertToNumber(call(new FctThreadGetPrio(),null,ctx_,th_,null,st_)).intStruct());
+        assertEq(7,toLong(call(new FctThreadGetPrio(),null,ctx_,th_,null,st_)));
     }
     @Test
     public void start1() {
@@ -235,7 +235,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         MockRunnableStruct s_ = new MockRunnableStruct("");
         Struct th_ = call(new FctThread(stds_.getCustAliases()), null, ctx_, null, one(s_), st_);
-        assertEq(1,NumParsers.convertToNumber(call(new FctThreadGetId(),null,ctx_,th_,null,st_)).intStruct());
+        assertEq(1,toLong(call(new FctThreadGetId(),null,ctx_,th_,null,st_)));
     }
     @Test
     public void thEq1() {

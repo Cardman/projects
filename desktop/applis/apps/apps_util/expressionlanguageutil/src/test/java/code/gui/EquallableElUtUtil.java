@@ -1,9 +1,10 @@
 package code.gui;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.filenames.DefaultNameValidating;
+import code.expressionlanguage.filenames.*;
 import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
@@ -103,6 +104,9 @@ public abstract class EquallableElUtUtil {
         ls_.add(new ArgumentWrapper(_third));
         return new ArgumentListCall(ls_);
     }
+    public static long toLong(Struct _str) {
+        return NumParsers.convertToNumber(_str).longStruct();
+    }
     public static Struct call(StdCaller _caller, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         return value(_caller.call(_exit, _cont, _instance, _firstArgs, _stackCall));
     }
@@ -151,6 +155,9 @@ public abstract class EquallableElUtUtil {
         m_.build("",StreamZipFile.getZippedBinFiles(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)), _pr.getZipFact()));
     }
     public static double[] dbs(double... _args) {
+        return _args;
+    }
+    public static long[] lgs(long... _args) {
         return _args;
     }
     public static byte[] wrapInts(int... _files) {

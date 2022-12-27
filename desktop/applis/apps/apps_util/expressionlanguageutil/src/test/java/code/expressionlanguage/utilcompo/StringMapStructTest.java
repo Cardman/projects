@@ -17,7 +17,7 @@ public final class StringMapStructTest extends EquallableElUtUtil {
     @Test
     public void init1() {
         StringMapStruct m_ = (StringMapStruct)call(new FctTastr(new MockInterceptor()),null,null,null,null,null);
-        assertEq(0, NumParsers.convertToNumber(m_.size()).intStruct());
+        assertEq(0, toLong(m_.size()));
     }
     @Test
     public void putFail1() {
@@ -475,6 +475,6 @@ public final class StringMapStructTest extends EquallableElUtUtil {
         call(new FctTastrPut(),null,ctx_,a_,two(new StringStruct(""),new StringStruct("")),st_);
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""),new StringStruct("")),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctTastrPutAll(),null,ctx_,m_,one(a_),st_));
-        assertEq(1,NumParsers.convertToNumber(call(new FctTastrSize() ,null,ctx_,m_,null,st_)).intStruct());
+        assertEq(1,toLong(call(new FctTastrSize() ,null,ctx_,m_,null,st_)));
     }
 }
