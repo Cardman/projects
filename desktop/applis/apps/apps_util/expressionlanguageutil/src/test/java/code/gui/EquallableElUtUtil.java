@@ -1,6 +1,8 @@
 package code.gui;
 
 import code.expressionlanguage.*;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
@@ -521,5 +523,22 @@ public abstract class EquallableElUtUtil {
         _lgNames.getDisplayedStrings().setNan("Nan");
         _lgNames.getDisplayedStrings().setExponent("E");
         _lgNames.getPredefTypes().getParams().setAliasSeedGenerator0Get0("a");
+    }
+
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        _definedLgNames.getCustAliases().messages(_mess, "en", _exec.getMessages());
+        _definedLgNames.getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
+        _definedLgNames.getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
+        _definedLgNames.getGuiAliases().otherAliasGui(_definedLgNames.addon("en"),_exec.getAliases());
+        _definedLgNames.setExecutingOptions(_exec);
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
+        page_.setLogErr(forwards_);
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultContext(reportedMessages_, page_.getMessages());
     }
 }
