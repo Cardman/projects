@@ -91,4 +91,12 @@ public final class GuiConstantsTest extends EquallableIntGuiUtil {
     public void alpha4() {
         assertEq(255,GuiConstants.alpha(GuiConstants.newColor(GuiConstants.newColor(37,17,23),false)));
     }
+    @Test
+    public void nullToEmpty1() {
+        assertEq(0,GuiConstants.nullToEmpty(null).length);
+    }
+    @Test
+    public void nullToEmpty2() {
+        assertEq(0,GuiConstants.nullToEmpty(new byte[0]).length);
+    }
 }

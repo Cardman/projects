@@ -335,11 +335,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     private byte[] getBytes() {
-        byte[] bytes_ = StreamBinaryFile.loadFile(songsList.get(noSong), getStreams());
-        if (bytes_ == null) {
-            bytes_ = new byte[0];
-        }
-        return bytes_;
+        return GuiConstants.nullToEmpty(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()));
     }
 
     private boolean isWav(byte[] _bytes) {

@@ -2,6 +2,7 @@ package code.expressionlanguage.utilcompo.stds;
 
 import code.expressionlanguage.AbstractExiting;
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -21,19 +22,13 @@ public final class FctFileZipBin extends FctFileAbs {
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         String fileName_ = ((StringStruct)argumentWrappers_.get(0).getValue().getStruct()).getInstance();
-        Struct struct_ = ZipBinStructUtil.zipBinFiles(argumentWrappers_.get(1).getValue().getStruct(), (RunnableContextEl) _cont);
-        if (struct_ instanceof ArrayStruct) {
-            int len_ = ((ArrayStruct)struct_).getLength();
-            byte[] file_ = new byte[len_];
-            for (int i = 0; i < len_; i++) {
-                Struct byte_ = ((ArrayStruct)struct_).get(i);
-                if (!(byte_ instanceof ByteStruct)) {
-                    continue;
-                }
-                file_[i] = ((ByteStruct)byte_).byteStruct();
-            }
-            return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(fileName_,file_, (RunnableContextEl) _cont)));
+        ArrayStruct struct_ = ZipBinStructUtil.zipBinFiles(argumentWrappers_.get(1).getValue().getStruct(), (RunnableContextEl) _cont);
+        int len_ = struct_.getLength();
+        byte[] file_ = new byte[len_];
+        for (int i = 0; i < len_; i++) {
+            Struct byte_ = struct_.get(i);
+            file_[i] = NumParsers.convertToNumber(byte_).byteStruct();
         }
-        return new ArgumentWrapper(BooleanStruct.of(false));
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(fileName_,file_, (RunnableContextEl) _cont)));
     }
 }

@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
+import code.gui.GuiConstants;
 import code.stream.core.AbstractZipFact;
 import code.stream.core.ContentTime;
 import code.util.CustList;
@@ -14,15 +15,16 @@ public final class ZipBinStructUtil {
     }
 
     public static Struct zippedBinaryFilesByteArray(Struct _byteArray, RunnableContextEl _ctx) {
+        byte[] bytes_;
         if (!(_byteArray instanceof ArrayStruct)) {
-            return NullStruct.NULL_VALUE;
+            bytes_ = null;
+        } else {
+            int len_ = ((ArrayStruct) _byteArray).getLength();
+            bytes_ = new byte[len_];
+            for (int i = 0; i < len_; i++) {
+                bytes_[i] = NumParsers.convertToNumber(((ArrayStruct) _byteArray).get(i)).byteStruct();
+            }
         }
-        int len_ = ((ArrayStruct)_byteArray).getLength();
-        byte[] bytes_ = new byte[len_];
-        for (int i = 0; i < len_; i++) {
-            bytes_[i] = NumParsers.convertToNumber(((ArrayStruct)_byteArray).get(i)).byteStruct();
-        }
-
         CustList<EntryBinaryStruct> filesMap_ = getEntryBinaryStructs(bytes_, _ctx);
         if (filesMap_ == null) {
             return NullStruct.NULL_VALUE;
@@ -62,11 +64,8 @@ public final class ZipBinStructUtil {
         return filesMap_;
     }
 
-    public static Struct zipBinFiles(Struct _files, RunnableContextEl _ctx) {
-        byte[] exp_ = getZipBinFileAsArray(_files,_ctx.getZipFact());
-        if (exp_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
+    public static ArrayStruct zipBinFiles(Struct _files, RunnableContextEl _ctx) {
+        byte[] exp_ = GuiConstants.nullToEmpty(getZipBinFileAsArray(_files,_ctx.getZipFact()));
         int lengthFile_ = exp_.length;
         String cont_ = _ctx.getStandards().getContent().getPrimTypes().getAliasPrimByte();
         cont_ = StringExpUtil.getPrettyArrayType(cont_);

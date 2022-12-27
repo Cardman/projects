@@ -23,9 +23,6 @@ public final class FctFileZippedText extends FctFileAbs {
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringStruct str_ = (StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         byte[] bytes_ = _infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
-        if (bytes_ == null) {
-            return new ArgumentWrapper(NullStruct.NULL_VALUE);
-        }
         CustList<EntryBinaryStruct> arrList_ = ZipBinStructUtil.getEntryBinaryStructs(bytes_, (RunnableContextEl) _cont);
         if (arrList_ != null) {
             String arrType_ = StringExpUtil.getPrettyArrayType(aliasEntryText);

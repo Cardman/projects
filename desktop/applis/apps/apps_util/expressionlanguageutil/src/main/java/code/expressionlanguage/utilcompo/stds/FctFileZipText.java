@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
+import code.gui.GuiConstants;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -50,11 +51,8 @@ public final class FctFileZipText extends FctFileAbs {
         for (int j = 0; j < bLen_; j++) {
             bs_.set(j, bins_.get(j));
         }
-        byte[] finalFile_ = ZipBinStructUtil.getZipBinFileAsArray(bs_,_infos.getZipFact());
-        if (finalFile_ != null) {
-            StringStruct str_ = (StringStruct)name_;
-            return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, (RunnableContextEl) _cont)));
-        }
-        return new ArgumentWrapper(BooleanStruct.of(false));
+        byte[] finalFile_ = GuiConstants.nullToEmpty(ZipBinStructUtil.getZipBinFileAsArray(bs_,_infos.getZipFact()));
+        StringStruct str_ = (StringStruct)name_;
+        return new ArgumentWrapper(BooleanStruct.of(_infos.getFileSystem().writeFile(str_.getInstance(),finalFile_, (RunnableContextEl) _cont)));
     }
 }

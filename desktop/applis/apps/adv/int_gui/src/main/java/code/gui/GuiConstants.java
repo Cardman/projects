@@ -120,6 +120,13 @@ public final class GuiConstants {
         return font_;
     }
 
+    public static byte[] nullToEmpty(byte[] _array) {
+        if (_array == null) {
+            return new byte[0];
+        }
+        return _array;
+    }
+
     public static boolean italicFlag(int _font) {
         return _font == BOLD + ITALIC || _font == ITALIC;
     }

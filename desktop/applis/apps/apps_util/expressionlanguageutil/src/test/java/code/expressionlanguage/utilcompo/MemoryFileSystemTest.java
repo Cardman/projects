@@ -17,7 +17,7 @@ import code.maths.montecarlo.*;
 import code.mock.*;
 import code.threads.*;
 import code.util.*;
-import code.util.core.StringUtil;
+import code.util.core.*;
 import org.junit.Test;
 
 public final class MemoryFileSystemTest extends EquallableElUtUtil {
