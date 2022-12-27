@@ -1181,4 +1181,16 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         assertEq(5,toLong(call(new FctFileLastModif(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("/base2/")),st_)));
         assertEq(0,toLong(call(new FctFileLastModif(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("/")),st_)));
     }
+    @Test
+    public void getRoots() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        memoryFileSystem(stds_,pr_,new MockNameFile("base",(byte[]) null,5),new MockNameFile("base/file", StringUtil.encode("content"),5));
+        ArrayStruct arr_ = (ArrayStruct) call(new FctFileRoots(stds_.getCustAliases()),null,ctx_,null,null,st_);
+        assertEq(1, arr_.getLength());
+        assertEq("/",arr_.get(0));
+    }
 }
