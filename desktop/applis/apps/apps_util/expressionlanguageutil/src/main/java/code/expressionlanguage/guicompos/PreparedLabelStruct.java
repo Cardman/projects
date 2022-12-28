@@ -13,7 +13,7 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         super(_className);
         textLabel = GuiBaseUtil.prep(_fact);
     }
-    public PreparedLabelStruct(AbstractImageFactory _fact, AbsCompoFactory _comp, Struct _img, String _className) {
+    public PreparedLabelStruct(AbsCompoFactory _comp, Struct _img, String _className) {
         super(_className);
         textLabel = _comp.newPreparedLabel(builImage(_img));
     }
