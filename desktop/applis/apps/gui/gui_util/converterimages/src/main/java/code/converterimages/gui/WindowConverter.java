@@ -97,7 +97,7 @@ public final class WindowConverter extends GroupFrame {
                     continue;
                 }
                 String f_ = StringUtil.replaceBackSlash(f);
-                byte[] bytes_ = StreamBinaryFile.loadFile(pathExport.getText() + f, getStreams());
+                byte[] bytes_ = StreamBinaryFile.loadFile(pathExport.getText() + f, getStreams()).getBytes();
                 AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
                 if (img_ == null) {
                     continue;
@@ -140,7 +140,7 @@ public final class WindowConverter extends GroupFrame {
     }
 
     public void readOneImageArg(String _readPath) {
-        byte[] bytes_ = StreamBinaryFile.loadFile(_readPath,getStreams());
+        byte[] bytes_ = StreamBinaryFile.loadFile(_readPath,getStreams()).getBytes();
         AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
         if (img_ == null) {
             return;

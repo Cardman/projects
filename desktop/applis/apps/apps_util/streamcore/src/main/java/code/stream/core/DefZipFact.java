@@ -1,5 +1,6 @@
 package code.stream.core;
 
+import code.stream.BytesInfo;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -14,12 +15,12 @@ public final class DefZipFact implements AbstractZipFact {
     }
 
     @Override
-    public StringMap<ContentTime> zippedBinaryFiles(byte[] _bytes) {
-        if (_bytes == null) {
+    public StringMap<ContentTime> zippedBinaryFiles(BytesInfo _bytes) {
+        if (_bytes.isNul()) {
             return null;
         }
         StringMap<ContentTime> files_ = new StringMap<ContentTime>();
-        AbstractZipStreamIn zis_ = zipFactory.buildIn(_bytes);
+        AbstractZipStreamIn zis_ = zipFactory.buildIn(_bytes.getBytes());
         while (zis_.hasNextEntry()) {
             String name_ = StringUtil.replaceBackSlash(zis_.getName());
             long time_ = zis_.getTime();

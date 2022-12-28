@@ -106,7 +106,7 @@ public final class SoundRecord implements AbsSoundRecord {
             DefaultFile def_ = new DefaultFile(_file);
             AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, out_);
             aisFile_.close();
-            w_ =  StreamBinaryFile.loadFile(_file,str);
+            w_ =  StreamBinaryFile.loadFile(_file,str).getBytes();
             def_.delete();
             return w_;
         } catch (Exception e) {

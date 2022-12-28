@@ -27,6 +27,7 @@ import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.CdmFactory;
 import code.gui.Clock;
 import code.gui.initialize.AbstractProgramInfos;
+import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.core.OutputType;
@@ -108,10 +109,10 @@ public final class GuiProcess implements GuiRunnable {
         if (!(cont_ instanceof GuiContextEl)) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();
-            byte[] bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
-            if (bytes_ != null) {
+            BytesInfo bytes_ = fileInfos_.getReporter().exportErrs(exec_, logger_);
+            if (!bytes_.isNul()) {
                 StreamFolderFile.makeParent(exec_.getOutputFolder()+"/"+exec_.getOutputZip(), _infos.getFileCoreStream());
-                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_, _infos.getStreams());
+                StreamBinaryFile.writeFile(exec_.getOutputFolder()+"/"+exec_.getOutputZip(),bytes_.getBytes(), _infos.getStreams());
             }
             return null;
         }

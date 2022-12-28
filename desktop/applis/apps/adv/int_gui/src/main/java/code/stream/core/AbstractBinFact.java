@@ -1,7 +1,9 @@
 package code.stream.core;
 
+import code.stream.BytesInfo;
+
 public interface AbstractBinFact {
-    byte[] loadFile(String _nomFichier);
+    BytesInfo loadFile(String _nomFichier);
 
     boolean writeFile(String _nomFichier, byte[] _text);
 }

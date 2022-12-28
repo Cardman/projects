@@ -4,6 +4,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.stream.AbstractFileCoreStream;
+import code.stream.BytesInfo;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.*;
@@ -165,21 +166,21 @@ public final class DefaultReporter implements AbstractReporter {
     }
 
     @Override
-    public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
+    public BytesInfo exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
         StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log,threadFactory.getThreadFactory());
         if (!out_.isEmpty()) {
-            return threadFactory.getZipFact().zipBinFiles(out_);
+            return new BytesInfo(threadFactory.getZipFact().zipBinFiles(out_),false);
         }
-        return null;
+        return new BytesInfo(new byte[0],true);
     }
 
     @Override
-    public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
+    public BytesInfo export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
         StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log,threadFactory.getThreadFactory());
         if (!out_.isEmpty()) {
-            return threadFactory.getZipFact().zipBinFiles(out_);
+            return new BytesInfo(threadFactory.getZipFact().zipBinFiles(out_),false);
         }
-        return null;
+        return new BytesInfo(new byte[0],true);
     }
 
     private void saveFile(String _folder, String _fileName, String _content) {

@@ -1,6 +1,7 @@
 package code.mock;
 
 //import code.expressionlanguage.filenames.DefaultNameValidating;
+import code.stream.BytesInfo;
 import code.stream.FileListInfo;
 import code.stream.core.AbstractZipFact;
 import code.stream.core.ContentTime;
@@ -12,17 +13,17 @@ import code.util.core.StringUtil;
 public final class MockZipFact implements AbstractZipFact {
 
     @Override
-    public StringMap<ContentTime> zippedBinaryFiles(byte[] _bytes) {
-        if (_bytes == null) {
+    public StringMap<ContentTime> zippedBinaryFiles(BytesInfo _bytes) {
+        if (_bytes.isNul()) {
             return null;
         }
-        if (!FileListInfo.isZip(_bytes)) {
+        if (!FileListInfo.isZip(_bytes.getBytes())) {
             return new StringMap<ContentTime>();
         }
-        if (_bytes.length < 5 || _bytes[4] != '\r') {
+        if (_bytes.getBytes().length < 5 || _bytes.getBytes()[4] != '\r') {
             return new StringMap<ContentTime>();
         }
-        Bytes ls_ = Bytes.newList(_bytes);
+        Bytes ls_ = Bytes.newList(_bytes.getBytes());
         int unFileCount_ = ls_.indexOfNb('/', 4);
         String res_ = StringUtil.nullToEmpty(StringUtil.decode(new Bytes(ls_.sub(5, unFileCount_)).toArrByte()));
         if (res_.isEmpty()) {
@@ -31,7 +32,7 @@ public final class MockZipFact implements AbstractZipFact {
         if (ko(res_)) {
             return new StringMap<ContentTime>();
         }
-        return headComplete(_bytes, ls_, unFileCount_, res_);
+        return headComplete(_bytes.getBytes(), ls_, unFileCount_, res_);
     }
 
     private StringMap<ContentTime> headComplete(byte[] _bytes, Bytes _ls, int _unFileCount, String _res) {

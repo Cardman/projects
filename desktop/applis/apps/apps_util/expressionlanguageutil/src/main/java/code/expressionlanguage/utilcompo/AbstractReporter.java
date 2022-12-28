@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.stream.BytesInfo;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
 import code.util.StringMap;
@@ -17,6 +18,6 @@ public interface AbstractReporter {
     ReadFiles getFiles(String _archiveOrFolder);
     void coverFile(ExecutingOptions _ex, String _fileName, String _content);
     void errorFile(ExecutingOptions _ex, String _fileName, String _content);
-    byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log);
-    byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log);
+    BytesInfo exportErrs(ExecutingOptions _ex, AbstractLogger _log);
+    BytesInfo export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log);
 }

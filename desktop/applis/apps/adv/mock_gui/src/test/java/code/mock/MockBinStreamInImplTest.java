@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.stream.BytesInfo;
 import org.junit.Test;
 
 public final class MockBinStreamInImplTest extends EquallableMockGuiUtil {
@@ -45,7 +46,7 @@ public final class MockBinStreamInImplTest extends EquallableMockGuiUtil {
     }
     @Test
     public void bytes6(){
-        MockBinStreamInImpl mockBinStreamIn_ = new MockBinStreamInImpl(null, 1024);
+        MockBinStreamInImpl mockBinStreamIn_ = new MockBinStreamInImpl(new BytesInfo(new byte[0],true), 1024);
         assertEq(-2,mockBinStreamIn_.read());
     }
 }

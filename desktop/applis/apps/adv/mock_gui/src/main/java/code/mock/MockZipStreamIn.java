@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.stream.BytesInfo;
 import code.stream.core.AbstractZipStreamIn;
 import code.stream.core.ComZipStreamIn;
 import code.stream.core.ContentTime;
@@ -12,7 +13,7 @@ public final class MockZipStreamIn extends ComZipStreamIn implements AbstractZip
     private int indexCh;
     private byte[] out = new byte[0];
     private byte[] reader = new byte[0];
-    public MockZipStreamIn(byte[] _bytes) {
+    public MockZipStreamIn(BytesInfo _bytes) {
         content = new MockZipFact().zippedBinaryFiles(_bytes);
     }
     @Override

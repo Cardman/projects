@@ -2,6 +2,7 @@ package code.stream.core;
 
 import code.mock.MockNameFile;
 import code.mock.MockZipFact;
+import code.stream.BytesInfo;
 import code.util.core.DefaultUniformingString;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
@@ -11,7 +12,7 @@ public class StreamZipFileTest extends EquallableStreamCoreUtil {
     @Test
     public void zip1() {
         MockZipFact zipFact_ = new MockZipFact();
-        ReadFiles zippedFiles_ = StreamZipFile.getZippedFiles(new DefaultUniformingString(), zipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("__/", (byte[]) null,5), new MockNameFile("_", "-",6), new MockNameFile("0", wrapInts(-1),7)))), zipFact_);
+        ReadFiles zippedFiles_ = StreamZipFile.getZippedFiles(new DefaultUniformingString(), new BytesInfo(zipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("__/", (byte[]) null,5), new MockNameFile("_", "-",6), new MockNameFile("0", wrapInts(-1),7)))),false), zipFact_);
         assertEq(1, zippedFiles_.getZipFiles().size());
         assertEq("-", zippedFiles_.getZipFiles().getVal("_"));
         assertSame(OutputType.ZIP,zippedFiles_.getType());
@@ -19,7 +20,7 @@ public class StreamZipFileTest extends EquallableStreamCoreUtil {
     @Test
     public void zip2() {
         MockZipFact zipFact_ = new MockZipFact();
-        ReadBinFiles zippedFiles_ = StreamZipFile.getZippedBinFiles(zipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("__/", (byte[]) null,5), new MockNameFile("_", "-",6), new MockNameFile("0", wrapInts(-1),7)))), zipFact_);
+        ReadBinFiles zippedFiles_ = StreamZipFile.getZippedBinFiles(new BytesInfo(zipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("__/", (byte[]) null,5), new MockNameFile("_", "-",6), new MockNameFile("0", wrapInts(-1),7)))),false), zipFact_);
         assertEq(2, zippedFiles_.getZipFiles().size());
         assertEq("-", StringUtil.decode(zippedFiles_.getZipFiles().getVal("_").getContent()));
         assertEq(6, zippedFiles_.getZipFiles().getVal("_").getLastModifTime());
@@ -35,14 +36,14 @@ public class StreamZipFileTest extends EquallableStreamCoreUtil {
     @Test
     public void zip3() {
         MockZipFact zipFact_ = new MockZipFact();
-        ReadFiles zippedFiles_ = StreamZipFile.getZippedFiles(new DefaultUniformingString(), null, zipFact_);
+        ReadFiles zippedFiles_ = StreamZipFile.getZippedFiles(new DefaultUniformingString(), new BytesInfo(new byte[0],true), zipFact_);
         assertEq(0, zippedFiles_.getZipFiles().size());
         assertSame(OutputType.NOTHING,zippedFiles_.getType());
     }
     @Test
     public void zip4() {
         MockZipFact zipFact_ = new MockZipFact();
-        ReadBinFiles zippedFiles_ = StreamZipFile.getZippedBinFiles(null, zipFact_);
+        ReadBinFiles zippedFiles_ = StreamZipFile.getZippedBinFiles(new BytesInfo(new byte[0],true), zipFact_);
         assertEq(0, zippedFiles_.getZipFiles().size());
         assertSame(OutputType.NOTHING,zippedFiles_.getType());
         assertEq(0, zippedFiles_.getZipFolders().size());

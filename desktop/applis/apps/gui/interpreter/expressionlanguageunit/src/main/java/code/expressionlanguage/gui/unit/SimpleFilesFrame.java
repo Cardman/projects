@@ -12,6 +12,7 @@ import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.threads.AbstractThread;
@@ -50,8 +51,8 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final StringMap<String> messages;
     private final WindowUnit parent;
     private byte[] confFile;
-    private byte[] src;
-    private byte[] files;
+    private BytesInfo src = new BytesInfo(new byte[0],true);
+    private BytesInfo files = new BytesInfo(new byte[0],true);
     private final AbsTextArea errors;
     private final UnitIssuer unitIssuer;
     private final CommonExecution commonExecution;
@@ -166,31 +167,31 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     }
 
     public void src() {
-        byte[] read_ = read(srcField);
-        if (read_ != null) {
+        BytesInfo read_ = read(srcField);
+        if (!read_.isNul()) {
             src = read_;
         }
     }
 
     public void files() {
-        byte[] read_ = read(filesField);
-        if (read_ != null) {
+        BytesInfo read_ = read(filesField);
+        if (!read_.isNul()) {
             files = read_;
         }
     }
-    public byte[] read(AbsTextField _fileField) {
+    public BytesInfo read(AbsTextField _fileField) {
         AbstractThread th_ = parent.getTh();
         if (th_ != null && th_.isAlive()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadThread"),_fileField.getText()));
             errors.append("\n");
-            return null;
+            return new BytesInfo(new byte[0],true);
         }
         if (StreamFolderFile.isAbsolute(_fileField.getText(), parent.getFileCoreStream())) {
-            byte[] files_ = StreamBinaryFile.loadFile(_fileField.getText(), parent.getStreams());
-            if (files_ == null) {
+            BytesInfo files_ = StreamBinaryFile.loadFile(_fileField.getText(), parent.getStreams());
+            if (files_.isNul()) {
                 errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
                 errors.append("\n");
-                return null;
+                return new BytesInfo(new byte[0],true);
             }
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_fileField.getText()));
             errors.append("\n");
@@ -199,13 +200,13 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         if (!StreamFolderFile.isAbsolute(folderField.getText(), parent.getFileCoreStream())) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadPath"),_fileField.getText(),folderField.getText()));
             errors.append("\n");
-            return null;
+            return new BytesInfo(new byte[0],true);
         }
-        byte[] files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText(), parent.getStreams());
-        if (files_ == null) {
+        BytesInfo files_ = StreamBinaryFile.loadFile(StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText(), parent.getStreams());
+        if (files_.isNul()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_fileField.getText()));
             errors.append("\n");
-            return null;
+            return new BytesInfo(new byte[0],true);
         }
         errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),StringUtil.replaceBackSlashDot(folderField.getText())+_fileField.getText()));
         errors.append("\n");
@@ -253,14 +254,14 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
             errors.append("\n");
             return;
         }
-        byte[] confFile_ = StreamBinaryFile.loadFile(_filePath, parent.getStreams());
-        if (confFile_ == null) {
+        BytesInfo confFile_ = StreamBinaryFile.loadFile(_filePath, parent.getStreams());
+        if (confFile_.isNul()) {
             errors.append(StringUtil.simpleStringsFormat(messages.getVal("failLoadContent"),_filePath));
             errors.append("\n");
             return;
         }
         this.filePath = _filePath;
-        confFile = confFile_;
+        confFile = confFile_.getBytes();
         errors.append(StringUtil.simpleStringsFormat(messages.getVal("successLoad"),_filePath));
         errors.append("\n");
     }

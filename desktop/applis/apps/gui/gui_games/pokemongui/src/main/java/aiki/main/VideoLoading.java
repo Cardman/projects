@@ -44,7 +44,7 @@ public final class VideoLoading {
                         String fi_ = StringUtil.concat(path_, DataBase.SEPARATOR_FILES, folder_.getName(),
                                 DataBase.SEPARATOR_FILES, FILE, Long.toString(i), DataBase.IMG_FILES_RES_EXT);
                         AbstractImage img_ = _abInfo.getImageFactory().newImageFromBytes(
-                                StreamBinaryFile.loadFile(fi_,_abInfo.getStreams()));
+                                StreamBinaryFile.loadFile(fi_,_abInfo.getStreams()).getBytes());
                         if (img_ != null) {
                             imgs_.add(img_);
                         }

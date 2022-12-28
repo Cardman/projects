@@ -2,23 +2,21 @@ package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
+import code.stream.BytesInfo;
 import code.stream.core.ReadBinFiles;
 import code.threads.AbstractThreadFactory;
 import code.threads.FileStruct;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
-import code.util.ints.UniformingString;
 
 public final class MemoryFileSystem implements AbstractFileSystem {
 
-    private final UniformingString uniformingString;
     private final AbstractNameValidating nameValidating;
     private FolderStruct root;
     private final AbstractThreadFactory threadFactory;
 
-    public MemoryFileSystem(UniformingString _uniformingString, AbstractNameValidating _nameValidating, AbstractThreadFactory _threadFact) {
-        uniformingString = _uniformingString;
+    public MemoryFileSystem(AbstractNameValidating _nameValidating, AbstractThreadFactory _threadFact) {
         nameValidating = _nameValidating;
         threadFactory = _threadFact;
     }
@@ -83,18 +81,18 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public byte[] loadFile(String _file, RunnableContextEl _rCont) {
+    public BytesInfo loadFile(String _file, RunnableContextEl _rCont) {
         String abs_ = absolutePath(_file, _rCont);
         StringList parts_ = PathUtil.splitParts(abs_);
         FolderStruct curr_ = getParentFolder(parts_);
         if (curr_ == null) {
-            return null;
+            return new BytesInfo(new byte[0],true);
         }
         FileStruct val_ = curr_.getFiles().getVal(parts_.last());
         if (val_ == null) {
-            return null;
+            return new BytesInfo(new byte[0],true);
         }
-        return val_.getContent();
+        return new BytesInfo(val_.getContent(),false);
     }
 
     @Override
@@ -172,56 +170,64 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             return false;
         }
         if (endsSep(origin_)) {
-            StringList parts_ = PathUtil.splitParts(origin_);
-            String simpleName_ = parts_.get(parts_.size()-2);
-            FolderStruct curr_ = getParentFolder(parts_.left(parts_.size()-1));
-            if (curr_ == null) {
-                return false;
-            }
-            FolderStruct folder_ = curr_.getFolders().getVal(simpleName_);
-            if (folder_ == null) {
-                return false;
-            }
-            StringList partsDest_ = PathUtil.splitParts(destElt_);
-            String simpleNameDest_ = partsDest_.get(partsDest_.size()-2);
-            FolderStruct dest_ = getParentFolder(partsDest_.left(partsDest_.size()-1));
-            if (dest_ == null) {
-                return false;
-            }
-            int indexDest_ = dest_.getFolders().indexOfEntry(simpleNameDest_);
-            if (indexDest_ > -1) {
-                return false;
-            }
-            dest_.getFolders().addEntry(simpleNameDest_,folder_);
-            curr_.getFolders().removeKey(simpleName_);
-            dest_.setupDate(threadFactory);
-            curr_.setupDate(threadFactory);
-        } else {
-            StringList parts_ = PathUtil.splitParts(origin_);
-            String simpleName_ = parts_.last();
-            FolderStruct curr_ = getParentFolder(parts_);
-            if (curr_ == null) {
-                return false;
-            }
-            FileStruct file_ = curr_.getFiles().getVal(simpleName_);
-            if (file_ == null) {
-                return false;
-            }
-            StringList partsDest_ = PathUtil.splitParts(destElt_);
-            String simpleNameDest_ = partsDest_.last();
-            FolderStruct dest_ = getParentFolder(partsDest_);
-            if (dest_ == null) {
-                return false;
-            }
-            int indexDest_ = dest_.getFiles().indexOfEntry(simpleNameDest_);
-            if (indexDest_ > -1) {
-                return false;
-            }
-            dest_.getFiles().addEntry(simpleNameDest_,file_);
-            curr_.getFiles().removeKey(simpleName_);
-            dest_.setupDate(threadFactory);
-            curr_.setupDate(threadFactory);
+            return renameFolder(origin_, destElt_);
         }
+        return renameFile(origin_, destElt_);
+    }
+
+    private boolean renameFile(String _origin, String _destElt) {
+        StringList parts_ = PathUtil.splitParts(_origin);
+        String simpleName_ = parts_.last();
+        FolderStruct curr_ = getParentFolder(parts_);
+        if (curr_ == null) {
+            return false;
+        }
+        FileStruct file_ = curr_.getFiles().getVal(simpleName_);
+        if (file_ == null) {
+            return false;
+        }
+        StringList partsDest_ = PathUtil.splitParts(_destElt);
+        String simpleNameDest_ = partsDest_.last();
+        FolderStruct dest_ = getParentFolder(partsDest_);
+        if (dest_ == null) {
+            return false;
+        }
+        int indexDest_ = dest_.getFiles().indexOfEntry(simpleNameDest_);
+        if (indexDest_ > -1) {
+            return false;
+        }
+        dest_.getFiles().addEntry(simpleNameDest_,file_);
+        curr_.getFiles().removeKey(simpleName_);
+        dest_.setupDate(threadFactory);
+        curr_.setupDate(threadFactory);
+        return true;
+    }
+
+    private boolean renameFolder(String _origin, String _destElt) {
+        StringList parts_ = PathUtil.splitParts(_origin);
+        String simpleName_ = parts_.get(parts_.size()-2);
+        FolderStruct curr_ = getParentFolder(parts_.left(parts_.size()-1));
+        if (curr_ == null) {
+            return false;
+        }
+        FolderStruct folder_ = curr_.getFolders().getVal(simpleName_);
+        if (folder_ == null) {
+            return false;
+        }
+        StringList partsDest_ = PathUtil.splitParts(_destElt);
+        String simpleNameDest_ = partsDest_.get(partsDest_.size()-2);
+        FolderStruct dest_ = getParentFolder(partsDest_.left(partsDest_.size()-1));
+        if (dest_ == null) {
+            return false;
+        }
+        int indexDest_ = dest_.getFolders().indexOfEntry(simpleNameDest_);
+        if (indexDest_ > -1) {
+            return false;
+        }
+        dest_.getFolders().addEntry(simpleNameDest_,folder_);
+        curr_.getFolders().removeKey(simpleName_);
+        dest_.setupDate(threadFactory);
+        curr_.setupDate(threadFactory);
         return true;
     }
 
@@ -299,7 +305,11 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         if (StringUtil.quickEq(abs_,"/")) {
             return "";
         }
-        StringList parts_ = PathUtil.splitParts(abs_);
+        return adapt(abs_);
+    }
+
+    public static String adapt(String _abs) {
+        StringList parts_ = PathUtil.splitParts(_abs);
         int nbElements_ = parts_.size() - 1;
         if (nbElements_ == 0) {
             return "/";
@@ -493,7 +503,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         return curr_;
     }
 
-    private static boolean endsSep(String _file) {
+    public static boolean endsSep(String _file) {
         return _file.endsWith("/") || _file.endsWith("\\");
     }
 

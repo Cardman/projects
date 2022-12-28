@@ -3,6 +3,7 @@ package code.expressionlanguage.utilfiles;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
 import code.expressionlanguage.utilcompo.AbstractFileSystem;
+import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.*;
 import code.stream.core.ReadBinFiles;
@@ -66,7 +67,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public byte[] loadFile(String _file, RunnableContextEl _rCont) {
+    public BytesInfo loadFile(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
         return StreamBinaryFile.loadFile(file_, streams);
     }
@@ -248,7 +249,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     private static boolean endsSep(String _file) {
-        return _file.endsWith("/") || _file.endsWith("\\");
+        return MemoryFileSystem.endsSep(_file);
     }
 
     private boolean simpleMkdirs(String _modified) {

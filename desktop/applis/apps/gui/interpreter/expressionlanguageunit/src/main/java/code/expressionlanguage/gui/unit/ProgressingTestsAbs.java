@@ -7,6 +7,7 @@ import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
 import code.gui.CdmFactory;
 import code.gui.Clock;
+import code.stream.BytesInfo;
 
 public abstract class ProgressingTestsAbs implements ProgressingTests {
     private final TestableFrame mainWindow;
@@ -31,7 +32,7 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
         mainWindow.finish(_infos, _evolved);
     }
 
-    protected byte[] exportedErrors(ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos) {
+    protected BytesInfo exportedErrors(ReportedMessages _reportedMessages, ExecutingOptions _exec, FileInfos _infos) {
         String time_ = Clock.getDateTimeText("_", "_", "_", mainWindow.getThreadFactory());
         MemoryReporter.buildError(_reportedMessages,_exec,_infos,time_);
         AbstractLogger logger_ = _infos.getLogger();
@@ -43,7 +44,7 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
         MemoryReporter.buildWarning(_reportedMessages,_exec,_infos,time_);
     }
 
-    protected byte[] exportedResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
+    protected BytesInfo exportedResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         mainWindow.setResults(_ctx,_res, _evolved);
         ExecutingOptions executingOptions_ = _ctx.getExecutingOptions();
         AbstractLogger logger_ = _evolved.getInfos().getLogger();

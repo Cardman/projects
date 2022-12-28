@@ -10,6 +10,7 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.stream.BytesInfo;
 
 public final class FctFileReadBin extends FctFileAbs {
     public FctFileReadBin(CustAliases _custAliases) {
@@ -19,14 +20,14 @@ public final class FctFileReadBin extends FctFileAbs {
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringStruct str_ = (StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
-        byte[] read_ = _infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
-        if (read_ == null) {
+        BytesInfo read_ = _infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
+        if (read_.isNul()) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
-        int len_ = read_.length;
+        int len_ = read_.getBytes().length;
         ArrayStruct bin_ = new ArrayStruct(len_, StringExpUtil.getPrettyArrayType(_cont.getStandards().getContent().getPrimTypes().getAliasPrimByte()));
         for (int i = 0; i < len_; i++) {
-            bin_.set(i, new ByteStruct(read_[i]));
+            bin_.set(i, new ByteStruct(read_.getBytes()[i]));
         }
         return new ArgumentWrapper(bin_);
     }

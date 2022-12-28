@@ -19,12 +19,12 @@ public final class StreamBinaryFileTest extends EquallableStreamUtil {
     @Test
     public void loadFile1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.25)), fileSet(0, new long[0], "/"));
-        assertNull(StreamBinaryFile.loadFile("",pr_.getStreams()));
+        assertTrue(StreamBinaryFile.loadFile("",pr_.getStreams()).isNul());
     }
     @Test
     public void loadFile2() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         StreamBinaryFile.writeFile("/sample.txt", StringUtil.encode("hello"),pr_.getStreams());
-        assertEq("hello",StringUtil.decode(StreamBinaryFile.loadFile("/sample.txt",pr_.getStreams())));
+        assertEq("hello",StringUtil.decode(StreamBinaryFile.loadFile("/sample.txt",pr_.getStreams()).getBytes()));
     }
 }

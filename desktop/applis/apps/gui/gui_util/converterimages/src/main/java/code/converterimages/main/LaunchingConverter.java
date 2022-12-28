@@ -4,6 +4,7 @@ import code.gui.*;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.gui.initialize.LoadLanguageUtil;
+import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
 import code.util.StringMap;
 import code.converterimages.gui.CreateMainWindowConverter;
@@ -23,9 +24,9 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
     }
 
     public BoolVal getObject(String _fileName) {
-        byte[] bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getStreams());
+        BytesInfo bytes_ = StreamBinaryFile.loadFile(_fileName, getFrames().getStreams());
         if (isBinary(bytes_)) {
-            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
+            AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
             if (img_ != null) {
                 return BoolVal.TRUE;
             }
@@ -48,11 +49,11 @@ public class LaunchingConverter extends AdvSoftApplicationCore {
         return files_;
     }
 
-    public static boolean isBinary(byte[] _bytes) {
-        if (_bytes == null) {
+    public static boolean isBinary(BytesInfo _bytes) {
+        if (_bytes.isNul()) {
             return false;
         }
-        for (byte b: _bytes) {
+        for (byte b: _bytes.getBytes()) {
             if (b < ' ') {
                 if (b == '\n') {
                     continue;

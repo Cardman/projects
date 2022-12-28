@@ -19,7 +19,7 @@ public final class StreamTextFileTest extends EquallableStreamUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(StreamTextFile.saveTextFile("/tmp/hello.txt","content",pr_.getStreams()));
-        assertEq("content", StringUtil.decode(StreamBinaryFile.loadFile("/tmp/hello.txt",pr_.getStreams())));
+        assertEq("content", StringUtil.decode(StreamBinaryFile.loadFile("/tmp/hello.txt",pr_.getStreams()).getBytes()));
     }
     @Test
     public void logToFile1() {
@@ -32,7 +32,7 @@ public final class StreamTextFileTest extends EquallableStreamUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(StreamTextFile.logToFile("/tmp/hello.txt","content",pr_.getStreams()));
-        assertEq("content", StringUtil.decode(StreamBinaryFile.loadFile("/tmp/hello.txt",pr_.getStreams())));
+        assertEq("content", StringUtil.decode(StreamBinaryFile.loadFile("/tmp/hello.txt",pr_.getStreams()).getBytes()));
     }
     @Test
     public void logToFile3() {
@@ -40,7 +40,7 @@ public final class StreamTextFileTest extends EquallableStreamUtil {
         pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
         assertTrue(StreamTextFile.saveTextFile("/tmp/hello.txt","hello_",pr_.getStreams()));
         assertTrue(StreamTextFile.logToFile("/tmp/hello.txt","_world",pr_.getStreams()));
-        assertEq("hello__world", StringUtil.decode(StreamBinaryFile.loadFile("/tmp/hello.txt",pr_.getStreams())));
+        assertEq("hello__world", StringUtil.decode(StreamBinaryFile.loadFile("/tmp/hello.txt",pr_.getStreams()).getBytes()));
     }
     @Test
     public void contentsOfFile() {

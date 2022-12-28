@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.structs.Struct;
 import code.gui.CdmFactory;
+import code.stream.BytesInfo;
 
 public interface ProgressingTests {
     CdmFactory getFactory();
@@ -15,5 +16,5 @@ public interface ProgressingTests {
     void setResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved);
     ExecutingOptions getExec();
     void init(ExecutingOptions _exec);
-    byte[] getExportedReport();
+    BytesInfo getExportedReport();
 }

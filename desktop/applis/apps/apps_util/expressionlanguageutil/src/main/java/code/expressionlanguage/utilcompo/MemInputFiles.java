@@ -1,11 +1,13 @@
 package code.expressionlanguage.utilcompo;
 
+import code.stream.BytesInfo;
+
 public final class MemInputFiles {
     private final byte[] conf;
-    private final byte[] src;
-    private final byte[] files;
+    private final BytesInfo src;
+    private final BytesInfo files;
 
-    public MemInputFiles(byte[] _conf, byte[] _src, byte[] _files) {
+    public MemInputFiles(byte[] _conf, BytesInfo _src, BytesInfo _files) {
         this.conf = _conf;
         this.src = _src;
         this.files = _files;
@@ -15,11 +17,11 @@ public final class MemInputFiles {
         return conf;
     }
 
-    public byte[] getFiles() {
+    public BytesInfo getFiles() {
         return files;
     }
 
-    public byte[] getSrc() {
+    public BytesInfo getSrc() {
         return src;
     }
 }

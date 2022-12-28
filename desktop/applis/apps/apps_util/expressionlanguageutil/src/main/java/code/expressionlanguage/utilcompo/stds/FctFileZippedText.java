@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
+import code.stream.BytesInfo;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -22,7 +23,7 @@ public final class FctFileZippedText extends FctFileAbs {
     @Override
     public ArgumentWrapper file(FileInfos _infos, AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         StringStruct str_ = (StringStruct)_firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
-        byte[] bytes_ = _infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
+        BytesInfo bytes_ = _infos.getFileSystem().loadFile(str_.getInstance(), (RunnableContextEl) _cont);
         CustList<EntryBinaryStruct> arrList_ = ZipBinStructUtil.getEntryBinaryStructs(bytes_, (RunnableContextEl) _cont);
         if (arrList_ != null) {
             String arrType_ = StringExpUtil.getPrettyArrayType(aliasEntryText);

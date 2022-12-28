@@ -1,5 +1,6 @@
 package code.expressionlanguage.utilcompo;
 
+import code.stream.BytesInfo;
 import code.stream.core.ReadBinFiles;
 import code.util.StringList;
 
@@ -8,7 +9,7 @@ public interface AbstractFileSystem {
     void build(String _base, ReadBinFiles _readBin);
     String contentsOfFile(String _file, RunnableContextEl _rCont);
     boolean saveTextFile(String _file, String _content, RunnableContextEl _rCont);
-    byte[] loadFile(String _file, RunnableContextEl _rCont);
+    BytesInfo loadFile(String _file, RunnableContextEl _rCont);
     boolean writeFile(String _file, byte[] _content, RunnableContextEl _rCont);
     boolean delete(String _file, RunnableContextEl _rCont);
     boolean rename(String _origin, String _dest,RunnableContextEl _rCont);

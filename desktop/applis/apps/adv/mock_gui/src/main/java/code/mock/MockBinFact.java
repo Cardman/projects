@@ -1,6 +1,8 @@
 package code.mock;
 
+import code.gui.GuiConstants;
 import code.maths.montecarlo.AbstractGenerator;
+import code.stream.BytesInfo;
 import code.stream.core.AbstractBinFact;
 import code.threads.FileStruct;
 import code.util.StringList;
@@ -16,17 +18,17 @@ public final class MockBinFact implements AbstractBinFact {
     }
 
     @Override
-    public byte[] loadFile(String _s) {
-        return load(_s, fileSet).getContent();
+    public BytesInfo loadFile(String _s) {
+        return load(_s, fileSet);
     }
 
-    public static FileStruct load(String _s, MockFileSet _files) {
+    public static BytesInfo load(String _s, MockFileSet _files) {
         String abs_ = MockFile.absolute(_files, _s);
         FileStruct val_ = _files.getFiles().getVal(abs_);
         if (val_ == null) {
-            return new FileStruct(null,0);
+            return new BytesInfo(new byte[0],true);
         }
-        return val_;
+        return new BytesInfo(GuiConstants.nullToEmpty(val_.getContent()),val_.getContent() == null);
     }
 
 

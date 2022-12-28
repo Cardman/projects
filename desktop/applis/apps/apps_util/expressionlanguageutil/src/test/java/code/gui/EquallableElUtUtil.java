@@ -17,6 +17,7 @@ import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.sml.Node;
+import code.stream.BytesInfo;
 import code.stream.core.*;
 import code.util.*;
 import code.util.core.*;
@@ -84,7 +85,7 @@ public abstract class EquallableElUtUtil {
     }
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
-        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), StringUtil.encode(_src), zipped_), _light.getZipFact(), _light.getThreadFactory());
+        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
         return new LgNamesGui(infos_, new MockInterceptor());
     }
     public static ArgumentListCall one(Struct _arg) {
@@ -121,7 +122,7 @@ public abstract class EquallableElUtUtil {
         return _a.getValue().getStruct();
     }
     public static FileInfos newFileInfos(AbstractLightProgramInfos _light) {
-        return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new byte[0],new byte[0]), _light.getZipFact(), _light.getThreadFactory());
+        return FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)), _light.getZipFact(), _light.getThreadFactory());
     }
     public static StackCall stack(Struct _sensible, InitPhase _phase) {
         StackCall st_ = new StackCall(_phase,new CustomSeedGene());
@@ -154,7 +155,7 @@ public abstract class EquallableElUtUtil {
     }
     public static void memoryFileSystem(LgNamesGui _stds,AbstractProgramInfos _pr, MockNameFile... _files) {
         AbstractFileSystem m_ = _stds.getCustAliases().getInfos().getFileSystem();
-        m_.build("",StreamZipFile.getZippedBinFiles(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)), _pr.getZipFact()));
+        m_.build("",StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
     }
     public static double[] dbs(double... _args) {
         return _args;

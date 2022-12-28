@@ -4,10 +4,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.common.ParseLinesArgUtil;
-import code.expressionlanguage.utilcompo.AbstractReporter;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilcompo.ProgressingTests;
+import code.expressionlanguage.utilcompo.*;
 import code.stream.core.OutputType;
 import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
@@ -248,6 +245,6 @@ public final class RunningTest implements Runnable {
     }
 
     private static boolean endsWithSep(String _output) {
-        return _output.endsWith("/") || _output.endsWith("\\");
+        return MemoryFileSystem.endsSep(_output);
     }
 }

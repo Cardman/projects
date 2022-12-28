@@ -2,6 +2,7 @@ package code.stream.core;
 
 import code.mock.MockNameFile;
 import code.mock.MockZipFact;
+import code.stream.BytesInfo;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 import org.junit.Test;
@@ -10,7 +11,7 @@ public class DefZipFactTest extends EquallableStreamCoreUtil {
     @Test
     public void t1() {
         DefZipFact defZipFact_ = new DefZipFact(new MockZipFactory());
-        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(defZipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("1/",(byte[]) null,4),new MockNameFile("_", "___",5), new MockNameFile("0", "__",7)))));
+        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(new BytesInfo(defZipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("1/",(byte[]) null,4),new MockNameFile("_", "___",5), new MockNameFile("0", "__",7)))),false));
         assertEq(3,res_.size());
         assertEq("",StringUtil.decode(res_.getVal("1/").getContent()));
         assertEq(4, res_.getVal("1/").getLastModifTime());
@@ -22,7 +23,7 @@ public class DefZipFactTest extends EquallableStreamCoreUtil {
     @Test
     public void t2() {
         DefZipFact defZipFact_ = new DefZipFact(new MockZipFactory());
-        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(defZipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("1",(byte[]) null,4),new MockNameFile("_", "___",5), new MockNameFile("0", "__",7)))));
+        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(new BytesInfo(defZipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("1",(byte[]) null,4),new MockNameFile("_", "___",5), new MockNameFile("0", "__",7)))),false));
         assertEq(3,res_.size());
         assertEq("",StringUtil.decode(res_.getVal("1/").getContent()));
         assertEq(4, res_.getVal("1/").getLastModifTime());
@@ -34,7 +35,7 @@ public class DefZipFactTest extends EquallableStreamCoreUtil {
     @Test
     public void t3() {
         DefZipFact defZipFact_ = new DefZipFact(new MockZipFactory());
-        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(defZipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("1/",new byte[0],4),new MockNameFile("_", "___",5), new MockNameFile("0", "__",7)))));
+        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(new BytesInfo(defZipFact_.zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("1/",new byte[0],4),new MockNameFile("_", "___",5), new MockNameFile("0", "__",7)))),false));
         assertEq(3,res_.size());
         assertEq("",StringUtil.decode(res_.getVal("1/").getContent()));
         assertEq(4, res_.getVal("1/").getLastModifTime());
@@ -46,7 +47,7 @@ public class DefZipFactTest extends EquallableStreamCoreUtil {
     @Test
     public void t4() {
         AbstractZipFact defZipFact_ = new DefZipFact(new MockZipFactory());
-        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(null);
+        StringMap<ContentTime> res_ = defZipFact_.zippedBinaryFiles(new BytesInfo(new byte[0],true));
         assertNull(res_);
     }
     private static MockNameFile[] wrap(MockNameFile... _files) {

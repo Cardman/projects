@@ -4,9 +4,10 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.*;
+import code.stream.BytesInfo;
 
 public final class MemoryProgressingTests extends ProgressingTestsAbs {
-    private byte[] exportedReport = new byte[0];
+    private BytesInfo exportedReport = new BytesInfo(new byte[0],true);
     public MemoryProgressingTests(TestableFrame _mainWindow) {
         super(_mainWindow);
     }
@@ -22,7 +23,7 @@ public final class MemoryProgressingTests extends ProgressingTestsAbs {
     }
 
     @Override
-    public byte[] getExportedReport() {
+    public BytesInfo getExportedReport() {
         return exportedReport;
     }
 }

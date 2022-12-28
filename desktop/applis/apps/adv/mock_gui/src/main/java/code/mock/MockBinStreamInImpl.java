@@ -1,15 +1,20 @@
 package code.mock;
 
+import code.stream.BytesInfo;
 import code.stream.core.AbstractBinStreamIn;
 import code.util.core.NumberUtil;
 
 public final class MockBinStreamInImpl implements AbstractBinStreamIn {
-    private final byte[] reader;
+    private final BytesInfo reader;
     private final int range;
     private int index;
     private byte[] out = new byte[0];
 
     public MockBinStreamInImpl(byte[] _read, int _r) {
+        this(new BytesInfo(_read,false),_r);
+    }
+
+    public MockBinStreamInImpl(BytesInfo _read, int _r) {
         this.reader = _read;
         range = _r;
     }
@@ -22,17 +27,17 @@ public final class MockBinStreamInImpl implements AbstractBinStreamIn {
 
     @Override
     public int read() {
-        if (reader == null){
+        if (reader.isNul()){
             return -2;
         }
-        int read_ = NumberUtil.max(0, NumberUtil.min(range,reader.length-index));
+        int read_ = NumberUtil.max(0, NumberUtil.min(range,reader.getBytes().length-index));
         byte[] bk_ = new byte[out.length+read_];
         int bkLen_ = out.length;
         for (int i = 0; i < bkLen_; i++){
             set(bk_,i,out,i);
         }
         for (int i = 0; i < read_; i++){
-            set(bk_,i+bkLen_,reader,i+index);
+            set(bk_,i+bkLen_,reader.getBytes(),i+index);
         }
         out = bk_;
         index += read_;

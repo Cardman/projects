@@ -172,7 +172,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 int len_ = songsList.size();
                 for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     String v_ = songsList.get(i);
-                    byte[] bytes_ = StreamBinaryFile.loadFile(v_, getStreams());
+                    byte[] bytes_ = StreamBinaryFile.loadFile(v_, getStreams()).getBytes();
                     if (bytes_.length > 0&&bytes_[0]=='<'||valid(bytes_)) {
                         filter_.add(v_);
                     }
@@ -211,7 +211,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
                 for (int i = IndexConstants.FIRST_INDEX; i < len_; i++) {
                     Element elt_ = e_.item(i);
                     String v_ = elt_.getAttribute(CST_SRC);
-                    if (valid(StreamBinaryFile.loadFile(v_, getStreams()))) {
+                    if (valid(StreamBinaryFile.loadFile(v_, getStreams()).getBytes())) {
                         songsList.add(v_);
                     }
                 }
@@ -335,7 +335,7 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
     }
 
     private byte[] getBytes() {
-        return GuiConstants.nullToEmpty(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()));
+        return GuiConstants.nullToEmpty(StreamBinaryFile.loadFile(songsList.get(noSong), getStreams()).getBytes());
     }
 
     private boolean isWav(byte[] _bytes) {

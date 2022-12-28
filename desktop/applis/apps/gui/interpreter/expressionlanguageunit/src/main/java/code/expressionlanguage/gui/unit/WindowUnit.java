@@ -265,7 +265,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 
     private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {
         if (memory.isSelected()) {
-            return new MemoryFileSystem(uniformingString,_validator,getThreadFactory());
+            return new MemoryFileSystem(_validator,getThreadFactory());
         }
         return new DefaultFileSystem(uniformingString, _validator,getFileCoreStream(),getStreams());
     }

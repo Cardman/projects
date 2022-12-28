@@ -7,7 +7,7 @@ public final class StreamBinaryFile {
     private StreamBinaryFile() {
     }
 
-    public static byte[] loadFile(String _file, TechStreams _str) {
+    public static BytesInfo loadFile(String _file, TechStreams _str) {
         return _str.getBinFact().loadFile(_file);
     }
 

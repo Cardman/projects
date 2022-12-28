@@ -4,6 +4,7 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.expressionlanguage.utilcompo.TechInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
@@ -212,7 +213,7 @@ public final class WindowRenders extends GroupFrame {
     }
 
     private static boolean endsWithSep(String _output) {
-        return _output.endsWith("/") || _output.endsWith("\\");
+        return MemoryFileSystem.endsSep(_output);
     }
 
     @Override

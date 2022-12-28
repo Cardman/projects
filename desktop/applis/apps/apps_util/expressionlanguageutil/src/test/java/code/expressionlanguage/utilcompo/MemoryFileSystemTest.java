@@ -1312,4 +1312,20 @@ public final class MemoryFileSystemTest extends EquallableElUtUtil {
         ((RunnableContextEl)ctx_).setCurrentDir("/base/");
         assertSame(NullStruct.NULL_VALUE,call(new FctFileListDirectories(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("/fake/folder/")),st_));
     }
+    @Test
+    public void adapt() {
+        assertEq("/",MemoryFileSystem.adapt(""));
+    }
+    @Test
+    public void endsSep1() {
+        assertTrue(MemoryFileSystem.endsSep("/"));
+    }
+    @Test
+    public void endsSep2() {
+        assertTrue(MemoryFileSystem.endsSep("\\"));
+    }
+    @Test
+    public void endsSep3() {
+        assertFalse(MemoryFileSystem.endsSep(""));
+    }
 }

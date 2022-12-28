@@ -1,11 +1,12 @@
 package code.mock;
 
+import code.stream.BytesInfo;
 import org.junit.Test;
 
 public final class MockZipStreamInTest extends EquallableMockGuiUtil {
     @Test
     public void t1() {
-        MockZipStreamIn mockZipStreamIn_ = new MockZipStreamIn(new MockZipFact().zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","---")))));
+        MockZipStreamIn mockZipStreamIn_ = new MockZipStreamIn(new BytesInfo(new MockZipFact().zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_","---")))),false));
         assertTrue(mockZipStreamIn_.hasNextEntry());
         assertEq("_",mockZipStreamIn_.getName());
         assertEq(0,mockZipStreamIn_.getTime());
@@ -22,7 +23,7 @@ public final class MockZipStreamInTest extends EquallableMockGuiUtil {
     }
     @Test
     public void t2() {
-        MockZipStreamIn mockZipStreamIn_ = new MockZipStreamIn(new MockZipFact().zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_/","---")))));
+        MockZipStreamIn mockZipStreamIn_ = new MockZipStreamIn(new BytesInfo(new MockZipFact().zipBinFiles(MockZipFact.wrapText(wrap(new MockNameFile("_/","---")))),false));
         assertTrue(mockZipStreamIn_.hasNextEntry());
         assertEq("_/",mockZipStreamIn_.getName());
         assertEq(0,mockZipStreamIn_.getTime());

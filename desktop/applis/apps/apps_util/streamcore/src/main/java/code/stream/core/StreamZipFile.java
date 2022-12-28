@@ -1,5 +1,6 @@
 package code.stream.core;
 
+import code.stream.BytesInfo;
 import code.util.EntryCust;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -10,7 +11,7 @@ public final class StreamZipFile {
     private StreamZipFile() {
     }
 
-    public static ReadFiles getZippedFiles(UniformingString _app, byte[] _bytes, AbstractZipFact _zipFact) {
+    public static ReadFiles getZippedFiles(UniformingString _app, BytesInfo _bytes, AbstractZipFact _zipFact) {
         StringMap<ContentTime> zip_ = _zipFact.zippedBinaryFiles(_bytes);
         StringMap<String> zipFiles_ = new StringMap<String>();
         if (zip_ == null) {
@@ -29,7 +30,7 @@ public final class StreamZipFile {
         return new ReadFiles(zipFiles_, OutputType.ZIP);
     }
 
-    public static ReadBinFiles getZippedBinFiles(byte[] _bytes, AbstractZipFact _zipFact) {
+    public static ReadBinFiles getZippedBinFiles(BytesInfo _bytes, AbstractZipFact _zipFact) {
         StringMap<ContentTime> zipFiles_ = new StringMap<ContentTime>();
         StringMap<ContentTime> zipFolders_ = new StringMap<ContentTime>();
         StringMap<ContentTime> zip_ = _zipFact.zippedBinaryFiles(_bytes);

@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.initialize.CompoundedInitParts;
 import code.gui.initialize.ProgramInfosBase;
 import code.stream.AbstractFile;
+import code.stream.BytesInfo;
 import code.stream.FileListInfo;
 import code.stream.core.ComZipStreamIn;
 import code.stream.core.ContentTime;
@@ -33,6 +34,18 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         f_.setContent(new byte[0]);
         assertEq(0,f_.getContent().length);
         assertEq(0,f_.getLastDate());
+    }
+    @Test
+    public void file3() {
+        BytesInfo f_ = new BytesInfo(new byte[0],true);
+        assertEq(0,f_.getBytes().length);
+        assertTrue(f_.isNul());
+    }
+    @Test
+    public void file4() {
+        BytesInfo f_ = new BytesInfo(new byte[0],false);
+        assertEq(0,f_.getBytes().length);
+        assertFalse(f_.isNul());
     }
     @Test
     public void ls() {

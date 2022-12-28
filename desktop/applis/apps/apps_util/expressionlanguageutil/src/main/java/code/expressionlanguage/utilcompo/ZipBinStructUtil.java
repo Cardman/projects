@@ -4,6 +4,7 @@ import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.GuiConstants;
+import code.stream.BytesInfo;
 import code.stream.core.AbstractZipFact;
 import code.stream.core.ContentTime;
 import code.util.CustList;
@@ -15,17 +16,18 @@ public final class ZipBinStructUtil {
     }
 
     public static Struct zippedBinaryFilesByteArray(Struct _byteArray, RunnableContextEl _ctx) {
-        byte[] bytes_;
+        BytesInfo bytesInfos_;
         if (!(_byteArray instanceof ArrayStruct)) {
-            bytes_ = null;
+            bytesInfos_ = new BytesInfo(new byte[0],true);
         } else {
             int len_ = ((ArrayStruct) _byteArray).getLength();
-            bytes_ = new byte[len_];
+            byte[] bytes_ = new byte[len_];
             for (int i = 0; i < len_; i++) {
                 bytes_[i] = NumParsers.convertToNumber(((ArrayStruct) _byteArray).get(i)).byteStruct();
             }
+            bytesInfos_ = new BytesInfo(bytes_, false);
         }
-        CustList<EntryBinaryStruct> filesMap_ = getEntryBinaryStructs(bytes_, _ctx);
+        CustList<EntryBinaryStruct> filesMap_ = getEntryBinaryStructs(bytesInfos_, _ctx);
         if (filesMap_ == null) {
             return NullStruct.NULL_VALUE;
         }
@@ -41,7 +43,7 @@ public final class ZipBinStructUtil {
         return files_;
     }
 
-    public static CustList<EntryBinaryStruct> getEntryBinaryStructs(byte[] _bytes, RunnableContextEl _ctx) {
+    public static CustList<EntryBinaryStruct> getEntryBinaryStructs(BytesInfo _bytes, RunnableContextEl _ctx) {
         StringMap<ContentTime> unzip_ = _ctx.getZipFact().zippedBinaryFiles(_bytes);
         if (unzip_ == null) {
             return null;

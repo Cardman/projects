@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.initialize.AbstractLightProgramInfos;
+import code.stream.BytesInfo;
 import code.stream.core.*;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThreadFactory;
@@ -18,8 +19,8 @@ import java.util.Map.Entry;
 
 public final class MemoryReporter implements AbstractReporter {
     private final byte[] conf;
-    private final byte[] src;
-    private final byte[] files;
+    private final BytesInfo src;
+    private final BytesInfo files;
     private final AbstractNameValidating nameValidating;
     private final UniformingString uniformingString;
     private final AbstractZipFact zipFact;
@@ -27,7 +28,7 @@ public final class MemoryReporter implements AbstractReporter {
     private final AbstractLightProgramInfos li;
     private final StringMap<ContentTime> reports = new StringMap<ContentTime>();
 
-    public MemoryReporter(AbstractLightProgramInfos _light, byte[] _conf, byte[] _src, byte[] _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString) {
+    public MemoryReporter(AbstractLightProgramInfos _light, byte[] _conf, BytesInfo _src, BytesInfo _files, AbstractNameValidating _nameValidating, DefaultUniformingString _uniformingString) {
         conf = _conf;
         this.src = _src;
         this.files = _files;
@@ -126,23 +127,23 @@ public final class MemoryReporter implements AbstractReporter {
     }
 
     @Override
-    public byte[] exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
+    public BytesInfo exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
         StringMap<ContentTime> out_ = exportErr(_log, threadFactory);
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
-            return zipFact.zipBinFiles(out_);
+            return new BytesInfo(zipFact.zipBinFiles(out_),false);
         }
-        return null;
+        return new BytesInfo(new byte[0],true);
     }
 
     @Override
-    public byte[] export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
+    public BytesInfo export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
         StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log, threadFactory);
         out_.addAllEntries(reports);
         if (!out_.isEmpty()) {
-            return zipFact.zipBinFiles(out_);
+            return new BytesInfo(zipFact.zipBinFiles(out_),false);
         }
-        return null;
+        return new BytesInfo(new byte[0],true);
     }
 
     public static StringMap<ContentTime> exportErr(AbstractLogger _log, AbstractThreadFactory _threadFact) {

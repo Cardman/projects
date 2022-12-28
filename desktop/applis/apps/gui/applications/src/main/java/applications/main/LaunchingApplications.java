@@ -23,6 +23,7 @@ import code.player.main.LaunchingPlayer;
 import code.renders.LaunchingRenders;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
+import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
@@ -58,9 +59,9 @@ public class LaunchingApplications extends SoftApplicationCore {
     protected final void launch(String _language, String[] _args) {
         StringList args_ = getFile(_args);
         if (!args_.isEmpty()) {
-            byte[] bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
-            if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_)) {
-                AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_);
+            BytesInfo bytes_ = StreamBinaryFile.loadFile(args_.first(), getFrames().getStreams());
+            if (LaunchingConverter.isBinary(bytes_) && !isZip(bytes_.getBytes())) {
+                AbstractImage img_ = getFrames().getImageFactory().newImageFromBytes(bytes_.getBytes());
                 if (img_ != null) {
                     launchWindow(_language, getFrames(), cardFactories, aikiFactory,cdmFactory);
                     LaunchingConverter launch_ = new LaunchingConverter(getFrames());

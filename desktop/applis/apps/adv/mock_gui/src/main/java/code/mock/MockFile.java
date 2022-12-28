@@ -219,7 +219,7 @@ public final class MockFile implements AbstractFile {
         int index_ = 0;
         for (String p: list_) {
             String intPath_ = StringUtil.join(pars_, '/');
-            if (MockBinFact.load(intPath_,fileSet).getContent() != null) {
+            if (!MockBinFact.load(intPath_,fileSet).isNul()) {
                 return false;
             }
             parsNext_.add(p);
