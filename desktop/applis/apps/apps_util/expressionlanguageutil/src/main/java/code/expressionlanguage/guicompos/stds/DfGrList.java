@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.guicompos.GraphicListStruct;
 import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
 import code.expressionlanguage.utilcompo.CustAliases;
@@ -20,6 +19,6 @@ public final class DfGrList extends DfCompoCtor {
 
     @Override
     public ArgumentWrapper inst(GuiExecutingBlocks _guiEx, AbstractExiting _exit, ContextEl _cont, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        return new ArgumentWrapper(new GraphicListStruct((GuiContextEl)_cont,aliasGrList,true));
+        return new ArgumentWrapper(_guiEx.getGrFact().newListSimple((GuiContextEl)_cont,aliasGrList));
     }
 }

@@ -1,21 +1,15 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.*;
 import code.gui.*;
 import code.gui.initialize.AbstractAdvGraphicListGenerator;
 import code.util.CustList;
 import code.util.Ints;
-import code.util.core.NumberUtil;
 
-public final class GraphicListStruct extends InputStruct {
+public final class GraphicListStruct extends InputStruct implements GraphicListIntStruct {
 
     private Struct render = NullStruct.NULL_VALUE;
 
@@ -26,7 +20,7 @@ public final class GraphicListStruct extends InputStruct {
         grList = init(_ctx,_simple);
         init(_ctx);
     }
-    private static AbsGraphicListStr init(GuiContextEl _ctx,boolean _simple) {
+    public static AbsGraphicListStr init(GuiContextEl _ctx,boolean _simple) {
         GuiExecutingBlocks guiEx_ = ((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks();
         AbstractAdvGraphicListGenerator graphicListGenerator_ = guiEx_.getGraphicListGenerator();
         DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs());
@@ -40,65 +34,29 @@ public final class GraphicListStruct extends InputStruct {
         grList.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs()));
     }
 
-    public boolean isCust() {
-        return grList.isCust();
-    }
     public void add(int _index, Struct _img, Struct _elt) {
-        if (!(_img instanceof PreparedLabelStruct)) {
-            return;
-        }
-        AbsPreparedLabel textLabel_ = ((PreparedLabelStruct) _img).getTextLabel();
-        grList.add(_index,textLabel_, _elt);
+        grList.add(_index,null, _elt);
     }
     public void add(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall,int _index, Struct _elt) {
         grList.add(_index, _elt);
-        if (isCust()) {
-            return;
-        }
-        Argument arg_ = new Argument(this);
-        CustList<Argument> args_ = new CustList<Argument>(arg_);
-        args_.add(new Argument(new IntStruct(_index)));
-        args_.add(new Argument(_elt));
-        wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintAdd(), _stackCall);
     }
-    public void updateGraphics() {
-        grList.updateGraphics();
+    public static void updateGraphics(AbsGraphicListStr _gr) {
+        _gr.updateGraphics();
     }
     public void set(int _index, Struct _img, Struct _elt) {
-        if (!(_img instanceof PreparedLabelStruct)) {
-            return;
-        }
         if (!grList.getList().isValidIndex(_index)) {
             return;
         }
-        PreparedLabelStruct img_ = (PreparedLabelStruct) _img;
-        AbsPreparedLabel textLabel_ = img_.getTextLabel();
-        grList.set(_index, textLabel_,_elt);
+        grList.set(_index, null,_elt);
     }
     public void set(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall,int _index, Struct _elt) {
         if (!grList.getList().isValidIndex(_index)) {
-            if (isCust()) {
-                return;
-            }
-            Argument arg_ = new Argument(this);
-            CustList<Argument> args_ = new CustList<Argument>(arg_);
-            args_.add(new Argument(new IntStruct(_index)));
-            args_.add(new Argument(_elt));
-            wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintSet(), _stackCall);
             return;
         }
         grList.set(_index,_elt);
-        if (isCust()) {
-            return;
-        }
-        Argument arg_ = new Argument(this);
-        CustList<Argument> args_ = new CustList<Argument>(arg_);
-        args_.add(new Argument(new IntStruct(_index)));
-        args_.add(new Argument(_elt));
-        wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintSet(), _stackCall);
     }
-    public ArrayStruct getListView(ContextEl _ctx) {
-        CustList<Struct> list_ = grList.getList();
+    public static ArrayStruct getListView(ContextEl _ctx, AbsGraphicListStr _gr) {
+        CustList<Struct> list_ = _gr.getList();
         int len_ = list_.size();
         String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getCoreNames().getAliasObject());
         ArrayStruct arr_ = new ArrayStruct(len_, obj_);
@@ -106,10 +64,6 @@ public final class GraphicListStruct extends InputStruct {
             arr_.set(i, list_.get(i));
         }
         return arr_;
-    }
-
-    public Ints getSelectedIndexes() {
-        return grList.getSelectedIndexes();
     }
 
     public void setSelectedIndexes(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall,Struct _selectedIndexes) {
@@ -120,29 +74,13 @@ public final class GraphicListStruct extends InputStruct {
             }
             grList.setSelectedIndexes(selectedIndexes_);
         }
-        if (!isCust()&&_selectedIndexes instanceof ArrayStruct) {
-            Argument arg_ = new Argument(this);
-            CustList<Argument> args_ = new CustList<Argument>(arg_);
-            wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
-        }
     }
 
     public void clearSelection(GuiAliases _aliases,ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall) {
-        if (isCust()) {
-            grList.clearSelection();
-            return;
-        }
-        grList.getSelectedIndexes().clear();
-        Argument arg_ = new Argument(this);
-        CustList<Argument> args_ = new CustList<Argument>(arg_);
-        wrapAndCall(_aliases,_cont, args_, _guiEx.getPairPaintRefresh(), _stackCall);
+        grList.clearSelection();
     }
-    private static void wrapAndCall(GuiAliases _aliases, ContextEl _cont, CustList<Argument> _args, ExecTypeFunction _pair, StackCall _stackCall) {
-        ArgumentListCall argList_ = ArgumentListCall.wrapCall(_args);
-        ExecTemplates.wrapAndCall(_pair, new ExecFormattedRootBlock(_pair.getType(), _aliases.getAliasPaint()),Argument.createVoid(), _cont, _stackCall, argList_);
-    }
-    public ArrayStruct getSelectedIndexes(ContextEl _ctx) {
-        Ints selectedIndexes_ = grList.getSelectedIndexes();
+    public static ArrayStruct getSelectedIndexes(ContextEl _ctx, AbsGraphicListStr _gr) {
+        Ints selectedIndexes_ = _gr.getSelectedIndexes();
         int len_ = selectedIndexes_.size();
         String obj_ = StringExpUtil.getPrettyArrayType(_ctx.getStandards().getContent().getPrimTypes().getAliasPrimInteger());
         ArrayStruct arr_ = new ArrayStruct(len_, obj_);
@@ -152,23 +90,23 @@ public final class GraphicListStruct extends InputStruct {
         return arr_;
     }
 
-    public Struct getVisibleRowCount() {
-        return new IntStruct(grList.getVisibleRowCount());
+    public static Struct getVisibleRowCount(AbsGraphicListStr _gr) {
+        return new IntStruct(_gr.getVisibleRowCount());
     }
 
-    public void setVisibleRowCount(Struct _visibleRowCount) {
+    public static void setVisibleRowCount(Struct _visibleRowCount, AbsGraphicListStr _gr) {
         int value_ = ((NumberStruct)_visibleRowCount).intStruct();
-        grList.setVisibleRowCount(value_);
+        _gr.setVisibleRowCount(value_);
     }
 
-    public void clear() {
-        grList.clear();
+    public static void clear(AbsGraphicListStr _gr) {
+        _gr.clear();
     }
-    public void remove(int _index) {
-        grList.remove(_index);
+    public static void remove(int _index, AbsGraphicListStr _gr) {
+        _gr.remove(_index);
     }
-    public ArrayStruct getListeners(ContextEl _ctx) {
-        CustList<ListSelection> listeners_ = grList.getListeners();
+    public static ArrayStruct getListeners(ContextEl _ctx, AbsGraphicListStr _gr) {
+        CustList<ListSelection> listeners_ = _gr.getListeners();
         String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
         int len_ = listeners_.size();
         ArrayStruct out_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasListSelection_));
@@ -179,33 +117,14 @@ public final class GraphicListStruct extends InputStruct {
         }
         return out_;
     }
-    public void removeListener(Struct _listener) {
+    public static void removeListener(Struct _listener, AbsGraphicListStr _gr) {
         if (_listener instanceof ListSelection) {
-            grList.removeListener((ListSelection)_listener);
+            _gr.removeListener((ListSelection)_listener);
         }
     }
-    public void addListener(Struct _listener) {
+    public static void addListener(Struct _listener, AbsGraphicListStr _gr) {
         if (_listener instanceof ListSelection) {
-            grList.addListener((ListSelection)_listener);
-        }
-    }
-
-    public void addRange(int _first, int _last) {
-        int min_ = NumberUtil.min(_first, _last);
-        int max_ = NumberUtil.max(_first, _last);
-        for (int i = min_; i <= max_; i++) {
-            grList.getSelectedIndexes().add(i);
-        }
-    }
-    public void clearAllRange() {
-        grList.getSelectedIndexes().clear();
-    }
-
-    public void clearRange(int _first, int _last) {
-        int min_ = NumberUtil.min(_first, _last);
-        int max_ = NumberUtil.max(_first, _last);
-        for (int i = min_; i <= max_; i++) {
-            grList.getSelectedIndexes().removeObj(i);
+            _gr.addListener((ListSelection)_listener);
         }
     }
 
@@ -213,8 +132,12 @@ public final class GraphicListStruct extends InputStruct {
         return render;
     }
 
-    public void setRender(GuiContextEl _ctx, Struct _render) {
-        this.render = _render;
+    public void setRender(Struct _r) {
+        this.render = _r;
+    }
+
+    public static void setRender(GuiContextEl _ctx, Struct _render, GraphicListIntStruct _cr) {
+        _cr.setRender(_render);
         DefSpecSelectionCtx create_ = new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs());
         if (_render instanceof RenderStruct) {
             RenderStruct rend_ = (RenderStruct) _render;
@@ -223,14 +146,14 @@ public final class GraphicListStruct extends InputStruct {
                 String aliasImageLabel_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasImageLabel();
                 PreparedLabelStruct im_ = new PreparedLabelStruct(((LgNamesGui) _ctx.getStandards()).getGuiExecutingBlocks().getImageFactory(),aliasImageLabel_);
                 AbsPreparedLabel lab_ = im_.getTextLabel();
-                grList.setCustCell(this, lab_, im_,
-                        new DefSpecSelectionStruct(_ctx, this)
+                _cr.getGrList().setCustCell(_cr, lab_, im_,
+                        new DefSpecSelectionStruct(_ctx, _cr)
                 );
             } else {
-                grList.setDefCell(this, create_);
+                _cr.getGrList().setDefCell(_cr, create_);
             }
         } else {
-            grList.setDefCell(this, create_);
+            _cr.getGrList().setDefCell(_cr, create_);
         }
     }
 
@@ -256,5 +179,9 @@ public final class GraphicListStruct extends InputStruct {
     @Override
     public void setEnabled(Struct _enabled) {
         grList.setEnabled(BooleanStruct.isTrue(_enabled));
+    }
+
+    public AbsGraphicListStr getGrList() {
+        return grList;
     }
 }

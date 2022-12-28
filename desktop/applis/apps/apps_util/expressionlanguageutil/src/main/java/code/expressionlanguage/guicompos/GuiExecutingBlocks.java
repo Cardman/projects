@@ -547,6 +547,9 @@ public final class GuiExecutingBlocks {
     public AbstractAdvGraphicListGenerator getGraphicListGenerator(){
         return cdmFactory.getFact();
     }
+    public AbstractAdvGraphicListGeneratorStruct getGrFact(){
+        return cdmFactory.getGrFact();
+    }
 //    public FrameStruct getFrame() {
 //        return frame;
 //    }

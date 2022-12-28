@@ -2,6 +2,7 @@ package code.vi.sys;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
 import code.gui.CdmFactory;
+import code.gui.CustGraphicListGeneratorStruct;
 import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.DefErrGenerator;
 import code.vi.prot.impl.DefInterceptor;
@@ -13,7 +14,7 @@ public final class LaunchingFullSys extends LaunchingFull {
         this(new DefProgramInfos());
     }
     public LaunchingFullSys(AbstractProgramInfos _p) {
-        super(_p,new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()),new GraphicListGeneratorStr()));
+        super(_p,new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()),new GraphicListGeneratorStr(),new CustGraphicListGeneratorStruct()));
     }
     public static void loadLaungage(String[] _args) {
         LaunchingFull.loadLaungage(_args,new LaunchingFullSys());

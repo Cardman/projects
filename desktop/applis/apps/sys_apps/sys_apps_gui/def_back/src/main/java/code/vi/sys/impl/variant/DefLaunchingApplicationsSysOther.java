@@ -10,6 +10,7 @@ import cards.consts.Suit;
 import cards.main.CardFactories;
 import cards.president.enumerations.CardPresident;
 import cards.tarot.enumerations.CardTarot;
+import code.gui.AdvGraphicListGeneratorStruct;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.DefErrGenerator;
@@ -22,7 +23,7 @@ public final class DefLaunchingApplicationsSysOther extends LaunchingApplication
         this(new DefOtherProgramInfos());
     }
     public DefLaunchingApplicationsSysOther(AbstractProgramInfos _p) {
-        super(_p,new CardFactories(new DefAdvGraphicListGenerator<CardBelote>(), new DefAdvGraphicListGenerator<CardPresident>(), new DefAdvGraphicListGenerator<CardTarot>(), new DefAdvGraphicListGenerator<Suit>()), new AikiFactory(new DefAdvGraphicListGenerator<BallNumberRate>(), new DefAdvGraphicListGenerator<Fighter>(), new DefAdvGraphicListGenerator<String>(), new DefAdvGraphicListGenerator<String>(), new DefAdvGraphicListGenerator<String>(), new DefAdvGraphicListGenerator<UsablePokemon>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()),new DefAdvGraphicListGeneratorStr()));
+        super(_p,new CardFactories(new DefAdvGraphicListGenerator<CardBelote>(), new DefAdvGraphicListGenerator<CardPresident>(), new DefAdvGraphicListGenerator<CardTarot>(), new DefAdvGraphicListGenerator<Suit>()), new AikiFactory(new DefAdvGraphicListGenerator<BallNumberRate>(), new DefAdvGraphicListGenerator<Fighter>(), new DefAdvGraphicListGenerator<String>(), new DefAdvGraphicListGenerator<String>(), new DefAdvGraphicListGenerator<String>(), new DefAdvGraphicListGenerator<UsablePokemon>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()),new DefAdvGraphicListGeneratorStr(),new AdvGraphicListGeneratorStruct()));
     }
     public static void loadLaungage(String[] _args) {
         LaunchingApplications.loadLaungage(_args,new DefLaunchingApplicationsSysOther());

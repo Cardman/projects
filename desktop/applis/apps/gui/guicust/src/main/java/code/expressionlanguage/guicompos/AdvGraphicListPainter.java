@@ -9,12 +9,12 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.RunnableStruct;
-import code.gui.AbsGraphicListDefBase;
-import code.gui.AbsPreparedLabel;
-import code.gui.Interval;
+import code.gui.*;
 import code.gui.images.AbstractImageFactory;
 import code.util.CustList;
+import code.util.Ints;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 
 public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
 
@@ -24,19 +24,43 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         args = _args;
     }
 
+    public static void addRange(int _first, int _last, AbsGraphicListStr _gr) {
+        int min_ = NumberUtil.min(_first, _last);
+        int max_ = NumberUtil.max(_first, _last);
+        for (int i = min_; i <= max_; i++) {
+            _gr.getSelectedIndexes().add(i);
+        }
+    }
+
+    public static void clearAllRange(AbsGraphicListStr _gr) {
+        _gr.getSelectedIndexes().clear();
+    }
+
+    public static void clearRange(int _first, int _last, AbsGraphicListStr _gr) {
+        int min_ = NumberUtil.min(_first, _last);
+        int max_ = NumberUtil.max(_first, _last);
+        for (int i = min_; i <= max_; i++) {
+            _gr.getSelectedIndexes().removeObj(i);
+        }
+    }
+
+    public static Ints getSelectedIndexes(AbsGraphicListStr _gr) {
+        return _gr.getSelectedIndexes();
+    }
+
     @Override
     public void selectPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
-        if (!(value_ instanceof GraphicListStruct)) {
+        if (!(value_ instanceof CustGraphicListStruct)) {
             return;
         }
-        GraphicListStruct grList_ = (GraphicListStruct) value_;
+        CustGraphicListStruct grList_ = (CustGraphicListStruct) value_;
         if (!grList_.isEnabledList()) {
             return;
         }
-        grList_.getSelectedIndexes().clear();
+        getSelectedIndexes(((GraphicListIntStruct) grList_).getGrList()).clear();
         if (_sel) {
-            grList_.getSelectedIndexes().add(_index);
+            getSelectedIndexes(((GraphicListIntStruct) grList_).getGrList()).add(_index);
         }
         GuiContextEl ctx_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
@@ -47,10 +71,10 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     @Override
     public boolean selectOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
-        if (!(value_ instanceof GraphicListStruct)) {
+        if (!(value_ instanceof CustGraphicListStruct)) {
             return false;
         }
-        GraphicListStruct grList_ = (GraphicListStruct) value_;
+        CustGraphicListStruct grList_ = (CustGraphicListStruct) value_;
         if (!grList_.isEnabledList()) {
             return false;
         }
@@ -65,10 +89,10 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     @Override
     public AbsPreparedLabel selectedOneAmongIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
-        if (!(value_ instanceof GraphicListStruct)) {
+        if (!(value_ instanceof CustGraphicListStruct)) {
             return null;
         }
-        GraphicListStruct grList_ = (GraphicListStruct) value_;
+        CustGraphicListStruct grList_ = (CustGraphicListStruct) value_;
         if (!grList_.isEnabledList()) {
             return null;
         }
@@ -81,10 +105,10 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     @Override
     public Interval selectIntervalPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
-        if (!(value_ instanceof GraphicListStruct)) {
+        if (!(value_ instanceof CustGraphicListStruct)) {
             return null;
         }
-        GraphicListStruct grList_ = (GraphicListStruct) value_;
+        CustGraphicListStruct grList_ = (CustGraphicListStruct) value_;
         if (!grList_.isEnabledList()) {
             return null;
         }
@@ -99,10 +123,10 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
     @Override
     public Interval selectIntervalKeyPaint(AbsGraphicListDefBase _list, boolean _sel, int _index) {
         Struct value_ = getValue();
-        if (!(value_ instanceof GraphicListStruct)) {
+        if (!(value_ instanceof CustGraphicListStruct)) {
             return null;
         }
-        GraphicListStruct grList_ = (GraphicListStruct) value_;
+        CustGraphicListStruct grList_ = (CustGraphicListStruct) value_;
         if (!grList_.isEnabledList()) {
             return null;
         }
@@ -110,22 +134,22 @@ public final class AdvGraphicListPainter extends AbsAdvGraphicListPainter {
         int max_ = _list.getListComponents().size() - 1;
         if (!_sel) {
             for (int i = min_; i <= max_; i++) {
-                grList_.getSelectedIndexes().removeObj(i);
+                getSelectedIndexes(((GraphicListIntStruct) grList_).getGrList()).removeObj(i);
             }
         } else {
             for (int i = min_; i <= max_; i++) {
-                grList_.getSelectedIndexes().add(i);
+                getSelectedIndexes(((GraphicListIntStruct) grList_).getGrList()).add(i);
             }
-            grList_.getSelectedIndexes().removeDuplicates();
+            getSelectedIndexes(((GraphicListIntStruct) grList_).getGrList()).removeDuplicates();
         }
         GuiContextEl ctx_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(value_));
         invokePaint(ctx_,args_);
         if (!_sel) {
-            grList_.clearRange(0,max_);
+            clearRange(0,max_, ((GraphicListIntStruct) grList_).getGrList());
         } else {
-            grList_.addRange(0,max_);
+            addRange(0,max_, ((GraphicListIntStruct) grList_).getGrList());
         }
         return new Interval(0, max_);
     }

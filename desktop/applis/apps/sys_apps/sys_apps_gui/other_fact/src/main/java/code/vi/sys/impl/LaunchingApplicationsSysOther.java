@@ -3,6 +3,7 @@ package code.vi.sys.impl;
 import aiki.main.AikiFactory;
 import applications.main.LaunchingApplications;
 import cards.main.CardFactories;
+import code.gui.AdvGraphicListGeneratorStruct;
 import code.gui.CdmFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.vi.prot.impl.AdvGraphicListGenerator;
@@ -15,7 +16,7 @@ public final class LaunchingApplicationsSysOther extends LaunchingApplications {
         this(new OtherProgramInfos());
     }
     public LaunchingApplicationsSysOther(AbstractProgramInfos _p) {
-        super(_p,new CardFactories(new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>()), new AikiFactory(new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()),new AdvGraphicListGeneratorStr()));
+        super(_p,new CardFactories(new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>()), new AikiFactory(new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>(), new AdvGraphicListGenerator<>()),new CdmFactory(_p.light(),new DefInterceptor(new DefErrGenerator()),new AdvGraphicListGeneratorStr(),new AdvGraphicListGeneratorStruct()));
     }
     public static void loadLaungage(String[] _args) {
         LaunchingApplications.loadLaungage(_args,new LaunchingApplicationsSysOther());
