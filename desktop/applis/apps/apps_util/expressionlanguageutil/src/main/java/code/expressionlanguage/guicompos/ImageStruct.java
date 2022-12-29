@@ -81,9 +81,6 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
 
     public Struct getFont() {
         MetaFont font_ = image.getMetaFont();
-        if (font_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
         return new FontStruct(font_);
     }
 
