@@ -54,6 +54,9 @@ public abstract class EquallableElUtUtil {
     public static void assertSame(OutputType _expected, OutputType _result) {
         Assert.assertSame(_expected, _result);
     }
+    public static void assertSame(MockLayout _expected, MockLayout _result) {
+        Assert.assertSame(_expected, _result);
+    }
     public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }
