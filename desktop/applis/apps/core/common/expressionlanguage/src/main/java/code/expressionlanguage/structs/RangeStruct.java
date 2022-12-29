@@ -67,9 +67,9 @@ public final class RangeStruct extends WithoutParentStruct implements Displayabl
 
     @Override
     public long randCode() {
-        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(lower));
-        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(upper));
-        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(step));
+        long r_ = NumParsers.mergeRandCode(1,lower);
+        r_ = NumParsers.mergeRandCode(r_,upper);
+        r_ = NumParsers.mergeRandCode(r_,step);
         return r_;
     }
     public boolean isUnlimited() {

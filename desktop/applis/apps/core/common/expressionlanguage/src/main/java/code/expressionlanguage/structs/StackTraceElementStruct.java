@@ -47,7 +47,7 @@ public final class StackTraceElementStruct extends WithoutParentStruct implement
     @Override
     public long randCode() {
         long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(fileName));
-        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(indexFileType));
+        r_ = NumParsers.mergeRandCode(r_,indexFileType);
         return r_;
     }
     @Override

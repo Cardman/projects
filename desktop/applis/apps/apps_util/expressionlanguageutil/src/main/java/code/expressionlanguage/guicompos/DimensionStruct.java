@@ -55,8 +55,8 @@ public final class DimensionStruct extends WithoutParentStruct implements Struct
     }
     @Override
     public long randCode() {
-        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(dimension.getWidth()));
-        r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(dimension.getHeight()));
+        long r_ = NumParsers.mergeRandCode(1,dimension.getWidth());
+        r_ = NumParsers.mergeRandCode(r_,dimension.getHeight());
         return r_;
     }
 }

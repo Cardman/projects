@@ -98,7 +98,7 @@ public final class FontStruct extends WithoutParentStruct implements Struct {
     }
     @Override
     public long randCode() {
-        long r_ = NumParsers.mergeRandCode(1,NumParsers.randCode(size));
+        long r_ = NumParsers.mergeRandCode(1,size);
         r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(BooleanStruct.of(bold)));
         r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(BooleanStruct.of(italic)));
         r_ = NumParsers.mergeRandCode(r_,NumParsers.randCode(family));
