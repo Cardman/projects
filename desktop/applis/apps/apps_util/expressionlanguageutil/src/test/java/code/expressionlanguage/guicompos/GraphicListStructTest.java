@@ -379,6 +379,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         a_.setFoundFormatted(AnaFormattedRootBlock.defValue());
         call(new FctRenderSetPaint(),null,ctx_,r_,one(new LambdaFieldStruct(NullStruct.NULL_VALUE,null,new ExecLambdaCommonContent(a_,fwd_),new ExecLambdaFieldContent(new ClassField("",""),new AnaLambdaFieldContent(), new MemberId(),fwd_),"","")),st_);
         call(new FctGrListSetRender(),null,ctx_,ls_,one(r_),st_);
+        assertSame(r_,call(new FctGrListGetRender(),null,ctx_,ls_,null,st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -394,6 +395,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         Struct r_ = call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctGrListSetRender(),null,ctx_,ls_,one(r_),st_);
+        assertSame(r_,call(new FctGrListGetRender(),null,ctx_,ls_,null,st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -408,7 +410,22 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListSetRender(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
+        assertSame(NullStruct.NULL_VALUE,call(new FctGrListGetRender(),null,ctx_,ls_,null,st_));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
+    }
+    @Test
+    public void update() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        Forwards fwd_ = getForwards(stds_, opt_);
+        ContextEl ctx_ = stds_.newContext(opt_, fwd_);
+        StackCall st_ = stack(ctx_);
+        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        call(new FctGrListUpdateGraphics(),null,ctx_,ls_,one(new IntStruct(2)),st_);
+        call(new FctGrListSetVisibleRowCount(),null,ctx_,ls_,one(new IntStruct(2)),st_);
+        assertEq(2,toLong(call(new FctGrListGetVisibleRowCount(),null,ctx_,ls_,null,st_)));
     }
 }
