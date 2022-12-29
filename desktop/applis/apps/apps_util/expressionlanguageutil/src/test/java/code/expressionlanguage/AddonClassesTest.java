@@ -3,9 +3,7 @@ package code.expressionlanguage;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.guicompos.*;
-import code.expressionlanguage.guicompos.stds.FctColor0;
-import code.expressionlanguage.guicompos.stds.FctFont0;
-import code.expressionlanguage.guicompos.stds.FctImage;
+import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
@@ -136,5 +134,15 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasImage("");
         assertEq(stds_.getGuiAliases().getAliasImage(),call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(1),new IntStruct(1),BooleanStruct.of(false)),st_).getClassName(ctx_));
+    }
+    @Test
+    public void compo() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        assertEq("_",call(new FctImageLabel0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),"_"),null,ctx_,null,null,st_).getClassName(ctx_));
     }
 }
