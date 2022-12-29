@@ -695,4 +695,29 @@ public final class PanelStructTest extends EquallableElUtUtil {
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertSame(panel_,call(new FctCompoGetParentCompo(),null,ctx_,label_,null,st_));
     }
+
+    @Test
+    public void visible1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctCompoSetVisible(),null,ctx_,panel_,one(BooleanStruct.of(false)),st_);
+        assertFalse(call(new FctCompoIsVisible(),null,ctx_,panel_,null,st_));
+    }
+    @Test
+    public void visible2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        call(new FctCompoSetVisible(),null,ctx_,panel_,one(BooleanStruct.of(true)),st_);
+        assertTrue(call(new FctCompoIsVisible(),null,ctx_,panel_,null,st_));
+    }
 }
