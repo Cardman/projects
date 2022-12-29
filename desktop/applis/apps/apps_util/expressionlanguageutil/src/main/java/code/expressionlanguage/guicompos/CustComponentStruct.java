@@ -212,45 +212,55 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         String aliasMouseListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasMouseListener();
         CustList<AbsMouseListener> mouseListeners_ = getVisibleComponent().getMouseListeners();
         CustList<AbsMouseMotionListener> mouseMotionListeners_ = getVisibleComponent().getMouseMotionListeners();
-        ArrayStruct arr_ = new ArrayStruct(mouseListeners_.size()+mouseMotionListeners_.size(), StringExpUtil.getPrettyArrayType(aliasMouseListener_));
+        CustList<Struct> res_ = new CustList<Struct>();
         int lenBase_ = mouseListeners_.size();
         for (int i = 0; i < lenBase_; i++) {
             if (mouseListeners_.get(i) instanceof Struct) {
-                arr_.set(i,(Struct)mouseListeners_.get(i));
+                res_.add((Struct)mouseListeners_.get(i));
             }
         }
         int lenAdv_ = mouseMotionListeners_.size();
         for (int i = 0; i < lenAdv_; i++) {
             if (mouseMotionListeners_.get(i) instanceof Struct) {
-                arr_.set(i+lenBase_,(Struct)mouseMotionListeners_.get(i));
+                res_.add((Struct)mouseMotionListeners_.get(i));
             }
         }
-        return arr_;
+        return nulls(aliasMouseListener_, res_);
     }
     public ArrayStruct getWheels(ContextEl _ctx) {
         String aliasWheelListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasWheelListener();
         CustList<AbsMouseWheelListener> mouseWheelListeners_ = getVisibleComponent().getMouseWheelListeners();
-        ArrayStruct arr_ = new ArrayStruct(mouseWheelListeners_.size(), StringExpUtil.getPrettyArrayType(aliasWheelListener_));
+        CustList<Struct> res_ = new CustList<Struct>();
         int lenBase_ = mouseWheelListeners_.size();
         for (int i = 0; i < lenBase_; i++) {
             if (mouseWheelListeners_.get(i) instanceof Struct) {
-                arr_.set(i,(Struct)mouseWheelListeners_.get(i));
+                res_.add((Struct)mouseWheelListeners_.get(i));
             }
         }
-        return arr_;
+        return nulls(aliasWheelListener_, res_);
     }
     public ArrayStruct getKeyListeners(ContextEl _ctx) {
         String aliasKeyListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasKeyListener();
         CustList<AbsKeyListener> keyListeners_ = getVisibleComponent().getKeyListeners();
-        ArrayStruct arr_ = new ArrayStruct(keyListeners_.size(), StringExpUtil.getPrettyArrayType(aliasKeyListener_));
+        CustList<Struct> res_ = new CustList<Struct>();
         int lenBase_ = keyListeners_.size();
         for (int i = 0; i < lenBase_; i++) {
             if (keyListeners_.get(i) instanceof Struct) {
-                arr_.set(i,(Struct)keyListeners_.get(i));
+                res_.add((Struct)keyListeners_.get(i));
             }
+        }
+        return nulls(aliasKeyListener_, res_);
+    }
+
+    public static ArrayStruct nulls(String _cl, CustList<Struct> _ls) {
+        int len_ = _ls.size();
+        ArrayStruct arr_ = new ArrayStruct(len_, StringExpUtil.getPrettyArrayType(_cl));
+        for (int i = 0; i < len_; i++) {
+            arr_.set(i, _ls.get(i));
         }
         return arr_;
     }
+
     public int getWidth() {
         return getComponent().getWidth();
     }
