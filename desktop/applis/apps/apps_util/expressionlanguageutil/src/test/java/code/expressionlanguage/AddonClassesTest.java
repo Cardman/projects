@@ -3,6 +3,8 @@ package code.expressionlanguage;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.guicompos.*;
+import code.expressionlanguage.guicompos.stds.FctColor0;
+import code.expressionlanguage.guicompos.stds.FctFont0;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
@@ -92,5 +94,25 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         assertEq(stds_.getCustAliases().getAliasEntryBinary(),call(new FctEntryBinary(),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+    }
+    @Test
+    public void color() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasColor("");
+        assertEq(stds_.getGuiAliases().getAliasColor(),call(new FctColor0(),null,ctx_,null,one(new IntStruct(0)),st_).getClassName(ctx_));
+    }
+    @Test
+    public void font() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasFont("");
+        assertEq(stds_.getGuiAliases().getAliasFont(),call(new FctFont0(),null,ctx_,null,null,st_).getClassName(ctx_));
     }
 }
