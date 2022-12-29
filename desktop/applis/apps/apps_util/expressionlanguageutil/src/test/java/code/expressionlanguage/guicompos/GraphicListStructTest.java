@@ -408,7 +408,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Forwards fwd_ = getForwards(stds_, opt_);
         ContextEl ctx_ = stds_.newContext(opt_, fwd_);
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new DfGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, one(BooleanStruct.of(false)), st_);
         call(new FctGrListSetRender(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctGrListGetRender(),null,ctx_,ls_,null,st_));
         assertFalse(st_.isFailInit());
