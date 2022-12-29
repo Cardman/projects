@@ -38,14 +38,5 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         return textLabel;
     }
 
-    @Override
-    public int getWidth() {
-        return textLabel.getWidth();
-    }
-
-    @Override
-    public int getHeight() {
-        return textLabel.getHeight();
-    }
 
 }

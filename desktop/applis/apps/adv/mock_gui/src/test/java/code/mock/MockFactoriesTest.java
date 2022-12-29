@@ -79,6 +79,14 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
         assertEq(0,pr_.getThreadFactory().newAtomicLong(0).get());
     }
     @Test
+    public void f9() {
+        AbstractImage res_ = init().getImageFactory().newImageFromBytes(wrapInts('A','A','A','C','A','A','A','A','A','A','A','A'));
+        assertEq(1, res_.getHeight());
+        assertEq(2, res_.getWidth());
+        assertEq(0, res_.getRGB(0,0));
+        assertEq(0, res_.getRGB(1,0));
+    }
+    @Test
     public void t1() {
         MockFileSet set_ = fileSet(0,new long[0],"/");
         set_.getFiles().put("/abc",new FileStruct(StringUtil.encode("abc"),0));

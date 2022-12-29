@@ -1,8 +1,8 @@
 package code.gui;
 
 import code.expressionlanguage.*;
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
@@ -13,6 +13,7 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
+import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
@@ -25,6 +26,9 @@ import org.junit.Assert;
 
 public abstract class EquallableElUtUtil {
     public static void assertNull(byte[] _expected) {
+        Assert.assertNull(_expected);
+    }
+    public static void assertNull(AbstractImage _expected) {
         Assert.assertNull(_expected);
     }
     public static void assertNull(String _expected) {

@@ -9,17 +9,17 @@ import code.util.core.StringUtil;
 public final class MockImageFactory implements AbstractImageFactory {
     @Override
     public AbstractImage newImageArgb(int _i, int _j) {
-        return new MockImage(new int[_i][_j]);
+        return new MockImage(new int[_j][_i]);
     }
 
     @Override
     public AbstractImage newImageRgb(int _i, int _j) {
-        return new MockImage(new int[_i][_j]);
+        return new MockImage(new int[_j][_i]);
     }
 
     @Override
     public AbstractImage newImageRgb(int _i, int _j, AbsPreparedLabel _component) {
-        MockImage m_ = new MockImage(new int[_i][_j]);
+        MockImage m_ = new MockImage(new int[_j][_i]);
         m_.setFont(_component);
         return m_;
     }
