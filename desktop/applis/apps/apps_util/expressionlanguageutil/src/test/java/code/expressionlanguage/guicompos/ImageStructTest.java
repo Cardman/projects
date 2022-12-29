@@ -225,6 +225,21 @@ public final class ImageStructTest extends EquallableElUtUtil {
         call(new FctImageFillPolygon(),null,ctx_,img_,two(new ArrayStruct(0,""),NullStruct.NULL_VALUE),st_);
         call(new FctImageFillPolygon(),null,ctx_,img_,two(new ArrayStruct(1,""),new ArrayStruct(2,"")),st_);
         call(new FctImageFillPolygon(),null,ctx_,img_,two(a_,a_),st_);
+        call(new FctImageSetColor(),null,ctx_,img_,one(new ColorStruct(0)),st_);
+        call(new FctImageSetColor(),null,ctx_,img_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctImageGetColor(),null,ctx_,img_,null,st_);
+        call(new FctImageSetFont(),null,ctx_,img_,one(new FontStruct()),st_);
+        call(new FctImageSetFont(),null,ctx_,img_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctImageGetFont(),null,ctx_,img_,null,st_);
+        call(new FctImageDraw0(),null,ctx_,img_,three(NullStruct.NULL_VALUE,new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageDraw0(),null,ctx_,img_,three(new ImageStruct(pr_.getImageFactory(), 1,1,false),new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageDraw1(),null,ctx_,img_,three(NullStruct.NULL_VALUE,new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageDraw1(),null,ctx_,img_,three(new StringStruct(""),new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageDrawRect(),null,ctx_,img_,four(new IntStruct(1),new IntStruct(1),new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageFillRect(),null,ctx_,img_,four(new IntStruct(1),new IntStruct(1),new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageDrawOval(),null,ctx_,img_,four(new IntStruct(1),new IntStruct(1),new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageFillOval(),null,ctx_,img_,four(new IntStruct(1),new IntStruct(1),new IntStruct(1),new IntStruct(1)),st_);
+        call(new FctImageDrawLine(),null,ctx_,img_,four(new IntStruct(1),new IntStruct(1),new IntStruct(1),new IntStruct(1)),st_);
         StackCall st2_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
         st2_.getInitializingTypeInfos().getSensibleFields().add(img_);
         call(new FctImageDrawPolygon(),null,ctx_,img_,null,st2_);
@@ -239,5 +254,17 @@ public final class ImageStructTest extends EquallableElUtUtil {
         assertTrue(st2_.isFailInit());
         assertTrue(st3_.isFailInit());
         assertTrue(st4_.isFailInit());
+        StackCall st5_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
+        st5_.getInitializingTypeInfos().getSensibleFields().add(img_);
+        call(new FctImageSetColor(),null,ctx_,img_,one(NullStruct.NULL_VALUE),st5_);
+        call(new FctImageSetFont(),null,ctx_,img_,one(NullStruct.NULL_VALUE),st5_);
+        call(new FctImageDraw0(),null,ctx_,img_,three(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        call(new FctImageDraw1(),null,ctx_,img_,three(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        call(new FctImageDrawRect(),null,ctx_,img_,four(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        call(new FctImageFillRect(),null,ctx_,img_,four(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        call(new FctImageDrawOval(),null,ctx_,img_,four(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        call(new FctImageFillOval(),null,ctx_,img_,four(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        call(new FctImageDrawLine(),null,ctx_,img_,four(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
+        assertTrue(st5_.isFailInit());
     }
 }
