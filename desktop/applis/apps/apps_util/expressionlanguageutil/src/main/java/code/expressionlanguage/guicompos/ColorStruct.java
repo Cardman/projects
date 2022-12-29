@@ -65,6 +65,6 @@ public final class ColorStruct extends WithoutParentStruct implements Struct {
     }
 
     public BooleanStruct isTransparent() {
-        return BooleanStruct.of(color / THREE_BYTES == 0);
+        return BooleanStruct.of(NumberUtil.quot(color,THREE_BYTES) == 0);
     }
 }
