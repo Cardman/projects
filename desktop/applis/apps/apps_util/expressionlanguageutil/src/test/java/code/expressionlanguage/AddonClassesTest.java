@@ -145,4 +145,15 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         assertEq("_",call(new FctImageLabel0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),"_"),null,ctx_,null,null,st_).getClassName(ctx_));
     }
+    @Test
+    public void render() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasRender("");
+        assertEq(stds_.getGuiAliases().getAliasRender(),call(new FctRender(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+    }
 }

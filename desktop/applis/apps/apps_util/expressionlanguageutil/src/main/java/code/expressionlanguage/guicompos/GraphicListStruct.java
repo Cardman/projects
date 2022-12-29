@@ -107,15 +107,15 @@ public final class GraphicListStruct extends InputStruct implements GraphicListI
     }
     public static ArrayStruct getListeners(ContextEl _ctx, AbsGraphicListStr _gr) {
         CustList<ListSelection> listeners_ = _gr.getListeners();
+        CustList<Struct> res_ = new CustList<Struct>();
         String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
         int len_ = listeners_.size();
-        ArrayStruct out_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasListSelection_));
         for (int i = 0; i < len_; i++) {
             if (listeners_.get(i) instanceof Struct) {
-                out_.set(i,(Struct)listeners_.get(i));
+                res_.add((Struct)listeners_.get(i));
             }
         }
-        return out_;
+        return nulls(aliasListSelection_,res_);
     }
     public static void removeListener(Struct _listener, AbsGraphicListStr _gr) {
         if (_listener instanceof ListSelection) {

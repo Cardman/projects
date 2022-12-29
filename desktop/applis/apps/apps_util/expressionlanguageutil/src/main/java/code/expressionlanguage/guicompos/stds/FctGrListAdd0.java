@@ -5,7 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.guicompos.GraphicListStruct;
+import code.expressionlanguage.guicompos.GraphicListIntStruct;
 import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.guicompos.GuiExecutingBlocks;
 import code.expressionlanguage.stds.StdCaller;
@@ -23,7 +23,7 @@ public final class FctGrListAdd0 implements StdCaller {
     }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
-        GraphicListStruct inst_ = (GraphicListStruct) _instance;
+        GraphicListIntStruct inst_ = (GraphicListIntStruct) _instance;
         CustList<ArgumentWrapper> argumentWrappers_ = _firstArgs.getArgumentWrappers();
         inst_.add(aliases, _cont, guiEx, _stackCall, ((NumberStruct)argumentWrappers_.get(0).getValue().getStruct()).intStruct(),argumentWrappers_.get(1).getValue().getStruct());
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
