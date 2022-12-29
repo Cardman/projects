@@ -157,10 +157,6 @@ public final class GraphicListStruct extends InputStruct implements GraphicListI
         }
     }
 
-    public boolean isEnabledList() {
-        return grList.isEnabled();
-    }
-
     @Override
     protected AbsCustComponent getVisibleComponent() {
         return grList.visible();
