@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTextArea;
@@ -47,16 +48,10 @@ public final class TextAreaStruct extends InputStruct {
     }
 
     private static String getText(Struct _txt) {
-        if (_txt instanceof StringStruct) {
-            return ((StringStruct)_txt).getInstance();
-        }
-        return "";
+        return NumParsers.getString(_txt).getInstance();
     }
     public Struct getText() {
         String txt_ = textArea.getText();
-        if (txt_ == null) {
-            txt_ = "";
-        }
         return new StringStruct(txt_);
     }
 
@@ -67,9 +62,6 @@ public final class TextAreaStruct extends InputStruct {
 
     public Struct getSelectedText() {
         String selectedText_ = textArea.getSelectedText();
-        if (selectedText_ == null) {
-            selectedText_ = "";
-        }
         return new StringStruct(selectedText_);
     }
 

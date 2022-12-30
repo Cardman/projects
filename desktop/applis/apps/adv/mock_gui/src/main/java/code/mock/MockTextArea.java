@@ -108,6 +108,8 @@ public final class MockTextArea extends MockInput implements AbsTextArea {
 
     @Override
     public void selectAll() {
+        selectionStart = 0;
+        selectionEnd = builder.length();
         selected = getText();
     }
 

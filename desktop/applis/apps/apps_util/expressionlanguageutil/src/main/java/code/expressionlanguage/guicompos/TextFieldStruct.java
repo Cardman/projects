@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -42,16 +43,10 @@ public final class TextFieldStruct extends InputStruct {
     }
 
     private static String getText(Struct _txt) {
-        if (_txt instanceof StringStruct) {
-            return ((StringStruct)_txt).getInstance();
-        }
-        return "";
+        return NumParsers.getString(_txt).getInstance();
     }
     public Struct getText() {
         String txt_ = textField.getText();
-        if (txt_ == null) {
-            txt_ = "";
-        }
         return new StringStruct(txt_);
     }
 
