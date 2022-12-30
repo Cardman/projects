@@ -63,15 +63,15 @@ public final class GraphicComboStruct extends InputStruct {
     }
     public ArrayStruct getListeners(ContextEl _ctx) {
         CustList<ListSelection> listeners_ = graphicCombo.getListeners();
-        String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
+        CustList<Struct> res_ = new CustList<Struct>();
         int len_ = listeners_.size();
-        ArrayStruct out_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(aliasListSelection_));
         for (int i = 0; i < len_; i++) {
             if (listeners_.get(i) instanceof Struct) {
-                out_.set(i,(Struct)listeners_.get(i));
+                res_.add((Struct)listeners_.get(i));
             }
         }
-        return out_;
+        String aliasListSelection_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasListSelection();
+        return nulls(aliasListSelection_,res_);
     }
 
 //    public void update() {
@@ -97,6 +97,10 @@ public final class GraphicComboStruct extends InputStruct {
     public void removeItem(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
         graphicCombo.simpleRemoveItem(index_);
+    }
+
+    public GraphicComboGrInt getGraphicCombo() {
+        return graphicCombo;
     }
 
     @Override
