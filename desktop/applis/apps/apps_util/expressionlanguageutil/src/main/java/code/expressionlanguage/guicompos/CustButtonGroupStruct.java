@@ -6,7 +6,7 @@ import code.expressionlanguage.structs.WithoutParentIdStruct;
 import code.gui.CustButtonGroup;
 
 public final class CustButtonGroupStruct extends WithoutParentIdStruct implements Struct {
-    private CustButtonGroup group;
+    private final CustButtonGroup group;
 
     public CustButtonGroupStruct() {
         group = new CustButtonGroup();

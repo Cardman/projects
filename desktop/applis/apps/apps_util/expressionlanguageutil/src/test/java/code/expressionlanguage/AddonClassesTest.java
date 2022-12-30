@@ -176,6 +176,17 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasTreeNode("");
-        assertEq(stds_.getGuiAliases().getAliasTreeNode(),call(new FctTreeNode0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,two(new IntStruct(1),new IntStruct(1)),st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasTreeNode(),call(new FctTreeNode0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+    }
+    @Test
+    public void buttonGroup() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasButtonGroup("");
+        assertEq(stds_.getGuiAliases().getAliasButtonGroup(),call(new FctButtonGroup(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
 }
