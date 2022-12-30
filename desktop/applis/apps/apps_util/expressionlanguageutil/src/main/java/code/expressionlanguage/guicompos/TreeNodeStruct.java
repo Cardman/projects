@@ -2,13 +2,10 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.stds.LgNames;
 import code.expressionlanguage.structs.*;
 import code.gui.AbstractMutableTreeNode;
 import code.gui.AbstractMutableTreeNodeCore;
 import code.util.CustList;
-import code.util.core.StringUtil;
 
 public final class TreeNodeStruct extends WithoutParentStruct implements Struct {
 
@@ -139,18 +136,18 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
 
     }
 
-    static boolean eqPath(CustList<TreeNodeStruct> _one, CustList<TreeNodeStruct> _two) {
-        int len_ = _one.size();
-        if (len_ != _two.size()) {
-            return false;
-        }
-        for (int i = 0; i < len_; i++) {
-            if (!StringUtil.quickEq(_one.get(i).userObject.getInstance(),_two.get(i).userObject.getInstance())) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    static boolean eqPath(CustList<TreeNodeStruct> _one, CustList<TreeNodeStruct> _two) {
+//        int len_ = _one.size();
+//        if (len_ != _two.size()) {
+//            return false;
+//        }
+//        for (int i = 0; i < len_; i++) {
+//            if (!StringUtil.quickEq(_one.get(i).userObject.getInstance(),_two.get(i).userObject.getInstance())) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
     static boolean eqIndexes(CustList<IntStruct> _one, CustList<IntStruct> _two) {
         int len_ = _one.size();
         if (len_ != _two.size()) {
@@ -163,24 +160,24 @@ public final class TreeNodeStruct extends WithoutParentStruct implements Struct 
         }
         return true;
     }
-    ArrayStruct getPath(LgNames _stds) {
-        CustList<TreeNodeStruct> pars_ = getPath();
-        int len_ = pars_.size();
-        ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_stds.getCharSeq().getAliasString()));
-        for (int i = 0; i < len_; i++) {
-            arr_.set(i,pars_.get(i).userObject);
-        }
-        return arr_;
-    }
-    CustList<TreeNodeStruct> getPath() {
-        CustList<TreeNodeStruct> pars_ = new CustList<TreeNodeStruct>();
-        Struct par_ = this;
-        while (par_ instanceof TreeNodeStruct) {
-            pars_.add(0, (TreeNodeStruct) par_);
-            par_ = ((TreeNodeStruct)par_).getParentNode();
-        }
-        return pars_;
-    }
+//    ArrayStruct getPath(LgNames _stds) {
+//        CustList<TreeNodeStruct> pars_ = getPath();
+//        int len_ = pars_.size();
+//        ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(_stds.getCharSeq().getAliasString()));
+//        for (int i = 0; i < len_; i++) {
+//            arr_.set(i,pars_.get(i).userObject);
+//        }
+//        return arr_;
+//    }
+//    CustList<TreeNodeStruct> getPath() {
+//        CustList<TreeNodeStruct> pars_ = new CustList<TreeNodeStruct>();
+//        Struct par_ = this;
+//        while (par_ instanceof TreeNodeStruct) {
+//            pars_.add(0, (TreeNodeStruct) par_);
+//            par_ = ((TreeNodeStruct)par_).getParentNode();
+//        }
+//        return pars_;
+//    }
     IntStruct getIndex() {
         return new IntStruct(treeNode.getIndex());
     }
