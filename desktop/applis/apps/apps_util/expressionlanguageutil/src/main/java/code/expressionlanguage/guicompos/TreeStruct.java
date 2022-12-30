@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.*;
 
