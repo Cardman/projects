@@ -9,7 +9,7 @@ import code.gui.AbsCustComponent;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class CheckBoxStruct extends InputStruct {
-    private AbsCustCheckBox checkBox;
+    private final AbsCustCheckBox checkBox;
 
     public CheckBoxStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
