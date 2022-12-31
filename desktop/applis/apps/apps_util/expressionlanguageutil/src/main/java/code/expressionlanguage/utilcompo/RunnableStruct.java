@@ -113,6 +113,9 @@ public final class RunnableStruct implements WithParentStruct, EnumerableStruct,
         Argument arg_ = new Argument(_instance);
         RunnableStruct.invoke(arg_, mId_.getClassName(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList);
     }
+    public static Argument invoke(Struct _global, ExecFormattedRootBlock _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
+        return invoke(new Argument(_global),_class,_cont,_pair,_stackCall,_argList);
+    }
     public static Argument invoke(Argument _global, ExecFormattedRootBlock _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
         Parameters parameters_ = ExecTemplates.wrapAndCall(_pair, _class, _global, _cont, _stackCall, _argList);
         Argument arg_ = ProcessMethod.calculate(new CustomFoundMethod(_global, _class, _pair, parameters_), _cont, _stackCall).getValue();

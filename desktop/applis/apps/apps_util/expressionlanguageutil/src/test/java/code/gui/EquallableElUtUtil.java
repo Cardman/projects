@@ -241,6 +241,9 @@ public abstract class EquallableElUtUtil {
     public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
     }
+    public static Struct str(Argument _arg) {
+        return _arg.getStruct();
+    }
     public static void memoryFileSystem(LgNamesGui _stds,AbstractProgramInfos _pr, MockNameFile... _files) {
         AbstractFileSystem m_ = _stds.getCustAliases().getInfos().getFileSystem();
         m_.build("",StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
@@ -623,6 +626,21 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
+        page_.setLogErr(forwards_);
+        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        return new ResultContext(reportedMessages_, page_.getMessages());
+    }
+
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
+        _definedLgNames.getCustAliases().messages(_mess, "en", _exec.getMessages());
+        _definedLgNames.getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
+        _definedLgNames.getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
+        _definedLgNames.setExecutingOptions(_exec);
+        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases(),new CustAliasGroups(_definedLgNames.getCustAliases(), _definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
