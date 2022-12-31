@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.*;
 import code.expressionlanguage.guicompos.*;
@@ -14,6 +15,7 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.gui.*;
+import code.gui.events.*;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.threads.*;
@@ -230,5 +232,112 @@ public final class WindowStructTest extends EquallableElUtUtil {
         call(new FctWindowDispose(),null,ctx_,d_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
+    }
+    @Test
+    public void addList1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        assertEq(1,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
+    }
+    @Test
+    public void addList2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
+        assertEq(1,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
+    }
+    @Test
+    public void removeList1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        Struct l_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        assertEq(0,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
+    }
+    @Test
+    public void removeList2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        Struct l_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        assertEq(0,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
+    }
+    @Test
+    public void removeList3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        Struct l_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        Struct l1_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l1_),st_);
+        call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        assertEq(1,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
+    }
+    @Test
+    public void removeList4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        Struct l_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        Struct l1_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l1_),st_);
+        call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        assertEq(1,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
+    }
+    @Test
+    public void removeList5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        Struct l_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
+        ((FrameStruct)d_).addWindowListener((AbsWindowListener)null);
+        call(new FctWindowAddList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
+        assertEq(0,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
     }
 }
