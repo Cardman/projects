@@ -1,7 +1,6 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCustComponent;
@@ -10,7 +9,7 @@ import code.gui.events.AbsAdvActionListener;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class PlainButtonStruct extends InputStruct {
-    private AbsPlainButton plainButton;
+    private final AbsPlainButton plainButton;
     public PlainButtonStruct(String _className, AbsCompoFactory _compo) {
         super(_className);
         plainButton = _compo.newPlainButton();
@@ -21,13 +20,13 @@ public final class PlainButtonStruct extends InputStruct {
         setText(_txt);
     }
 
-    public Struct getText() {
-        String txt_ = plainButton.getText();
-        if (txt_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
-        return new StringStruct(txt_);
-    }
+//    public Struct getText() {
+//        String txt_ = plainButton.getText();
+//        if (txt_ == null) {
+//            return NullStruct.NULL_VALUE;
+//        }
+//        return new StringStruct(txt_);
+//    }
 
     public void setText(Struct _text) {
         if (!(_text instanceof StringStruct)) {
