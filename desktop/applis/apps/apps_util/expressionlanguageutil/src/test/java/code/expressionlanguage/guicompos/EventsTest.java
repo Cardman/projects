@@ -86,6 +86,7 @@ public final class EventsTest extends EquallableElUtUtil {
         assertTrue(call(new FctActionEventIsCtrl(),null,ctx_,e_,null,st_));
         assertTrue(call(new FctActionEventIsShift(),null,ctx_,e_,null,st_));
         assertEq("",call(new FctActionEventCommand(),null,ctx_,e_,null,st_));
+        e_.getClassName(ctx_);
     }
     @Test
     public void key1() {
@@ -116,6 +117,7 @@ public final class EventsTest extends EquallableElUtUtil {
         assertTrue(call(new FctKeyEventIsShift(),null,ctx_,e_,null,st_));
         assertEq(0,toLong(call(new FctKeyEventCode(),null,ctx_,e_,null,st_)));
         assertEq(0,toLong(call(new FctKeyEventChar(),null,ctx_,e_,null,st_)));
+        e_.getClassName(ctx_);
     }
     @Test
     public void mouse1() {
@@ -154,6 +156,7 @@ public final class EventsTest extends EquallableElUtUtil {
         assertEq(0,toLong(call(new FctMouseEventGetFirst(),null,ctx_,e_,null,st_)));
         assertEq(0,toLong(call(new FctMouseEventGetSecond(),null,ctx_,e_,null,st_)));
         assertEq(0,toLong(call(new FctMouseEventGetClicks(),null,ctx_,e_,null,st_)));
+        e_.getClassName(ctx_);
     }
     @Test
     public void wheel1() {
@@ -194,5 +197,6 @@ public final class EventsTest extends EquallableElUtUtil {
         assertEq(0,toLong(call(new FctMouseEventGetSecond(),null,ctx_,e_,null,st_)));
         assertEq(0,toLong(call(new FctMouseEventGetClicks(),null,ctx_,e_,null,st_)));
         assertEq(0,toLong(call(new FctWheelRotatedClicks(),null,ctx_,e_,null,st_)));
+        e_.getClassName(ctx_);
     }
 }

@@ -250,4 +250,28 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventStruct)ev_).run();
         assertFalse(st_.isFailInit());
     }
+    @Test
+    public void evt2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        ((EventStruct)ev_).action(new KeyActionEvent(0),"");
+        assertFalse(st_.isFailInit());
+        assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
+        assertTrue(ev_.sameReference(ev_));
+        ev_.randCode();
+        ((FieldableStruct)ev_).getEntryStruct(new ClassField("",""));
+        ((FieldableStruct)ev_).getFields();
+        ((FieldableStruct)ev_).getParent();
+        ((WithParentStruct)ev_).setParent(NullStruct.NULL_VALUE);
+    }
 }
