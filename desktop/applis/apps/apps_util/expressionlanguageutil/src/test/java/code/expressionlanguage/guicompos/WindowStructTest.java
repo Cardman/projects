@@ -212,6 +212,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         call(new FctWindowContentPane(),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
         Struct bar_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, null, st_);
         call(new FctWindowContentPane(),null,ctx_,d_,one(bar_),st_);
+        assertSame(bar_,call(new FctWindowGetContentPane(),null,ctx_,d_,null,st_));
         call(new FctWindowDispose(),null,ctx_,d_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -229,6 +230,7 @@ public final class WindowStructTest extends EquallableElUtUtil {
         call(new FctWindowContentPane(),null,ctx_,d_,one(NullStruct.NULL_VALUE),st_);
         Struct bar_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, null, st_);
         call(new FctWindowContentPane(),null,ctx_,d_,one(bar_),st_);
+        assertSame(bar_,call(new FctWindowGetContentPane(),null,ctx_,d_,null,st_));
         call(new FctWindowDispose(),null,ctx_,d_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());

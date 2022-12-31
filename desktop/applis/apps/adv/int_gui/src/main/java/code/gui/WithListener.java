@@ -16,7 +16,7 @@ public interface WithListener extends PlacableWindow {
     String getTitle();
     void setTitle(String _title);
     void setVisible(boolean _v);
-
+    AbsPanel getContentPane();
     void setContentPane(AbsPanel _p);
 
     boolean isVisible();

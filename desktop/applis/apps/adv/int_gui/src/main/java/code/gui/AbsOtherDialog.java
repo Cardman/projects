@@ -7,6 +7,6 @@ public interface AbsOtherDialog extends WithListener {
 
     void setModal(boolean _aTrue);
 
-    AbsPanel getContentPane();
+
     boolean isModal();
 }

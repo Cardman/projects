@@ -26,6 +26,7 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
     private final JFrame frame = new JFrame();
     private final IdMap<AbsWindowListener, WrWindowListener> mapWindow = new IdMap<AbsWindowListener, WrWindowListener>();
     private final IdMap<AbsWindowListenerClosing, WrWindowListenerClos> mapWindowDef = new IdMap<AbsWindowListenerClosing, WrWindowListenerClos>();
+    private AbsPanel framePane = Panel.newGrid(0,1);
 
     public OtherFrame() {
         frame.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -36,6 +37,10 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
         mainFrame = _mainFrame;
     }
 
+    @Override
+    public AbsPanel getContentPane() {
+        return framePane;
+    }
     @Override
     public MetaPoint getLocationOnScreen() {
         Point pt_ = frame.getLocationOnScreen();
@@ -113,6 +118,7 @@ public final class OtherFrame implements AbsOtherFrame, ChangeableTitle,Placable
     @Override
     public void setContentPane(AbsPanel _p) {
         frame.setContentPane(((Panel)_p).getNatComponent());
+        framePane = _p;
     }
 
     @Override

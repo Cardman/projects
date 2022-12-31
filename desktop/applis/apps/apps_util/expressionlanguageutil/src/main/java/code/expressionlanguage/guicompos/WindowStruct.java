@@ -1,8 +1,8 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.structs.WithoutParentIdStruct;
-import code.gui.AbsPanel;
 import code.gui.WithListener;
 import code.gui.events.AbsWindowListener;
 import code.gui.events.AbsWindowListenerClosing;
@@ -10,6 +10,7 @@ import code.util.CustList;
 
 public abstract class WindowStruct extends WithoutParentIdStruct {
 
+    private Struct panel = NullStruct.NULL_VALUE;
     public void addWindowListener(AbsWindowListener _l) {
         getAbstractWindow().addWindowListener(_l);
     }
@@ -52,8 +53,13 @@ public abstract class WindowStruct extends WithoutParentIdStruct {
         getAbstractWindow().setVisible(_v);
     }
 
-    public void setContentPane(AbsPanel _panel) {
-        getAbstractWindow().setContentPane(_panel);
+    public Struct getContentPane() {
+        return panel;
+    }
+
+    public void setContentPane(PanelStruct _panel) {
+        getAbstractWindow().setContentPane(_panel.getPanel());
+        panel = _panel;
     }
     public void dispose() {
         getAbstractWindow().dispose();
