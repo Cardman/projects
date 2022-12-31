@@ -33,11 +33,11 @@ public final class PopupStruct extends CustComponentStruct {
             if (((CustComponentStruct) _global).getParentComponent() != NullStruct.NULL_VALUE) {
                 return;
             }
-            for (CustComponentStruct a: compo) {
-                if (a.sameReference(_global)) {
-                    return;
-                }
-            }
+//            for (CustComponentStruct a: compo) {
+//                if (a.sameReference(_global)) {
+//                    return;
+//                }
+//            }
             ((CustComponentStruct) _global).setParentComponent(this);
             compo.add((CustComponentStruct) _global);
             popupMenu.add(((CustComponentStruct)_global).getComponent());
