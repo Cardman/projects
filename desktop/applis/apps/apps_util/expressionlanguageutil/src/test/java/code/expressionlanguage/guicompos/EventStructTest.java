@@ -420,6 +420,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         stds_.getGuiExecutingBlocks().getPairPaintAdd();
         stds_.getGuiExecutingBlocks().getPairPaintSet();
         stds_.getGuiExecutingBlocks().getMainArgs();
+        stds_.getGuiExecutingBlocks().getEventClose().windowClosing();
     }
     @Test
     public void evt7() {
@@ -524,5 +525,17 @@ public final class EventStructTest extends EquallableElUtUtil {
         args_.add(new Argument(BooleanStruct.of(false)));
         new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
         assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void convert() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        assertEq("",new DefSpecSelectionCtx(ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
     }
 }
