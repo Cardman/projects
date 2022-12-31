@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
@@ -493,10 +494,7 @@ public final class GuiExecutingBlocks {
                 getValue(_yes),getValue(_no),getValue(_cancel)));
     }
     private String getValue(Struct _str) {
-        if (_str instanceof StringStruct) {
-            return ((StringStruct)_str).getInstance();
-        }
-        return "";
+        return NumParsers.getString(_str).getInstance();
     }
     public void addWindowListener(WindowStruct _frame,Struct _event) {
         if (_event instanceof AbsWindowListener) {
