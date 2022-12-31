@@ -8,8 +8,8 @@ import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 
 public final class MenuBarStruct extends WithoutParentIdStruct implements Struct {
-    private AbsMenuBar menuBar;
-    private CustList<MenuStruct> menus = new CustList<MenuStruct>();
+    private final AbsMenuBar menuBar;
+    private final CustList<MenuStruct> menus = new CustList<MenuStruct>();
 
     public MenuBarStruct(AbsCompoFactory _compo) {
         menuBar = _compo.newMenuBar();

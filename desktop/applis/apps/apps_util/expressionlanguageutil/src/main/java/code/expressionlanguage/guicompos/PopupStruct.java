@@ -85,10 +85,8 @@ public final class PopupStruct extends CustComponentStruct {
             menus.add((AbsMenuStruct) _global);
             if (_global instanceof MenuStruct) {
                 popupMenu.add(((MenuStruct)_global).getComponent());
-            } else if (_global instanceof MenuItemStruct) {
-                popupMenu.add(((MenuItemStruct)_global).getComponent());
             } else {
-                popupMenu.add(((MenuItemCheckStruct)_global).getComponent());
+                popupMenu.add(((AbsMenuItemStruct)_global).element());
             }
         }
     }
@@ -109,10 +107,8 @@ public final class PopupStruct extends CustComponentStruct {
             menus.remove(index_);
             if (_global instanceof MenuStruct) {
                 popupMenu.remove(((MenuStruct)_global).getComponent());
-            } else if (_global instanceof MenuItemStruct) {
-                popupMenu.remove(((MenuItemStruct)_global).getComponent());
             } else {
-                popupMenu.remove(((MenuItemCheckStruct)_global).getComponent());
+                popupMenu.remove(((AbsMenuItemStruct)_global).element());
             }
         }
     }

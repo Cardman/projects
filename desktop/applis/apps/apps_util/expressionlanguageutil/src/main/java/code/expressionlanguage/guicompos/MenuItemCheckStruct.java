@@ -4,11 +4,12 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.gui.AbsCheckBoxMenuItem;
+import code.gui.AbsMenuItem;
 import code.gui.EnabledMenu;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class MenuItemCheckStruct extends AbsMenuItemStruct {
-    private AbsCheckBoxMenuItem menuItem;
+    private final AbsCheckBoxMenuItem menuItem;
     public MenuItemCheckStruct(AbsCompoFactory _compo) {
         menuItem = _compo.newCheckBoxMenuItem();
     }
@@ -31,7 +32,8 @@ public final class MenuItemCheckStruct extends AbsMenuItemStruct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenuItemCheck();
     }
 
-    public AbsCheckBoxMenuItem getComponent() {
+    @Override
+    protected AbsMenuItem element() {
         return menuItem;
     }
 }

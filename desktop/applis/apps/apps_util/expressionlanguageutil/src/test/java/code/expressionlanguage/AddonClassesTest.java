@@ -189,4 +189,48 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         stds_.getGuiAliases().setAliasButtonGroup("");
         assertEq(stds_.getGuiAliases().getAliasButtonGroup(),call(new FctButtonGroup(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
+    @Test
+    public void menu1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasMenuItem("");
+        assertEq(stds_.getGuiAliases().getAliasMenuItem(),call(new FctMenuItem0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+    }
+    @Test
+    public void menu2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasMenuItemCheck("");
+        assertEq(stds_.getGuiAliases().getAliasMenuItemCheck(),call(new FctMenuItemCheck0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+    }
+    @Test
+    public void menu3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasMenu("");
+        assertEq(stds_.getGuiAliases().getAliasMenu(),call(new FctMenu0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+    }
+    @Test
+    public void menu4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasMenuBar("");
+        assertEq(stds_.getGuiAliases().getAliasMenuBar(),call(new FctMenuBar(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+    }
 }

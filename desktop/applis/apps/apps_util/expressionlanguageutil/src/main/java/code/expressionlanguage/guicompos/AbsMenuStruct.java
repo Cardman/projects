@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.gui.EnabledMenu;
 import code.gui.MenuItemUtils;
@@ -28,9 +29,6 @@ public abstract class AbsMenuStruct extends WithoutParentIdStruct implements Str
     }
     public Struct getText() {
         String txt_ = getMenu().getText();
-        if (txt_ == null) {
-            return NullStruct.NULL_VALUE;
-        }
         return new StringStruct(txt_);
     }
     public void setText(Struct _str) {
@@ -38,10 +36,7 @@ public abstract class AbsMenuStruct extends WithoutParentIdStruct implements Str
     }
 
     static String getValue(Struct _str) {
-        if (_str instanceof StringStruct) {
-            return ((StringStruct)_str).getInstance();
-        }
-        return "";
+        return NumParsers.getString(_str).getInstance();
     }
     abstract EnabledMenu getMenu();
 

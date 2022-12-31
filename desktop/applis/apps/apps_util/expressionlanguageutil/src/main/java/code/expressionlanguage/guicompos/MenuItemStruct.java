@@ -7,7 +7,7 @@ import code.gui.EnabledMenu;
 import code.gui.initialize.AbsCompoFactory;
 
 public final class MenuItemStruct extends AbsMenuItemStruct {
-    private AbsMenuItem menuItem;
+    private final AbsMenuItem menuItem;
     public MenuItemStruct(AbsCompoFactory _compo) {
         menuItem = _compo.newMenuItem();
     }
@@ -24,7 +24,8 @@ public final class MenuItemStruct extends AbsMenuItemStruct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasMenuItem();
     }
 
-    public AbsMenuItem getComponent() {
+    @Override
+    protected AbsMenuItem element() {
         return menuItem;
     }
 }

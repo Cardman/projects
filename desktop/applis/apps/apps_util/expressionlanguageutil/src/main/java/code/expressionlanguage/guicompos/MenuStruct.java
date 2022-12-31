@@ -30,11 +30,8 @@ public final class MenuStruct extends AbsMenuStruct {
             if (_c instanceof MenuStruct) {
                 menu.addMenuItem(((MenuStruct)_c).getComponent());
                 menus.add((AbsMenuStruct) _c);
-            } else if (_c instanceof MenuItemStruct) {
-                menu.addMenuItem(((MenuItemStruct)_c).getComponent());
-                menus.add((AbsMenuStruct) _c);
-            } else if (_c instanceof MenuItemCheckStruct) {
-                menu.addMenuItem(((MenuItemCheckStruct)_c).getComponent());
+            } else {
+                menu.addMenuItem(((AbsMenuItemStruct)_c).element());
                 menus.add((AbsMenuStruct) _c);
             }
         }
@@ -58,11 +55,8 @@ public final class MenuStruct extends AbsMenuStruct {
             if (_c instanceof MenuStruct) {
                 menu.removeMenuItem(((MenuStruct)_c).getComponent());
                 menus.remove(index_);
-            } else if (_c instanceof MenuItemStruct) {
-                menu.removeMenuItem(((MenuItemStruct)_c).getComponent());
-                menus.remove(index_);
-            } else if (_c instanceof MenuItemCheckStruct) {
-                menu.removeMenuItem(((MenuItemCheckStruct)_c).getComponent());
+            } else {
+                menu.removeMenuItem(((AbsMenuItemStruct)_c).element());
                 menus.remove(index_);
             }
         }
