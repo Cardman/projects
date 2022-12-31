@@ -268,4 +268,74 @@ public final class FontStructTest extends EquallableElUtUtil {
         Struct c2_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
         assertTrue(c_.sameReference(c2_));
     }
+    @Test
+    public void strWidth1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+//        Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
+        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
+        call(new FctImageSetFont(),null,ctx_,img_,one(NullStruct.NULL_VALUE),st_);
+        call(new FctFontStringWidth0(stds_.getGuiExecutingBlocks()),null,ctx_,null,two(img_,NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void strWidth2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
+        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
+        call(new FctImageSetFont(),null,ctx_,img_,one(c_),st_);
+        call(new FctFontStringWidth0(stds_.getGuiExecutingBlocks()),null,ctx_,null,two(img_,NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void strWidth3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
+        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
+        call(new FctImageSetFont(),null,ctx_,img_,one(c_),st_);
+        call(new FctFontStringWidth0(stds_.getGuiExecutingBlocks()),null,ctx_,null,two(img_,new StringStruct("")),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void strWidth4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct c_ = call(new FctFont2(), null, ctx_, null, four(new StringStruct("_"), BooleanStruct.of(false), BooleanStruct.of(false), new IntStruct(13)), st_);
+        call(new FctFontStringWidth1(stds_.getGuiExecutingBlocks()),null,ctx_,c_,one(new StringStruct("")),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void strWidth5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        call(new FctFontStringWidth0(stds_.getGuiExecutingBlocks()),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
 }

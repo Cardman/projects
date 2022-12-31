@@ -25,11 +25,7 @@ public final class FctFontStringWidth0 implements StdCaller {
         if (!(first_ instanceof ImageStruct)) {
             return new ArgumentWrapper(new IntStruct(-1));
         }
-        Struct font_ = ((ImageStruct) first_).getFont();
-        if (!(font_ instanceof FontStruct)) {
-            return new ArgumentWrapper(new IntStruct(-1));
-        }
-        FontStruct f_ = (FontStruct) font_;
-        return new ArgumentWrapper(guiEx.stringWidth(f_, argumentWrappers_.get(1).getValue().getStruct()));
+        FontStruct font_ = ((ImageStruct) first_).getFont();
+        return new ArgumentWrapper(guiEx.stringWidth(font_, argumentWrappers_.get(1).getValue().getStruct()));
     }
 }

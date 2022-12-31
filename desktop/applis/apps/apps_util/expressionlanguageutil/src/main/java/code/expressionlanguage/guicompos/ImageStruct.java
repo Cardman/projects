@@ -79,7 +79,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         image.setColor(((ColorStruct)_c).getColor());
     }
 
-    public Struct getFont() {
+    public FontStruct getFont() {
         MetaFont font_ = image.getMetaFont();
         return new FontStruct(font_);
     }
