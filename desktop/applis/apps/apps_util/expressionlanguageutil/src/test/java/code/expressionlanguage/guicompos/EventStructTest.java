@@ -234,6 +234,25 @@ public final class EventStructTest extends EquallableElUtUtil {
         stds_.getExecutingBlocks().getExecuteMethodPair();
     }
     @Test
+    public void run11() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex1_ = ctx_.getClasses().getClassBody("pkg.Outer");
+        ExecRootBlock ex2_ = ctx_.getClasses().getClassBody("pkg.Outer..Sample");
+        Struct ev1_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex1_), "", -1);
+        Struct ev2_ = ctx_.getInit().processInit(ctx_, ev1_, new ExecFormattedRootBlock(ex2_), "", -1);
+        ((RunnableStruct)ev2_).run();
+        assertFalse(st_.isFailInit());
+    }
+    @Test
     public void evt1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -273,5 +292,79 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((FieldableStruct)ev_).getFields();
         ((FieldableStruct)ev_).getParent();
         ((WithParentStruct)ev_).setParent(NullStruct.NULL_VALUE);
+    }
+    @Test
+    public void evt3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public enum pkg.Sample:Runnable{ONE;public int i=2;(){i=i;name();ordinal();ObjectsUtil.getParent(this);ObjectsUtil.setParent(this,this);} public void run(){}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        ((EventStruct)ev_).action(new KeyActionEvent(0),"");
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void evt4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        ((EventStruct)ev_).mouseClicked(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(false,false,false,0));
+        ((EventStruct)ev_).mouseEntered(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseExited(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mousePressed(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseDragged(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseReleased(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1));
+        ((EventStruct)ev_).mouseWheelMoved(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(true,true,true,1),new MockMouseWheel(1));
+        ((EventStruct)ev_).keyPressed(new KeyActionEvent(0),'0',0);
+        ((EventStruct)ev_).keyReleased(new KeyActionEvent(0),'0',0);
+        ((EventStruct)ev_).keyTyped(new KeyActionEvent(0),'0');
+        ((EventStruct)ev_).valueChanged(new MutableTreeNodeCore());
+        ((EventStruct)ev_).valueChanged(0,0);
+        ((EventStruct)ev_).valueChanged(new SelectionInfo(0,0,true));
+        ((EventStruct)ev_).stateChanged();
+        ((EventStruct)ev_).windowActivated();
+        ((EventStruct)ev_).windowClosed();
+        ((EventStruct)ev_).windowClosing();
+        ((EventStruct)ev_).windowDeactivated();
+        ((EventStruct)ev_).windowDeiconified();
+        ((EventStruct)ev_).windowIconified();
+        ((EventStruct)ev_).windowOpened();
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void evt5() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Outer{public class Sample:Runnable{public int i=2;(){i=i;ObjectsUtil.getParent(this);}public void run(){ObjectsUtil.setParent(this,Outer.this);}}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex1_ = ctx_.getClasses().getClassBody("pkg.Outer");
+        ExecRootBlock ex2_ = ctx_.getClasses().getClassBody("pkg.Outer..Sample");
+        Struct ev1_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex1_), "", -1);
+        Struct ev2_ = ctx_.getInit().processInit(ctx_, ev1_, new ExecFormattedRootBlock(ex2_), "", -1);
+        ((EventStruct)ev2_).run();
+        assertFalse(st_.isFailInit());
     }
 }

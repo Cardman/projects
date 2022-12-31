@@ -73,4 +73,25 @@ public final class MockRunnableStructTest extends EquallableMockCdmUtil {
         e_.updateGraphics();
         assertTrue(e_.isCust());
     }
+    @Test
+    public void bs1() {
+        MockMouseButtons m_ = new MockMouseButtons(false,false,false,0);
+        assertFalse(m_.isLeftMouseButton());
+        assertFalse(m_.isMiddleMouseButton());
+        assertFalse(m_.isRightMouseButton());
+        assertEq(0,m_.getClickCount());
+    }
+    @Test
+    public void bs2() {
+        MockMouseButtons m_ = new MockMouseButtons(true,true,true,1);
+        assertTrue(m_.isLeftMouseButton());
+        assertTrue(m_.isMiddleMouseButton());
+        assertTrue(m_.isRightMouseButton());
+        assertEq(1,m_.getClickCount());
+    }
+    @Test
+    public void wh() {
+        MockMouseWheel m_ = new MockMouseWheel(1);
+        assertEq(1,m_.getWheelRotation());
+    }
 }
