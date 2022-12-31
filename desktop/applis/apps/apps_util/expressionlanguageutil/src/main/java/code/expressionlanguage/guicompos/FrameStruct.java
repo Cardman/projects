@@ -7,7 +7,7 @@ import code.gui.AbsOtherFrame;
 import code.gui.WithListener;
 
 public final class FrameStruct extends WindowStruct {
-    private AbsOtherFrame commonFrame;
+    private final AbsOtherFrame commonFrame;
     private Struct menuBar = NullStruct.NULL_VALUE;
     public FrameStruct(AbsOtherFrame _frame) {
         commonFrame = _frame;

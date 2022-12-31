@@ -7,7 +7,7 @@ import code.gui.AbsOtherDialog;
 import code.gui.WithListener;
 
 public final class DialogStruct extends WindowStruct {
-    private AbsOtherDialog dialog;
+    private final AbsOtherDialog dialog;
     private Struct menuBar = NullStruct.NULL_VALUE;
     public DialogStruct(AbsOtherDialog _frame) {
         dialog = _frame;
