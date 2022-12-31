@@ -4,31 +4,31 @@ import code.gui.AbsMouseButtons;
 
 public final class MockMouseButtons implements AbsMouseButtons {
 
-    private final boolean leftMouseButton;
-    private final boolean middleMouseButton;
-    private final boolean rightMouseButton;
+    private final boolean left;
+    private final boolean middle;
+    private final boolean right;
     private final int clickCount;
 
     public MockMouseButtons(boolean _l, boolean _m, boolean _r, int _c) {
-        this.leftMouseButton = _l;
-        this.middleMouseButton = _m;
-        this.rightMouseButton = _r;
+        this.left = _l;
+        this.middle = _m;
+        this.right = _r;
         this.clickCount = _c;
     }
 
     @Override
     public boolean isLeftMouseButton() {
-        return leftMouseButton;
+        return left;
     }
 
     @Override
     public boolean isMiddleMouseButton() {
-        return middleMouseButton;
+        return middle;
     }
 
     @Override
     public boolean isRightMouseButton() {
-        return rightMouseButton;
+        return right;
     }
 
     @Override
