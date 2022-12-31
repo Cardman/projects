@@ -23,6 +23,10 @@ public final class SplitPaneStruct extends CustComponentStruct {
         }
         left = _left;
         right = _right;
+        ((CustComponentStruct)_left).setParentComponent(this);
+        ((CustComponentStruct)_right).setParentComponent(this);
+        getChildren().add((CustComponentStruct)_left);
+        getChildren().add((CustComponentStruct)_right);
     }
 
     public Struct getLeftComponent() {
