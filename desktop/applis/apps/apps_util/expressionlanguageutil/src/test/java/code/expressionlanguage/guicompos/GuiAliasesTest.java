@@ -16,6 +16,7 @@ import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.guicompos.stds.*;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
@@ -285,5 +286,21 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         ctx_.getClasses().getClassesBodies().addEntry("_",ex_);
         Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_, ""), "__", -1);
         assertEq("__",stds_.getStringOfObject(ctx_,ev_).getInstance());
+    }
+    @Test
+    public void paint() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        call(new FctCompoRepaint(stds_.getGuiExecutingBlocks(), ""),null,ctx_,i_,null,st_);
+        assertFalse(st_.isFailInit());
     }
 }
