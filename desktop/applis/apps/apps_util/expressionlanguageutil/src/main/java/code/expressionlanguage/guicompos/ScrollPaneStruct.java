@@ -22,6 +22,8 @@ public final class ScrollPaneStruct extends CustComponentStruct {
             return;
         }
         view = _cust;
+        _cust.setParentComponent(this);
+        getChildren().add(_cust);
         scrollPane = _compo.newAbsScrollPane(_cust.getComponent());
     }
 
@@ -38,8 +40,12 @@ public final class ScrollPaneStruct extends CustComponentStruct {
     }
     public void setViewportView(Struct _graphic) {
         if (!(_graphic instanceof CustComponentStruct)) {
+            if (view instanceof CustComponentStruct) {
+                ((CustComponentStruct) view).setNullParentComponent();
+            }
             view = NullStruct.NULL_VALUE;
             scrollPane.setNullViewportView();
+            getChildren().clear();
             return;
         }
         CustComponentStruct c_ = (CustComponentStruct) _graphic;
@@ -49,6 +55,9 @@ public final class ScrollPaneStruct extends CustComponentStruct {
         if (view instanceof CustComponentStruct) {
             ((CustComponentStruct) view).setNullParentComponent();
         }
+        c_.setParentComponent(this);
+        getChildren().clear();
+        getChildren().add(c_);
         view = c_;
         scrollPane.setViewportView(c_.getComponent());
     }
