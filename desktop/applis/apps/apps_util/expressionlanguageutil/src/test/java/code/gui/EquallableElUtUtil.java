@@ -13,6 +13,7 @@ import code.expressionlanguage.options.*;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.gui.images.*;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
@@ -63,6 +64,9 @@ public abstract class EquallableElUtUtil {
     public static void assertEq(long _expected, long _result) {
         Assert.assertEquals(_expected, _result);
     }
+    public static void assertEq(double _expected, Struct _result) {
+        Assert.assertEquals(Double.toString(_expected),Double.toString(((DoubleStruct)_result).doubleStruct()));
+    }
 
     public static void assertNull(Node _value) {
         Assert.assertNull(_value);
@@ -90,6 +94,13 @@ public abstract class EquallableElUtUtil {
         basicStandards(stds_);
         return stds_;
     }
+    public static LgNamesUtils newLgNamesUtSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
+        LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
+        stds_.setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getCustAliases().build(new StringMap<String>(),new StringMap<String>());
+        basicStandards(stds_);
+        return stds_;
+    }
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
@@ -99,6 +110,11 @@ public abstract class EquallableElUtUtil {
         byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
         return new LgNamesGui(infos_, new MockInterceptor());
+    }
+    public static LgNamesUtils newLgNamesUt(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
+        byte[] zipped_ = _light.getZipFact().zipBinFiles(_files);
+        FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), _issuer, new MemInputFiles(StringUtil.encode(_conf), new BytesInfo(StringUtil.encode(_src),false), new BytesInfo(GuiConstants.nullToEmpty(zipped_),false)), _light.getZipFact(), _light.getThreadFactory());
+        return new LgNamesUtils(infos_, new MockInterceptor());
     }
     public static ArgumentListCall one(Struct _arg) {
         CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
@@ -209,6 +225,11 @@ public abstract class EquallableElUtUtil {
 
     protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getCustAliases());
+        return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
+    }
+
+    protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
+        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getCustAliases(),new CustAliasGroups(_lgName.getCustAliases(), _lgName.getContent()));
         return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
