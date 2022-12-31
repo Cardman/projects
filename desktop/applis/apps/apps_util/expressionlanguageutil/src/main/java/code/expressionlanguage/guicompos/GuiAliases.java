@@ -1436,7 +1436,7 @@ public final class GuiAliases {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWindowType, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
-        method_ = new StandardMethod(aliasSetContent, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctWindowGetContentPane());
+        method_ = new StandardMethod(aliasSetContent, params_, aliasPanel, false, MethodModifier.FINAL, new FctWindowGetContentPane());
         methods_.add( method_);
         params_ = new StringList(aliasPanel);
         method_ = new StandardMethod(aliasSetContent, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasWindowType0SetContent0()), new FctWindowContentPane());
