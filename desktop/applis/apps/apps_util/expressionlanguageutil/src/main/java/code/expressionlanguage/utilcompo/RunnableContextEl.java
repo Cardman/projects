@@ -4,7 +4,6 @@ import code.expressionlanguage.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.structs.Struct;
 import code.stream.core.AbstractZipFact;
-import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 import code.util.StringList;
@@ -53,10 +52,10 @@ public class RunnableContextEl extends ContextEl implements Locking {
         return threadFactory;
     }
 
-    @Override
-    public AbstractThread getCurrentThread() {
-        return thread.getThread();
-    }
+//    @Override
+//    public AbstractThread getCurrentThread() {
+//        return thread.getThread();
+//    }
 
     public ThreadStruct getThread() {
         return thread;

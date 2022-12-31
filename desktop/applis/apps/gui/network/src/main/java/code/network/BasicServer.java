@@ -2,7 +2,6 @@ package code.network;
 import code.gui.initialize.AbstractBufferedReader;
 import code.gui.initialize.AbstractSocket;
 import code.sml.Document;
-import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
@@ -38,10 +37,10 @@ public abstract class BasicServer extends SendReceive implements Locking {
         return getNet().getThreadFactory();
     }
 
-    @Override
-    public AbstractThread getCurrentThread() {
-        return getNet().getThreadFactory().newThread();
-    }
+//    @Override
+//    public AbstractThread getCurrentThread() {
+//        return getNet().getThreadFactory().newThread();
+//    }
 
     @Override
     public boolean isCurrentThreadEnded() {

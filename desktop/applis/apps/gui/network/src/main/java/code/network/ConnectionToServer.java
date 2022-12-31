@@ -1,7 +1,6 @@
 package code.network;
 import code.gui.initialize.AbstractServerSocket;
 import code.gui.initialize.AbstractSocket;
-import code.threads.AbstractThread;
 import code.threads.AbstractThreadFactory;
 import code.threads.Locking;
 
@@ -35,10 +34,10 @@ public final class ConnectionToServer implements Runnable, Locking {
     public AbstractThreadFactory getCurrentThreadFactory() {
         return serverWindow.getThreadFactory();
     }
-    @Override
-    public AbstractThread getCurrentThread() {
-        return serverWindow.getThreadFactory().newThread();
-    }
+//    @Override
+//    public AbstractThread getCurrentThread() {
+//        return serverWindow.getThreadFactory().newThread();
+//    }
 
     @Override
     public boolean isCurrentThreadEnded() {
