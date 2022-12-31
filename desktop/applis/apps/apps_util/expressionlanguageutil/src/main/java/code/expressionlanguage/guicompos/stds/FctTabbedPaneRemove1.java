@@ -16,7 +16,7 @@ public final class FctTabbedPaneRemove1 implements StdCaller {
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Struct arg_ = _firstArgs.getArgumentWrappers().get(0).getValue().getStruct();
         if (!(arg_ instanceof CustComponentStruct)) {
-            return new ArgumentWrapper(new IntStruct(-1));
+            return new ArgumentWrapper(new IntStruct(-2));
         }
         TabbedPaneStruct strPan_ = (TabbedPaneStruct) _instance;
         return new ArgumentWrapper(strPan_.remove((CustComponentStruct) arg_));

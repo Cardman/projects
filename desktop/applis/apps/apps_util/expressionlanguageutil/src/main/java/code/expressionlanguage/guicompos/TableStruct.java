@@ -1,6 +1,7 @@
 package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
@@ -25,11 +26,7 @@ public final class TableStruct extends CustComponentStruct {
         String[] str_ = new String[len_];
         for (int i = 0; i < len_; i++) {
             Struct s_ = a_.get(i);
-            if (s_ instanceof StringStruct) {
-                str_[i] = ((StringStruct)s_).getInstance();
-            } else {
-                str_[i] = "";
-            }
+            str_[i] = NumParsers.getString(s_).getInstance();
         }
         return str_;
     }
@@ -74,17 +71,17 @@ public final class TableStruct extends CustComponentStruct {
 
     public Struct getColumnName(Struct _column) {
         String v_ = table.getColumnName(((NumberStruct) _column).intStruct());
-        if (v_ == null) {
-            return new StringStruct("");
-        }
+//        if (v_ == null) {
+//            return new StringStruct("");
+//        }
         return new StringStruct(v_);
     }
 
     public Struct getValueAt(Struct _row, Struct _column) {
         String v_ = table.getValueAt(((NumberStruct)_row).intStruct(), ((NumberStruct)_column).intStruct());
-        if (v_ == null) {
-            return new StringStruct("");
-        }
+//        if (v_ == null) {
+//            return new StringStruct("");
+//        }
         return new StringStruct(v_);
     }
 
@@ -93,10 +90,7 @@ public final class TableStruct extends CustComponentStruct {
     }
 
     private String getString(Struct _s) {
-        if (_s instanceof StringStruct) {
-            return ((StringStruct)_s).getInstance();
-        }
-        return "";
+        return NumParsers.getString(_s).getInstance();
     }
     public void moveColumn(Struct _column, Struct _targetColumn) {
         table.moveColumn(((NumberStruct)_column).intStruct(), ((NumberStruct)_targetColumn).intStruct());

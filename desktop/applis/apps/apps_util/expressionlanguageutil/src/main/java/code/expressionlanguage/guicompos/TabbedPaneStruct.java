@@ -1,5 +1,6 @@
 package code.expressionlanguage.guicompos;
 
+import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.structs.*;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTabbedPane;
@@ -39,11 +40,7 @@ public final class TabbedPaneStruct extends CustComponentStruct {
         }
         _comp.setParentComponent(this);
         getChildren().add(_comp);
-        if (_title instanceof StringStruct) {
-            tabbedPane.add(((StringStruct)_title).getInstance(), _comp.getComponent());
-        } else {
-            tabbedPane.add("", _comp.getComponent());
-        }
+        tabbedPane.add(NumParsers.getString(_title).getInstance(), _comp.getComponent());
     }
 
     public void setTab(Struct _index,CustComponentStruct _comp) {
@@ -62,9 +59,9 @@ public final class TabbedPaneStruct extends CustComponentStruct {
     public Struct getTitle(Struct _index) {
         int index_ = ((NumberStruct)_index).intStruct();
         String title_ = tabbedPane.getTitle(index_);
-        if (title_ == null) {
-            return new StringStruct("");
-        }
+//        if (title_ == null) {
+//            return new StringStruct("");
+//        }
         return new StringStruct(title_);
     }
     public void setTitle(Struct _index,Struct _title) {
