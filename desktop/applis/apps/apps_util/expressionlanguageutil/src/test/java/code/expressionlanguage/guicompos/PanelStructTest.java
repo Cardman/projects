@@ -108,6 +108,20 @@ public final class PanelStructTest extends EquallableElUtUtil {
     }
 
     @Test
+    public void init60() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct panel_ = call(new DfPanelBorder(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, two(new IntStruct(1),new IntStruct(1)), st_);
+        assertSame(MockLayout.BORDER,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+
+    @Test
     public void init7() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);

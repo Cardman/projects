@@ -340,4 +340,28 @@ public final class WindowStructTest extends EquallableElUtUtil {
         call(new FctWindowRemoveList(stds_.getGuiExecutingBlocks()),null,ctx_,d_,one(l_),st_);
         assertEq(0,((ArrayStruct)call(new FctWindowGetList(""),null,ctx_,d_,null,st_)).getLength());
     }
+    @Test
+    public void mult1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctDialogSetModal(),null,ctx_,d_,one(BooleanStruct.of(false)),st_);
+        assertFalse(call(new FctDialogIsModal(),null,ctx_,d_,null,st_));
+    }
+    @Test
+    public void mult2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        call(new FctDialogSetModal(),null,ctx_,d_,one(BooleanStruct.of(true)),st_);
+        assertTrue(call(new FctDialogIsModal(),null,ctx_,d_,null,st_));
+    }
 }
