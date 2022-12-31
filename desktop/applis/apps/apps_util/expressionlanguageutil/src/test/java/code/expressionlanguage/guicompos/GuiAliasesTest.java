@@ -2,7 +2,10 @@ package code.expressionlanguage.guicompos;
 
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.blocks.EnumBlock;
 import code.expressionlanguage.analyze.errors.*;
+import code.expressionlanguage.analyze.files.OffsetAccessInfo;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -269,5 +272,18 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         assertEq(stds_.getNbAlias().getAliasInteger(),stds_.getStringOfObject(ctx_,new IntStruct(1)).getInstance());
+    }
+    @Test
+    public void str7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        ExecEnumBlock ex_ = new ExecEnumBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC);
+        ExecInnerElementBlock exInn_ = new ExecInnerElementBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC,new ExecElementContent(new AnaElementContent(new EnumBlock(0,"","",new OffsetAccessInfo(0,AccessEnum.PUBLIC),"",new IntMap<String>(),0),new OffsetStringInfo(0,""),new OffsetStringInfo(0,""),new OffsetStringInfo(0,""))),0);
+        ctx_.getClasses().getClassesBodies().addEntry("",exInn_);
+        ctx_.getClasses().getClassesBodies().addEntry("_",ex_);
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_, ""), "__", -1);
+        assertEq("__",stds_.getStringOfObject(ctx_,ev_).getInstance());
     }
 }
