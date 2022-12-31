@@ -18,7 +18,11 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         textLabel = _comp.newPreparedLabel(builImage(_img));
     }
     public void setImage(AbstractImageFactory _fact, Struct _text) {
-        textLabel.setIcon(_fact,builImage(_text));
+        AbstractImage i_ = builImage(_text);
+        if (i_ == null) {
+            return;
+        }
+        textLabel.setIcon(_fact, i_);
     }
 
     public static AbstractImage builImage(Struct _text) {

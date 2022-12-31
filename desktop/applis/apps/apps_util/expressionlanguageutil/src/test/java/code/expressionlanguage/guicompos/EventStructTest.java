@@ -29,6 +29,7 @@ import code.expressionlanguage.utilcompo.stds.*;
 import code.expressionlanguage.utilimpl.*;
 import code.gui.*;
 import code.gui.events.*;
+import code.gui.images.MetaDimension;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.threads.*;
@@ -413,6 +414,115 @@ public final class EventStructTest extends EquallableElUtUtil {
         assertTrue(ev_.sameReference(ev_));
         ((FieldableStruct)ev_).getFields();
         ((FieldableStruct)ev_).getEntryStruct(new ClassField("",""));
+        assertFalse(st_.isFailInit());
+        stds_.getGuiExecutingBlocks().getPairPaintRefresh();
+        stds_.getGuiExecutingBlocks().getPairPaintMethod();
+        stds_.getGuiExecutingBlocks().getPairPaintAdd();
+        stds_.getGuiExecutingBlocks().getPairPaintSet();
+        stds_.getGuiExecutingBlocks().getMainArgs();
+    }
+    @Test
+    public void evt7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
+        ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
+        Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
+        Struct ev_ = stds_.newFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        ((EventFunctionalInstance)ev_).run();
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void paint1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
+        Struct lab_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(img_), st_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(new StringStruct("")));
+        args_.add(new Argument(new IntStruct(0)));
+        args_.add(new Argument(lab_));
+        args_.add(new Argument(BooleanStruct.of(true)));
+        new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void paint2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
+        Struct lab_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(img_), st_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(new StringStruct("")));
+        args_.add(new Argument(new IntStruct(0)));
+        args_.add(new Argument(lab_));
+        args_.add(new Argument(BooleanStruct.of(false)));
+        new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void paint3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(new StringStruct("")));
+        args_.add(new Argument(new IntStruct(0)));
+        args_.add(new Argument(NullStruct.NULL_VALUE));
+        args_.add(new Argument(BooleanStruct.of(true)));
+        new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void paint4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public int i=2;(){i=i;}public void run(){} public static Fct fct(){return new Sample().$lambda(Runnable,run);}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        args_.add(new Argument(new StringStruct("")));
+        args_.add(new Argument(new IntStruct(0)));
+        args_.add(new Argument(NullStruct.NULL_VALUE));
+        args_.add(new Argument(BooleanStruct.of(false)));
+        new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
         assertFalse(st_.isFailInit());
     }
 }
