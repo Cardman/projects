@@ -40,11 +40,6 @@ public final class MemoryReporter implements AbstractReporter {
     }
 
     @Override
-    public AbstractNameValidating getNameValidating() {
-        return nameValidating;
-    }
-
-    @Override
     public StringMap<String> getSrc(String _archive, ExecutingOptions _exec, ReadFiles _results) {
         StringMap<String> zipFiles_ = _results.getZipFiles();
         StringMap<String> readZip_ = new StringMap<String>();
@@ -91,17 +86,17 @@ public final class MemoryReporter implements AbstractReporter {
     }
     @Override
     public String conf(String _fileConfOrContent) {
-        if (conf == null) {
-            return null;
-        }
-        return StringUtil.decode(conf);
+        return tryDecode(conf);
     }
     @Override
     public String confTxt(String _fileConfOrContent) {
-        if (conf == null) {
+        return tryDecode(conf);
+    }
+    public static String tryDecode(byte[] _content) {
+        if (_content == null) {
             return null;
         }
-        return StringUtil.decode(conf);
+        return StringUtil.decode(_content);
     }
 
     @Override

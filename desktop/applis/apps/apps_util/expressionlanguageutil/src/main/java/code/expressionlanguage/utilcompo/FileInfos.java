@@ -26,7 +26,7 @@ public final class FileInfos {
 
     public static FileInfos buildMemoryFromFile(AbstractLightProgramInfos _light, AbstractGenerator _generator, AbstractNameValidating _nameValidating, AbstractIssuer _issuer, MemInputFiles _mem, AbstractZipFact _zipFact, AbstractThreadFactory _threadFactory) {
         DefaultUniformingString uniformingString_ = new DefaultUniformingString();
-        return new FileInfos(new MemoryLogger(_nameValidating,_issuer, _threadFactory),new MemoryFileSystem(_nameValidating, _threadFactory),new MemoryReporter(_light,_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_),_generator, _zipFact, _threadFactory);
+        return new FileInfos(new MemoryLogger(_issuer, _threadFactory),new MemoryFileSystem(_nameValidating, _threadFactory),new MemoryReporter(_light,_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_),_generator, _zipFact, _threadFactory);
     }
     public void tryLogIssue(String _info) {
         AbstractIssuer issuer_ = logger.getIssuer();

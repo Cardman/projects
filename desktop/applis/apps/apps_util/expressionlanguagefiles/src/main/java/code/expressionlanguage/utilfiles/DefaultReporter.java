@@ -32,11 +32,6 @@ public final class DefaultReporter implements AbstractReporter {
     }
 
     @Override
-    public AbstractNameValidating getNameValidating() {
-        return nameValidating;
-    }
-
-    @Override
     public StringMap<String> getSrc(String _archive, ExecutingOptions _exec, ReadFiles _results) {
         StringMap<String> zipFiles_ = _results.getZipFiles();
         StringMap<String> readZip_ = new StringMap<String>();

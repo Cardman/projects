@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilfiles;
 
-import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.AbstractIssuer;
 import code.expressionlanguage.utilcompo.AbstractLogger;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
@@ -11,13 +10,11 @@ import code.stream.core.TechStreams;
 import code.util.core.StringUtil;
 
 public final class DefaultLogger implements AbstractLogger {
-    private final AbstractNameValidating nameValidating;
-    private AbstractIssuer issuer;
-    private AbstractFileCoreStream list;
+    private final AbstractIssuer issuer;
+    private final AbstractFileCoreStream list;
     private final TechStreams streams;
 
-    public DefaultLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer, AbstractFileCoreStream _list, TechStreams _streams) {
-        nameValidating = _nameValidating;
+    public DefaultLogger(AbstractIssuer _issuer, AbstractFileCoreStream _list, TechStreams _streams) {
         issuer = _issuer;
         list = _list;
         streams = _streams;
@@ -25,10 +22,6 @@ public final class DefaultLogger implements AbstractLogger {
 
     public AbstractIssuer getIssuer() {
         return issuer;
-    }
-    @Override
-    public AbstractNameValidating getNameValidating() {
-        return nameValidating;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.threads.AbstractConcurrentMap;
 import code.threads.AbstractThreadFactory;
 import code.threads.FileStruct;
@@ -8,14 +7,12 @@ import code.util.core.StringUtil;
 
 public final class MemoryLogger implements AbstractLogger {
     private final AbstractConcurrentMap<String, FileStruct> logs;
-    private final AbstractNameValidating nameValidating;
     private String errFile = "";
     private String errs = "";
-    private AbstractIssuer issuer;
+    private final AbstractIssuer issuer;
     private final AbstractThreadFactory threadFactory;
 
-    public MemoryLogger(AbstractNameValidating _nameValidating, AbstractIssuer _issuer, AbstractThreadFactory _threadFact) {
-        nameValidating = _nameValidating;
+    public MemoryLogger(AbstractIssuer _issuer, AbstractThreadFactory _threadFact) {
         issuer = _issuer;
         threadFactory = _threadFact;
         logs = _threadFact.newMapStringFileStruct();
@@ -23,11 +20,6 @@ public final class MemoryLogger implements AbstractLogger {
 
     public AbstractIssuer getIssuer() {
         return issuer;
-    }
-
-    @Override
-    public AbstractNameValidating getNameValidating() {
-        return nameValidating;
     }
 
     @Override

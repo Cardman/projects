@@ -93,7 +93,7 @@ public final class GuiProcess implements GuiRunnable {
             mainArgs_.add(0, _conf);
         }
         AbstractNameValidating validator_ = _infos.getValidator();
-        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(validator_, null, _infos.getFileCoreStream(), _infos.getStreams()), new DefaultFileSystem(app_, validator_, _infos.getFileCoreStream(), _infos.getStreams()), new DefaultReporter(_infos,validator_, app_, false, new TechInfos(_infos.getThreadFactory(), _infos.getStreams()), _infos.getFileCoreStream()), _infos.getGenerator(), _infos.getStreams().getZipFact(), _infos.getThreadFactory());
+        FileInfos fileInfos_ = new FileInfos(new DefaultLogger(null, _infos.getFileCoreStream(), _infos.getStreams()), new DefaultFileSystem(app_, validator_, _infos.getFileCoreStream(), _infos.getStreams()), new DefaultReporter(_infos,validator_, app_, false, new TechInfos(_infos.getThreadFactory(), _infos.getStreams()), _infos.getFileCoreStream()), _infos.getGenerator(), _infos.getStreams().getZipFact(), _infos.getThreadFactory());
 
         StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, fileInfos_, result_);
         if (list_ == null) {

@@ -239,7 +239,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 
     public FileInfos getInfos() {
         AbstractNameValidating validator_ = getValidator();
-        return new FileInfos(buildLogger(validator_),
+        return new FileInfos(buildLogger(),
                 buildSystem(validator_), new DefaultReporter(getFactory().getProgramInfos(),validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
     }
 
@@ -256,11 +256,11 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         errorsScroll.setVisible(!errorsScroll.isVisible());
 //        contentPane.repaintChildren(getImageFactory());
     }
-    private AbstractLogger buildLogger(AbstractNameValidating _validator) {
+    private AbstractLogger buildLogger() {
         if (memory.isSelected()) {
-            return new MemoryLogger(_validator, unitIssuer,getThreadFactory());
+            return new MemoryLogger(unitIssuer,getThreadFactory());
         }
-        return new DefaultLogger(_validator, unitIssuer,getFileCoreStream(),getStreams());
+        return new DefaultLogger(unitIssuer,getFileCoreStream(),getStreams());
     }
 
     private AbstractFileSystem buildSystem(AbstractNameValidating _validator) {
