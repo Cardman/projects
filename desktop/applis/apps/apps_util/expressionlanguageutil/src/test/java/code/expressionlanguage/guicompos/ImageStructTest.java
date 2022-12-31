@@ -267,4 +267,12 @@ public final class ImageStructTest extends EquallableElUtUtil {
         call(new FctImageDrawLine(),null,ctx_,img_,four(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st5_);
         assertTrue(st5_.isFailInit());
     }
+    @Test
+    public void ret1() {
+        assertSame(NullStruct.NULL_VALUE,GuiExecutingBlocks.getReturned(null));
+    }
+    @Test
+    public void ret2() {
+        assertEq("_",GuiExecutingBlocks.getReturned("_"));
+    }
 }

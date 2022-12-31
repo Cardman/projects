@@ -381,7 +381,7 @@ public final class GuiExecutingBlocks {
                 getValue(_ok),getValue(_cancel)));
     }
 
-    private Struct getReturned(String _str) {
+    public static Struct getReturned(String _str) {
         if (_str == null) {
             return NullStruct.NULL_VALUE;
         }
