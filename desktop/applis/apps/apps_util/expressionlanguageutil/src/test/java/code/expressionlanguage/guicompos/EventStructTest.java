@@ -178,4 +178,38 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((FieldableStruct)ev_).getFields();
         ((WithParentStruct)ev_).setParent(NullStruct.NULL_VALUE);
     }
+    @Test
+    public void run8() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){Thread.interrupt();}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        ((RunnableStruct)ev_).run();
+        assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void run9() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public void run(){Thread.currentThread().end();}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        ((RunnableStruct)ev_).run();
+        assertFalse(st_.isFailInit());
+    }
 }
