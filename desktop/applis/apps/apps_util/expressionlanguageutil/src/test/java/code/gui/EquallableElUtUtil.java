@@ -128,6 +128,52 @@ public abstract class EquallableElUtUtil {
         ls_.add(new ArgumentWrapper(_fourth));
         return new ArgumentListCall(ls_);
     }
+
+    public static ArgumentListCall five(Struct _first, Struct _second, Struct _third, Struct _fourth, Struct _fifth) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_first));
+        ls_.add(new ArgumentWrapper(_second));
+        ls_.add(new ArgumentWrapper(_third));
+        ls_.add(new ArgumentWrapper(_fourth));
+        ls_.add(new ArgumentWrapper(_fifth));
+        return new ArgumentListCall(ls_);
+    }
+
+    public static ArgumentListCall six(Struct _first, Struct _second, Struct _third, Struct _fourth, Struct _fifth, Struct _sixth) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_first));
+        ls_.add(new ArgumentWrapper(_second));
+        ls_.add(new ArgumentWrapper(_third));
+        ls_.add(new ArgumentWrapper(_fourth));
+        ls_.add(new ArgumentWrapper(_fifth));
+        ls_.add(new ArgumentWrapper(_sixth));
+        return new ArgumentListCall(ls_);
+    }
+
+    public static ArgumentListCall seven(Struct _first, Struct _second, Struct _third, Struct _fourth, Struct _fifth, Struct _sixth, Struct _seventh) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_first));
+        ls_.add(new ArgumentWrapper(_second));
+        ls_.add(new ArgumentWrapper(_third));
+        ls_.add(new ArgumentWrapper(_fourth));
+        ls_.add(new ArgumentWrapper(_fifth));
+        ls_.add(new ArgumentWrapper(_sixth));
+        ls_.add(new ArgumentWrapper(_seventh));
+        return new ArgumentListCall(ls_);
+    }
+
+    public static ArgumentListCall eight(Struct _first, Struct _second, Struct _third, Struct _fourth, Struct _fifth, Struct _sixth, Struct _seventh, Struct _eighth) {
+        CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
+        ls_.add(new ArgumentWrapper(_first));
+        ls_.add(new ArgumentWrapper(_second));
+        ls_.add(new ArgumentWrapper(_third));
+        ls_.add(new ArgumentWrapper(_fourth));
+        ls_.add(new ArgumentWrapper(_fifth));
+        ls_.add(new ArgumentWrapper(_sixth));
+        ls_.add(new ArgumentWrapper(_seventh));
+        ls_.add(new ArgumentWrapper(_eighth));
+        return new ArgumentListCall(ls_);
+    }
     public static long toLong(Struct _str) {
         return NumParsers.convertToNumber(_str).longStruct();
     }

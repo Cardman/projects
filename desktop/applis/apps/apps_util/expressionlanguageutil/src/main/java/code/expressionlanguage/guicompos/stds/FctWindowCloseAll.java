@@ -23,9 +23,9 @@ public final class FctWindowCloseAll implements StdCaller {
     public static void closeAll(ContextEl _cont, StackCall _stackCall) {
         CustList<WindowStruct> windows_ = new CustList<WindowStruct>();
         for (Struct s: ((GuiContextEl) _cont).getGuiInit().getWindows().toSnapshotArray(_cont, _stackCall).list()) {
-            if (!(s instanceof WindowStruct)) {
-                continue;
-            }
+//            if (!(s instanceof WindowStruct)) {
+//                continue;
+//            }
             ((WindowStruct)s).setVisible(false);
             windows_.add((WindowStruct) s);
             ((WindowStruct)s).dispose();

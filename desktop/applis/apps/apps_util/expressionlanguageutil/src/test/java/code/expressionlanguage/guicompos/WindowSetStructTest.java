@@ -328,6 +328,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
+        call(new FctWindowCloseAll(),null,ctx_,null,null,st_);
     }
     @Test
     public void add7() {
