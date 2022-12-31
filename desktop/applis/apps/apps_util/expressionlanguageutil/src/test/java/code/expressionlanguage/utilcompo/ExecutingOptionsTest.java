@@ -63,6 +63,8 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         StackCall st_ = stack(ctx_);
+        stds_.getGuiAliases().setAliasTextFieldAuto(stds_.getGuiAliases().getAliasTextFieldAuto());
+        stds_.getGuiAliases().setAliasTextFieldAddDocument(stds_.getGuiAliases().getAliasTextFieldAddDocument());
         RunnableStruct.setupThread((RunnableContextEl) ctx_);
         Struct arr_ = call(new FctCoverage(""), null, ctx_, null, null, st_);
         assertEq(3,((ArrayStruct)arr_).getLength());
