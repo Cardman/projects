@@ -133,6 +133,8 @@ public final class EventStructTest extends EquallableElUtUtil {
         ev_.randCode();
         assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
         assertTrue(ev_.sameReference(ev_));
+        ((FieldableStruct)ev_).getFields();
+        ((FieldableStruct)ev_).getEntryStruct(new ClassField("",""));
     }
     @Test
     public void run6() {
@@ -153,5 +155,27 @@ public final class EventStructTest extends EquallableElUtUtil {
         CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
         RunnableFunctionalInstance.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
+    }
+    @Test
+    public void run7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public enum pkg.Sample:Runnable{ONE;public int i=2;(){i=i;name();ordinal();ObjectsUtil.getParent(this);ObjectsUtil.setParent(this,this);}public void run(){}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "ONE", 0);
+        ((RunnableStruct)ev_).run();
+        assertFalse(st_.isFailInit());
+        ev_.randCode();
+        assertFalse(ev_.sameReference(NullStruct.NULL_VALUE));
+        assertTrue(ev_.sameReference(ev_));
+        ((FieldableStruct)ev_).getFields();
+        ((WithParentStruct)ev_).setParent(NullStruct.NULL_VALUE);
     }
 }
