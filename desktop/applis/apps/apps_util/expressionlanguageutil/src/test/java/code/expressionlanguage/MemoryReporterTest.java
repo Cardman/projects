@@ -317,5 +317,43 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
         String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
+        assertTrue(stds_.getInterceptor().newMapStringStruct().isEmpty());
+        stds_.getCustAliases().setAliasInfoTestCurrentClass(stds_.getCustAliases().getAliasInfoTestCurrentClass());
+        stds_.getCustAliases().allAlias(stds_.getContent(),new StringMap<String>(),new StringMap<String>());
+    }
+    @Test
+    public void cdmFactory() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
+        assertTrue(f_.getInterceptor().newMapStringStruct().isEmpty());
+        f_.getProgramInfos().getZipFact();
+        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getThreadFactory().sleep(0);
+        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTechStreams().getTextFact().write("","",false);
+        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getZipFact().zipBinFiles(new StringMap<ContentTime>());
+        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getBinFact().writeFile("",new byte[0]);
+        new TechInfos(pr_.getThreadFactory(),pr_.getStreams()).getTextFact().write("","",false);
+        ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        e_.setListGenerator(f_);
+        e_.setCovering(true);
+        assertTrue(e_.isCovering());
+        e_.setCovering(false);
+        assertFalse(e_.isCovering());
+        e_.setHasArg(true);
+        assertTrue(e_.isHasArg());
+        e_.setHasArg(false);
+        assertFalse(e_.isHasArg());
+        e_.setArgs(new StringList());
+        assertTrue(e_.getArgs().isEmpty());
+        e_.setWarns(new StringList());
+        assertTrue(e_.getWarns().isEmpty());
+        e_.setOutput("");
+        assertTrue(e_.getOutput().isEmpty());
+        e_.setMessages(new StringMap<String>());
+        assertTrue(e_.getMessages().isEmpty());
+        e_.setKeyWords(new StringMap<String>());
+        assertTrue(e_.getKeyWords().isEmpty());
+        e_.setAliases(new StringMap<String>());
+        assertTrue(e_.getAliases().isEmpty());
     }
 }

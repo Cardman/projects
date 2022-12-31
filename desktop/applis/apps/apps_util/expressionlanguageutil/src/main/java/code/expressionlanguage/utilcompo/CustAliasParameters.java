@@ -855,9 +855,9 @@ public final class CustAliasParameters {
         return aliasThread2Print1;
     }
 
-    public String getAliasThread0ThreadExitHook0() {
-        return aliasThread0ThreadExitHook0;
-    }
+//    public String getAliasThread0ThreadExitHook0() {
+//        return aliasThread0ThreadExitHook0;
+//    }
 
     public String getAliasThread0Thread0() {
         return aliasThread0Thread0;
@@ -883,17 +883,17 @@ public final class CustAliasParameters {
         return aliasThreadSet0ThreadSetRemove0;
     }
 
-    public String getAliasThreadSet0ThreadSet0() {
-        return aliasThreadSet0ThreadSet0;
-    }
+//    public String getAliasThreadSet0ThreadSet0() {
+//        return aliasThreadSet0ThreadSet0;
+//    }
 
     public String getAliasThread0Args0() {
         return aliasThread0Args0;
     }
 
-    public String getAliasReentrantLock0ReentrantLock0() {
-        return aliasReentrantLock0ReentrantLock0;
-    }
+//    public String getAliasReentrantLock0ReentrantLock0() {
+//        return aliasReentrantLock0ReentrantLock0;
+//    }
 
     public String getAliasAtomicBoolean0SetAtomic0() {
         return aliasAtomicBoolean0SetAtomic0;
