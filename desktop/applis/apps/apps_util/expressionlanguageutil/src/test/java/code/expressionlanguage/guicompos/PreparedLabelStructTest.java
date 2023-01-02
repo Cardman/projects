@@ -83,11 +83,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         assertTrue(st_.calls());
     }
     @Test
-    public void nullImage() {
-        assertNull(PreparedLabelStruct.builImage(null));
-    }
-    @Test
-    public void image() {
+    public void image1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
@@ -96,6 +92,19 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctImageLabel(stds_.getGuiExecutingBlocks()),null,ctx_,i_,one(call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true)),st_)),st_);
+        assertFalse(st_.isFailInit());
+        assertTrue(st_.calls());
+    }
+    @Test
+    public void image2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
+        call(new FctImageLabel(stds_.getGuiExecutingBlocks()),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }

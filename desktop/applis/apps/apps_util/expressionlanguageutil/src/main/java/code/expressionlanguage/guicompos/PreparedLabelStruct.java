@@ -13,25 +13,20 @@ public final class PreparedLabelStruct extends CustComponentStruct {
         super(_className);
         textLabel = GuiBaseUtil.prep(_fact);
     }
-    public PreparedLabelStruct(AbsCompoFactory _comp, Struct _img, String _className) {
+    public PreparedLabelStruct(AbstractImageFactory _fact, AbsCompoFactory _comp, Struct _img, String _className) {
         super(_className);
-        textLabel = _comp.newPreparedLabel(builImage(_img));
+        textLabel = _comp.newPreparedLabel(builImage(_fact,_img));
     }
     public void setImage(AbstractImageFactory _fact, Struct _text) {
-        AbstractImage i_ = builImage(_text);
-        if (i_ == null) {
-            textLabel.setIcon(_fact,_fact.newImageArgb(1,1));
-            return;
-        }
+        AbstractImage i_ = builImage(_fact,_text);
         textLabel.setIcon(_fact, i_);
     }
 
-    public static AbstractImage builImage(Struct _text) {
-        AbstractImage img_ = null;
+    public static AbstractImage builImage(AbstractImageFactory _fact, Struct _text) {
         if (_text instanceof ImageStruct) {
-            img_ = ((ImageStruct) _text).getImage();
+            return ((ImageStruct) _text).getImage();
         }
-        return img_;
+        return _fact.newImageArgb(1,1);
     }
 
     public AbsPreparedLabel getTextLabel() {
