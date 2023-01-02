@@ -22,6 +22,159 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class GuiAliases {
+    public static final String RESOURCES_LG_GUI_CHANGE_EVENT_TXT = "resources_lg_gui/change_event.txt";
+    public static final String RESOURCES_LG_GUI_TREE_EVENT_TXT = "resources_lg_gui/tree_event.txt";
+    public static final String RESOURCES_LG_GUI_TABLE_EVENT_TXT = "resources_lg_gui/table_event.txt";
+    public static final String RESOURCES_LG_GUI_MOUSE_EVENT_TXT = "resources_lg_gui/mouse_event.txt";
+    public static final String RESOURCES_LG_GUI_WHEEL_EVENT_TXT = "resources_lg_gui/wheel_event.txt";
+    public static final String RESOURCES_LG_GUI_KEY_EVENT_TXT = "resources_lg_gui/key_event.txt";
+    public static final String RESOURCES_LG_GUI_WINDOW_EVENT_TXT = "resources_lg_gui/window_event.txt";
+    public static final String RESOURCES_LG_GUI_ACTION_EVENT_TXT = "resources_lg_gui/action_event.txt";
+    public static final String RESOURCES_LG_GUI_LIST_EVENT_TXT = "resources_lg_gui/list_event.txt";
+    public static final String RESOURCES_LG_GUI_REPAINT_TXT = "resources_lg_gui/repaint.txt";
+
+    public static final String KW_PUBLIC = "{public}";
+    public static final String KW_INTERFACE = "{interface}";
+    public static final String KW_VOID = "{void}";
+    public static final String METHOD_VALUE_CHANGED = "{valueChanged}";
+    public static final String TYPE_INT = "{int}";
+    public static final String TYPE_BOOLEAN = "{boolean}";
+    public static final String KW_ABSTRACT = "{abstract}";
+    public static final String KW_FINAL = "{final}";
+    public static final String KW_CLASS = "{class}";
+    public static final String TYPE_PAINT = "{Paint}";
+    public static final String METHOD_PAINT = "{paint}";
+    public static final String PARAM_8 = "{paintPar}";
+    public static final String METHOD_ADD = "{add}";
+    public static final String METHOD_SET = "{set}";
+    public static final String PARAM_9 = "{setPar0}";
+    public static final String PARAM_10 = "{setPar1}";
+    public static final String PARAM_11 = "{setPar2}";
+    public static final String PARAM_12 = "{addPar00}";
+    public static final String PARAM_13 = "{addPar01}";
+    public static final String PARAM_14 = "{addPar02}";
+    public static final String PARAM_15 = "{addPar10}";
+    public static final String PARAM_16 = "{addPar11}";
+    public static final String PARAM_17 = "{refreshPar}";
+    public static final String METHOD_REFRESH = "{refresh}";
+    public static final String METHOD_REFRESH_ONE = "{refreshOne}";
+    public static final String PARAM_18 = "{refreshPar0}";
+    public static final String PARAM_19 = "{w}";
+    public static final String PARAM_20 = "{h0}";
+    public static final String PARAM_21 = "{o0}";
+    public static final String PARAM_22 = "{s}";
+    public static final String KW_STATIC = "{static}";
+    public static final String KW_IF = "{if}";
+    public static final String KW_ELSEIF = "{elseif}";
+    public static final String KW_TRUE = "{true}";
+    public static final String KW_FALSE = "{false}";
+    public static final String KW_RETURN = "{return}";
+    public static final String KW_BREAK = "{break}";
+    public static final String KW_CONTINUE = "{continue}";
+    public static final String KW_IS = "{is}";
+    public static final String KW_WHILE = "{while}";
+    public static final String KW_NULL = "{null}";
+    public static final String KW_CAST = "{cast}";
+    public static final String TYPE_COMPONENT = "{Component}";
+    public static final String TYPE_PANEL = "{Panel}";
+    public static final String TYPE_FCT = "{Fct}";
+    public static final String METHOD_CALL = "{call}";
+    public static final String METHOD_GET_COMPONENT = "{getComponent}";
+    public static final String METHOD_NEXT = "{next}";
+    public static final String METHOD_GET_PARENT = "{getParent}";
+    public static final String METHOD_GET_PAINTING = "{getPainting}";
+    public static final String PARAM_23 = "p";
+    public static final String PARAM_24 = "r";
+    public static final String PARAM_25 = "o";
+    public static final String PARAM_26 = "la";
+    public static final String PARAM_27 = "h";
+    public static final String PARAM_28 = "hf";
+    public static final String PARAM_29 = "lf";
+    public static final String PARAM_30 = "pf";
+    public static final String PARAM_31 = "par";
+    public static final String PARAM_32 = "pan";
+    public static final String PARAM_33 = "fct";
+    public static final String PARAM_34 = "nb";
+    public static final String PARAM_35 = "img";
+    public static final String PARAM_36 = "ha";
+    public static final String PARAM_37 = "ft";
+    public static final String PARAM_38 = "text";
+    public static final String PARAM_39 = "mw";
+    public static final String PARAM_40 = "er";
+    public static final String METHOD_GET_RENDER = "{getRender}";
+    public static final String TYPE_MATH = "{Math}";
+    public static final String METHOD_MAX = "{max}";
+    public static final String TYPE_STRING_UTIL = "{StringUtil}";
+    public static final String METHOD_VALUE_OF = "{valueOf}";
+    public static final String METHOD_WIDTH_STR = "{widthStr}";
+    public static final String METHOD_SET_COLOR = "{setColor}";
+    public static final String METHOD_FILL_RECT = "{fillRect}";
+    public static final String METHOD_DRAW_STRING = "{drawString}";
+    public static final String METHOD_GET_FONT = "{getFont}";
+    public static final String METHOD_SIZE = "{size}";
+    public static final String TYPE_COLOR = "{Color}";
+    public static final String METHOD_GET_COMP_WIDTH = "{getCompWidth}";
+    public static final String KW_ELSE = "{else}";
+    public static final String METHOD_SET_FONT = "{setFont}";
+    public static final String METHOD_GET_HEIGHT = "{getHeight}";
+    public static final String METHOD_GET_WIDTH = "{getWidth}";
+    public static final String METHOD_GET_PAINT = "{getPaint}";
+    public static final String TYPE_IMAGE = "{Image}";
+    public static final String TYPE_IMAGE_LABEL = "{ImageLabel}";
+    public static final String METHOD_ADD_COMPO = "{addCompo}";
+    public static final String METHOD_SET_COMPO = "{setCompo}";
+    public static final String METHOD_GET_VIEW = "{getView}";
+    public static final String METHOD_GET_SELECTED = "{getSelected}";
+    public static final String METHOD_UPDATE_GRAPHICS = "{updateGraphics}";
+    public static final String METHOD_LENGTH = "{length}";
+    public static final String KW_FOR = "{for}";
+    public static final String KW_NEW = "{new}";
+    public static final String KW_VAR = "{var}";
+    public static final String TYPE_GR_LIST = "{GrList}";
+    public static final String TYPE_OBJECT = "{Object}";
+    public static final String METHOD_DISPOSE = "{dispose}";
+    public static final String TYPE_ACTION_LISTENER = "{ActionListener}";
+    public static final String METHOD_ACTION_PERFORMED = "{actionPerformed}";
+    public static final String TYPE_ACTION_EVENT = "{ActionEvent}";
+    public static final String TYPE_CHANGE_LISTENER = "{ChangeListener}";
+    public static final String METHOD_STATE_CHANGED = "{stateChanged}";
+    public static final String TYPE_TREE_LISTENER = "{TreeListener}";
+    public static final String TYPE_TREE_NODE = "{TreeNode}";
+    public static final String TYPE_TABLE_LISTENER = "{TableListener}";
+    public static final String TYPE_MOUSE_LISTENER = "{MouseListener}";
+    public static final String METHOD_MOUSE_CLICKED = "{mouseClicked}";
+    public static final String METHOD_MOUSE_PRESSED = "{mousePressed}";
+    public static final String METHOD_MOUSE_RELEASED = "{mouseReleased}";
+    public static final String METHOD_MOUSE_ENTERED = "{mouseEntered}";
+    public static final String METHOD_MOUSE_EXITED = "{mouseExited}";
+    public static final String METHOD_MOUSE_DRAGGED = "{mouseDragged}";
+    public static final String METHOD_MOUSE_MOVED = "{mouseMoved}";
+    public static final String TYPE_MOUSE_EVENT = "{MouseEvent}";
+    public static final String TYPE_WHEEL_LISTENER = "{WheelListener}";
+    public static final String METHOD_MOUSE_MOVE_WHEEL = "{mouseMoveWheel}";
+    public static final String TYPE_MOUSE_WHEEL_EVENT = "{MouseWheelEvent}";
+    public static final String TYPE_KEY_LISTENER = "{KeyListener}";
+    public static final String METHOD_KEY_PRESSED = "{keyPressed}";
+    public static final String METHOD_KEY_TYPED = "{keyTyped}";
+    public static final String METHOD_KEY_RELEASED = "{keyReleased}";
+    public static final String TYPE_KEY_EVENT = "{KeyEvent}";
+    public static final String TYPE_WINDOW_LISTENER = "{WindowListener}";
+    public static final String METHOD_WINDOW_OPENED = "{windowOpened}";
+    public static final String METHOD_WINDOW_CLOSING = "{windowClosing}";
+    public static final String METHOD_WINDOW_CLOSED = "{windowClosed}";
+    public static final String METHOD_WINDOW_ICONIFIED = "{windowIconified}";
+    public static final String METHOD_WINDOW_DEICONIFIED = "{windowDeiconified}";
+    public static final String METHOD_WINDOW_ACTIVATED = "{windowActivated}";
+    public static final String METHOD_WINDOW_DEACTIVATED = "{windowDeactivated}";
+    public static final String TYPE_WINDOW_EVENT = "{WindowEvent}";
+    public static final String TYPE_LIST_SELECTION = "{ListSelection}";
+    public static final String PARAM_1 = "{a}";
+    public static final String PARAM_2 = "{b}";
+    public static final String PARAM_3 = "c";
+    public static final String PARAM_4 = "{d}";
+    public static final String PARAM_5 = "{e}";
+    public static final String PARAM_6 = "{f}";
+    public static final String PARAM_7 = "{g}";
 
     private static final String TREE_NODE = "TreeNode";
     private static final String TREE = "Tree";
@@ -858,7 +1011,7 @@ public final class GuiAliases {
 
     public StringMap<String> buildFiles(KeyWords _keyWords, LgNamesContent _content) {
         StringMap<String> stds_ = new StringMap<String>();
-        String content_ = res("resources_lg_gui/action_event.txt");
+        String content_ = res(RESOURCES_LG_GUI_ACTION_EVENT_TXT);
         PrimitiveTypes primTypes_ = _content.getPrimTypes();
         StringMap<PrimitiveType> pr_ = primTypes_.getPrimitiveTypes();
         AliasCore co_ = _content.getCoreNames();
@@ -883,181 +1036,181 @@ public final class GuiAliases {
         String is_ = _keyWords.getKeyWordInstanceof();
         StringMap<String> map_;
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{ActionListener}", aliasActionListener);
-        map_.put("{actionPerformed}", aliasActionPerformed);
-        map_.put("{ActionEvent}", aliasActionEvent);
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", guiAliasParameters.getAliasActionListener0ActionPerformed0());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_ACTION_LISTENER, aliasActionListener);
+        map_.put(METHOD_ACTION_PERFORMED, aliasActionPerformed);
+        map_.put(TYPE_ACTION_EVENT, aliasActionEvent);
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_5, guiAliasParameters.getAliasActionListener0ActionPerformed0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasActionListener, content_);
-        content_ = res("resources_lg_gui/change_event.txt");
+        content_ = res(RESOURCES_LG_GUI_CHANGE_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{ChangeListener}", aliasChangeListener);
-        map_.put("{stateChanged}", aliasStateChanged);
-        map_.put("{void}", co_.getAliasVoid());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_CHANGE_LISTENER, aliasChangeListener);
+        map_.put(METHOD_STATE_CHANGED, aliasStateChanged);
+        map_.put(KW_VOID, co_.getAliasVoid());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasChangeListener, content_);
-        content_ = res("resources_lg_gui/tree_event.txt");
+        content_ = res(RESOURCES_LG_GUI_TREE_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{TreeListener}", aliasTreeListener);
-        map_.put("{valueChanged}", aliasTreeListenerValueChanged);
-        map_.put("{TreeNode}", aliasTreeNode);
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_TREE_LISTENER, aliasTreeListener);
+        map_.put(METHOD_VALUE_CHANGED, aliasTreeListenerValueChanged);
+        map_.put(TYPE_TREE_NODE, aliasTreeNode);
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_5, guiAliasParameters.getAliasTreeListener0TreeListenerValueChanged0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasTreeListener, content_);
-        content_ = res("resources_lg_gui/table_event.txt");
+        content_ = res(RESOURCES_LG_GUI_TABLE_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{TableListener}", aliasTableListener);
-        map_.put("{valueChanged}", aliasTableValueTableChanged);
-        map_.put("{int}", primTypes_.getAliasPrimInteger());
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
-        map_.put("{f}", guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_TABLE_LISTENER, aliasTableListener);
+        map_.put(METHOD_VALUE_CHANGED, aliasTableValueTableChanged);
+        map_.put(TYPE_INT, primTypes_.getAliasPrimInteger());
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_5, guiAliasParameters.getAliasTableListener0TableValueTableChanged0());
+        map_.put(PARAM_6, guiAliasParameters.getAliasTableListener0TableValueTableChanged1());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasTableListener, content_);
-        content_ = res("resources_lg_gui/mouse_event.txt");
+        content_ = res(RESOURCES_LG_GUI_MOUSE_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{MouseListener}", aliasMouseListener);
-        map_.put("{mouseClicked}", aliasMouseClicked);
-        map_.put("{mousePressed}", aliasMousePressed);
-        map_.put("{mouseReleased}", aliasMouseReleased);
-        map_.put("{mouseEntered}", aliasMouseEntered);
-        map_.put("{mouseExited}", aliasMouseExited);
-        map_.put("{mouseDragged}", aliasMouseDragged);
-        map_.put("{mouseMoved}", aliasMouseMoved);
-        map_.put("{MouseEvent}", aliasMouseEvent);
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{a}", guiAliasParameters.getAliasMouseListener0MouseClicked0());
-        map_.put("{b}", guiAliasParameters.getAliasMouseListener0MousePressed0());
-        map_.put("{c}", guiAliasParameters.getAliasMouseListener0MouseReleased0());
-        map_.put("{d}", guiAliasParameters.getAliasMouseListener0MouseEntered0());
-        map_.put("{e}", guiAliasParameters.getAliasMouseListener0MouseExited0());
-        map_.put("{f}", guiAliasParameters.getAliasMouseListener0MouseDragged0());
-        map_.put("{g}", guiAliasParameters.getAliasMouseListener0MouseMoved0());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_MOUSE_LISTENER, aliasMouseListener);
+        map_.put(METHOD_MOUSE_CLICKED, aliasMouseClicked);
+        map_.put(METHOD_MOUSE_PRESSED, aliasMousePressed);
+        map_.put(METHOD_MOUSE_RELEASED, aliasMouseReleased);
+        map_.put(METHOD_MOUSE_ENTERED, aliasMouseEntered);
+        map_.put(METHOD_MOUSE_EXITED, aliasMouseExited);
+        map_.put(METHOD_MOUSE_DRAGGED, aliasMouseDragged);
+        map_.put(METHOD_MOUSE_MOVED, aliasMouseMoved);
+        map_.put(TYPE_MOUSE_EVENT, aliasMouseEvent);
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_1, guiAliasParameters.getAliasMouseListener0MouseClicked0());
+        map_.put(PARAM_2, guiAliasParameters.getAliasMouseListener0MousePressed0());
+        map_.put(wrap(PARAM_3), guiAliasParameters.getAliasMouseListener0MouseReleased0());
+        map_.put(PARAM_4, guiAliasParameters.getAliasMouseListener0MouseEntered0());
+        map_.put(PARAM_5, guiAliasParameters.getAliasMouseListener0MouseExited0());
+        map_.put(PARAM_6, guiAliasParameters.getAliasMouseListener0MouseDragged0());
+        map_.put(PARAM_7, guiAliasParameters.getAliasMouseListener0MouseMoved0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasMouseListener, content_);
-        content_ = res("resources_lg_gui/wheel_event.txt");
+        content_ = res(RESOURCES_LG_GUI_WHEEL_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{WheelListener}", aliasWheelListener);
-        map_.put("{mouseMoveWheel}", aliasWheelMove);
-        map_.put("{MouseWheelEvent}", aliasWheelEvent);
-        map_.put("{e}", guiAliasParameters.getAliasWheelListener0WheelMove0());
-        map_.put("{void}", co_.getAliasVoid());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_WHEEL_LISTENER, aliasWheelListener);
+        map_.put(METHOD_MOUSE_MOVE_WHEEL, aliasWheelMove);
+        map_.put(TYPE_MOUSE_WHEEL_EVENT, aliasWheelEvent);
+        map_.put(PARAM_5, guiAliasParameters.getAliasWheelListener0WheelMove0());
+        map_.put(KW_VOID, co_.getAliasVoid());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasWheelListener, content_);
-        content_ = res("resources_lg_gui/key_event.txt");
+        content_ = res(RESOURCES_LG_GUI_KEY_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{KeyListener}", aliasKeyListener);
-        map_.put("{keyPressed}", aliasKeyPressed);
-        map_.put("{keyTyped}", aliasKeyTyped);
-        map_.put("{keyReleased}", aliasKeyReleased);
-        map_.put("{KeyEvent}", aliasKeyEvent);
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{a}", guiAliasParameters.getAliasKeyListener0KeyPressed0());
-        map_.put("{b}", guiAliasParameters.getAliasKeyListener0KeyTyped0());
-        map_.put("{c}", guiAliasParameters.getAliasKeyListener0KeyReleased0());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_KEY_LISTENER, aliasKeyListener);
+        map_.put(METHOD_KEY_PRESSED, aliasKeyPressed);
+        map_.put(METHOD_KEY_TYPED, aliasKeyTyped);
+        map_.put(METHOD_KEY_RELEASED, aliasKeyReleased);
+        map_.put(TYPE_KEY_EVENT, aliasKeyEvent);
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_1, guiAliasParameters.getAliasKeyListener0KeyPressed0());
+        map_.put(PARAM_2, guiAliasParameters.getAliasKeyListener0KeyTyped0());
+        map_.put(wrap(PARAM_3), guiAliasParameters.getAliasKeyListener0KeyReleased0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasKeyListener, content_);
-        content_ = res("resources_lg_gui/window_event.txt");
+        content_ = res(RESOURCES_LG_GUI_WINDOW_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{WindowListener}", aliasWindowListener);
-        map_.put("{windowOpened}", aliasWindowOpened);
-        map_.put("{windowClosing}", aliasWindowClosing);
-        map_.put("{windowClosed}", aliasWindowClosed);
-        map_.put("{windowIconified}", aliasWindowIconified);
-        map_.put("{windowDeiconified}", aliasWindowDeiconified);
-        map_.put("{windowActivated}", aliasWindowActivated);
-        map_.put("{windowDeactivated}", aliasWindowDeactivated);
-        map_.put("{WindowEvent}", aliasWindowEvent);
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{a}", guiAliasParameters.getAliasWindowListener0WindowOpened0());
-        map_.put("{b}", guiAliasParameters.getAliasWindowListener0WindowClosing0());
-        map_.put("{c}", guiAliasParameters.getAliasWindowListener0WindowClosed0());
-        map_.put("{d}", guiAliasParameters.getAliasWindowListener0WindowIconified0());
-        map_.put("{e}", guiAliasParameters.getAliasWindowListener0WindowDeiconified0());
-        map_.put("{f}", guiAliasParameters.getAliasWindowListener0WindowActivated0());
-        map_.put("{g}", guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_WINDOW_LISTENER, aliasWindowListener);
+        map_.put(METHOD_WINDOW_OPENED, aliasWindowOpened);
+        map_.put(METHOD_WINDOW_CLOSING, aliasWindowClosing);
+        map_.put(METHOD_WINDOW_CLOSED, aliasWindowClosed);
+        map_.put(METHOD_WINDOW_ICONIFIED, aliasWindowIconified);
+        map_.put(METHOD_WINDOW_DEICONIFIED, aliasWindowDeiconified);
+        map_.put(METHOD_WINDOW_ACTIVATED, aliasWindowActivated);
+        map_.put(METHOD_WINDOW_DEACTIVATED, aliasWindowDeactivated);
+        map_.put(TYPE_WINDOW_EVENT, aliasWindowEvent);
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_1, guiAliasParameters.getAliasWindowListener0WindowOpened0());
+        map_.put(PARAM_2, guiAliasParameters.getAliasWindowListener0WindowClosing0());
+        map_.put(wrap(PARAM_3), guiAliasParameters.getAliasWindowListener0WindowClosed0());
+        map_.put(PARAM_4, guiAliasParameters.getAliasWindowListener0WindowIconified0());
+        map_.put(PARAM_5, guiAliasParameters.getAliasWindowListener0WindowDeiconified0());
+        map_.put(PARAM_6, guiAliasParameters.getAliasWindowListener0WindowActivated0());
+        map_.put(PARAM_7, guiAliasParameters.getAliasWindowListener0WindowDeactivated0());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasWindowListener, content_);
-        content_ = res("resources_lg_gui/list_event.txt");
+        content_ = res(RESOURCES_LG_GUI_LIST_EVENT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{interface}", interface_);
-        map_.put("{ListSelection}", aliasListSelection);
-        map_.put("{valueChanged}", aliasValueChanged);
-        map_.put("{int}", primTypes_.getAliasPrimInteger());
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{e}", guiAliasParameters.getAliasListSelection0ValueChanged0());
-        map_.put("{f}", guiAliasParameters.getAliasListSelection0ValueChanged1());
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_INTERFACE, interface_);
+        map_.put(TYPE_LIST_SELECTION, aliasListSelection);
+        map_.put(METHOD_VALUE_CHANGED, aliasValueChanged);
+        map_.put(TYPE_INT, primTypes_.getAliasPrimInteger());
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(PARAM_5, guiAliasParameters.getAliasListSelection0ValueChanged0());
+        map_.put(PARAM_6, guiAliasParameters.getAliasListSelection0ValueChanged1());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasListSelection, content_);
-        content_ = res("resources_lg_gui/repaint.txt");
+        content_ = res(RESOURCES_LG_GUI_REPAINT_TXT);
         map_ = new StringMap<String>();
-        map_.put("{public}", public_);
-        map_.put("{abstract}", abstract_);
-        map_.put("{final}", final_);
-        map_.put("{class}", class_);
-        map_.put("{Paint}", aliasPaint);
-        map_.put("{paint}", aliasPaintMethod);
-        map_.put("{paintPar}", guiAliasParameters.getAliasPaint0PaintMethod0());
-        map_.put("{add}", aliasPaintAdd);
-        map_.put("{set}", aliasPaintSet);
-        map_.put("{setPar0}", guiAliasParameters.getAliasPaint0TabbedPaneSet0());
-        map_.put("{setPar1}", guiAliasParameters.getAliasPaint0TabbedPaneSet1());
-        map_.put("{setPar2}", guiAliasParameters.getAliasPaint0TabbedPaneSet2());
-        map_.put("{addPar00}", guiAliasParameters.getAliasPaint0TabbedPaneAdd0());
-        map_.put("{addPar01}", guiAliasParameters.getAliasPaint0TabbedPaneAdd1());
-        map_.put("{addPar02}", guiAliasParameters.getAliasPaint0TabbedPaneAdd2());
-        map_.put("{addPar10}", guiAliasParameters.getAliasPaint1TabbedPaneAdd0());
-        map_.put("{addPar11}", guiAliasParameters.getAliasPaint1TabbedPaneAdd1());
-        map_.put("{refreshPar}", guiAliasParameters.getAliasPaint0PaintRefresh0());
-        map_.put("{refresh}", aliasPaintRefresh);
-        map_.put("{refreshOne}", aliasPaintRefreshOne);
-        map_.put("{refreshPar0}", guiAliasParameters.getAliasPaint0PaintRefreshOne0());
-        map_.put("{w}", guiAliasParameters.getAliasPaint0PaintRefreshOne1());
-        map_.put("{h0}", guiAliasParameters.getAliasPaint0PaintRefreshOne2());
-        map_.put("{o0}", guiAliasParameters.getAliasPaint0PaintRefreshOne3());
-        map_.put("{f}", guiAliasParameters.getAliasPaint0PaintRefreshOne4());
-        map_.put("{s}", guiAliasParameters.getAliasPaint0PaintRefreshOne5());
-        map_.put("{static}", static_);
-        map_.put("{if}", if_);
-        map_.put("{elseif}", elseif_);
-        map_.put("{true}", true_);
-        map_.put("{false}", false_);
-        map_.put("{return}", return_);
-        map_.put("{break}", break_);
-        map_.put("{continue}", continue_);
-        map_.put("{is}", is_);
-        map_.put("{while}", while_);
-        map_.put("{null}", null_);
-        map_.put("{cast}", cast_);
-        map_.put("{Component}", aliasComponent);
-        map_.put("{Panel}", aliasPanel);
-        map_.put("{Fct}", _content.getReflect().getAliasFct());
-        map_.put("{void}", co_.getAliasVoid());
-        map_.put("{call}", _content.getReflect().getAliasCall());
-        map_.put("{getComponent}", aliasGetIndexCompo);
-        map_.put("{next}", aliasGetNextCompo);
-        map_.put("{getParent}", aliasGetParentCompo);
-        map_.put("{getPainting}", aliasComponentGetPaint);
-        map_.put("{c}", tr("c", _keyWords, pr_, co_,
+        map_.put(KW_PUBLIC, public_);
+        map_.put(KW_ABSTRACT, abstract_);
+        map_.put(KW_FINAL, final_);
+        map_.put(KW_CLASS, class_);
+        map_.put(TYPE_PAINT, aliasPaint);
+        map_.put(METHOD_PAINT, aliasPaintMethod);
+        map_.put(PARAM_8, guiAliasParameters.getAliasPaint0PaintMethod0());
+        map_.put(METHOD_ADD, aliasPaintAdd);
+        map_.put(METHOD_SET, aliasPaintSet);
+        map_.put(PARAM_9, guiAliasParameters.getAliasPaint0TabbedPaneSet0());
+        map_.put(PARAM_10, guiAliasParameters.getAliasPaint0TabbedPaneSet1());
+        map_.put(PARAM_11, guiAliasParameters.getAliasPaint0TabbedPaneSet2());
+        map_.put(PARAM_12, guiAliasParameters.getAliasPaint0TabbedPaneAdd0());
+        map_.put(PARAM_13, guiAliasParameters.getAliasPaint0TabbedPaneAdd1());
+        map_.put(PARAM_14, guiAliasParameters.getAliasPaint0TabbedPaneAdd2());
+        map_.put(PARAM_15, guiAliasParameters.getAliasPaint1TabbedPaneAdd0());
+        map_.put(PARAM_16, guiAliasParameters.getAliasPaint1TabbedPaneAdd1());
+        map_.put(PARAM_17, guiAliasParameters.getAliasPaint0PaintRefresh0());
+        map_.put(METHOD_REFRESH, aliasPaintRefresh);
+        map_.put(METHOD_REFRESH_ONE, aliasPaintRefreshOne);
+        map_.put(PARAM_18, guiAliasParameters.getAliasPaint0PaintRefreshOne0());
+        map_.put(PARAM_19, guiAliasParameters.getAliasPaint0PaintRefreshOne1());
+        map_.put(PARAM_20, guiAliasParameters.getAliasPaint0PaintRefreshOne2());
+        map_.put(PARAM_21, guiAliasParameters.getAliasPaint0PaintRefreshOne3());
+        map_.put(PARAM_6, guiAliasParameters.getAliasPaint0PaintRefreshOne4());
+        map_.put(PARAM_22, guiAliasParameters.getAliasPaint0PaintRefreshOne5());
+        map_.put(KW_STATIC, static_);
+        map_.put(KW_IF, if_);
+        map_.put(KW_ELSEIF, elseif_);
+        map_.put(KW_TRUE, true_);
+        map_.put(KW_FALSE, false_);
+        map_.put(KW_RETURN, return_);
+        map_.put(KW_BREAK, break_);
+        map_.put(KW_CONTINUE, continue_);
+        map_.put(KW_IS, is_);
+        map_.put(KW_WHILE, while_);
+        map_.put(KW_NULL, null_);
+        map_.put(KW_CAST, cast_);
+        map_.put(TYPE_COMPONENT, aliasComponent);
+        map_.put(TYPE_PANEL, aliasPanel);
+        map_.put(TYPE_FCT, _content.getReflect().getAliasFct());
+        map_.put(KW_VOID, co_.getAliasVoid());
+        map_.put(METHOD_CALL, _content.getReflect().getAliasCall());
+        map_.put(METHOD_GET_COMPONENT, aliasGetIndexCompo);
+        map_.put(METHOD_NEXT, aliasGetNextCompo);
+        map_.put(METHOD_GET_PARENT, aliasGetParentCompo);
+        map_.put(METHOD_GET_PAINTING, aliasComponentGetPaint);
+        map_.put(wrap(PARAM_3), tr(PARAM_3, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1074,7 +1227,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{p}", tr("p", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_23), tr(PARAM_23, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1091,7 +1244,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{r}", tr("r", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_24), tr(PARAM_24, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1108,7 +1261,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{o}", tr("o", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_25), tr(PARAM_25, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1125,7 +1278,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{la}", tr("la", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_26), tr(PARAM_26, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1142,7 +1295,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{h}", tr("h", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_27), tr(PARAM_27, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1159,7 +1312,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{hf}", tr("hf", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_28), tr(PARAM_28, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1176,7 +1329,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{lf}", tr("lf", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_29), tr(PARAM_29, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1193,7 +1346,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{pf}", tr("pf", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_30), tr(PARAM_30, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1210,7 +1363,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{par}", tr("par", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_31), tr(PARAM_31, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1227,7 +1380,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{pan}", tr("pan", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_32), tr(PARAM_32, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1244,7 +1397,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{fct}", tr("fct", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_33), tr(PARAM_33, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1261,7 +1414,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{nb}", tr("nb", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_34), tr(PARAM_34, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1278,7 +1431,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{img}", tr("img", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_35), tr(PARAM_35, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1295,7 +1448,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{ha}", tr("ha", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_36), tr(PARAM_36, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1312,7 +1465,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{ft}", tr("ft", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_37), tr(PARAM_37, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1329,7 +1482,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{text}", tr("text", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_38), tr(PARAM_38, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1346,7 +1499,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{mw}", tr("mw", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_39), tr(PARAM_39, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1363,7 +1516,7 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{er}", tr("er", _keyWords, pr_, co_,
+        map_.put(wrap(PARAM_40), tr(PARAM_40, _keyWords, pr_, co_,
                 guiAliasParameters.getAliasPaint0PaintMethod0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet0(),
                 guiAliasParameters.getAliasPaint0TabbedPaneSet1(),
@@ -1380,43 +1533,46 @@ public final class GuiAliases {
                 guiAliasParameters.getAliasPaint0PaintRefreshOne3(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne4(),
                 guiAliasParameters.getAliasPaint0PaintRefreshOne5()));
-        map_.put("{getRender}",aliasGrListGetRender);
-        map_.put("{Math}",_content.getMathRef().getAliasMath());
-        map_.put("{max}",_content.getMathRef().getAliasMax());
-        map_.put("{StringUtil}",_content.getCoreNames().getAliasStringUtil());
-        map_.put("{valueOf}",_content.getCoreNames().getAliasStringUtilValueOf());
-        map_.put("{widthStr}",aliasFontStringWidth);
-        map_.put("{setColor}",aliasImageSetColor);
-        map_.put("{fillRect}",aliasImageFillRect);
-        map_.put("{drawString}",aliasImageDraw);
-        map_.put("{getFont}",aliasGetFont);
-        map_.put("{size}",aliasFontGetSize);
-        map_.put("{Color}",aliasColor);
-        map_.put("{getCompWidth}",aliasComponentGetWidth);
-        map_.put("{else}",_keyWords.getKeyWordElse());
-        map_.put("{setFont}",aliasImageSetFont);
-        map_.put("{getHeight}",aliasRenderGetHeight);
-        map_.put("{getWidth}",aliasRenderGetWidth);
-        map_.put("{getPaint}",aliasRenderGetPaint);
-        map_.put("{Image}",aliasImage);
-        map_.put("{ImageLabel}",aliasImageLabel);
-        map_.put("{addCompo}",aliasGrListAdd);
-        map_.put("{setCompo}",aliasGrListSet);
-        map_.put("{getView}",aliasGrListGetListView);
-        map_.put("{getSelected}",aliasGrListGetSelectedIndexes);
-        map_.put("{updateGraphics}",aliasGrListUpdateGraphics);
-        map_.put("{length}",_content.getCharSeq().getAliasLength());
-        map_.put("{for}",for_);
-        map_.put("{new}",new_);
-        map_.put("{var}", _keyWords.getKeyWordVar());
-        map_.put("{int}",primTypes_.getAliasPrimInteger());
-        map_.put("{GrList}",aliasGrList);
-        map_.put("{Object}",co_.getAliasObject());
-        map_.put("{dispose}",aliasImageDispose);
-        map_.put("{boolean}",primTypes_.getAliasPrimBoolean());
+        map_.put(METHOD_GET_RENDER,aliasGrListGetRender);
+        map_.put(TYPE_MATH,_content.getMathRef().getAliasMath());
+        map_.put(METHOD_MAX,_content.getMathRef().getAliasMax());
+        map_.put(TYPE_STRING_UTIL,_content.getCoreNames().getAliasStringUtil());
+        map_.put(METHOD_VALUE_OF,_content.getCoreNames().getAliasStringUtilValueOf());
+        map_.put(METHOD_WIDTH_STR,aliasFontStringWidth);
+        map_.put(METHOD_SET_COLOR,aliasImageSetColor);
+        map_.put(METHOD_FILL_RECT,aliasImageFillRect);
+        map_.put(METHOD_DRAW_STRING,aliasImageDraw);
+        map_.put(METHOD_GET_FONT,aliasGetFont);
+        map_.put(METHOD_SIZE,aliasFontGetSize);
+        map_.put(TYPE_COLOR,aliasColor);
+        map_.put(METHOD_GET_COMP_WIDTH,aliasComponentGetWidth);
+        map_.put(KW_ELSE,_keyWords.getKeyWordElse());
+        map_.put(METHOD_SET_FONT,aliasImageSetFont);
+        map_.put(METHOD_GET_HEIGHT,aliasRenderGetHeight);
+        map_.put(METHOD_GET_WIDTH,aliasRenderGetWidth);
+        map_.put(METHOD_GET_PAINT,aliasRenderGetPaint);
+        map_.put(TYPE_IMAGE,aliasImage);
+        map_.put(TYPE_IMAGE_LABEL,aliasImageLabel);
+        map_.put(METHOD_ADD_COMPO,aliasGrListAdd);
+        map_.put(METHOD_SET_COMPO,aliasGrListSet);
+        map_.put(METHOD_GET_VIEW,aliasGrListGetListView);
+        map_.put(METHOD_GET_SELECTED,aliasGrListGetSelectedIndexes);
+        map_.put(METHOD_UPDATE_GRAPHICS,aliasGrListUpdateGraphics);
+        map_.put(METHOD_LENGTH,_content.getCharSeq().getAliasLength());
+        map_.put(KW_FOR,for_);
+        map_.put(KW_NEW,new_);
+        map_.put(KW_VAR, _keyWords.getKeyWordVar());
+        map_.put(TYPE_INT,primTypes_.getAliasPrimInteger());
+        map_.put(TYPE_GR_LIST,aliasGrList);
+        map_.put(TYPE_OBJECT,co_.getAliasObject());
+        map_.put(METHOD_DISPOSE,aliasImageDispose);
+        map_.put(TYPE_BOOLEAN,primTypes_.getAliasPrimBoolean());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasPaint, content_);
         return stds_;
+    }
+    private static String wrap(String _element) {
+        return '{'+_element+'}';
     }
 
     public String res(String _file) {
