@@ -16,24 +16,24 @@ public final class ConverterGraphicBufferedImage {
 
     private ConverterGraphicBufferedImage(){
     }
-    public static boolean eq(AbstractImage _imgOne, AbstractImage _imgTwo) {
-        if (_imgOne.getWidth() != _imgTwo.getWidth()) {
-            return false;
-        }
-        if (_imgOne.getHeight() != _imgTwo.getHeight()) {
-            return false;
-        }
-        int w_ = _imgOne.getWidth();
-        int h_ = _imgOne.getHeight();
-        for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
-            for (int j = IndexConstants.FIRST_INDEX; j < h_; j++) {
-                if (_imgOne.getRGB(i, j) != _imgTwo.getRGB(i, j)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
+//    public static boolean eq(AbstractImage _imgOne, AbstractImage _imgTwo) {
+//        if (_imgOne.getWidth() != _imgTwo.getWidth()) {
+//            return false;
+//        }
+//        if (_imgOne.getHeight() != _imgTwo.getHeight()) {
+//            return false;
+//        }
+//        int w_ = _imgOne.getWidth();
+//        int h_ = _imgOne.getHeight();
+//        for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
+//            for (int j = IndexConstants.FIRST_INDEX; j < h_; j++) {
+//                if (_imgOne.getRGB(i, j) != _imgTwo.getRGB(i, j)) {
+//                    return false;
+//                }
+//            }
+//        }
+//        return true;
+//    }
 
     public static AbstractImage centerImage(AbstractImageFactory _fact,int[][] _front, int _side) {
         AbstractImage img_ = decodeToImage(_fact,_front);

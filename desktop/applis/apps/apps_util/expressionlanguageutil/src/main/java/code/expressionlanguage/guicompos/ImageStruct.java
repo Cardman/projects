@@ -5,7 +5,6 @@ import code.expressionlanguage.structs.*;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.images.MetaFont;
-import code.util.core.IndexConstants;
 import code.util.core.NumberUtil;
 
 
@@ -178,22 +177,4 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
         return ((LgNamesGui) _contextEl.getStandards()).getGuiAliases().getAliasImage();
     }
 
-    public static boolean eq(AbstractImage _imgOne, AbstractImage _imgTwo) {
-        if (_imgOne.getWidth() != _imgTwo.getWidth()) {
-            return false;
-        }
-        if (_imgOne.getHeight() != _imgTwo.getHeight()) {
-            return false;
-        }
-        int w_ = _imgOne.getWidth();
-        int h_ = _imgOne.getHeight();
-        for (int i = IndexConstants.FIRST_INDEX; i < w_; i++) {
-            for (int j = IndexConstants.FIRST_INDEX; j < h_; j++) {
-                if (_imgOne.getRGB(i, j) != _imgTwo.getRGB(i, j)) {
-                    return false;
-                }
-            }
-        }
-        return true;
-    }
 }

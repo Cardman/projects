@@ -10,6 +10,7 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
+import code.gui.GuiBaseUtil;
 import code.util.CustList;
 
 public final class FctImageEq implements StdCaller {
@@ -26,6 +27,6 @@ public final class FctImageEq implements StdCaller {
         }
         ImageStruct first_ = (ImageStruct) imgOne_;
         ImageStruct second_ = (ImageStruct) imgTwo_;
-        return new ArgumentWrapper(BooleanStruct.of(ImageStruct.eq(first_.getImage(),second_.getImage())));
+        return new ArgumentWrapper(BooleanStruct.of(GuiBaseUtil.eq(first_.getImage(),second_.getImage())));
     }
 }

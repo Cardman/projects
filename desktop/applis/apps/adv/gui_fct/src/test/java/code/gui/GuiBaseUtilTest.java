@@ -6,7 +6,33 @@ import code.mock.*;
 import code.util.*;
 import org.junit.Test;
 
-public class GuiBaseUtilTest extends EquallableGuiFctUtil {
+public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
+
+    @Test
+    public void eq1() {
+        MockImage img_ = new MockImage(new int[2][3]);
+        MockImage img2_ = new MockImage(new int[2][3]);
+        assertTrue(GuiBaseUtil.eq(img_,img2_));
+    }
+    @Test
+    public void eq2() {
+        MockImage img_ = new MockImage(new int[2][3]);
+        MockImage img2_ = new MockImage(new int[2][3]);
+        img_.setRGB(1,2,29);
+        assertFalse(GuiBaseUtil.eq(img_,img2_));
+    }
+    @Test
+    public void eq3() {
+        MockImage img_ = new MockImage(new int[2][3]);
+        MockImage img2_ = new MockImage(new int[2][4]);
+        assertFalse(GuiBaseUtil.eq(img_,img2_));
+    }
+    @Test
+    public void eq4() {
+        MockImage img_ = new MockImage(new int[2][3]);
+        MockImage img2_ = new MockImage(new int[4][3]);
+        assertFalse(GuiBaseUtil.eq(img_,img2_));
+    }
     @Test
     public void pack() {
         MockPanel mockPanel_ = new MockPanel(MockLayout.GRID);
