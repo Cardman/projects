@@ -9,7 +9,6 @@ import code.expressionlanguage.stds.StdCaller;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.ThreadStruct;
-import code.threads.AbstractThread;
 
 public final class FctThreadIsEnded implements StdCaller {
 

@@ -1,15 +1,12 @@
 package code.gui.events;
 
-import code.gui.AbsMouseButtons;
-import code.gui.AbsCtrlKeyState;
-import code.gui.AbsMouseLocation;
-import code.gui.OtherConfirmDialog;
+import code.gui.*;
 
 public class OtherAnswerEvent implements AbsActionListener {
 
-    private OtherConfirmDialog dialog;
+    private final OtherConfirmDialog dialog;
 
-    private int answer;
+    private final int answer;
 
     public OtherAnswerEvent(OtherConfirmDialog _dialog, int _answer) {
         dialog = _dialog;

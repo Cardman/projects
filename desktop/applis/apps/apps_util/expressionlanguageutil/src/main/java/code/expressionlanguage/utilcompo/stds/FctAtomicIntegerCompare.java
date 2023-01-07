@@ -8,10 +8,8 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.NumberStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.AtomicBooleanStruct;
-import code.expressionlanguage.utilcompo.AtomicIntegerStruct;
-import code.threads.AbstractAtomicBoolean;
-import code.threads.AbstractAtomicInteger;
+import code.expressionlanguage.utilcompo.*;
+import code.threads.*;
 import code.util.CustList;
 
 public final class FctAtomicIntegerCompare extends FctAtomicAbs {
