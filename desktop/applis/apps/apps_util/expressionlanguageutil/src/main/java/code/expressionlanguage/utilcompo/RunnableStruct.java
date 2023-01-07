@@ -1,104 +1,27 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.ClassField;
-import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.*;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
-import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
-import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
-import code.expressionlanguage.exec.inherits.ExecTemplates;
-import code.expressionlanguage.exec.inherits.Parameters;
-import code.expressionlanguage.exec.util.ArgumentListCall;
-import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.structs.EnumerableStruct;
-import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.structs.WithParentStruct;
-import code.util.CustList;
-import code.util.StringList;
+import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.inherits.*;
+import code.expressionlanguage.exec.util.*;
+import code.expressionlanguage.fwd.blocks.*;
+import code.expressionlanguage.structs.*;
+import code.util.*;
 
-public final class RunnableStruct implements WithParentStruct, EnumerableStruct,Runnable {
-    private final StringList args;
-    private Struct parent;
+public final class RunnableStruct extends LaunchableStruct {
 
-    private final String className;
-
-    private final CustList<ClassFieldStruct> fields;
-
-    private final String name;
-    private final int ordinal;
-    private final String parentClassName;
-    private final CommonExecutionInfos executionInfos;
 
     RunnableStruct(RunnableContextEl _original, String _className,
                    String _name, int _ordinal,
                    CustList<ClassFieldStruct> _fields, Struct _parent, String _parendClassName) {
-        executionInfos = _original.getExecutionInfos();
-        args = _original.getArgs();
-        name = _name;
-        ordinal = _ordinal;
-        className = _className;
-        fields = _fields;
-        parent = _parent;
-        parentClassName = _parendClassName;
-    }
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getOrdinal() {
-        return ordinal;
-    }
-
-    @Override
-    public ClassFieldStruct getEntryStruct(ClassField _classField) {
-        return ClassFieldStruct.getPair(fields,_classField);
-    }
-
-    @Override
-    public CustList<ClassFieldStruct> getFields() {
-        return fields;
-    }
-
-    @Override
-    public Struct getParent() {
-        return parent;
-    }
-
-    @Override
-    public String getParentClassName() {
-        return parentClassName;
-    }
-
-    @Override
-    public void setParent(Struct _parent) {
-        parent = _parent;
-    }
-
-    @Override
-    public String getClassName(ContextEl _contextEl) {
-        return className;
-    }
-
-    @Override
-    public boolean sameReference(Struct _other) {
-        return this == _other;
-    }
-
-    @Override
-    public long randCode() {
-        return NumParsers.randCode(className);
+        super(_original,_className,_name,_ordinal,_fields,_parent,_parendClassName);
     }
     @Override
     public void run() {
-        RunnableContextEl r_ = new RunnableContextEl(this, executionInfos, args);
+        RunnableContextEl r_ = new RunnableContextEl(this, getExecutionInfos(), getArgs());
         setupThread(r_);
         invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }

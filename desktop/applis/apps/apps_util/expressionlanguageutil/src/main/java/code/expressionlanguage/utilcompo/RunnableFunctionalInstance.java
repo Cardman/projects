@@ -1,36 +1,24 @@
 package code.expressionlanguage.utilcompo;
 
-import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ClassFieldStruct;
-import code.expressionlanguage.exec.CommonExecutionInfos;
-import code.expressionlanguage.exec.InitPhase;
-import code.expressionlanguage.exec.StackCall;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.calls.util.AbstractReflectElement;
-import code.expressionlanguage.exec.opers.ExecInvokingOperation;
-import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.*;
+import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.*;
+import code.expressionlanguage.exec.opers.*;
 
 import code.expressionlanguage.structs.*;
-import code.util.CustList;
-import code.util.StringList;
+import code.util.*;
 
-public final class RunnableFunctionalInstance extends AbstractFunctionalInstanceImpl implements Runnable,
-        FieldableStruct {
-
-    private final CustList<ClassFieldStruct> fields;
-    private final CommonExecutionInfos executionInfos;
+public final class RunnableFunctionalInstance extends LaunchableFunctionalStruct {
 
     public RunnableFunctionalInstance(String _className, LambdaStruct _functional,
-                                      CustList<ClassFieldStruct> _fields, ContextEl _contextEl, ExecNamedFunctionBlock _named) {
-        super(_className, _functional, _named);
-        executionInfos = _contextEl.getExecutionInfos();
-        fields = _fields;
+                                      CustList<ClassFieldStruct> _fields, RunnableContextEl _contextEl, ExecNamedFunctionBlock _named) {
+        super(_className, _functional, _fields, _contextEl, _named);
     }
 
     @Override
     public void run() {
-        callMethod(new RunnableContextEl(this, executionInfos, new StringList()), getFunctional(), new CustList<Argument>());
+        callMethod(new RunnableContextEl(this, getExecutionInfos(), getArgs()), getFunctional(), new CustList<Argument>());
     }
 
     public static Argument callMethod(RunnableContextEl _localThread, Struct _functional, CustList<Argument> _arguments) {
@@ -44,15 +32,5 @@ public final class RunnableFunctionalInstance extends AbstractFunctionalInstance
             _localThread.getCustInit().prExc(_localThread, stackCall_);
             return Argument.createVoid();
         }
-    }
-
-    @Override
-    public ClassFieldStruct getEntryStruct(ClassField _classField) {
-        return ClassFieldStruct.getPair(fields,_classField);
-    }
-
-    @Override
-    public CustList<ClassFieldStruct> getFields() {
-        return fields;
     }
 }

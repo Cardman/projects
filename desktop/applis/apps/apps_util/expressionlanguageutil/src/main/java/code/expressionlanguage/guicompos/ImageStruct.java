@@ -115,28 +115,13 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
     }
 
     public void drawPolygon(Struct _xPoints, Struct _yPoints) {
-        if (!(_xPoints instanceof ArrayStruct)) {
-            return;
-        }
-        if (!(_yPoints instanceof ArrayStruct)) {
-            return;
-        }
-        ArrayStruct x_ = (ArrayStruct) _xPoints;
-        ArrayStruct y_ = (ArrayStruct) _yPoints;
-        if (x_.getLength() != y_.getLength()) {
-            return;
-        }
-        int len_ = x_.getLength();
-        int[] xs_ = new int[len_];
-        int[] ys_ = new int[len_];
-        for (int i = 0; i < len_; i++) {
-            xs_[i] = ((NumberStruct)x_.get(i)).intStruct();
-            ys_[i] = ((NumberStruct)y_.get(i)).intStruct();
-        }
-        image.drawPolygon(xs_, ys_, len_);
+        act(new PolygonDraw(),image,_xPoints,_yPoints);
     }
 
     public void fillPolygon(Struct _xPoints, Struct _yPoints) {
+        act(new PolygonFill(),image,_xPoints,_yPoints);
+    }
+    private static void act(PolygonAction _act, AbstractImage _img, Struct _xPoints, Struct _yPoints) {
         if (!(_xPoints instanceof ArrayStruct)) {
             return;
         }
@@ -155,7 +140,7 @@ public final class ImageStruct extends WithoutParentIdStruct implements Struct {
             xs_[i] = ((NumberStruct)x_.get(i)).intStruct();
             ys_[i] = ((NumberStruct)y_.get(i)).intStruct();
         }
-        image.fillPolygon(xs_, ys_, len_);
+        _act.act(_img,xs_, ys_, len_);
     }
 
     public void drawString(Struct _str, int _x, int _y) {

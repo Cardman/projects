@@ -9,7 +9,7 @@ import code.util.EntryCust;
 import code.util.StringMap;
 
 public class GuiAliasGroups extends CustAliasGroups {
-    private GuiAliases guiAliases;
+    private final GuiAliases guiAliases;
     public GuiAliasGroups(GuiAliases _guiAliases,CustAliases _custAliases, LgNamesContent _content) {
         super(_custAliases, _content);
         guiAliases = _guiAliases;
@@ -18,7 +18,7 @@ public class GuiAliasGroups extends CustAliasGroups {
     @Override
     public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
         CustList<CustList<KeyValueMemberName>> list_ = super.allMergeTableTypeMethodNames();
-        list_.addAllElts(guiAliases.allMergeTableTypeMethodNames(getCustAliases(),getContent()));
+        list_.addAllElts(guiAliases.allMergeTableTypeMethodNames(getCustAlias(),getContent()));
         return list_;
     }
 

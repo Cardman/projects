@@ -122,7 +122,7 @@ public final class OtherConfirmDialog {
     }
 
     private void setLocationRelativeTo(WithListener _frame) {
-        PlacableWindow pl_ = (PlacableWindow)dialog;
+        PlacableWindow pl_ = dialog;
         if (_frame == null) {
             pl_.setLocationRelativeToNull();
             return;
@@ -201,17 +201,7 @@ public final class OtherConfirmDialog {
         content_.add(wrapped(_message));
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         answer = NO_OPTION;
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_yes);
-        button_.addActionListener(new OtherAnswerEvent(this, YES_OPTION));
-        buttons_.add(button_);
-        button_ = infos.getCompoFactory().newPlainButton(_no);
-        button_.addActionListener(new OtherAnswerEvent(this, NO_OPTION));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_);
-//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        dialog.pack();
-        dialog.setVisible(true);
+        yesNoCommon(_yes, _no, content_, buttons_);
     }
 
     private void initYesNo(AbstractImage _img,String _message, String _title, String _yes, String _no) {
@@ -221,39 +211,32 @@ public final class OtherConfirmDialog {
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         answer = NO_OPTION;
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
+        yesNoCommon(_yes, _no, content_, buttons_);
+    }
+
+    private void yesNoCommon(String _yes, String _no, AbsPanel _content, AbsPanel _buttons) {
         AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_yes);
         button_.addActionListener(new OtherAnswerEvent(this, YES_OPTION));
-        buttons_.add(button_);
+        _buttons.add(button_);
         button_ = infos.getCompoFactory().newPlainButton(_no);
         button_.addActionListener(new OtherAnswerEvent(this, NO_OPTION));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_);
+        _buttons.add(button_);
+        _content.add(_buttons);
+        dialog.setContentPane(_content);
 //        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
     }
+
     private void init(String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setTitle(_title);
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
         content_.add(wrapped(_message));
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         answer = CANCEL_OPTION;
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_yes);
-        button_.addActionListener(new OtherAnswerEvent(this, YES_OPTION));
-        buttons_.add(button_);
-        button_ = infos.getCompoFactory().newPlainButton(_no);
-        button_.addActionListener(new OtherAnswerEvent(this, NO_OPTION));
-        buttons_.add(button_);
-        button_ = infos.getCompoFactory().newPlainButton(_cancel);
-        button_.addActionListener(new OtherAnswerEvent(this, CANCEL_OPTION));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_);
-//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        dialog.pack();
-        dialog.setVisible(true);
+        initCommon(_yes, _no, _cancel, content_, buttons_);
     }
+
     private void init(AbstractImage _img,String _message, String _title, String _yes, String _no, String _cancel) {
         dialog.setTitle(_title);
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
@@ -261,17 +244,21 @@ public final class OtherConfirmDialog {
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         answer = CANCEL_OPTION;
         buttons_.add(infos.getCompoFactory().newPreparedLabel(_img));
+        initCommon(_yes, _no, _cancel, content_, buttons_);
+    }
+
+    private void initCommon(String _yes, String _no, String _cancel, AbsPanel _content, AbsPanel _buttons) {
         AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_yes);
         button_.addActionListener(new OtherAnswerEvent(this, YES_OPTION));
-        buttons_.add(button_);
+        _buttons.add(button_);
         button_ = infos.getCompoFactory().newPlainButton(_no);
         button_.addActionListener(new OtherAnswerEvent(this, NO_OPTION));
-        buttons_.add(button_);
+        _buttons.add(button_);
         button_ = infos.getCompoFactory().newPlainButton(_cancel);
         button_.addActionListener(new OtherAnswerEvent(this, CANCEL_OPTION));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_);
+        _buttons.add(button_);
+        _content.add(_buttons);
+        dialog.setContentPane(_content);
 //        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
@@ -280,33 +267,21 @@ public final class OtherConfirmDialog {
     private void initField(String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
-        content_.add(wrapped(_message));
-        field = infos.getCompoFactory().newTextField();
-        field.setText(_value);
-        content_.add(field);
-        answer = NO_OPTION;
-        AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
-        AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_ok);
-        button_.addActionListener(new OtherAnswerTextEvent(this, YES_OPTION));
-        buttons_.add(button_);
-        button_ = infos.getCompoFactory().newPlainButton(_cancel);
-        button_.addActionListener(new OtherAnswerTextEvent(this, NO_OPTION));
-        buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_);
-//        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
-        dialog.pack();
-        dialog.setVisible(true);
+        initFieldCommon(_message, _value, _ok, _cancel, content_);
     }
 
     private void initField(AbstractImage _img, String _message, String _value, String _title, String _ok, String _cancel) {
         dialog.setTitle(_title);
         AbsPanel content_ = infos.getCompoFactory().newGrid(0,1);
         content_.add(infos.getCompoFactory().newPreparedLabel(_img));
-        content_.add(wrapped(_message));
+        initFieldCommon(_message, _value, _ok, _cancel, content_);
+    }
+
+    private void initFieldCommon(String _message, String _value, String _ok, String _cancel, AbsPanel _content) {
+        _content.add(wrapped(_message));
         field = infos.getCompoFactory().newTextField();
         field.setText(_value);
-        content_.add(field);
+        _content.add(field);
         answer = NO_OPTION;
         AbsPanel buttons_ = infos.getCompoFactory().newLineBox();
         AbsPlainButton button_ = infos.getCompoFactory().newPlainButton(_ok);
@@ -315,8 +290,8 @@ public final class OtherConfirmDialog {
         button_ = infos.getCompoFactory().newPlainButton(_cancel);
         button_.addActionListener(new OtherAnswerTextEvent(this, NO_OPTION));
         buttons_.add(button_);
-        content_.add(buttons_);
-        dialog.setContentPane(content_);
+        _content.add(buttons_);
+        dialog.setContentPane(_content);
 //        dialog.setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         dialog.pack();
         dialog.setVisible(true);
