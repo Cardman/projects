@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.gui.CdmFactory;
 import code.gui.initialize.*;
 import code.threads.AbstractAtomicBoolean;
+import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
 
@@ -30,9 +31,11 @@ public final class ExecutingOptions {
     private StringMap<String> aliases = new StringMap<String>();
     private AbstractLightProgramInfos lightProgramInfos;
     private CdmFactory listGenerator;
+    private FileSystemParameterizing fileSystemParameterizing;
 
     public ExecutingOptions(AbstractAtomicBoolean _inter) {
         interrupt = _inter;
+        setFileSystemParameterizing(new FileSystemParameterizing("d",new StringBuilder(),new Ints(), "f",new StringBuilder(),new Ints()));
     }
     public String getBaseFiles() {
         return baseFiles;
@@ -204,5 +207,13 @@ public final class ExecutingOptions {
 
     public void setListGenerator(CdmFactory _l) {
         this.listGenerator = _l;
+    }
+
+    public FileSystemParameterizing getFileSystemParameterizing() {
+        return fileSystemParameterizing;
+    }
+
+    public void setFileSystemParameterizing(FileSystemParameterizing _f) {
+        this.fileSystemParameterizing = _f;
     }
 }

@@ -15,6 +15,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     private final AbstractNameValidating nameValidating;
     private FolderStruct root;
     private final AbstractThreadFactory threadFactory;
+    private FileSystemParameterizing fileSystemParameterizing;
 
     public MemoryFileSystem(AbstractNameValidating _nameValidating, AbstractThreadFactory _threadFact) {
         nameValidating = _nameValidating;
@@ -22,8 +23,9 @@ public final class MemoryFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public void build(String _base, ReadBinFiles _readBin) {
-        root = FolderStruct.build(_readBin.getZipFolders(),_readBin.getZipFiles(),threadFactory);
+    public void build(ExecutingOptions _opt, ReadBinFiles _readBin) {
+        fileSystemParameterizing = _opt.getFileSystemParameterizing();
+        root = FolderStruct.build(fileSystemParameterizing,_readBin.getZipFolders(),_readBin.getZipFiles(),threadFactory);
     }
 
     @Override
@@ -351,7 +353,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
                 if (!nameValidating.ok(parent_)) {
                     return false;
                 }
-                FolderStruct new_ = new FolderStruct(threadFactory);
+                FolderStruct new_ = new FolderStruct(fileSystemParameterizing, threadFactory);
                 curr_.getFolders().addEntry(parent_, new_);
                 curr_.setupDate(threadFactory);
                 next_ = new_;
@@ -362,7 +364,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
             return false;
         }
         curr_.setupDate(threadFactory);
-        curr_.getFolders().addEntry(simpleName_,new FolderStruct(threadFactory));
+        curr_.getFolders().addEntry(simpleName_,new FolderStruct(fileSystemParameterizing, threadFactory));
         return true;
     }
 

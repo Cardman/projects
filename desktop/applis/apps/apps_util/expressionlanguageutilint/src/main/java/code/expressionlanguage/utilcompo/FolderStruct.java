@@ -14,11 +14,15 @@ public final class FolderStruct {
     private final StringMap<FileStruct> files = new StringMap<FileStruct>();
     private final StringMap<FolderStruct> folders = new StringMap<FolderStruct>();
     private long lastDate;
-    public FolderStruct(AbstractThreadFactory _threadFact) {
+    private final FileSystemParameterizing config;
+    public FolderStruct(FileSystemParameterizing _fs, AbstractThreadFactory _threadFact) {
         setupDate(_threadFact);
+        config = _fs;
     }
-    public FolderStruct(long _lastDate) {
+
+    public FolderStruct(FileSystemParameterizing _fs, long _lastDate) {
         lastDate = _lastDate;
+        config = _fs;
     }
 
     public void setupDate(AbstractThreadFactory _threadFact) {
@@ -29,13 +33,13 @@ public final class FolderStruct {
         return lastDate;
     }
 
-    public static FolderStruct build(StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files,AbstractThreadFactory _threadFact) {
-        FolderStruct root_ = new FolderStruct(_threadFact);
+    public static FolderStruct build(FileSystemParameterizing _fs,StringMap<ContentTime> _foldersElts, StringMap<ContentTime> _files,AbstractThreadFactory _threadFact) {
+        FolderStruct root_ = new FolderStruct(_fs,_threadFact);
         for (EntryCust<String, ContentTime> f:_foldersElts.entryList()) {
             FolderStruct curr_ = root_;
             String key_ = f.getKey();
             for (String p: PathUtil.splitParts(key_)) {
-                curr_ = curr_.tryAddFolder(p,f.getValue().getLastModifTime());
+                curr_ = curr_.tryAddFolder(_fs,p,f.getValue().getLastModifTime());
             }
         }
         for (EntryCust<String, ContentTime> e: _files.entryList()) {
@@ -52,8 +56,8 @@ public final class FolderStruct {
         return root_;
     }
 
-    private FolderStruct tryAddFolder(String _folderName, long _time) {
-        FolderStruct folder_ = new FolderStruct(_time);
+    private FolderStruct tryAddFolder(FileSystemParameterizing _fs, String _folderName, long _time) {
+        FolderStruct folder_ = new FolderStruct(_fs,_time);
         int index_ = folders.indexOfEntry(_folderName);
         if (index_ > -1) {
             return folders.getValue(index_);
@@ -114,11 +118,12 @@ public final class FolderStruct {
         StringMap<ContentTime> out_ = new StringMap<ContentTime>();
         StringMap<FolderStruct> folders_ = new StringMap<FolderStruct>();
         for (EntryCust<String,FileStruct> e: files.entryList()) {
-            out_.addEntry("f"+e.getKey(),new ContentTime(e.getValue().getContent(),e.getValue().getLastDate()));
+            out_.addEntry(config.getFilePrefix()+e.getKey(),new ContentTime(e.getValue().getContent(),e.getValue().getLastDate()));
         }
+        String fp_ = config.getFolderPrefix();
         for (EntryCust<String,FolderStruct> e: folders.entryList()) {
-            out_.addEntry("d"+e.getKey(),new ContentTime(null,e.getValue().lastDate));
-            folders_.addEntry("d"+e.getKey(),e.getValue());
+            out_.addEntry(fp_+e.getKey(),new ContentTime(null,e.getValue().lastDate));
+            folders_.addEntry(fp_+e.getKey(),e.getValue());
         }
         return new ExportedFolder(out_,folders_);
     }

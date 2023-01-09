@@ -80,4 +80,7 @@ public abstract class EquallableElIntUtil {
     public static MockNameFile[] wrap(MockNameFile... _files) {
         return _files;
     }
+    public static FileSystemParameterizing params() {
+        return new FileSystemParameterizing("d",new StringBuilder(),new Ints(),"f",new StringBuilder(),new Ints());
+    }
 }

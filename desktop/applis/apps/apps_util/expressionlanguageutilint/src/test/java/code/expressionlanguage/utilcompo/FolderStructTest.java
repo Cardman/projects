@@ -13,7 +13,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
     @Test
     public void build1() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        FolderStruct build_ = FolderStruct.build(init(), init(), pr_.getThreadFactory());
+        FolderStruct build_ = FolderStruct.build(params(),init(), init(), pr_.getThreadFactory());
         assertEq(10, build_.getLastDate());
         assertEq(0, build_.getFolders().size());
         assertEq(0, build_.getFiles().size());
@@ -25,7 +25,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
         assertEq(22, folders_.getVal("/folder").getLastModifTime());
         StringMap<ContentTime> files_ = with(pr_, init(),"/folder/file.txt","content");
         assertEq(31, files_.getVal("/folder/file.txt").getLastModifTime());
-        FolderStruct build_ = FolderStruct.build(folders_, files_, pr_.getThreadFactory());
+        FolderStruct build_ = FolderStruct.build(params(),folders_, files_, pr_.getThreadFactory());
         assertEq(36, build_.getLastDate());
         assertEq(0, build_.getFiles().size());
         assertEq(1, build_.getFolders().size());
@@ -49,7 +49,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
         StringMap<ContentTime> files_ = with(pr_, with(pr_, init(),"/folder/file1.txt","content1"),"/folder/file2.txt","content2");
         assertEq(31, files_.getVal("/folder/file1.txt").getLastModifTime());
         assertEq(42, files_.getVal("/folder/file2.txt").getLastModifTime());
-        FolderStruct build_ = FolderStruct.build(folders_, files_, pr_.getThreadFactory());
+        FolderStruct build_ = FolderStruct.build(params(),folders_, files_, pr_.getThreadFactory());
         assertEq(47, build_.getLastDate());
         assertEq(0, build_.getFiles().size());
         assertEq(1, build_.getFolders().size());
@@ -75,7 +75,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
         assertEq(22, folders_.getVal("/folder").getLastModifTime());
         assertEq(31, folders_.getVal("/folder/sub").getLastModifTime());
         StringMap<ContentTime> files_ = init();
-        FolderStruct build_ = FolderStruct.build(folders_, files_, pr_.getThreadFactory());
+        FolderStruct build_ = FolderStruct.build(params(),folders_, files_, pr_.getThreadFactory());
         assertEq(42, build_.getLastDate());
         assertEq(0, build_.getFiles().size());
         assertEq(1, build_.getFolders().size());
@@ -100,7 +100,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
         StringMap<ContentTime> files_ = with(pr_, with(pr_, init(),"/folder/file1.txt","content1"),"/folder/file2.txt","content2");
         assertEq(31, files_.getVal("/folder/file1.txt").getLastModifTime());
         assertEq(42, files_.getVal("/folder/file2.txt").getLastModifTime());
-        FolderStruct build_ = FolderStruct.build(folders_, files_, pr_.getThreadFactory());
+        FolderStruct build_ = FolderStruct.build(params(),folders_, files_, pr_.getThreadFactory());
         StringMap<ContentTime> res_ = build_.exportAll();
         assertEq(4,res_.size());
         assertTrue(StringUtil.contains(res_.getKeys(),""));
@@ -113,7 +113,7 @@ public final class FolderStructTest extends EquallableElIntUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(5,7,9,11), StringUtil.wrapStringArray("/")));
         StringMap<ContentTime> folders_ = with(pr_,init(),"/e");
         StringMap<ContentTime> files_ = with(pr_, init(),"/e","content");
-        FolderStruct build_ = FolderStruct.build(folders_, files_, pr_.getThreadFactory());
+        FolderStruct build_ = FolderStruct.build(params(),folders_, files_, pr_.getThreadFactory());
         StringMap<ContentTime> res_ = build_.exportAll();
         assertEq(3,res_.size());
         assertTrue(StringUtil.contains(res_.getKeys(),""));

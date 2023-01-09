@@ -6,7 +6,7 @@ import code.util.StringList;
 
 public interface AbstractFileSystem {
 
-    void build(String _base, ReadBinFiles _readBin);
+    void build(ExecutingOptions _opt, ReadBinFiles _readBin);
     String contentsOfFile(String _file, RunnableContextEl _rCont);
     boolean saveTextFile(String _file, String _content, RunnableContextEl _rCont);
     BytesInfo loadFile(String _file, RunnableContextEl _rCont);

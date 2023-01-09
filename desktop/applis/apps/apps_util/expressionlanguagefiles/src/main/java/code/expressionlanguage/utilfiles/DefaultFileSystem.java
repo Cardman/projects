@@ -3,6 +3,7 @@ package code.expressionlanguage.utilfiles;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
 import code.expressionlanguage.utilcompo.AbstractFileSystem;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.*;
@@ -28,9 +29,10 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     }
 
     @Override
-    public void build(String _base, ReadBinFiles _readBin) {
-        base = _base;
-        mkdirs(_base);
+    public void build(ExecutingOptions _opt, ReadBinFiles _readBin) {
+        String bf_ = _opt.getBaseFiles();
+        base = bf_;
+        mkdirs(bf_);
     }
 
     @Override

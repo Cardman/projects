@@ -6,7 +6,6 @@ import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.filenames.*;
 import code.expressionlanguage.fwd.*;
 import code.expressionlanguage.guicompos.*;
 import code.expressionlanguage.options.*;
@@ -275,7 +274,7 @@ public abstract class EquallableElUtUtil {
     }
     public static void memoryFileSystem(LgNamesGui _stds,AbstractProgramInfos _pr, MockNameFile... _files) {
         AbstractFileSystem m_ = _stds.getCustAliases().getInfos().getFileSystem();
-        m_.build("",StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
+        m_.build(_stds.getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
     }
     public static double[] dbs(double... _args) {
         return _args;
