@@ -76,12 +76,12 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         PageCardsCommon.tx(fullDocument_,"");
         PageCardsCommon.br(element_,fullDocument_);
         PageCardsCommon.hr(element_,fullDocument_);
-        assertEq("0",RateStruct.convertToRate(NaNu.NULL_VALUE).toNumberString());
-        assertEq("1",RateStruct.convertToRate(new RateStruct(Rate.one())).toNumberString());
-        assertEq("1",new RateStruct(Rate.one()).getDisplayedString().getInstance());
-        assertEq("1",new LgIntStruct(LgInt.one()).getDisplayedString().getInstance());
-        assertEq("1",BeanNatCommonLgNames.processString(new RateStruct(Rate.one())));
-        assertEq("1",BeanNatCommonLgNames.processString(new LgIntStruct(LgInt.one())));
+        assertEq("0",RtSt.convertToRate(NaNu.NULL_VALUE).toNumberString());
+        assertEq("1",RtSt.convertToRate(new RtSt(Rate.one())).toNumberString());
+        assertEq("1",new RtSt(Rate.one()).getDisplayedString().getInstance());
+        assertEq("1",new LgSt(LgInt.one()).getDisplayedString().getInstance());
+        assertEq("1",BeanNatCommonLgNames.processString(new RtSt(Rate.one())));
+        assertEq("1",BeanNatCommonLgNames.processString(new LgSt(LgInt.one())));
         NatElResolver.startsWithKeyWord("a_",0,"a");
         NatElResolver.startsWithKeyWord("a",0,"a");
         NatElResolver.startsWithKeyWord("a.",0,"a");
@@ -2233,7 +2233,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
 //        assertEq("",nav_.getReferenceScroll());
 //        assertEq("",new NatArrayStruct(0).getClassName());
 ////        assertNotNull(new SampleBeanStruct(beanTwo_).getInstance());
-//        assertEq("0",new LgIntStruct(LgInt.zero()).getDisplayedString().getInstance());
+//        assertEq("0",new LgSt(LgInt.zero()).getDisplayedString().getInstance());
 //    }
 //    @Test
 //    public void processNav15Test() {

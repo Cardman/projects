@@ -2,10 +2,10 @@ package code.bean.nat;
 
 import code.maths.LgInt;
 
-public final class LgIntStruct extends NaNuSt implements NatDisplayableStruct {
+public final class LgSt extends NaNuSt implements NatDisplayableStruct {
 
     private final LgInt value;
-    public LgIntStruct(LgInt _instance) {
+    public LgSt(LgInt _instance) {
         value = _instance;
     }
 

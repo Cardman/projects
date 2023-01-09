@@ -54,7 +54,7 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
 
 
     public static NaSt callRate(NatCaller _caller, NaSt _str, Rate _args) {
-        _caller.re(_str,new NaSt[]{new RateStruct(_args)});
+        _caller.re(_str,new NaSt[]{new RtSt(_args)});
         return _str;
     }
     public static NaSt callBool(NatCaller _caller, NaSt _str, boolean _args) {
@@ -121,10 +121,10 @@ public abstract class BeanPokemonCommonTs extends EquallablePkBeanUtil {
         assertEq(_exp,((NaStSt)_result).getInstance());
     }
     public static void assertEq(LgInt _exp, NaSt _result) {
-        assertEq(_exp,((LgIntStruct)_result).getInstance());
+        assertEq(_exp,((LgSt)_result).getInstance());
     }
     public static void assertEq(Rate _exp, NaSt _result) {
-        assertEq(_exp,((RateStruct)_result).getInstance());
+        assertEq(_exp,((RtSt)_result).getInstance());
     }
     public static void assertEq(LgInt _exp, LgInt _result) {
         assertEq(_exp.toNumberString(),_result.toNumberString());

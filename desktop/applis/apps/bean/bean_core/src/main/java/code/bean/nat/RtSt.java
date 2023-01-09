@@ -2,16 +2,16 @@ package code.bean.nat;
 
 import code.maths.Rate;
 
-public final class RateStruct extends NaNuSt implements NatDisplayableStruct {
+public final class RtSt extends NaNuSt implements NatDisplayableStruct {
 
     private final Rate value;
-    public RateStruct(Rate _instance) {
+    public RtSt(Rate _instance) {
         value = _instance;
     }
 
     public static Rate convertToRate(NaSt _r) {
-        if (_r instanceof RateStruct) {
-            return ((RateStruct)_r).getInstance();
+        if (_r instanceof RtSt) {
+            return ((RtSt)_r).getInstance();
         }
         return Rate.zero();
     }

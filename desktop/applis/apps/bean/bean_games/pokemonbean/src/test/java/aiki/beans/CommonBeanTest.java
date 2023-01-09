@@ -6,7 +6,7 @@ import aiki.db.DataBase;
 import aiki.facade.FacadeGame;
 import aiki.instances.Instances;
 import aiki.map.pokemon.enums.Gender;
-import code.bean.nat.RateStruct;
+import code.bean.nat.RtSt;
 import code.bean.nat.*;
 import code.maths.LgInt;
 import code.maths.Rate;
@@ -137,23 +137,23 @@ public final class CommonBeanTest extends InitDbWelcome {
     }
     @Test
     public void rateAbs() {
-        assertEq(Rate.one(),callRateAbsNb(new RateStruct(Rate.minusOne())));
+        assertEq(Rate.one(),callRateAbsNb(new RtSt(Rate.minusOne())));
     }
     @Test
     public void rateZero1() {
-        assertFalse(callRateIsZero(new RateStruct(Rate.one())));
+        assertFalse(callRateIsZero(new RtSt(Rate.one())));
     }
     @Test
     public void rateZero2() {
-        assertTrue(callRateIsZero(new RateStruct(Rate.zero())));
+        assertTrue(callRateIsZero(new RtSt(Rate.zero())));
     }
     @Test
     public void rateZeroGt1() {
-        assertTrue(callRateIsZeroOrGt(new RateStruct(Rate.one())));
+        assertTrue(callRateIsZeroOrGt(new RtSt(Rate.one())));
     }
     @Test
     public void rateZeroGt2() {
-        assertFalse(callRateIsZeroOrGt(new RateStruct(Rate.minusOne())));
+        assertFalse(callRateIsZeroOrGt(new RtSt(Rate.minusOne())));
     }
 
     @Test

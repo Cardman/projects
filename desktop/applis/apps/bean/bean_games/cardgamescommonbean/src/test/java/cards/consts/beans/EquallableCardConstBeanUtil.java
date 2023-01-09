@@ -4,7 +4,7 @@ import cards.consts.LineDeal;
 import code.bean.nat.BeanNatCommonLgNames;
 import code.bean.nat.NatArrayStruct;
 import code.bean.nat.*;
-import code.bean.nat.RateStruct;
+import code.bean.nat.RtSt;
 import code.bean.nat.*;
 import code.maths.Rate;
 import code.util.CustList;
@@ -48,7 +48,7 @@ public abstract class EquallableCardConstBeanUtil {
         assertEq(_exp,((NaStSt)_result).getInstance());
     }
     public static void assertEq(Rate _exp, NaSt _result) {
-        assertTrue(_exp.eq(((RateStruct)_result).getInstance()));
+        assertTrue(_exp.eq(((RtSt)_result).getInstance()));
     }
     public static void assertEq(long _exp, NaSt _result) {
         assertEq(_exp,(((NaNbSt)_result).longStruct()));
