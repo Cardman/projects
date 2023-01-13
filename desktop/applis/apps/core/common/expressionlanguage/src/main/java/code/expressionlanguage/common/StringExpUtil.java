@@ -303,7 +303,7 @@ public final class StringExpUtil {
         return isShiftOper(_op);
     }
     public static boolean isBinEq(String _op) {
-        return isBinNum(_op) || isLogical(_op) || StringUtil.quickEq("&&&", _op) || StringUtil.quickEq("|||", _op) || isBitwise(_op) || StringUtil.quickEq("<", _op) || StringUtil.quickEq(">", _op) || StringUtil.quickEq("=", _op) || StringUtil.quickEq("!", _op) || StringUtil.quickEq("??", _op) || StringUtil.quickEq("???", _op) || isShiftOper(_op);
+        return isBinNum(_op) || isLogical(_op) || StringUtil.quickEq("&&&", _op) || StringUtil.quickEq("|||", _op) || isBitwise(_op) || StringUtil.quickEq("<", _op) || StringUtil.quickEq(">", _op) || StringUtil.quickEq("=", _op) || StringUtil.quickEq("!", _op) || isNullSafe(_op) || isShiftOper(_op);
     }
     public static boolean isUnNum(String _op) {
         if(StringUtil.quickEq(_op, "+")) {
@@ -318,11 +318,16 @@ public final class StringExpUtil {
         if(StringUtil.quickEq(_op, "~")) {
             return true;
         }
+        return isIncr(_op);
+    }
+
+    public static boolean isIncr(String _op) {
         if(StringUtil.quickEq(_op, "++")) {
             return true;
         }
         return StringUtil.quickEq(_op, "--");
     }
+
     public static boolean isBinNum(String _op) {
         if(StringUtil.quickEq(_op, "+")) {
             return true;
@@ -364,6 +369,9 @@ public final class StringExpUtil {
     }
     public static boolean isLogical(String _op) {
         return StringUtil.quickEq(_op, "&&") || StringUtil.quickEq(_op, "||");
+    }
+    public static boolean isNullSafe(String _op) {
+        return StringUtil.quickEq(_op, "??") || StringUtil.quickEq(_op, "???");
     }
     public static boolean isShiftOper(String _op) {
         if(StringUtil.quickEq(_op, "<<")) {

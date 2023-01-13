@@ -1,13 +1,15 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
@@ -20,6 +22,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private final boolean post;
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final ClassMethodIdMemberIdTypeFct convTo = new ClassMethodIdMemberIdTypeFct();
+    private CommonOperSymbol symbol;
 
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
@@ -54,25 +57,22 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
         StrTypes ops_ = getOperators();
         String op_ = ops_.firstValue();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
-        if (AnaTypeUtil.isPureNumberClass(leftEl_.getResultClass(), _page)) {
-            numIncrDecr(_page);
-            return;
+        ResultOperand resOp_ = SymbolFactoryUtil.generateOperand(op_, leftEl_.getResultClass(), _page);
+        AnaClassArgumentMatching rOp_ = resOp_.getResult();
+        OperatorConverter cl_ = null;
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            AnaClassArgumentMatching operand_ = leftEl_.getResultClass();
+            CustList<OperationNode> single_ = new CustList<OperationNode>(leftEl_);
+            cl_ = operUse(_page, op_, operand_, single_, SymbolFactoryUtil.unaries(op_,_page));
         }
-        AnaClassArgumentMatching operand_ = leftEl_.getResultClass();
-        CustList<OperationNode> single_ = new CustList<OperationNode>(leftEl_);
-        OperatorConverter cl_ = operUse(_page, op_, operand_, single_, groupUnNum(_page));
+        symbol = resOp_.getSymbol();
         if (cl_ != null) {
             fct.infos(cl_,_page);
             CompoundAffectationOperation.tryImplicit(this,_page, getSettableResClass(), convTo);
             return;
         }
-        numIncrDecr(_page);
-    }
-
-    private void numIncrDecr(AnalyzedPageEl _page) {
-        OperationNode leftEl_ = getFirstChild();
-        AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
-        if (!AnaTypeUtil.isPureNumberClass(clMatchLeft_, _page)) {
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            AnaClassArgumentMatching clMatchLeft_ = leftEl_.getResultClass();
             FoundErrorInterpret cast_ = new FoundErrorInterpret();
             cast_.setFile(_page.getCurrentFile());
             cast_.setIndexFile(_page);
@@ -82,7 +82,11 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             _page.getLocalizer().addError(cast_);
             addErr(cast_.getBuiltError());
         }
-        clMatchLeft_.setUnwrapObject(AnaTypeUtil.toPrimitive(clMatchLeft_, _page), _page.getPrimitiveTypes());
+        setResultClass(AnaClassArgumentMatching.copy(rOp_, _page.getPrimitiveTypes()));
+    }
+
+    public CommonOperSymbol getSymbol() {
+        return symbol;
     }
 
     private AnaClassArgumentMatching getSettableResClass() {

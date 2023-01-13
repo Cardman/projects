@@ -1,6 +1,7 @@
 package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.inherits.Mapping;
@@ -8,10 +9,11 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.linkage.ExportCst;
-import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.core.StringUtil;
@@ -28,7 +30,7 @@ public abstract class QuickOperation extends MethodOperation {
 
     private int opOffset;
     private int opOff;
-
+    private CommonOperSymbol symbol;
     protected QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -44,11 +46,13 @@ public abstract class QuickOperation extends MethodOperation {
         AnaClassArgumentMatching rightRes_ = right_.getResultClass();
         String oper_ = getOperators().firstValue();
         opOff = getOperators().firstKey();
-        if (logical(leftRes_,rightRes_,_page)) {
-            logical(_page);
-            return;
+        OperatorConverter opConv_ = null;
+        ResultOperand resOp_ = SymbolFactoryUtil.generateOperand(oper_, leftRes_,rightRes_, _page);
+        AnaClassArgumentMatching rOp_ = resOp_.getResult();
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            opConv_ = CompoundAffectationOperation.tryGetLogical(_page, oper_, this);
         }
-        OperatorConverter opConv_ = CompoundAffectationOperation.tryGetLogical(_page, oper_, this);
+        symbol = resOp_.getSymbol();
         if (opConv_ != null) {
             fct.infos(opConv_,_page);
             okNum = true;
@@ -82,10 +86,14 @@ public abstract class QuickOperation extends MethodOperation {
             }
             return;
         }
-        logical(_page);
+        setResultClass(AnaClassArgumentMatching.copy(leftRes_, _page.getPrimitiveTypes()));
+        okNum = true;
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            error(_page);
+        }
     }
 
-    private void logical(AnalyzedPageEl _page) {
+    private void error(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
@@ -116,9 +124,10 @@ public abstract class QuickOperation extends MethodOperation {
             errSecond.add(un_.getBuiltError());
             okNum = false;
         }
-        leftRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        rightRes_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        setResultClass(AnaClassArgumentMatching.copy(leftRes_, _page.getPrimitiveTypes()));
+    }
+
+    public CommonOperSymbol getSymbol() {
+        return symbol;
     }
 
     public boolean isOkNum() {

@@ -12,7 +12,7 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.GeneStringOverridable;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
-import code.expressionlanguage.common.ConstType;
+import code.expressionlanguage.common.*;
 import code.expressionlanguage.common.symbol.*;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.blocks.*;
@@ -1536,28 +1536,15 @@ public final class ForwardInfos {
         StringList names_ = _anaNode.getResultClass().getNames();
         ExecTypeFunction pair_ = FetchMemberUtil.fetchFunctionOpPair(_anaNode.getFct(), _forwards);
         if (pair_.getFct() == null) {
-            return new ExecCompoundAffectationStringOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()),names_,semi(_anaNode),FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost());
+            return new ExecCompoundAffectationStringOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()),names_,new ExecOperDir(_anaNode.getSymbol()),FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), _anaNode.isPost());
         }
         return new ExecCompoundAffectationExplicitCustOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()),  new ExecStaticFctContent(new ExecStaticFctCommonContent("","",-1),new ExecStaticEltContent(_anaNode.getFct(), _forwards)), pair_, FetchMemberUtil.fetchImplicits(_anaNode.getConvTo(), _forwards), names_, _anaNode.isPost());
     }
-    public static ExecOperSymbol semi(SemiAffectationOperation _unary) {
-        if (StringUtil.quickEq("++",_unary.getOperatorContent().getOper())) {
-            return new ExecOperDir(new CommonOperPlusOne());
-        }
-        return new ExecOperDir(new CommonOperMinusOne());
-    }
+
     private static ExecOperationNode procGeneOperators(OperationNode _anaNode, Forwards _forwards) {
-        if (_anaNode instanceof UnaryBooleanOperation) {
-            UnaryBooleanOperation m_ = (UnaryBooleanOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), new ExecOperDir(new CommonOperNegBool()));
-        }
-        if (_anaNode instanceof UnaryBinOperation) {
-            UnaryBinOperation m_ = (UnaryBinOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), new ExecOperDir(new CommonOperNegNum()));
-        }
         if (_anaNode instanceof UnaryOperation) {
             UnaryOperation m_ = (UnaryOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), new ExecOperDir(unary(m_)));
+            return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), new ExecOperDir(m_.getSymbol()));
         }
         if (_anaNode instanceof RandCodeOperation) {
             RandCodeOperation m_ = (RandCodeOperation) _anaNode;
@@ -1578,13 +1565,6 @@ public final class ForwardInfos {
         return procOperators(_anaNode, _forwards);
     }
 
-    public static CommonOperSymbol unary(UnaryOperation _unary) {
-        if (StringUtil.quickEq("-",_unary.getOper())) {
-            return new CommonOperOpposite();
-        }
-        return new CommonOperIdOp();
-    }
-
     private static ExecOperationNode cast(Forwards _forwards, AnaExplicitContent _explicitContent, AnaOperationContent _content) {
         ExecTypeFunction pair_ = FetchMemberUtil.fetchOvTypeFunction(_explicitContent.getMemberId(), _forwards);
         if (ExecExplicitOperation.direct(pair_, _explicitContent.getClassName())) {
@@ -1597,18 +1577,6 @@ public final class ForwardInfos {
     }
 
     private static ExecOperationNode procOperators(OperationNode _anaNode, Forwards _forwards) {
-         if (_anaNode instanceof MultOperation) {
-             MultOperation m_ = (MultOperation) _anaNode;
-             return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), new ExecOperDir(multiplicative(m_)));
-        }
-        if (_anaNode instanceof AddOperation) {
-            AddOperation m_ = (AddOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), additive(m_));
-        }
-        if (_anaNode instanceof BitShiftRotateOperation) {
-            BitShiftRotateOperation m_ = (BitShiftRotateOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(m_.getContent()),null, new ExecOperatorContent(m_.getOperatorContent()), new ExecOperDir(shiftRotate(m_)));
-        }
         if (_anaNode instanceof CmpOperation) {
             return compare((CmpOperation) _anaNode);
         }
@@ -1622,91 +1590,27 @@ public final class ForwardInfos {
         }
         if (_anaNode instanceof EqOperation) {
             EqOperation c_ = (EqOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(c_.getContent()), null, new ExecOperatorContent(c_.getOperatorContent()), new ExecOperDir(eq(c_)));
+            return new ExecQuickOperation(new ExecOperationContent(c_.getContent()), null, new ExecOperatorContent(c_.getOperatorContent()), new ExecOperDir(c_.getSymbol()));
         }
         return procOper(_anaNode, _forwards);
     }
 
-    public static CommonOperSymbol shiftRotate(BitShiftRotateOperation _m) {
-        if (StringUtil.quickEq("<<",_m.getOp())) {
-            return new CommonOperShiftLeft();
-        }
-        if (StringUtil.quickEq(">>",_m.getOp())) {
-            return new CommonOperShiftRight();
-        }
-        if (StringUtil.quickEq("<<<",_m.getOp())) {
-            return new CommonOperBitShiftLeft();
-        }
-        if (StringUtil.quickEq(">>>",_m.getOp())) {
-            return new CommonOperBitShiftRight();
-        }
-        if (StringUtil.quickEq("<<<<",_m.getOp())) {
-            return new CommonOperRotateLeft();
-        }
-        return new CommonOperRotateRight();
-    }
-    public static CommonOperSymbol multiplicative(MultOperation _m) {
-        if (StringUtil.quickEq("*",_m.getOp())) {
-            return new CommonOperMult();
-        }
-        if (StringUtil.quickEq("/",_m.getOp())) {
-            return new CommonOperDiv();
-        }
-        return new CommonOperMod();
-    }
-    public static ExecOperSymbol additive(AddOperation _m) {
+    public static ExecOperSymbol oper(NumericOperation _m) {
         if (_m.isCatString()) {
             return new ExecOperCat();
         }
-        return new ExecOperDir(additiveNum(_m));
+        return new ExecOperDir(_m.getSymbol());
 
     }
 
-    public static CommonOperSymbol additiveNum(AddOperation _m) {
-        if (StringUtil.quickEq("+", _m.getOp())) {
-            return new CommonOperSum();
-        }
-        return new CommonOperDiff();
-    }
-
-    public static CommonOperSymbol eq(EqOperation _m) {
-        if (StringUtil.quickEq("==", _m.getOp())) {
-            return new CommonOperEq();
-        }
-        return new CommonOperNonEq();
-    }
     private static ExecMethodOperation compare(CmpOperation _anaNode) {
-        return new ExecQuickOperation(new ExecOperationContent(_anaNode.getContent()),null, new ExecOperatorContent(_anaNode.getOperatorContent()),new ExecOperDir(cmp(_anaNode)));
+        return new ExecQuickOperation(new ExecOperationContent(_anaNode.getContent()),null, new ExecOperatorContent(_anaNode.getOperatorContent()),new ExecOperDir(_anaNode.getSymbol()));
     }
 
-    public static CommonOperSymbol cmp(CmpOperation _m) {
-        if (!_m.isStringCompare()) {
-            if (StringUtil.quickEq("<",_m.getOp())) {
-                return new CommonOperNbLt();
-            }
-            if (StringUtil.quickEq(">",_m.getOp())) {
-                return new CommonOperNbGt();
-            }
-            if (StringUtil.quickEq("<=",_m.getOp())) {
-                return new CommonOperNbLe();
-            }
-            return new CommonOperNbGe();
-        }
-        if (StringUtil.quickEq("<",_m.getOp())) {
-            return new CommonOperStrLt();
-        }
-        if (StringUtil.quickEq(">",_m.getOp())) {
-            return new CommonOperStrGt();
-        }
-        if (StringUtil.quickEq("<=",_m.getOp())) {
-            return new CommonOperStrLe();
-        }
-        return new CommonOperStrGe();
-    }
     private static ExecOperationNode procOper(OperationNode _anaNode, Forwards _forwards) {
-        if (_anaNode instanceof BitOperation) {
-            BitOperation c_ = (BitOperation) _anaNode;
-            return new ExecQuickOperation(new ExecOperationContent(c_.getContent()),null, new ExecOperatorContent(c_.getOperatorContent()), new ExecOperDir(bitwise(c_)));
+        if (_anaNode instanceof NumericOperation) {
+            NumericOperation c_ = (NumericOperation) _anaNode;
+            return new ExecQuickOperation(new ExecOperationContent(c_.getContent()),null, new ExecOperatorContent(c_.getOperatorContent()), oper(c_));
         }
         if (_anaNode instanceof QuickOperation) {
             return quickOp((QuickOperation) _anaNode, _forwards);
@@ -1736,15 +1640,6 @@ public final class ForwardInfos {
         }
         return new ExecDeclaringOperation(new ExecOperationContent(_anaNode.getContent()));
     }
-    public static CommonOperSymbol bitwise(BitOperation _op) {
-        if (StringUtil.quickEq("&",_op.getOp())) {
-            return new CommonOperBitAnd();
-        }
-        if (StringUtil.quickEq("|",_op.getOp())) {
-            return new CommonOperBitOr();
-        }
-        return new CommonOperBitXor();
-    }
 
     private static ExecOperationNode quickOp(QuickOperation _anaNode, Forwards _forwards) {
         ClassMethodIdMemberIdTypeFct fct_ = _anaNode.getFct();
@@ -1755,14 +1650,9 @@ public final class ForwardInfos {
         if (pair_.getFct() != null) {
             return new ExecExplicitOperatorOperation(new ExecOperationContent(_anaNode.getContent()),false, new ExecStaticFctContent(new ExecStaticFctCommonContent("","",-1),new ExecStaticEltContent(fct_, _forwards)), pair_, new ExecArrContent(false),FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards), new ExecOperatorContent(cont_));
         }
-        return new ExecQuickOperation(new ExecOperationContent(_anaNode.getContent()), FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards), new ExecOperatorContent(cont_), new ExecOperDir(quickOp(_anaNode)));
+        return new ExecQuickOperation(new ExecOperationContent(_anaNode.getContent()), FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards), new ExecOperatorContent(cont_), new ExecOperDir(_anaNode.getSymbol()));
     }
-    public static CommonOperSymbol quickOp(OperationNode _anaNode) {
-        if (_anaNode instanceof AndOperation) {
-            return new CommonOperAnd();
-        }
-        return new CommonOperOr();
-    }
+
     public static String quickOperator(OperationNode _anaNode) {
         if (_anaNode instanceof AndOperation) {
             return "&&";
@@ -1778,8 +1668,8 @@ public final class ForwardInfos {
         }
         String oper_ = _anaNode.getOperatorContent().getOper();
         String op_ = oper_.substring(0, oper_.length() - 1);
-        if (StringUtil.quickEq(op_, "??") || StringUtil.quickEq(op_, "???")) {
-            return new ExecCompoundAffectationStringOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), names_,new ExecOperNull(new CommonOperNullSafe(),names_), FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards),false);
+        if (StringExpUtil.isNullSafe(op_)) {
+            return new ExecCompoundAffectationStringOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), names_,new ExecOperNull(_anaNode.getSymbol(),names_), FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards),false);
         }
         return new ExecCompoundAffectationStringOperation(new ExecOperationContent(_anaNode.getContent()), new ExecOperatorContent(_anaNode.getOperatorContent()), names_,symbol(_anaNode),FetchMemberUtil.fetchImplicits(_anaNode.getConv(), _forwards),false);
     }
@@ -1787,62 +1677,7 @@ public final class ForwardInfos {
         if (_anaNode.isConcat()) {
             return new ExecOperCat();
         }
-        return new ExecOperDir(std(_anaNode));
-    }
-
-    private static CommonOperSymbol std(CompoundAffectationOperation _anaNode) {
-        String oper_ = _anaNode.getOperatorContent().getOper();
-        String op_ = oper_.substring(0, oper_.length() - 1);
-        if (StringUtil.quickEq(op_, "+")) {
-            return new CommonOperSum();
-        }
-        if (StringUtil.quickEq(op_, "-")) {
-            return new CommonOperDiff();
-        }
-        if (StringUtil.quickEq(op_,"*")) {
-            return new CommonOperMult();
-        }
-        if (StringUtil.quickEq(op_,"/")) {
-            return new CommonOperDiv();
-        }
-        if (StringUtil.quickEq(op_,"%")) {
-            return new CommonOperMod();
-        }
-        if (StringUtil.quickEq(op_,"&")) {
-            return new CommonOperBitAnd();
-        }
-        if (StringUtil.quickEq(op_,"|")) {
-            return new CommonOperBitOr();
-        }
-        if (StringUtil.quickEq(op_,"^")) {
-            return new CommonOperBitXor();
-        }
-        if (StringUtil.quickEq(op_,"<<")) {
-            return new CommonOperShiftLeft();
-        }
-        if (StringUtil.quickEq(op_,">>")) {
-            return new CommonOperShiftRight();
-        }
-        if (StringUtil.quickEq(op_,"<<<")) {
-            return new CommonOperBitShiftLeft();
-        }
-        if (StringUtil.quickEq(op_,">>>")) {
-            return new CommonOperBitShiftRight();
-        }
-        if (StringUtil.quickEq(op_,"<<<<")) {
-            return new CommonOperRotateLeft();
-        }
-        if (StringUtil.quickEq(op_,">>>>")) {
-            return new CommonOperRotateRight();
-        }
-        if (isLogicAnd(op_)) {
-            return new CommonOperAnd();
-        }
-        return new CommonOperOr();
-    }
-
-    private static boolean isLogicAnd(String _op) {
-        return StringUtil.quickEq(_op, "&&") || StringUtil.quickEq(_op, "&&&");
+        return new ExecOperDir(_anaNode.getSymbol());
     }
 
     private static ExecAbstractLambdaOperation buildLambda(LambdaOperation _anaNode, Forwards _forwards) {

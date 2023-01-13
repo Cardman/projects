@@ -152,12 +152,14 @@ public final class AnalyzedPageEl {
     private boolean sortNbOperators;
     private Ints currentAnnotDelNew = new Ints();
     private Ints currentAnnotDelSwitch = new Ints();
+    private AbstractSymbolFactory abstractSymbolFactory;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
         page_.setCurrentConstraints(new DefaultCurrentConstraints(page_));
         page_.setBuildingConstraints(new DefaultBuildingConstraints(page_));
         page_.setLocalizer(new DefaultLocalizer(page_));
+        page_.setAbstractSymbolFactory(new DefSymbolFactory());
         return page_;
     }
 
@@ -1289,5 +1291,13 @@ public final class AnalyzedPageEl {
 
     public void setCurrentAnnotDelSwitch(Ints _c) {
         this.currentAnnotDelSwitch = _c;
+    }
+
+    public AbstractSymbolFactory getAbstractSymbolFactory() {
+        return abstractSymbolFactory;
+    }
+
+    public void setAbstractSymbolFactory(AbstractSymbolFactory _a) {
+        this.abstractSymbolFactory = _a;
     }
 }

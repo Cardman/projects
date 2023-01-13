@@ -8,8 +8,6 @@ import code.expressionlanguage.analyze.symbols.AnaOperCat;
 import code.expressionlanguage.analyze.symbols.AnaOperDir;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.NumParsers;
-import code.expressionlanguage.common.symbol.*;
-import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.stds.StandardMethod;
 
 public abstract class ReachOperationNode {
@@ -97,11 +95,11 @@ public abstract class ReachOperationNode {
         }
         if (_oper instanceof CmpOperation) {
             CmpOperation c_ = (CmpOperation) _oper;
-            return new ReachCmpOperation(c_, ForwardInfos.cmp(c_));
+            return new ReachCmpOperation(c_, c_.getSymbol());
         }
         if (_oper instanceof EqOperation) {
             EqOperation c_ = (EqOperation) _oper;
-            return new ReachNumericOperation(c_,new AnaOperDir(ForwardInfos.eq(c_)));
+            return new ReachNumericOperation(c_,new AnaOperDir(c_.getSymbol()));
         }
         if (_oper instanceof NumericOperation) {
             return numeric((NumericOperation) _oper);
@@ -166,34 +164,17 @@ public abstract class ReachOperationNode {
         if (_oper instanceof ImplicitOperation) {
             return new ReachExtCastOperation((ImplicitOperation) _oper);
         }
-        if (_oper instanceof UnaryBooleanOperation) {
-            return new ReachNumericOperation(_oper, new AnaOperDir(new CommonOperNegBool()));
-        }
-        if (_oper instanceof UnaryBinOperation) {
-            return new ReachNumericOperation(_oper, new AnaOperDir(new CommonOperNegNum()));
-        }
         if (_oper instanceof UnaryOperation) {
-            return new ReachNumericOperation(_oper, new AnaOperDir(ForwardInfos.unary((UnaryOperation) _oper)));
+            return new ReachNumericOperation(_oper, new AnaOperDir(((UnaryOperation) _oper).getSymbol()));
         }
         return new ReachStdOperation(_oper);
     }
 
     private static ReachMethodOperation numeric(NumericOperation _num) {
-        if (_num instanceof AddOperation) {
-            AddOperation c_ = (AddOperation) _num;
-            if (c_.isCatString()) {
-                return new ReachNumericOperation(c_,new AnaOperCat());
-            }
-            return new ReachNumericOperation(c_,new AnaOperDir(ForwardInfos.additiveNum(c_)));
+        if (_num.isCatString()) {
+            return new ReachNumericOperation(_num,new AnaOperCat());
         }
-        if (_num instanceof MultOperation) {
-            MultOperation c_ = (MultOperation) _num;
-            return new ReachNumericOperation(c_,new AnaOperDir(ForwardInfos.multiplicative(c_)));
-        }
-        if (_num instanceof BitOperation) {
-            return new ReachNumericOperation(_num,new AnaOperDir(ForwardInfos.bitwise((BitOperation) _num)));
-        }
-        return new ReachNumericOperation(_num,new AnaOperDir(ForwardInfos.shiftRotate((BitShiftRotateOperation)_num)));
+        return new ReachNumericOperation(_num,new AnaOperDir(_num.getSymbol()));
     }
 
     public final void setRelativeOffsetPossibleAnalyzable(AnalyzedPageEl _page) {

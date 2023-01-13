@@ -2745,7 +2745,7 @@ public final class LinkageUtil {
     }
 
     private static boolean leftOperNotFullTernary(MethodOperation _par) {
-        return !(_par instanceof TernaryOperation) && !(_par instanceof RefTernaryOperation) && (leftOperNotUnary(_par) || _par instanceof UnaryOperation || _par instanceof UnaryBooleanOperation || _par instanceof UnaryBinOperation || _par instanceof SemiAffectationOperation && !((SemiAffectationOperation) _par).isPost());
+        return !(_par instanceof TernaryOperation) && !(_par instanceof RefTernaryOperation) && (leftOperNotUnary(_par) || _par instanceof UnaryOperation || _par instanceof SemiAffectationOperation && !((SemiAffectationOperation) _par).isPost());
     }
 
     private static String headCoverage(AbstractCoverageResult _result) {
@@ -3397,8 +3397,8 @@ public final class LinkageUtil {
     }
 
     private static void processUnaryLeftOperationsCoversReport(LinkageStackElementIn _in, VariablesOffsets _vars, int _sum, OperationNode _val, Coverage _cov) {
-        if (_val instanceof UnaryBooleanOperation && ((UnaryBooleanOperation)_val).getFct().getFunction() == null) {
-            int offsetOp_ = ((UnaryBooleanOperation)_val).getOperators().firstKey();
+        if (_val instanceof UnaryOperation && ((UnaryOperation)_val).isPureBoolResult()) {
+            int offsetOp_ = ((UnaryOperation)_val).getOperators().firstKey();
             safeReport(_in,_vars,_val,_cov,_sum + _val.getIndexInEl() + offsetOp_, 1);
         }
     }
@@ -3786,7 +3786,7 @@ public final class LinkageUtil {
             AnaTypeFct function_ = par_.getFct().getFunction();
             if (function_ != null) {
                 addParts(_vars, function_,sum_+par_.getOperatorContent().getOpOffset(),par_.getOperatorContent().getOper().length(),_parentOp.getErrs(),_parentOp.getErrs());
-            } else if (_parentOp instanceof AddOperation && ((AddOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
+            } else if (_parentOp instanceof NumericOperation && ((NumericOperation)_parentOp).isCatString() && canCallToString(_vars, _curOp, _nextSiblingOp)) {
                 _vars.addPart(new PartOffset(ExportCst.HEAD_ITALIC, sum_+par_.getOperatorContent().getOpOffset()));
                 _vars.addPart(new PartOffset(ExportCst.FOOT_ITALIC, sum_+par_.getOperatorContent().getOpOffset() + par_.getOperatorContent().getOper().length()));
             }

@@ -2,12 +2,14 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.expressionlanguage.stds.PrimitiveTypes;
@@ -18,11 +20,10 @@ import code.util.core.StringUtil;
 
 public final class CmpOperation extends MethodOperation implements MiddleSymbolOperation {
 
-    private boolean stringCompare;
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final AnaOperatorContent operatorContent;
     private boolean okNum;
-
+    private CommonOperSymbol symbol;
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -62,69 +63,42 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         OperationNode r_ = chidren_.last();
         AnaClassArgumentMatching second_ = r_.getResultClass();
         String op_ = getOperators().firstValue().trim();
-        if (cmp(first_, second_, _page)) {
-            natCmp(_page);
-            return;
+        OperatorConverter cl_ = null;
+        ResultOperand resOp_ = SymbolFactoryUtil.generateOperand(op_, l_.getResultClass(), r_.getResultClass(), _page);
+        AnaClassArgumentMatching rOp_ = resOp_.getResult();
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            cl_ = CompoundAffectationOperation.tryGetStd(_page, op_, this, SymbolFactoryUtil.binaries(op_, _page));
         }
-        OperatorConverter cl_ = CompoundAffectationOperation.tryGetStd(_page, op_, this,groupBinCmp(_page));
+        symbol = resOp_.getSymbol();
         if (cl_ != null) {
             fct.infos(cl_,_page);
             return;
         }
-        natCmp(_page);
+        setResultClass(AnaClassArgumentMatching.copy(rOp_, _page.getPrimitiveTypes()));
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            okNum = false;
+            _page.setOkNumOp(false);
+            setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(0), _page);
+            String res_ = _page.getAliasPrimBoolean();
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setIndexFile(_page);
+            un_.setFile(_page.getCurrentFile());
+            //oper
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
+                    StringUtil.join(new StringList(
+                            StringUtil.join(first_.getNames(),ExportCst.JOIN_TYPES),
+                            StringUtil.join(second_.getNames(),ExportCst.JOIN_TYPES)
+                    ),ExportCst.JOIN_OPERANDS),
+                    getOp());
+            _page.getLocalizer().addError(un_);
+            getPartOffsetsChildren().add(new InfoErrorDto(un_, _page, operatorContent.getOper().length()));
+            setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
+        }
+        okNum = _page.isOkNumOp();
     }
 
-    private void natCmp(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode l_ = chidren_.first();
-        AnaClassArgumentMatching first_ = l_.getResultClass();
-        OperationNode r_ = chidren_.last();
-        AnaClassArgumentMatching second_ = r_.getResultClass();
-        String stringType_ = _page.getAliasString();
-        if (first_.matchClass(stringType_) && second_.matchClass(stringType_)) {
-            stringCompare = true;
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
-            first_.setCheckOnlyNullPe(true);
-            second_.setCheckOnlyNullPe(true);
-            return;
-        }
-        if (AnaTypeUtil.isFloatOrderClass(first_, second_, _page)) {
-            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
-            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
-            l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
-            r_.getResultClass().setUnwrapObject(classSecond_, _page.getPrimitiveTypes());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
-            return;
-        }
-        if (AnaTypeUtil.isIntOrderClass(first_, second_, _page)) {
-            AnaClassArgumentMatching classFirst_ = AnaTypeUtil.toPrimitive(first_, _page);
-            AnaClassArgumentMatching classSecond_ = AnaTypeUtil.toPrimitive(second_, _page);
-            l_.getResultClass().setUnwrapObject(classFirst_, _page.getPrimitiveTypes());
-            r_.getResultClass().setUnwrapObject(classSecond_, _page.getPrimitiveTypes());
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
-            return;
-        }
-        okNum = false;
-        _page.setOkNumOp(false);
-        setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ getOperators().getKey(0), _page);
-        String res_ = _page.getAliasPrimBoolean();
-        FoundErrorInterpret un_ = new FoundErrorInterpret();
-        un_.setIndexFile(_page);
-        un_.setFile(_page.getCurrentFile());
-        //oper
-        un_.buildError(_page.getAnalysisMessages().getUnexpectedOperandTypes(),
-                StringUtil.join(new StringList(
-                        StringUtil.join(first_.getNames(),ExportCst.JOIN_TYPES),
-                        StringUtil.join(second_.getNames(),ExportCst.JOIN_TYPES)
-                ),ExportCst.JOIN_OPERANDS),
-                getOp());
-        _page.getLocalizer().addError(un_);
-        getPartOffsetsChildren().add(new InfoErrorDto(un_, _page, operatorContent.getOper().length()));
-        setResultClass(new AnaClassArgumentMatching(res_, _page.getPrimitiveTypes()));
-    }
-
-    public boolean isStringCompare() {
-        return stringCompare;
+    public CommonOperSymbol getSymbol() {
+        return symbol;
     }
 
     public ClassMethodIdMemberIdTypeFct getFct() {

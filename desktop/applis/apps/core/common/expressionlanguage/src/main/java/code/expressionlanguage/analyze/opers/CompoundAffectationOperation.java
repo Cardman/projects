@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
@@ -10,9 +11,9 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.*;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.StrTypes;
@@ -32,6 +33,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     private boolean rightBool;
     private boolean concat;
+    private CommonOperSymbol symbol;
 
     public CompoundAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -66,88 +68,44 @@ public final class CompoundAffectationOperation extends MethodOperation {
         StrTypes ops_ = getOperators();
         setRelativeOffsetPossibleAnalyzable(getIndexInEl()+ops_.firstKey(), _page);
         String op_ = operToSearch(ops_);
-        if (StringExpUtil.isLogical(op_)) {
-            logical(_page, op_);
-            return;
-        }
-        if (StringExpUtil.isBinNum(op_)) {
-            binNum(_page, op_);
-            return;
-        }
-        if (StringExpUtil.isBitwise(op_)) {
-            bitwise(_page, op_);
-            return;
-        }
-        if (StringExpUtil.isShiftOper(op_)) {
-            shiftOper(_page, op_);
-            return;
-        }
-        nullSafe(_page);
-    }
-
-    private void shiftOper(AnalyzedPageEl _page, String _op) {
+        OperatorConverter res_ = null;
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode left_ = chidren_.first();
         OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (AnaTypeUtil.isIntOrderClass(clMatchLeft_, clMatchRight_, _page)) {
-            natCompoundShiftNum(_page);
-            return;
-        }
-        OperatorConverter res_ = tryGetStd(_page, _op, this, groupBinShift(_page));
-        compoundShift(_page,res_);
-    }
-
-    private void bitwise(AnalyzedPageEl _page, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (bitwise(clMatchLeft_, clMatchRight_, _page)) {
-            natCompoundBitwise(_page);
-            return;
-        }
-        OperatorConverter res_ = tryGetStd(_page, _op, this, groupBinBitwise(_page));
-        compoundBitwise(_page, res_);
-    }
-
-    private void binNum(AnalyzedPageEl _page, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (StringUtil.quickEq(_op, "+")) {
-            if (compoundPlusBinNatOper(clMatchLeft_, clMatchRight_, _page)) {
-                natPlusCompound(_page);
-                return;
+        ResultOperand resOp_ = SymbolFactoryUtil.generateOperand(op_, left_.getResultClass(), right_.getResultClass(), _page);
+        AnaClassArgumentMatching rOp_ = resOp_.getResult();
+        concat = concatAff(_page, op_, left_);
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            if (StringExpUtil.isLogical(op_)) {
+                res_ = tryGetLogical(_page, op_, this);
+            } else {
+                res_ = tryGetStd(_page, op_, this, SymbolFactoryUtil.binaries(op_, _page));
             }
-            OperatorConverter res_ = tryGetStd(_page, _op, this, groupBinNum(_page));
-            compoundPlus(_page, res_);
+        }
+        symbol = resOp_.getSymbol();
+        if (res_ != null) {
+            custCompound(_page,res_);
             return;
         }
-        if (binNum(clMatchLeft_, clMatchRight_, _page)) {
-            natCompoundBinNum(_page);
-            return;
+        if (concat) {
+            right_.getResultClass().setConvertToString(true);
+        } else if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            if (!StringExpUtil.isNullSafe(op_)) {
+                notFound(_page);
+            } else {
+                nullSafe(_page);
+            }
+        } else {
+            setBool(right_, _page);
         }
-        OperatorConverter res_ = tryGetStd(_page, _op, this, groupBinNum(_page));
-        compoundBinNum(_page, res_);
     }
 
-    private void logical(AnalyzedPageEl _page, String _op) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (logical(clMatchLeft_, clMatchRight_, _page)) {
-            natLogicalCoumpound(_page);
-            return;
-        }
-        OperatorConverter res_ = tryGetLogical(_page, _op, this);
-        compoundLogical(_page,res_);
+    private static boolean concatAff(AnalyzedPageEl _page, String _op, OperationNode _left) {
+        return StringUtil.quickEq(_op, "+") && _left.getResultClass().matchClass(_page.getAliasString());
+    }
+
+    public CommonOperSymbol getSymbol() {
+        return symbol;
     }
 
     static void checkFinal(OperationNode _cur,AnalyzedPageEl _page, SettableElResult _settable) {
@@ -199,37 +157,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
         }
     }
 
-    private void natCompoundBitwise(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (!bitwise(clMatchLeft_, clMatchRight_, _page)) {
-            notFound(_page);
-            return;
-        }
-        AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-        left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        setBool(right_, _page);
-    }
-
-    private void natCompoundBinNum(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (!binNum(clMatchLeft_,clMatchRight_,_page)) {
-            notFound(_page);
-        } else {
-            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        }
-    }
-
     private void notFound(AnalyzedPageEl _page) {
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode left_ = chidren_.first();
@@ -247,21 +174,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
         getPartOffsetsChildren().add(new InfoErrorDto(cast_, _page,operatorContent.getOper().length()-1));
     }
 
-    private void natCompoundShiftNum(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (!AnaTypeUtil.isIntOrderClass(clMatchLeft_, clMatchRight_, _page)) {
-            notFound(_page);
-        } else {
-            AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-            left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-            right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        }
-    }
-
     static OperatorConverter tryGetStd(AnalyzedPageEl _page, String _op, MethodOperation _symb, CustList<CustList<ParamReturn>> _groups) {
         CustList<OperationNode> chidren_ = _symb.getChildrenNodes();
         OperationNode left_ = chidren_.first();
@@ -272,36 +184,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
         return tryGetCustom(_page, _op, null, bins_, _groups, _symb);
     }
 
-    private void natPlusCompound(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        String stringType_ = _page.getAliasString();
-        boolean isString_ = clMatchLeft_.matchClass(stringType_);
-        if (isString_) {
-            concat = true;
-            clMatchRight_.setConvertToString(true);
-            return;
-        }
-        if (!binNum(clMatchLeft_, clMatchRight_, _page)) {
-            notFound(_page);
-            return;
-        }
-        AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-        left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-    }
-    private static boolean compoundPlusBinNatOper(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        String stringType_ = _page.getAliasString();
-        boolean isString_ = _left.matchClass(stringType_);
-        if (isString_) {
-            return plusBinNatOper(_left, _right, _page);
-        }
-        return binNum(_left, _right, _page);
-    }
-
     static OperatorConverter tryGetLogical(AnalyzedPageEl _page, String _op, MethodOperation _symb) {
         CustList<OperationNode> chidren_ = _symb.getChildrenNodes();
         OperationNode left_ = chidren_.first();
@@ -310,7 +192,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
         AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
         ClassMethodIdReturn test_ = tryGetTest(left_, _op, _page, null);
         CustList<CustList<MethodInfo>> bins_ = addBinariesLogical(test_, _page, clMatchLeft_, clMatchRight_);
-        return tryGetCustom(_page, _op, test_, bins_, groupBinLogical(_page), _symb);
+        return tryGetCustom(_page, _op, test_, bins_, SymbolFactoryUtil.binaries(_op,_page), _symb);
     }
 
     static OperatorConverter tryGetCustom(AnalyzedPageEl _page, String _oper, ClassMethodIdReturn _test, CustList<CustList<MethodInfo>> _bins, CustList<CustList<ParamReturn>> _groups, MethodOperation _symb) {
@@ -323,58 +205,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
             return oper_;
         }
         return tryGetBinaryWithVirtual(_symb, _oper, _page, pair_, _groups);
-    }
-    private void compoundBitwise(AnalyzedPageEl _page, OperatorConverter _oper) {
-        if (_oper != null) {
-            custCompound(_page, _oper);
-            return;
-        }
-        natCompoundBitwise(_page);
-    }
-    private void compoundLogical(AnalyzedPageEl _page, OperatorConverter _oper){
-        if (_oper != null) {
-            custCompound(_page, _oper);
-            return;
-        }
-        natLogicalCoumpound(_page);
-    }
-    private void compoundPlus(AnalyzedPageEl _page, OperatorConverter _oper){
-        if (_oper != null) {
-            custCompound(_page, _oper);
-            return;
-        }
-        natPlusCompound(_page);
-    }
-
-    private void compoundBinNum(AnalyzedPageEl _page, OperatorConverter _oper) {
-        if (_oper != null) {
-            custCompound(_page, _oper);
-            return;
-        }
-        natCompoundBinNum(_page);
-    }
-
-    private void compoundShift(AnalyzedPageEl _page, OperatorConverter _oper) {
-        if (_oper != null) {
-            custCompound(_page, _oper);
-            return;
-        }
-        natCompoundShiftNum(_page);
-    }
-    private void natLogicalCoumpound(AnalyzedPageEl _page) {
-        CustList<OperationNode> chidren_ = getChildrenNodes();
-        OperationNode left_ = chidren_.first();
-        OperationNode right_ = chidren_.last();
-        AnaClassArgumentMatching clMatchLeft_ = left_.getResultClass();
-        AnaClassArgumentMatching clMatchRight_ = right_.getResultClass();
-        if (!logical(clMatchLeft_,clMatchRight_,_page)) {
-            notFound(_page);
-            return;
-        }
-        AnaClassArgumentMatching unwrapped_ = AnaTypeUtil.toPrimitive(clMatchLeft_, _page);
-        left_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        right_.getResultClass().setUnwrapObject(unwrapped_, _page.getPrimitiveTypes());
-        setBool(right_, _page);
     }
 
     private void custCompound(AnalyzedPageEl _page, OperatorConverter _cl) {

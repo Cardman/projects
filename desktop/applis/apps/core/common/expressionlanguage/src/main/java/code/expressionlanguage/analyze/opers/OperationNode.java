@@ -242,13 +242,13 @@ public abstract class OperationNode {
             return unary(_index, _indexChild, _m, _op, _page);
         }
         if (_op.getPriority() == ElResolver.MULT_PRIO) {
-            return new MultOperation(_index, _indexChild, _m, _op);
+            return new NumericOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.ADD_PRIO) {
-            return new AddOperation(_index, _indexChild, _m, _op);
+            return new NumericOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.SHIFT_PRIO) {
-            return new BitShiftRotateOperation(_index, _indexChild, _m, _op);
+            return new NumericOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.CMP_PRIO) {
             if (_op.isInstanceTest()) {
@@ -264,7 +264,7 @@ public abstract class OperationNode {
             return new EqOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.BIT_AND_PRIO || _op.getPriority() == ElResolver.BIT_XOR_PRIO || _op.getPriority() == ElResolver.BIT_OR_PRIO) {
-            return new BitOperation(_index, _indexChild, _m, _op);
+            return new NumericOperation(_index, _indexChild, _m, _op);
         }
         if (_op.getPriority() == ElResolver.RANGE) {
             return new RangeOperation(_index,_indexChild, _m, _op);
@@ -303,13 +303,7 @@ public abstract class OperationNode {
 
     private static AbstractUnaryOperation unary(int _index, int _indexChild, MethodOperation _m, OperationsSequence _op, AnalyzedPageEl _page) {
         String value_ = _op.getOperators().firstValue().trim();
-        if (StringUtil.quickEq(value_, NEG_BOOL)) {
-            return new UnaryBooleanOperation(_index, _indexChild, _m, _op);
-        }
-        if (StringUtil.quickEq(value_, NEG_BOOL_BIN)) {
-            return new UnaryBinOperation(_index, _indexChild, _m, _op);
-        }
-        if (StringUtil.quickEq(value_, MINUS) || StringUtil.quickEq(value_, PLUS)) {
+        if (StringUtil.quickEq(value_, NEG_BOOL) || StringUtil.quickEq(value_, NEG_BOOL_BIN) || StringUtil.quickEq(value_, MINUS) || StringUtil.quickEq(value_, PLUS)) {
             return new UnaryOperation(_index, _indexChild, _m, _op);
         }
         if (value_.startsWith(MINUS) || value_.startsWith(PLUS)) {
@@ -1240,36 +1234,6 @@ public abstract class OperationNode {
         return getImplSgn(methods_, _arg, _page, _vars, _cmp);
     }
 
-    protected static CustList<StringList> groupBool(AnalyzedPageEl _page) {
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimBoolean());
-        groups_.add(group_);
-        return groups_;
-    }
-
-    protected static CustList<StringList> groupUnBin(AnalyzedPageEl _page) {
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimInteger());
-        group_.add(_page.getAliasPrimLong());
-        groups_.add(group_);
-        return groups_;
-    }
-
-    protected static CustList<StringList> groupUnNum(AnalyzedPageEl _page) {
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimInteger());
-        group_.add(_page.getAliasPrimLong());
-        groups_.add(group_);
-        group_ = new StringList();
-        group_.add(_page.getAliasPrimFloat());
-        group_.add(_page.getAliasPrimDouble());
-        groups_.add(group_);
-        return groups_;
-    }
-
     private static CustList<CustList<MethodInfo>> addUnaries(AnalyzedPageEl _page, AnaClassArgumentMatching _operand) {
         CustList<CustList<MethodInfo>> listsUnary_ = new CustList<CustList<MethodInfo>>();
         CustList<MethodInfo> listUnary_ = new CustList<MethodInfo>();
@@ -1329,59 +1293,6 @@ public abstract class OperationNode {
         return name_;
     }
 
-
-    protected static CustList<CustList<ParamReturn>> groupBinCmp(AnalyzedPageEl _page) {
-        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
-        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimBoolean()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimBoolean()));
-        groups_.add(group_);
-        group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimBoolean()));
-        group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimBoolean()));
-        groups_.add(group_);
-        return groups_;
-    }
-
-    protected static CustList<CustList<ParamReturn>> groupBinShift(AnalyzedPageEl _page) {
-        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
-        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
-        groups_.add(group_);
-        return groups_;
-    }
-
-    protected static CustList<CustList<ParamReturn>> groupBinBitwise(AnalyzedPageEl _page) {
-        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
-        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
-        groups_.add(group_);
-        return groups_;
-    }
-
-    protected static CustList<CustList<ParamReturn>> groupBinNum(AnalyzedPageEl _page) {
-        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
-        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
-        groups_.add(group_);
-        group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimFloat()));
-        group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimDouble()));
-        groups_.add(group_);
-        return groups_;
-    }
-
-    protected static CustList<CustList<ParamReturn>> groupBinLogical(AnalyzedPageEl _page) {
-        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
-        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
-        groups_.add(group_);
-        return groups_;
-    }
 
     protected static OperatorConverter tryGetBinaryWithCust(MethodOperation _node,
                                                             String _op, AnalyzedPageEl _page, CustList<CustList<MethodInfo>> _listsBinary,
@@ -1483,112 +1394,6 @@ public abstract class OperationNode {
             return cust_;
         }
         return null;
-    }
-
-    protected static boolean logical(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        return _left.isBoolType(_page) && _right.isBoolType(_page);
-    }
-
-    protected static boolean eq(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        if (AnaTypeUtil.isFloatOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        if (_left.matchClass(_page.getAliasNumber())
-                && _right.matchClass(_page.getAliasNumber())) {
-            return true;
-        }
-        if (_left.isBoolType(_page)&& _right.isBoolType(_page)) {
-            return true;
-        }
-        if (_left.matchClass(_page.getAliasString())
-                && _right.matchClass(_page.getAliasString())) {
-            return true;
-        }
-        return _left.matchClass(_page.getAliasObject())
-                && _right.matchClass(_page.getAliasObject());
-    }
-
-    protected static boolean bitwise(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        return _left.isBoolType(_page) && _right.isBoolType(_page);
-    }
-
-    protected static boolean cmp(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        if (AnaTypeUtil.isFloatOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        return _left.matchClass(_page.getAliasString())
-                && _right.matchClass(_page.getAliasString());
-    }
-
-    protected static boolean binNum(String _oper, AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (StringUtil.quickEq(_oper,"+")) {
-            return plusBinNatOper(_left, _right, _page);
-        }
-        return binNum(_left, _right, _page);
-    }
-
-    protected static boolean binNum(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        return AnaTypeUtil.isFloatOrderClass(_left, _right, _page);
-    }
-
-    protected static boolean plusBinNatOper(AnaClassArgumentMatching _left, AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (AnaTypeUtil.isIntOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        if (AnaTypeUtil.isFloatOrderClass(_left, _right, _page)) {
-            return true;
-        }
-        if (_left.matchClass(_page.getAliasString())) {
-            return strPlusLeft(_right, _page);
-        }
-        if (_right.matchClass(_page.getAliasString())) {
-            return strPlusRight(_left, _page);
-        }
-        return false;
-    }
-
-    private static boolean strPlusRight(AnaClassArgumentMatching _left, AnalyzedPageEl _page) {
-        if (_left.matchClass(_page.getAliasNumber())) {
-            return true;
-        }
-        if (AnaTypeUtil.isPureNumberClass(_left, _page)) {
-            return true;
-        }
-        if (_left.isBoolType(_page)) {
-            return true;
-        }
-        return _left.matchClass(_page.getAliasObject());
-    }
-
-    private static boolean strPlusLeft(AnaClassArgumentMatching _right, AnalyzedPageEl _page) {
-        if (_right.matchClass(_page.getAliasNumber())) {
-            return true;
-        }
-        if (AnaTypeUtil.isPureNumberClass(_right, _page)) {
-            return true;
-        }
-        if (_right.isBoolType(_page)) {
-            return true;
-        }
-        if (_right.matchClass(_page.getAliasString())) {
-            return true;
-        }
-        if (_right.matchClass(_page.getAliasStringBuilder())) {
-            return true;
-        }
-        return _right.matchClass(_page.getAliasObject());
     }
 
     static ClassMethodIdReturn getOperator(String _op, CustList<OperationNode> _argsClass, AnalyzedPageEl _page) {

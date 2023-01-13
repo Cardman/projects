@@ -2,12 +2,14 @@ package code.expressionlanguage.analyze.opers;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.InfoErrorDto;
+import code.expressionlanguage.analyze.SymbolFactoryUtil;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.ClassMethodIdMemberIdTypeFct;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
-import code.expressionlanguage.analyze.opers.util.ParamReturn;
+import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.fwd.opers.AnaOperatorContent;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
@@ -17,6 +19,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
 
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final AnaOperatorContent operatorContent;
+    private CommonOperSymbol symbol;
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -38,20 +41,26 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
             _page.getLocalizer().addError(badEl_);
             getPartOffsetsChildren().add(new InfoErrorDto(badEl_,_page,1));
         }
-        String custOp_ = operatorContent.getOper().trim();
+        String custOp_ = getOp().trim();
         CustList<OperationNode> chidren_ = getChildrenNodes();
         OperationNode l_ = chidren_.first();
         OperationNode r_ = chidren_.last();
-        if (eq(l_.getResultClass(), r_.getResultClass(), _page)) {
-            setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
-            return;
+        OperatorConverter cl_ = null;
+        ResultOperand resOp_ = SymbolFactoryUtil.generateOperand(custOp_, l_.getResultClass(), r_.getResultClass(), _page);
+        AnaClassArgumentMatching rOp_ = resOp_.getResult();
+        if (rOp_.getSingleNameOrEmpty().isEmpty()) {
+            cl_ = CompoundAffectationOperation.tryGetStd(_page, custOp_, this, SymbolFactoryUtil.binaries(custOp_, _page));
         }
-        OperatorConverter cl_ = CompoundAffectationOperation.tryGetStd(_page, custOp_, this,new CustList<CustList<ParamReturn>>());
+        symbol = resOp_.getSymbol();
         if (cl_ != null) {
             fct.infos(cl_,_page);
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
+    }
+
+    public CommonOperSymbol getSymbol() {
+        return symbol;
     }
 
     public ClassMethodIdMemberIdTypeFct getFct() {
