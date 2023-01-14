@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.opers.util.ParamReturn;
 import code.expressionlanguage.analyze.opers.util.ResultOperand;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.util.CustList;
-import code.util.StringList;
 
 public final class DefSymbolFactory implements AbstractSymbolFactory {
     @Override
@@ -23,8 +22,8 @@ public final class DefSymbolFactory implements AbstractSymbolFactory {
     }
 
     @Override
-    public CustList<StringList> unaries(String _symbol, AnalyzedPageEl _page) {
-        return new CustList<StringList>();
+    public CustList<CustList<ParamReturn>> unaries(String _symbol, AnalyzedPageEl _page) {
+        return new CustList<CustList<ParamReturn>>();
     }
 
     public static ResultOperand defResult() {

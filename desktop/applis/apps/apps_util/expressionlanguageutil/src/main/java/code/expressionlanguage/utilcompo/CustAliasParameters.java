@@ -22,6 +22,10 @@ public final class CustAliasParameters {
     private static final String THREAD_SET_0_THREAD_SET_REMOVE_0="ThreadSet0ThreadSetRemove0";
     private static final String THREAD_SET_0_THREAD_SET_0="ThreadSet0ThreadSet0";
     private static final String THREAD_0_ARGS_0="Thread0Args0";
+    private static final String RATE_0_RATE_PARSE_0="Rate0RateParse0";
+    private static final String LG_INT_0_LG_INT_PARSE_0="LgInt0LgIntParse0";
+    private static final String RATE_0_RATE_0="Rate0Rate0";
+    private static final String LG_INT_0_LG_INT_0="LgInt0LgInt0";
     private static final String REENTRANT_LOCK_0_REENTRANT_LOCK_0="ReentrantLock0ReentrantLock0";
     private static final String ATOMIC_BOOLEAN_0_SET_ATOMIC_0="AtomicBoolean0SetAtomic0";
     private static final String ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_0="AtomicBoolean0CompareAndSetAtomic0";
@@ -247,6 +251,10 @@ public final class CustAliasParameters {
     private String aliasThreadSet0ThreadSetRemove0;
     private String aliasThreadSet0ThreadSet0;
     private String aliasThread0Args0;
+    private String aliasRate0RateParse0;
+    private String aliasLgInt0LgIntParse0;
+    private String aliasRate0Rate0;
+    private String aliasLgInt0LgInt0;
     private String aliasReentrantLock0ReentrantLock0;
     private String aliasAtomicBoolean0SetAtomic0;
     private String aliasAtomicBoolean0CompareAndSetAtomic0;
@@ -471,6 +479,10 @@ public final class CustAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_REMOVE_0,aliasThreadSet0ThreadSetRemove0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_SET_0_THREAD_SET_0,aliasThreadSet0ThreadSet0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(THREAD_0_ARGS_0,aliasThread0Args0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LG_INT_0_LG_INT_0,aliasLgInt0LgInt0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RATE_0_RATE_0,aliasRate0Rate0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(LG_INT_0_LG_INT_PARSE_0,aliasLgInt0LgIntParse0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RATE_0_RATE_PARSE_0,aliasRate0RateParse0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(REENTRANT_LOCK_0_REENTRANT_LOCK_0,aliasReentrantLock0ReentrantLock0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ATOMIC_BOOLEAN_0_SET_ATOMIC_0,aliasAtomicBoolean0SetAtomic0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_0,aliasAtomicBoolean0CompareAndSetAtomic0),new KeyValueMemberName(ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_1,aliasAtomicBoolean0CompareAndSetAtomic1)));
@@ -622,6 +634,10 @@ public final class CustAliasParameters {
         aliasThreadSet0ThreadSetRemove0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_REMOVE_0);
         aliasThreadSet0ThreadSet0= LgNamesContent.get(_util, _cust, THREAD_SET_0_THREAD_SET_0);
         aliasThread0Args0 = LgNamesContent.get(_util, _cust, THREAD_0_ARGS_0);
+        aliasRate0Rate0 = LgNamesContent.get(_util, _cust, RATE_0_RATE_0);
+        aliasLgInt0LgInt0 = LgNamesContent.get(_util, _cust, LG_INT_0_LG_INT_0);
+        aliasRate0RateParse0 = LgNamesContent.get(_util, _cust, RATE_0_RATE_PARSE_0);
+        aliasLgInt0LgIntParse0 = LgNamesContent.get(_util, _cust, LG_INT_0_LG_INT_PARSE_0);
         aliasReentrantLock0ReentrantLock0= LgNamesContent.get(_util, _cust, REENTRANT_LOCK_0_REENTRANT_LOCK_0);
         aliasAtomicBoolean0SetAtomic0= LgNamesContent.get(_util, _cust, ATOMIC_BOOLEAN_0_SET_ATOMIC_0);
         aliasAtomicBoolean0CompareAndSetAtomic0= LgNamesContent.get(_util, _cust, ATOMIC_BOOLEAN_0_COMPARE_AND_SET_ATOMIC_0);
@@ -891,6 +907,21 @@ public final class CustAliasParameters {
         return aliasThread0Args0;
     }
 
+    public String getAliasRate0RateParse0() {
+        return aliasRate0RateParse0;
+    }
+
+    public String getAliasLgInt0LgIntParse0() {
+        return aliasLgInt0LgIntParse0;
+    }
+
+    public String getAliasRate0Rate0() {
+        return aliasRate0Rate0;
+    }
+
+    public String getAliasLgInt0LgInt0() {
+        return aliasLgInt0LgInt0;
+    }
 //    public String getAliasReentrantLock0ReentrantLock0() {
 //        return aliasReentrantLock0ReentrantLock0;
 //    }

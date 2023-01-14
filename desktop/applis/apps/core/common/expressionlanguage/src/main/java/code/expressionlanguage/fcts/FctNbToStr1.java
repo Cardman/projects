@@ -10,12 +10,13 @@ import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class FctNbToStr1 implements AnaStdCaller {
     @Override
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
-        return AnaApplyCoreMethodUtil.getAnaDisplayable(_args[0]).getDisplayedString(_page);
+        return new StringStruct(AnaApplyCoreMethodUtil.getString(_args[0],_page));
     }
 
     @Override

@@ -22,7 +22,6 @@ public final class NumericOperation extends MethodOperation implements MiddleSym
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final AnaOperatorContent operatorContent;
     private boolean okNum;
-    private CommonOperSymbol symbol;
 
     private boolean catString;
     public NumericOperation(int _index,
@@ -50,9 +49,9 @@ public final class NumericOperation extends MethodOperation implements MiddleSym
             CustList<CustList<ParamReturn>> bins_ = SymbolFactoryUtil.binaries(oper_, _page);
             res_ = CompoundAffectationOperation.tryGetStd(_page, oper_, this, bins_);
         }
-        symbol = resOp_.getSymbol();
+        fct.setSymbol(resOp_.getSymbol());
         if (res_ != null) {
-            fct.infos(res_,_page);
+            fct.infos(res_);
             return;
         }
         setResultClass(AnaClassArgumentMatching.copy(rOp_, _page.getPrimitiveTypes()));
@@ -84,7 +83,7 @@ public final class NumericOperation extends MethodOperation implements MiddleSym
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     public boolean isCatString() {

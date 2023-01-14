@@ -22,7 +22,6 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     private final boolean post;
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final ClassMethodIdMemberIdTypeFct convTo = new ClassMethodIdMemberIdTypeFct();
-    private CommonOperSymbol symbol;
 
     public SemiAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op, boolean _post) {
@@ -65,9 +64,9 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
             CustList<OperationNode> single_ = new CustList<OperationNode>(leftEl_);
             cl_ = operUse(_page, op_, operand_, single_, SymbolFactoryUtil.unaries(op_,_page));
         }
-        symbol = resOp_.getSymbol();
+        fct.setSymbol(resOp_.getSymbol());
         if (cl_ != null) {
-            fct.infos(cl_,_page);
+            fct.infos(cl_);
             CompoundAffectationOperation.tryImplicit(this,_page, getSettableResClass(), convTo);
             return;
         }
@@ -86,7 +85,7 @@ public final class SemiAffectationOperation extends AbstractUnaryOperation  {
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     private AnaClassArgumentMatching getSettableResClass() {

@@ -21,6 +21,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -197,7 +198,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
             Argument argument_ = _ch.getArgument();
             if (argument_ != null) {
                 checkDuplicateListedValue(_page,argument_);
-                checkInh(_page, _resSwitch, _instance, _resCase, AnaApplyCoreMethodUtil.getString(argument_, _page));
+                checkInh(_page, _resSwitch, _instance, _resCase, AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(argument_), _page));
                 stdValues.add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -264,7 +265,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _page.getKeyWords().getKeyWordCase(),
-                                AnaApplyCoreMethodUtil.getString(_value, _page),
+                                AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
                                 _page.getKeyWords().getKeyWordSwitch());
                         AnalyzingDoc.addError(un_, _page);
                         return;
@@ -281,7 +282,7 @@ public final class AnaRendCaseCondition extends AnaRendSwitchPartCondition {
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                         _page.getKeyWords().getKeyWordCase(),
-                        AnaApplyCoreMethodUtil.getString(_value, _page),
+                        AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
                         _page.getKeyWords().getKeyWordSwitch());
                 AnalyzingDoc.addError(un_, _page);
                 return;

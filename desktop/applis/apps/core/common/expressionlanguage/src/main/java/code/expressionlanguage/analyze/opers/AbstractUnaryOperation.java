@@ -4,10 +4,10 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.opers.util.OperatorConverter;
+import code.expressionlanguage.analyze.opers.util.ParamReturn;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.linkage.ExportCst;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.StringUtil;
 
 public abstract class AbstractUnaryOperation extends MethodOperation {
@@ -41,7 +41,7 @@ public abstract class AbstractUnaryOperation extends MethodOperation {
         return children_.size() != 1;
     }
 
-    protected OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single, CustList<StringList> _gr) {
+    protected OperatorConverter operUse(AnalyzedPageEl _page, String _op, AnaClassArgumentMatching _operand, CustList<OperationNode> _single, CustList<CustList<ParamReturn>> _gr) {
         OperatorConverter operCust_ = tryGetUnaryWithCust(this, _op, _page, _single, _operand);
         if (operCust_ != null) {
             return operCust_;

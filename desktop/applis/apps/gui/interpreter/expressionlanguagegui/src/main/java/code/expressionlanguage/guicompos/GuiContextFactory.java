@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.utilcompo.AdvSymbolFactory;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
@@ -35,6 +36,7 @@ public final class GuiContextFactory {
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames,fileBuilder_, _options);
         page_.setLogErr(forwards_);

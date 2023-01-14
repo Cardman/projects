@@ -2,7 +2,7 @@ package code.expressionlanguage.analyze;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.stds.AnaStdCaller;
-import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -47,37 +47,25 @@ public final class AnaApplyCoreMethodUtil {
         return classes_;
     }
 
-    public static AnaDisplayableStruct getAnaDisplayable(Struct _value) {
-        if (_value instanceof NumberStruct) {
+    private static AnaDisplayableStruct getAnaDisplayable(Struct _value) {
+        if (_value instanceof AnaDisplayableStruct) {
             return (AnaDisplayableStruct) _value;
         }
-        if (_value instanceof ClassMetaInfo) {
-            return (AnaDisplayableStruct) _value;
-        }
-        if (_value instanceof BooleanStruct) {
-            return (AnaDisplayableStruct) _value;
-        }
-        if (_value instanceof NullStruct) {
-            return (AnaDisplayableStruct) _value;
-        }
-        if (_value instanceof RangeStruct) {
-            return (AnaDisplayableStruct) _value;
-        }
-        return NumParsers.getString(_value);
+        return null;
     }
 
-    public static String getString(Argument _value, AnalyzedPageEl _page) {
-        Struct struct_ = _value.getStruct();
-        if (struct_ instanceof ReplacementStruct) {
+    public static String getString(Struct _value, AnalyzedPageEl _page) {
+        AnaDisplayableStruct dis_ = getAnaDisplayable(_value);
+        if (dis_ == null) {
             return _page.getCharSeq().getAliasReplacement();
         }
-        return getAnaDisplayable(struct_).getDisplayedString(_page).getInstance();
+        return dis_.getDisplayedString(_page).getInstance();
     }
 
     public static Argument localSumDiff(Argument _a, Argument _b, AnalyzedPageEl _page) {
         StringBuilder str_ = new StringBuilder();
-        str_.append(getString(_a, _page));
-        str_.append(getString(_b, _page));
+        str_.append(getString(ArgumentListCall.toStr(_a), _page));
+        str_.append(getString(ArgumentListCall.toStr(_b), _page));
         return new Argument(new StringStruct(str_.toString()));
     }
 

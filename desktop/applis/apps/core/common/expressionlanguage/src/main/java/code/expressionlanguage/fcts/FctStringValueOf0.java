@@ -19,7 +19,7 @@ public final class FctStringValueOf0 implements AnaStdCaller {
     public Struct call(AnalyzedPageEl _page, Struct _instance, Struct[] _args) {
         Struct arr_ = _args[0];
         if (!(arr_ instanceof ArrayStruct)) {
-            return AnaApplyCoreMethodUtil.getAnaDisplayable(arr_).getDisplayedString(_page);
+            return new StringStruct(AnaApplyCoreMethodUtil.getString(arr_,_page));
         }
         return new StringStruct(String.valueOf(FctStringValueOf1.toCharArr((ArrayStruct) arr_)));
     }

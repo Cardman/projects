@@ -13,6 +13,7 @@ import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.linkage.ExportCst;
 import code.maths.litteralcom.IndexStrPart;
 import code.maths.litteralcom.StrTypes;
@@ -130,7 +131,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             Argument argument_ = _ch.getArgument();
             if (argument_ != null) {
                 checkDuplicateListedValue(_page,argument_);
-                checkInh(_instance, _resSwitch, _resCase, _page, AnaApplyCoreMethodUtil.getString(argument_, _page));
+                checkInh(_instance, _resSwitch, _resCase, _page, AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(argument_), _page));
                 meta.getStdValues().add(argument_);
             } else {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
@@ -200,7 +201,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                                 _page.getKeyWords().getKeyWordCase(),
-                                AnaApplyCoreMethodUtil.getString(_value, _page),
+                                AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
                                 _page.getKeyWords().getKeyWordSwitch());
                         _page.addLocError(un_);
                         addErrorBlock(un_.getBuiltError());
@@ -218,7 +219,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
                         _page.getKeyWords().getKeyWordCase(),
-                        AnaApplyCoreMethodUtil.getString(_value, _page),
+                        AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
                         _page.getKeyWords().getKeyWordSwitch());
                 _page.addLocError(un_);
                 addErrorBlock(un_.getBuiltError());

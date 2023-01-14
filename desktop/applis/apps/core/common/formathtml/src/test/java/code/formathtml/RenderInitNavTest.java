@@ -2,6 +2,7 @@ package code.formathtml;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.DefSymbolFactory;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
@@ -1589,13 +1590,13 @@ public final class RenderInitNavTest extends CommonRender {
         files_.addEntry("conf_cl.txt","my_file");
         files_.addEntry("my_file", _brCode);
         files_.addEntry("page.html", _page);
-        return new DefaultInitialization(stds_,"", cn_, files_, _clName, _methodName);
+        return new DefaultInitialization(stds_,new DefSymbolFactory(),"", cn_, files_, _clName, _methodName);
     }
 
     private static String initDbKoConf() {
         BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
         basicStandards(stds_);
-        DefaultInitialization de_ = new DefaultInitialization(stds_,"","conf.xml",new StringMap<String>(),"","");
+        DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"","conf.xml",new StringMap<String>(),"","");
         return de_.execute(new Navigation());
     }
 
@@ -1605,7 +1606,7 @@ public final class RenderInitNavTest extends CommonRender {
         String cn_ = "conf.xml";
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry(cn_," ");
-        DefaultInitialization de_ = new DefaultInitialization(stds_,"",cn_,files_,"","");
+        DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"",cn_,files_,"","");
         return de_.execute(new Navigation());
     }
 }

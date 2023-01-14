@@ -2,10 +2,7 @@ package code.renders;
 
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilcompo.MemoryFileSystem;
-import code.expressionlanguage.utilcompo.TechInfos;
+import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
@@ -169,7 +166,7 @@ public final class WindowRenders extends GroupFrame {
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lgCode_)){
             lgCode_ = "";
         }
-        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(new DefaultInitialization(lgNames_, lgCode_, confRel_, zipFiles_, clName_, mName_), session));
+        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_),lgCode_, confRel_, zipFiles_, clName_, mName_), session));
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
         for (String l: _lines.mid(_from)) {

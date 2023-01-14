@@ -15,6 +15,7 @@ import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
 import code.gui.images.*;
 import code.gui.initialize.*;
+import code.maths.Rate;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.sml.Node;
@@ -50,6 +51,10 @@ public abstract class EquallableElUtUtil {
     public static void assertEq(String _expected, String _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected, _result);
+    }
+    public static void assertEq(Rate _exp, Rate _result) {
+        assertEq(_exp.toNumberString(),_result.toNumberString());
+        assertTrue(_exp.eq(_result));
     }
     public static void assertSame(OutputType _expected, OutputType _result) {
         Assert.assertSame(_expected, _result);
@@ -653,6 +658,7 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
@@ -668,6 +674,7 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
         _definedLgNames.setExecutingOptions(_exec);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases(),new CustAliasGroups(_definedLgNames.getCustAliases(), _definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);

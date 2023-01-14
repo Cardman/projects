@@ -22,6 +22,7 @@ import code.expressionlanguage.common.AnaGeneType;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.options.KeyWords;
@@ -1244,8 +1245,9 @@ public abstract class OperationNode {
         return listsUnary_;
     }
 
-    private static void addVirtual(String _op, AnalyzedPageEl _page, CustList<MethodInfo> _list,String _className, String _returnType, StringList _params) {
+    private static void addVirtual(String _op, AnalyzedPageEl _page, CustList<MethodInfo> _list, String _className, String _returnType, StringList _params, CommonOperSymbol _vir) {
         MethodInfo mloc_ = new MethodInfo();
+        mloc_.setVirtualCall(_vir);
         MethodId id_ = new MethodId(MethodAccessKind.STATIC, _op, _params);
         mloc_.classMethodId(_className,id_);
         mloc_.setReturnType(_returnType);
@@ -1268,12 +1270,12 @@ public abstract class OperationNode {
         return null;
     }
 
-    protected static OperatorConverter tryGetUnaryWithVirtual(MethodOperation _node, String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, CustList<StringList> _groups) {
-        for (StringList g: _groups) {
+    protected static OperatorConverter tryGetUnaryWithVirtual(MethodOperation _node, String _op, AnalyzedPageEl _page, CustList<OperationNode> _single, CustList<CustList<ParamReturn>> _groups) {
+        for (CustList<ParamReturn> g: _groups) {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
             CustList<MethodInfo> list_ = new CustList<MethodInfo>();
-            for (String p:g) {
-                addVirtual(_op, _page, list_,p, p, new StringList(p));
+            for (ParamReturn p:g) {
+                addVirtual(_op, _page, list_,p.getParamType(), p.getReturnType(), new StringList(p.getParamType()), p.get(_op));
             }
             lists_.add(list_);
             ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, _single, _page);
@@ -1320,7 +1322,7 @@ public abstract class OperationNode {
             CustList<CustList<MethodInfo>> lists_ = new CustList<CustList<MethodInfo>>();
             CustList<MethodInfo> list_ = new CustList<MethodInfo>();
             for (ParamReturn p:g) {
-                addVirtual(_op, _page,list_,p.getParamType(),p.getReturnType(),new StringList(p.getParamType(),p.getParamType()));
+                addVirtual(_op, _page,list_,p.getParamType(),p.getReturnType(),new StringList(p.getParamType(),p.getParamType()), p.get(_op));
             }
             lists_.add(list_);
             ClassMethodIdReturn clMeth_ = getCustResult(false, -1, lists_, _op, _pair, _page);
@@ -2839,6 +2841,7 @@ public abstract class OperationNode {
 
     public static ClassMethodIdReturn buildResult(MethodInfo _m, MethodId _id) {
         ClassMethodIdReturn res_ = new ClassMethodIdReturn();
+        res_.setVirtualCall(_m.getVirtualCall());
         if (_m.getParametrableContent().isVarArgToCall()) {
             res_.getParametrableContent().setVarArgToCall(true);
         }

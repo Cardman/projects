@@ -30,7 +30,6 @@ public abstract class QuickOperation extends MethodOperation {
 
     private int opOffset;
     private int opOff;
-    private CommonOperSymbol symbol;
     protected QuickOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -52,9 +51,9 @@ public abstract class QuickOperation extends MethodOperation {
         if (rOp_.getSingleNameOrEmpty().isEmpty()) {
             opConv_ = CompoundAffectationOperation.tryGetLogical(_page, oper_, this);
         }
-        symbol = resOp_.getSymbol();
+        fct.setSymbol(resOp_.getSymbol());
         if (opConv_ != null) {
-            fct.infos(opConv_,_page);
+            fct.infos(opConv_);
             okNum = true;
             ClassMethodIdReturn foundTest_ = opConv_.getTest();
             if (foundTest_ == null) {
@@ -127,7 +126,7 @@ public abstract class QuickOperation extends MethodOperation {
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     public boolean isOkNum() {

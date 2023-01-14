@@ -19,7 +19,7 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
 
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final AnaOperatorContent operatorContent;
-    private CommonOperSymbol symbol;
+
     public EqOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -51,16 +51,16 @@ public final class EqOperation extends MethodOperation implements MiddleSymbolOp
         if (rOp_.getSingleNameOrEmpty().isEmpty()) {
             cl_ = CompoundAffectationOperation.tryGetStd(_page, custOp_, this, SymbolFactoryUtil.binaries(custOp_, _page));
         }
-        symbol = resOp_.getSymbol();
+        fct.setSymbol(resOp_.getSymbol());
         if (cl_ != null) {
-            fct.infos(cl_,_page);
+            fct.infos(cl_);
             return;
         }
         setResultClass(new AnaClassArgumentMatching(_page.getAliasPrimBoolean(),PrimitiveTypes.BOOL_WRAP));
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     public ClassMethodIdMemberIdTypeFct getFct() {

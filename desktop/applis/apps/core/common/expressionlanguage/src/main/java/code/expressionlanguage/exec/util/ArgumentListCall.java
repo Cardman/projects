@@ -2,6 +2,7 @@ package code.expressionlanguage.exec.util;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
 
 public final class ArgumentListCall {
@@ -37,6 +38,9 @@ public final class ArgumentListCall {
             ls_.add(new ArgumentWrapper(a,null));
         }
         return ls_;
+    }
+    public static Struct toStr(Argument _arg) {
+        return _arg.getStruct();
     }
     public CustList<ArgumentWrapper> getArgumentWrappers() {
         return argumentWrappers;

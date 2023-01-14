@@ -3,6 +3,7 @@ package code.formathtml.util;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
+import code.expressionlanguage.analyze.AbstractSymbolFactory;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
@@ -29,6 +30,7 @@ import code.util.StringMap;
 
 public final class DefaultInitialization {
     private final String lgCode;
+    private final AbstractSymbolFactory symbolFactory;
 
     private final String fileName;
     private final StringMap<String> fileNames;
@@ -40,8 +42,9 @@ public final class DefaultInitialization {
     private final String methodName;
     private ContextEl context;
 
-    public DefaultInitialization(BeanCustLgNames _lgNames, String _lgCode, String _fileName, StringMap<String> _fileNames, String _clName, String _methodName) {
+    public DefaultInitialization(BeanCustLgNames _lgNames, AbstractSymbolFactory _fact, String _lgCode, String _fileName, StringMap<String> _fileNames, String _clName, String _methodName) {
         stds = _lgNames;
+        symbolFactory = _fact;
         lgCode = _lgCode;
         fileName = _fileName;
         fileNames = _fileNames;
@@ -60,6 +63,7 @@ public final class DefaultInitialization {
         if (du_.getContext().isKo()) {
             return "";
         }
+        du_.getAnalyzed().setAbstractSymbolFactory(symbolFactory);
         _nav.setFiles(fileNames);
         ContextEl ctx_ = stds.setupAll(new DualNavigationContext(_nav, du_));
         if (ctx_ == null) {

@@ -8,7 +8,6 @@ import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.common.symbol.*;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.util.CustList;
-import code.util.StringList;
 import code.util.core.*;
 
 public final class SymbolFactoryUtil {
@@ -137,8 +136,8 @@ public final class SymbolFactoryUtil {
         return res_;
     }
 
-    public static CustList<StringList> unaries(String _symbol, AnalyzedPageEl _page) {
-        CustList<StringList> res_;
+    public static CustList<CustList<ParamReturn>> unaries(String _symbol, AnalyzedPageEl _page) {
+        CustList<CustList<ParamReturn>> res_;
         if (StringExpUtil.isUnNum(_symbol) || StringExpUtil.isIncr(_symbol)) {
             res_ = groupUnNum(_page);
         } else if (StringUtil.quickEq("!",_symbol)) {
@@ -153,84 +152,106 @@ public final class SymbolFactoryUtil {
     private static CustList<CustList<ParamReturn>> groupBinCmp(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimBoolean()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimBoolean()));
+        group_.add(withCmp(_page.getAliasPrimInteger(), _page.getAliasPrimBoolean()));
+        group_.add(withCmp(_page.getAliasPrimLong(), _page.getAliasPrimBoolean()));
         groups_.add(group_);
         group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimBoolean()));
-        group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimBoolean()));
+        group_.add(withCmp(_page.getAliasPrimFloat(), _page.getAliasPrimBoolean()));
+        group_.add(withCmp(_page.getAliasPrimDouble(), _page.getAliasPrimBoolean()));
         groups_.add(group_);
         return groups_;
+    }
+    private static ParamReturn withCmp(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("<",new CommonOperNbLt()).with("<=",new CommonOperNbLe()).with(">",new CommonOperNbGt()).with(">=",new CommonOperNbGe());
     }
 
     private static CustList<CustList<ParamReturn>> groupBinShift(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
+        group_.add(withBinShift(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
+        group_.add(withBinShift(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
         groups_.add(group_);
         return groups_;
+    }
+    private static ParamReturn withBinShift(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("<<",new CommonOperShiftLeft()).with(">>",new CommonOperShiftRight()).with("<<<",new CommonOperBitShiftLeft()).with(">>>",new CommonOperBitShiftRight()).with("<<<<",new CommonOperRotateLeft()).with(">>>>",new CommonOperRotateRight());
     }
 
     private static CustList<CustList<ParamReturn>> groupBinBitwise(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
+        group_.add(withBinBitwise(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
+        group_.add(withBinBitwise(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
+        group_.add(withBinBitwise(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
         groups_.add(group_);
         return groups_;
+    }
+    private static ParamReturn withBinBitwise(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("&",new CommonOperBitAnd()).with("|",new CommonOperBitOr()).with("^",new CommonOperBitXor());
     }
 
     private static CustList<CustList<ParamReturn>> groupBinNum(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
-        group_.add(new ParamReturn(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
+        group_.add(withBinNum(_page.getAliasPrimInteger(), _page.getAliasPrimInteger()));
+        group_.add(withBinNum(_page.getAliasPrimLong(), _page.getAliasPrimLong()));
         groups_.add(group_);
         group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimFloat(), _page.getAliasPrimFloat()));
-        group_.add(new ParamReturn(_page.getAliasPrimDouble(), _page.getAliasPrimDouble()));
+        group_.add(withBinNum(_page.getAliasPrimFloat(), _page.getAliasPrimFloat()));
+        group_.add(withBinNum(_page.getAliasPrimDouble(), _page.getAliasPrimDouble()));
         groups_.add(group_);
         return groups_;
+    }
+    private static ParamReturn withBinNum(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("+",new CommonOperSum()).with("-",new CommonOperDiff()).with("*",new CommonOperMult()).with("/",new CommonOperDiv()).with("%",new CommonOperMod());
     }
 
     private static CustList<CustList<ParamReturn>> groupBinLogical(AnalyzedPageEl _page) {
         CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
         CustList<ParamReturn> group_ = new CustList<ParamReturn>();
-        group_.add(new ParamReturn(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
+        group_.add(withBinLogical(_page.getAliasPrimBoolean(), _page.getAliasPrimBoolean()));
+        groups_.add(group_);
+        return groups_;
+    }
+    private static ParamReturn withBinLogical(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("&&",new CommonOperAnd()).with("||",new CommonOperOr());
+    }
+    private static CustList<CustList<ParamReturn>> groupBool(AnalyzedPageEl _page) {
+        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
+        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+        group_.add(withNeg(_page.getAliasPrimBoolean(),_page.getAliasPrimBoolean()));
+        groups_.add(group_);
+        return groups_;
+    }
+    private static ParamReturn withNeg(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("!",new CommonOperNegBool());
+    }
+    private static CustList<CustList<ParamReturn>> groupUnBin(AnalyzedPageEl _page) {
+        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
+        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+        group_.add(withNegNum(_page.getAliasPrimInteger(),_page.getAliasPrimInteger()));
+        group_.add(withNegNum(_page.getAliasPrimLong(),_page.getAliasPrimLong()));
+        groups_.add(group_);
+        return groups_;
+    }
+    private static ParamReturn withNegNum(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("~",new CommonOperNegNum());
+    }
+    private static CustList<CustList<ParamReturn>> groupUnNum(AnalyzedPageEl _page) {
+        CustList<CustList<ParamReturn>> groups_ = new CustList<CustList<ParamReturn>>();
+        CustList<ParamReturn> group_ = new CustList<ParamReturn>();
+        group_.add(withUnNum(_page.getAliasPrimInteger(),_page.getAliasPrimInteger()));
+        group_.add(withUnNum(_page.getAliasPrimLong(),_page.getAliasPrimLong()));
+        groups_.add(group_);
+        group_ = new CustList<ParamReturn>();
+        group_.add(withUnNum(_page.getAliasPrimFloat(),_page.getAliasPrimFloat()));
+        group_.add(withUnNum(_page.getAliasPrimDouble(),_page.getAliasPrimDouble()));
         groups_.add(group_);
         return groups_;
     }
 
-    private static CustList<StringList> groupBool(AnalyzedPageEl _page) {
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimBoolean());
-        groups_.add(group_);
-        return groups_;
-    }
-
-    private static CustList<StringList> groupUnBin(AnalyzedPageEl _page) {
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimInteger());
-        group_.add(_page.getAliasPrimLong());
-        groups_.add(group_);
-        return groups_;
-    }
-
-    private static CustList<StringList> groupUnNum(AnalyzedPageEl _page) {
-        CustList<StringList> groups_ = new CustList<StringList>();
-        StringList group_ = new StringList();
-        group_.add(_page.getAliasPrimInteger());
-        group_.add(_page.getAliasPrimLong());
-        groups_.add(group_);
-        group_ = new StringList();
-        group_.add(_page.getAliasPrimFloat());
-        group_.add(_page.getAliasPrimDouble());
-        groups_.add(group_);
-        return groups_;
+    private static ParamReturn withUnNum(String _in, String _out) {
+        return new ParamReturn(_in,_out).with("+",new CommonOperIdOp()).with("-",new CommonOperOpposite()).with("++",new CommonOperPlusOne()).with("--",new CommonOperMinusOne());
     }
     private static void update(ResultOperand _res, CommonOperSymbol _common) {
         if (_res.getSymbol() == null) {

@@ -3,6 +3,7 @@ package code.expressionlanguage.analyze.util;
 
 import code.expressionlanguage.analyze.opers.NamedArgumentOperation;
 import code.expressionlanguage.analyze.opers.util.AbsPossibleVarArg;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.MethodId;
@@ -25,6 +26,15 @@ public final class ClassMethodIdReturn extends AbsPossibleVarArg {
     private StandardMethod standardMethod;
     private CustList<NamedArgumentOperation> filter;
     private Ints indexesParams;
+    private CommonOperSymbol virtualCall;
+
+    public CommonOperSymbol getVirtualCall() {
+        return virtualCall;
+    }
+
+    public void setVirtualCall(CommonOperSymbol _v) {
+        this.virtualCall = _v;
+    }
 
     public ClassMethodId getId() {
         return id;

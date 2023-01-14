@@ -23,7 +23,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     private final ClassMethodIdMemberIdTypeFct fct = new ClassMethodIdMemberIdTypeFct();
     private final AnaOperatorContent operatorContent;
     private boolean okNum;
-    private CommonOperSymbol symbol;
+
     public CmpOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
         super(_index, _indexChild, _m, _op);
@@ -69,9 +69,9 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
         if (rOp_.getSingleNameOrEmpty().isEmpty()) {
             cl_ = CompoundAffectationOperation.tryGetStd(_page, op_, this, SymbolFactoryUtil.binaries(op_, _page));
         }
-        symbol = resOp_.getSymbol();
+        fct.setSymbol(resOp_.getSymbol());
         if (cl_ != null) {
-            fct.infos(cl_,_page);
+            fct.infos(cl_);
             return;
         }
         setResultClass(AnaClassArgumentMatching.copy(rOp_, _page.getPrimitiveTypes()));
@@ -98,7 +98,7 @@ public final class CmpOperation extends MethodOperation implements MiddleSymbolO
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     public ClassMethodIdMemberIdTypeFct getFct() {

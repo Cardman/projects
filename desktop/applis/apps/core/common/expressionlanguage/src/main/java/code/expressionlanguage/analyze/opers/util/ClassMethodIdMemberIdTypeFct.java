@@ -1,14 +1,14 @@
 package code.expressionlanguage.analyze.opers.util;
 
-import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 
 public final class ClassMethodIdMemberIdTypeFct {
     private AnaFormattedRootBlock implicit;
     private MemberId memberId = new MemberId();
     private AnaTypeFct function;
+    private CommonOperSymbol symbol;
 
     public void infos(ClassMethodIdReturn _id) {
         implicit = _id.getFormattedType();
@@ -16,13 +16,21 @@ public final class ClassMethodIdMemberIdTypeFct {
         function = _id.getParametrableContent().getPair();
     }
 
-    public void infos(OperatorConverter _id, AnalyzedPageEl _page) {
-        ClassMethodIdReturn fct_ = _id.getFct();
-        String className_ = fct_.getFormattedType().getFormatted();
-        if (AnaTypeUtil.isPrimitive(className_, _page)) {
+    public void infos(OperatorConverter _id) {
+        CommonOperSymbol v_ = _id.getFct().getVirtualCall();
+        if (v_ != null) {
+            symbol = v_;
             return;
         }
-        infos(fct_);
+        infos(_id.getFct());
+    }
+
+    public CommonOperSymbol getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(CommonOperSymbol _s) {
+        this.symbol = _s;
     }
 
     public AnaFormattedRootBlock getImplicit() {

@@ -33,7 +33,6 @@ public final class CompoundAffectationOperation extends MethodOperation {
 
     private boolean rightBool;
     private boolean concat;
-    private CommonOperSymbol symbol;
 
     public CompoundAffectationOperation(int _index, int _indexChild,
             MethodOperation _m, OperationsSequence _op) {
@@ -82,7 +81,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
                 res_ = tryGetStd(_page, op_, this, SymbolFactoryUtil.binaries(op_, _page));
             }
         }
-        symbol = resOp_.getSymbol();
+        fct.setSymbol(resOp_.getSymbol());
         if (res_ != null) {
             custCompound(_page,res_);
             return;
@@ -105,7 +104,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     static void checkFinal(OperationNode _cur,AnalyzedPageEl _page, SettableElResult _settable) {
@@ -217,7 +216,7 @@ public final class CompoundAffectationOperation extends MethodOperation {
             clMatchLeft_.implicitInfosTest(foundTest_);
             functionTest = foundTest_.getParametrableContent().getPair();
         }
-        fct.infos(_cl, _page);
+        fct.infos(_cl);
         tryImplicit(this,_page, getSettableResClass(), conv);
         setBool(right_, _page);
     }

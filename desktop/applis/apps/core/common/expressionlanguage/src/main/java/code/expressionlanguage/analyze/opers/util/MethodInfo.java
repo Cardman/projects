@@ -8,6 +8,7 @@ import code.expressionlanguage.analyze.inherits.AnaInherits;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.analyze.util.ToStringMethodHeader;
 import code.expressionlanguage.common.AnaGeneType;
+import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.stds.StandardMethod;
 import code.util.CustList;
@@ -28,6 +29,15 @@ public final class MethodInfo extends Parametrable {
     private boolean abstractMethod;
     private StandardMethod standardMethod;
     private AnaGeneType owner;
+    private CommonOperSymbol virtualCall;
+
+    public CommonOperSymbol getVirtualCall() {
+        return virtualCall;
+    }
+
+    public void setVirtualCall(CommonOperSymbol _v) {
+        this.virtualCall = _v;
+    }
 
     public MethodId getConstraints() {
         return constraints;

@@ -23,7 +23,6 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     private final AnaOperatorContent operatorContent;
     private boolean okNum;
     private boolean pureBoolResult;
-    private CommonOperSymbol symbol;
 
     public UnaryOperation(int _index,
             int _indexChild, MethodOperation _m, OperationsSequence _op) {
@@ -46,10 +45,10 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
             CustList<OperationNode> single_ = new CustList<OperationNode>(child_);
             clId_ = operUse(_page, oper_, operand_, single_, SymbolFactoryUtil.unaries(oper_,_page));
         }
-        symbol = resOp_.getSymbol();
         pureBoolResult = StringUtil.quickEq("!",oper_);
+        fct.setSymbol(resOp_.getSymbol());
         if (clId_ != null) {
-            fct.infos(clId_,_page);
+            fct.infos(clId_);
             return;
         }
         if (cst(_page)) {
@@ -92,7 +91,7 @@ public final class UnaryOperation extends AbstractUnaryOperation implements Symb
     }
 
     public CommonOperSymbol getSymbol() {
-        return symbol;
+        return fct.getSymbol();
     }
 
     public ClassMethodIdMemberIdTypeFct getFct() {

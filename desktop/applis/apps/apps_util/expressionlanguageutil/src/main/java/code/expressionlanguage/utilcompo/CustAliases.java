@@ -611,6 +611,12 @@ public final class CustAliases {
     private static final String FUTURE="Future";
     private static final String FUTURE_WAIT="FutureWait";
     private static final String FUTURE_CANCEL="FutureCancel";
+    private static final String RATE ="Rate";
+    private static final String LG_INT ="LgInt";
+    private static final String RATE_PARSE ="RateParse";
+    private static final String LG_INT_PARSE ="LgIntParse";
+    private static final String RATE_DEN ="RateDen";
+    private static final String RATE_NUM ="RateNum";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -824,6 +830,12 @@ public final class CustAliases {
     private String aliasInfoTestCurrentClass;
     private String aliasInfoTestCurrentMethod;
     private String aliasInfoTestCurrentParams;
+    private String aliasLgInt;
+    private String aliasRate;
+    private String aliasLgIntParse;
+    private String aliasRateParse;
+    private String aliasRateDen;
+    private String aliasRateNum;
 
     private String aliasConcurrentError;
     private final StringMap<String> properties = MessCdmBaseGr.ms();
@@ -1138,7 +1150,42 @@ public final class CustAliases {
         constructors_.add(ctor_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasAtomicLong, std_);
-
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasRate, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.NORMAL, new DfLgNumber());
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasRateParse, params_, aliasRate, false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasRate0RateParse0()),new FctNbRateSafeAbs(new FctRateParse()));
+        methods_.add( method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasLgIntParse, params_, aliasLgInt, false, MethodModifier.STATIC,new StringList(custAliasParameters.getAliasLgInt0LgIntParse0()),new FctNbRateSafeAbs(new FctLgIntParse()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRateNum, params_, aliasLgInt, false, MethodModifier.FINAL,new FctNbRateNum());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRateDen, params_, aliasLgInt, false, MethodModifier.FINAL,new FctNbRateDen());
+        methods_.add( method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_,false,new FctRate0());
+        constructors_.add(ctor_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasRate0Rate0()),new FctNbRateAbs(new FctRateParse()));
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasRate, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        params_ = new StringList();
+        stdcl_ = new StandardClass(aliasLgInt, fields_, constructors_, methods_, aliasRate, MethodModifier.FINAL, new DfLgNumber());
+        ctor_ = new StandardConstructor(params_,false,new FctRate0());
+        constructors_.add(ctor_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        ctor_ = new StandardConstructor(params_,false,new StringList(custAliasParameters.getAliasLgInt0LgInt0()),new FctNbRateAbs(new FctLgIntParse()));
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasLgInt, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -1978,6 +2025,12 @@ public final class CustAliases {
         setAliasGetAndDecrementAtomic(LgNamesContent.get(_util, _cust, GET_AND_DECREMENT_ATOMIC));
         setAliasDecrementAndGetAtomic(LgNamesContent.get(_util, _cust, DECREMENT_AND_GET_ATOMIC));
         setAliasGetAndSetAtomic(LgNamesContent.get(_util, _cust, GET_AND_SET_ATOMIC));
+        setAliasLgInt(LgNamesContent.get(_util, _cust, LG_INT));
+        setAliasRate(LgNamesContent.get(_util, _cust, RATE));
+        setAliasRateParse(LgNamesContent.get(_util, _cust, RATE_PARSE));
+        setAliasLgIntParse(LgNamesContent.get(_util, _cust, LG_INT_PARSE));
+        setAliasRateDen(LgNamesContent.get(_util, _cust, RATE_DEN));
+        setAliasRateNum(LgNamesContent.get(_util, _cust, RATE_NUM));
 //        setAliasReentrantLock(LgNamesContent.get(_util, _cust, REENTRANT_LOCK));
         setAliasJoinOthers(LgNamesContent.get(_util, _cust, JOIN_OTHERS));
         setAliasFileIsFile(LgNamesContent.get(_util, _cust, FILE_IS_FILE));
@@ -2345,6 +2398,11 @@ public final class CustAliases {
                 new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
                 new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
                 new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
+        m_.addEntry(getAliasLgInt(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(LG_INT_PARSE,getAliasLgIntParse()),
+                new KeyValueMemberName(RATE_PARSE,getAliasRateParse()),
+                new KeyValueMemberName(RATE_NUM,getAliasRateNum()),
+                new KeyValueMemberName(RATE_DEN,getAliasRateDen())));
         m_.addEntry(getAliasFile(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(READ,getAliasRead()),
                 new KeyValueMemberName(WRITE,getAliasWrite()),
@@ -2474,6 +2532,8 @@ public final class CustAliases {
         ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
         ref_.addEntry(ATOMIC_INTEGER,getAliasAtomicInteger());
         ref_.addEntry(ATOMIC_LONG,getAliasAtomicLong());
+        ref_.addEntry(RATE,getAliasRate());
+        ref_.addEntry(LG_INT,getAliasLgInt());
         ref_.addEntry(FILE,getAliasFile());
         ref_.addEntry(ILLEGAL_THREAD_STATE_EXCEPTION,getAliasIllegalThreadStateException());
         ref_.addEntry(CUST_ITERATOR,getAliasCustIterator());
@@ -2967,6 +3027,54 @@ public final class CustAliases {
 
     public void setAliasGetAndDecrementAtomic(String _aliasGetAndDecrementAtomic) {
         this.aliasGetAndDecrementAtomic = _aliasGetAndDecrementAtomic;
+    }
+
+    public String getAliasLgInt() {
+        return aliasLgInt;
+    }
+
+    public void setAliasLgInt(String _v) {
+        this.aliasLgInt = _v;
+    }
+
+    public String getAliasRate() {
+        return aliasRate;
+    }
+
+    public void setAliasRate(String _v) {
+        this.aliasRate = _v;
+    }
+
+    public String getAliasLgIntParse() {
+        return aliasLgIntParse;
+    }
+
+    public void setAliasLgIntParse(String _v) {
+        this.aliasLgIntParse = _v;
+    }
+
+    public String getAliasRateParse() {
+        return aliasRateParse;
+    }
+
+    public void setAliasRateParse(String _v) {
+        this.aliasRateParse = _v;
+    }
+
+    public String getAliasRateDen() {
+        return aliasRateDen;
+    }
+
+    public void setAliasRateDen(String _v) {
+        this.aliasRateDen = _v;
+    }
+
+    public String getAliasRateNum() {
+        return aliasRateNum;
+    }
+
+    public void setAliasRateNum(String _v) {
+        this.aliasRateNum = _v;
     }
 
     public String getAliasFormatType() {
