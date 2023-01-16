@@ -182,6 +182,13 @@ public final class ElResolverCommon {
             return dotCase(_seenDot, _key, _string, _j, _output);
         }
         if (!StringExpUtil.isTypeLeafChar(current_)) {
+            if (StringUtil.isWhitespace(current_)) {
+                int call_ = callFctAtDot(_string, StringExpUtil.nextPrintChar(_j, _string.length(), _string));
+                if (call_ > -1) {
+                    _output.setNextIndex(_j);
+                    return _j;
+                }
+            }
             return errOrExit(_seenDot, _key, _string, _j, _output, false);
         }
         int off_ = offExp(nbInfos_.getBase(), decExp_, binExp_, _string, _j);
@@ -205,6 +212,11 @@ public final class ElResolverCommon {
     }
 
     private static int dotCase(boolean _seenDot, KeyWords _key, String _string, int _j, NumberInfosOutput _output) {
+        int call_ = callFctAtDot(_string, _j);
+        if (call_ > -1) {
+            _output.setNextIndex(call_);
+            return call_;
+        }
         char current_ = _string.charAt(_j);
         NumberInfos nbInfos_ = _output.getInfos();
         StringBuilder intPart_ = nbInfos_.getIntPart();
@@ -408,6 +420,12 @@ public final class ElResolverCommon {
         char ch_ = suff_.getValue();
         _nbInfos.setSuffix(ch_);
         int n_ = _j + suff_.getKey().length();
+        int d_ = StringExpUtil.nextPrintChar(n_, _string.length(), _string);
+        int call_ = callFctAtDot(_string, d_);
+        if (call_ > -1) {
+            _output.setNextIndex(call_);
+            return true;
+        }
         boolean ok_ = processedCorrectOrContinue(_string, n_);
         if (ok_) {
             _output.setNextIndex(n_);
@@ -503,6 +521,11 @@ public final class ElResolverCommon {
         int len_ = _string.length();
         int j_ = appendDigitToExp(_key,_string,_exp,_j);
         int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
+        int d_ = callFctAtDot(_string, n_);
+        if (d_ > -1) {
+            _output.setNextIndex(d_);
+            return;
+        }
         if (n_ > -1 && _string.charAt(n_) == ElResolver.DOT_VAR) {
             _output.getInfos().setError(true);
             _output.setNextIndex(n_);
@@ -552,6 +575,29 @@ public final class ElResolverCommon {
             }
         }
         return j_;
+    }
+    private static int callFctAtDot(String _string, int _j) {
+        int len_ = _string.length();
+        if (!StringExpUtil.nextCharIs(_string, _j, len_, ElResolver.DOT_VAR)) {
+            return -1;
+        }
+        int n_ = StringExpUtil.nextPrintChar(_j+1, len_, _string);
+        if (n_ < 0) {
+            return n_;
+        }
+        int d_;
+        int p_;
+        if (StringExpUtil.nextCharIs(_string, n_, len_, ElResolver.DOT_VAR)) {
+            p_ = StringExpUtil.nextPrintChar(n_+1, len_, _string);
+            d_ = n_;
+        } else {
+            p_ = n_;
+            d_ = _j;
+        }
+        if (isDigitOrDot(_string, p_) || !StringExpUtil.isTypeLeafChar(_string.charAt(p_)) || !StringExpUtil.nextCharIs(_string, StringExpUtil.nextPrintChar(getWord(_string, len_, p_), len_, _string), len_, ElResolver.PAR_LEFT)) {
+            return -1;
+        }
+        return d_;
     }
 
     private static boolean unexpectedWordChars(KeyWords _key, String _string, int _j, char _cur) {

@@ -6568,6 +6568,300 @@ public final class ExpressionLanguageTest extends ProcessMethodCommon {
         assertEq("ab", getString(arg_));
     }
 
+    @Test
+    public void processElNbFct1Test() {
+        Argument arg_ = directCalculate("1.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct2Test() {
+        Argument arg_ = directCalculate("1l.longValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct3Test() {
+        Argument arg_ = directCalculate("1y.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct4Test() {
+        Argument arg_ = directCalculate("1s.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct5Test() {
+        Argument arg_ = directCalculate("1i.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct6Test() {
+        Argument arg_ = directCalculate("01.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct7Test() {
+        Argument arg_ = directCalculate("01l.longValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct8Test() {
+        Argument arg_ = directCalculate("01y.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct9Test() {
+        Argument arg_ = directCalculate("01s.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct10Test() {
+        Argument arg_ = directCalculate("01i.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct11Test() {
+        Argument arg_ = directCalculate("0b1.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct12Test() {
+        Argument arg_ = directCalculate("0b1l.longValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct13Test() {
+        Argument arg_ = directCalculate("0b1y.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct14Test() {
+        Argument arg_ = directCalculate("0b1s.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct15Test() {
+        Argument arg_ = directCalculate("0b1i.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct16Test() {
+        Argument arg_ = directCalculate("0x1.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct17Test() {
+        Argument arg_ = directCalculate("0x1l.longValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct18Test() {
+        Argument arg_ = directCalculate("0x1y.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct19Test() {
+        Argument arg_ = directCalculate("0x1s.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct20Test() {
+        Argument arg_ = directCalculate("0x1i.intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct21Test() {
+        Argument arg_ = directCalculate("1.0.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct22Test() {
+        Argument arg_ = directCalculate("1.0d.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct23Test() {
+        Argument arg_ = directCalculate("1.0f.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct24Test() {
+        Argument arg_ = directCalculate("1..doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct25Test() {
+        Argument arg_ = directCalculate("1d.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct26Test() {
+        Argument arg_ = directCalculate("1f.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct27Test() {
+        Argument arg_ = directCalculate("1.0e1.doubleValue()");
+        assertEq(10.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct28Test() {
+        Argument arg_ = directCalculate("1.0e1d.doubleValue()");
+        assertEq(10.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct29Test() {
+        Argument arg_ = directCalculate("1.0e1f.doubleValue()");
+        assertEq(10.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct30Test() {
+        Argument arg_ = directCalculate("1e1.doubleValue()");
+        assertEq(10.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct31Test() {
+        Argument arg_ = directCalculate("1e1d.doubleValue()");
+        assertEq(10.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct32Test() {
+        Argument arg_ = directCalculate("1e1f.doubleValue()");
+        assertEq(10.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct33Test() {
+        Argument arg_ = directCalculate("5.0e-1.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct34Test() {
+        Argument arg_ = directCalculate("5.0e-1d.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct35Test() {
+        Argument arg_ = directCalculate("5.0e-1f.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct36Test() {
+        Argument arg_ = directCalculate("5e-1.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct37Test() {
+        Argument arg_ = directCalculate("5e-1d.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct38Test() {
+        Argument arg_ = directCalculate("5e-1f.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct39Test() {
+        Argument arg_ = directCalculate(".5.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct40Test() {
+        Argument arg_ = directCalculate(".5d.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct41Test() {
+        Argument arg_ = directCalculate(".5f.doubleValue()");
+        assertEq(0.5, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct42Test() {
+        Argument arg_ = directCalculate(".1e1.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct43Test() {
+        Argument arg_ = directCalculate(".1e1d.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct44Test() {
+        Argument arg_ = directCalculate(".1e1f.doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct45Test() {
+        Argument arg_ = directCalculate(".625e-1.doubleValue()");
+        assertEq(0.0625, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct46Test() {
+        Argument arg_ = directCalculate(".625e-1d.doubleValue()");
+        assertEq(0.0625, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct47Test() {
+        Argument arg_ = directCalculate(".625e-1f.doubleValue()");
+        assertEq(0.0625, getDouble(arg_));
+    }
+
+    @Test
+    public void processElNbFct48Test() {
+        Argument arg_ = directCalculate("1 .intValue()");
+        assertEq(1, getNumber(arg_));
+    }
+
+    @Test
+    public void processElNbFct49Test() {
+        Argument arg_ = directCalculate("1.0 .doubleValue()");
+        assertEq(1.0, getDouble(arg_));
+    }
+
     private static Argument directCalculate(String _el) {
         ContextEl c_ = analyze(_el);
         StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,c_);

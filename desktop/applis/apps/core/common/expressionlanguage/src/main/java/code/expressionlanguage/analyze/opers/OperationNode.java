@@ -26,6 +26,7 @@ import code.expressionlanguage.common.symbol.CommonOperSymbol;
 import code.expressionlanguage.functionid.*;
 import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.PrimitiveType;
 import code.expressionlanguage.stds.StandardConstructor;
 import code.expressionlanguage.stds.StandardMethod;
 import code.expressionlanguage.stds.StandardType;
@@ -1772,22 +1773,37 @@ public abstract class OperationNode {
         CustList<TypeInfo> typeInfos_ = new CustList<TypeInfo>();
         for (String s: _fromClasses) {
             String baseCurName_ = StringExpUtil.getIdFromAllTypes(s);
-            AnaGeneType root_ = _page.getAnaGeneType(baseCurName_);
-            if (root_ instanceof RootBlock) {
-                AnaFormattedRootBlock f_ = new AnaFormattedRootBlock((RootBlock)root_,s);
-                addToInhList(_staticContext, typeInfos_, (RootBlock) root_, f_, 0);
-            }
-            if (root_ instanceof StandardType) {
-                String gene_ = root_.getGenericString();
-                addToList(typeInfos_, _staticContext, (StandardType)root_,gene_, true);
-                for (String m : ((StandardType)root_).getAllGenericSuperTypes()) {
-                    StandardType sup_ = _page.getStandardsTypes().getVal(m);
-                    addToList(typeInfos_, _staticContext, sup_,m, false);
+            if (AnaTypeUtil.isPrimitive(baseCurName_,_page)) {
+                PrimitiveType pr_ = _page.getPrimitiveTypes().getVal(baseCurName_);
+                for (String p: pr_.getAllSuperType(_page)) {
+                    AnaGeneType root_ = _page.getStandardsTypes().getVal(p);
+                    caseStd(_staticContext, _page, typeInfos_, root_);
                 }
             }
+            AnaGeneType root_ = _page.getAnaGeneType(baseCurName_);
+            caseCust(_staticContext, typeInfos_, s, root_);
+            caseStd(_staticContext, _page, typeInfos_, root_);
 
         }
         return typeInfos_;
+    }
+
+    private static void caseStd(MethodAccessKind _staticContext, AnalyzedPageEl _page, CustList<TypeInfo> _typeInfos, AnaGeneType _root) {
+        if (_root instanceof StandardType) {
+            String gene_ = _root.getGenericString();
+            addToList(_typeInfos, _staticContext, (StandardType) _root,gene_, true);
+            for (String m : ((StandardType) _root).getAllGenericSuperTypes()) {
+                StandardType sup_ = _page.getStandardsTypes().getVal(m);
+                addToList(_typeInfos, _staticContext, sup_,m, false);
+            }
+        }
+    }
+
+    private static void caseCust(MethodAccessKind _staticContext, CustList<TypeInfo> _typeInfos, String _base, AnaGeneType _root) {
+        if (_root instanceof RootBlock) {
+            AnaFormattedRootBlock f_ = new AnaFormattedRootBlock((RootBlock) _root, _base);
+            addToInhList(_staticContext, _typeInfos, (RootBlock) _root, f_, 0);
+        }
     }
 
     private static void addToInhList(MethodAccessKind _staticContext, CustList<TypeInfo> _typeInfos, RootBlock _root, AnaFormattedRootBlock _f, int _anc) {
