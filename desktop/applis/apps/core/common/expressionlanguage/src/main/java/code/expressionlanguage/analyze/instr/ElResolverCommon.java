@@ -183,7 +183,7 @@ public final class ElResolverCommon {
         }
         if (!StringExpUtil.isTypeLeafChar(current_)) {
             if (StringUtil.isWhitespace(current_)) {
-                int call_ = callFctAtDot(_string, StringExpUtil.nextPrintChar(_j, _string.length(), _string));
+                int call_ = callFctAtDot(_string, StringExpUtil.nextPrintChar(_j, _string.length(), _string),_output);
                 if (call_ > -1) {
                     _output.setNextIndex(_j);
                     return _j;
@@ -212,7 +212,7 @@ public final class ElResolverCommon {
     }
 
     private static int dotCase(boolean _seenDot, KeyWords _key, String _string, int _j, NumberInfosOutput _output) {
-        int call_ = callFctAtDot(_string, _j);
+        int call_ = callFctAtDot(_string, _j,_output);
         if (call_ > -1) {
             _output.setNextIndex(call_);
             return call_;
@@ -421,7 +421,7 @@ public final class ElResolverCommon {
         _nbInfos.setSuffix(ch_);
         int n_ = _j + suff_.getKey().length();
         int d_ = StringExpUtil.nextPrintChar(n_, _string.length(), _string);
-        int call_ = callFctAtDot(_string, d_);
+        int call_ = callFctAtDot(_string, d_,_output);
         if (call_ > -1) {
             _output.setNextIndex(call_);
             return true;
@@ -521,7 +521,7 @@ public final class ElResolverCommon {
         int len_ = _string.length();
         int j_ = appendDigitToExp(_key,_string,_exp,_j);
         int n_ = StringExpUtil.nextPrintChar(j_, len_, _string);
-        int d_ = callFctAtDot(_string, n_);
+        int d_ = callFctAtDot(_string, n_,_output);
         if (d_ > -1) {
             _output.setNextIndex(d_);
             return;
@@ -576,7 +576,7 @@ public final class ElResolverCommon {
         }
         return j_;
     }
-    private static int callFctAtDot(String _string, int _j) {
+    private static int callFctAtDot(String _string, int _j,NumberInfosOutput _output) {
         int len_ = _string.length();
         if (!StringExpUtil.nextCharIs(_string, _j, len_, ElResolver.DOT_VAR)) {
             return -1;
@@ -590,6 +590,7 @@ public final class ElResolverCommon {
         if (StringExpUtil.nextCharIs(_string, n_, len_, ElResolver.DOT_VAR)) {
             p_ = StringExpUtil.nextPrintChar(n_+1, len_, _string);
             d_ = n_;
+            _output.getInfos().setSuffix(ElResolver.DOUBLE);
         } else {
             p_ = n_;
             d_ = _j;
