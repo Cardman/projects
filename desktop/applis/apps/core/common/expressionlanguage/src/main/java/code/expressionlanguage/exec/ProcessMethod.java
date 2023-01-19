@@ -29,15 +29,7 @@ public final class ProcessMethod {
     }
 
     public static boolean stateMismatch(ExecRootBlock _rootBlock, ContextEl _cont, InitClassState _state) {
-        return !stateMatchOrNot(_rootBlock, _cont, _state, true);
-    }
-
-    public static boolean stateMatchOrNot(ExecRootBlock _rootBlock, ContextEl _cont, InitClassState _state, boolean _checker) {
-        return stateMatch(_rootBlock, _cont, _state) == _checker;
-    }
-
-    public static boolean stateMatch(ExecRootBlock _rootBlock, ContextEl _cont, InitClassState _state) {
-        return _cont.getLocks().getState(_rootBlock) == _state;
+        return _cont.getLocks().getState(_rootBlock) != _state;
     }
 
     public static void initializeClassPre(String _class, ExecRootBlock _rootBlock, ContextEl _cont, StackCall _stackCall) {

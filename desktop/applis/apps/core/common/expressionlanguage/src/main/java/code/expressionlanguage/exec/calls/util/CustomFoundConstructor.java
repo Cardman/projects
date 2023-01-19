@@ -24,14 +24,8 @@ public final class CustomFoundConstructor implements CallingState {
 
     public CustomFoundConstructor(ExecFormattedRootBlock _className,
                                   ExecTypeFunction _pair,
-                                  Argument _currentObject, Parameters _arguments) {
-        this(_className,_pair,"",-1,_currentObject,_arguments,InstancingStep.NEWING);
-    }
-
-    public CustomFoundConstructor(ExecFormattedRootBlock _className,
-                                  ExecTypeFunction _pair,
                                   Argument _currentObject) {
-        this(_className,_pair,"",-1,_currentObject,new Parameters(),InstancingStep.USING_SUPER_IMPL);
+        this(_className,_pair,_currentObject,new Parameters(),InstancingStep.USING_SUPER_IMPL);
     }
 
     public CustomFoundConstructor(ExecFormattedRootBlock _className,

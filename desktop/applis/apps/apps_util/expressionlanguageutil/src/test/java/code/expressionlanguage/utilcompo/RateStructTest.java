@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.errors.*;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
+import code.expressionlanguage.exec.calls.util.*;
 import code.expressionlanguage.exec.inherits.*;
 import code.expressionlanguage.exec.util.*;
 import code.expressionlanguage.options.*;
@@ -2181,8 +2182,7 @@ public final class RateStructTest extends EquallableElUtUtil {
     }
     private Struct instance(RunnableContextEl _rCtor, ExecRootBlock _ex, ContextEl _ctx) {
         StackCall resStCtor_ = StackCall.newInstance(InitPhase.NOTHING, _rCtor);
-        new InstanceParamChecker(_ex.getEmptyCtorPair(), new ArgumentListCall(),"",-1).checkParams(new ExecFormattedRootBlock(_ex), new Argument(), null, _ctx, resStCtor_);
-        Argument result_ = ProcessMethod.calculate(resStCtor_.getCallingState(), _ctx,resStCtor_).getValue();
+        Argument result_ = ProcessMethod.calculate(new CustomFoundConstructor(new ExecFormattedRootBlock(_ex),_ex.getEmptyCtorPair(),new Argument(),new Parameters(),InstancingStep.NEWING), _ctx,resStCtor_).getValue();
         return ArgumentListCall.toStr(result_);
     }
 
