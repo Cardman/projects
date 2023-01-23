@@ -1471,6 +1471,326 @@ public final class RateStructTest extends EquallableElUtUtil {
         assertTrue(resSt_.calls());
     }
     @Test
+    public void lt1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") < new Rate(\"2\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void lt2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a < b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void lt3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") < new Rate(\"1\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void lt4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a < b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void le1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") <= new Rate(\"2\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void le2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a <= b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void le3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") <= new Rate(\"1\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void le4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a <= b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void gt1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") > new Rate(\"2\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void gt2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a > b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void gt3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") > new Rate(\"1\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void gt4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a > b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void ge1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"1\") >= new Rate(\"2\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void ge2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"1\");public Rate b=new(\"2\");public boolean r;public void run(){r = a >= b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void ge3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Rate(\"2\") >= new Rate(\"1\");}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void ge4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public Rate a=new(\"2\");public Rate b=new(\"1\");public boolean r;public void run(){r = a >= b;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
     public void convSum() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
@@ -1629,6 +1949,182 @@ public final class RateStructTest extends EquallableElUtUtil {
         invoke(ev_, r_, resSt_);
         RateStruct rate_ = (RateStruct) field(ev_, new ClassField("pkg.Sample","r"));
         assertEq(Rate.newRate("1"),rate_.getRate());
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convLt1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) < new Sample2(new(\"2\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convLt2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) < new Sample2(new(\"1\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convLe1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) <= new Sample2(new(\"2\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convLe2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) <= new Sample2(new(\"1\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convGt1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) > new Sample2(new(\"1\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convGt2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) > new Sample2(new(\"2\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convGe1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"2\")) >= new Sample2(new(\"1\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertTrue(field(ev_, new ClassField("pkg.Sample","r")));
+        assertTrue(resSt_.calls());
+    }
+    @Test
+    public void convGe2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample:Runnable{public boolean r;public void run(){r = new Sample2(new(\"1\")) >= new Sample2(new(\"2\"));}}");
+        files_.addEntry("src/sample2.txt","public class pkg.Sample2{public Rate r;(Rate r){this.r=r;}public static Rate $(Sample2 s){return s.r;}}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        RunnableContextEl rCtor_ = new RunnableContextEl(NullStruct.NULL_VALUE, ctx_.getExecutionInfos(), new StringList());
+        RunnableStruct.setupThread(rCtor_);
+        Struct ev_ = instance(rCtor_, ex_, ctx_);
+        RunnableContextEl r_ = new RunnableContextEl(ev_, ((LaunchableStruct)ev_).getExecutionInfos(), ((LaunchableStruct)ev_).getArgs());
+        StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, r_);
+        invoke(ev_, r_, resSt_);
+        assertFalse(field(ev_, new ClassField("pkg.Sample","r")));
         assertTrue(resSt_.calls());
     }
     @Test
