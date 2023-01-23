@@ -4,7 +4,6 @@ import code.expressionlanguage.analyze.blocks.AbsBk;
 import code.expressionlanguage.exec.blocks.ExecBlock;
 import code.util.CustList;
 import code.util.IdMap;
-import code.util.core.BoolVal;
 
 public final class FunctionCoverageResult {
     private final IdMap<ExecBlock,AbstractCoverageResult> coversConditions = new IdMap<ExecBlock,AbstractCoverageResult>();
@@ -12,7 +11,7 @@ public final class FunctionCoverageResult {
     private final IdMap<ExecBlock,AbstractCoverageResult> coverLoops = new IdMap<ExecBlock,AbstractCoverageResult>();
     private final IdMap<ExecBlock,SwitchCoverageResult> coverSwitchs = new IdMap<ExecBlock,SwitchCoverageResult>();
     private final SwitchCoverageResult coverSwitchsMethod = new SwitchCoverageResult();
-    private final IdMap<ExecBlock,BoolVal> catches = new IdMap<ExecBlock,BoolVal>();
+    private final IdMap<ExecBlock,CustList<AbstractCoverageResult>> catches = new IdMap<ExecBlock,CustList<AbstractCoverageResult>>();
     private final IdMap<ExecBlock, AbsBk> mappingBlocks = new IdMap<ExecBlock, AbsBk>();
     private final CustList<BlockCoverageResult> annotations = new CustList<BlockCoverageResult>();
     private final CustList<CustList<BlockCoverageResult>> annotationsParams = new CustList<CustList<BlockCoverageResult>>();
@@ -39,7 +38,7 @@ public final class FunctionCoverageResult {
         return coverSwitchsMethod;
     }
 
-    public IdMap<ExecBlock, BoolVal> getCatches() {
+    public IdMap<ExecBlock, CustList<AbstractCoverageResult>> getCatches() {
         return catches;
     }
 

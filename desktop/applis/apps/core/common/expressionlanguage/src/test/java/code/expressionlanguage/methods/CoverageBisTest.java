@@ -280,7 +280,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCatches(cont_).size());
-        assertSame(BoolVal.TRUE, getCatches(cont_).firstValue());
+        assertTrue(getCatches(cont_).get(0).isFullCovered());
     }
     @Test
     public void coverage24Test() {
@@ -307,7 +307,7 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         MethodId id_ = getMethodId("catching");
         calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(1, getCatches(cont_).size());
-        assertSame(BoolVal.FALSE, getCatches(cont_).firstValue());
+        assertFalse(getCatches(cont_).get(0).isFullCovered());
     }
 
     private static CustList<FunctionCoverageResult> getFunctions(ContextEl _cont) {
@@ -321,9 +321,9 @@ public final class CoverageBisTest extends ProcessMethodCommon {
         return ComparatorBoolean.of(getFunctions(_cont).get(_index).isCalled());
     }
 
-    private static IdMap<ExecBlock, BoolVal> getCatches(ContextEl _cont) {
+    private static CustList<AbstractCoverageResult> getCatches(ContextEl _cont) {
         CustList<TypeCoverageResult> types_ = _cont.getCoverage().getTypes();
-        return types_.last().getFunctions().first().getCatches();
+        return types_.last().getFunctions().first().getCatches().getValue(0);
     }
 
     private static int sizeCovers(ContextEl _cont) {

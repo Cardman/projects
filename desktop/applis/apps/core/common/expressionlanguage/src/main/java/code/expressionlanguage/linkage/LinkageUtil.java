@@ -953,9 +953,9 @@ public final class LinkageUtil {
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCaseConditionReport(VariablesOffsets _vars, CaseCondition _cond, Coverage _cov) {
-        CustList<AbstractCoverageResult> result_ = _cov.getCoverSwitchs(_cond);
-        String tag_ = getCaseDefaultTag(result_);
         if (_vars.getLastStackElt().noVisited()) {
+            CustList<AbstractCoverageResult> result_ = _cov.getCoverSwitchs(_cond);
+            String tag_ = getCaseDefaultTag(result_);
             int off_ = _cond.getOffset();
             _vars.addPart(new PartOffset(tag_, off_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR+ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCase().length()));
@@ -1116,24 +1116,18 @@ public final class LinkageUtil {
     }
     private static void processCatchEvalReport(VariablesOffsets _vars, CatchEval _cond, Coverage _cov) {
         if (_vars.getLastStackElt().noVisited()) {
-            processAbstractCatchEvalReport(_vars,_cond, _cov);
+            CustList<AbstractCoverageResult> result_ = _cov.getCatches(_cond);
+            String tag_ = getCaseDefaultTag(result_);
+            int off_ = _cond.getOffset();
+            _vars.addPart(new PartOffset(tag_, off_));
+            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR+ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCatch().length()));
         }
         processFilterContentReport(_vars,_cond,_cond.getFilterContent(),_cov);
     }
     private static void processCatchEvalError(VariablesOffsets _vars, CatchEval _cond) {
         processFilterContentError(_vars,_cond,_cond.getFilterContent());
     }
-    private static void processAbstractCatchEvalReport(VariablesOffsets _vars, AbstractCatchEval _cond, Coverage _cov) {
-        String tag_;
-        if (_cov.getCatches(_cond)) {
-            tag_ = ExportCst.span(FULL);
-        } else {
-            tag_ = ExportCst.span(NONE);
-        }
-        int off_ = _cond.getOffset();
-        _vars.addPart(new PartOffset(tag_,off_));
-        _vars.addPart(new PartOffset(ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCatch().length()));
-    }
+
     private static void processDeclareVariableReport(VariablesOffsets _vars, DeclareVariable _cond) {
         KeyWords keyWords_ = _vars.getKeyWords();
         String keyWordVar_ = keyWords_.getKeyWordVar();

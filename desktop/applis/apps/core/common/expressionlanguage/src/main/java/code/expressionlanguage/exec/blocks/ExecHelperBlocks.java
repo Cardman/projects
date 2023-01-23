@@ -393,7 +393,12 @@ public final class ExecHelperBlocks {
         if (assert_ == ConditionReturn.YES) {
             ((TryBlockStack) if_).setCalling(null);
             enterGuardCatchBlock(_cond, ip_, (TryBlockStack) if_);
-            _cont.getCoverage().passCatches(_cond, _stackCall);
+            Struct ex_ = ((TryBlockStack) if_).getException();
+            if (_cond instanceof ExecListCatchEval) {
+                _cont.getCoverage().passCatches(ex_,new ExecResultCase(_cond,((ExecListCatchEval) _cond).getList().match(ex_, _cont)), _stackCall);
+                return;
+            }
+            _cont.getCoverage().passCatches(ex_,new ExecResultCase(_cond,0), _stackCall);
             return;
         }
         removeVar(_cond, _stackCall);

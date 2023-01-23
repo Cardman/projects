@@ -23,7 +23,6 @@ import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.IdMap;
 import code.util.StringList;
-import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 
 public final class Coverage {
@@ -169,13 +168,18 @@ public final class Coverage {
         }
     }
 
-    public void putCatches(AbstractCatchEval _block, ExecBlock _exec) {
+    public void putCatches(CatchEval _block, ExecBlock _exec) {
         if (!isCovering()) {
             return;
         }
+        int count_ = NumberUtil.max(1,_block.getFilterContent().getStdValues().size()+ _block.getFilterContent().getEnumValues().size());
+        CustList<AbstractCoverageResult> list_ = new CustList<AbstractCoverageResult>();
+        for (int i = 0; i < count_; i++) {
+            list_.add(new StandardCoverageResult());
+        }
         FunctionCoverageResult fctRes_ = getFctResBl(_block);
         _block.setConditionNb(fctRes_.getCatches().size());
-        fctRes_.getCatches().addEntry(_exec,BoolVal.FALSE);
+        fctRes_.getCatches().addEntry(_exec,list_);
     }
     public void putBlockOperationsPre(MemberCallingsBlock _mem, AbsBk _block) {
         if (!isCovering()) {
@@ -463,12 +467,14 @@ public final class Coverage {
         return _sw.getChildren().getVal(_child.getBlock()).get(_child.getIndex());
     }
 
-    public void passCatches(ExecBlock _block,StackCall _stackCall) {
+    public void passCatches(Struct _ex, ExecResultCase _child, StackCall _stackCall) {
         if (!isCovering()) {
             return;
         }
         FunctionCoverageResult fctRes_ = getFctRes(_stackCall);
-        fctRes_.getCatches().set(_block,BoolVal.TRUE);
+        AbstractCoverageResult cov_ = fctRes_.getCatches().getVal(_child.getBlock()).get(_child.getIndex());
+        cov_.setInit(_stackCall.getInitializingTypeInfos().isWideInitEnums());
+        cov_.cover(new Argument(_ex));
     }
 
     public void passBlockOperation(ExecOperationNode _exec, boolean _full, ArgumentsPair _pair, StackCall _stackCall) {
@@ -689,9 +695,9 @@ public final class Coverage {
         return fctRes_.getCoverSwitchs().getValue(_sw.getConditionNb());
     }
 
-    public boolean getCatches(AbstractCatchEval _catch) {
+    public CustList<AbstractCoverageResult> getCatches(AbstractCatchEval _catch) {
         FunctionCoverageResult fctRes_ = getFctResBl(_catch);
-        return fctRes_.getCatches().getValue(_catch.getConditionNb()) == BoolVal.TRUE;
+        return fctRes_.getCatches().getValue(_catch.getConditionNb());
     }
 
     public AbstractCoverageResult getCoverLoops(AbstractForLoop _bl) {

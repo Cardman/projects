@@ -888,7 +888,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $return <span class=\"n\"><span class=\"n\">1i</span>/<span class=\"n\">0i</span></span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>;\n" +
-                "  } <span class=\"f\">$catch</span>(Object <a name=\"m154\">o</a>){\n" +
+                "  } <span class=\"f\"><a title=\"1/1\">$catch</a></span>(Object <a name=\"m154\">o</a>){\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">1i</span></span>;\n" +
                 "   $return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
                 "  }\n" +
@@ -930,7 +930,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $throw <span class=\"f\">$null</span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>;\n" +
-                "  } <span class=\"f\">$catch</span> {\n" +
+                "  } <span class=\"f\"><a title=\"1/1\">$catch</a></span> {\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">1i</span></span>;\n" +
                 "   $return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
                 "  }\n" +
@@ -972,7 +972,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $throw <span class=\"n\">$null</span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"f\">2</span>;\n" +
-                "  } <span class=\"n\">$catch</span> {\n" +
+                "  } <span class=\"n\"><a title=\"0/1\">$catch</a></span> {\n" +
                 "   <span class=\"n\"><span class=\"n\"><a href=\"#m65\">t</a></span>=<span class=\"n\">1i</span></span>;\n" +
                 "   $return <span class=\"n\"><a href=\"#m65\">t</a></span>;\n" +
                 "  }\n" +
@@ -1014,7 +1014,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $return <span class=\"n\"><span class=\"n\">1i</span>/<span class=\"n\">0i</span></span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"f\">2</span>;\n" +
-                "  } <span class=\"n\">$catch</span>(Object <a name=\"m155\">o</a>){\n" +
+                "  } <span class=\"n\"><a title=\"0/1\">$catch</a></span>(Object <a name=\"m155\">o</a>){\n" +
                 "   <span class=\"n\"><span class=\"n\"><a href=\"#m65\">t</a></span>=<span class=\"n\">1i</span></span>;\n" +
                 "   $return <span class=\"n\"><a href=\"#m65\">t</a></span>;\n" +
                 "  }\n" +
@@ -2839,7 +2839,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $return <span class=\"n\"><span class=\"n\">1i</span>/<span class=\"n\">0i</span></span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>;\n" +
-                "  } <span class=\"f\">$catch</span>(Object <a name=\"m154\">o</a>){\n" +
+                "  } <span class=\"f\"><a title=\"1/1\">$catch</a></span>(Object <a name=\"m154\">o</a>){\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">1i</span></span>;\n" +
                 "   $return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
                 "  } $finally {\n" +
@@ -2885,7 +2885,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $return <span class=\"n\"><span class=\"n\">1i</span>/<span class=\"n\">0i</span></span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"f\">2</span>;\n" +
-                "  } <span class=\"n\">$catch</span>(Object <a name=\"m155\">o</a>){\n" +
+                "  } <span class=\"n\"><a title=\"0/1\">$catch</a></span>(Object <a name=\"m155\">o</a>){\n" +
                 "   <span class=\"n\"><span class=\"n\"><a href=\"#m65\">t</a></span>=<span class=\"n\">1i</span></span>;\n" +
                 "   $return <span class=\"n\"><a href=\"#m65\">t</a></span>;\n" +
                 "  } $finally {\n" +
@@ -2929,7 +2929,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $throw <span class=\"f\">1i</span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>;\n" +
-                "  } <span class=\"f\">$catch</span>(Object <a name=\"m150\">o</a>){\n" +
+                "  } <span class=\"f\"><a title=\"1/1\">$catch</a></span>(Object <a name=\"m150\">o</a>){\n" +
                 "   <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\">1i</span></span>;\n" +
                 "   $return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
                 "  }\n" +
@@ -5485,7 +5485,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "    $throw <span class=\"f\">1i</span>;\n" +
                 "   }\n" +
                 "   $return <span class=\"n\">2</span>;\n" +
-                "  } <span class=\"f\">$catch</span>($int <a name=\"m148\">o</a>){\n" +
+                "  } <span class=\"f\"><a title=\"1/1\">$catch</a></span>($int <a name=\"m148\">o</a>){\n" +
                 "   $return <span class=\"f\"><a href=\"#m148\">o</a></span>;\n" +
                 "  }\n" +
                 " }\n" +
@@ -7576,7 +7576,7 @@ public final class CoverageReport0Test extends ProcessMethodCommon {
                 "  try {\n" +
                 "   throw <span class=\"f\">new <a title=\"pkg.Ex\" href=\"#m13\">Ex</a>()</span>;\n" +
                 "  }\n" +
-                "  <span class=\"f\">catch</span> (<a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m118\">e</a>){\n" +
+                "  <span class=\"f\"><a title=\"1/1\">catch</a></span> (<a title=\"pkg.Ex\" href=\"#m13\">Ex</a> <a name=\"m118\">e</a>){\n" +
                 "   return <span class=\"f\"><span class=\"f\"><a href=\"#m118\">e</a></span>.<span class=\"f\"><a title=\"pkg.Ex.field\" href=\"#m34\">field</a></span></span>;\n" +
                 "  }\n" +
                 " }\n" +
