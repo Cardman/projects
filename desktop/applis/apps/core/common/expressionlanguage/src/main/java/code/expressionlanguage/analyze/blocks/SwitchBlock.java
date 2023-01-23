@@ -31,7 +31,6 @@ public final class SwitchBlock extends LabelledOtherBlock implements BreakableBl
     private String err = "";
 
     private int conditionNb;
-    private int caseCount;
 
     public SwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
         super(_offset,_label);
@@ -166,11 +165,4 @@ public final class SwitchBlock extends LabelledOtherBlock implements BreakableBl
         conditionNb = _conditionNb;
     }
 
-    public int getCaseCount() {
-        return caseCount;
-    }
-
-    public void setCaseCount(int _caseCount) {
-        this.caseCount = _caseCount;
-    }
 }

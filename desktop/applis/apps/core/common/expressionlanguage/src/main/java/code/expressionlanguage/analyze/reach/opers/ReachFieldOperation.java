@@ -3,7 +3,7 @@ package code.expressionlanguage.analyze.reach.opers;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.AbsBk;
-import code.expressionlanguage.analyze.blocks.CaseCondition;
+import code.expressionlanguage.analyze.blocks.WithFilterContent;
 import code.expressionlanguage.analyze.opers.DeclaredFieldOperation;
 import code.expressionlanguage.analyze.opers.SettableAbstractFieldOperation;
 import code.expressionlanguage.common.ClassField;
@@ -25,7 +25,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
     }
 
     public static boolean caseCst(AbsBk _block) {
-        return _block instanceof CaseCondition && !((CaseCondition) _block).isCaseWhen();
+        return _block instanceof WithFilterContent && !((WithFilterContent) _block).getFilterContent().isCaseWhen();
     }
 
     @Override

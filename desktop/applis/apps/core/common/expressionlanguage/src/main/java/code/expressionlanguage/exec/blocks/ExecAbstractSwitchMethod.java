@@ -5,6 +5,7 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.stacks.SwitchBlockStack;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.CacheInfo;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
@@ -80,25 +81,21 @@ public abstract class ExecAbstractSwitchMethod extends ExecMemberCallingsBlock i
         return retRef;
     }
 
-    public ExecBlock processCase(ContextEl _cont, Argument _arg, StackCall _stack) {
-        ExecResultCase res_ = ExecAbstractSwitchBlock.innerProcess(getImportedParamType(), _cont, _stack, this, _arg, 0);
-        ExecListLastBkSw infos_ = new ExecListLastBkSw(this);
-        ExecBracedBlock last_ = lastVisMeth(infos_, res_);
-        SwitchBlockStack sw_ = new SwitchBlockStack(this,last_);
+    public ExecBlock processCase(Argument _arg, StackCall _stack) {
+        boolean atMost_ = this instanceof ExecSwitchInstanceMethod;
+        SwitchBlockStack sw_ = new SwitchBlockStack(this, atMost_);
+        sw_.setValue(ArgumentListCall.toStr(_arg));
+        sw_.setInstanceTest(getImportedParamType());
         sw_.setLabel("");
-        return cover(_cont, sw_, _arg, _stack, res_);
+        return cover(sw_, _stack);
     }
-    protected abstract ExecBracedBlock lastVisMeth(ExecListLastBkSw _if, ExecResultCase _res);
-    public ExecBlock cover(ContextEl _cont, SwitchBlockStack _if, Argument _arg, StackCall _stack, ExecResultCase _found) {
-        if (_cont.callsOrException(_stack)) {
-            return this;
-        }
+
+    public ExecBlock cover(SwitchBlockStack _if, StackCall _stack) {
         AbstractPageEl page_ = _stack.getLastPage();
-        _cont.getCoverage().passSwitchMethod(_found, _arg, _stack);
         page_.clearCurrentEls();
-        ExecBracedBlock foundBk_ = ExecResultCase.block(_found);
-        ExecAbstractSwitchBlock.visit(_if,_found,page_, foundBk_);
-        return foundBk_;
+        ExecAbstractSwitchBlock.visit(_if,page_, this);
+        ExecListLastBkSw infos_ = _if.getInfos();
+        return infos_.visit();
     }
 
     public CacheInfo getCacheInfo() {

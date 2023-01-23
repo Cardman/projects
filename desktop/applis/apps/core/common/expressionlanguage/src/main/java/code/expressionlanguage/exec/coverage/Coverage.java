@@ -160,7 +160,7 @@ public final class Coverage {
             _swRes.getChildren().addEntry(_exec, new CustList<AbstractCoverageResult>(new StandardCoverageResult()));
         }
         if (_child instanceof CaseCondition) {
-            int count_ = NumberUtil.max(1,((CaseCondition) _child).getStdValues().size()+ ((CaseCondition) _child).getEnumValues().size());
+            int count_ = NumberUtil.max(1,((CaseCondition) _child).getFilterContent().getStdValues().size()+ ((CaseCondition) _child).getFilterContent().getEnumValues().size());
             CustList<AbstractCoverageResult> list_ = new CustList<AbstractCoverageResult>();
             for (int i = 0; i < count_; i++) {
                 list_.add(new StandardCoverageResult());

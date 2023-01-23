@@ -8,6 +8,13 @@ import code.formathtml.exec.stacks.DefRendReadWrite;
 import code.formathtml.util.BeanLgNames;
 
 public final class RendDefaultCondition extends RendParentBlock implements RendWithEl {
+    private final String variableName;
+    public RendDefaultCondition(){
+        this("");
+    }
+    public RendDefaultCondition(String _varName){
+        variableName = _varName;
+    }
 
     @Override
     public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
@@ -17,4 +24,14 @@ public final class RendDefaultCondition extends RendParentBlock implements RendW
         setVisited(ip_,this);
     }
 
+    @Override
+    public void removeAllVars(ImportingPage _ip) {
+        super.removeAllVars(_ip);
+        if (!variableName.isEmpty()) {
+            _ip.removeRefVar(variableName);
+        }
+    }
+    public String getVariableName() {
+        return variableName;
+    }
 }

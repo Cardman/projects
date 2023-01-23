@@ -127,7 +127,7 @@ public abstract class AbsBk {
         return false;
     }
     public static boolean isVisitableBlock(AbsBk _block) {
-        return _block instanceof DoBlock||_block instanceof TryEval||_block instanceof FinallyEval||_block instanceof NullCatchEval||_block instanceof EmptyInstruction||_block instanceof ElseCondition||_block instanceof BuildableElMethod || _block instanceof UnclassedBracedBlock;
+        return _block instanceof DoBlock||_block instanceof TryEval||_block instanceof FinallyEval||_block instanceof EmptyInstruction||_block instanceof ElseCondition||_block instanceof BuildableElMethod || _block instanceof UnclassedBracedBlock;
     }
     public final RootBlock retrieveParentType() {
         AbsBk p_ = this;

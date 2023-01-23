@@ -8,7 +8,7 @@ public abstract class ExecAbstractCaseCondition extends ExecBracedBlock implemen
 
     @Override
     public void processEl(ContextEl _cont, StackCall _stack) {
-        ExecHelperBlocks.setVisited(_stack, this);
+        ExecHelperBlocks.setVisitedCase(_cont,_stack, this);
     }
 
 }

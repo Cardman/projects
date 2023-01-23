@@ -120,7 +120,7 @@ public abstract class AnaRendBlock {
     }
 
     private static AnaRendBlock newRendBlockEsc(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, AnalyzedPageEl _primTypes, RendKeyWords _rendKeyWords) {
-        AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes.getPrimTypes(), _rendKeyWords);
+        AnaRendBlock bl_ = newRendBlock(_begin, _curParent, _prefix, _elt, _docText, _primTypes, _rendKeyWords);
         if (_elt instanceof Element) {
             Element elt_ = (Element) _elt;
             String tagName_ = elt_.getTagName();
@@ -165,7 +165,7 @@ public abstract class AnaRendBlock {
         return endHeader;
     }
 
-    private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, PrimitiveTypes _primTypes, RendKeyWords _rendKeyWords) {
+    private static AnaRendBlock newRendBlock(int _begin, AnaRendParentBlock _curParent, String _prefix, Node _elt, String _docText, AnalyzedPageEl _primTypes, RendKeyWords _rendKeyWords) {
         if (_elt instanceof Text) {
             return txt(_begin, (Text) _elt);
         }
@@ -175,7 +175,7 @@ public abstract class AnaRendBlock {
         int beginHeader_ = _begin + tagName_.length();
         StringMap<AttributePart> attr_ = getAttributes(_docText, beginHeader_, endHeader_);
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFor()))) {
-            return keyWordFor(_begin, _primTypes, _rendKeyWords, elt_, attr_);
+            return keyWordFor(_begin, _primTypes.getPrimTypes(), _rendKeyWords, elt_, attr_);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordWhile()))) {
             return keyWordWhile(_begin, _prefix, _rendKeyWords, elt_, attr_);
@@ -213,17 +213,17 @@ public abstract class AnaRendBlock {
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElse()))) {
             return new AnaRendElseCondition(_begin);
         }
-        return stdKeys(_begin, _prefix, _rendKeyWords, elt_, attr_);
+        return stdKeys(_begin,_primTypes, _prefix, _rendKeyWords, elt_, attr_);
     }
 
-    private static AnaRendParentBlock stdKeys(int _begin, String _prefix, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
+    private static AnaRendParentBlock stdKeys(int _begin, AnalyzedPageEl _primTypes, String _prefix, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordTry()))) {
             return new AnaRendTryEval(newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), _attr),
                     _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordCatch()))) {
-            return keyWordCatch(_begin, _rendKeyWords, _elt, _attr);
+            return keyWordCatch(_begin,_primTypes, _rendKeyWords, _elt, _attr);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordFinally()))) {
             return new AnaRendFinallyEval(_begin);
@@ -249,13 +249,23 @@ public abstract class AnaRendBlock {
         return std(_begin, _prefix, _rendKeyWords, _elt, _attr);
     }
 
-    private static AnaRendAbstractCatchEval keyWordCatch(int _begin, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
+    private static AnaRendAbstractCatchEval keyWordCatch(int _begin, AnalyzedPageEl _primTypes, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
         if (_elt.hasAttribute(_rendKeyWords.getAttrClassName())) {
             return new AnaRendCatchEval(newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrVar(), _attr),
+                    newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
                     _begin);
         }
-        return new AnaRendNullCatchEval(_begin);
+        if (_elt.hasAttribute(_rendKeyWords.getAttrValue())) {
+            return new AnaRendCatchEval(new OffsetStringInfo(0,""),
+                    new OffsetStringInfo(0,""),
+                    newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
+                    _begin);
+        }
+        return new AnaRendCatchEval(new OffsetStringInfo(0,""),
+                new OffsetStringInfo(0,""),
+                new OffsetStringInfo(0,_primTypes.getKeyWords().getKeyWordNull()),
+                _begin);
     }
 
     private static AnaRendLine line(int _begin, AnaRendParentBlock _curParent, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {

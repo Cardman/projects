@@ -9,8 +9,4 @@ public final class ExecSwitchValueMethod extends ExecAbstractSwitchMethod {
         super(_retRef, _name, _modifier, _importedParamType, _retType, _anonFctContent);
     }
 
-    @Override
-    protected ExecBracedBlock lastVisMeth(ExecListLastBkSw _if, ExecResultCase _res) {
-        return _if.getLast();
-    }
 }

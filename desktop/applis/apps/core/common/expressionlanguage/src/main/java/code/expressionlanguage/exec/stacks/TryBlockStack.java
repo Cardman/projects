@@ -12,16 +12,32 @@ public final class TryBlockStack extends AbstractStask implements EnteredStack {
     private ExecBracedBlock execCurrentBlock;
 
     private boolean entered;
+    private boolean enteredCatch;
+    private final ExecBracedBlock block;
 
-    public TryBlockStack(ExecBracedBlock _execLastBlock) {
+    public TryBlockStack(ExecBracedBlock _execLastBlock, ExecBracedBlock _first) {
         execLastBlock = _execLastBlock;
+        block = _first;
     }
+
+    public ExecBracedBlock getBlock() {
+        return block;
+    }
+
     public boolean isEntered() {
         return entered;
     }
 
     public void setEntered(boolean _entered) {
         entered = _entered;
+    }
+
+    public boolean isEnteredCatch() {
+        return enteredCatch;
+    }
+
+    public void setEnteredCatch(boolean _e) {
+        this.enteredCatch = _e;
     }
 
     public ExecBracedBlock getLastBlock() {

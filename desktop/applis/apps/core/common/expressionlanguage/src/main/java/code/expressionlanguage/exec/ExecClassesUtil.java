@@ -1,6 +1,5 @@
 package code.expressionlanguage.exec;
 
-import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.DefaultExiting;
 import code.expressionlanguage.NoExiting;
@@ -13,13 +12,10 @@ import code.expressionlanguage.functionid.ClassMethodId;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.expressionlanguage.fwd.opers.AnaOperationContent;
 import code.expressionlanguage.fwd.opers.ExecArrContent;
-import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.BooleanStruct;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -100,9 +96,6 @@ public final class ExecClassesUtil {
         idMet_ = new MethodId(MethodAccessKind.INSTANCE, nameToCall_, new StringList(stds_.getContent().getPrimTypes().getAliasPrimLong()));
         fct_ = getMethodBodiesById(classBody_, idMet_).first();
         _classes.setSeedGeneratorPair(new ExecTypeFunction(classBody_,fct_));
-        AnaOperationContent cont_ = new AnaOperationContent(0, 0);
-        cont_.setArgument(new Argument(BooleanStruct.of(false)));
-        _classes.setExpsConstFalse(new CustList<ExecOperationNode>(new ExecConstLeafOperation(false, new ExecOperationContent(cont_))));
     }
 
     private static CustList<ExecOperationNode> newCall(String _varPrevious, String _previous,

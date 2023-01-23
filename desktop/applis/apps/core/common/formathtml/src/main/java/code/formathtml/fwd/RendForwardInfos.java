@@ -211,10 +211,7 @@ public final class RendForwardInfos {
         }
         if (_current instanceof AnaRendCatchEval){
             AnaRendCatchEval f_ = (AnaRendCatchEval) _current;
-            return new RendCatchEval(f_.getImportedClassName(),f_.getVariableName());
-        }
-        if (_current instanceof AnaRendNullCatchEval){
-            return new RendNullCatchEval();
+            return buildCatchEval(f_,_forwards);
         }
         if (_current instanceof AnaRendFinallyEval){
             return new RendFinallyEval();
@@ -235,6 +232,13 @@ public final class RendForwardInfos {
             return new RendImport(f_.getElt(), new RendOperationNodeListOff(op_,f_.getPageOffset()));
         }
         return element(_current, _forwards);
+    }
+
+    private static RendAbstractCatchEval buildCatchEval(AnaRendCatchEval _f, Forwards _forwards) {
+        if (!_f.getFilterContent().getImportedClassName().isEmpty()) {
+            return new RendCatchEval(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(), getExecutableNodes(_f.getFilterContent().getRoot(),_forwards), _f.getFilterContent().getValueOffset());
+        }
+        return new RendListCatchEval(_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues());
     }
 
     private static RendBlock element(AnaRendBlock _current, Forwards _forwards) {
@@ -401,17 +405,17 @@ public final class RendForwardInfos {
     private static RendParentBlock buildDefaultCondition(AnaRendDefaultCondition _current) {
         String instanceTest_ = _current.getImportedClassName();
         if (!instanceTest_.isEmpty()) {
-            return new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), false, new CustList<RendDynOperationNode>(), 0);
+            return new RendDefaultCondition(_current.getVariableName());
         }
         return new RendDefaultCondition();
     }
 
     private static RendBlock buildCaseCondition(AnaRendCaseCondition _current, Forwards _fwd) {
         RendBlock exec_;
-        if (!_current.getImportedClassName().isEmpty()) {
-            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getImportedClassName(), true, getExecutableNodes(_current.getRoot(),_fwd), _current.getValueOffset());
+        if (!_current.getFilterContent().getImportedClassName().isEmpty()) {
+            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getFilterContent().getImportedClassName(), getExecutableNodes(_current.getFilterContent().getRoot(),_fwd), _current.getFilterContent().getValueOffset());
         } else {
-            exec_ = new RendSwitchValuesCondition(_current.getStdValues(), _current.getEnumValues());
+            exec_ = new RendSwitchValuesCondition(_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues());
         }
         return exec_;
     }

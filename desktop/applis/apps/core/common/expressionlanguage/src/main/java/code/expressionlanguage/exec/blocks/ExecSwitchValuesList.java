@@ -16,13 +16,13 @@ public final class ExecSwitchValuesList {
         this.stdValues = _stdValues;
         this.enumValues = _enumValues;
     }
-    public int match(Argument _arg, ContextEl _cont) {
-        Struct struct_ = _arg.getStruct();
-        String name_ = NumParsers.getNameOfEnum(struct_);
-        String className_ = struct_.getClassName(_cont);
+
+    public int match(Struct _arg, ContextEl _cont) {
+        String name_ = NumParsers.getNameOfEnum(_arg);
+        String className_ = _arg.getClassName(_cont);
         int i_ = 0;
         for (Argument a: stdValues) {
-            if (struct_.sameReference(a.getStruct())) {
+            if (_arg.sameReference(a.getStruct())) {
                 return i_;
             }
             i_++;

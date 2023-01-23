@@ -83,6 +83,7 @@ public final class ExpressionLanguage {
     private static void restore(AbstractPageEl _pageEl, StackCall _stackCall) {
         if (!_stackCall.calls()) {
             _pageEl.setTranslatedOffset(0);
+            _pageEl.clearCurrentEls();
         }
     }
 

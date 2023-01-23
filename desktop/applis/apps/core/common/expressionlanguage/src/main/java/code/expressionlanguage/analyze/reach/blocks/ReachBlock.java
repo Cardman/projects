@@ -58,9 +58,6 @@ public abstract class ReachBlock {
         if (_info instanceof TryEval) {
             return new ReachTryEval((TryEval) _info);
         }
-        if (_info instanceof NullCatchEval) {
-            return new ReachNullCatchEval((NullCatchEval) _info);
-        }
         if (_info instanceof CatchEval) {
             return new ReachCatchEval((CatchEval) _info);
         }

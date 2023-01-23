@@ -6,20 +6,15 @@ import code.util.CustList;
 
 public final class ExecAbstractInstanceCaseCondition extends ExecAbstractCaseCondition {
     private final String importedClassName;
-    private final boolean specific;
 
     private final String variableName;
 
     private final ExecOperationNodeListOff exp;
 
-    private final int index;
-
-    public ExecAbstractInstanceCaseCondition(String _variableName, String _importedClassName, boolean _spec, CustList<ExecOperationNode> _list, int _offset, int _index) {
+    public ExecAbstractInstanceCaseCondition(String _variableName, String _importedClassName, CustList<ExecOperationNode> _list, int _offset) {
         variableName = _variableName;
         importedClassName = _importedClassName;
-        specific = _spec;
         exp = new ExecOperationNodeListOff(_list, _offset);
-        index = _index;
     }
 
     @Override
@@ -32,13 +27,6 @@ public final class ExecAbstractInstanceCaseCondition extends ExecAbstractCaseCon
         return exp;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public boolean isSpecific(){
-        return specific;
-    }
     public String getImportedClassName() {
         return importedClassName;
     }

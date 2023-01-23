@@ -69,25 +69,10 @@ public final class RendSplitExpressionUtil {
             extractAnon(_page, _int, _method, _type, resultExpression_);
         }
         if (_current instanceof AnaRendCaseCondition) {
-            if (((AnaRendCaseCondition) _current).getVariableName().isEmpty()) {
-                String value_ = ((AnaRendCaseCondition) _current).getValue();
-                _page.zeroOffset();
-                ResultExpression resultExpression_ = ((AnaRendCaseCondition) _current).getRes();
-                resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
-                resultExpression_.setAnalyzedString(value_);
-                resultExpression_.setSumOffset(((AnaRendCaseCondition) _current).getValueOffset());
-                extractAnon(_page, _int, _method, _type, resultExpression_);
-            } else {
-                if (((AnaRendCaseCondition) _current).isCaseWhen()) {
-                    String substring_ = ((AnaRendCaseCondition) _current).getValue();
-                    _page.zeroOffset();
-                    ResultExpression resultExpression_ = ((AnaRendCaseCondition) _current).getRes();
-                    resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
-                    resultExpression_.setAnalyzedString(substring_.trim());
-                    resultExpression_.setSumOffset(((AnaRendCaseCondition) _current).getValueOffset());
-                    extractAnon(_page, _int, _method, _type, resultExpression_);
-                }
-            }
+            filter(_analyzingDoc, _page, _int, _method, _type, _current, ((AnaRendCaseCondition) _current).getFilterContent());
+        }
+        if (_current instanceof AnaRendCatchEval) {
+            filter(_analyzingDoc, _page, _int, _method, _type, _current, ((AnaRendCatchEval) _current).getFilterContent());
         }
         if (_current instanceof AnaRendSwitchBlock) {
             String value_ = ((AnaRendSwitchBlock) _current).getValue();
@@ -176,6 +161,28 @@ public final class RendSplitExpressionUtil {
         }
         stdElt(_analyzingDoc, _page, _int, _method, _type, _current);
         etl(_analyzingDoc, _page, _int, _method, _type, _current);
+    }
+
+    private static void filter(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, AnaRendBlock _current, RendFilterContent _filter) {
+        if (_filter.getVariableName().isEmpty()) {
+            String value_ = _filter.getValue();
+            _page.zeroOffset();
+            ResultExpression resultExpression_ = _filter.getRes();
+            resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
+            resultExpression_.setAnalyzedString(value_);
+            resultExpression_.setSumOffset(_filter.getValueOffset());
+            extractAnon(_page, _int, _method, _type, resultExpression_);
+        } else {
+            if (_filter.isCaseWhen()) {
+                String substring_ = _filter.getValue();
+                _page.zeroOffset();
+                ResultExpression resultExpression_ = _filter.getRes();
+                resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
+                resultExpression_.setAnalyzedString(substring_.trim());
+                resultExpression_.setSumOffset(_filter.getValueOffset());
+                extractAnon(_page, _int, _method, _type, resultExpression_);
+            }
+        }
     }
 
     private static void stdElt(AnalyzingDoc _analyzingDoc, AnalyzedPageEl _page, IntermediaryResults _int, AnaRendDocumentBlock _method, RootBlock _type, AnaRendBlock _current) {

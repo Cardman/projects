@@ -46,7 +46,6 @@ public final class Classes {
     private CustList<ExecOperationNode> expsNextPairCust;
     private CustList<ExecOperationNode> expsFirstCust;
     private CustList<ExecOperationNode> expsSecondCust;
-    private CustList<ExecOperationNode> expsConstFalse;
     private final CustList<ExecOperatorBlock> sortedOperators = new CustList<ExecOperatorBlock>();
     private ExecTypeFunction seedDoubleGeneratorPair;
     private ExecTypeFunction seedGeneratorPair;
@@ -255,14 +254,6 @@ public final class Classes {
     }
     public void setExpsSecondCust(CustList<ExecOperationNode> _expsSecondCust) {
         expsSecondCust = _expsSecondCust;
-    }
-
-    public CustList<ExecOperationNode> getExpsConstFalse() {
-        return expsConstFalse;
-    }
-
-    public void setExpsConstFalse(CustList<ExecOperationNode> _expsConstFalse) {
-        this.expsConstFalse = _expsConstFalse;
     }
 
     public StringMap<ExecTypeFunction> getToStringMethodsToCallBodies() {

@@ -1,20 +1,39 @@
 package code.expressionlanguage.exec.stacks;
 import code.expressionlanguage.exec.blocks.ExecBracedBlock;
+import code.expressionlanguage.exec.blocks.ExecListLastBkSw;
+import code.expressionlanguage.structs.Struct;
 
 public final class SwitchBlockStack extends AbstractStask implements ConditionBlockStack {
 
-    private ExecBracedBlock execBlock;
-
-    private ExecBracedBlock execLastVisitedBlock;
+    private final ExecBracedBlock execBlock;
+    private final ExecListLastBkSw infos;
 
     private ExecBracedBlock execCurrentVisitedBlock;
 
-    public SwitchBlockStack(ExecBracedBlock _execBlock, ExecBracedBlock _execLastVisitedBlock) {
+    private Struct value;
+    private String instanceTest;
+    private final boolean atMostOne;
+    private boolean entered;
+
+    public SwitchBlockStack(ExecBracedBlock _execBlock, boolean _atMost) {
+        infos = new ExecListLastBkSw(_execBlock);
         execBlock = _execBlock;
-        execLastVisitedBlock = _execLastVisitedBlock;
+        atMostOne = _atMost;
+
     }
     public ExecBracedBlock getBlock() {
         return execBlock;
+    }
+
+    public ExecListLastBkSw getInfos() {
+        return infos;
+    }
+
+    public ExecBracedBlock next(ExecBracedBlock _current) {
+        return getInfos().next(_current);
+    }
+    public boolean isAtMostOne() {
+        return atMostOne;
     }
 
     @Override
@@ -27,8 +46,27 @@ public final class SwitchBlockStack extends AbstractStask implements ConditionBl
         return execCurrentVisitedBlock;
     }
 
-    public ExecBracedBlock getExecLastVisitedBlock() {
-        return execLastVisitedBlock;
+    public boolean isEntered() {
+        return entered;
     }
 
+    public void enter() {
+        entered = true;
+    }
+
+    public Struct getValue() {
+        return value;
+    }
+
+    public void setValue(Struct _v) {
+        this.value = _v;
+    }
+
+    public String getInstanceTest() {
+        return instanceTest;
+    }
+
+    public void setInstanceTest(String _i) {
+        this.instanceTest = _i;
+    }
 }

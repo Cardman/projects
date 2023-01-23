@@ -635,9 +635,6 @@ public final class LinkageUtil {
         if (_child instanceof CatchEval) {
             processCatchEvalReport(_vars,(CatchEval) _child, _coverage);
         }
-        if (_child instanceof NullCatchEval) {
-            processAbstractCatchEvalReport(_vars,(NullCatchEval) _child, _coverage);
-        }
         if (_child instanceof DeclareVariable) {
             processDeclareVariableReport(_vars,(DeclareVariable) _child);
         }
@@ -963,6 +960,9 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(tag_, off_));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR+ExportCst.END_SPAN,off_+ _vars.getKeyWords().getKeyWordCase().length()));
         }
+        processFilterContentReport(_vars,_cond,_cond.getFilterContent(),_cov);
+    }
+    private static void processFilterContentReport(VariablesOffsets _vars, AbsBk _bl, FilterContent _cond, Coverage _cov) {
         EnumBlock enumBlock_ = _cond.getEnumBlock();
         if (enumBlock_ != null) {
             addEnumRef(_vars, _cond, enumBlock_);
@@ -977,13 +977,13 @@ public final class LinkageUtil {
             OperationNode root_ = _cond.getRoot();
             if (root_ != null) {
                 int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
-                LinkageStackElementIn in_ = buildLinkageRep(_cond, _cond.getConditionOffset(), offsetEndBlock_, 0, -1);
+                LinkageStackElementIn in_ = buildLinkageRep(_bl, _cond.getConditionOffset(), offsetEndBlock_, 0, -1);
                 buildCoverageReport(_vars, _cov, root_, in_);
             }
         } else {
             int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
             OperationNode root_ = _cond.getRoot();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, _cond.getValueOffset(), offsetEndBlock_, 0, -1);
+            LinkageStackElementIn in_ = buildLinkageRep(_bl, _cond.getValueOffset(), offsetEndBlock_, 0, -1);
             buildCoverageReport(_vars, _cov, root_, in_);
         }
     }
@@ -1011,6 +1011,10 @@ public final class LinkageUtil {
     }
 
     private static void processCaseConditionError(VariablesOffsets _vars, CaseCondition _cond) {
+        processFilterContentError(_vars,_cond,_cond.getFilterContent());
+    }
+
+    private static void processFilterContentError(VariablesOffsets _vars, AbsBk _bl, FilterContent _cond) {
         EnumBlock enumBlock_ = _cond.getEnumBlock();
         if (enumBlock_ != null) {
             addEnumRef(_vars, _cond, enumBlock_);
@@ -1029,16 +1033,16 @@ public final class LinkageUtil {
             }
             OperationNode root_ = _cond.getRoot();
             if (root_ != null) {
-                buildNormalError(_vars, _cond, -1, root_, _cond.getConditionOffset(), 0, _cond.getValueOffset() + _cond.getValue().length());
+                buildNormalError(_vars, _bl, -1, root_, _cond.getConditionOffset(), 0, _cond.getValueOffset() + _cond.getValue().length());
             }
         } else {
             int off_ = _cond.getValueOffset();
             OperationNode root_ = _cond.getRoot();
-            buildNormalError(_vars, _cond, -1, root_, off_, 0, off_ + _cond.getValue().length());
+            buildNormalError(_vars, _bl, -1, root_, off_, 0, off_ + _cond.getValue().length());
         }
     }
 
-    private static void addEnumRef(VariablesOffsets _vars, CaseCondition _cond, EnumBlock _enumBlock) {
+    private static void addEnumRef(VariablesOffsets _vars, FilterContent _cond, EnumBlock _enumBlock) {
         StringList errs_ = new StringList();
         int off_ = _cond.getValueOffset();
         String typeEnum_ = _cond.getTypeEnum();
@@ -1111,24 +1115,13 @@ public final class LinkageUtil {
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processCatchEvalReport(VariablesOffsets _vars, CatchEval _cond, Coverage _cov) {
-        processAbstractCatchEvalReport(_vars,_cond, _cov);
-        _vars.addParts(export(_cond.getPartOffsets()));
-        String tag_ = ExportCst.anchorName(_cond.getVariableNameOffset());
-        _vars.addPart(new PartOffset(tag_, _cond.getVariableNameOffset()));
-        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+        if (_vars.getLastStackElt().noVisited()) {
+            processAbstractCatchEvalReport(_vars,_cond, _cov);
+        }
+        processFilterContentReport(_vars,_cond,_cond.getFilterContent(),_cov);
     }
     private static void processCatchEvalError(VariablesOffsets _vars, CatchEval _cond) {
-        _vars.addParts(export(_cond.getPartOffsets()));
-        StringList errs_ = _cond.getNameErrors();
-        if (!errs_.isEmpty()) {
-            String tag_ = ExportCst.anchorNameErr(_cond.getVariableNameOffset(),StringUtil.join(errs_,ExportCst.JOIN_ERR));
-            _vars.addPart(new PartOffset(tag_, _cond.getVariableNameOffset()));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
-            return;
-        }
-        String tag_ = ExportCst.anchorName(_cond.getVariableNameOffset());
-        _vars.addPart(new PartOffset(tag_, _cond.getVariableNameOffset()));
-        _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
+        processFilterContentError(_vars,_cond,_cond.getFilterContent());
     }
     private static void processAbstractCatchEvalReport(VariablesOffsets _vars, AbstractCatchEval _cond, Coverage _cov) {
         String tag_;

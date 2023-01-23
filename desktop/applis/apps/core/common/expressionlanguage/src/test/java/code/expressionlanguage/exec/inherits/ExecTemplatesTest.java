@@ -1080,7 +1080,39 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
         StackCall stackCall_ = getStackCall(cont_);
         addPage(cont_, instancingClass_, stackCall_);
-        ExecHelperBlocks.setVisited(stackCall_,null);
+        ExecHelperBlocks.setVisitedDefault(cont_, stackCall_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void setVisitedCase() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = validated(files_);
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
+        StackCall stackCall_ = getStackCall(cont_);
+        addPage(cont_, instancingClass_, stackCall_);
+        ExecHelperBlocks.setVisitedCase(cont_, stackCall_,null);
+        assertNull(instancingClass_.getReadWrite());
+    }
+    @Test
+    public void setVisitedCatch() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex{\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = validated(files_);
+        ExecRootBlock classBody_ = cont_.getClasses().getClassBody("pkg.Ex");
+        AbstractPageEl instancingClass_ = ExecutingUtil.createInstancingClass(classBody_, new ExecFormattedRootBlock(classBody_,"pkg.Ex"), null);
+        StackCall stackCall_ = getStackCall(cont_);
+        addPage(cont_, instancingClass_, stackCall_);
+        ExecHelperBlocks.processCatch(cont_, stackCall_,null,null);
         assertNull(instancingClass_.getReadWrite());
     }
     @Test

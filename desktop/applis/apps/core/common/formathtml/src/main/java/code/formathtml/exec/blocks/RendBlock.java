@@ -14,6 +14,7 @@ import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecWrappOperation;
 import code.expressionlanguage.exec.stacks.LoopBlockStackContent;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.*;
@@ -1157,7 +1158,7 @@ public abstract class RendBlock {
         RendParentBlock def_ = null;
         CustList<RendParentBlock> filtered_ = new CustList<RendParentBlock>();
         for (RendParentBlock b: _children) {
-            if (!(b instanceof RendDefaultCondition) && !(b instanceof RendAbstractInstanceCaseCondition && !((RendAbstractInstanceCaseCondition)b).isSpecific())) {
+            if (!(b instanceof RendDefaultCondition)) {
                 filtered_.add(b);
             } else {
                 def_ = b;
@@ -1170,11 +1171,13 @@ public abstract class RendBlock {
         if (found_ != null) {
             return found_;
         }
-        if (def_ instanceof RendAbstractInstanceCaseCondition) {
+        if (def_ != null) {
             ImportingPage ip_ = _rendStack.getLastPage();
-            String var_ = ((RendAbstractInstanceCaseCondition) def_).getVariableName();
+            String var_ = ((RendDefaultCondition) def_).getVariableName();
             Struct struct_ = _arg.getStruct();
-            putVar(struct_, ip_, var_, _rendStack.formatVarType( _bl.getInstanceTest()));
+            if (!var_.isEmpty()) {
+                putVar(struct_, ip_, var_, _rendStack.formatVarType( _bl.getInstanceTest()));
+            }
         }
         return def_;
     }
@@ -1238,7 +1241,7 @@ public abstract class RendBlock {
     }
 
     private static RendAbstractCaseCondition processList(ContextEl _cont, RendParentBlock _in, Argument _arg) {
-        if (_in instanceof RendSwitchValuesCondition && ((RendSwitchValuesCondition) _in).getList().match(_arg, _cont) >= 0) {
+        if (_in instanceof RendSwitchValuesCondition && ((RendSwitchValuesCondition) _in).getList().match(ArgumentListCall.toStr(_arg), _cont) >= 0) {
             return (RendSwitchValuesCondition)_in;
         }
         return null;

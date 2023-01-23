@@ -1,105 +1,44 @@
 package code.expressionlanguage.analyze.blocks;
+
 import code.expressionlanguage.analyze.AnalyzedPageEl;
-import code.expressionlanguage.analyze.ManageTokens;
-import code.expressionlanguage.analyze.TokenErrorMessage;
-import code.expressionlanguage.analyze.types.AnaResultPartType;
-import code.expressionlanguage.analyze.types.ResolvingTypes;
-import code.expressionlanguage.analyze.variables.AnaLocalVariable;
-import code.expressionlanguage.common.ConstType;
-import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
-import code.util.StringList;
 
-public final class CatchEval extends AbstractCatchEval implements BuildableElMethod {
+public final class CatchEval extends AbstractCatchEval implements BuildableElMethod, WithFilterContent {
 
-    private final String className;
+    private final FilterContent filterContent;
 
-    private String importedClassName;
-
-    private final int classNameOffset;
-
-    private AnaResultPartType partOffsets = new AnaResultPartType();
-
-    private final String variableName;
-
-    private final int variableNameOffset;
-
-    private final StringList nameErrors = new StringList();
-
-    public CatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, int _offset) {
+    public CatchEval(OffsetStringInfo _value, int _offset, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition) {
         super(_offset);
-        className = _className.getInfo();
-        classNameOffset = _className.getOffset();
-        variableName = _variable.getInfo();
-        variableNameOffset = _variable.getOffset();
+        filterContent = new FilterContent(_value, _declaringType, _variable, _condition);
+    }
+
+    public FilterContent getFilterContent() {
+        return filterContent;
     }
 
     public int getClassNameOffset() {
-        return classNameOffset;
+        return filterContent.getValueOffset();
     }
     public int getVariableNameOffset() {
-        return variableNameOffset;
+        return filterContent.getVariableOffset();
     }
     public String getClassName() {
-        return className;
+        return filterContent.getDeclaringType();
     }
 
     public String getVariableName() {
-        return variableName;
+        return filterContent.getVariableName();
     }
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
-        _page.setSumOffset(classNameOffset);
-        _page.zeroOffset();
-        partOffsets = ResolvingTypes.resolveCorrectType(className, _page);
-        importedClassName = partOffsets.getResult(_page);
-        processVariable(_page);
-//        ExecCatchEval exec_ = new ExecCatchEval(getOffset(),variableName, importedClassName);
-//        exec_.setFile(_page.getBlockToWrite().getFile());
-//        _page.getBlockToWrite().appendChild(exec_);
-//        _page.getAnalysisAss().getMappingBracedMembers().put(this,exec_);
-//        _page.getCoverage().putBlockOperations(exec_,this);
-    }
-
-    private void processVariable(AnalyzedPageEl _page) {
-//        _page.getCoverage().putCatches(this);
-        _page.setSumOffset(variableNameOffset);
-        _page.zeroOffset();
-        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
-        if (res_.isError()) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFile(getFile());
-            d_.setIndexFile(variableNameOffset);
-            //variable name
-            d_.setBuiltError(res_.getMessage());
-            _page.addLocError(d_);
-            nameErrors.add(d_.getBuiltError());
-            return;
-        }
-        AnaLocalVariable lv_ = new AnaLocalVariable();
-        lv_.setClassName(importedClassName);
-        lv_.setRef(variableNameOffset);
-        lv_.setConstType(ConstType.FIX_VAR);
-        lv_.setFinalVariable(true);
-        _page.getInfosVars().put(variableName, lv_);
+        filterContent.buildExpressionLanguageReadOnly(this,_page,true,"");
     }
 
     @Override
     public void removeAllVars(AnalyzedPageEl _ip) {
         super.removeAllVars(_ip);
-        _ip.getInfosVars().removeKey(variableName);
+        filterContent.removeAllVars(_ip);
     }
 
-    public AnaResultPartType getPartOffsets() {
-        return partOffsets;
-    }
-
-    public StringList getNameErrors() {
-        return nameErrors;
-    }
-
-    public String getImportedClassName() {
-        return importedClassName;
-    }
 }

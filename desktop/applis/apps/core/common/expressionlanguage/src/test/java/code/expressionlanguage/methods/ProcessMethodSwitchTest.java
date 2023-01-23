@@ -10,6 +10,29 @@ import org.junit.Test;
 
 public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
     @Test
+    public void calculateArgument0Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(1/0){\n");
+        xml_.append("   $case 8;\n");
+        xml_.append("    t=\"10\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasDivisionZero(), ret_.getStruct().getClassName(cont_));
+    }
+    @Test
     public void calculateArgument1Test() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("$public $class pkg.Ex {\n");
@@ -850,6 +873,61 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         xml_.append("   $case 8;\n");
         xml_.append("    t=16;\n");
         xml_.append("    $break label;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(17, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument77_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  $long i;\n");
+        xml_.append("  i=8;\n");
+        xml_.append("  $switch(i)label{\n");
+        xml_.append("   $case 10;\n");
+        xml_.append("   $default;\n");
+        xml_.append("    t=12/0;\n");
+        xml_.append("   $case 8;\n");
+        xml_.append("    t=16;\n");
+        xml_.append("    $break label;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOk(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(17, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument_77_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  $long i;\n");
+        xml_.append("  i=8;\n");
+        xml_.append("  $switch(i){\n");
+        xml_.append("   $case 10;\n");
+        xml_.append("   $default;\n");
+        xml_.append("    t=12/0;\n");
+        xml_.append("   $case 8;\n");
+        xml_.append("    t=16;\n");
         xml_.append("  }\n");
         xml_.append("  $return 1i+$($int)t;\n");
         xml_.append(" }\n");

@@ -147,6 +147,32 @@ public final class RenderTryTest extends CommonRender {
         String html_ = "<html><body><c:try label='lab'>{1/0}</c:try><c:catch/><c:catch className='java.lang.Object' var='ex'>Exc<c:break label='lab'/></c:catch></body></html>";
         assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
     }
+    @Test
+    public void process21Test() {
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == $null'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
+        assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
+    public void process22Test() {
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex != $null'>Exc</c:catch><c:catch className='java.lang.Object' var='ex'>Exc2</c:catch></body></html>";
+        assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
+    public void process23Test() {
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == 1/0'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
+        assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
+    public void process24Test() {
+        String html_ = "<html><body><c:try><c:throw value='2'/></c:try><c:catch value='1'>Exc2</c:catch><c:catch value='2'>Exc</c:catch></body></html>";
+        assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
+    public void process25Test() {
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == $null'>Exc2</c:catch><c:finally><c:return/></c:finally></body></html>";
+        assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
+    }
+
     private String getRes(String _html, StringMap<String> _files) {
         return getCommRes(_html,_files);
     }

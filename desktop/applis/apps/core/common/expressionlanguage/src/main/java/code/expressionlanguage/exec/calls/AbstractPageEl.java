@@ -186,7 +186,7 @@ public abstract class AbstractPageEl {
         //method walk through
         ExecBlock en_ = getBlock();
         if (en_ instanceof ExecAbstractSwitchMethod) {
-            setBlock(((ExecAbstractSwitchMethod)en_).processCase(_context, Argument.getNullableValue(_arg),_stack));
+            setBlock(((ExecAbstractSwitchMethod)en_).processCase(Argument.getNullableValue(_arg),_stack));
             return;
         }
         if (en_ instanceof ExecAbstractExpressionReturnMethod) {

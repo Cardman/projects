@@ -890,7 +890,7 @@ public final class ForwardInfos {
             return exec_;
         }
         if (_en instanceof CatchEval) {
-            ExecCatchEval exec_ = new ExecCatchEval(((CatchEval) _en).getVariableName(), ((CatchEval) _en).getImportedClassName());
+            ExecBracedBlock exec_ = buildCatchCondition((CatchEval) _en,_coverage,_forwards);
             _coverage.putCatches((CatchEval) _en, exec_);
             exec_.setFile(_fileDest);
             _coverage.putBlockOperations(exec_, _en);
@@ -1056,13 +1056,6 @@ public final class ForwardInfos {
             _coverage.putBlockOperations(exec_, _en);
             return exec_;
         }
-        if (_en instanceof NullCatchEval) {
-            ExecNullCatchEval exec_ = new ExecNullCatchEval();
-            _coverage.putCatches((NullCatchEval) _en, exec_);
-            exec_.setFile(_fileDest);
-            _coverage.putBlockOperations(exec_, _en);
-            return exec_;
-        }
         if (_en instanceof ReturnMethod) {
             OperationNode r_ = ((ReturnMethod) _en).getRoot();
             ExecBlock exec_ = buildRet(_coverage, _forwards, _en, r_);
@@ -1119,23 +1112,9 @@ public final class ForwardInfos {
 //                exec_ = new ExecEnumCaseCondition(((CaseCondition) _en).getValue());
 //            }
 //        } else
-        if (!_en.getImportedType().isEmpty()) {
-            OperationNode root_ = _en.getRoot();
-            if (root_ != null) {
-                SwitchBlock par_ = _en.getSwitchParent();
-                if (par_ != null) {
-                    int caseCount_ = par_.getCaseCount();
-                    _en.setIndexTypeVarCase(caseCount_);
-                    par_.setCaseCount(caseCount_+1);
-                }
-                SwitchMethodBlock met_ = _en.getSwitchMethod();
-                if (met_ != null) {
-                    int caseCount_ = met_.getCaseCount();
-                    _en.setIndexTypeVarCase(caseCount_);
-                    met_.setCaseCount(caseCount_+1);
-                }
-            }
-            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), _en.getImportedType(), true, getExecutableNodes(root_,_coverage,_forwards,_en), _en.getConditionOffset(), _en.getIndexTypeVarCase());
+        if (!_en.getFilterContent().getImportedType().isEmpty()) {
+            OperationNode root_ = _en.getFilterContent().getRoot();
+            exec_ = new ExecAbstractInstanceCaseCondition(_en.getFilterContent().getVariableName(), _en.getFilterContent().getImportedType(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1144,7 +1123,33 @@ public final class ForwardInfos {
         } else {
 //            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
 //            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-            exec_ = new ExecSwitchValuesCondition(_en.getStdValues(), _en.getEnumValues());
+            exec_ = new ExecSwitchValuesCondition(_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues());
+//            exec_ = new ExecStdCaseCondition(argument_);
+        }
+        return exec_;
+    }
+
+    private static ExecBracedBlock buildCatchCondition(CatchEval _en, Coverage _coverage, Forwards _forwards) {
+        ExecBracedBlock exec_;
+//        if (((CaseCondition) _en).isBuiltEnum()) {
+//            if (((CaseCondition) _en).isNullCaseEnum()) {
+//                exec_ = new ExecStdCaseCondition(Argument.createVoid());
+//            } else {
+//                exec_ = new ExecEnumCaseCondition(((CaseCondition) _en).getValue());
+//            }
+//        } else
+        if (!_en.getFilterContent().getImportedType().isEmpty()) {
+            OperationNode root_ = _en.getFilterContent().getRoot();
+            exec_ = new ExecCatchEval(_en.getFilterContent().getVariableName(), _en.getFilterContent().getImportedType(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset());
+//        } else if (((CaseCondition) _en).isInstance()) {
+//            exec_ = new ExecStdCaseCondition(Argument.createVoid());
+//        } else if (((CaseCondition) _en).getQualif() != null) {
+//            ClassField qualif_ = ((CaseCondition) _en).getQualif();
+//            exec_ = new ExecQualifEnumCaseCondition(qualif_.getClassName(),qualif_.getFieldName());
+        } else {
+//            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
+//            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
+            exec_ = new ExecListCatchEval(_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues());
 //            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;
@@ -1156,7 +1161,8 @@ public final class ForwardInfos {
         if (instanceTest_.isEmpty()) {
             exec_ = new ExecDefaultCondition();
         } else {
-            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), instanceTest_, false, new CustList<ExecOperationNode>(), 0, -1);
+            exec_ = new ExecDefaultCondition(_en.getVariableName());
+//            exec_ = new ExecAbstractInstanceCaseCondition(_en.getVariableName(), instanceTest_, false, new CustList<ExecOperationNode>(), 0, -1);
         }
         return exec_;
     }

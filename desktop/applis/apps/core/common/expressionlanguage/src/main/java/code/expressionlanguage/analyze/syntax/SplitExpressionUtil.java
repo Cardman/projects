@@ -372,21 +372,12 @@ public final class SplitExpressionUtil {
             extractAnon(_page, _int, _method, _type, resultExpression_);
         }
         if (_current instanceof CaseCondition) {
-            if (((CaseCondition) _current).getVariableName().isEmpty()) {
-                String value_ = ((CaseCondition) _current).getValue();
-                _page.zeroOffset();
-                ResultExpression resultExpression_ = ((CaseCondition) _current).getRes();
-                resultExpression_.setAnalyzedString(value_);
-                resultExpression_.setSumOffset(((CaseCondition) _current).getValueOffset());
-                extractAnon(_page, _int, _method, _type, resultExpression_);
-            } else if (((CaseCondition) _current).isCaseWhen()) {
-                String substring_ = ((CaseCondition) _current).getCondition();
-                _page.zeroOffset();
-                ResultExpression resultExpression_ = ((CaseCondition) _current).getRes();
-                resultExpression_.setAnalyzedString(substring_);
-                resultExpression_.setSumOffset(((CaseCondition) _current).getConditionOffset());
-                extractAnon(_page, _int, _method, _type, resultExpression_);
-            }
+            FilterContent f_ = ((CaseCondition) _current).getFilterContent();
+            filterContent(_page, _int, _method, _type, f_);
+        }
+        if (_current instanceof CatchEval) {
+            FilterContent f_ = ((CatchEval) _current).getFilterContent();
+            filterContent(_page, _int, _method, _type, f_);
         }
         if (_current instanceof SwitchBlock) {
             String value_ = ((SwitchBlock) _current).getValue();
@@ -468,6 +459,24 @@ public final class SplitExpressionUtil {
             ResultExpression resultExpression_ = ((Throwing) _current).getRes();
             resultExpression_.setAnalyzedString(value_);
             resultExpression_.setSumOffset(((Throwing) _current).getExpressionOffset());
+            extractAnon(_page, _int, _method, _type, resultExpression_);
+        }
+    }
+
+    private static void filterContent(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, FilterContent _f) {
+        if (_f.getVariableName().isEmpty()) {
+            String value_ = _f.getValue();
+            _page.zeroOffset();
+            ResultExpression resultExpression_ = _f.getRes();
+            resultExpression_.setAnalyzedString(value_);
+            resultExpression_.setSumOffset(_f.getValueOffset());
+            extractAnon(_page, _int, _method, _type, resultExpression_);
+        } else if (_f.isCaseWhen()) {
+            String substring_ = _f.getCondition();
+            _page.zeroOffset();
+            ResultExpression resultExpression_ = _f.getRes();
+            resultExpression_.setAnalyzedString(substring_);
+            resultExpression_.setSumOffset(_f.getConditionOffset());
             extractAnon(_page, _int, _method, _type, resultExpression_);
         }
     }

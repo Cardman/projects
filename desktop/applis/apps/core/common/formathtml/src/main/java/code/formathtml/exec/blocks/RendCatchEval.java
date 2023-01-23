@@ -1,17 +1,16 @@
 package code.formathtml.exec.blocks;
 
-import code.expressionlanguage.ContextEl;
-import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
-import code.formathtml.exec.RendStackCall;
-import code.formathtml.util.BeanLgNames;
+import code.formathtml.exec.opers.RendDynOperationNode;
+import code.util.CustList;
 
 public final class RendCatchEval extends RendAbstractCatchEval {
 
     private final String importedClassName;
 
     private final String variableName;
-    public RendCatchEval(String _className, String _variable) {
+    public RendCatchEval(String _className, String _variable, CustList<RendDynOperationNode> _ls, int _off) {
+        super(_ls, _off);
         importedClassName = _className;
         variableName = _variable;
     }
@@ -21,11 +20,6 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     }
     public String getVariableName() {
         return variableName;
-    }
-
-    @Override
-    public void processEl(Configuration _cont, BeanLgNames _stds, ContextEl _ctx, RendStackCall _rendStack) {
-        procCatch(_cont, _stds, _ctx, _rendStack);
     }
 
     @Override
