@@ -96,6 +96,7 @@ public final class RendLocalThrowing {
         _bkIp.putValueVar(var_, new VariableWrapper(lv_));
         Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(ls_, _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+            _bkIp.removeRefVar(var_);
             _rendStackCall.getStackCall().setNullCallingState();
             return null;
         }
