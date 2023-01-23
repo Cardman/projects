@@ -32,6 +32,8 @@ public final class CatchEval extends AbstractCatchEval implements BuildableElMet
 
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
+        filterContent.setKeyWord(_page.getKeyWords().getKeyWordCatch());
+        filterContent.setKeyWordContainer(_page.getKeyWords().getKeyWordTry());
         filterContent.buildExpressionLanguageReadOnly(this,_page,true,"");
     }
 

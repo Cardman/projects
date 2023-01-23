@@ -47,7 +47,8 @@ public final class RendFilterContent {
     private final StrTypes offsetsEnum = new StrTypes();
     private final CustList<Argument> stdValues = new CustList<Argument>();
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
-
+    private String keyWord = "";
+    private String keyWordContainer = "";
     RendFilterContent(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value) {
         classNameOffset = _className.getOffset();
         className = _className.getInfo();
@@ -57,6 +58,21 @@ public final class RendFilterContent {
         valueOffset = _value.getOffset();
     }
 
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String _k) {
+        this.keyWord = _k;
+    }
+
+    public String getKeyWordContainer() {
+        return keyWordContainer;
+    }
+
+    public void setKeyWordContainer(String _k) {
+        this.keyWordContainer = _k;
+    }
     void buildExpressionLanguage(AnaRendBlock _bl,AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance) {
         String type_ = _resSwitch.getSingleNameOrEmpty();
         String variableName_ = getVariableName();
@@ -67,7 +83,7 @@ public final class RendFilterContent {
                 un_.setIndexFile(_bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        getKeyWord(),
                         value);
                 AnalyzingDoc.addError(un_, _page);
             }
@@ -141,7 +157,7 @@ public final class RendFilterContent {
                 un_.setIndexFile(valueOffset);
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        getKeyWord(),
                         value);
                 AnalyzingDoc.addError(un_, _page);
                 break;
@@ -187,7 +203,7 @@ public final class RendFilterContent {
                 un_.setIndexFile(valueOffset);
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        getKeyWord(),
                         _value);
                 AnalyzingDoc.addError(un_, _page);
             }
@@ -207,9 +223,9 @@ public final class RendFilterContent {
                         un_.setIndexFile(getValueOffset()+ _bl.getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                                _page.getKeyWords().getKeyWordCase(),
+                                getKeyWord(),
                                 _display,
-                                _page.getKeyWords().getKeyWordSwitch());
+                                getKeyWordContainer());
                         AnalyzingDoc.addError(un_, _page);
                         return;
                     }
@@ -224,9 +240,9 @@ public final class RendFilterContent {
                 un_.setIndexFile(getValueOffset()+ _bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        getKeyWord(),
                         _display,
-                        _page.getKeyWords().getKeyWordSwitch());
+                        getKeyWordContainer());
                 AnalyzingDoc.addError(un_, _page);
                 return;
             }
@@ -245,9 +261,9 @@ public final class RendFilterContent {
                         un_.setIndexFile(getValueOffset()+ _bl.getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                                _page.getKeyWords().getKeyWordCase(),
+                                getKeyWord(),
                                 AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
-                                _page.getKeyWords().getKeyWordSwitch());
+                                getKeyWordContainer());
                         AnalyzingDoc.addError(un_, _page);
                         return;
                     }
@@ -262,9 +278,9 @@ public final class RendFilterContent {
                 un_.setIndexFile(getValueOffset()+ _bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        getKeyWord(),
                         AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
-                        _page.getKeyWords().getKeyWordSwitch());
+                        getKeyWordContainer());
                 AnalyzingDoc.addError(un_, _page);
                 return;
             }
@@ -279,7 +295,7 @@ public final class RendFilterContent {
             un_.setFile(_page.getCurrentFile());
             un_.setIndexFile(valueOffset);
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
-                    _page.getKeyWords().getKeyWordCase(),
+                    getKeyWord(),
                     _string,
                     StringUtil.join(_resSwitch.getNames(),AnaRendBlock.AND_ERR));
             AnalyzingDoc.addError(un_, _page);

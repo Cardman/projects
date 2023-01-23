@@ -43,6 +43,8 @@ public final class AnaRendCaseCondition extends AnaRendParentBlock implements An
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;
         AnaClassArgumentMatching resSwitch_ = sw_.getResult();
         boolean instance_ = sw_.isInstance();
+        filterContent.setKeyWord(_page.getKeyWords().getKeyWordCase());
+        filterContent.setKeyWordContainer(_page.getKeyWords().getKeyWordSwitch());
         filterContent.buildExpressionLanguage(this,_anaDoc, _page, resSwitch_, instance_);
 //        check(_anaDoc, _page, resSwitch_, instance_);
     }

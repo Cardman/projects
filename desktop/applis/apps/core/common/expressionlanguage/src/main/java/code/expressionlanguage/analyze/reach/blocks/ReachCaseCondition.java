@@ -96,7 +96,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                 un_.setIndexFile(filterContent.getValueOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        filterContent.getKeyWord(),
                         filterContent.getValue());
                 _page.addLocError(un_);
                 addErrorBlock(un_.getBuiltError());
@@ -140,7 +140,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                 un_.setIndexFile(_current.getFilterContent().getValueOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        _current.getFilterContent().getKeyWord(),
                         _value);
                 _page.addLocError(un_);
                 _bl.addErrorBlock(un_.getBuiltError());
@@ -161,9 +161,9 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                         un_.setIndexFile(_current.getFilterContent().getValueOffset()+ _bl.getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                                _page.getKeyWords().getKeyWordCase(),
+                                _current.getFilterContent().getKeyWord(),
                                 _display,
-                                _page.getKeyWords().getKeyWordSwitch());
+                                _current.getFilterContent().getKeyWordContainer());
                         _page.addLocError(un_);
                         _bl.addErrorBlock(un_.getBuiltError());
                         return;
@@ -179,9 +179,9 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                 un_.setIndexFile(_current.getFilterContent().getValueOffset()+ _bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        _current.getFilterContent().getKeyWord(),
                         _display,
-                        _page.getKeyWords().getKeyWordSwitch());
+                        _current.getFilterContent().getKeyWordContainer());
                 _page.addLocError(un_);
                 _bl.addErrorBlock(un_.getBuiltError());
                 return;
@@ -201,9 +201,9 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                         un_.setIndexFile(_current.getFilterContent().getValueOffset()+ _bl.getOffset());
                         //key word len
                         un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                                _page.getKeyWords().getKeyWordCase(),
+                                _current.getFilterContent().getKeyWord(),
                                 AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
-                                _page.getKeyWords().getKeyWordSwitch());
+                                _current.getFilterContent().getKeyWordContainer());
                         _page.addLocError(un_);
                         _bl.addErrorBlock(un_.getBuiltError());
                         return;
@@ -219,9 +219,9 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
                 un_.setIndexFile(_current.getFilterContent().getValueOffset()+ _bl.getOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseDup(),
-                        _page.getKeyWords().getKeyWordCase(),
+                        _current.getFilterContent().getKeyWord(),
                         AnaApplyCoreMethodUtil.getString(ArgumentListCall.toStr(_value), _page),
-                        _page.getKeyWords().getKeyWordSwitch());
+                        _current.getFilterContent().getKeyWordContainer());
                 _page.addLocError(un_);
                 _bl.addErrorBlock(un_.getBuiltError());
                 return;
@@ -239,7 +239,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             un_.setIndexFile(_filter.getValueOffset());
             //key word len
             un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseValue(),
-                    _page.getKeyWords().getKeyWordCase(),
+                    _filter.getKeyWord(),
                     _string,
                     StringUtil.join(_resSwitch.getNames(), ExportCst.JOIN_TYPES));
             _page.addLocError(un_);

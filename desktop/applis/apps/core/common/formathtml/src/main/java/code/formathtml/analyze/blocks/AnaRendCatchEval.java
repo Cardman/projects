@@ -21,6 +21,8 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval implements 
 
     @Override
     public void buildExpressionLanguage(AnaRendDocumentBlock _doc, AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        filterContent.setKeyWord(_page.getKeyWords().getKeyWordCatch());
+        filterContent.setKeyWordContainer(_page.getKeyWords().getKeyWordTry());
         filterContent.buildExpressionLanguage(this,_anaDoc,_page,new AnaClassArgumentMatching(""),true);
         checkTreeTry(_page, _page.getKeyWords().getKeyWordCatch());
     }

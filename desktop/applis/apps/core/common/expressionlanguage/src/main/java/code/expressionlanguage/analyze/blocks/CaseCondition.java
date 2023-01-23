@@ -61,6 +61,8 @@ public final class CaseCondition extends SwitchPartBlock implements WithFilterCo
             type_ = resSwitch_.getSingleNameOrEmpty();
             instance_ = sw_.isInstance();
         }
+        filterContent.setKeyWord(_page.getKeyWords().getKeyWordCase());
+        filterContent.setKeyWordContainer(_page.getKeyWords().getKeyWordSwitch());
         filterContent.buildExpressionLanguageReadOnly(this,_page,instance_,type_);
     }
 

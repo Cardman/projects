@@ -53,6 +53,8 @@ public final class FilterContent {
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
 
     private final String declaringType;
+    private String keyWord = "";
+    private String keyWordContainer = "";
     public FilterContent(OffsetStringInfo _value, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition) {
         declaringType = _declaringType;
         value = _value.getInfo();
@@ -81,6 +83,22 @@ public final class FilterContent {
 
     public String getValue() {
         return value;
+    }
+
+    public String getKeyWord() {
+        return keyWord;
+    }
+
+    public void setKeyWord(String _k) {
+        this.keyWord = _k;
+    }
+
+    public String getKeyWordContainer() {
+        return keyWordContainer;
+    }
+
+    public void setKeyWordContainer(String _k) {
+        this.keyWordContainer = _k;
     }
 
     public void buildExpressionLanguageReadOnly(AbsBk _bl,AnalyzedPageEl _page, boolean _instance, String _type) {
