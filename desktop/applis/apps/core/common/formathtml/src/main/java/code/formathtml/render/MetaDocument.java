@@ -1,9 +1,6 @@
 package code.formathtml.render;
 
-import code.expressionlanguage.common.LongInfo;
-import code.expressionlanguage.common.NumParsers;
 import code.sml.RendKeyWordsGroup;
-import code.formathtml.util.BeanLgNames;
 import code.formathtml.util.FormInputCoords;
 import code.formathtml.util.IndexButtons;
 import code.sml.*;
@@ -231,8 +228,8 @@ public final class MetaDocument {
             long idForm_ = getParentFormNb();
             rowGroup = 0;
             partGroup++;
-            int rows_ = BeanLgNames.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrRows()),32);
-            int cols_ = BeanLgNames.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrCols()),32);
+            int rows_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrRows()),32);
+            int cols_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrCols()),32);
             MetaInput input_ = new MetaTextArea(currentParent, NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrNi())), cols_, rows_, _elt.getTextContent(),idForm_);
             input_.setStyle(_styleLoc);
             currentParent.appendChild(input_);
@@ -300,7 +297,7 @@ public final class MetaDocument {
 
     private void divMap(RendKeyWordsGroup _rend, MetaStyle _styleLoc, boolean _li, Element _elt, MetaContainer _curPar) {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordMap())) {
-            int width_ = BeanLgNames.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrWidth()),1);
+            int width_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrWidth()),1);
             MetaContainer line_ = new MetaLine(_curPar);
             indent(_styleLoc, _li, line_);
             MetaContainer map_ = new MetaImageMap(line_, width_);
@@ -399,7 +396,7 @@ public final class MetaDocument {
         String type_ = _elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType());
         long idForm_ = getParentFormNb();
         if (StringUtil.quickEq(type_, _rend.getKeyWordsValues().getValueText())) {
-            int cols_ = BeanLgNames.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrCols()),32);
+            int cols_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrCols()),32);
             MetaInput input_ = new MetaTextField(currentParent, NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrNi())), cols_, _elt.getAttribute(_rend.getKeyWordsAttrs().getAttrValue()),idForm_);
             input_.setStyle(_styleLoc);
             currentParent.appendChild(input_);
@@ -458,7 +455,7 @@ public final class MetaDocument {
                 strings_.add(c.getTextContent());
                 i_++;
             }
-            int vis_ = BeanLgNames.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrRows()),8);
+            int vis_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrRows()),8);
             MetaInput input_ = new MetaComboList(currentParent, NumberUtil.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrNi())), strings_, values_, selected_, vis_,idForm_);
             input_.setStyle(_styleLoc);
             currentParent.appendChild(input_);
@@ -845,11 +842,11 @@ public final class MetaDocument {
             return getRgb(val_);
         }
         if (_value.startsWith(COLOR_PREFIX)) {
-            LongInfo val_ = NumParsers.parseLong(_value.substring(1), 16);
-            if (val_.isValid()) {
-                return (int) val_.getValue();
+            String v_ = _value.substring(1);
+            if (!okHex(v_)) {
+                return _default;
             }
-            return _default;
+            return (int) NumberUtil.parseLongSixteen(v_);
         }
         if (StringUtil.quickEq(_value, _rend.getKeyWordsStyles().getStyleValueRed())){
             return 255*256*256;
@@ -879,6 +876,14 @@ public final class MetaDocument {
             return 0;
         }
         return _default;
+    }
+    static boolean okHex(String _value) {
+        for (char c: _value.toCharArray()) {
+            if (!NumberUtil.isDigit(c)&&!NumberUtil.isMajHex(c)&&!NumberUtil.isMinHex(c)) {
+                return false;
+            }
+        }
+        return true;
     }
     private static int getRgb(String _value) {
         int rgb_ = 0;

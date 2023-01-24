@@ -299,6 +299,46 @@ public class NumbersTest extends EquallableExUtil {
         assertEq(0, NumberUtil.parseLongZero("-"));
     }
     @Test
+    public void isMajHex1() {
+        assertTrue(!NumberUtil.isMajHex('A'-1));
+    }
+    @Test
+    public void isMajHex2() {
+        assertTrue(!NumberUtil.isMajHex('F'+1));
+    }
+    @Test
+    public void isMajHex3() {
+        assertTrue(NumberUtil.isMajHex('A'));
+    }
+    @Test
+    public void isMajHex4() {
+        assertTrue(NumberUtil.isMajHex('F'));
+    }
+    @Test
+    public void isMinHex1() {
+        assertTrue(!NumberUtil.isMinHex('a'-1));
+    }
+    @Test
+    public void isMinHex2() {
+        assertTrue(!NumberUtil.isMinHex('f'+1));
+    }
+    @Test
+    public void isMinHex3() {
+        assertTrue(NumberUtil.isMinHex('a'));
+    }
+    @Test
+    public void isMinHex4() {
+        assertTrue(NumberUtil.isMinHex('f'));
+    }
+    @Test
+    public void parseLongSixteen1Test() {
+        assertEq(0, NumberUtil.parseLongSixteen("0"));
+    }
+    @Test
+    public void parseLongSixteen2Test() {
+        assertEq(10, NumberUtil.parseLongSixteen("A"));
+    }
+    @Test
     public void parseInt1Test() {
         assertEq(-1, NumberUtil.parseInt("-1"));
     }

@@ -15,7 +15,6 @@ import code.util.core.StringUtil;
 public final class NumParsers {
     public static final int DEFAULT_RADIX = 10;
     private static final long RATIO = 31L;
-    private static final byte HEX_BASE = 16;
     private static final char DOT_VAR = '.';
     private static final char EXP_UPP = 'E';
     private static final char EXP = 'e';
@@ -361,7 +360,7 @@ public final class NumParsers {
         StringBuilder nb_ = new StringBuilder(int_);
         nb_.append(dec_);
         if (_nb.getBase() == 16) {
-            long longValue_ = parseLongSixteen(nb_.toString());
+            long longValue_ = NumberUtil.parseLongSixteen(nb_.toString());
             return buildNb(dec_, expNbLong_, longValue_, 4L);
         }
         if (_nb.getBase() == 2) {
@@ -597,7 +596,7 @@ public final class NumParsers {
 
     //this long parser is very naive
     public static char parseCharSixteen(String _string) {
-        return (char)parseLongSixteen(_string);
+        return (char)NumberUtil.parseLongSixteen(_string);
     }
 
     private static boolean[] toBits(long _l) {
@@ -812,23 +811,6 @@ public final class NumParsers {
             str_ = new StringBuilder(_string);
         }
         return str_;
-    }
-
-    private static long parseLongSixteen(String _string) {
-        long result_ = 0;
-        int i_ = 0;
-        int max_ = _string.length();
-        while (i_ < max_) {
-            int ch_ = _string.charAt(i_);
-            if (ch_ >= 'A' && ch_ <= 'F') {
-                ch_ = ch_ - 'A' + 'a';
-            }
-            i_++;
-            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - 'a', 0);
-            result_ *= HEX_BASE;
-            result_ += digit_;
-        }
-        return result_;
     }
 
     private static long parseLongBase(String _string, int _base) {

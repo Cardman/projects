@@ -7,12 +7,8 @@ import code.expressionlanguage.structs.Struct;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.HtmlPageInt;
 import code.util.StringList;
-import code.util.core.NumberUtil;
 
 public abstract class BeanLgNames extends LgNames {
-
-    public static final String OFF = "off";
-    public static final String ON = "on";
 
     public static final String DOT = ".";
 
@@ -24,14 +20,6 @@ public abstract class BeanLgNames extends LgNames {
         super(_gene);
     }
 
-
-    public static int parseInt(String _string, int _def) {
-        String value_ = _string.trim();
-        if (value_.isEmpty()) {
-            return _def;
-        }
-        return NumberUtil.parseInt(value_);
-    }
 
     public abstract HtmlPageInt getPage();
 

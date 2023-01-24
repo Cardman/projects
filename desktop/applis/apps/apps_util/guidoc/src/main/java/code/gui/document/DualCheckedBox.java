@@ -2,9 +2,9 @@ package code.gui.document;
 
 import code.formathtml.render.IntCheckBox;
 import code.formathtml.render.MetaCheckedBox;
-import code.formathtml.util.BeanLgNames;
 import code.gui.AbsCustCheckBox;
 import code.gui.AbsCustComponent;
+import code.sml.SetupableAnalyzingDoc;
 
 public final class DualCheckedBox extends DualInput implements IntCheckBox {
 
@@ -25,9 +25,9 @@ public final class DualCheckedBox extends DualInput implements IntCheckBox {
     @Override
     public String getValue() {
         if (check.isSelected()) {
-            return BeanLgNames.ON;
+            return SetupableAnalyzingDoc.ON;
         }
-        return BeanLgNames.OFF;
+        return SetupableAnalyzingDoc.OFF;
     }
 
 }

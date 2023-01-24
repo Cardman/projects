@@ -4,7 +4,7 @@ import code.util.ints.Listable;
 
 public final class NumberUtil {
     private static final int DEFAULT_RADIX = 10;
-
+    private static final byte HEX_BASE = 16;
     private static final char MINUS = '-';
     private NumberUtil() {
     }
@@ -216,6 +216,31 @@ public final class NumberUtil {
             return 0;
         }
         return (int) int_;
+    }
+
+    public static long parseLongSixteen(String _string) {
+        long result_ = 0;
+        int i_ = 0;
+        int max_ = _string.length();
+        while (i_ < max_) {
+            int ch_ = _string.charAt(i_);
+            if (isMajHex(ch_)) {
+                ch_ = ch_ - 'A' + 'a';
+            }
+            i_++;
+            int digit_ = NumberUtil.min(ch_ - '0', 10) + NumberUtil.max(ch_ - 'a', 0);
+            result_ *= HEX_BASE;
+            result_ += digit_;
+        }
+        return result_;
+    }
+
+    public static boolean isMajHex(int _ch) {
+        return _ch >= 'A' && _ch <= 'F';
+    }
+
+    public static boolean isMinHex(int _ch) {
+        return _ch >= 'a' && _ch <= 'f';
     }
 
     //this long parser is very naive

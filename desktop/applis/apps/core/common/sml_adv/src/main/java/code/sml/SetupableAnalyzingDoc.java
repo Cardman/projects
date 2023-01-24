@@ -2,8 +2,11 @@ package code.sml;
 
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 
 public abstract class SetupableAnalyzingDoc {
+    public static final String OFF = "off";
+    public static final String ON = "on";
     private StringList languages = new StringList();
 
     private String internGlobalClass="";
@@ -18,6 +21,15 @@ public abstract class SetupableAnalyzingDoc {
 
     protected SetupableAnalyzingDoc() {
     }
+
+    public static int parseInt(String _string, int _def) {
+        String value_ = _string.trim();
+        if (value_.isEmpty()) {
+            return _def;
+        }
+        return NumberUtil.parseInt(value_);
+    }
+
     public void setupCommon(ConfigurationCore _conf, StringMap<String> _properties, String _messagesFolder) {
         prefix = _conf.getPrefix();
         setProperties(_properties);

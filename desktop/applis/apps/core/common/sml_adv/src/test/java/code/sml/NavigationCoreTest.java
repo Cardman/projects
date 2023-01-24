@@ -1,5 +1,7 @@
 package code.sml;
 
+import code.formathtml.util.FormInputCoords;
+import code.formathtml.util.IndexButtons;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -171,6 +173,45 @@ public final class NavigationCoreTest extends EquallableSmlAdvUtil {
         ConfigurationCore c_ = new ConfigurationCore();
         c_.setPrefix("x:");
         assertEq("_",NavigationCore.getInputClass(c_,doc("<_ x:className='_'/>").getDocumentElement(),new FieldUpdates(),new RendKeyWordsGroup()));
+    }
+    @Test
+    public void parse1() {
+        assertEq(0,SetupableAnalyzingDoc.parseInt("",0));
+    }
+    @Test
+    public void parse2() {
+        assertEq(1,SetupableAnalyzingDoc.parseInt("1",0));
+    }
+    @Test
+    public void buttons() {
+        IndexButtons but_ = new IndexButtons();
+        FormInputCoords f_ = new FormInputCoords();
+        f_.setForm(0);
+        f_.setInput(0);
+        assertEq(0,but_.addOrIncr(f_));
+        assertEq(0,f_.getForm());
+        assertEq(0,f_.getInput());
+        assertEq(1,but_.addOrIncr(f_));
+        assertEq(0,f_.getForm());
+        assertEq(0,f_.getInput());
+        FormInputCoords n_ = new FormInputCoords();
+        n_.setForm(0);
+        n_.setInput(1);
+        assertEq(0,but_.addOrIncr(n_));
+        assertEq(0,n_.getForm());
+        assertEq(1,n_.getInput());
+        assertEq(1,but_.addOrIncr(n_));
+        assertEq(0,n_.getForm());
+        assertEq(1,n_.getInput());
+        FormInputCoords m_ = new FormInputCoords();
+        m_.setForm(1);
+        m_.setInput(0);
+        assertEq(0,but_.addOrIncr(m_));
+        assertEq(1,m_.getForm());
+        assertEq(0,m_.getInput());
+        assertEq(1,but_.addOrIncr(m_));
+        assertEq(1,m_.getForm());
+        assertEq(0,m_.getInput());
     }
 
     private static void procLink(Document _doc, RendKeyWordsGroup _cont) {

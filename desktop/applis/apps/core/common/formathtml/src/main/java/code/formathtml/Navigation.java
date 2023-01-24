@@ -187,7 +187,7 @@ public final class Navigation {
     }
 
     private void ch(Element _elt, NodeInformations _nCont) {
-        if (StringUtil.contains(_nCont.getValue(),BeanLgNames.ON)) {
+        if (StringUtil.contains(_nCont.getValue(), SetupableAnalyzingDoc.ON)) {
             _elt.setAttribute(session.getRendKeyWords().getAttrChecked(), session.getRendKeyWords().getAttrChecked());
         } else {
             _elt.removeAttribute(session.getRendKeyWords().getAttrChecked());

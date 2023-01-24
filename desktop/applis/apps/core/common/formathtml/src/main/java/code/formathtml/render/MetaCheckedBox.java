@@ -1,6 +1,6 @@
 package code.formathtml.render;
 
-import code.formathtml.util.BeanLgNames;
+import code.sml.SetupableAnalyzingDoc;
 
 public final class MetaCheckedBox extends MetaInput implements IntCheckBox {
 
@@ -25,9 +25,9 @@ public final class MetaCheckedBox extends MetaInput implements IntCheckBox {
     @Override
     public String getValue() {
         if (checked) {
-            return BeanLgNames.ON;
+            return SetupableAnalyzingDoc.ON;
         }
-        return BeanLgNames.OFF;
+        return SetupableAnalyzingDoc.OFF;
     }
 
     public void setChecked(boolean _checked) {

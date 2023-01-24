@@ -941,7 +941,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
     public Struct getStructToBeValidatedPrim(StringList _values, String _className, ContextEl _ctx, RendStackCall _stack) {
         byte cast_ = ExecClassArgumentMatching.getPrimitiveWrapCast(_className, this);
         if (cast_ == PrimitiveTypes.BOOL_WRAP) {
-            return BooleanStruct.of(StringUtil.quickEq(_values.first(),ON));
+            return BooleanStruct.of(StringUtil.quickEq(_values.first(), SetupableAnalyzingDoc.ON));
         }
         if (cast_ == PrimitiveTypes.CHAR_WRAP) {
             return new CharStruct(_values.first().trim().charAt(0));
