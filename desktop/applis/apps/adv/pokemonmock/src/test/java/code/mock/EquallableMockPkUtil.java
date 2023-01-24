@@ -1,0 +1,9 @@
+package code.mock;
+
+import org.junit.Assert;
+
+public abstract class EquallableMockPkUtil {
+    public static void assertEq(long _expected, long _result) {
+        Assert.assertEquals(_expected, _result);
+    }
+}
