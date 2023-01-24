@@ -6,10 +6,6 @@ import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendAbstractStask;
-import code.formathtml.render.BorderEnum;
-import code.formathtml.render.IntComponent;
-import code.formathtml.render.MetaLayout;
-import code.formathtml.render.MetaPointForm;
 import code.sml.Node;
 import code.util.core.StringUtil;
 import org.junit.Assert;
@@ -27,9 +23,9 @@ public abstract class EquallableRenderUtil {
     public static void assertNotNull(Node _value) {
         Assert.assertNotNull(_value);
     }
-    public static void assertNotNull(IntComponent _value) {
-        Assert.assertNotNull(_value);
-    }
+//    public static void assertNotNull(IntComponent _value) {
+//        Assert.assertNotNull(_value);
+//    }
     public static void assertNotNull(ContextEl _value) {
         Assert.assertNotNull(_value);
     }
@@ -52,9 +48,9 @@ public abstract class EquallableRenderUtil {
     public static void assertNull(Node _value) {
         Assert.assertNull(_value);
     }
-    public static void assertNull(IntComponent _value) {
-        Assert.assertNull(_value);
-    }
+//    public static void assertNull(IntComponent _value) {
+//        Assert.assertNull(_value);
+//    }
     public static void assertTrue(boolean _value) {
         Assert.assertTrue(_value);
     }
@@ -64,21 +60,21 @@ public abstract class EquallableRenderUtil {
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
     }
-    public static void assertSame(MetaPointForm _expected, MetaPointForm _result) {
-        Assert.assertSame(_expected, _result);
-    }
+//    public static void assertSame(MetaPointForm _expected, MetaPointForm _result) {
+//        Assert.assertSame(_expected, _result);
+//    }
     public static void assertSame(Struct _expected, Struct _result) {
         Assert.assertSame(_expected, _result);
     }
-    public static void assertSame(MetaLayout _expected, MetaLayout _result) {
-        Assert.assertSame(_expected, _result);
-    }
-    public static void assertSame(BorderEnum _expected, BorderEnum _result) {
-        Assert.assertSame(_expected, _result);
-    }
-    public static void assertSame(IntComponent _expected, IntComponent _result) {
-        Assert.assertSame(_expected, _result);
-    }
+//    public static void assertSame(MetaLayout _expected, MetaLayout _result) {
+//        Assert.assertSame(_expected, _result);
+//    }
+//    public static void assertSame(BorderEnum _expected, BorderEnum _result) {
+//        Assert.assertSame(_expected, _result);
+//    }
+//    public static void assertSame(IntComponent _expected, IntComponent _result) {
+//        Assert.assertSame(_expected, _result);
+//    }
 
     public static Configuration newConfiguration() {
         return new Configuration();

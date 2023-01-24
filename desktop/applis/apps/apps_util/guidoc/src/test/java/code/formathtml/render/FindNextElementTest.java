@@ -1,8 +1,6 @@
 package code.formathtml.render;
 
-
-import code.formathtml.EquallableRenderUtil;
-import code.formathtml.errors.RendKeyWords;
+import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import org.junit.Test;
 
@@ -10,8 +8,7 @@ import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 import code.util.IdMap;
 
-
-public final class FindNextElementTest extends EquallableRenderUtil {
+public final class FindNextElementTest extends EquallableGuiDocUtil {
 
     @Test
     public void next1Test() {
@@ -34,7 +31,7 @@ public final class FindNextElementTest extends EquallableRenderUtil {
 
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWords().group());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup());
     }
 
     @Test
@@ -221,4 +218,5 @@ public final class FindNextElementTest extends EquallableRenderUtil {
         assertEq(0, segs_.size());
         assertNull(f_.getLabel());
     }
+
 }

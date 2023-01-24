@@ -1,9 +1,8 @@
 package code.formathtml.render;
 
-import code.formathtml.EquallableRenderUtil;
 import org.junit.Test;
 
-public final class MetaNumberedLabelTest extends EquallableRenderUtil {
+public final class MetaNumberedLabelTest extends EquallableGuiDocUtil {
     @Test
     public void convert1Test() {
         assertEq("1",MetaNumberedLabel.convert(1,MetaNumberBase.NUMBER));
@@ -228,4 +227,5 @@ public final class MetaNumberedLabelTest extends EquallableRenderUtil {
     public void convert54Test() {
         assertEq("I ",MetaNumberedLabel.convert(10000,MetaNumberBase.LATIN_MAJ));
     }
+
 }

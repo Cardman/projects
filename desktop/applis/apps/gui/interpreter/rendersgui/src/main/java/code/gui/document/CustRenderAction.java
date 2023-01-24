@@ -5,16 +5,17 @@ import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultInitialization;
+import code.renders.CustContextCreator;
 import code.sml.Element;
 
 public final class CustRenderAction implements AbstractRenderAction {
     private final DefaultInitialization initialization;
     private final Navigation navigation;
-    private final AbstractContextCreator creator;
+    private final CustContextCreator creator;
     private final RenderedPage render;
     private final BeanCustLgNames std;
 
-    public CustRenderAction(DefaultInitialization _init,Navigation _nav, AbstractContextCreator _c, RenderedPage _re, BeanCustLgNames _stds) {
+    public CustRenderAction(DefaultInitialization _init, Navigation _nav, CustContextCreator _c, RenderedPage _re, BeanCustLgNames _stds) {
         initialization = _init;
         navigation = _nav;
         this.creator = _c;

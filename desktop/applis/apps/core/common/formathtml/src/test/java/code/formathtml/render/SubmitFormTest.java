@@ -14,6 +14,8 @@ import code.formathtml.structs.ValidatorInfo;
 import code.formathtml.util.BeanCustLgNames;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
+import code.sml.SetupableAnalyzingDoc;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -81,23 +83,21 @@ public final class SubmitFormTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("TWO", ((StringStruct) choice_).getInstance());
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaComboBox combo_ = (MetaComboBox) intForm_.getFirstChildCompo().getFirstChildCompo();
-        combo_.getSelectedIndexes().clear();
-        combo_.getSelectedIndexes().add(0);
-        submit(intForm_, stds_);
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaComboBox combo_ = (MetaComboBox) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        combo_.getSelectedIndexes().clear();
+//        combo_.getSelectedIndexes().add(0);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("ONE"));
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
-        assertNotNull(intForm_.getElt());
+//        assertNotNull(intForm_.getElt());
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
         assertEq("<html><body><form c:command=\"$bean_one\" c:sgn=\"pkg.BeanOne.validate()\" action=\"\" n-f=\"0\"><select name=\"bean_one.choice\" n-i=\"0\"><option value=\"ONE\" selected=\"selected\">1</option><option value=\"TWO\">2</option></select></form></body></html>", nav_.getHtmlText());
         choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("ONE", ((StringStruct) choice_).getInstance());
-    }
-
-    private static MetaDocument getMetaDocument(Navigation _nav) {
-        return MetaDocument.newInstance(_nav.getDocument(),_nav.getSession().getRendKeyWords().group());
     }
 
     @Test
@@ -169,12 +169,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(1, ((ArrayStruct)array_).getInstance().length);
         assertEq("TWO", ((StringStruct) ((ArrayStruct)array_).getInstance()[0]).getInstance());
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaComboList combo_ = (MetaComboList) intForm_.getFirstChildCompo().getFirstChildCompo();
-        combo_.getSelected().clear();
-        combo_.getSelected().add(0);
-        submit(intForm_, stds_);
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaComboList combo_ = (MetaComboList) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        combo_.getSelected().clear();
+//        combo_.getSelected().add(0);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("ONE"));
+        submit(0, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
@@ -244,9 +246,9 @@ public final class SubmitFormTest extends CommonRender {
 
         Struct choice_ = getStruct(a_.getDualAnalyzedContext().getStds().getBuiltBeans().getVal("bean_one"),new ClassField("pkg.BeanOne", "choice"));
         assertEq("", ((StringStruct) choice_).getInstance());
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        submit(intForm_, stds_);
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -308,18 +310,22 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(6, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaRadioButton combo_ = (MetaRadioButton) intForm_.getFirstChildCompo().getFirstChildCompo().getNextSibling();
-        combo_.setChecked(false);
-        combo_ = (MetaRadioButton) combo_.getNextSibling();
-        combo_.setChecked(true);
-        combo_ = (MetaRadioButton) combo_.getNextSibling().getNextSibling();
-        combo_.setChecked(true);
-        combo_ = (MetaRadioButton) combo_.getNextSibling();
-        combo_.setChecked(false);
-        submit(intForm_, stds_);
-
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaRadioButton combo_ = (MetaRadioButton) intForm_.getFirstChildCompo().getFirstChildCompo().getNextSibling();
+//        combo_.setChecked(false);
+//        combo_ = (MetaRadioButton) combo_.getNextSibling();
+//        combo_.setChecked(true);
+//        combo_ = (MetaRadioButton) combo_.getNextSibling().getNextSibling();
+//        combo_.setChecked(true);
+//        combo_ = (MetaRadioButton) combo_.getNextSibling();
+//        combo_.setChecked(false);
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("6"));
+        stds_.getPage().getContainer(0, 1).setEnabled(true);
+        stds_.getPage().getContainer(0, 1).setValue(new StringList("4"));
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -395,12 +401,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
-        combo_.setChecked(true);
-        submit(intForm_, stds_);
-
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        combo_.setChecked(true);
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList(SetupableAnalyzingDoc.ON));
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -473,11 +481,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("",nav_.getTitle());
         assertEq("",nav_.getReferenceScroll());
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
-        combo_.setChecked(false);
-        submit(intForm_, stds_);
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaCheckedBox combo_ = (MetaCheckedBox) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        combo_.setChecked(false);
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList(SetupableAnalyzingDoc.OFF));
+        submit(0, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
@@ -555,12 +566,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq("TWO", ((StringStruct) choice_).getInstance());
 
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaTextField combo_ = (MetaTextField) intForm_.getFirstChildCompo().getFirstChildCompo();
-        combo_.setValue("THREE");
-        submit(intForm_, stds_);
-
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaTextField combo_ = (MetaTextField) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        combo_.setValue("THREE");
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("THREE"));
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -615,12 +628,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(2, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaTextArea combo_ = (MetaTextArea) intForm_.getFirstChildCompo().getFirstChildCompo();
-        combo_.setValue("1");
-        submit(intForm_, stds_);
-
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaTextArea combo_ = (MetaTextArea) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        combo_.setValue("1");
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("1"));
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -700,13 +715,18 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
-        number_.setValue("6");
-        MetaSlider range_ = (MetaSlider) number_.getNextSibling();
-        range_.setValue("8");
-        submit(intForm_, stds_);
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        number_.setValue("6");
+//        MetaSlider range_ = (MetaSlider) number_.getNextSibling();
+//        range_.setValue("8");
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("6"));
+        stds_.getPage().getContainer(0, 1).setEnabled(true);
+        stds_.getPage().getContainer(0, 1).setValue(new StringList("8"));
+        submit(0, stds_);
 
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
@@ -789,12 +809,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(1);
-        MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
-        number_.setValue("6");
-        submit(intForm_, stds_);
-
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(1);
+//        MetaSpinner number_ = (MetaSpinner) intForm_.getFirstChildCompo().getFirstChildCompo();
+//        number_.setValue("6");
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(1, 0).setEnabled(true);
+        stds_.getPage().getContainer(1, 0).setValue(new StringList("6"));
+        submit(1, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -876,12 +898,14 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(4, ((NumberStruct) choice_).intStruct());
 
 
-        MetaDocument meta_ = getMetaDocument(nav_);
-        IntForm intForm_ = meta_.getForms().get(0);
-        MetaSlider number_ = (MetaSlider) intForm_.getFirstChildCompo().getNextSibling().getNextSibling().getFirstChildCompo();
-        number_.setValue("8");
-        submit(intForm_, stds_);
-
+//        MetaDocument meta_ = getMetaDocument(nav_);
+//        IntForm intForm_ = meta_.getForms().get(0);
+//        MetaSlider number_ = (MetaSlider) intForm_.getFirstChildCompo().getNextSibling().getNextSibling().getFirstChildCompo();
+//        number_.setValue("8");
+//        submit(intForm_, stds_);
+        stds_.getPage().getContainer(0, 0).setEnabled(true);
+        stds_.getPage().getContainer(0, 0).setValue(new StringList("8"));
+        submit(0, stds_);
         processRendFormRequest(a_,ctx_);
         assertEq("page1.html", nav_.getCurrentUrl());
         assertEq("bean_one", nav_.getCurrentBeanName());
@@ -892,8 +916,9 @@ public final class SubmitFormTest extends CommonRender {
         assertEq(8, ((NumberStruct) choice_).intStruct());
     }
 
-    private void submit(IntForm _intForm, BeanCustLgNames _stds) {
-        SubmitForm.submit(_intForm, _stds.getPage());
+    private void submit(int _no, BeanCustLgNames _stds) {
+        _stds.getPage().setForm(true);
+        _stds.getPage().setUrl(_no);
     }
 
     private void initializeRendSessionDoc(BeanCustLgNames _stds, ContextEl _ctx, Navigation _navigation, RendStackCall _build) {

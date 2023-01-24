@@ -1,15 +1,13 @@
 package code.formathtml.render;
 
-import code.formathtml.EquallableRenderUtil;
-import code.formathtml.errors.RendKeyWords;
+import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import org.junit.Test;
 
 import code.sml.DocumentBuilder;
 import code.sml.DocumentResult;
 
-
-public final class MetaDocumentTest extends EquallableRenderUtil {
+public final class MetaDocumentTest extends EquallableGuiDocUtil {
 
     @Test
     public void newInstanceEmptyTest() {
@@ -433,7 +431,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
         ch_ = lineSec_.getLastChild();
         assertTrue(ch_ instanceof MetaPlainLabel);
         lab_ = (MetaPlainLabel) ch_;
-        assertEq("Two", lab_.getText());        
+        assertEq("Two", lab_.getText());
         ch_ = ol_.getLastChild();
         assertTrue(ch_ instanceof MetaListItem);
         li_ = (MetaContainer) ch_;
@@ -4872,7 +4870,7 @@ public final class MetaDocumentTest extends EquallableRenderUtil {
 
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWords().group());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup());
     }
 
 }
