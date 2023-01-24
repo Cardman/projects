@@ -29,6 +29,11 @@
 !/desktop/applis/apps/adv/pokemonmock/src/
 !/desktop/applis/apps/adv/pokemonmock/src/**/
 !/desktop/applis/apps/adv/pokemonmock/src/**/*.java
+!/desktop/applis/apps/adv/smladvmock/
+!/desktop/applis/apps/adv/smladvmock/pom.xml
+!/desktop/applis/apps/adv/smladvmock/src/
+!/desktop/applis/apps/adv/smladvmock/src/**/
+!/desktop/applis/apps/adv/smladvmock/src/**/*.java
 !/desktop/applis/apps/adv/pom.xml
 !/desktop/applis/apps/apps_sml/
 !/desktop/applis/apps/apps_sml/pom.xml

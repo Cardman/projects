@@ -155,7 +155,6 @@ public final class ProgressingDialog implements ProgressDialog {
         bar.setValue(_perCent);
     }
 
-    @Override
     public String getPercent() {
         return perCent;
     }

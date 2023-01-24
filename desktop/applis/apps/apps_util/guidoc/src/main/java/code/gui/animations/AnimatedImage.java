@@ -33,8 +33,12 @@ public final class AnimatedImage implements Runnable {
         ThreadUtil.sleep(fact,delay);
         index++;
         if (index >= images.size()) {
-            index = 0;
+            reset();
         }
+    }
+
+    public int getIndex() {
+        return index;
     }
 
     public void reset() {

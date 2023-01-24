@@ -28,5 +28,11 @@
 			<artifactId>images</artifactId>
 			<version>1.0-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+			<groupId>smladvmock</groupId>
+			<artifactId>smladvmock</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 </project>

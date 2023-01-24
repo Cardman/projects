@@ -1,7 +1,11 @@
 package code.formathtml.render;
 
+import code.gui.*;
+import code.maths.montecarlo.*;
+import code.mock.*;
 import code.sml.Node;
 import code.util.StringList;
+import code.util.core.NumberUtil;
 import org.junit.Assert;
 
 public abstract class EquallableGuiDocUtil {
@@ -63,5 +67,26 @@ public abstract class EquallableGuiDocUtil {
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected.getList(), _result.getList());
+    }
+    public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
+        return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
+    }
+    public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
+        return new MockProgramInfos("", "", _s, _set);
+    }
+    public static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
+        return new MockFileSet(_initMillis,_incrs,_roots);
+    }
+    public static long[] lgs(long... _args) {
+        return _args;
+    }
+    public static double[] dbs(double... _args) {
+        return _args;
+    }
+    public static byte[] wrapInts(int... _files) {
+        return NumberUtil.wrapByteArray(MockZipFact.wrapInts(_files));
+    }
+    public static MockNameFile[] wrap(MockNameFile... _files) {
+        return _files;
     }
 }

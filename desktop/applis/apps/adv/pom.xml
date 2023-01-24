@@ -11,6 +11,7 @@
 	<artifactId>adv</artifactId>
 	<packaging>pom</packaging>
 	<modules>
+		<module>smladvmock</module>
 		<module>int_gui</module>
 		<module>mock_gui</module>
 		<module>gui_fct</module>

@@ -1,6 +1,5 @@
 package code.gui;
 
-import code.gui.document.ProgressDialogAdv;
 import code.util.core.StringUtil;
 
 public class TaskPaintingLabel implements Runnable {
@@ -10,10 +9,10 @@ public class TaskPaintingLabel implements Runnable {
     private static final int SECOND_MILLIS = 1000;
 
     private static final String UNIT = " s";
-
-    private static final String SEPARATOR = " - ";
-
-    private static final String PERCENT = " %";
+//
+//    private static final String SEPARATOR = " - ";
+//
+//    private static final String PERCENT = " %";
 
 //    private PaintingLabel painting;
 //    private AnimatedLabel label;
@@ -30,7 +29,7 @@ public class TaskPaintingLabel implements Runnable {
 
     public TaskPaintingLabel(ProgressDialog _dialog) {
 //        label = _dialog.getAnim();
-        dialog = _dialog;
+        setDialog(_dialog);
     }
 
     @Override
@@ -39,11 +38,12 @@ public class TaskPaintingLabel implements Runnable {
 //            return;
 //        }
         time += DELTA;
-        if (dialog.getPercent().isEmpty()) {
-            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT));
-        } else {
-            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT,SEPARATOR,dialog.getPercent(),PERCENT));
-        }
+        dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT));
+//        if (dialog.getPercent().isEmpty()) {
+//            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT));
+//        } else {
+//            dialog.setTitle(StringUtil.concat(Long.toString(time/SECOND_MILLIS),UNIT,SEPARATOR,dialog.getPercent(),PERCENT));
+//        }
 //        painting = new PaintingLabel(label);
 //        painting.start();
     }
@@ -56,7 +56,7 @@ public class TaskPaintingLabel implements Runnable {
         return dialog;
     }
 
-    public void setDialog(ProgressDialogAdv _dialog) {
+    public void setDialog(ProgressDialog _dialog) {
         dialog = _dialog;
     }
 

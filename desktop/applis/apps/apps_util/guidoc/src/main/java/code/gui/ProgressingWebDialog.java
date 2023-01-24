@@ -22,7 +22,6 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
 
     private static final int TIME = 10;
 
-    private static final String PER_CENT = "";
     private final AbsDialog absDialog;
     private final AbsCompoFactory compoFactory;
     private AbstractScheduledExecutorService images;
@@ -96,8 +95,4 @@ public final class ProgressingWebDialog implements ProgressDialogAdv {
 //        return anim;
 //    }
 
-    @Override
-    public String getPercent() {
-        return PER_CENT;
-    }
 }
