@@ -1,6 +1,6 @@
 package code.renders;
 
-import code.expressionlanguage.ContextEl;
+import code.formathtml.Navigation;
 import code.formathtml.util.DefaultInitialization;
 import code.gui.document.AbstractThreadActions;
 import code.gui.document.RenderedPage;
@@ -17,24 +17,23 @@ public final class CustThreadActions extends AbstractThreadActions {
 //    private String classDbName;
 //
 //    private String methodName;
+    private final Navigation navigation;
+
     private final DefaultInitialization init;
 
-    private CustThreadActions(RenderedPage _page, DefaultInitialization _i){
+    private CustThreadActions(RenderedPage _page, DefaultInitialization _i, Navigation _nav){
         super(_page);
         init = _i;
+        navigation = _nav;
     }
 
-    public static CustThreadActions inst(RenderedPage _page, DefaultInitialization _init) {
-        return new CustThreadActions(_page, _init);
+    public static CustThreadActions inst(RenderedPage _page, DefaultInitialization _init, Navigation _nav) {
+        return new CustThreadActions(_page, _init,_nav);
     }
 
     @Override
     public void run() {
-        String res_ = init.execute(getPage().getNavigation());
-        ContextEl ctx_ = init.getContext();
-        if (ctx_ != null) {
-            getPage().setContext(ctx_);
-        }
+        String res_ = init.execute(navigation);
         if (res_ != null) {
             if (getPage().getArea() != null) {
                 getPage().getArea().append(res_);

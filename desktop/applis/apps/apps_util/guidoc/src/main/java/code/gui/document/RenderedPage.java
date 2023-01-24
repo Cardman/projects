@@ -1,12 +1,8 @@
 package code.gui.document;
 
-import code.expressionlanguage.ContextEl;
-import code.formathtml.Configuration;
-import code.formathtml.Navigation;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaDocument;
 import code.formathtml.render.MetaSearchableLabel;
-import code.formathtml.util.BeanCustLgNames;
 import code.sml.WithPageInfos;
 import code.gui.*;
 import code.gui.images.AbstractImage;
@@ -30,7 +26,6 @@ public final class RenderedPage implements ProcessingSession {
     private final AbsCompoFactory compoFactory;
     private DualPanel page;
     private final AbsScrollPane scroll;
-    private Navigation navigation;
     private RendKeyWordsGroup keys;
     private NavigationCore navCore;
     private final IdMap<MetaComponent,DualComponent> refs = new IdMap<MetaComponent,DualComponent>();
@@ -45,8 +40,6 @@ public final class RenderedPage implements ProcessingSession {
     private ProgressDialogAdv dialog;
 
     private ChangeableTitle frame;
-
-    private ContextEl context;
 
     private AbstractRenderAction renderAction;
     private WithPageInfos standards;
@@ -66,11 +59,9 @@ public final class RenderedPage implements ProcessingSession {
         processing = _gene.getThreadFactory().newAtomicBoolean();
     }
 
-    public void initNav() {
-        navigation = new Navigation();
-        navigation.setSession(new Configuration());
-        navCore = navigation.getCore();
-        keys = navigation.getSession().getRendKeyWords().group();
+    public void initNav(NavigationCore _core, RendKeyWordsGroup _k) {
+        navCore = _core;
+        keys = _k;
     }
 
     public void setFiles(StringMap<String> _web) {
@@ -91,13 +82,13 @@ public final class RenderedPage implements ProcessingSession {
         process = _process;
     }
 
-    public void initializeOnlyConf(AbstractContextCreator _creator,BeanCustLgNames _stds, Runnable _inst) {
+    public void initializeOnlyConf(AbstractRenderAction _action, WithPageInfos _stds, Runnable _inst) {
         if (processing.get()) {
             return;
         }
         start();
         standards = _stds;
-        renderAction = new CustRenderAction(_creator,this,_stds);
+        renderAction = _action;
         gene.getThreadFactory().newStartedThread(_inst);
 //        animateProcess();
     }
@@ -216,9 +207,6 @@ public final class RenderedPage implements ProcessingSession {
     IdMap<MetaComponent, DualComponent> getRefs() {
         return refs;
     }
-    public Navigation getNavigation() {
-        return navigation;
-    }
 
     public RendKeyWordsGroup getKeys() {
         return keys;
@@ -266,14 +254,6 @@ public final class RenderedPage implements ProcessingSession {
     public void addFinder() {
         finding = new FindEvent(field, this);
         find.addActionListener(finding);
-    }
-
-    public ContextEl getContext() {
-        return context;
-    }
-
-    public void setContext(ContextEl _context) {
-        this.context = _context;
     }
 
     public AbstractRenderAction getRenderAction() {

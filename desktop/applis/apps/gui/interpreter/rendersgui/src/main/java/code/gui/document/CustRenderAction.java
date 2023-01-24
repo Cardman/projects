@@ -1,17 +1,22 @@
 package code.gui.document;
 
 import code.expressionlanguage.ContextEl;
+import code.formathtml.Navigation;
 import code.formathtml.exec.RendStackCall;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultInitialization;
 import code.sml.Element;
 
 public final class CustRenderAction implements AbstractRenderAction {
+    private final DefaultInitialization initialization;
+    private final Navigation navigation;
     private final AbstractContextCreator creator;
     private final RenderedPage render;
     private final BeanCustLgNames std;
 
-    public CustRenderAction(AbstractContextCreator _c, RenderedPage _re,BeanCustLgNames _stds) {
+    public CustRenderAction(DefaultInitialization _init,Navigation _nav, AbstractContextCreator _c, RenderedPage _re, BeanCustLgNames _stds) {
+        initialization = _init;
+        navigation = _nav;
         this.creator = _c;
         render = _re;
         std = _stds;
@@ -19,8 +24,8 @@ public final class CustRenderAction implements AbstractRenderAction {
 
     @Override
     public String execute(boolean _form, Element _elt) {
-        ContextEl ctx_ = creator.newContext(render.getContext());
-        RendStackCall rendStackCall_ = std.execute(_form, _elt, render.getNavigation(), ctx_);
+        ContextEl ctx_ = creator.newContext(initialization.getContext());
+        RendStackCall rendStackCall_ = std.execute(_form, _elt, navigation, ctx_);
         return afterAction(ctx_,rendStackCall_);
     }
 

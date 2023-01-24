@@ -6,8 +6,11 @@ import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
+import code.formathtml.Configuration;
+import code.formathtml.Navigation;
 import code.formathtml.util.DefaultInitialization;
 import code.gui.*;
+import code.gui.document.CustRenderAction;
 import code.gui.document.RenderedPage;
 import code.gui.events.*;
 import code.gui.images.MetaDimension;
@@ -52,7 +55,8 @@ public final class WindowRenders extends GroupFrame {
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
         session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos);
-        session.initNav();
+        Navigation n_ = nav();
+        session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(_lg);
         session.setFrame(getCommonFrame());
         AbsTextField field_;
@@ -77,8 +81,8 @@ public final class WindowRenders extends GroupFrame {
         addWindowListener(new QuittingEvent(this));
     }
 
-    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page) {
-        return CustThreadActions.inst(_page, _init);
+    public static CustThreadActions inst(DefaultInitialization _init, RenderedPage _page, Navigation _nav) {
+        return CustThreadActions.inst(_page, _init,_nav);
     }
 
     @Override
@@ -159,14 +163,21 @@ public final class WindowRenders extends GroupFrame {
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(new RenderIssuer(session),getFileCoreStream(),getStreams()),
                 new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.setExecutingOptions(exec_);
-        session.initNav();
+        Navigation n_ = nav();
+        session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(lg_,lgs_);
         session.setFiles(zipFiles_);
         String lgCode_ = lgCode.getText();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lgCode_)){
             lgCode_ = "";
         }
-        session.initializeOnlyConf(new CustContextCreator(),lgNames_, inst(new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_),lgCode_, confRel_, zipFiles_, clName_, mName_), session));
+        DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_), lgCode_, confRel_, zipFiles_, clName_, mName_);
+        session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));
+    }
+    private static Navigation nav() {
+        Navigation nav_ = new Navigation();
+        nav_.setSession(new Configuration());
+        return nav_;
     }
     public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
         for (String l: _lines.mid(_from)) {
