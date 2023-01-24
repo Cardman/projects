@@ -236,7 +236,7 @@ public final class Navigation {
     }
 
     private static NodeInformations getValue(long _id, String _idInput, HtmlPageInt _htmlPage) {
-        NodeContainer val_;
+        NodeInformations val_;
         if (_idInput.isEmpty()) {
             val_ = null;
         } else {
@@ -245,7 +245,7 @@ public final class Navigation {
         if (val_ == null) {
             return new NodeInformations();
         }
-        return val_.getNodeInformation();
+        return val_;
     }
 
     public boolean setupText(String _text, Document _document) {

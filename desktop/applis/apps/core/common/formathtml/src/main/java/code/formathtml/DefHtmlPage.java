@@ -4,13 +4,13 @@ import code.formathtml.exec.AnchorCall;
 import code.formathtml.exec.DefFormParts;
 import code.formathtml.util.DefNodeContainer;
 import code.sml.HtmlPage;
-import code.sml.HtmlPageInt;
 import code.sml.NodeContainer;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.LongMap;
 import code.util.LongTreeMap;
 
-public final class DefHtmlPage extends HtmlPage implements HtmlPageInt {
+public final class DefHtmlPage extends HtmlPage {
     private LongMap<LongTreeMap<DefNodeContainer>> containers = new LongMap<LongTreeMap<DefNodeContainer>>();
 
     private CustList<AnchorCall> callsExps = new CustList<AnchorCall>();
@@ -25,6 +25,14 @@ public final class DefHtmlPage extends HtmlPage implements HtmlPageInt {
     }
 
     public void setContainers(LongMap<LongTreeMap<DefNodeContainer>> _cont) {
+        getContainersBase().clear();
+        for (EntryCust<Long,LongTreeMap<DefNodeContainer>> e: _cont.entryList()) {
+            LongTreeMap<NodeContainer> l_ = new LongTreeMap<NodeContainer>();
+            for (EntryCust<Long, DefNodeContainer> f: e.getValue().entryList()) {
+                l_.addEntry(f.getKey(),f.getValue());
+            }
+            getContainersBase().addEntry(e.getKey(),l_);
+        }
         this.containers = _cont;
     }
 
@@ -48,8 +56,4 @@ public final class DefHtmlPage extends HtmlPage implements HtmlPageInt {
         return containers;
     }
 
-    @Override
-    public NodeContainer getContainer(long _formNb, long _nbId) {
-        return containers.getVal(_formNb).getVal(_nbId);
-    }
 }

@@ -587,8 +587,8 @@ public final class DifficultyBeanTest extends InitDbDifficultyBean {
     }
 
     private void choose(NatHtmlPage _page, int _nbId, String _value) {
-        _page.getContainer(0, _nbId).getNodeInformation().setEnabled(true);
-        _page.getContainer(0, _nbId).getNodeInformation().setValue(new StringList(_value));
+        _page.getContainer(0, _nbId).setEnabled(true);
+        _page.getContainer(0, _nbId).setValue(new StringList(_value));
     }
 
     private DifficultyCommon result(NaSt _str) {

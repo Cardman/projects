@@ -4,14 +4,10 @@ import code.bean.nat.exec.NatFormParts;
 import code.bean.nat.exec.NatNodeContainer;
 import code.bean.nat.exec.opers.NatExecOperationNode;
 import code.sml.HtmlPage;
-import code.sml.HtmlPageInt;
 import code.sml.NodeContainer;
-import code.util.CustList;
-import code.util.LongMap;
-import code.util.LongTreeMap;
-import code.util.StringList;
+import code.util.*;
 
-public final class NatHtmlPage extends HtmlPage implements HtmlPageInt {
+public final class NatHtmlPage extends HtmlPage {
     private LongMap<LongTreeMap<NatNodeContainer>> containers = new LongMap<LongTreeMap<NatNodeContainer>>();
 
     private CustList<CustList<NatExecOperationNode>> callsExps = new CustList<CustList<NatExecOperationNode>>();
@@ -100,6 +96,14 @@ public final class NatHtmlPage extends HtmlPage implements HtmlPageInt {
     }
 
     public void setContainers(LongMap<LongTreeMap<NatNodeContainer>> _cont) {
+        getContainersBase().clear();
+        for (EntryCust<Long,LongTreeMap<NatNodeContainer>> e: _cont.entryList()) {
+            LongTreeMap<NodeContainer> l_ = new LongTreeMap<NodeContainer>();
+            for (EntryCust<Long, NatNodeContainer> f: e.getValue().entryList()) {
+                l_.addEntry(f.getKey(),f.getValue());
+            }
+            getContainersBase().addEntry(e.getKey(),l_);
+        }
         this.containers = _cont;
     }
 
@@ -111,8 +115,4 @@ public final class NatHtmlPage extends HtmlPage implements HtmlPageInt {
         this.callsFormExps = _cal;
     }
 
-    @Override
-    public NodeContainer getContainer(long _formNb, long _nbId) {
-        return containers.getVal(_formNb).getVal(_nbId);
-    }
 }

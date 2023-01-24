@@ -1,6 +1,7 @@
 package code.sml;
 
 import code.util.LongMap;
+import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -74,5 +75,14 @@ public final class NatAnalyzingDocTest extends EquallableSmlAdvUtil {
         assertEq("", nc_.getNodeInformation().getId());
         assertEq("", nc_.getNodeInformation().getInputClass());
         assertEq("", nc_.getNodeInformation().getValidator());
+        LongTreeMap<NodeContainer> s_ = new LongTreeMap<NodeContainer>();
+        NodeContainer cu_ = new NodeContainer();
+        cu_.getNodeInformation().setValue(new StringList("_"));
+        s_.addEntry(0L, cu_);
+        h_.getContainersBase().addEntry(0L, s_);
+        StringList v_ = h_.getContainer(0, 0).getValue();
+        assertEq(1,v_.size());
+        assertEq("_", v_.get(0));
+        assertEq(0,h_.getContainer(0, 1).getValue().size());
     }
 }
