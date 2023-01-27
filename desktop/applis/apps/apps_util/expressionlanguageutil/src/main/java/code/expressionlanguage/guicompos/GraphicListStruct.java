@@ -34,6 +34,11 @@ public final class GraphicListStruct extends InputStruct implements GraphicListI
         grList.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs()));
     }
 
+    @Override
+    public void add(GuiAliases _aliases, ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall, Struct _elt) {
+        add(grList.size(),NullStruct.NULL_VALUE,_elt);
+    }
+
     public void add(int _index, Struct _img, Struct _elt) {
         grList.add(_index,null, _elt);
     }

@@ -28,6 +28,11 @@ public final class CustGraphicListStruct extends InputStruct implements GraphicL
         cuGr.setDefCell(this, new DefSpecSelectionCtx(_ctx.getExecutionInfos(),_ctx.getArgs()));
     }
 
+    @Override
+    public void add(GuiAliases _aliases, ContextEl _cont, GuiExecutingBlocks _guiEx, StackCall _stackCall, Struct _elt) {
+        add(_aliases, _cont, _guiEx, _stackCall,cuGr.size(), _elt);
+    }
+
     public void add(int _index, Struct _img, Struct _elt) {
         if (!(_img instanceof PreparedLabelStruct)) {
             return;

@@ -2781,6 +2781,9 @@ public final class GuiAliases {
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasGrListSetVisibleRowCount, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0GrListSetVisibleRowCount0()), new FctGrListSetVisibleRowCount());
         methods_.add( method_);
+        params_ = new StringList(_content.getCoreNames().getAliasObject());
+        method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList2TabbedPaneAdd0()), new FctGrListAdd2(this,_guiEx));
+        methods_.add( method_);
         params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getCoreNames().getAliasObject());
         method_ = new StandardMethod(aliasGrListAdd, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasGrList0TabbedPaneAdd0(),guiAliasParameters.getAliasGrList0TabbedPaneAdd1()), new FctGrListAdd0(this,_guiEx));
         methods_.add( method_);

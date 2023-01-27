@@ -86,6 +86,19 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         assertEq("0", ((StringStruct) ((GraphicListStruct)ls_).getGrList().get(0)).getInstance());
     }
     @Test
+    public void add3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        call(new FctGrListAdd2(stds_.getGuiAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,ls_,one(new StringStruct("0")),st_);
+        assertEq(1, ((GraphicListStruct)ls_).getGrList().size());
+        assertEq("0", ((StringStruct) ((GraphicListStruct)ls_).getGrList().get(0)).getInstance());
+    }
+    @Test
     public void set1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);

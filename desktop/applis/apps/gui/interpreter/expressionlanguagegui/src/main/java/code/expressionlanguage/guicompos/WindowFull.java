@@ -138,11 +138,12 @@ public final class WindowFull extends GroupFrame {
 
     @Override
     public void quit() {
-        if (light != null) {
-            return;
+        if (context != null) {
+            context.interrupt();
         }
         coverage.setEnabled(false);
         stop.setEnabled(false);
+        light = null;
         basicDispose();
     }
 

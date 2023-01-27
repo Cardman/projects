@@ -322,6 +322,7 @@ public final class GuiAliasParameters {
     private static final String GR_LIST_1_TABBED_PANE_ADD_0="GrList1TabbedPaneAdd0";
     private static final String GR_LIST_1_TABBED_PANE_ADD_1="GrList1TabbedPaneAdd1";
     private static final String GR_LIST_1_TABBED_PANE_ADD_2="GrList1TabbedPaneAdd2";
+    private static final String GR_LIST_2_TABBED_PANE_ADD_0="GrList2TabbedPaneAdd0";
     private static final String GR_LIST_0_TREE_NODE_SET_USER_OBJECT_0="GrList0TreeNodeSetUserObject0";
     private static final String GR_LIST_0_TREE_NODE_SET_USER_OBJECT_1="GrList0TreeNodeSetUserObject1";
     private static final String GR_LIST_0_TREE_NODE_SET_USER_OBJECT_2="GrList0TreeNodeSetUserObject2";
@@ -744,6 +745,7 @@ public final class GuiAliasParameters {
     private String aliasGrList1TabbedPaneAdd0;
     private String aliasGrList1TabbedPaneAdd1;
     private String aliasGrList1TabbedPaneAdd2;
+    private String aliasGrList2TabbedPaneAdd0;
     private String aliasGrList0TreeNodeSetUserObject0;
     private String aliasGrList0TreeNodeSetUserObject1;
     private String aliasGrList0TreeNodeSetUserObject2;
@@ -1165,6 +1167,7 @@ public final class GuiAliasParameters {
         aliasGrList1TabbedPaneAdd0=LgNamesContent.get(_util,_cust, GR_LIST_1_TABBED_PANE_ADD_0);
         aliasGrList1TabbedPaneAdd1=LgNamesContent.get(_util,_cust, GR_LIST_1_TABBED_PANE_ADD_1);
         aliasGrList1TabbedPaneAdd2=LgNamesContent.get(_util,_cust, GR_LIST_1_TABBED_PANE_ADD_2);
+        aliasGrList2TabbedPaneAdd0=LgNamesContent.get(_util,_cust, GR_LIST_2_TABBED_PANE_ADD_0);
         aliasGrList0TreeNodeSetUserObject0=LgNamesContent.get(_util,_cust, GR_LIST_0_TREE_NODE_SET_USER_OBJECT_0);
         aliasGrList0TreeNodeSetUserObject1=LgNamesContent.get(_util,_cust, GR_LIST_0_TREE_NODE_SET_USER_OBJECT_1);
         aliasGrList0TreeNodeSetUserObject2=LgNamesContent.get(_util,_cust, GR_LIST_0_TREE_NODE_SET_USER_OBJECT_2);
@@ -1446,6 +1449,7 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_VISIBLE_ROW_COUNT_0,aliasGrList0GrListSetVisibleRowCount0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_TABBED_PANE_ADD_0,aliasGrList0TabbedPaneAdd0),new KeyValueMemberName(GR_LIST_0_TABBED_PANE_ADD_1,aliasGrList0TabbedPaneAdd1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_0,aliasGrList1TabbedPaneAdd0),new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_1,aliasGrList1TabbedPaneAdd1),new KeyValueMemberName(GR_LIST_1_TABBED_PANE_ADD_2,aliasGrList1TabbedPaneAdd2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_2_TABBED_PANE_ADD_0,aliasGrList2TabbedPaneAdd0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_TREE_NODE_SET_USER_OBJECT_0,aliasGrList0TreeNodeSetUserObject0),new KeyValueMemberName(GR_LIST_0_TREE_NODE_SET_USER_OBJECT_1,aliasGrList0TreeNodeSetUserObject1),new KeyValueMemberName(GR_LIST_0_TREE_NODE_SET_USER_OBJECT_2,aliasGrList0TreeNodeSetUserObject2)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_1_TREE_NODE_SET_USER_OBJECT_0,aliasGrList1TreeNodeSetUserObject0),new KeyValueMemberName(GR_LIST_1_TREE_NODE_SET_USER_OBJECT_1,aliasGrList1TreeNodeSetUserObject1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(GR_LIST_0_GR_LIST_SET_SELECTED_INDEXES_0,aliasGrList0GrListSetSelectedIndexes0)));
@@ -2784,6 +2788,10 @@ public final class GuiAliasParameters {
 
     public String getAliasGrList1TabbedPaneAdd2() {
         return aliasGrList1TabbedPaneAdd2;
+    }
+
+    public String getAliasGrList2TabbedPaneAdd0() {
+        return aliasGrList2TabbedPaneAdd0;
     }
 
     public String getAliasGrList0TreeNodeSetUserObject0() {
