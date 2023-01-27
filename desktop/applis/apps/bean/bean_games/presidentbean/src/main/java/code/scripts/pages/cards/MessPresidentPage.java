@@ -81,7 +81,7 @@ return p;
 }
 static String css(){
 String p="h1 {\n";
-p+="\tcolor: #0000FF;\n";
+p+="\tcolor:blue;\n";
 p+="}\n";
 return p;
 }

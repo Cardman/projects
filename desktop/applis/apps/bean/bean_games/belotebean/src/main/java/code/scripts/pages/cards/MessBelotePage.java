@@ -135,7 +135,7 @@ return b;
 }
 static String css(){
 String b="h1 {\n";
-b+="\tcolor: #0000FF;\n";
+b+="\tcolor:blue;\n";
 b+="}\n";
 return b;
 }

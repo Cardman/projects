@@ -280,7 +280,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         stds_.setDataBase(resultsFive(game4(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor: #0000FF;\n" +
+                "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
                 "\tborder:1px solid black;\n" +
@@ -297,7 +297,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         stds_.setDataBase(resultsFive(game7(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor: #0000FF;\n" +
+                "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
                 "\tborder:1px solid black;\n" +
@@ -314,7 +314,7 @@ public final class DetailsResultsTarotBeanTest extends BeanTarotCommonTs {
         stds_.setDataBase(resultsFive(game8(), 0));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><title>Results</title><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor: #0000FF;\n" +
+                "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
                 "\tborder:1px solid black;\n" +

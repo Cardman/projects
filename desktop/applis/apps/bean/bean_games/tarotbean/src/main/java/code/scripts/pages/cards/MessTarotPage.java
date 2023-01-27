@@ -285,7 +285,7 @@ return t;
 }
 static String css(){
 String t="h1 {\n";
-t+="\tcolor: #0000FF;\n";
+t+="\tcolor:blue;\n";
 t+="}\n";
 t+="td,caption{\n";
 t+="\tborder:1px solid black;\n";

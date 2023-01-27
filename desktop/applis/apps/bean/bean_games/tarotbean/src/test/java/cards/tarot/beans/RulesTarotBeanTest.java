@@ -105,7 +105,7 @@ public final class RulesTarotBeanTest extends BeanTarotCommonTs {
         stds_.setDataBaseRules(rules(DealingTarot.DEAL_1_VS_4, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/tarot.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor: #0000FF;\n" +
+                "\tcolor:blue;\n" +
                 "}\n" +
                 "td,caption{\n" +
                 "\tborder:1px solid black;\n" +

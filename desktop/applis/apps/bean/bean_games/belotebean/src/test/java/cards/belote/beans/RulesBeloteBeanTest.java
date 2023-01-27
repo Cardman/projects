@@ -101,7 +101,7 @@ public final class RulesBeloteBeanTest extends BeanBeloteCommonTs {
         stds_.setDataBaseRules(rules(DealingBelote.CLASSIC_2_VS_2, true, true));
         stds_.initializeRendSessionDoc(nav_);
         assertEq("<html xmlns:c=\"javahtml\"><head><link href=\"resources_cards/css/belote.css\" rel=\"stylesheet\" type=\"text/css\"/><style>h1 {\n" +
-                "\tcolor: #0000FF;\n" +
+                "\tcolor:blue;\n" +
                 "}\n" +
                 "</style></head><body><h1>Mix Cards</h1>at each launching<br/><h1>Deal all cards</h1>no<br/><h1>Allowed declaring</h1><ul><li>fold</li><li>suit</li><li>other suit</li></ul><br/><h1>Undertrumping a foe</h1>yes<br/><br/><h1>Allowed Bids at the beginning of the deal</h1><ul><li>hundred</li></ul><h1>Rules of playing trumps when a partner is leading the current trick</h1>undertrump overtrump<br/><h1>Players' repartition</h1>classic<br/><h1>End of game</h1>162 - 0, if the attack's team looses.<br/></body></html>",nav_.getHtmlText());
     }
