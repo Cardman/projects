@@ -3259,6 +3259,305 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         ret_ = calculateError("pkg.Ex", id_, args_, cont_);
         assertSame(getStaticField(cont_,new ClassField("pkg.Ex","TWO")),ret_.getStruct());
     }
+
+    @Test
+    public void calculateArgument135Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:$new $int[-1].length == e)$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Object v(){\n");
+        xml_.append("  $throw $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument136Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:$new $int[-1].length == e)$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Object v(){\n");
+        xml_.append("  $throw $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument137Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:$new $int[-1].length == e)$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("   v();\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object v(){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument138Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:$new $int[-1].length == e)$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("   $return 2;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object v(){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument139Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:g(e))$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean g(java.lang.Exception e){\n");
+        xml_.append("  $return $new $int[-1].length == e;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Object v(){\n");
+        xml_.append("  $throw $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument140Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:g(e))$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean g(java.lang.Exception e){\n");
+        xml_.append("  $return $new $int[-1].length == e;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Object v(){\n");
+        xml_.append("  $throw $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument141Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:g(e))$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("   v();\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean g(java.lang.Exception e){\n");
+        xml_.append("  $return $new $int[-1].length == e;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object v(){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasBadSize(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument142Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:g(e))$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("   $return 2;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean g(java.lang.Exception e){\n");
+        xml_.append("  $return $new $int[-1].length == e;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static Object v(){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument143Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:$new $int[-1].length == e)$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("   v().length();\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String v(){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), ret_.getStruct().getClassName(cont_));
+    }
+
+    @Test
+    public void calculateArgument144Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $return 1i/0i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e:g(e))$throw{\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $finally{\n");
+        xml_.append("   v().length();\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static $boolean g(java.lang.Exception e){\n");
+        xml_.append("  $return $new $int[-1].length == e;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static String v(){\n");
+        xml_.append("  $return $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateError("pkg.Ex", id_, args_, cont_);
+        assertEq(cont_.getStandards().getContent().getCoreNames().getAliasNullPe(), ret_.getStruct().getClassName(cont_));
+    }
     @Test
     public void calculateArgument1FailTest() {
         StringBuilder xml_ = new StringBuilder();

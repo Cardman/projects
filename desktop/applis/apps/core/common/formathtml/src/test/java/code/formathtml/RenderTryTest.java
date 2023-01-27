@@ -173,6 +173,11 @@ public final class RenderTryTest extends CommonRender {
         assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
 
+    @Test
+    public void process26Test() {
+        String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == 1/0' href='$throw'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></c:try><c:catch className='java.lang.Object' var='ex'>Exc3</c:catch></body></html>";
+        assertEq("<html><body>Exc3</body></html>", getRes(html_, new StringMap<String>()));
+    }
     private String getRes(String _html, StringMap<String> _files) {
         return getCommRes(_html,_files);
     }

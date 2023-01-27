@@ -9,10 +9,13 @@ public final class RendCatchEval extends RendAbstractCatchEval {
     private final String importedClassName;
 
     private final String variableName;
-    public RendCatchEval(String _className, String _variable, CustList<RendDynOperationNode> _ls, int _off) {
+
+    private final boolean throwIfGuardError;
+    public RendCatchEval(String _className, String _variable, CustList<RendDynOperationNode> _ls, int _off, boolean _thr) {
         super(_ls, _off);
         importedClassName = _className;
         variableName = _variable;
+        throwIfGuardError = _thr;
     }
 
     public String getImportedClassName() {
@@ -29,4 +32,7 @@ public final class RendCatchEval extends RendAbstractCatchEval {
         _ip.removeRefVar(var_);
     }
 
+    public boolean isThrowIfGuardError() {
+        return throwIfGuardError;
+    }
 }

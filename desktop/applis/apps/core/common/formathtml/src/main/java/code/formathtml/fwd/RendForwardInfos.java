@@ -236,7 +236,7 @@ public final class RendForwardInfos {
 
     private static RendAbstractCatchEval buildCatchEval(AnaRendCatchEval _f, Forwards _forwards) {
         if (!_f.getFilterContent().getImportedClassName().isEmpty()) {
-            return new RendCatchEval(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(), getExecutableNodes(_f.getFilterContent().getRoot(),_forwards), _f.getFilterContent().getValueOffset());
+            return new RendCatchEval(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(), getExecutableNodes(_f.getFilterContent().getRoot(),_forwards), _f.getFilterContent().getValueOffset(), _f.isThrowIfGuardError());
         }
         return new RendListCatchEval(_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues());
     }

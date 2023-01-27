@@ -1,6 +1,7 @@
 package code.formathtml.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.formathtml.analyze.AnalyzingDoc;
@@ -9,9 +10,11 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval implements 
 
     private final RendFilterContent filterContent;
 
-    AnaRendCatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, int _offset) {
+    private final boolean throwIfGuardError;
+    AnaRendCatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, OffsetBooleanInfo _thr, int _offset) {
         super(_offset);
         filterContent = new RendFilterContent(_className,_variable,_value);
+        throwIfGuardError = _thr.isInfo();
     }
 
     @Override
@@ -33,4 +36,7 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval implements 
         filterContent.removeAllVars(_ip);
     }
 
+    public boolean isThrowIfGuardError() {
+        return throwIfGuardError;
+    }
 }

@@ -1,15 +1,18 @@
 package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.files.OffsetBooleanInfo;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 
 public final class CatchEval extends AbstractCatchEval implements BuildableElMethod, WithFilterContent {
 
     private final FilterContent filterContent;
 
-    public CatchEval(OffsetStringInfo _value, int _offset, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition) {
+    private final boolean throwIfGuardError;
+    public CatchEval(OffsetStringInfo _value, int _offset, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition, OffsetBooleanInfo _thr) {
         super(_offset);
         filterContent = new FilterContent(_value, _declaringType, _variable, _condition);
+        throwIfGuardError = _thr.isInfo();
     }
 
     public FilterContent getFilterContent() {
@@ -43,4 +46,7 @@ public final class CatchEval extends AbstractCatchEval implements BuildableElMet
         filterContent.removeAllVars(_ip);
     }
 
+    public boolean isThrowIfGuardError() {
+        return throwIfGuardError;
+    }
 }

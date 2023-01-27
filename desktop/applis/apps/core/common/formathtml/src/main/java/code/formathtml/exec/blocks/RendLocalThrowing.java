@@ -3,6 +3,7 @@ package code.formathtml.exec.blocks;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.LocalThrowing;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.variables.LocalVariable;
@@ -15,6 +16,7 @@ import code.formathtml.exec.RendStackCall;
 import code.formathtml.exec.RenderExpUtil;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.exec.stacks.RendAbstractStask;
+import code.formathtml.exec.stacks.RendTryBlockStack;
 import code.util.CustList;
 
 public final class RendLocalThrowing {
@@ -22,6 +24,7 @@ public final class RendLocalThrowing {
     private RendLocalThrowing() {
     }
     public static void removeBlockFinally(ContextEl _ctx, Struct _str, RendStackCall _rendStackCall) {
+        Struct s_ = _str;
         while (_rendStackCall.hasPages()) {
             _rendStackCall.getStackCall().setNullCallingState();
             ImportingPage bkIp_ = _rendStackCall.getLastPage();
@@ -30,36 +33,49 @@ public final class RendLocalThrowing {
                 if (bl_ == null) {
                     break;
                 }
-                if (setRemovedCallingFinallyToProcess(_ctx,_str,_rendStackCall, bkIp_,bl_)) {
+                if (setRemovedCallingFinallyToProcess(_ctx,s_,_rendStackCall, bkIp_,bl_)) {
                     return;
                 }
             }
+            s_ = LocalThrowing.retrieve(_rendStackCall.getStackCall(),s_);
             _rendStackCall.removeLastPage();
         }
-        _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(_str));
+        _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(s_));
     }
 
     private static boolean setRemovedCallingFinallyToProcess(ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp, RendAbstractStask _bl) {
-        RendBlock currentBlock_ = _bl.getCurrentVisitedBlock();
-        if (currentBlock_ instanceof RendTryEval) {
-            RendAbstractCatchEval catchElt_ = retCatch(_ctx, _str, _rendStackCall, _bkIp, currentBlock_);
-            if (catchElt_ != null) {
-                _bl.setCurrentVisitedBlock(catchElt_);
-                RendBlock childCatch_ = catchElt_.getFirstChild();
-                _bkIp.getRendReadWrite().setRead(childCatch_);
-                return true;
+        if (_bl instanceof RendTryBlockStack) {
+            RendBlock currentBlock_ = _bl.getCurrentVisitedBlock();
+            if (currentBlock_ instanceof RendTryEval) {
+                RendAbstractCatchEval catchElt_ = retCatch((RendTryBlockStack)_bl, _ctx, _str, _rendStackCall, _bkIp, currentBlock_);
+                if (catchElt_ != null) {
+                    _rendStackCall.getStackCall().setNullCallingState();
+                    _bl.setCurrentVisitedBlock(catchElt_);
+                    RendBlock childCatch_ = catchElt_.getFirstChild();
+                    _bkIp.getRendReadWrite().setRead(childCatch_);
+                    return true;
+                }
             }
+            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(((RendTryBlockStack)_bl).getException()));
         }
-        return ImportingPage.setRemovedCallingFinallyToProcess(_bkIp, _bl, null, _str);
+        if (ImportingPage.setRemovedCallingFinallyToProcess(_bkIp, _bl, null, _str)) {
+            _rendStackCall.getStackCall().setNullCallingState();
+            return true;
+        }
+        return false;
     }
 
-    private static RendAbstractCatchEval retCatch(ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp, RendBlock _currentBlock) {
+    private static RendAbstractCatchEval retCatch(RendTryBlockStack _bl, ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp, RendBlock _currentBlock) {
         RendBlock n_ = _currentBlock.getNextSibling();
         //process try block
         while (n_ instanceof RendAbstractCatchEval || n_ instanceof RendPossibleEmpty) {
             RendAbstractCatchEval v_ = ret(n_, _ctx, _str, _rendStackCall, _bkIp);
             if (v_ != null) {
                 return v_;
+            }
+            if (throwIfGuardError(n_)) {
+                _bl.setException(_str);
+                return null;
             }
             n_ = n_.getNextSibling();
         }
@@ -107,4 +123,7 @@ public final class RendLocalThrowing {
         return null;
     }
 
+    public static boolean throwIfGuardError(RendBlock _block) {
+        return _block instanceof RendCatchEval && ((RendCatchEval)_block).isThrowIfGuardError();
+    }
 }

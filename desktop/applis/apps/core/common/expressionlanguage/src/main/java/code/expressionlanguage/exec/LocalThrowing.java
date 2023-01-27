@@ -30,59 +30,63 @@ public final class LocalThrowing {
                 }
                 bkIp_.removeLastBlock();
             }
-            CallingState c_ = _stackCall.getCallingState();
-            if (c_ instanceof CustomFoundExc) {
-                custCause_ = _conf.getLocks().processErrorClass(_conf, ((CustomFoundExc)c_).getStruct(), bkIp_, _stackCall);
-            } else {
-                custCause_ = _conf.getLocks().processErrorClass(_conf, custCause_, bkIp_, _stackCall);
-            }
+            custCause_ = _conf.getLocks().processErrorClass(_conf, retrieve(_stackCall,custCause_), bkIp_, _stackCall);
             _stackCall.removeLastPage();
         }
         _stackCall.setCallingState(new CustomFoundExc(custCause_));
     }
+    public static Struct retrieve(StackCall _stackCall, Struct _old) {
+        CallingState c_ = _stackCall.getCallingState();
+        if (c_ instanceof CustomFoundExc) {
+            return ((CustomFoundExc)c_).getStruct();
+        }
+        return _old;
+    }
 
     private static boolean setRemovedCallingFinallyToProcess(StackCall _stackCall,Struct _custCause, AbstractPageEl _bkIp, AbstractStask _bl) {
-        if (_bl instanceof TryBlockStack) {
-            ExecBracedBlock v_ = toVisit((TryBlockStack) _bl);
-            if (v_ != null) {
-                if (((TryBlockStack)_bl).getException() == null) {
-                    ((TryBlockStack)_bl).setException(_custCause);
-                }
-                _stackCall.setNullCallingState();
-                ((TryBlockStack)_bl).setCurrentVisitedBlock(v_);
-                _bkIp.setBlock(v_);
-                ((TryBlockStack) _bl).setCalling(new AbruptCallingFinally(null));
-                return true;
-            }
-            ExecBracedBlock cur_ = _bl.getCurrentVisitedBlock();
-            if (!(cur_ instanceof ExecFinallyEval)&&!((TryBlockStack) _bl).isEnteredCatch()) {
-                _stackCall.setCallingState(new CustomFoundExc(((TryBlockStack)_bl).getException()));
-                return false;
-            }
+        if (!(_bl instanceof TryBlockStack)) {
+            _stackCall.setCallingState(new CustomFoundExc(_custCause));
+            return false;
         }
-        _stackCall.setCallingState(new CustomFoundExc(_custCause));
-        return false;
-    }
-    private static ExecBracedBlock toVisit(TryBlockStack _tr) {
-        ExecBlock currentBlock_ = _tr.getCurrentVisitedBlock();
+        TryBlockStack curr_ = (TryBlockStack) _bl;
+        ExecBlock currentBlock_ = curr_.getCurrentVisitedBlock();
         if (currentBlock_ instanceof ExecFinallyEval) {
-            return null;
+            _stackCall.setCallingState(new CustomFoundExc(_custCause));
+            return false;
         }
         ExecBlock n_ = nextBlock(currentBlock_);
         if (n_ instanceof ExecBracedBlock) {
-            return (ExecBracedBlock) n_;
+            curr_.setException(_custCause);
+            goBlock(_stackCall, _bkIp, curr_, (ExecBracedBlock) n_);
+            return true;
         }
-        ExecBracedBlock l_ = _tr.getLastBlock();
-        if (!_tr.isEnteredCatch()) {
-            ExecBlock next_ = currentBlock_.getNextSibling();
-            if (next_ instanceof ExecAbstractCatchEval) {
-                return (ExecBracedBlock) next_;
-            }
+        if (throwIfGuardError(currentBlock_)) {
+            curr_.setEnteredCatch(true);
+            curr_.setException(_custCause);
         }
+        ExecBlock next_ = currentBlock_.getNextSibling();
+        if (!curr_.isEnteredCatch() && next_ instanceof ExecAbstractCatchEval) {
+            goBlock(_stackCall, _bkIp, curr_, (ExecBracedBlock) next_);
+            return true;
+        }
+        ExecBracedBlock l_ = curr_.getLastBlock();
         if (l_ instanceof ExecFinallyEval) {
-            return l_;
+            goBlock(_stackCall, _bkIp, curr_, l_);
+            return true;
         }
-        return null;
+        _stackCall.setCallingState(new CustomFoundExc(curr_.getException()));
+        return false;
+    }
+
+    private static void goBlock(StackCall _stackCall, AbstractPageEl _bkIp, TryBlockStack _curr, ExecBracedBlock _dest) {
+        _stackCall.setNullCallingState();
+        _curr.setCurrentVisitedBlock(_dest);
+        _bkIp.setBlock(_dest);
+        _curr.setCalling(new AbruptCallingFinally(null));
+    }
+
+    public static boolean throwIfGuardError(ExecBlock _block) {
+        return _block instanceof ExecCatchEval && ((ExecCatchEval)_block).isThrowIfGuardError();
     }
     private static ExecBlock nextBlock(ExecBlock _current) {
         if (_current instanceof ExecTryEval) {

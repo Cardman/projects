@@ -2728,16 +2728,18 @@ public final class FileResolver {
         String info_ = _trimmedInstruction.substring(keyWordCatch_.length());
         int leftPar_ = info_.indexOf(BEGIN_CALLING);
         if (leftPar_ <= -1) {
-            CatchEval br_ = new CatchEval(new OffsetStringInfo(_i.instLoc() + _offset, _keyWords.getKeyWordNull()), _i.instLoc() + _offset, "", new OffsetStringInfo(0, ""), new OffsetStringInfo(_i.instLoc() + _offset, ""));
+            CatchEval br_ = new CatchEval(new OffsetStringInfo(_i.instLoc() + _offset, _keyWords.getKeyWordNull()), _i.instLoc() + _offset, "", new OffsetStringInfo(0, ""), new OffsetStringInfo(_i.instLoc() + _offset, ""), new OffsetBooleanInfo(_offset,false));
             br_.setBegin(_i.instLoc()+ _offset);
             br_.setLengthHeader(keyWordCatch_.length());
             _currentParent.appendChild(br_);
             return br_;
         }
         info_ = info_.substring(leftPar_+1);
+        OffsetBooleanInfo thr_ = new OffsetBooleanInfo(_offset,false);
         int endIndex_ = info_.lastIndexOf(END_CALLING);
         boolean ok_ = false;
         if (endIndex_ >= 0) {
+            thr_ = new OffsetBooleanInfo(_offset,StringUtil.quickEq(info_.substring(endIndex_+1).trim(),_keyWords.getKeyWordThrow()));
             info_ = info_.substring(0, endIndex_);
             ok_ = true;
         }
@@ -2753,7 +2755,7 @@ public final class FileResolver {
         if (!StringExpUtil.isTypeLeafPart(trimVar_)){
             br_ = new CatchEval(
                     new OffsetStringInfo(fullValueOffset_, value_),
-                    _i.instLoc()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""));
+                    _i.instLoc()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""), thr_);
         } else if (sepCond_ >= 0) {
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
             int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
@@ -2761,13 +2763,13 @@ public final class FileResolver {
             int conditionOffset_ = variableOffset_ + 1 + sepCond_ + StringExpUtil.getOffset(substring_);
             br_ = new CatchEval(
                     new OffsetStringInfo(fullValueOffset_, value_),
-                    _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()));
+                    _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()), thr_);
         } else {
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
             int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
             br_ = new CatchEval(
                     new OffsetStringInfo(fullValueOffset_, value_),
-                    _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(fullValueOffset_,""));
+                    _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(fullValueOffset_,""), thr_);
         }
         if (!ok_) {
             br_.getBadIndexes().add(_i.getIndex()+ _offset);

@@ -250,21 +250,25 @@ public abstract class AnaRendBlock {
     }
 
     private static AnaRendAbstractCatchEval keyWordCatch(int _begin, AnalyzedPageEl _primTypes, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
+        OffsetBooleanInfo thr_ = new OffsetBooleanInfo(0,StringUtil.quickEq(_primTypes.getKeyWords().getKeyWordThrow(),_elt.getAttribute(_rendKeyWords.getAttrHref())));
         if (_elt.hasAttribute(_rendKeyWords.getAttrClassName())) {
             return new AnaRendCatchEval(newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrVar(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
+                    thr_,
                     _begin);
         }
         if (_elt.hasAttribute(_rendKeyWords.getAttrValue())) {
             return new AnaRendCatchEval(new OffsetStringInfo(0,""),
                     new OffsetStringInfo(0,""),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
+                    thr_,
                     _begin);
         }
         return new AnaRendCatchEval(new OffsetStringInfo(0,""),
                 new OffsetStringInfo(0,""),
                 new OffsetStringInfo(0,_primTypes.getKeyWords().getKeyWordNull()),
+                thr_,
                 _begin);
     }
 
