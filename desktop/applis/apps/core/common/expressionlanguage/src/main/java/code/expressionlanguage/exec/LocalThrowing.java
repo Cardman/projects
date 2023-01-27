@@ -62,6 +62,8 @@ public final class LocalThrowing {
         }
         if (throwIfGuardError(currentBlock_)) {
             curr_.setEnteredCatch(true);
+        }
+        if (curr_.isEnteredCatch()) {
             curr_.setException(_custCause);
         }
         ExecBlock next_ = currentBlock_.getNextSibling();

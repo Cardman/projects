@@ -56,11 +56,15 @@ public final class RendLocalThrowing {
                     return true;
                 }
             }
-            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(((RendTryBlockStack)_bl).getException()));
         }
         if (ImportingPage.setRemovedCallingFinallyToProcess(_bkIp, _bl, null, _str)) {
             _rendStackCall.getStackCall().setNullCallingState();
             return true;
+        }
+        if (_bl instanceof RendTryBlockStack) {
+            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(((RendTryBlockStack)_bl).getException()));
+        } else {
+            _rendStackCall.getStackCall().setCallingState(new CustomFoundExc(_str));
         }
         return false;
     }
