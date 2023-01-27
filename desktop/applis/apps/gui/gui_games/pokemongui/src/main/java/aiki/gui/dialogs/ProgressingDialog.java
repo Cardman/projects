@@ -40,10 +40,12 @@ public final class ProgressingDialog implements ProgressDialog {
     private AnimatedImage animation;
     private GroupFrame window;
     private LoadFlag loadFlag;
+    private AbsPlainLabel comp;
 
     public ProgressingDialog(AbstractProgramInfos _frameFactory) {
         absDialog = _frameFactory.getFrameFactory().newDialog(new ClosingProgressingDialog(this));
         loadFlag = new LoadFlagImpl(_frameFactory.getThreadFactory().newAtomicBoolean());
+        comp = _frameFactory.getCompoFactory().newPlainLabel("");
     }
 
     public AbsDialog getAbsDialog() {
@@ -67,6 +69,8 @@ public final class ProgressingDialog implements ProgressDialog {
         perCent = PER_CENT;
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
         AbsPanel contentPane_ = _window.getCompoFactory().newPageBox();
+        comp = _window.getFrames().getCompoFactory().newPlainLabel("");
+        contentPane_.add(comp);
         AbsPanel label_ = _window.getCompoFactory().newLineBox();
         AbsPreparedLabel anim_;
         if (!_images.isEmpty()) {
@@ -149,6 +153,7 @@ public final class ProgressingDialog implements ProgressDialog {
 
     public void setPerCent(int _perCent) {
         perCent = Long.toString(_perCent);
+        comp.setText(perCent+" %");
         if (bar == null) {
             return;
         }
