@@ -1570,6 +1570,7 @@ public final class RenderInitNavTest extends CommonRender {
     private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
         DefaultInitialization de_ = initDbOkConfBuild(_xmlConf, _clName, _methodName, _brCode, _page);
         String ex_ = de_.execute(new Navigation());
+        assertEq("ABCDEF",de_.getKeyWordDigit());
         assertNotNull(de_.getContext());
         return ex_;
     }

@@ -34,6 +34,7 @@ import aiki.network.NetAiki;
 import aiki.network.SendReceiveServerAiki;
 import aiki.network.sml.DocumentReaderAikiMultiUtil;
 import aiki.network.sml.DocumentWriterAikiMultiUtil;*/
+import code.bean.nat.FixCharacterCaseConverter;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.*;
 import code.gui.document.RenderedPage;
@@ -1026,7 +1027,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 
         //JTextArea area_ = new JTextArea();
         RenderedPage session_;
-        session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames());
+        session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames(),new FixCharacterCaseConverter());
         session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
         FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);

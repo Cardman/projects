@@ -902,7 +902,6 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        AbsScrollPane ascenseur_;
 
         if(isChangerPileFin()) {
             GameTarot partie_=partieTarot();
@@ -934,20 +933,17 @@ public class ContainerSingleTarot extends ContainerTarot implements ContainerSin
         res_.getRes().setGeneral(readCoreResource());
         res_.getRes().setSpecific(readResource());
 
-        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
+        RenderedPage editor_;
         PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
-        FrameGeneralHelp.initialize(sOne_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
-        ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
-        editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
+        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),editor_.getScroll());
         PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
-        FrameGeneralHelp.initialize(sTwo_, editor_);
-        ascenseur_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),ascenseur_);
+        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),editor_.getScroll());
         if(partie_.getType()==GameType.RANDOM) {
             Ints couleurs_=new Ints();
             couleurs_.add(GuiConstants.RED);

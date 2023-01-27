@@ -41,6 +41,7 @@ public final class DefaultInitialization {
 
     private final String methodName;
     private ContextEl context;
+    private String keyWordDigit = "";
 
     public DefaultInitialization(BeanCustLgNames _lgNames, AbstractSymbolFactory _fact, String _lgCode, String _fileName, StringMap<String> _fileNames, String _clName, String _methodName) {
         stds = _lgNames;
@@ -63,6 +64,7 @@ public final class DefaultInitialization {
         if (du_.getContext().isKo()) {
             return "";
         }
+        keyWordDigit = du_.getAnalyzed().getKeyWords().getKeyWordNbDig();
         du_.getAnalyzed().setAbstractSymbolFactory(symbolFactory);
         _nav.setFiles(fileNames);
         ContextEl ctx_ = stds.setupAll(new DualNavigationContext(_nav, du_));
@@ -116,6 +118,10 @@ public final class DefaultInitialization {
 
     public ContextEl getContext() {
         return context;
+    }
+
+    public String getKeyWordDigit() {
+        return keyWordDigit;
     }
 
     public static String afterActionWithoutRemove(ContextEl _ctx, RendStackCall _stackCall) {

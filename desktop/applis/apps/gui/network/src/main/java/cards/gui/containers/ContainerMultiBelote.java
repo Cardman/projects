@@ -253,16 +253,14 @@ public class ContainerMultiBelote extends ContainerBelote implements
         }
         container_.add(panel_);
 
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
-        editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesBeloteMulti.getCommon().setGeneral(readCoreResource());
         rulesBeloteMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_BELOTE);
         ((BeloteStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesBeloteMulti);
-        FrameGeneralHelp.initialize(stds_, editor);
+        editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
 
-        scroll_.setPreferredSize(new MetaDimension(300,400));
-        container_.add(scroll_);
+        editor.getScroll().setPreferredSize(new MetaDimension(300,400));
+        container_.add(editor.getScroll());
 
         playersPlacesForGame = _players.getPlacesPlayers();
         playersPseudosForGame = new IntMap<String>(_players.getPseudos());
@@ -820,20 +818,17 @@ public class ContainerMultiBelote extends ContainerBelote implements
         _res.getRes().setSpecific(readResource());
         String lg_ = getOwner().getLanguageKey();
 
-        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
+        RenderedPage editor_;
         PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        FrameGeneralHelp.initialize(sOne_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),scroll_);
-        AbsScrollPane ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
-        editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
+        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),editor_.getScroll());
         PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
         ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        FrameGeneralHelp.initialize(sTwo_, editor_);
-        ascenseur_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),ascenseur_);
+        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_, GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;

@@ -19,6 +19,7 @@ import code.util.IdMap;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.consts.Constants;
+import code.util.ints.CharacterCaseConverter;
 
 public final class RenderedPage implements ProcessingSession {
 
@@ -51,12 +52,15 @@ public final class RenderedPage implements ProcessingSession {
     private final AbstractProgramInfos gene;
     private AbstractScheduledExecutorService timer;
     private AbstractFuture taskTimer;
+    private String keyWordDigit = "ABCDEF";
+    private final CharacterCaseConverter converter;
 
-    public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene) {
+    public RenderedPage(AbsScrollPane _frame, AbstractProgramInfos _gene, CharacterCaseConverter _ccc) {
         scroll = _frame;
         gene = _gene;
         compoFactory = _gene.getCompoFactory();
         processing = _gene.getThreadFactory().newAtomicBoolean();
+        converter = _ccc;
     }
 
     public void initNav(NavigationCore _core, RendKeyWordsGroup _k) {
@@ -160,7 +164,7 @@ public final class RenderedPage implements ProcessingSession {
 
     public void setupText() {
         Document doc_ = navCore.getDocument();
-        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys);
+        MetaDocument metadoc_ = MetaDocument.newInstance(doc_,keys,keyWordDigit,converter);
         GuiBaseUtil.invokeLater(new WindowPage(metadoc_, scroll, this), getGene());
     }
     void directScroll(MetaDocument _meta) {
@@ -199,6 +203,14 @@ public final class RenderedPage implements ProcessingSession {
             return;
         }
         finding.setFinding(_document);
+    }
+
+    public String getKeyWordDigit() {
+        return keyWordDigit;
+    }
+
+    public void setKeyWordDigit(String _k) {
+        this.keyWordDigit = _k;
     }
 
     void setPage(DualPanel _page) {
@@ -266,5 +278,9 @@ public final class RenderedPage implements ProcessingSession {
 
     public AbstractProgramInfos getGene() {
         return gene;
+    }
+
+    public CharacterCaseConverter getConverter() {
+        return converter;
     }
 }

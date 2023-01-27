@@ -670,21 +670,18 @@ public class ContainerSingleBelote extends ContainerBelote implements ContainerS
         res_.getRes().setSpecific(readResource());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getRes().getScores());
-        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
+        RenderedPage editor_;
         PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_BELOTE);
         ((BeloteStandards)sOne_.getBeanNatLgNames()).setDataBase(res_);
-        FrameGeneralHelp.initialize(sOne_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
+        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),editor_.getScroll());
         if(partie_.getBid().jouerDonne()) {
-            scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-            editor_ = new RenderedPage(scroll_, getOwner().getFrames());
             PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_BELOTE);
             ((BeloteStandards)sTwo_.getBeanNatLgNames()).setDataBase(res_);
-            FrameGeneralHelp.initialize(sTwo_, editor_);
-            scroll_.setPreferredSize(new MetaDimension(300,300));
-            onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),scroll_);
+            editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
+            editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+            onglets_.add(getMessages().getVal(WindowCards.DETAIL_RESULTS_PAGE),editor_.getScroll());
         }
         if(partie_.getType()==GameType.RANDOM) {
             Ints couleurs_=new Ints();

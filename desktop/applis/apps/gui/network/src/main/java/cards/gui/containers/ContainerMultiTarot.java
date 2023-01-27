@@ -235,17 +235,15 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         }
         container_.add(panel_);
 
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
-        editor = new RenderedPage(scroll_, getOwner().getFrames());
 
         rulesTarotMulti.getCommon().setGeneral(readCoreResource());
         rulesTarotMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesTarotMulti);
-        FrameGeneralHelp.initialize(stds_, editor);
+        editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
 
-        scroll_.setPreferredSize(new MetaDimension(300,400));
-        container_.add(scroll_);
+        editor.getScroll().setPreferredSize(new MetaDimension(300,400));
+        container_.add(editor.getScroll());
         playersPlacesForGame = _players.getPlacesPlayers();
         playersPseudosForGame = new IntMap<String>(_players.getPseudos());
         for (int i:_players.getPseudos().getKeys()) {
@@ -1055,7 +1053,6 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         MenuItemUtils.setEnabledMenu(getOwner().getTricksHands(),false);
         MenuItemUtils.setEnabledMenu(getOwner().getTeams(),false);
         AbsPanel container_=getOwner().getCompoFactory().newBorder();
-        AbsScrollPane ascenseur_;
         /*Le nombre de parties jouees depuis le lancement du logiciel*/
         setThreadAnime(false);
         AbsTabbedPane onglets_=getOwner().getCompoFactory().newAbsTabbedPane();
@@ -1063,20 +1060,17 @@ public class ContainerMultiTarot extends ContainerTarot implements ContainerMult
         setScores(_res.getRes().getScores());
         _res.getRes().setGeneral(readCoreResource());
         _res.getRes().setSpecific(readResource());
-        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
+        RenderedPage editor_;
         PreparedAnalyzedCards sOne_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)sOne_.getBeanNatLgNames()).setDataBase(_res);
-        FrameGeneralHelp.initialize(sOne_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),scroll_);
-        ascenseur_=getOwner().getCompoFactory().newAbsScrollPane();
-        editor_ = new RenderedPage(ascenseur_, getOwner().getFrames());
+        editor_ = FrameGeneralHelp.initialize(sOne_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),editor_.getScroll());
         PreparedAnalyzedCards sTwo_ = retrieve(FileConst.RESOURCES_HTML_FILES_DETAILS_RESULTS_TAROT);
         ((TarotStandards)sTwo_.getBeanNatLgNames()).setDataBase(_res);
-        FrameGeneralHelp.initialize(sTwo_, editor_);
-        ascenseur_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),ascenseur_);
+        editor_ = FrameGeneralHelp.initialize(sTwo_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowNetWork.DETAIL_RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;

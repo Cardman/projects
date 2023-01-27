@@ -7,6 +7,7 @@ import cards.gui.WindowCards;
 import cards.gui.dialogs.events.ListenerClickTree;
 import cards.gui.dialogs.help.*;
 import code.bean.nat.BeanNatCommonLgNamesInt;
+import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.formathtml.render.MetaDocument;
 import code.gui.*;
@@ -14,6 +15,7 @@ import code.gui.document.RenderedPage;
 import code.gui.document.WindowPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 import code.util.StringMap;
 import code.util.core.IndexConstants;
@@ -79,6 +81,15 @@ public final class FrameGeneralHelp extends ChildFrame {
         ((BeanNatCommonLgNamesInt) _stds.getBeanNatLgNames()).initializeRendSessionDoc(n_);
         _cur.setupText();
     }
+    public static RenderedPage initialize(PreparedAnalyzedCards _stds, AbstractProgramInfos _pr) {
+        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
+        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
+        NatNavigation n_ = _stds.getNavigation();
+        coreInfos(r_, n_);
+        ((BeanNatCommonLgNamesInt) _stds.getBeanNatLgNames()).initializeRendSessionDoc(n_);
+        r_.setupText();
+        return r_;
+    }
 
     public static void coreInfos(RenderedPage _cur, NatNavigation _n) {
         _cur.setNavCore(_n.getBean());
@@ -142,7 +153,7 @@ public final class FrameGeneralHelp extends ChildFrame {
                     elementLoc_.nom());
         }
         if (wasNull_) {
-            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames());
+            editor = new RenderedPage(_w.getCompoFactory().newAbsScrollPane(), _w.getFrames(),new FixCharacterCaseConverter());
         }
         AbsTreeGui arbre_ = _w.getCompoFactory().newTreeGui(root_);
         arbre_.setRootVisible(false);

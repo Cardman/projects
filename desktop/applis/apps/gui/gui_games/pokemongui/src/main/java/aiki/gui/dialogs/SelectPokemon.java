@@ -11,7 +11,6 @@ import aiki.gui.dialogs.events.SeePkDetailEvent;
 import aiki.gui.dialogs.events.ValidateSelectionEvent;
 import aiki.map.pokemon.UsablePokemon;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.events.ClosingDialogEvent;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
@@ -93,9 +92,7 @@ public final class SelectPokemon extends SelectDialog {
         if (p_ == null) {
             return;
         }
-        RenderedPage session_;
-        session_ = new RenderedPage(compo.newAbsScrollPane(), window.getFrames());
-        showHtmlDialog(session_, getFacade(),task_, getFacade().getLanguage());
+        showHtmlDialog(getFacade(),task_, getFacade().getLanguage());
     }
 
     @Override
@@ -125,9 +122,9 @@ public final class SelectPokemon extends SelectDialog {
         return _dialog.isOk();
     }
 
-    private void showHtmlDialog(RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(DIALOG, DIALOG.messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, getSelectDial(), messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
+        DialogHtmlData.setDialogHtmlData(window, getSelectDial(), messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
     }
 
     public static void setVisible(SelectPokemon _dialog) {

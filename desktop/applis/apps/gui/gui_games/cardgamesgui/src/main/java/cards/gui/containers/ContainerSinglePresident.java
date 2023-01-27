@@ -562,13 +562,12 @@ public class ContainerSinglePresident extends ContainerPresident implements
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
         setScores(res_.getRes().getScores());
 
-        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
+        RenderedPage editor_;
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        FrameGeneralHelp.initialize(stds_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),scroll_);
+        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowCards.RESULTS_PAGE),editor_.getScroll());
         if(partie_.getType()==GameType.RANDOM) {
             Ints couleurs_=new Ints();
             couleurs_.add(GuiConstants.RED);

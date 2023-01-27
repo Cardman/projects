@@ -42,11 +42,9 @@ public final class DialogGameProgess {
         absDialog.setModal(true);
         absDialog.setTitle(_title);
         absDialog.setLocationRelativeTo(_window.getCommonFrame());
-        AbsScrollPane scrollSession_ = _window.getCompoFactory().newAbsScrollPane();
-        session = new RenderedPage(scrollSession_, _window.getFrames());
-        session.setFrame(absDialog);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_facade);
-        FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()), session);
+        session = FrameHtmlData.initializeOnlyConf(_pre, _facade.getLanguage(), ((PokemonStandards)_pre.getBeanNatLgNames()), _window.getFrames());
+        session.setFrame(absDialog);
         AbsPanel panel_ = _window.getCompoFactory().newPageBox();
         AbsPlainLabel area_ = _window.getCompoFactory().newPlainLabel(TEXT);
         AbsTextField field_;
@@ -59,11 +57,11 @@ public final class DialogGameProgess {
         session.addFinder();
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
-        scrollSession_.setPreferredSize(new MetaDimension(400, 400));
+        session.getScroll().setPreferredSize(new MetaDimension(400, 400));
 //        group_.add(scrollSession_);
 //        JScrollPane scrollTextArea_ = new JScrollPane(area_);
 //        group_.add(scrollTextArea_);
-        panel_.add(scrollSession_);
+        panel_.add(session.getScroll());
         panel_.add(area_);
         panel_.add(field_);
         panel_.add(search_);

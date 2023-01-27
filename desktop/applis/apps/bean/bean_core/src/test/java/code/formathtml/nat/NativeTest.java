@@ -108,6 +108,7 @@ public final class NativeTest extends EquallableBeanCoreUtil {
         assertTrue(NaBoSt.isFalse(NaBoSt.of(false)));
         assertTrue(NaNu.NULL_VALUE.sameReference(NaNu.NULL_VALUE));
         assertFalse(NaNu.NULL_VALUE.sameReference(new NaNbSt(2)));
+        assertEq('0',new FixCharacterCaseConverter().index("ABCDEF",'0'));
 //        StringMapObjectBase s_ = new StringMapObjectBase();
 //        s_.put("0",0);
 //        s_.put("1",false);

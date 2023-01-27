@@ -1,6 +1,7 @@
 package code.formathtml.render;
 
 import code.gui.*;
+import code.gui.document.RenderedPage;
 import code.maths.montecarlo.*;
 import code.mock.*;
 import code.sml.Node;
@@ -67,6 +68,9 @@ public abstract class EquallableGuiDocUtil {
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected.getList(), _result.getList());
+    }
+    public static RenderedPage newRenderedPage(MockProgramInfos _pr) {
+        return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter());
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);

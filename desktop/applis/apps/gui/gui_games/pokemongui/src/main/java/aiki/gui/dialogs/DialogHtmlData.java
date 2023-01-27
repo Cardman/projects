@@ -43,12 +43,12 @@ public final class DialogHtmlData {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(WindowAiki _window, AbsDialog _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _window, AbsDialog _parent, String _title, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         _window.getDialogHtmlData().absDialog.setDialogIcon(_window.getImageFactory(),_parent);
         _window.getDialogHtmlData().absDialog.setTitle(_title);
-        _window.getDialogHtmlData().init(_window, _parent, _session);
-        _window.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
+        _window.getDialogHtmlData().absDialog.setLocationRelativeTo(_parent);
+        group(_window, _dataBase, _pre, _lg);
     }
 
 //    public static void setDialogHtmlData(GroupFrame _parent, String _title, SessionEditorPane _session, boolean _successCompile) {
@@ -58,24 +58,22 @@ public final class DialogHtmlData {
 //        DIALOG.init(_parent, _session);
 //        DIALOG.initSession(_successCompile);
 //    }
-    public static void setDialogHtmlData(WindowAiki _parent, String _title, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    public static void setDialogHtmlData(WindowAiki _parent, String _title, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         //super(_parent, true);
         _parent.getDialogHtmlData().absDialog.setDialogIcon(_parent.getImageFactory(),_parent.getCommonFrame());
         _parent.getDialogHtmlData().absDialog.setTitle(_title);
-        _parent.getDialogHtmlData().init(_parent, _parent, _session);
-        _parent.getDialogHtmlData().initSession(_dataBase,_pre,_lg);
+        _parent.getDialogHtmlData().absDialog.setLocationRelativeTo(_parent.getCommonFrame());
+        group(_parent, _dataBase, _pre, _lg);
     }
 
-    private void init(WindowAiki _window, AbsDialog _parent, RenderedPage _session) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
-        absDialog.setLocationRelativeTo(_parent);
-        initSession(_session);
-    }
-
-    private void init(WindowAiki _window, WindowAiki _parent, RenderedPage _session) {
-        messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _window.getLanguageKey(), absDialog.getAccessFile());
-        absDialog.setLocationRelativeTo(_parent.getCommonFrame());
-        initSession(_session);
+    private static void group(WindowAiki _parent, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+        DialogHtmlData d_ = _parent.getDialogHtmlData();
+        RenderedPage session_ = FrameHtmlData.initializeOnlyConf(_pre, _lg, ((PokemonStandards) _pre.getBeanNatLgNames()), _parent.getFrames());
+        d_.messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), d_.absDialog.getAccessFile());
+        d_.initSession(session_);
+        d_.session.setFrame(d_.absDialog);
+        ((PokemonStandards) _pre.getBeanNatLgNames()).setDataBase(_dataBase);
+        d_.absDialog.setVisible(true);
     }
 
     private void initSession(RenderedPage _session) {
@@ -107,11 +105,4 @@ public final class DialogHtmlData {
         absDialog.pack();
     }
 
-    public void initSession(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
-        session.setFrame(absDialog);
-        ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
-        FrameHtmlData.initializeOnlyConf(_pre, _lg, ((PokemonStandards)_pre.getBeanNatLgNames()), session);
-
-        absDialog.setVisible(true);
-    }
 }

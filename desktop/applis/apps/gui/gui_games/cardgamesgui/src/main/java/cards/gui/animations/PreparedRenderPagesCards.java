@@ -1,6 +1,7 @@
 package cards.gui.animations;
 
 import code.bean.help.HelpCaller;
+import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatDualConfigurationContext;
 import code.bean.nat.NatNavigation;
 import code.bean.nat.analyze.NatConfigurationCore;
@@ -39,7 +40,7 @@ public final class PreparedRenderPagesCards {
         getNavigation().setLanguage(lg);
         getNavigation().setLanguages(new StringList(lg));
         Document rendStackCall_ = textSt(contextConf, getNavigation(), realPath(getNavigation()), built.getVal(firstUrl), ms);
-        metaDocument = MetaDocument.newInstance(rendStackCall_, getNavigation().getSession().getRendKeyWords());
+        metaDocument = MetaDocument.newInstance(rendStackCall_, getNavigation().getSession().getRendKeyWords(),"ABCDEF",new FixCharacterCaseConverter());
     }
 
     private Document textSt(NatDualConfigurationContext _contextConf, NatNavigation _navigation, String _realFilePath, Document _val, StringMap<String> _ms) {

@@ -1597,16 +1597,7 @@ public final class ElResolver {
     }
 
     private static int index(KeyWords _key, char _curChar) {
-        boolean ok_ = StringExpUtil.isDigit(_curChar);
-        if (ok_) {
-            return _curChar;
-        }
-        int min_ = NumParsers.toMinCaseLetter(_curChar);
-        int ind_ = _key.getKeyWordNbDig().indexOf(min_);
-        if (ind_ >= 0) {
-            return (char) (ind_ + 'A');
-        }
-        return -1;
+        return new DefCharacterCaseConverter().index(_key.getKeyWordNbDig(),_curChar);
     }
 
     private static IndexUnicodeEscape processTextBlocks(KeyWords _key, String _string, int _max, TextBlockInfo _si, IndexUnicodeEscape _infos, char _delimiter) {

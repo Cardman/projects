@@ -1,5 +1,6 @@
 package code.formathtml.render;
 
+import code.mock.MockCharacterCaseConverter;
 import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
 import org.junit.Test;
@@ -31,7 +32,7 @@ public final class FindNextElementTest extends EquallableGuiDocUtil {
 
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
-        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup());
+        return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
     }
 
     @Test

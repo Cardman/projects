@@ -9,6 +9,7 @@ import aiki.facade.FacadeGame;
 import aiki.gui.threads.PreparedRenderedPages;
 import aiki.sml.Resources;
 import aiki.gui.WindowAiki;
+import code.bean.nat.FixCharacterCaseConverter;
 import code.bean.nat.NatNavigation;
 import code.gui.*;
 import code.gui.document.NatRenderAction;
@@ -16,6 +17,7 @@ import code.gui.document.PreparedAnalyzed;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
 import code.gui.images.MetaDimension;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringMap;
 
 public final class FrameHtmlData extends ChildFrame {
@@ -73,6 +75,19 @@ public final class FrameHtmlData extends ChildFrame {
         _cur.setRenderAction(new NatRenderAction(_stds,n_));
         _stds.initializeRendSessionDoc(n_);
         _cur.setupText();
+    }
+
+    public static RenderedPage initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, AbstractProgramInfos _pr) {
+        AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
+        RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
+        NatNavigation n_ = _prepared.getNavigation();
+        coreInfos(r_, n_);
+        r_.getNavCore().setLanguage(_lg);
+        r_.setStandards(_stds);
+        r_.setRenderAction(new NatRenderAction(_stds,n_));
+        _stds.initializeRendSessionDoc(n_);
+        r_.setupText();
+        return r_;
     }
 
     public static void coreInfos(RenderedPage _cur, NatNavigation _n) {

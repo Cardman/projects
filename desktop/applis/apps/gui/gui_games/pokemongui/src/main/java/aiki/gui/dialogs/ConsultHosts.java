@@ -12,7 +12,6 @@ import aiki.map.places.Place;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.util.Coords;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.*;
 import code.util.StringMap;
@@ -114,13 +113,11 @@ public final class ConsultHosts {
 //            return;
 //        }
         facade.setHostedPokemon(_first, _coords);
-        RenderedPage session_;
-        session_ = new RenderedPage(window.getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames());
-        showHtmlDialog(session_,facade,task_,facade.getLanguage());
+        showHtmlDialog(facade,task_,facade.getLanguage());
     }
 
-    private void showHtmlDialog(RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(this, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(window, absDialog, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
+        DialogHtmlData.setDialogHtmlData(window, absDialog, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
     }
 }

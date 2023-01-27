@@ -1,5 +1,6 @@
 package code.formathtml.render;
 
+import code.mock.MockCharacterCaseConverter;
 import code.sml.*;
 import code.util.LongTreeMap;
 import code.util.StringList;
@@ -185,6 +186,6 @@ public final class QuickSubmitFormTest extends EquallableGuiDocUtil {
         SubmitForm.submit(_intForm, _stds);
     }
     private static MetaDocument getMetaDocument(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup());
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
     }
 }

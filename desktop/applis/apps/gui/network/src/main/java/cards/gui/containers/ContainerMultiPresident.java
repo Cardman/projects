@@ -125,16 +125,14 @@ public class ContainerMultiPresident extends ContainerPresident implements
         }
         container_.add(panel_);
 
-        AbsScrollPane scroll_ = getOwner().getCompoFactory().newAbsScrollPane();
-        editor = new RenderedPage(scroll_, getOwner().getFrames());
         rulesPresidentMulti.getCommon().setGeneral(readCoreResource());
         rulesPresidentMulti.getCommon().setSpecific(readResource());
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RULES_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBaseRules(rulesPresidentMulti);
-        FrameGeneralHelp.initialize(stds_, editor);
+        editor = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
 
-        scroll_.setPreferredSize(new MetaDimension(300,400));
-        container_.add(scroll_);
+        editor.getScroll().setPreferredSize(new MetaDimension(300,400));
+        container_.add(editor.getScroll());
 
         playersPlacesForGame = _players.getPlacesPlayers();
         playersPseudosForGame = new IntMap<String>(_players.getPseudos());
@@ -638,13 +636,12 @@ public class ContainerMultiPresident extends ContainerPresident implements
         String lg_ = getOwner().getLanguageKey();
         setScores(_res.getRes().getScores());
 
-        AbsScrollPane scroll_=getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, getOwner().getFrames());
+        RenderedPage editor_;
         PreparedAnalyzedCards stds_ = retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_PRESIDENT);
         ((PresidentStandards)stds_.getBeanNatLgNames()).setDataBase(_res);
-        FrameGeneralHelp.initialize(stds_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
-        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),scroll_);
+        editor_ = FrameGeneralHelp.initialize(stds_, getOwner().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
+        onglets_.add(getMessages().getVal(WindowNetWork.RESULTS_PAGE),editor_.getScroll());
         container_.add(onglets_,GuiConstants.BORDER_LAYOUT_CENTER);
         AbsPanel panneau_=getOwner().getCompoFactory().newPageBox();
         readyToPlay = false;

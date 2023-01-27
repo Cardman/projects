@@ -34,6 +34,7 @@ public final class CustThreadActions extends AbstractThreadActions {
     @Override
     public void run() {
         String res_ = init.execute(navigation);
+        getPage().setKeyWordDigit(init.getKeyWordDigit());
         if (res_ != null) {
             if (getPage().getArea() != null) {
                 getPage().getArea().append(res_);

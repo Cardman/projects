@@ -1,5 +1,6 @@
 package code.renders;
 
+import code.expressionlanguage.analyze.instr.DefCharacterCaseConverter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.utilcompo.*;
@@ -54,7 +55,7 @@ public final class WindowRenders extends GroupFrame {
         pane_.add(lgCode);
         path = getCompoFactory().newTextField(20);
         pane_.add(path);
-        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos);
+        session = new RenderedPage(getCompoFactory().newAbsScrollPane(), _programInfos,new DefCharacterCaseConverter());
         Navigation n_ = nav();
         session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
         session.setLanguage(_lg);

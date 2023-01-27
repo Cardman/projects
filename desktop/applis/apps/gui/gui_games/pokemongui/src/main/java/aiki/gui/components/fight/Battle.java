@@ -38,6 +38,7 @@ import aiki.gui.listeners.AbilityFightEvent;
 import aiki.gui.listeners.FighterAction;
 import aiki.gui.listeners.MoveEvent;
 import aiki.gui.listeners.SelectPlaceEvent;
+import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.events.ClosingChildFrameEvent;
@@ -1030,7 +1031,7 @@ public class Battle extends ChildFrame {
             return;
         }
         RenderedPage session_;
-        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames());
+        session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames(),new FixCharacterCaseConverter());
         session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
         FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
         dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());

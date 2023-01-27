@@ -11,6 +11,7 @@ import aiki.gui.threads.PreparedRenderedPages;
 import aiki.map.pokemon.PokemonPlayer;
 import aiki.map.pokemon.UsablePokemon;
 import aiki.sml.Resources;
+import code.bean.nat.FixCharacterCaseConverter;
 import code.gui.*;
 import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
@@ -714,7 +715,7 @@ public class ScenePanelMulti {
         AbsPanel group_ = compoFactory.newBorder();
         group_.add(window.getCompoFactory().newPlainLabel(messages.getVal(RECEIVED_POKEMON)), GuiConstants.BORDER_LAYOUT_NORTH);
         AbsScrollPane scrollSession_ = compoFactory.newAbsScrollPane();
-        receivedPk = new RenderedPage(scrollSession_, window.getFrames());
+        receivedPk = new RenderedPage(scrollSession_, window.getFrames(),new FixCharacterCaseConverter());
 //        receivedPk.setFiles(facade.getData().getWebPk(), Resources.ACCESS_TO_DEFAULT_FILES);
         receivedPk.setFrame(window.getCommonFrame());
 //        receivedPk.prepare();

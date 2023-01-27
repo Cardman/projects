@@ -195,18 +195,17 @@ public final class SimulatingTarotImpl extends AbstractSimulatingTarot {
         res_.getRes().setUser(DealTarot.NUMERO_UTILISATEUR);
         res_.initialize(new StringList(nicknames_), container.getScores());
         DocumentReaderCardsResultsUtil.setMessages(res_,lg_);
-        AbsScrollPane scroll_=container.getOwner().getCompoFactory().newAbsScrollPane();
-        RenderedPage editor_ = new RenderedPage(scroll_, container.getWindow().getFrames());
+        RenderedPage editor_;
         res_.getRes().setGeneral(container.readCoreResource());
         res_.getRes().setSpecific(container.readResource());
         PreparedAnalyzedCards stds_ = container.retrieve(FileConst.RESOURCES_HTML_FILES_RESULTS_TAROT);
         ((TarotStandards)stds_.getBeanNatLgNames()).setDataBase(res_);
-        FrameGeneralHelp.initialize(stds_, editor_);
-        scroll_.setPreferredSize(new MetaDimension(300,300));
+        editor_ = FrameGeneralHelp.initialize(stds_, container.getWindow().getFrames());
+        editor_.getScroll().setPreferredSize(new MetaDimension(300,300));
 
         AbsPanel panneau_=container.getOwner().getCompoFactory().newPageBox();
         AbsScrollPane scrollTxt_=container.getOwner().getCompoFactory().newAbsScrollPane(container.getOwner().getCompoFactory().newTextArea(container.getEvents().getText(),8, 30));
-        AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(scroll_,scrollTxt_);
+        AbsSplitPane spl_ = container.getOwner().getCompoFactory().newHorizontalSplitPane(editor_.getScroll(),scrollTxt_);
         panneau_.add(spl_);
         AbsPlainButton stopButton_ = container.getOwner().getCompoFactory().newPlainButton(container.getMessages().getVal(WindowCards.STOP_DEMO));
         stopButton_.addActionListener(stopEvent);

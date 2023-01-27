@@ -9,6 +9,7 @@ import code.util.comparators.ComparatorBoolean;
 import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
+import code.util.ints.CharacterCaseConverter;
 
 public final class MetaDocument {
 
@@ -49,7 +50,7 @@ public final class MetaDocument {
     private int delta;
     private final int tabWidth;
 
-    private MetaDocument(Document _document, RendKeyWordsGroup _rend) {
+    private MetaDocument(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter) {
         tabWidth = _document.getTabWidth();
         //process style parse
         IndexButtons indexesButtons_ = new IndexButtons();
@@ -73,7 +74,7 @@ public final class MetaDocument {
         Node current_ = body_;
         while (current_ != null) {
             MetaStyle styleLoc_ = new MetaStyle();
-            eltTxt(_rend, indexesButtons_, current_, styleLoc_);
+            eltTxt(_rend, indexesButtons_, current_, styleLoc_,_keyWordDig,_converter);
             Node next_ = current_.getFirstChild();
             if (next_ != null && !skipChildrenBuild) {
                 stacks.add(tagName);
@@ -100,8 +101,8 @@ public final class MetaDocument {
         removeUseless();
     }
 
-    private void eltTxt(RendKeyWordsGroup _rend, IndexButtons _indexes, Node _curr, MetaStyle _styleLoc) {
-        updateSty(_rend, _curr, _styleLoc);
+    private void eltTxt(RendKeyWordsGroup _rend, IndexButtons _indexes, Node _curr, MetaStyle _styleLoc, String _keyWordDig, CharacterCaseConverter _converter) {
+        updateSty(_rend, _curr, _styleLoc,_keyWordDig,_converter);
         boolean li_ = !stacks.isEmpty() && StringUtil.quickEq(stacks.last(), _rend.getKeyWordsTags().getKeyWordLi());
         if (_curr instanceof Text) {
             Text txt_ = (Text) _curr;
@@ -702,7 +703,7 @@ public final class MetaDocument {
         }
     }
 
-    private void updateSty(RendKeyWordsGroup _rend, Node _curr, MetaStyle _stLoc) {
+    private void updateSty(RendKeyWordsGroup _rend, Node _curr, MetaStyle _stLoc, String _keyWordDig, CharacterCaseConverter _converter) {
         Element parStyle_ = _curr.getParentNode();
         IntTreeMap< String> tags_ = new IntTreeMap< String>(new CollCapacity(tagsClasses.size()));
         for (EntryCust<String, Integer> e: tagsClasses.entryList()) {
@@ -710,10 +711,10 @@ public final class MetaDocument {
         }
         if (_curr instanceof Element) {
             Element currentElt_ = (Element) _curr;
-            setupGeneStyle(_rend, _stLoc, tags_, currentElt_, true);
+            setupGeneStyle(_rend, _stLoc, tags_, currentElt_, true,_keyWordDig,_converter);
         }
         while (parStyle_ != null) {
-            setupGeneStyle(_rend, _stLoc, tags_, parStyle_, false);
+            setupGeneStyle(_rend, _stLoc, tags_, parStyle_, false,_keyWordDig,_converter);
             parStyle_ = parStyle_.getParentNode();
         }
     }
@@ -741,14 +742,14 @@ public final class MetaDocument {
         }
     }
 
-    private void setupGeneStyle(RendKeyWordsGroup _rend,MetaStyle _styleLoc, IntTreeMap<String> _tags, Element _currentElt, boolean _local) {
+    private void setupGeneStyle(RendKeyWordsGroup _rend,MetaStyle _styleLoc, IntTreeMap<String> _tags, Element _currentElt, boolean _local, String _keyWordDig, CharacterCaseConverter _converter) {
         int len_ = _tags.size();
         int j_ = len_ - 1;
         while (j_ > -1) {
             String v_ = _tags.getVal(j_);
             String result_ = styleIt(_rend, v_, _currentElt);
             if (result_ != null) {
-                setupStyle(_rend,_styleLoc, result_, _local);
+                setupStyle(_rend,_styleLoc, result_, _local,_keyWordDig,_converter);
                 break;
             }
             j_--;
@@ -775,13 +776,13 @@ public final class MetaDocument {
         return null;
     }
 
-    private static void setupStyle(RendKeyWordsGroup _rend,MetaStyle _style, String _value, boolean _local) {
+    private static void setupStyle(RendKeyWordsGroup _rend,MetaStyle _style, String _value, boolean _local, String _keyWordDig, CharacterCaseConverter _converter) {
         for (String p: StringUtil.splitChars(_value, ';')) {
-            attrStyle(_rend, _style, _local, p);
+            attrStyle(_rend, _style, _local, p,_keyWordDig,_converter);
         }
     }
 
-    private static void attrStyle(RendKeyWordsGroup _rend, MetaStyle _style, boolean _local, String _p) {
+    private static void attrStyle(RendKeyWordsGroup _rend, MetaStyle _style, boolean _local, String _p, String _keyWordDig, CharacterCaseConverter _converter) {
         int indexSep_ = _p.indexOf(':');
         if (indexSep_ < 0) {
             return;
@@ -808,20 +809,20 @@ public final class MetaDocument {
             return;
         }
         if (StringUtil.quickEq(key_, _rend.getKeyWordsStyles().getStyleAttrColor())) {
-            _style.setFgColor(getColor(_rend,value_, _style.getFgColor()));
+            _style.setFgColor(getColor(_rend,value_, _style.getFgColor(),_keyWordDig,_converter));
         } else if (StringUtil.quickEq(key_, _rend.getKeyWordsStyles().getStyleAttrBackground())) {
-            _style.setBgColor(getColor(_rend,value_, _style.getBgColor()));
+            _style.setBgColor(getColor(_rend,value_, _style.getBgColor(),_keyWordDig,_converter));
         } else if (StringUtil.quickEq(key_, _rend.getKeyWordsStyles().getStyleAttrBorder())) {
             if (!_local) {
                 return;
             }
             for (String v: StringUtil.splitChars(value_, ' ','\t','\n','\r')) {
-                borderStyle(_rend, _style, v);
+                borderStyle(_rend, _style, v,_keyWordDig,_converter);
             }
         }
     }
 
-    private static void borderStyle(RendKeyWordsGroup _rend, MetaStyle _style, String _v) {
+    private static void borderStyle(RendKeyWordsGroup _rend, MetaStyle _style, String _v, String _keyWordDig, CharacterCaseConverter _converter) {
         String styleUnitPx_ = _rend.getKeyWordsStyles().getStyleUnitPx();
         if (_v.endsWith(styleUnitPx_)) {
             String size_ = _v.substring(0, _v.length() - styleUnitPx_.length());
@@ -833,20 +834,16 @@ public final class MetaDocument {
             _style.setBorder(BorderEnum.SOLID);
             return;
         }
-        _style.setBorderColor(getColor(_rend, _v, _style.getBorderColor()));
+        _style.setBorderColor(getColor(_rend, _v, _style.getBorderColor(),_keyWordDig,_converter));
     }
 
-    private static int getColor(RendKeyWordsGroup _rend,String _value, int _default) {
+    private static int getColor(RendKeyWordsGroup _rend,String _value, int _default, String _keyWordDig, CharacterCaseConverter _converter) {
         if (_value.startsWith(_rend.getKeyWordsStyles().getStyleValueRgb())&&_value.substring(_rend.getKeyWordsStyles().getStyleValueRgb().length()).trim().indexOf('(')==0) {
             String val_ = StringUtil.removeChars(_value.substring(_rend.getKeyWordsStyles().getStyleValueRgb().length()), '(', ')');
             return getRgb(val_);
         }
         if (_value.startsWith(COLOR_PREFIX)) {
-            String v_ = _value.substring(1);
-            if (!okHex(v_)) {
-                return _default;
-            }
-            return (int) NumberUtil.parseLongSixteen(v_);
+            return geneHex(_value, _default, _keyWordDig, _converter);
         }
         if (StringUtil.quickEq(_value, _rend.getKeyWordsStyles().getStyleValueRed())){
             return 255*256*256;
@@ -877,13 +874,17 @@ public final class MetaDocument {
         }
         return _default;
     }
-    static boolean okHex(String _value) {
-        for (char c: _value.toCharArray()) {
-            if (!NumberUtil.isDigit(c)&&!NumberUtil.isMajHex(c)&&!NumberUtil.isMinHex(c)) {
-                return false;
+    private static int geneHex(String _value, int _default, String _keyWordDig, CharacterCaseConverter _converter) {
+        String v_ = _value.substring(1);
+        StringBuilder tr_ = new StringBuilder();
+        for (char c: v_.toCharArray()) {
+            int i_ = _converter.index(_keyWordDig, c);
+            if (i_ < 0) {
+                return _default;
             }
+            tr_.append((char) i_);
         }
-        return true;
+        return (int) NumberUtil.parseLongSixteen(tr_.toString());
     }
     private static int getRgb(String _value) {
         int rgb_ = 0;
@@ -1120,8 +1121,8 @@ public final class MetaDocument {
     public MetaBlock getRoot() {
         return root;
     }
-    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend) {
-        return new MetaDocument(_document,_rend);
+    public static MetaDocument newInstance(Document _document, RendKeyWordsGroup _rend, String _keyWordDig, CharacterCaseConverter _converter) {
+        return new MetaDocument(_document,_rend,_keyWordDig,_converter);
     }
 
     public CustList<IntForm> getForms() {

@@ -35,7 +35,6 @@ import aiki.map.pokemon.UsablePokemon;
 //import aiki.network.NetAiki;
 //import aiki.network.stream.SentPokemon;
 import code.gui.*;
-import code.gui.document.RenderedPage;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbsCompoFactory;
 import code.maths.LgInt;
@@ -1269,9 +1268,7 @@ public class ScenePanel {
 //        if (thread_ == null || thread_.isAlive() || task_ == null) {
 //            return;
 //        }
-        RenderedPage session_;
-        session_ = new RenderedPage(compoFactory.newAbsScrollPane(), window.getFrames());
-        showHtmlDialog(window, session_,facade,task_,facade.getLanguage());
+        showHtmlDialog(window, facade,task_,facade.getLanguage());
     }
 
     public void healPokemon() {
@@ -1440,9 +1437,9 @@ public class ScenePanel {
         fish.setEnabled(facade.isFishArea());
     }
 
-    private void showHtmlDialog(WindowAiki _parent, RenderedPage _session, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
+    private void showHtmlDialog(WindowAiki _parent, FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
 //        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session, window.isSuccessfulCompile());
-        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _session,_dataBase,_pre,_lg);
+        DialogHtmlData.setDialogHtmlData(_parent, messages.getVal(TITLE_DETAIL), _dataBase,_pre,_lg);
     }
 
     public void selectPokemon() {

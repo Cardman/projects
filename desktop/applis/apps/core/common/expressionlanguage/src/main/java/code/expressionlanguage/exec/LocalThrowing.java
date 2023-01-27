@@ -28,6 +28,7 @@ public final class LocalThrowing {
                 if (setRemovedCallingFinallyToProcess(_stackCall,custCause_, bkIp_, bl_)) {
                     return;
                 }
+                bkIp_.removeLastBlock();
             }
             CallingState c_ = _stackCall.getCallingState();
             if (c_ instanceof CustomFoundExc) {
@@ -56,12 +57,10 @@ public final class LocalThrowing {
             ExecBracedBlock cur_ = _bl.getCurrentVisitedBlock();
             if (!(cur_ instanceof ExecFinallyEval)&&!((TryBlockStack) _bl).isEnteredCatch()) {
                 _stackCall.setCallingState(new CustomFoundExc(((TryBlockStack)_bl).getException()));
-                _bkIp.removeLastBlock();
                 return false;
             }
         }
         _stackCall.setCallingState(new CustomFoundExc(_custCause));
-        _bkIp.removeLastBlock();
         return false;
     }
     private static ExecBracedBlock toVisit(TryBlockStack _tr) {

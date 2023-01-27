@@ -14,7 +14,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void withAction() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
@@ -27,7 +27,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noAction1() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
@@ -40,7 +40,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noAction2() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         NavigationCore c_ = new NavigationCore();
         RendKeyWordsGroup g_ = new RendKeyWordsGroup();
@@ -53,7 +53,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void withActionDial() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         NavigationCore c_ = new NavigationCore();
@@ -67,7 +67,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noActionDial1() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         NavigationCore c_ = new NavigationCore();
@@ -81,7 +81,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noActionDial2() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
@@ -97,7 +97,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noActionDial3() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
@@ -113,7 +113,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noActionDial4() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionNoAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
@@ -131,7 +131,7 @@ public final class EventThreadActionsTest extends EquallableGuiDocUtil {
     @Test
     public void noActionDial5() {
         MockProgramInfos pr_ = newMockProgramInfos(new MockEventListIncr(new int[]{1}, new String[0], new TextAnswerValue[0]), new MockFileSet(10, lgs(), StringUtil.wrapStringArray("/")));
-        RenderedPage ren_ = new RenderedPage(pr_.getCompoFactory().newAbsScrollPane(), pr_);
+        RenderedPage ren_ = newRenderedPage(pr_);
         ren_.setRenderAction(new AbstractRenderActionWithAction());
         ren_.setDialog(new ProgressingWebDialog(pr_));
         ren_.setProcess(one());
