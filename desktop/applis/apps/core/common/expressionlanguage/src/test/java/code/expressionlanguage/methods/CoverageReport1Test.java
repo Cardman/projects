@@ -14870,6 +14870,46 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage738Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  for (int i:new int[]{1,3}){\n");
+        xml_.append("   try{\n");
+        xml_.append("    throw \"\"+i;\n");
+        xml_.append("   }\n");
+        xml_.append("   catch(\"1\",\"3\"){\n");
+        xml_.append("    continue;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  return 1i;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static int <a name=\"m41\">catching</a>(){\n" +
+                "  <span class=\"f\">for (int <a name=\"m64\">i</a></span>:<span class=\"f\">new int[]{<span class=\"f\">1</span>,<span class=\"f\">3</span>}</span>){\n" +
+                "   try{\n" +
+                "    throw <span class=\"f\"><span class=\"f\"><span class=\"s\">\"\"</span></span>+<span class=\"f\"><a href=\"#m64\">i</a></span></span>;\n" +
+                "   }\n" +
+                "   <span class=\"f\"><a title=\"2/2\">catch</a></span>(<span class=\"s\">\"1\"</span>,<span class=\"s\">\"3\"</span>){\n" +
+                "    continue;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  return <span class=\"f\">1i</span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
