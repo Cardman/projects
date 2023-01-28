@@ -88,6 +88,9 @@ public final class RendLocalThrowing {
     private static RendAbstractCatchEval ret(RendBlock _n, ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp) {
         if (_n instanceof RendCatchEval) {
             RendCatchEval ca_ = (RendCatchEval) _n;
+            if (ca_.isCatchAll()) {
+                return guard(_ctx, _str, _rendStackCall, _bkIp, ca_, _ctx.getStandards().getCoreNames().getAliasObject());
+            }
             String name_ = _rendStackCall.formatVarType(ca_.getImportedClassName());
             if (_str != NullStruct.NULL_VALUE && ExecInherits.safeObject(name_, Argument.getNull(_str).getClassName(_ctx), _ctx) == ErrorType.NOTHING) {
                 return guard(_ctx, _str, _rendStackCall, _bkIp, ca_, name_);

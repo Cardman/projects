@@ -332,6 +332,9 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
     }
 
     private static boolean ko(AnalyzingEl _anEl, AnalyzedPageEl _page, ReachFilterContent _current, ReachFilterContent _other) {
+        if (_current.isAll()) {
+            return false;
+        }
         if (!StringUtil.quickEq(_other.getFilterContent().getImportedType(), _current.getFilterContent().getImportedType())) {
             _anEl.setParamMapping(_other.getFilterContent().getImportedType());
             return _anEl.isCorrectMapping(_page);
@@ -361,4 +364,8 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         return classes_;
     }
 
+    @Override
+    public boolean isAll() {
+        return false;
+    }
 }

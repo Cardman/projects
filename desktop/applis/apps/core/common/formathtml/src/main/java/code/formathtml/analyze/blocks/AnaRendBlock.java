@@ -252,24 +252,32 @@ public abstract class AnaRendBlock {
     private static AnaRendAbstractCatchEval keyWordCatch(int _begin, AnalyzedPageEl _primTypes, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
         OffsetBooleanInfo thr_ = new OffsetBooleanInfo(0,StringUtil.quickEq(_primTypes.getKeyWords().getKeyWordThrow(),_elt.getAttribute(_rendKeyWords.getAttrHref())));
         if (_elt.hasAttribute(_rendKeyWords.getAttrClassName())) {
+            String cl_ = _elt.getAttribute(_rendKeyWords.getAttrClassName());
+            if (StringUtil.quickEq(cl_.trim(),":")) {
+                return new AnaRendCatchEval(new OffsetStringInfo(0,_primTypes.getAliasObject()),
+                        newOffsetStringInfo(_elt, _rendKeyWords.getAttrVar(), _attr),
+                        new OffsetStringInfo(0,""),
+                        thr_,
+                        _begin, true);
+            }
             return new AnaRendCatchEval(newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrVar(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
                     thr_,
-                    _begin);
+                    _begin, false);
         }
         if (_elt.hasAttribute(_rendKeyWords.getAttrValue())) {
             return new AnaRendCatchEval(new OffsetStringInfo(0,""),
                     new OffsetStringInfo(0,""),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
                     thr_,
-                    _begin);
+                    _begin, false);
         }
         return new AnaRendCatchEval(new OffsetStringInfo(0,""),
                 new OffsetStringInfo(0,""),
                 new OffsetStringInfo(0,_primTypes.getKeyWords().getKeyWordNull()),
                 thr_,
-                _begin);
+                _begin, false);
     }
 
     private static AnaRendLine line(int _begin, AnaRendParentBlock _curParent, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {

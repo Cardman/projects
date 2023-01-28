@@ -426,13 +426,19 @@ public final class ExecHelperBlocks {
             }
             return ConditionReturn.NO;
         }
-        if (ex_ == NullStruct.NULL_VALUE) {
+        boolean all_ = ((ExecCatchEval)_cond).isCatchAll();
+        if (!all_ && ex_ == NullStruct.NULL_VALUE) {
             return ConditionReturn.NO;
         }
         if (_stackCall.getLastPage().isEmptyEl()){
-            String name_ = _stackCall.formatVarType(((ExecCatchEval)_cond).getImportedClassName());
-            if (ExecInherits.safeObject(name_, Argument.getNull(ex_).getClassName(_cont), _cont) != ErrorType.NOTHING) {
-                return ConditionReturn.NO;
+            String name_;
+            if (all_) {
+                name_ = _cont.getStandards().getCoreNames().getAliasObject();
+            } else {
+                name_ = _stackCall.formatVarType(((ExecCatchEval)_cond).getImportedClassName());
+                if (ExecInherits.safeObject(name_, Argument.getNull(ex_).getClassName(_cont), _cont) != ErrorType.NOTHING) {
+                    return ConditionReturn.NO;
+                }
             }
             String var_ = ((ExecCatchEval)_cond).getVariableName();
             LocalVariable lv_ = LocalVariable.newLocalVariable(_tr.getException(), name_);

@@ -15,6 +15,15 @@ public final class ParsedTypeTest extends EquallableElUtil {
     }
 
     @Test
+    public void parse1_Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("pkgtwo.MyClassTwo<Type> After");
+        assertEq("pkgtwo.MyClassTwo<Type>",p_.getInstruction().toString());
+        assertEq(23, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+
+    @Test
     public void parse2Test() {
         ParsedType p_ = new ParsedType();
         p_.parse("pkgtwo.MyClassTwo After");
@@ -27,6 +36,15 @@ public final class ParsedTypeTest extends EquallableElUtil {
     public void parse3Test() {
         ParsedType p_ = new ParsedType();
         p_.parse("pkgtwo.MyClassTwo[]After");
+        assertEq("pkgtwo.MyClassTwo[]",p_.getInstruction().toString());
+        assertEq(19, p_.getCurrent());
+        assertTrue(p_.isOk());
+    }
+
+    @Test
+    public void parse3_Test() {
+        ParsedType p_ = new ParsedType();
+        p_.parse("pkgtwo.MyClassTwo[] After");
         assertEq("pkgtwo.MyClassTwo[]",p_.getInstruction().toString());
         assertEq(19, p_.getCurrent());
         assertTrue(p_.isOk());

@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.errors.custom.FoundWarningInterpret;
 import code.expressionlanguage.analyze.errors.stds.StdWordError;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.expressionlanguage.analyze.files.FileAliases;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.instr.NumberInfosOutput;
 import code.expressionlanguage.analyze.opers.AnonymousLambdaOperation;
@@ -209,6 +210,9 @@ public final class AnalyzedPageEl {
         this.resources = _resources;
     }
 
+    public FileAliases fileAliases() {
+        return new FileAliases(content);
+    }
     public String getDefaultPkg() {
         return content.getDefaultPkg();
     }

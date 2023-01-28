@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.instr;
 
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.analyze.blocks.FileResolverContext;
+import code.expressionlanguage.analyze.files.FileAliases;
 import code.expressionlanguage.analyze.files.SegmentStringPart;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.util.CustList;
@@ -19,6 +20,9 @@ public final class CurrentExpElts {
         this.file = _file;
         this.instrLoc = _instrLoc;
         res = _rs;
+    }
+    public FileAliases getFileAliases() {
+        return cont.getFileAliases();
     }
 
     public FileResolverContext getCont() {

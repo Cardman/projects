@@ -2,19 +2,25 @@ package code.expressionlanguage.analyze.blocks;
 
 import code.expressionlanguage.analyze.TokenCheckerContext;
 import code.expressionlanguage.analyze.files.DefaultAccess;
+import code.expressionlanguage.analyze.files.FileAliases;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.options.KeyWords;
-import code.expressionlanguage.stds.PrimitiveTypes;
 
 public final class FileResolverContext {
     private final TokenCheckerContext tok;
+    private final FileAliases fileAliases;
     private final MethodAccessKind stat;
     private final DefaultAccess def;
 
-    public FileResolverContext(KeyWords _k, MethodAccessKind _s, DefaultAccess _defaultAccess, PrimitiveTypes _primTypes, String _aliasVoid) {
-        tok = new TokenCheckerContext(_k,_primTypes,_aliasVoid);
+    public FileResolverContext(KeyWords _k, MethodAccessKind _s, DefaultAccess _defaultAccess, FileAliases _fa) {
+        tok = new TokenCheckerContext(_k,_fa.getPrimTypes(),_fa.getAliasVoid());
         this.stat = _s;
+        fileAliases = _fa;
         def = _defaultAccess;
+    }
+
+    public FileAliases getFileAliases() {
+        return fileAliases;
     }
 
     public TokenCheckerContext getTok() {
@@ -33,11 +39,4 @@ public final class FileResolverContext {
         return def;
     }
 
-    public PrimitiveTypes getPrims() {
-        return getTok().getPrims();
-    }
-
-    public String getAlVoid() {
-        return getTok().getAlVoid();
-    }
 }

@@ -8,9 +8,12 @@ import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 
 public final class ReachCatchEval extends ReachAbstractCatchEval implements ReachBuildableElMethod,ReachFilterContent {
     private final FilterContent filterContent;
+    private final boolean catchAll;
+
     public ReachCatchEval(CatchEval _info) {
         super(_info);
         filterContent = _info.getFilterContent();
+        catchAll = _info.isCatchAll();
     }
 
     public FilterContent getFilterContent() {
@@ -24,5 +27,8 @@ public final class ReachCatchEval extends ReachAbstractCatchEval implements Reac
     public void reachCatch(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         ReachCaseCondition.processFilter(_anEl, _page,this,this);
     }
-
+    @Override
+    public boolean isAll() {
+        return catchAll;
+    }
 }

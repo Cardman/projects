@@ -11,12 +11,13 @@ public final class ExecCatchEval extends ExecAbstractCatchEval {
     private final String variableName;
 
     private final boolean throwIfGuardError;
-
-    public ExecCatchEval(String _variableName, String _importedClassName, CustList<ExecOperationNode> _ls, int _off, boolean _thr) {
+    private final boolean catchAll;
+    public ExecCatchEval(String _variableName, String _importedClassName, CustList<ExecOperationNode> _ls, int _off, boolean _thr, boolean _ca) {
         super(_ls, _off);
         variableName = _variableName;
         importedClassName = _importedClassName;
         throwIfGuardError = _thr;
+        catchAll = _ca;
     }
 
     public String getImportedClassName() {
@@ -35,5 +36,9 @@ public final class ExecCatchEval extends ExecAbstractCatchEval {
 
     public boolean isThrowIfGuardError() {
         return throwIfGuardError;
+    }
+
+    public boolean isCatchAll() {
+        return catchAll;
     }
 }
