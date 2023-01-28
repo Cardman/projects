@@ -107,7 +107,7 @@ public final class FilterContent {
         _page.setSumOffset(valueOffset);
         _page.zeroOffset();
         if (!variableName.isEmpty()) {
-            instanceCase(_bl,_page, stCtx_, _instance);
+            instanceCase(_bl,_page, stCtx_, _instance,_type);
             return;
         }
         String id_ = StringExpUtil.getIdFromAllTypes(_type);
@@ -129,7 +129,7 @@ public final class FilterContent {
         }
     }
 
-    private void instanceCase(AbsBk _bl,AnalyzedPageEl _page, MethodAccessKind _stCtx, boolean _inst) {
+    private void instanceCase(AbsBk _bl, AnalyzedPageEl _page, MethodAccessKind _stCtx, boolean _inst, String _type) {
         if (!_inst) {
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_bl.getFile());
@@ -140,8 +140,12 @@ public final class FilterContent {
             _bl.addErrorBlock(un_.getBuiltError());
         }
         instance = true;
-        partOffsets = ResolvingTypes.resolveCorrectType(declaringType, _page);
-        importedType = partOffsets.getResult(_page);
+        if (StringUtil.quickEq(declaringType.trim(),_page.getKeyWords().getKeyWordVar())) {
+            importedType = _type;
+        } else {
+            partOffsets = ResolvingTypes.resolveCorrectType(declaringType, _page);
+            importedType = partOffsets.getResult(_page);
+        }
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (!res_.isError()) {
             AnaLocalVariable lv_ = new AnaLocalVariable();

@@ -213,10 +213,10 @@ public abstract class AnaRendBlock {
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordElse()))) {
             return new AnaRendElseCondition(_begin);
         }
-        return stdKeys(_begin,_primTypes, _prefix, _rendKeyWords, elt_, attr_);
+        return stdKeys(_begin,_curParent,_primTypes, _prefix, _rendKeyWords, elt_, attr_);
     }
 
-    private static AnaRendParentBlock stdKeys(int _begin, AnalyzedPageEl _primTypes, String _prefix, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
+    private static AnaRendParentBlock stdKeys(int _begin, AnaRendParentBlock _curParent, AnalyzedPageEl _primTypes, String _prefix, RendKeyWords _rendKeyWords, Element _elt, StringMap<AttributePart> _attr) {
         String tagName_ = _elt.getTagName();
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordTry()))) {
             return new AnaRendTryEval(newOffsetStringInfo(_elt, _rendKeyWords.getAttrLabel(), _attr),
@@ -234,7 +234,11 @@ public abstract class AnaRendBlock {
                     _begin);
         }
         if (StringUtil.quickEq(tagName_, StringUtil.concat(_prefix, _rendKeyWords.getKeyWordCase()))) {
-            return new AnaRendCaseCondition(newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr),
+            OffsetStringInfo infoCl_ = newOffsetStringInfo(_elt, _rendKeyWords.getAttrClassName(), _attr);
+            if (StringUtil.quickEq(infoCl_.getInfo().trim(),_primTypes.getKeyWords().getKeyWordVar())&&_curParent instanceof AnaRendSwitchBlock) {
+                ((AnaRendSwitchBlock)_curParent).setForceInstance(true);
+            }
+            return new AnaRendCaseCondition(infoCl_,
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrVar(), _attr),
                     newOffsetStringInfo(_elt, _rendKeyWords.getAttrValue(), _attr),
                     _begin);

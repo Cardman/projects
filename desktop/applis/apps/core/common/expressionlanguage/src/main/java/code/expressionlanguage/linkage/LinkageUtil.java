@@ -968,7 +968,7 @@ public final class LinkageUtil {
             addEnumRef(_vars, _cond, enumBlock_);
         } else if (!_cond.getImportedType().isEmpty()) {
             if (_vars.getLastStackElt().noVisited()) {
-                _vars.addParts(export(_cond.getPartOffsets()));
+                processInferFilter(_vars,_cond);
                 String variableName_ = _cond.getVariableName();
                 int variableOffset_ = _cond.getVariableOffset();
                 _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
@@ -1020,7 +1020,7 @@ public final class LinkageUtil {
             addEnumRef(_vars, _cond, enumBlock_);
         } else if (!_cond.getImportedType().isEmpty()) {
             if (_vars.getLastStackElt().noVisited()) {
-                _vars.addParts(export(_cond.getPartOffsets()));
+                processInferFilter(_vars,_cond);
                 String variableName_ = _cond.getVariableName();
                 int variableOffset_ = _cond.getVariableOffset();
                 StringList errs_ = _cond.getNameErrors();
@@ -1042,6 +1042,17 @@ public final class LinkageUtil {
         }
     }
 
+    private static void processInferFilter(VariablesOffsets _vars, FilterContent _cond) {
+        KeyWords keyWords_ = _vars.getKeyWords();
+        String keyWordVar_ = keyWords_.getKeyWordVar();
+        if (StringUtil.quickEq(_cond.getDeclaringType().trim(), keyWordVar_)) {
+            String tag_ = ExportCst.bold(_cond.getImportedType());
+            _vars.addPart(new PartOffset(tag_, _cond.getValueOffset()));
+            _vars.addPart(new PartOffset(ExportCst.END_BOLD, _cond.getValueOffset() + keyWordVar_.length()));
+        } else {
+            _vars.addParts(export(_cond.getPartOffsets()));
+        }
+    }
     private static void addEnumRef(VariablesOffsets _vars, FilterContent _cond, EnumBlock _enumBlock) {
         StringList errs_ = new StringList();
         int off_ = _cond.getValueOffset();

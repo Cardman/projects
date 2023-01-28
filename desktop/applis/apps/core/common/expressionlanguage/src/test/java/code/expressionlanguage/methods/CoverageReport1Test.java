@@ -14724,6 +14724,152 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage734Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String catching(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  switch(8){\n");
+        xml_.append("   case var i:i==8;\n");
+        xml_.append("    t=\"10\";\n");
+        xml_.append("  }\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static String <a name=\"m44\">catching</a>(){\n" +
+                "  String <span class=\"f\"><a name=\"m65\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\"><span class=\"s\">\"8\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">8</span>){\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <b title=\"int\">var</b> <a name=\"m102\">i</a>:<span class=\"p\"><span class=\"f\"><a href=\"#m102\">i</a></span><a title=\"true\">==</a><span class=\"f\">8</span></span>;\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span>=<span class=\"f\"><span class=\"s\">\"10\"</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage735Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String catching(){\n");
+        xml_.append("  String t=switch(8){\n");
+        xml_.append("   case var i:i==8;\n");
+        xml_.append("    return\"10\";\n");
+        xml_.append("   default i;\n");
+        xml_.append("    return\"8\";\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static String <a name=\"m44\">catching</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m65\">t</a></span>=<span class=\"f\"><span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">8</span>)<span class=\"t\">{\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <b title=\"int\">var</b> <a name=\"m90\">i</a>:<span class=\"p\"><span class=\"f\"><a href=\"#m90\">i</a></span><a title=\"true\">==</a><span class=\"f\">8</span></span>;\n" +
+                "    return<span class=\"f\"><span class=\"s\">\"10\"</span></span>;\n" +
+                "   <span class=\"n\"><a title=\"0/1\">default</a></span> <a title=\"int\" name=\"m125\">i</a>;\n" +
+                "    return<span class=\"n\"><span class=\"s\">\"8\"</span></span>;\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage736Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String catching(){\n");
+        xml_.append("  String t=switch(9){\n");
+        xml_.append("   case var i:i==8;\n");
+        xml_.append("    return\"10\";\n");
+        xml_.append("   default i;\n");
+        xml_.append("    return i+\"8\";\n");
+        xml_.append("  };\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static String <a name=\"m44\">catching</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m65\">t</a></span>=<span class=\"f\"><span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\">9</span>)<span class=\"t\">{\n" +
+                "   <span class=\"n\"><a title=\"0/1\">case</a></span> <b title=\"int\">var</b> <a name=\"m90\">i</a>:<span class=\"p\"><span class=\"f\"><a href=\"#m90\">i</a></span><a title=\"false\">==</a><span class=\"f\">8</span></span>;\n" +
+                "    return<span class=\"n\"><span class=\"s\">\"10\"</span></span>;\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span> <a title=\"int\" name=\"m125\">i</a>;\n" +
+                "    return <span class=\"f\"><span class=\"f\"><a href=\"#m125\">i</a></span>+<span class=\"f\"><span class=\"s\">\"8\"</span></span></span>;\n" +
+                "  }</span></span></span>;\n" +
+                "  return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+    @Test
+    public void coverage737Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String catching(){\n");
+        xml_.append("  String t=\"\";\n");
+        xml_.append("  for (int i:{8,9}){\n");
+        xml_.append("   t+=switch(i){\n");
+        xml_.append("   case var i:i==8;\n");
+        xml_.append("    return\"10\";\n");
+        xml_.append("   default i;\n");
+        xml_.append("    return i+\"8\";\n");
+        xml_.append("   };\n");
+        xml_.append("  }\n");
+        xml_.append("  return t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static String <a name=\"m44\">catching</a>(){\n" +
+                "  String <span class=\"f\"><span class=\"f\"><a name=\"m65\">t</a></span>=<span class=\"f\"><span class=\"s\">\"\"</span></span></span>;\n" +
+                "  <span class=\"f\">for (int <a name=\"m82\">i</a></span>:<span class=\"f\">{<span class=\"f\">8</span>,<span class=\"f\">9</span>}</span>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m65\">t</a></span><i>+</i>=<span class=\"f\"><span class=\"f\"><a title=\"2/2\">switch</a></span>(<span class=\"f\"><a href=\"#m82\">i</a></span>)<span class=\"t\">{\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> <b title=\"int\">var</b> <a name=\"m121\">i</a>:<span class=\"f\"><span class=\"f\"><a href=\"#m121\">i</a></span>==<span class=\"f\">8</span></span>;\n" +
+                "    return<span class=\"f\"><span class=\"s\">\"10\"</span></span>;\n" +
+                "   <span class=\"f\"><a title=\"1/1\">default</a></span> <a title=\"int\" name=\"m156\">i</a>;\n" +
+                "    return <span class=\"f\"><span class=\"f\"><a href=\"#m156\">i</a></span>+<span class=\"f\"><span class=\"s\">\"8\"</span></span></span>;\n" +
+                "   }</span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m65\">t</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();

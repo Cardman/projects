@@ -24,6 +24,7 @@ public final class SwitchBlock extends LabelledOtherBlock implements BreakableBl
     private AnaClassArgumentMatching result;
 
     private boolean instance;
+    private boolean forceInstance;
     private String instanceTest = "";
 
     private final ResultExpression res = new ResultExpression();
@@ -98,7 +99,7 @@ public final class SwitchBlock extends LabelledOtherBlock implements BreakableBl
                     _braced.addErrorBlock(un_.getBuiltError());
                 }
             } else {
-                _braced.setInstanceTest(false,type_);
+                _braced.setInstanceTest(_braced.isForceInstance(),type_);
             }
         }
     }
@@ -157,6 +158,13 @@ public final class SwitchBlock extends LabelledOtherBlock implements BreakableBl
         this.instanceTest = _instanceTest;
     }
 
+    public boolean isForceInstance() {
+        return forceInstance;
+    }
+
+    public void setForceInstance(boolean _f) {
+        this.forceInstance = _f;
+    }
     public int getConditionNb() {
         return conditionNb;
     }

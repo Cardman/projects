@@ -2900,6 +2900,14 @@ public final class FileResolver {
                     new OffsetStringInfo(fullValueOffset_, value_),
                     _i.instLoc()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""));
         } else if (sepCond_ >= 0) {
+            if (StringUtil.quickEq(declaringType_.trim(),_keyWords.getKeyWordVar())) {
+                if (_currentParent instanceof SwitchBlock) {
+                    ((SwitchBlock)_currentParent).setForceInstance(true);
+                }
+                if (_currentParent instanceof SwitchMethodBlock) {
+                    ((SwitchMethodBlock)_currentParent).setForceInstance(true);
+                }
+            }
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
             int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
             String substring_ = trimPreVar_.substring(sepCond_ + 1);

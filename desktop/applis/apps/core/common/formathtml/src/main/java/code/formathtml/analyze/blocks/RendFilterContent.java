@@ -76,60 +76,64 @@ public final class RendFilterContent {
     void buildExpressionLanguage(AnaRendBlock _bl,AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance) {
         String type_ = _resSwitch.getSingleNameOrEmpty();
         String variableName_ = getVariableName();
-        if (!variableName_.isEmpty()) {
-            if (!_instance) {
+        if (variableName_.isEmpty()) {
+            String id_ = StringExpUtil.getIdFromAllTypes(type_);
+            AnaGeneType g_ = _page.getAnaClassBody(id_);
+            if (g_ instanceof EnumBlock && FilterContent.allWordsOrEmpty(value)) {
+                enumElements(_bl, _page, (EnumBlock) g_);
+                return;
+            }
+            processNumValues(_bl, _anaDoc, _instance, _resSwitch, _page);
+            return;
+        }
+        if (!_instance) {
+            FoundErrorInterpret un_ = new FoundErrorInterpret();
+            un_.setFile(_page.getCurrentFile());
+            un_.setIndexFile(_bl.getOffset());
+            //key word len
+            un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
+                    getKeyWord(),
+                    value);
+            AnalyzingDoc.addError(un_, _page);
+        }
+        _page.setSumOffset(classNameOffset);
+        _page.zeroOffset();
+        if (StringUtil.quickEq(className.trim(), _page.getKeyWords().getKeyWordVar())) {
+            setImportedClassName(type_);
+        } else {
+            setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page).getResult(_page));
+        }
+        TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
+        if (!res_.isError()) {
+            AnaLocalVariable lv_ = new AnaLocalVariable();
+            lv_.setClassName(getImportedClassName());
+            lv_.setConstType(ConstType.FIX_VAR);
+            lv_.setFinalVariable(true);
+            _page.getInfosVars().put(variableName_, lv_);
+        }
+        if (!value.trim().isEmpty()) {
+            _page.setSumOffset(resultExpression.getSumOffset());
+            _page.zeroOffset();
+            root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, resultExpression);
+            AnaClassArgumentMatching resultClass_ = root.getResultClass();
+            if (!resultClass_.isBoolType(_page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(_bl.getOffset());
-                //key word len
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        getKeyWord(),
-                        value);
+                un_.setIndexFile(valueOffset);
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                        StringUtil.join(resultClass_.getNames(), AnaRendBlock.AND_ERR));
                 AnalyzingDoc.addError(un_, _page);
             }
-            _page.setSumOffset(classNameOffset);
-            _page.zeroOffset();
-            setImportedClassName(ResolvingTypes.resolveCorrectType(className, _page).getResult(_page));
-            TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName_, _page);
-            if (!res_.isError()) {
-                AnaLocalVariable lv_ = new AnaLocalVariable();
-                lv_.setClassName(getImportedClassName());
-                lv_.setConstType(ConstType.FIX_VAR);
-                lv_.setFinalVariable(true);
-                _page.getInfosVars().put(variableName_, lv_);
-            }
-            if (!value.trim().isEmpty()) {
-                _page.setSumOffset(resultExpression.getSumOffset());
-                _page.zeroOffset();
-                root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
-                AnaClassArgumentMatching resultClass_ = root.getResultClass();
-                if (!resultClass_.isBoolType(_page)) {
-                    FoundErrorInterpret un_ = new FoundErrorInterpret();
-                    un_.setFile(_page.getCurrentFile());
-                    un_.setIndexFile(valueOffset);
-                    un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                            StringUtil.join(resultClass_.getNames(),AnaRendBlock.AND_ERR));
-                    AnalyzingDoc.addError(un_, _page);
-                }
-                resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-            }
-            if (res_.isError()) {
-                FoundErrorInterpret d_ = new FoundErrorInterpret();
-                d_.setFile(_page.getCurrentFile());
-                d_.setIndexFile(variableOffset);
-                //variable name
-                d_.setBuiltError(res_.getMessage());
-                AnalyzingDoc.addError(d_, _page);
-            }
-            return;
+            resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         }
-        String id_ = StringExpUtil.getIdFromAllTypes(type_);
-        AnaGeneType g_ = _page.getAnaClassBody(id_);
-        if (g_ instanceof EnumBlock && FilterContent.allWordsOrEmpty(value)) {
-            enumElements(_bl,_page, (EnumBlock) g_);
-            return;
+        if (res_.isError()) {
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
+            d_.setFile(_page.getCurrentFile());
+            d_.setIndexFile(variableOffset);
+            //variable name
+            d_.setBuiltError(res_.getMessage());
+            AnalyzingDoc.addError(d_, _page);
         }
-        processNumValues(_bl,_anaDoc, _instance, _resSwitch, _page);
     }
 
     private void enumElements(AnaRendBlock _bl, AnalyzedPageEl _page, EnumBlock _e) {

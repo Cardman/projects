@@ -29,6 +29,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
     private AnaClassArgumentMatching result;
 
     private boolean instance;
+    private boolean forceInstance;
     private String instanceTest = "";
     AnaRendSwitchBlock(OffsetStringInfo _value, OffsetStringInfo _label, int _offset) {
         super(_offset);
@@ -75,6 +76,7 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
                     AnalyzingDoc.addError(un_, _page);
                 }
             } else {
+                instance = forceInstance;
                 instanceTest = type_;
             }
         }
@@ -117,6 +119,9 @@ public final class AnaRendSwitchBlock  extends AnaRendParentBlock implements Ana
         return labelOffset;
     }
 
+    public void setForceInstance(boolean _f) {
+        this.forceInstance = _f;
+    }
     public boolean isInstance() {
         return instance;
     }

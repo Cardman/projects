@@ -25,6 +25,7 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     private AnaClassArgumentMatching result = new AnaClassArgumentMatching("");
 
     private boolean instance;
+    private boolean forceInstance;
     private String instanceTest = "";
     private String retType = "";
 
@@ -85,6 +86,14 @@ public final class SwitchMethodBlock extends MemberCallingsBlock implements Anal
     public void setInstanceTest(boolean _instance, String _instanceTest) {
         instance = _instance;
         this.instanceTest = _instanceTest;
+    }
+
+    public boolean isForceInstance() {
+        return forceInstance;
+    }
+
+    public void setForceInstance(boolean _f) {
+        this.forceInstance = _f;
     }
 
     public AnaAnonFctContent getAnaAnonFctContent() {

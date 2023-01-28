@@ -721,6 +721,11 @@ public final class RenderSwitchTest extends CommonRender {
         files_.put("ex_enum",enum_.toString());
         assertEq("<html><body>Text</body></html>", getRes(html_, files_));
     }
+    @Test
+    public void process63Test() {
+        String html_ = "<html><body><c:switch value='8'><c:case className='$var' var='i' value='i==8'>Text</c:case></c:switch></body></html>";
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
+    }
     private String getRes(String _html, StringMap<String> _files) {
         return getCommRes(_html, _files);
     }
@@ -729,6 +734,12 @@ public final class RenderSwitchTest extends CommonRender {
         return getCommEx(_html, _files);
     }
 
+    @Test
+    public void process_0FailTest() {
+        String html_ = "<html><body><c:case className='$var' var='i' value='i==8'>Text</c:case></body></html>";
+        StringMap<String> files_ = new StringMap<String>();
+        assertTrue(hasErr(html_, files_));
+    }
     @Test
     public void process0FailTest() {
         String folder_ = "messages";
