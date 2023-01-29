@@ -58,13 +58,17 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
     static void buildExpressionLanguageReadOnly(AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance, ReachBlock _bl, ReachFilterContent _current) {
         FilterContent filter_ = _current.getFilterContent();
         if (filter_.isInstance()) {
-            if (filter_.getRoot() != null) {
-                ReachOperationUtil.tryCalculate(filter_.getRoot(), _page);
-            }
+            trCacl(_page, filter_);
             return;
         }
-        ReachOperationUtil.tryCalculate(filter_.getRoot(), _page);
+        trCacl(_page, filter_);
         processNumValues(_instance, _resSwitch, _page,_bl,_current);
+    }
+
+    private static void trCacl(AnalyzedPageEl _page, FilterContent _filter) {
+        if (_filter.getRoot() != null) {
+            ReachOperationUtil.tryCalculate(_filter.getRoot(), _page);
+        }
     }
 
     public FilterContent getFilterContent() {
@@ -106,18 +110,15 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
     }
 
     static void processNumValues(boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page, ReachBlock _bl, ReachFilterContent _current) {
-        FilterContent filter_ = _current.getFilterContent();
-        if (filter_.getRoot() instanceof DeclaringOperation) {
-            CustList<OperationNode> childrenNodes_ = ((DeclaringOperation) filter_.getRoot()).getChildrenNodes();
-            StrTypes children_ = ((DeclaringOperation) filter_.getRoot()).getChildren();
-            int len_ = childrenNodes_.size();
-            for (int i = 0; i < len_; i++) {
-                OperationNode ch_ = childrenNodes_.get(i);
-                String value_ = StrTypes.value(children_, i);
-                checkRetrieve(_instance,_resSwitch, _page, ch_, value_, _bl, _current);
-            }
-        } else {
-            checkRetrieve(_instance,_resSwitch, _page, filter_.getRoot(), filter_.getValue(), _bl, _current);
+        CustList<OperationNode> childrenNodes_ = childrenNodes(_current);
+        StrTypes children_ = children(_current);
+        int len_ = childrenNodes_.size();
+        for (int i = 0; i < len_; i++) {
+            OperationNode ch_ = childrenNodes_.get(i);
+            //the following instruction possibly throws an exception,
+            //because of mismatching lists lengths
+            String value_ = StrTypes.value(children_, i);
+            checkRetrieve(_instance,_resSwitch, _page, ch_, value_, _bl, _current);
         }
     }
 
@@ -314,6 +315,18 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             childrenNodes_ = new CustList<OperationNode>();
         }
         return childrenNodes_;
+    }
+
+    private static StrTypes children(ReachFilterContent _r) {
+        StrTypes children_;
+        if (_r.getFilterContent().getRoot() instanceof DeclaringOperation) {
+            children_ = ((DeclaringOperation) _r.getFilterContent().getRoot()).getChildren();
+        } else {
+            StrTypes si_ = new StrTypes();
+            si_.addEntry(0,_r.getFilterContent().getValue());
+            children_ = si_;
+        }
+        return children_;
     }
 
     private static void processInstance(AnalyzingEl _anEl, AnalyzedPageEl _page, ReachBlock _bl, ReachFilterContent _current) {
