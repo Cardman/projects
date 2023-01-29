@@ -286,9 +286,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         }
     }
     private static boolean reachCatch(CustList<ReachFilterContent> _classes, OperationNode _o, AnalyzingEl _anEl, AnalyzedPageEl _page) {
-        if (_o == null) {
-            return true;
-        }
         String argType_ = _o.getResultClass().getSingleNameOrEmpty();
         if (argType_.isEmpty()) {
             return true;
@@ -311,8 +308,10 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         CustList<OperationNode> childrenNodes_;
         if (_r.getFilterContent().getRoot() instanceof DeclaringOperation) {
             childrenNodes_ = ((DeclaringOperation) _r.getFilterContent().getRoot()).getChildrenNodes();
-        } else {
+        } else if (_r.getFilterContent().getRoot() != null){
             childrenNodes_ = new CustList<OperationNode>(_r.getFilterContent().getRoot());
+        } else {
+            childrenNodes_ = new CustList<OperationNode>();
         }
         return childrenNodes_;
     }
