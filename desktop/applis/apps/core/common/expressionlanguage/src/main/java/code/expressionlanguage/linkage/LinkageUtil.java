@@ -782,44 +782,35 @@ public final class LinkageUtil {
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, Coverage _cov) {
         OperationNode rootExp_ = _cond.getRootExp();
         headForMutableReport(_vars, _cond, _cov, rootExp_);
-        OperationNode rootInit_ = _cond.getRootInit();
-        if (_vars.getLastStackElt().getIndexLoop() == 0) {
-            if (rootInit_ != null) {
-                int off_ = _cond.getInitOffset();
-                int offsetEndBlock_ = off_ + _cond.getInit().length();
-                LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1);
-                buildCoverageReport(_vars, _cov, rootInit_, in_);
-                if (_vars.goesToProcess()) {
-                    return;
-                }
-            }
-            _vars.getLastStackElt().setIndexLoop(1);
+        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
+        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        if (hasToVisitLoopHeaderReport(_vars, _cond, _cov, pr_)) {
+            return;
         }
-        if (_vars.getLastStackElt().getIndexLoop() == 1) {
-            if (rootExp_ != null) {
-                int off_ = _cond.getExpressionOffset();
-                int offsetEndBlock_ = off_ + _cond.getExpression().length();
-                LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 1, -1);
-                buildCoverageReport(_vars, _cov, rootExp_, in_);
-                if (_vars.goesToProcess()) {
-                    return;
-                }
-            }
-            _vars.getLastStackElt().setIndexLoop(2);
-        }
-        OperationNode rootStep_ = _cond.getRootStep();
-        if (rootStep_ != null) {
-            int off_ = _cond.getStepOffset();
-            int offsetEndBlock_ = off_ + _cond.getStep().length();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 2, -1);
-            buildCoverageReport(_vars, _cov, rootStep_, in_);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-        }
-        _vars.getLastStackElt().setIndexLoop(0);
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
         processTestCondition(_vars, _cond.getFunctions());
+    }
+    private static boolean hasToVisitLoopHeaderReport(VariablesOffsets _vars, AbsBk _cond, Coverage _cov, CustList<LinkageBlockElement> _pr) {
+        int len_ = _pr.size();
+        for (int i = 0; i < len_; i++) {
+            LinkageBlockElement elt_ = _pr.get(i);
+            if (_vars.getLastStackElt().getIndexLoop() == i) {
+                OperationNode rootInit_ = elt_.getRoot();
+                if (rootInit_ != null) {
+                    int off_ = elt_.getBegin();
+                    int offsetEndBlock_ = off_ + elt_.getLength();
+                    LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, i, -1);
+                    buildCoverageReport(_vars, _cov, rootInit_, in_);
+                    if (_vars.goesToProcess()) {
+                        return true;
+                    }
+                }
+                _vars.getLastStackElt().setIndexLoop((i+1)%len_);
+            }
+        }
+        return false;
     }
 
     private static void headForMutableReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, Coverage _cov, OperationNode _rootExp) {
@@ -837,41 +828,36 @@ public final class LinkageUtil {
 
     private static void processForMutableIterativeLoopError(VariablesOffsets _vars, ForMutableIterativeLoop _cond) {
         headForMutableError(_vars, _cond);
-        if (_vars.getLastStackElt().getIndexLoop() == 0) {
-            OperationNode rootInit_ = _cond.getRootInit();
-            if (rootInit_ != null) {
-                int off_ = _cond.getInitOffset();
-                buildNormalError(_vars, _cond, -1, rootInit_, off_, 0, off_+_cond.getInit().length());
-                if (_vars.goesToProcess()) {
-                    return;
-                }
-            }
-            _vars.getLastStackElt().setIndexLoop(1);
+        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
+        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        if (hasToVisitLoopHeaderError(_vars, _cond, pr_)) {
+            return;
         }
-        if (_vars.getLastStackElt().getIndexLoop() == 1) {
-            OperationNode rootExp_ = _cond.getRootExp();
-            if (rootExp_ != null) {
-                int off_ = _cond.getExpressionOffset();
-                buildNormalError(_vars, _cond, -1, rootExp_, off_, 1, off_+_cond.getExpression().length());
-                if (_vars.goesToProcess()) {
-                    return;
-                }
-            }
-            _vars.getLastStackElt().setIndexLoop(2);
-        }
-        OperationNode rootStep_ = _cond.getRootStep();
-        if (rootStep_ != null) {
-            int off_ = _cond.getStepOffset();
-            buildNormalError(_vars, _cond, -1, rootStep_, off_, 2, off_+_cond.getStep().length());
-            if (_vars.goesToProcess()) {
-                return;
-            }
-        }
-        _vars.getLastStackElt().setIndexLoop(0);
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
         processTestCondition(_vars, _cond.getFunctions());
     }
 
+    private static boolean hasToVisitLoopHeaderError(VariablesOffsets _vars, AbsBk _cond, CustList<LinkageBlockElement> _pr) {
+        int len_ = _pr.size();
+        for (int i = 0; i < len_; i++) {
+            LinkageBlockElement elt_ = _pr.get(i);
+            if (_vars.getLastStackElt().getIndexLoop() == i) {
+                OperationNode rootInit_ = elt_.getRoot();
+                if (rootInit_ != null) {
+                    int off_ = elt_.getBegin();
+                    int offsetEndBlock_ = off_ + elt_.getLength();
+                    buildNormalError(_vars, _cond, -1, rootInit_, off_, i, offsetEndBlock_);
+                    if (_vars.goesToProcess()) {
+                        return true;
+                    }
+                }
+                _vars.getLastStackElt().setIndexLoop((i+1)%len_);
+            }
+        }
+        return false;
+    }
     private static void headForMutableError(VariablesOffsets _vars, ForMutableIterativeLoop _cond) {
         if (_vars.getLastStackElt().noVisited()) {
             appendVars(_vars, _cond);
@@ -1271,37 +1257,13 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
-        int off_ = _cond.getInitOffset();
-        int offsetEndBlock_ = off_ + _cond.getInit().length();
-        if (_vars.getLastStackElt().getIndexLoop() == 0) {
-            OperationNode rootInit_ = _cond.getRootInit();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 0, -1);
-            buildCoverageReport(_vars, _cov, rootInit_, in_);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexLoop(1);
-        }
-        off_ = _cond.getExpressionOffset();
-        offsetEndBlock_ = off_ + _cond.getExpression().length();
-        if (_vars.getLastStackElt().getIndexLoop() == 1) {
-            OperationNode rootExp_ = _cond.getRootExp();
-            LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 1, -1);
-            buildCoverageReport(_vars, _cov, rootExp_, in_);
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexLoop(2);
-        }
-        off_ = _cond.getStepOffset();
-        offsetEndBlock_ = off_ + _cond.getStep().length();
-        OperationNode rootStep_ = _cond.getRootStep();
-        LinkageStackElementIn in_ = buildLinkageRep(_cond, off_, offsetEndBlock_, 2, -1);
-        buildCoverageReport(_vars, _cov, rootStep_, in_);
-        if (_vars.goesToProcess()) {
+        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
+        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        if (hasToVisitLoopHeaderReport(_vars, _cond, _cov, pr_)) {
             return;
         }
-        _vars.getLastStackElt().setIndexLoop(0);
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForIterativeLoopError(VariablesOffsets _vars, ForIterativeLoop _cond) {
@@ -1314,31 +1276,13 @@ public final class LinkageUtil {
             }
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
-        int off_ = _cond.getInitOffset();
-        if (_vars.getLastStackElt().getIndexLoop() == 0) {
-            OperationNode rootInit_ = _cond.getRootInit();
-            buildNormalError(_vars, _cond, -1, rootInit_, off_, 0, off_ + _cond.getInit().length());
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexLoop(1);
-        }
-        off_ = _cond.getExpressionOffset();
-        if (_vars.getLastStackElt().getIndexLoop() == 1) {
-            OperationNode rootExp_ = _cond.getRootExp();
-            buildNormalError(_vars, _cond, -1, rootExp_, off_, 1, off_ + _cond.getExpression().length());
-            if (_vars.goesToProcess()) {
-                return;
-            }
-            _vars.getLastStackElt().setIndexLoop(2);
-        }
-        off_ = _cond.getStepOffset();
-        OperationNode rootStep_ = _cond.getRootStep();
-        buildNormalError(_vars, _cond, -1, rootStep_, off_, 2, off_ + _cond.getStep().length());
-        if (_vars.goesToProcess()) {
+        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
+        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        if (hasToVisitLoopHeaderError(_vars, _cond, pr_)) {
             return;
         }
-        _vars.getLastStackElt().setIndexLoop(0);
         refLabelError(_vars, _cond, _cond.getLabel(), _cond.getLabelOffset());
     }
     private static void processForEachLoopReport(VariablesOffsets _vars, ForEachLoop _cond, Coverage _cov) {
