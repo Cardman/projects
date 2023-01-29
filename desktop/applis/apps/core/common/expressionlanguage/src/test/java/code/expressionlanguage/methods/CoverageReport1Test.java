@@ -14910,6 +14910,98 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
 
+
+    @Test
+    public void coverage739Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {ONE,TWO,THREE,FOUR,FIVE,SIX;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  int o = 0;\n");
+        xml_.append("  for (Ex i:{ONE,TWO,THREE,FOUR,FIVE,SIX}){\n");
+        xml_.append("   switch(i){\n");
+        xml_.append("    case ONE,TWO;\n");
+        xml_.append("     o+= 1;\n");
+        xml_.append("    case var j:j.ordinal()%2==0;\n");
+        xml_.append("     o+= 2;\n");
+        xml_.append("    default j;\n");
+        xml_.append("     o+= 3;\n");
+        xml_.append("   }\n");
+        xml_.append("  }\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {<span class=\"g\"><a name=\"m20\">ONE</a></span>,<span class=\"g\"><a name=\"m24\">TWO</a></span>,<span class=\"g\"><a name=\"m28\">THREE</a></span>,<span class=\"g\"><a name=\"m34\">FOUR</a></span>,<span class=\"g\"><a name=\"m39\">FIVE</a></span>,<span class=\"g\"><a name=\"m44\">SIX</a></span>;\n" +
+                " public static int <a name=\"m68\">catching</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m86\">o</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"f\">for (<a title=\"pkg.Ex\" href=\"#m12\">Ex</a> <a name=\"m103\">i</a></span>:<span class=\"f\">{<span class=\"f\"><a title=\"pkg.Ex.ONE\" href=\"#m20\">ONE</a></span>,<span class=\"f\"><a title=\"pkg.Ex.TWO\" href=\"#m24\">TWO</a></span>,<span class=\"f\"><a title=\"pkg.Ex.THREE\" href=\"#m28\">THREE</a></span>,<span class=\"f\"><a title=\"pkg.Ex.FOUR\" href=\"#m34\">FOUR</a></span>,<span class=\"f\"><a title=\"pkg.Ex.FIVE\" href=\"#m39\">FIVE</a></span>,<span class=\"f\"><a title=\"pkg.Ex.SIX\" href=\"#m44\">SIX</a></span>}</span>){\n" +
+                "   <span class=\"f\"><a title=\"4/4\">switch</a></span>(<span class=\"f\"><a href=\"#m103\">i</a></span>){\n" +
+                "    <span class=\"f\"><a title=\"2/2\">case</a></span> <a title=\"pkg.Ex.ONE\" href=\"#m20\">ONE</a>,<a title=\"pkg.Ex.TWO\" href=\"#m24\">TWO</a>;\n" +
+                "     <span class=\"f\"><span class=\"f\"><a href=\"#m86\">o</a></span>+=<span class=\"f\"> 1</span></span>;\n" +
+                "    <span class=\"f\"><a title=\"1/1\">case</a></span> <b title=\"pkg.Ex\">var</b> <a name=\"m194\">j</a>:<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m194\">j</a></span>.<span class=\"f\">ordinal()</span></span>%<span class=\"f\">2</span></span>==<span class=\"f\">0</span></span>;\n" +
+                "     <span class=\"f\"><span class=\"f\"><a href=\"#m86\">o</a></span>+=<span class=\"f\"> 2</span></span>;\n" +
+                "    <span class=\"f\"><a title=\"1/1\">default</a></span> <a title=\"pkg.Ex\" name=\"m238\">j</a>;\n" +
+                "     <span class=\"f\"><span class=\"f\"><a href=\"#m86\">o</a></span>+=<span class=\"f\"> 3</span></span>;\n" +
+                "   }\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m86\">o</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
+
+    @Test
+    public void coverage740Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public enum pkg.Ex {ONE,TWO,THREE,FOUR,FIVE,SIX;\n");
+        xml_.append(" public static int catching(){\n");
+        xml_.append("  int o = 0;\n");
+        xml_.append("  for (Ex i:{ONE,TWO,THREE,FOUR,FIVE,SIX}){\n");
+        xml_.append("   o+=(int)switch(i){\n");
+        xml_.append("    case ONE,TWO;\n");
+        xml_.append("     return 1;\n");
+        xml_.append("    case var j:j.ordinal()%2==0;\n");
+        xml_.append("     return 2;\n");
+        xml_.append("    default j;\n");
+        xml_.append("     return 3;\n");
+        xml_.append("   };\n");
+        xml_.append("  }\n");
+        xml_.append("  return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public enum <a name=\"m12\">pkg.Ex</a> {<span class=\"g\"><a name=\"m20\">ONE</a></span>,<span class=\"g\"><a name=\"m24\">TWO</a></span>,<span class=\"g\"><a name=\"m28\">THREE</a></span>,<span class=\"g\"><a name=\"m34\">FOUR</a></span>,<span class=\"g\"><a name=\"m39\">FIVE</a></span>,<span class=\"g\"><a name=\"m44\">SIX</a></span>;\n" +
+                " public static int <a name=\"m68\">catching</a>(){\n" +
+                "  int <span class=\"f\"><span class=\"f\"><a name=\"m86\">o</a> </span>=<span class=\"f\"> 0</span></span>;\n" +
+                "  <span class=\"f\">for (<a title=\"pkg.Ex\" href=\"#m12\">Ex</a> <a name=\"m103\">i</a></span>:<span class=\"f\">{<span class=\"f\"><a title=\"pkg.Ex.ONE\" href=\"#m20\">ONE</a></span>,<span class=\"f\"><a title=\"pkg.Ex.TWO\" href=\"#m24\">TWO</a></span>,<span class=\"f\"><a title=\"pkg.Ex.THREE\" href=\"#m28\">THREE</a></span>,<span class=\"f\"><a title=\"pkg.Ex.FOUR\" href=\"#m34\">FOUR</a></span>,<span class=\"f\"><a title=\"pkg.Ex.FIVE\" href=\"#m39\">FIVE</a></span>,<span class=\"f\"><a title=\"pkg.Ex.SIX\" href=\"#m44\">SIX</a></span>}</span>){\n" +
+                "   <span class=\"f\"><span class=\"f\"><a href=\"#m86\">o</a></span>+=<span class=\"f\">(int)<span class=\"f\"><span class=\"f\"><a title=\"4/4\">switch</a></span>(<span class=\"f\"><a href=\"#m103\">i</a></span>)<span class=\"t\">{\n" +
+                "    <span class=\"f\"><a title=\"2/2\">case</a></span> <a title=\"pkg.Ex.ONE\" href=\"#m20\">ONE</a>,<a title=\"pkg.Ex.TWO\" href=\"#m24\">TWO</a>;\n" +
+                "     return <span class=\"f\">1</span>;\n" +
+                "    <span class=\"f\"><a title=\"1/1\">case</a></span> <b title=\"pkg.Ex\">var</b> <a name=\"m205\">j</a>:<span class=\"f\"><span class=\"f\"><span class=\"f\"><span class=\"f\"><a href=\"#m205\">j</a></span>.<span class=\"f\">ordinal()</span></span>%<span class=\"f\">2</span></span>==<span class=\"f\">0</span></span>;\n" +
+                "     return <span class=\"f\">2</span>;\n" +
+                "    <span class=\"f\"><a title=\"1/1\">default</a></span> <a title=\"pkg.Ex\" name=\"m252\">j</a>;\n" +
+                "     return <span class=\"f\">3</span>;\n" +
+                "   }</span></span></span></span>;\n" +
+                "  }\n" +
+                "  return <span class=\"f\"><a href=\"#m86\">o</a></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
+
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();

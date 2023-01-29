@@ -286,6 +286,9 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         }
     }
     private static boolean reachCatch(CustList<ReachFilterContent> _classes, OperationNode _o, AnalyzingEl _anEl, AnalyzedPageEl _page) {
+        if (_o == null) {
+            return true;
+        }
         String argType_ = _o.getResultClass().getSingleNameOrEmpty();
         if (argType_.isEmpty()) {
             return true;
