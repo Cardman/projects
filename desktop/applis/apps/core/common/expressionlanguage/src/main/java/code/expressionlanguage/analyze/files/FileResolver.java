@@ -2900,14 +2900,7 @@ public final class FileResolver {
                     new OffsetStringInfo(fullValueOffset_, value_),
                     _i.instLoc()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""));
         } else if (sepCond_ >= 0) {
-            if (StringUtil.quickEq(declaringType_.trim(),_keyWords.getKeyWordVar())) {
-                if (_currentParent instanceof SwitchBlock) {
-                    ((SwitchBlock)_currentParent).setForceInstance(true);
-                }
-                if (_currentParent instanceof SwitchMethodBlock) {
-                    ((SwitchMethodBlock)_currentParent).setForceInstance(true);
-                }
-            }
+            possibleChange(_currentParent, _keyWords, declaringType_);
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
             int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
             String substring_ = trimPreVar_.substring(sepCond_ + 1);
@@ -2916,6 +2909,7 @@ public final class FileResolver {
                     new OffsetStringInfo(fullValueOffset_, value_),
                     _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()));
         } else {
+            possibleChange(_currentParent, _keyWords, declaringType_);
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
             int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
             br_ = new CaseCondition(
@@ -2929,6 +2923,17 @@ public final class FileResolver {
         br_.setLengthHeader(keyWordCase_.length());
         br_.getFilterContent().getRes().partsAbsol(_i.getStringParts());
         return br_;
+    }
+
+    private static void possibleChange(BracedBlock _currentParent, KeyWords _keyWords, String _declaringType) {
+        if (StringUtil.quickEq(_declaringType.trim(), _keyWords.getKeyWordVar())) {
+            if (_currentParent instanceof SwitchBlock) {
+                ((SwitchBlock) _currentParent).setForceInstance(true);
+            }
+            if (_currentParent instanceof SwitchMethodBlock) {
+                ((SwitchMethodBlock) _currentParent).setForceInstance(true);
+            }
+        }
     }
 
     private static String varName(String _value, String _declaringType) {
