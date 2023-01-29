@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.analyze.inherits.AnaInherits;
+import code.expressionlanguage.analyze.reach.blocks.ReachCaseCondition;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
 import code.expressionlanguage.analyze.types.IdTypeList;
 import code.expressionlanguage.analyze.types.ResolvedIdType;
@@ -74,6 +75,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         AnaInherits.getOverridingFullTypeByBases(null,null);
         AnalyzedPageEl.getLocationFile(0,null,0);
         AnalyzedPageEl.getFileName(null);
+        ReachCaseCondition.nullToEmpty(null);
         assertSame(NullStruct.DEF_VALUE,NullStruct.def(null));
         assertSame(NullStruct.DEF_VALUE,NullStruct.def(NullStruct.DEF_VALUE));
         assertSame(NullStruct.NULL_VALUE,NullStruct.def(NullStruct.NULL_VALUE));

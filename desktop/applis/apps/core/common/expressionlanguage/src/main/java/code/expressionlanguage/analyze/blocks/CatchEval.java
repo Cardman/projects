@@ -13,7 +13,7 @@ public final class CatchEval extends AbstractCatchEval implements BuildableElMet
     private final boolean catchAll;
     public CatchEval(OffsetStringInfo _value, int _offset, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition, OffsetBooleanInfo _thr, boolean _ca) {
         super(_offset);
-        filterContent = new FilterContent(_value, _declaringType, _variable, _condition);
+        filterContent = new FilterContent(_value, _declaringType, _variable, _condition, false);
         throwIfGuardError = _thr.isInfo();
         catchAll = _ca;
     }

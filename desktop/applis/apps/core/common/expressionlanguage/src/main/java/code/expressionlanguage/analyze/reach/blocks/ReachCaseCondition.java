@@ -250,7 +250,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
 
     public void reachCase(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         ReachBracedBlock par_ = getParent();
-        if (!(par_ instanceof ReachSwitchBlock)) {
+        if (!(par_ instanceof ReachSwitchBlock)||getFilterContent().getEnumBlock()!=null) {
             reachBaseBraced(_anEl);
             return;
         }
@@ -309,8 +309,16 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         CustList<OperationNode> childrenNodes_;
         if (_r.getFilterContent().getRoot() instanceof DeclaringOperation) {
             childrenNodes_ = ((DeclaringOperation) _r.getFilterContent().getRoot()).getChildrenNodes();
-        } else if (_r.getFilterContent().getRoot() != null){
-            childrenNodes_ = new CustList<OperationNode>(_r.getFilterContent().getRoot());
+        } else {
+            childrenNodes_ = nullToEmpty(_r.getFilterContent().getRoot());
+        }
+        return childrenNodes_;
+    }
+
+    public static CustList<OperationNode> nullToEmpty(OperationNode _r) {
+        CustList<OperationNode> childrenNodes_;
+        if (_r != null) {
+            childrenNodes_ = new CustList<OperationNode>(_r);
         } else {
             childrenNodes_ = new CustList<OperationNode>();
         }

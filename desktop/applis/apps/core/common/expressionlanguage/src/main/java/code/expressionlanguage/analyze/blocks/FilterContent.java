@@ -55,7 +55,8 @@ public final class FilterContent {
     private final String declaringType;
     private String keyWord = "";
     private String keyWordContainer = "";
-    public FilterContent(OffsetStringInfo _value, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition) {
+    private final boolean infer;
+    public FilterContent(OffsetStringInfo _value, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition, boolean _i) {
         declaringType = _declaringType;
         value = _value.getInfo();
         valueOffset = _value.getOffset();
@@ -63,6 +64,7 @@ public final class FilterContent {
         variableOffset = _variable.getOffset();
         condition = _condition.getInfo();
         conditionOffset = _condition.getOffset();
+        infer = _i;
     }
 
     public String getDeclaringType() {
@@ -140,7 +142,7 @@ public final class FilterContent {
             _bl.addErrorBlock(un_.getBuiltError());
         }
         instance = true;
-        if (StringUtil.quickEq(declaringType.trim(),_page.getKeyWords().getKeyWordVar())) {
+        if (infer&&StringUtil.quickEq(declaringType.trim(),_page.getKeyWords().getKeyWordVar())) {
             importedType = _type;
         } else {
             partOffsets = ResolvingTypes.resolveCorrectType(declaringType, _page);

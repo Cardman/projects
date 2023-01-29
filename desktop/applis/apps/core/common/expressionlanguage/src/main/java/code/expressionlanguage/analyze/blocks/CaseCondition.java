@@ -14,7 +14,7 @@ public final class CaseCondition extends SwitchPartBlock implements WithFilterCo
 
     public CaseCondition(OffsetStringInfo _value, int _offset, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition) {
         super(_offset);
-        filterContent = new FilterContent(_value, _declaringType, _variable, _condition);
+        filterContent = new FilterContent(_value, _declaringType, _variable, _condition, true);
     }
 
     public int getValueOffset() {
