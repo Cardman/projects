@@ -782,16 +782,22 @@ public final class LinkageUtil {
     private static void processForMutableIterativeLoopReport(VariablesOffsets _vars, ForMutableIterativeLoop _cond, Coverage _cov) {
         OperationNode rootExp_ = _cond.getRootExp();
         headForMutableReport(_vars, _cond, _cov, rootExp_);
-        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
-        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        CustList<LinkageBlockElement> pr_ = forMutableElements(_cond);
         if (hasToVisitLoopHeaderReport(_vars, _cond, _cov, pr_)) {
             return;
         }
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
         processTestCondition(_vars, _cond.getFunctions());
     }
+
+    private static CustList<LinkageBlockElement> forMutableElements(ForMutableIterativeLoop _cond) {
+        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
+        pr_.add(new LinkageBlockElement(_cond.getRootInit(), _cond.getInitOffset(), _cond.getInit().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootExp(), _cond.getExpressionOffset(), _cond.getExpression().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootStep(), _cond.getStepOffset(), _cond.getStep().length()));
+        return pr_;
+    }
+
     private static boolean hasToVisitLoopHeaderReport(VariablesOffsets _vars, AbsBk _cond, Coverage _cov, CustList<LinkageBlockElement> _pr) {
         int len_ = _pr.size();
         for (int i = 0; i < len_; i++) {
@@ -828,10 +834,7 @@ public final class LinkageUtil {
 
     private static void processForMutableIterativeLoopError(VariablesOffsets _vars, ForMutableIterativeLoop _cond) {
         headForMutableError(_vars, _cond);
-        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
-        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        CustList<LinkageBlockElement> pr_ = forMutableElements(_cond);
         if (hasToVisitLoopHeaderError(_vars, _cond, pr_)) {
             return;
         }
@@ -1257,15 +1260,21 @@ public final class LinkageUtil {
             _vars.addPart(new PartOffset(ExportCst.anchorName(_cond.getVariableNameOffset()), _cond.getVariableNameOffset()));
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
-        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
-        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        CustList<LinkageBlockElement> pr_ = forIterativeElements(_cond);
         if (hasToVisitLoopHeaderReport(_vars, _cond, _cov, pr_)) {
             return;
         }
         refLabel(_vars, _cond.getLabel(), _cond.getLabelOffset());
     }
+
+    private static CustList<LinkageBlockElement> forIterativeElements(ForIterativeLoop _cond) {
+        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
+        pr_.add(new LinkageBlockElement(_cond.getRootInit(), _cond.getInitOffset(), _cond.getInit().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootExp(), _cond.getExpressionOffset(), _cond.getExpression().length()));
+        pr_.add(new LinkageBlockElement(_cond.getRootStep(), _cond.getStepOffset(), _cond.getStep().length()));
+        return pr_;
+    }
+
     private static void processForIterativeLoopError(VariablesOffsets _vars, ForIterativeLoop _cond) {
         if (_vars.getLastStackElt().noVisited()) {
             StringList errs_ = _cond.getNameErrors();
@@ -1276,10 +1285,7 @@ public final class LinkageUtil {
             }
             _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, _cond.getVariableNameOffset() + _cond.getVariableName().length()));
         }
-        CustList<LinkageBlockElement> pr_ = new CustList<LinkageBlockElement>();
-        pr_.add(new LinkageBlockElement(_cond.getRootInit(),_cond.getInitOffset(),_cond.getInit().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootExp(),_cond.getExpressionOffset(),_cond.getExpression().length()));
-        pr_.add(new LinkageBlockElement(_cond.getRootStep(),_cond.getStepOffset(),_cond.getStep().length()));
+        CustList<LinkageBlockElement> pr_ = forIterativeElements(_cond);
         if (hasToVisitLoopHeaderError(_vars, _cond, pr_)) {
             return;
         }
