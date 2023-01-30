@@ -1113,7 +1113,7 @@ public final class ForwardInfos {
 //            }
 //        } else
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            OperationNode root_ = _en.getFilterContent().getRoot();
+            OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
             exec_ = new ExecAbstractInstanceCaseCondition(_en.getFilterContent().getVariableName(), _en.getFilterContent().getImportedType(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
@@ -1139,7 +1139,7 @@ public final class ForwardInfos {
 //            }
 //        } else
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            OperationNode root_ = _en.getFilterContent().getRoot();
+            OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
             exec_ = new ExecCatchEval(_en.getFilterContent().getVariableName(), _en.getFilterContent().getImportedType(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(), _en.isThrowIfGuardError(), _en.isCatchAll());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());

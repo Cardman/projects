@@ -8,7 +8,6 @@ import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
 import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.Calculation;
-import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.types.AnaResultPartType;
@@ -30,7 +29,8 @@ public final class FilterContent {
 
     private final String value;
     private final String condition;
-    private final ResultExpression res = new ResultExpression();
+    private final ResultExpression resValue = new ResultExpression();
+    private final ResultExpression resCondition = new ResultExpression();
 
     private String importedType = "";
 
@@ -122,8 +122,8 @@ public final class FilterContent {
             return;
         }
         _page.setAcceptCommaInstr(true);
-        _page.setSumOffset(res.getSumOffset());
-        res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(stCtx_), _page));
+        _page.setSumOffset(resValue.getSumOffset());
+        resValue.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resValue, Calculation.staticCalculation(stCtx_), _page));
         _page.setAcceptCommaInstr(false);
         String emp_ = _page.getCurrentEmptyPartErr();
         if (!emp_.isEmpty()) {
@@ -158,10 +158,10 @@ public final class FilterContent {
             _page.getInfosVars().put(variableName, lv_);
         }
         if (!condition.isEmpty()) {
-            _page.setSumOffset(res.getSumOffset());
+            _page.setSumOffset(resCondition.getSumOffset());
             _page.zeroOffset();
-            res.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(res, Calculation.staticCalculation(_stCtx), _page));
-            AnaClassArgumentMatching resultClass_ = res.getRoot().getResultClass();
+            resCondition.setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(resCondition, Calculation.staticCalculation(_stCtx), _page));
+            AnaClassArgumentMatching resultClass_ = resCondition.getRoot().getResultClass();
             if (!resultClass_.isBoolType(_page)) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
                 un_.setFile(_bl.getFile());
@@ -227,8 +227,12 @@ public final class FilterContent {
         }
     }
 
-    public ResultExpression getRes() {
-        return res;
+    public ResultExpression getResCondition() {
+        return resCondition;
+    }
+
+    public ResultExpression getResValue() {
+        return resValue;
     }
 
     public EnumBlock getEnumBlock() {
@@ -245,10 +249,6 @@ public final class FilterContent {
 
     public CustList<ClassField> getEnumValues() {
         return enumValues;
-    }
-
-    public OperationNode getRoot() {
-        return res.getRoot();
     }
 
     public String getTypeEnum() {

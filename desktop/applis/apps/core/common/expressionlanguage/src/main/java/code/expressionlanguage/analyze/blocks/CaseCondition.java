@@ -42,8 +42,8 @@ public final class CaseCondition extends SwitchPartBlock implements WithFilterCo
             //key word len
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
-            _page.setSumOffset(filterContent.getRes().getSumOffset());
-            filterContent.getRes().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(filterContent.getRes(), Calculation.staticCalculation(stCtx_), _page));
+            _page.setSumOffset(filterContent.getResValue().getSumOffset());
+            filterContent.getResValue().setRoot(ElUtil.getRootAnalyzedOperationsReadOnly(filterContent.getResValue(), Calculation.staticCalculation(stCtx_), _page));
             return;
         }
         String type_;

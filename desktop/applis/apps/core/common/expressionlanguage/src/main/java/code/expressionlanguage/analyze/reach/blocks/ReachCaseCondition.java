@@ -11,6 +11,7 @@ import code.expressionlanguage.analyze.instr.ElUtil;
 import code.expressionlanguage.analyze.opers.DeclaringOperation;
 import code.expressionlanguage.analyze.opers.OperationNode;
 import code.expressionlanguage.analyze.reach.opers.ReachOperationUtil;
+import code.expressionlanguage.analyze.syntax.ResultExpression;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.util.ArgumentListCall;
@@ -58,16 +59,16 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
     static void buildExpressionLanguageReadOnly(AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance, ReachBlock _bl, ReachFilterContent _current) {
         FilterContent filter_ = _current.getFilterContent();
         if (filter_.isInstance()) {
-            trCacl(_page, filter_);
+            trCacl(_page, filter_.getResCondition());
             return;
         }
-        trCacl(_page, filter_);
+        trCacl(_page, filter_.getResValue());
         processNumValues(_instance, _resSwitch, _page,_bl,_current);
     }
 
-    private static void trCacl(AnalyzedPageEl _page, FilterContent _filter) {
-        if (_filter.getRoot() != null) {
-            ReachOperationUtil.tryCalculate(_filter.getRoot(), _page);
+    private static void trCacl(AnalyzedPageEl _page, ResultExpression _reValue) {
+        if (_reValue.getRoot() != null) {
+            ReachOperationUtil.tryCalculate(_reValue.getRoot(), _page);
         }
     }
 
@@ -294,7 +295,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         boolean reachCatch_ = true;
         _anEl.setArgMapping(argType_);
         for (ReachFilterContent c: _classes) {
-            if (c.getFilterContent().getRoot() == null) {
+            if (c.getFilterContent().getResCondition().getRoot() == null) {
                 _anEl.setParamMapping(c.getFilterContent().getImportedType());
                 if (_anEl.isCorrectMapping(_page)) {
                     reachCatch_ = false;
@@ -307,10 +308,10 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
 
     private static CustList<OperationNode> childrenNodes(ReachFilterContent _r) {
         CustList<OperationNode> childrenNodes_;
-        if (_r.getFilterContent().getRoot() instanceof DeclaringOperation) {
-            childrenNodes_ = ((DeclaringOperation) _r.getFilterContent().getRoot()).getChildrenNodes();
+        if (_r.getFilterContent().getResValue().getRoot() instanceof DeclaringOperation) {
+            childrenNodes_ = ((DeclaringOperation) _r.getFilterContent().getResValue().getRoot()).getChildrenNodes();
         } else {
-            childrenNodes_ = nullToEmpty(_r.getFilterContent().getRoot());
+            childrenNodes_ = nullToEmpty(_r.getFilterContent().getResValue().getRoot());
         }
         return childrenNodes_;
     }
@@ -327,8 +328,8 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
 
     private static StrTypes children(ReachFilterContent _r) {
         StrTypes children_;
-        if (_r.getFilterContent().getRoot() instanceof DeclaringOperation) {
-            children_ = ((DeclaringOperation) _r.getFilterContent().getRoot()).getChildren();
+        if (_r.getFilterContent().getResValue().getRoot() instanceof DeclaringOperation) {
+            children_ = ((DeclaringOperation) _r.getFilterContent().getResValue().getRoot()).getChildren();
         } else {
             StrTypes si_ = new StrTypes();
             si_.addEntry(0,_r.getFilterContent().getValue());
@@ -362,7 +363,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             _anEl.setParamMapping(_other.getFilterContent().getImportedType());
             return _anEl.isCorrectMapping(_page);
         }
-        return _other.getFilterContent().getRoot() == null;
+        return _other.getFilterContent().getResCondition().getRoot() == null;
     }
 
     private static CustList<ReachFilterContent> previous(ReachBlock _bl) {

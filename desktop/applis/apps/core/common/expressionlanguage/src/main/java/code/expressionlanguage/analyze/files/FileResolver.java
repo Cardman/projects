@@ -2764,6 +2764,7 @@ public final class FileResolver {
                 br_ = new CatchEval(
                         new OffsetStringInfo(fullValueOffset_, value_),
                         _i.instLoc()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""), thr_, false);
+                br_.getFilterContent().getResValue().partsAbsol(_i.getStringParts());
             } else if (sepCond_ >= 0) {
                 int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
                 int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
@@ -2772,6 +2773,7 @@ public final class FileResolver {
                 br_ = new CatchEval(
                         new OffsetStringInfo(fullValueOffset_, value_),
                         _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()), thr_,false);
+                br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts());
             } else {
                 int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
                 int variableOffset_ = afterTypeOff_ + StringExpUtil.getOffset(varName_);
@@ -2785,7 +2787,6 @@ public final class FileResolver {
         _currentParent.appendChild(br_);
         br_.setBegin(_i.instLoc()+ _offset);
         br_.setLengthHeader(keyWordCatch_.length());
-        br_.getFilterContent().getRes().partsAbsol(_i.getStringParts());
         return br_;
     }
     private static String strAllVar(String _value) {
@@ -2899,6 +2900,7 @@ public final class FileResolver {
             br_ = new CaseCondition(
                     new OffsetStringInfo(fullValueOffset_, value_),
                     _i.instLoc()+ _offset, "", new OffsetStringInfo(0,""),new OffsetStringInfo(fullValueOffset_,""));
+            br_.getFilterContent().getResValue().partsAbsol(_i.getStringParts());
         } else if (sepCond_ >= 0) {
             possibleChange(_currentParent, _keyWords, declaringType_);
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
@@ -2908,6 +2910,7 @@ public final class FileResolver {
             br_ = new CaseCondition(
                     new OffsetStringInfo(fullValueOffset_, value_),
                     _i.instLoc()+ _offset, declaringType_, new OffsetStringInfo(variableOffset_,trimVar_),new OffsetStringInfo(conditionOffset_,substring_.trim()));
+            br_.getFilterContent().getResCondition().partsAbsol(_i.getStringParts());
         } else {
             possibleChange(_currentParent, _keyWords, declaringType_);
             int afterTypeOff_ = fullValueOffset_ + declaringType_.length();
@@ -2921,7 +2924,6 @@ public final class FileResolver {
         _currentParent.appendChild(br_);
         br_.setBegin(_i.instLoc()+ _offset);
         br_.setLengthHeader(keyWordCase_.length());
-        br_.getFilterContent().getRes().partsAbsol(_i.getStringParts());
         return br_;
     }
 

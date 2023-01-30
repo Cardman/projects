@@ -955,26 +955,15 @@ public final class LinkageUtil {
         EnumBlock enumBlock_ = _cond.getEnumBlock();
         if (enumBlock_ != null) {
             addEnumRef(_vars, _cond, enumBlock_);
-        } else if (!_cond.getImportedType().isEmpty()) {
-            if (_vars.getLastStackElt().noVisited()) {
-                processInferFilter(_vars,_cond);
-                String variableName_ = _cond.getVariableName();
-                int variableOffset_ = _cond.getVariableOffset();
-                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR,variableOffset_+ variableName_.trim().length()));
-            }
-            OperationNode root_ = _cond.getRoot();
-            if (root_ != null) {
-                int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
-                LinkageStackElementIn in_ = buildLinkageRep(_bl, _cond.getConditionOffset(), offsetEndBlock_, 0, -1);
-                buildCoverageReport(_vars, _cov, root_, in_);
-            }
-        } else {
-            int offsetEndBlock_ = _cond.getValueOffset() + _cond.getValue().length();
-            OperationNode root_ = _cond.getRoot();
-            LinkageStackElementIn in_ = buildLinkageRep(_bl, _cond.getValueOffset(), offsetEndBlock_, 0, -1);
-            buildCoverageReport(_vars, _cov, root_, in_);
+        } else if (!_cond.getImportedType().isEmpty() && _vars.getLastStackElt().noVisited()) {
+            processInferFilter(_vars, _cond);
+            String variableName_ = _cond.getVariableName();
+            int variableOffset_ = _cond.getVariableOffset();
+            _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_), variableOffset_));
+            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
         }
+        CustList<LinkageBlockElement> ls_ = filterElements(_cond);
+        hasToVisitLoopHeaderReport(_vars,_bl,_cov,ls_);
     }
 
     private static String getCaseDefaultTag(CustList<AbstractCoverageResult> _result) {
@@ -1007,28 +996,27 @@ public final class LinkageUtil {
         EnumBlock enumBlock_ = _cond.getEnumBlock();
         if (enumBlock_ != null) {
             addEnumRef(_vars, _cond, enumBlock_);
-        } else if (!_cond.getImportedType().isEmpty()) {
-            if (_vars.getLastStackElt().noVisited()) {
-                processInferFilter(_vars,_cond);
-                String variableName_ = _cond.getVariableName();
-                int variableOffset_ = _cond.getVariableOffset();
-                StringList errs_ = _cond.getNameErrors();
-                if (!errs_.isEmpty()) {
-                    _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_,StringUtil.join(errs_,ExportCst.JOIN_ERR)), variableOffset_));
-                } else {
-                    _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_),variableOffset_));
-                }
-                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
+        } else if (!_cond.getImportedType().isEmpty() && _vars.getLastStackElt().noVisited()) {
+            processInferFilter(_vars, _cond);
+            String variableName_ = _cond.getVariableName();
+            int variableOffset_ = _cond.getVariableOffset();
+            StringList errs_ = _cond.getNameErrors();
+            if (!errs_.isEmpty()) {
+                _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_, StringUtil.join(errs_, ExportCst.JOIN_ERR)), variableOffset_));
+            } else {
+                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_), variableOffset_));
             }
-            OperationNode root_ = _cond.getRoot();
-            if (root_ != null) {
-                buildNormalError(_vars, _bl, -1, root_, _cond.getConditionOffset(), 0, _cond.getValueOffset() + _cond.getValue().length());
-            }
-        } else {
-            int off_ = _cond.getValueOffset();
-            OperationNode root_ = _cond.getRoot();
-            buildNormalError(_vars, _bl, -1, root_, off_, 0, off_ + _cond.getValue().length());
+            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
         }
+        CustList<LinkageBlockElement> ls_ = filterElements(_cond);
+        hasToVisitLoopHeaderError(_vars, _bl, ls_);
+    }
+
+    private static CustList<LinkageBlockElement> filterElements(FilterContent _cond) {
+        CustList<LinkageBlockElement> ls_ = new CustList<LinkageBlockElement>();
+        ls_.add(new LinkageBlockElement(_cond.getResValue().getRoot(), _cond.getValueOffset(), _cond.getValue().length()));
+        ls_.add(new LinkageBlockElement(_cond.getResCondition().getRoot(), _cond.getConditionOffset(), _cond.getCondition().length()));
+        return ls_;
     }
 
     private static void processInferFilter(VariablesOffsets _vars, FilterContent _cond) {
