@@ -726,6 +726,33 @@ public final class RenderSwitchTest extends CommonRender {
         String html_ = "<html><body><c:switch value='8'><c:case className='$var' var='i' value='i==8'>Text</c:case></c:switch></body></html>";
         assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
+    @Test
+    public void process64Test() {
+        String html_ = "<html><body><c:switch value='8'><c:case value='8' condition='$true'/><c:case value='8'>Text</c:case></c:switch></body></html>";
+        assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
+    }
+    @Test
+    public void process65Test() {
+        String html_ = "<html><body><c:switch value='pkg.ExEnum.ONE'><c:case value='ONE' condition='pkg.ExEnum.ONE==pkg.ExEnum.ONE'>Text</c:case><c:case value='ONE'/></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
+    }
+    @Test
+    public void process66Test() {
+        String html_ = "<html><body><c:switch value='pkg.ExEnum.ONE'><c:case value='ONE' condition='pkg.ExEnum.ONE!=pkg.ExEnum.ONE'/><c:case value='ONE'>Text</c:case></c:switch></body></html>";
+        StringBuilder enum_ = new StringBuilder();
+        enum_.append("$public $enum pkg.ExEnum{");
+        enum_.append("ONE,TWO,THREE;");
+        enum_.append("}");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("ex_enum",enum_.toString());
+        assertEq("<html><body>Text</body></html>", getRes(html_, files_));
+    }
     private String getRes(String _html, StringMap<String> _files) {
         return getCommRes(_html, _files);
     }

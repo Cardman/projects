@@ -9,16 +9,10 @@ public final class RendAbstractInstanceCaseCondition extends RendAbstractCaseCon
 
     private final String variableName;
 
-    private final RendOperationNodeListOff exp;
-
     public RendAbstractInstanceCaseCondition(String _variableName, String _importedClassName, CustList<RendDynOperationNode> _list, int _offset) {
+        super(_list, _offset);
         variableName = _variableName;
         importedClassName = _importedClassName;
-        exp = new RendOperationNodeListOff(_list, _offset);
-    }
-
-    public RendOperationNodeListOff getExp() {
-        return exp;
     }
 
     @Override

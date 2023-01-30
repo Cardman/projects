@@ -1200,23 +1200,15 @@ public abstract class RendBlock {
         if (_found != null) {
             return _found;
         }
-        if (_in instanceof RendAbstractInstanceCaseCondition && !_arg.isNull()) {
-            return procTypeVar(_cont,_rendStack, (RendAbstractInstanceCaseCondition) _in, _arg);
-        }
-        return processList(_cont, _in, _arg);
+        return procTypeVar(_cont,_rendStack, (RendAbstractCaseCondition) _in, _arg);
     }
 
-    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, RendAbstractInstanceCaseCondition _in, Argument _arg) {
-        Struct struct_ = _arg.getStruct();
+    private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, RendAbstractCaseCondition _in, Argument _arg) {
         RendOperationNodeListOff exp_ = _in.getExp();
         CustList<RendDynOperationNode> list_ = exp_.getList();
-        String importedClassName_ = _rendStack.formatVarType(_in.getImportedClassName());
-        boolean safe_ = ExecInherits.safeObject(importedClassName_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING;
+        boolean safe_ = safe(_cont, _rendStack, _in, _arg);
         if (list_.isEmpty()) {
             if (safe_) {
-                ImportingPage ip_ = _rendStack.getLastPage();
-                String var_ = _in.getVariableName();
-                putVar(struct_, ip_, var_, importedClassName_);
                 return _in;
             }
             return null;
@@ -1225,26 +1217,41 @@ public abstract class RendBlock {
             return null;
         }
         ImportingPage ip_ = _rendStack.getLastPage();
-        String var_ = _in.getVariableName();
-        putVar(struct_, ip_, var_, importedClassName_);
         ip_.setOffset(exp_.getOffset());
         Argument visit_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(list_, _cont, _rendStack).lastValue().getArgument());
         if (_cont.callsOrException(_rendStack.getStackCall())||BooleanStruct.isFalse(visit_.getStruct())) {
-            ip_.removeRefVar(var_);
+            if (_in instanceof RendAbstractInstanceCaseCondition) {
+                String var_ = ((RendAbstractInstanceCaseCondition)_in).getVariableName();
+                ip_.removeRefVar(var_);
+            }
             return null;
         }
         return _in;
     }
 
-    private static void putVar(Struct _struct, ImportingPage _ip, String _var, String _importedClassName) {
-        _ip.putValueVar(_var, new VariableWrapper(LocalVariable.newLocalVariable(_struct, _importedClassName)));
+    private static boolean safe(ContextEl _cont, RendStackCall _rendStack, RendAbstractCaseCondition _in, Argument _arg) {
+        Struct struct_ = _arg.getStruct();
+        boolean safe_;
+        if (_in instanceof RendAbstractInstanceCaseCondition) {
+            if (_arg.isNull()) {
+                safe_ = false;
+            } else {
+                String importedClassName_ = _rendStack.formatVarType(((RendAbstractInstanceCaseCondition) _in).getImportedClassName());
+                safe_ = ExecInherits.safeObject(importedClassName_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING;
+                if (safe_) {
+                    ImportingPage ip_ = _rendStack.getLastPage();
+                    String var_ = ((RendAbstractInstanceCaseCondition) _in).getVariableName();
+                    putVar(struct_, ip_, var_, importedClassName_);
+                }
+            }
+        } else {
+            safe_ = ((RendSwitchValuesCondition) _in).getList().match(ArgumentListCall.toStr(_arg), _cont) >= 0;
+        }
+        return safe_;
     }
 
-    private static RendAbstractCaseCondition processList(ContextEl _cont, RendParentBlock _in, Argument _arg) {
-        if (_in instanceof RendSwitchValuesCondition && ((RendSwitchValuesCondition) _in).getList().match(ArgumentListCall.toStr(_arg), _cont) >= 0) {
-            return (RendSwitchValuesCondition)_in;
-        }
-        return null;
+    private static void putVar(Struct _struct, ImportingPage _ip, String _var, String _importedClassName) {
+        _ip.putValueVar(_var, new VariableWrapper(LocalVariable.newLocalVariable(_struct, _importedClassName)));
     }
 
 }

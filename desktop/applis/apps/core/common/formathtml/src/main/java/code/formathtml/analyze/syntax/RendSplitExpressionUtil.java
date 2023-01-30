@@ -167,16 +167,25 @@ public final class RendSplitExpressionUtil {
         if (_filter.getVariableName().isEmpty()) {
             String value_ = _filter.getValue();
             _page.zeroOffset();
-            ResultExpression resultExpression_ = _filter.getRes();
+            ResultExpression resultExpression_ = _filter.getResValue();
             resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
             resultExpression_.setAnalyzedString(value_);
             resultExpression_.setSumOffset(_filter.getValueOffset());
             extractAnon(_page, _int, _method, _type, resultExpression_);
-        } else {
-            if (_filter.isCaseWhen()) {
-                String substring_ = _filter.getValue();
+            if (!_filter.getCondition().isEmpty()) {
+                String substring_ = _filter.getCondition();
                 _page.zeroOffset();
-                ResultExpression resultExpression_ = _filter.getRes();
+                ResultExpression resultExpressionCond_ = _filter.getResCondition();
+                resultExpressionCond_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrCondition()));
+                resultExpressionCond_.setAnalyzedString(substring_.trim());
+                resultExpressionCond_.setSumOffset(_filter.getConditionOffset());
+                extractAnon(_page, _int, _method, _type, resultExpressionCond_);
+            }
+        } else {
+            if (!_filter.getCondition().isEmpty()) {
+                String substring_ = _filter.getCondition();
+                _page.zeroOffset();
+                ResultExpression resultExpression_ = _filter.getResCondition();
                 resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
                 resultExpression_.setAnalyzedString(substring_.trim());
                 resultExpression_.setSumOffset(_filter.getValueOffset());

@@ -418,38 +418,55 @@ public final class ExecHelperBlocks {
     }
 
     private static ConditionReturn condition(ContextEl _cont, ExecAbstractCatchEval _cond, StackCall _stackCall, TryBlockStack _tr, ExecOperationNodeListOff _condition) {
-        Struct ex_ = _tr.getException();
-        if (!(_cond instanceof ExecCatchEval)) {
-            int match_ = ((ExecListCatchEval) _cond).getList().match(ex_, _cont);
-            if (match_ >= 0) {
-                return ConditionReturn.YES;
-            }
-            return ConditionReturn.NO;
-        }
-        boolean all_ = ((ExecCatchEval)_cond).isCatchAll();
-        if (!all_ && ex_ == NullStruct.NULL_VALUE) {
-            return ConditionReturn.NO;
-        }
-        if (_stackCall.getLastPage().isEmptyEl()){
-            String name_;
-            if (all_) {
-                name_ = _cont.getStandards().getCoreNames().getAliasObject();
-            } else {
-                name_ = _stackCall.formatVarType(((ExecCatchEval)_cond).getImportedClassName());
-                if (ExecInherits.safeObject(name_, Argument.getNull(ex_).getClassName(_cont), _cont) != ErrorType.NOTHING) {
-                    return ConditionReturn.NO;
-                }
-            }
-            String var_ = ((ExecCatchEval)_cond).getVariableName();
-            LocalVariable lv_ = LocalVariable.newLocalVariable(_tr.getException(), name_);
-            _stackCall.getLastPage().putValueVar(var_, lv_);
+        ConditionReturn f_ = first(_cont, _cond, _stackCall, _tr);
+        if (f_ == ConditionReturn.NO) {
+            return f_;
         }
         ConditionReturn res_ = evaluateGuardBas(_cont, _stackCall, _cond, _condition);
-        if (!_stackCall.calls()) {
+        if (_cond instanceof ExecCatchEval&&!_stackCall.calls()) {
             String var_ = ((ExecCatchEval) _cond).getVariableName();
             _stackCall.getLastPage().removeRefVar(var_);
         }
         return res_;
+    }
+    private static ConditionReturn first(ContextEl _cont, ExecAbstractCatchEval _cond, StackCall _stackCall, TryBlockStack _tr) {
+        Struct ex_ = _tr.getException();
+        if (_cond instanceof ExecListCatchEval) {
+            int match_ = ((ExecListCatchEval) _cond).getList().match(ex_, _cont);
+            if (match_ < 0) {
+                return ConditionReturn.NO;
+            }
+        }
+        if (_cond instanceof ExecCatchEval) {
+            boolean all_ = ((ExecCatchEval)_cond).isCatchAll();
+            if (!all_ && ex_ == NullStruct.NULL_VALUE) {
+                return ConditionReturn.NO;
+            }
+            if (_stackCall.getLastPage().isEmptyEl()){
+                String name_ = name(_cont,(ExecCatchEval)_cond,_stackCall,_tr);
+                if (name_.isEmpty()) {
+                    return ConditionReturn.NO;
+                }
+                String var_ = ((ExecCatchEval)_cond).getVariableName();
+                LocalVariable lv_ = LocalVariable.newLocalVariable(_tr.getException(), name_);
+                _stackCall.getLastPage().putValueVar(var_, lv_);
+            }
+        }
+        return ConditionReturn.YES;
+    }
+    private static String name(ContextEl _cont, ExecCatchEval _cond, StackCall _stackCall, TryBlockStack _tr) {
+        Struct ex_ = _tr.getException();
+        boolean all_ = _cond.isCatchAll();
+        String name_;
+        if (all_) {
+            name_ = _cont.getStandards().getCoreNames().getAliasObject();
+        } else {
+            name_ = _stackCall.formatVarType(_cond.getImportedClassName());
+            if (ExecInherits.safeObject(name_, Argument.getNull(ex_).getClassName(_cont), _cont) != ErrorType.NOTHING) {
+                return "";
+            }
+        }
+        return name_;
     }
 
     private static void enterGuardCatchBlock(ExecBracedBlock _block, AbstractPageEl _ip, TryBlockStack _ts) {
@@ -566,57 +583,62 @@ public final class ExecHelperBlocks {
 
     private static ExecResultCase tryFind(ContextEl _cont, StackCall _stack, ExecBracedBlock _in, SwitchBlockStack _st) {
         Struct v_ = _st.getValue();
-        if (_in instanceof ExecAbstractInstanceCaseCondition && v_ != NullStruct.NULL_VALUE) {
-            return procTypeVar(_cont, _stack, (ExecAbstractInstanceCaseCondition) _in, v_);
-        }
-        return processList(_cont, _in, v_);
+        return procTypeVar(_cont, _stack, (ExecAbstractCaseCondition) _in, v_);
     }
 
-    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractInstanceCaseCondition _in, Struct _arg) {
+    private static ExecResultCase procTypeVar(ContextEl _cont, StackCall _stack, ExecAbstractCaseCondition _in, Struct _arg) {
         ExecOperationNodeListOff exp_ = _in.getExp();
         CustList<ExecOperationNode> list_ = exp_.getList();
-        if (_stack.getLastPage().isEmptyEl()){
-            String name_ = _stack.formatVarType(_in.getImportedClassName());
-            if (ExecInherits.safeObject(name_, _arg.getClassName(_cont), _cont) != ErrorType.NOTHING) {
-                return null;
-            }
-            putVar(_stack, _in, name_, _arg);
+        int index_ = first(_cont, _stack, _in, _arg);
+        if (index_ < 0) {
+            return null;
         }
         int offset_ = exp_.getOffset();
         AbstractPageEl lastPage_ = _stack.getLastPage();
         lastPage_.globalOffset(offset_);
         if (list_.isEmpty()) {
-            return new ExecResultCase(_in,0);
+            return new ExecResultCase(_in, index_);
         }
         Argument visit_ = ExecHelperBlocks.tryToCalculate(_cont, 0, _stack, list_, 0, _in);
         if (_cont.callsOrException(_stack)) {
-            if (!_stack.calls()) {
-                _stack.getLastPage().removeRefVar(_in.getVariableName());
+            if (_in instanceof ExecAbstractInstanceCaseCondition && !_stack.calls()) {
+                _stack.getLastPage().removeRefVar(((ExecAbstractInstanceCaseCondition) _in).getVariableName());
             }
             return null;
         }
         _stack.getLastPage().clearCurrentEls();
         if (BooleanStruct.isFalse(visit_.getStruct())) {
-            _stack.getLastPage().removeRefVar(_in.getVariableName());
+            if (_in instanceof ExecAbstractInstanceCaseCondition) {
+                _stack.getLastPage().removeRefVar(((ExecAbstractInstanceCaseCondition) _in).getVariableName());
+            }
             return null;
         }
-        return new ExecResultCase(_in,0);
+        return new ExecResultCase(_in, index_);
+    }
+    private static int first(ContextEl _cont, StackCall _stack, ExecAbstractCaseCondition _in, Struct _arg) {
+        int index_ = 0;
+        if (_in instanceof ExecAbstractInstanceCaseCondition) {
+            if (_arg == NullStruct.NULL_VALUE) {
+                return -1;
+            }
+            if (_stack.getLastPage().isEmptyEl()) {
+                String name_ = _stack.formatVarType(((ExecAbstractInstanceCaseCondition) _in).getImportedClassName());
+                if (ExecInherits.safeObject(name_, _arg.getClassName(_cont), _cont) != ErrorType.NOTHING) {
+                    return -1;
+                }
+                putVar(_stack, (ExecAbstractInstanceCaseCondition) _in, name_, _arg);
+            }
+        }
+        if (_in instanceof ExecSwitchValuesCondition) {
+            index_ = ((ExecSwitchValuesCondition) _in).getList().match(_arg, _cont);
+        }
+        return index_;
     }
 
     private static void putVar(StackCall _stack, ExecAbstractInstanceCaseCondition _in, String _type, Struct _arg) {
         String var_ = _in.getVariableName();
         AbstractPageEl ip_ = _stack.getLastPage();
         ip_.putValueVar(var_, LocalVariable.newLocalVariable(_arg, _type));
-    }
-
-    private static ExecResultCase processList(ContextEl _cont, ExecBracedBlock _in, Struct _arg) {
-        if (_in instanceof ExecSwitchValuesCondition) {
-            int match_ = ((ExecSwitchValuesCondition) _in).getList().match(_arg, _cont);
-            if (match_ >= 0) {
-                return new ExecResultCase(_in,match_);
-            }
-        }
-        return null;
     }
 
     private static ConditionReturn evaluateGuardBas(ContextEl _context, StackCall _stackCall, ExecBlock _execCondition, ExecOperationNodeListOff _condition) {

@@ -40,6 +40,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         EnumBlock e_ = filterContent.getEnumBlock();
         if (e_ != null) {
             elementEnum(_page, e_);
+            trCacl(_page, filterContent.getResCondition());
             return;
         }
         AnaClassArgumentMatching resSwitch_;
@@ -62,7 +63,10 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             trCacl(_page, filter_.getResCondition());
             return;
         }
+        _page.setAcceptCommaInstr(true);
         trCacl(_page, filter_.getResValue());
+        _page.setAcceptCommaInstr(false);
+        trCacl(_page, filter_.getResCondition());
         processNumValues(_instance, _resSwitch, _page,_bl,_current);
     }
 
@@ -156,7 +160,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         while (first_ != _bl) {
             if (first_ instanceof ReachFilterContent) {
                 ReachFilterContent c_ = (ReachFilterContent) first_;
-                for (ClassField p: c_.getFilterContent().getEnumValues()) {
+                for (ClassField p: listEnums(c_.getFilterContent())) {
                     if (_classField.eq(p)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_bl.getFile());
@@ -190,13 +194,28 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             }
         }
     }
+
+    private static CustList<ClassField> listEnums(FilterContent _f) {
+        if (_f.getResCondition().getRoot() != null) {
+            return new CustList<ClassField>();
+        }
+        return _f.getEnumValues();
+    }
+
+    private static CustList<Argument> listStd(FilterContent _f) {
+        if (_f.getResCondition().getRoot() != null) {
+            return new CustList<Argument>();
+        }
+        return _f.getStdValues();
+    }
+
     static void checkDuplicateListedValue(AnalyzedPageEl _page, Argument _value, ReachBlock _bl, ReachFilterContent _current) {
         ReachBracedBlock par_ = _bl.getParent();
         ReachBlock first_ = par_.getFirstChild();
         while (first_ != _bl) {
             if (first_ instanceof ReachFilterContent) {
                 ReachFilterContent c_ = (ReachFilterContent) first_;
-                for (Argument p: c_.getFilterContent().getStdValues()) {
+                for (Argument p: listStd(c_.getFilterContent())) {
                     if (_value.getStruct().sameReference(p.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_bl.getFile());

@@ -8,8 +8,8 @@ import code.util.CustList;
 
 public final class RendListCatchEval extends RendAbstractCatchEval {
     private final ExecSwitchValuesList list;
-    public RendListCatchEval(CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
-        super(new CustList<RendDynOperationNode>(),0);
+    public RendListCatchEval(CustList<Argument> _stdValues, CustList<ClassField> _enumValues,CustList<RendDynOperationNode> _list, int _offset) {
+        super(_list,_offset);
         list = new ExecSwitchValuesList(_stdValues, _enumValues);
     }
 

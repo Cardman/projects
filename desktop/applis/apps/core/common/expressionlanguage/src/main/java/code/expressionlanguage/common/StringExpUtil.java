@@ -795,4 +795,17 @@ public final class StringExpUtil {
         return MathExpUtil.isWordChar(_char);
     }
 
+    public static boolean matchChars(String _info, int _index, char... _chars) {
+        int len_ = _info.length();
+        int count_ = _chars.length;
+        if (count_ + _index > len_) {
+            return false;
+        }
+        for (int i = 0; i < count_; i++) {
+            if (_info.charAt(i + _index) != _chars[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

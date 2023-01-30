@@ -25,7 +25,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
     }
 
     public static boolean caseCst(AbsBk _block) {
-        return _block instanceof WithFilterContent && !((WithFilterContent) _block).getFilterContent().isCaseWhen();
+        return _block instanceof WithFilterContent && ((WithFilterContent) _block).getFilterContent().getResValue().getRoot() != null;
     }
 
     @Override
@@ -63,8 +63,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
     }
 
     private static void trySetDotParent(ReachOperationNode _oper, Argument _arg, AnalyzedPageEl _page) {
-        AbsBk bl_ = _page.getCurrentBlock();
-        if (!caseCst(bl_)) {
+        if (!_page.isAcceptCommaInstr()) {
             return;
         }
         if (_oper.getInfo().getIndexChild() > 0

@@ -119,6 +119,7 @@ public final class FilterContent {
             enumBlock = e_;
             typeEnum = id_;
             feedElts(_page, e_, value, offsetsEnum);
+            analyzeCondition(_bl, _page, stCtx_);
             return;
         }
         _page.setAcceptCommaInstr(true);
@@ -129,6 +130,7 @@ public final class FilterContent {
         if (!emp_.isEmpty()) {
             _bl.addErrorBlock(emp_);
         }
+        analyzeCondition(_bl, _page, stCtx_);
     }
 
     private void instanceCase(AbsBk _bl, AnalyzedPageEl _page, MethodAccessKind _stCtx, boolean _inst, String _type) {
@@ -157,6 +159,19 @@ public final class FilterContent {
             lv_.setFinalVariable(true);
             _page.getInfosVars().put(variableName, lv_);
         }
+        analyzeCondition(_bl, _page, _stCtx);
+        if (res_.isError()) {
+            FoundErrorInterpret d_ = new FoundErrorInterpret();
+            d_.setFile(_bl.getFile());
+            d_.setIndexFile(variableOffset);
+            //variable name
+            d_.setBuiltError(res_.getMessage());
+            _page.addLocError(d_);
+            nameErrors.add(d_.getBuiltError());
+        }
+    }
+
+    private void analyzeCondition(AbsBk _bl, AnalyzedPageEl _page, MethodAccessKind _stCtx) {
         if (!condition.isEmpty()) {
             _page.setSumOffset(resCondition.getSumOffset());
             _page.zeroOffset();
@@ -173,15 +188,6 @@ public final class FilterContent {
                 _bl.addErrorBlock(un_.getBuiltError());
             }
             resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        }
-        if (res_.isError()) {
-            FoundErrorInterpret d_ = new FoundErrorInterpret();
-            d_.setFile(_bl.getFile());
-            d_.setIndexFile(variableOffset);
-            //variable name
-            d_.setBuiltError(res_.getMessage());
-            _page.addLocError(d_);
-            nameErrors.add(d_.getBuiltError());
         }
     }
 
@@ -279,7 +285,4 @@ public final class FilterContent {
         return nameErrors;
     }
 
-    public boolean isCaseWhen() {
-        return !condition.isEmpty();
-    }
 }

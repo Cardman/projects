@@ -37,25 +37,29 @@ public final class RendFilterContent {
     private String importedClassName = "";
     private String variableName;
     private final String value;
-    private OperationNode root;
-    private final ResultExpression resultExpression = new ResultExpression();
+    private final String condition;
+    private final ResultExpression resultExpressionValue = new ResultExpression();
+    private final ResultExpression resultExpressionCondition = new ResultExpression();
 
     private final int classNameOffset;
     private final String className;
     private final int variableOffset;
     private final int valueOffset;
+    private final int conditionOffset;
     private final StrTypes offsetsEnum = new StrTypes();
     private final CustList<Argument> stdValues = new CustList<Argument>();
     private final CustList<ClassField> enumValues = new CustList<ClassField>();
     private String keyWord = "";
     private String keyWordContainer = "";
-    RendFilterContent(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value) {
+    RendFilterContent(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, OffsetStringInfo _condition) {
         classNameOffset = _className.getOffset();
         className = _className.getInfo();
         variableOffset = _variable.getOffset();
         setVariableName(_variable.getInfo());
         value = _value.getInfo();
         valueOffset = _value.getOffset();
+        condition = _condition.getInfo();
+        conditionOffset = _condition.getOffset();
     }
 
     public String getKeyWord() {
@@ -81,9 +85,11 @@ public final class RendFilterContent {
             AnaGeneType g_ = _page.getAnaClassBody(id_);
             if (g_ instanceof EnumBlock && FilterContent.allWordsOrEmpty(value)) {
                 enumElements(_bl, _page, (EnumBlock) g_);
+                analyzeCondition(_anaDoc, _page);
                 return;
             }
             processNumValues(_bl, _anaDoc, _instance, _resSwitch, _page);
+            analyzeCondition(_anaDoc, _page);
             return;
         }
         if (!_instance) {
@@ -111,21 +117,7 @@ public final class RendFilterContent {
             lv_.setFinalVariable(true);
             _page.getInfosVars().put(variableName_, lv_);
         }
-        if (!value.trim().isEmpty()) {
-            _page.setSumOffset(resultExpression.getSumOffset());
-            _page.zeroOffset();
-            root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, resultExpression);
-            AnaClassArgumentMatching resultClass_ = root.getResultClass();
-            if (!resultClass_.isBoolType(_page)) {
-                FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(_page.getCurrentFile());
-                un_.setIndexFile(valueOffset);
-                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
-                        StringUtil.join(resultClass_.getNames(), AnaRendBlock.AND_ERR));
-                AnalyzingDoc.addError(un_, _page);
-            }
-            resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
-        }
+        analyzeCondition(_anaDoc, _page);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFile(_page.getCurrentFile());
@@ -133,6 +125,24 @@ public final class RendFilterContent {
             //variable name
             d_.setBuiltError(res_.getMessage());
             AnalyzingDoc.addError(d_, _page);
+        }
+    }
+
+    private void analyzeCondition(AnalyzingDoc _anaDoc, AnalyzedPageEl _page) {
+        if (!condition.trim().isEmpty()) {
+            _page.setSumOffset(resultExpressionCondition.getSumOffset());
+            _page.zeroOffset();
+            RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, resultExpressionCondition);
+            AnaClassArgumentMatching resultClass_ = resultExpressionCondition.getRoot().getResultClass();
+            if (!resultClass_.isBoolType(_page)) {
+                FoundErrorInterpret un_ = new FoundErrorInterpret();
+                un_.setFile(_page.getCurrentFile());
+                un_.setIndexFile(conditionOffset);
+                un_.buildError(_page.getAnalysisMessages().getUnexpectedType(),
+                        StringUtil.join(resultClass_.getNames(), AnaRendBlock.AND_ERR));
+                AnalyzingDoc.addError(un_, _page);
+            }
+            resultClass_.setUnwrapObjectNb(PrimitiveTypes.BOOL_WRAP);
         }
     }
 
@@ -171,13 +181,14 @@ public final class RendFilterContent {
 
     private void processNumValues(AnaRendBlock _bl, AnalyzingDoc _anaDoc, boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page) {
         _page.setAcceptCommaInstr(true);
-        _page.setSumOffset(resultExpression.getSumOffset());
+        _page.setSumOffset(resultExpressionValue.getSumOffset());
         _page.zeroOffset();
-        root = RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpression);
+        RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionValue);
         _page.setAcceptCommaInstr(false);
-        if (root instanceof DeclaringOperation) {
-            CustList<OperationNode> childrenNodes_ = ((DeclaringOperation) root).getChildrenNodes();
-            StrTypes children_ = ((DeclaringOperation) root).getChildren();
+        OperationNode r_ = resultExpressionValue.getRoot();
+        if (r_ instanceof DeclaringOperation) {
+            CustList<OperationNode> childrenNodes_ = ((DeclaringOperation) r_).getChildrenNodes();
+            StrTypes children_ = ((DeclaringOperation) r_).getChildren();
             int len_ = childrenNodes_.size();
             for (int i = 0; i < len_; i++) {
                 OperationNode ch_ = childrenNodes_.get(i);
@@ -185,7 +196,7 @@ public final class RendFilterContent {
                 checkRetrieve(_bl, _instance,_resSwitch,ch_.getResultClass(),_page, ch_, value_);
             }
         } else {
-            checkRetrieve(_bl, _instance,_resSwitch,root.getResultClass(),_page, root, value);
+            checkRetrieve(_bl, _instance,_resSwitch,r_.getResultClass(),_page, r_, value);
         }
     }
 
@@ -220,7 +231,7 @@ public final class RendFilterContent {
         while (first_ != _bl) {
             if (first_ instanceof WithRendFilterContent) {
                 WithRendFilterContent c_ = (WithRendFilterContent) first_;
-                for (ClassField p: c_.getFilterContent().enumValues) {
+                for (ClassField p: listEnums(c_.getFilterContent())) {
                     if (_classField.eq(p)) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_page.getCurrentFile());
@@ -258,7 +269,7 @@ public final class RendFilterContent {
         while (first_ != _bl) {
             if (first_ instanceof WithRendFilterContent) {
                 WithRendFilterContent c_ = (WithRendFilterContent) first_;
-                for (Argument p: c_.getFilterContent().stdValues) {
+                for (Argument p: listStd(c_.getFilterContent())) {
                     if (_value.getStruct().sameReference(p.getStruct())) {
                         FoundErrorInterpret un_ = new FoundErrorInterpret();
                         un_.setFile(_page.getCurrentFile());
@@ -327,14 +338,6 @@ public final class RendFilterContent {
         this.variableName = _variableName;
     }
 
-    public OperationNode getRoot() {
-        return root;
-    }
-
-    public void setRoot(OperationNode _r) {
-        this.root = _r;
-    }
-
     public CustList<Argument> getStdValues() {
         return stdValues;
     }
@@ -343,13 +346,35 @@ public final class RendFilterContent {
         return enumValues;
     }
 
-    public boolean isCaseWhen() {
-        return !value.trim().isEmpty();
-    }
-    public ResultExpression getRes() {
-        return resultExpression;
+    public ResultExpression getResCondition() {
+        return resultExpressionCondition;
     }
 
+    public ResultExpression getResValue() {
+        return resultExpressionValue;
+    }
+
+    public String getCondition() {
+        return condition;
+    }
+
+    public int getConditionOffset() {
+        return conditionOffset;
+    }
+
+    private static CustList<ClassField> listEnums(RendFilterContent _f) {
+        if (_f.getResCondition().getRoot() != null) {
+            return new CustList<ClassField>();
+        }
+        return _f.getEnumValues();
+    }
+
+    private static CustList<Argument> listStd(RendFilterContent _f) {
+        if (_f.getResCondition().getRoot() != null) {
+            return new CustList<Argument>();
+        }
+        return _f.getStdValues();
+    }
     public String getValue() {
         return value;
     }

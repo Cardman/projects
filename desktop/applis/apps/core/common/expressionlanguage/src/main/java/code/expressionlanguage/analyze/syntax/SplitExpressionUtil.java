@@ -460,14 +460,15 @@ public final class SplitExpressionUtil {
     }
 
     private static void filterContent(AnalyzedPageEl _page, IntermediaryResults _int, MemberCallingsBlock _method, RootBlock _type, FilterContent _f) {
-        if (_f.getVariableName().isEmpty()) {
+        if (!_f.getValue().isEmpty()) {
             String value_ = _f.getValue();
             _page.zeroOffset();
             ResultExpression resultExpression_ = _f.getResValue();
             resultExpression_.setAnalyzedString(value_);
             resultExpression_.setSumOffset(_f.getValueOffset());
             extractAnon(_page, _int, _method, _type, resultExpression_);
-        } else if (_f.isCaseWhen()) {
+        }
+        if (!_f.getCondition().isEmpty()) {
             String substring_ = _f.getCondition();
             _page.zeroOffset();
             ResultExpression resultExpression_ = _f.getResCondition();

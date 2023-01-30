@@ -3849,6 +3849,87 @@ public final class ProcessMethodTryCatchTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertTrue(ret_.isFalse());
     }
+
+    @Test
+    public void calculateArgument155Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {ONE,TWO;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $throw Ex.TWO;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(Ex.TWO?:ONE==TWO){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(Ex.TWO){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(2, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument156Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.Ex {ONE,TWO;\n");
+        xml_.append(" $public $static $int catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $throw Ex.TWO;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(Ex.TWO?:TWO==TWO){\n");
+        xml_.append("   $return 1i;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(java.lang.Exception e){\n");
+        xml_.append("   $return 2i;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+
+    @Test
+    public void calculateArgument157Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static Boolean catching(){\n");
+        xml_.append("  $try{\n");
+        xml_.append("   $throw $null;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(Object e?:){\n");
+        xml_.append("   $return $null;\n");
+        xml_.append("  }\n");
+        xml_.append("  $catch(:e){\n");
+        xml_.append("   $return e == $null;\n");
+        xml_.append("  }\n");
+        xml_.append(" }\n");
+        xml_.append(" $public Object v(){\n");
+        xml_.append("  $throw $null;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("catching");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertTrue(ret_.isTrue());
+    }
     @Test
     public void calculateArgument0FailTest() {
         StringBuilder xml_ = new StringBuilder();

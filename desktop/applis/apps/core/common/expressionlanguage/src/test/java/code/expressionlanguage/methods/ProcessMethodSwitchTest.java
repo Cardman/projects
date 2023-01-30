@@ -78,7 +78,202 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(11, getNumber(ret_));
     }
-
+    @Test
+    public void calculateArgument1_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case \"8\"?:t==\"8\";\n");
+        xml_.append("    t=\"10\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("110", getString(ret_));
+    }
+    @Test
+    public void calculateArgument2_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8?:t==8;\n");
+        xml_.append("    t=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(11, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument_1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case \"8\"?:t==\"9\";\n");
+        xml_.append("    t=\"10\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("18", getString(ret_));
+    }
+    @Test
+    public void calculateArgument_2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8?:t==9;\n");
+        xml_.append("    t=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(9, getNumber(ret_));
+    }
+    @Test
+    public void calculate_Argument1_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case \"8\"?:t==\"8\";\n");
+        xml_.append("    t=\"10\";\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case \"8\"?:;\n");
+        xml_.append("    t=\"101\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("110", getString(ret_));
+    }
+    @Test
+    public void calculate_Argument2_Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8?:t==8;\n");
+        xml_.append("    t=10;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case 8?:;\n");
+        xml_.append("    t=101;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(11, getNumber(ret_));
+    }
+    @Test
+    public void calculate_Argument_1Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static String exmeth(){\n");
+        xml_.append("  String t;\n");
+        xml_.append("  t=\"8\";\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case \"8\"?:t==\"9\";\n");
+        xml_.append("    t=\"10\";\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case \"8\"?:;\n");
+        xml_.append("    t=\"101\";\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq("1101", getString(ret_));
+    }
+    @Test
+    public void calculate_Argument_2Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  $long t;\n");
+        xml_.append("  t=8;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case 8?:t==9;\n");
+        xml_.append("    t=10;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case 8?:;\n");
+        xml_.append("    t=101;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return 1i+$($int)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(102, getNumber(ret_));
+    }
     @Test
     public void calculateArgument3Test() {
         StringBuilder xml_ = new StringBuilder();
@@ -1216,6 +1411,132 @@ public final class ProcessMethodSwitchTest extends ProcessMethodCommon {
         Argument ret_;
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq("98", getString(ret_));
+    }
+    @Test
+    public void calculateArgument88Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExTwo t;\n");
+        xml_.append("  t=ExTwo.ONE;\n");
+        xml_.append("  $int o=12;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("    o=11;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case ONE?:t==ExTwo.TWO;\n");
+        xml_.append("    o=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument89Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExTwo t;\n");
+        xml_.append("  t=ExTwo.ONE;\n");
+        xml_.append("  $int o=12;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("    o=11;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case ONE?:t==ExTwo.ONE;\n");
+        xml_.append("    o=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument90Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExTwo t;\n");
+        xml_.append("  t=ExTwo.ONE;\n");
+        xml_.append("  $int o=12;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("    o=11;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case ONE?:t==v();\n");
+        xml_.append("    o=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExTwo v(){\n");
+        xml_.append("  $return ExTwo.TWO;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(12, getNumber(ret_));
+    }
+    @Test
+    public void calculateArgument91Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("$public $enum pkg.ExTwo {\n");
+        xml_.append(" ONE,TWO;\n");
+        xml_.append("}\n");
+        xml_.append("$public $class pkg.Ex {\n");
+        xml_.append(" $public $static $int exmeth(){\n");
+        xml_.append("  ExTwo t;\n");
+        xml_.append("  t=ExTwo.ONE;\n");
+        xml_.append("  $int o=12;\n");
+        xml_.append("  $switch(t){\n");
+        xml_.append("   $case $null;\n");
+        xml_.append("    o=11;\n");
+        xml_.append("    $break;\n");
+        xml_.append("   $case ONE?:t==v();\n");
+        xml_.append("    o=10;\n");
+        xml_.append("  }\n");
+        xml_.append("  $return o;\n");
+        xml_.append(" }\n");
+        xml_.append(" $public $static ExTwo v(){\n");
+        xml_.append("  $return ExTwo.ONE;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxOkRead(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(10, getNumber(ret_));
     }
     @Test
     public void calculateArgument2FailTest() {

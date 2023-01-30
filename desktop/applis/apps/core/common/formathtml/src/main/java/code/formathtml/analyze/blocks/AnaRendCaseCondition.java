@@ -12,9 +12,9 @@ public final class AnaRendCaseCondition extends AnaRendParentBlock implements An
     private final RendFilterContent filterContent;
 
 
-    AnaRendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, int _offset) {
+    AnaRendCaseCondition(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, int _offset, OffsetStringInfo _condition) {
         super(_offset);
-        filterContent = new RendFilterContent(_className, _variable, _value);
+        filterContent = new RendFilterContent(_className, _variable, _value,_condition);
     }
 
     @Override
@@ -27,7 +27,7 @@ public final class AnaRendCaseCondition extends AnaRendParentBlock implements An
         _page.zeroOffset();
         AnaRendParentBlock par_ = getParent();
         if (!(par_ instanceof AnaRendSwitchBlock)) {
-            _page.setSumOffset(filterContent.getRes().getSumOffset());
+            _page.setSumOffset(filterContent.getResValue().getSumOffset());
             _page.zeroOffset();
             FoundErrorInterpret un_ = new FoundErrorInterpret();
             un_.setFile(_page.getCurrentFile());
@@ -37,7 +37,7 @@ public final class AnaRendCaseCondition extends AnaRendParentBlock implements An
                     filterContent.getValue(),
                     _page.getKeyWords().getKeyWordSwitch());
             AnalyzingDoc.addError(un_, _page);
-            filterContent.setRoot(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, filterContent.getRes()));
+            filterContent.getResValue().setRoot(RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page, filterContent.getResValue()));
             return;
         }
         AnaRendSwitchBlock sw_ = (AnaRendSwitchBlock) par_;

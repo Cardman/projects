@@ -13,9 +13,9 @@ public final class AnaRendCatchEval extends AnaRendAbstractCatchEval implements 
 
     private final boolean throwIfGuardError;
     private final boolean catchAll;
-    AnaRendCatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, OffsetBooleanInfo _thr, int _offset, boolean _ca) {
+    AnaRendCatchEval(OffsetStringInfo _className, OffsetStringInfo _variable, OffsetStringInfo _value, OffsetStringInfo _condition, OffsetBooleanInfo _thr, int _offset, boolean _ca) {
         super(_offset);
-        filterContent = new RendFilterContent(_className,_variable,_value);
+        filterContent = new RendFilterContent(_className,_variable,_value,_condition);
         throwIfGuardError = _thr.isInfo();
         catchAll = _ca;
     }

@@ -8,8 +8,8 @@ import code.util.CustList;
 public final class ExecListCatchEval extends ExecAbstractCatchEval implements WithEl {
     private final ExecSwitchValuesList list;
 
-    public ExecListCatchEval(CustList<Argument> _stdValues, CustList<ClassField> _enumValues) {
-        super(new CustList<ExecOperationNode>(), 0);
+    public ExecListCatchEval(CustList<Argument> _stdValues, CustList<ClassField> _enumValues, CustList<ExecOperationNode> _ls, int _offset) {
+        super(new ExecOperationNodeListOff(_ls, _offset));
         list = new ExecSwitchValuesList(_stdValues, _enumValues);
     }
 

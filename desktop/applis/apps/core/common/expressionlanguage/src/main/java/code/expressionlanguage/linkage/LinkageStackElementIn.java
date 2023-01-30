@@ -28,7 +28,7 @@ public final class LinkageStackElementIn {
     }
 
     public boolean skipReportElement() {
-        return ReachFieldOperation.caseCst(block);
+        return ReachFieldOperation.caseCst(block) && indexLoop == 0;
     }
 
     public AbsBk getBlock() {

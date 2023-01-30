@@ -1642,4 +1642,29 @@ public final class StringExpUtilTest extends ProcessMethodCommon {
     public void toLongRadix45Test(){
         assertEq("-1y2p0ij32e8e8",StringExpUtil.toLongRadix(Long.MIN_VALUE,36));
     }
+
+    @Test
+    public void matchChars1() {
+        assertFalse(StringExpUtil.matchChars(";",1,';'));
+    }
+
+    @Test
+    public void matchChars2() {
+        assertTrue(StringExpUtil.matchChars(";",0,';'));
+    }
+
+    @Test
+    public void matchChars3() {
+        assertFalse(StringExpUtil.matchChars(";.?",1,'.','!'));
+    }
+
+    @Test
+    public void matchChars4() {
+        assertTrue(StringExpUtil.matchChars(";.!",1,'.','!'));
+    }
+
+    @Test
+    public void matchChars5() {
+        assertTrue(StringExpUtil.matchChars(";.!:",1,'.','!'));
+    }
 }

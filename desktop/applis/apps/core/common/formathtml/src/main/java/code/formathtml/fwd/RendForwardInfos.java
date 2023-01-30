@@ -235,10 +235,11 @@ public final class RendForwardInfos {
     }
 
     private static RendAbstractCatchEval buildCatchEval(AnaRendCatchEval _f, Forwards _forwards) {
+        OperationNode r_ = _f.getFilterContent().getResCondition().getRoot();
         if (!_f.getFilterContent().getImportedClassName().isEmpty()) {
-            return new RendCatchEval(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(), getExecutableNodes(_f.getFilterContent().getRoot(),_forwards), _f.getFilterContent().getValueOffset(), _f.isThrowIfGuardError(), _f.isCatchAll());
+            return new RendCatchEval(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(), getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), _f.isThrowIfGuardError(), _f.isCatchAll());
         }
-        return new RendListCatchEval(_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues());
+        return new RendListCatchEval(_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues(), getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset());
     }
 
     private static RendBlock element(AnaRendBlock _current, Forwards _forwards) {
@@ -411,11 +412,12 @@ public final class RendForwardInfos {
     }
 
     private static RendBlock buildCaseCondition(AnaRendCaseCondition _current, Forwards _fwd) {
+        OperationNode r_ = _current.getFilterContent().getResCondition().getRoot();
         RendBlock exec_;
         if (!_current.getFilterContent().getImportedClassName().isEmpty()) {
-            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getFilterContent().getImportedClassName(), getExecutableNodes(_current.getFilterContent().getRoot(),_fwd), _current.getFilterContent().getValueOffset());
+            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getFilterContent().getImportedClassName(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset());
         } else {
-            exec_ = new RendSwitchValuesCondition(_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues());
+            exec_ = new RendSwitchValuesCondition(_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset());
         }
         return exec_;
     }
