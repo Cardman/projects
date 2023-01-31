@@ -341,7 +341,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process39_Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' value='1==1/0'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' condition='1==1/0'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExSub:ExAbs{");
         enum_.append("}");
@@ -411,7 +411,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process45_Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' value='$true'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' condition='$true'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExSub:ExAbs{");
         enum_.append("}");
@@ -428,7 +428,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process45__Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' value='$false'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' condition='$false'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExSub:ExAbs{");
         enum_.append("}");
@@ -462,7 +462,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process46_Test() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='$new pkg.ExSubTwo()'><c:case className='pkg.ExSub' var='v' value='$true'>{v.v}</c:case><c:default var='v'>{v.v} Text</c:default></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='$new pkg.ExSubTwo()'><c:case className='pkg.ExSub' var='v' condition='$true'>{v.v}</c:case><c:default var='v'>{v.v} Text</c:default></c:switch></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExSub:ExAbs{");
         enum_.append("}");
@@ -723,7 +723,7 @@ public final class RenderSwitchTest extends CommonRender {
     }
     @Test
     public void process63Test() {
-        String html_ = "<html><body><c:switch value='8'><c:case className='$var' var='i' value='i==8'>Text</c:case></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='8'><c:case className='$var' var='i' condition='i==8'>Text</c:case></c:switch></body></html>";
         assertEq("<html><body>Text</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
@@ -763,7 +763,7 @@ public final class RenderSwitchTest extends CommonRender {
 
     @Test
     public void process_0FailTest() {
-        String html_ = "<html><body><c:case className='$var' var='i' value='i==8'>Text</c:case></body></html>";
+        String html_ = "<html><body><c:case className='$var' var='i' condition='i==8'>Text</c:case></body></html>";
         StringMap<String> files_ = new StringMap<String>();
         assertTrue(hasErr(html_, files_));
     }
@@ -1086,7 +1086,7 @@ public final class RenderSwitchTest extends CommonRender {
     public void process24FailTest() {
         String folder_ = "messages";
         String relative_ = "sample/file";
-        String html_ = "<html><body><c:switch value='($int)$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' value='1/0'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
+        String html_ = "<html><body><c:switch value='($int)$new pkg.ExSub()'><c:case className='pkg.ExSub' var='v' condition='1/0'>{v.v}</c:case><c:default var='v'>Text</c:default></c:switch></body></html>";
         StringBuilder enum_ = new StringBuilder();
         enum_.append("$public $class pkg.ExSub:ExAbs{");
         enum_.append("}");

@@ -149,17 +149,17 @@ public final class RenderTryTest extends CommonRender {
     }
     @Test
     public void process21Test() {
-        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == $null'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' condition='ex == $null'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process22Test() {
-        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex != $null'>Exc</c:catch><c:catch className='java.lang.Object' var='ex'>Exc2</c:catch></body></html>";
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' condition='ex != $null'>Exc</c:catch><c:catch className='java.lang.Object' var='ex'>Exc2</c:catch></body></html>";
         assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
     public void process23Test() {
-        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == 1/0'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' condition='ex == 1/0'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
         assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
@@ -169,13 +169,13 @@ public final class RenderTryTest extends CommonRender {
     }
     @Test
     public void process25Test() {
-        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == $null'>Exc2</c:catch><c:finally><c:return/></c:finally></body></html>";
+        String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' condition='ex == $null'>Exc2</c:catch><c:finally><c:return/></c:finally></body></html>";
         assertEq("<html><body/></html>", getRes(html_, new StringMap<String>()));
     }
 
     @Test
     public void process26Test() {
-        String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' value='ex == 1/0' href='$throw'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></c:try><c:catch className='java.lang.Object' var='ex'>Exc3</c:catch></body></html>";
+        String html_ = "<html><body><c:try><c:try>{1/0}</c:try><c:catch className='java.lang.Object' var='ex' condition='ex == 1/0' href='$throw'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></c:try><c:catch className='java.lang.Object' var='ex'>Exc3</c:catch></body></html>";
         assertEq("<html><body>Exc3</body></html>", getRes(html_, new StringMap<String>()));
     }
     @Test
