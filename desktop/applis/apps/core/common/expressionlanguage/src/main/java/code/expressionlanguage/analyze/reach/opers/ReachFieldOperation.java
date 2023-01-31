@@ -63,7 +63,7 @@ public final class ReachFieldOperation extends ReachMethodOperation implements R
     }
 
     private static void trySetDotParent(ReachOperationNode _oper, Argument _arg, AnalyzedPageEl _page) {
-        if (!_page.isAcceptCommaInstr()) {
+        if (!_page.isEvaluatingCaseCondition()) {
             return;
         }
         if (_oper.getInfo().getIndexChild() > 0

@@ -181,10 +181,12 @@ public final class RendFilterContent {
 
     private void processNumValues(AnaRendBlock _bl, AnalyzingDoc _anaDoc, boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page) {
         _page.setAcceptCommaInstr(true);
+        _page.setEvaluatingCaseCondition(true);
         _page.setSumOffset(resultExpressionValue.getSumOffset());
         _page.zeroOffset();
         RenderAnalysis.getRootAnalyzedOperations(0, _anaDoc, _page,resultExpressionValue);
         _page.setAcceptCommaInstr(false);
+        _page.setEvaluatingCaseCondition(false);
         OperationNode r_ = resultExpressionValue.getRoot();
         if (r_ instanceof DeclaringOperation) {
             CustList<OperationNode> childrenNodes_ = ((DeclaringOperation) r_).getChildrenNodes();

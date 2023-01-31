@@ -37,12 +37,6 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         if (!(par_ instanceof ReachSwitchBlock)&&!(par_ instanceof ReachSwitchMethodBlock)) {
             return;
         }
-        EnumBlock e_ = filterContent.getEnumBlock();
-        if (e_ != null) {
-            elementEnum(_page, e_);
-            trCacl(_page, filterContent.getResCondition());
-            return;
-        }
         AnaClassArgumentMatching resSwitch_;
         boolean instance_;
         if (par_ instanceof ReachSwitchBlock) {
@@ -59,15 +53,20 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
 
     static void buildExpressionLanguageReadOnly(AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance, ReachBlock _bl, ReachFilterContent _current) {
         FilterContent filter_ = _current.getFilterContent();
-        if (filter_.isInstance()) {
+        EnumBlock e_ = filter_.getEnumBlock();
+        if (e_ != null) {
+            elementEnum(_page, e_,_bl,_current);
+        }
+        OperationNode r_ = filter_.getResValue().getRoot();
+        if (filter_.isInstance() || r_ == null) {
             trCacl(_page, filter_.getResCondition());
             return;
         }
-        _page.setAcceptCommaInstr(true);
+        _page.setEvaluatingCaseCondition(true);
         trCacl(_page, filter_.getResValue());
-        _page.setAcceptCommaInstr(false);
+        _page.setEvaluatingCaseCondition(false);
         trCacl(_page, filter_.getResCondition());
-        processNumValues(_instance, _resSwitch, _page,_bl,_current);
+        processNumValues(_instance, _resSwitch, _page,_bl,_current, r_);
     }
 
     private static void trCacl(AnalyzedPageEl _page, ResultExpression _reValue) {
@@ -80,20 +79,21 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         return filterContent;
     }
 
-    private void elementEnum(AnalyzedPageEl _page, EnumBlock _e) {
-        CustList<IndexStrPart> values_ = filterContent.getOffsetsEnum().getValues();
+    static void elementEnum(AnalyzedPageEl _page, EnumBlock _e, ReachBlock _bl, ReachFilterContent _current) {
+        FilterContent filter_ = _current.getFilterContent();
+        CustList<IndexStrPart> values_ = filter_.getOffsetsEnum().getValues();
         for (IndexStrPart v: values_) {
             boolean added_ = false;
             if (StringUtil.quickEq(v.getPart(), _page.getKeyWords().getKeyWordNull())) {
-                checkDuplicateListedValue(_page,Argument.createVoid(),this,this);
-                filterContent.getStdValues().add(Argument.createVoid());
+                checkDuplicateListedValue(_page,Argument.createVoid(),_bl,_current);
+                filter_.getStdValues().add(Argument.createVoid());
                 added_ = true;
             } else {
                 for (InnerTypeOrElement f: _e.getEnumBlocks()) {
                     if (StringUtil.contains(f.getElements().getFieldName(), v.getPart())) {
                         ClassField pair_ = new ClassField(f.getImportedClassName(), v.getPart());
-                        checkDuplicateListedEnum(_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()),this,this);
-                        filterContent.getEnumValues().add(pair_);
+                        checkDuplicateListedEnum(_page, pair_, StringUtil.concat(pair_.getClassName(), ".", pair_.getFieldName()),_bl,_current);
+                        filter_.getEnumValues().add(pair_);
                         added_ = true;
                         break;
                     }
@@ -101,21 +101,21 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             }
             if (!added_) {
                 FoundErrorInterpret un_ = new FoundErrorInterpret();
-                un_.setFile(getFile());
-                un_.setIndexFile(filterContent.getValueOffset());
+                un_.setFile(_bl.getFile());
+                un_.setIndexFile(filter_.getValueOffset());
                 //key word len
                 un_.buildError(_page.getAnalysisMessages().getUnexpectedCaseVar(),
-                        filterContent.getKeyWord(),
-                        filterContent.getValue());
+                        filter_.getKeyWord(),
+                        filter_.getValue());
                 _page.addLocError(un_);
-                addErrorBlock(un_.getBuiltError());
+                _bl.addErrorBlock(un_.getBuiltError());
                 break;
             }
         }
     }
 
-    static void processNumValues(boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page, ReachBlock _bl, ReachFilterContent _current) {
-        CustList<OperationNode> childrenNodes_ = childrenNodes(_current);
+    static void processNumValues(boolean _instance, AnaClassArgumentMatching _resSwitch, AnalyzedPageEl _page, ReachBlock _bl, ReachFilterContent _current, OperationNode _r) {
+        CustList<OperationNode> childrenNodes_ = childrenNodes(_r);
         StrTypes children_ = children(_current);
         int len_ = childrenNodes_.size();
         for (int i = 0; i < len_; i++) {
@@ -270,7 +270,7 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
 
     public void reachCase(AnalyzingEl _anEl, AnalyzedPageEl _page) {
         ReachBracedBlock par_ = getParent();
-        if (!(par_ instanceof ReachSwitchBlock)||getFilterContent().getEnumBlock()!=null) {
+        if (!(par_ instanceof ReachSwitchBlock)) {
             reachBaseBraced(_anEl);
             return;
         }
@@ -287,13 +287,18 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
             processInstance(_anEl, _page, _bl, _current);
             return;
         }
-        processValues(_anEl, _page,  _bl, _current);
+        OperationNode r_ = _current.getFilterContent().getResValue().getRoot();
+        if (r_ == null) {
+            _bl.reachAdv(_anEl);
+            return;
+        }
+        processValues(_anEl, _page,  _bl, r_);
     }
 
-    private static void processValues(AnalyzingEl _anEl, AnalyzedPageEl _page, ReachBlock _bl, ReachFilterContent _current) {
+    private static void processValues(AnalyzingEl _anEl, AnalyzedPageEl _page, ReachBlock _bl, OperationNode _r) {
         CustList<ReachFilterContent> classes_ = previous(_bl);
         boolean reachCatch_ = true;
-        CustList<OperationNode> childrenNodes_ = childrenNodes(_current);
+        CustList<OperationNode> childrenNodes_ = childrenNodes(_r);
         for (OperationNode o: childrenNodes_) {
             if (!reachCatch(classes_,o,_anEl,_page)) {
                 reachCatch_ = false;
@@ -325,22 +330,12 @@ public final class ReachCaseCondition extends ReachSwitchPartBlock implements Re
         return reachCatch_;
     }
 
-    private static CustList<OperationNode> childrenNodes(ReachFilterContent _r) {
+    private static CustList<OperationNode> childrenNodes(OperationNode _r) {
         CustList<OperationNode> childrenNodes_;
-        if (_r.getFilterContent().getResValue().getRoot() instanceof DeclaringOperation) {
-            childrenNodes_ = ((DeclaringOperation) _r.getFilterContent().getResValue().getRoot()).getChildrenNodes();
+        if (_r instanceof DeclaringOperation) {
+            childrenNodes_ = ((DeclaringOperation) _r).getChildrenNodes();
         } else {
-            childrenNodes_ = nullToEmpty(_r.getFilterContent().getResValue().getRoot());
-        }
-        return childrenNodes_;
-    }
-
-    public static CustList<OperationNode> nullToEmpty(OperationNode _r) {
-        CustList<OperationNode> childrenNodes_;
-        if (_r != null) {
             childrenNodes_ = new CustList<OperationNode>(_r);
-        } else {
-            childrenNodes_ = new CustList<OperationNode>();
         }
         return childrenNodes_;
     }

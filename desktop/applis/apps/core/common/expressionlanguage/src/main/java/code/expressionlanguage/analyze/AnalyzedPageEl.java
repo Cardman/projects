@@ -100,6 +100,7 @@ public final class AnalyzedPageEl {
     private int sumOffset;
 
     private boolean acceptCommaInstr;
+    private boolean evaluatingCaseCondition;
     private String currentVarSetting = "";
     private final StringList needInterfaces = new StringList();
     private final StringMap<Integer> availableVariables = new StringMap<Integer>();
@@ -638,6 +639,14 @@ public final class AnalyzedPageEl {
 
     public void setAcceptCommaInstr(boolean _acceptCommaInstr) {
         acceptCommaInstr = _acceptCommaInstr;
+    }
+
+    public boolean isEvaluatingCaseCondition() {
+        return evaluatingCaseCondition;
+    }
+
+    public void setEvaluatingCaseCondition(boolean _e) {
+        this.evaluatingCaseCondition = _e;
     }
 
     public String getCurrentVarSetting() {

@@ -188,7 +188,7 @@ public final class RendSplitExpressionUtil {
                 ResultExpression resultExpression_ = _filter.getResCondition();
                 resultExpression_.partsAbsol(_current.getStringPartsElt(_analyzingDoc.getRendKeyWords().getAttrValue()));
                 resultExpression_.setAnalyzedString(substring_.trim());
-                resultExpression_.setSumOffset(_filter.getValueOffset());
+                resultExpression_.setSumOffset(_filter.getConditionOffset());
                 extractAnon(_page, _int, _method, _type, resultExpression_);
             }
         }
