@@ -2,14 +2,10 @@ package code.formathtml.exec.blocks;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.exec.ErrorType;
 import code.expressionlanguage.exec.LocalThrowing;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecInherits;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.BooleanStruct;
-import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.RendStackCall;
@@ -77,60 +73,54 @@ public final class RendLocalThrowing {
             if (v_ != null) {
                 return v_;
             }
-            if (throwIfGuardError(n_)) {
-                _bl.setException(_str);
-                return null;
+            if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
+                _rendStackCall.getStackCall().setNullCallingState();
+                if (throwIfGuardError(n_)) {
+                    _bl.setException(_str);
+                    return null;
+                }
             }
             n_ = n_.getNextSibling();
         }
         return null;
     }
     private static RendAbstractCatchEval ret(RendBlock _n, ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp) {
-        if (_n instanceof RendCatchEval) {
-            RendCatchEval ca_ = (RendCatchEval) _n;
-            if (ca_.isCatchAll()) {
-                return guard(_ctx, _str, _rendStackCall, _bkIp, ca_, _ctx.getStandards().getCoreNames().getAliasObject());
+        if (_n instanceof RendAbstractCatchEval) {
+            RendAbstractCatchEval ca_ = (RendAbstractCatchEval) _n;
+            int f_ = ExecHelperBlocks.first(_ctx, _rendStackCall, ca_.getContent(), _str, ca_.isCatchAll());
+            if (f_ == -1) {
+                return null;
             }
-            String name_ = _rendStackCall.formatVarType(ca_.getImportedClassName());
-            if (_str != NullStruct.NULL_VALUE && ExecInherits.safeObject(name_, Argument.getNull(_str).getClassName(_ctx), _ctx) == ErrorType.NOTHING) {
-                return guard(_ctx, _str, _rendStackCall, _bkIp, ca_, name_);
-            }
-        }
-        if (_n instanceof RendListCatchEval) {
-            RendListCatchEval ca_ = (RendListCatchEval) _n;
-            int match_ = ca_.getList().match(_str, _ctx);
-            if (match_ >= 0) {
-                return ca_;
-            }
+            return guard(_ctx, _rendStackCall, _bkIp, ca_);
         }
         return null;
     }
 
-    private static RendCatchEval guard(ContextEl _ctx, Struct _str, RendStackCall _rendStackCall, ImportingPage _bkIp, RendCatchEval _ca, String _name) {
+    private static RendAbstractCatchEval guard(ContextEl _ctx, RendStackCall _rendStackCall, ImportingPage _bkIp, RendAbstractCatchEval _ca) {
         CustList<RendDynOperationNode> ls_ = _ca.getCondition().getList();
         if (ls_.isEmpty()) {
-            String var_ = _ca.getVariableName();
-            LocalVariable lv_ = LocalVariable.newLocalVariable(_str, _name);
-            _bkIp.putValueVar(var_, new VariableWrapper(lv_));
             return _ca;
         }
-        String var_ = _ca.getVariableName();
-        LocalVariable lv_ = LocalVariable.newLocalVariable(_str, _name);
-        _bkIp.putValueVar(var_, new VariableWrapper(lv_));
+        String varName_ = _ca.getContent().getVariableName();
         Argument arg_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(ls_, _ctx, _rendStackCall).lastValue().getArgument());
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
-            _bkIp.removeRefVar(var_);
-            _rendStackCall.getStackCall().setNullCallingState();
+            possibleRemove(varName_, _bkIp);
             return null;
         }
         if (BooleanStruct.isTrue(arg_.getStruct())) {
             return _ca;
         }
-        _bkIp.removeRefVar(var_);
+        possibleRemove(varName_, _bkIp);
         return null;
     }
 
+    private static void possibleRemove(String _name, ImportingPage _bkIp) {
+        if (!_name.isEmpty()) {
+            _bkIp.removeRefVar(_name);
+        }
+    }
+
     public static boolean throwIfGuardError(RendBlock _block) {
-        return _block instanceof RendCatchEval && ((RendCatchEval)_block).isThrowIfGuardError();
+        return _block instanceof RendAbstractCatchEval && ((RendAbstractCatchEval)_block).isThrowIfGuardError();
     }
 }

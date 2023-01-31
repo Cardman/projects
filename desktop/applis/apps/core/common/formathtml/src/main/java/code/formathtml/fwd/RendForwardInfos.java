@@ -1,5 +1,6 @@
 package code.formathtml.fwd;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.blocks.SwitchMethodBlock;
 import code.expressionlanguage.analyze.opers.*;
 import code.expressionlanguage.analyze.opers.util.AnaTypeFct;
@@ -10,10 +11,7 @@ import code.expressionlanguage.analyze.util.AnaFormattedRootBlock;
 import code.expressionlanguage.analyze.util.ClassMethodIdReturn;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.common.symbol.*;
-import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
-import code.expressionlanguage.exec.blocks.ExecAnnotationBlock;
-import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
-import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.blocks.*;
 import code.expressionlanguage.exec.opers.ExecExplicitOperation;
 import code.expressionlanguage.exec.symbols.*;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
@@ -237,9 +235,9 @@ public final class RendForwardInfos {
     private static RendAbstractCatchEval buildCatchEval(AnaRendCatchEval _f, Forwards _forwards) {
         OperationNode r_ = _f.getFilterContent().getResCondition().getRoot();
         if (!_f.getFilterContent().getImportedClassName().isEmpty()) {
-            return new RendCatchEval(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(), getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), _f.isThrowIfGuardError(), _f.isCatchAll());
+            return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(), new ExecFilterContent(_f.getFilterContent().getImportedClassName(), _f.getFilterContent().getVariableName(),new CustList<Argument>(),new CustList<ClassField>()), _f.isThrowIfGuardError(), _f.isCatchAll());
         }
-        return new RendListCatchEval(_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues(), getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset());
+        return new RendAbstractCatchEval(getExecutableNodes(r_,_forwards), _f.getFilterContent().getConditionOffset(),new ExecFilterContent("","",_f.getFilterContent().getStdValues(), _f.getFilterContent().getEnumValues()), _f.isThrowIfGuardError(), _f.isCatchAll());
     }
 
     private static RendBlock element(AnaRendBlock _current, Forwards _forwards) {
@@ -415,9 +413,9 @@ public final class RendForwardInfos {
         OperationNode r_ = _current.getFilterContent().getResCondition().getRoot();
         RendBlock exec_;
         if (!_current.getFilterContent().getImportedClassName().isEmpty()) {
-            exec_ = new RendAbstractInstanceCaseCondition(_current.getVariableName(), _current.getFilterContent().getImportedClassName(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset());
+            exec_ = new RendAbstractCaseCondition(getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(), _current.getFilterContent().getImportedClassName(), _current.getVariableName(),new CustList<Argument>(),new CustList<ClassField>());
         } else {
-            exec_ = new RendSwitchValuesCondition(_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues(), getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset());
+            exec_ = new RendAbstractCaseCondition(getExecutableNodes(r_,_fwd), _current.getFilterContent().getConditionOffset(),"","",_current.getFilterContent().getStdValues(), _current.getFilterContent().getEnumValues());
         }
         return exec_;
     }

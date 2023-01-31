@@ -1,5 +1,6 @@
 package code.expressionlanguage.fwd.blocks;
 
+import code.expressionlanguage.Argument;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.*;
 import code.expressionlanguage.analyze.files.ResultParsedAnnot;
@@ -1114,7 +1115,7 @@ public final class ForwardInfos {
 //        } else
         OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            exec_ = new ExecAbstractInstanceCaseCondition(_en.getFilterContent().getVariableName(), _en.getFilterContent().getImportedType(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset());
+            exec_ = new ExecAbstractCaseCondition(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),_en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1123,7 +1124,7 @@ public final class ForwardInfos {
         } else {
 //            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
 //            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-            exec_ = new ExecSwitchValuesCondition(_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset());
+            exec_ = new ExecAbstractCaseCondition(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),"","",_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues());
 //            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;
@@ -1140,7 +1141,7 @@ public final class ForwardInfos {
 //        } else
         OperationNode root_ = _en.getFilterContent().getResCondition().getRoot();
         if (!_en.getFilterContent().getImportedType().isEmpty()) {
-            exec_ = new ExecCatchEval(_en.getFilterContent().getVariableName(), _en.getFilterContent().getImportedType(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(), _en.isThrowIfGuardError(), _en.isCatchAll());
+            exec_ = new ExecAbstractCatchEval(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),new ExecFilterContent(_en.getFilterContent().getImportedType(),_en.getFilterContent().getVariableName(), new CustList<Argument>(),new CustList<ClassField>()), _en.isThrowIfGuardError(), _en.isCatchAll());
 //        } else if (((CaseCondition) _en).isInstance()) {
 //            exec_ = new ExecStdCaseCondition(Argument.createVoid());
 //        } else if (((CaseCondition) _en).getQualif() != null) {
@@ -1149,7 +1150,7 @@ public final class ForwardInfos {
         } else {
 //            getExecutableNodes(((CaseCondition) _en).getRoot(), _coverage, _forwards, _en);
 //            Argument argument_ = Argument.getNullableValue(((CaseCondition) _en).getArgument());
-            exec_ = new ExecListCatchEval(_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues(), getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset());
+            exec_ = new ExecAbstractCatchEval(getExecutableNodes(root_,_coverage,_forwards,_en), _en.getFilterContent().getConditionOffset(),new ExecFilterContent("","",_en.getFilterContent().getStdValues(), _en.getFilterContent().getEnumValues()),_en.isThrowIfGuardError(), false);
 //            exec_ = new ExecStdCaseCondition(argument_);
         }
         return exec_;

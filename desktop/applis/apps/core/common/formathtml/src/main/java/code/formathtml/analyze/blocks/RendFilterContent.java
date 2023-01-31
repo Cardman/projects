@@ -80,7 +80,7 @@ public final class RendFilterContent {
     void buildExpressionLanguage(AnaRendBlock _bl,AnalyzingDoc _anaDoc, AnalyzedPageEl _page, AnaClassArgumentMatching _resSwitch, boolean _instance) {
         String type_ = _resSwitch.getSingleNameOrEmpty();
         String variableName_ = getVariableName();
-        if (variableName_.isEmpty()) {
+        if (className.isEmpty()) {
             String id_ = StringExpUtil.getIdFromAllTypes(type_);
             AnaGeneType g_ = _page.getAnaClassBody(id_);
             if (g_ instanceof EnumBlock && FilterContent.allWordsOrEmpty(value)) {
@@ -118,6 +118,9 @@ public final class RendFilterContent {
             _page.getInfosVars().put(variableName_, lv_);
         }
         analyzeCondition(_anaDoc, _page);
+        if (variableName_.trim().isEmpty()) {
+            return;
+        }
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFile(_page.getCurrentFile());

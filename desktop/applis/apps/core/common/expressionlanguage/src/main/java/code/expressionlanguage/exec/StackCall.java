@@ -7,6 +7,7 @@ import code.expressionlanguage.exec.calls.AbstractPageEl;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.maths.montecarlo.CustomSeedGene;
@@ -75,6 +76,16 @@ public final class StackCall implements AbstractStackCall {
     @Override
     public StackCall stack() {
         return this;
+    }
+
+    @Override
+    public void putVar(String _key, LocalVariable _wrapper) {
+        getLastPage().putValueVar(_key, _wrapper);
+    }
+
+    @Override
+    public boolean isEmptyElLast() {
+        return getLastPage().isEmptyEl();
     }
 
     public AbstractPageEl getLastPage() {

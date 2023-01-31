@@ -5,6 +5,8 @@ import code.expressionlanguage.exec.AbstractStackCall;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecInherits;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.Struct;
 import code.formathtml.DefHtmlPage;
 import code.maths.montecarlo.CustomSeedGene;
@@ -43,6 +45,16 @@ public final class RendStackCall extends AbsRendStackCall implements AbstractSta
     @Override
     public StackCall stack() {
         return stackCall;
+    }
+
+    @Override
+    public void putVar(String _key, LocalVariable _wrapper) {
+        getLastPage().putValueVar(_key, new VariableWrapper(_wrapper));
+    }
+
+    @Override
+    public boolean isEmptyElLast() {
+        return true;
     }
 
     public void clearPages() {

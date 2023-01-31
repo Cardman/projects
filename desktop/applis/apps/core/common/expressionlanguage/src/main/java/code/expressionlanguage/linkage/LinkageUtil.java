@@ -958,9 +958,11 @@ public final class LinkageUtil {
         } else if (!_cond.getImportedType().isEmpty() && _vars.getLastStackElt().noVisited()) {
             processInferFilter(_vars, _cond);
             String variableName_ = _cond.getVariableName();
-            int variableOffset_ = _cond.getVariableOffset();
-            _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_), variableOffset_));
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
+            if (!variableName_.isEmpty()) {
+                int variableOffset_ = _cond.getVariableOffset();
+                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_), variableOffset_));
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
+            }
         }
         CustList<LinkageBlockElement> ls_ = filterElements(_cond);
         hasToVisitLoopHeaderReport(_vars,_bl,_cov,ls_);
@@ -999,14 +1001,16 @@ public final class LinkageUtil {
         } else if (!_cond.getImportedType().isEmpty() && _vars.getLastStackElt().noVisited()) {
             processInferFilter(_vars, _cond);
             String variableName_ = _cond.getVariableName();
-            int variableOffset_ = _cond.getVariableOffset();
-            StringList errs_ = _cond.getNameErrors();
-            if (!errs_.isEmpty()) {
-                _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_, StringUtil.join(errs_, ExportCst.JOIN_ERR)), variableOffset_));
-            } else {
-                _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_), variableOffset_));
+            if (!variableName_.isEmpty()) {
+                int variableOffset_ = _cond.getVariableOffset();
+                StringList errs_ = _cond.getNameErrors();
+                if (!errs_.isEmpty()) {
+                    _vars.addPart(new PartOffset(ExportCst.anchorNameErr(variableOffset_, StringUtil.join(errs_, ExportCst.JOIN_ERR)), variableOffset_));
+                } else {
+                    _vars.addPart(new PartOffset(ExportCst.anchorName(variableOffset_), variableOffset_));
+                }
+                _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
             }
-            _vars.addPart(new PartOffset(ExportCst.END_ANCHOR, variableOffset_ + variableName_.trim().length()));
         }
         CustList<LinkageBlockElement> ls_ = filterElements(_cond);
         hasToVisitLoopHeaderError(_vars, _bl, ls_);

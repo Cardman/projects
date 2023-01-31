@@ -183,6 +183,11 @@ public final class RenderTryTest extends CommonRender {
         String html_ = "<html><body><c:try>{1/0}</c:try><c:catch className=':' var='ex'>Exc</c:catch></body></html>";
         assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
     }
+    @Test
+    public void process28Test() {
+        String html_ = "<html><body><c:set className=\"$int\" value=\"arg=2,arg2=4\"/><c:try>{1/0}</c:try><c:catch className='java.lang.Object' condition='arg == 1' href='$throw'>Exc2</c:catch><c:catch className='java.lang.Object' var='ex'>Exc</c:catch></body></html>";
+        assertEq("<html><body>Exc</body></html>", getRes(html_, new StringMap<String>()));
+    }
     private String getRes(String _html, StringMap<String> _files) {
         return getCommRes(_html,_files);
     }

@@ -4,17 +4,15 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ArgumentWrapper;
 import code.expressionlanguage.exec.ConditionReturn;
-import code.expressionlanguage.exec.ErrorType;
+import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.calls.util.CallingState;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
-import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.ExecTypeReturn;
 import code.expressionlanguage.exec.opers.ExecWrappOperation;
 import code.expressionlanguage.exec.stacks.LoopBlockStackContent;
 import code.expressionlanguage.exec.types.ExecClassArgumentMatching;
-import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.variables.*;
 import code.expressionlanguage.fwd.opers.ExecSettableOperationContent;
 import code.expressionlanguage.structs.*;
@@ -1204,50 +1202,26 @@ public abstract class RendBlock {
     }
 
     private static RendParentBlock procTypeVar(ContextEl _cont, RendStackCall _rendStack, RendAbstractCaseCondition _in, Argument _arg) {
-        RendOperationNodeListOff exp_ = _in.getExp();
-        CustList<RendDynOperationNode> list_ = exp_.getList();
-        boolean safe_ = safe(_cont, _rendStack, _in, _arg);
-        if (list_.isEmpty()) {
-            if (safe_) {
-                return _in;
-            }
-            return null;
-        }
+        boolean safe_ = ExecHelperBlocks.first(_cont,_rendStack,_in.getContent(),_arg.getStruct(),false) > -1;
         if (!safe_) {
             return null;
+        }
+        RendOperationNodeListOff exp_ = _in.getExp();
+        CustList<RendDynOperationNode> list_ = exp_.getList();
+        if (list_.isEmpty()) {
+            return _in;
         }
         ImportingPage ip_ = _rendStack.getLastPage();
         ip_.setOffset(exp_.getOffset());
         Argument visit_ = Argument.getNullableValue(RenderExpUtil.getAllArgs(list_, _cont, _rendStack).lastValue().getArgument());
         if (_cont.callsOrException(_rendStack.getStackCall())||BooleanStruct.isFalse(visit_.getStruct())) {
-            if (_in instanceof RendAbstractInstanceCaseCondition) {
-                String var_ = ((RendAbstractInstanceCaseCondition)_in).getVariableName();
-                ip_.removeRefVar(var_);
+            String varName_ = _in.getContent().getVariableName();
+            if (!varName_.isEmpty()) {
+                ip_.removeRefVar(varName_);
             }
             return null;
         }
         return _in;
-    }
-
-    private static boolean safe(ContextEl _cont, RendStackCall _rendStack, RendAbstractCaseCondition _in, Argument _arg) {
-        Struct struct_ = _arg.getStruct();
-        boolean safe_;
-        if (_in instanceof RendAbstractInstanceCaseCondition) {
-            if (_arg.isNull()) {
-                safe_ = false;
-            } else {
-                String importedClassName_ = _rendStack.formatVarType(((RendAbstractInstanceCaseCondition) _in).getImportedClassName());
-                safe_ = ExecInherits.safeObject(importedClassName_, struct_.getClassName(_cont), _cont) == ErrorType.NOTHING;
-                if (safe_) {
-                    ImportingPage ip_ = _rendStack.getLastPage();
-                    String var_ = ((RendAbstractInstanceCaseCondition) _in).getVariableName();
-                    putVar(struct_, ip_, var_, importedClassName_);
-                }
-            }
-        } else {
-            safe_ = ((RendSwitchValuesCondition) _in).getList().match(ArgumentListCall.toStr(_arg), _cont) >= 0;
-        }
-        return safe_;
     }
 
     private static void putVar(Struct _struct, ImportingPage _ip, String _var, String _importedClassName) {

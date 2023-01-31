@@ -56,6 +56,7 @@ public final class FilterContent {
     private String keyWord = "";
     private String keyWordContainer = "";
     private final boolean infer;
+
     public FilterContent(OffsetStringInfo _value, String _declaringType, OffsetStringInfo _variable, OffsetStringInfo _condition, boolean _i) {
         declaringType = _declaringType;
         value = _value.getInfo();
@@ -108,7 +109,7 @@ public final class FilterContent {
         MethodAccessKind stCtx_ = f_.getStaticContext();
         _page.setSumOffset(valueOffset);
         _page.zeroOffset();
-        if (!variableName.isEmpty()) {
+        if (!declaringType.trim().isEmpty()) {
             instanceCase(_bl,_page, stCtx_, _instance,_type);
             return;
         }
@@ -160,6 +161,9 @@ public final class FilterContent {
             _page.getInfosVars().put(variableName, lv_);
         }
         analyzeCondition(_bl, _page, _stCtx);
+        if (variableName.trim().isEmpty()) {
+            return;
+        }
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
             d_.setFile(_bl.getFile());

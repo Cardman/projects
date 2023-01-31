@@ -15527,6 +15527,43 @@ public final class CoverageReport1Test extends ProcessMethodCommon {
                 "}\n" +
                 "</span></pre></body></html>", filesExp_.firstValue());
     }
+
+    @Test
+    public void coverage754Test() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static String exmeth(){\n");
+        xml_.append("  Object t;\n");
+        xml_.append("  t=\"10\";\n");
+        xml_.append("  switch(t){\n");
+        xml_.append("   case String :?: t == \"10\";\n");
+        xml_.append("    t=\"12\";\n");
+        xml_.append("    break;\n");
+        xml_.append("  }\n");
+        xml_.append("  return (String)t;\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("src/pkg/Ex", xml_.toString());
+        ContextEl cont_ = covEnReadOnlyImpl(files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        calculateNormal("pkg.Ex", id_, args_, cont_);
+        StringMap<String> filesExp_ = export(cont_);
+        assertEq("<html><head><link href=\"../../css/style.css\" rel=\"stylesheet\" type=\"text/css\"/></head><body><pre><span class=\"t\">public class <a name=\"m13\">pkg.Ex</a> {\n" +
+                " public static String <a name=\"m44\">exmeth</a>(){\n" +
+                "  Object <span class=\"f\"><a name=\"m63\">t</a></span>;\n" +
+                "  <span class=\"f\"><span class=\"f\"><a href=\"#m63\">t</a></span>=<span class=\"f\"><span class=\"s\">\"10\"</span></span></span>;\n" +
+                "  <span class=\"p\"><a title=\"1/2\">switch</a></span>(<span class=\"f\"><a href=\"#m63\">t</a></span>){\n" +
+                "   <span class=\"f\"><a title=\"1/1\">case</a></span> String :?: <span class=\"p\"><span class=\"f\"><a href=\"#m63\">t</a> </span><a title=\"true\">==</a><span class=\"f\"> <span class=\"s\">\"10\"</span></span></span>;\n" +
+                "    <span class=\"f\"><span class=\"f\"><a href=\"#m63\">t</a></span>=<span class=\"f\"><span class=\"s\">\"12\"</span></span></span>;\n" +
+                "    break;\n" +
+                "  }\n" +
+                "  return <span class=\"f\">(String)<span class=\"f\"><a href=\"#m63\">t</a></span></span>;\n" +
+                " }\n" +
+                "}\n" +
+                "</span></pre></body></html>", filesExp_.firstValue());
+    }
     @Test
     public void coverageComment17Test() {
         StringMap<String> files_ = new StringMap<String>();
