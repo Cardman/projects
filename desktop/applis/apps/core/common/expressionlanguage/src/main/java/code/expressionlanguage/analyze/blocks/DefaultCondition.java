@@ -2,6 +2,7 @@ package code.expressionlanguage.analyze.blocks;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.ManageTokens;
 import code.expressionlanguage.analyze.TokenErrorMessage;
+import code.expressionlanguage.analyze.files.OffsetStringInfo;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.analyze.errors.custom.FoundErrorInterpret;
@@ -12,16 +13,18 @@ public final class DefaultCondition extends SwitchPartBlock {
 
     private final StringList nameErrors = new StringList();
     private int variableOffset;
+    private boolean tole;
     private String instanceTest = "";
 
     public DefaultCondition(int _offset) {
         super(_offset);
     }
 
-    public DefaultCondition(int _offset, String _variableName, int _variableOffset) {
+    public DefaultCondition(int _offset, OffsetStringInfo _variable, boolean _tolerate) {
         super(_offset);
-        variableName = _variableName;
-        variableOffset = _variableOffset;
+        variableName = _variable.getInfo();
+        variableOffset = _variable.getOffset();
+        tole = _tolerate;
     }
     @Override
     public void buildExpressionLanguageReadOnly(AnalyzedPageEl _page) {
@@ -46,17 +49,20 @@ public final class DefaultCondition extends SwitchPartBlock {
             return;
         }
         boolean instance_;
+        boolean forceInstance_;
         String instanceTest_;
         if (b_ instanceof SwitchBlock) {
             SwitchBlock s_ = (SwitchBlock) b_;
             setSwitchParent(s_);
             instanceTest_ = s_.getInstanceTest();
             instance_ = s_.isInstance();
+            forceInstance_=s_.isForceInstance();
         } else {
             SwitchMethodBlock s_ = (SwitchMethodBlock) b_;
             setSwitchMethod(s_);
             instanceTest_ = s_.getInstanceTest();
             instance_ = s_.isInstance();
+            forceInstance_=s_.isForceInstance();
         }
         if (!instance_) {
             AbsBk first_ = b_.getFirstChild();
@@ -89,6 +95,9 @@ public final class DefaultCondition extends SwitchPartBlock {
             _page.addLocError(un_);
             addErrorBlock(un_.getBuiltError());
         }
+        if (acceptEmpty(forceInstance_)) {
+            return;
+        }
         TokenErrorMessage res_ = ManageTokens.partVar(_page).checkTokenVar(variableName, _page);
         if (res_.isError()) {
             FoundErrorInterpret d_ = new FoundErrorInterpret();
@@ -109,6 +118,10 @@ public final class DefaultCondition extends SwitchPartBlock {
         lv_.setConstType(ConstType.FIX_VAR);
         lv_.setFinalVariable(true);
         _page.getInfosVars().put(variableName, lv_);
+    }
+
+    private boolean acceptEmpty(boolean _force) {
+        return variableName.trim().isEmpty() && (_force||tole);
     }
 
     @Override

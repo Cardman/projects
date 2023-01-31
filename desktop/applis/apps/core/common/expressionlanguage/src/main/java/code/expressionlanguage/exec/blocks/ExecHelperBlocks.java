@@ -106,7 +106,6 @@ public final class ExecHelperBlocks {
             ((SwitchBlockStack) abstractStask_).setCurrentVisitedBlock(_block);
             return;
         }
-        ((SwitchBlockStack) abstractStask_).enter();
         ExecBlock ch_ = _block.getFirstChild();
         String type_ = _stack.formatVarType(((SwitchBlockStack) abstractStask_).getInstanceTest());
         String var_ = _block.getVariableName();
@@ -133,7 +132,6 @@ public final class ExecHelperBlocks {
         }
         ExecBracedBlock v_ = ExecResultCase.block(res_);
         if (v_ != null) {
-            ((SwitchBlockStack) abstractStask_).enter();
             entered(_cont, _stack, _block, (SwitchBlockStack) abstractStask_, res_, v_.getFirstChild());
             return;
         }
@@ -153,6 +151,7 @@ public final class ExecHelperBlocks {
     }
 
     private static void entered(ContextEl _cont, StackCall _stack, ExecBracedBlock _block, SwitchBlockStack _abs, ExecResultCase _res, ExecBlock _c) {
+        _abs.enter();
         AbstractPageEl ip_ = _stack.getLastPage();
         coverSw(_cont, _stack, _abs, _res);
         ip_.setBlock(_c);

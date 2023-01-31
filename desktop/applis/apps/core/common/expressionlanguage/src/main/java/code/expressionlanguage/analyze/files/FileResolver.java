@@ -2909,10 +2909,16 @@ public final class FileResolver {
 
     private static DefaultCondition keyWordDefaultLong(int _offset, ParsedInstruction _i, BracedBlock _currentParent, String _trimmedInstruction, String _keyWordDefault) {
         String exp_ = _trimmedInstruction.substring(_keyWordDefault.length());
-        int valueOffest_ = _i.instLoc() + _keyWordDefault.length();
-        valueOffest_ += StringUtil.getFirstPrintableCharIndex(exp_);
+        int ind_ = exp_.indexOf(':');
+        String variable_;
+        int variableOffset_ = valOff(exp_,_i.instLoc() + _keyWordDefault.length());
+        if (ind_ < 0) {
+            variable_ = exp_.trim();
+        } else {
+            variable_ = exp_.substring(0,ind_).trim();
+        }
         DefaultCondition br_ = new DefaultCondition(
-                _i.instLoc() + _offset, exp_.trim(), valueOffest_ + _offset);
+                _i.instLoc() + _offset, new OffsetStringInfo(variableOffset_ + _offset, variable_), exp_.indexOf(':')>=0);
         _currentParent.appendChild(br_);
         br_.setBegin(_i.instLoc()+ _offset);
         br_.setLengthHeader(_keyWordDefault.length());
@@ -3082,7 +3088,11 @@ public final class FileResolver {
     }
 
     private static boolean startsWithDefVar(String _trimmedInstruction, String _keyWordDefault) {
-        return StringExpUtil.startsWithKeyWord(_trimmedInstruction, _keyWordDefault)&&StringExpUtil.isTypeLeafPart(_trimmedInstruction.substring(_keyWordDefault.length()).trim());
+        if (!StringExpUtil.startsWithKeyWord(_trimmedInstruction, _keyWordDefault)) {
+            return false;
+        }
+        String after_ = _trimmedInstruction.substring(_keyWordDefault.length()).trim();
+        return StringExpUtil.isTypeLeafPart(after_) || StringUtil.quickEq(":",after_);
     }
 
     private static int getLabelOffset(String _label) {
