@@ -2756,7 +2756,7 @@ public final class FileResolver {
         String value_ = info_.trim();
         String allVar_ = strAllVar(value_);
         CatchEval br_;
-        if (!allVar_.isEmpty()) {
+        if (!allVar_.isEmpty() || StringUtil.quickEq(value_,":")) {
             int fullValueOffset_ = valueOffest_ + _offset;
             int variableOffset_ = fullValueOffset_ +1+ StringExpUtil.getOffset(allVar_);
             br_ = new CatchEval(
