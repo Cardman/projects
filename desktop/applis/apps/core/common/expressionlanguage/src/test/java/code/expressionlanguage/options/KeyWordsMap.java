@@ -407,6 +407,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasRange("$core.Range");
         _lgNames.getContent().getCoreNames().setAliasRangeLower("lower");
         _lgNames.getContent().getCoreNames().setAliasRangeUpper("upper");
+        _lgNames.getContent().getCoreNames().setAliasRangeStep("step");
         _lgNames.getContent().getCoreNames().setAliasRangeUnlimited("unlimited");
         _lgNames.getContent().getCoreNames().setAliasRangeUnlimitedStep("unlimitedStep");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("$core.ObjectsUtil");
@@ -756,6 +757,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getCoreNames().setAliasRange("$coeur.Rang");
         _lgNames.getContent().getCoreNames().setAliasRangeLower("inf");
         _lgNames.getContent().getCoreNames().setAliasRangeUpper("sup");
+        _lgNames.getContent().getCoreNames().setAliasRangeStep("pas");
         _lgNames.getContent().getCoreNames().setAliasRangeUnlimited("illimite");
         _lgNames.getContent().getCoreNames().setAliasRangeUnlimitedStep("illimitePas");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("$coeur.ObjetsUtil");

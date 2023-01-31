@@ -311,6 +311,7 @@ public final class LgNamesContent {
     private static final String RANGE = "Range";
     private static final String RANGE_UPPER = "RangeUpper";
     private static final String RANGE_LOWER = "RangeLower";
+    private static final String RANGE_STEP = "RangeStep";
     private static final String RANGE_UNLIMITED = "RangeUnlimited";
     private static final String RANGE_UNLIMITED_STEP = "RangeUnlimitedStep";
     private static final String OBJECTS_UTIL = "ObjectsUtil";
@@ -669,6 +670,7 @@ public final class LgNamesContent {
         getReflect().setAliasGetInterfaces(get(_util,_cust, GET_INTERFACES));
         getCoreNames().setAliasRange(get(_util,_cust, RANGE));
         getCoreNames().setAliasRangeUpper(get(_util,_cust, RANGE_UPPER));
+        getCoreNames().setAliasRangeStep(get(_util,_cust, RANGE_STEP));
         getCoreNames().setAliasRangeUnlimitedStep(get(_util,_cust, RANGE_UNLIMITED_STEP));
         getCoreNames().setAliasRangeLower(get(_util,_cust, RANGE_LOWER));
         getCoreNames().setAliasRangeUnlimited(get(_util,_cust, RANGE_UNLIMITED));
@@ -1526,6 +1528,7 @@ public final class LgNamesContent {
         map_.addEntry(getCoreNames().getAliasRange(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(RANGE_LOWER, getCoreNames().getAliasRangeLower()),
                 new KeyValueMemberName(RANGE_UPPER, getCoreNames().getAliasRangeUpper()),
+                new KeyValueMemberName(RANGE_STEP, getCoreNames().getAliasRangeStep()),
                 new KeyValueMemberName(RANGE_UNLIMITED_STEP, getCoreNames().getAliasRangeUnlimitedStep()),
                 new KeyValueMemberName(RANGE_UNLIMITED, getCoreNames().getAliasRangeUnlimited())));
         map_.addEntry(getCoreNames().getAliasObjectsUtil(), new CustList<KeyValueMemberName>(

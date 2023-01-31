@@ -44,6 +44,7 @@ public final class AliasCore {
     private String aliasRange;
     private String aliasRangeLower;
     private String aliasRangeUpper;
+    private String aliasRangeStep;
     private String aliasRangeUnlimited;
     private String aliasRangeUnlimitedStep;
     private String aliasObjectsUtil;
@@ -217,6 +218,9 @@ public final class AliasCore {
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasRangeUpper, params_, _lgNames.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctRangeUpper());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasRangeStep, params_, _lgNames.getPrimTypes().getAliasPrimInteger(), false, MethodModifier.FINAL, new FctRangeStep());
         methods_.add( method_);
         params_ = new StringList(_lgNames.getPrimTypes().getAliasPrimInteger(),_lgNames.getPrimTypes().getAliasPrimInteger());
         method_ = new StandardMethod(aliasRangeUnlimitedStep, params_, aliasRange, false, MethodModifier.STATIC,new StringList(params.getAliasRange0UnlimitedStep0(),params.getAliasRange0UnlimitedStep1()), new FctRangeUnlimitedStep());
@@ -483,6 +487,14 @@ public final class AliasCore {
 
     public void setAliasRangeUpper(String _aliasRangeUpper) {
         this.aliasRangeUpper = _aliasRangeUpper;
+    }
+
+    public String getAliasRangeStep() {
+        return aliasRangeStep;
+    }
+
+    public void setAliasRangeStep(String _v) {
+        this.aliasRangeStep = _v;
     }
 
     public String getAliasRangeUnlimitedStep() {

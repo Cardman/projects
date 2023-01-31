@@ -9,6 +9,24 @@ import org.junit.Test;
 
 public final class ProcessMethodRangeTest extends ProcessMethodCommon {
     @Test
+    public void test0() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  Range a = 0???1;\n");
+        xml_.append("  return a.step();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
+    @Test
     public void test1() {
         StringBuilder xml_ = new StringBuilder();
         xml_.append("public class pkg.Ex {\n");
@@ -1535,7 +1553,23 @@ public final class ProcessMethodRangeTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
         assertEq(0, getNumber(ret_));
     }
-
+    @Test
+    public void test82() {
+        StringBuilder xml_ = new StringBuilder();
+        xml_.append("public class pkg.Ex {\n");
+        xml_.append(" public static int exmeth(){\n");
+        xml_.append("  return new Range(0,1).step();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        StringMap<String> files_ = new StringMap<String>();
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgReadOnlyOk("en",files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("exmeth");
+        Argument ret_;
+        ret_ = calculateNormal("pkg.Ex", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
     @Test
     public void fail() {
         StringBuilder xml_ = new StringBuilder();

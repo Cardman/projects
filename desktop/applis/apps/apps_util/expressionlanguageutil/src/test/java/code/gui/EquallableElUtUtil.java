@@ -519,6 +519,7 @@ public abstract class EquallableElUtUtil {
         _lgNames.getContent().getCoreNames().setAliasRange("java.lang.Range");
         _lgNames.getContent().getCoreNames().setAliasRangeLower("lower");
         _lgNames.getContent().getCoreNames().setAliasRangeUpper("upper");
+        _lgNames.getContent().getCoreNames().setAliasRangeStep("step");
         _lgNames.getContent().getCoreNames().setAliasRangeUnlimited("unlimited");
         _lgNames.getContent().getCoreNames().setAliasRangeUnlimitedStep("unlimitedStep");
         _lgNames.getContent().getCoreNames().setAliasObjectsUtil("java.lang.$ObjectsUtil");
