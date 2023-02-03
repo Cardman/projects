@@ -4868,7 +4868,35 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         assertEq(6,imgMeta_.getStyle().getDelta());
         assertEq(762079,imgMeta_.getStyle().getFgColor());
     }
-
+    @Test
+    public void newInstance101Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<head>\n");
+        doc_.append("<style>\n");
+        doc_.append("h1,h1{font-size:64px;}\n");
+        doc_.append("</style>\n");
+        doc_.append("</head>\n");
+        doc_.append("<body>\n");
+        doc_.append("<h1>");
+        doc_.append("Text");
+        doc_.append("</h1>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getChildren().get(0);
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        MetaPlainLabel imgMeta_ = (MetaPlainLabel) cont_.getChildren().get(0);
+        assertEq("",imgMeta_.getTitle());
+        assertEq("Text",imgMeta_.getText());
+        assertNull(imgMeta_.getAnchor());
+        assertEq(6,imgMeta_.getStyle().getDelta());
+        assertEq(64,imgMeta_.getStyle().getRealSize());
+    }
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
         return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());

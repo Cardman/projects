@@ -34,7 +34,7 @@ public final class MetaDocument {
     private final StringMap<String> classesCssStyles = new StringMap<String>();
     private final StringMap<String> tagsCssStyles = new StringMap<String>();
     private final StringMap<String> tagsClassesCssStyles = new StringMap<String>();
-    private final StringMap<Integer> tagsClasses = new StringMap<Integer>();
+    private final IntTreeMap<String> tagsClasses = new IntTreeMap<String>();
     private final StringList typesLi = new StringList();
     private final CustList<IntForm> forms = new CustList<IntForm>();
     private String tagName = "";
@@ -705,16 +705,12 @@ public final class MetaDocument {
 
     private void updateSty(RendKeyWordsGroup _rend, Node _curr, MetaStyle _stLoc, String _keyWordDig, CharacterCaseConverter _converter) {
         Element parStyle_ = _curr.getParentNode();
-        IntTreeMap< String> tags_ = new IntTreeMap< String>(new CollCapacity(tagsClasses.size()));
-        for (EntryCust<String, Integer> e: tagsClasses.entryList()) {
-            tags_.put(e.getValue(), e.getKey());
-        }
         if (_curr instanceof Element) {
             Element currentElt_ = (Element) _curr;
-            setupGeneStyle(_rend, _stLoc, tags_, currentElt_, true,_keyWordDig,_converter);
+            setupGeneStyle(_rend, _stLoc, currentElt_, true,_keyWordDig,_converter);
         }
         while (parStyle_ != null) {
-            setupGeneStyle(_rend, _stLoc, tags_, parStyle_, false,_keyWordDig,_converter);
+            setupGeneStyle(_rend, _stLoc, parStyle_, false,_keyWordDig,_converter);
             parStyle_ = parStyle_.getParentNode();
         }
     }
@@ -742,11 +738,11 @@ public final class MetaDocument {
         }
     }
 
-    private void setupGeneStyle(RendKeyWordsGroup _rend,MetaStyle _styleLoc, IntTreeMap<String> _tags, Element _currentElt, boolean _local, String _keyWordDig, CharacterCaseConverter _converter) {
-        int len_ = _tags.size();
+    private void setupGeneStyle(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Element _currentElt, boolean _local, String _keyWordDig, CharacterCaseConverter _converter) {
+        int len_ = tagsClasses.size();
         int j_ = len_ - 1;
         while (j_ > -1) {
-            String v_ = _tags.getVal(j_);
+            String v_ = tagsClasses.getValue(j_);
             String result_ = styleIt(_rend, v_, _currentElt);
             if (result_ != null) {
                 setupStyle(_rend,_styleLoc, result_, _local,_keyWordDig,_converter);
@@ -762,7 +758,7 @@ public final class MetaDocument {
                 return StringUtil.nullToEmpty(classesCssStyles.getVal(_tag.substring(1)));
             }
         } else {
-            if (tagsClassesCssStyles.contains(_tag)) {
+            if (f_ > 0) {
                 String tag_ = _tag.substring(0, f_);
                 String class_ = _tag.substring(f_ + 1);
                 if (StringUtil.quickEq(class_, _currentElt.getAttribute(_rend.getKeyWordsAttrs().getAttrClass())) && StringUtil.quickEq(tag_, _currentElt.getTagName())) {
@@ -951,7 +947,18 @@ public final class MetaDocument {
             } else {
                 tagsCssStyles.put(tr_, _str.toString());
             }
-            tagsClasses.put(tr_, indexTagClass);
+            int index_ = -1;
+            int len_ = tagsClasses.size();
+            for (int i =0; i < len_; i++) {
+                if (StringUtil.quickEq(tagsClasses.getValue(i),tr_)) {
+                    index_ = i;
+                    break;
+                }
+            }
+            if (index_ > -1) {
+                tagsClasses.setValue(index_,"");
+            }
+            tagsClasses.put(indexTagClass,tr_);
             indexTagClass++;
         }
     }
