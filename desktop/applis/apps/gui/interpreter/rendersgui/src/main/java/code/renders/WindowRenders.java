@@ -63,11 +63,9 @@ public final class WindowRenders extends GroupFrame {
         AbsTextField field_;
         AbsPlainButton search_ = getCompoFactory().newPlainButton("search");
         field_ = getCompoFactory().newTextField(20);
-        session.setSearchText(search_);
-        session.setField(field_);
         AbsTextArea t_ = getCompoFactory().newTextArea(8, 32);
         session.setArea(t_);
-        session.addFinder();
+        session.addFinder(field_,search_);
         AbsScrollPane scrollSession_ = session.getScroll();
         scrollSession_.setPreferredSize(new MetaDimension(400, 400));
         pane_.add(scrollSession_);

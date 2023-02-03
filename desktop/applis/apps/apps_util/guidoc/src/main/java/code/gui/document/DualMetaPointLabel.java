@@ -13,7 +13,7 @@ import code.gui.images.MetaFont;
 
 public final class DualMetaPointLabel extends DualLabel {
 
-    private MetaPointForm form;
+    private final MetaPointForm form;
     public DualMetaPointLabel(DualContainer _container, MetaPointLabel _component,
             RenderedPage _page) {
         super(_container, _component, _page);
@@ -44,5 +44,9 @@ public final class DualMetaPointLabel extends DualLabel {
         }
         lab_.setIcon(getPage().getGene().getImageFactory(), img_);
         img_.dispose();
+    }
+
+    public MetaPointForm getForm() {
+        return form;
     }
 }

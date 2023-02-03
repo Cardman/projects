@@ -40,4 +40,8 @@ public final class DualNumberedLabel extends DualLabel {
         lab_.setIcon(getPage().getGene().getImageFactory(), img_);
         img_.dispose();
     }
+
+    public String getNumber() {
+        return number;
+    }
 }

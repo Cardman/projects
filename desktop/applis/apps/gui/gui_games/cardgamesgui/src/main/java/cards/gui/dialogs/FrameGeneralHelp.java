@@ -162,9 +162,7 @@ public final class FrameGeneralHelp extends ChildFrame {
         if (field == null) {
             field = _w.getCompoFactory().newTextField(20);
             search = _w.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
-            editor.setSearchText(search);
-            editor.setField(field);
-            editor.addFinder();
+            editor.addFinder(field,search);
         }
 //        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {

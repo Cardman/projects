@@ -37,4 +37,8 @@ public final class DualSimpleImage extends DualImage {
         }
         getLabel().setIcon(getPage().getGene().getImageFactory(), imgBuf_);
     }
+
+    public int[][] getImage() {
+        return image;
+    }
 }

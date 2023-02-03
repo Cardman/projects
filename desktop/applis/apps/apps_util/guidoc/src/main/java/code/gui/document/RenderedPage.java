@@ -14,10 +14,7 @@ import code.sml.RendKeyWordsGroup;
 import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractFuture;
 import code.threads.AbstractScheduledExecutorService;
-import code.util.CustList;
-import code.util.IdMap;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.consts.Constants;
 import code.util.ints.CharacterCaseConverter;
 
@@ -86,14 +83,15 @@ public final class RenderedPage implements ProcessingSession {
         process = _process;
     }
 
-    public void initializeOnlyConf(AbstractRenderAction _action, WithPageInfos _stds, Runnable _inst) {
+    public boolean initializeOnlyConf(AbstractRenderAction _action, WithPageInfos _stds, Runnable _inst) {
         if (processing.get()) {
-            return;
+            return false;
         }
         start();
         standards = _stds;
         renderAction = _action;
         gene.getThreadFactory().newStartedThread(_inst);
+        return true;
 //        animateProcess();
     }
 
@@ -174,22 +172,77 @@ public final class RenderedPage implements ProcessingSession {
         String ref_ = navCore.getReferenceScroll();
         if (!ref_.isEmpty()) {
             MetaSearchableLabel lab_ = _meta.getAnchorsRef().getVal(ref_);
-            DualComponent c_ = getRefs().getVal(lab_);
-            DualComponent r_ = page;
-            int x_ = 0;
-            int y_ = 0;
-            while (c_ != r_) {
-                x_ += c_.getGraphic().getXcoords();
-                y_ += c_.getGraphic().getYcoords();
-                c_ = c_.getContainer();
-            }
-            scroll.setHorizontalValue(x_);
-            scroll.setVerticalValue(y_);
+            scroll(lab_, this);
         }
         if (frame != null) {
             frame.pack();
         }
         finish();
+    }
+
+    static void scroll(MetaSearchableLabel _lab, RenderedPage _rend) {
+        DualComponent c_ = _rend.getRefs().getVal(_lab);
+        AbsScrollPane sc_ = _rend.getScroll();
+        DualComponent r_ = _rend.getPage();
+        int x_ = 0;
+        int y_ = 0;
+        while (c_ != r_ && c_ != null) {
+            x_ += c_.getGraphic().getXcoords();
+            y_ += c_.getGraphic().getYcoords();
+            c_ = c_.getContainer();
+        }
+        sc_.setHorizontalValue(x_);
+        sc_.setVerticalValue(y_);
+    }
+    public CustList<DualComponent> allMainComponents() {
+        CustList<DualComponent> all_ = new CustList<DualComponent>();
+        DualComponent root_ = page;
+        DualComponent current_ = root_;
+        while (current_ != null) {
+            filter(all_, current_);
+            DualComponent child_ = child(current_,0);
+            if (child_ != null) {
+                current_ = child_;
+                continue;
+            }
+            while (current_ != null) {
+                DualComponent next_ = next(current_);
+                if (next_ != null) {
+                    current_ = next_;
+                    break;
+                }
+                DualComponent par_ = current_.getContainer();
+                if (par_ == root_ || par_ == null) {
+                    current_ = null;
+                } else {
+                    current_ = par_;
+                }
+            }
+        }
+        return all_;
+    }
+
+    private static void filter(CustList<DualComponent> _all, DualComponent _current) {
+        if (_current instanceof DualLeaf && !(_current instanceof DualSeparator) && !(_current instanceof DualIndentNbLabel) && !(_current instanceof DualIndentLabel)) {
+            _all.add(_current);
+        }
+    }
+
+    private static DualComponent next(DualComponent _compo) {
+        DualContainer cont_ = _compo.getContainer();
+        if (cont_ == null) {
+            return null;
+        }
+        return child(cont_,index(cont_.getChildren(),_compo)+1);
+    }
+    private static int index(CustList<DualComponent> _chs, DualComponent _compo) {
+        return new IdList<DualComponent>(_chs).indexOfObj(_compo);
+    }
+    private static DualComponent child(DualComponent _par, int _index) {
+        if (_par.getChildren().isValidIndex(_index)) {
+            return _par.getChildren().get(_index);
+        }
+        return null;
     }
     public AbsTextArea getArea() {
         return area;
@@ -255,17 +308,23 @@ public final class RenderedPage implements ProcessingSession {
         return anims;
     }
 
-    public void setSearchText(AbsPlainButton _search) {
-        find = _search;
+    public void addFinder(AbsTextField _f, AbsPlainButton _s) {
+        field = _f;
+        find = _s;
+        finding = new FindEvent(_f, this);
+        _s.addActionListener(finding);
     }
 
-    public void setField(AbsTextField _field) {
-        field = _field;
+    public FindEvent getFinding() {
+        return finding;
     }
 
-    public void addFinder() {
-        finding = new FindEvent(field, this);
-        find.addActionListener(finding);
+    public AbsPlainButton getFind() {
+        return find;
+    }
+
+    public AbsTextField getField() {
+        return field;
     }
 
     public AbstractRenderAction getRenderAction() {

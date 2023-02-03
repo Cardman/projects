@@ -2,10 +2,13 @@ package code.formathtml.render;
 
 import code.gui.*;
 import code.gui.document.RenderedPage;
+import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.*;
 import code.mock.*;
-import code.sml.Node;
+import code.sml.*;
+import code.util.LongTreeMap;
 import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.NumberUtil;
 import org.junit.Assert;
 
@@ -68,6 +71,64 @@ public abstract class EquallableGuiDocUtil {
     public static void assertEq(StringList _expected, StringList _result) {
         Assert.assertNotNull(_result);
         Assert.assertEquals(_expected.getList(), _result.getList());
+    }
+    public static RenderedPage withFrame(RenderedPage _rend) {
+        _rend.setFrame(_rend.getGene().getFrameFactory().newCommonFrame("",_rend.getGene(),null));
+        return _rend;
+    }
+    public static RenderedPage withStd(RenderedPage _rend) {
+        MockWithPageInfos page_ = new MockWithPageInfos();
+        _rend.setStandards(page_);
+        return _rend;
+    }
+    public static RenderedPage withDoc(RenderedPage _rend, String _txt) {
+        return withDoc(_rend,_txt,"");
+    }
+    public static RenderedPage withFinder(RenderedPage _rend) {
+        AbstractProgramInfos pr_ = _rend.getGene();
+        AbsPlainButton b_ = pr_.getCompoFactory().newPlainButton();
+        _rend.addFinder(pr_.getCompoFactory().newTextField(), b_);
+        return _rend;
+    }
+
+    public static void form(HtmlPageInt _page, long _f, long _n) {
+        LongTreeMap<NodeContainer> v_ = new LongTreeMap<NodeContainer>();
+        v_.addEntry(_n,new NodeContainer());
+        ((HtmlPage)_page).getContainersBase().addEntry(_f, v_);
+    }
+
+    public static void form(HtmlPageInt _page, long _f, long _n, long _o) {
+        LongTreeMap<NodeContainer> v_ = new LongTreeMap<NodeContainer>();
+        v_.addEntry(_n,new NodeContainer());
+        v_.addEntry(_o,new NodeContainer());
+        ((HtmlPage)_page).getContainersBase().addEntry(_f, v_);
+    }
+
+    public static void form(HtmlPageInt _page, long _n) {
+        LongTreeMap<NodeContainer> v_ = new LongTreeMap<NodeContainer>();
+        ((HtmlPage)_page).getContainersBase().addEntry(_n, v_);
+    }
+    public static RenderedPage withDoc(RenderedPage _rend, String _txt, String _dest) {
+        DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_txt);
+        RendKeyWordsGroup keys_ = new RendKeyWordsGroup();
+        _rend.setKeys(keys_);
+        NavigationCore co_ = new NavigationCore();
+        _rend.setNavCore(co_);
+        _rend.setFiles(new StringMap<String>());
+        _rend.setLanguage("");
+        _rend.setLanguage("",new StringList());
+        co_.setCurrentUrl(_dest);
+        co_.setupText(_txt,res_.getDocument(),keys_.getKeyWordsTags().getKeyWordHead(),keys_.getKeyWordsAttrs().getAttrTitle());
+        _rend.setKeyWordDigit(_rend.getKeyWordDigit());
+        _rend.setArea(_rend.getArea());
+        _rend.initNav(co_,keys_);
+        _rend.setupText();
+        ((MockCompoFactory)_rend.getGene().getCompoFactory()).invoke();
+        ((MockCompoFactory)_rend.getGene().getCompoFactory()).getLater().clear();
+        return _rend;
+    }
+    protected static MetaDocument getMetaDocument(String _nav) {
+        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
     }
     public static RenderedPage newRenderedPage(MockProgramInfos _pr) {
         return new RenderedPage(_pr.getCompoFactory().newAbsScrollPane(), _pr,new MockCharacterCaseConverter());

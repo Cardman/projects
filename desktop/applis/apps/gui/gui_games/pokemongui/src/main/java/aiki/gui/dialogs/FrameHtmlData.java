@@ -52,9 +52,7 @@ public final class FrameHtmlData extends ChildFrame {
         AbsTextField field_;
         search = _parent.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _parent.getCompoFactory().newTextField(20);
-        session.setSearchText(search);
-        session.setField(field_);
-        session.addFinder();
+        session.addFinder(field_,search);
         AbsScrollPane scrollSession_ = session.getScroll();
         scrollSession_.setPreferredSize(new MetaDimension(400, 400));
         panel_.add(scrollSession_);

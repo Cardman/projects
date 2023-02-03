@@ -7,7 +7,6 @@ import code.formathtml.render.IntComponent;
 import code.formathtml.render.MetaComponent;
 import code.formathtml.render.MetaStyle;
 import code.gui.AbsCustComponent;
-import code.gui.AbsPanel;
 import code.gui.GuiConstants;
 import code.util.CustList;
 
@@ -62,46 +61,9 @@ public abstract class DualComponent implements IntComponent {
         return container;
     }
 
-    public int getComponentCount() {
-        AbsCustComponent g_ = getGraphic();
-        if (g_ instanceof AbsPanel) {
-            return ((AbsPanel)g_).getComponentCount();
-        }
-        return 0;
-    }
-
     @Override
     public IntComponent getParentCompo() {
         return getContainer();
-    }
-
-    public AbsCustComponent getParent() {
-        return getGraphic().getParent();
-    }
-    public AbsCustComponent getComponent(int _index) {
-        AbsCustComponent g_ = getGraphic();
-        if (g_ instanceof AbsPanel) {
-            return ((AbsPanel)g_).getComponent(_index);
-        }
-        return null;
-    }
-
-    public void add(DualComponent _dual) {
-        page.getRefs().put(_dual.getComponent(), _dual);
-        if (!children.isEmpty()) {
-            children.last().setNextSibling(_dual);
-        }
-        children.add(_dual);
-        AbsCustComponent g_ = getGraphic();
-        _dual.getGraphic().top();
-        _dual.getGraphic().left();
-        if (g_ instanceof AbsPanel) {
-            ((AbsPanel)g_).add(_dual.getGraphic());
-        }
-        if (_dual instanceof DualAnimatedImage) {
-            page.getAnims().add((DualAnimatedImage) _dual);
-        }
-        postAdd(_dual);
     }
 
     protected static void postAdd(DualComponent _dual) {

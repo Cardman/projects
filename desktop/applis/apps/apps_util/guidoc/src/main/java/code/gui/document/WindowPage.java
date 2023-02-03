@@ -30,16 +30,16 @@ public final class WindowPage implements Runnable {
         page.getAnims().clear();
         MetaComponent metaroot_ = meta.getRoot();
         IntComponent meta_ = metaroot_.getFirstChildCompo();
-        DualComponent cur_ = page.getPage();
+        DualContainer cur_ = page.getPage();
         CustList<CustList<FormInputCoordsButtonGroup>> radiosGroup_ = new CustList<CustList<FormInputCoordsButtonGroup>>();
         while (meta_ != null) {
             if (meta_ instanceof MetaContainer) {
                 MetaContainer container_ = (MetaContainer) meta_;
-                metaCont(cur_, radiosGroup_, container_);
+                DualContainer nextCont_ = metaCont(cur_, radiosGroup_, container_);
                 IntComponent firstChild_ = container_.getFirstChildCompo();
-                if (firstChild_ != null) {
+                if (nextCont_ != null) {
                     meta_ = firstChild_;
-                    cur_ = cur_.getChildren().last();
+                    cur_ = nextCont_;
                     continue;
                 }
             } else {
@@ -100,32 +100,32 @@ public final class WindowPage implements Runnable {
         }
     }
 
-    private void leaf(IntComponent _meta, DualComponent _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios) {
+    private void leaf(IntComponent _meta, DualContainer _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios) {
         if (_meta instanceof MetaPlainLabel) {
             MetaPlainLabel lab_ = (MetaPlainLabel) _meta;
-            _cur.add(new DualPlainLabel((DualContainer) _cur, lab_, page));
+            _cur.add(new DualPlainLabel(_cur, lab_, page));
             return;
         }
         if (_meta instanceof MetaAnchorLabel) {
             MetaAnchorLabel lab_ = (MetaAnchorLabel) _meta;
-            _cur.add(new DualAnchoredLabel((DualContainer) _cur, lab_, page));
+            _cur.add(new DualAnchoredLabel(_cur, lab_, page));
             return;
         }
         if (_meta instanceof MetaSeparator) {
-            _cur.add(new DualSeparator((DualContainer) _cur, (MetaComponent) _meta, page));
+            _cur.add(new DualSeparator(_cur, (MetaComponent) _meta, page));
             return;
         }
         if (_meta instanceof MetaSimpleImage) {
-            _cur.add(new DualSimpleImage((DualContainer) _cur, (MetaSimpleImage) _meta, page));
+            _cur.add(new DualSimpleImage(_cur, (MetaSimpleImage) _meta, page));
             return;
         }
         if (_meta instanceof MetaAnimatedImage) {
-            DualAnimatedImage a_ = new DualAnimatedImage((DualContainer) _cur, (MetaAnimatedImage) _meta, page);
+            DualAnimatedImage a_ = new DualAnimatedImage(_cur, (MetaAnimatedImage) _meta, page);
             _cur.add(a_);
             return;
         }
         if (_meta instanceof MetaIndentLabel) {
-            _cur.add(new DualIndentLabel((DualContainer) _cur, (MetaIndentLabel) _meta, page));
+            _cur.add(new DualIndentLabel(_cur, (MetaIndentLabel) _meta, page));
             return;
         }
         if (_meta instanceof MetaIndentNbLabel) {
@@ -133,48 +133,48 @@ public final class WindowPage implements Runnable {
             MetaListItem li_ = (MetaListItem) par_;
             MetaContainer gr_ = li_.getParent();
             int width_ = width((MetaIndentNbLabel) _meta, gr_);
-            _cur.add(new DualIndentNbLabel((DualContainer) _cur, (MetaIndentNbLabel) _meta, page, width_));
+            _cur.add(new DualIndentNbLabel(_cur, (MetaIndentNbLabel) _meta, page, width_));
             return;
         }
         if (_meta instanceof MetaNumberedLabel) {
-            _cur.add(new DualNumberedLabel((DualContainer) _cur, (MetaNumberedLabel) _meta, page));
+            _cur.add(new DualNumberedLabel(_cur, (MetaNumberedLabel) _meta, page));
             return;
         }
         if (_meta instanceof MetaPointLabel) {
-            _cur.add(new DualMetaPointLabel((DualContainer) _cur, (MetaPointLabel) _meta, page));
+            _cur.add(new DualMetaPointLabel(_cur, (MetaPointLabel) _meta, page));
             return;
         }
         input(_meta, _cur, _radios);
     }
 
-    private void input(IntComponent _meta, DualComponent _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios) {
+    private void input(IntComponent _meta, DualContainer _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios) {
         if (_meta instanceof MetaButton) {
-            _cur.add(new DualButton((DualContainer) _cur, (MetaButton) _meta, page));
+            _cur.add(new DualButton(_cur, (MetaButton) _meta, page));
             return;
         }
         if (_meta instanceof MetaTextField) {
-            _cur.add(new DualTextField((DualContainer) _cur, (MetaTextField) _meta, page));
+            _cur.add(new DualTextField(_cur, (MetaTextField) _meta, page));
             return;
         }
         if (_meta instanceof MetaSpinner) {
-            _cur.add(new DualSpinner((DualContainer) _cur, (MetaSpinner) _meta, page));
+            _cur.add(new DualSpinner(_cur, (MetaSpinner) _meta, page));
             return;
         }
         if (_meta instanceof MetaSlider) {
-            _cur.add(new DualSlider((DualContainer) _cur, (MetaSlider) _meta, page));
+            _cur.add(new DualSlider(_cur, (MetaSlider) _meta, page));
             return;
         }
         if (_meta instanceof MetaTextArea) {
-            _cur.add(new DualTextArea((DualContainer) _cur, (MetaTextArea) _meta, page));
+            _cur.add(new DualTextArea(_cur, (MetaTextArea) _meta, page));
             return;
         }
         if (_meta instanceof MetaCheckedBox) {
-            _cur.add(new DualCheckedBox((DualContainer) _cur, (MetaCheckedBox) _meta, page));
+            _cur.add(new DualCheckedBox(_cur, (MetaCheckedBox) _meta, page));
             return;
         }
         if (_meta instanceof MetaRadioButton) {
             MetaRadioButton radio_ = (MetaRadioButton) _meta;
-            DualRadionButton dual_ = new DualRadionButton((DualContainer) _cur, radio_, page);
+            DualRadionButton dual_ = new DualRadionButton(_cur, radio_, page);
             _cur.add(dual_);
             AbsRadioButton radioButton_ = dual_.getRadio();
             processRadio(_radios, radio_, radioButton_, dual_.getValue());
@@ -192,11 +192,11 @@ public final class WindowPage implements Runnable {
             return;
         }
         if (_meta instanceof MetaComboBox) {
-            _cur.add(new DualComboBox((DualContainer) _cur, (MetaComboBox) _meta, page));
+            _cur.add(new DualComboBox(_cur, (MetaComboBox) _meta, page));
             return;
         }
         if (_meta instanceof MetaComboList) {
-            _cur.add(new DualComboList((DualContainer) _cur, (MetaComboList) _meta, page));
+            _cur.add(new DualComboList(_cur, (MetaComboList) _meta, page));
         }
     }
 
@@ -224,25 +224,32 @@ public final class WindowPage implements Runnable {
         return par_;
     }
 
-    private void metaCont(DualComponent _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios, MetaContainer _cont) {
+    private DualContainer metaCont(DualContainer _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios, MetaContainer _cont) {
         int count_ = _cont.getChildren().size();
         if (count_ > 0 || _cont.isAddEmpty()) {
-            if (_cont instanceof MetaTable) {
-                _cur.add(new DualTable((DualContainer) _cur,(MetaTable) _cont, page));
-            } else if (_cont instanceof MetaImageMap) {
-                _cur.add(new DualImageMap((DualContainer) _cur,(MetaImageMap) _cont, page));
-            } else if (_cont instanceof MetaForm) {
-                _radios.add(new CustList<FormInputCoordsButtonGroup>());
-                _cur.add(new DualForm((DualContainer) _cur, (MetaForm) _cont, page));
-            } else {
-                _cur.add(new DualPanel((DualContainer) _cur, _cont, page));
-            }
+            DualContainer res_ = build(_cur, _radios, _cont);
+            _cur.add(res_);
             if (_cont.containsOnlyEndLine()) {
                 AbsPanel c_ = (AbsPanel) _cur.getGraphic();
                 int em_ = _cur.getComponent().getStyle().getEmToPixels();
                 _cur.getChildren().last().getGraphic().setPreferredSize(new MetaDimension(em_, c_.heightFont()));
             }
+            return res_;
         }
+        return null;
+    }
+    private DualContainer build(DualContainer _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios, MetaContainer _cont) {
+        if (_cont instanceof MetaTable) {
+            return new DualTable(_cur,(MetaTable) _cont, page);
+        }
+        if (_cont instanceof MetaImageMap) {
+            return new DualImageMap(_cur,(MetaImageMap) _cont, page);
+        }
+        if (_cont instanceof MetaForm) {
+            _radios.add(new CustList<FormInputCoordsButtonGroup>());
+            return new DualForm(_cur, (MetaForm) _cont, page);
+        }
+        return new DualPanel(_cur, _cont, page);
     }
 
     public static void processRadio(CustList<CustList<FormInputCoordsButtonGroup>> _lists, MetaRadioButton _meta, AbsRadioButton _radio, String _value) {

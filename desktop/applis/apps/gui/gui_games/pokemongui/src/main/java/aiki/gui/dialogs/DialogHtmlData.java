@@ -86,9 +86,7 @@ public final class DialogHtmlData {
         AbsPlainButton search_ = _session.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _session.getCompoFactory().newTextField(20);
 //        _session.setLabel(area_);
-        _session.setSearchText(search_);
-        _session.setField(field_);
-        _session.addFinder();
+        _session.addFinder(field_,search_);
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
         AbsScrollPane scrollSession_ = _session.getScroll();

@@ -52,9 +52,7 @@ public final class DialogGameProgess {
         AbsPlainButton search_ = _window.getCompoFactory().newPlainButton(messages.getVal(SEARCH_LABEL));
         field_ = _window.getCompoFactory().newTextField(20);
 //        session.setLabel(area_);
-        session.setSearchText(search_);
-        session.setField(field_);
-        session.addFinder();
+        session.addFinder(field_,search_);
 //        JPanel group_ = new JPanel();
 //        group_.setLayout(new BoxLayout(group_, BoxLayout.PAGE_AXIS));
         session.getScroll().setPreferredSize(new MetaDimension(400, 400));

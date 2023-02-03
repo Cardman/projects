@@ -164,28 +164,7 @@ public final class QuickSubmitFormTest extends EquallableGuiDocUtil {
         assertEq("8", l_.get(0));
     }
 
-    private void form(HtmlPage _page, long _f, long _n) {
-        LongTreeMap<NodeContainer> v_ = new LongTreeMap<NodeContainer>();
-        v_.addEntry(_n,new NodeContainer());
-        _page.getContainersBase().addEntry(_f, v_);
-    }
-
-    private void form(HtmlPage _page, long _f, long _n, long _o) {
-        LongTreeMap<NodeContainer> v_ = new LongTreeMap<NodeContainer>();
-        v_.addEntry(_n,new NodeContainer());
-        v_.addEntry(_o,new NodeContainer());
-        _page.getContainersBase().addEntry(_f, v_);
-    }
-
-    private void form(HtmlPage _page, long _n) {
-        LongTreeMap<NodeContainer> v_ = new LongTreeMap<NodeContainer>();
-        _page.getContainersBase().addEntry(_n, v_);
-    }
-
     private void submit(IntForm _intForm, HtmlPageInt _stds) {
         SubmitForm.submit(_intForm, _stds);
-    }
-    private static MetaDocument getMetaDocument(String _nav) {
-        return MetaDocument.newInstance(DocumentBuilder.parseSaxNotNullRowCol(_nav).getDocument(),new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
     }
 }

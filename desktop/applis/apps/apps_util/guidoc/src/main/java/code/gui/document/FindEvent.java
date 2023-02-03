@@ -11,13 +11,13 @@ import code.util.EntryCust;
 
 public final class FindEvent implements AbsActionListener {
 
-    private RenderedPage page;
+    private final RenderedPage page;
 
     private FindNextElement finding;
 
-    private AbsTextField field;
+    private final AbsTextField field;
 
-    private CustList<DualLabel> labels = new CustList<DualLabel>();
+    private final CustList<DualLabel> labels = new CustList<DualLabel>();
 
     public FindEvent(AbsTextField _field, RenderedPage _page) {
         field = _field;
@@ -58,17 +58,10 @@ public final class FindEvent implements AbsActionListener {
             DualComponent.paintLabel(l_);
             labels.add(l_);
         }
-        AbsScrollPane sc_ = page.getScroll();
-        DualComponent r_ = page.getPage();
-        int x_ = 0;
-        int y_ = 0;
-        DualComponent c_ = page.getRefs().getVal(lab_);
-        while (c_ != r_) {
-            x_ +=  c_.getGraphic().getXcoords();
-            y_ +=  c_.getGraphic().getYcoords();
-            c_ = c_.getContainer();
-        }
-        sc_.setHorizontalValue(x_);
-        sc_.setVerticalValue(y_);
+        RenderedPage.scroll(lab_, page);
+    }
+
+    public CustList<DualLabel> getLabels() {
+        return labels;
     }
 }

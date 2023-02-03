@@ -26,12 +26,4 @@ public final class DualComboBox extends DualInput implements IntComboBox {
         return choicesValues.get(_index);
     }
 
-    public String getValue() {
-        Ints values_ = getSelect().getSelectedIndexes();
-        if (values_.isEmpty()) {
-            return "";
-        }
-        return choicesValues.get(values_.first());
-    }
-
 }

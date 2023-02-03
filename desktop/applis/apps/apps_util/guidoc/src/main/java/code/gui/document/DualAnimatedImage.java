@@ -21,6 +21,7 @@ public final class DualAnimatedImage extends DualImage {
 
     private final CustList<int[][]> images;
     private AbstractFuture task;
+    private boolean started;
 
     public DualAnimatedImage(DualContainer _container, MetaAnimatedImage _component, RenderedPage _page) {
         super(_container, _component, _page);
@@ -41,11 +42,20 @@ public final class DualAnimatedImage extends DualImage {
     public void start() {
         scheduledExecutorService = getPage().getGene().getThreadFactory().newScheduledExecutorService();
         task = scheduledExecutorService.scheduleAtFixedRateNanos(imageThread, 0, 1);
-        getPage().getGene().getThreadFactory().newStartedThread(imageThread);
+        started = true;
     }
     public void stop() {
         task.cancel(false);
         scheduledExecutorService.shutdown();
+        started = false;
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public AnimateImage getImageThread() {
+        return imageThread;
     }
 
     public void increment() {
@@ -74,5 +84,13 @@ public final class DualAnimatedImage extends DualImage {
             y_++;
         }
         getLabel().setIcon(getPage().getGene().getImageFactory(), imgBuf_);
+    }
+
+    public CustList<int[][]> getImages() {
+        return images;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }
