@@ -6,6 +6,7 @@ public final class MetaListOrderInfos {
     private String typeLi;
     private int li;
     private BoolVal order;
+    private MetaContainer container;
 
     public BoolVal getOrder() {
         return order;
@@ -29,5 +30,13 @@ public final class MetaListOrderInfos {
 
     public void setTypeLi(String _t) {
         this.typeLi = _t;
+    }
+
+    public MetaContainer getContainer() {
+        return container;
+    }
+
+    public void setContainer(MetaContainer _c) {
+        this.container = _c;
     }
 }

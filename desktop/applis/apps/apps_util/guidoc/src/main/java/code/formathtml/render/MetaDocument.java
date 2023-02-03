@@ -208,6 +208,7 @@ public final class MetaDocument {
             containers.add(bl_);
             infos_.setLi(1);
             infos_.setOrder(ComparatorBoolean.of(StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordOl())));
+            infos_.setContainer(bl_);
             orderInfos.add(infos_);
             currentParent = bl_;
         }
@@ -335,7 +336,7 @@ public final class MetaDocument {
         String typeLiLast_ = info_.getTypeLi();
         rowGroup = 0;
         partGroup++;
-        MetaContainer list_ = containers.last();
+        MetaContainer list_ = info_.getContainer();
         MetaContainer bl_ = new MetaListItem(list_);
         MetaContainer line_ = new MetaLine(bl_);
         line_.setStyle(_styleLoc);
