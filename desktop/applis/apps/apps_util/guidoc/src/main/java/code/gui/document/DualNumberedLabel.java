@@ -12,7 +12,8 @@ import code.gui.images.MetaFont;
 
 public final class DualNumberedLabel extends DualLabel {
 
-    private String number;
+    public static final String PAD = "  ";
+    private final String number;
 
     public DualNumberedLabel(DualContainer _container, MetaNumberedLabel _component,
                              RenderedPage _page) {
@@ -27,7 +28,7 @@ public final class DualNumberedLabel extends DualLabel {
         MetaStyle style_ = getComponent().getStyle();
         MetaFont copy_ =  newFont(style_);
         int h_ = lab_.heightFont(copy_);
-        String tr_ = new StringBuilder(number).append("  ").toString();
+        String tr_ = new StringBuilder(number).append(PAD).toString();
         int diff_ = getPage().getCompoFactory().stringWidth(copy_,tr_);
         AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(diff_, h_);
 //        CustGraphics gr_ = new CustGraphics(img_.createGraphics());

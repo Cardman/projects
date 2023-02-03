@@ -131,7 +131,7 @@ public final class WindowPage implements Runnable {
             MetaContainer par_ = li((MetaIndentNbLabel) _meta);
             MetaListItem li_ = (MetaListItem) par_;
             MetaContainer gr_ = li_.getParent();
-            int width_ = width(gr_);
+            int width_ = width((MetaIndentNbLabel) _meta, _cur, gr_);
             _cur.add(new DualIndentNbLabel((DualContainer) _cur, (MetaIndentNbLabel) _meta, page, width_));
             return;
         }
@@ -200,12 +200,13 @@ public final class WindowPage implements Runnable {
     }
 
 
-    private int width(MetaContainer _gr) {
-        int width_ = 1;
+    private int width(MetaIndentNbLabel _meta, DualComponent _cur, MetaContainer _gr) {
+        int width_ = _meta.getStyle().getEmToPixels();
+        AbsPanel p_ = (AbsPanel) _cur.getGraphic();
         if (_gr instanceof MetaOrderedList) {
             int len_ = _gr.getChildren().size();
             for (int i = 0; i < len_; i++) {
-                width_ = NumberUtil.max(width_, Long.toString(i + 1L).length());
+                width_ = NumberUtil.max(width_, page.getCompoFactory().stringWidth(p_.getMetaFont(), i + 1L +DualNumberedLabel.PAD));
             }
         }
         return width_;

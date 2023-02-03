@@ -11,17 +11,13 @@ import code.util.core.NumberUtil;
 
 public final class DualIndentNbLabel extends DualLabel {
 
-    private final String pattern;
+    private final int width;
     private int rate;
     public DualIndentNbLabel(DualContainer _container, MetaIndentNbLabel _component,
             RenderedPage _page, int _width) {
         super(_container, _component, _page);
         getLabel().setOpaque(true);
-        StringBuilder noop_ = new StringBuilder();
-        for (int i = 0; i < _width; i++) {
-            noop_.append("_");
-        }
-        pattern = noop_.append("  ").toString();
+        width = _width;
     }
 
     @Override
@@ -29,11 +25,10 @@ public final class DualIndentNbLabel extends DualLabel {
         MetaStyle style_ = getComponent().getStyle();
         MetaFont copy_ = newFont(style_);
         int h_ = NumberUtil.max(rate,getLabel().heightFont(copy_));
-        int w_ = getPage().getCompoFactory().stringWidth(copy_,pattern);
-        AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(w_, h_);
+        AbstractImage img_ = getPage().getGene().getImageFactory().newImageRgb(width, h_);
         img_.setFont(copy_);
         img_.setColor(GuiConstants.newColor(style_.getBgColor()));
-        img_.fillRect(0, 0, w_, h_);
+        img_.fillRect(0, 0, width, h_);
         getLabel().setIcon(getPage().getGene().getImageFactory(), img_);
         img_.dispose();
     }
