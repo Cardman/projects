@@ -4897,6 +4897,131 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         assertEq(6,imgMeta_.getStyle().getDelta());
         assertEq(64,imgMeta_.getStyle().getRealSize());
     }
+    @Test
+    public void newInstance102Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<lol>\n");
+        doc_.append("<li>First</li>\n");
+        doc_.append("<li>Second</li>\n");
+        doc_.append("</lol>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(2, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("First", lab_.getText());
+        ch_ = cont_.getLastChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        lab_ = (MetaPlainLabel) ch_;
+        assertEq("Second", lab_.getText());
+        ch_ = root_.getChildren().last();
+        assertTrue(ch_ instanceof MetaLine);
+    }
+    @Test
+    public void newInstance103Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<tab>\n");
+        doc_.append("<caption>Title</caption>\n");
+        doc_.append("</tab>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("Title", lab_.getText());
+        ch_ = root_.getChildren().last();
+        assertTrue(ch_ instanceof MetaLine);
+    }
+    @Test
+    public void newInstance104Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<tab>\n");
+        doc_.append("<td>Title</td>\n");
+        doc_.append("</tab>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("Title", lab_.getText());
+        ch_ = root_.getChildren().last();
+        assertTrue(ch_ instanceof MetaLine);
+    }
+    @Test
+    public void newInstance105Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<tab>\n");
+        doc_.append("<th>Title</th>\n");
+        doc_.append("</tab>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("Title", lab_.getText());
+        ch_ = root_.getChildren().last();
+        assertTrue(ch_ instanceof MetaLine);
+    }
+    @Test
+    public void newInstance106Test() {
+        StringBuilder doc_ = new StringBuilder();
+        doc_.append("<html>\n");
+        doc_.append("<body>\n");
+        doc_.append("<tab>\n");
+        doc_.append("<tr>Title</tr>\n");
+        doc_.append("</tab>\n");
+        doc_.append("</body>\n");
+        doc_.append("</html>");
+        MetaDocument out_ = getMetaDocument(doc_);
+        MetaBlock root_ = out_.getRoot();
+        assertEq(1, root_.getChildren().size());
+        MetaComponent ch_ = root_.getFirstChild();
+        assertTrue(ch_ instanceof MetaLine);
+        MetaContainer cont_ = (MetaContainer) ch_;
+        assertEq(1, cont_.getChildren().size());
+        ch_ = cont_.getFirstChild();
+        assertTrue(ch_ instanceof MetaPlainLabel);
+        MetaPlainLabel lab_ = (MetaPlainLabel) ch_;
+        assertEq("Title", lab_.getText());
+        ch_ = root_.getChildren().last();
+        assertTrue(ch_ instanceof MetaLine);
+    }
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
         return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
