@@ -1,23 +1,22 @@
 package code.gui.document;
 
 import code.formathtml.render.MetaInput;
-import code.gui.AbsCustComponent;
 
 import code.gui.Input;
 
 public abstract class DualInput extends DualLeaf {
     private Input select;
-    private int group;
-    private long formNb;
+    private final int group;
+    private final long formNb;
 
-    public DualInput(DualContainer _container, MetaInput _component,
+    protected DualInput(DualContainer _container, MetaInput _component,
                      RenderedPage _page) {
         super(_container, _component, _page);
         group = _component.getGroup();
         formNb = _component.getFormNb();
     }
 
-    public DualInput(DualContainer _container, MetaInput _component,
+    protected DualInput(DualContainer _container, MetaInput _component,
             Input _graphic, RenderedPage _page) {
         super(_container, _component, _page);
         select = _graphic;
@@ -27,11 +26,6 @@ public abstract class DualInput extends DualLeaf {
 
     public long getFormNb() {
         return formNb;
-    }
-
-    @Override
-    public AbsCustComponent getGraphic() {
-        return select.getGlobal();
     }
 
     public Input getSelect() {

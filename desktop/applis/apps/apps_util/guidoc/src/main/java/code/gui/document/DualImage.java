@@ -7,7 +7,7 @@ public abstract class DualImage extends DualLeaf {
 
     private final AbsPreparedLabel label;
 
-    public DualImage(DualContainer _container, MetaImage _component,
+    protected DualImage(DualContainer _container, MetaImage _component,
             RenderedPage _page) {
         super(_container, _component, _page);
         label = GuiBaseUtil.prep(_page.getGene().getImageFactory());

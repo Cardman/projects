@@ -2,6 +2,7 @@ package code.gui.document;
 
 import code.formathtml.render.IntComboList;
 import code.formathtml.render.MetaComboList;
+import code.gui.AbsCustComponent;
 import code.util.Ints;
 import code.util.StringList;
 
@@ -16,6 +17,10 @@ public final class DualComboList extends DualInput implements IntComboList {
         updateGraphics(getSelect().getGlobal(),_component);
     }
 
+    @Override
+    public AbsCustComponent getGraphic() {
+        return getSelect().getGlobal();
+    }
     @Override
     public StringList getValue() {
         Ints indexes_ = getSelect().getSelectedIndexes();
