@@ -104,10 +104,9 @@ public final class MetaDocument {
 
     private void eltTxt(RendKeyWordsGroup _rend, IndexButtons _indexes, Node _curr, MetaStyle _styleLoc, String _keyWordDig, CharacterCaseConverter _converter) {
         updateSty(_rend, _curr, _styleLoc,_keyWordDig,_converter);
-        boolean li_ = !stacks.isEmpty() && StringUtil.quickEq(stacks.last(), _rend.getKeyWordsTags().getKeyWordLi());
         if (_curr instanceof Text) {
             Text txt_ = (Text) _curr;
-            text(_rend, _styleLoc, li_, txt_);
+            text(_rend, _styleLoc, txt_);
         }
         skipChildrenBuild = false;
         tagName = MetaComponent.EMPTY_STRING;
@@ -146,7 +145,7 @@ public final class MetaDocument {
             end_.setStyle(_styleLoc);
             currentParent.appendChild(end_);
             MetaContainer line_ = new MetaLine(curPar_);
-            indent(_styleLoc, li_, line_);
+            indent(_styleLoc, _rend, line_);
             curPar_.appendChild(line_);
             currentParent = line_;
         }
@@ -156,7 +155,7 @@ public final class MetaDocument {
             rowGroup = 0;
             partGroup++;
         }
-        form(_rend, _indexes, _curr, _styleLoc, li_, elt_, curPar_);
+        form(_rend, _indexes, _curr, _styleLoc, elt_, curPar_);
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordPar())) {
             MetaContainer surline_ = new MetaLine(curPar_);
             surline_.setStyle(_styleLoc);
@@ -172,19 +171,19 @@ public final class MetaDocument {
             line_.setStyle(_styleLoc);
             bl_.appendChild(line_);
           //indent
-            indent(_styleLoc, li_, surline_);
+            indent(_styleLoc, _rend, surline_);
             surline_.appendChild(bl_);
             curPar_.appendChild(surline_);
             containers.add(curPar_);
             containers.add(bl_);
             currentParent = line_;
         }
-        bulletNb(_rend, _styleLoc, li_, elt_, curPar_);
-        table(_rend, _styleLoc, li_, curPar_);
-        divMap(_rend, _styleLoc, li_, elt_, curPar_);
+        bulletNb(_rend, _styleLoc, elt_, curPar_);
+        table(_rend, _styleLoc, curPar_);
+        divMap(_rend, _styleLoc, elt_, curPar_);
     }
 
-    private void bulletNb(RendKeyWordsGroup _rend, MetaStyle _styleLoc, boolean _li, Element _elt, MetaContainer _curPar) {
+    private void bulletNb(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Element _elt, MetaContainer _curPar) {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordUl()) || StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordOl())) {
             MetaContainer line_ = new MetaLine(_curPar);
             line_.setStyle(_styleLoc);
@@ -198,7 +197,7 @@ public final class MetaDocument {
             }
             bl_.setStyle(_styleLoc);
             //indent
-            indent(_styleLoc, _li, line_);
+            indent(_styleLoc, _rend, line_);
             MetaLabel ind_ = new MetaIndentLabel(line_);
             ind_.setStyle(_styleLoc);
             line_.appendChild(ind_);
@@ -217,7 +216,7 @@ public final class MetaDocument {
         }
     }
 
-    private void form(RendKeyWordsGroup _rend, IndexButtons _indexes, Node _curr, MetaStyle _styleLoc, boolean _li, Element _elt, MetaContainer _curPar) {
+    private void form(RendKeyWordsGroup _rend, IndexButtons _indexes, Node _curr, MetaStyle _styleLoc, Element _elt, MetaContainer _curPar) {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordSelect())) {
             skipChildrenBuild = true;
             rowGroup = 0;
@@ -251,7 +250,7 @@ public final class MetaDocument {
             form_.appendChild(line_);
             forms.add(form_);
             //indent
-            indent(_styleLoc, _li, surline_);
+            indent(_styleLoc, _rend, surline_);
             surline_.appendChild(form_);
             _curPar.appendChild(surline_);
             containers.add(_curPar);
@@ -260,13 +259,13 @@ public final class MetaDocument {
         }
     }
 
-    private void table(RendKeyWordsGroup _rend, MetaStyle _styleLoc, boolean _li, MetaContainer _curPar) {
+    private void table(RendKeyWordsGroup _rend, MetaStyle _styleLoc, MetaContainer _curPar) {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordTable())) {
             MetaContainer line_ = new MetaLine(_curPar);
             line_.setStyle(_styleLoc);
             MetaTable bl_ = new MetaTable(line_);
             //indent
-            indent(_styleLoc, _li, line_);
+            indent(_styleLoc, _rend, line_);
             bl_.setStyle(_styleLoc);
             line_.appendChild(bl_);
             _curPar.appendChild(line_);
@@ -300,11 +299,11 @@ public final class MetaDocument {
         }
     }
 
-    private void divMap(RendKeyWordsGroup _rend, MetaStyle _styleLoc, boolean _li, Element _elt, MetaContainer _curPar) {
+    private void divMap(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Element _elt, MetaContainer _curPar) {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordMap())) {
             int width_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrWidth()),1);
             MetaContainer line_ = new MetaLine(_curPar);
-            indent(_styleLoc, _li, line_);
+            indent(_styleLoc, _rend, line_);
             MetaContainer map_ = new MetaImageMap(line_, width_);
             map_.setStyle(_styleLoc);
             line_.setStyle(_styleLoc);
@@ -315,7 +314,7 @@ public final class MetaDocument {
             currentParent = map_;
         }
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordDiv())) {
-            div(_rend, _styleLoc, _li, _elt, _curPar);
+            div(_rend, _styleLoc, _elt, _curPar);
         }
     }
 
@@ -493,7 +492,7 @@ public final class MetaDocument {
         }
     }
 
-    private void div(RendKeyWordsGroup _rend, MetaStyle _styleLoc, boolean _li, Element _elt, MetaContainer _curPar) {
+    private void div(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Element _elt, MetaContainer _curPar) {
         int index_ = 1;
         int i_ = 0;
         Node first_ = _elt.getFirstChild();
@@ -508,7 +507,7 @@ public final class MetaDocument {
             }
         }
         MetaContainer line_ = new MetaLine(_curPar);
-        indent(_styleLoc, _li, line_);
+        indent(_styleLoc, _rend, line_);
         MetaContainer map_ = new MetaImageMap(line_, index_);
         map_.setStyle(_styleLoc);
         line_.setStyle(_styleLoc);
@@ -545,7 +544,7 @@ public final class MetaDocument {
         }
     }
 
-    private void text(RendKeyWordsGroup _rend, MetaStyle _styleLoc, boolean _li, Text _txt) {
+    private void text(RendKeyWordsGroup _rend, MetaStyle _styleLoc, Text _txt) {
         String realText_ = _txt.getTextContent();
         String text_ = realText_.trim();
         title = MetaComponent.EMPTY_STRING;
@@ -581,7 +580,7 @@ public final class MetaDocument {
             text_ = adjustedText_.toString();
             label(_rend, _styleLoc, text_);
         } else if (pre) {
-            pre(_rend, _styleLoc, _li, realText_);
+            pre(_rend, _styleLoc, realText_);
         }
     }
 
@@ -639,16 +638,16 @@ public final class MetaDocument {
         }
     }
 
-    private void pre(RendKeyWordsGroup _rend, MetaStyle _style, boolean _li, String _real) {
+    private void pre(RendKeyWordsGroup _rend, MetaStyle _style, String _real) {
         StringList strings_ = StringUtil.splitStrings(_real, LF, CRLF);
         int nbLines_ = strings_.size();
         for (int i = 0; i < nbLines_; i++) {
-            linePre(_rend, _style, _li, _real, nbLines_, i, strings_.get(i));
+            linePre(_rend, _style, _real, nbLines_, i, strings_.get(i));
         }
         rowGroup--;
     }
 
-    private void linePre(RendKeyWordsGroup _rend, MetaStyle _style, boolean _li, String _real, int _nbLines, int _indLine, String _l) {
+    private void linePre(RendKeyWordsGroup _rend, MetaStyle _style, String _real, int _nbLines, int _indLine, String _l) {
         StringBuilder line_ = new StringBuilder(_real.length());
         for (char c: _l.toCharArray()) {
             if (c == '\t') {
@@ -668,7 +667,7 @@ public final class MetaDocument {
             currentParent.appendChild(end_);
             MetaContainer curPar_ = currentParent.getParent();
             MetaContainer lineBl_ = new MetaLine(curPar_);
-            indent(_style, _li, lineBl_);
+            indent(_style, _rend, lineBl_);
             curPar_.appendChild(lineBl_);
             currentParent = lineBl_;
         }
@@ -736,8 +735,8 @@ public final class MetaDocument {
         return formIndex.last();
     }
 
-    private static void indent(MetaStyle _styleLoc, boolean _li, MetaContainer _surline) {
-        if (_li) {
+    private void indent(MetaStyle _styleLoc, RendKeyWordsGroup _rend, MetaContainer _surline) {
+        if (isLiElt(_rend)) {
             MetaLabel ind_ = new MetaIndentNbLabel(_surline);
             ind_.setStyle(_styleLoc);
             _surline.appendChild(ind_);
@@ -1101,13 +1100,16 @@ public final class MetaDocument {
     }
 
     private void indentNb(RendKeyWordsGroup _rend, MetaContainer _line) {
-        boolean li_ = !stacks.isEmpty() && StringUtil.quickEq(stacks.last(), _rend.getKeyWordsTags().getKeyWordLi());
-        if (li_ && _line != null) {
+        if (isLiElt(_rend) && _line != null) {
             dynamicNewLines.add(currentParent);
             MetaContainer curPar_ = currentParent;
             MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
             curPar_.appendChild(indent_);
         }
+    }
+
+    private boolean isLiElt(RendKeyWordsGroup _rend) {
+        return !stacks.isEmpty() && StringUtil.quickEq(stacks.last(), _rend.getKeyWordsTags().getKeyWordLi());
     }
 
     public MetaBlock getRoot() {

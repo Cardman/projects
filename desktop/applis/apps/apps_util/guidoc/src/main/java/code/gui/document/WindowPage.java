@@ -5,6 +5,7 @@ package code.gui.document;
 import code.formathtml.render.*;
 import code.gui.*;
 import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.core.NumberUtil;
 
@@ -131,7 +132,7 @@ public final class WindowPage implements Runnable {
             MetaContainer par_ = li((MetaIndentNbLabel) _meta);
             MetaListItem li_ = (MetaListItem) par_;
             MetaContainer gr_ = li_.getParent();
-            int width_ = width((MetaIndentNbLabel) _meta, _cur, gr_);
+            int width_ = width((MetaIndentNbLabel) _meta, gr_);
             _cur.add(new DualIndentNbLabel((DualContainer) _cur, (MetaIndentNbLabel) _meta, page, width_));
             return;
         }
@@ -200,13 +201,16 @@ public final class WindowPage implements Runnable {
     }
 
 
-    private int width(MetaIndentNbLabel _meta, DualComponent _cur, MetaContainer _gr) {
+    private int width(MetaIndentNbLabel _meta, MetaContainer _gr) {
         int width_ = _meta.getStyle().getEmToPixels();
-        AbsPanel p_ = (AbsPanel) _cur.getGraphic();
-        if (_gr instanceof MetaOrderedList) {
-            int len_ = _gr.getChildren().size();
-            for (int i = 0; i < len_; i++) {
-                width_ = NumberUtil.max(width_, page.getCompoFactory().stringWidth(p_.getMetaFont(), i + 1L +DualNumberedLabel.PAD));
+        int len_ = _gr.getChildren().size();
+        for (int i = 0; i < len_; i++) {
+            MetaComponent head_ = _gr.getChildren().get(i).getFirstChild().getFirstChild();
+            if (head_ instanceof MetaNumberedLabel) {
+                MetaStyle style_ = head_.getStyle();
+                MetaFont copy_ = DualLabel.newFont(style_);
+                int w_ = page.getCompoFactory().stringWidth(copy_, ((MetaNumberedLabel) head_).getText() + DualNumberedLabel.PAD);
+                width_ = NumberUtil.max(width_, w_);
             }
         }
         return width_;
