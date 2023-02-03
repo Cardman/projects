@@ -44,6 +44,8 @@ public final class DualTable extends DualContainer {
             getChildren().last().setNextSibling(_dual);
         }
         getChildren().add(_dual);
+        _dual.getGraphic().top();
+        _dual.getGraphic().left();
         if (c_ instanceof AbsPanel) {
             ((AbsPanel)c_).add(_dual.getGraphic());
         }

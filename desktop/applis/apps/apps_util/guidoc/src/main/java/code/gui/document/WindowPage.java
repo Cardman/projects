@@ -51,6 +51,7 @@ public final class WindowPage implements Runnable {
                     break;
                 }
                 IntComponent parent_ =  meta_.getParentCompo();
+                adjustHeight(cur_);
                 cur_ = cur_.getContainer();
                 remGr(radiosGroup_, parent_);
                 meta_ = parOrNull(metaroot_, parent_);
@@ -60,6 +61,20 @@ public final class WindowPage implements Runnable {
         frame.validate();
         page.directScroll(meta);
         startAnims();
+    }
+
+    private void adjustHeight(DualComponent _cur) {
+        IntComponent fi_ = _cur.getFirstChildCompo();
+        if (fi_ instanceof DualIndentNbLabel) {
+            IntComponent n_ = fi_.getNextSibling();
+            int max_ = ((DualComponent)fi_).getGraphic().getPreferredSizeValue().getHeight();
+            while (n_ instanceof DualComponent) {
+                max_ = NumberUtil.max(max_,((DualComponent)n_).getGraphic().getPreferredSizeValue().getHeight());
+                n_ = n_.getNextSibling();
+            }
+            ((DualIndentNbLabel) fi_).setRate(max_);
+            ((DualIndentNbLabel) fi_).paint();
+        }
     }
 
     private IntComponent parOrNull(MetaComponent _root, IntComponent _par) {
@@ -116,7 +131,7 @@ public final class WindowPage implements Runnable {
             MetaContainer par_ = li((MetaIndentNbLabel) _meta);
             MetaListItem li_ = (MetaListItem) par_;
             MetaContainer gr_ = li_.getParent();
-            int width_ = width((MetaIndentNbLabel) _meta, _cur, gr_);
+            int width_ = width(gr_);
             _cur.add(new DualIndentNbLabel((DualContainer) _cur, (MetaIndentNbLabel) _meta, page, width_));
             return;
         }
@@ -184,13 +199,13 @@ public final class WindowPage implements Runnable {
         }
     }
 
-    private int width(MetaIndentNbLabel _meta, DualComponent _cur, MetaContainer _gr) {
-        int width_ = _meta.getStyle().getEmToPixels();
-        AbsPanel p_ = (AbsPanel) _cur.getGraphic();
+
+    private int width(MetaContainer _gr) {
+        int width_ = 1;
         if (_gr instanceof MetaOrderedList) {
             int len_ = _gr.getChildren().size();
             for (int i = 0; i < len_; i++) {
-                width_ = NumberUtil.max(width_, page.getCompoFactory().stringWidth(p_.getMetaFont(),Long.toString(i + 1L)));
+                width_ = NumberUtil.max(width_, Long.toString(i + 1L).length());
             }
         }
         return width_;

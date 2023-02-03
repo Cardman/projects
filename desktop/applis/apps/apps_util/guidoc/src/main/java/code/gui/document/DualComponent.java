@@ -20,7 +20,7 @@ public abstract class DualComponent implements IntComponent {
 
     private final RenderedPage page;
 
-    public DualComponent(DualContainer _container, MetaComponent _component, RenderedPage _page) {
+    protected DualComponent(DualContainer _container, MetaComponent _component, RenderedPage _page) {
         container = _container;
         component = _component;
         page = _page;
@@ -72,7 +72,7 @@ public abstract class DualComponent implements IntComponent {
 
     @Override
     public IntComponent getParentCompo() {
-        return container;
+        return getContainer();
     }
 
     public AbsCustComponent getParent() {
@@ -93,6 +93,8 @@ public abstract class DualComponent implements IntComponent {
         }
         children.add(_dual);
         AbsCustComponent g_ = getGraphic();
+        _dual.getGraphic().top();
+        _dual.getGraphic().left();
         if (g_ instanceof AbsPanel) {
             ((AbsPanel)g_).add(_dual.getGraphic());
         }
@@ -118,7 +120,7 @@ public abstract class DualComponent implements IntComponent {
     }
 
     public static void paintLabel(DualLabel _dual) {
-        if (_dual instanceof DualIndentLabel || _dual instanceof DualIndentNbLabel) {
+        if (_dual instanceof DualIndentLabel) {
             return;
         }
         _dual.paint();
