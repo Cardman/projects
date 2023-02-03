@@ -117,4 +117,12 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.setSelectTable(s_,false);
         assertFalse(s_.isMultiSelect());
     }
+    @Test
+    public void formatDate1() {
+        assertEq("0",GuiBaseUtil.getTime(init().getThreadFactory(),""));
+    }
+    @Test
+    public void formatDate2() {
+        assertEq("0",GuiBaseUtil.getTimeText(init().getThreadFactory(),"","",""));
+    }
 }

@@ -139,7 +139,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         filesFrame = new SimpleFilesFrame(this,getTitle());
-        commonExecution = new CommonExecution(unitMessages,doneTestsCount,currentMethod,resultsTable,results,progressBar);
+        commonExecution = new CommonExecution(new ProgTestBar(unitMessages,doneTestsCount,currentMethod,resultsTable,results,progressBar));
     }
 
     @Override

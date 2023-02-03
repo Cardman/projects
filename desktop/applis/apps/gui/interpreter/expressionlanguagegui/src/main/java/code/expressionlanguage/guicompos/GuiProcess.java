@@ -16,6 +16,7 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.gui.unit.CommonExecution;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.*;
@@ -25,7 +26,6 @@ import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.CdmFactory;
-import code.gui.Clock;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
@@ -105,7 +105,7 @@ public final class GuiProcess implements GuiRunnable {
         ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
-        String time_ = Clock.getDateTimeText("_", "_", "_", _infos.getThreadFactory());
+        String time_ = CommonExecution.getDateTimeText("_", "_", "_", _infos.getThreadFactory());
         if (!(cont_ instanceof GuiContextEl)) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);
             AbstractLogger logger_ = fileInfos_.getLogger();

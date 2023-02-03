@@ -3,6 +3,9 @@ package code.gui;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
+import code.threads.AbstractDate;
+import code.threads.AbstractDateFactory;
+import code.threads.AbstractThreadFactory;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 
@@ -119,5 +122,29 @@ public final class GuiBaseUtil {
             }
         }
         return true;
+    }
+
+    public static String getTimeText(AbstractThreadFactory _fact, String _format) {
+        AbstractDateFactory dateFactory_ = _fact.getDateFactory();
+        AbstractDate date_ = dateFactory_.newDate(_fact.millis());
+        return date_.format(dateFactory_,_format);
+    }
+
+    public static String getTime(AbstractThreadFactory _fact, String _format) {
+        return getTimeText(_fact,time(_format));
+    }
+
+    public static String getTimeText(AbstractThreadFactory _fact, String _separatorDate, String _sep, String _separatorTime) {
+        AbstractDateFactory dateFactory_ = _fact.getDateFactory();
+        AbstractDate date_ = dateFactory_.newDate(_fact.millis());
+        return date_.format(dateFactory_,date(_separatorDate) + _sep + time(_separatorTime));
+    }
+
+    private static String date(String _separatorDate) {
+        return "yyyy" + _separatorDate + "MM" + _separatorDate + "dd";
+    }
+
+    private static String time(String _separator) {
+        return "HH" + _separator + "mm" + _separator + "ss";
     }
 }
