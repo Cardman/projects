@@ -1113,16 +1113,10 @@ public final class MetaDocument {
     }
 
     private static MetaListItem li(MetaContainer _cur) {
-        MetaComponent par_ = _cur;
-        MetaListItem search_ = null;
-        while (par_ != null) {
-            if (par_ instanceof MetaListItem) {
-                search_ = (MetaListItem) par_;
-                break;
-            }
-            par_ = par_.getParent();
+        if (_cur.getParent() instanceof MetaListItem) {
+            return (MetaListItem)_cur.getParent();
         }
-        return search_;
+        return null;
     }
 
     public MetaBlock getRoot() {
