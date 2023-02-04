@@ -1,11 +1,17 @@
 package code.expressionlanguage.utilcompo;
 
+import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.common.ParseLinesArgUtil;
+import code.expressionlanguage.options.Options;
 import code.gui.CdmFactory;
 import code.gui.initialize.*;
 import code.threads.AbstractAtomicBoolean;
+import code.util.CustList;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
+import code.util.core.StringUtil;
 
 public final class ExecutingOptions {
 
@@ -26,6 +32,7 @@ public final class ExecutingOptions {
     private boolean hasArg;
     private StringList args = new StringList();
     private StringList warns = new StringList();
+    private final StringList lgs = new StringList();
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
     private StringMap<String> aliases = new StringMap<String>();
@@ -37,6 +44,229 @@ public final class ExecutingOptions {
         interrupt = _inter;
         setFileSystemParameterizing(new FileSystemParameterizing("d",new StringBuilder(),new Ints(), "f",new StringBuilder(),new Ints()));
     }
+
+    public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {
+        StringBuilder argParts_ = new StringBuilder();
+        StringBuilder aliasesPart_ = new StringBuilder();
+        StringBuilder messagesPart_ = new StringBuilder();
+        StringBuilder keyWordsPart_ = new StringBuilder();
+        StringBuilder classesPart_ = new StringBuilder();
+        StringBuilder warnsPart_ = new StringBuilder();
+        for (String l: _lines.mid(_from)) {
+            extractLog(_exec, l);
+            extractLgs(_exec, l);
+            extractCover(_options, _exec, l);
+            extractErr(_options, _exec, l);
+            extractSrc(_options, _exec, l);
+            extractSeed(_options, l);
+            extractImpl(_options, l);
+            extractParts(warnsPart_, l, "warn=");
+            extractResources(_exec, l);
+            extractFiles(_exec, l);
+            extractOut(_exec, l);
+            extractTab(_options, l);
+            extractInvoke(_exec, l);
+            extractArgs(_exec, argParts_, l);
+            extractParts(classesPart_, l, "classes=");
+            extractParts(aliasesPart_, l, "aliases=");
+            extractParts(messagesPart_, l, "messages=");
+            extractParts(keyWordsPart_, l, "keyWords=");
+            extractComments(_options, l);
+        }
+        finishArgs(_exec, argParts_);
+        finishInit(_options, classesPart_);
+        finishWarns(_exec, warnsPart_);
+        finishAlias(_exec, aliasesPart_);
+        finishMessages(_exec, messagesPart_);
+        finishKeywords(_exec, keyWordsPart_);
+    }
+
+    private static void finishKeywords(ExecutingOptions _exec, StringBuilder _keyWordsPart) {
+        if (_keyWordsPart.length() > 0) {
+            StringMap<String> kw_ = new StringMap<String>();
+            ParseLinesArgUtil.buildMap(_keyWordsPart,kw_);
+            _exec.setKeyWords(kw_);
+        }
+    }
+
+    private static void finishMessages(ExecutingOptions _exec, StringBuilder _messagesPart) {
+        if (_messagesPart.length() > 0) {
+            StringMap<String> kw_ = new StringMap<String>();
+            ParseLinesArgUtil.buildMap(_messagesPart,kw_);
+            _exec.setMessages(kw_);
+        }
+    }
+
+    private static void finishAlias(ExecutingOptions _exec, StringBuilder _aliasesPart) {
+        if (_aliasesPart.length() > 0) {
+            StringMap<String> al_ = new StringMap<String>();
+            ParseLinesArgUtil.buildMap(_aliasesPart,al_);
+            _exec.setAliases(al_);
+        }
+    }
+
+    private static void finishWarns(ExecutingOptions _exec, StringBuilder _warnsPart) {
+        if (_warnsPart.length() > 0) {
+            StringList ws_ = new StringList();
+            ParseLinesArgUtil.buildList(_warnsPart,ws_);
+            _exec.setWarns(ws_);
+        }
+    }
+
+    private static void finishInit(Options _options, StringBuilder _classesPart) {
+        if (_classesPart.length() > 0) {
+            _options.getTypesInit().addAllElts(ParseLinesArgUtil.parseLineArg(_classesPart.toString()));
+        }
+    }
+
+    private static void finishArgs(ExecutingOptions _exec, StringBuilder _argParts) {
+        if (_exec.isHasArg()) {
+            _exec.setArgs(ParseLinesArgUtil.parseLineArg(_argParts.toString()));
+        }
+    }
+
+    private static void extractComments(Options _options, String _l) {
+        if (_l.startsWith("comments=")) {
+            CustList<CommentDelimiters> comments_ = ParseLinesArgUtil.buildComments(_l.substring("comments=".length()));
+            _options.getComments().clear();
+            _options.getComments().addAllElts(comments_);
+        }
+    }
+
+    private static void extractArgs(ExecutingOptions _exec, StringBuilder _argParts, String _l) {
+        if (_l.startsWith("args=")) {
+            _exec.setHasArg(true);
+            _argParts.append(_l.substring("args=".length()));
+        }
+    }
+
+    private static void extractInvoke(ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("invokeDirect=")) {
+            _exec.setInvokeDirect(true);
+        }
+    }
+
+    private static void extractTab(Options _options, String _l) {
+        if (_l.startsWith("tabWidth=")) {
+            String output_ = _l.substring("tabWidth=".length());
+            int t_ = NumberUtil.parseInt(output_);
+            if (t_ > 0) {
+                _options.setTabWidth(t_);
+            }
+        }
+    }
+
+    private static void extractOut(ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("out=")) {
+            String output_ = _l.substring("out=".length());
+            if (!output_.isEmpty()) {
+                output_ = adjustPath(output_);
+                _exec.setOutputZip(StringUtil.replaceBackSlash(output_));
+            }
+        }
+    }
+
+    private static void extractFiles(ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("files=")) {
+            String output_ = _l.substring("files=".length());
+            if (!output_.isEmpty()) {
+                output_ = adjustPath(output_);
+                _exec.setFiles(StringUtil.replaceBackSlash(output_));
+            }
+        }
+    }
+
+    private static void extractResources(ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("res=")) {
+            String output_ = _l.substring("res=".length());
+            if (!output_.isEmpty()) {
+                output_ = adjustPath(output_);
+                _exec.setResources(StringUtil.replaceBackSlash(output_));
+            }
+        }
+    }
+
+
+    private static void extractParts(StringBuilder _warnsPart, String _l, String _pref) {
+        if (_l.startsWith(_pref)) {
+            _warnsPart.append(_l.substring(_pref.length()));
+        }
+    }
+
+    private static void extractImpl(Options _options, String _l) {
+        if (_l.startsWith("impl=")) {
+            _options.setDisplayImplicit(true);
+        }
+    }
+
+    private static void extractSeed(Options _options, String _l) {
+        if (_l.startsWith("seed=")) {
+            _options.setSeedElts(_l.substring("seed=".length()));
+        }
+    }
+
+    private static void extractSrc(Options _options, ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("src=")) {
+            _options.setCovering(true);
+            _options.setGettingErrors(true);
+            String output_ = _l.substring("src=".length());
+            if (!output_.isEmpty()) {
+                output_ = adjustPath(output_);
+                _exec.setSrcFolder(StringUtil.replaceBackSlash(output_));
+            }
+        }
+    }
+
+    private static String adjustPath(String _o) {
+        if (MemoryFileSystem.endsSep(_o)) {
+            return _o.substring(0, _o.length() - 1);
+        }
+        return _o;
+    }
+    private static void extractErr(Options _options, ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("err=")) {
+            _options.setGettingErrors(true);
+            String output_ = _l.substring("err=".length());
+            if (!output_.isEmpty()) {
+                _exec.setErrorsFolder(StringUtil.replaceBackSlash(output_));
+            }
+        }
+    }
+
+    private static void extractCover(Options _options, ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("cover=")) {
+            _options.setCovering(true);
+            String output_ = _l.substring("cover=".length());
+            if (!output_.isEmpty()) {
+                _exec.setCoverFolder(StringUtil.replaceBackSlash(output_));
+            }
+        }
+    }
+
+    private static void extractLgs(ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("lgs=")) {
+            String output_ = _l.substring("lgs=".length());
+            for (String s: StringUtil.splitChars(output_,',')) {
+                String tr_ = s.trim();
+                if (tr_.isEmpty()) {
+                    continue;
+                }
+                _exec.getLgs().add(tr_);
+            }
+        }
+    }
+
+    private static void extractLog(ExecutingOptions _exec, String _l) {
+        if (_l.startsWith("log=")) {
+            String output_ = _l.substring("log=".length());
+            int lastSep_ = output_.lastIndexOf('>');
+            if (lastSep_ > -1) {
+                _exec.setLogFolder(StringUtil.replaceBackSlash(output_.substring(0,lastSep_)));
+                _exec.setMainThread(StringUtil.replaceBackSlash(output_.substring(lastSep_+1)));
+            }
+        }
+    }
+
     public String getBaseFiles() {
         return baseFiles;
     }
@@ -216,4 +446,9 @@ public final class ExecutingOptions {
     public void setFileSystemParameterizing(FileSystemParameterizing _f) {
         this.fileSystemParameterizing = _f;
     }
+
+    public StringList getLgs() {
+        return lgs;
+    }
+
 }

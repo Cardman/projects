@@ -3,6 +3,7 @@ package code.renders;
 import code.expressionlanguage.analyze.instr.DefCharacterCaseConverter;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.options.Options;
 import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
@@ -134,6 +135,7 @@ public final class WindowRenders extends GroupFrame {
         exec_.setListGenerator(interceptor);
         String lg_ = getLanguageKey();
         StringList lgs_ = Constants.getAvailableLanguages();
+        Options opt_ = new Options();
         if (linesFiles_.size() > 2) {
             String line_ = StringExpUtil.removeDottedSpaces(linesFiles_.get(2));
             if (line_.startsWith("initDb=")) {
@@ -145,13 +147,13 @@ public final class WindowRenders extends GroupFrame {
                 }
                 if (linesFiles_.size() > 3) {
                     lg_ = linesFiles_.get(3);
-                    StringList curr_ = new StringList();
                     if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
                         lg_ = getLanguageKey();
-                        setupOptionals(3, exec_,linesFiles_,curr_);
+                        ExecutingOptions.setupOptionals(3,opt_, exec_,linesFiles_);
                     } else {
-                        setupOptionals(4, exec_, linesFiles_,curr_);
+                        ExecutingOptions.setupOptionals(4,opt_, exec_, linesFiles_);
                     }
+                    StringList curr_ = exec_.getLgs();
                     if (!curr_.isEmpty()) {
                         lgs_ = curr_;
                     }
@@ -177,50 +179,6 @@ public final class WindowRenders extends GroupFrame {
         Navigation nav_ = new Navigation();
         nav_.setSession(new Configuration());
         return nav_;
-    }
-    public static void setupOptionals(int _from, ExecutingOptions _exec, StringList _lines, StringList _lgs) {
-        for (String l: _lines.mid(_from)) {
-            if (l.startsWith("log=")) {
-                String output_ = l.substring("log=".length());
-                int lastSep_ = output_.lastIndexOf('>');
-                if (lastSep_ > -1) {
-                    _exec.setLogFolder(StringUtil.replaceBackSlash(output_.substring(0,lastSep_)));
-                    _exec.setMainThread(StringUtil.replaceBackSlash(output_.substring(lastSep_+1)));
-                }
-            }
-            if (l.startsWith("lgs=")) {
-                String output_ = l.substring("lgs=".length());
-                for (String s: StringUtil.splitChars(output_,',')) {
-                    String tr_ = s.trim();
-                    if (tr_.isEmpty()) {
-                        continue;
-                    }
-                    _lgs.add(tr_);
-                }
-            }
-            if (l.startsWith("res=")) {
-                String output_ = l.substring("res=".length());
-                if (!output_.isEmpty()) {
-                    if (endsWithSep(output_)) {
-                        output_ = output_.substring(0,output_.length()-1);
-                    }
-                    _exec.setResources(StringUtil.replaceBackSlash(output_));
-                }
-            }
-            if (l.startsWith("files=")) {
-                String output_ = l.substring("files=".length());
-                if (!output_.isEmpty()) {
-                    if (endsWithSep(output_)) {
-                        output_ = output_.substring(0,output_.length()-1);
-                    }
-                    _exec.setFiles(StringUtil.replaceBackSlash(output_));
-                }
-            }
-        }
-    }
-
-    private static boolean endsWithSep(String _output) {
-        return MemoryFileSystem.endsSep(_output);
     }
 
     @Override

@@ -87,7 +87,8 @@ public final class GuiProcess implements GuiRunnable {
         ExecutingOptions exec_ = new ExecutingOptions(_infos.getThreadFactory().newAtomicBoolean());
         exec_.setListGenerator(_original);
         Options opt_ = new Options();
-        RunningTest.setupOptionals(3, opt_, exec_,linesFiles_);
+        ExecutingOptions.setupOptionals(3, opt_, exec_,linesFiles_);
+        exec_.setCovering(opt_.isCovering());
         if (exec_.isHasArg()) {
             mainArgs_ = exec_.getArgs();
             mainArgs_.add(0, _conf);
