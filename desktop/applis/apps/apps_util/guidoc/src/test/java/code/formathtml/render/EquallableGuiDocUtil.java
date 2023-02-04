@@ -9,6 +9,7 @@ import code.sml.*;
 import code.util.LongTreeMap;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.BoolVal;
 import code.util.core.NumberUtil;
 import org.junit.Assert;
 
@@ -35,6 +36,9 @@ public abstract class EquallableGuiDocUtil {
         Assert.assertFalse(_value);
     }
     public static void assertSame(MetaPointForm _expected, MetaPointForm _result) {
+        Assert.assertSame(_expected, _result);
+    }
+    public static void assertSame(BoolVal _expected, BoolVal _result) {
         Assert.assertSame(_expected, _result);
     }
     public static void assertSame(MetaLayout _expected, MetaLayout _result) {

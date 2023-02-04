@@ -19,7 +19,6 @@ public final class MetaDocument {
     private static final String SEP_IMG = ";";
     private static final String COLOR_PREFIX = "#";
     private final MetaBlock root;
-    private final StringList stacks;
 
     private MetaContainer currentParent;
     private int partGroup;
@@ -57,7 +56,6 @@ public final class MetaDocument {
         IndexButtons indexesButtons_ = new IndexButtons();
         style(_document, _rend);
         root = new MetaBlock(null);
-        stacks = new StringList();
         MetaLine mainLine_ = new MetaLine(root);
         root.appendChild(mainLine_);
         currentParent = mainLine_;
@@ -78,7 +76,6 @@ public final class MetaDocument {
             eltTxt(_rend, indexesButtons_, current_, styleLoc_,_keyWordDig,_converter);
             Node next_ = current_.getFirstChild();
             if (next_ != null && !skipChildrenBuild) {
-                stacks.add(tagName);
                 current_ = next_;
                 continue;
             }
@@ -145,7 +142,7 @@ public final class MetaDocument {
             end_.setStyle(_styleLoc);
             currentParent.appendChild(end_);
             MetaContainer line_ = new MetaLine(curPar_);
-            indent(_styleLoc, _rend, line_);
+            indent(_styleLoc, line_);
             curPar_.appendChild(line_);
             currentParent = line_;
         }
@@ -171,7 +168,7 @@ public final class MetaDocument {
             line_.setStyle(_styleLoc);
             bl_.appendChild(line_);
           //indent
-            indent(_styleLoc, _rend, surline_);
+            indent(_styleLoc, surline_);
             surline_.appendChild(bl_);
             curPar_.appendChild(surline_);
             containers.add(curPar_);
@@ -189,15 +186,15 @@ public final class MetaDocument {
             line_.setStyle(_styleLoc);
             MetaListOrderInfos infos_ = new MetaListOrderInfos();
             infos_.setTypeLi(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrType()));
-            MetaContainer bl_;
+            MetaOrderedList bl_;
             if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordUl())) {
-                bl_ = new MetaUnorderedList(line_);
+                bl_ = new MetaOrderedList(line_, BoolVal.FALSE);
             } else {
-                bl_ = new MetaOrderedList(line_);
+                bl_ = new MetaOrderedList(line_, BoolVal.TRUE);
             }
             bl_.setStyle(_styleLoc);
             //indent
-            indent(_styleLoc, _rend, line_);
+            indent(_styleLoc, line_);
             MetaLabel ind_ = new MetaIndentLabel(line_);
             ind_.setStyle(_styleLoc);
             line_.appendChild(ind_);
@@ -250,7 +247,7 @@ public final class MetaDocument {
             form_.appendChild(line_);
             forms.add(form_);
             //indent
-            indent(_styleLoc, _rend, surline_);
+            indent(_styleLoc, surline_);
             surline_.appendChild(form_);
             _curPar.appendChild(surline_);
             containers.add(_curPar);
@@ -265,7 +262,7 @@ public final class MetaDocument {
             line_.setStyle(_styleLoc);
             MetaTable bl_ = new MetaTable(line_);
             //indent
-            indent(_styleLoc, _rend, line_);
+            indent(_styleLoc, line_);
             bl_.setStyle(_styleLoc);
             line_.appendChild(bl_);
             _curPar.appendChild(line_);
@@ -303,7 +300,7 @@ public final class MetaDocument {
         if (StringUtil.quickEq(tagName, _rend.getKeyWordsTags().getKeyWordMap())) {
             int width_ = SetupableAnalyzingDoc.parseInt(_elt.getAttribute(_rend.getKeyWordsAttrs().getAttrWidth()),1);
             MetaContainer line_ = new MetaLine(_curPar);
-            indent(_styleLoc, _rend, line_);
+            indent(_styleLoc, line_);
             MetaContainer map_ = new MetaImageMap(line_, width_);
             map_.setStyle(_styleLoc);
             line_.setStyle(_styleLoc);
@@ -335,8 +332,8 @@ public final class MetaDocument {
         String typeLiLast_ = info_.getTypeLi();
         rowGroup = 0;
         partGroup++;
-        MetaContainer list_ = info_.getContainer();
-        MetaContainer bl_ = new MetaListItem(list_);
+        MetaOrderedList list_ = info_.getContainer();
+        MetaListItem bl_ = new MetaListItem(list_);
         MetaContainer line_ = new MetaLine(bl_);
         line_.setStyle(_styleLoc);
         MetaLabel nb_;
@@ -371,6 +368,10 @@ public final class MetaDocument {
         info_.setLi(liLast_+1);
         bl_.appendChild(line_);
         list_.appendChild(bl_);
+        if (nb_ instanceof MetaNumberedLabel) {
+            list_.getNumbers().add((MetaNumberedLabel) nb_);
+        }
+        bl_.setOrdered(list_);
         currentParent = line_;
     }
 
@@ -507,7 +508,7 @@ public final class MetaDocument {
             }
         }
         MetaContainer line_ = new MetaLine(_curPar);
-        indent(_styleLoc, _rend, line_);
+        indent(_styleLoc, line_);
         MetaContainer map_ = new MetaImageMap(line_, index_);
         map_.setStyle(_styleLoc);
         line_.setStyle(_styleLoc);
@@ -667,7 +668,7 @@ public final class MetaDocument {
             currentParent.appendChild(end_);
             MetaContainer curPar_ = currentParent.getParent();
             MetaContainer lineBl_ = new MetaLine(curPar_);
-            indent(_style, _rend, lineBl_);
+            indent(_style, lineBl_);
             curPar_.appendChild(lineBl_);
             currentParent = lineBl_;
         }
@@ -735,10 +736,12 @@ public final class MetaDocument {
         return formIndex.last();
     }
 
-    private void indent(MetaStyle _styleLoc, RendKeyWordsGroup _rend, MetaContainer _surline) {
-        if (isLiElt(_rend)) {
-            MetaLabel ind_ = new MetaIndentNbLabel(_surline);
+    private void indent(MetaStyle _styleLoc, MetaContainer _surline) {
+        MetaListItem li_ = li(_surline);
+        if (li_ != null) {
+            MetaIndentNbLabel ind_ = new MetaIndentNbLabel(_surline);
             ind_.setStyle(_styleLoc);
+            ind_.setOrdered(li_.getOrdered());
             _surline.appendChild(ind_);
         }
     }
@@ -1095,21 +1098,31 @@ public final class MetaDocument {
             rowGroup = 0;
             partGroup++;
         }
-        stacks.removeQuicklyLast();
-        indentNb(_rend, line_);
+        indentNb(line_);
     }
 
-    private void indentNb(RendKeyWordsGroup _rend, MetaContainer _line) {
-        if (isLiElt(_rend) && _line != null) {
+    private void indentNb(MetaContainer _line) {
+        MetaListItem li_ = li(currentParent);
+        if (li_ != null && _line != null) {
             dynamicNewLines.add(currentParent);
             MetaContainer curPar_ = currentParent;
             MetaIndentNbLabel indent_ = new MetaIndentNbLabel(curPar_);
+            indent_.setOrdered(li_.getOrdered());
             curPar_.appendChild(indent_);
         }
     }
 
-    private boolean isLiElt(RendKeyWordsGroup _rend) {
-        return !stacks.isEmpty() && StringUtil.quickEq(stacks.last(), _rend.getKeyWordsTags().getKeyWordLi());
+    private static MetaListItem li(MetaContainer _cur) {
+        MetaComponent par_ = _cur;
+        MetaListItem search_ = null;
+        while (par_ != null) {
+            if (par_ instanceof MetaListItem) {
+                search_ = (MetaListItem) par_;
+                break;
+            }
+            par_ = par_.getParent();
+        }
+        return search_;
     }
 
     public MetaBlock getRoot() {

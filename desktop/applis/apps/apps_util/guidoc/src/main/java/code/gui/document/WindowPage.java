@@ -129,10 +129,7 @@ public final class WindowPage implements Runnable {
             return;
         }
         if (_meta instanceof MetaIndentNbLabel) {
-            MetaContainer par_ = li((MetaIndentNbLabel) _meta);
-            MetaListItem li_ = (MetaListItem) par_;
-            MetaContainer gr_ = li_.getParent();
-            int width_ = width((MetaIndentNbLabel) _meta, gr_);
+            int width_ = width((MetaIndentNbLabel) _meta);
             _cur.add(new DualIndentNbLabel(_cur, (MetaIndentNbLabel) _meta, page, width_));
             return;
         }
@@ -201,27 +198,18 @@ public final class WindowPage implements Runnable {
     }
 
 
-    private int width(MetaIndentNbLabel _meta, MetaContainer _gr) {
+    private int width(MetaIndentNbLabel _meta) {
         int width_ = _meta.getStyle().getEmToPixels();
-        int len_ = _gr.getChildren().size();
+        MetaOrderedList gr_ = _meta.getOrdered();
+        int len_ = gr_.getNumbers().size();
         for (int i = 0; i < len_; i++) {
-            MetaComponent head_ = _gr.getChildren().get(i).getFirstChild().getFirstChild();
-            if (head_ instanceof MetaNumberedLabel) {
-                MetaStyle style_ = head_.getStyle();
-                MetaFont copy_ = DualLabel.newFont(style_);
-                int w_ = page.getCompoFactory().stringWidth(copy_, ((MetaNumberedLabel) head_).getText() + DualNumberedLabel.PAD);
-                width_ = NumberUtil.max(width_, w_);
-            }
+            MetaNumberedLabel head_ = gr_.getNumbers().get(i);
+            MetaStyle style_ = head_.getStyle();
+            MetaFont copy_ = DualLabel.newFont(style_);
+            int w_ = page.getCompoFactory().stringWidth(copy_, head_.getText() + DualNumberedLabel.PAD);
+            width_ = NumberUtil.max(width_, w_);
         }
         return width_;
-    }
-
-    private MetaContainer li(MetaIndentNbLabel _meta) {
-        MetaContainer par_ = _meta.getParent();
-        while (!(par_ instanceof MetaListItem)) {
-            par_ = par_.getParent();
-        }
-        return par_;
     }
 
     private DualContainer metaCont(DualContainer _cur, CustList<CustList<FormInputCoordsButtonGroup>> _radios, MetaContainer _cont) {

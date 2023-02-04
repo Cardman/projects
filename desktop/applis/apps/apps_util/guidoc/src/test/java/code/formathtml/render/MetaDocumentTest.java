@@ -3,6 +3,7 @@ package code.formathtml.render;
 import code.mock.MockCharacterCaseConverter;
 import code.sml.RendKeyWordsGroup;
 import code.util.CustList;
+import code.util.core.BoolVal;
 import org.junit.Test;
 
 import code.sml.DocumentBuilder;
@@ -175,7 +176,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -239,7 +240,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -302,7 +303,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -371,7 +372,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -399,7 +400,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = line_.getChildren().get(1);
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = line_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer olSec_ = (MetaContainer) ch_;
         ch_ = olSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaListItem);
@@ -479,7 +480,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -560,7 +561,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -589,7 +590,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = line_.getChildren().get(1);
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = line_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer olSec_ = (MetaContainer) ch_;
         ch_ = olSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaListItem);
@@ -1317,7 +1318,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaUnorderedList);
+        assertUnordered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1421,7 +1422,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1484,7 +1485,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1547,7 +1548,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1610,7 +1611,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1673,7 +1674,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1736,7 +1737,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(3, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1815,7 +1816,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1878,7 +1879,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -1941,7 +1942,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2005,7 +2006,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(3, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2085,7 +2086,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(3, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2165,7 +2166,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(3, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2245,7 +2246,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(3, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2325,7 +2326,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaUnorderedList);
+        assertUnordered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(3, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2404,7 +2405,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2786,7 +2787,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = cont_.getFirstChild();
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = cont_.getLastChild();
-        assertTrue(ch_ instanceof MetaOrderedList);
+        assertOrdered(ch_);
         MetaContainer ol_ = (MetaContainer) ch_;
         assertEq(2, ol_.getChildren().size());
         ch_ = ol_.getFirstChild();
@@ -2814,7 +2815,7 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
         ch_ = line_.getChildren().get(1);
         assertTrue(ch_ instanceof MetaIndentLabel);
         ch_ = line_.getLastChild();
-        assertTrue(ch_ instanceof MetaUnorderedList);
+        assertUnordered(ch_);
         MetaContainer olSec_ = (MetaContainer) ch_;
         ch_ = olSec_.getFirstChild();
         assertTrue(ch_ instanceof MetaListItem);
@@ -5025,6 +5026,17 @@ public final class MetaDocumentTest extends EquallableGuiDocUtil {
     private static MetaDocument getMetaDocument(StringBuilder _doc) {
         DocumentResult res_ = DocumentBuilder.newDocumentBuilder().parse(_doc.toString());
         return MetaDocument.newInstance(res_.getDocument(), new RendKeyWordsGroup(),"ABCDEF",new MockCharacterCaseConverter());
+    }
+
+    private void assertUnordered(MetaComponent _ch) {
+        assertTrue(_ch instanceof MetaOrderedList);
+        assertSame(BoolVal.FALSE,((MetaOrderedList)_ch).getOrdered());
+    }
+
+
+    private void assertOrdered(MetaComponent _ch) {
+        assertTrue(_ch instanceof MetaOrderedList);
+        assertSame(BoolVal.TRUE,((MetaOrderedList)_ch).getOrdered());
     }
 
 }
