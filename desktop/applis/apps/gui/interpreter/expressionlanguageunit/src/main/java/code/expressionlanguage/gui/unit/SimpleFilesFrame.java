@@ -42,6 +42,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     private final AbsPanel progressing;
     private final AbsPlainLabel doneTests;
     private final AbsPlainLabel doneTestsCount;
+    private final AbsPlainLabel doneTestsCalls;
 
     private final AbsPlainLabel method;
     private final AbsPlainLabel currentMethod;
@@ -117,6 +118,8 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         progressing.add(doneTests);
         doneTestsCount = parent.getCompoFactory().newPlainLabel("");
         progressing.add(doneTestsCount);
+        doneTestsCalls = parent.getCompoFactory().newPlainLabel("");
+        progressing.add(doneTestsCalls);
         method = parent.getCompoFactory().newPlainLabel(messages.getVal("method"));
         progressing.add(method);
         currentMethod = parent.getCompoFactory().newPlainLabel("");
@@ -147,7 +150,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
         addWindowListener(new ClosingChildFrameEvent(this));
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
-        commonExecution = new CommonExecution(new ProgTestBar(messages,doneTestsCount,currentMethod,resultsTable,results,progressBar));
+        commonExecution = new CommonExecution(new ProgTestBar(messages,doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
     }
 
     @Override

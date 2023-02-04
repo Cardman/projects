@@ -223,6 +223,7 @@ public final class CustAliases {
     public static final String FIELD_TIME = "{time}";
     public static final String FIELD_TESTS = "{tests}";
     public static final String FIELD_COUNT = "{count}";
+    public static final String FIELD_CALLS = "{calls}";
     public static final String FIELD_DONE = "{done}";
     public static final String FIELD_NB_THREADS = "{nbThreads}";
     public static final String FIELD_CURRENT_CLASS = "{currentClass}";
@@ -544,6 +545,7 @@ public final class CustAliases {
     private static final String DIFFERENCE_FOUND_NOT_TRUE = "DifferenceFoundNotTrue";
     private static final String PARAMETERS_LOCATION = "ParametersLocation";
     private static final String INFO_TEST_COUNT = "InfoTestCount";
+    private static final String INFO_TEST_CALLS = "InfoTestCalls";
     private static final String INFO_TEST_DONE = "InfoTestDone";
     private static final String INFO_TEST_NB_THREADS = "InfoTestNbThreads";
     private static final String DIFFERENCE_STACK_DIFF = "DifferenceStackDiff";
@@ -833,6 +835,7 @@ public final class CustAliases {
     private String aliasDifferenceStackDiff;
 
     private String aliasInfoTestCount;
+    private String aliasInfoTestCalls;
     private String aliasInfoTestDone;
     private String aliasInfoTestNbThreads;
     private String aliasInfoTestCurrentClass;
@@ -1945,6 +1948,7 @@ public final class CustAliases {
         map_.put(FIELD_TIME,aliasResultTime);
         map_.put(FIELD_TESTS,aliasExecuteTests);
         map_.put(FIELD_COUNT,aliasInfoTestCount);
+        map_.put(FIELD_CALLS,aliasInfoTestCalls);
         map_.put(FIELD_DONE,aliasInfoTestDone);
         map_.put(FIELD_NB_THREADS,aliasInfoTestNbThreads);
         map_.put(FIELD_CURRENT_CLASS,aliasInfoTestCurrentClass);
@@ -2154,6 +2158,7 @@ public final class CustAliases {
         setAliasDifferenceFoundNotTrue(LgNamesContent.get(_util, _cust, DIFFERENCE_FOUND_NOT_TRUE));
         setAliasParametersLocation(LgNamesContent.get(_util, _cust, PARAMETERS_LOCATION));
         setAliasInfoTestCount(LgNamesContent.get(_util, _cust, INFO_TEST_COUNT));
+        setAliasInfoTestCalls(LgNamesContent.get(_util, _cust, INFO_TEST_CALLS));
         setAliasResultTime(LgNamesContent.get(_util, _cust, RESULT_TIME));
         setAliasInfoTestDone(LgNamesContent.get(_util, _cust, INFO_TEST_DONE));
         setAliasInfoTestNbThreads(LgNamesContent.get(_util, _cust, INFO_TEST_NB_THREADS));
@@ -2288,6 +2293,7 @@ public final class CustAliases {
         ));
         f_.addEntry(getAliasInfoTest(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(INFO_TEST_COUNT,getAliasInfoTestCount()),
+                new KeyValueMemberName(INFO_TEST_CALLS,getAliasInfoTestCalls()),
                 new KeyValueMemberName(INFO_TEST_CURRENT_METHOD,getAliasInfoTestCurrentMethod()),
                 new KeyValueMemberName(INFO_TEST_DONE,getAliasInfoTestDone()),
                 new KeyValueMemberName(INFO_TEST_NB_THREADS,getAliasInfoTestNbThreads()),
@@ -4192,6 +4198,14 @@ public final class CustAliases {
 
     public void setAliasInfoTestCount(String _aliasInfoTestCount) {
         this.aliasInfoTestCount = _aliasInfoTestCount;
+    }
+
+    public String getAliasInfoTestCalls() {
+        return aliasInfoTestCalls;
+    }
+
+    public void setAliasInfoTestCalls(String _v) {
+        this.aliasInfoTestCalls = _v;
     }
 
     public String getAliasResultTime() {

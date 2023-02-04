@@ -44,6 +44,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final AbsPanel progressing;
     private final AbsPlainLabel doneTests;
     private final AbsPlainLabel doneTestsCount;
+    private final AbsPlainLabel doneTestsCalls;
 
     private final AbsPlainLabel method;
     private final AbsPlainLabel currentMethod;
@@ -108,6 +109,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         progressing.add(doneTests);
         doneTestsCount = getCompoFactory().newPlainLabel("");
         progressing.add(doneTestsCount);
+        doneTestsCalls = getCompoFactory().newPlainLabel("");
+        progressing.add(doneTestsCalls);
         method = getCompoFactory().newPlainLabel(unitMessages.getVal("method"));
         progressing.add(method);
         currentMethod = getCompoFactory().newPlainLabel("");
@@ -139,7 +142,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
         filesFrame = new SimpleFilesFrame(this,getTitle());
-        commonExecution = new CommonExecution(new ProgTestBar(unitMessages,doneTestsCount,currentMethod,resultsTable,results,progressBar));
+        commonExecution = new CommonExecution(new ProgTestBar(unitMessages,doneTestsCalls,doneTestsCount,currentMethod,resultsTable,results,progressBar));
     }
 
     @Override

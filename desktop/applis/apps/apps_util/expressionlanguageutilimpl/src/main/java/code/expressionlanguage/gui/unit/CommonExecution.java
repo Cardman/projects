@@ -8,7 +8,6 @@ import code.expressionlanguage.utilcompo.AtomicIntegerStruct;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.gui.GuiBaseUtil;
 import code.threads.AbstractThreadFactory;
-import code.util.CustList;
 
 public final class CommonExecution {
     private final ProgTestBarInt progTestBar;
@@ -25,14 +24,17 @@ public final class CommonExecution {
         String infoTest_ = _evolved.getCustAliases().getAliasInfoTest();
         String infoTestDone_ = _evolved.getCustAliases().getAliasInfoTestDone();
         String infoTestCount_ = _evolved.getCustAliases().getAliasInfoTestCount();
+        String infoTestCalls_ = _evolved.getCustAliases().getAliasInfoTestCalls();
         String curMethodName_ = _evolved.getCustAliases().getAliasInfoTestCurrentMethod();
         Struct done_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
+        Struct calls_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCalls_)).getStruct();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         Struct method_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
         progTestBar.setMin(0);
         progTestBar.setMax(((NumberStruct)count_).intStruct());
         progTestBar.setDoneTestsCount(((AtomicIntegerStruct)done_).getInstance().get()+"/"+((NumberStruct)count_).longStruct());
         progTestBar.setCurrent(((AtomicIntegerStruct)done_).getInstance().get());
+        progTestBar.setCalls(((NumberStruct)calls_).longStruct());
         if (method_ instanceof MethodMetaInfo) {
             progTestBar.setCurrentMethod(((MethodMetaInfo) method_).getSignature(_ctx));
         }
@@ -42,7 +44,7 @@ public final class CommonExecution {
         String infoTestCount_ = _evolved.getCustAliases().getAliasInfoTestCount();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         progTestBar.setDoneTestsCount(((NumberStruct)count_).longStruct()+"/"+((NumberStruct)count_).longStruct());
-        progTestBar.setCurrent(progTestBar.getMax());
+        progTestBar.achieve();
     }
 
     public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
@@ -63,8 +65,6 @@ public final class CommonExecution {
             String aliasFailMessage_ = _evolved.getCustAliases().getAliasResultFailMessage();
             String aliasParams_ = _evolved.getCustAliases().getAliasResultParams();
             int testLen_ = ((ArrayStruct) array_).getLength();
-            progTestBar.setRowCount(testLen_);
-            CustList<ResTestRow> listRes_ = new CustList<ResTestRow>();
             for (int i =0; i < testLen_; i++) {
                 ResTestRow resultRow_ = new ResTestRow();
                 Struct t = ((ArrayStruct) array_).get(i);
@@ -72,33 +72,23 @@ public final class CommonExecution {
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();
                 resultRow_.setNumber(i);
                 resultRow_.setMethod((MethodMetaInfo) method_);
-                progTestBar.setValueAt(Long.toString(i),i,0);
-                progTestBar.append(Long.toString(i)+"\n");
-                String methodInfo_ = ((MethodMetaInfo) method_).getDisplayedString(_ctx).getInstance();
-                progTestBar.setValueAt(methodInfo_,i,1);
-                progTestBar.append(methodInfo_ + "\n");
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getStruct();
                 resultRow_.setMethodParams(((StringStruct)params_).getInstance());
-                progTestBar.setValueAt(((StringStruct)params_).getInstance(),i,2);
                 Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getStruct();
                 resultRow_.setSuccess(BooleanStruct.isTrue(success_));
                 Struct time_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasTime_)).getStruct();
                 Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getStruct();
                 if (BooleanStruct.isTrue(success_)) {
-                    progTestBar.success(i);
-                    progTestBar.setValueAt("x",i,3);
+                    resultRow_.setResultSuccessLong(progTestBar.success());
+                    resultRow_.setResultSuccess("x");
                 } else {
-                    progTestBar.fail(i);
-                    progTestBar.setValueAt("",i,3);
+                    resultRow_.setResultSuccessLong(progTestBar.fail());
+                    resultRow_.setResultSuccess("");
                 }
                 resultRow_.setErrMess(((StringStruct)failMessage_).getInstance());
                 resultRow_.setTime(((NumberStruct)time_).longStruct());
-                progTestBar.append(((StringStruct)failMessage_).getInstance()+"\n");
-                progTestBar.append(((StringStruct)params_).getInstance()+"\n");
-                progTestBar.append("\n="+((NumberStruct)time_).longStruct()+" ms\n");
-                listRes_.add(resultRow_);
+                progTestBar.add(resultRow_,_ctx);
             }
-            progTestBar.setResults(listRes_);
         }
     }
 }

@@ -7,6 +7,8 @@ public final class ResTestRow {
     private MethodMetaInfo method=new MethodMetaInfo();
     private String methodParams="";
     private String errMess="";
+    private String resultSuccess="";
+    private String resultSuccessLong="";
     private long time;
     private boolean success;
 
@@ -56,5 +58,21 @@ public final class ResTestRow {
 
     public void setTime(long _t) {
         this.time = _t;
+    }
+
+    public String getResultSuccess() {
+        return resultSuccess;
+    }
+
+    public void setResultSuccess(String _r) {
+        this.resultSuccess = _r;
+    }
+
+    public String getResultSuccessLong() {
+        return resultSuccessLong;
+    }
+
+    public void setResultSuccessLong(String _r) {
+        this.resultSuccessLong = _r;
     }
 }
