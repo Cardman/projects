@@ -156,9 +156,11 @@ public final class CustAliases {
     public static final String METHOD_EX_SER_EX = "{exSerEx}";
     public static final String METHOD_SHUTDOWN = "{shutdown}";
     public static final String METHOD_WAIT = "{wait}";
+    public static final String METHOD_INCR_GET = "{incrGet}";
     public static final String FIELD_ARGS = "{args}";
     public static final String FIELD_ARGS_VALUE = "{argsValue}";
     public static final String FIELD_ARGS_ANNOT = "{argsAnnot}";
+    public static final String TYPE_AT_INT = "{atInt}";
     public static final String TYPE_LONG = "{long}";
     public static final String TYPE_PRIM_DOUBLE = "{double}";
     public static final String KW_TO_SPEC_STRING = "{toSpecString}";
@@ -1893,6 +1895,8 @@ public final class CustAliases {
         map_.put(TYPE_PARAMETERS,aliasParameters);
         map_.put(TYPE_ASSERT,aliasAssert);
         map_.put(TYPE_DIFFERENCE,aliasDifference);
+        map_.put(TYPE_AT_INT,aliasAtomicInteger);
+        map_.put(METHOD_INCR_GET,aliasIncrementAndGetAtomic);
         map_.put(TYPE_INFO_TEST,aliasInfoTest);
         map_.put(FIELD_EXCEPTION,aliasTestException);
         map_.put(FIELD_NULL_EXCEPTION,aliasTestNullException);

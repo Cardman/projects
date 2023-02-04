@@ -4,6 +4,7 @@ import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.structs.*;
+import code.expressionlanguage.utilcompo.AtomicIntegerStruct;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
 import code.gui.GuiBaseUtil;
 import code.threads.AbstractThreadFactory;
@@ -30,8 +31,8 @@ public final class CommonExecution {
         Struct method_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, curMethodName_)).getStruct();
         progTestBar.setMin(0);
         progTestBar.setMax(((NumberStruct)count_).intStruct());
-        progTestBar.setDoneTestsCount(((NumberStruct)done_).longStruct()+"/"+((NumberStruct)count_).longStruct());
-        progTestBar.setCurrent(((NumberStruct)done_).intStruct());
+        progTestBar.setDoneTestsCount(((AtomicIntegerStruct)done_).getInstance().get()+"/"+((NumberStruct)count_).longStruct());
+        progTestBar.setCurrent(((AtomicIntegerStruct)done_).getInstance().get());
         if (method_ instanceof MethodMetaInfo) {
             progTestBar.setCurrentMethod(((MethodMetaInfo) method_).getSignature(_ctx));
         }
