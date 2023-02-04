@@ -228,6 +228,9 @@ public final class CustAliases {
     public static final String FIELD_CURRENT_CLASS = "{currentClass}";
     public static final String FIELD_CURRENT_METHOD = "{currentMethod}";
     public static final String FIELD_CURRENT_PARAMS = "{currentParams}";
+    public static final String FIELD_RESULT_ARGS = "{resultArgs}";
+    public static final String FIELD_CONTAINER = "{container}";
+    public static final String FIELD_EXECUTED = "{executed}";
     public static final String METHOD_PRINT = "{print}";
     public static final String METHOD_FORMAT = "{format}";
     public static final String FIELD_INSTANT = "{instant}";
@@ -547,6 +550,9 @@ public final class CustAliases {
     private static final String EXECUTE_TESTS = "ExecuteTests";
     private static final String DIFFERENCE_EXPECTED = "DifferenceExpected";
     private static final String INFO_TEST_CURRENT_PARAMS = "InfoTestCurrentParams";
+    private static final String INFO_TEST_ARGS = "InfoTestArgs";
+    private static final String INFO_TEST_CONTAINER = "InfoTestContainer";
+    private static final String INFO_TEST_EXECUTED = "InfoTestExecuted";
     private static final String RUNNABLE = "Runnable";
     private static final String THREAD = "Thread";
     private static final String THREAD_RUNNABLE = "ThreadRunnable";
@@ -832,6 +838,9 @@ public final class CustAliases {
     private String aliasInfoTestCurrentClass;
     private String aliasInfoTestCurrentMethod;
     private String aliasInfoTestCurrentParams;
+    private String aliasInfoTestArgs;
+    private String aliasInfoTestContainer;
+    private String aliasInfoTestExecuted;
     private String aliasLgInt;
     private String aliasRate;
     private String aliasLgIntParse;
@@ -1940,6 +1949,9 @@ public final class CustAliases {
         map_.put(FIELD_NB_THREADS,aliasInfoTestNbThreads);
         map_.put(FIELD_CURRENT_CLASS,aliasInfoTestCurrentClass);
         map_.put(FIELD_CURRENT_METHOD,aliasInfoTestCurrentMethod);
+        map_.put(FIELD_RESULT_ARGS,aliasInfoTestArgs);
+        map_.put(FIELD_CONTAINER,aliasInfoTestContainer);
+        map_.put(FIELD_EXECUTED,aliasInfoTestExecuted);
         map_.put(FIELD_CURRENT_PARAMS,aliasInfoTestCurrentParams);
         placeHolder(map_, PARAM_157, _keyWords, primitiveTypes_, coreNames_,
                 custAliasParameters.getAliasExecute0Run0(),custAliasParameters.getAliasExecute0Run1(),custAliasParameters.getAliasExecute0Run2()
@@ -2149,6 +2161,9 @@ public final class CustAliases {
         setAliasExecuteTests(LgNamesContent.get(_util, _cust, EXECUTE_TESTS));
         setAliasDifferenceExpected(LgNamesContent.get(_util, _cust, DIFFERENCE_EXPECTED));
         setAliasInfoTestCurrentParams(LgNamesContent.get(_util, _cust, INFO_TEST_CURRENT_PARAMS));
+        setAliasInfoTestArgs(LgNamesContent.get(_util, _cust, INFO_TEST_ARGS));
+        setAliasInfoTestContainer(LgNamesContent.get(_util, _cust, INFO_TEST_CONTAINER));
+        setAliasInfoTestExecuted(LgNamesContent.get(_util, _cust, INFO_TEST_EXECUTED));
         setAliasRunnable(LgNamesContent.get(_util, _cust, RUNNABLE));
         setAliasThread(LgNamesContent.get(_util, _cust, THREAD));
         setAliasThreadSet(LgNamesContent.get(_util, _cust, THREAD_SET));
@@ -2276,6 +2291,9 @@ public final class CustAliases {
                 new KeyValueMemberName(INFO_TEST_CURRENT_METHOD,getAliasInfoTestCurrentMethod()),
                 new KeyValueMemberName(INFO_TEST_DONE,getAliasInfoTestDone()),
                 new KeyValueMemberName(INFO_TEST_NB_THREADS,getAliasInfoTestNbThreads()),
+                new KeyValueMemberName(INFO_TEST_ARGS,getAliasInfoTestArgs()),
+                new KeyValueMemberName(INFO_TEST_CONTAINER,getAliasInfoTestContainer()),
+                new KeyValueMemberName(INFO_TEST_EXECUTED,getAliasInfoTestExecuted()),
                 new KeyValueMemberName(INFO_TEST_CURRENT_PARAMS,getAliasInfoTestCurrentParams())
         ));
         f_.addEntry(getAliasResult(), new CustList<KeyValueMemberName>(
@@ -4222,6 +4240,30 @@ public final class CustAliases {
 
     public void setAliasInfoTestCurrentParams(String _aliasInfoTestCurrentParams) {
         this.aliasInfoTestCurrentParams = _aliasInfoTestCurrentParams;
+    }
+
+    public String getAliasInfoTestArgs() {
+        return aliasInfoTestArgs;
+    }
+
+    public void setAliasInfoTestArgs(String _v) {
+        this.aliasInfoTestArgs = _v;
+    }
+
+    public String getAliasInfoTestContainer() {
+        return aliasInfoTestContainer;
+    }
+
+    public void setAliasInfoTestContainer(String _v) {
+        this.aliasInfoTestContainer = _v;
+    }
+
+    public String getAliasInfoTestExecuted() {
+        return aliasInfoTestExecuted;
+    }
+
+    public void setAliasInfoTestExecuted(String _v) {
+        this.aliasInfoTestExecuted = _v;
     }
 
     public String getAliasConcurrentError() {
