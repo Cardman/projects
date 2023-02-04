@@ -1967,6 +1967,8 @@ public final class CustAliases {
         map_.put(wrap(PARAM_159),custAliasParameters.getAliasExecute0ExecuteSetupNoException1());
         map_.put(wrap(PARAM_160),custAliasParameters.getAliasExecute0ExecuteSetupError3());
         map_.put(wrap(PARAM_161),custAliasParameters.getAliasExecute1ExecuteSetupError2());
+        map_.put(METHOD_RUN,aliasRun);
+        map_.put(KW_THIS, this_);
         content_ = StringUtil.formatQuote(content_, map_);
 
         stds_.put(aliasExecute, content_);
