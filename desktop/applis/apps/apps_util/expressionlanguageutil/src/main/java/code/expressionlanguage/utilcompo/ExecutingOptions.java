@@ -228,7 +228,7 @@ public final class ExecutingOptions {
         }
     }
 
-    private static String adjustPath(String _o) {
+    public static String adjustPath(String _o) {
         if (MemoryFileSystem.endsSep(_o)) {
             return _o.substring(0, _o.length() - 1);
         }

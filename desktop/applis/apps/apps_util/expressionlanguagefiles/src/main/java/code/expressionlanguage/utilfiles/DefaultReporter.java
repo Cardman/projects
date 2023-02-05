@@ -11,6 +11,7 @@ import code.stream.core.*;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 import code.util.ints.UniformingString;
 
@@ -33,33 +34,39 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public StringMap<String> getSrc(String _archive, ExecutingOptions _exec, ReadFiles _results) {
+        if (_results.getType() == OutputType.FOLDER) {
+            return folder(_archive, _exec, _results);
+        }
         StringMap<String> zipFiles_ = _results.getZipFiles();
         StringMap<String> readZip_ = new StringMap<String>();
-        if (_results.getType() == OutputType.FOLDER) {
-            for (EntryCust<String,String> e: zipFiles_.entryList()) {
-                if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
-                    continue;
-                }
-                readZip_.addEntry(e.getKey(), e.getValue());
+        for (EntryCust<String,String> e: zipFiles_.entryList()) {
+            if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
+                continue;
             }
-            ReadFiles resultRes_ = getFiles(_archive+"/"+_exec.getResources());
-            if (resultRes_.getType() == OutputType.FOLDER) {
-                for (EntryCust<String,String> e: resultRes_.getZipFiles().entryList()) {
-                    readZip_.addEntry(_exec.getResources()+"/"+e.getKey(), e.getValue());
-                }
+            readZip_.addEntry(e.getKey(), e.getValue());
+        }
+        for (EntryCust<String,String> e: zipFiles_.entryList()) {
+            if (!e.getKey().startsWith(_exec.getResources()+"/")) {
+                continue;
             }
-        } else {
-            for (EntryCust<String,String> e: zipFiles_.entryList()) {
-                if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
-                    continue;
-                }
-                readZip_.addEntry(e.getKey(), e.getValue());
+            readZip_.addEntry(e.getKey(), e.getValue());
+        }
+        return readZip_;
+    }
+
+    private StringMap<String> folder(String _archive, ExecutingOptions _exec, ReadFiles _results) {
+        StringMap<String> zipFiles_ = _results.getZipFiles();
+        StringMap<String> readZip_ = new StringMap<String>();
+        for (EntryCust<String,String> e: zipFiles_.entryList()) {
+            if (!e.getKey().startsWith(_exec.getSrcFolder()+"/")) {
+                continue;
             }
-            for (EntryCust<String,String> e: zipFiles_.entryList()) {
-                if (!e.getKey().startsWith(_exec.getResources()+"/")) {
-                    continue;
-                }
-                readZip_.addEntry(e.getKey(), e.getValue());
+            readZip_.addEntry(e.getKey(), e.getValue());
+        }
+        ReadFiles resultRes_ = getFiles(_archive +"/"+ _exec.getResources());
+        if (resultRes_.getType() == OutputType.FOLDER) {
+            for (EntryCust<String,String> e: resultRes_.getZipFiles().entryList()) {
+                readZip_.addEntry(_exec.getResources()+"/"+e.getKey(), e.getValue());
             }
         }
         return readZip_;
@@ -67,15 +74,17 @@ public final class DefaultReporter implements AbstractReporter {
 
     @Override
     public String getFolderPath(String _folderPath, ExecutingOptions _exec,ReadFiles _results) {
-        String folderPath_ = StringUtil.replaceBackSlashDot(_folderPath);
         if (_results.getType() != OutputType.FOLDER) {
             String absolutePath_ = StringUtil.replaceBackSlash(fileCoreStream.newFile(_folderPath).getAbsolutePath());
-            int last_ = absolutePath_.lastIndexOf('/');
-            if (last_ > -1) {
-                folderPath_ = StringUtil.replaceBackSlashDot(absolutePath_.substring(0,last_));
-            }
+            String sub_ = extract(absolutePath_);
+            return StringUtil.replaceBackSlashDot(sub_);
         }
-        return folderPath_;
+        return StringUtil.replaceBackSlashDot(_folderPath);
+    }
+
+    static String extract(String _path) {
+        int last_ = NumberUtil.min(_path.length(), NumberUtil.max(0, _path.lastIndexOf('/')));
+        return _path.substring(0, last_);
     }
 
     @Override
@@ -163,19 +172,13 @@ public final class DefaultReporter implements AbstractReporter {
     @Override
     public BytesInfo exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
         StringMap<ContentTime> out_ = MemoryReporter.exportErr(_log,threadFactory.getThreadFactory());
-        if (!out_.isEmpty()) {
-            return new BytesInfo(threadFactory.getZipFact().zipBinFiles(out_),false);
-        }
-        return new BytesInfo(new byte[0],true);
+        return MemoryReporter.redirect(out_,threadFactory.getZipFact());
     }
 
     @Override
     public BytesInfo export(ExecutingOptions _ex,AbstractFileSystem _sys, AbstractLogger _log) {
         StringMap<ContentTime> out_ = MemoryReporter.exportSysLoggs(_ex, _sys, _log,threadFactory.getThreadFactory());
-        if (!out_.isEmpty()) {
-            return new BytesInfo(threadFactory.getZipFact().zipBinFiles(out_),false);
-        }
-        return new BytesInfo(new byte[0],true);
+        return MemoryReporter.redirect(out_,threadFactory.getZipFact());
     }
 
     private void saveFile(String _folder, String _fileName, String _content) {

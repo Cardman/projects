@@ -4,7 +4,6 @@ import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.filenames.PathUtil;
 import code.expressionlanguage.utilcompo.AbstractFileSystem;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.stream.*;
 import code.stream.core.ReadBinFiles;
@@ -32,7 +31,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     public void build(ExecutingOptions _opt, ReadBinFiles _readBin) {
         String bf_ = _opt.getBaseFiles();
         base = bf_;
-        mkdirs(bf_);
+        simpleMkdirs(ExecutingOptions.adjustPath(bf_));
     }
 
     @Override
@@ -136,9 +135,6 @@ public final class DefaultFileSystem implements AbstractFileSystem {
     public String getParentPath(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
         String parent_ = fileCoreStream.newFile(file_).getParent();
-        if (parent_ == null) {
-            return "";
-        }
         return StringUtil.replaceBackSlash(parent_);
     }
 
@@ -150,14 +146,22 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     private boolean isDirectory(String _file) {
         AbstractFile info_ = fileCoreStream.newFile(_file);
-        return info_.exists()&&info_.isDirectory();
+        return dir(info_);
+    }
+
+    private static boolean dir(AbstractFile _i) {
+        return _i.exists() && _i.isDirectory();
     }
 
     @Override
     public boolean isFile(String _file, RunnableContextEl _rCont) {
         String file_ = prefix(_file, _rCont);
         AbstractFile info_ = fileCoreStream.newFile(file_);
-        return info_.exists()&&!info_.isDirectory();
+        return file(info_);
+    }
+
+    private boolean file(AbstractFile _i) {
+        return _i.exists() && !_i.isDirectory();
     }
 
     @Override
@@ -178,10 +182,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
 
     @Override
     public boolean mkdirs(String _file, RunnableContextEl _rCont) {
-        String file_ = _file;
-        if (endsSep(file_)) {
-            file_ = file_.substring(0,file_.length()-1);
-        }
+        String file_ = ExecutingOptions.adjustPath(_file);
         if (koName(file_, _rCont)) {
             return false;
         }
@@ -206,13 +207,9 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         }
         StringList filesList_ = new StringList();
         for (AbstractFile f: files_.getNames()) {
-            if (!f.exists()) {
-                continue;
+            if (file(f)) {
+                filesList_.add(StringUtil.replaceBackSlash(f.getAbsolutePath()));
             }
-            if (f.isDirectory()) {
-                continue;
-            }
-            filesList_.add(StringUtil.replaceBackSlash(f.getAbsolutePath()));
         }
         filesList_.sort();
         return filesList_;
@@ -228,30 +225,12 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         }
         StringList filesList_ = new StringList();
         for (AbstractFile f: files_.getNames()) {
-            if (!f.exists()) {
-                continue;
+            if (dir(f)) {
+                filesList_.add(StringUtil.replaceBackSlash(f.getAbsolutePath()));
             }
-            if (!f.isDirectory()) {
-                continue;
-            }
-            filesList_.add(StringUtil.replaceBackSlash(f.getAbsolutePath()));
         }
         filesList_.sort();
         return filesList_;
-    }
-    private void mkdirs(String _file) {
-        String file_ = _file;
-        if (!_file.startsWith(base)) {
-            return;
-        }
-        if (endsSep(file_)) {
-            file_ = file_.substring(0,file_.length()-1);
-        }
-        simpleMkdirs(file_);
-    }
-
-    private static boolean endsSep(String _file) {
-        return MemoryFileSystem.endsSep(_file);
     }
 
     private boolean simpleMkdirs(String _modified) {

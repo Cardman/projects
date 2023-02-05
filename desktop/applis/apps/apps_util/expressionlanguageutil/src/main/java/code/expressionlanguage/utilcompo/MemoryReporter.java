@@ -125,18 +125,19 @@ public final class MemoryReporter implements AbstractReporter {
     public BytesInfo exportErrs(ExecutingOptions _ex, AbstractLogger _log) {
         StringMap<ContentTime> out_ = exportErr(_log, threadFactory);
         out_.addAllEntries(reports);
-        if (!out_.isEmpty()) {
-            return new BytesInfo(zipFact.zipBinFiles(out_),false);
-        }
-        return new BytesInfo(new byte[0],true);
+        return redirect(out_, zipFact);
     }
 
     @Override
     public BytesInfo export(ExecutingOptions _ex,AbstractFileSystem _sys,AbstractLogger _log) {
         StringMap<ContentTime> out_ = exportSysLoggs(_ex, _sys, _log, threadFactory);
         out_.addAllEntries(reports);
-        if (!out_.isEmpty()) {
-            return new BytesInfo(zipFact.zipBinFiles(out_),false);
+        return redirect(out_, zipFact);
+    }
+
+    public static BytesInfo redirect(StringMap<ContentTime> _o, AbstractZipFact _zip) {
+        if (!_o.isEmpty()) {
+            return new BytesInfo(_zip.zipBinFiles(_o), false);
         }
         return new BytesInfo(new byte[0],true);
     }
