@@ -35,7 +35,7 @@ public final class VariableOperationUse extends LeafOperation implements
         finalVariable = val_.isFinalVariable();
         keyWord = val_.isKeyWord();
         ConstType c_ = val_.getConstType();
-        variableContent.setRef(c_ == ConstType.REF_LOC_VAR || c_ == ConstType.REF_PARAM);
+        variableContent.setRef(c_ == ConstType.REF_LOC_VAR);
     }
 
     @Override

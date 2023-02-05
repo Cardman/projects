@@ -7,8 +7,6 @@ import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
-import code.expressionlanguage.exec.variables.LocalVariable;
-import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecVariableContent;
 import code.util.IdMap;
@@ -31,14 +29,9 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
     @Override
     public void calculate(IdMap<ExecOperationNode, ArgumentsPair> _nodes, ContextEl _conf, StackCall _stack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _stack);
-        AbstractWrapper val_ = ExecVariableTemplates.getWrapper(variableContent, _stack);
+        AbstractWrapper val_ = ExecVariableTemplates.getWrapper(resultCanBeSet(),variableContent, _stack);
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
-        if (resultCanBeSet() && val_ instanceof VariableWrapper && !variableContent.isRef() && variableContent.getDeep() < 0) {
-            pair_.setWrapper(new VariableWrapper(LocalVariable.newLocalVariable(val_.getValue(_stack, _conf), val_.getClassName(_stack,_conf))));
-            _stack.getLastPage().getRefParams().set(variableContent.getVariableName(), pair_.getWrapper());
-        } else {
-            pair_.setWrapper(val_);
-        }
+        pair_.setWrapper(val_);
         Argument arg_ = ExecVariableTemplates.getArgValue(val_, _conf, _stack);
         if (resultCanBeSet()) {
             setQuickNoConvertSimpleArgument(arg_, _conf, _nodes, _stack);

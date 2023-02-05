@@ -86,13 +86,19 @@ public final class ExecVariableTemplates {
         return new Argument(getValue(wrapper_, _context, _stackCall));
     }
 
-    public static AbstractWrapper getWrapper(ExecVariableContent _varCont, StackCall _stack) {
+    public static AbstractWrapper getWrapper(boolean _set,ExecVariableContent _varCont, StackCall _stack) {
         AbstractPageEl ip_ = _stack.getLastPage();
-        return getWrapper(_varCont, ip_.getCache(), _stack.getLastPage().getRefParams());
+        return getWrapper(_set,_varCont, ip_.getCache(), _stack.getLastPage().getRefParams());
     }
 
-    public static AbstractWrapper getWrapper(ExecVariableContent _varCont, Cache _cache, StringMap<AbstractWrapper> _refParams) {
-        return getWrapper(_varCont.getVariableName(),_varCont.getDeep(), _cache, _refParams);
+    public static AbstractWrapper getWrapper(boolean _set,ExecVariableContent _varCont, Cache _cache, StringMap<AbstractWrapper> _refParams) {
+        AbstractWrapper w_ = getWrapper(_varCont.getVariableName(), _varCont.getDeep(), _cache, _refParams);
+        if (_set && w_ instanceof VariableWrapper && !_varCont.isRef() && _varCont.getDeep() < 0) {
+            VariableWrapper ch_ = new VariableWrapper(LocalVariable.newLocalVariable(w_.getValue(null, null), w_.getClassName(null, null)));
+            _refParams.set(_varCont.getVariableName(), ch_);
+            return ch_;
+        }
+        return w_;
     }
 
     public static AbstractWrapper getWrapper(String _val, int _deep, Cache _cache, StringMap<AbstractWrapper> _refParams) {

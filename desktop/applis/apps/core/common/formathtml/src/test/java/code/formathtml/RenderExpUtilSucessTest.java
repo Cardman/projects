@@ -19,6 +19,7 @@ import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.VariableWrapper;
@@ -5705,7 +5706,7 @@ public final class RenderExpUtilSucessTest extends CommonRenderExpUtil {
 
     private static LocalVariable calcLowOneVar(String _s, Struct _fistValue, String _firstClass, String _firstKey, DualNavigationContext _context) {
         StringMap<LocalVariable> localVariables_ = oneVar(_fistValue, _firstClass, _firstKey);
-        calcLow(_s, _context, localVariables_, new AnalyzingDoc());
+        localVariables_.firstValue().setStruct(ArgumentListCall.toStr(calcLow(_s, _context, localVariables_, new AnalyzingDoc())));
         return localVariables_.firstValue();
     }
 

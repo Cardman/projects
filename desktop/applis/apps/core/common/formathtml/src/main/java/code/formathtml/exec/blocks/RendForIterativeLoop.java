@@ -158,6 +158,7 @@ public abstract class RendForIterativeLoop extends RendParentBlock implements Re
         Argument struct_ = ExecVariableTemplates.getWrapValue(_ctx,var_, -1, _stackCall.getLastPage().getPageEl().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall.getStackCall());
         long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getContent().getStep();
         Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(importedClassName, _ctx.getStandards().getPrimTypes()), new LongStruct(o_));
+        _stackCall.getLastPage().getRefParams().set(variableName,new VariableWrapper(LocalVariable.newLocalVariable(element_,importedClassName)));
         ExecVariableTemplates.setWrapValue(_ctx,var_, new Argument(element_),-1, _stackCall.getLastPage().getPageEl().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall.getStackCall());
         ExecVariableTemplates.incrIndexLoop(_ctx,var_, -1, _stackCall.getLastPage().getPageEl().getCache(), _stackCall.getLastPage().getVars(), _stackCall.getStackCall());
     }

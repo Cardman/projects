@@ -2753,7 +2753,7 @@ public final class ClassesUtil {
         lv_.setRef(_offs.get(_i));
         lv_.setIndexParam(_i);
         if (_refParams.get(_i) == BoolVal.TRUE) {
-            lv_.setConstType(ConstType.REF_PARAM);
+            lv_.setConstType(ConstType.REF_LOC_VAR);
         } else {
             lv_.setConstType(ConstType.PARAM);
             lv_.setFinalVariable(true);

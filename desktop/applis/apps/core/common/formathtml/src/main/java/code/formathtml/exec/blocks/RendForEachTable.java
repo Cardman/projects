@@ -164,6 +164,8 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
             return;
         }
         LoopVariable lv_ = _vars.getVal(variableNameFirst);
+        String clFirst_ = _rendStackCall.formatVarType(importedClassNameFirst);
+        _varsInfos.set(variableNameFirst, new VariableWrapper(LocalVariable.newLocalVariable(arg_.getStruct(),clFirst_)));
         AbstractWrapper lInfo_ = _varsInfos.getVal(variableNameFirst);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
@@ -175,6 +177,8 @@ public final class RendForEachTable extends RendParentBlock implements RendWithE
             return;
         }
         lv_ = _vars.getVal(variableNameSecond);
+        String clSecond_ = _rendStackCall.formatVarType(importedClassNameSecond);
+        _varsInfos.set(variableNameSecond, new VariableWrapper(LocalVariable.newLocalVariable(arg_.getStruct(),clSecond_)));
         lInfo_ = _varsInfos.getVal(variableNameSecond);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);

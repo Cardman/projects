@@ -90,7 +90,7 @@ public final class VariableOperation extends LeafOperation implements
             lv_.setClassName(c_);
         }
         lv_.setRef(ref);
-        if (lineDeclarator.isRefVariable()) {
+        if (variableContent.isRef()) {
             lv_.setConstType(ConstType.REF_LOC_VAR);
         } else {
             lv_.setConstType(ConstType.LOC_VAR);

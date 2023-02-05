@@ -30,7 +30,7 @@ public final class RendStdRefVariableOperation extends RendLeafOperation impleme
     public void calculate(IdMap<RendDynOperationNode, ArgumentsPair> _nodes, ContextEl _context, RendStackCall _rendStack) {
         setRelOffsetPossibleLastPage(variableContent.getOff(), _rendStack);
         ImportingPage ip_ = _rendStack.getLastPage();
-        AbstractWrapper val_ = ExecVariableTemplates.getWrapper(variableContent,null,ip_.getRefParams());
+        AbstractWrapper val_ = ExecVariableTemplates.getWrapper(resultCanBeSet(),variableContent,null,ip_.getRefParams());
         ArgumentsPair pair_ = getArgumentPair(_nodes, this);
         pair_.setWrapper(val_);
         Argument arg_ = processCall(ExecVariableTemplates.getArgValue(val_, _context, _rendStack.getStackCall()),_context,_rendStack).getValue();

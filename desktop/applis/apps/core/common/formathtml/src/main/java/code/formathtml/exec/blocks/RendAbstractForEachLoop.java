@@ -6,7 +6,9 @@ import code.expressionlanguage.exec.ConditionReturn;
 import code.expressionlanguage.exec.blocks.ExecHelperBlocks;
 import code.expressionlanguage.exec.inherits.ExecInheritsAdv;
 import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.LocalVariable;
 import code.expressionlanguage.exec.variables.LoopVariable;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.structs.*;
 import code.formathtml.Configuration;
 import code.formathtml.exec.ImportingPage;
@@ -136,13 +138,17 @@ public abstract class RendAbstractForEachLoop extends RendParentBlock implements
 //        abs_.setGlobalOffset(variableNameOffset);
         LoopVariable lv_ = _vars.getVal(variableName);
         Argument arg_ = retrieveValue(_conf,_advStandards,_ctx,_l, _rendStackCall);
-        AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
         if (_ctx.callsOrException(_rendStackCall.getStackCall())) {
             return;
         }
         if (!ExecInheritsAdv.checkQuick(_rendStackCall.formatVarType(importedClassName), Argument.getNullableValue(arg_).getStruct().getClassName(_ctx), _ctx, _rendStackCall.getStackCall())) {
             return;
         }
+        if (!(this instanceof RendForEachRefArray)) {
+            String clFirst_ = _rendStackCall.formatVarType(importedClassName);
+            _varsInfos.set(variableName, new VariableWrapper(LocalVariable.newLocalVariable(arg_.getStruct(), clFirst_)));
+        }
+        AbstractWrapper lInfo_ = _varsInfos.getVal(variableName);
         lInfo_.setValue(_rendStackCall.getStackCall(), _ctx,arg_);
         lv_.setIndex(lv_.getIndex() + 1);
         abs_.getRendReadWrite().setRead(getFirstChild());
