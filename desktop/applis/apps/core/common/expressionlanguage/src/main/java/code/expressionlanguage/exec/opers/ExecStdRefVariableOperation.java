@@ -35,7 +35,7 @@ public final class ExecStdRefVariableOperation extends ExecLeafOperation impleme
         ArgumentsPair pair_ = ExecHelper.getArgumentPair(_nodes, this);
         if (resultCanBeSet() && val_ instanceof VariableWrapper && !variableContent.isRef() && variableContent.getDeep() < 0) {
             pair_.setWrapper(new VariableWrapper(LocalVariable.newLocalVariable(val_.getValue(_stack, _conf), val_.getClassName(_stack,_conf))));
-            _stack.getLastPage().getRefParams().put(variableContent.getVariableName(), pair_.getWrapper());
+            _stack.getLastPage().getRefParams().set(variableContent.getVariableName(), pair_.getWrapper());
         } else {
             pair_.setWrapper(val_);
         }
