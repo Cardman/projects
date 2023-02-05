@@ -3452,8 +3452,8 @@ private static final String CODE_0_11_86="                    ({results}).{addTa
 private static final String CODE_0_11_87="                '}'\n";
 private static final String CODE_0_11_90="        '}'\n        '}'{info}.{calls}={results}.{sizeTa}();\n";
 private static final String CODE_0_11_55_0="        {for} ({var} {c}, {var} {l}: {results})'{'\n";
-private static final String CODE_0_11_56_0="                {Runnable} {tt1} = {new} {Runnable}({l},{info}) '{'\n{Result} {l};{InfoTest} {info};\n({Result} {l},{InfoTest} {info}) '{'{this}.{l}={l};{this}.{info}={info};'}'\n";
-private static final String CODE_0_11_58="                {public} {void} {run}()'{'({info}).{currentMethod} = {l}.{executed}.{test};\n";
+private static final String CODE_0_11_56_0="                {Runnable} {tt1} = () -> '{'\n";
+private static final String CODE_0_11_58="                ({info}).{currentMethod} = {l}.{executed}.{test};\n";
 private static final String CODE_0_11_88_0="                {info}.{currentParams} = {l}.{pf};\n";
 private static final String CODE_0_11_88="                {info}.{done}.{incrGet}();\n";
 private static final String CODE_0_11_86_0="                 {if} ({static}({ObjectsUtil}).{eq}({l}.{resultArgs},{null})) '{'\n";
@@ -3463,7 +3463,7 @@ private static final String CODE_0_11_86_3="                 {var} {res} = {exec
 private static final String CODE_0_11_86_4="                 {l}.{time} = {res}.{time};\n";
 private static final String CODE_0_11_86_5="                 {l}.{success} = {res}.{success};\n";
 private static final String CODE_0_11_86_6="                 {l}.{failMessage} = {res}.{failMessage};\n";
-private static final String CODE_0_11_87_0="                '}'\n             '}';\n";
+private static final String CODE_0_11_87_0="                '}';\n";
 //private static final String CODE_0_11_87_1="                {tt0}.{exSerEx}({tt1});\n";
 private static final String CODE_0_11_87_1="                {tts0}.{add}({tt0}.{exSerEx}({tt1}));\n";
 private static final String CODE_0_11_89="            '}'\n";

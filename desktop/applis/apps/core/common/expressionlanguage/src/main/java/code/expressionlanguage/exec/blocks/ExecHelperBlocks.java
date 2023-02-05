@@ -702,6 +702,10 @@ public final class ExecHelperBlocks {
             return;
         }
         abs_.clearCurrentEls();
+        if (!(_bk instanceof ExecForEachRefArray)) {
+            String className_ = _stackCall.formatVarType(_bk.getImportedClassName());
+            _stackCall.getLastPage().putValueVar(_bk.getVariableName(), LocalVariable.newLocalVariable(arg_.getStruct(), className_));
+        }
         ExecVariableTemplates.setWrapValue(_conf, _bk.getVariableName(), arg_,-1, abs_.getCache(), abs_.getRefParams(), _stackCall);
         ExecVariableTemplates.incrIndexLoop(_conf, _bk.getVariableName(), -1, abs_.getCache(), abs_.getVars(), _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -857,6 +861,8 @@ public final class ExecHelperBlocks {
             return;
         }
         if (call_.sizeEl() < 4) {
+            String className_ = _stackCall.formatVarType(_block.getImportedClassNameFirst());
+            _stackCall.getLastPage().putValueVar(_variableNameFirst, LocalVariable.newLocalVariable(arg_.getStruct(),className_));
             ExecVariableTemplates.setWrapValue(_conf, _variableNameFirst, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
             ExecVariableTemplates.incrIndexLoop(_conf, _variableNameFirst, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
             if (_conf.callsOrException(_stackCall)) {
@@ -870,6 +876,8 @@ public final class ExecHelperBlocks {
         if (_conf.callsOrException(_stackCall)) {
             return;
         }
+        String className_ = _stackCall.formatVarType(_block.getImportedClassNameSecond());
+        _stackCall.getLastPage().putValueVar(_variableNameSecond, LocalVariable.newLocalVariable(arg_.getStruct(),className_));
         ExecVariableTemplates.setWrapValue(_conf, _variableNameSecond, arg_,-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
         ExecVariableTemplates.incrIndexLoop(_conf, _variableNameSecond, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
         if (_conf.callsOrException(_stackCall)) {
@@ -996,6 +1004,8 @@ public final class ExecHelperBlocks {
         Argument struct_ = ExecVariableTemplates.getWrapValue(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
         long o_ = NumParsers.convertToNumber(struct_.getStruct()).longStruct()+_l.getContent().getStep();
         Struct element_ = NumParsers.convertToInt(ClassArgumentMatching.getPrimitiveCast(_loop.getImportedClassName(), _conf.getStandards().getPrimTypes()), new LongStruct(o_));
+        String className_ = _loop.getImportedClassName();
+        _stackCall.getLastPage().putValueVar(variableName_, LocalVariable.newLocalVariable(element_,className_));
         ExecVariableTemplates.setWrapValue(_conf, variableName_, new Argument(element_),-1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getRefParams(), _stackCall);
         ExecVariableTemplates.incrIndexLoop(_conf, variableName_, -1, _stackCall.getLastPage().getCache(), _stackCall.getLastPage().getVars(), _stackCall);
         goToFirstBlock(_l.getContent(),_loop,_stackCall.getLastPage());
