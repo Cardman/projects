@@ -5692,6 +5692,57 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
     }
 
     @Test
+    public void calculate211() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Fct<int,int>[] arr = new[2];\n");
+        xml_.append("  iter (int i=1;3;1){\n");
+        xml_.append("   arr[([i])]=(int a:int)->{return i * a;};\n");
+        xml_.append("  }\n");
+        xml_.append("  var sum = 0;\n");
+        xml_.append("  for (var f: arr){\n");
+        xml_.append("   sum += m(f,3);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(9, getNumber(ret_));
+    }
+
+//    @Test
+//    public void calculate212() {
+//        StringMap<String> files_ = new StringMap<String>();
+//        StringBuilder xml_;
+//        xml_ = new StringBuilder();
+//        xml_.append("class pkg.Ext {\n");
+//        xml_.append(" static int m(){\n");
+//        xml_.append("  int i = 211;\n");
+//        xml_.append("  Fct<int> f = ()->i;\n");
+//        xml_.append("  i = 1;\n");
+//        xml_.append("  return f.call();\n");
+//        xml_.append(" }\n");
+//        xml_.append("}\n");
+//        files_.put("pkg/Ex", xml_.toString());
+//        ContextEl cont_ = ctxLgOk("en", files_);
+//        CustList<Argument> args_ = new CustList<Argument>();
+//        MethodId id_ = getMethodId("m");
+//        Argument ret_ = new Argument();
+//        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+//        assertEq(211, getNumber(ret_));
+//    }
+    @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
