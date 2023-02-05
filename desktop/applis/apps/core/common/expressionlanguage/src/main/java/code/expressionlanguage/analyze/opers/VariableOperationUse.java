@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.instr.OperationsSequence;
 import code.expressionlanguage.analyze.types.AnaClassArgumentMatching;
 import code.expressionlanguage.analyze.variables.AnaLocalVariable;
 import code.expressionlanguage.analyze.variables.FoundVariable;
+import code.expressionlanguage.common.ConstType;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fwd.opers.AnaVariableContent;
 
@@ -33,6 +34,8 @@ public final class VariableOperationUse extends LeafOperation implements
         variableContent.setDeep(_foundVar.getDeep());
         finalVariable = val_.isFinalVariable();
         keyWord = val_.isKeyWord();
+        ConstType c_ = val_.getConstType();
+        variableContent.setRef(c_ == ConstType.REF_LOC_VAR || c_ == ConstType.REF_PARAM);
     }
 
     @Override
@@ -50,6 +53,7 @@ public final class VariableOperationUse extends LeafOperation implements
         realVariableName = str_;
         setResultClass(new AnaClassArgumentMatching(className, _page.getPrimitiveTypes()));
     }
+
 
     public String getVariableName() {
         return variableContent.getVariableName();

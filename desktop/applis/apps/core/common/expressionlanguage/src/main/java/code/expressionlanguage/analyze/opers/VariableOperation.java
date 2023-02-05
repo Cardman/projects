@@ -38,6 +38,7 @@ public final class VariableOperation extends LeafOperation implements
         variableContent = new AnaVariableContent(relativeOff_);
         ref = 0;
         variableContent.setDeep(-1);
+        variableContent.setRef(_t == ConstType.REF_LOC_VAR);
         finalVariable = false;
         lineDeclarator = _decl;
         type = _t;
@@ -89,7 +90,11 @@ public final class VariableOperation extends LeafOperation implements
             lv_.setClassName(c_);
         }
         lv_.setRef(ref);
-        lv_.setConstType(ConstType.LOC_VAR);
+        if (lineDeclarator.isRefVariable()) {
+            lv_.setConstType(ConstType.REF_LOC_VAR);
+        } else {
+            lv_.setConstType(ConstType.LOC_VAR);
+        }
         finalVariable = lineDeclarator.isFinalVariable();
         lv_.setFinalVariable(lineDeclarator.isFinalVariable());
         _page.getInfosVars().put(str_, lv_);

@@ -9,6 +9,7 @@ public final class AnaVariableContent {
     private final int off;
 
     private int deep;
+    private boolean ref;
     public AnaVariableContent(int _off) {
         off = _off;
     }
@@ -39,5 +40,13 @@ public final class AnaVariableContent {
 
     public void setDeep(int _deep) {
         this.deep = _deep;
+    }
+
+    public boolean isRef() {
+        return ref;
+    }
+
+    public void setRef(boolean _r) {
+        this.ref = _r;
     }
 }
