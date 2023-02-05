@@ -5,6 +5,7 @@ import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThreadFactory;
+import code.util.StringList;
 
 public interface AbstractLightProgramInfos {
     AbsLightFrameFactory getLightFrameFactory();
@@ -16,4 +17,6 @@ public interface AbstractLightProgramInfos {
     AbsCompoFactory getCompoFactory();
     AbstractImageFactory getImageFactory();
     AbstractGraphicComboBoxGenerator getGeneComboBox();
+    StringList getLanguages();
+    void setLanguages(StringList _lgs);
 }

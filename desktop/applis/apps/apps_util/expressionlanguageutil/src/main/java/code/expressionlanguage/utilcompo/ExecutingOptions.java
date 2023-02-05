@@ -45,6 +45,17 @@ public final class ExecutingOptions {
         setFileSystemParameterizing(new FileSystemParameterizing("d",new StringBuilder(),new Ints(), "f",new StringBuilder(),new Ints()));
     }
 
+    public static StringList lines(String _content) {
+        StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
+        StringList linesFiles_ = new StringList();
+        for (String s: lines_) {
+            if (s.trim().isEmpty()) {
+                continue;
+            }
+            linesFiles_.add(s.trim());
+        }
+        return linesFiles_;
+    }
     public static void setupOptionals(int _from, Options _options, ExecutingOptions _exec, StringList _lines) {
         StringBuilder argParts_ = new StringBuilder();
         StringBuilder aliasesPart_ = new StringBuilder();

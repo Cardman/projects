@@ -195,7 +195,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
             return;
         }
         String txt_ = _mainWindow.getTxtConf();
-        RunningTest r_ = RunningTest.newFromContent(txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
+        RunningTest r_ = RunningTest.newFromContent(getFrames().getLanguages(),txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
         AbstractThread th_ = getThreadFactory().newThread(r_);
@@ -227,7 +227,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         if (!_mainWindow.ok(_fichier)) {
             return;
         }
-        RunningTest r_ = RunningTest.newFromFile(_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
+        RunningTest r_ = RunningTest.newFromFile(getFrames().getLanguages(),_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
         AbstractThread th_ = getThreadFactory().newThread(r_);

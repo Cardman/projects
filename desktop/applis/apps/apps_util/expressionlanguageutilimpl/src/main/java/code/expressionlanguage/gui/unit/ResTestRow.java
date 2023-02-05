@@ -1,10 +1,8 @@
 package code.expressionlanguage.gui.unit;
 
-import code.expressionlanguage.structs.MethodMetaInfo;
-
 public final class ResTestRow {
     private int number;
-    private MethodMetaInfo method=new MethodMetaInfo();
+    private String method="";
     private String methodParams="";
     private String errMess="";
     private String resultSuccess="";
@@ -20,11 +18,11 @@ public final class ResTestRow {
         this.number = _n;
     }
 
-    public MethodMetaInfo getMethod() {
+    public String getMethod() {
         return method;
     }
 
-    public void setMethod(MethodMetaInfo _m) {
+    public void setMethod(String _m) {
         this.method = _m;
     }
 

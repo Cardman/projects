@@ -9,6 +9,7 @@ import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.StringList;
 import code.util.StringMap;
 
 public class ProgramInfosBase {
@@ -21,6 +22,7 @@ public class ProgramInfosBase {
     private final AbstractGraphicStringListGenerator geneGraphicList;
     private final AbstractGraphicComboBoxGenerator geneComboBox;
     private final CompoundedInitParts compoundedInitParts;
+    private StringList languages = new StringList();
 
     public ProgramInfosBase(String _h, String _t, AbstractGenerator _g, AbstractGraphicStringListGenerator _l, AbstractGraphicComboBoxGenerator _c, CompoundedInitParts _parts) {
         this.homePath = _h;
@@ -84,5 +86,13 @@ public class ProgramInfosBase {
 
     public AbstractZipFact getZipFact() {
         return compoundedInitParts.getZipFact();
+    }
+
+    public StringList getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(StringList _lgs) {
+        this.languages = _lgs;
     }
 }

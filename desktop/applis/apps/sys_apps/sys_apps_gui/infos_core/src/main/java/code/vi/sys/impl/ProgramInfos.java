@@ -11,6 +11,7 @@ import code.stream.core.DefTextFact;
 import code.stream.core.DefZipFact;
 import code.stream.core.TechStreams;
 import code.util.StringList;
+import code.util.consts.Constants;
 import code.util.core.StringUtil;
 import code.vi.maths.random.AdvancedGenerator;
 import code.vi.prot.impl.*;
@@ -70,6 +71,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         folderOpenDialogInt = new DefFolderOpenDialogAbs(this);
         fileOpenDialogInt = new DefFileOpenDialogAbs(this);
         fileSaveDialogInt = new DefFileSaveDialogAbs(this);
+        setLanguages(Constants.getAvailableLanguages());
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
 

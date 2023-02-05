@@ -8,7 +8,6 @@ import code.stream.core.ReadBinFiles;
 import code.stream.core.ReadFiles;
 import code.util.StringList;
 import code.util.StringMap;
-import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
 public final class RunningTest implements Runnable {
@@ -16,77 +15,70 @@ public final class RunningTest implements Runnable {
     private ProgressingTests progressingTests;
     private boolean file;
     private FileInfos infos;
+    private StringList languages;
 
     private RunningTest() {
     }
-    public static RunningTest newFromFile(String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
+    public static RunningTest newFromFile(StringList _lgs,String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
         r_.file = true;
         r_.infos = _infos;
+        r_.languages = _lgs;
         return r_;
     }
 
-    public static RunningTest newFromContent(String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
+    public static RunningTest newFromContent(StringList _lgs,String _fileConf, ProgressingTests _progressingTests, FileInfos _infos) {
         RunningTest r_ = new RunningTest();
         r_.fileConfOrContent = _fileConf;
         r_.progressingTests = _progressingTests;
         r_.infos = _infos;
+        r_.languages = _lgs;
         return r_;
     }
     @Override
     public void run() {
+        String content_ = retrieve();
+        launchByConfContent(languages,content_,progressingTests,infos);
+    }
+
+    public String retrieve() {
         String content_;
         if (file) {
             content_ = infos.getReporter().conf(fileConfOrContent);
         } else {
             content_ = infos.getReporter().confTxt(fileConfOrContent);
         }
-        if (content_ == null) {
-            return;
-        }
-        launchByConfContent(content_,progressingTests,infos);
+        return content_;
     }
 
     public ProgressingTests getProgressingTests() {
         return progressingTests;
     }
 
-    public static void launchByConfContent(String _content, ProgressingTests _progressingTests, FileInfos _infos) {
-        StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
-        StringList linesFiles_ = new StringList();
-        for (String s: lines_) {
-            if (s.trim().isEmpty()) {
-                continue;
-            }
-            linesFiles_.add(s.trim());
-        }
+    public static boolean launchByConfContent(StringList _lgs,String _content, ProgressingTests _progressingTests, FileInfos _infos) {
+        StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(_content));
         if (linesFiles_.size() < 2) {
-            return;
+            return false;
         }
         String archive_ = linesFiles_.first();
         String lg_ = linesFiles_.get(1);
         ReadFiles result_ = _infos.getReporter().getFiles(archive_);
         if (result_.getType() == OutputType.NOTHING) {
-            return;
+            return false;
         }
-        ExecutingOptions exec_ = new ExecutingOptions(_infos.getThreadFactory().newAtomicBoolean());
-        exec_.setListGenerator(_progressingTests.getFactory());
-        Options opt_ = new Options();
-        if (!StringUtil.contains(Constants.getAvailableLanguages(),lg_)){
-            lg_ = "";
-            ExecutingOptions.setupOptionals(1, opt_, exec_,linesFiles_);
-        } else {
-            ExecutingOptions.setupOptionals(2, opt_, exec_, linesFiles_);
-        }
-        exec_.setCovering(opt_.isCovering());
+        ManageOptions manage_ = new ManageOptions(_lgs,lg_,linesFiles_,_progressingTests,_infos);
+        ExecutingOptions exec_ = manage_.getEx();
+        Options opt_ = manage_.getOptions();
+        lg_ = manage_.getLanguage();
         StringMap<String> list_ = tryGetSrc(archive_, exec_, _infos, result_);
         if (list_ == null) {
-            return;
+            return false;
         }
         opt_.setReadOnly(true);
         CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getFactory().getInterceptor()));
+        return true;
     }
 
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {

@@ -49,11 +49,8 @@ public abstract class AbsTestableFrame implements TestableFrame {
         return interceptor;
     }
 
-    public AbstractInterceptor getIntercept() {
-        return interceptor.getInterceptor();
-    }
     public AbstractThreadFactory getThreadFactory() {
-        return frames.getThreadFactory();
+        return getFrames().getThreadFactory();
     }
 
     public AbstractLightProgramInfos getFrames() {

@@ -24,6 +24,12 @@ import org.junit.Test;
 
 public final class ExecutingOptionsTest extends EquallableElUtUtil {
     @Test
+    public void lines1() {
+        StringList l_ = ExecutingOptions.lines(";\n\n");
+        assertEq(1,l_.size());
+        assertEq(";",l_.get(0));
+    }
+    @Test
     public void setupOptionals1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
@@ -368,6 +374,25 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertEq("0",exec_.getSrcFolder());
         assertTrue(opt_.isCovering());
         assertTrue(opt_.isGettingErrors());
+    }
+    @Test
+    public void setupOptionals33() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        ExecutingOptions exec_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        exec_.setListGenerator(new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ExecutingOptions.setupOptionals(0,opt_,exec_, lines());
+        assertFalse(opt_.isCovering());
+        assertFalse(opt_.isGettingErrors());
+        assertFalse(opt_.isDisplayImplicit());
+        assertFalse(exec_.isHasArg());
+        assertFalse(exec_.isInvokeDirect());
+        assertEq(0,exec_.getMessages().size());
+        assertEq(0,exec_.getWarns().size());
+        assertEq(0,exec_.getKeyWords().size());
+        assertEq(0,exec_.getAliases().size());
+        assertEq(0,exec_.getArgs().size());
+        assertEq(0,opt_.getTypesInit().size());
     }
     @Test
     public void argsSet() {

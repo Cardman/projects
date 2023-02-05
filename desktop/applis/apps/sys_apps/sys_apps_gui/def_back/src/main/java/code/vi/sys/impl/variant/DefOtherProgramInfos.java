@@ -13,6 +13,8 @@ public final class DefOtherProgramInfos extends ProgramInfosDeps {
 
     @Override
     public AbstractLightProgramInfos light() {
-        return new LigDefOtherProgramInfos(getGenerator());
+        LigDefOtherProgramInfos light_ = new LigDefOtherProgramInfos(getGenerator());
+        light_.setLanguages(getLanguages());
+        return light_;
     }
 }

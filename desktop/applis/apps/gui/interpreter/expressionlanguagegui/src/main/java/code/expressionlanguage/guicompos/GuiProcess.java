@@ -50,14 +50,7 @@ public final class GuiProcess implements GuiRunnable {
 
     public static GuiProcess build(String _conf, String _content, CdmFactory _original, AbstractProgramInfos _infos) {
         StringList mainArgs_ = new StringList(_conf);
-        StringList lines_ = StringUtil.splitStrings(_content, "\n", "\r\n");
-        StringList linesFiles_ = new StringList();
-        for (String s: lines_) {
-            if (s.trim().isEmpty()) {
-                continue;
-            }
-            linesFiles_.add(s.trim());
-        }
+        StringList linesFiles_ = ExecutingOptions.lines(_content);
         if (linesFiles_.size() < 3) {
             return null;
         }

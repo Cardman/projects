@@ -3,6 +3,7 @@ package code.expressionlanguage.gui.unit;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.common.ClassField;
+import code.expressionlanguage.exec.opers.ExecCatOperation;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.AtomicIntegerStruct;
 import code.expressionlanguage.utilcompo.LgNamesWithNewAliases;
@@ -10,6 +11,8 @@ import code.gui.GuiBaseUtil;
 import code.threads.AbstractThreadFactory;
 
 public final class CommonExecution {
+    public static final String CROSS_SUCCESS = "x";
+    public static final String CROSS_FAIL = "";
     private final ProgTestBarInt progTestBar;
 
     public CommonExecution(ProgTestBarInt _prog) {
@@ -35,9 +38,7 @@ public final class CommonExecution {
         progTestBar.setDoneTestsCount(((AtomicIntegerStruct)done_).getInstance().get()+"/"+((NumberStruct)count_).longStruct());
         progTestBar.setCurrent(((AtomicIntegerStruct)done_).getInstance().get());
         progTestBar.setCalls(((NumberStruct)calls_).longStruct());
-        if (method_ instanceof MethodMetaInfo) {
-            progTestBar.setCurrentMethod(((MethodMetaInfo) method_).getSignature(_ctx));
-        }
+        progTestBar.setCurrentMethod(ExecCatOperation.getString(new Argument(method_),_ctx));
     }
     public void finish(Struct _infos, LgNamesWithNewAliases _evolved) {
         String infoTest_ = _evolved.getCustAliases().getAliasInfoTest();
@@ -71,7 +72,7 @@ public final class CommonExecution {
                 Struct method_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairFirst_)).getStruct();
                 Struct result_ = ((FieldableStruct)t).getEntryStruct(new ClassField(pairCl_,pairSecond_)).getStruct();
                 resultRow_.setNumber(i);
-                resultRow_.setMethod((MethodMetaInfo) method_);
+                resultRow_.setMethod(ExecCatOperation.getString(new Argument(method_),_ctx));
                 Struct params_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasParams_)).getStruct();
                 resultRow_.setMethodParams(((StringStruct)params_).getInstance());
                 Struct success_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasSuccess_)).getStruct();
@@ -80,10 +81,10 @@ public final class CommonExecution {
                 Struct failMessage_ = ((FieldableStruct) result_).getEntryStruct(new ClassField(aliasResult_, aliasFailMessage_)).getStruct();
                 if (BooleanStruct.isTrue(success_)) {
                     resultRow_.setResultSuccessLong(progTestBar.success());
-                    resultRow_.setResultSuccess("x");
+                    resultRow_.setResultSuccess(CROSS_SUCCESS);
                 } else {
                     resultRow_.setResultSuccessLong(progTestBar.fail());
-                    resultRow_.setResultSuccess("");
+                    resultRow_.setResultSuccess(CROSS_FAIL);
                 }
                 resultRow_.setErrMess(((StringStruct)failMessage_).getInstance());
                 resultRow_.setTime(((NumberStruct)time_).longStruct());

@@ -10,6 +10,8 @@ import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public final class ProgTestBar implements ProgTestBarInt{
+    public static final String KEY_SUCCESS = "success";
+    public static final String KEY_FAIL = "fail";
     private final StringMap<String> messages;
     private final AbsPlainLabel doneTestsCalls;
     private final AbsPlainLabel doneTestsCount;
@@ -45,6 +47,9 @@ public final class ProgTestBar implements ProgTestBarInt{
         return progressBar.getMaximum();
     }
 
+    public String calls() {
+        return doneTestsCalls.getText();
+    }
     @Override
     public void setCalls(long _c) {
         doneTestsCalls.setText(Long.toString(NumberUtil.max(0,_c)));
@@ -95,7 +100,7 @@ public final class ProgTestBar implements ProgTestBarInt{
     public void add(ResTestRow _res, ContextEl _ctx) {
         int cur_ = _res.getNumber();
         setValueAt(Long.toString(cur_),cur_,0);
-        String methodInfo_ = _res.getMethod().getDisplayedString(_ctx).getInstance();
+        String methodInfo_ = _res.getMethod();
         setValueAt(methodInfo_,cur_,1);
         setValueAt(_res.getMethodParams(),cur_,2);
         setValueAt(_res.getResultSuccess(),cur_,3);
@@ -111,23 +116,18 @@ public final class ProgTestBar implements ProgTestBarInt{
     }
 
     @Override
-    public void setRowCount(int _len) {
-        resultsTable.setRowCount(_len);
-    }
-
-    @Override
     public void setValueAt(String _v, int _i, int _j) {
         resultsTable.setValueAt(_v, _i, _j);
     }
 
     @Override
     public String success() {
-        return messages.getVal("success");
+        return messages.getVal(KEY_SUCCESS);
     }
 
     @Override
     public String fail() {
-        return messages.getVal("fail");
+        return messages.getVal(KEY_FAIL);
     }
 
 }

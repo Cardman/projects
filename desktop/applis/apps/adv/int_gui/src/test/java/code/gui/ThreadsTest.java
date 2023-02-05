@@ -10,6 +10,7 @@ import code.stream.core.ContentTime;
 import code.stream.core.TechStreams;
 import code.threads.FileStruct;
 import code.threads.ThState;
+import code.util.StringList;
 import code.util.core.NumberUtil;
 import org.junit.Test;
 
@@ -87,6 +88,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     @Test
     public void ls6() {
         ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null, new CompoundedInitParts(null,null,null,null,null));
+        t_.setLanguages(new StringList());
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
@@ -102,6 +104,7 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq(0, t_.getCounts().size());
         assertEq(0, t_.getButtons().size());
         assertEq(0, t_.getFrames().size());
+        assertEq(0, t_.getLanguages().size());
     }
     @Test
     public void isZip1(){

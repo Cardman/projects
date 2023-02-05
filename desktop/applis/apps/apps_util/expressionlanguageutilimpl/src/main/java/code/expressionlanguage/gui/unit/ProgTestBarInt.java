@@ -17,8 +17,6 @@ public interface ProgTestBarInt {
 
     void setDoneTestsCount(String _d);
 
-    void setRowCount(int _len);
-
     void setValueAt(String _v, int _i, int _j);
 
     String success();

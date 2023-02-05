@@ -110,14 +110,7 @@ public final class WindowRenders extends GroupFrame {
         if (content_ == null) {
             return;
         }
-        StringList lines_ = StringUtil.splitStrings(content_, "\n", "\r\n");
-        StringList linesFiles_ = new StringList();
-        for (String s: lines_) {
-            if (s.trim().isEmpty()) {
-                continue;
-            }
-            linesFiles_.add(s.trim());
-        }
+        StringList linesFiles_ = ExecutingOptions.lines(content_);
         if (linesFiles_.size() < 2) {
             return;
         }

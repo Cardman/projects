@@ -85,10 +85,7 @@ public final class CustContextFactory {
             return;
         }
         _progressingTests.showWarnings((RunnableContextEl) rCont_,reportedMessages_,_options,_exec,infos_);
-        AbstractIssuer issuer_ = _definedLgNames.getInfos().getLogger().getIssuer();
-        if (issuer_ != null) {
-            issuer_.log("OK");
-        }
+        infos_.tryLogIssue("OK");
         String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
         Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(className_, className_.getRootBlock().getEmptyCtorPair(), new Argument(), new Parameters(), InstancingStep.NEWING),rCont_,StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
