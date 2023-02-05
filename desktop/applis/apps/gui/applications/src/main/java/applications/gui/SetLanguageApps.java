@@ -1,8 +1,9 @@
 package applications.gui;
 
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
+import code.scripts.messages.gui.MessGuiGr;
 
 class SetLanguageApps implements AbsActionListener {
 
@@ -16,6 +17,6 @@ class SetLanguageApps implements AbsActionListener {
 
     @Override
     public void action() {
-        FrameUtil.changeStaticLanguage(language, list);
+        GuiBaseUtil.changeStaticLanguage(language, list, MessGuiGr.ms());
     }
 }

@@ -1,7 +1,7 @@
 package applications.gui;
 
 import code.expressionlanguage.guicompos.LaunchingFull;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.player.main.LaunchRecord;
 import code.threads.AbstractAtomicInteger;
@@ -14,7 +14,7 @@ public final class RecordEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return FrameUtil.tryToReopen(LaunchingFull.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(LaunchingFull.getMainWindowClass(), _list);
     }
 
     @Override

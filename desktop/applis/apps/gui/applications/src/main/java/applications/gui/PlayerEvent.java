@@ -1,6 +1,6 @@
 package applications.gui;
 
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.player.main.LaunchingPlayer;
 import code.threads.AbstractAtomicInteger;
@@ -12,7 +12,7 @@ public final class PlayerEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return FrameUtil.tryToReopen(LaunchingPlayer.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(LaunchingPlayer.getMainWindowClass(), _list);
     }
 
     @Override

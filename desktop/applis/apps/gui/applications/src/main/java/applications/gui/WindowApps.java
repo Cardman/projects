@@ -170,7 +170,7 @@ public final class WindowApps extends GroupFrame {
             selectLangagueButton(_language);
         } else {
             selectLangagueButton(getLanguageKey());
-            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
+            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
         }
     }
 

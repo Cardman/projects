@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.*;
 import code.gui.initialize.*;
 import code.mock.*;
+import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
 import org.junit.Test;
 
@@ -124,5 +125,64 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
     @Test
     public void formatDate2() {
         assertEq("0",GuiBaseUtil.getTimeText(init().getThreadFactory(),"","",""));
+    }
+    @Test
+    public void removeAllListeners1() {
+        MockProgramInfosSecSample pr_ = init();
+        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+        GuiBaseUtil.removeAllListeners(fr_.getCommonFrame());
+        assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
+    }
+    @Test
+    public void tryExit1() {
+        MockProgramInfosSecSample pr_ = init();
+        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+        MockSampleFrame fr2_ = new MockSampleFrame(pr_);
+        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+        fr_.getCommonFrame().setVisible(true);
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+        GuiBaseUtil.choose("",pr_,fr_, m_);
+        GuiBaseUtil.choose("",pr_,fr2_, m_);
+        GuiBaseUtil.tryExit(fr_.getCommonFrame());
+        assertEq(1,fr_.getCommonFrame().getWindowListenersDef().size());
+    }
+    @Test
+    public void tryExit2() {
+        MockProgramInfosSecSample pr_ = init();
+        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+        fr_.getCommonFrame().setVisible(false);
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+        GuiBaseUtil.choose("",pr_,fr_,m_);
+        GuiBaseUtil.tryExit(fr_.getCommonFrame());
+        assertEq(0,fr_.getCommonFrame().getWindowListenersDef().size());
+    }
+    @Test
+    public void tryToReopen1() {
+        MockProgramInfosSecSample pr_ = init();
+        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+        fr_.getCommonFrame().setVisible(true);
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+        GuiBaseUtil.choose("",pr_,fr_,m_);
+        GuiBaseUtil.changeStaticLanguage("",pr_,m_);
+        GuiBaseUtil.showDialogError(0,fr_.getCommonFrame());
+        assertTrue(GuiBaseUtil.tryToReopen("",pr_));
+    }
+    @Test
+    public void tryToReopen2() {
+        MockProgramInfosSecSample pr_ = init();
+        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+        fr_.getCommonFrame().setVisible(true);
+        StringMap<String> m_ = new StringMap<String>();
+        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+        GuiBaseUtil.choose("",pr_,fr_,m_);
+        GuiBaseUtil.showDialogError(0, fr_.getCommonFrame());
+        assertFalse(GuiBaseUtil.tryToReopen("_",pr_));
     }
 }

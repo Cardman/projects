@@ -8,6 +8,7 @@ import code.gui.images.MetaPoint;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
+import code.scripts.messages.gui.MessGuiGr;
 import code.stream.AbstractFileCoreStream;
 import code.stream.core.TechStreams;
 import code.threads.AbstractThreadFactory;
@@ -35,7 +36,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     private void choose(String _lg, AbstractProgramInfos _list) {
-        FrameUtil.choose(_lg, _list, this);
+        GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
     }
 
     public final void init(AbstractProgramInfos _list) {
@@ -254,17 +255,12 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 //            }
 //        }
 //        if(index_ == CustList.SIZE_EMPTY) {}
-        FrameUtil.tryExit(this);
+        GuiBaseUtil.tryExit(this.getCommonFrame());
         getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
     }
 
-    public void exit() {
-        nativeExit();
-    }
-
     public void nativeExit() {
-        FrameUtil.removeAllListeners(this);
-        dispatchExit();
+        GuiBaseUtil.removeAllListeners(getCommonFrame());
     }
 
     public boolean isOpened() {

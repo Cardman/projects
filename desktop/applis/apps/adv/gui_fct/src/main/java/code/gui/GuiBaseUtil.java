@@ -1,15 +1,24 @@
 package code.gui;
 
+import code.gui.events.AbsWindowListenerClosing;
 import code.gui.images.AbstractImage;
 import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
+import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
 import code.util.CustList;
+import code.util.StringMap;
 import code.util.core.IndexConstants;
+import code.util.core.StringUtil;
 
 public final class GuiBaseUtil {
+    static final String ACCESS = "gui.groupframe";
+    private static final String TITLE = "title";
+    private static final String MESSAGE = "message";
+
     private GuiBaseUtil() {
 
     }
@@ -146,5 +155,56 @@ public final class GuiBaseUtil {
 
     private static String time(String _separator) {
         return "HH" + _separator + "mm" + _separator + "ss";
+    }
+
+    public static void removeAllListeners(AbsCommonFrame _com) {
+        for (AbsWindowListenerClosing l: _com.getWindowListenersDef()) {
+            _com.removeWindowListener(l);
+        }
+        _com.dispatchExit();
+    }
+
+    public static void tryExit(AbsCommonFrame _comm) {
+        if(!_comm.getFrames().getFrames().first().isOpened()) {
+            removeAllListeners(_comm);
+        }
+    }
+
+    public static StringMap<String> group(String _language, StringMap<String> _res) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, _language, ACCESS);
+        String loadedResourcesMessages_ = _res.getVal(fileName_);
+        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    }
+
+    public static void choose(String _lg, AbstractProgramInfos _list, AbsGroupFrame _this, StringMap<String> _res) {
+        _list.getFrames().add(_this);
+        AbsGroupFrame first_ = _list.getFrames().first();
+        if (_list.getFrames().size() == 1) {
+            _this.init(_list);
+            first_.setMessages(group(_lg, _res));
+        } else {
+            _this.setByFirst(first_);
+        }
+    }
+
+    public static boolean tryToReopen(String _applicationName, AbstractProgramInfos _list) {
+        for (AbsGroupFrame g: _list.getFrames()) {
+            if (StringUtil.quickEq(g.getApplicationName(), _applicationName)) {
+                g.getCommonFrame().pack();
+                g.getCommonFrame().setVisible(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void changeStaticLanguage(String _language, AbstractProgramInfos _list, StringMap<String> _res) {
+        _list.getFrames().first().setMessages(group(_language, _res));
+        _list.getFrames().first().changeLanguage(_language);
+    }
+
+    public static void showDialogError(int _errorMessage, AbsCommonFrame _com) {
+        StringMap<String> messages_ = _com.getFrames().getFrames().first().getMessages();
+        _com.getFrames().getMessageDialogAbs().input(_com, messages_.getVal(MESSAGE), messages_.getVal(TITLE), _com.getFrames().getFrames().first().getCommonFrame().getLanguageKey(), _errorMessage);
     }
 }

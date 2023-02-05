@@ -3,7 +3,7 @@ package applications.gui;
 import aiki.main.AikiFactory;
 import cards.main.CardFactories;
 import code.gui.AbsButton;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.network.LaunchingNetwork;
 import code.threads.AbstractAtomicInteger;
@@ -26,7 +26,7 @@ public final class NetWorkEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return FrameUtil.tryToReopen(LaunchingNetwork.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(LaunchingNetwork.getMainWindowClass(), _list);
     }
 
     @Override

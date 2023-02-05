@@ -1,7 +1,7 @@
 package applications.gui;
 
 import code.gui.CdmFactory;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.renders.LaunchingRenders;
 import code.threads.AbstractAtomicInteger;
@@ -16,7 +16,7 @@ public final class RenderEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return FrameUtil.tryToReopen(LaunchingRenders.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(LaunchingRenders.getMainWindowClass(), _list);
     }
 
     @Override

@@ -927,7 +927,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 
     public void manageLanguage() {
         if (!canChangeLanguageAll()) {
-            FrameUtil.showDialogError(this, GuiConstants.ERROR_MESSAGE);
+            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
             return;
         }
         LanguageDialog.setLanguageDialog(this, messages.getVal(CST_LANGUAGE));

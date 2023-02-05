@@ -2,7 +2,7 @@ package applications.gui;
 
 import cards.main.CardFactories;
 import cards.main.LaunchingCards;
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractAtomicInteger;
 
@@ -16,7 +16,7 @@ public final class CardsEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return FrameUtil.tryToReopen(LaunchingCards.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(LaunchingCards.getMainWindowClass(), _list);
     }
 
     @Override

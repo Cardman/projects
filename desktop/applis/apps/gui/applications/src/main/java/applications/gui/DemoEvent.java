@@ -1,6 +1,6 @@
 package applications.gui;
 
-import code.gui.FrameUtil;
+import code.gui.GuiBaseUtil;
 import code.gui.initialize.AbstractProgramInfos;
 import code.minirts.LaunchingDemo;
 import code.threads.AbstractAtomicInteger;
@@ -13,7 +13,7 @@ public final class DemoEvent extends AbstractEvent {
 
     @Override
     protected boolean tryToReopen(AbstractProgramInfos _list) {
-        return FrameUtil.tryToReopen(LaunchingDemo.getMainWindowClass(), _list);
+        return GuiBaseUtil.tryToReopen(LaunchingDemo.getMainWindowClass(), _list);
     }
 
     @Override
