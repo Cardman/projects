@@ -37,16 +37,16 @@ public final class LanguageDialog implements SetterLanguage {
     }
 
     public static void setLanguageDialog(GroupFrame _owner, String _title) {
-        _owner.getLanguageDialog().init(_owner, _title);
+        _owner.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getFrames(), _title);
     }
 
-    private void init(GroupFrame _owner, String _title) {
-        absDialog.setDialogIcon(_owner.getImageFactory(),_owner.getCommonFrame());
-        absDialog.setLocationRelativeTo(_owner.getCommonFrame());
+    public void init(AbsCommonFrame _owner,AbstractProgramInfos _pr, String _title) {
+        absDialog.setDialogIcon(_pr.getImageFactory(),_owner);
+        absDialog.setLocationRelativeTo(_owner);
         absDialog.setTitle(_title);
-        AbsPanel panneau_ = _owner.getCompoFactory().newGrid(0,1);
-        for (String l: Constants.getAvailableLanguages()) {
-            AbsRadioButton radio_ = _owner.getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
+        AbsPanel panneau_ = _pr.getCompoFactory().newGrid(0,1);
+        for (String l: _pr.getLanguages()) {
+            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             groupe.add(radio_);
             panneau_.add(radio_);
@@ -62,7 +62,7 @@ public final class LanguageDialog implements SetterLanguage {
         absDialog.closeWindow();
     }
 
-    public static String getStaticLanguage(LanguageDialog _dialog) {
+    public static String getStaticLanguage(SetterLanguage _dialog) {
         return _dialog.getLanguage();
     }
 

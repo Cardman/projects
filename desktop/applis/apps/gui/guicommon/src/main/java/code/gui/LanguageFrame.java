@@ -6,7 +6,7 @@ import code.gui.events.LanguageChoice;
 import code.gui.events.QuittingEvent;
 import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
-import code.util.StringMap;
+import code.gui.initialize.AbstractProgramInfos;
 import code.util.consts.Constants;
 
 public final class LanguageFrame extends GroupFrame implements SetterLanguage {
@@ -32,16 +32,17 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage {
         if (_icon != null) {
             commonFrame.setIconImage(_icon);
         }
-        init(_args, _soft);
-    }
-
-    private void init(String[] _args, SoftApplicationCore _soft) {
         soft = _soft;
         args = _args;
+        init(null,_soft.getFrames(), TITLE);
+    }
+
+    @Override
+    public void init(AbsCommonFrame _owner, AbstractProgramInfos _pr, String _title) {
         commonFrame.setTitle(TITLE);
-        AbsPanel panneau_ = _soft.getFrames().getCompoFactory().newGrid(0,1);
-        for (String l: Constants.getAvailableLanguages()) {
-            AbsRadioButton radio_ = _soft.getFrames().getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
+        AbsPanel panneau_ = _pr.getCompoFactory().newGrid(0,1);
+        for (String l: _pr.getLanguages()) {
+            AbsRadioButton radio_ = _pr.getCompoFactory().newRadioButton(Constants.getDisplayLanguage(l));
             radio_.addMouseListener(new LanguageChoice(l, this));
             group.add(radio_);
             panneau_.add(radio_);

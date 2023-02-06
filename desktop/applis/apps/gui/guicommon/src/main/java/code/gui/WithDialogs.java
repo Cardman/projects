@@ -1,10 +1,12 @@
 package code.gui;
 
+import code.gui.events.SetterLanguage;
+
 public interface WithDialogs {
 
     ConfirmDialogTextAbs getConfirmDialogText();
     ConfirmDialogAnsAbs getConfirmDialogAns();
-    LanguageDialog getLanguageDialog();
+    SetterLanguage getLanguageDialog();
     FolderOpenDialogAbs getFolderOpenDialogInt();
     FileOpenDialogAbs getFileOpenDialogInt();
     FileSaveDialogAbs getFileSaveDialogInt();
