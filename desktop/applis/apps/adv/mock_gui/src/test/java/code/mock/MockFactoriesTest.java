@@ -148,6 +148,16 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
         assertEq("",fr_.getCommonFrame().getTitle());
         assertEq(0,fr_.getMessages().size());
     }
+    @Test
+    public void t9() {
+        MockSampleFrame fr_ = new MockSampleFrame(init());
+        fr_.setChangeable(true);
+        assertTrue(fr_.canChangeLanguage());
+        fr_.setChangeable(false);
+        assertFalse(fr_.canChangeLanguage());
+        fr_.quit();
+        assertFalse(fr_.isOpened());
+    }
     private static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
     }

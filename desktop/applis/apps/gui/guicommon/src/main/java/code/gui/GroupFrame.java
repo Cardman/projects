@@ -21,8 +21,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     private final AbsCommonFrame commonFrame;
     private StringMap<String> messages;
 
-    private boolean opened;
-
     private LanguageDialog languageDialog;
     private ConfirmDialogTextAbs confirmDialogText;
     private ConfirmDialogAnsAbs confirmDialogAns;
@@ -224,10 +222,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         return commonFrame;
     }
 
-    public abstract void quit();
-
-    public abstract String getApplicationName();
-
     //@Override
     public void dispose() {
         basicDispose();
@@ -264,16 +258,13 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     }
 
     public boolean isOpened() {
-        return opened;
+        return commonFrame.isVisible();
     }
 
     //@Override
     public void setVisible(boolean _b) {
-        opened = _b;
         commonFrame.setVisible(_b);
     }
-
-    public abstract boolean canChangeLanguage();
 
     public StringMap<String> getMessages() {
         return messages;
@@ -294,8 +285,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 //        }
 //        return canChange_;
     }
-
-    public abstract void changeLanguage(String _language);
 
     public AbstractGenerator getGenerator() {
         return getFrames().getGenerator();

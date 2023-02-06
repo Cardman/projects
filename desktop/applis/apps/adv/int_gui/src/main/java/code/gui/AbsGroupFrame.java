@@ -15,4 +15,6 @@ public interface AbsGroupFrame {
     void init(AbstractProgramInfos _list);
 
     void setByFirst(AbsGroupFrame _first);
+    void quit();
+    boolean canChangeLanguage();
 }
