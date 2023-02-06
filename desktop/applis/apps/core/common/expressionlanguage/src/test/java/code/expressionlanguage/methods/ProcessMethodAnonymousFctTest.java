@@ -5742,6 +5742,29 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
         assertEq(211, getNumber(ret_));
     }
+
+    @Test
+    public void calculate213() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  int i = 211;\n");
+        xml_.append("  that int j = that(i);\n");
+        xml_.append("  Fct<int> f = ()->i;\n");
+        xml_.append("  j = 1;\n");
+        xml_.append("  return f.call();\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(1, getNumber(ret_));
+    }
     @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();
