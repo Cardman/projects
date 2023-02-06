@@ -20,6 +20,8 @@ import code.gui.images.MetaDimension;
 import code.gui.initialize.*;
 import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
+import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractFuture;
 import code.threads.AbstractThread;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
@@ -52,9 +54,10 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     private final AbsTextArea results;
     private final AbsProgressBar progressBar;
     private final CdmFactory interceptor;
+    private final AbstractBaseExecutorService exec;
 
     private RunningTest running;
-    private AbstractThread th;
+    private AbstractFuture th;
     private final StringMap<String> unitMessages;
     private final UniformingString uniformingString = new DefaultUniformingString();
     private final AbsTextArea errors = getCompoFactory().newTextArea();
@@ -65,6 +68,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 
     public WindowUnit(String _lg, CdmFactory _list, AbstractProgramInfos _programInfos) {
         super(_lg, _programInfos);
+        exec = _programInfos.getThreadFactory().newExecutorService();
         interceptor = _list;
         setAccessFile("unit.mainwindow");
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_unit/gui/messages", getLanguageKey(), getAccessFile());
@@ -170,7 +174,7 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     public void quit() {
         if (th != null) {
             stop();
-            th.join();
+            th.attendre();
         }
         basicDispose();
     }
@@ -191,16 +195,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     }
 
     public void process(TestableFrame _mainWindow) {
-        if (!_mainWindow.ok("")) {
-            return;
-        }
+//        if (!_mainWindow.ok("")) {
+//            return;
+//        }
         String txt_ = _mainWindow.getTxtConf();
         RunningTest r_ = RunningTest.newFromContent(getFrames().getLanguages(),txt_, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
-        AbstractThread th_ = getThreadFactory().newThread(r_);
-        th = th_;
-        th_.start();
+        th = exec.submit(r_);
     }
     public void open() {
         if (!filesFrame.isVisible()) {
@@ -224,15 +226,13 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     }
 
     public void launchFileConf(String _fichier, TestableFrame _mainWindow) {
-        if (!_mainWindow.ok(_fichier)) {
-            return;
-        }
+//        if (!_mainWindow.ok(_fichier)) {
+//            return;
+//        }
         RunningTest r_ = RunningTest.newFromFile(getFrames().getLanguages(),_fichier, new ProgressingTestsImpl(_mainWindow,getStreams(),getFileCoreStream()),
                 _mainWindow.getInfos());
         running = r_;
-        AbstractThread th_ = getThreadFactory().newThread(r_);
-        th = th_;
-        th_.start();
+        th = exec.submit(r_);
     }
 
     @Override
@@ -246,14 +246,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
                 buildSystem(validator_), new DefaultReporter(getFactory().getProgramInfos(),validator_, uniformingString, memory.isSelected(),new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory());
     }
 
-    @Override
-    public boolean ok(String _file) {
-        return th == null || !th.isAlive();
-    }
+//    @Override
+//    public boolean ok(String _file) {
+//        return th == null || !th.isAlive();
+//    }
 
-    public AbstractThread getTh() {
-        return th;
-    }
+//    public AbstractThread getTh() {
+//        return th;
+//    }
 
     public void logErr() {
         errorsScroll.setVisible(!errorsScroll.isVisible());

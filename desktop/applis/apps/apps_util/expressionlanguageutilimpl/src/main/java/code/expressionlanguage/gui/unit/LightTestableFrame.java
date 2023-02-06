@@ -22,10 +22,10 @@ public final class LightTestableFrame extends AbsTestableFrame {
         return inputFiles;
     }
 
-    @Override
-    public boolean ok(String _file) {
-        return true;
-    }
+//    @Override
+//    public boolean ok(String _file) {
+//        return true;
+//    }
 
     @Override
     public String getTxtConf() {

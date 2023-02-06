@@ -101,7 +101,7 @@ public final class RunTest extends EquallableElUtImplUtil {
         t_.setRowCount(2);
         ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), t_, compo_.newTextArea(), compo_.newAbsProgressBar());
         AbsTestableFrame fr_ = new LightTestableFrame(pr_, null, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(), mem_, bar_);
-        fr_.ok("");
+//        fr_.ok("");
         fr_.getTxtConf();
         MemoryProgressingTests progTest_ = new MemoryProgressingTests(fr_);
         RunningTest running_ = RunningTest.newFromContent(Constants.getAvailableLanguages(), "", progTest_, fr_.getInfos());

@@ -9,7 +9,7 @@ import code.gui.CdmFactory;
 import code.threads.AbstractThreadFactory;
 
 public interface TestableFrame {
-    boolean ok(String _file);
+//    boolean ok(String _file);
     CdmFactory getFactory();
     String getTxtConf();
     void showProgress(ContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved);
