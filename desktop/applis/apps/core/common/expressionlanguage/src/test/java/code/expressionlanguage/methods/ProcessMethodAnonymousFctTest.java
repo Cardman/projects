@@ -5766,6 +5766,67 @@ public final class ProcessMethodAnonymousFctTest extends ProcessMethodCommon {
         assertEq(1, getNumber(ret_));
     }
     @Test
+    public void calculate214() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Fct<int,int>[] arr = new[2];\n");
+        xml_.append("  int[] args = {1,2};\n");
+        xml_.append("  for (that int i:args){\n");
+        xml_.append("   arr[([i])]=(int a:int)->{return i * a;};\n");
+        xml_.append("  }\n");
+        xml_.append("  var sum = 0;\n");
+        xml_.append("  for (var f: arr){\n");
+        xml_.append("   sum += m(f,3);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(9, getNumber(ret_));
+    }
+    @Test
+    public void calculate215() {
+        StringMap<String> files_ = new StringMap<String>();
+        StringBuilder xml_;
+        xml_ = new StringBuilder();
+        xml_.append("class pkg.Ext {\n");
+        xml_.append(" static int m(){\n");
+        xml_.append("  Fct<int,int>[] arr = new[2];\n");
+        xml_.append("  int[] args = {1,2};\n");
+        xml_.append("  for (that int i:args){\n");
+        xml_.append("   arr[([i])]=(int a:int)->{return i * a;};\n");
+        xml_.append("   i*=2;\n");
+        xml_.append("  }\n");
+        xml_.append("  var sum = 0;\n");
+        xml_.append("  for (var f: arr){\n");
+        xml_.append("   sum += m(f,3);\n");
+        xml_.append("  }\n");
+        xml_.append("  return sum;\n");
+        xml_.append(" }\n");
+        xml_.append(" static int m(Fct<int,int> fct,int a){\n");
+        xml_.append("  return fct.call(a);\n");
+        xml_.append(" }\n");
+        xml_.append("}\n");
+        files_.put("pkg/Ex", xml_.toString());
+        ContextEl cont_ = ctxLgOk("en", files_);
+        CustList<Argument> args_ = new CustList<Argument>();
+        MethodId id_ = getMethodId("m");
+        Argument ret_ = new Argument();
+        ret_ = calculateNormal("pkg.Ext", id_, args_, cont_);
+        assertEq(18, getNumber(ret_));
+    }
+    @Test
     public void fail() {
         StringMap<String> files_ = new StringMap<String>();
         StringBuilder xml_;
