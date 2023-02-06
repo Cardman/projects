@@ -1,5 +1,7 @@
 package code.mock;
 
+import code.gui.WithDialogs;
+import code.gui.events.SetterLanguage;
 import code.gui.images.AbstractImage;
 import code.gui.initialize.AbsFrameFactory;
 import code.stream.AbstractListRoot;
@@ -157,6 +159,18 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
         assertFalse(fr_.canChangeLanguage());
         fr_.quit();
         assertFalse(fr_.isOpened());
+    }
+    @Test
+    public void t10() {
+        WithDialogs m_ = new MockWithDialogs(init());
+        m_.getConfirmDialogText();
+        m_.getConfirmDialogAns();
+        m_.getFileOpenDialogInt();
+        m_.getFileSaveDialogInt();
+        m_.getFolderOpenDialogInt();
+        SetterLanguage fr_ = m_.getLanguageDialog();
+        fr_.init(null,null,null);
+        assertEq("",fr_.getLanguage());
     }
     private static MockFileSet fileSet(long _initMillis, long[] _incrs, String... _roots) {
         return new MockFileSet(_initMillis,_incrs,_roots);
