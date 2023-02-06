@@ -44,7 +44,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
-        languageDialog = new LanguageDialog(_list);
+        languageDialog = _list.getSetterLanguage();
     }
 
     public final void setByFirst(AbsGroupFrame _first) {

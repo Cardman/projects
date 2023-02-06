@@ -287,6 +287,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         pr_.getMessageDialogAbs().input((AbsDialog) null,"","","",0);
         pr_.getMessageDialogAbs().input((AbsCommonFrame) null,"","","",0);
         pr_.getMessageDialogAbs().input(null,(AbsCustComponent) null,"","",0);
+        pr_.getSetterLanguage().getLanguage();
         AbsFrameFactory frFact_ = pr_.getFrameFactory();
         AbsDialog base_ = frFact_.newDialog();
         AbsDialog adv_ = frFact_.newDialog(new MockCloseableDialog(base_));

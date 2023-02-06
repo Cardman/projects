@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import code.expressionlanguage.filenames.DefaultNameValidating;
 import code.gui.*;
+import code.gui.events.SetterLanguage;
 import code.gui.initialize.*;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
@@ -51,6 +52,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FileSaveDialogAbs fileSaveDialogInt;
+    private final SetterLanguage setterLanguage;
 
     protected ProgramInfos(AbstractGraphicStringListGenerator _graphicStringListGenerator, AbstractGraphicComboBoxGenerator _graphicComboBoxGenerator) {
         super(StringUtil.replaceBackSlashDot(System.getProperty(USER_HOME)),StringUtil.concat(initialize(),SEPARATEUR),new AdvancedGenerator(),_graphicStringListGenerator,_graphicComboBoxGenerator,
@@ -72,6 +74,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fileOpenDialogInt = new DefFileOpenDialogAbs(this);
         fileSaveDialogInt = new DefFileSaveDialogAbs(this);
         setLanguages(Constants.getAvailableLanguages());
+        setterLanguage = new LanguageDialog(this);
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
 
@@ -249,5 +252,10 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
     @Override
     public MessageDialogAbs getMessageDialogAbs() {
         return messageDialogAbs;
+    }
+
+    @Override
+    public SetterLanguage getSetterLanguage() {
+        return setterLanguage;
     }
 }

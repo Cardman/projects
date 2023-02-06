@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.gui.*;
+import code.gui.events.SetterLanguage;
 import code.gui.initialize.*;
 import code.maths.montecarlo.*;
 import code.stream.AbsClipStream;
@@ -19,6 +20,7 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     private final MessageDialogAbs messageDialogAbs = new MockMessageDialogAbs();
     private final MockConfirmDialogTextAbs mockConfirmDialogTextAbs;
     private final MockConfirmDialogAnsAbs mockConfirmDialogAnsAbs;
+    private final MockSetterLanguage mockSetterLanguage = new MockSetterLanguage();
     private int screenWidth;
     private int screenHeight;
 
@@ -209,5 +211,10 @@ public abstract class MockAbsProgramInfos extends ProgramInfosBase implements Ab
     @Override
     public MessageDialogAbs getMessageDialogAbs() {
         return messageDialogAbs;
+    }
+
+    @Override
+    public SetterLanguage getSetterLanguage() {
+        return mockSetterLanguage;
     }
 }

@@ -1,6 +1,7 @@
 package code.gui.initialize;
 
 import code.gui.*;
+import code.gui.events.SetterLanguage;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
@@ -31,6 +32,7 @@ public interface AbstractProgramInfos extends AbstractLightProgramInfos {
     FileOpenDialogAbs getFileOpenDialogInt();
 
     FileSaveDialogAbs getFileSaveDialogInt();
+    SetterLanguage getSetterLanguage();
 
     FolderOpenDialogAbs getFolderOpenDialogInt();
     MessageDialogAbs getMessageDialogAbs();
