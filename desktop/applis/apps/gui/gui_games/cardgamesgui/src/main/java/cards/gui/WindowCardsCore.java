@@ -187,7 +187,7 @@ public final class WindowCardsCore {
             GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, _inst.getCommonFrame());
             return;
         }
-        LanguageDialog.setLanguageDialog(_inst, _inst.getMessages().getVal(CST_LANGUAGE));
+        LanguageDialog.setLanguageDialog(_inst,_inst, _inst.getMessages().getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(_inst.getLanguageDialog());
         LanguageDialog.changeLanguage(langue_,_inst.getFrames(),LaunchingCards.getTempFolder(_inst.getFrames()));
     }

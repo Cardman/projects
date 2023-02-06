@@ -930,7 +930,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
             GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
             return;
         }
-        LanguageDialog.setLanguageDialog(this, messages.getVal(CST_LANGUAGE));
+        LanguageDialog.setLanguageDialog(this,this, messages.getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
         LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingPokemon.getTempFolder(getFrames()));
     }

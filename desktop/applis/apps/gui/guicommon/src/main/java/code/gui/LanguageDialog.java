@@ -10,7 +10,6 @@ import code.util.consts.Constants;
 
 public final class LanguageDialog implements SetterLanguage {
 
-    private static final String NO_TITLE = " ";
     private final AbsDialog absDialog;
 
     private final CustButtonGroup groupe = new CustButtonGroup();
@@ -28,16 +27,8 @@ public final class LanguageDialog implements SetterLanguage {
 
     }
 
-    public static void setLanguageDialog(GroupFrame _owner) {
-        initWithoutTitle(_owner);
-    }
-
-    private static void initWithoutTitle(GroupFrame _owner) {
-        setLanguageDialog(_owner, NO_TITLE);
-    }
-
-    public static void setLanguageDialog(GroupFrame _owner, String _title) {
-        _owner.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getFrames(), _title);
+    public static void setLanguageDialog(AbsGroupFrame _owner,WithDialogs _w, String _title) {
+        _w.getLanguageDialog().init(_owner.getCommonFrame(),_owner.getCommonFrame().getFrames(), _title);
     }
 
     public void init(AbsCommonFrame _owner,AbstractProgramInfos _pr, String _title) {
