@@ -15,6 +15,15 @@ public final class TextPane extends CustComponent implements AbsTextPane {
     private final JTextPane pane = new JTextPane();
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
     public TextPane() {
+        Color bg_ = Color.BLACK;
+        UIDefaults defs_ = new UIDefaults();
+        defs_.put("EditorPane[Enabled].backgroundPainter", bg_);
+        pane.putClientProperty("Nimbus.Overrides", defs_);
+        pane.putClientProperty("Nimbus.Overrides.InheritDefaults", true);
+        pane.setBackground(bg_);
+        Color fg_ = Color.WHITE;
+        pane.setForeground(fg_);
+        pane.setCaretColor(fg_);
         pane.setFont(new Font(Font.MONOSPACED,Font.PLAIN,12));
         pane.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
     }
