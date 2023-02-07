@@ -1,6 +1,9 @@
 package code.mock;
 
 import code.gui.*;
+import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
+import code.gui.events.AbsEnabledAction;
 import code.gui.images.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
@@ -281,5 +284,20 @@ public final class MockCompoFactory implements AbsCompoFactory {
     @Override
     public int stringWidth(MetaFont _font, String _string) {
         return MockCustComponent.strWidth(_font, _string);
+    }
+
+    @Override
+    public AbsEnabledAction wrap(AbsAdvActionListener _actionListener) {
+        return new MockAdvAbstractAction(_actionListener);
+    }
+
+    @Override
+    public AbsEnabledAction wrap(AbsActionListener _actionListener) {
+        return new MockAbstractAction(_actionListener);
+    }
+
+    @Override
+    public AbsTextPane newTextPane() {
+        return new MockTextPane();
     }
 }

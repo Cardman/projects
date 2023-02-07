@@ -1,10 +1,16 @@
 package code.vi.prot.impl;
 
 import code.gui.*;
+import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
+import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
 import code.vi.prot.impl.gui.*;
+import code.vi.prot.impl.gui.events.WrAbstractAction;
+import code.vi.prot.impl.gui.events.WrActionListener;
+import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 
@@ -273,5 +279,20 @@ public final class DefCompoFactory implements AbsCompoFactory {
     @Override
     public int stringWidth(MetaFont _font, String _string) {
         return label.stringWidth(_font, _string);
+    }
+
+    @Override
+    public AbsEnabledAction wrap(AbsAdvActionListener _actionListener) {
+        return new WrAbstractAction(new WrAdvActionListener(_actionListener));
+    }
+
+    @Override
+    public AbsEnabledAction wrap(AbsActionListener _actionListener) {
+        return new WrAbstractAction(new WrActionListener(_actionListener));
+    }
+
+    @Override
+    public AbsTextPane newTextPane() {
+        return new TextPane();
     }
 }

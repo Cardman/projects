@@ -1,6 +1,9 @@
 package code.gui.initialize;
 
 import code.gui.*;
+import code.gui.events.AbsActionListener;
+import code.gui.events.AbsAdvActionListener;
+import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 
@@ -74,4 +77,7 @@ public interface AbsCompoFactory {
 
     AbsMenuItem newMenuItem(String _value);
     int stringWidth(MetaFont _font, String _string);
+    AbsEnabledAction wrap(AbsAdvActionListener _actionListener);
+    AbsEnabledAction wrap(AbsActionListener _actionListener);
+    AbsTextPane newTextPane();
 }
