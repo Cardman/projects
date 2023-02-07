@@ -165,7 +165,7 @@ public final class GuiBaseUtil {
     }
 
     public static void tryExit(AbsCommonFrame _comm) {
-        if(!_comm.getFrames().getFrames().first().isOpened()) {
+        if(!_comm.getFrames().getFrames().first().getCommonFrame().isVisible()) {
             removeAllListeners(_comm);
         }
     }
@@ -180,10 +180,7 @@ public final class GuiBaseUtil {
         _list.getFrames().add(_this);
         AbsGroupFrame first_ = _list.getFrames().first();
         if (_list.getFrames().size() == 1) {
-            _this.init(_list);
             first_.setMessages(group(_lg, _res));
-        } else {
-            _this.setByFirst(first_);
         }
     }
 

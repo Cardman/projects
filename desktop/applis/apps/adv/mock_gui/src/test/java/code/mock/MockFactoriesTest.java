@@ -124,19 +124,19 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     public void t5() {
         MockSampleFrame fr_ = new MockSampleFrame(init());
         fr_.getCommonFrame().setVisible(false);
-        assertFalse(fr_.isOpened());
+        assertFalse(fr_.getCommonFrame().isVisible());
     }
     @Test
     public void t6() {
         MockSampleFrame fr_ = new MockSampleFrame(init());
         fr_.getCommonFrame().setVisible(true);
-        assertTrue(fr_.isOpened());
+        assertTrue(fr_.getCommonFrame().isVisible());
     }
     @Test
     public void t7() {
         MockSampleFrame fr_ = new MockSampleFrame(init());
         fr_.dispatchExit();
-        assertFalse(fr_.isOpened());
+        assertFalse(fr_.getCommonFrame().isVisible());
     }
     @Test
     public void t8() {
@@ -158,7 +158,7 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
         fr_.setChangeable(false);
         assertFalse(fr_.canChangeLanguage());
         fr_.quit();
-        assertFalse(fr_.isOpened());
+        assertFalse(fr_.getCommonFrame().isVisible());
     }
     @Test
     public void t10() {

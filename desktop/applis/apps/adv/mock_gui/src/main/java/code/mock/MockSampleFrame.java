@@ -29,11 +29,6 @@ public final class MockSampleFrame implements AbsGroupFrame {
     }
 
     @Override
-    public boolean isOpened() {
-        return frame.isVisible();
-    }
-
-    @Override
     public StringMap<String> getMessages() {
         return messages;
     }
@@ -53,12 +48,10 @@ public final class MockSampleFrame implements AbsGroupFrame {
         frame.dispatchExit();
     }
 
-    @Override
     public void init(AbstractProgramInfos _list) {
         _list.getCompoFactory();
     }
 
-    @Override
     public void setByFirst(AbsGroupFrame _first) {
         messages = _first.getMessages();
     }

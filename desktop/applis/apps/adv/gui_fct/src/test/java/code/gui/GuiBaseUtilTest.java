@@ -209,4 +209,10 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.choose("",pr_,fr_,m_);
         assertFalse(GuiBaseUtil.canChangeLanguageAll(pr_));
     }
+    @Test
+    public void eventQuit() {
+        MockSampleFrame m_ = new MockSampleFrame(init());
+        new QuittingEvent(m_).windowClosing();
+        assertFalse(m_.getCommonFrame().isVisible());
+    }
 }

@@ -22,23 +22,16 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
     private final AbsCommonFrame commonFrame;
     private StringMap<String> messages;
 
-    private SetterLanguage languageDialog;
-    private ConfirmDialogTextAbs confirmDialogText;
-    private ConfirmDialogAnsAbs confirmDialogAns;
-    private FolderOpenDialogAbs folderOpenDialogInt;
-    private FileOpenDialogAbs fileOpenDialogInt;
-    private FileSaveDialogAbs fileSaveDialogInt;
+    private final SetterLanguage languageDialog;
+    private final ConfirmDialogTextAbs confirmDialogText;
+    private final ConfirmDialogAnsAbs confirmDialogAns;
+    private final FolderOpenDialogAbs folderOpenDialogInt;
+    private final FileOpenDialogAbs fileOpenDialogInt;
+    private final FileSaveDialogAbs fileSaveDialogInt;
 
     protected GroupFrame(String _lg, AbstractProgramInfos _list) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         choose(_lg, _list);
-    }
-
-    private void choose(String _lg, AbstractProgramInfos _list) {
-        GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
-    }
-
-    public final void init(AbstractProgramInfos _list) {
         confirmDialogText = _list.getConfirmDialogText();
         confirmDialogAns = _list.getConfirmDialogAns();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
@@ -47,13 +40,8 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         languageDialog = _list.getSetterLanguage();
     }
 
-    public final void setByFirst(AbsGroupFrame _first) {
-        confirmDialogText = ((WithDialogs)_first).getConfirmDialogText();
-        confirmDialogAns = ((WithDialogs)_first).getConfirmDialogAns();
-        folderOpenDialogInt = ((WithDialogs)_first).getFolderOpenDialogInt();
-        fileOpenDialogInt = ((WithDialogs)_first).getFileOpenDialogInt();
-        fileSaveDialogInt = ((WithDialogs)_first).getFileSaveDialogInt();
-        languageDialog = ((WithDialogs)_first).getLanguageDialog();
+    private void choose(String _lg, AbstractProgramInfos _list) {
+        GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
     }
 
     public void setImageIconFrame(AbstractImage _imageIconFrame) {
@@ -256,10 +244,6 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
 
     public void nativeExit() {
         GuiBaseUtil.removeAllListeners(getCommonFrame());
-    }
-
-    public boolean isOpened() {
-        return commonFrame.isVisible();
     }
 
     //@Override
