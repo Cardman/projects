@@ -76,6 +76,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public void quit() {
         commonFrame.setVisible(false);
         ides.removeObj(this);
+        GuiBaseUtil.tryExit(commonFrame);
     }
 
     @Override
