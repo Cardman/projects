@@ -7,6 +7,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 public final class TabEditor {
+    private final WindowCdmEditor windowEditor;
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
     private final AbsTextField finder;
@@ -15,12 +16,15 @@ public final class TabEditor {
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
     private final AbsCommonFrame commonFrame;
+    private final AbsPlainLabel label;
     private int currentPart = -1;
 
     public TabEditor(WindowCdmEditor _editor) {
+        windowEditor = _editor;
         commonFrame = _editor.getCommonFrame();
         AbstractProgramInfos frames_ = commonFrame.getFrames();
         factories = frames_;
+        label = frames_.getCompoFactory().newPlainLabel(":");
         center = frames_.getCompoFactory().newTextPane();
         center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         center.setBackground(GuiConstants.BLACK);
@@ -33,14 +37,23 @@ public final class TabEditor {
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
         finderPanel = frames_.getCompoFactory().newLineBox();
         finderPanel.setVisible(false);
-        finder.addAutoComplete(new FinderTextChange(_editor));
+        finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
         closeFinder.addActionListener(new ClosePanelAction(finderPanel,center));
         finderPanel.add(closeFinder);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
+        panel.add(label);
         panel.add(finderPanel);
+    }
+
+    public WindowCdmEditor getWindowEditor() {
+        return windowEditor;
+    }
+
+    public AbsPlainLabel getLabel() {
+        return label;
     }
 
     public AbsCommonFrame getCommonFrame() {

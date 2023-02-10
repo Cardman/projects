@@ -28,7 +28,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         WindowCdmEditor w_ =window(pr_);
-        assertEq(1, GuiBaseUtil.getActions(w_.getTabEditor().getCenter()).size());
+        assertEq(1, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
     }
     @Test
     public void init4() {
@@ -36,7 +36,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         WindowCdmEditor w_ =window(pr_);
         assertEq(2,((MockPanel)w_.getPanel()).getAccessible().size());
         assertEq(2,w_.getPanel().getComponentCount());
-        assertFalse(((MockCustComponent)w_.getTabEditor().getFinderPanel()).isAccessible());
+        assertFalse(((MockCustComponent)tabEditor(w_).getFinderPanel()).isAccessible());
     }
     @Test
     public void quit1() {

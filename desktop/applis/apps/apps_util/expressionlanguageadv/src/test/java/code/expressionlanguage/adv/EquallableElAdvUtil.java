@@ -63,4 +63,9 @@ public abstract class EquallableElAdvUtil {
     public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);
     }
+
+    protected static TabEditor tabEditor(WindowCdmEditor _w) {
+        return _w.getTabEditor();
+    }
+
 }
