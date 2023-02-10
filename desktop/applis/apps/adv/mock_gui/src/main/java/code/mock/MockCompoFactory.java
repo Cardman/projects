@@ -300,4 +300,9 @@ public final class MockCompoFactory implements AbsCompoFactory {
     public AbsTextPane newTextPane() {
         return new MockTextPane();
     }
+
+    @Override
+    public AbsAttrSet newAttrSet() {
+        return new MockAttrSet();
+    }
 }

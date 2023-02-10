@@ -295,4 +295,9 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsTextPane newTextPane() {
         return new TextPane();
     }
+
+    @Override
+    public AbsAttrSet newAttrSet() {
+        return new DefAttrSet();
+    }
 }

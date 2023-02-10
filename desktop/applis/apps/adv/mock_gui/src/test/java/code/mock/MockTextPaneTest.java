@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.gui.AbsAttrSet;
 import org.junit.Test;
 
 public final class MockTextPaneTest extends EquallableMockGuiUtil {
@@ -42,5 +43,29 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
         t_.setCaretColor(2);
         assertEq(2,t_.getCaretColor());
+    }
+    @Test
+    public void f7() {
+        MockProgramInfosSample i_ = init();
+        MockTextPane t_ = (MockTextPane) i_.getCompoFactory().newTextPane();
+        AbsAttrSet a_ = i_.getCompoFactory().newAttrSet();
+        a_.addFontSize(2);
+        a_.addBackground(3);
+        a_.addForeground(4);
+        t_.setCharacterAttributes(0,-1,a_,true);
+        t_.setCharacterAttributes(0,1,a_,false);
+        t_.setCharacterAttributes(0,2,a_,true);
+        t_.setCharacterAttributes(1,2,a_,false);
+        assertEq(1,t_.getAttrSets().getVal("0").size());
+        assertEq(2,t_.getAttrSets().getVal("1").size());
+        assertEq(2,((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getFontSize());
+        assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getBack());
+        assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("0").get(0)).getFore());
+        assertEq(2,((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getFontSize());
+        assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getBack());
+        assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("1").get(0)).getFore());
+        assertEq(2,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getFontSize());
+        assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getBack());
+        assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getFore());
     }
 }

@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.images.MetaDimension;
+import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.util.IdList;
@@ -20,6 +21,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         spinner = _list.getCompoFactory().newSpinner(4,1,64,1);
         center = _list.getCompoFactory().newTextPane();
+        center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
+        center.setBackground(GuiConstants.BLACK);
+        center.setForeground(GuiConstants.WHITE);
+        center.setCaretColor(GuiConstants.WHITE);
         AbsScrollPane sc_ = _list.getCompoFactory().newAbsScrollPane(center);
         sc_.setPreferredSize(new MetaDimension(512,512));
         panel = _list.getCompoFactory().newPageBox();
