@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AbsCommonFrame;
 import code.gui.events.AbsAutoCompleteListener;
 
 public final class FinderTextChange implements AbsAutoCompleteListener {
@@ -25,8 +24,6 @@ public final class FinderTextChange implements AbsAutoCompleteListener {
     }
 
     private void update() {
-        AbsCommonFrame frame_ = current.getCommonFrame();
-        FindAction.updateEditor(current.getTabEditor());
-        frame_.pack();
+        current.getTabEditor().getFactories().getCompoFactory().invokeLater(new UpdatingEditor(current.getTabEditor()));
     }
 }

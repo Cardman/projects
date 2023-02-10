@@ -1,6 +1,8 @@
 package code.gui;
 
+import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
+import code.util.CustList;
 
 public interface AbsTxtComponent extends AbsCustComponent{
 
@@ -38,4 +40,7 @@ public interface AbsTxtComponent extends AbsCustComponent{
     void setEnabled(boolean _enabled);
     boolean isEnabled();
     int viewToModel(MetaPoint _point);
+    void addCaretListener(AbsCaretListener _listener);
+    void removeCaretListener(AbsCaretListener _listener);
+    CustList<AbsCaretListener> getCaretListeners();
 }

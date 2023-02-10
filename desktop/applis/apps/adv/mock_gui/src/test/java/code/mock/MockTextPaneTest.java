@@ -83,4 +83,27 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         assertEq(0,t_.getAttrSets().getVal("0").size());
         assertEq(0,t_.getAttrSets().getVal("1").size());
     }
+    @Test
+    public void f9() {
+        MockProgramInfosSample i_ = init();
+        MockTextPane t_ = (MockTextPane) i_.getCompoFactory().newTextPane();
+        MockAdvCaret l_ = new MockAdvCaret();
+        t_.addCaretListener(l_);
+        t_.getCaretListeners().get(0).caretUpdate(1,2);
+        assertEq(1,l_.getBegin());
+        assertEq(2,l_.getEnd());
+        t_.removeCaretListener(l_);
+        assertEq(0,t_.getCaretListeners().size());
+    }
+    @Test
+    public void f10() {
+        MockProgramInfosSample i_ = init();
+        MockTextPane t_ = (MockTextPane) i_.getCompoFactory().newTextPane();
+        MockAdvCaret l_ = new MockAdvCaret();
+        t_.addCaretListener(l_);
+        t_.setText("_");
+        t_.select(0,1);
+        assertEq(0,l_.getBegin());
+        assertEq(1,l_.getEnd());
+    }
 }

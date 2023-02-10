@@ -1,7 +1,10 @@
 package code.mock;
 
 import code.gui.AbsTxtComponent;
+import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
+import code.util.CustList;
+import code.util.IdList;
 import code.util.core.NumberUtil;
 
 public abstract class MockTxtComponent extends MockInput implements AbsTxtComponent {
@@ -12,6 +15,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     private int caretColor;
     private int selectionColor;
     private int selectedTextColor;
+    private final IdList<AbsCaretListener> listeners = new IdList<AbsCaretListener>();
 
     @Override
     public int getCaretPosition() {
@@ -26,6 +30,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public void setCaretPosition(int _position) {
         selectionStart = _position;
+        caretUpdate();
     }
 
     @Override
@@ -36,6 +41,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public void moveCaretPosition(int _pos) {
         selectionEnd = _pos;
+        caretUpdate();
     }
 
     public void insert(String _s, int _i) {
@@ -95,14 +101,21 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         selected = builder.substring(selectionStart_, selectionEnd_);
         selectionStart = selectionStart_;
         selectionEnd = selectionEnd_;
+        caretUpdate();
     }
 
     public void selectAll() {
         selectionStart = 0;
         selectionEnd = builder.length();
         selected = getText();
+        caretUpdate();
     }
 
+    private void caretUpdate() {
+        for (AbsCaretListener a: listeners) {
+            a.caretUpdate(selectionStart,selectionEnd);
+        }
+    }
     public int getCaretColor() {
         return caretColor;
     }
@@ -133,5 +146,20 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
     public StringBuilder getBuilder() {
         return builder;
+    }
+
+    @Override
+    public void addCaretListener(AbsCaretListener _listener) {
+        listeners.add(_listener);
+    }
+
+    @Override
+    public void removeCaretListener(AbsCaretListener _listener) {
+        listeners.removeObj(_listener);
+    }
+
+    @Override
+    public CustList<AbsCaretListener> getCaretListeners() {
+        return listeners;
     }
 }

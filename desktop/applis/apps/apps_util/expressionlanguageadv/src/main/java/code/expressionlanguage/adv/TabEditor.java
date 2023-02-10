@@ -14,16 +14,19 @@ public final class TabEditor {
     private final AbsPanel finderPanel;
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
+    private final AbsCommonFrame commonFrame;
     private int currentPart = -1;
 
     public TabEditor(WindowCdmEditor _editor) {
-        AbstractProgramInfos frames_ = _editor.getCommonFrame().getFrames();
+        commonFrame = _editor.getCommonFrame();
+        AbstractProgramInfos frames_ = commonFrame.getFrames();
         factories = frames_;
         center = frames_.getCompoFactory().newTextPane();
         center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         center.setBackground(GuiConstants.BLACK);
         center.setForeground(GuiConstants.WHITE);
         center.setCaretColor(GuiConstants.WHITE);
+        center.addCaretListener(new EditorCaretListener(this));
         AbsScrollPane sc_ = frames_.getCompoFactory().newAbsScrollPane(center);
         sc_.setPreferredSize(new MetaDimension(512,512));
         finder = frames_.getCompoFactory().newTextField();
@@ -38,6 +41,10 @@ public final class TabEditor {
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(finderPanel);
+    }
+
+    public AbsCommonFrame getCommonFrame() {
+        return commonFrame;
     }
 
     public AbstractProgramInfos getFactories() {

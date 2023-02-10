@@ -1,14 +1,18 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTxtComponent;
+import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
+import code.util.CustList;
+import code.util.IdMap;
 import code.vi.prot.impl.DefImage;
+import code.vi.prot.impl.gui.events.WrCaretListener;
 
 import javax.swing.text.JTextComponent;
 import java.awt.*;
 
 public abstract class TxtComponent extends CustComponent implements AbsTxtComponent {
-
+    private final IdMap<AbsCaretListener, WrCaretListener> mapCaret = new IdMap<AbsCaretListener, WrCaretListener>();
     public void moveCaretPosition(int _pos) {
         getTextComponent().moveCaretPosition(_pos);
     }
@@ -90,5 +94,25 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     public int viewToModel(MetaPoint _point) {
         return getTextComponent().viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
     }
+
+    @Override
+    public void addCaretListener(AbsCaretListener _listener) {
+        WrCaretListener wr_ = new WrCaretListener(_listener);
+        getTextComponent().addCaretListener(wr_);
+        mapCaret.addEntry(_listener,wr_);
+    }
+
+    @Override
+    public void removeCaretListener(AbsCaretListener _listener) {
+        WrCaretListener wr_ = mapCaret.getVal(_listener);
+        getTextComponent().removeCaretListener(wr_);
+        mapCaret.removeKey(_listener);
+    }
+
+    @Override
+    public CustList<AbsCaretListener> getCaretListeners() {
+        return mapCaret.getKeys();
+    }
+
     public abstract JTextComponent getTextComponent();
 }
