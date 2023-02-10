@@ -29,6 +29,22 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
     }
 
     @Override
+    public void clearCharacterAttributes(int _begin, int _length) {
+        if (_length <= 0) {
+            return;
+        }
+        int until_ = _begin + _length;
+        for (int i = _begin; i < until_; i++) {
+            String k_ = Long.toString(i);
+            if (attrSets.contains(k_)) {
+                attrSets.getVal(k_).clear();
+            } else {
+                attrSets.addEntry(k_,new CustList<AbsAttrSet>());
+            }
+        }
+    }
+
+    @Override
     public void setCharacterAttributes(int _begin, int _length, AbsAttrSet _attrs, boolean _replace) {
         if (_length <= 0) {
             return;

@@ -14,7 +14,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private StringMap<String> messages;
     private final AbsCommonFrame commonFrame;
     private final AbsSpinner spinner;
+    private final AbsTextField finder;
+    private final AbsPlainButton closeFinder;
     private final AbsPanel panel;
+    private final AbsPanel finderPanel;
     private final IdList<WindowCdmEditor> ides;
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, IdList<WindowCdmEditor> _opened) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
@@ -27,9 +30,18 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         center.setCaretColor(GuiConstants.WHITE);
         AbsScrollPane sc_ = _list.getCompoFactory().newAbsScrollPane(center);
         sc_.setPreferredSize(new MetaDimension(512,512));
+        finder = _list.getCompoFactory().newTextField();
+        closeFinder = _list.getCompoFactory().newPlainButton("x");
+        finderPanel = _list.getCompoFactory().newLineBox();
+        finderPanel.setVisible(false);
+        finderPanel.add(finder);
+        closeFinder.addActionListener(new ClosePanelAction(finderPanel,center));
+        finderPanel.add(closeFinder);
+        center.registerKeyboardAction(_list.getCompoFactory().wrap(new FindAction(this)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
         panel = _list.getCompoFactory().newPageBox();
         panel.add(spinner);
         panel.add(sc_);
+        panel.add(finderPanel);
         commonFrame.setContentPane(panel);
         commonFrame.pack();
         commonFrame.setVisible(true);
@@ -49,6 +61,18 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public AbsTextPane getCenter() {
         return center;
+    }
+
+    public AbsPanel getFinderPanel() {
+        return finderPanel;
+    }
+
+    public AbsTextField getFinder() {
+        return finder;
+    }
+
+    public AbsPlainButton getCloseFinder() {
+        return closeFinder;
     }
 
     public AbsPanel getPanel() {

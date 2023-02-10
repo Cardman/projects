@@ -27,6 +27,11 @@ public final class TextPane extends TxtComponent implements AbsTextPane {
     }
 
     @Override
+    public void clearCharacterAttributes(int _begin, int _length) {
+        setCharacterAttributes(_begin,_length,new DefAttrSet(),true);
+    }
+
+    @Override
     public void setCharacterAttributes(int _begin, int _length, AbsAttrSet _attrs, boolean _replace) {
         pane.getStyledDocument().setCharacterAttributes(_begin,_length,((DefAttrSet)_attrs).getAttributes(),_replace);
     }

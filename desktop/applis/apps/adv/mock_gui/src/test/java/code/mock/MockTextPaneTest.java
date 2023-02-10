@@ -68,4 +68,19 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         assertEq(3,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getBack());
         assertEq(4,((MockAttrSet)t_.getAttrSets().getVal("1").get(1)).getFore());
     }
+    @Test
+    public void f8() {
+        MockProgramInfosSample i_ = init();
+        MockTextPane t_ = (MockTextPane) i_.getCompoFactory().newTextPane();
+        AbsAttrSet a_ = i_.getCompoFactory().newAttrSet();
+        a_.addFontSize(2);
+        a_.addBackground(3);
+        a_.addForeground(4);
+        t_.setCharacterAttributes(0,-1,a_,true);
+        t_.setCharacterAttributes(0,1,a_,false);
+        t_.clearCharacterAttributes(0,-1);
+        t_.clearCharacterAttributes(0,2);
+        assertEq(0,t_.getAttrSets().getVal("0").size());
+        assertEq(0,t_.getAttrSets().getVal("1").size());
+    }
 }
