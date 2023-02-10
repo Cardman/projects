@@ -37,6 +37,11 @@ public final class TextPane extends TxtComponent implements AbsTextPane {
     }
 
     @Override
+    public void setParagraphAttributes(AbsAttrSet _attrs) {
+        pane.getStyledDocument().setParagraphAttributes(0, pane.getDocument().getLength(), ((DefAttrSet)_attrs).getAttributes(), false);
+    }
+
+    @Override
     public StringMap<AbsEnabledAction> getActionsMap() {
         return actions;
     }

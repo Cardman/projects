@@ -110,12 +110,14 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
     @Test
     public void f11() {
         MockProgramInfosSample i_ = init();
+        MockTextPane t_ = (MockTextPane) i_.getCompoFactory().newTextPane();
         AbsAttrSet a_ = i_.getCompoFactory().newAttrSet();
         AbsTabStops ts_ = i_.getCompoFactory().newAbsTabStops(1);
         ts_.setTab(0,i_.getCompoFactory().newAbsTabStop(2));
         assertEq(2,ts_.getTab(0).getValue());
         assertEq(1,ts_.getLength());
         a_.addTabs(ts_);
-        assertEq(1,((MockAttrSet)a_).getTabs().getLength());
+        t_.setParagraphAttributes(a_);
+        assertEq(1,((MockAttrSet)t_.getParagraph()).getTabs().getLength());
     }
 }

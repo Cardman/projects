@@ -10,6 +10,7 @@ import code.util.StringMap;
 public final class MockTextPane extends MockTxtComponent implements AbsTextPane {
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
     private final StringMap<CustList<AbsAttrSet>> attrSets = new StringMap<CustList<AbsAttrSet>>();
+    private AbsAttrSet paragraph = new MockAttrSet();
 
 
     @Override
@@ -26,6 +27,15 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
     public void setFontSize(int _size) {
         MetaFont m_ = getMetaFont();
         setFont(new MetaFont(m_.getFontFamily(),m_.getFont(),_size));
+    }
+
+    public AbsAttrSet getParagraph() {
+        return paragraph;
+    }
+
+    @Override
+    public void setParagraphAttributes(AbsAttrSet _attrs) {
+        paragraph = _attrs;
     }
 
     @Override
