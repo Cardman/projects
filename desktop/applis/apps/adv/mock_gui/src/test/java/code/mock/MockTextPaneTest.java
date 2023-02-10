@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.gui.AbsAttrSet;
+import code.gui.AbsTabStops;
 import org.junit.Test;
 
 public final class MockTextPaneTest extends EquallableMockGuiUtil {
@@ -105,5 +106,16 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         t_.select(0,1);
         assertEq(0,l_.getBegin());
         assertEq(1,l_.getEnd());
+    }
+    @Test
+    public void f11() {
+        MockProgramInfosSample i_ = init();
+        AbsAttrSet a_ = i_.getCompoFactory().newAttrSet();
+        AbsTabStops ts_ = i_.getCompoFactory().newAbsTabStops(1);
+        ts_.setTab(0,i_.getCompoFactory().newAbsTabStop(2));
+        assertEq(2,ts_.getTab(0).getValue());
+        assertEq(1,ts_.getLength());
+        a_.addTabs(ts_);
+        assertEq(1,((MockAttrSet)a_).getTabs().getLength());
     }
 }

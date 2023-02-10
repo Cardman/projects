@@ -81,4 +81,6 @@ public interface AbsCompoFactory {
     AbsEnabledAction wrap(AbsActionListener _actionListener);
     AbsTextPane newTextPane();
     AbsAttrSet newAttrSet();
+    AbsTabStop newAbsTabStop(int _v);
+    AbsTabStops newAbsTabStops(int _v);
 }

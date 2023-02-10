@@ -300,4 +300,14 @@ public final class DefCompoFactory implements AbsCompoFactory {
     public AbsAttrSet newAttrSet() {
         return new DefAttrSet();
     }
+
+    @Override
+    public AbsTabStop newAbsTabStop(int _v) {
+        return new DefTabStop(_v);
+    }
+
+    @Override
+    public AbsTabStops newAbsTabStops(int _v) {
+        return new DefTabStops(_v);
+    }
 }

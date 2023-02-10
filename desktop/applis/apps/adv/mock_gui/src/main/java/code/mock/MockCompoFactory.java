@@ -305,4 +305,14 @@ public final class MockCompoFactory implements AbsCompoFactory {
     public AbsAttrSet newAttrSet() {
         return new MockAttrSet();
     }
+
+    @Override
+    public AbsTabStop newAbsTabStop(int _v) {
+        return new MockTabStop(_v);
+    }
+
+    @Override
+    public AbsTabStops newAbsTabStops(int _v) {
+        return new MockTabStops(_v);
+    }
 }
