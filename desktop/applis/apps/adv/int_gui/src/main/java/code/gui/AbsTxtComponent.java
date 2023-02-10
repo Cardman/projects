@@ -5,6 +5,8 @@ import code.gui.images.MetaPoint;
 public interface AbsTxtComponent extends AbsCustComponent{
 
     void moveCaretPosition(int _pos);
+    int getSelectionStart();
+    int getSelectionEnd();
     int getCaretPosition();
     void setCaretPosition(int _position);
     void replaceSelection(String _content);

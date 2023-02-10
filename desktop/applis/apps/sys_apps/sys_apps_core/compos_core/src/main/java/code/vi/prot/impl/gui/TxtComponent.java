@@ -12,6 +12,12 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     public void moveCaretPosition(int _pos) {
         getTextComponent().moveCaretPosition(_pos);
     }
+    public int getSelectionStart() {
+        return getTextComponent().getSelectionStart();
+    }
+    public int getSelectionEnd() {
+        return getTextComponent().getSelectionEnd();
+    }
     public int getCaretPosition() {
         return getTextComponent().getCaretPosition();
     }

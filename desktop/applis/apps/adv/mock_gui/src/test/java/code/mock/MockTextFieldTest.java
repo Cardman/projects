@@ -9,7 +9,7 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         MockTextField t_ = new MockTextField();
         t_.addAutoComplete(new MockAutoCompleteListener(t_));
         t_.setText("length");
-        assertEq(6,t_.getCaretPosition());
+        assertEq(6,t_.getSelectionEnd());
         assertEq(1, t_.getAutoCompleteListeners().size());
     }
     @Test
@@ -18,7 +18,7 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         MockAutoCompleteListener l_ = new MockAutoCompleteListener(t_);
         t_.addAutoComplete(l_);
         l_.changedUpdate();
-        assertEq(6,t_.getCaretPosition());
+        assertEq(6,t_.getSelectionEnd());
     }
     @Test
     public void f3() {
@@ -26,7 +26,7 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         MockAutoCompleteListener l_ = new MockAutoCompleteListener(t_);
         t_.addAutoComplete(l_);
         l_.insertUpdate();
-        assertEq(6,t_.getCaretPosition());
+        assertEq(6,t_.getSelectionEnd());
     }
     @Test
     public void f4() {
@@ -34,7 +34,7 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         MockAutoCompleteListener l_ = new MockAutoCompleteListener(t_);
         t_.addAutoComplete(l_);
         l_.removeUpdate();
-        assertEq(6,t_.getCaretPosition());
+        assertEq(6,t_.getSelectionEnd());
     }
     @Test
     public void f5() {

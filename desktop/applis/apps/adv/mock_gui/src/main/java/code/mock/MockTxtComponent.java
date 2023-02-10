@@ -2,6 +2,7 @@ package code.mock;
 
 import code.gui.AbsTxtComponent;
 import code.gui.images.MetaPoint;
+import code.util.core.NumberUtil;
 
 public abstract class MockTxtComponent extends MockInput implements AbsTxtComponent {
     private final StringBuilder builder = new StringBuilder();
@@ -14,12 +15,22 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
 
     @Override
     public int getCaretPosition() {
-        return selectionStart;
+        return getSelectionStart();
+    }
+
+    @Override
+    public int getSelectionStart() {
+        return NumberUtil.min(selectionStart,selectionEnd);
     }
 
     @Override
     public void setCaretPosition(int _position) {
         selectionStart = _position;
+    }
+
+    @Override
+    public int getSelectionEnd() {
+        return NumberUtil.max(selectionStart,selectionEnd);
     }
 
     @Override
@@ -66,15 +77,24 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public void select(int _start, int _end) {
-        selectionStart = _start;
-        selectionEnd = _end;
-        if (_start < 0 || _end >= builder.length() || _end < _start) {
-            selected = "";
-            selectionStart = 0;
-            selectionEnd = 0;
-        } else {
-            selected = builder.substring(_start, _end);
+        int len_ = builder.length();
+        int selectionStart_ = _start;
+        int selectionEnd_ = _end;
+        if (selectionStart_ < 0) {
+            selectionStart_ = 0;
         }
+        if (selectionStart_ > len_) {
+            selectionStart_ = len_;
+        }
+        if (selectionEnd_ > len_) {
+            selectionEnd_ = len_;
+        }
+        if (selectionEnd_ < selectionStart_) {
+            selectionEnd_ = selectionStart_;
+        }
+        selected = builder.substring(selectionStart_, selectionEnd_);
+        selectionStart = selectionStart_;
+        selectionEnd = selectionEnd_;
     }
 
     public void selectAll() {

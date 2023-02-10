@@ -14,6 +14,7 @@ public final class TabEditor {
     private final AbsPanel finderPanel;
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
+    private int currentPart = -1;
 
     public TabEditor(WindowCdmEditor _editor) {
         AbstractProgramInfos frames_ = _editor.getCommonFrame().getFrames();
@@ -65,5 +66,13 @@ public final class TabEditor {
 
     public CustList<SegmentFindPart> getParts() {
         return parts;
+    }
+
+    public int getCurrentPart() {
+        return currentPart;
+    }
+
+    public void setCurrentPart(int _c) {
+        this.currentPart = _c;
     }
 }

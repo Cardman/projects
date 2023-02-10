@@ -17,14 +17,14 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         MockTextArea t_ = new MockTextArea();
         t_.append("hello");
         t_.select(1,7);
-        assertEq("",t_.getSelectedText());
+        assertEq("ello",t_.getSelectedText());
     }
     @Test
     public void t3() {
         MockTextArea t_ = new MockTextArea();
         t_.append("hello");
         t_.select(-1,7);
-        assertEq("",t_.getSelectedText());
+        assertEq("hello",t_.getSelectedText());
     }
     @Test
     public void t4() {
@@ -77,6 +77,15 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         MockTextArea t_ = new MockTextArea(16,16);
         t_.setCaretPosition(1);
         t_.moveCaretPosition(2);
+        assertEq(1, t_.getSelectionStart());
         assertEq(1, t_.getCaretPosition());
+        assertEq(2, t_.getSelectionEnd());
+    }
+    @Test
+    public void t10() {
+        MockTextArea t_ = new MockTextArea();
+        t_.append("hello");
+        t_.select(7,7);
+        assertEq("",t_.getSelectedText());
     }
 }
