@@ -196,4 +196,20 @@ public final class FindActionTest extends EquallableElAdvUtil {
         assertEq(2, w_.getTabEditor().getParts().get(0).getBegin());
         assertEq(4, w_.getTabEditor().getParts().get(0).getEnd());
     }
+    @Test
+    public void action12() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        w_.getTabEditor().getCenter().setText("hello");
+        ((MockAbstractAction)GuiBaseUtil.getAction(w_.getTabEditor().getCenter(), GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK)).action();
+        w_.getTabEditor().getFinder().setText("i");
+        assertEq("i",w_.getTabEditor().getFinder().getText());
+        assertEq(5,((MockTextPane)w_.getTabEditor().getCenter()).getAttrSets().size());
+        assertEq(0,((MockTextPane)w_.getTabEditor().getCenter()).getAttrSets().getValue(0).size());
+        assertEq(0,((MockTextPane)w_.getTabEditor().getCenter()).getAttrSets().getValue(1).size());
+        assertEq(0,((MockTextPane)w_.getTabEditor().getCenter()).getAttrSets().getValue(2).size());
+        assertEq(0,((MockTextPane)w_.getTabEditor().getCenter()).getAttrSets().getValue(3).size());
+        assertEq(0,((MockTextPane)w_.getTabEditor().getCenter()).getAttrSets().getValue(4).size());
+        assertEq(0, w_.getTabEditor().getParts().size());
+    }
 }
