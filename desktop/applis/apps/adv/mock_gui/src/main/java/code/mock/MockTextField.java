@@ -6,9 +6,7 @@ import code.gui.events.AbsAdvActionListener;
 import code.gui.events.AbsAutoCompleteListener;
 import code.util.CustList;
 
-public final class MockTextField extends MockInput implements AbsTextField {
-    private String text;
-    private int caretPosition;
+public final class MockTextField extends MockTxtComponent implements AbsTextField {
     private final CustList<AbsAutoCompleteListener> autoCompleteListeners = new CustList<AbsAutoCompleteListener>();
     private final CustList<AbsActionListener> absActionListeners = new CustList<AbsActionListener>();
     private final CustList<AbsAdvActionListener> absAdvActionListeners = new CustList<AbsAdvActionListener>();
@@ -17,27 +15,22 @@ public final class MockTextField extends MockInput implements AbsTextField {
         this("");
     }
     public MockTextField(String _t) {
-        text = _t;
+        setText(_t);
     }
     public MockTextField(int _cols) {
         this("");
         cols = _cols;
     }
     public MockTextField(String _t,int _cols) {
-        text = _t;
+        setText(_t);
         cols = _cols;
     }
     @Override
     public void setText(String _s) {
-        text = _s;
+        super.setText(_s);
         for (AbsAutoCompleteListener a: autoCompleteListeners) {
             a.changedUpdate();
         }
-    }
-
-    @Override
-    public String getText() {
-        return text;
     }
 
     @Override
@@ -71,14 +64,6 @@ public final class MockTextField extends MockInput implements AbsTextField {
         return cols;
     }
 
-    public int getCaretPosition() {
-        return caretPosition;
-    }
-
-    @Override
-    public void setCaretPosition(int _i) {
-        caretPosition = _i;
-    }
 
     @Override
     public void setEditable(boolean _b) {

@@ -3,15 +3,15 @@ package code.vi.prot.impl.gui;
 import code.gui.AbsTextPane;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaFont;
-import code.util.CustList;
 import code.util.StringMap;
 import code.vi.prot.impl.gui.events.WrAbstractAction;
 
 import javax.swing.*;
 import javax.swing.text.DefaultEditorKit;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 
-public final class TextPane extends CustComponent implements AbsTextPane {
+public final class TextPane extends TxtComponent implements AbsTextPane {
     private final JTextPane pane = new JTextPane();
     private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
     public TextPane() {
@@ -37,22 +37,17 @@ public final class TextPane extends CustComponent implements AbsTextPane {
     }
 
     @Override
-    public CustList<String> getKeysAction() {
-        return actions.getKeys();
-    }
-
-    @Override
-    public AbsEnabledAction getAction(int _a, int _b) {
-        return actions.getVal(_a+","+_b);
-    }
-
-    @Override
-    public CustList<AbsEnabledAction> getActions() {
-        return actions.values();
+    public StringMap<AbsEnabledAction> getActionsMap() {
+        return actions;
     }
 
     @Override
     public JComponent getNatComponent() {
+        return getTextComponent();
+    }
+
+    @Override
+    public JTextComponent getTextComponent() {
         return pane;
     }
 

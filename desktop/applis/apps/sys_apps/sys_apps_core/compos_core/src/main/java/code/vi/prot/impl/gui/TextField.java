@@ -10,8 +10,9 @@ import code.vi.prot.impl.gui.events.WrAutoCompleteListener;
 
 import javax.swing.JComponent;
 import javax.swing.JTextField;
+import javax.swing.text.JTextComponent;
 
-public final class TextField extends CustComponent implements AbsTextField {
+public final class TextField extends TxtComponent implements AbsTextField {
 
     private final JTextField field;
 
@@ -42,37 +43,18 @@ public final class TextField extends CustComponent implements AbsTextField {
         field.getDocument().addDocumentListener(wr_);
     }
 
-    public void setCaretPosition(int _position) {
-        field.setCaretPosition(_position);
-    }
-
-    public void setText(String _t) {
-        field.setText(_t);
-    }
-
-    public String getText() {
-        return field.getText();
-    }
-
     public void setEditable(boolean _b) {
         field.setEditable(_b);
-    }
-
-    public void select(int _selectionStart, int _selectionEnd) {
-        field.select(_selectionStart, _selectionEnd);
-    }
-
-    public void setEnabled(boolean _enabled) {
-        field.setEnabled(_enabled);
     }
 
 
     @Override
     public JComponent getNatComponent() {
-        return field;
+        return getTextComponent();
     }
 
-    public boolean isEnabled() {
-        return field.isEnabled();
+    @Override
+    public JTextComponent getTextComponent() {
+        return field;
     }
 }

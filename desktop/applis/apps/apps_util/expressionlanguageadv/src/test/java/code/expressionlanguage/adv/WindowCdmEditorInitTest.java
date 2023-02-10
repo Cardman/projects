@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsGroupFrame;
+import code.gui.GuiBaseUtil;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
@@ -25,7 +26,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         WindowCdmEditor w_ =window(pr_);
-        assertEq(0,w_.getCenter().getActions().size());
+        assertEq(0, GuiBaseUtil.getActions(w_.getCenter()).size());
     }
     @Test
     public void init4() {

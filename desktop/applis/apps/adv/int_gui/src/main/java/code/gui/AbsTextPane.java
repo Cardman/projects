@@ -1,12 +1,12 @@
 package code.gui;
 
 import code.gui.events.AbsEnabledAction;
-import code.util.CustList;
+import code.util.StringMap;
 
-public interface AbsTextPane extends AbsCustComponent {
+public interface AbsTextPane extends AbsTxtComponent {
     void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b);
-    AbsEnabledAction getAction(int _a, int _b);
-    CustList<AbsEnabledAction> getActions();
-    CustList<String> getKeysAction();
+
+    StringMap<AbsEnabledAction> getActionsMap();
+
     void setFontSize(int _size);
 }

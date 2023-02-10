@@ -26,6 +26,9 @@ public final class TextAreaStruct extends InputStruct {
     }
 
     public void insert(Struct _str, Struct _pos) {
+        if ( ((NumberStruct)_pos).intStruct() < 0) {
+            return;
+        }
         textArea.insert(getText(_str), ((NumberStruct)_pos).intStruct());
     }
 
@@ -82,6 +85,12 @@ public final class TextAreaStruct extends InputStruct {
     }
 
     public void replaceRange(Struct _str, Struct _start, Struct _end) {
+        if ( ((NumberStruct)_start).intStruct() < 0) {
+            return;
+        }
+        if (((NumberStruct)_end).intStruct() <  ((NumberStruct)_start).intStruct()) {
+            return;
+        }
         textArea.replaceRange(getText(_str), ((NumberStruct)_start).intStruct(), ((NumberStruct)_end).intStruct());
     }
 

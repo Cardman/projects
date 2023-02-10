@@ -215,4 +215,14 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         new QuittingEvent(m_).windowClosing();
         assertFalse(m_.getCommonFrame().isVisible());
     }
+    @Test
+    public void actions() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        MockWithAdvActionSample e_ = new MockWithAdvActionSample();
+        t_.registerKeyboardAction(new MockAdvAbstractAction(new MockAdvAction(0, e_)),0,0);
+        assertEq(1,GuiBaseUtil.getActions(t_).size());
+        assertEq(1,GuiBaseUtil.getKeysAction(t_).size());
+        ((MockAdvAbstractAction)GuiBaseUtil.getAction(t_,0,0)).action(null,null);
+        assertTrue(e_.isAct());
+    }
 }

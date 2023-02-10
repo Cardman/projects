@@ -46,7 +46,7 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
     public void t6() {
         MockTextArea t_ = new MockTextArea(16,16);
         t_.setText("hello");
-        t_.forceInsert("m",1);
+        t_.insert("m",1);
         t_.insert("n",1);
         assertEq("hnmello",t_.getText());
     }
@@ -54,7 +54,7 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
     public void t7() {
         MockTextArea t_ = new MockTextArea(16,16);
         t_.setText("hello");
-        t_.forceReplaceRange("a",1,2);
+        t_.replaceRange("a",1,2);
         t_.replaceRange("",2,3);
         t_.selectAll();
         assertEq("halo",t_.getText());
@@ -71,5 +71,12 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         t_.viewToModel(null);
         assertEq(16, t_.getCols());
         assertEq(16, t_.getRows());
+    }
+    @Test
+    public void t9() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setCaretPosition(1);
+        t_.moveCaretPosition(2);
+        assertEq(1, t_.getCaretPosition());
     }
 }

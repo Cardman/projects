@@ -191,6 +191,18 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         assertEq("previous_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
     @Test
+    public void insertNo() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
+        call(new FctTextAreaInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(-1)),st_);
+        assertEq("_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+    }
+    @Test
     public void replaceSelection1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
@@ -243,6 +255,30 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(1),new IntStruct(8)),st_);
         assertEq("_change_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+    }
+    @Test
+    public void replaceRange1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(-1),new IntStruct(8)),st_);
+        assertEq("_replace_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
+    }
+    @Test
+    public void replaceRange2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(8),new IntStruct(1)),st_);
+        assertEq("_replace_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
     @Test
     public void tabSize() {

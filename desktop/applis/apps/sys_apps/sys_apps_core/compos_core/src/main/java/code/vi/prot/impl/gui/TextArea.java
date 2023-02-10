@@ -1,13 +1,12 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTextArea;
-import code.gui.FrameUtil;
-import code.gui.images.MetaPoint;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.*;
 
-public final class TextArea extends CustComponent implements AbsTextArea {
+public final class TextArea extends TxtComponent implements AbsTextArea {
 
     private final JTextArea area;
 
@@ -53,10 +52,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
     }
 
     public void insert(String _str, int _pos) {
-        FrameUtil.ins(this,_str, _pos);
-    }
-
-    public void forceInsert(String _str, int _pos) {
         area.insert(_str, _pos);
     }
 
@@ -65,10 +60,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
     }
 
     public void replaceRange(String _str, int _start, int _end) {
-        FrameUtil.replRange(this, _str, _start, _end);
-    }
-
-    public void forceReplaceRange(String _str, int _start, int _end) {
         area.replaceRange(_str, _start, _end);
     }
 
@@ -112,30 +103,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
         return area.getDragEnabled();
     }
 
-    public Color getCaretColor() {
-        return area.getCaretColor();
-    }
-
-    public void setCaretColor(Color _c) {
-        area.setCaretColor(_c);
-    }
-
-    public Color getSelectionColor() {
-        return area.getSelectionColor();
-    }
-
-    public void setSelectionColor(Color _c) {
-        area.setSelectionColor(_c);
-    }
-
-    public Color getSelectedTextColor() {
-        return area.getSelectedTextColor();
-    }
-
-    public void setSelectedTextColor(Color _c) {
-        area.setSelectedTextColor(_c);
-    }
-
     public Color getDisabledTextColor() {
         return area.getDisabledTextColor();
     }
@@ -144,9 +111,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
         area.setDisabledTextColor(_c);
     }
 
-    public void replaceSelection(String _content) {
-        area.replaceSelection(_content);
-    }
 
     public void cut() {
         area.cut();
@@ -160,9 +124,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
         area.paste();
     }
 
-    public void moveCaretPosition(int _pos) {
-        area.moveCaretPosition(_pos);
-    }
 
     public void setFocusAccelerator(char _aKey) {
         area.setFocusAccelerator(_aKey);
@@ -172,21 +133,7 @@ public final class TextArea extends CustComponent implements AbsTextArea {
         return area.getFocusAccelerator();
     }
 
-    public void setCaretPosition(int _position) {
-        area.setCaretPosition(_position);
-    }
 
-    public void setText(String _t) {
-        area.setText(_t);
-    }
-
-    public String getText() {
-        return area.getText();
-    }
-
-    public String getSelectedText() {
-        return area.getSelectedText();
-    }
 
     public boolean isEditable() {
         return area.isEditable();
@@ -196,21 +143,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
         area.setEditable(_b);
     }
 
-    public void setSelectionStart(int _selectionStart) {
-        area.setSelectionStart(_selectionStart);
-    }
-
-    public void setSelectionEnd(int _selectionEnd) {
-        area.setSelectionEnd(_selectionEnd);
-    }
-
-    public void select(int _selectionStart, int _selectionEnd) {
-        area.select(_selectionStart, _selectionEnd);
-    }
-
-    public void selectAll() {
-        area.selectAll();
-    }
 
     public boolean getScrollableTracksViewportHeight() {
         return area.getScrollableTracksViewportHeight();
@@ -272,10 +204,6 @@ public final class TextArea extends CustComponent implements AbsTextArea {
         return area.getBaseline(_width, _height);
     }
 
-    public void setEnabled(boolean _enabled) {
-        area.setEnabled(_enabled);
-    }
-
     public int getX() {
         return area.getX();
     }
@@ -286,19 +214,13 @@ public final class TextArea extends CustComponent implements AbsTextArea {
 
     @Override
     public JComponent getNatComponent() {
-        return area;
-    }
-
-    public int getCaretPosition() {
-        return area.getCaretPosition();
-    }
-
-    public boolean isEnabled() {
-        return area.isEnabled();
+        return getTextComponent();
     }
 
     @Override
-    public int viewToModel(MetaPoint _point) {
-        return area.viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
+    public JTextComponent getTextComponent() {
+        return area;
     }
+
+
 }

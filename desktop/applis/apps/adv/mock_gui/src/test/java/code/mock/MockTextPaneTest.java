@@ -8,25 +8,39 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
         t_.setFontSize(12);
         t_.registerKeyboardAction(new MockAdvAbstractAction(new MockAdvAction(0,new MockWithAdvActionSample())),0,0);
-        assertEq(1, t_.getActions().size());
-        assertEq(1, t_.getKeysAction().size());
+        assertEq(1, t_.getActionsMap().size());
     }
     @Test
     public void f2() {
-        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
         MockWithAdvActionSample e_ = new MockWithAdvActionSample();
-        t_.registerKeyboardAction(new MockAdvAbstractAction(new MockAdvAction(0, e_)),0,0);
-        ((MockAdvAbstractAction)t_.getAction(0,0)).action(null,null);
+        MockAdvAbstractAction ac_ = new MockAdvAbstractAction(new MockAdvAction(0, e_));
+        ac_.action(null,null);
         assertTrue(e_.isAct());
     }
     @Test
     public void f3() {
-        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
         MockWithAdvActionSample e_ = new MockWithAdvActionSample();
         MockAdvAbstractAction ac_ = new MockAdvAbstractAction(new MockAdvAction(0, e_));
-        t_.registerKeyboardAction(ac_,0,0);
         ac_.setEnabled(false);
-        ((MockAdvAbstractAction)t_.getAction(0,0)).action(null,null);
+        ac_.action(null,null);
         assertFalse(e_.isAct());
+    }
+    @Test
+    public void f4() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.setSelectedTextColor(2);
+        assertEq(2,t_.getSelectedTextColor());
+    }
+    @Test
+    public void f5() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.setSelectionColor(2);
+        assertEq(2,t_.getSelectionColor());
+    }
+    @Test
+    public void f6() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.setCaretColor(2);
+        assertEq(2,t_.getCaretColor());
     }
 }
