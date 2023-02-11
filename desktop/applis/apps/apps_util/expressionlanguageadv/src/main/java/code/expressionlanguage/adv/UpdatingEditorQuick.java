@@ -9,6 +9,5 @@ public final class UpdatingEditorQuick implements Runnable {
     @Override
     public void run() {
         FindAction.updateEditorStyle(tabEditor);
-        tabEditor.getCommonFrame().pack();
     }
 }

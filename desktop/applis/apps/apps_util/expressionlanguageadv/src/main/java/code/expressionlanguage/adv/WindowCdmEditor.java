@@ -18,8 +18,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         tabEditor = new TabEditor(this);
-        spinner = _list.getCompoFactory().newSpinner(1,1,64,1);
-        spinner.addChangeListener(new TabValueChanged(this));
+        spinner = _list.getCompoFactory().newSpinner(4,1,64,1);
+        TabValueChanged l_ = new TabValueChanged(this);
+        spinner.addChangeListener(l_);
+        l_.stateChanged();
         panel = _list.getCompoFactory().newPageBox();
         panel.add(spinner);
         panel.add(tabEditor.getPanel());
