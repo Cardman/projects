@@ -24,7 +24,7 @@ public final class FindAction implements AbsActionListener {
         if (!s_.isEmpty()) {
             finder_.setText(s_);
         } else {
-            current.getFactories().getCompoFactory().invokeLater(new UpdatingEditorAndSelect(current));
+            new UpdatingEditorAndSelect(current).run();
         }
     }
 
