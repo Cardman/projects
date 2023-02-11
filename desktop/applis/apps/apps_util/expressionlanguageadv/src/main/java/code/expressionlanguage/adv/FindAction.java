@@ -48,6 +48,12 @@ public final class FindAction implements AbsActionListener {
         }
         _tab.setCurrentPart(partIndex(_tab.getCenter().getSelectionStart(), _tab.getParts()));
     }
+
+    static void updateEditorStyle(TabEditor _tab) {
+        String t_ = _tab.getCenter().getText();
+        _tab.getCenter().clearCharacterAttributes(0,t_.length());
+        _tab.getParts().clear();
+    }
     static int partIndex(int _begin, CustList<SegmentFindPart> _parts) {
         int count_ = _parts.size();
         for (int i = 0; i < count_; i++) {

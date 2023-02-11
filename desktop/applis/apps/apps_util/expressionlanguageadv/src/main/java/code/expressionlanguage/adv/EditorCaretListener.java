@@ -22,6 +22,7 @@ public final class EditorCaretListener implements AbsCaretListener {
         String selected_ = StringUtil.nullToEmpty(tabEditor.getCenter().getSelectedText());
         tabEditor.getLabel().setText(formatLci(m_,i_,selected_));
         if (!tabEditor.getFinderPanel().isVisible()) {
+            tabEditor.getFactories().getCompoFactory().invokeLater(new UpdatingEditorQuick(tabEditor));
             return;
         }
         tabEditor.getFactories().getCompoFactory().invokeLater(new UpdatingEditor(tabEditor));
