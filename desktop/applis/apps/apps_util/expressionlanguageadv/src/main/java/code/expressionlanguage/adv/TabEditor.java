@@ -59,17 +59,17 @@ public final class TabEditor {
         panel.add(finderPanel);
     }
     public void updateNavSelect() {
-        if (getCurrentPart() > -1) {
+        if (getParts().isValidIndex(getCurrentPart())) {
             SegmentFindPart s_ = getParts().get(getCurrentPart());
             getCenter().select(s_.getBegin(),s_.getEnd());
-            updateNav();
         }
+        updateNav();
     }
     public void updateNav() {
         int n_ = getCurrentPart();
         getLabelOcc().setText((n_+1)+"/"+getParts().size());
-        prevOcc.setEnabled(n_>0);
-        nextOcc.setEnabled(n_+1<parts.size());
+        prevOcc.setEnabled(!getParts().isEmpty());
+        nextOcc.setEnabled(!getParts().isEmpty());
     }
 
     public AbsPlainLabel getLabelOcc() {
