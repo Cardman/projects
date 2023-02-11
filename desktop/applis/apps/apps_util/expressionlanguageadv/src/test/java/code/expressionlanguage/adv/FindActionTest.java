@@ -113,7 +113,7 @@ public final class FindActionTest extends EquallableElAdvUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         WindowCdmEditor w_ =window(pr_);
         tabEditor(w_).getCenter().setText("hello");
-        new FinderTextChange(tabEditor(w_)).removeUpdate();
+        new FinderTextChange(tabEditor(w_)).changedUpdate();
         invokeAndClear(pr_);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isAccessible());

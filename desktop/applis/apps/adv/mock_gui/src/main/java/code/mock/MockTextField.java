@@ -29,7 +29,10 @@ public final class MockTextField extends MockTxtComponent implements AbsTextFiel
     public void setText(String _s) {
         super.setText(_s);
         for (AbsAutoCompleteListener a: autoCompleteListeners) {
-            a.changedUpdate();
+            a.removeUpdate();
+        }
+        for (AbsAutoCompleteListener a: autoCompleteListeners) {
+            a.insertUpdate();
         }
     }
 
