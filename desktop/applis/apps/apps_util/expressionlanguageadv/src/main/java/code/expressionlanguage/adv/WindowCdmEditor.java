@@ -20,7 +20,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         tabEditor = new TabEditor(this);
         spinner = _list.getCompoFactory().newSpinner(1,1,64,1);
         spinner.addChangeListener(new TabValueChanged(this));
-        spinner.setValue(4);
         panel = _list.getCompoFactory().newPageBox();
         panel.add(spinner);
         panel.add(tabEditor.getPanel());

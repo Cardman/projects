@@ -40,15 +40,26 @@ public final class FindAction implements AbsActionListener {
         int count_ = _tab.getParts().size();
         for (int i = 0; i < count_; i++) {
             SegmentFindPart seg_ = _tab.getParts().get(i);
-            if (seg_.getBegin() == _tab.getCenter().getSelectionStart()) {
-                _tab.setCurrentPart(i);
-            }
             AbsAttrSet as_ = _tab.getFactories().getCompoFactory().newAttrSet();
             as_.addBackground(GuiConstants.GREEN);
             as_.addForeground(GuiConstants.WHITE);
             as_.addFontSize(12);
             _tab.getCenter().setCharacterAttributes(seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_,false);
         }
+        _tab.setCurrentPart(partIndex(_tab.getCenter().getSelectionStart(), _tab.getParts()));
+    }
+    static int partIndex(int _begin, CustList<SegmentFindPart> _parts) {
+        int count_ = _parts.size();
+        for (int i = 0; i < count_; i++) {
+            SegmentFindPart seg_ = _parts.get(i);
+            if (_begin <= seg_.getBegin()) {
+                return i;
+            }
+        }
+        if (count_ > 0) {
+            return _parts.getLastIndex();
+        }
+        return -1;
     }
     static int segment(String _text, String _find, int _index, CustList<SegmentFindPart> _parts) {
         SegmentFindPart seg_ = segment(_text, _find, _index);

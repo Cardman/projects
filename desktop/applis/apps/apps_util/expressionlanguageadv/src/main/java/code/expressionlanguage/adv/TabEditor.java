@@ -11,12 +11,15 @@ public final class TabEditor {
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
     private final AbsTextField finder;
+    private final AbsPlainButton prevOcc;
+    private final AbsPlainButton nextOcc;
     private final AbsPlainButton closeFinder;
     private final AbsPanel finderPanel;
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
     private final AbsCommonFrame commonFrame;
     private final AbsPlainLabel label;
+    private final AbsPlainLabel labelOcc;
     private int currentPart = -1;
 
     public TabEditor(WindowCdmEditor _editor) {
@@ -25,6 +28,7 @@ public final class TabEditor {
         AbstractProgramInfos frames_ = commonFrame.getFrames();
         factories = frames_;
         label = frames_.getCompoFactory().newPlainLabel(":");
+        labelOcc = frames_.getCompoFactory().newPlainLabel("/");
         center = frames_.getCompoFactory().newTextPane();
         center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         center.setBackground(GuiConstants.BLACK);
@@ -34,18 +38,42 @@ public final class TabEditor {
         AbsScrollPane sc_ = frames_.getCompoFactory().newAbsScrollPane(center);
         sc_.setPreferredSize(new MetaDimension(512,512));
         finder = frames_.getCompoFactory().newTextField();
+        prevOcc = frames_.getCompoFactory().newPlainButton("<-");
+        nextOcc = frames_.getCompoFactory().newPlainButton("->");
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
         finderPanel = frames_.getCompoFactory().newLineBox();
         finderPanel.setVisible(false);
         finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
         closeFinder.addActionListener(new ClosePanelAction(finderPanel,center));
+        finderPanel.add(labelOcc);
+        prevOcc.addActionListener(new ChgSegmentPartEvent(this,-1));
+        finderPanel.add(prevOcc);
+        nextOcc.addActionListener(new ChgSegmentPartEvent(this,1));
+        finderPanel.add(nextOcc);
         finderPanel.add(closeFinder);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(label);
         panel.add(finderPanel);
+    }
+    public void updateNavSelect() {
+        if (getCurrentPart() > -1) {
+            SegmentFindPart s_ = getParts().get(getCurrentPart());
+            getCenter().select(s_.getBegin(),s_.getEnd());
+            updateNav();
+        }
+    }
+    public void updateNav() {
+        int n_ = getCurrentPart();
+        getLabelOcc().setText((n_+1)+"/"+getParts().size());
+        prevOcc.setEnabled(n_>0);
+        nextOcc.setEnabled(n_+1<parts.size());
+    }
+
+    public AbsPlainLabel getLabelOcc() {
+        return labelOcc;
     }
 
     public WindowCdmEditor getWindowEditor() {
@@ -82,6 +110,14 @@ public final class TabEditor {
 
     public AbsPanel getPanel() {
         return panel;
+    }
+
+    public AbsPlainButton getPrevOcc() {
+        return prevOcc;
+    }
+
+    public AbsPlainButton getNextOcc() {
+        return nextOcc;
     }
 
     public CustList<SegmentFindPart> getParts() {

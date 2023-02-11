@@ -1,12 +1,12 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsCustComponent;
+import code.gui.GuiBaseUtil;
+import code.gui.GuiConstants;
 import code.gui.TextAnswerValue;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
-import code.mock.MockEventListIncr;
-import code.mock.MockFileSet;
-import code.mock.MockProgramInfos;
+import code.mock.*;
 import code.stream.core.AbstractBinFact;
 import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
@@ -66,6 +66,24 @@ public abstract class EquallableElAdvUtil {
 
     protected static TabEditor tabEditor(WindowCdmEditor _w) {
         return _w.getTabEditor();
+    }
+
+    protected void findNow(MockProgramInfos _pr, WindowCdmEditor _w, String _v) {
+        tabEditor(_w).getFinder().setText(_v);
+        invokeAndClear(_pr);
+    }
+
+    protected void changeNow(MockProgramInfos _pr, WindowCdmEditor _w, String _v) {
+        tabEditor(_w).getCenter().setText(_v);
+        invokeAndClear(_pr);
+    }
+    protected void findText(WindowCdmEditor _w, MockProgramInfos _pr) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK)).action();
+        invokeAndClear(_pr);
+    }
+    protected static void invokeAndClear(MockProgramInfos _pr) {
+        ((MockCompoFactory) _pr.getCompoFactory()).invoke();
+        ((MockCompoFactory) _pr.getCompoFactory()).getLater().clear();
     }
 
 }

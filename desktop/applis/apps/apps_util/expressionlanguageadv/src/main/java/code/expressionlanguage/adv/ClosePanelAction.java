@@ -15,6 +15,8 @@ public final class ClosePanelAction implements AbsActionListener {
 
     @Override
     public void action() {
+        String t_ = editor.getText();
+        editor.clearCharacterAttributes(0,t_.length());
         pan.setVisible(false);
         editor.requestFocus();
     }
