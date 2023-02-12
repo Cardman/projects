@@ -11,6 +11,8 @@ import code.util.StringMap;
 
 public final class WindowCdmEditor implements AbsGroupFrame {
     private final TabEditor tabEditor;
+    private final AbsDialog dialogComments;
+    private final AbsMenuItem commentsMenu;
     private StringMap<String> messages;
     private final AbsCommonFrame commonFrame;
     private final AbsSpinner spinner;
@@ -19,7 +21,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, IdList<WindowCdmEditor> _opened) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
+        dialogComments = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
+        AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
+        AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
+        bar_.add(menu_);
+        commentsMenu = _list.getCompoFactory().newMenuItem("comments");
+        commentsMenu.addActionListener(new ChangeCommentsEvent(this));
+        menu_.addMenuItem(commentsMenu);
         tabEditor = new TabEditor(this);
         spinner = _list.getCompoFactory().newSpinner(4,1,64,1);
         TabValueChanged l_ = new TabValueChanged(this);
@@ -29,11 +38,27 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         panel.add(spinner);
         panel.add(tabEditor.getPanel());
         commonFrame.setContentPane(panel);
+        commonFrame.setJMenuBar(bar_);
         commonFrame.pack();
         commonFrame.setVisible(true);
         commonFrame.addWindowListener(new QuittingEvent(this));
         ides = _opened;
         _opened.add(this);
+    }
+    public void afterChangingComments(OutputDialogComments _out) {
+        if (!_out.getValid().get()) {
+            return;
+        }
+        comments = _out.getComments();
+        DocumentTextChange.updateEditorText(tabEditor);
+    }
+
+    public AbsMenuItem getCommentsMenu() {
+        return commentsMenu;
+    }
+
+    public AbsDialog getDialogComments() {
+        return dialogComments;
     }
 
     public TabEditor getTabEditor() {
