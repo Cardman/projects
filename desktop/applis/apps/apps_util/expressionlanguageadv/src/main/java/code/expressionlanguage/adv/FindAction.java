@@ -10,14 +10,17 @@ import code.util.core.StringUtil;
 
 public final class FindAction implements AbsActionListener {
     private final TabEditor current;
+    private final boolean readOnly;
 
-    public FindAction(TabEditor _editor) {
+    public FindAction(TabEditor _editor, boolean _readOnly) {
         current = _editor;
+        readOnly = _readOnly;
     }
 
     @Override
     public void action() {
-        current.getFinderPanel().setVisible(true);
+        current.getNavModifPanel().setVisible(true);
+        current.getReplacerPanel().setVisible(!readOnly);
         AbsTextPane editor_ = current.getCenter();
         AbsTextField finder_ = current.getFinder();
         String s_ = StringUtil.nullToEmpty(editor_.getSelectedText());
@@ -47,6 +50,7 @@ public final class FindAction implements AbsActionListener {
             _tab.getCenter().setCharacterAttributes(seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_,false);
         }
         _tab.setCurrentPart(partIndex(_tab.getCenter().getSelectionStart(), _tab.getParts()));
+        _tab.getReplaceOne().setEnabled(count_ > 0);
     }
 
     static void updateEditorStyle(TabEditor _tab) {

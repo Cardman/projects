@@ -27,7 +27,7 @@ public final class DocumentTextChange implements AbsAutoCompleteListener {
         if (_ch) {
             return;
         }
-        if (!editor.getFinderPanel().isVisible()) {
+        if (!editor.getNavModifPanel().isVisible()) {
             editor.getFactories().getCompoFactory().invokeLater(new UpdatingEditorQuick(editor));
             return;
         }

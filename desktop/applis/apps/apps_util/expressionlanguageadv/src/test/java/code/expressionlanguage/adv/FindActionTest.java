@@ -1,7 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.gui.GuiBaseUtil;
-import code.gui.GuiConstants;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import org.junit.Test;
@@ -50,7 +48,7 @@ public final class FindActionTest extends EquallableElAdvUtil {
         tabEditor(w_).getCenter().select(2,3);
         findText(w_,pr_);
         ((MockPlainButton) tabEditor(w_).getCloseFinder()).getActionListeners().get(0).action();
-        assertFalse(tabEditor(w_).getFinderPanel().isVisible());
+        assertFalse(tabEditor(w_).getNavModifPanel().isVisible());
     }
     @Test
     public void action4() {

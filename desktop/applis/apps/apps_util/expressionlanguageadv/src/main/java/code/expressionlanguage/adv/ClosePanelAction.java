@@ -11,7 +11,7 @@ public final class ClosePanelAction implements AbsActionListener {
 
     @Override
     public void action() {
-        editor.getFinderPanel().setVisible(false);
+        editor.getNavModifPanel().setVisible(false);
         new UpdatingEditorQuick(editor).run();
         editor.getCenter().requestFocus();
     }

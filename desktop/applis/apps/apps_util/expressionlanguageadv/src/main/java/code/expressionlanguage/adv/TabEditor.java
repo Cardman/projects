@@ -11,10 +11,14 @@ public final class TabEditor {
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
     private final AbsTextField finder;
+    private final AbsTextField replacer;
     private final AbsPlainButton prevOcc;
     private final AbsPlainButton nextOcc;
     private final AbsPlainButton closeFinder;
+    private final AbsPlainButton replaceOne;
+    private final AbsPanel navModifPanel;
     private final AbsPanel finderPanel;
+    private final AbsPanel replacerPanel;
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
     private final AbsCommonFrame commonFrame;
@@ -39,11 +43,15 @@ public final class TabEditor {
         AbsScrollPane sc_ = frames_.getCompoFactory().newAbsScrollPane(center);
         sc_.setPreferredSize(new MetaDimension(512,512));
         finder = frames_.getCompoFactory().newTextField();
+        replacer = frames_.getCompoFactory().newTextField();
         prevOcc = frames_.getCompoFactory().newPlainButton("<-");
         nextOcc = frames_.getCompoFactory().newPlainButton("->");
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
+        replaceOne = frames_.getCompoFactory().newPlainButton("1");
+        replaceOne.addActionListener(new ReplaceOneAction(this));
+        navModifPanel = frames_.getCompoFactory().newPageBox();
+        navModifPanel.setVisible(false);
         finderPanel = frames_.getCompoFactory().newLineBox();
-        finderPanel.setVisible(false);
         finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
         closeFinder.addActionListener(new ClosePanelAction(this));
@@ -53,11 +61,17 @@ public final class TabEditor {
         nextOcc.addActionListener(new ChgSegmentPartEvent(this,1));
         finderPanel.add(nextOcc);
         finderPanel.add(closeFinder);
-        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
+        navModifPanel.add(finderPanel);
+        replacerPanel = frames_.getCompoFactory().newLineBox();
+        replacerPanel.add(replacer);
+        replacerPanel.add(replaceOne);
+        navModifPanel.add(replacerPanel);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this, true)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this, false)),GuiConstants.VK_R,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(label);
-        panel.add(finderPanel);
+        panel.add(navModifPanel);
     }
     public void updateNavSelect() {
         if (getParts().isValidIndex(getCurrentPart())) {
@@ -101,8 +115,24 @@ public final class TabEditor {
         return finderPanel;
     }
 
+    public AbsPanel getNavModifPanel() {
+        return navModifPanel;
+    }
+
+    public AbsPanel getReplacerPanel() {
+        return replacerPanel;
+    }
+
     public AbsTextField getFinder() {
         return finder;
+    }
+
+    public AbsPlainButton getReplaceOne() {
+        return replaceOne;
+    }
+
+    public AbsTextField getReplacer() {
+        return replacer;
     }
 
     public AbsTextPane getCenter() {
