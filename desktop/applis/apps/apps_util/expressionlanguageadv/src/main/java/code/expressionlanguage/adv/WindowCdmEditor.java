@@ -1,9 +1,11 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
+import code.util.CustList;
 import code.util.IdList;
 import code.util.StringMap;
 
@@ -14,6 +16,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsSpinner spinner;
     private final AbsPanel panel;
     private final IdList<WindowCdmEditor> ides;
+    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, IdList<WindowCdmEditor> _opened) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
@@ -83,6 +86,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public boolean canChangeLanguage() {
         return false;
     }
+    public CustList<CommentDelimiters> getComments() {
+        return comments;
+    }
+
+    public void setComments(CustList<CommentDelimiters> _c) {
+        this.comments = _c;
+    }
+
 
     public IdList<WindowCdmEditor> getIdes() {
         return ides;

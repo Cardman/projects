@@ -1,5 +1,8 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.files.SegmentColorPart;
+import code.expressionlanguage.analyze.files.SegmentType;
+import code.expressionlanguage.analyze.files.StringComment;
 import code.gui.AbsAttrSet;
 import code.gui.AbsTextField;
 import code.gui.AbsTextPane;
@@ -35,6 +38,7 @@ public final class FindAction implements AbsActionListener {
         String find_ = StringUtil.nullToEmpty(_tab.getFinder().getText());
         String t_ = _tab.getCenter().getText();
         _tab.getCenter().clearCharacterAttributes(0,t_.length());
+        syntax(_tab, t_);
         _tab.getParts().clear();
         int index_ = 0;
         while (index_ >= 0) {
@@ -56,7 +60,25 @@ public final class FindAction implements AbsActionListener {
     static void updateEditorStyle(TabEditor _tab) {
         String t_ = _tab.getCenter().getText();
         _tab.getCenter().clearCharacterAttributes(0,t_.length());
+        syntax(_tab,t_);
         _tab.getParts().clear();
+    }
+
+    private static void syntax(TabEditor _tab, String _text) {
+        StringComment sc_ = new StringComment(_text, _tab.getWindowEditor().getComments());
+        CustList<SegmentColorPart> segText_ = sc_.getSegmentColorParts();
+        int partCount_ = segText_.size();
+        for (int i = 0; i < partCount_; i++) {
+            SegmentColorPart seg_ = segText_.get(i);
+            AbsAttrSet as_ = _tab.getFactories().getCompoFactory().newAttrSet();
+            if (seg_.getType() == SegmentType.STRING) {
+                as_.addForeground(GuiConstants.GREEN);
+            } else {
+                as_.addForeground(GuiConstants.GRAY);
+            }
+            as_.addFontSize(12);
+            _tab.getCenter().setCharacterAttributes(seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_,false);
+        }
     }
     static int partIndex(int _begin, CustList<SegmentFindPart> _parts) {
         int count_ = _parts.size();
