@@ -27,10 +27,14 @@ public final class DocumentTextChange implements AbsAutoCompleteListener {
         if (_ch) {
             return;
         }
-        if (!editor.getNavModifPanel().isVisible()) {
-            editor.getFactories().getCompoFactory().invokeLater(new UpdatingEditorQuick(editor));
+        updateEditorText(editor);
+    }
+
+    static void updateEditorText(TabEditor _ed) {
+        if (!_ed.getNavModifPanel().isVisible()) {
+            _ed.getFactories().getCompoFactory().invokeLater(new UpdatingEditorQuick(_ed));
             return;
         }
-        editor.getFactories().getCompoFactory().invokeLater(new UpdatingEditor(editor));
+        _ed.getFactories().getCompoFactory().invokeLater(new UpdatingEditor(_ed));
     }
 }

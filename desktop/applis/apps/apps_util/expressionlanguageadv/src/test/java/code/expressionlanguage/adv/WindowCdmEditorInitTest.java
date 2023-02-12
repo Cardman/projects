@@ -26,7 +26,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         WindowCdmEditor w_ =window(pr_);
-        assertEq(2, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
+        assertEq(6, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
     }
     @Test
     public void init4() {

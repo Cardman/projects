@@ -1,10 +1,12 @@
 package code.expressionlanguage.adv;
 
 import code.gui.*;
+import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
+import code.util.StringList;
 
 public final class TabEditor {
     private final WindowCdmEditor windowEditor;
@@ -24,7 +26,11 @@ public final class TabEditor {
     private final AbsCommonFrame commonFrame;
     private final AbsPlainLabel label;
     private final AbsPlainLabel labelOcc;
+    private final StringList texts = new StringList();
+    private final AbsEnabledAction undo;
+    private final AbsEnabledAction redo;
     private int currentPart = -1;
+    private int currentText = -1;
 
     public TabEditor(WindowCdmEditor _editor) {
         windowEditor = _editor;
@@ -66,8 +72,16 @@ public final class TabEditor {
         replacerPanel.add(replacer);
         replacerPanel.add(replaceOne);
         navModifPanel.add(replacerPanel);
+        undo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, -1));
+        redo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, 1));
+        undo.setEnabled(false);
+        redo.setEnabled(false);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this, true)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this, false)),GuiConstants.VK_R,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new StoreUndoRedoAction(this)),GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
+        center.registerKeyboardAction(undo,GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(redo,GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(label);
@@ -155,6 +169,10 @@ public final class TabEditor {
         return parts;
     }
 
+    public StringList getTexts() {
+        return texts;
+    }
+
     public int getCurrentPart() {
         return currentPart;
     }
@@ -162,4 +180,21 @@ public final class TabEditor {
     public void setCurrentPart(int _c) {
         this.currentPart = _c;
     }
+
+    public int getCurrentText() {
+        return currentText;
+    }
+
+    public void setCurrentText(int _c) {
+        this.currentText = _c;
+    }
+
+    public AbsEnabledAction getRedo() {
+        return redo;
+    }
+
+    public AbsEnabledAction getUndo() {
+        return undo;
+    }
+
 }

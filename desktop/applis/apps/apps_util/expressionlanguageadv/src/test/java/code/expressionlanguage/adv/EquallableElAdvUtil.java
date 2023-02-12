@@ -89,5 +89,18 @@ public abstract class EquallableElAdvUtil {
         ((MockCompoFactory) _pr.getCompoFactory()).invoke();
         ((MockCompoFactory) _pr.getCompoFactory()).getLater().clear();
     }
-
+    protected void storeEdit(WindowCdmEditor _w, MockProgramInfos _pr) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
+        invokeAndClear(_pr);
+    }
+    protected void undo(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    protected void redo(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    protected void clearEdit(WindowCdmEditor _w, MockProgramInfos _pr) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
+        invokeAndClear(_pr);
+    }
 }
