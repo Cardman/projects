@@ -49,6 +49,7 @@ public final class OutputDialogComments {
         cancel.addActionListener(new CancelComments(windowCdmEditor));
         all_.add(cancel);
         windowCdmEditor.getDialogComments().setContentPane(all_);
+        windowCdmEditor.getDialogComments().pack();
         windowCdmEditor.getDialogComments().setVisible(true);
     }
 
