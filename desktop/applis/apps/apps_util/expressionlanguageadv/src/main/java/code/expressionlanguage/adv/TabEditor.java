@@ -46,7 +46,7 @@ public final class TabEditor {
         finderPanel.setVisible(false);
         finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
-        closeFinder.addActionListener(new ClosePanelAction(finderPanel,center));
+        closeFinder.addActionListener(new ClosePanelAction(this));
         finderPanel.add(labelOcc);
         prevOcc.addActionListener(new ChgSegmentPartEvent(this,-1));
         finderPanel.add(prevOcc);
