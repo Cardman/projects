@@ -55,7 +55,10 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public void replaceSelection(String _s) {
-        builder.replace(selectionStart,selectionEnd,_s);
+        builder.delete(selectionStart,selectionEnd);
+        applyRemove(selectionEnd-selectionStart);
+        builder.insert(selectionStart,_s);
+        applyInsert(_s);
         selected = "";
     }
 
@@ -66,14 +69,23 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     public void setText(String _s) {
         int old_ = builder.length();
         builder.delete(0, old_);
-        for (AbsAutoCompleteListener a: apply(old_)) {
-            a.removeUpdate();
-        }
+        applyRemove(old_);
         builder.append(_s);
+        applyInsert(_s);
+    }
+
+    private void applyInsert(String _s) {
         for (AbsAutoCompleteListener a: apply(_s.length())) {
             a.insertUpdate();
         }
     }
+
+    private void applyRemove(int _old) {
+        for (AbsAutoCompleteListener a: apply(_old)) {
+            a.removeUpdate();
+        }
+    }
+
     private CustList<AbsAutoCompleteListener> apply(int _len) {
         if (_len > 0) {
             return autoCompleteListeners;

@@ -35,6 +35,7 @@ public final class TabEditor {
         center.setForeground(GuiConstants.WHITE);
         center.setCaretColor(GuiConstants.WHITE);
         center.addCaretListener(new EditorCaretListener(this));
+        center.addAutoComplete(new DocumentTextChange(this));
         AbsScrollPane sc_ = frames_.getCompoFactory().newAbsScrollPane(center);
         sc_.setPreferredSize(new MetaDimension(512,512));
         finder = frames_.getCompoFactory().newTextField();

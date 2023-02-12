@@ -9,6 +9,7 @@ public final class UpdatingEditor implements Runnable {
     @Override
     public void run() {
         FindAction.updateEditor(tabEditor);
+        tabEditor.updateNav();
         tabEditor.getCommonFrame().pack();
     }
 }
