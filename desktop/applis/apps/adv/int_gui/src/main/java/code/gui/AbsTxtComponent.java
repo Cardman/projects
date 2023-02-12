@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
 import code.util.CustList;
@@ -43,4 +44,6 @@ public interface AbsTxtComponent extends AbsCustComponent{
     void addCaretListener(AbsCaretListener _listener);
     void removeCaretListener(AbsCaretListener _listener);
     CustList<AbsCaretListener> getCaretListeners();
+
+    void addAutoComplete(AbsAutoCompleteListener _autoCompleteDocument);
 }

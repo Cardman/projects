@@ -3,13 +3,10 @@ package code.vi.prot.impl.gui;
 import code.gui.AbsTextField;
 import code.gui.events.AbsActionListener;
 import code.gui.events.AbsAdvActionListener;
-import code.gui.events.AbsAutoCompleteListener;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
-import code.vi.prot.impl.gui.events.WrAutoCompleteListener;
 
-import javax.swing.JComponent;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.text.JTextComponent;
 
 public final class TextField extends TxtComponent implements AbsTextField {
@@ -36,11 +33,6 @@ public final class TextField extends TxtComponent implements AbsTextField {
     @Override
     public void addActionListener(AbsAdvActionListener _list) {
         field.addActionListener(new WrAdvActionListener(_list));
-    }
-
-    public void addAutoComplete(AbsAutoCompleteListener _auto){
-        WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
-        field.getDocument().addDocumentListener(wr_);
     }
 
     public void setEditable(boolean _b) {

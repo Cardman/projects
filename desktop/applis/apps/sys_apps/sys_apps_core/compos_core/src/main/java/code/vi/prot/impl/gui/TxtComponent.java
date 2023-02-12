@@ -1,11 +1,13 @@
 package code.vi.prot.impl.gui;
 
 import code.gui.AbsTxtComponent;
+import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
 import code.util.CustList;
 import code.util.IdMap;
 import code.vi.prot.impl.DefImage;
+import code.vi.prot.impl.gui.events.WrAutoCompleteListener;
 import code.vi.prot.impl.gui.events.WrCaretListener;
 
 import javax.swing.text.JTextComponent;
@@ -107,6 +109,11 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
         WrCaretListener wr_ = mapCaret.getVal(_listener);
         getTextComponent().removeCaretListener(wr_);
         mapCaret.removeKey(_listener);
+    }
+
+    public void addAutoComplete(AbsAutoCompleteListener _auto){
+        WrAutoCompleteListener wr_ = new WrAutoCompleteListener(_auto);
+        getTextComponent().getDocument().addDocumentListener(wr_);
     }
 
     @Override

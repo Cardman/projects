@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.gui.AbsTxtComponent;
+import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
 import code.util.CustList;
@@ -8,6 +9,7 @@ import code.util.IdList;
 import code.util.core.NumberUtil;
 
 public abstract class MockTxtComponent extends MockInput implements AbsTxtComponent {
+    private final CustList<AbsAutoCompleteListener> autoCompleteListeners = new CustList<AbsAutoCompleteListener>();
     private final StringBuilder builder = new StringBuilder();
     private String selected = "";
     private int selectionStart;
@@ -62,8 +64,21 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public void setText(String _s) {
-        builder.delete(0,builder.length());
+        int old_ = builder.length();
+        builder.delete(0, old_);
+        for (AbsAutoCompleteListener a: apply(old_)) {
+            a.removeUpdate();
+        }
         builder.append(_s);
+        for (AbsAutoCompleteListener a: apply(_s.length())) {
+            a.insertUpdate();
+        }
+    }
+    private CustList<AbsAutoCompleteListener> apply(int _len) {
+        if (_len > 0) {
+            return autoCompleteListeners;
+        }
+        return new CustList<AbsAutoCompleteListener>();
     }
 
     public String getText() {
@@ -156,6 +171,15 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public void removeCaretListener(AbsCaretListener _listener) {
         listeners.removeObj(_listener);
+    }
+
+    @Override
+    public void addAutoComplete(AbsAutoCompleteListener _l) {
+        autoCompleteListeners.add(_l);
+    }
+
+    public CustList<AbsAutoCompleteListener> getAutoCompleteListeners() {
+        return autoCompleteListeners;
     }
 
     @Override

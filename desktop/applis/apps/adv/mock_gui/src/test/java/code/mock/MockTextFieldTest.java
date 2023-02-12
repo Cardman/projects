@@ -97,4 +97,22 @@ public final class MockTextFieldTest extends EquallableMockGuiUtil {
         t_.setSize(new MetaDimension(100,100));
         assertFalse(t_.isAccessible());
     }
+    @Test
+    public void f14() {
+        MockTextField t_ = new MockTextField();
+        t_.addAutoComplete(new MockAutoCompleteListener(t_));
+        t_.setText("length");
+        t_.setText("length is 12");
+        assertEq(12,t_.getSelectionEnd());
+        assertEq(1, t_.getAutoCompleteListeners().size());
+    }
+    @Test
+    public void f15() {
+        MockTextField t_ = new MockTextField();
+        t_.addAutoComplete(new MockAutoCompleteListener(t_));
+        t_.setText("length");
+        t_.setText("");
+        assertEq(0,t_.getSelectionEnd());
+        assertEq(1, t_.getAutoCompleteListeners().size());
+    }
 }
