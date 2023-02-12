@@ -12,6 +12,7 @@ public final class ClearUndoRedoAction implements AbsActionListener {
     @Override
     public void action() {
         current.getTexts().clear();
+        current.setCurrentText(-1);
         current.getUndo().setEnabled(false);
         current.getRedo().setEnabled(false);
     }
