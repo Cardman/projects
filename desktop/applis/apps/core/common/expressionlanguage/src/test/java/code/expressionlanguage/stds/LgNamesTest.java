@@ -2846,4 +2846,72 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertEq(1, commentDelimiters_.last().getEnd().size());
         assertEq(">\\", commentDelimiters_.last().getEnd().first());
     }
+    @Test
+    public void exportLineArg1Test() {
+        assertEq("\\c20", ParseLinesArgUtil.exportLineArg(new StringList(" ")));
+    }
+    @Test
+    public void exportLineArg2Test() {
+        assertEq("\\c5c", ParseLinesArgUtil.exportLineArg(new StringList("\\")));
+    }
+    @Test
+    public void exportLineArg3Test() {
+        assertEq("\\c0a", ParseLinesArgUtil.exportLineArg(new StringList("\n")));
+    }
+    @Test
+    public void exportLineArg4Test() {
+        assertEq("\\c09", ParseLinesArgUtil.exportLineArg(new StringList("\t")));
+    }
+    @Test
+    public void exportLineArg5Test() {
+        assertEq("nt", ParseLinesArgUtil.exportLineArg(new StringList("nt")));
+    }
+    @Test
+    public void exportLineArg6Test() {
+        assertEq("n t", ParseLinesArgUtil.exportLineArg(new StringList("n","t")));
+    }
+    @Test
+    public void exportMapLine1Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry("k","=");
+        assertEq("k==", ParseLinesArgUtil.buildMapLine(map_));
+    }
+    @Test
+    public void exportMapLine2Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry("k",",");
+        assertEq("k=\\c2c", ParseLinesArgUtil.buildMapLine(map_));
+    }
+    @Test
+    public void exportMapLine3Test() {
+        StringMap<String> map_ = new StringMap<String>();
+        map_.addEntry("k","1");
+        map_.addEntry("l","2");
+        assertEq("k=1,l=2", ParseLinesArgUtil.buildMapLine(map_));
+    }
+    @Test
+    public void exportComment1Test() {
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("\\",new StringList("\n")));
+        assertEq("\\c5c,\\c0a", ParseLinesArgUtil.buildCommentsLine(comments_));
+    }
+    @Test
+    public void exportComment2Test() {
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
+        assertEq("\\c5c*,*\\c5c", ParseLinesArgUtil.buildCommentsLine(comments_));
+    }
+    @Test
+    public void exportComment3Test() {
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("\\ ;",new StringList(", \\")));
+        assertEq("\\c5c\\c20\\c3b,\\c2c\\c20\\c5c", ParseLinesArgUtil.buildCommentsLine(comments_));
+    }
+    @Test
+    public void exportComment4Test() {
+        CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
+        comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
+        comments_.add(new CommentDelimiters("\\ ;",new StringList(", \\")));
+        assertEq("\\c5c*,*\\c5c;\\c5c\\c20\\c3b,\\c2c\\c20\\c5c", ParseLinesArgUtil.buildCommentsLine(comments_));
+    }
 }
