@@ -7,6 +7,7 @@ import code.gui.images.MetaPoint;
 import code.gui.images.MetaRect;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.Ints;
 import code.util.core.NumberUtil;
 
 public abstract class MockTxtComponent extends MockInput implements AbsTxtComponent {
@@ -176,12 +177,79 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
 
     @Override
     public int viewToModel(MetaPoint _m) {
-        return 0;
+        int y_ = _m.getYcoord();
+        if (y_ < 0) {
+            return -1;
+        }
+        int cy_ = y_ / NumberUtil.max(1,heightFont());
+        int x_ = _m.getXcoord();
+        if (x_ < 0) {
+            return -1;
+        }
+        int cx_ = x_ / NumberUtil.max(1,heightFont());
+        int index_ = 0;
+        int row_ = 0;
+        int scan_ = 0;
+        while (index_ >= 0) {
+            int next_ = builder.indexOf("\n",index_);
+            if (row_ == cy_) {
+                int limit_ = min(next_);
+                if (cx_ <= limit_ - index_) {
+                    return scan_ + cx_;
+                }
+                return -1;
+            }
+            if (next_ < 0) {
+                index_=-1;
+            } else {
+                scan_ += next_ + 1 - index_;
+                index_ = next_ + 1;
+                row_++;
+            }
+        }
+        return -1;
+    }
+    private int min(int _next) {
+        if (_next < 0) {
+            return builder.length()-1;
+        }
+        return _next;
     }
 
     @Override
     public MetaRect modelToView(int _index) {
-        return new MetaRect(0,0,0,0);
+        int f_ = heightFont();
+        Ints imp_ = lineFeeds();
+        int len_ = imp_.size();
+        int row_ = 0;
+        while (row_ < len_) {
+            if (_index <= imp_.get(row_)) {
+                break;
+            }
+            row_++;
+        }
+        if (!imp_.isValidIndex(row_-1)) {
+            return new MetaRect(0,0,0,0);
+        }
+        int begin_ = imp_.get(row_ - 1)+1;
+        if (_index >= builder.length()) {
+            return new MetaRect(0,0,0,0);
+        }
+        return new MetaRect(f_*(_index - begin_),f_*(row_-1),f_, f_);
+    }
+    private Ints lineFeeds() {
+        Ints lf_ = new Ints();
+        lf_.add(-1);
+        int len_ = builder.length();
+        int i_ = 0;
+        while (i_ < len_) {
+            char ch_ = builder.charAt(i_);
+            if (ch_ == '\n') {
+                lf_.add(i_);
+            }
+            i_++;
+        }
+        return lf_;
     }
 
     public StringBuilder getBuilder() {

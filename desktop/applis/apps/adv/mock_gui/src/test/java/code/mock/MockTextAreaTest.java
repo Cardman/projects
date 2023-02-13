@@ -1,5 +1,7 @@
 package code.mock;
 
+import code.gui.images.MetaPoint;
+import code.gui.images.MetaRect;
 import org.junit.Test;
 
 public final class MockTextAreaTest extends EquallableMockGuiUtil {
@@ -68,8 +70,6 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         assertFalse(t_.isEnabled());
         t_.setTabSize(8);
         assertEq(8,t_.getTabSize());
-        t_.viewToModel(null);
-        t_.modelToView(0);
         assertEq(16, t_.getCols());
         assertEq(16, t_.getRows());
     }
@@ -88,5 +88,169 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         t_.append("hello");
         t_.select(7,7);
         assertEq("",t_.getSelectedText());
+    }
+    @Test
+    public void t11() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        assertEq(0,t_.viewToModel(new MetaPoint(0,0)));
+    }
+    @Test
+    public void t12() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        assertEq(1,t_.viewToModel(new MetaPoint(t_.heightFont(),0)));
+    }
+    @Test
+    public void t13() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\n");
+        assertEq(1,t_.viewToModel(new MetaPoint(t_.heightFont(),0)));
+    }
+    @Test
+    public void t14() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(6,t_.viewToModel(new MetaPoint(0,t_.heightFont())));
+    }
+    @Test
+    public void t15() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(7,t_.viewToModel(new MetaPoint(t_.heightFont(),t_.heightFont())));
+    }
+    @Test
+    public void t16() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        assertEq(-1,t_.viewToModel(new MetaPoint(5*t_.heightFont(),0)));
+    }
+    @Test
+    public void t17() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(5,t_.viewToModel(new MetaPoint(5*t_.heightFont(),0)));
+    }
+    @Test
+    public void t18() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(-1,t_.viewToModel(new MetaPoint(5*t_.heightFont(),t_.heightFont())));
+    }
+    @Test
+    public void t19() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(-1,t_.viewToModel(new MetaPoint(-1,0)));
+    }
+    @Test
+    public void t20() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(-1,t_.viewToModel(new MetaPoint(0,-1)));
+    }
+    @Test
+    public void t21() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        assertEq(4,t_.viewToModel(new MetaPoint(4*t_.heightFont(),0)));
+    }
+    @Test
+    public void t22() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(4,t_.viewToModel(new MetaPoint(4*t_.heightFont(),0)));
+    }
+    @Test
+    public void t23() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(10,t_.viewToModel(new MetaPoint(4*t_.heightFont(),t_.heightFont())));
+    }
+    @Test
+    public void t24() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        assertEq(-1,t_.viewToModel(new MetaPoint(0,t_.heightFont())));
+    }
+    @Test
+    public void t25() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        assertEq(-1,t_.viewToModel(new MetaPoint(0,2*t_.heightFont())));
+    }
+    @Test
+    public void t26() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        MetaRect r_ = t_.modelToView(5);
+        assertEq(0,r_.getHeight());
+        assertEq(0,r_.getWidth());
+    }
+    @Test
+    public void t27() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        MetaRect r_ = t_.modelToView(11);
+        assertEq(0,r_.getHeight());
+        assertEq(0,r_.getWidth());
+    }
+    @Test
+    public void t28() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        MetaRect r_ = t_.modelToView(4);
+        assertEq(4L*t_.heightFont(),r_.getPoint().getXcoord());
+        assertEq(0,r_.getPoint().getYcoord());
+        assertEq(t_.heightFont(),r_.getHeight());
+        assertEq(t_.heightFont(),r_.getWidth());
+    }
+    @Test
+    public void t29() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        MetaRect r_ = t_.modelToView(10);
+        assertEq(4L*t_.heightFont(),r_.getPoint().getXcoord());
+        assertEq(t_.heightFont(),r_.getPoint().getYcoord());
+        assertEq(t_.heightFont(),r_.getHeight());
+        assertEq(t_.heightFont(),r_.getWidth());
+    }
+    @Test
+    public void t30() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        MetaRect r_ = t_.modelToView(5);
+        assertEq(5L*t_.heightFont(),r_.getPoint().getXcoord());
+        assertEq(0,r_.getPoint().getYcoord());
+        assertEq(t_.heightFont(),r_.getHeight());
+        assertEq(t_.heightFont(),r_.getWidth());
+    }
+    @Test
+    public void t31() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        MetaRect r_ = t_.modelToView(4);
+        assertEq(4L*t_.heightFont(),r_.getPoint().getXcoord());
+        assertEq(0,r_.getPoint().getYcoord());
+        assertEq(t_.heightFont(),r_.getHeight());
+        assertEq(t_.heightFont(),r_.getWidth());
+    }
+    @Test
+    public void t32() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello\nworld");
+        MetaRect r_ = t_.modelToView(6);
+        assertEq(0,r_.getPoint().getXcoord());
+        assertEq(t_.heightFont(),r_.getPoint().getYcoord());
+        assertEq(t_.heightFont(),r_.getHeight());
+        assertEq(t_.heightFont(),r_.getWidth());
+    }
+    @Test
+    public void t33() {
+        MockTextArea t_ = new MockTextArea(16,16);
+        t_.setText("hello");
+        MetaRect r_ = t_.modelToView(-1);
+        assertEq(0,r_.getHeight());
+        assertEq(0,r_.getWidth());
     }
 }
