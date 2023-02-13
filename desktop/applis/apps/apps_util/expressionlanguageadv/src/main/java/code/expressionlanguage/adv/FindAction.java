@@ -55,6 +55,7 @@ public final class FindAction implements AbsActionListener {
         }
         _tab.setCurrentPart(partIndex(_tab.getCenter().getSelectionStart(), _tab.getParts()));
         _tab.getReplaceOne().setEnabled(count_ > 0);
+        _tab.getReplaceAll().setEnabled(count_ > 0);
     }
 
     static void updateEditorStyle(TabEditor _tab) {

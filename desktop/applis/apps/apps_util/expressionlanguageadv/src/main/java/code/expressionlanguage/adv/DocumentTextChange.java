@@ -35,6 +35,8 @@ public final class DocumentTextChange implements AbsAutoCompleteListener {
             _ed.getFactories().getCompoFactory().invokeLater(new UpdatingEditorQuick(_ed));
             return;
         }
-        _ed.getFactories().getCompoFactory().invokeLater(new UpdatingEditor(_ed));
+        if (_ed.isEnabledSyntax()) {
+            _ed.getFactories().getCompoFactory().invokeLater(new UpdatingEditor(_ed));
+        }
     }
 }

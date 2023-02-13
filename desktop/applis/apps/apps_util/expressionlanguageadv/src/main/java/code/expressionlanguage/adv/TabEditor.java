@@ -18,6 +18,7 @@ public final class TabEditor {
     private final AbsPlainButton nextOcc;
     private final AbsPlainButton closeFinder;
     private final AbsPlainButton replaceOne;
+    private final AbsPlainButton replaceAll;
     private final AbsPanel navModifPanel;
     private final AbsPanel finderPanel;
     private final AbsPanel replacerPanel;
@@ -29,6 +30,7 @@ public final class TabEditor {
     private final StringList texts = new StringList();
     private final AbsEnabledAction undo;
     private final AbsEnabledAction redo;
+    private boolean enabledSyntax = true;
     private int currentPart = -1;
     private int currentText = -1;
 
@@ -55,6 +57,8 @@ public final class TabEditor {
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
         replaceOne = frames_.getCompoFactory().newPlainButton("1");
         replaceOne.addActionListener(new ReplaceOneAction(this));
+        replaceAll = frames_.getCompoFactory().newPlainButton("*");
+        replaceAll.addActionListener(new ReplaceAllAction(this));
         navModifPanel = frames_.getCompoFactory().newPageBox();
         navModifPanel.setVisible(false);
         finderPanel = frames_.getCompoFactory().newLineBox();
@@ -71,6 +75,7 @@ public final class TabEditor {
         replacerPanel = frames_.getCompoFactory().newLineBox();
         replacerPanel.add(replacer);
         replacerPanel.add(replaceOne);
+        replacerPanel.add(replaceAll);
         navModifPanel.add(replacerPanel);
         undo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, -1));
         redo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, 1));
@@ -145,6 +150,10 @@ public final class TabEditor {
         return replaceOne;
     }
 
+    public AbsPlainButton getReplaceAll() {
+        return replaceAll;
+    }
+
     public AbsTextField getReplacer() {
         return replacer;
     }
@@ -187,6 +196,14 @@ public final class TabEditor {
 
     public void setCurrentText(int _c) {
         this.currentText = _c;
+    }
+
+    public boolean isEnabledSyntax() {
+        return enabledSyntax;
+    }
+
+    public void setEnabledSyntax(boolean _e) {
+        this.enabledSyntax = _e;
     }
 
     public AbsEnabledAction getRedo() {
