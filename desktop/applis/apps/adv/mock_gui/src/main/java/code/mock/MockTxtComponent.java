@@ -74,6 +74,12 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
         applyInsert(_s);
     }
 
+    protected void applyChange(int _s) {
+        for (AbsAutoCompleteListener a: apply(_s)) {
+            a.changedUpdate();
+        }
+    }
+
     private void applyInsert(String _s) {
         for (AbsAutoCompleteListener a: apply(_s.length())) {
             a.insertUpdate();

@@ -52,6 +52,7 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
                 attrSets.addEntry(k_,new CustList<AbsAttrSet>());
             }
         }
+        applyChange(_length);
     }
 
     @Override
@@ -73,6 +74,7 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
                 attrSets.addEntry(k_,elts_);
             }
         }
+        applyChange(_length);
     }
 
     public StringMap<CustList<AbsAttrSet>> getAttrSets() {

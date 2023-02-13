@@ -1,13 +1,13 @@
 package code.mock;
 
-import code.gui.AbsTextField;
+import code.gui.AbsTxtComponent;
 import code.gui.events.AbsAutoCompleteListener;
 
 public final class MockAutoCompleteListener implements AbsAutoCompleteListener {
 
-    private final AbsTextField textField;
+    private final AbsTxtComponent textField;
 
-    public MockAutoCompleteListener(AbsTextField _t) {
+    public MockAutoCompleteListener(AbsTxtComponent _t) {
         this.textField = _t;
     }
 

@@ -120,4 +120,18 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         t_.setParagraphAttributes(a_);
         assertEq(1,((MockAttrSet)t_.getParagraph()).getTabs().getLength());
     }
+    @Test
+    public void f12() {
+        MockProgramInfosSample i_ = init();
+        MockTextPane t_ = (MockTextPane) i_.getCompoFactory().newTextPane();
+        t_.setText("hello");
+        AbsAttrSet a_ = i_.getCompoFactory().newAttrSet();
+        a_.addFontSize(2);
+        a_.addBackground(3);
+        a_.addForeground(4);
+        t_.addAutoComplete(new MockAutoCompleteListener(t_));
+        t_.setCharacterAttributes(0,2,a_,false);
+        assertEq(5,t_.getSelectionEnd());
+        assertEq(1, t_.getAutoCompleteListeners().size());
+    }
 }
