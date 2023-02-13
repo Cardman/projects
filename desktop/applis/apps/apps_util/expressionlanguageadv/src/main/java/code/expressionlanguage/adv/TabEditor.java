@@ -19,6 +19,8 @@ public final class TabEditor {
     private final AbsPlainButton closeFinder;
     private final AbsPlainButton replaceOne;
     private final AbsPlainButton replaceAll;
+    private final AbsPlainButton replacePrevious;
+    private final AbsPlainButton replaceNext;
     private final AbsPanel navModifPanel;
     private final AbsPanel finderPanel;
     private final AbsPanel replacerPanel;
@@ -59,6 +61,10 @@ public final class TabEditor {
         replaceOne.addActionListener(new ReplaceOneAction(this));
         replaceAll = frames_.getCompoFactory().newPlainButton("*");
         replaceAll.addActionListener(new ReplaceAllAction(this));
+        replacePrevious = frames_.getCompoFactory().newPlainButton("<-");
+        replacePrevious.addActionListener(new ReplacePreviousAction(this));
+        replaceNext = frames_.getCompoFactory().newPlainButton("->");
+        replaceNext.addActionListener(new ReplaceNextAction(this));
         navModifPanel = frames_.getCompoFactory().newPageBox();
         navModifPanel.setVisible(false);
         finderPanel = frames_.getCompoFactory().newLineBox();
@@ -76,6 +82,8 @@ public final class TabEditor {
         replacerPanel.add(replacer);
         replacerPanel.add(replaceOne);
         replacerPanel.add(replaceAll);
+        replacerPanel.add(replacePrevious);
+        replacerPanel.add(replaceNext);
         navModifPanel.add(replacerPanel);
         undo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, -1));
         redo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, 1));
@@ -152,6 +160,14 @@ public final class TabEditor {
 
     public AbsPlainButton getReplaceAll() {
         return replaceAll;
+    }
+
+    public AbsPlainButton getReplacePrevious() {
+        return replacePrevious;
+    }
+
+    public AbsPlainButton getReplaceNext() {
+        return replaceNext;
     }
 
     public AbsTextField getReplacer() {
