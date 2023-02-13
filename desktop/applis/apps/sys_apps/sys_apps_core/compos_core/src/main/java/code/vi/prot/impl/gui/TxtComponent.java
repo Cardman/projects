@@ -4,6 +4,7 @@ import code.gui.AbsTxtComponent;
 import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
+import code.gui.images.MetaRect;
 import code.util.CustList;
 import code.util.IdMap;
 import code.vi.prot.impl.DefImage;
@@ -95,6 +96,16 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
 
     public int viewToModel(MetaPoint _point) {
         return getTextComponent().viewToModel(new Point(_point.getXcoord(), _point.getYcoord()));
+    }
+
+    @Override
+    public MetaRect modelToView(int _index) {
+        try {
+            Rectangle r_ = getTextComponent().modelToView(_index);
+            return new MetaRect(r_.x,r_.y,r_.width,r_.height);
+        } catch (Exception e) {
+            return new MetaRect(0,0,0,0);
+        }
     }
 
     @Override

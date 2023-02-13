@@ -4,6 +4,7 @@ import code.gui.AbsTxtComponent;
 import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
+import code.gui.images.MetaRect;
 import code.util.CustList;
 import code.util.IdList;
 import code.util.core.NumberUtil;
@@ -177,6 +178,12 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     public int viewToModel(MetaPoint _m) {
         return 0;
     }
+
+    @Override
+    public MetaRect modelToView(int _index) {
+        return new MetaRect(0,0,0,0);
+    }
+
     public StringBuilder getBuilder() {
         return builder;
     }

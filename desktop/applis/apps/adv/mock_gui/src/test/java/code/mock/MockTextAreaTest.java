@@ -69,6 +69,7 @@ public final class MockTextAreaTest extends EquallableMockGuiUtil {
         t_.setTabSize(8);
         assertEq(8,t_.getTabSize());
         t_.viewToModel(null);
+        t_.modelToView(0);
         assertEq(16, t_.getCols());
         assertEq(16, t_.getRows());
     }

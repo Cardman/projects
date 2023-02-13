@@ -3,6 +3,7 @@ package code.gui;
 import code.gui.events.AbsAutoCompleteListener;
 import code.gui.events.AbsCaretListener;
 import code.gui.images.MetaPoint;
+import code.gui.images.MetaRect;
 import code.util.CustList;
 
 public interface AbsTxtComponent extends AbsCustComponent{
@@ -41,6 +42,7 @@ public interface AbsTxtComponent extends AbsCustComponent{
     void setEnabled(boolean _enabled);
     boolean isEnabled();
     int viewToModel(MetaPoint _point);
+    MetaRect modelToView(int _index);
     void addCaretListener(AbsCaretListener _listener);
     void removeCaretListener(AbsCaretListener _listener);
     CustList<AbsCaretListener> getCaretListeners();
