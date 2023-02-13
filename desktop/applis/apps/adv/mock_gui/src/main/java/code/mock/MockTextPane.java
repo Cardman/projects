@@ -36,6 +36,7 @@ public final class MockTextPane extends MockTxtComponent implements AbsTextPane 
     @Override
     public void setParagraphAttributes(AbsAttrSet _attrs) {
         paragraph = _attrs;
+        applyChange(1);
     }
 
     @Override
