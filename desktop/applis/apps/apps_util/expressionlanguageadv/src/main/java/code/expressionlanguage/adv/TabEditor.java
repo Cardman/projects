@@ -132,9 +132,8 @@ public final class TabEditor {
         while (index_ >= 0) {
             int next_ = txt_.indexOf("\n",index_);
             if (row_ == adjRow_) {
-                int limit_ = min(next_, txt_);
-                if (adjCol_ <= limit_ - index_) {
-                    int j_ = tab(tw_, txt_, index_, adjCol_);
+                int j_ = tab(tw_, txt_, index_, adjCol_);
+                if (j_ > -1) {
                     return scan_ + j_;
                 }
                 return -1;
@@ -154,6 +153,9 @@ public final class TabEditor {
         int j_ = 0;
         int d_ = 0;
         while (d_ < _delta) {
+            if (j_+ _index >= _txt.length()) {
+                return -1;
+            }
             if (_txt.charAt(j_+ _index) == '\t') {
                 d_ += _tw;
                 d_ -= d_ % _tw;
@@ -163,13 +165,6 @@ public final class TabEditor {
             j_++;
         }
         return j_;
-    }
-
-    private static int min(int _next, String _txt) {
-        if (_next < 0) {
-            return _txt.length()-1;
-        }
-        return _next;
     }
 
     public NavRowColAction getNavRowCol() {

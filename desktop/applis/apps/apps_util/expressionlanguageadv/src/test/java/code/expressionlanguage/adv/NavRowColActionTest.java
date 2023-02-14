@@ -101,7 +101,10 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         o_.getRow().setValue(1);
         o_.getCol().setValue(6);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertTrue(o_.getResult().getValid().get());
+        tabEditor(w_).goToRowCol(o_.getResult());
+        assertEq(5,tabEditor(w_).getCenter().getSelectionStart());
+        assertEq(5,tabEditor(w_).getCenter().getSelectionEnd());
     }
     @Test
     public void action7() {
@@ -132,7 +135,10 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         o_.getRow().setValue(2);
         o_.getCol().setValue(6);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertTrue(o_.getResult().getValid().get());
+        tabEditor(w_).goToRowCol(o_.getResult());
+        assertEq(11,tabEditor(w_).getCenter().getSelectionStart());
+        assertEq(11,tabEditor(w_).getCenter().getSelectionEnd());
     }
     @Test
     public void action9() {
@@ -198,5 +204,81 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         tabEditor(w_).goToRowCol(o_.getResult());
         assertEq(8,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(8,tabEditor(w_).getCenter().getSelectionEnd());
+    }
+    @Test
+    public void action13() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("hello\n\tworld");
+        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
+        ev_.action();
+        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        assertEq(-1,o_.getResult().getIndex());
+        o_.getRow().setValue(2);
+        o_.getCol().setValue(9);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertTrue(o_.getResult().getValid().get());
+        tabEditor(w_).goToRowCol(o_.getResult());
+        assertEq(11,tabEditor(w_).getCenter().getSelectionStart());
+        assertEq(11,tabEditor(w_).getCenter().getSelectionEnd());
+    }
+    @Test
+    public void action14() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("hello\n\tworld");
+        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
+        ev_.action();
+        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        assertEq(-1,o_.getResult().getIndex());
+        o_.getRow().setValue(2);
+        o_.getCol().setValue(10);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertTrue(o_.getResult().getValid().get());
+        tabEditor(w_).goToRowCol(o_.getResult());
+        assertEq(12,tabEditor(w_).getCenter().getSelectionStart());
+        assertEq(12,tabEditor(w_).getCenter().getSelectionEnd());
+    }
+    @Test
+    public void action15() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("hello\nworld");
+        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
+        ev_.action();
+        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        assertEq(-1,o_.getResult().getIndex());
+        o_.getRow().setValue(2);
+        o_.getCol().setValue(7);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertFalse(o_.getResult().getValid().get());
+    }
+    @Test
+    public void action16() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("hello");
+        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
+        ev_.action();
+        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        assertEq(-1,o_.getResult().getIndex());
+        o_.getRow().setValue(1);
+        o_.getCol().setValue(7);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertFalse(o_.getResult().getValid().get());
+    }
+    @Test
+    public void action17() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("hello\n\tworld");
+        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
+        ev_.action();
+        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        assertEq(-1,o_.getResult().getIndex());
+        o_.getRow().setValue(2);
+        o_.getCol().setValue(11);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertFalse(o_.getResult().getValid().get());
     }
 }
