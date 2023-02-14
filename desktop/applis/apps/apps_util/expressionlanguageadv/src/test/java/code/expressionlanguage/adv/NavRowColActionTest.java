@@ -165,4 +165,21 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         ((MockPlainButton)o_.getCancel()).getActionListeners().get(0).action();
         assertFalse(o_.getResult().getValid().get());
     }
+    @Test
+    public void action11() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("hello\n\tworld");
+        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
+        ev_.action();
+        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        assertEq(-1,o_.getResult().getIndex());
+        o_.getRow().setValue(2);
+        o_.getCol().setValue(6);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertTrue(o_.getResult().getValid().get());
+        tabEditor(w_).goToRowCol(o_.getResult());
+        assertEq(8,tabEditor(w_).getCenter().getSelectionStart());
+        assertEq(8,tabEditor(w_).getCenter().getSelectionEnd());
+    }
 }
