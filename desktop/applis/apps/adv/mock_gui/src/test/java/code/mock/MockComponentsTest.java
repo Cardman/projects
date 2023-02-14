@@ -253,6 +253,13 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ch_.setSelected(false);
         assertFalse(ch_.isSelected());
         assertEq(1,s_.getNb());
+        s_.setNb(0);
+        ch_.setSelected(false);
+        assertFalse(ch_.isSelected());
+        assertEq(0,s_.getNb());
+        ch_.setSelected(true);
+        assertTrue(ch_.isSelected());
+        assertEq(1,s_.getNb());
         ch_.removeActionListener(acList_);
         assertEq(0,ch_.getActionListeners().size());
         MockPaintableLabelAbs paint_ = (MockPaintableLabelAbs) ab_.newAbsPaintableLabel();
