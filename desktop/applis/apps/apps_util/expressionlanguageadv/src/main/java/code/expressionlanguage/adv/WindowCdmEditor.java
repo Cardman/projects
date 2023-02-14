@@ -4,17 +4,19 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.*;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
-import code.util.CustList;
-import code.util.IdList;
-import code.util.StringList;
-import code.util.StringMap;
+import code.util.*;
 import code.util.core.StringUtil;
 
 public final class WindowCdmEditor implements AbsGroupFrame {
@@ -77,6 +79,46 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments("",frs_.getTranslations(),frs_.getLanguage()));
         comments = comments_;
     }
+    public static void updateComments(Translations _trs) {
+        for (EntryCust<String, TranslationsLg> e: _trs.getMapping().entryList()) {
+            TranslationsAppli foundAppli_ = foundAppi(e);
+            TranslationsFile foundFile_ = null;
+            for (EntryCust<String, TranslationsFile> f: foundAppli_.getMapping().entryList()) {
+                if (StringUtil.quickEq(f.getKey(), FileInfos.COMMENTS)) {
+                    foundFile_ = f.getValue();
+                }
+            }
+            if (foundFile_ == null) {
+                foundFile_ = new TranslationsFile();
+                foundAppli_.getMapping().addEntry(FileInfos.COMMENTS,foundFile_);
+            }
+            boolean foundValue_ = false;
+            for (EntryCust<String, String> f: foundFile_.getMapping().entryList()) {
+                if (StringUtil.quickEq(f.getKey(), FileInfos.COMM_BEGIN)) {
+                    f.setValue(StringUtil.removeAllSpaces(f.getValue()));
+                    foundValue_ = true;
+                }
+            }
+            if (!foundValue_) {
+                foundFile_.getMapping().addEntry(FileInfos.COMM_BEGIN,"");
+            }
+        }
+    }
+
+    private static TranslationsAppli foundAppi(EntryCust<String, TranslationsLg> _e) {
+        TranslationsAppli foundAppli_ = null;
+        for (EntryCust<String, TranslationsAppli> f: _e.getValue().getMapping().entryList()) {
+            if (StringUtil.quickEq(f.getKey(), FileInfos.CDM)) {
+                foundAppli_ = f.getValue();
+            }
+        }
+        if (foundAppli_ == null) {
+            foundAppli_ = new TranslationsAppli();
+            _e.getValue().getMapping().addEntry(FileInfos.CDM,foundAppli_);
+        }
+        return foundAppli_;
+    }
+
     public String getTempDefConf() {
         return tempFolder+"/"+DEF_CONF;
     }
