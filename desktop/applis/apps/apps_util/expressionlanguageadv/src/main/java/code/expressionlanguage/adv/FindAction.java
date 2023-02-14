@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.files.SegmentColorPart;
 import code.expressionlanguage.analyze.files.SegmentType;
 import code.expressionlanguage.analyze.files.StringComment;
+import code.expressionlanguage.common.NumParsers;
 import code.gui.AbsAttrSet;
 import code.gui.AbsTextField;
 import code.gui.AbsTextPane;
@@ -42,7 +43,7 @@ public final class FindAction implements AbsActionListener {
         _tab.getParts().clear();
         int index_ = 0;
         while (index_ >= 0) {
-            index_ = segment(t_,find_,index_, _tab.getParts());
+            index_ = segment(t_,find_,index_, _tab.getCaseSens().isSelected(), _tab.getParts());
         }
         int count_ = _tab.getParts().size();
         for (int i = 0; i < count_; i++) {
@@ -96,19 +97,38 @@ public final class FindAction implements AbsActionListener {
         }
         return -1;
     }
-    static int segment(String _text, String _find, int _index, CustList<SegmentFindPart> _parts) {
-        SegmentFindPart seg_ = segment(_text, _find, _index);
+    static int segment(String _text, String _find, int _index, boolean _sensCase, CustList<SegmentFindPart> _parts) {
+        SegmentFindPart seg_ = segment(_text, _find, _index,_sensCase);
         if (seg_.getBegin() == seg_.getEnd()) {
             return -1;
         }
         _parts.add(seg_);
         return seg_.getEnd();
     }
-    static SegmentFindPart segment(String _text, String _find, int _index) {
+    static SegmentFindPart segment(String _text, String _find, int _index, boolean _sensCase) {
+        if (!_sensCase) {
+            int un_ = _text.length();
+            int seg_ = _find.length();
+            for (int i = _index; i < un_; i++) {
+                if (matchChars(_text, _find, seg_, i, un_)) {
+                    return new SegmentFindPart(i,i+_find.length());
+                }
+            }
+            return new SegmentFindPart(-1, -1);
+        }
         int next_ = _text.indexOf(_find, _index);
         if (next_ >= _index) {
             return new SegmentFindPart(next_,next_+_find.length());
         }
         return new SegmentFindPart(-1, -1);
+    }
+
+    private static boolean matchChars(String _text, String _find, int _seg, int _i, int _gl) {
+        for (int j = 0; j < _seg; j++) {
+            if (_i+j>=_gl||!NumParsers.eqChIgnCase(_text.charAt(_i+j), _find.charAt(j))) {
+                return false;
+            }
+        }
+        return true;
     }
 }

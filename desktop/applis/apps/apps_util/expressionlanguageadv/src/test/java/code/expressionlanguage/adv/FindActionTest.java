@@ -382,5 +382,93 @@ public final class FindActionTest extends EquallableElAdvUtil {
         assertEq(4, tabEditor(w_).getCenter().getSelectionStart());
         assertEq(5, tabEditor(w_).getCenter().getSelectionEnd());
     }
-
+    @Test
+    public void action19() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("helLo");
+        tabEditor(w_).getCenter().select(2,3);
+        findText(w_, pr_);
+        tabEditor(w_).getCaseSens().setSelected(false);
+        assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
+        assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
+        assertEq("l", tabEditor(w_).getFinder().getText());
+        assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(1).size());
+        assertEq(1,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(2).size());
+        assertEq(1,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(3).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(4).size());
+        assertEq(2, tabEditor(w_).getParts().size());
+        assertEq(2, tabEditor(w_).getParts().get(0).getBegin());
+        assertEq(3, tabEditor(w_).getParts().get(0).getEnd());
+        assertEq(3, tabEditor(w_).getParts().get(1).getBegin());
+        assertEq(4, tabEditor(w_).getParts().get(1).getEnd());
+        assertEq(0, tabEditor(w_).getCurrentPart());
+    }
+    @Test
+    public void action20() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("helLo");
+        findText(w_, pr_);
+        findNow(pr_, w_,"ol");
+        tabEditor(w_).getCaseSens().setSelected(false);
+        assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
+        assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
+        assertEq("ol", tabEditor(w_).getFinder().getText());
+        assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(1).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(2).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(3).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(4).size());
+        assertEq(0, tabEditor(w_).getParts().size());
+        assertEq(-1, tabEditor(w_).getCurrentPart());
+    }
+    @Test
+    public void action21() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("helLo");
+        findText(w_, pr_);
+        findNow(pr_, w_,"o");
+        tabEditor(w_).getCaseSens().setSelected(false);
+        assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
+        assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
+        assertEq("o", tabEditor(w_).getFinder().getText());
+        assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(1).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(2).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(3).size());
+        assertEq(1,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(4).size());
+        assertEq(1, tabEditor(w_).getParts().size());
+        assertEq(4, tabEditor(w_).getParts().get(0).getBegin());
+        assertEq(5, tabEditor(w_).getParts().get(0).getEnd());
+        assertEq(0, tabEditor(w_).getCurrentPart());
+    }
+    @Test
+    public void action22() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
+        WindowCdmEditor w_ =window(pr_);
+        tabEditor(w_).getCenter().setText("helLo");
+        tabEditor(w_).getCenter().select(2,3);
+        findText(w_, pr_);
+        tabEditor(w_).getCaseSens().setSelected(false);
+        tabEditor(w_).getCaseSens().setSelected(true);
+        assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
+        assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
+        assertEq("l", tabEditor(w_).getFinder().getText());
+        assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(1).size());
+        assertEq(1,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(2).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(3).size());
+        assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(4).size());
+        assertEq(1, tabEditor(w_).getParts().size());
+        assertEq(2, tabEditor(w_).getParts().get(0).getBegin());
+        assertEq(3, tabEditor(w_).getParts().get(0).getEnd());
+        assertEq(0, tabEditor(w_).getCurrentPart());
+    }
 }

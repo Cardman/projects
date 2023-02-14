@@ -13,6 +13,7 @@ public final class TabEditor {
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
     private final AbsTextField finder;
+    private final AbsCustCheckBox caseSens;
     private final AbsTextField replacer;
     private final AbsPlainButton prevOcc;
     private final AbsPlainButton nextOcc;
@@ -70,6 +71,10 @@ public final class TabEditor {
         finderPanel = frames_.getCompoFactory().newLineBox();
         finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
+        caseSens = frames_.getCompoFactory().newCustCheckBox("Aa");
+        caseSens.addActionListener(new ToggleFindOptionEvent(this));
+        caseSens.setSelected(true);
+        finderPanel.add(caseSens);
         closeFinder.addActionListener(new ClosePanelAction(this));
         finderPanel.add(labelOcc);
         prevOcc.addActionListener(new ChgSegmentPartEvent(this,-1));
@@ -152,6 +157,10 @@ public final class TabEditor {
 
     public AbsTextField getFinder() {
         return finder;
+    }
+
+    public AbsCustCheckBox getCaseSens() {
+        return caseSens;
     }
 
     public AbsPlainButton getReplaceOne() {
