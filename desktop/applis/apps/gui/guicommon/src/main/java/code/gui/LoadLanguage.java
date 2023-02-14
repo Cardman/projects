@@ -1,5 +1,6 @@
 package code.gui;
 import code.gui.images.AbstractImage;
+import code.stream.StreamFolderFile;
 
 /**This class thread is used by EDT (invokeLater of SwingUtilities),
 Thread safe class*/
@@ -17,7 +18,7 @@ public final class LoadLanguage implements Runnable {
     public LoadLanguage(SoftApplicationCore _application, String _dir, String[] _args,
                         AbstractImage _icon) {
         application = _application;
-        dir = SoftApplicationCore.getTempFolder(_application.getFrames(),_dir);
+        dir = StreamFolderFile.getTempFolder(_application.getFrames(),_dir);
         args = _args;
         icon = _icon;
     }

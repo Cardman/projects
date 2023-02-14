@@ -66,63 +66,69 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         MockProgramInfos pr_ = prWrite();
         WindowCdmEditor w_ =window(pr_);
         w_.updateCommentsInit(new StringList());
-        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
-        assertEq(WindowCdmEditor.DEF_CONF,w_.getOpenedConf());
+        assertTrue(pr_.getFileCoreStream().newFile(w_.getTempDefConf()).exists());
+        assertEq(w_.getTempDefConf(),w_.getOpenedConf());
     }
     @Test
     public void fileConf2() {
         MockProgramInfos pr_ = prWrite();
         WindowCdmEditor w_ =window(pr_);
-        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
-        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
-        assertEq(WindowCdmEditor.DEF_CONF,w_.getOpenedConf());
+        w_.updateCommentsInit(new StringList(w_.getTempDefConf()));
+        assertTrue(pr_.getFileCoreStream().newFile(w_.getTempDefConf()).exists());
+        assertEq(w_.getTempDefConf(),w_.getOpenedConf());
     }
     @Test
     public void fileConf3() {
         MockProgramInfos pr_ = prWrite();
         WindowCdmEditor w_ =window(pr_);
-        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        w_.updateCommentsInit(new StringList(w_.getTempDefConf()));
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         WindowCdmEditor w2_ =window(pr_);
-        w2_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
-        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
-        assertEq(WindowCdmEditor.DEF_CONF,w2_.getOpenedConf());
+        w2_.updateCommentsInit(new StringList(w_.getTempDefConf()));
+        assertTrue(pr_.getFileCoreStream().newFile(w_.getTempDefConf()).exists());
+        assertEq(w_.getTempDefConf(),w2_.getOpenedConf());
     }
     @Test
     public void fileConf4() {
         MockProgramInfos pr_ = prWrite();
         WindowCdmEditor w_ =window(pr_);
-        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        w_.updateCommentsInit(new StringList(w_.getTempDefConf()));
         CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
         dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
         w_.saveComments(dels_);
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         WindowCdmEditor w2_ =window(pr_);
-        w2_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
-        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        w2_.updateCommentsInit(new StringList(w_.getTempDefConf()));
+        assertTrue(pr_.getFileCoreStream().newFile(w_.getTempDefConf()).exists());
         CustList<CommentDelimiters> result_ = w2_.getComments();
         assertEq(1,result_.size());
         assertEq("\\*",result_.get(0).getBegin());
         assertEq("*\\",result_.get(0).getEnd().get(0));
-        assertEq(WindowCdmEditor.DEF_CONF,w2_.getOpenedConf());
+        assertEq(w_.getTempDefConf(),w2_.getOpenedConf());
     }
     @Test
     public void fileConf5() {
         MockProgramInfos pr_ = prWrite();
         WindowCdmEditor w_ =window(pr_);
-        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF+"_"));
-        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        w_.updateCommentsInit(new StringList(w_.getTempDefConf()+"_"));
+        assertTrue(pr_.getFileCoreStream().newFile(w_.getTempDefConf()).exists());
     }
     @Test
     public void fileConf6() {
         MockProgramInfos pr_ = prWrite();
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList(w_.getTempDefConf()));
+        CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
+        dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
+        w_.saveComments(dels_);
+        w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         Document doc_ = DocumentBuilder.newXmlDocument();
         Element elt_ = doc_.createElement(WindowCdmEditor.ROOT_CONF+"_");
         doc_.appendChild(elt_);
-        StreamTextFile.saveTextFile(WindowCdmEditor.DEF_CONF+"_",doc_.export(),pr_.getStreams());
-        WindowCdmEditor w_ =window(pr_);
-        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF+"_"));
-        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        StreamTextFile.saveTextFile(w_.getTempDefConf()+"_",doc_.export(),pr_.getStreams());
+        WindowCdmEditor w2_ =window(pr_);
+        w2_.updateCommentsInit(new StringList(w2_.getTempDefConf()+"_"));
+        assertTrue(pr_.getFileCoreStream().newFile(w2_.getTempDefConf()).exists());
     }
     @Test
     public void quit1() {

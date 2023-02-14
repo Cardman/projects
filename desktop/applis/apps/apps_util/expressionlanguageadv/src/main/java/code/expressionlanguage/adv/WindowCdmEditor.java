@@ -9,6 +9,7 @@ import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.*;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.IdList;
@@ -17,12 +18,14 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class WindowCdmEditor implements AbsGroupFrame {
+    public static final String TEMP_FOLDER = "cdm";
     public static final String NODE_COMM = "0";
     public static final String DEF_CONF = "def_conf.txt";
     public static final String ROOT_CONF = "_";
     private final TabEditor tabEditor;
     private final AbsDialog dialogComments;
     private final AbsMenuItem commentsMenu;
+    private final String tempFolder;
     private StringMap<String> messages;
     private final AbsCommonFrame commonFrame;
     private final AbsSpinner spinner;
@@ -32,6 +35,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, IdList<WindowCdmEditor> _opened) {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
+        tempFolder = getTempFolder(_list);
         dialogComments = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
@@ -56,10 +60,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         ides = _opened;
         _opened.add(this);
     }
+
+    public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+    }
     public void updateCommentsInit(StringList _files) {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
-        if (!frs_.getFileCoreStream().newFile(DEF_CONF).exists()) {
-            StreamTextFile.saveTextFile(DEF_CONF,buildConfFile(),frs_.getStreams());
+        if (!frs_.getFileCoreStream().newFile(getTempDefConf()).exists()) {
+            StreamTextFile.saveTextFile(getTempDefConf(),buildConfFile(),frs_.getStreams());
         }
         String fileName_ = defConf(_files);
         openedConf = fileName_;
@@ -68,6 +76,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         CustList<CommentDelimiters> comments_ = retrieveComments(doc_);
         CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments("",frs_.getTranslations(),frs_.getLanguage()));
         comments = comments_;
+    }
+    public String getTempDefConf() {
+        return tempFolder+"/"+DEF_CONF;
     }
     private CustList<CommentDelimiters> retrieveComments(Document _doc) {
         if (_doc == null || !StringUtil.quickEq(ROOT_CONF, _doc.getDocumentElement().getTagName())) {
@@ -85,9 +96,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
         return ParseLinesArgUtil.buildComments(res_);
     }
-    private static String defConf(StringList _files) {
+    private String defConf(StringList _files) {
         if (_files.isEmpty()) {
-            return DEF_CONF;
+            return getTempDefConf();
         }
         return _files.first();
     }

@@ -25,6 +25,7 @@ import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.stream.BytesInfo;
 import code.stream.StreamBinaryFile;
+import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
 import code.converterimages.main.LaunchingConverter;
@@ -164,7 +165,7 @@ public class LaunchingApplications extends SoftApplicationCore {
         setLocation(w_.getCommonFrame(), topLeft_);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
     private static boolean isZip(byte[] _bytes) {

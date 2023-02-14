@@ -16,7 +16,6 @@ import code.scripts.messages.gui.MessPkVideoGr;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.util.StringList;
-import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public class LaunchingPokemon extends AdvSoftApplicationCore {
@@ -124,7 +123,7 @@ public class LaunchingPokemon extends AdvSoftApplicationCore {
     }
 
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
     @Override

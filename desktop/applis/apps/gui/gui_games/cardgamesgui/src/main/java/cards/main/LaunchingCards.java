@@ -95,7 +95,7 @@ public class LaunchingCards extends AdvSoftApplicationCore {
         return StringUtil.concat(getTempFolder(_tmpUserFolderSl), StreamTextFile.SEPARATEUR);
     }
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
-        return getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
+        return StreamFolderFile.getTempFolder(_tmpUserFolderSl,TEMP_FOLDER);
     }
 
     @Override

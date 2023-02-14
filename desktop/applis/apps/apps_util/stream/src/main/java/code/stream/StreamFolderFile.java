@@ -1,5 +1,6 @@
 package code.stream;
 
+import code.gui.initialize.AbstractProgramInfos;
 import code.stream.core.*;
 import code.util.StringList;
 import code.util.StringMap;
@@ -106,4 +107,8 @@ public final class StreamFolderFile {
         _zipFiles.addEntry(_f.substring(_abs.length()+1),new ContentTime(contentOfFile_.getBytes(), _info.lastModified()));
     }
 
+    public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl, String _folder) {
+        makeParent(StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder)+"/", _tmpUserFolderSl.getFileCoreStream());
+        return StringUtil.concat(_tmpUserFolderSl.getTmpUserFolder(),_folder);
+    }
 }

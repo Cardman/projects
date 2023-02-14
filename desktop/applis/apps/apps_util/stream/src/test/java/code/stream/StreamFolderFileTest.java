@@ -30,6 +30,12 @@ public final class StreamFolderFileTest extends EquallableStreamUtil {
         assertFalse(StreamFolderFile.makeParent("tmp",pr_.getFileCoreStream()));
     }
     @Test
+    public void tempFolder() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"),"/tmp/");
+        assertEq("/tmp/folder",StreamFolderFile.getTempFolder(pr_,"folder"));
+        assertTrue(pr_.getFileCoreStream().newFile("/tmp/folder").isDirectory());
+    }
+    @Test
     public void listRootsAbPath() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), fileSet(0, new long[0], "/"));
         StringList roots_ = StreamFolderFile.listRootsAbPath(pr_.getFileCoreStream());
