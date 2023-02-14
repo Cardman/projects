@@ -14,6 +14,7 @@ public final class TabEditor {
     private final AbsTextPane center;
     private final AbsTextField finder;
     private final AbsCustCheckBox caseSens;
+    private final AbsCustCheckBox wholeWord;
     private final AbsTextField replacer;
     private final AbsPlainButton prevOcc;
     private final AbsPlainButton nextOcc;
@@ -75,6 +76,10 @@ public final class TabEditor {
         caseSens.addActionListener(new ToggleFindOptionEvent(this));
         caseSens.setSelected(true);
         finderPanel.add(caseSens);
+        wholeWord = frames_.getCompoFactory().newCustCheckBox("_");
+        wholeWord.addActionListener(new ToggleFindOptionEvent(this));
+        wholeWord.setSelected(true);
+        finderPanel.add(wholeWord);
         closeFinder.addActionListener(new ClosePanelAction(this));
         finderPanel.add(labelOcc);
         prevOcc.addActionListener(new ChgSegmentPartEvent(this,-1));
@@ -161,6 +166,10 @@ public final class TabEditor {
 
     public AbsCustCheckBox getCaseSens() {
         return caseSens;
+    }
+
+    public AbsCustCheckBox getWholeWord() {
+        return wholeWord;
     }
 
     public AbsPlainButton getReplaceOne() {

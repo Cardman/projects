@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.files.SegmentColorPart;
 import code.expressionlanguage.analyze.files.SegmentType;
 import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.common.StringDataUtil;
 import code.gui.AbsAttrSet;
 import code.gui.AbsTextField;
 import code.gui.AbsTextPane;
@@ -43,7 +44,7 @@ public final class FindAction implements AbsActionListener {
         _tab.getParts().clear();
         int index_ = 0;
         while (index_ >= 0) {
-            index_ = segment(t_,find_,index_, _tab.getCaseSens().isSelected(), _tab.getParts());
+            index_ = segment(t_,find_,index_, _tab.getCaseSens().isSelected(), _tab.getWholeWord().isSelected(), _tab.getParts());
         }
         int count_ = _tab.getParts().size();
         for (int i = 0; i < count_; i++) {
@@ -97,30 +98,44 @@ public final class FindAction implements AbsActionListener {
         }
         return -1;
     }
-    static int segment(String _text, String _find, int _index, boolean _sensCase, CustList<SegmentFindPart> _parts) {
-        SegmentFindPart seg_ = segment(_text, _find, _index,_sensCase);
+    static int segment(String _text, String _find, int _index, boolean _sensCase, boolean _wholeWord, CustList<SegmentFindPart> _parts) {
+        SegmentFindPart seg_ = segment(_text, _find, _index,_sensCase,_wholeWord);
         if (seg_.getBegin() == seg_.getEnd()) {
             return -1;
         }
         _parts.add(seg_);
         return seg_.getEnd();
     }
-    static SegmentFindPart segment(String _text, String _find, int _index, boolean _sensCase) {
+    static SegmentFindPart segment(String _text, String _find, int _index, boolean _sensCase, boolean _wholeWord) {
+        if (_wholeWord && !isWordLooking(_find)) {
+            return new SegmentFindPart(-1, -1);
+        }
         if (!_sensCase) {
             int un_ = _text.length();
             int seg_ = _find.length();
             for (int i = _index; i < un_; i++) {
                 if (matchChars(_text, _find, seg_, i, un_)) {
-                    return new SegmentFindPart(i,i+_find.length());
+                    return afterSearch(_text, _find, _wholeWord, i);
                 }
             }
             return new SegmentFindPart(-1, -1);
         }
         int next_ = _text.indexOf(_find, _index);
         if (next_ >= _index) {
-            return new SegmentFindPart(next_,next_+_find.length());
+            return afterSearch(_text, _find, _wholeWord, next_);
         }
         return new SegmentFindPart(-1, -1);
+    }
+
+    private static SegmentFindPart afterSearch(String _text, String _find, boolean _wholeWord, int _next) {
+        int nextBound_ = _next + _find.length();
+        if (_wholeWord && _next > 0 && !isNotLetterOrDigitLook(_text.charAt(_next-1))) {
+            return new SegmentFindPart(-1, -1);
+        }
+        if (_wholeWord && nextBound_ < _text.length() && !isNotLetterOrDigitLook(_text.charAt(nextBound_))) {
+            return new SegmentFindPart(-1, -1);
+        }
+        return new SegmentFindPart(_next, nextBound_);
     }
 
     private static boolean matchChars(String _text, String _find, int _seg, int _i, int _gl) {
@@ -130,5 +145,19 @@ public final class FindAction implements AbsActionListener {
             }
         }
         return true;
+    }
+    private static boolean isWordLooking(String _text) {
+        if (_text.isEmpty()) {
+            return false;
+        }
+        for (char c: _text.toCharArray()) {
+            if (isNotLetterOrDigitLook(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private static boolean isNotLetterOrDigitLook(char _ch) {
+        return _ch != '_' && !StringDataUtil.isLetterOrDigit(_ch);
     }
 }

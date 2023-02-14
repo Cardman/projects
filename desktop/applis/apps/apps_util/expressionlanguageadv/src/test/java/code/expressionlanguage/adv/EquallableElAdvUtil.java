@@ -54,7 +54,9 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor window(AbstractProgramInfos _pr, IdList<WindowCdmEditor> _opened) {
-        return new WindowCdmEditor("en", _pr,_opened);
+        WindowCdmEditor w_ = new WindowCdmEditor("en", _pr, _opened);
+        w_.getTabEditor().getWholeWord().setSelected(false);
+        return w_;
     }
 
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
