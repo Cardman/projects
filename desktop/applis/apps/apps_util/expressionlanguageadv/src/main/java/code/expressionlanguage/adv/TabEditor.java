@@ -58,13 +58,13 @@ public final class TabEditor {
         nextOcc = frames_.getCompoFactory().newPlainButton("->");
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
         replaceOne = frames_.getCompoFactory().newPlainButton("1");
-        replaceOne.addActionListener(new ReplaceOneAction(this));
+        replaceOne.addActionListener(new ReplaceAction(this,false,false));
         replaceAll = frames_.getCompoFactory().newPlainButton("*");
-        replaceAll.addActionListener(new ReplaceAllAction(this));
+        replaceAll.addActionListener(new ReplaceAction(this,true,true));
         replacePrevious = frames_.getCompoFactory().newPlainButton("<-");
-        replacePrevious.addActionListener(new ReplacePreviousAction(this));
+        replacePrevious.addActionListener(new ReplaceAction(this,true,false));
         replaceNext = frames_.getCompoFactory().newPlainButton("->");
-        replaceNext.addActionListener(new ReplaceNextAction(this));
+        replaceNext.addActionListener(new ReplaceAction(this,false,true));
         navModifPanel = frames_.getCompoFactory().newPageBox();
         navModifPanel.setVisible(false);
         finderPanel = frames_.getCompoFactory().newLineBox();
