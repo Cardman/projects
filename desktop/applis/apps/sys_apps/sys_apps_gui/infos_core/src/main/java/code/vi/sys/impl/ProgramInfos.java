@@ -1,9 +1,11 @@
 package code.vi.sys.impl;
 
 import code.expressionlanguage.filenames.DefaultNameValidating;
+import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.*;
 import code.gui.events.SetterLanguage;
 import code.gui.initialize.*;
+import code.sml.util.TranslationsLg;
 import code.stream.AbsClipStream;
 import code.stream.AbsSoundRecord;
 import code.stream.AbstractFileCoreStream;
@@ -25,6 +27,8 @@ import java.awt.*;
 import java.io.ByteArrayInputStream;
 
 public abstract class ProgramInfos extends ProgramInfosBase implements AbstractProgramInfos {
+    public static final String EN = "en";
+    public static final String FR = "fr";
 
     private static final String SEPARATEUR = "/";
 
@@ -74,10 +78,16 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
         fileOpenDialogInt = new DefFileOpenDialogAbs(this);
         fileSaveDialogInt = new DefFileSaveDialogAbs(this);
         setLanguages(Constants.getAvailableLanguages());
+        FileInfos.initComments(lg(EN));
+        FileInfos.initComments(lg(FR));
         setterLanguage = new LanguageDialog(this);
 //        excludedFolders = StreamTextFile.getExcludedFolders(fileCoreStream,tmpUserFolder,StringUtil.replaceBackSlash(System.getProperty("java.class.path")));
     }
-
+    private TranslationsLg lg(String _key) {
+        TranslationsLg lg_ = new TranslationsLg();
+        getTranslations().getMapping().addEntry(_key, lg_);
+        return lg_;
+    }
     public StringList getExcludedFolders() {
         return excludedFolders;
     }

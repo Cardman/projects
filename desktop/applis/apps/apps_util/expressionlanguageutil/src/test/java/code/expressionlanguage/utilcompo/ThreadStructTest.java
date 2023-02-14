@@ -492,6 +492,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     @Test
     public void print4() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        update(pr_);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
@@ -505,6 +506,7 @@ public final class ThreadStructTest extends EquallableElUtUtil {
     @Test
     public void print5() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+        update(pr_);
         Options opt_ = new Options();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());

@@ -1,11 +1,18 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.gui.AbsGroupFrame;
 import code.gui.AbsTabStops;
 import code.gui.GuiBaseUtil;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
+import code.sml.Document;
+import code.sml.DocumentBuilder;
+import code.sml.Element;
+import code.stream.StreamTextFile;
+import code.util.CustList;
 import code.util.IdList;
+import code.util.StringList;
 import org.junit.Test;
 
 public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
@@ -53,6 +60,69 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tabEditor(w_).getCenter().setText("_");
         ((MockTextPane)tabEditor(w_).getCenter()).getAutoCompleteListeners().get(0).changedUpdate();
         assertEq("_", tabEditor(w_).getCenter().getText());
+    }
+    @Test
+    public void fileConf1() {
+        MockProgramInfos pr_ = prWrite();
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList());
+        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        assertEq(WindowCdmEditor.DEF_CONF,w_.getOpenedConf());
+    }
+    @Test
+    public void fileConf2() {
+        MockProgramInfos pr_ = prWrite();
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        assertEq(WindowCdmEditor.DEF_CONF,w_.getOpenedConf());
+    }
+    @Test
+    public void fileConf3() {
+        MockProgramInfos pr_ = prWrite();
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        WindowCdmEditor w2_ =window(pr_);
+        w2_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        assertEq(WindowCdmEditor.DEF_CONF,w2_.getOpenedConf());
+    }
+    @Test
+    public void fileConf4() {
+        MockProgramInfos pr_ = prWrite();
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
+        dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
+        w_.saveComments(dels_);
+        w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        WindowCdmEditor w2_ =window(pr_);
+        w2_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF));
+        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+        CustList<CommentDelimiters> result_ = w2_.getComments();
+        assertEq(1,result_.size());
+        assertEq("\\*",result_.get(0).getBegin());
+        assertEq("*\\",result_.get(0).getEnd().get(0));
+        assertEq(WindowCdmEditor.DEF_CONF,w2_.getOpenedConf());
+    }
+    @Test
+    public void fileConf5() {
+        MockProgramInfos pr_ = prWrite();
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF+"_"));
+        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
+    }
+    @Test
+    public void fileConf6() {
+        MockProgramInfos pr_ = prWrite();
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element elt_ = doc_.createElement(WindowCdmEditor.ROOT_CONF+"_");
+        doc_.appendChild(elt_);
+        StreamTextFile.saveTextFile(WindowCdmEditor.DEF_CONF+"_",doc_.export(),pr_.getStreams());
+        WindowCdmEditor w_ =window(pr_);
+        w_.updateCommentsInit(new StringList(WindowCdmEditor.DEF_CONF+"_"));
+        assertTrue(pr_.getFileCoreStream().newFile(WindowCdmEditor.DEF_CONF).exists());
     }
     @Test
     public void quit1() {

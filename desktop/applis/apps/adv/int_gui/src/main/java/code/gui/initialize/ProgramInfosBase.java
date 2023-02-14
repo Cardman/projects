@@ -5,6 +5,7 @@ import code.gui.AbsButton;
 import code.gui.AbsGroupFrame;
 import code.gui.images.AbstractImageFactory;
 import code.maths.montecarlo.AbstractGenerator;
+import code.sml.util.Translations;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractAtomicInteger;
 import code.threads.AbstractThreadFactory;
@@ -13,6 +14,7 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public class ProgramInfosBase {
+    private Translations translations = new Translations();
     private final CustList<AbsGroupFrame> frames = new CustList<AbsGroupFrame>();
     private final StringMap<AbstractAtomicInteger> counts = new StringMap<AbstractAtomicInteger>();
     private final StringMap<AbsButton> buttons = new StringMap<AbsButton>();
@@ -23,6 +25,7 @@ public class ProgramInfosBase {
     private final AbstractGraphicComboBoxGenerator geneComboBox;
     private final CompoundedInitParts compoundedInitParts;
     private StringList languages = new StringList();
+    private String language = "";
 
     public ProgramInfosBase(String _h, String _t, AbstractGenerator _g, AbstractGraphicStringListGenerator _l, AbstractGraphicComboBoxGenerator _c, CompoundedInitParts _parts) {
         this.homePath = _h;
@@ -31,6 +34,13 @@ public class ProgramInfosBase {
         this.geneGraphicList = _l;
         this.geneComboBox = _c;
         this.compoundedInitParts = _parts;
+    }
+    public Translations getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Translations _trs) {
+        this.translations = _trs;
     }
 
     public String getHomePath() {
@@ -94,5 +104,13 @@ public class ProgramInfosBase {
 
     public void setLanguages(StringList _lgs) {
         this.languages = _lgs;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String _lg) {
+        this.language = _lg;
     }
 }

@@ -32,6 +32,7 @@ public final class ExecutingOptions {
     private boolean hasArg;
     private StringList args = new StringList();
     private StringList warns = new StringList();
+    private String lg = "";
     private final StringList lgs = new StringList();
     private StringMap<String> messages = new StringMap<String>();
     private StringMap<String> keyWords = new StringMap<String>();
@@ -462,4 +463,11 @@ public final class ExecutingOptions {
         return lgs;
     }
 
+    public String getLg() {
+        return lg;
+    }
+
+    public void setLg(String _l) {
+        this.lg = _l;
+    }
 }

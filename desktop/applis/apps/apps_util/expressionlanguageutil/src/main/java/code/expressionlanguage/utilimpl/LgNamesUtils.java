@@ -13,6 +13,7 @@ import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
+import code.sml.util.Translations;
 import code.util.StringList;
 
 public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
@@ -86,6 +87,12 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
 
     public void setExecutingOptions(ExecutingOptions _executingOptions) {
         this.executingOptions = _executingOptions;
+    }
+
+    @Override
+    public void updateTranslations(Translations _trs, String _lg) {
+        custAliases.setTranslations(_trs);
+        custAliases.setLanguage(_lg);
     }
 
     @Override

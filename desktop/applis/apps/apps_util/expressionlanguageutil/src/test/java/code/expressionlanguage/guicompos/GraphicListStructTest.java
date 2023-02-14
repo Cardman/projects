@@ -382,6 +382,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
     @Test
     public void render1() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        update(pr_);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         CdmFactory cdm_ = new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
         Options opt_ = new Options();

@@ -14,7 +14,7 @@ public final class ChangeCommentsEvent implements AbsActionListener {
     public void action() {
         outputDialogComments = new OutputDialogComments(windowCdmEditor);
         outputDialogComments.update();
-        windowCdmEditor.afterChangingComments(outputDialogComments);
+        windowCdmEditor.afterChangingComments(outputDialogComments.getResult());
     }
 
     public OutputDialogComments getOutputDialogComments() {

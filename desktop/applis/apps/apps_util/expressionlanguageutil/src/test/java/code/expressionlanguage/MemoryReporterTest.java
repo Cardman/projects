@@ -18,7 +18,7 @@ import org.junit.Test;
 public final class MemoryReporterTest extends EquallableElUtUtil {
     @Test
     public void errs1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -33,7 +33,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void errs2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -49,7 +49,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void errs3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -65,7 +65,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void errs4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -82,7 +82,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void errs5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -104,7 +104,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void errs6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -125,7 +125,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void cover1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -142,7 +142,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void cover2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -162,7 +162,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void cover3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -178,21 +178,21 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void init1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, null, new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         assertEq("", StringUtil.nullToEmpty(r_.conf("")));
         r_.getFiles("");
     }
     @Test
     public void init2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         assertEq("_",r_.confTxt(""));
         r_.getBinFiles("");
     }
     @Test
     public void init3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         pr_.getStreams().getTextFact().write("file","content",false);
         assertEq("_",r_.conf(""));
@@ -204,7 +204,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         assertFalse(r_.koPaths("out_folder", e_));
@@ -213,7 +213,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setLogFolder("logger");
@@ -222,7 +222,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setLogFolder("log/ger");
@@ -231,7 +231,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setLogFolder("log//ger");
@@ -240,7 +240,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setErrorsFolder("logger");
@@ -249,7 +249,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setSrcFolder("logger");
@@ -258,7 +258,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths7() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setOutputZip("//");
@@ -266,7 +266,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void koPaths8() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         MemoryReporter r_ = new MemoryReporter(pr_, StringUtil.encode("_"), new BytesInfo(new byte[0], true), new BytesInfo(new byte[0], true), new DefaultNameValidating(new StringList()), new DefaultUniformingString());
         ExecutingOptions e_ = new ExecutingOptions(new MockAtomicBoolean());
         e_.setMainThread("//");
@@ -274,7 +274,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void errs7() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, new UnitIssuer(pr_.getCompoFactory().newTextArea()));
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -299,7 +299,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
     }
     @Test
     public void cdmFactory() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         CdmFactory f_ = new CdmFactory(pr_, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
         assertTrue(f_.getInterceptor().newMapStringStruct().isEmpty());
         f_.getProgramInfos().getZipFact();
@@ -332,4 +332,11 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         e_.setAliases(new StringMap<String>());
         assertTrue(e_.getAliases().isEmpty());
     }
+
+    private MockProgramInfos prs() {
+        MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        update(prs_);
+        return prs_;
+    }
+
 }

@@ -142,9 +142,9 @@ public final class ParseLinesArgUtil {
             if (c == _current) {
                 String ch_ = StringExpUtil.toGeneHex(c);
                 if (ch_.length() == 1) {
-                    return "\\c0"+ ch_;
+                    return "\\u000"+ ch_;
                 }
-                return "\\c"+ ch_;
+                return "\\u00"+ ch_;
             }
         }
         return Character.toString(_current);

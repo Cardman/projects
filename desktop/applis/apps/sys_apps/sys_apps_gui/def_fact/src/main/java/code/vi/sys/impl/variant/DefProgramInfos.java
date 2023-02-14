@@ -15,6 +15,8 @@ public final class DefProgramInfos extends ProgramInfosDeps {
     public AbstractLightProgramInfos light() {
         LigDefProgramInfos light_ = new LigDefProgramInfos(getGenerator());
         light_.setLanguages(getLanguages());
+        light_.setLanguage(getLanguage());
+        light_.setTranslations(getTranslations());
         return light_;
     }
 }

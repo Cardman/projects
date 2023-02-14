@@ -120,6 +120,7 @@ public final class CustContextFactory {
     }
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         _definedLgNames.setExecutingOptions(_exec);
+        _definedLgNames.updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
@@ -127,7 +128,7 @@ public final class CustContextFactory {
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }

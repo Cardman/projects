@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilcompo.FileInfos;
 import code.gui.AbsCustComponent;
 import code.gui.GuiBaseUtil;
 import code.gui.GuiConstants;
@@ -7,11 +8,13 @@ import code.gui.TextAnswerValue;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
+import code.sml.util.TranslationsLg;
 import code.stream.core.AbstractBinFact;
 import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.threads.ThState;
 import code.util.IdList;
+import code.util.StringList;
 import org.junit.Assert;
 
 public abstract class EquallableElAdvUtil {
@@ -59,6 +62,31 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
 
+    public static double[] dbs(double... _args) {
+        return _args;
+    }
+
+    public static MockProgramInfos prWrite() {
+        MockProgramInfos prs_ = prWriteQuick();
+        prs_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        prs_.setLanguage(FileInfos.EN);
+        update(prs_);
+        return prs_;
+    }
+
+    public static MockProgramInfos prWriteQuick() {
+        return newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
+    }
+
+    public static void update(MockProgramInfos _pr) {
+        FileInfos.initComments(lg(_pr,FileInfos.EN));
+        FileInfos.initComments(lg(_pr,FileInfos.FR));
+    }
+    public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
+        TranslationsLg lg_ = new TranslationsLg();
+        _pr.getTranslations().getMapping().addEntry(_key, lg_);
+        return lg_;
+    }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
     }

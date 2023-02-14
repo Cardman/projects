@@ -41,7 +41,7 @@ import org.junit.Test;
 public final class MemoryLoggerTest extends EquallableElUtUtil {
     @Test
     public void log1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -54,7 +54,7 @@ public final class MemoryLoggerTest extends EquallableElUtUtil {
     }
     @Test
     public void log2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -65,5 +65,11 @@ public final class MemoryLoggerTest extends EquallableElUtUtil {
         stds_.getCustAliases().getInfos().getLogger().log("folder","file","content\n", (RunnableContextEl) ctx_);
         stds_.getCustAliases().getInfos().getLogger().log("folder","file","next", (RunnableContextEl) ctx_);
         assertEq("content\nnext",StringUtil.decode(((MemoryLogger)stds_.getCustAliases().getInfos().getLogger()).getLogs().get("file").getContent()));
+    }
+
+    private MockProgramInfos prs() {
+        MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        update(prs_);
+        return prs_;
     }
 }

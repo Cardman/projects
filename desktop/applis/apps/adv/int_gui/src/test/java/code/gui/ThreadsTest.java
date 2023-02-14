@@ -2,6 +2,7 @@ package code.gui;
 
 import code.gui.initialize.CompoundedInitParts;
 import code.gui.initialize.ProgramInfosBase;
+import code.sml.util.Translations;
 import code.stream.AbstractFile;
 import code.stream.BytesInfo;
 import code.stream.FileListInfo;
@@ -89,6 +90,9 @@ public class ThreadsTest extends EquallableIntGuiUtil {
     public void ls6() {
         ProgramInfosBase t_ = new ProgramInfosBase("","",null,null,null, new CompoundedInitParts(null,null,null,null,null));
         t_.setLanguages(new StringList());
+        t_.setTranslations(new Translations());
+        t_.getTranslations().getMapping().clear();
+        t_.setLanguage("");
         assertNull(t_.getThreadFactory());
         assertNull(t_.getCompoFactory());
         assertNull(t_.getGenerator());
@@ -105,6 +109,8 @@ public class ThreadsTest extends EquallableIntGuiUtil {
         assertEq(0, t_.getButtons().size());
         assertEq(0, t_.getFrames().size());
         assertEq(0, t_.getLanguages().size());
+        assertEq(0, t_.getTranslations().getMapping().size());
+        assertEq("",t_.getLanguage());
     }
     @Test
     public void isZip1(){

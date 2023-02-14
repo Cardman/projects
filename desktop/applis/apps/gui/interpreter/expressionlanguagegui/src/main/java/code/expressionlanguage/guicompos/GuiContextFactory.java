@@ -30,6 +30,7 @@ public final class GuiContextFactory {
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         _undefinedLgNames.setExecutingOptions(_exec);
+        _undefinedLgNames.updateTranslations(_currentElements.getTranslations(),_currentElements.getLanguage());
         _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements,_exec.getListGenerator());
         return build(_options, _exec, mess_, kwl_, _undefinedLgNames, _files);
     }
@@ -41,7 +42,7 @@ public final class GuiContextFactory {
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames,fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }

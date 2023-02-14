@@ -290,6 +290,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
     @Test
     public void paint() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        update(pr_);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);

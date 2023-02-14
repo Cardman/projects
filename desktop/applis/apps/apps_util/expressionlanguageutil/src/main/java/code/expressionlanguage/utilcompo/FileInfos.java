@@ -3,11 +3,23 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.stream.core.AbstractZipFact;
 import code.threads.AbstractThreadFactory;
 import code.util.core.DefaultUniformingString;
 
 public final class FileInfos {
+    public static final String EN = "en";
+    public static final String FR = "fr";
+    public static final String CDM = "cdm";
+    public static final String COMMENTS = "comments";
+    public static final String COMMENTS_V1 = "html";
+    public static final String COMMENTS_V2 = "html";
+    public static final String COMM_BEGIN = "1";
+    public static final String COMM_END = "2";
+
     private final AbstractLogger logger;
     private final AbstractFileSystem fileSystem;
     private final AbstractReporter reporter;
@@ -24,6 +36,18 @@ public final class FileInfos {
         threadFactory = _threadFactory;
     }
 
+    public static void initComments(TranslationsLg _lgs) {
+        TranslationsAppli a_ = new TranslationsAppli();
+        a_.getMapping().addEntry(COMMENTS, comFile());
+        _lgs.getMapping().addEntry(CDM, a_);
+    }
+
+    private static TranslationsFile comFile() {
+        TranslationsFile file_ = new TranslationsFile();
+        file_.getMapping().addEntry(COMM_BEGIN,COMMENTS_V1);
+        file_.getMapping().addEntry(COMM_END,COMMENTS_V2);
+        return file_;
+    }
     public static FileInfos buildMemoryFromFile(AbstractLightProgramInfos _light, AbstractGenerator _generator, AbstractNameValidating _nameValidating, AbstractIssuer _issuer, MemInputFiles _mem, AbstractZipFact _zipFact, AbstractThreadFactory _threadFactory) {
         DefaultUniformingString uniformingString_ = new DefaultUniformingString();
         return new FileInfos(new MemoryLogger(_issuer, _threadFactory),new MemoryFileSystem(_nameValidating, _threadFactory),new MemoryReporter(_light,_mem.getConf(), _mem.getSrc(), _mem.getFiles(), _nameValidating, uniformingString_),_generator, _zipFact, _threadFactory);

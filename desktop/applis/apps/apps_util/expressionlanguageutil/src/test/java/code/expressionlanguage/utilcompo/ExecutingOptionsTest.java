@@ -3,6 +3,7 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.*;
 import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.*;
+import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.*;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.exec.blocks.*;
@@ -28,6 +29,20 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         StringList l_ = ExecutingOptions.lines(";\n\n");
         assertEq(1,l_.size());
         assertEq(";",l_.get(0));
+    }
+    @Test
+    public void defComments1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        update(pr_);
+        CustList<CommentDelimiters> l_ = CustAliases.defComments(FileInfos.EN,pr_.getTranslations(),FileInfos.EN);
+        assertEq(4,l_.size());
+    }
+    @Test
+    public void defComments2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        update(pr_);
+        CustList<CommentDelimiters> l_ = CustAliases.defComments("",pr_.getTranslations(),FileInfos.EN);
+        assertEq(4,l_.size());
     }
     @Test
     public void setupOptionals1() {
@@ -61,6 +76,8 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertEq(2,exec_.getLgs().size());
         assertEq("0",exec_.getLgs().get(0));
         assertEq("1",exec_.getLgs().get(1));
+        exec_.setLg("");
+        assertEq("",exec_.getLg());
     }
     @Test
     public void setupOptionals4() {
@@ -425,6 +442,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
     @Test
     public void coverage() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        update(pr_);
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);

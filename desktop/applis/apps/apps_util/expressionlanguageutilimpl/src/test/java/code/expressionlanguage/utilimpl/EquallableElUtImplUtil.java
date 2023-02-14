@@ -29,6 +29,7 @@ import code.maths.Rate;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.sml.Node;
+import code.sml.util.TranslationsLg;
 import code.stream.BytesInfo;
 import code.stream.core.ContentTime;
 import code.stream.core.OutputType;
@@ -268,7 +269,18 @@ public abstract class EquallableElUtImplUtil {
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(_s, new int[0], new String[0], new TextAnswerValue[0]), _set);
         pr_.setLanguages(Constants.getAvailableLanguages());
+        pr_.setLanguage(FileInfos.EN);
+        update(pr_);
         return pr_;
+    }
+    public static void update(MockProgramInfos _pr) {
+        FileInfos.initComments(lg(_pr,FileInfos.EN));
+        FileInfos.initComments(lg(_pr,FileInfos.FR));
+    }
+    public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
+        TranslationsLg lg_ = new TranslationsLg();
+        _pr.getTranslations().getMapping().addEntry(_key, lg_);
+        return lg_;
     }
     public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
         return new MockProgramInfos("", "", _s, _set);

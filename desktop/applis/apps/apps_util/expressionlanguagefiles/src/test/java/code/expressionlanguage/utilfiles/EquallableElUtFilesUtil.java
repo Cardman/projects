@@ -121,6 +121,7 @@ public abstract class EquallableElUtFilesUtil {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0],true), new BytesInfo(new byte[0],true)), _light.getZipFact(), _light.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
         stds_.setExecutingOptions(_opt);
+        stds_.updateTranslations(_light.getTranslations(),_light.getLanguage());
         return stds_;
     }
     public static GuiContextEl newContext(LgNamesGui _stds,CustomSeedGene _opt) {

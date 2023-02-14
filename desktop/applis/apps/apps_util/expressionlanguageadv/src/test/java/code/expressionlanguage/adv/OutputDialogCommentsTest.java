@@ -15,13 +15,13 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
-        assertEq(0,o_.getComments().size());
+        assertEq(0,o_.getResult().getComments().size());
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getValid().get());
-        w_.afterChangingComments(o_);
+        assertTrue(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
         assertEq(1,w_.getComments().size());
         assertEq("\\*",w_.getComments().get(0).getBegin());
         assertEq("*\\",w_.getComments().get(0).getEnd().get(0));
@@ -40,8 +40,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         o_.getCommentsRows().get(1).getBeginArea().setText("\\/");
         o_.getCommentsRows().get(1).getEndArea().setText("/\\");
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getValid().get());
-        w_.afterChangingComments(o_);
+        assertTrue(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
         assertEq(2,w_.getComments().size());
         assertEq("\\*",w_.getComments().get(0).getBegin());
         assertEq("*\\",w_.getComments().get(0).getEnd().get(0));
@@ -67,8 +67,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         assertEq("\\/",o_.getCommentsRows().get(0).getBeginArea().getText());
         assertEq("/\\",o_.getCommentsRows().get(0).getEndArea().getText());
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getValid().get());
-        w_.afterChangingComments(o_);
+        assertTrue(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
         assertEq(1,w_.getComments().size());
         assertEq("\\/",w_.getComments().get(0).getBegin());
         assertEq("/\\",w_.getComments().get(0).getEnd().get(0));
@@ -92,8 +92,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         assertEq("\\*",o_.getCommentsRows().get(0).getBeginArea().getText());
         assertEq("*\\",o_.getCommentsRows().get(0).getEndArea().getText());
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getValid().get());
-        w_.afterChangingComments(o_);
+        assertTrue(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
         assertEq(1,w_.getComments().size());
         assertEq("\\*",w_.getComments().get(0).getBegin());
         assertEq("*\\",w_.getComments().get(0).getEnd().get(0));
@@ -109,14 +109,14 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getValid().get());
-        w_.afterChangingComments(o_);
+        assertTrue(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
         ChangeCommentsEvent ev2_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev2_.action();
         OutputDialogComments o2_ = ev2_.getOutputDialogComments();
-        assertEq(1,o2_.getComments().size());
-        assertEq("\\*",o2_.getComments().get(0).getBegin());
-        assertEq("*\\",o2_.getComments().get(0).getEnd().get(0));
+        assertEq(1,o2_.getResult().getComments().size());
+        assertEq("\\*",o2_.getResult().getComments().get(0).getBegin());
+        assertEq("*\\",o2_.getResult().getComments().get(0).getEnd().get(0));
     }
     @Test
     public void action6() {
@@ -125,13 +125,13 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
-        assertEq(0,o_.getComments().size());
+        assertEq(0,o_.getResult().getComments().size());
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
         ((MockPlainButton)o_.getCancel()).getActionListeners().get(0).action();
-        assertFalse(o_.getValid().get());
-        w_.afterChangingComments(o_);
+        assertFalse(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
         assertEq(0,w_.getComments().size());
     }
 }

@@ -22,6 +22,7 @@ public final class ManageOptions {
         } else {
             ExecutingOptions.setupOptionals(2, opt_, exec_, _linesFiles);
         }
+        exec_.setLg(lg_);
         exec_.setCovering(opt_.isCovering());
         ex = exec_;
         options = opt_;

@@ -22,6 +22,7 @@ import code.formathtml.util.BeanCustLgNames;
 import code.scripts.messages.gui.MessCdmRenderGr;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.Translations;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
@@ -293,6 +294,11 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         this.executingOptions = _executingOptions;
     }
 
+    @Override
+    public void updateTranslations(Translations _trs, String _lg) {
+        custAliases.setTranslations(_trs);
+        custAliases.setLanguage(_lg);
+    }
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
         return new RunnableContextEl(null, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong(),getCustAliases().getInterceptor())), new StringList());

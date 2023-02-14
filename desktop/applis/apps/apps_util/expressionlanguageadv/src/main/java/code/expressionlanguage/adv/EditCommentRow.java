@@ -1,18 +1,15 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.gui.AbsCustCheckBox;
-import code.gui.AbsPanel;
-import code.gui.AbsTextArea;
-import code.gui.GuiConstants;
+import code.gui.*;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class EditCommentRow {
     private final AbsPanel line;
-    private final AbsTextArea beginArea;
-    private final AbsTextArea endArea;
+    private final AbsTextField beginArea;
+    private final AbsTextField endArea;
     private final AbsCustCheckBox selectForDelete;
     private int index;
     private CommentDelimiters comment;
@@ -21,11 +18,11 @@ public final class EditCommentRow {
         comment = _c;
         AbsCompoFactory comp_ = _pr.getCompoFactory();
         AbsPanel line_ = comp_.newLineBox();
-        AbsTextArea begin_ = comp_.newTextArea(_c.getBegin(),2,32);
+        AbsTextField begin_ = comp_.newTextField(_c.getBegin().trim(),32);
         begin_.setLineBorder(GuiConstants.BLACK);
         line_.add(begin_);
         beginArea = begin_;
-        AbsTextArea end_ = comp_.newTextArea(_c.getEnd().get(0),2,32);
+        AbsTextField end_ = comp_.newTextField(_c.getEnd().get(0).trim(),32);
         end_.setLineBorder(GuiConstants.BLACK);
         line_.add(end_);
         selectForDelete = comp_.newCustCheckBox();
@@ -38,11 +35,11 @@ public final class EditCommentRow {
         comment = new CommentDelimiters(beginArea.getText(),new StringList(endArea.getText()));
     }
 
-    public AbsTextArea getBeginArea() {
+    public AbsTextField getBeginArea() {
         return beginArea;
     }
 
-    public AbsTextArea getEndArea() {
+    public AbsTextField getEndArea() {
         return endArea;
     }
 

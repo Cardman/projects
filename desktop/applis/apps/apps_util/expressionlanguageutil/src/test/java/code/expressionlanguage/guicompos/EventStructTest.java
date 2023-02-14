@@ -40,7 +40,7 @@ import org.junit.Test;
 public final class EventStructTest extends EquallableElUtUtil {
     @Test
     public void run1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -60,7 +60,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -77,7 +77,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -94,7 +94,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -114,7 +114,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -139,7 +139,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -159,7 +159,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run7() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -181,7 +181,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run8() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -198,7 +198,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run9() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -215,7 +215,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run10() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -236,7 +236,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void run11() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesUtils stds_ = newLgNamesUtSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -255,7 +255,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -272,7 +272,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -296,7 +296,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -313,7 +313,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -351,7 +351,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -370,7 +370,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -424,7 +424,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void evt7() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -444,7 +444,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void paint1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -464,9 +464,10 @@ public final class EventStructTest extends EquallableElUtUtil {
         new DefSpecSelectionStruct((RunnableContextEl) ctx_,NullStruct.NULL_VALUE).execute(args_,new MetaDimension(1,1));
         assertFalse(st_.isFailInit());
     }
+
     @Test
     public void paint2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -488,7 +489,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void paint3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -508,7 +509,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void paint4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -528,7 +529,7 @@ public final class EventStructTest extends EquallableElUtUtil {
     }
     @Test
     public void convert() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        MockProgramInfos pr_ = prs();
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         opt_.setCovering(true);
@@ -538,4 +539,11 @@ public final class EventStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         assertEq("",new DefSpecSelectionCtx(ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
     }
+
+    private MockProgramInfos prs() {
+        MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        update(prs_);
+        return prs_;
+    }
+
 }

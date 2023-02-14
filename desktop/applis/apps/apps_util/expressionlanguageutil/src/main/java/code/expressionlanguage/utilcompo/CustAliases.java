@@ -25,7 +25,7 @@ import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
 import code.scripts.messages.gui.MessCdmBaseGr;
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.*;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
@@ -403,7 +403,6 @@ public final class CustAliases {
     public static final String YYYY_MM_DD_HH_MM_SS_SSS = "yyyy_MM_dd_HH_mm_ss_SSS";
     public static final String OTHERS = "...";
 
-    public static final String RESOURCES_LG_ALIASES_COMMENTS_PROPERTIES = "resources_lg/aliases/comments.properties";
     public static final String RESOURCES_LG_THREADS_RUNNABLE_TXT = "resources_lg/threads/runnable.txt";
     public static final String RESOURCES_LG_COLLECTIONS_LIST_TXT = "resources_lg/collections/list.txt";
     public static final String RESOURCES_LG_COLLECTIONS_TABLE_TXT = "resources_lg/collections/table.txt";
@@ -858,6 +857,8 @@ public final class CustAliases {
 
     private FileInfos infos;
     private AbstractInterceptor interceptor;
+    private Translations translations;
+    private String language = "";
 
     public static boolean isEnumType(GeneType _type) {
         return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
@@ -2612,10 +2613,26 @@ public final class CustAliases {
         return date_.format(dateFactory_, YYYY_MM_DD_HH_MM_SS_SSS);
     }
 
-    public CustList<CommentDelimiters> defComments() {
-        String content_ = properties.getVal(RESOURCES_LG_ALIASES_COMMENTS_PROPERTIES);
-        content_ = content_.substring(content_.indexOf('=')+1);
-        return ParseLinesArgUtil.buildComments(content_);
+    public CustList<CommentDelimiters> defComments(String _lg) {
+        return defComments(_lg, getTranslations(), getLanguage());
+    }
+
+    public static CustList<CommentDelimiters> defComments(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = lg(_trs, _lg, _language);
+        TranslationsAppli app_ = lg_.getMapping().getVal(FileInfos.CDM);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.COMMENTS);
+        String comments_ = "\\u005c*,*\\u005c;\\u005c\\u005c,\\n;\\u005c<"
+                +com_.getMapping().getVal(FileInfos.COMM_BEGIN)
+                +">,</"+com_.getMapping().getVal(FileInfos.COMM_END)
+                +">;\\u005c>,\\n\n";
+        return ParseLinesArgUtil.buildComments(comments_);
+    }
+
+    public static TranslationsLg lg(Translations _trs, String _one, String _two) {
+        if (!_one.isEmpty()) {
+            return _trs.getMapping().getVal(_one);
+        }
+        return _trs.getMapping().getVal(_two);
     }
     public String getAliasRunnable() {
         return aliasRunnable;
@@ -4304,6 +4321,22 @@ public final class CustAliases {
 
     public void setInterceptor(AbstractInterceptor _interceptor) {
         this.interceptor = _interceptor;
+    }
+
+    public Translations getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Translations _trs) {
+        this.translations = _trs;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String _lg) {
+        this.language = _lg;
     }
 
     static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {

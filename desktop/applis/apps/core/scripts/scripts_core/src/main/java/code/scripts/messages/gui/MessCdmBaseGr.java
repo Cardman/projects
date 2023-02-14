@@ -2,7 +2,6 @@ package code.scripts.messages.gui;
 
 import code.util.StringMap;
 public final class MessCdmBaseGr{
-private static final String CODE_0_1_0="resources_lg/aliases/comments.properties";
 private static final String CODE_0_1_1="resources_lg/aliases/en/keywords.properties";
 private static final String CODE_0_1_2="resources_lg/aliases/en/messages.properties";
 private static final String CODE_0_1_3="resources_lg/aliases/en/types.properties";
@@ -14,7 +13,6 @@ private static final String CODE_0_1_8="resources_lg/collections/table.txt";
 private static final String CODE_0_1_9="resources_lg/tests/run.txt";
 private static final String CODE_0_1_10="resources_lg/threads/formatting.txt";
 private static final String CODE_0_1_11="resources_lg/threads/runnable.txt";
-private static final String CODE_0_2_0="comments=\\u005c*,*\\u005c;\\u005c\\u005c,\\n;\\u005c<html>,</html>;\\u005c>,\\n\n";
 private static final String CODE_0_3_0="Interfaces=interfaces\n";
 private static final String CODE_0_3_1="Finally=finally\n";
 private static final String CODE_0_3_2="Default=default\n";
@@ -4096,7 +4094,6 @@ private static final String CODE_0_13_3="'}'\n";
 private MessCdmBaseGr(){}
 public static StringMap<String> ms(){
 StringMap<String> m = new StringMap<String>();
-m.addEntry(CODE_0_1_0, CODE_0_2_0);
 m.addEntry(CODE_0_1_1,resourcesLgAliasesEnKeywords());
 m.addEntry(CODE_0_1_2,resourcesLgAliasesEnMessages());
 m.addEntry(CODE_0_1_3,resourcesLgAliasesEnTypes());

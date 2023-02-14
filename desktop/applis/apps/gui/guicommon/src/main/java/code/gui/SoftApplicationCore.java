@@ -16,7 +16,6 @@ import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
-import code.util.StringMap;
 import code.util.consts.Constants;
 import code.util.core.StringUtil;
 
@@ -48,6 +47,7 @@ public abstract class SoftApplicationCore {
     }
 
     void launchFile(String[] _args, String _lg) {
+        frames.setLanguage(_lg);
         launch(_lg, _args);
     }
 
