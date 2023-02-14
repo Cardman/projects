@@ -36,7 +36,13 @@ public final class MockCustCheckBox extends MockInput implements AbsCustCheckBox
 
     @Override
     public void setSelected(boolean _b) {
+        boolean prev_ = selected;
         selected = _b;
+        if (prev_ != _b) {
+            for (AbsActionListener a: actionListeners) {
+                a.action();
+            }
+        }
     }
 
     @Override
