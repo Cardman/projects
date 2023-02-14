@@ -59,9 +59,12 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     public void replaceSelection(String _s) {
         builder.delete(selectionStart,selectionEnd);
         applyRemove(selectionEnd-selectionStart);
+        selectionEnd = selectionStart;
         builder.insert(selectionStart,_s);
         applyInsert(_s);
         selected = "";
+        selectionStart += _s.length();
+        selectionEnd += _s.length();
     }
 
     public void append(String _s) {

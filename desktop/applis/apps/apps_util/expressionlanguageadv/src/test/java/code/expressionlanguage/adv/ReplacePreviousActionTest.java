@@ -107,7 +107,7 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
         assertEq("these theme", tabEditor(w_).getCenter().getText());
         assertTrue(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());
         ((MockPlainButton)tabEditor(w_).getReplacePrevious()).getActionListeners().get(0).action();
-        assertEq("thesese theme", tabEditor(w_).getCenter().getText());
+        assertEq("thesese theseme", tabEditor(w_).getCenter().getText());
     }
     @Test
     public void action7() {
