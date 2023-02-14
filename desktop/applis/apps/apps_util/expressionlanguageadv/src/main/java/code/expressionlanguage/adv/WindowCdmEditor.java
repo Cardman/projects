@@ -26,6 +26,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public static final String ROOT_CONF = "_";
     private final TabEditor tabEditor;
     private final AbsDialog dialogComments;
+    private final AbsDialog dialogNavigLine;
     private final AbsMenuItem commentsMenu;
     private final String tempFolder;
     private StringMap<String> messages;
@@ -39,6 +40,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         tempFolder = getTempFolder(_list);
         dialogComments = _list.getFrameFactory().newDialog();
+        dialogNavigLine = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
@@ -180,6 +182,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public AbsDialog getDialogComments() {
         return dialogComments;
+    }
+
+    public AbsDialog getDialogNavigLine() {
+        return dialogNavigLine;
     }
 
     public TabEditor getTabEditor() {

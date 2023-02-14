@@ -34,6 +34,7 @@ public final class TabEditor {
     private final StringList texts = new StringList();
     private final AbsEnabledAction undo;
     private final AbsEnabledAction redo;
+    private final NavRowColAction navRowCol;
     private boolean enabledSyntax = true;
     private int currentPart = -1;
     private int currentText = -1;
@@ -105,11 +106,76 @@ public final class TabEditor {
         center.registerKeyboardAction(undo,GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(redo,GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
+        navRowCol = new NavRowColAction(this);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(navRowCol),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(label);
         panel.add(navModifPanel);
     }
+
+    public void goToRowCol(OutputDialogNavLineResult _r) {
+        if (!_r.getValid().get()) {
+            return;
+        }
+        int sel_ = _r.getIndex();
+        center.select(sel_,sel_);
+    }
+    public int index(int _row, int _col) {
+        int adjRow_ = _row - 1;
+        int adjCol_ = _col - 1;
+        int tw_ = windowEditor.getSpinner().getValue();
+        String txt_ = getCenter().getText();
+        int index_ = 0;
+        int row_ = 0;
+        int scan_ = 0;
+        while (index_ >= 0) {
+            int next_ = txt_.indexOf("\n",index_);
+            if (row_ == adjRow_) {
+                int limit_ = min(next_, txt_);
+                if (adjCol_ <= limit_ - index_) {
+                    int j_ = tab(tw_, txt_, index_, adjCol_);
+                    return scan_ + j_;
+                }
+                return -1;
+            }
+            if (next_ < 0) {
+                index_=-1;
+            } else {
+                scan_ += next_ + 1 - index_;
+                index_ = next_ + 1;
+                row_++;
+            }
+        }
+        return -1;
+    }
+
+    private int tab(int _tw, String _txt, int _index, int _delta) {
+        int j_ = 0;
+        int d_ = 0;
+        while (d_ < _delta) {
+            if (_txt.charAt(j_+ _index) == '\t') {
+                d_ += _tw;
+                d_ -= d_ % _tw;
+            } else {
+                d_++;
+            }
+            j_++;
+        }
+        return j_;
+    }
+
+    private static int min(int _next, String _txt) {
+        if (_next < 0) {
+            return _txt.length()-1;
+        }
+        return _next;
+    }
+
+    public NavRowColAction getNavRowCol() {
+        return navRowCol;
+    }
+
     public void updateNavSelect() {
         if (getParts().isValidIndex(getCurrentPart())) {
             SegmentFindPart s_ = getParts().get(getCurrentPart());
