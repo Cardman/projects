@@ -1,6 +1,6 @@
 package code.sml;
 
-import code.sml.util.ResourcesMessagesUtil;
+import code.sml.util.*;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -22,5 +22,17 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         assertEq(2, map_.size());
         assertEq("v1", map_.getVal("k1"));
         assertEq("v2", map_.getVal("k2"));
+    }
+    @Test
+    public void trs() {
+        Translations tr_ = new Translations();
+        TranslationsLg lg_ = new TranslationsLg();
+        TranslationsAppli a_ = new TranslationsAppli();
+        TranslationsFile f_ = new TranslationsFile();
+        f_.getMapping().addEntry("","");
+        a_.getMapping().addEntry("", f_);
+        lg_.getMapping().addEntry("", a_);
+        tr_.getMapping().addEntry("", lg_);
+        assertEq("",tr_.getMapping().getVal("").getMapping().getVal("").getMapping().getVal("").getMapping().getVal(""));
     }
 }
