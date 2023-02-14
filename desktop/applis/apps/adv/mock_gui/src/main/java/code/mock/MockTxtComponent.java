@@ -57,10 +57,10 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public void replaceSelection(String _s) {
-        builder.delete(selectionStart,selectionEnd);
-        applyRemove(selectionEnd-selectionStart);
-        selectionEnd = selectionStart;
-        builder.insert(selectionStart,_s);
+        builder.delete(getSelectionStart(),getSelectionEnd());
+        applyRemove(getSelectionEnd()-getSelectionStart());
+        selectionEnd = getSelectionStart();
+        builder.insert(getSelectionStart(),_s);
         applyInsert(_s);
         selected = "";
         selectionStart += _s.length();
@@ -113,11 +113,11 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public void setSelectionStart(int _i) {
-        select(_i,selectionEnd);
+        select(_i,getSelectionEnd());
     }
 
     public void setSelectionEnd(int _i) {
-        select(selectionStart,_i);
+        select(getSelectionStart(),_i);
     }
 
     public void select(int _start, int _end) {
