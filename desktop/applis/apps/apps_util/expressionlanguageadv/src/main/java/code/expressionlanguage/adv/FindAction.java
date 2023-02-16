@@ -103,7 +103,9 @@ public final class FindAction implements AbsActionListener {
         if (seg_.getBegin() == seg_.getEnd()) {
             return -1;
         }
-        _parts.add(seg_);
+        if (!_wholeWord|| noLetterBefore(_text, seg_.getBegin()) && noLetterAfter(_text, seg_.getEnd())) {
+            _parts.add(seg_);
+        }
         return seg_.getEnd();
     }
     static SegmentFindPart segment(String _text, String _find, int _index, boolean _sensCase, boolean _wholeWord) {
@@ -115,27 +117,24 @@ public final class FindAction implements AbsActionListener {
             int seg_ = _find.length();
             for (int i = _index; i < un_; i++) {
                 if (matchChars(_text, _find, seg_, i, un_)) {
-                    return afterSearch(_text, _find, _wholeWord, i);
+                    return new SegmentFindPart(i, i + _find.length());
                 }
             }
             return new SegmentFindPart(-1, -1);
         }
         int next_ = _text.indexOf(_find, _index);
         if (next_ >= _index) {
-            return afterSearch(_text, _find, _wholeWord, next_);
+            return new SegmentFindPart(next_, next_ + _find.length());
         }
         return new SegmentFindPart(-1, -1);
     }
 
-    private static SegmentFindPart afterSearch(String _text, String _find, boolean _wholeWord, int _next) {
-        int nextBound_ = _next + _find.length();
-        if (_wholeWord && _next > 0 && !isNotLetterOrDigitLook(_text.charAt(_next-1))) {
-            return new SegmentFindPart(-1, -1);
-        }
-        if (_wholeWord && nextBound_ < _text.length() && !isNotLetterOrDigitLook(_text.charAt(nextBound_))) {
-            return new SegmentFindPart(-1, -1);
-        }
-        return new SegmentFindPart(_next, nextBound_);
+    private static boolean noLetterAfter(String _text, int _nextBound) {
+        return _nextBound >= _text.length() || isNotLetterOrDigitLook(_text.charAt(_nextBound));
+    }
+
+    private static boolean noLetterBefore(String _text, int _next) {
+        return _next <= 0 || isNotLetterOrDigitLook(_text.charAt(_next - 1));
     }
 
     private static boolean matchChars(String _text, String _find, int _seg, int _i, int _gl) {
