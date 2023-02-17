@@ -138,8 +138,11 @@ public final class FindAction implements AbsActionListener {
     }
 
     private static boolean matchChars(String _text, String _find, int _seg, int _i, int _gl) {
+        if (_i + _seg > _gl) {
+            return false;
+        }
         for (int j = 0; j < _seg; j++) {
-            if (_i+j>=_gl||!NumParsers.eqChIgnCase(_text.charAt(_i+j), _find.charAt(j))) {
+            if (!NumParsers.eqChIgnCase(_text.charAt(_i+j), _find.charAt(j))) {
                 return false;
             }
         }
