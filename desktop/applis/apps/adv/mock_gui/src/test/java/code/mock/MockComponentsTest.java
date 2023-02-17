@@ -406,4 +406,12 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         AbsCompoFactory ab_ = init_.getCompoFactory();
         assertEq(10,ab_.stringWidth(new MetaFont("",0,2),"hello"));
     }
+    @Test
+    public void c16() {
+        MockProgramInfosSample init_ = init();
+        MockRunnable r_ = new MockRunnable();
+        AbsCompoFactory ab_ = init_.getCompoFactory();
+        ab_.invokeNow(r_);
+        assertTrue(r_.isStarted());
+    }
 }

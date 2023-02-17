@@ -24,6 +24,6 @@ public final class FinderTextChange implements AbsAutoCompleteListener {
     }
 
     private void update() {
-        editor.getFactories().getCompoFactory().invokeLater(new UpdatingEditorAndSelect(editor));
+        editor.getTaskManager().submit(new UpdatingEditorAndSelect(editor));
     }
 }

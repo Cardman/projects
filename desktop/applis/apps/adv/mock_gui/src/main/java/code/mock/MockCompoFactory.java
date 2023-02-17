@@ -46,6 +46,11 @@ public final class MockCompoFactory implements AbsCompoFactory {
         getLater().add(_runnable);
     }
 
+    @Override
+    public void invokeNow(Runnable _r) {
+        _r.run();
+    }
+
     public void invoke() {
         for (Runnable r: new CustList<Runnable>(getLater())) {
             r.run();

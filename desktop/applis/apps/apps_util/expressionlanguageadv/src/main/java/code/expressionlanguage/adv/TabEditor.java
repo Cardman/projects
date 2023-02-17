@@ -5,6 +5,7 @@ import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.StringList;
 
@@ -35,6 +36,7 @@ public final class TabEditor {
     private final AbsEnabledAction undo;
     private final AbsEnabledAction redo;
     private final NavRowColAction navRowCol;
+    private final AbstractBaseExecutorService taskManager;
     private boolean enabledSyntax = true;
     private int currentPart = -1;
     private int currentText = -1;
@@ -43,6 +45,7 @@ public final class TabEditor {
         windowEditor = _editor;
         commonFrame = _editor.getCommonFrame();
         AbstractProgramInfos frames_ = commonFrame.getFrames();
+        taskManager = frames_.getThreadFactory().newExecutorService();
         factories = frames_;
         label = frames_.getCompoFactory().newPlainLabel(":");
         labelOcc = frames_.getCompoFactory().newPlainLabel("/");
@@ -267,6 +270,10 @@ public final class TabEditor {
 
     public AbsPlainButton getNextOcc() {
         return nextOcc;
+    }
+
+    public AbstractBaseExecutorService getTaskManager() {
+        return taskManager;
     }
 
     public CustList<SegmentFindPart> getParts() {

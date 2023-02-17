@@ -52,6 +52,11 @@ public final class DefCompoFactory implements AbsCompoFactory {
     }
 
     @Override
+    public void invokeNow(Runnable _r) {
+        SwingUtilities.invokeLater(_r);
+    }
+
+    @Override
     public AbsPanel newAbsolute() {
         return Panel.newAbsolute();
     }

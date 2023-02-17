@@ -38,8 +38,8 @@ public final class FindAction implements AbsActionListener {
 
     static void updateEditor(TabEditor _tab) {
         String find_ = StringUtil.nullToEmpty(_tab.getFinder().getText());
+        _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new ClearCharacterAttributes(_tab.getCenter()));
         String t_ = _tab.getCenter().getText();
-        _tab.getCenter().clearCharacterAttributes(0,t_.length());
         syntax(_tab, t_);
         _tab.getParts().clear();
         int index_ = 0;
@@ -53,7 +53,7 @@ public final class FindAction implements AbsActionListener {
             as_.addBackground(GuiConstants.GREEN);
             as_.addForeground(GuiConstants.WHITE);
             as_.addFontSize(12);
-            _tab.getCenter().setCharacterAttributes(seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_,false);
+            _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new SetCharacterAttributes(_tab.getCenter(), seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_));
         }
         _tab.setCurrentPart(partIndex(_tab.getCenter().getSelectionStart(), _tab.getParts()));
         _tab.getReplaceOne().setEnabled(count_ > 0);
@@ -63,8 +63,8 @@ public final class FindAction implements AbsActionListener {
     }
 
     static void updateEditorStyle(TabEditor _tab) {
+        _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new ClearCharacterAttributes(_tab.getCenter()));
         String t_ = _tab.getCenter().getText();
-        _tab.getCenter().clearCharacterAttributes(0,t_.length());
         syntax(_tab,t_);
         _tab.getParts().clear();
     }
@@ -82,7 +82,7 @@ public final class FindAction implements AbsActionListener {
                 as_.addForeground(GuiConstants.GRAY);
             }
             as_.addFontSize(12);
-            _tab.getCenter().setCharacterAttributes(seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_,false);
+            _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new SetCharacterAttributes(_tab.getCenter(), seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_));
         }
     }
     static int partIndex(int _begin, CustList<SegmentFindPart> _parts) {
