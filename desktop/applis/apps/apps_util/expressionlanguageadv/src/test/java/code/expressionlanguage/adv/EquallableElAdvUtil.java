@@ -255,6 +255,9 @@ public abstract class EquallableElAdvUtil {
     protected void save(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
     }
+    protected void closeTab(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
     protected void saveSelected(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
     }

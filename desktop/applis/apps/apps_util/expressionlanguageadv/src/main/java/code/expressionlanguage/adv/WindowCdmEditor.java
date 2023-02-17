@@ -147,10 +147,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     }
     public void saveConf(String _fileName) {
         execConf = _fileName;
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String contentConf_ = buildDefConfFile();
-        document = contentConf_;
-        StreamTextFile.saveTextFile(getTempDefConf(frs_), contentConf_,frs_.getStreams());
+        updateDoc();
         ManageOptions opts_ = saveComments(comments);
         initEnv(opts_);
     }
@@ -274,9 +271,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             StreamTextFile.saveTextFile(elt_,"",frs_.getStreams());
             String rel_ = elt_.substring(currentFolder.length() + currentFolderSrc.length() + 2);
             openedFiles.add(rel_);
-            String contentConf_ = buildDefConfFile();
-            document = contentConf_;
-            StreamTextFile.saveTextFile(getTempDefConf(frs_), contentConf_,frs_.getStreams());
+            updateDoc();
             String name_ = elt_.substring(elt_.lastIndexOf('/')+1);
             TabEditor te_ = new TabEditor(this,elt_);
             tabs.add(te_);
@@ -284,6 +279,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
         applyTreeChangeSelected();
     }
+
+    public void updateDoc() {
+        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        String contentConf_ = buildDefConfFile();
+        document = contentConf_;
+        StreamTextFile.saveTextFile(getTempDefConf(frs_), contentConf_, frs_.getStreams());
+    }
+
     private ManageOptions manage(StringList _linesFiles) {
         return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory, commonFrame.getFrames().getThreadFactory());
     }
@@ -454,6 +457,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public String getCurrentFolder() {
         return currentFolder;
+    }
+
+    public String getCurrentFolderSrc() {
+        return currentFolderSrc;
+    }
+
+    public StringList getOpenedFiles() {
+        return openedFiles;
     }
 
     public AbsMenuItem getCommentsMenu() {

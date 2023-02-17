@@ -114,6 +114,7 @@ public final class TabEditor {
         navRowCol = new NavRowColAction(this);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(navRowCol),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new CloseTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(label);

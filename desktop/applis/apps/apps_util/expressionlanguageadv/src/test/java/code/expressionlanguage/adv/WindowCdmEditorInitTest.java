@@ -32,7 +32,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         MockProgramInfos pr_ = newMockProgramInfosInitConf();
         WindowCdmEditor w_ =windowLoadDef(pr_);
-        assertEq(8, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
+        assertEq(9, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
     }
     @Test
     public void init4() {
@@ -122,6 +122,17 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tabEditor(w_).getCenter().setText("TEXT");
         save(w_);
         assertEq("TEXT",StreamTextFile.contentsOfFile("/project/sources/src/file.txt", pr_.getFileCoreStream(), pr_.getStreams()));
+    }
+    @Test
+    public void closeTab() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        tabEditor(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        closeTab(w_);
+        assertEq(0,w_.getTabs().size());
+        assertEq(0,w_.getEditors().getComponentCount());
+        assertEq(0,w_.getOpenedFiles().size());
     }
     @Test
     public void twoFiles() {
