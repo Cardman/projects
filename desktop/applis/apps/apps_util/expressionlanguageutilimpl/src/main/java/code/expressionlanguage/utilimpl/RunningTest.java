@@ -63,15 +63,14 @@ public final class RunningTest implements Runnable {
             return false;
         }
         String archive_ = linesFiles_.first();
-        String lg_ = linesFiles_.get(1);
         ReadFiles result_ = _infos.getReporter().getFiles(archive_);
         if (result_.getType() == OutputType.NOTHING) {
             return false;
         }
-        ManageOptions manage_ = new ManageOptions(_lgs,lg_,linesFiles_,_progressingTests,_infos);
+        ManageOptions manage_ = new ManageOptions(_lgs, linesFiles_,_progressingTests,_infos);
         ExecutingOptions exec_ = manage_.getEx();
         Options opt_ = manage_.getOptions();
-        lg_ = manage_.getLanguage();
+        String lg_ = manage_.getLanguage();
         StringMap<String> list_ = tryGetSrc(archive_, exec_, _infos, result_);
         if (list_ == null) {
             return false;

@@ -149,7 +149,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         return dir(info_);
     }
 
-    private static boolean dir(AbstractFile _i) {
+    public static boolean dir(AbstractFile _i) {
         return _i.exists() && _i.isDirectory();
     }
 
@@ -160,7 +160,7 @@ public final class DefaultFileSystem implements AbstractFileSystem {
         return file(info_);
     }
 
-    private boolean file(AbstractFile _i) {
+    public static boolean file(AbstractFile _i) {
         return _i.exists() && !_i.isDirectory();
     }
 

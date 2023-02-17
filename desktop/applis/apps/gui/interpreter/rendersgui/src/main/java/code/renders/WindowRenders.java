@@ -125,6 +125,7 @@ public final class WindowRenders extends GroupFrame {
         String clName_ = "";
         String mName_ = "";
         ExecutingOptions exec_ = new ExecutingOptions(getThreadFactory().newAtomicBoolean());
+        exec_.setAccess(archive_);
         exec_.setListGenerator(interceptor);
         String lg_ = getLanguageKey();
         StringList lgs_ = Constants.getAvailableLanguages();

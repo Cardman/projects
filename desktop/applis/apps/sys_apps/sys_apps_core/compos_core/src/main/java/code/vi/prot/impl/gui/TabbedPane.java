@@ -32,9 +32,14 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
     }
 
     public void addIntTab(String _title, AbsCustComponent _component) {
+        addIntTab(_title,_component,"");
+    }
+
+    @Override
+    public void addIntTab(String _title, AbsCustComponent _component, String _tooltip) {
         _component.setParent(this);
         getChildren().add(_component);
-        component.add(_title, ((CustComponent) _component).getNatComponent());
+        component.addTab(_title, null,((CustComponent) _component).getNatComponent(),_tooltip);
     }
 
     public boolean setTab(int _index,AbsCustComponent _component) {
@@ -64,7 +69,12 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
         return component.getTitleAt(_index);
     }
 
-    public boolean setTitle(int _index,String _title) {
+    @Override
+    public String getToolTipAt(int _index) {
+        return component.getToolTipTextAt(_index);
+    }
+
+    public boolean setTitle(int _index, String _title) {
         try {
             setTitleAt(_index, _title);
             return true;
@@ -75,6 +85,11 @@ public final class TabbedPane extends CustComponent implements AbsTabbedPane {
 
     public void setTitleAt(int _index, String _title) {
         component.setTitleAt(_index, _title);
+    }
+
+    @Override
+    public void setToolTipAt(int _index, String _title) {
+        component.setToolTipTextAt(_index, _title);
     }
 
     public void remove(int _index) {

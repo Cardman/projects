@@ -40,8 +40,10 @@ public final class TabEditor {
     private boolean enabledSyntax = true;
     private int currentPart = -1;
     private int currentText = -1;
+    private String fullPath;
 
-    public TabEditor(WindowCdmEditor _editor) {
+    public TabEditor(WindowCdmEditor _editor, String _fullPath) {
+        fullPath = _fullPath;
         windowEditor = _editor;
         commonFrame = _editor.getCommonFrame();
         AbstractProgramInfos frames_ = commonFrame.getFrames();
@@ -111,6 +113,7 @@ public final class TabEditor {
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
         navRowCol = new NavRowColAction(this);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(navRowCol),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
         panel.add(sc_);
         panel.add(label);
@@ -316,4 +319,7 @@ public final class TabEditor {
         return undo;
     }
 
+    public String getFullPath() {
+        return fullPath;
+    }
 }

@@ -5,6 +5,7 @@ import code.mock.MockFileSet;
 import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
 import code.mock.MockProgramInfos;
+import code.util.StringList;
 import org.junit.Test;
 
 public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
@@ -133,5 +134,27 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         assertFalse(o_.getResult().getValid().get());
         w_.afterChangingComments(o_.getResult());
         assertEq(0,w_.getComments().size());
+    }
+    @Test
+    public void action7() {
+        String chooseConf_ = "/editor/conf.txt";
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_);
+        WindowCdmEditor w_ =windowLoadDefInit(pr_);
+        w_.updateCommentsInit(new StringList());
+        ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
+        ev_.action();
+        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        assertEq(0,o_.getResult().getComments().size());
+        ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
+        o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
+        o_.getCommentsRows().get(0).getEndArea().setText("*\\");
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertTrue(o_.getResult().getValid().get());
+        w_.afterChangingComments(o_.getResult());
+        assertEq(1,w_.getComments().size());
+        assertEq("\\*",w_.getComments().get(0).getBegin());
+        assertEq("*\\",w_.getComments().get(0).getEnd().get(0));
     }
 }

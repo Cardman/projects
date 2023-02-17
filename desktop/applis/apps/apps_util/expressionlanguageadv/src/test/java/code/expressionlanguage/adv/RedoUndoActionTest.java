@@ -14,7 +14,7 @@ public final class RedoUndoActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         storeEdit(w_,pr_);
-        assertEq(1, w_.getTabEditor().getTexts().size());
+        assertEq(1, w_.getTabs().get(0).getTexts().size());
     }
     @Test
     public void action2() {
@@ -24,7 +24,7 @@ public final class RedoUndoActionTest extends EquallableElAdvUtil {
         storeEdit(w_,pr_);
         tabEditor(w_).getCenter().setText("halo");
         storeEdit(w_,pr_);
-        assertEq(2, w_.getTabEditor().getTexts().size());
+        assertEq(2, w_.getTabs().get(0).getTexts().size());
     }
     @Test
     public void action3() {
@@ -61,6 +61,6 @@ public final class RedoUndoActionTest extends EquallableElAdvUtil {
         undo(w_);
         redo(w_);
         clearEdit(w_,pr_);
-        assertEq(0, w_.getTabEditor().getTexts().size());
+        assertEq(0,w_.getTabs().get(0).getTexts().size());
     }
 }

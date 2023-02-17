@@ -17,7 +17,11 @@ public final class TabValueChanged implements AbsChangeListener {
 
     @Override
     public void stateChanged() {
-        TabEditor tab_ = window.getTabEditor();
+        int inde_ = window.getEditors().getSelectedIndex();
+        if (!window.getTabs().isValidIndex(inde_)){
+            return;
+        }
+        TabEditor tab_ = window.getTabs().get(inde_);
         AbsTextPane c_ = tab_.getCenter();
         AbsSpinner cen_ = window.getSpinner();
         int chWi_ = c_.stringWidth(c_.getMetaFont(),"#");

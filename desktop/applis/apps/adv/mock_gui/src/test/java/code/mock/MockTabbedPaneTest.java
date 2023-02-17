@@ -73,4 +73,11 @@ public final class MockTabbedPaneTest extends EquallableMockGuiUtil{
         t_.setTitle(0,"_");
         assertEq("_",t_.getTitle(0));
     }
+    @Test
+    public void t10() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.addIntTab("",new MockPlainLabel(""),"");
+        t_.setToolTipAt(0,"_");
+        assertEq("_",t_.getToolTipAt(0));
+    }
 }

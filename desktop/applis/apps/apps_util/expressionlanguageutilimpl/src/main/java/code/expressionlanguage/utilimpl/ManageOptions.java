@@ -13,25 +13,25 @@ public final class ManageOptions {
     private final ExecutingOptions ex;
     private final Options options;
     private final String language;
-    public ManageOptions(StringList _lgs, String _lg, StringList _linesFiles, ProgressingTests _progressingTests, FileInfos _infos) {
-        this(_lgs,_lg,_linesFiles,_progressingTests.getFactory(),_infos.getThreadFactory());
+    public ManageOptions(StringList _lgs, StringList _linesFiles, ProgressingTests _progressingTests, FileInfos _infos) {
+        this(_lgs, _linesFiles,_progressingTests.getFactory(),_infos.getThreadFactory());
     }
-    public ManageOptions(StringList _lgs, String _lg, StringList _linesFiles, CdmFactory _progressingTests, AbstractThreadFactory _infos) {
+    public ManageOptions(StringList _lgs, StringList _linesFiles, CdmFactory _progressingTests, AbstractThreadFactory _infos) {
         ExecutingOptions exec_ = new ExecutingOptions(_infos.newAtomicBoolean());
         exec_.setListGenerator(_progressingTests);
         Options opt_ = new Options();
-        String lg_ = _lg;
-        if (!StringUtil.contains(_lgs,_lg)){
-            lg_ = "";
+        if (!StringUtil.contains(_lgs,_linesFiles.get(1))){
             ExecutingOptions.setupOptionals(1, opt_, exec_,_linesFiles);
+            exec_.setLg("");
         } else {
             ExecutingOptions.setupOptionals(2, opt_, exec_, _linesFiles);
+            exec_.setLg(_linesFiles.get(1));
         }
-        exec_.setLg(lg_);
         exec_.setCovering(opt_.isCovering());
+        exec_.setAccess(_linesFiles.get(0));
         ex = exec_;
         options = opt_;
-        language = lg_;
+        language = exec_.getLg();
     }
 
     public String getLanguage() {

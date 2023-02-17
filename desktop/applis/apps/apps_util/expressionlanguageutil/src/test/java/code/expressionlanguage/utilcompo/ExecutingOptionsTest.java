@@ -78,6 +78,8 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         assertEq("1",exec_.getLgs().get(1));
         exec_.setLg("");
         assertEq("",exec_.getLg());
+        exec_.setAccess("");
+        assertEq("",exec_.getAccess());
     }
     @Test
     public void setupOptionals4() {

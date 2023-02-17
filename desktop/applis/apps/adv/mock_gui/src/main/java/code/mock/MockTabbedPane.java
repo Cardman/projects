@@ -7,6 +7,7 @@ import code.util.StringList;
 public final class MockTabbedPane extends MockCustComponent implements AbsTabbedPane {
     private int selectedIndex;
     private final StringList titles = new StringList();
+    private final StringList tooltips = new StringList();
     @Override
     public int getComponentCount() {
         return getChildren().size();
@@ -38,9 +39,15 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void addIntTab(String _s, AbsCustComponent _c) {
+        addIntTab(_s,_c,"");
+    }
+
+    @Override
+    public void addIntTab(String _s, AbsCustComponent _c, String _tooltip) {
         _c.setParent(this);
         getChildren().add(_c);
         titles.add(_s);
+        tooltips.add(_tooltip);
     }
 
     @Override
@@ -70,6 +77,11 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
     }
 
     @Override
+    public String getToolTipAt(int _index) {
+        return tooltips.get(_index);
+    }
+
+    @Override
     public boolean setTitle(int _i, String _s) {
         setTitleAt(_i, _s);
         return true;
@@ -81,10 +93,16 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
     }
 
     @Override
+    public void setToolTipAt(int _index, String _title) {
+        tooltips.set(_index,_title);
+    }
+
+    @Override
     public void remove(int _i) {
         getChildren().get(_i).setParent(null);
         getChildren().remove(_i);
         titles.remove(_i);
+        tooltips.remove(_i);
     }
 
     @Override
@@ -98,6 +116,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
     @Override
     public void innerRemoveAll() {
         titles.clear();
+        tooltips.clear();
         getChildren().clear();
     }
 }

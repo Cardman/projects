@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.events.AbsActionListener;
+import code.util.core.StringUtil;
 
 public final class CreateInitialFile implements AbsActionListener {
     private final WindowCdmEditor windowCdmEditor;
@@ -11,7 +12,7 @@ public final class CreateInitialFile implements AbsActionListener {
 
     @Override
     public void action() {
-        String fileName_ = windowCdmEditor.getFileOpenDialogInt().input(windowCdmEditor.getCommonFrame(), windowCdmEditor.getCommonFrame().getLanguageKey(), true, "", windowCdmEditor.getCommonFrame().getFrames().getHomePath());
+        String fileName_ = StringUtil.nullToEmpty(windowCdmEditor.getFileSaveDialogInt().input(windowCdmEditor.getCommonFrame(), windowCdmEditor.getCommonFrame().getLanguageKey(), true, "", windowCdmEditor.getCommonFrame().getFrames().getHomePath()));
         if (fileName_.isEmpty()) {
             return;
         }

@@ -2,9 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.utilimpl.ManageOptions;
-import code.gui.AbsGroupFrame;
-import code.gui.AbsTabStops;
-import code.gui.GuiBaseUtil;
+import code.gui.*;
 import code.mock.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -34,7 +32,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         MockProgramInfos pr_ = newMockProgramInfosInitConf();
         WindowCdmEditor w_ =windowLoadDef(pr_);
-        assertEq(7, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
+        assertEq(8, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
     }
     @Test
     public void init4() {
@@ -61,6 +59,69 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tabEditor(w_).getCenter().setText("_");
         ((MockTextPane)tabEditor(w_).getCenter()).getAutoCompleteListeners().get(0).changedUpdate();
         assertEq("_", tabEditor(w_).getCenter().getText());
+    }
+    @Test
+    public void folderCreate() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"folder/"));
+        windowLoadDef(pr_);
+        assertTrue(pr_.getFileCoreStream().newFile("/project/sources/src/folder/").isDirectory());
+    }
+    @Test
+    public void notSrc() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"folder/"));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        assertFalse(pr_.getFileCoreStream().newFile("/project/sources/folder/").isDirectory());
+    }
+    @Test
+    public void fileExist() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        tabEditor(w_).getCenter().setText("TEXT");
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        assertTrue(pr_.getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
+        assertEq("TEXT",tabEditor(w_).getCenter().getText());
+    }
+    @Test
+    public void fileSelect() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild().getNextSibling());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        assertFalse(pr_.getFileCoreStream().newFile("/project/sources/file.txt").exists());
+    }
+    @Test
+    public void noSelect() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(null);
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        assertFalse(pr_.getFileCoreStream().newFile("/project/sources/file.txt").exists());
+    }
+    @Test
+    public void noText() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.NO_OPTION,""));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(null);
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        assertFalse(pr_.getFileCoreStream().newFile("/project/sources/file.txt").exists());
+    }
+    @Test
+    public void saveText() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"));
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        tabEditor(w_).getCenter().setText("TEXT");
+        save(w_);
+        assertEq("TEXT",StreamTextFile.contentsOfFile("/project/sources/src/file.txt", pr_.getFileCoreStream(), pr_.getStreams()));
     }
     @Test
     public void fileConf1() {
@@ -226,7 +287,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         String chooseConf_ = "/editor/conf.txt";
         MockProgramInfos pr_ = newMockProgramInfosInitConfNoDirConf("/folder/sources/", "/editor/conf.xml");
         StreamFolderFile.makeParent("/editor/conf.xml",pr_.getFileCoreStream());
-        StreamTextFile.saveTextFile("/editor/conf.xml",WindowCdmEditor.buildDefConfFile(chooseConf_),pr_.getStreams());
+        StreamTextFile.saveTextFile("/editor/conf.xml",WindowCdmEditor.buildDefConfFile(chooseConf_,new StringList()),pr_.getStreams());
         StringList lines_ = new StringList();
         lines_.add("/folder/sources/");
         lines_.add("en");
@@ -260,6 +321,38 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(pr_.getFileCoreStream().newFile(chooseConf_).exists());
         ManageOptions res_ = w_.saveComments(new CustList<CommentDelimiters>());
         assertEq("other_src",res_.getEx().getSrcFolder());
+    }
+    @Test
+    public void fileConf13() {
+        String chooseConf_ = "/editor/conf.txt";
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_);
+        WindowCdmEditor w_ =windowLoadDefInit(pr_);
+        w_.updateCommentsInit(new StringList());
+        assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
+        ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
+        ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        assertTrue(pr_.getFileCoreStream().newFile(chooseConf_).exists());
+        w_.saveComments(new CustList<CommentDelimiters>());
+        w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
+        Document doc_ = DocumentBuilder.newXmlDocument();
+        Element elt_ = doc_.createElement(WindowCdmEditor.ROOT_CONF);
+        elt_.setAttribute(WindowCdmEditor.NODE_PATH,chooseConf_);
+        elt_.appendChild(doc_.createElement(WindowCdmEditor.ROOT_CONF));
+        doc_.appendChild(elt_);
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),doc_.export(),pr_.getStreams());
+        WindowCdmEditor w2_ =windowLoadDefInit(pr_);
+        w2_.updateCommentsInit(new StringList());
+        assertEq("/folder/sources/",w2_.getCurrentFolder());
+        assertEq("/editor/conf.txt",w2_.getExecConf());
+        assertEq(0,w2_.getTabs().size());
+    }
+    @Test
+    public void noSelectTree() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
+        w_.getFolderSystem().select(null);
+        assertFalse(w_.applyTreeChangeSelected());
     }
     @Test
     public void quit1() {

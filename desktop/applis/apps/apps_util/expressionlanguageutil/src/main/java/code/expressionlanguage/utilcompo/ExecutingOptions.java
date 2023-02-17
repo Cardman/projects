@@ -32,6 +32,7 @@ public final class ExecutingOptions {
     private boolean hasArg;
     private StringList args = new StringList();
     private StringList warns = new StringList();
+    private String access = "";
     private String lg = "";
     private final StringList lgs = new StringList();
     private StringMap<String> messages = new StringMap<String>();
@@ -461,6 +462,14 @@ public final class ExecutingOptions {
 
     public StringList getLgs() {
         return lgs;
+    }
+
+    public String getAccess() {
+        return access;
+    }
+
+    public void setAccess(String _a) {
+        this.access = _a;
     }
 
     public String getLg() {
