@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.gui.events.AbsActionListener;
 import code.util.core.StringUtil;
 
@@ -16,6 +17,6 @@ public final class ChooseInitialFolder implements AbsActionListener {
         if (fileName_.isEmpty()) {
             return;
         }
-        windowCdmEditor.folder(fileName_);
+        windowCdmEditor.folder(MemoryFileSystem.skipLastSep(fileName_));
     }
 }

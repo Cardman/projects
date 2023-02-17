@@ -433,7 +433,7 @@ public final class MemoryFileSystem implements AbstractFileSystem {
         return files_;
     }
 
-    private static String skipLastSep(String _ab) {
+    public static String skipLastSep(String _ab) {
         String abs_ = _ab;
         if (endsSep(abs_)) {
             abs_ = abs_.substring(0,abs_.length()-1);

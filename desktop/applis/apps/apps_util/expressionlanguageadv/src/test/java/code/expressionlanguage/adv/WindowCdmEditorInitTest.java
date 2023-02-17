@@ -279,7 +279,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void fileConf9() {
         String chooseConf_ = "/editor/conf.txt";
-        MockProgramInfos pr_ = newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoFolder("/folder/sources", chooseConf_);
         WindowCdmEditor w_ =windowLoadDefInit(pr_);
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
@@ -303,22 +303,22 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void fileConf10() {
         String chooseConf_ = "/editor/conf.txt";
-        MockProgramInfos pr_ = newMockProgramInfosInitConfNoDirConf("/folder/sources/", "/editor/conf.xml");
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoDirConf("/folder/sources", "/editor/conf.xml");
         StreamFolderFile.makeParent("/editor/conf.xml",pr_.getFileCoreStream());
         StreamTextFile.saveTextFile("/editor/conf.xml",WindowCdmEditor.buildDefConfFile(chooseConf_,new StringList()),pr_.getStreams());
         StringList lines_ = new StringList();
-        lines_.add("/folder/sources/");
+        lines_.add("/folder/sources");
         lines_.add("en");
         StreamTextFile.saveTextFile(chooseConf_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         WindowCdmEditor w_ =windowLoadDefInit(pr_);
         w_.updateCommentsInit(new StringList());
         ((MockMenuItem)w_.getChooseFile()).getActionListeners().get(0).action();
         assertEq(chooseConf_,w_.getExecConf());
-        assertEq("/folder/sources/",w_.getCurrentFolder());
+        assertEq("/folder/sources",w_.getCurrentFolder());
     }
     @Test
     public void fileConf11() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConfNoDirConf("/folder/sources/", "");
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoDirConf("/folder/sources", "");
         WindowCdmEditor w_ =windowLoadDefInit(pr_);
         w_.updateCommentsInit(new StringList());
         ((MockMenuItem)w_.getChooseFile()).getActionListeners().get(0).action();
@@ -343,7 +343,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void fileConf13() {
         String chooseConf_ = "/editor/conf.txt";
-        MockProgramInfos pr_ = newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoFolder("/folder/sources", chooseConf_);
         WindowCdmEditor w_ =windowLoadDefInit(pr_);
         w_.updateCommentsInit(new StringList());
         assertTrue(((MockPlainButton)w_.getChooseFolder()).isDeepAccessible());
@@ -361,7 +361,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),doc_.export(),pr_.getStreams());
         WindowCdmEditor w2_ =windowLoadDefInit(pr_);
         w2_.updateCommentsInit(new StringList());
-        assertEq("/folder/sources/",w2_.getCurrentFolder());
+        assertEq("/folder/sources",w2_.getCurrentFolder());
         assertEq("/editor/conf.txt",w2_.getExecConf());
         assertEq(0,w2_.getTabs().size());
     }
