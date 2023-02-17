@@ -63,13 +63,13 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void folderCreate() {
         MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"folder/"));
-        windowLoadDef(pr_);
+        windowLoadDefNoTab(pr_);
         assertTrue(pr_.getFileCoreStream().newFile("/project/sources/src/folder/").isDirectory());
     }
     @Test
     public void notSrc() {
         MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.YES_OPTION,"folder/"));
-        WindowCdmEditor w_ = windowLoadDef(pr_);
+        WindowCdmEditor w_ = windowLoadDefNoTab(pr_);
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
@@ -108,7 +108,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void noText() {
         MockProgramInfos pr_ = newMockProgramInfosInitConfNo(new TextAnswerValue(GuiConstants.NO_OPTION,""));
-        WindowCdmEditor w_ = windowLoadDef(pr_);
+        WindowCdmEditor w_ = windowLoadDefNoTab(pr_);
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(null);
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
@@ -122,6 +122,24 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tabEditor(w_).getCenter().setText("TEXT");
         save(w_);
         assertEq("TEXT",StreamTextFile.contentsOfFile("/project/sources/src/file.txt", pr_.getFileCoreStream(), pr_.getStreams()));
+    }
+    @Test
+    public void twoFiles() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfNoArr(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"),new TextAnswerValue(GuiConstants.YES_OPTION,"file2.txt"));
+        WindowCdmEditor w_ = windowLoadDefTwice(pr_);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getEditors().selectIndex(1);
+        tabSelect(w_).getCenter().setText("TEXT2");
+        saveSelected(w_);
+        assertEq("TEXT",StreamTextFile.contentsOfFile("/project/sources/src/file.txt", pr_.getFileCoreStream(), pr_.getStreams()));
+        assertEq("TEXT2",StreamTextFile.contentsOfFile("/project/sources/src/file2.txt", pr_.getFileCoreStream(), pr_.getStreams()));
+    }
+    @Test
+    public void reload() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfTab();
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        assertEq("TEXT",tabSelect(w_).getCenter().getText());
     }
     @Test
     public void fileConf1() {

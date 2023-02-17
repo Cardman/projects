@@ -3,6 +3,8 @@ package code.vi.prot.impl.gui;
 import code.gui.AbsCustComponent;
 import code.gui.AbsTabbedPane;
 import code.gui.FrameUtil;
+import code.gui.events.AbsChangeListener;
+import code.vi.prot.impl.gui.events.WrChangeListener;
 
 import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
@@ -10,6 +12,10 @@ import javax.swing.JTabbedPane;
 public final class TabbedPane extends CustComponent implements AbsTabbedPane {
 
     private final JTabbedPane component = new JTabbedPane();
+
+    public void addChangeListener(AbsChangeListener _l) {
+        component.addChangeListener(new WrChangeListener(_l));
+    }
 
     public int getComponentCount() {
         return getChildren().size();

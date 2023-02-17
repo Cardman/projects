@@ -1,5 +1,7 @@
 package code.gui;
 
+import code.gui.events.AbsChangeListener;
+
 public interface AbsTabbedPane extends AbsCustComponent {
     int getComponentCount();
     int getSelectedIndex();
@@ -16,6 +18,8 @@ public interface AbsTabbedPane extends AbsCustComponent {
     boolean setTitle(int _index,String _title);
     void setTitleAt(int _index, String _title);
     void setToolTipAt(int _index, String _title);
+
+    void addChangeListener(AbsChangeListener _list);
     void remove(int _index);
     void removeAll();
     void innerRemoveAll();

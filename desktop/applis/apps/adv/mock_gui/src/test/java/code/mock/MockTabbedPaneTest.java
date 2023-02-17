@@ -80,4 +80,55 @@ public final class MockTabbedPaneTest extends EquallableMockGuiUtil{
         t_.setToolTipAt(0,"_");
         assertEq("_",t_.getToolTipAt(0));
     }
+    @Test
+    public void t11() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(initDef(),""),0));
+        t_.selectIndex(1);
+        assertEq(2,t_.getComponentCount());
+    }
+    @Test
+    public void t12() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(initDef(),""),0));
+        t_.selectIndex(0);
+        t_.remove(1);
+        assertEq(1,t_.getComponentCount());
+    }
+    @Test
+    public void t13() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(initDef(),""),0));
+        t_.selectIndex(0);
+        t_.remove(0);
+        assertEq(1,t_.getComponentCount());
+    }
+    @Test
+    public void t14() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(initDef(),""),0));
+        t_.selectIndex(1);
+        t_.remove(2);
+        assertEq(2,t_.getComponentCount());
+    }
+    @Test
+    public void t15() {
+        MockTabbedPane t_ = new MockTabbedPane();
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.add("",new MockPlainLabel(""));
+        t_.addChangeListener(new MockChangeListener(new MockWithChangeListenerSample(initDef(),""),0));
+        t_.selectIndex(2);
+        t_.remove(1);
+        assertEq(2,t_.getComponentCount());
+    }
 }

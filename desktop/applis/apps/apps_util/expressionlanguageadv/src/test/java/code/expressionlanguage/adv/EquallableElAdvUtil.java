@@ -70,6 +70,34 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
 
+    public static WindowCdmEditor windowLoadDefTwice(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        return w_;
+    }
+    public static WindowCdmEditor windowLoadDefNoTab(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        return w_;
+    }
+
     public static WindowCdmEditor windowLoadDefInit(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);
@@ -121,6 +149,19 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
     }
+    public static MockProgramInfos newMockProgramInfosInitConfTab() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        StreamTextFile.saveTextFile("/project/sources/src/file.txt","TEXT",pr_.getStreams());
+        return pr_;
+    }
     public static MockProgramInfos newMockProgramInfosInitConfNo(TextAnswerValue _ans) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{_ans}), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
@@ -132,6 +173,18 @@ public abstract class EquallableElAdvUtil {
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         StreamTextFile.saveTextFile("/project/sources/other_file.txt", "",pr_.getStreams());
+        return pr_;
+    }
+    public static MockProgramInfos newMockProgramInfosInitConfNoArr(TextAnswerValue... _ans) {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], _ans), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNo() {
@@ -163,7 +216,15 @@ public abstract class EquallableElAdvUtil {
     }
 
     protected static TabEditor tabEditor(WindowCdmEditor _w) {
-        return _w.getTabs().get(0);
+        return tabEditor(_w,0);
+    }
+
+    protected static TabEditor tabSelect(WindowCdmEditor _w) {
+        return _w.getTabs().get(_w.getEditors().getSelectedIndex());
+    }
+
+    protected static TabEditor tabEditor(WindowCdmEditor _w, int _index) {
+        return _w.getTabs().get(_index);
     }
 
     protected void findNow(MockProgramInfos _pr, WindowCdmEditor _w, String _v) {
@@ -193,6 +254,9 @@ public abstract class EquallableElAdvUtil {
     }
     protected void save(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    protected void saveSelected(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void undo(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK)).action();

@@ -88,7 +88,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commentsMenu.addActionListener(new ChangeCommentsEvent(this));
         menu_.addMenuItem(commentsMenu);
         spinner = _list.getCompoFactory().newSpinner(4,1,64,1);
-        TabValueChanged l_ = new TabValueChanged(this);
+        TabValueChanged l_ = new TabValueChanged(this, true);
         spinner.addChangeListener(l_);
         spinnerEvent = l_;
         panel = _list.getCompoFactory().newPageBox();
@@ -169,11 +169,15 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
         tabs.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
+        editors.addChangeListener(new TabValueChanged(this, false));
         StringList src_ = retrieveRelativeFiles(DocumentBuilder.parseSax(document));
         int len_ = src_.size();
         for (int i = 0; i < len_; i++) {
-            openedFiles.add(src_.get(i));
             String fullPath_ = acc_+StreamTextFile.SEPARATEUR+srcFolderRel_+StreamTextFile.SEPARATEUR+src_.get(i);
+            if (!frs_.getFileCoreStream().newFile(fullPath_).exists()) {
+                continue;
+            }
+            openedFiles.add(src_.get(i));
             String name_ = fullPath_.substring(fullPath_.lastIndexOf('/')+1);
             TabEditor te_ = new TabEditor(this,fullPath_);
             te_.getCenter().setText(StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(fullPath_,frs_.getFileCoreStream(),frs_.getStreams())));

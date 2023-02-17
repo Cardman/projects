@@ -2,12 +2,24 @@ package code.mock;
 
 import code.gui.AbsCustComponent;
 import code.gui.AbsTabbedPane;
+import code.gui.events.AbsChangeListener;
+import code.util.IdList;
 import code.util.StringList;
 
 public final class MockTabbedPane extends MockCustComponent implements AbsTabbedPane {
+    private final IdList<AbsChangeListener> changeListeners = new IdList<AbsChangeListener>();
     private int selectedIndex;
     private final StringList titles = new StringList();
     private final StringList tooltips = new StringList();
+
+    @Override
+    public void addChangeListener(AbsChangeListener _l) {
+        getChangeListeners().add(_l);
+    }
+
+    public IdList<AbsChangeListener> getChangeListeners() {
+        return changeListeners;
+    }
     @Override
     public int getComponentCount() {
         return getChildren().size();
@@ -27,7 +39,17 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void selectIndex(int _i) {
+        int old_ = selectedIndex;
         selectedIndex = _i;
+        if (old_ != _i) {
+            stateChanged();
+        }
+    }
+
+    private void stateChanged() {
+        for (AbsChangeListener c: changeListeners) {
+            c.stateChanged();
+        }
     }
 
     @Override
@@ -48,6 +70,9 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
         getChildren().add(_c);
         titles.add(_s);
         tooltips.add(_tooltip);
+        if (getChildren().size() == 1) {
+            selectIndex(0);
+        }
     }
 
     @Override
@@ -99,10 +124,18 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
 
     @Override
     public void remove(int _i) {
+        int select_ = selectedIndex;
         getChildren().get(_i).setParent(null);
         getChildren().remove(_i);
         titles.remove(_i);
         tooltips.remove(_i);
+        if (select_ > _i) {
+            selectIndex(select_-1);
+        } else if (select_ >= getChildren().size()) {
+            selectIndex(select_-1);
+        } else if (_i == select_) {
+            stateChanged();
+        }
     }
 
     @Override
@@ -111,6 +144,7 @@ public final class MockTabbedPane extends MockCustComponent implements AbsTabbed
             a.setParent(null);
         }
         innerRemoveAll();
+        selectedIndex=-1;
     }
 
     @Override
