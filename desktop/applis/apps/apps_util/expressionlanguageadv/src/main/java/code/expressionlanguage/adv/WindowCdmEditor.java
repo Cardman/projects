@@ -168,6 +168,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.select(folderSystem.getRoot());
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
         tabs.clear();
+        openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
         editors.addChangeListener(new TabValueChanged(this, false));
         StringList src_ = retrieveRelativeFiles(DocumentBuilder.parseSax(document));
