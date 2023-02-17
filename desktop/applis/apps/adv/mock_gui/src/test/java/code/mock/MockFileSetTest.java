@@ -441,4 +441,14 @@ public final class MockFileSetTest extends EquallableMockGuiUtil {
         assertNull(pr_.getStreams().getTextFact().contentsOfFile("/tmp/txt",new DefaultUniformingString(),7));
         assertTrue(pr_.getFileCoreStream().newFile("txt").exists());
     }
+    @Test
+    public void f54() {
+        MockProgramInfosSample pr_ = new MockProgramInfosSample("","",0.75,5,wrapLongs(1,2),true,"/");
+        pr_.getMockFileSet().getFiles().addEntry("/tmp",new FileStruct(null,0));
+        assertTrue(pr_.getFileCoreStream().newFile("/tmp/tmp2/tmp3").mkdirs());
+        pr_.setCurrentPath("/tmp");
+        assertTrue(pr_.getFileCoreStream().newFile("/tmp/tmp2").isDirectory());
+        assertTrue(pr_.getFileCoreStream().newFile("/tmp/tmp2/tmp3").isDirectory());
+        assertEq("/tmp/tmp2/tmp3",pr_.getFileCoreStream().newFile("tmp2/tmp3").getAbsolutePath());
+    }
 }

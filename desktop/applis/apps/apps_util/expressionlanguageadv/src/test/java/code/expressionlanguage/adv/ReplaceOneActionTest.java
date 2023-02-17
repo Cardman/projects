@@ -7,8 +7,8 @@ import org.junit.Test;
 public final class ReplaceOneActionTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(1,3);
         replaceText(w_,pr_);
@@ -22,8 +22,8 @@ public final class ReplaceOneActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         assertTrue(tabEditor(w_).getFinderPanel().isVisible());
         tabEditor(w_).getCenter().setText("hello");
         replaceText(w_,pr_);
@@ -36,8 +36,8 @@ public final class ReplaceOneActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplaceOne()).isDeepAccessible());

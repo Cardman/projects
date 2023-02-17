@@ -10,8 +10,8 @@ import org.junit.Test;
 public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
@@ -28,8 +28,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
@@ -50,8 +50,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     }
     @Test
     public void action3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
@@ -75,8 +75,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     }
     @Test
     public void action4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
@@ -100,8 +100,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     }
     @Test
     public void action5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();
@@ -120,8 +120,8 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     }
     @Test
     public void action6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
         OutputDialogComments o_ = ev_.getOutputDialogComments();

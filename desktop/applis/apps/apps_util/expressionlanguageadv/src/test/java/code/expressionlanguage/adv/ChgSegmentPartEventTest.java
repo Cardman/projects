@@ -7,8 +7,8 @@ import org.junit.Test;
 public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     @Test
     public void previous() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(3,4);
         findText(w_, pr_);
@@ -41,8 +41,8 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     }
     @Test
     public void next() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(3,4);
         findText(w_, pr_);
@@ -75,8 +75,8 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     }
     @Test
     public void previousBack() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(2,3);
         findText(w_, pr_);
@@ -109,8 +109,8 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     }
     @Test
     public void nextAfter() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(9,10);
         findText(w_, pr_);

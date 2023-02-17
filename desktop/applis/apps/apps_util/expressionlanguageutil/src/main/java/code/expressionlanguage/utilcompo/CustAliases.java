@@ -2619,7 +2619,7 @@ public final class CustAliases {
 
     public static CustList<CommentDelimiters> defComments(String _lg, Translations _trs, String _language) {
         TranslationsLg lg_ = lg(_trs, _lg, _language);
-        TranslationsAppli app_ = lg_.getMapping().getVal(FileInfos.CDM);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.COMMENTS);
         String comments_ = "\\u005c*,*\\u005c;\\u005c\\u005c,\\n;\\u005c<"
                 +com_.getMapping().getVal(FileInfos.COMM_BEGIN)

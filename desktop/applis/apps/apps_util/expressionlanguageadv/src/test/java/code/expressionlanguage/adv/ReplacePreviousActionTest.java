@@ -10,8 +10,8 @@ import org.junit.Test;
 public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(3,4);
         replaceText(w_,pr_);
@@ -25,8 +25,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         assertTrue(tabEditor(w_).getFinderPanel().isVisible());
         tabEditor(w_).getCenter().setText("hello");
         replaceText(w_,pr_);
@@ -39,8 +39,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("the theme");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());
@@ -56,8 +56,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("the theme");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());
@@ -73,8 +73,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("the theme");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());
@@ -92,8 +92,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("the theme");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());
@@ -111,8 +111,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action7() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("the theme");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());
@@ -129,8 +129,8 @@ public final class ReplacePreviousActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action8() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("the theme");
         replaceText(w_,pr_);
         assertFalse(((MockCustComponent) tabEditor(w_).getReplacePrevious()).isDeepAccessible());

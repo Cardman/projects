@@ -36,10 +36,23 @@ public final class FileInfos {
         threadFactory = _threadFactory;
     }
 
-    public static void initComments(TranslationsLg _lgs) {
+    public static TranslationsAppli initAppliTr(TranslationsLg _lgs) {
         TranslationsAppli a_ = new TranslationsAppli();
-        a_.getMapping().addEntry(COMMENTS, comFile());
         _lgs.getMapping().addEntry(CDM, a_);
+        return a_;
+    }
+
+    public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
+        return _lgs.getMapping().getVal(CDM);
+    }
+
+    public static void initComments(TranslationsLg _lgs) {
+        TranslationsAppli a_ = initAppliTr(_lgs);
+        appendComments(a_);
+    }
+
+    public static void appendComments(TranslationsAppli _a) {
+        _a.getMapping().addEntry(COMMENTS, comFile());
     }
 
     private static TranslationsFile comFile() {

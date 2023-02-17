@@ -530,7 +530,7 @@ public final class DefaultFileSystemTest extends EquallableElUtFilesUtil {
         pr_.setCurrentPath("/files/");
         f_.mkdirs("next1/",g_);
         f_.saveTextFile("next2","_",g_);
-        assertEq(7,f_.lastModified("next2",g_));
+        assertEq(6,f_.lastModified("next2",g_));
         assertEq(1,f_.length("next2",g_));
         assertEq("next2",f_.getName("next2",g_));
         StringList fs_ = f_.getFiles("/files/next2", g_);

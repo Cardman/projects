@@ -216,18 +216,16 @@ public final class MockFile implements AbstractFile {
         StringList list_ = StringUtil.splitChar(abs, '/');
         StringList pars_ = new StringList();
         StringList parsNext_ = new StringList();
-        int index_ = 0;
         for (String p: list_) {
             String intPath_ = StringUtil.join(pars_, '/');
             if (!MockBinFact.load(intPath_,fileSet).isNul()) {
                 return false;
             }
             parsNext_.add(p);
-            if (index_ > 0&&fileSet.getFiles().getVal(intPath_) == null&&!StringUtil.quickEq(StringUtil.join(parsNext_, '/'),abs)) {
+            if (intPath_.contains("/")&&fileSet.getFiles().getVal(intPath_) == null) {
                 fileSet.getFiles().addEntry(intPath_, new FileStruct(null,fileSet.getMockMillis().millis()));
             }
             pars_.add(p);
-            index_++;
         }
         if (fileSet.getFiles().contains(abs)) {
             return false;

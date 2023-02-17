@@ -9,8 +9,8 @@ import org.junit.Test;
 public final class NavRowColActionTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -26,8 +26,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -43,8 +43,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action3() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -60,8 +60,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action4() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -77,8 +77,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action5() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -91,8 +91,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action6() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -108,8 +108,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action7() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -125,8 +125,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action8() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -142,8 +142,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action9() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -159,8 +159,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action10() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -173,8 +173,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action11() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -190,8 +190,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action12() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nw\torld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -207,8 +207,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action13() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -224,8 +224,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action14() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -241,8 +241,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action15() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\nworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -255,8 +255,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action16() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();
@@ -269,8 +269,8 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action17() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
         ev_.action();

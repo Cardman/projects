@@ -14,8 +14,8 @@ import org.junit.Test;
 public final class SyntaxStringCommentTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         changeNow(pr_, w_,"hello \"_\" ");
         assertEq(10,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -34,8 +34,8 @@ public final class SyntaxStringCommentTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
-        WindowCdmEditor w_ =window(pr_);
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        WindowCdmEditor w_ =windowLoadDef(pr_);
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
         w_.setComments(comments_);
