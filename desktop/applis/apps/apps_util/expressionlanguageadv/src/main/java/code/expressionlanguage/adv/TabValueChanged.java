@@ -9,11 +9,9 @@ import code.gui.initialize.AbsCompoFactory;
 public final class TabValueChanged implements AbsChangeListener {
     public static final int TABS = 1024;
     private final WindowCdmEditor window;
-    private final boolean fromSpinner;
 
-    public TabValueChanged(WindowCdmEditor _w, boolean _f) {
+    public TabValueChanged(WindowCdmEditor _w) {
         this.window = _w;
-        fromSpinner = _f;
     }
 
     @Override
@@ -34,8 +32,6 @@ public final class TabValueChanged implements AbsChangeListener {
         AbsAttrSet as_ = compo_.newAttrSet();
         as_.addTabs(tabs_);
         c_.setParagraphAttributes(as_);
-        if (!fromSpinner) {
-            DocumentTextChange.updateEditorText(tab_);
-        }
+        DocumentTextChange.updateEditorText(tab_);
     }
 }

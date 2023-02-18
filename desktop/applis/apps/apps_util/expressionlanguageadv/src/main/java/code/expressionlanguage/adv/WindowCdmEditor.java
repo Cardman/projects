@@ -168,7 +168,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
-        editors.addChangeListener(new TabValueChanged(this, false));
+        editors.addChangeListener(new TabValueChanged(this));
         StringList src_ = retrieveRelativeFiles(DocumentBuilder.parseSax(document));
         int len_ = src_.size();
         for (int i = 0; i < len_; i++) {
@@ -404,7 +404,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     }
 
     private void stateChangeTab() {
-        new TabValueChanged(this,true).stateChanged();
+        new TabValueChanged(this).stateChanged();
     }
 
     public ManageOptions saveComments(CustList<CommentDelimiters> _comm) {
