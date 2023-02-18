@@ -1,5 +1,7 @@
 package code.stream;
 
+import code.threads.AbstractAtomicBoolean;
+
 public interface AbsSoundRecord {
     boolean supported(long _sampleRate, int _sampleSize, int _channels, boolean _signed, boolean _bigEndian);
     void update();
@@ -8,4 +10,11 @@ public interface AbsSoundRecord {
     byte[] recordSong();
     byte[] recordSongInFile(String _file);
     void stop();
+    AbstractAtomicBoolean getState();
+
+    int readBytes();
+
+    void writeBytes();
+
+    long millis();
 }

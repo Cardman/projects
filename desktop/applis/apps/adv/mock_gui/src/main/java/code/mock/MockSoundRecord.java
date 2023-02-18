@@ -5,7 +5,12 @@ import code.util.Ints;
 
 public final class MockSoundRecord implements AbsSoundRecord {
     private final Ints bytes = new Ints();
+    private final Ints out = new Ints();
+    private int indexRead = -1;
+    private final MockAtomicBoolean state = new MockAtomicBoolean(false);
     private boolean active;
+    private int readValue;
+
     @Override
     public boolean supported(long _sampleRate, int _sampleSize, int _channels, boolean _signed, boolean _bigEndian) {
         return _signed;
@@ -70,4 +75,30 @@ public final class MockSoundRecord implements AbsSoundRecord {
         active = false;
     }
 
+    @Override
+    public MockAtomicBoolean getState() {
+        return state;
+    }
+
+    @Override
+    public int readBytes() {
+        int next_ = indexRead + 1;
+        if (bytes.isValidIndex(next_)) {
+            readValue = bytes.get(next_);
+            indexRead++;
+            return 1;
+        }
+        indexRead = -1;
+        return -1;
+    }
+
+    @Override
+    public void writeBytes() {
+        out.add(readValue);
+    }
+
+    @Override
+    public long millis() {
+        return out.size();
+    }
 }

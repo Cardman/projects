@@ -81,6 +81,7 @@ public final class WindowRecorder extends GroupFrame {
 //        setDefaultCloseOperation(GuiConstants.EXIT_ON_CLOSE);
         addWindowListener(new QuittingEvent(this));
     }
+
     static void alignAddedTopLeft(AbsPanel _par,AbsCustComponent _compo){
         alignTopLeft(_compo);
         _par.add(_compo);
@@ -122,7 +123,8 @@ public final class WindowRecorder extends GroupFrame {
     public void tryRecord(String _file) {
         recordSong.setEnabled(false);
         stopSong.setEnabled(true);
-        byte[] bytes_ = soundRecord.recordSongInFile(_file);
+        byte[] bytes_ = soundRecord.recordSong();
+        setTitle("recorder "+soundRecord.millis()+" ms");
         if (bytes_.length > 0) {
             StreamBinaryFile.writeFile(_file,bytes_,getStreams());
             return;
@@ -135,6 +137,7 @@ public final class WindowRecorder extends GroupFrame {
         pack();
     }
     public void stop() {
+        soundRecord.getState().set(false);
         soundRecord.stop();
         setState();
         status.setText("");

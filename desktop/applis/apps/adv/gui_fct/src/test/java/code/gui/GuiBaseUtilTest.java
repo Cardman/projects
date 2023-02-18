@@ -5,6 +5,7 @@ import code.gui.initialize.*;
 import code.mock.*;
 import code.sml.util.ResourcesMessagesUtil;
 import code.util.*;
+import code.util.core.NumberUtil;
 import org.junit.Test;
 
 public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
@@ -224,5 +225,20 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertEq(1,GuiBaseUtil.getKeysAction(t_).size());
         ((MockAdvAbstractAction)GuiBaseUtil.getAction(t_,0,0)).action(null,null);
         assertTrue(e_.isAct());
+    }
+    @Test
+    public void register1() {
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.getState().set(false);
+        GuiBaseUtil.recordSong(m_);
+        assertEq(0, m_.millis());
+    }
+    @Test
+    public void register2() {
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4));
+        m_.getState().set(true);
+        GuiBaseUtil.recordSong(m_);
+        assertEq(4, m_.millis());
     }
 }

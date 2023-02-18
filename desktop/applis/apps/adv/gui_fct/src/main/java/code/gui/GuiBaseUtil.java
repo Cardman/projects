@@ -7,6 +7,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbsSoundRecord;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
 import code.threads.AbstractThreadFactory;
@@ -228,5 +229,14 @@ public final class GuiBaseUtil {
 
     public static CustList<AbsEnabledAction> getActions(AbsTextPane _txt) {
         return _txt.getActionsMap().values();
+    }
+
+    public static void recordSong(AbsSoundRecord _rec) {
+        while (_rec.getState().get()) {
+            if (_rec.readBytes() == -1) {
+                break;
+            }
+            _rec.writeBytes();
+        }
     }
 }

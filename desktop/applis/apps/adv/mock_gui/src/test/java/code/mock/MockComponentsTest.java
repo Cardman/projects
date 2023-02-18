@@ -414,4 +414,25 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         ab_.invokeNow(r_);
         assertTrue(r_.isStarted());
     }
+    @Test
+    public void c17(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1));
+        m_.getState().set(true);
+        assertTrue(m_.getState().get());
+        assertEq(1,m_.readBytes());
+        m_.writeBytes();
+        assertEq(1, m_.millis());
+    }
+    @Test
+    public void c18(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.getState().set(true);
+        assertTrue(m_.getState().get());
+        m_.append(NumberUtil.wrapIntArray(1));
+        m_.readBytes();
+        assertEq(-1,m_.readBytes());
+        m_.getState().set(false);
+        assertFalse(m_.getState().get());
+    }
 }
