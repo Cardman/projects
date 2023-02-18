@@ -130,4 +130,23 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         assertEq("\\*",w_.getComments().get(0).getBegin());
         assertEq("*\\",w_.getComments().get(0).getEnd().get(0));
     }
+    @Test
+    public void action8() {
+        String chooseConf_ = "/editor/conf.txt";
+        WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        w_.updateCommentsInit(new StringList());
+        ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        OutputDialogComments o_ = comments(w_);
+        assertEq(0,o_.getComments().size());
+        ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
+        o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
+        o_.getCommentsRows().get(0).getEndArea().setText("");
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertTrue(o_.getValid().get());
+        w_.afterChangingSyntaxPreferences(o_.getValid());
+        assertEq(1,w_.getComments().size());
+        assertEq("\\*",w_.getComments().get(0).getBegin());
+        assertEq("\n",w_.getComments().get(0).getEnd().get(0));
+    }
 }

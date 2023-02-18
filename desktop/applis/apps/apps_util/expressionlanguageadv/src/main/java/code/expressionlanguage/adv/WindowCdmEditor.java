@@ -405,6 +405,12 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public void updateComments(CustList<CommentDelimiters> _comm) {
         CommentsUtil.checkAndUpdateComments(_comm, comments);
+        for (CommentDelimiters c: _comm) {
+            if (c.getEnd().get(0).trim().isEmpty()) {
+                c.getEnd().clear();
+                c.getEnd().add("\n");
+            }
+        }
         comments = _comm;
     }
 
