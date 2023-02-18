@@ -31,7 +31,7 @@ public final class OutputDialogNavLine {
         val.addActionListener(new ValidateNavLine(this));
         all_.add(val);
         cancel = factories_.getCompoFactory().newPlainButton("KO");
-        cancel.addActionListener(new CancelNavLine(windowCdmEditor));
+        cancel.addActionListener(new CancelBasic(windowCdmEditor.getDialogNavigLine()));
         all_.add(cancel);
         windowCdmEditor.getDialogNavigLine().setContentPane(all_);
         windowCdmEditor.getDialogNavigLine().pack();

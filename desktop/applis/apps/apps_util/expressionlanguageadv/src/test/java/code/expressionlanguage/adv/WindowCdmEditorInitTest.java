@@ -24,7 +24,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void init2() {
         WindowCdmEditor w_=newWindowLoadDef();
-        assertEq(1,w_.getSpinner().getMin());
+        assertEq(1,tabulations(w_).getTabulation().getMin());
     }
     @Test
     public void init3() {
@@ -34,14 +34,15 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void init4() {
         WindowCdmEditor w_=newWindowLoadDef();
-        assertEq(2,((MockPanel)w_.getPanel()).getAccessible().size());
-        assertEq(2,w_.getPanel().getComponentCount());
+        assertEq(1,((MockPanel)w_.getPanel()).getAccessible().size());
+        assertEq(1,w_.getPanel().getComponentCount());
         assertFalse(((MockCustComponent)tabEditor(w_).getNavModifPanel()).isAccessible());
     }
     @Test
     public void tabs() {
         WindowCdmEditor w_=newWindowLoadDef();
-        w_.getSpinner().setValue(8);
+        w_.setTabWidth(8);
+        w_.updateCurrentTab();
         AbsTabStops tabs_ = ((MockAttrSet) ((MockTextPane) tabEditor(w_).getCenter()).getParagraph()).getTabs();
         assertEq(TabValueChanged.TABS, tabs_.getLength());
         assertEq(96, tabs_.getTab(0).getValue());

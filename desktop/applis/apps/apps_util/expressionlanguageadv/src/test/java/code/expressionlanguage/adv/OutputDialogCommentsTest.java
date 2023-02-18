@@ -12,9 +12,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
         WindowCdmEditor w_=newWindowLoadDef();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         assertEq(0,o_.getResult().getComments().size());
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
@@ -29,9 +27,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action2() {
         WindowCdmEditor w_=newWindowLoadDef();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
@@ -50,9 +46,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action3() {
         WindowCdmEditor w_=newWindowLoadDef();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
@@ -74,9 +68,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action4() {
         WindowCdmEditor w_=newWindowLoadDef();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
@@ -98,18 +90,14 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action5() {
         WindowCdmEditor w_=newWindowLoadDef();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
         assertTrue(o_.getResult().getValid().get());
         w_.afterChangingComments(o_.getResult());
-        ChangeCommentsEvent ev2_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev2_.action();
-        OutputDialogComments o2_ = ev2_.getOutputDialogComments();
+        OutputDialogComments o2_ = comments(w_);
         assertEq(1,o2_.getResult().getComments().size());
         assertEq("\\*",o2_.getResult().getComments().get(0).getBegin());
         assertEq("*\\",o2_.getResult().getComments().get(0).getEnd().get(0));
@@ -117,9 +105,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
     @Test
     public void action6() {
         WindowCdmEditor w_=newWindowLoadDef();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         assertEq(0,o_.getResult().getComments().size());
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
@@ -136,9 +122,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         w_.updateCommentsInit(new StringList());
         ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
-        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) w_.getCommentsMenu()).getActionListeners().get(0);
-        ev_.action();
-        OutputDialogComments o_ = ev_.getOutputDialogComments();
+        OutputDialogComments o_ = comments(w_);
         assertEq(0,o_.getResult().getComments().size());
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");

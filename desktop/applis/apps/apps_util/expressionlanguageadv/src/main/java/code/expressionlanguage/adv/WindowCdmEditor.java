@@ -23,6 +23,7 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
+import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -35,16 +36,16 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final CdmFactory factory;
     private final ConfirmDialogTextAbs confirmDialogText;
     private final FileSaveDialogAbs fileSaveDialogInt;
+    private final AbsMenuItem tabulationsMenu;
     private AbsTreeGui folderSystem;
     private final AbsDialog dialogComments;
     private final AbsDialog dialogNavigLine;
+    private final AbsDialog dialogTabulations;
     private final AbsMenuItem commentsMenu;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private StringMap<String> messages;
     private final AbsCommonFrame commonFrame;
-    private final AbsSpinner spinner;
-    private final TabValueChanged spinnerEvent;
     private final AbsPanel panel;
     private final AbsMenuItem chooseFile;
     private final AbsMenuItem create;
@@ -58,6 +59,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private String currentFolder = "";
     private String currentFolderSrc = "";
+    private int tabWidth = 4;
     private final StringList openedFiles = new StringList();
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
     private AbsTabbedPane editors;
@@ -71,6 +73,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         dialogComments = _list.getFrameFactory().newDialog();
         dialogNavigLine = _list.getFrameFactory().newDialog();
+        dialogTabulations = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
@@ -84,13 +87,12 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         file_.addMenuItem(create);
         AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
         bar_.add(menu_);
+        tabulationsMenu = _list.getCompoFactory().newMenuItem("tabulations");
+        tabulationsMenu.addActionListener(new ChangeTabulationsEvent(this));
+        menu_.addMenuItem(tabulationsMenu);
         commentsMenu = _list.getCompoFactory().newMenuItem("comments");
         commentsMenu.addActionListener(new ChangeCommentsEvent(this));
         menu_.addMenuItem(commentsMenu);
-        spinner = _list.getCompoFactory().newSpinner(4,1,64,1);
-        TabValueChanged l_ = new TabValueChanged(this, true);
-        spinner.addChangeListener(l_);
-        spinnerEvent = l_;
         panel = _list.getCompoFactory().newPageBox();
         chooseFolder = commonFrame.getFrames().getCompoFactory().newPlainButton("folder");
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
@@ -157,7 +159,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         String srcFolderRel_ = _linesFiles.getEx().getSrcFolder();
         currentFolderSrc =srcFolderRel_;
         panel.removeAll();
-        panel.add(spinner);
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         AbstractMutableTreeNode default_ = frs_.getCompoFactory().newMutableTreeNode(acc_+"/");
         folderSystem = frs_.getCompoFactory().newTreeGui(default_);
@@ -189,8 +190,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         currentFolder = acc_;
         usedLg = _linesFiles.getLanguage();
         Options opt_ = _linesFiles.getOptions();
-        spinner.setValue(opt_.getTabWidth());
-        spinnerEvent.stateChanged();
+        tabWidth = opt_.getTabWidth();
         CustList<CommentDelimiters> comments_ = opt_.getComments();
         CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments("", frs_.getTranslations(), frs_.getLanguage()));
         comments = comments_;
@@ -383,17 +383,38 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             return;
         }
         saveComments(_res.getComments());
+        updateCurrentTab();
+    }
+
+    public void afterChangingTabulations(AbstractAtomicBoolean _valid) {
+        if (!_valid.get()) {
+            return;
+        }
+        saveConf();
+        updateCurrentTab();
+    }
+
+    public void updateCurrentTab() {
         int ind_ = editors.getSelectedIndex();
         if (!tabs.isValidIndex(ind_)) {
             return;
         }
+        stateChangeTab();
         DocumentTextChange.updateEditorText(tabs.get(ind_));
     }
 
+    private void stateChangeTab() {
+        new TabValueChanged(this,true).stateChanged();
+    }
+
     public ManageOptions saveComments(CustList<CommentDelimiters> _comm) {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
         CommentsUtil.checkAndUpdateComments(_comm, comments);
         comments = _comm;
+        return saveConf();
+    }
+
+    private ManageOptions saveConf() {
+        AbstractProgramInfos frs_ = commonFrame.getFrames();
         StringList lines_ = new StringList();
         lines_.add(currentFolder);
         lines_.add(commonFrame.getLanguageKey());
@@ -407,8 +428,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             commonFrame.getFrames().getFileCoreStream().newFile(currentFolder+"/src").mkdirs();
         }
         StreamFolderFile.makeParent(execConf,commonFrame.getFrames().getFileCoreStream());
-        StreamTextFile.saveTextFile(execConf, StringUtil.join(lines_,'\n'),frs_.getStreams());
-        return new ManageOptions(commonFrame.getFrames().getLanguages(), lines_,factory,commonFrame.getFrames().getThreadFactory());
+        StreamTextFile.saveTextFile(execConf, StringUtil.join(lines_,'\n'), frs_.getStreams());
+        return new ManageOptions(commonFrame.getFrames().getLanguages(), lines_, factory, commonFrame.getFrames().getThreadFactory());
     }
 
     private String buildDefConfFile() {
@@ -471,6 +492,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return commentsMenu;
     }
 
+    public AbsMenuItem getTabulationsMenu() {
+        return tabulationsMenu;
+    }
+
     public AbsDialog getDialogComments() {
         return dialogComments;
     }
@@ -479,7 +504,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return dialogNavigLine;
     }
 
-//    public TabEditor getTabEditor() {
+    public AbsDialog getDialogTabulations() {
+        return dialogTabulations;
+    }
+    //    public TabEditor getTabEditor() {
 //        return tabEditor;
 //    }
 
@@ -494,10 +522,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     @Override
     public AbsCommonFrame getCommonFrame() {
         return commonFrame;
-    }
-
-    public AbsSpinner getSpinner() {
-        return spinner;
     }
 
     public AbsPanel getPanel() {
@@ -545,6 +569,13 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         this.comments = _c;
     }
 
+    public int getTabWidth() {
+        return tabWidth;
+    }
+
+    public void setTabWidth(int _t) {
+        this.tabWidth = _t;
+    }
 
     public IdList<WindowCdmEditor> getIdes() {
         return ides;

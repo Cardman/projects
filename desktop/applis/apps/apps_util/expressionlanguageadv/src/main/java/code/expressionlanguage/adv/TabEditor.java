@@ -129,7 +129,7 @@ public final class TabEditor {
     public int index(int _row, int _col) {
         int adjRow_ = _row - 1;
         int adjCol_ = _col - 1;
-        int tw_ = windowEditor.getSpinner().getValue();
+        int tw_ = windowEditor.getTabWidth();
         String txt_ = getCenter().getText();
         int index_ = 0;
         int row_ = 0;

@@ -1,7 +1,6 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsAttrSet;
-import code.gui.AbsSpinner;
 import code.gui.AbsTabStops;
 import code.gui.AbsTextPane;
 import code.gui.events.AbsChangeListener;
@@ -25,9 +24,8 @@ public final class TabValueChanged implements AbsChangeListener {
         }
         TabEditor tab_ = window.getTabs().get(inde_);
         AbsTextPane c_ = tab_.getCenter();
-        AbsSpinner cen_ = window.getSpinner();
         int chWi_ = c_.stringWidth(c_.getMetaFont(),"#");
-        int tabWidth_ = chWi_ * cen_.getValue();
+        int tabWidth_ = chWi_ * window.getTabWidth();
         AbsCompoFactory compo_ = tab_.getCommonFrame().getFrames().getCompoFactory();
         AbsTabStops tabs_ = compo_.newAbsTabStops(TABS);
         for (int j = 0; j < tabs_.getLength(); j++) {

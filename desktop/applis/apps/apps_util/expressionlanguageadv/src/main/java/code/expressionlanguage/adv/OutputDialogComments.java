@@ -43,7 +43,7 @@ public final class OutputDialogComments {
         val.addActionListener(new ValidateComments(this,commentsRows));
         all_.add(val);
         cancel = factories_.getCompoFactory().newPlainButton("KO");
-        cancel.addActionListener(new CancelComments(windowCdmEditor));
+        cancel.addActionListener(new CancelBasic(windowCdmEditor.getDialogComments()));
         all_.add(cancel);
         windowCdmEditor.getDialogComments().setContentPane(all_);
         windowCdmEditor.getDialogComments().pack();

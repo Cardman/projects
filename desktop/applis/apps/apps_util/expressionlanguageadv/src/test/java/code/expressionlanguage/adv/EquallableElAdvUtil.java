@@ -301,4 +301,17 @@ public abstract class EquallableElAdvUtil {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
         invokeAndClear(_w.getCommonFrame().getFrames());
     }
+
+    protected static OutputDialogComments comments(WindowCdmEditor _w) {
+        ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) _w.getCommentsMenu()).getActionListeners().get(0);
+        ev_.action();
+        return ev_.getOutputDialogComments();
+    }
+
+    protected static OutputDialogTab tabulations(WindowCdmEditor _w) {
+        ChangeTabulationsEvent ev_ = (ChangeTabulationsEvent) ((MockMenuItem) _w.getTabulationsMenu()).getActionListeners().get(0);
+        ev_.action();
+        return ev_.getOutputDialogTabs();
+    }
+
 }
