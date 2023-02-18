@@ -1,7 +1,8 @@
 package code.expressionlanguage.adv;
 
 import code.gui.events.AbsActionListener;
-import code.stream.StreamTextFile;
+import code.stream.StreamBinaryFile;
+import code.util.core.StringUtil;
 
 public final class SaveTextFileNode implements AbsActionListener {
     private final TabEditor editor;
@@ -12,6 +13,7 @@ public final class SaveTextFileNode implements AbsActionListener {
 
     @Override
     public void action() {
-        StreamTextFile.saveTextFile(editor.getFullPath(),editor.getCenter().getText(),editor.getCommonFrame().getFrames().getStreams());
+        byte[] enc_ = StringUtil.encode(editor.getCenter().getText());
+        StreamBinaryFile.writeFile(editor.getFullPath(),enc_,editor.getCommonFrame().getFrames().getStreams());
     }
 }

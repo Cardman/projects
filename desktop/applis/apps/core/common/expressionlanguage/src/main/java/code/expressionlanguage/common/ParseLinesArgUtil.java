@@ -31,7 +31,7 @@ public final class ParseLinesArgUtil {
         return comments_;
     }
     public static String buildCommentsLine(CustList<CommentDelimiters> _line) {
-        char[] escaped_ = CharList.wrapCharArray(';', ',', ' ', '\\', '\n', '\t');
+        char[] escaped_ = CharList.wrapCharArray(';', ',', ' ', '\\', '\n', '\t','\r');
         StringBuilder e_ = new StringBuilder();
         int len_ = _line.size();
         for (int i = 0; i < len_; i++) {
@@ -63,7 +63,7 @@ public final class ParseLinesArgUtil {
     }
 
     public static String buildMapLine(StringMap<String> _map) {
-        char[] escaped_ = CharList.wrapCharArray(',', ' ', '\\', '\n', '\t');
+        char[] escaped_ = CharList.wrapCharArray(',', ' ', '\\', '\n', '\t','\r');
         StringBuilder e_ = new StringBuilder();
         int len_ = _map.size();
         for (int i = 0; i < len_; i++) {
@@ -103,7 +103,7 @@ public final class ParseLinesArgUtil {
         return args_;
     }
     public static String exportLineArg(StringList _args) {
-        char[] escaped_ = CharList.wrapCharArray(' ', '\\', '\n', '\t');
+        char[] escaped_ = CharList.wrapCharArray(' ', '\\', '\n', '\t','\r');
         StringBuilder e_ = new StringBuilder();
         int len_ = _args.size();
         for (int i = 0; i < len_; i++) {

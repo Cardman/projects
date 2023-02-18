@@ -177,13 +177,15 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         int len_ = src_.size();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = acc_+StreamTextFile.SEPARATEUR+srcFolderRel_+StreamTextFile.SEPARATEUR+src_.get(i);
-            if (!frs_.getFileCoreStream().newFile(fullPath_).exists()) {
+            BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, commonFrame.getFrames().getStreams());
+            if (content_.isNul()) {
                 continue;
             }
+            String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
             openedFiles.add(src_.get(i));
             String name_ = fullPath_.substring(fullPath_.lastIndexOf('/')+1);
             TabEditor te_ = new TabEditor(this,fullPath_);
-            te_.getCenter().setText(StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(fullPath_,frs_.getFileCoreStream(),frs_.getStreams())));
+            te_.getCenter().setText(dec_);
             tabs.add(te_);
             editors.addIntTab(name_, te_.getPanel(),fullPath_);
         }
@@ -201,12 +203,40 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     }
 
 
-    public boolean applyTreeChangeSelected() {
+    public boolean applyTreeChangeSelected(boolean _treeEvent) {
         AbstractMutableTreeNode sel_ = folderSystem.selectEvt();
         if (sel_ == null) {
             return false;
         }
         String str_ = buildPath(sel_);
+        if (_treeEvent && str_.startsWith(currentFolder+StreamTextFile.SEPARATEUR+currentFolderSrc+StreamTextFile.SEPARATEUR)) {
+            BytesInfo content_ = StreamBinaryFile.loadFile(str_, commonFrame.getFrames().getStreams());
+            if (!content_.isNul()) {
+                int opened_ = -1;
+                int s_ = getTabs().size();
+                for (int i = 0; i < s_; i++) {
+                    if (StringUtil.quickEq(getTabs().get(i).getFullPath(),str_)) {
+                        opened_ = i;
+                        break;
+                    }
+                }
+                if (opened_ > -1) {
+                    getEditors().selectIndex(opened_);
+                    return false;
+                }
+                String rel_ = str_.substring(currentFolder.length() + currentFolderSrc.length() + 2);
+                openedFiles.add(rel_);
+                updateDoc();
+                String name_ = str_.substring(str_.lastIndexOf('/')+1);
+                TabEditor te_ = new TabEditor(this,str_);
+                String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
+                te_.getCenter().setText(dec_);
+                tabs.add(te_);
+                editors.addIntTab(name_, te_.getPanel(), str_);
+                getEditors().selectIndex(tabs.getLastIndex());
+                return false;
+            }
+        }
         folderSystem.removeAllChildren();
         refreshList(str_);
         MutableTreeNodeUtil.reload(folderSystem);
@@ -260,12 +290,12 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
-            applyTreeChangeSelected();
+            applyTreeChangeSelected(false);
             return;
         }
         String elt_ = str_+_ans.getTypedText();
         if (frs_.getFileCoreStream().newFile(elt_).exists() || !elt_.startsWith(currentFolder+StreamTextFile.SEPARATEUR+currentFolderSrc+StreamTextFile.SEPARATEUR)) {
-            applyTreeChangeSelected();
+            applyTreeChangeSelected(false);
             return;
         }
         if (elt_.endsWith("/")) {
@@ -281,7 +311,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             tabs.add(te_);
             editors.addIntTab(name_, te_.getPanel(), elt_);
         }
-        applyTreeChangeSelected();
+        applyTreeChangeSelected(false);
     }
 
     public void updateDoc() {
