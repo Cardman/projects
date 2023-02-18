@@ -1,8 +1,6 @@
 package code.expressionlanguage.utilimpl;
 
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.exec.CommonExecutionInfos;
 import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
 import code.expressionlanguage.exec.DefaultLockingClass;
@@ -25,13 +23,10 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
         super(_infos.getGenerator());
         execContent = new LgNamesUtilsContent(_infos, _inter);
     }
-    public void forwardAndClear(Classes _classes) {
-        execContent.getExecutingBlocks().forwardAndClear(getContent(), execContent.getCustAliases(),_classes);
-    }
 
     @Override
-    public void logIssue(String _info, ReportedMessages _rep) {
-        execContent.getInfos().tryLogIssue(_info);
+    public LgNamesUtilsContent getExecContent() {
+        return execContent;
     }
 
     @Override
@@ -45,25 +40,12 @@ public class LgNamesUtils extends LgNames implements LgNamesWithNewAliases {
     }
 
     @Override
-    public LgNamesUtilsContent getExecContent() {
-        return execContent;
-    }
-    @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
     }
 
     @Override
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
-        return newFunctional(_className, _functional, _named, _contextEl);
-    }
-
-    @Override
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        return newFunctional(_className, _functional, _named, _contextEl);
-    }
-
-    private static AbstractFunctionalInstance newFunctional(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }
 

@@ -15,7 +15,6 @@ import code.expressionlanguage.exec.util.ExecFunctionalInfo;
 import code.expressionlanguage.exec.variables.ArgumentsPair;
 import code.expressionlanguage.fwd.opers.ExecOperationContent;
 import code.expressionlanguage.fwd.opers.ExecTypeCheckContent;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.Struct;
 import code.util.CustList;
@@ -61,13 +60,7 @@ public final class ExecCastOperation extends ExecMethodOperation implements Atom
             String argCl_ = _objArg.getClassName(_conf);
             if (ExecInherits.isCorrectExecute(argCl_,fctParam_,_conf)) {
                 ExecOverridableBlock overridableBlock_ = clRealId_.getOverridableBlock();
-                AbstractFunctionalInstance struct_;
-                if (_full) {
-                    struct_ = _conf.getStandards().newFullFunctionalInstance(className_, (LambdaStruct) _objArg, overridableBlock_, _conf);
-                } else {
-                    struct_ = _conf.getStandards().newFunctionalInstance(className_, (LambdaStruct) _objArg, overridableBlock_, _conf);
-                }
-                return struct_;
+                return _conf.getStandards().newFullFunctionalInstance(className_, (LambdaStruct) _objArg, overridableBlock_, _conf);
             }
         }
         return _objArg;

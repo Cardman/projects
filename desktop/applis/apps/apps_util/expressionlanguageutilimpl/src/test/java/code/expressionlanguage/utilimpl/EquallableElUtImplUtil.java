@@ -259,12 +259,12 @@ public abstract class EquallableElUtImplUtil {
     }
     protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getExecContent().getCustAliases());
-        return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
+        return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
 
     protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
-        return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
+        return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(_s, new int[0], new String[0], new TextAnswerValue[0]), _set);

@@ -44,7 +44,7 @@ public final class Forwards {
     }
 
     public ContextEl generate() {
-        return loggable.newContext(options, this);
+        return generator.newContext(options, this);
     }
 
     public Options getOptions() {

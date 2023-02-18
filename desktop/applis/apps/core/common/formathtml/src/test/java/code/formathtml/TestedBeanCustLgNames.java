@@ -17,7 +17,7 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     @Override
     public void build() {
         buildBase();
-        buildOther();
+        buildOtherBean();
     }
 
     @Override

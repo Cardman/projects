@@ -262,12 +262,12 @@ public abstract class EquallableElUtUtil {
 
     protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getExecContent().getCustAliases());
-        return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
+        return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
 
     protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
-        return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
+        return new Forwards(_lgName,_lgName.getExecContent(), fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
@@ -675,7 +675,7 @@ public abstract class EquallableElUtUtil {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
-        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments("en"), _options, _definedLgNames.getContent(), page_);
@@ -692,7 +692,7 @@ public abstract class EquallableElUtUtil {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));
-        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments("en"), _options, _definedLgNames.getContent(), page_);

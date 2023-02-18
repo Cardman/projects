@@ -168,7 +168,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgN
         return casesList_.getVal(_ca);
     }
 
-    public void buildOther() {
+    public void buildOtherBean() {
         beanAliases.buildOther(getContent(), getRendExecutingBlocks());
     }
 

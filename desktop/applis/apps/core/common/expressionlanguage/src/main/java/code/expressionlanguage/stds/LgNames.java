@@ -61,10 +61,6 @@ public abstract class LgNames implements BuildableLgNames {
         return calculator.getInnerSimpleResult(_classField);
     }
 
-    /**@param _contextEl context*/
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        return new FunctionalInstance(_className.getFormatted(),_functional, _named);
-    }
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         CustList<ClassFieldStruct> fs_ = _contextEl.getInit().feedFields(_contextEl, _className);
         return new FullFunctionalInstance(_className.getFormatted(),_functional,fs_, _named);

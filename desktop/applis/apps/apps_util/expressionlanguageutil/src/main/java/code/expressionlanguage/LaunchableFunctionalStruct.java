@@ -1,34 +1,23 @@
 package code.expressionlanguage;
 
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.*;
-import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.structs.*;
-import code.expressionlanguage.utilcompo.*;
-import code.util.*;
+import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.structs.AbstractFunctionalInstanceImpl;
+import code.expressionlanguage.structs.LambdaStruct;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.util.CustList;
+import code.util.StringList;
 
-public abstract class LaunchableFunctionalStruct extends AbstractFunctionalInstanceImpl implements Runnable,
-        FieldableStruct {
+public abstract class LaunchableFunctionalStruct extends AbstractFunctionalInstanceImpl implements Runnable {
 
-    private final CustList<ClassFieldStruct> fields;
     private final CommonExecutionInfos executionInfos;
     private final StringList args;
     protected LaunchableFunctionalStruct(String _className, LambdaStruct _functional,
                                          CustList<ClassFieldStruct> _fields, RunnableContextEl _contextEl, ExecNamedFunctionBlock _named) {
-        super(_className, _functional, _named);
-        fields = _fields;
+        super(_className, _functional,_fields, _named);
         executionInfos = _contextEl.getExecutionInfos();
         args = _contextEl.getArgs();
-    }
-
-    @Override
-    public ClassFieldStruct getEntryStruct(ClassField _classField) {
-        return ClassFieldStruct.getPair(fields,_classField);
-    }
-
-    @Override
-    public CustList<ClassFieldStruct> getFields() {
-        return fields;
     }
 
     public CommonExecutionInfos getExecutionInfos() {

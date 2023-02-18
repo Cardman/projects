@@ -1,9 +1,13 @@
 package code.expressionlanguage.utilimpl;
 
+import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.stds.LgNamesContent;
+import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.utilcompo.*;
 import code.sml.util.Translations;
 
-public final class LgNamesUtilsContent {
+public final class LgNamesUtilsContent implements LoggableLgNames {
     private final CustAliases custAliases = new CustAliases();
 
     private final FileInfos infos;
@@ -15,6 +19,13 @@ public final class LgNamesUtilsContent {
         custAliases.setInfos(_infos);
         custAliases.setInterceptor(_inter);
         infos = _infos;
+    }
+    @Override
+    public void logIssue(String _info, ReportedMessages _rep) {
+        getInfos().tryLogIssue(_info);
+    }
+    public void forwardAndClear(LgNamesContent _content, Classes _classes) {
+        getExecutingBlocks().forwardAndClear(_content, getCustAliases(),_classes);
     }
     public AbstractInterceptor getInterceptor() {
         return custAliases.getInterceptor();

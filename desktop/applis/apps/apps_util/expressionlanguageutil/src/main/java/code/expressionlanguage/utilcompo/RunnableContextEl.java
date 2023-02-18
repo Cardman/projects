@@ -39,7 +39,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     public void forwardAndClear() {
         super.forwardAndClear();
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) getStandards();
-        standards_.forwardAndClear(getClasses());
+        standards_.getExecContent().forwardAndClear(standards_.getContent(),getClasses());
     }
 
     @Override

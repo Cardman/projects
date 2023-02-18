@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -27,7 +28,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
+public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases, LoggableLgNames {
     private final LgNamesUtilsContent execContent;
     private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
@@ -40,10 +41,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         return execContent;
     }
 
-    public void forwardAndClear(Classes _classes) {
-        execContent.getExecutingBlocks().forwardAndClear(getContent(), execContent.getCustAliases(),_classes);
-    }
-
     @Override
     public void logIssue(String _info, ReportedMessages _rep) {
         execContent.getInfos().tryLogIssue(_info);
@@ -52,22 +49,17 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public void build() {
         buildBase();
-        buildOther();
+        buildOtherBean();
     }
 
     @Override
-    public void buildOther() {
+    public void buildOtherBean() {
         getBeanAliases().buildOther(getContent(), getRendExecutingBlocks());
         execContent.getCustAliases().buildOther(getContent(), execContent.getExecutingBlocks());
     }
     @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
         return CustAliases.getStringOfObjectUtil(_cont, _arg);
-    }
-
-    @Override
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl){
-        return CustAliases.newFunctional(_className, _functional, _named, _contextEl);
     }
 
     @Override

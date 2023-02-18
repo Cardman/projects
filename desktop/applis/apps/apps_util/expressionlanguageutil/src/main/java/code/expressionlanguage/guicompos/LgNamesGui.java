@@ -66,11 +66,6 @@ public class LgNamesGui extends LgNamesUtils {
     }
 
     @Override
-    public AbstractFunctionalInstance newFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
-        return newGuiFunctionnal(_contextEl, _className, _functional, _named);
-    }
-
-    @Override
     public AbstractFunctionalInstance newFullFunctionalInstance(ExecFormattedRootBlock _className, LambdaStruct _functional, ExecNamedFunctionBlock _named, ContextEl _contextEl) {
         return newGuiFunctionnal(_contextEl, _className, _functional, _named);
     }

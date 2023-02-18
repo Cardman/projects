@@ -39,7 +39,7 @@ public final class GuiContextFactory {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
-        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames,fileBuilder_, _options);
+        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(),fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
