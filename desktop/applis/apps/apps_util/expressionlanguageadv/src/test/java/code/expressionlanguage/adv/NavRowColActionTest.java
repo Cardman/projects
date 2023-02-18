@@ -9,12 +9,9 @@ import org.junit.Test;
 public final class NavRowColActionTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(1);
         o_.getCol().setValue(1);
@@ -26,12 +23,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(1);
@@ -43,12 +37,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action3() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(5);
@@ -60,12 +51,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action4() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(1);
         o_.getCol().setValue(5);
@@ -77,12 +65,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action5() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(3);
         o_.getCol().setValue(1);
@@ -91,12 +76,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action6() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(1);
         o_.getCol().setValue(6);
@@ -108,12 +90,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action7() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(5);
@@ -125,12 +104,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action8() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(6);
@@ -142,12 +118,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action9() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(1);
         o_.getCol().setValue(1);
@@ -159,12 +132,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action10() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(1);
         o_.getCol().setValue(1);
@@ -173,12 +143,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action11() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(6);
@@ -190,12 +157,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action12() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nw\torld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(5);
@@ -207,12 +171,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action13() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(9);
@@ -224,12 +185,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action14() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(10);
@@ -241,12 +199,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action15() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(7);
@@ -255,12 +210,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action16() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(1);
         o_.getCol().setValue(7);
@@ -269,12 +221,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action17() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
-        NavRowColAction ev_ = tabEditor(w_).getNavRowCol();
-        ev_.action();
-        OutputDialogNavLine o_ = ev_.getOutputDialogNavLine();
+        OutputDialogNavLine o_=navigateInsideTab(w_);
         assertEq(-1,o_.getResult().getIndex());
         o_.getRow().setValue(2);
         o_.getCol().setValue(11);

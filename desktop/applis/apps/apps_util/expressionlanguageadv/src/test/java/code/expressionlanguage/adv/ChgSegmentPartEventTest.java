@@ -1,17 +1,15 @@
 package code.expressionlanguage.adv;
 
-import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import org.junit.Test;
 
 public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     @Test
     public void previous() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(3,4);
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getNextOcc()).isDeepAccessible());
         ((MockPlainButton)tabEditor(w_).getPrevOcc()).getActionListeners().get(0).action();
@@ -41,11 +39,10 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     }
     @Test
     public void next() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(3,4);
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getNextOcc()).isDeepAccessible());
         ((MockPlainButton)tabEditor(w_).getNextOcc()).getActionListeners().get(0).action();
@@ -75,11 +72,10 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     }
     @Test
     public void previousBack() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getNextOcc()).isDeepAccessible());
         ((MockPlainButton)tabEditor(w_).getPrevOcc()).getActionListeners().get(0).action();
@@ -109,11 +105,10 @@ public final class ChgSegmentPartEventTest extends EquallableElAdvUtil {
     }
     @Test
     public void nextAfter() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(9,10);
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getPrevOcc()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getNextOcc()).isDeepAccessible());
         ((MockPlainButton)tabEditor(w_).getNextOcc()).getActionListeners().get(0).action();

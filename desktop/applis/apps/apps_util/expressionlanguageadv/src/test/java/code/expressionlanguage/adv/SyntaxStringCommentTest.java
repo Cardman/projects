@@ -2,9 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.gui.GuiConstants;
-import code.maths.montecarlo.CustomSeedGene;
 import code.mock.MockAttrSet;
-import code.mock.MockFileSet;
 import code.mock.MockProgramInfos;
 import code.mock.MockTextPane;
 import code.util.CustList;
@@ -14,9 +12,8 @@ import org.junit.Test;
 public final class SyntaxStringCommentTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
-        changeNow(pr_, w_,"hello \"_\" ");
+        WindowCdmEditor w_=newWindowLoadDef();
+        changeNow(w_,"hello \"_\" ");
         assertEq(10,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(1).size());
@@ -34,12 +31,11 @@ public final class SyntaxStringCommentTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         CustList<CommentDelimiters> comments_ = new CustList<CommentDelimiters>();
         comments_.add(new CommentDelimiters("\\*",new StringList("*\\")));
         w_.setComments(comments_);
-        changeNow(pr_, w_,"hello \\*_*\\ ");
+        changeNow(w_,"hello \\*_*\\ ");
         assertEq(12,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(1).size());

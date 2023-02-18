@@ -16,6 +16,10 @@ public final class MockAdvAbstractAction extends MockAbstractActionCommon implem
         if (!isEnabled()) {
             return;
         }
-        actionListener.action(_state, _command);
+        getActionListener().action(_state, _command);
+    }
+
+    public AbsAdvActionListener getActionListener() {
+        return actionListener;
     }
 }

@@ -15,6 +15,10 @@ public final class MockAbstractAction extends MockAbstractActionCommon implement
         if (!isEnabled()) {
             return;
         }
-        actionListener.action();
+        getActionListener().action();
+    }
+
+    public AbsActionListener getActionListener() {
+        return actionListener;
     }
 }

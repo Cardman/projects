@@ -1,15 +1,13 @@
 package code.expressionlanguage.adv;
 
-import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import org.junit.Test;
 
 public final class FindActionTest extends EquallableElAdvUtil {
     @Test
     public void action1() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
-        findText(w_,pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());
@@ -18,11 +16,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action2() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("l", tabEditor(w_).getFinder().getText());
@@ -42,24 +39,22 @@ public final class FindActionTest extends EquallableElAdvUtil {
 
     @Test
     public void action3() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_,pr_);
+        findText(w_);
         ((MockPlainButton) tabEditor(w_).getCloseFinder()).getActionListeners().get(0).action();
         assertFalse(tabEditor(w_).getNavModifPanel().isVisible());
     }
     @Test
     public void action4() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
+        findText(w_);
         ((MockPlainButton) tabEditor(w_).getCloseFinder()).getActionListeners().get(0).action();
         tabEditor(w_).getCenter().select(1,2);
-        findText(w_, pr_);
+        findText(w_);
         assertEq("e", tabEditor(w_).getFinder().getText());
         assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -73,10 +68,9 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action5() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());
@@ -90,11 +84,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action6() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         new FinderTextChange(tabEditor(w_)).insertUpdate();
-        invokeAndClear(pr_);
+        invokeAndClear(w_.getCommonFrame().getFrames());
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());
@@ -108,11 +101,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action7() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         new FinderTextChange(tabEditor(w_)).changedUpdate();
-        invokeAndClear(pr_);
+        invokeAndClear(w_.getCommonFrame().getFrames());
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isAccessible());
         assertEq("", tabEditor(w_).getFinder().getText());
@@ -126,12 +118,11 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action8() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
-        findNow(pr_, w_, "e");
+        findText(w_);
+        findNow(w_, "e");
         assertEq("e", tabEditor(w_).getFinder().getText());
         assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -145,12 +136,11 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action9() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
-        findNow(pr_, w_, "ll");
+        findText(w_);
+        findNow(w_, "ll");
         assertEq("ll", tabEditor(w_).getFinder().getText());
         assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -164,11 +154,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action10() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        findText(w_,pr_);
-        findNow(pr_, w_, "e");
+        findText(w_);
+        findNow(w_, "e");
         assertEq("e", tabEditor(w_).getFinder().getText());
         assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -182,11 +171,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action11() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        findText(w_,pr_);
-        findNow(pr_, w_, "ll");
+        findText(w_);
+        findNow(w_, "ll");
         assertEq("ll", tabEditor(w_).getFinder().getText());
         assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -200,11 +188,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action12() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
-        findText(w_,pr_);
-        findNow(pr_, w_, "i");
+        findText(w_);
+        findNow(w_, "i");
         assertEq("i", tabEditor(w_).getFinder().getText());
         assertEq(5,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().size());
         assertEq(0,((MockTextPane) tabEditor(w_).getCenter()).getAttrSets().getValue(0).size());
@@ -216,11 +203,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action13() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(3,4);
-        findText(w_, pr_);
+        findText(w_);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("l", tabEditor(w_).getFinder().getText());
@@ -239,13 +225,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action14() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helo");
-        findText(w_, pr_);
-        findNow(pr_,w_,"l");
+        findText(w_);
+        findNow(w_,"l");
         tabEditor(w_).getCenter().select(2,2);
-        changeNow(pr_,w_,"hello");
+        changeNow(w_,"hello");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("l", tabEditor(w_).getFinder().getText());
@@ -264,12 +249,11 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action15() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         tabEditor(w_).getCenter().select(2,2);
-        findText(w_, pr_);
-        findNow(pr_,w_,"o");
+        findText(w_);
+        findNow(w_,"o");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("o", tabEditor(w_).getFinder().getText());
@@ -288,12 +272,11 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action16() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(8,8);
-        findText(w_, pr_);
-        findNow(pr_,w_,"o");
+        findText(w_);
+        findNow(w_,"o");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("o", tabEditor(w_).getFinder().getText());
@@ -320,12 +303,11 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action17() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(5,5);
-        findText(w_, pr_);
-        findNow(pr_,w_,"o");
+        findText(w_);
+        findNow(w_,"o");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("o", tabEditor(w_).getFinder().getText());
@@ -352,12 +334,11 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action18() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
         tabEditor(w_).getCenter().select(2,2);
-        findText(w_, pr_);
-        findNow(pr_,w_,"o");
+        findText(w_);
+        findNow(w_,"o");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("o", tabEditor(w_).getFinder().getText());
@@ -384,11 +365,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action19() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getCaseSens().setSelected(false);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
@@ -408,11 +388,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action20() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
-        findText(w_, pr_);
-        findNow(pr_, w_,"ol");
+        findText(w_);
+        findNow(w_,"ol");
         tabEditor(w_).getCaseSens().setSelected(false);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
@@ -428,11 +407,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action21() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
-        findText(w_, pr_);
-        findNow(pr_, w_,"o");
+        findText(w_);
+        findNow(w_,"o");
         tabEditor(w_).getCaseSens().setSelected(false);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
@@ -450,11 +428,10 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action22() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
         tabEditor(w_).getCenter().select(2,3);
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getCaseSens().setSelected(false);
         tabEditor(w_).getCaseSens().setSelected(true);
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
@@ -473,13 +450,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action23() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(false);
-        findNow(pr_, w_,"O");
+        findNow(w_,"O");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("O", tabEditor(w_).getFinder().getText());
@@ -494,13 +470,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action24() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(false);
-        findNow(pr_, w_,"H");
+        findNow(w_,"H");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("H", tabEditor(w_).getFinder().getText());
@@ -515,13 +490,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action25() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(false);
-        findNow(pr_, w_,"WORLD");
+        findNow(w_,"WORLD");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("WORLD", tabEditor(w_).getFinder().getText());
@@ -544,13 +518,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action26() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(false);
-        findNow(pr_, w_,"HELLO");
+        findNow(w_,"HELLO");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("HELLO", tabEditor(w_).getFinder().getText());
@@ -573,13 +546,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action27() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_, w_,"o");
+        findNow(w_,"o");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("o", tabEditor(w_).getFinder().getText());
@@ -594,13 +566,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action28() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("helLo");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_, w_,"h");
+        findNow(w_,"h");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("h", tabEditor(w_).getFinder().getText());
@@ -615,13 +586,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action29() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_, w_,"world");
+        findNow(w_,"world");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("world", tabEditor(w_).getFinder().getText());
@@ -644,13 +614,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action30() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello world");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_, w_,"hello");
+        findNow(w_,"hello");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("hello", tabEditor(w_).getFinder().getText());
@@ -673,13 +642,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action31() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("a_b");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_, w_,"a_b");
+        findNow(w_,"a_b");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("a_b", tabEditor(w_).getFinder().getText());
@@ -694,13 +662,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action32() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText(">");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_, w_,"<");
+        findNow(w_,"<");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("<", tabEditor(w_).getFinder().getText());
@@ -711,13 +678,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action33() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello lo");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_,w_,"lo");
+        findNow(w_,"lo");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("lo", tabEditor(w_).getFinder().getText());
@@ -737,13 +703,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action34() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello LO");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(false);
-        findNow(pr_,w_,"lo");
+        findNow(w_,"lo");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("lo", tabEditor(w_).getFinder().getText());
@@ -763,13 +728,12 @@ public final class FindActionTest extends EquallableElAdvUtil {
     }
     @Test
     public void action35() {
-        MockProgramInfos pr_ = newMockProgramInfosInitConf();
-        WindowCdmEditor w_ =windowLoadDef(pr_);
+        WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello LO");
-        findText(w_, pr_);
+        findText(w_);
         tabEditor(w_).getWholeWord().setSelected(true);
         tabEditor(w_).getCaseSens().setSelected(true);
-        findNow(pr_,w_,"lo");
+        findNow(w_,"lo");
         assertTrue(((MockCustComponent) tabEditor(w_).getFinder()).isDeepAccessible());
         assertTrue(((MockCustComponent) tabEditor(w_).getCloseFinder()).isDeepAccessible());
         assertEq("lo", tabEditor(w_).getFinder().getText());

@@ -6,6 +6,7 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
 import code.sml.util.TranslationsLg;
+import code.stream.AbstractFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.AbstractBinFact;
@@ -98,6 +99,14 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
 
+    public static WindowCdmEditor windowLoadDefInit(WindowCdmEditor _first) {
+        AbstractProgramInfos pr_ = _first.getCommonFrame().getFrames();
+        pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        pr_.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) pr_);
+        return window(pr_);
+    }
+
     public static WindowCdmEditor windowLoadDefInit(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);
@@ -116,18 +125,6 @@ public abstract class EquallableElAdvUtil {
         return _args;
     }
 
-    public static MockProgramInfos prWrite() {
-        MockProgramInfos prs_ = prWriteQuick();
-        prs_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
-        prs_.setLanguage(FileInfos.EN);
-        update(prs_);
-        return prs_;
-    }
-
-    public static MockProgramInfos prWriteQuick() {
-        return newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(0, new long[1], new String[]{"/"}));
-    }
-
     public static void update(MockProgramInfos _pr) {
         FileInfos.initComments(lg(_pr,FileInfos.EN));
         FileInfos.initComments(lg(_pr,FileInfos.FR));
@@ -136,6 +133,10 @@ public abstract class EquallableElAdvUtil {
         TranslationsLg lg_ = new TranslationsLg();
         _pr.getTranslations().getMapping().addEntry(_key, lg_);
         return lg_;
+    }
+    public static WindowCdmEditor newWindowLoadDef() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        return windowLoadDef(pr_);
     }
     public static MockProgramInfos newMockProgramInfosInitConf() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
@@ -187,6 +188,33 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
     }
+    public static MockProgramInfos newMockProgramInfosInitConfNoDirConfSave(String _folder, String _conf) {
+        String chooseConf_ = "/editor/conf.txt";
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[]{_conf}, new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
+        pr_.getFileCoreStream().newFile(_folder).mkdirs();
+        StreamFolderFile.makeParent("/editor/conf.xml",pr_.getFileCoreStream());
+        StreamTextFile.saveTextFile("/editor/conf.xml",WindowCdmEditor.buildDefConfFile(chooseConf_,new StringList()),pr_.getStreams());
+        StringList lines_ = new StringList();
+        lines_.add("/folder/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(chooseConf_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        return pr_;
+    }
+    public static String contentsOfFile(String _nomFichier, WindowCdmEditor _tech) {
+        return StreamTextFile.contentsOfFile(_nomFichier,_tech.getCommonFrame().getFrames().getFileCoreStream(),_tech.getCommonFrame().getFrames().getStreams());
+    }
+    public static boolean saveTextFile(String _nomFichier, String _content, WindowCdmEditor _tech) {
+        return StreamTextFile.saveTextFile(_nomFichier,_content,_tech.getCommonFrame().getFrames().getStreams());
+    }
+    public static AbstractFile newFile(WindowCdmEditor _tmpUserFolderSl, String _name) {
+        return _tmpUserFolderSl.getCommonFrame().getFrames().getFileCoreStream().newFile(_name);
+    }
+    public static String getTempDefConf(WindowCdmEditor _tmpUserFolderSl) {
+        return getTempDefConf(_tmpUserFolderSl.getCommonFrame().getFrames());
+    }
+    public static String getTempDefConf(AbstractProgramInfos _tmpUserFolderSl) {
+        return WindowCdmEditor.getTempDefConf(_tmpUserFolderSl);
+    }
     public static MockProgramInfos newMockProgramInfosInitConfNo() {
         return new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
     }
@@ -211,9 +239,6 @@ public abstract class EquallableElAdvUtil {
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
         return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
     }
-    public static MockProgramInfos newMockProgramInfos(MockEventListIncr _s, MockFileSet _set) {
-        return new MockProgramInfos("", "", _s, _set);
-    }
 
     protected static TabEditor tabEditor(WindowCdmEditor _w) {
         return tabEditor(_w,0);
@@ -227,30 +252,35 @@ public abstract class EquallableElAdvUtil {
         return _w.getTabs().get(_index);
     }
 
-    protected void findNow(MockProgramInfos _pr, WindowCdmEditor _w, String _v) {
+    protected void findNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getFinder().setText(_v);
-        invokeAndClear(_pr);
+        invokeAndClear(_w.getCommonFrame().getFrames());
     }
 
-    protected void changeNow(MockProgramInfos _pr, WindowCdmEditor _w, String _v) {
+    protected static OutputDialogNavLine navigateInsideTab(WindowCdmEditor _w) {
+        MockAbstractAction ac_ = (MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_G, GuiConstants.CTRL_DOWN_MASK);
+        ac_.action();
+        return ((NavRowColAction)ac_.getActionListener()).getOutputDialogNavLine();
+    }
+    protected void changeNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getCenter().setText(_v);
-        invokeAndClear(_pr);
+        invokeAndClear(_w.getCommonFrame().getFrames());
     }
-    protected void findText(WindowCdmEditor _w, MockProgramInfos _pr) {
+    protected void findText(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK)).action();
-        invokeAndClear(_pr);
+        invokeAndClear(_w.getCommonFrame().getFrames());
     }
-    protected void replaceText(WindowCdmEditor _w, MockProgramInfos _pr) {
+    protected void replaceText(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_R,GuiConstants.CTRL_DOWN_MASK)).action();
-        invokeAndClear(_pr);
+        invokeAndClear(_w.getCommonFrame().getFrames());
     }
-    protected static void invokeAndClear(MockProgramInfos _pr) {
+    protected static void invokeAndClear(AbstractProgramInfos _pr) {
         ((MockCompoFactory) _pr.getCompoFactory()).invoke();
         ((MockCompoFactory) _pr.getCompoFactory()).getLater().clear();
     }
-    protected void storeEdit(WindowCdmEditor _w, MockProgramInfos _pr) {
+    protected void storeEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
-        invokeAndClear(_pr);
+        invokeAndClear(_w.getCommonFrame().getFrames());
     }
     protected void save(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();
@@ -267,8 +297,8 @@ public abstract class EquallableElAdvUtil {
     protected void redo(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK)).action();
     }
-    protected void clearEdit(WindowCdmEditor _w, MockProgramInfos _pr) {
+    protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();
-        invokeAndClear(_pr);
+        invokeAndClear(_w.getCommonFrame().getFrames());
     }
 }

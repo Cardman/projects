@@ -35,7 +35,6 @@ public final class TabEditor {
     private final StringList texts = new StringList();
     private final AbsEnabledAction undo;
     private final AbsEnabledAction redo;
-    private final NavRowColAction navRowCol;
     private final AbstractBaseExecutorService taskManager;
     private boolean enabledSyntax = true;
     private int currentPart = -1;
@@ -111,8 +110,7 @@ public final class TabEditor {
         center.registerKeyboardAction(undo,GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(redo,GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
-        navRowCol = new NavRowColAction(this);
-        center.registerKeyboardAction(frames_.getCompoFactory().wrap(navRowCol),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new NavRowColAction(this)),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new CloseTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
@@ -172,10 +170,6 @@ public final class TabEditor {
             j_++;
         }
         return j_;
-    }
-
-    public NavRowColAction getNavRowCol() {
-        return navRowCol;
     }
 
     public void updateNavSelect() {
