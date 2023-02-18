@@ -109,7 +109,7 @@ public abstract class EquallableElUtFilesUtil {
 
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
         return stds_;
     }
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
@@ -120,14 +120,14 @@ public abstract class EquallableElUtFilesUtil {
     public static LgNamesGui newLgNamesGuiLight(AbstractLightProgramInfos _light,ExecutingOptions _opt) {
         FileInfos infos_ = FileInfos.buildMemoryFromFile(_light, _light.getGenerator(), _light.getValidator(), null, new MemInputFiles(new byte[0], new BytesInfo(new byte[0],true), new BytesInfo(new byte[0],true)), _light.getZipFact(), _light.getThreadFactory());
         LgNamesGui stds_ = new LgNamesGui(infos_, new MockInterceptor());
-        stds_.setExecutingOptions(_opt);
-        stds_.updateTranslations(_light.getTranslations(),_light.getLanguage());
+        stds_.getExecContent().setExecutingOptions(_opt);
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage());
         return stds_;
     }
     public static GuiContextEl newContext(LgNamesGui _stds,CustomSeedGene _opt) {
         return new GuiContextEl(NullStruct.NULL_VALUE, new CommonExecutionInfos(new MockInterceptorStdCaller(),new CommonExecutionMetricsInfos(4,-1,_opt),_stds,new Classes(new DefTypePairHash()), new Coverage(false), new DefaultLockingClass(),
-                new GuiInitializer(_stds.getInfos().getThreadFactory().newAtomicLong(), _stds.getCustAliases().getInterceptor())),
-                new StringList(_stds.getExecutingOptions().getArgs()));
+                new GuiInitializer(_stds.getExecContent().getInfos().getThreadFactory().newAtomicLong(), _stds.getExecContent().getCustAliases().getInterceptor())),
+                new StringList(_stds.getExecContent().getExecutingOptions().getArgs()));
     }
     public static ArgumentListCall one(Struct _arg) {
         CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
@@ -269,12 +269,12 @@ public abstract class EquallableElUtFilesUtil {
         return _all;
     }
     protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getCustAliases());
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getExecContent().getCustAliases());
         return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
 
     protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getCustAliases(),new CustAliasGroups(_lgName.getCustAliases(), _lgName.getContent()));
+        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
         return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
@@ -292,8 +292,8 @@ public abstract class EquallableElUtFilesUtil {
         return _arg.getStruct();
     }
     public static void memoryFileSystem(LgNamesGui _stds, AbstractProgramInfos _pr, MockNameFile... _files) {
-        AbstractFileSystem m_ = _stds.getCustAliases().getInfos().getFileSystem();
-        m_.build(_stds.getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
+        AbstractFileSystem m_ = _stds.getExecContent().getCustAliases().getInfos().getFileSystem();
+        m_.build(_stds.getExecContent().getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
     }
     public static double[] dbs(double... _args) {
         return _args;

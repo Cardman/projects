@@ -34,7 +34,7 @@ public final class RenderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_);
+        call(new FctRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -46,7 +46,7 @@ public final class RenderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new DfRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,st_);
+        call(new DfRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -58,7 +58,7 @@ public final class RenderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct r_ = call(new FctRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctRenderSetWidth(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctRenderGetWidth(),null,ctx_,r_,null,st_));
     }
@@ -70,7 +70,7 @@ public final class RenderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct r_ = call(new FctRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctRenderSetHeight(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctRenderGetHeight(),null,ctx_,r_,null,st_));
     }
@@ -82,7 +82,7 @@ public final class RenderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct r_ = call(new FctRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctRenderSetPaint(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctRenderGetPaint(),null,ctx_,r_,null,st_));
     }

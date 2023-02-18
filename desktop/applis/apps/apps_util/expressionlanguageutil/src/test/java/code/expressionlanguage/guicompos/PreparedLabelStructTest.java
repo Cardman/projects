@@ -33,7 +33,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctImageLabel0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        call(new FctImageLabel0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -43,7 +43,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new DfImageLabel(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
+        call(new DfImageLabel(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -54,7 +54,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctImageLabel0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        call(new FctImageLabel0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -66,7 +66,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new DfImageLabel(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
+        call(new DfImageLabel(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -78,7 +78,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctImageLabel1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true)),st_)),st_);
+        call(new FctImageLabel1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true)),st_)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -90,7 +90,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctImageLabel(stds_.getGuiExecutingBlocks()),null,ctx_,i_,one(call(new FctImage(stds_.getGuiExecutingBlocks()),null,ctx_,null,three(new IntStruct(0),new IntStruct(0),BooleanStruct.of(true)),st_)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -103,7 +103,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         call(new FctImageLabel(stds_.getGuiExecutingBlocks()),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -116,7 +116,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoGetHeight(),null,ctx_,i_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -129,7 +129,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoGetWidth(),null,ctx_,i_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -142,7 +142,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoToolTip1(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,i_,null,st_));
     }
@@ -154,7 +154,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoToolTip1(),null,ctx_,i_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,i_,null,st_));
     }
@@ -166,7 +166,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetVisible(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,i_,null,st_));
     }
@@ -178,7 +178,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetVisible(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,i_,null,st_));
     }
@@ -190,7 +190,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoFocusable1(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoFocusable0(),null,ctx_,i_,null,st_));
     }
@@ -202,7 +202,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoFocusable1(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoFocusable0(),null,ctx_,i_,null,st_));
     }
@@ -214,7 +214,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetAutoscrolls(),null,ctx_,i_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsAutoscrolls(),null,ctx_,i_,null,st_));
     }
@@ -226,7 +226,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoSetAutoscrolls(),null,ctx_,i_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsAutoscrolls(),null,ctx_,i_,null,st_));
     }
@@ -238,7 +238,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoGetNextCompo(),null,ctx_,i_,null,st_));
     }
     @Test
@@ -249,9 +249,9 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label1_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label1_),st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label2_),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoGetNextCompo(),null,ctx_,label2_,null,st_));
@@ -264,9 +264,9 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label1_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label1_),st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label2_),st_);
         assertSame(label2_,call(new FctCompoGetNextCompo(),null,ctx_,label1_,null,st_));
@@ -279,7 +279,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoLoc(),null,ctx_,i_,two(new IntStruct(2),new IntStruct(3)),st_);
         assertEq(2,toLong(call(new FctCompoGetFirstPos(),null,ctx_,i_,null,st_)));
         assertEq(3,toLong(call(new FctCompoGetSecondPos(),null,ctx_,i_,null,st_)));
@@ -292,7 +292,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoBorLine0(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         call(new FctCompoBorLine0(),null,ctx_,i_,one(new ColorStruct(0)),st_);
         call(new FctCompoBorLine1(),null,ctx_,i_,two(NullStruct.NULL_VALUE,new IntStruct(1)),st_);
@@ -341,7 +341,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,((CustComponentStruct)i_).getComponent().getMouseListeners().size());
     }
@@ -353,7 +353,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getMouseListeners().size());
     }
@@ -365,7 +365,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctCompoRemoveMouseListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getMouseListeners().size());
@@ -378,7 +378,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(list_),st_);
         call(new FctCompoRemoveMouseListener(),null,ctx_,i_,one(list_),st_);
@@ -392,7 +392,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddMouseListener(),null,ctx_,i_,one(list_),st_);
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetMouseListeners(), null, ctx_, i_, null, st_);
@@ -408,7 +408,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         ((CustComponentStruct)i_).getComponent().addMouseListener((AbsMouseListener) null);
         ((CustComponentStruct)i_).getComponent().addMouseMotionListener(null);
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetMouseListeners(), null, ctx_, i_, null, st_);
@@ -422,7 +422,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
     }
@@ -434,7 +434,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
     }
@@ -446,7 +446,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctCompoRemoveKeyListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
@@ -459,7 +459,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(list_),st_);
         call(new FctCompoRemoveKeyListener(),null,ctx_,i_,one(list_),st_);
@@ -473,7 +473,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddKeyListener(),null,ctx_,i_,one(list_),st_);
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetKeyListeners(), null, ctx_, i_, null, st_);
@@ -488,7 +488,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         ((CustComponentStruct)i_).getComponent().addKeyListener(null);
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetKeyListeners(), null, ctx_, i_, null, st_);
         assertEq(0,a_.getLength());
@@ -501,7 +501,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,((CustComponentStruct)i_).getComponent().getKeyListeners().size());
     }
@@ -513,7 +513,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getMouseWheelListeners().size());
     }
@@ -525,7 +525,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctCompoRemoveWheelListener(),null,ctx_,i_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,((CustComponentStruct)i_).getComponent().getMouseWheelListeners().size());
@@ -538,7 +538,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(list_),st_);
         call(new FctCompoRemoveWheelListener(),null,ctx_,i_,one(list_),st_);
@@ -552,7 +552,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctCompoAddWheelListener(),null,ctx_,i_,one(list_),st_);
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetWheelListeners(), null, ctx_, i_, null, st_);
@@ -567,7 +567,7 @@ public final class PreparedLabelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         ((CustComponentStruct)i_).getComponent().addMouseWheelListener(null);
         ArrayStruct a_ = (ArrayStruct) call(new FctCompoGetWheelListeners(), null, ctx_, i_, null, st_);
         assertEq(0,a_.getLength());

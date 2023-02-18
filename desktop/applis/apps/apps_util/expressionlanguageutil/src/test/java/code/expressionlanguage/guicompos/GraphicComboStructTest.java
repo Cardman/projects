@@ -41,7 +41,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new DfCombo(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
+        call(new DfCombo(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -53,7 +53,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -65,7 +65,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCombo1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        call(new FctCombo1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -80,7 +80,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         ArrayStruct arr_ = new ArrayStruct(2,"");
         arr_.set(0,NullStruct.NULL_VALUE);
         arr_.set(1,new StringStruct(""));
-        call(new FctCombo1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(arr_),st_);
+        call(new FctCombo1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(arr_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -92,7 +92,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCombo2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(-1),NullStruct.NULL_VALUE),st_);
+        call(new FctCombo2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(-1),NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -109,7 +109,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         arr_.set(1,new StringStruct("1"));
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
-        Struct combo_ = call(new FctCombo2(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(-1),arr_), st_);
+        Struct combo_ = call(new FctCombo2(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(-1),arr_), st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctComboGetSelectedItem(),null,ctx_,combo_,null,st_));
     }
     @Test
@@ -125,7 +125,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         arr_.set(1,new StringStruct("1"));
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
-        Struct combo_ = call(new FctCombo2(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
+        Struct combo_ = call(new FctCombo2(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
         assertEq("2",call(new FctComboGetSelectedItem(),null,ctx_,combo_,null,st_));
     }
     @Test
@@ -136,7 +136,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct combo_ = call(new FctCombo0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct combo_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctComboAddItem(),null,ctx_,combo_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
     }
@@ -148,7 +148,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct combo_ = call(new FctCombo0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct combo_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctComboAddItem(),null,ctx_,combo_,one(new StringStruct("")),st_);
         assertEq(1,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
     }
@@ -165,7 +165,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         arr_.set(1,new StringStruct("1"));
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
-        Struct combo_ = call(new FctCombo2(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
+        Struct combo_ = call(new FctCombo2(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
         call(new FctComboSelectItem(),null,ctx_,combo_,one(new IntStruct(1)),st_);
         assertEq("1",call(new FctComboGetSelectedItem(),null,ctx_,combo_,null,st_));
         assertEq(1,toLong(call(new FctComboGetSelectedIndex(),null,ctx_,combo_,null,st_)));
@@ -183,7 +183,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         arr_.set(1,new StringStruct("1"));
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
-        Struct combo_ = call(new FctCombo2(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
+        Struct combo_ = call(new FctCombo2(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
         call(new FctComboSelectItem(),null,ctx_,combo_,one(new IntStruct(1)),st_);
         ArrayStruct out_ = (ArrayStruct) call(new FctComboGetSelectedIndexes(), null, ctx_, combo_, null, st_);
         assertEq(1,out_.getLength());
@@ -202,7 +202,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         arr_.set(1,new StringStruct("1"));
         arr_.set(2,new StringStruct("2"));
         arr_.set(3,new StringStruct("3"));
-        Struct combo_ = call(new FctCombo2(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
+        Struct combo_ = call(new FctCombo2(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(2),arr_), st_);
         call(new FctComboSelectItem(),null,ctx_,combo_,one(new IntStruct(-1)),st_);
         ArrayStruct out_ = (ArrayStruct) call(new FctComboGetSelectedIndexes(), null, ctx_, combo_, null, st_);
         assertEq(0,out_.getLength());
@@ -215,7 +215,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctComboAddListener(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
     }
@@ -227,7 +227,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctComboAddListener(),null,ctx_,ls_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq(1,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
     }
@@ -239,7 +239,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctComboAddListener(),null,ctx_,ls_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctComboRemoveListener(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,((GraphicComboStruct)ls_).getGraphicCombo().getListeners().size());
@@ -252,7 +252,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctComboAddListener(),null,ctx_,ls_,one(list_),st_);
         call(new FctComboRemoveListener(),null,ctx_,ls_,one(list_),st_);
@@ -266,7 +266,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctComboAddListener(),null,ctx_,ls_,one(list_),st_);
         ArrayStruct a_ = (ArrayStruct) call(new FctComboGetListeners(), null, ctx_, ls_, null, st_);
@@ -281,7 +281,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         ((GraphicComboStruct)ls_).getGraphicCombo().addListener(null);
         ArrayStruct a_ = (ArrayStruct) call(new FctComboGetListeners(), null, ctx_, ls_, null, st_);
         assertEq(0,a_.getLength());
@@ -294,7 +294,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -306,7 +306,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -318,7 +318,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -330,7 +330,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -342,7 +342,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -354,7 +354,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCombo0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        Struct ls_ = call(new FctCombo0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -369,7 +369,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         ArrayStruct arr_ = new ArrayStruct(2,"");
         arr_.set(0,NullStruct.NULL_VALUE);
         arr_.set(1,new StringStruct(""));
-        Struct combo_ = call(new FctCombo1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
+        Struct combo_ = call(new FctCombo1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
         call(new FctComboRemoveItem(),null,ctx_,combo_,one(new IntStruct(0)),st_);
         assertEq(0,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
     }
@@ -384,7 +384,7 @@ public final class GraphicComboStructTest extends EquallableElUtUtil {
         ArrayStruct arr_ = new ArrayStruct(2,"");
         arr_.set(0,NullStruct.NULL_VALUE);
         arr_.set(1,new StringStruct(""));
-        Struct combo_ = call(new FctCombo1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
+        Struct combo_ = call(new FctCombo1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(arr_), st_);
         call(new FctComboRemoveAllItems(),null,ctx_,combo_,null,st_);
         assertEq(0,toLong(call(new FctComboGetItemCount(),null,ctx_,combo_,null,st_)));
     }

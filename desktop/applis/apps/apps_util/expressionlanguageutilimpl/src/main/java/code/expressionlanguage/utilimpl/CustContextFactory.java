@@ -56,14 +56,14 @@ public final class CustContextFactory {
 
     public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
         if (!_lang.isEmpty()) {
-            _aliases.getCustAliases().messages(_mess, _lang, _exec.getMessages());
-            _aliases.getCustAliases().keyWord(_kwl, _lang, _exec.getKeyWords());
-            _aliases.getCustAliases().otherAlias(_aliases.getContent(), _lang, _exec.getAliases());
+            _aliases.getExecContent().getCustAliases().messages(_mess, _lang, _exec.getMessages());
+            _aliases.getExecContent().getCustAliases().keyWord(_kwl, _lang, _exec.getKeyWords());
+            _aliases.getExecContent().getCustAliases().otherAlias(_aliases.getContent(), _lang, _exec.getAliases());
             _aliases.getGuiAliases().otherAliasGui(_aliases.addon(_lang),_exec.getAliases());
         } else {
-            _aliases.getCustAliases().messages(_mess, _exec.getMessages(), new StringMap<String>());
-            _aliases.getCustAliases().keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
-            _aliases.getCustAliases().allAlias(_aliases.getContent(), _exec.getAliases(), new StringMap<String>());
+            _aliases.getExecContent().getCustAliases().messages(_mess, _exec.getMessages(), new StringMap<String>());
+            _aliases.getExecContent().getCustAliases().keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
+            _aliases.getExecContent().getCustAliases().allAlias(_aliases.getContent(), _exec.getAliases(), new StringMap<String>());
             _aliases.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
         }
     }
@@ -78,7 +78,7 @@ public final class CustContextFactory {
                 _definedLgNames, _files);
         ContextEl rCont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        FileInfos infos_ = _definedLgNames.getInfos();
+        FileInfos infos_ = _definedLgNames.getExecContent().getInfos();
         CustContextFactory.reportErrors(_options, _exec, reportedMessages_, infos_);
         if (!(rCont_ instanceof RunnableContextEl)) {
             _progressingTests.showErrors(reportedMessages_,_options,_exec,infos_);
@@ -86,18 +86,18 @@ public final class CustContextFactory {
         }
         _progressingTests.showWarnings((RunnableContextEl) rCont_,reportedMessages_,_options,_exec,infos_);
         infos_.tryLogIssue("OK");
-        String infoTest_ = _definedLgNames.getCustAliases().getAliasInfoTest();
+        String infoTest_ = _definedLgNames.getExecContent().getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());
         Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundConstructor(className_, className_.getRootBlock().getEmptyCtorPair(), new Argument(), new Parameters(), InstancingStep.NEWING),rCont_,StackCall.newInstance(InitPhase.NOTHING,rCont_)).getValue());
-        ((FieldableStruct)infoStruct_).getEntryStruct(new ClassField(infoTest_,_definedLgNames.getCustAliases().getAliasInfoTestNbThreads())).setStruct(new IntStruct(2));
+        ((FieldableStruct)infoStruct_).getEntryStruct(new ClassField(infoTest_,_definedLgNames.getExecContent().getCustAliases().getAliasInfoTestNbThreads())).setStruct(new IntStruct(2));
         AbstractScheduledExecutorService sch_ = ((RunnableContextEl) rCont_).getCurrentThreadFactory().newScheduledExecutorService();
         ShowUpdates showUpdates_ = new ShowUpdates(infoStruct_,(RunnableContextEl) rCont_,_progressingTests,_definedLgNames);
         AbstractFuture abstractFuture_ = sch_.scheduleAtFixedRateNanos(showUpdates_, 0, 1);
-        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecutingBlocks().getExecuteMethodPair();
+        ExecTypeFunction pair_ = ((LgNamesWithNewAliases) rCont_.getStandards()).getExecContent().getExecutingBlocks().getExecuteMethodPair();
         Argument argGlLoc_ = new Argument();
         Argument argMethod_ = new Argument(infoStruct_);
         ArgumentListCall argList_ = new ArgumentListCall(argMethod_);
-        ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getCustAliases().getAliasExecute(),rCont_.getClasses());
+        ExecFormattedRootBlock aClass_ = ExecFormattedRootBlock.build(_definedLgNames.getExecContent().getCustAliases().getAliasExecute(),rCont_.getClasses());
         Argument arg_ = RunnableStruct.invoke(argGlLoc_,
                 aClass_,
                 (RunnableContextEl) rCont_, pair_, StackCall.newInstance(InitPhase.NOTHING,rCont_), argList_);
@@ -119,16 +119,16 @@ public final class CustContextFactory {
         }
     }
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
-        _definedLgNames.setExecutingOptions(_exec);
-        _definedLgNames.updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
+        _definedLgNames.getExecContent().setExecutingOptions(_exec);
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }

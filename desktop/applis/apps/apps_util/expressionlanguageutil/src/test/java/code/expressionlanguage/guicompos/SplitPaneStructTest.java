@@ -35,7 +35,7 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE), st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),NullStruct.NULL_VALUE,NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
     }
@@ -48,10 +48,10 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctTabbedPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
-        call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label_,NullStruct.NULL_VALUE), st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label_,NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
     }
@@ -64,10 +64,10 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctTabbedPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
-        call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label_,label_), st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label_,label_), st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
     }
@@ -80,11 +80,11 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctTabbedPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctTabbedPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctTabbedPaneAdd(),null,ctx_,panel_,two(new StringStruct(""),label_),st_);
-        call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label2_,label_), st_);
+        call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT),label2_,label_), st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
     }
@@ -97,9 +97,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
     }
@@ -112,9 +112,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),label_,label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(0),label_,label2_), st_);
         call(new FctSplitPaneValidate(),null,ctx_,spl_,null,st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -128,9 +128,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(NullStruct.NULL_VALUE),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -144,9 +144,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(label2_),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -160,10 +160,10 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label3_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label3_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetLeft(),null,ctx_,spl_,one(label3_),st_);
         assertSame(label3_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -177,9 +177,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(NullStruct.NULL_VALUE),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -193,9 +193,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(label_),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label2_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -209,10 +209,10 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label3_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label3_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetRight(),null,ctx_,spl_,one(label3_),st_);
         assertSame(label_,call(new FctSplitPaneGetLeft(),null,ctx_,spl_,null,st_));
         assertSame(label3_,call(new FctSplitPaneGetRight(),null,ctx_,spl_,null,st_));
@@ -225,9 +225,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetContinuousLayout(),null,ctx_,spl_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctSplitPaneIsContinuousLayout(),null,ctx_,spl_,null,st_));
     }
@@ -239,9 +239,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetContinuousLayout(),null,ctx_,spl_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctSplitPaneIsContinuousLayout(),null,ctx_,spl_,null,st_));
     }
@@ -253,9 +253,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetOneTouchExpandable(),null,ctx_,spl_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctSplitPaneIsOneTouchExpandable(),null,ctx_,spl_,null,st_));
     }
@@ -267,9 +267,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetOneTouchExpandable(),null,ctx_,spl_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctSplitPaneIsOneTouchExpandable(),null,ctx_,spl_,null,st_));
     }
@@ -281,9 +281,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetDividerLocation(),null,ctx_,spl_,one(new IntStruct(5)),st_);
         assertEq(5,toLong(call(new FctSplitPaneGetDividerLocation(),null,ctx_,spl_,null,st_)));
     }
@@ -295,9 +295,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctSplitPaneSetDividerSize(),null,ctx_,spl_,one(new IntStruct(5)),st_);
         assertEq(5,toLong(call(new FctSplitPaneGetDividerSize(),null,ctx_,spl_,null,st_)));
     }
@@ -310,9 +310,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctCompoSetVisible(),null,ctx_,spl_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,spl_,null,st_));
     }
@@ -324,9 +324,9 @@ public final class SplitPaneStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct spl_ = call(new FctSplitPane(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct spl_ = call(new FctSplitPane(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, three(new IntStruct(GuiConstants.HORIZONTAL_SPLIT), label_, label2_), st_);
         call(new FctCompoSetVisible(),null,ctx_,spl_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,spl_,null,st_));
     }

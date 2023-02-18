@@ -31,7 +31,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new DfWindowSet(stds_.getCustAliases()),null,ctx_,null,st_);
+        call(new DfWindowSet(stds_.getExecContent().getCustAliases()),null,ctx_,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -43,7 +43,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctWindowSet(stds_.getCustAliases()),null,ctx_,null,null,st_);
+        call(new FctWindowSet(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -55,7 +55,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        call(new FctWindowSetAll(stds_.getCustAliases()),null,ctx_,null,null,st_);
+        call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -66,7 +66,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctWindowSetAll(stds_.getCustAliases()),null,ctx_,null,null,st_);
+        call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -78,7 +78,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         st_.getInitializingTypeInfos().getSensibleFields().add(all_);
         call(new FctWindowSetAdd(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -91,7 +91,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         call(new FctWindowSetAdd(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
@@ -104,9 +104,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         assertFalse(st_.isFailInit());
@@ -121,9 +121,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         assertFalse(st_.isFailInit());
@@ -138,9 +138,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertFalse(call(new FctWindowSetContains(),null,ctx_,all_,one(d_),st_));
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
@@ -157,9 +157,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertFalse(call(new FctWindowSetContains(),null,ctx_,all_,one(d_),st_));
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
@@ -176,9 +176,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertFalse(call(new FctWindowSetContains(),null,ctx_,all_,one(d_),st_));
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
@@ -196,9 +196,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertFalse(call(new FctWindowSetContains(),null,ctx_,all_,one(d_),st_));
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
@@ -216,9 +216,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(d_),st_);
@@ -234,9 +234,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(d_),st_);
@@ -252,9 +252,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
@@ -270,9 +270,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(1,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
@@ -288,7 +288,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        Struct all_ = call(new FctWindowSetAll(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSetAll(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         st_.getInitializingTypeInfos().getSensibleFields().add(all_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
@@ -301,9 +301,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctFrame(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctFrame(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
@@ -319,9 +319,9 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
-        Struct d_ = call(new FctDialog(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct d_ = call(new FctDialog(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         assertEq(0,((ArrayStruct)call(new FctWindowSetArray(),null,ctx_,all_,null,st_)).getLength());
         call(new FctWindowSetAdd(),null,ctx_,all_,one(d_),st_);
         call(new FctWindowSetRemove(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
@@ -338,7 +338,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         call(new FctWindowSetAdd(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
@@ -351,7 +351,7 @@ public final class WindowSetStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct all_ = call(new FctWindowSet(stds_.getCustAliases()), null, ctx_, null, null, st_);
+        Struct all_ = call(new FctWindowSet(stds_.getExecContent().getCustAliases()), null, ctx_, null, null, st_);
         assertFalse(call(new FctWindowSetContains(),null,ctx_,all_,one(NullStruct.NULL_VALUE),st_));
     }
 }

@@ -41,7 +41,7 @@ public final class TreeStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctTree(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
+        call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         assertFalse(st_.isFailInit());
         assertFalse(st_.calls());
     }
@@ -53,8 +53,8 @@ public final class TreeStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct n_ = call(new FctTreeNode1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct t_ = call(new FctTree(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
+        Struct n_ = call(new FctTreeNode1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct t_ = call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
         call(new FctTreeGetSelected1(),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
         call(new FctTreeGetSelected1(),null,ctx_,t_,one(n_),st_);
         call(new FctTreeAddTreeListener(),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
@@ -72,8 +72,8 @@ public final class TreeStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct n_ = call(new FctTreeNode1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct t_ = call(new FctTree(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
+        Struct n_ = call(new FctTreeNode1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct t_ = call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
         call(new FctTreeSetRootVisible(),null,ctx_,t_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctTreeIsRootVisible(),null,ctx_,t_,null,st_));
     }
@@ -85,8 +85,8 @@ public final class TreeStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct n_ = call(new FctTreeNode1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct t_ = call(new FctTree(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
+        Struct n_ = call(new FctTreeNode1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct t_ = call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
         call(new FctTreeSetRootVisible(),null,ctx_,t_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctTreeIsRootVisible(),null,ctx_,t_,null,st_));
     }
@@ -98,8 +98,8 @@ public final class TreeStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct n_ = call(new FctTreeNode1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct t_ = call(new FctTree(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
+        Struct n_ = call(new FctTreeNode1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct t_ = call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
         call(new FctCompoToolTip1(),null,ctx_,t_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,t_,null,st_));
     }
@@ -111,8 +111,8 @@ public final class TreeStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct n_ = call(new FctTreeNode1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct t_ = call(new FctTree(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
+        Struct n_ = call(new FctTreeNode1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct t_ = call(new FctTree(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(n_), st_);
         call(new FctCompoToolTip1(),null,ctx_,t_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,t_,null,st_));
     }

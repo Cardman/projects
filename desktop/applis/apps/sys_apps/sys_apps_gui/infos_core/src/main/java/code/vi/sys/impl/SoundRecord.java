@@ -73,8 +73,7 @@ public final class SoundRecord implements AbsSoundRecord {
             out.flush();
             out.close();
             byte[] bs_ = out.toByteArray();
-            ByteArrayInputStream bais = new ByteArrayInputStream(bs_);
-            AudioInputStream ais_ = new AudioInputStream(bais, currentFormat, bs_.length / frameSizeInBytes);
+            AudioInputStream ais_ = new AudioInputStream(new ByteArrayInputStream(bs_), currentFormat, bs_.length / frameSizeInBytes);
             duration = (long) ((ais_.getFrameLength() * 1000) / currentFormat.getFrameRate());
             ais_.reset();
             ByteArrayOutputStream out_ = new ByteArrayOutputStream();

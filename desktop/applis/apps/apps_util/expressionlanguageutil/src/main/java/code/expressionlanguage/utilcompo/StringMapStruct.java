@@ -97,7 +97,7 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
         for (Entry<String, Struct> s: elementSet.entrySet()) {
             instantValues_.add(new EntryMapStringStruct(s,this));
         }
-        String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryStringObject();
+        String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasEntryStringObject();
         int len_ = instantValues_.size();
         ArrayStruct arr_ = new ArrayStruct(len_, StringExpUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
@@ -194,6 +194,6 @@ public final class StringMapStruct extends WithoutParentIdStruct implements Stru
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasTableStringObject();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasTableStringObject();
     }
 }

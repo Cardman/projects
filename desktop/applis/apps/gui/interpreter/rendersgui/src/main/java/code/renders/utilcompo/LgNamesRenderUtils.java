@@ -16,58 +16,37 @@ import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.formathtml.errors.RendAnalysisMessages;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.util.BeanCustLgNames;
 import code.scripts.messages.gui.MessCdmRenderGr;
 import code.sml.Element;
 import code.sml.util.ResourcesMessagesUtil;
-import code.sml.util.Translations;
 import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
-
-    private final CustAliases custAliases = new CustAliases();
-    private final FileInfos infos;
-
-    private ExecutingOptions executingOptions;
-    private final ExecutingBlocks executingBlocks = new ExecutingBlocks();
+    private final LgNamesUtilsContent execContent;
     private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
         super(_infos.getGenerator());
-        custAliases.setInfos(_infos);
-        custAliases.setInterceptor(_inter);
-        infos = _infos;
-    }
-
-    public FileInfos getInfos() {
-        return infos;
+        execContent = new LgNamesUtilsContent(_infos, _inter);
     }
 
     @Override
-    public AbstractInterceptor getInterceptor() {
-        return custAliases.getInterceptor();
-    }
-
-    @Override
-    public ExecutingBlocks getExecutingBlocks() {
-        return executingBlocks;
-    }
-
-    @Override
-    public CustAliases getCustAliases() {
-        return custAliases;
+    public LgNamesUtilsContent getExecContent() {
+        return execContent;
     }
 
     public void forwardAndClear(Classes _classes) {
-        executingBlocks.forwardAndClear(getContent(),custAliases,_classes);
+        execContent.getExecutingBlocks().forwardAndClear(getContent(), execContent.getCustAliases(),_classes);
     }
 
     @Override
     public void logIssue(String _info, ReportedMessages _rep) {
-        infos.tryLogIssue(_info);
+        execContent.getInfos().tryLogIssue(_info);
     }
 
     @Override
@@ -79,7 +58,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public void buildOther() {
         getBeanAliases().buildOther(getContent(), getRendExecutingBlocks());
-        custAliases.buildOther(getContent(), getExecutingBlocks());
+        execContent.getCustAliases().buildOther(getContent(), execContent.getExecutingBlocks());
     }
     @Override
     public StringStruct getStringOfObject(ContextEl _cont, Struct _arg) {
@@ -162,9 +141,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
         if (!_lg.isEmpty()) {
-            custAliases.messages(_mess,_lg,mess_);
+            execContent.getCustAliases().messages(_mess,_lg,mess_);
             rendMessages(_rMess,_lg,rendMess_);
-            custAliases.keyWord(_kw,_lg,kw_);
+            execContent.getCustAliases().keyWord(_kw,_lg,kw_);
             otherAlias(_lg,al_);
             otherTags(_rkw,_lg,tags_);
             otherAttrs(_rkw,_lg,attrs_);
@@ -173,9 +152,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
             otherStyleValues(_rkw,_lg,styleValues_);
             otherStyleUnits(_rkw,_lg,styleUnits_);
         } else {
-            custAliases.messages(_mess,mess_,new StringMap<String>());
+            execContent.getCustAliases().messages(_mess,mess_,new StringMap<String>());
             rendMessages(_rMess,rendMess_,new StringMap<String>());
-            custAliases.keyWord(_kw,kw_,new StringMap<String>());
+            execContent.getCustAliases().keyWord(_kw,kw_,new StringMap<String>());
             allAlias(al_, new StringMap<String>());
             allTags(_rkw,tags_, new StringMap<String>());
             allAttrs(_rkw,attrs_, new StringMap<String>());
@@ -267,12 +246,12 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         getBeanAliases().build(util_, _cust);
-        custAliases.otherAlias(getContent(),_lang,_cust);
+        execContent.getCustAliases().otherAlias(getContent(),_lang,_cust);
     }
     private void allAlias(StringMap<String> _util, StringMap<String> _cust) {
         getContent().build(_util, _cust);
         getBeanAliases().build(_util, _cust);
-        custAliases.build(_util,_cust);
+        execContent.getCustAliases().build(_util,_cust);
     }
 
 
@@ -286,26 +265,13 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         _mess.rendMessages(_util, _cust);
     }
 
-    public ExecutingOptions getExecutingOptions() {
-        return executingOptions;
-    }
-
-    public void setExecutingOptions(ExecutingOptions _executingOptions) {
-        this.executingOptions = _executingOptions;
-    }
-
-    @Override
-    public void updateTranslations(Translations _trs, String _lg) {
-        custAliases.setTranslations(_trs);
-        custAliases.setLanguage(_lg);
-    }
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new RunnableContextEl(null, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(infos.getThreadFactory().newAtomicLong(),getCustAliases().getInterceptor())), new StringList());
+        return new RunnableContextEl(null, new CommonExecutionInfos(execContent.getCustAliases().getInterceptor().newInterceptorStdCaller(execContent.getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new CustInitializer(execContent.getInfos().getThreadFactory().newAtomicLong(),execContent.getCustAliases().getInterceptor())), new StringList());
     }
 
     @Override
     public AbstractFileBuilder newFileBuilder() {
-        return new CustBeanFileBuilder(getContent(), getBeanAliases(), getCustAliases());
+        return new CustBeanFileBuilder(getContent(), getBeanAliases(), execContent.getCustAliases());
     }
 }

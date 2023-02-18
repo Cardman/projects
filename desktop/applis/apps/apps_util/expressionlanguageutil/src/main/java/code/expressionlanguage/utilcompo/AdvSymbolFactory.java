@@ -149,23 +149,23 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
     }
 
     private String alias(AnaClassArgumentMatching _l) {
-        if (_l.matchClass(stds.getCustAliases().getAliasLgInt())) {
-            return stds.getCustAliases().getAliasLgInt();
+        if (_l.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt())) {
+            return stds.getExecContent().getCustAliases().getAliasLgInt();
         }
-        return stds.getCustAliases().getAliasRate();
+        return stds.getExecContent().getCustAliases().getAliasRate();
     }
 
     private String alias(AnaClassArgumentMatching _l, AnaClassArgumentMatching _r) {
         if (matchLgInt(_l,_r)) {
-            return stds.getCustAliases().getAliasLgInt();
+            return stds.getExecContent().getCustAliases().getAliasLgInt();
         }
-        return stds.getCustAliases().getAliasRate();
+        return stds.getExecContent().getCustAliases().getAliasRate();
     }
     private boolean matchLg(AnaClassArgumentMatching _opr) {
-        return _opr.matchClass(stds.getCustAliases().getAliasRate()) || _opr.matchClass(stds.getCustAliases().getAliasLgInt());
+        return _opr.matchClass(stds.getExecContent().getCustAliases().getAliasRate()) || _opr.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt());
     }
     private boolean matchLgInt(AnaClassArgumentMatching _l, AnaClassArgumentMatching _r) {
-        return _l.matchClass(stds.getCustAliases().getAliasLgInt()) && _r.matchClass(stds.getCustAliases().getAliasLgInt());
+        return _l.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt()) && _r.matchClass(stds.getExecContent().getCustAliases().getAliasLgInt());
     }
 
     @Override
@@ -173,15 +173,15 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         CustList<CustList<ParamReturn>> bin_ = new CustList<CustList<ParamReturn>>();
         if (StringUtil.quickEq("+", _symbol) || StringUtil.quickEq("-", _symbol)||StringUtil.quickEq("*", _symbol) || StringUtil.quickEq("/", _symbol)||StringUtil.quickEq("%", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withBinNum(stds.getCustAliases().getAliasLgInt(),stds.getCustAliases().getAliasLgInt(),true));
-            gr_.add(withBinNum(stds.getCustAliases().getAliasRate(),stds.getCustAliases().getAliasRate(),false));
+            gr_.add(withBinNum(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt(),true));
+            gr_.add(withBinNum(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate(),false));
             bin_.add(gr_);
         }
         if (StringUtil.quickEq("<", _symbol) || StringUtil.quickEq(">", _symbol) || StringUtil.quickEq("<=", _symbol) || StringUtil.quickEq(">=", _symbol)) {
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
             String bool_ = _page.getAliasPrimBoolean();
-            gr_.add(withCmpNum(stds.getCustAliases().getAliasLgInt(),bool_));
-            gr_.add(withCmpNum(stds.getCustAliases().getAliasRate(),bool_));
+            gr_.add(withCmpNum(stds.getExecContent().getCustAliases().getAliasLgInt(),bool_));
+            gr_.add(withCmpNum(stds.getExecContent().getCustAliases().getAliasRate(),bool_));
             bin_.add(gr_);
         }
         return bin_;
@@ -199,26 +199,26 @@ public final class AdvSymbolFactory implements AbstractSymbolFactory {
         CustList<CustList<ParamReturn>> un_ = new CustList<CustList<ParamReturn>>();
         if (StringUtil.quickEq("-", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnNum(stds.getCustAliases().getAliasLgInt(),stds.getCustAliases().getAliasLgInt()));
-            gr_.add(withUnNum(stds.getCustAliases().getAliasRate(),stds.getCustAliases().getAliasRate()));
+            gr_.add(withUnNum(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
+            gr_.add(withUnNum(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
             un_.add(gr_);
         }
         if (StringUtil.quickEq("+", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnNumId(stds.getCustAliases().getAliasLgInt(),stds.getCustAliases().getAliasLgInt()));
-            gr_.add(withUnNumId(stds.getCustAliases().getAliasRate(),stds.getCustAliases().getAliasRate()));
+            gr_.add(withUnNumId(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
+            gr_.add(withUnNumId(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
             un_.add(gr_);
         }
         if (StringUtil.quickEq("--", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnDec(stds.getCustAliases().getAliasLgInt(),stds.getCustAliases().getAliasLgInt()));
-            gr_.add(withUnDec(stds.getCustAliases().getAliasRate(),stds.getCustAliases().getAliasRate()));
+            gr_.add(withUnDec(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
+            gr_.add(withUnDec(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
             un_.add(gr_);
         }
         if (StringUtil.quickEq("++", _symbol)){
             CustList<ParamReturn> gr_ = new CustList<ParamReturn>();
-            gr_.add(withUnInc(stds.getCustAliases().getAliasLgInt(),stds.getCustAliases().getAliasLgInt()));
-            gr_.add(withUnInc(stds.getCustAliases().getAliasRate(),stds.getCustAliases().getAliasRate()));
+            gr_.add(withUnInc(stds.getExecContent().getCustAliases().getAliasLgInt(),stds.getExecContent().getCustAliases().getAliasLgInt()));
+            gr_.add(withUnInc(stds.getExecContent().getCustAliases().getAliasRate(),stds.getExecContent().getCustAliases().getAliasRate()));
             un_.add(gr_);
         }
         return un_;

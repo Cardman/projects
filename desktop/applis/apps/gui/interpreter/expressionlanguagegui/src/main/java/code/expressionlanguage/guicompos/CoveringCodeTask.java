@@ -18,7 +18,7 @@ public final class CoveringCodeTask implements Runnable {
     public void run() {
         if (executingOptions.isCovering()) {
 //            contextEl.getCustInit().joinHooks(contextEl);
-            FileInfos infos_ = ((LgNamesGui)contextEl.getStandards()).getInfos();
+            FileInfos infos_ = ((LgNamesGui)contextEl.getStandards()).getExecContent().getInfos();
             for (EntryCust<String,String> f:ExecFileBlock.export(contextEl).entryList()) {
                 infos_.getReporter().coverFile(executingOptions,f.getKey(),f.getValue());
             }

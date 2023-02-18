@@ -100,7 +100,7 @@ public final class GuiProcess implements GuiRunnable {
         ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _infos);
         ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
-        CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getInfos());
+        CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getExecContent().getInfos());
         String time_ = CommonExecution.getDateTimeText("_", "_", "_", _infos.getThreadFactory());
         if (!(cont_ instanceof GuiContextEl)) {
             MemoryReporter.buildError(reportedMessages_,exec_,fileInfos_,time_);

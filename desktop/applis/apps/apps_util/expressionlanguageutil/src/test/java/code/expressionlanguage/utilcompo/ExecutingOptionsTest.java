@@ -471,7 +471,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         call(new FctInterrupt(),null,ctx_,null,null,st_);
-        assertTrue(stds_.getExecutingOptions().getInterrupt().get());
+        assertTrue(stds_.getExecContent().getExecutingOptions().getInterrupt().get());
     }
     @Test
     public void interrupt2() {
@@ -484,7 +484,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         call(new FctInterrupt(),null,ctx_,null,null,st_);
-        assertTrue(stds_.getExecutingOptions().getInterrupt().get());
+        assertTrue(stds_.getExecContent().getExecutingOptions().getInterrupt().get());
         assertTrue(b_.isEnabled());
     }
     @Test
@@ -495,7 +495,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE,InitPhase.READ_ONLY_OTHERS);
-        call(new FctCompoInvokeLater(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertTrue(st_.isFailInit());
     }
     @Test
@@ -506,7 +506,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCompoInvokeLater(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -520,7 +520,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(true);
         StackCall st_ = stack(ctx_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
-        call(new FctCompoInvokeLater(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(list_),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(list_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -534,7 +534,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ((RunnableContextEl)ctx_).getExecutingOptions().setInvokeDirect(false);
         StackCall st_ = stack(ctx_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
-        call(new FctCompoInvokeLater(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(list_),st_);
+        call(new FctCompoInvokeLater(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()),null,ctx_,null,one(list_),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }

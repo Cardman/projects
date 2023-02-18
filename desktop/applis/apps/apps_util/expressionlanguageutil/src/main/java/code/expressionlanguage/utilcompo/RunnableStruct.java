@@ -23,7 +23,7 @@ public final class RunnableStruct extends LaunchableStruct {
     public void run() {
         RunnableContextEl r_ = new RunnableContextEl(this, getExecutionInfos(), getArgs());
         setupThread(r_);
-        invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(), new ArgumentListCall());
+        invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }
 
     public static void invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList) {

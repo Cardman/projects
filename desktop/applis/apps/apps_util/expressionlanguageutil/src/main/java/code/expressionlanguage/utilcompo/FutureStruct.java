@@ -22,6 +22,6 @@ public final class FutureStruct extends WithoutParentIdStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getCustAliases().getAliasFuture();
+        return ((LgNamesUtils)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasFuture();
     }
 }

@@ -137,7 +137,7 @@ public final class TabEditor {
         int row_ = 0;
         int scan_ = 0;
         while (index_ >= 0) {
-            int next_ = txt_.indexOf("\n",index_);
+            int next_ = txt_.indexOf('\n',index_);
             if (row_ == adjRow_) {
                 int j_ = tab(tw_, txt_, index_, adjCol_);
                 if (j_ > -1) {

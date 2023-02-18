@@ -41,7 +41,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerAddChange(),null,ctx_,sl_,one(NullStruct.NULL_VALUE),st_);
         call(new FctSpinnerAddChange(),null,ctx_,sl_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertFalse(st_.isFailInit());
@@ -55,7 +55,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetMin(),null,ctx_,sl_,one(new IntStruct(3)),st_);
         assertEq(3,toLong(call(new FctSpinnerGetMin(),null,ctx_,sl_,null,st_)));
     }
@@ -67,7 +67,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetMax(),null,ctx_,sl_,one(new IntStruct(98)),st_);
         assertEq(98,toLong(call(new FctSpinnerGetMax(),null,ctx_,sl_,null,st_)));
     }
@@ -79,7 +79,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetValue(),null,ctx_,sl_,one(new IntStruct(55)),st_);
         assertEq(55,toLong(call(new FctSpinnerGetValue(),null,ctx_,sl_,null,st_)));
     }
@@ -91,7 +91,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetStep(),null,ctx_,sl_,one(new IntStruct(4)),st_);
         assertEq(4,toLong(call(new FctSpinnerGetStep(),null,ctx_,sl_,null,st_)));
     }
@@ -103,7 +103,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetRange(),null,ctx_,sl_,two(new IntStruct(3),new IntStruct(98)),st_);
         assertEq(3,toLong(call(new FctSpinnerGetMin(),null,ctx_,sl_,null,st_)));
         assertEq(98,toLong(call(new FctSpinnerGetMax(),null,ctx_,sl_,null,st_)));
@@ -116,7 +116,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctSpinnerSetRangeValue(),null,ctx_,sl_,three(new IntStruct(55),new IntStruct(3),new IntStruct(98)),st_);
         assertEq(3,toLong(call(new FctSpinnerGetMin(),null,ctx_,sl_,null,st_)));
         assertEq(55,toLong(call(new FctSpinnerGetValue(),null,ctx_,sl_,null,st_)));
@@ -130,7 +130,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctCompoToolTip1(),null,ctx_,sl_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,sl_,null,st_));
     }
@@ -142,7 +142,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctCompoToolTip1(),null,ctx_,sl_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,sl_,null,st_));
     }
@@ -154,7 +154,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctCompoSetVisible(),null,ctx_,sl_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,sl_,null,st_));
     }
@@ -166,7 +166,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctCompoSetVisible(),null,ctx_,sl_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,sl_,null,st_));
     }
@@ -178,7 +178,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctInputSetEnabled(),null,ctx_,sl_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctInputIsEnabled(),null,ctx_,sl_,null,st_));
     }
@@ -190,7 +190,7 @@ public final class SpinnerStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSpinner(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
+        Struct sl_ = call(new FctSpinner(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(71),new IntStruct(5),new IntStruct(95),new IntStruct(3)), st_);
         call(new FctInputSetEnabled(),null,ctx_,sl_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctInputIsEnabled(),null,ctx_,sl_,null,st_));
     }

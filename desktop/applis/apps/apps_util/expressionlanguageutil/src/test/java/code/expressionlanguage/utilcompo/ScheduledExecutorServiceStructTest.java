@@ -38,7 +38,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
-        assertEq(stds_.getCustAliases().getAliasFuture(),call(new FctScheduledExecutorMillis0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
+        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorMillis0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
     }
     @Test
     public void nanos() {
@@ -50,7 +50,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
-        assertEq(stds_.getCustAliases().getAliasFuture(),call(new FctScheduledExecutorNanos0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
+        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorNanos0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
     }
     @Test
     public void shutdown1() {

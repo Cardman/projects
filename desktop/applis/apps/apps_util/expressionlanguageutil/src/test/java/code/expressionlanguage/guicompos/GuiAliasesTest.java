@@ -300,7 +300,7 @@ public final class GuiAliasesTest extends EquallableElUtUtil {
         files_.addEntry("src/sample.txt","public class pkg.Sample{}");
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         StackCall st_ = stack(ctx_);
-        Struct i_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
+        Struct i_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(0), new IntStruct(0), BooleanStruct.of(true)), st_)), st_);
         call(new FctCompoRepaint(stds_.getGuiExecutingBlocks(), ""),null,ctx_,i_,null,st_);
         assertFalse(st_.isFailInit());
     }

@@ -3,15 +3,9 @@ package code.expressionlanguage.utilcompo;
 import code.expressionlanguage.exec.Classes;
 import code.expressionlanguage.stds.BuildableLgNames;
 import code.expressionlanguage.stds.LoggableLgNames;
-import code.sml.util.Translations;
+import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 
 public interface LgNamesWithNewAliases extends BuildableLgNames, LoggableLgNames {
-    FileInfos getInfos();
-    AbstractInterceptor getInterceptor();
-    CustAliases getCustAliases();
-    ExecutingOptions getExecutingOptions();
-    void setExecutingOptions(ExecutingOptions _executingOptions);
-    void updateTranslations(Translations _trs, String _lg);
-    ExecutingBlocks getExecutingBlocks();
+    LgNamesUtilsContent getExecContent();
     void forwardAndClear(Classes _classes);
 }

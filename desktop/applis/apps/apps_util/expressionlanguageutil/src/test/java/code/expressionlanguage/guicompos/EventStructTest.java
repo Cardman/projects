@@ -108,7 +108,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((RunnableFunctionalInstance)ev_).run();
         assertFalse(st_.isFailInit());
     }
@@ -128,7 +128,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = stds_.newFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((RunnableFunctionalInstance)ev_).run();
         assertFalse(st_.isFailInit());
         ev_.randCode();
@@ -153,7 +153,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         RunnableFunctionalInstance.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
     }
@@ -229,10 +229,10 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        CustAliases.newFunctional(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         RunnableFunctionalInstance.callMethod( (RunnableContextEl) ctx_,NullStruct.NULL_VALUE,new CustList<Argument>());
         assertFalse(st_.isFailInit());
-        stds_.getExecutingBlocks().getExecuteMethodPair();
+        stds_.getExecContent().getExecutingBlocks().getExecuteMethodPair();
     }
     @Test
     public void run11() {
@@ -384,7 +384,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = stds_.newFullFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventFunctionalInstance)ev_).run();
         ((EventFunctionalInstance)ev_).action(new KeyActionEvent(0),"");
         ((EventFunctionalInstance)ev_).mouseClicked(new MockMouseCoords(0, 0), new KeyActionEvent(0), new MockMouseButtons(false,false,false,0));
@@ -438,7 +438,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ExecOverridableBlock f_ = ExecClassesUtil.getMethodBodiesById(ex_, new MethodId(MethodAccessKind.STATIC, "fct", new CustList<String>())).first();
         ExecTypeFunction et_ = new ExecTypeFunction(ex_,f_);
         Struct lda_ = str(RunnableStruct.invoke(NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), (RunnableContextEl) ctx_, et_, st_, new ArgumentListCall()));
-        Struct ev_ = stds_.newFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecutingBlocks().getRunMethod(), ctx_);
+        Struct ev_ = stds_.newFunctionalInstance(new ExecFormattedRootBlock(ex_), (LambdaStruct) lda_,stds_.getExecContent().getExecutingBlocks().getRunMethod(), ctx_);
         ((EventFunctionalInstance)ev_).run();
         assertFalse(st_.isFailInit());
     }
@@ -455,7 +455,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
-        Struct lab_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(img_), st_);
+        Struct lab_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(img_), st_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(new StringStruct("")));
         args_.add(new Argument(new IntStruct(0)));
@@ -478,7 +478,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         StackCall st_ = stack(ctx_);
         Struct img_ = call(new FctImage(stds_.getGuiExecutingBlocks()), null, ctx_, null, three(new IntStruct(2), new IntStruct(3), BooleanStruct.of(true)), st_);
-        Struct lab_ = call(new FctImageLabel1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(img_), st_);
+        Struct lab_ = call(new FctImageLabel1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(img_), st_);
         CustList<Argument> args_ = new CustList<Argument>();
         args_.add(new Argument(new StringStruct("")));
         args_.add(new Argument(new IntStruct(0)));

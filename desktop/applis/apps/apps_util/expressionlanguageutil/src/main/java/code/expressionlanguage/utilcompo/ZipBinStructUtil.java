@@ -32,7 +32,7 @@ public final class ZipBinStructUtil {
             return NullStruct.NULL_VALUE;
         }
 
-        String arr_ = ((LgNamesWithNewAliases)_ctx.getStandards()).getCustAliases().getAliasEntryBinary();
+        String arr_ = ((LgNamesWithNewAliases)_ctx.getStandards()).getExecContent().getCustAliases().getAliasEntryBinary();
         arr_ = StringExpUtil.getPrettyArrayType(arr_);
         ArrayStruct files_ = new ArrayStruct(filesMap_.size(),arr_);
         int i_ = 0;

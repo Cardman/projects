@@ -28,7 +28,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_);
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertTrue(d_.isEmpty());
     }
     @Test
@@ -43,8 +43,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_);
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -59,8 +59,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_);
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, null).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, null).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -75,9 +75,9 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("folder/file.txt","{}");
         build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_);
-        stds_.getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -95,11 +95,11 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         files_.addEntry("src/folder/file.txt","{}");
         files_.addEntry("src/folder/file2.txt","public class pkg.Sample{ {int i = 0 == 0 ? 5 : 6;} }");
         ResultContext re_ = build(opt_, e_, new AnalysisMessages(), new KeyWords(), stds_, files_);
-        stds_.getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        MemoryReporter.buildError(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
-        MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        MemoryReporter.buildError(re_.getReportedMessages(),e_,stds_.getExecContent().getCustAliases().getInfos(),"");
+        MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getExecContent().getCustAliases().getInfos(),"");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -116,11 +116,11 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         ResultContext re_ = build(opt_, e_, new AnalysisMessages(), new KeyWords(), stds_, files_);
-        stds_.getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        MemoryReporter.buildError(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
-        MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        MemoryReporter.buildError(re_.getReportedMessages(),e_,stds_.getExecContent().getCustAliases().getInfos(),"");
+        MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getExecContent().getCustAliases().getInfos(),"");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -136,8 +136,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_);
         e_.setBaseFiles("");
-        stds_.getCustAliases().getInfos().getFileSystem().build(e_, new ReadBinFiles(new StringMap<ContentTime>(),new StringMap<ContentTime>(), OutputType.FOLDER));
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().export(e_,stds_.getCustAliases().getInfos().getFileSystem(), stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getFileSystem().build(e_, new ReadBinFiles(new StringMap<ContentTime>(),new StringMap<ContentTime>(), OutputType.FOLDER));
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().export(e_,stds_.getExecContent().getCustAliases().getInfos().getFileSystem(), stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertTrue(d_.isEmpty());
     }
     @Test
@@ -153,11 +153,11 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         ResultContext re_ = build(opt_, e_, new AnalysisMessages(), new KeyWords(), stds_, files_);
-        stds_.getCustAliases().getInfos().getFileSystem().build(e_, new ReadBinFiles(new StringMap<ContentTime>(),new StringMap<ContentTime>(), OutputType.FOLDER));
-        stds_.getCustAliases().getInfos().getFileSystem().saveTextFile("file","content",(RunnableContextEl)re_.getContext());
-        stds_.getCustAliases().getInfos().getLogger().log("folder2","file2","after",(RunnableContextEl)re_.getContext());
-        stds_.getCustAliases().getInfos().getReporter().coverFile(e_,"folder/file.txt","{}");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().export(e_,stds_.getCustAliases().getInfos().getFileSystem(), stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getFileSystem().build(e_, new ReadBinFiles(new StringMap<ContentTime>(),new StringMap<ContentTime>(), OutputType.FOLDER));
+        stds_.getExecContent().getCustAliases().getInfos().getFileSystem().saveTextFile("file","content",(RunnableContextEl)re_.getContext());
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().log("folder2","file2","after",(RunnableContextEl)re_.getContext());
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().coverFile(e_,"folder/file.txt","{}");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().export(e_,stds_.getExecContent().getCustAliases().getInfos().getFileSystem(), stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -172,8 +172,8 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry("src/folder/file.txt","public class pkg.Sample{}");
         build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_);
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().export(e_,null, null).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().export(e_,null, null).getBytes());
         assertFalse(d_.isEmpty());
     }
     @Test
@@ -287,15 +287,15 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         files_.addEntry("src/folder/file.txt","{}");
         files_.addEntry("src/folder/file2.txt","public class pkg.Sample{ {int i = 0 == 0 ? 5 : 6;} }");
         ResultContext re_ = build(opt_, e_, new AnalysisMessages(), new KeyWords(), stds_, files_);
-        stds_.getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
-        stds_.getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
-        MemoryReporter.buildError(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
-        MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getCustAliases().getInfos(),"");
-        String d_ = StringUtil.decode(stds_.getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getCustAliases().getInfos().getLogger()).getBytes());
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().logErr("folder","errs.txt","conte");
+        stds_.getExecContent().getCustAliases().getInfos().getReporter().errorFile(e_,"folder/file.txt","{}");
+        MemoryReporter.buildError(re_.getReportedMessages(),e_,stds_.getExecContent().getCustAliases().getInfos(),"");
+        MemoryReporter.buildWarning(re_.getReportedMessages(),e_,stds_.getExecContent().getCustAliases().getInfos(),"");
+        String d_ = StringUtil.decode(stds_.getExecContent().getCustAliases().getInfos().getReporter().exportErrs(e_, stds_.getExecContent().getCustAliases().getInfos().getLogger()).getBytes());
         assertFalse(d_.isEmpty());
-        assertTrue(stds_.getInterceptor().newMapStringStruct().isEmpty());
-        stds_.getCustAliases().setAliasInfoTestCurrentClass(stds_.getCustAliases().getAliasInfoTestCurrentClass());
-        stds_.getCustAliases().allAlias(stds_.getContent(),new StringMap<String>(),new StringMap<String>());
+        assertTrue(stds_.getExecContent().getInterceptor().newMapStringStruct().isEmpty());
+        stds_.getExecContent().getCustAliases().setAliasInfoTestCurrentClass(stds_.getExecContent().getCustAliases().getAliasInfoTestCurrentClass());
+        stds_.getExecContent().getCustAliases().allAlias(stds_.getContent(),new StringMap<String>(),new StringMap<String>());
     }
     @Test
     public void cdmFactory() {

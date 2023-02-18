@@ -94,24 +94,24 @@ public abstract class EquallableElUtUtil {
     }
     public static LgNamesGui newLgNamesGuiSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
-        stds_.updateTranslations(_light.getTranslations(),_light.getLanguage());
-        stds_.getCustAliases().build(new StringMap<String>(),new StringMap<String>());
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage());
+        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>());
         basicStandards(stds_);
         return stds_;
     }
     public static LgNamesUtils newLgNamesUtSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
-        stds_.updateTranslations(_light.getTranslations(),_light.getLanguage());
-        stds_.getCustAliases().build(new StringMap<String>(),new StringMap<String>());
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage());
+        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>());
         basicStandards(stds_);
         return stds_;
     }
     public static LgNamesGui newLgNamesGuiSampleCl(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
-        stds_.setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
-        stds_.updateTranslations(_light.getTranslations(),_light.getLanguage());
+        stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage());
         return stds_;
     }
     public static LgNamesGui newLgNamesGui(AbstractLightProgramInfos _light, AbstractIssuer _issuer, String _conf, String _src, StringMap<ContentTime> _files) {
@@ -261,12 +261,12 @@ public abstract class EquallableElUtUtil {
     }
 
     protected static Forwards getForwards(LgNamesGui _lgName, Options _opt) {
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getCustAliases());
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_lgName.getContent(), _lgName.getGuiAliases(), _lgName.getExecContent().getCustAliases());
         return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
 
     protected static Forwards getForwards(LgNamesUtils _lgName, Options _opt) {
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getCustAliases(),new CustAliasGroups(_lgName.getCustAliases(), _lgName.getContent()));
+        CustFileBuilder fileBuilder_ = new CustFileBuilder(_lgName.getContent(), _lgName.getExecContent().getCustAliases(),new CustAliasGroups(_lgName.getExecContent().getCustAliases(), _lgName.getContent()));
         return new Forwards(_lgName,_lgName, fileBuilder_, _opt);
     }
     public static MockProgramInfos newMockProgramInfos(CustomSeedGene _s, MockFileSet _set) {
@@ -291,8 +291,8 @@ public abstract class EquallableElUtUtil {
         return _arg.getStruct();
     }
     public static void memoryFileSystem(LgNamesGui _stds,AbstractProgramInfos _pr, MockNameFile... _files) {
-        AbstractFileSystem m_ = _stds.getCustAliases().getInfos().getFileSystem();
-        m_.build(_stds.getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
+        AbstractFileSystem m_ = _stds.getExecContent().getCustAliases().getInfos().getFileSystem();
+        m_.build(_stds.getExecContent().getExecutingOptions(), StreamZipFile.getZippedBinFiles(new BytesInfo(_pr.getZipFact().zipBinFiles(MockZipFact.wrapText(_files)),false), _pr.getZipFact()));
     }
     public static double[] dbs(double... _args) {
         return _args;
@@ -665,37 +665,37 @@ public abstract class EquallableElUtUtil {
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
-        _definedLgNames.getCustAliases().messages(_mess, "en", _exec.getMessages());
-        _definedLgNames.getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
-        _definedLgNames.getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
+        _definedLgNames.getExecContent().getCustAliases().messages(_mess, "en", _exec.getMessages());
+        _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
+        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
         _definedLgNames.getGuiAliases().otherAliasGui(_definedLgNames.addon("en"),_exec.getAliases());
-        _definedLgNames.setExecutingOptions(_exec);
-        _definedLgNames.updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
+        _definedLgNames.getExecContent().setExecutingOptions(_exec);
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments("en"), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments("en"), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
-        _definedLgNames.getCustAliases().messages(_mess, "en", _exec.getMessages());
-        _definedLgNames.getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
-        _definedLgNames.getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
-        _definedLgNames.setExecutingOptions(_exec);
-        _definedLgNames.updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
+        _definedLgNames.getExecContent().getCustAliases().messages(_mess, "en", _exec.getMessages());
+        _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
+        _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
+        _definedLgNames.getExecContent().setExecutingOptions(_exec);
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
-        CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getCustAliases(),new CustAliasGroups(_definedLgNames.getCustAliases(), _definedLgNames.getContent()));
+        CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames, fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getCustAliases().defComments("en"), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments("en"), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }

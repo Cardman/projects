@@ -32,6 +32,6 @@ public final class ScheduledExecutorServiceStruct extends WithoutParentIdStruct 
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getCustAliases().getAliasScheduledExecutorService();
+        return ((LgNamesUtils)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasScheduledExecutorService();
     }
 }

@@ -24,11 +24,11 @@ public final class CommonExecution {
     }
 
     public void showProgress(ContextEl _ctx, Struct _infos, LgNamesWithNewAliases _evolved) {
-        String infoTest_ = _evolved.getCustAliases().getAliasInfoTest();
-        String infoTestDone_ = _evolved.getCustAliases().getAliasInfoTestDone();
-        String infoTestCount_ = _evolved.getCustAliases().getAliasInfoTestCount();
-        String infoTestCalls_ = _evolved.getCustAliases().getAliasInfoTestCalls();
-        String curMethodName_ = _evolved.getCustAliases().getAliasInfoTestCurrentMethod();
+        String infoTest_ = _evolved.getExecContent().getCustAliases().getAliasInfoTest();
+        String infoTestDone_ = _evolved.getExecContent().getCustAliases().getAliasInfoTestDone();
+        String infoTestCount_ = _evolved.getExecContent().getCustAliases().getAliasInfoTestCount();
+        String infoTestCalls_ = _evolved.getExecContent().getCustAliases().getAliasInfoTestCalls();
+        String curMethodName_ = _evolved.getExecContent().getCustAliases().getAliasInfoTestCurrentMethod();
         Struct done_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestDone_)).getStruct();
         Struct calls_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCalls_)).getStruct();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
@@ -41,8 +41,8 @@ public final class CommonExecution {
         progTestBar.setCurrentMethod(ExecCatOperation.getString(new Argument(method_),_ctx));
     }
     public void finish(Struct _infos, LgNamesWithNewAliases _evolved) {
-        String infoTest_ = _evolved.getCustAliases().getAliasInfoTest();
-        String infoTestCount_ = _evolved.getCustAliases().getAliasInfoTestCount();
+        String infoTest_ = _evolved.getExecContent().getCustAliases().getAliasInfoTest();
+        String infoTestCount_ = _evolved.getExecContent().getCustAliases().getAliasInfoTestCount();
         Struct count_ = ((FieldableStruct) _infos).getEntryStruct(new ClassField(infoTest_, infoTestCount_)).getStruct();
         progTestBar.setDoneTestsCount(((NumberStruct)count_).longStruct()+"/"+((NumberStruct)count_).longStruct());
         progTestBar.achieve();
@@ -51,20 +51,20 @@ public final class CommonExecution {
     public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         if (!_res.isNull()) {
             Struct results_ = _res.getStruct();
-            String tableCl_ = _evolved.getCustAliases().getAliasTable();
-            String listTable_ = _evolved.getCustAliases().getAliasListTa();
+            String tableCl_ = _evolved.getExecContent().getCustAliases().getAliasTable();
+            String listTable_ = _evolved.getExecContent().getCustAliases().getAliasListTa();
             Struct list_ = ((FieldableStruct)results_).getEntryStruct(new ClassField(tableCl_,listTable_)).getStruct();
-            String listCl_ = _evolved.getCustAliases().getAliasList();
-            String arrList_ = _evolved.getCustAliases().getAliasArrayLi();
+            String listCl_ = _evolved.getExecContent().getCustAliases().getAliasList();
+            String arrList_ = _evolved.getExecContent().getCustAliases().getAliasArrayLi();
             Struct array_ = ((FieldableStruct)list_).getEntryStruct(new ClassField(listCl_,arrList_)).getStruct();
-            String pairCl_ = _evolved.getCustAliases().getAliasCustPair();
-            String pairFirst_ = _evolved.getCustAliases().getAliasFirst();
-            String pairSecond_ = _evolved.getCustAliases().getAliasSecond();
-            String aliasResult_ = _evolved.getCustAliases().getAliasResult();
-            String aliasSuccess_ = _evolved.getCustAliases().getAliasResultSuccess();
-            String aliasTime_ = _evolved.getCustAliases().getAliasResultTime();
-            String aliasFailMessage_ = _evolved.getCustAliases().getAliasResultFailMessage();
-            String aliasParams_ = _evolved.getCustAliases().getAliasResultParams();
+            String pairCl_ = _evolved.getExecContent().getCustAliases().getAliasCustPair();
+            String pairFirst_ = _evolved.getExecContent().getCustAliases().getAliasFirst();
+            String pairSecond_ = _evolved.getExecContent().getCustAliases().getAliasSecond();
+            String aliasResult_ = _evolved.getExecContent().getCustAliases().getAliasResult();
+            String aliasSuccess_ = _evolved.getExecContent().getCustAliases().getAliasResultSuccess();
+            String aliasTime_ = _evolved.getExecContent().getCustAliases().getAliasResultTime();
+            String aliasFailMessage_ = _evolved.getExecContent().getCustAliases().getAliasResultFailMessage();
+            String aliasParams_ = _evolved.getExecContent().getCustAliases().getAliasResultParams();
             int testLen_ = ((ArrayStruct) array_).getLength();
             for (int i =0; i < testLen_; i++) {
                 ResTestRow resultRow_ = new ResTestRow();

@@ -49,8 +49,8 @@ public final class MemoryLoggerTest extends EquallableElUtUtil {
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
-        stds_.getCustAliases().getInfos().getLogger().log("folder","file","content", (RunnableContextEl) ctx_);
-        assertEq("content",StringUtil.decode(((MemoryLogger)stds_.getCustAliases().getInfos().getLogger()).getLogs().get("file").getContent()));
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().log("folder","file","content", (RunnableContextEl) ctx_);
+        assertEq("content",StringUtil.decode(((MemoryLogger)stds_.getExecContent().getCustAliases().getInfos().getLogger()).getLogs().get("file").getContent()));
     }
     @Test
     public void log2() {
@@ -62,9 +62,9 @@ public final class MemoryLoggerTest extends EquallableElUtUtil {
         e_.setLightProgramInfos(pr_);
         StringMap<String> files_ = new StringMap<String>();
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
-        stds_.getCustAliases().getInfos().getLogger().log("folder","file","content\n", (RunnableContextEl) ctx_);
-        stds_.getCustAliases().getInfos().getLogger().log("folder","file","next", (RunnableContextEl) ctx_);
-        assertEq("content\nnext",StringUtil.decode(((MemoryLogger)stds_.getCustAliases().getInfos().getLogger()).getLogs().get("file").getContent()));
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().log("folder","file","content\n", (RunnableContextEl) ctx_);
+        stds_.getExecContent().getCustAliases().getInfos().getLogger().log("folder","file","next", (RunnableContextEl) ctx_);
+        assertEq("content\nnext",StringUtil.decode(((MemoryLogger)stds_.getExecContent().getCustAliases().getInfos().getLogger()).getLogs().get("file").getContent()));
     }
 
     private MockProgramInfos prs() {

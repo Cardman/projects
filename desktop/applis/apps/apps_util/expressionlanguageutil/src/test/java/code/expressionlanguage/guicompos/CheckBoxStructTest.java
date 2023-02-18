@@ -41,7 +41,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
+        call(new FctCheckBox0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -53,7 +53,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
+        call(new FctCheckBox1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(NullStruct.NULL_VALUE),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -65,7 +65,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
+        call(new FctCheckBox1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -77,7 +77,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(NullStruct.NULL_VALUE,BooleanStruct.of(true)),st_);
+        call(new FctCheckBox2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(NullStruct.NULL_VALUE,BooleanStruct.of(true)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -89,7 +89,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),BooleanStruct.of(true)),st_);
+        call(new FctCheckBox2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),BooleanStruct.of(true)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -101,7 +101,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(NullStruct.NULL_VALUE,BooleanStruct.of(false)),st_);
+        call(new FctCheckBox2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(NullStruct.NULL_VALUE,BooleanStruct.of(false)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -113,7 +113,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctCheckBox2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),BooleanStruct.of(false)),st_);
+        call(new FctCheckBox2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new StringStruct(""),BooleanStruct.of(false)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -125,7 +125,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct r_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCheckBoxSetText(),null,ctx_,r_,one(NullStruct.NULL_VALUE),st_);
         call(new FctCheckBoxGetText(),null,ctx_,r_,null,st_);
         call(new FctCheckBoxSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
@@ -139,7 +139,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -151,7 +151,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -163,7 +163,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -175,7 +175,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -187,7 +187,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -199,7 +199,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -211,7 +211,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCheckBoxSetSelected(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCheckBoxIsSelected(),null,ctx_,ls_,null,st_));
     }
@@ -223,7 +223,7 @@ public final class CheckBoxStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctCheckBox1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctCheckBox1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCheckBoxSetSelected(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCheckBoxIsSelected(),null,ctx_,ls_,null,st_));
     }

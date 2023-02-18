@@ -23,9 +23,9 @@ public final class RateStruct extends WithoutParentStruct implements AnaDisplaya
     @Override
     public String getClassName(ContextEl _contextEl) {
         if (rate.isInteger()) {
-            return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasLgInt();
+            return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasLgInt();
         }
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasRate();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasRate();
     }
 
     @Override

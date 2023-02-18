@@ -42,7 +42,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctTextArea0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctTextArea0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -54,7 +54,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctTextArea1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
+        call(new FctTextArea1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new StringStruct("")),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -66,7 +66,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctTextArea2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(5),new IntStruct(7)),st_);
+        call(new FctTextArea2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(5),new IntStruct(7)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -78,7 +78,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctTextArea3(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,three(new StringStruct(""),new IntStruct(5),new IntStruct(7)),st_);
+        call(new FctTextArea3(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,three(new StringStruct(""),new IntStruct(5),new IntStruct(7)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -90,7 +90,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctTextAreaSetText(),null,ctx_,r_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -102,7 +102,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -114,7 +114,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -126,7 +126,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -138,7 +138,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -150,7 +150,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -162,7 +162,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -174,7 +174,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
         call(new FctTextAreaAppend(),null,ctx_,r_,one(new StringStruct("next")),st_);
         assertEq("_next",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -186,7 +186,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
         call(new FctTextAreaInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(0)),st_);
         assertEq("previous_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -198,7 +198,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_")), st_);
         call(new FctTextAreaInsert(),null,ctx_,r_,two(new StringStruct("previous"),new IntStruct(-1)),st_);
         assertEq("_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -210,7 +210,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaSelect(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(8)),st_);
         assertEq("replace",call(new FctTextAreaGetSelectedText(),null,ctx_,r_,null,st_));
         call(new FctTextAreaReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
@@ -224,7 +224,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaSetSelectionStart(),null,ctx_,r_,one(new IntStruct(1)),st_);
         call(new FctTextAreaSetSelectionEnd(),null,ctx_,r_,one(new IntStruct(8)),st_);
         call(new FctTextAreaSelect(),null,ctx_,r_,two(new IntStruct(1),new IntStruct(8)),st_);
@@ -239,7 +239,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaSelectAll(),null,ctx_,r_,null,st_);
         call(new FctTextAreaReplaceSelection(),null,ctx_,r_,one(new StringStruct("change")),st_);
         assertEq("change",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
@@ -252,7 +252,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(1),new IntStruct(8)),st_);
         assertEq("_change_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -264,7 +264,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(-1),new IntStruct(8)),st_);
         assertEq("_replace_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -276,7 +276,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("_replace_")), st_);
         call(new FctTextAreaReplaceRange(),null,ctx_,r_,three(new StringStruct("change"),new IntStruct(8),new IntStruct(1)),st_);
         assertEq("_replace_",call(new FctTextAreaGetText(),null,ctx_,r_,null,st_));
     }
@@ -288,7 +288,7 @@ public final class TextAreaStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct r_ = call(new FctTextArea1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct r_ = call(new FctTextArea1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctTextAreaSetTabSize(),null,ctx_,r_,one(new IntStruct(8)),st_);
         assertEq(8,toLong(call(new FctTextAreaGetTabSize(),null,ctx_,r_,null,st_)));
     }

@@ -42,8 +42,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct p_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct p_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuShow(),null,ctx_,p_,three(NullStruct.NULL_VALUE,new IntStruct(1),new IntStruct(1)),st_);
         call(new FctPopupMenuShow(),null,ctx_,p_,three(menuItem_,new IntStruct(1),new IntStruct(1)),st_);
         assertFalse(st_.isFailInit());
@@ -57,7 +57,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,ls_,null,st_)));
     }
 
@@ -69,7 +69,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,ls_,null,st_)));
         assertSame(NullStruct.NULL_VALUE,call(new FctPopupMenuGetMenu(),null,ctx_,ls_,one(new IntStruct(0)),st_));
@@ -83,8 +83,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
         assertSame(menuItem_,call(new FctPopupMenuGetMenu(),null,ctx_,menu_,one(new IntStruct(0)),st_));
@@ -98,8 +98,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItemCheck1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItemCheck1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
     }
@@ -112,8 +112,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -127,8 +127,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -142,9 +142,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem2_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -158,8 +158,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -173,8 +173,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItemCheck1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItemCheck1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -188,9 +188,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem2_),st_);
         assertEq(2,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -204,9 +204,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenuItem1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctMenu1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenuItem1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem2_),st_);
         assertEq(2,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -219,7 +219,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,ls_,null,st_)));
     }
 
@@ -231,7 +231,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,ls_,null,st_)));
         assertSame(NullStruct.NULL_VALUE,call(new FctPopupMenuGetComp(),null,ctx_,ls_,one(new IntStruct(0)),st_));
@@ -245,8 +245,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
         assertSame(menuItem_,call(new FctPopupMenuGetComp(),null,ctx_,menu_,one(new IntStruct(0)),st_));
@@ -260,8 +260,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -275,8 +275,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -290,9 +290,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem2_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -306,8 +306,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -321,9 +321,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem2_),st_);
         assertEq(2,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -337,9 +337,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveComp(),null,ctx_,menu_,one(menuItem2_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -353,8 +353,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenu1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuRemoveMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -368,9 +368,9 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctMenu1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem2_ = call(new FctMenu1(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem2_ = call(new FctMenu1(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctMenuAdd(),null,ctx_,menuItem2_,one(menuItem_),st_);
         call(new FctPopupMenuAddMenu(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(0,toLong(call(new FctPopupMenuNbMenu(),null,ctx_,menu_,null,st_)));
@@ -384,8 +384,8 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct menu_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
-        Struct menuItem_ = call(new FctTextLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menu_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct menuItem_ = call(new FctTextLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         call(new FctPopupMenuAdd(),null,ctx_,menu_,one(menuItem_),st_);
         assertEq(1,toLong(call(new FctPopupMenuNbComp(),null,ctx_,menu_,null,st_)));
@@ -398,7 +398,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -410,7 +410,7 @@ public final class PopupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctPopupMenu(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
+        Struct ls_ = call(new FctPopupMenu(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(new StringStruct("")), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }

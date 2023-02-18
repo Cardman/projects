@@ -44,8 +44,8 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public void buildOther() {
-        getCustAliases().buildOther(getContent(), getExecutingBlocks());
-        guiAliases.buildOther(getContent(),getCustAliases(),getGuiExecutingBlocks());
+        getExecContent().getCustAliases().buildOther(getContent(), getExecContent().getExecutingBlocks());
+        guiAliases.buildOther(getContent(),getExecContent().getCustAliases(),getGuiExecutingBlocks());
     }
 
     public Struct getInnerSimpleResult(ClassField _classField) {
@@ -88,7 +88,7 @@ public class LgNamesGui extends LgNamesUtils {
 
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
-        return new GuiContextEl(null, new CommonExecutionInfos(getCustAliases().getInterceptor().newInterceptorStdCaller(getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getInfos().getThreadFactory().newAtomicLong(), getCustAliases().getInterceptor())), new StringList(getExecutingOptions().getArgs()));
+        return new GuiContextEl(null, new CommonExecutionInfos(getExecContent().getCustAliases().getInterceptor().newInterceptorStdCaller(getExecContent().getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getExecContent().getInfos().getThreadFactory().newAtomicLong(), getExecContent().getCustAliases().getInterceptor())), new StringList(getExecContent().getExecutingOptions().getArgs()));
     }
     @Override
     public AbstractConstantsCalculator newConstantsCalculator() {

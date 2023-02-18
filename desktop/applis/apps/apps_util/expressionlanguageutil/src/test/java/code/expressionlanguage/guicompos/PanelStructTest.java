@@ -31,7 +31,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertSame(MockLayout.LINE,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -45,7 +45,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelPageBox(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelPageBox(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertSame(MockLayout.PAGE,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -59,7 +59,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelAbsolute(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelAbsolute(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertSame(MockLayout.ABSOLUTE,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -73,7 +73,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelFlow(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelFlow(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertSame(MockLayout.LINE,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -87,7 +87,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelGrid(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct panel_ = call(new FctPanelGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
         assertSame(MockLayout.GRID,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -101,7 +101,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
         assertSame(MockLayout.BORDER,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -115,7 +115,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new DfPanelBorder(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct panel_ = call(new DfPanelBorder(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, two(new IntStruct(1),new IntStruct(1)), st_);
         assertSame(MockLayout.BORDER,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -129,7 +129,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new DfPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, st_);
+        Struct panel_ = call(new DfPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, st_);
         assertSame(MockLayout.LINE,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -142,7 +142,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -154,7 +154,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctPanelPageBox(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctPanelPageBox(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -166,7 +166,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctPanelAbsolute(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctPanelAbsolute(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -178,7 +178,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctPanelFlow(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        call(new FctPanelFlow(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -190,7 +190,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctPanelGrid(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        call(new FctPanelGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -202,7 +202,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -214,7 +214,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(NullStruct.NULL_VALUE, InitPhase.READ_ONLY_OTHERS);
-        call(new DfPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, st_);
+        call(new DfPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, st_);
         assertTrue(st_.isFailInit());
     }
 
@@ -226,7 +226,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelGrid(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanelGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(0)), st_);
         assertSame(MockLayout.GRID,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -240,7 +240,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelGrid(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(1)), st_);
+        Struct panel_ = call(new FctPanelGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(1)), st_);
         assertSame(MockLayout.GRID,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -254,7 +254,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelGrid(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanelGrid(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         assertSame(MockLayout.GRID,((MockPanel)((PanelStruct)panel_).getPanel()).getLayout());
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -268,7 +268,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
@@ -282,7 +282,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertSame(NullStruct.NULL_VALUE,call(new FctPanelGetIndexCompo(),null,ctx_,panel_,one(new IntStruct(0)),st_));
@@ -298,8 +298,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertSame(label_,call(new FctPanelGetIndexCompo(),null,ctx_,panel_,one(new IntStruct(0)),st_));
@@ -315,8 +315,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -332,7 +332,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctPanelAddCompo1(),null,ctx_,panel_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertSame(NullStruct.NULL_VALUE,call(new FctPanelGetIndexCompo(),null,ctx_,panel_,one(new IntStruct(0)),st_));
@@ -348,8 +348,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo1(),null,ctx_,panel_,two(label_,new IntStruct(0)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertSame(label_,call(new FctPanelGetIndexCompo(),null,ctx_,panel_,one(new IntStruct(0)),st_));
@@ -365,8 +365,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo1(),null,ctx_,panel_,two(label_,new IntStruct(0)),st_);
         call(new FctPanelAddCompo1(),null,ctx_,panel_,two(label_,new IntStruct(0)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -382,7 +382,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
         call(new FctPanelBorder(),null,ctx_,panel_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -397,8 +397,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,NullStruct.NULL_VALUE),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -413,8 +413,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct("")),st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -429,8 +429,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.AFTER_LAST_LINE)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -445,8 +445,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.AFTER_LINE_ENDS)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -461,8 +461,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.SOUTH)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -477,8 +477,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.EAST)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -493,8 +493,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.CENTER)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -509,8 +509,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.WEST)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -525,8 +525,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.NORTH)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -541,8 +541,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.BEFORE_LINE_BEGINS)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -557,8 +557,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
         assertFalse(st_.isFailInit());
@@ -573,8 +573,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanelBorderInst(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanelBorderInst(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(1),new IntStruct(1)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE)),st_);
         call(new FctPanelBorder(),null,ctx_,panel_,two(label_,new StringStruct(PanelBorderStruct.BEFORE_FIRST_LINE)),st_);
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -589,8 +589,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         call(new FctPanelRemoveAll(),null,ctx_,panel_,null,st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -603,8 +603,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctPanelRemove0(),null,ctx_,panel_,one(new IntStruct(-1)),st_));
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -617,8 +617,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertSame(label_,call(new FctPanelRemove0(),null,ctx_,panel_,one(new IntStruct(0)),st_));
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -631,8 +631,8 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertEq(-2,toLong(call(new FctPanelRemove1(),null,ctx_,panel_,one(NullStruct.NULL_VALUE),st_)));
         assertEq(1,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
@@ -645,10 +645,10 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label1_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label3_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label3_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label1_),st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label2_),st_);
         assertEq(-1,toLong(call(new FctPanelRemove1(),null,ctx_,panel_,one(label3_),st_)));
@@ -662,9 +662,9 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
-        Struct label1_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
-        Struct label2_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct label1_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label2_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label1_),st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label2_),st_);
         assertEq(0,toLong(call(new FctPanelRemove1(),null,ctx_,panel_,one(label1_),st_)));
@@ -679,7 +679,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctPanelValidate(),null,ctx_,panel_,null,st_);
         assertEq(0,toLong(call(new FctPanelCount(),null,ctx_,panel_,null,st_)));
     }
@@ -691,7 +691,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctPanelValidate(),null,ctx_,panel_,null,st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoGetParentCompo(),null,ctx_,panel_,null,st_));
     }
@@ -703,9 +703,9 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctPanelValidate(),null,ctx_,panel_,null,st_);
-        Struct label_ = call(new FctImageLabel0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct label_ = call(new FctImageLabel0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctPanelAddCompo0(),null,ctx_,panel_,one(label_),st_);
         assertSame(panel_,call(new FctCompoGetParentCompo(),null,ctx_,label_,null,st_));
     }
@@ -718,7 +718,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctCompoSetVisible(),null,ctx_,panel_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,panel_,null,st_));
     }
@@ -730,7 +730,7 @@ public final class PanelStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct panel_ = call(new FctPanel(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
+        Struct panel_ = call(new FctPanel(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, two(new IntStruct(0),new IntStruct(0)), st_);
         call(new FctCompoSetVisible(),null,ctx_,panel_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,panel_,null,st_));
     }

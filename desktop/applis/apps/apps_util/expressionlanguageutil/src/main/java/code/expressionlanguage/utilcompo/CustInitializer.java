@@ -56,7 +56,7 @@ public class CustInitializer extends DefaultInitializer {
 
     private static void log(RunnableContextEl _cont, String _txt) {
         String text_ = StringUtil.concat(CustAliases.getDateTimeText(_cont.getCurrentThreadFactory()),":",_txt);
-        FctThreadPrint0.log(((LgNamesWithNewAliases)_cont.getStandards()).getCustAliases().getInfos(), text_,_cont);
+        FctThreadPrint0.log(((LgNamesWithNewAliases)_cont.getStandards()).getExecContent().getCustAliases().getInfos(), text_,_cont);
     }
 
     public void removeThreadFromList(RunnableContextEl _ctx) {

@@ -46,9 +46,9 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
     protected BytesInfo exportedResults(RunnableContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         mainWindow.setResults(_ctx,_res, _evolved);
         ExecutingOptions executingOptions_ = _ctx.getExecutingOptions();
-        AbstractLogger logger_ = _evolved.getInfos().getLogger();
-        AbstractFileSystem fileSystem_ = _evolved.getInfos().getFileSystem();
-        return _evolved.getInfos().getReporter().export(executingOptions_, fileSystem_, logger_);
+        AbstractLogger logger_ = _evolved.getExecContent().getInfos().getLogger();
+        AbstractFileSystem fileSystem_ = _evolved.getExecContent().getInfos().getFileSystem();
+        return _evolved.getExecContent().getInfos().getReporter().export(executingOptions_, fileSystem_, logger_);
     }
 
     @Override

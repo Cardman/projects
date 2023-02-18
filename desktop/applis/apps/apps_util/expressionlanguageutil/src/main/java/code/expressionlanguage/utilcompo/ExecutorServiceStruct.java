@@ -37,6 +37,6 @@ public final class ExecutorServiceStruct extends WithoutParentIdStruct implement
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesUtils)_contextEl.getStandards()).getCustAliases().getAliasExecutorService();
+        return ((LgNamesUtils)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasExecutorService();
     }
 }

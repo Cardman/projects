@@ -55,7 +55,7 @@ public final class EntryBinaryStruct extends WithoutParentIdStruct implements St
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryBinary();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasEntryBinary();
     }
 
 }

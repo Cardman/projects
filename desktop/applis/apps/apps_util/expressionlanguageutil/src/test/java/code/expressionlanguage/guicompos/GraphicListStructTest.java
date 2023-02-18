@@ -43,7 +43,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctGrList(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(BooleanStruct.of(true)),st_);
+        call(new FctGrList(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(BooleanStruct.of(true)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -55,7 +55,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctGrList(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(BooleanStruct.of(false)),st_);
+        call(new FctGrList(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(BooleanStruct.of(false)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -67,7 +67,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd0(stds_.getGuiAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,ls_,two(new IntStruct(0),new StringStruct("0")),st_);
         assertEq(1, ((GraphicListStruct)ls_).getGrList().size());
         assertEq("0", ((StringStruct) ((GraphicListStruct)ls_).getGrList().get(0)).getInstance());
@@ -80,7 +80,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         assertEq(1, ((GraphicListStruct)ls_).getGrList().size());
         assertEq("0", ((StringStruct) ((GraphicListStruct)ls_).getGrList().get(0)).getInstance());
@@ -93,7 +93,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd2(stds_.getGuiAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,ls_,one(new StringStruct("0")),st_);
         assertEq(1, ((GraphicListStruct)ls_).getGrList().size());
         assertEq("0", ((StringStruct) ((GraphicListStruct)ls_).getGrList().get(0)).getInstance());
@@ -106,7 +106,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd0(stds_.getGuiAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,ls_,two(new IntStruct(0),new StringStruct("0")),st_);
         call(new FctGrListSet0(stds_.getGuiAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,ls_,two(new IntStruct(-1),new StringStruct("2")),st_);
         call(new FctGrListSet0(stds_.getGuiAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,ls_,two(new IntStruct(0),new StringStruct("1")),st_);
@@ -121,7 +121,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         call(new FctGrListSet1(),null,ctx_,ls_,three(new IntStruct(-1),NullStruct.NULL_VALUE,new StringStruct("2")),st_);
         call(new FctGrListSet1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("1")),st_);
@@ -136,7 +136,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         call(new FctGrListRemove(),null,ctx_,ls_,one(new IntStruct(0)),st_);
         assertEq(0, ((GraphicListStruct)ls_).getGrList().size());
@@ -149,7 +149,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         call(new FctGrListClear(),null,ctx_,ls_,null,st_);
         assertEq(0, ((GraphicListStruct)ls_).getGrList().size());
@@ -162,7 +162,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         ArrayStruct arr_ = (ArrayStruct) call(new FctGrListGetListView(), null, ctx_, ls_, null, st_);
         assertEq(1, arr_.getLength());
@@ -176,7 +176,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(1),NullStruct.NULL_VALUE,new StringStruct("1")),st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(2),NullStruct.NULL_VALUE,new StringStruct("2")),st_);
@@ -193,7 +193,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(1),NullStruct.NULL_VALUE,new StringStruct("1")),st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(2),NullStruct.NULL_VALUE,new StringStruct("2")),st_);
@@ -215,7 +215,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(0),NullStruct.NULL_VALUE,new StringStruct("0")),st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(1),NullStruct.NULL_VALUE,new StringStruct("1")),st_);
         call(new FctGrListAdd1(),null,ctx_,ls_,three(new IntStruct(2),NullStruct.NULL_VALUE,new StringStruct("2")),st_);
@@ -236,7 +236,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAddSelection(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertEq(0,((GraphicListStruct)ls_).getGrList().getListeners().size());
     }
@@ -248,7 +248,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAddSelection(),null,ctx_,ls_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertEq(1,((GraphicListStruct)ls_).getGrList().getListeners().size());
     }
@@ -260,7 +260,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListAddSelection(),null,ctx_,ls_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         call(new FctGrListRemoveSelection(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertEq(1,((GraphicListStruct)ls_).getGrList().getListeners().size());
@@ -273,7 +273,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctGrListAddSelection(),null,ctx_,ls_,one(list_),st_);
         call(new FctGrListRemoveSelection(),null,ctx_,ls_,one(list_),st_);
@@ -287,7 +287,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         Struct list_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()), AccessEnum.PUBLIC, new ExecClassContent(new AnaClassContent(true, false, true))), ""), "", -1);
         call(new FctGrListAddSelection(),null,ctx_,ls_,one(list_),st_);
         ArrayStruct a_ = (ArrayStruct) call(new FctGrListGetSelections(), null, ctx_, ls_, null, st_);
@@ -302,7 +302,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         ((GraphicListStruct)ls_).getGrList().addListener(null);
         ArrayStruct a_ = (ArrayStruct) call(new FctGrListGetSelections(), null, ctx_, ls_, null, st_);
         assertEq(0,a_.getLength());
@@ -315,7 +315,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -327,7 +327,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -339,7 +339,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -351,7 +351,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -363,7 +363,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -375,7 +375,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -393,8 +393,8 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         files_.addEntry("src/sample.txt","public class pkg.Sample{public static Fct run(){return $lambda(Sample,,instanceof);}}");
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
-        Struct r_ = call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct r_ = call(new FctRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
         StackCall resSt_ = StackCall.newInstance(InitPhase.NOTHING, ctx_);
         ExecFormattedRootBlock form_ = new ExecFormattedRootBlock(ex_);
@@ -415,8 +415,8 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Forwards fwd_ = getForwards(stds_, opt_);
         ContextEl ctx_ = stds_.newContext(opt_, fwd_);
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
-        Struct r_ = call(new FctRender(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct r_ = call(new FctRender(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctGrListSetRender(),null,ctx_,ls_,one(r_),st_);
         assertSame(r_,call(new FctGrListGetRender(),null,ctx_,ls_,null,st_));
         assertFalse(st_.isFailInit());
@@ -431,7 +431,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Forwards fwd_ = getForwards(stds_, opt_);
         ContextEl ctx_ = stds_.newContext(opt_, fwd_);
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new DfGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new DfGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, one(BooleanStruct.of(false)), st_);
         call(new FctGrListSetRender(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctGrListGetRender(),null,ctx_,ls_,null,st_));
         assertFalse(st_.isFailInit());
@@ -446,7 +446,7 @@ public final class GraphicListStructTest extends EquallableElUtUtil {
         Forwards fwd_ = getForwards(stds_, opt_);
         ContextEl ctx_ = stds_.newContext(opt_, fwd_);
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctGrList(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
+        Struct ls_ = call(new FctGrList(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, one(BooleanStruct.of(false)), st_);
         call(new FctGrListUpdateGraphics(),null,ctx_,ls_,one(new IntStruct(2)),st_);
         call(new FctGrListSetVisibleRowCount(),null,ctx_,ls_,one(new IntStruct(2)),st_);
         assertEq(2,toLong(call(new FctGrListGetVisibleRowCount(),null,ctx_,ls_,null,st_)));

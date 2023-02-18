@@ -34,7 +34,7 @@ public final class EventStruct extends LaunchableStruct implements WithParentStr
     public void run() {
         GuiContextEl r_ = newCtx();
         CustList<Argument> args_ = new CustList<Argument>();
-        invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecutingBlocks().getRunMethod(),args_);
+        invoke(r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(),args_);
     }
 
     @Override

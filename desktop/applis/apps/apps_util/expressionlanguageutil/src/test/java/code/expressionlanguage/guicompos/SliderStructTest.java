@@ -41,7 +41,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
+        Struct sl_ = call(new FctSlider0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, null, st_);
         call(new FctSliderAddChange(),null,ctx_,sl_,one(NullStruct.NULL_VALUE),st_);
         call(new FctSliderAddChange(),null,ctx_,sl_,one(ctx_.getInit().processInit(ctx_,NullStruct.NULL_VALUE,new ExecFormattedRootBlock(new ExecClassBlock(new ExecRootBlockContent(new AnaRootBlockContent()),AccessEnum.PUBLIC,new ExecClassContent(new AnaClassContent(true,false,true))),""),"",-1)),st_);
         assertFalse(st_.isFailInit());
@@ -55,7 +55,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctSlider1(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new IntStruct(GuiConstants.HORIZONTAL)),st_);
+        call(new FctSlider1(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,one(new IntStruct(GuiConstants.HORIZONTAL)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -67,7 +67,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctSlider2(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(5),new IntStruct(95)),st_);
+        call(new FctSlider2(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,two(new IntStruct(5),new IntStruct(95)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -79,7 +79,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctSlider3(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,three(new IntStruct(5),new IntStruct(95),new IntStruct(35)),st_);
+        call(new FctSlider3(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,three(new IntStruct(5),new IntStruct(95),new IntStruct(35)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -91,7 +91,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctSlider4(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,four(new IntStruct(GuiConstants.HORIZONTAL),new IntStruct(5),new IntStruct(95),new IntStruct(35)),st_);
+        call(new FctSlider4(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),""),null,ctx_,null,four(new IntStruct(GuiConstants.HORIZONTAL),new IntStruct(5),new IntStruct(95),new IntStruct(35)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -103,7 +103,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         assertEq(GuiConstants.HORIZONTAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
     }
     @Test
@@ -114,7 +114,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         assertEq(GuiConstants.VERTICAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
     }
     @Test
@@ -125,7 +125,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetOrientation(),null,ctx_,sl_,one(new IntStruct(GuiConstants.VERTICAL)),st_);
         assertEq(GuiConstants.VERTICAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
     }
@@ -137,7 +137,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.VERTICAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetOrientation(),null,ctx_,sl_,one(new IntStruct(GuiConstants.HORIZONTAL)),st_);
         assertEq(GuiConstants.HORIZONTAL,toLong(call(new FctSliderGetOrientation(),null,ctx_,sl_,null,st_)));
     }
@@ -149,7 +149,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetMin(),null,ctx_,sl_,one(new IntStruct(3)),st_);
         assertEq(3,toLong(call(new FctSliderGetMin(),null,ctx_,sl_,null,st_)));
     }
@@ -161,7 +161,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetMax(),null,ctx_,sl_,one(new IntStruct(98)),st_);
         assertEq(98,toLong(call(new FctSliderGetMax(),null,ctx_,sl_,null,st_)));
     }
@@ -173,7 +173,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct sl_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct sl_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctSliderSetValue(),null,ctx_,sl_,one(new IntStruct(55)),st_);
         assertEq(55,toLong(call(new FctSliderGetValue(),null,ctx_,sl_,null,st_)));
     }
@@ -185,7 +185,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(NullStruct.NULL_VALUE),st_);
         assertSame(NullStruct.NULL_VALUE,call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -197,7 +197,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoToolTip1(),null,ctx_,ls_,one(new StringStruct("_")),st_);
         assertEq("_",call(new FctCompoToolTip0(),null,ctx_,ls_,null,st_));
     }
@@ -209,7 +209,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -221,7 +221,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctCompoSetVisible(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctCompoIsVisible(),null,ctx_,ls_,null,st_));
     }
@@ -233,7 +233,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(false)),st_);
         assertFalse(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }
@@ -245,7 +245,7 @@ public final class SliderStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct ls_ = call(new FctSlider4(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
+        Struct ls_ = call(new FctSlider4(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(), ""), null, ctx_, null, four(new IntStruct(GuiConstants.HORIZONTAL), new IntStruct(5), new IntStruct(95), new IntStruct(35)), st_);
         call(new FctInputSetEnabled(),null,ctx_,ls_,one(BooleanStruct.of(true)),st_);
         assertTrue(call(new FctInputIsEnabled(),null,ctx_,ls_,null,st_));
     }

@@ -21,10 +21,10 @@ public class RunnableContextEl extends ContextEl implements Locking {
         super(_executionInfos);
         args = _args;
         LgNamesWithNewAliases standards_ = (LgNamesWithNewAliases) _executionInfos.getStandards();
-        threadFactory = standards_.getInfos().getThreadFactory();
+        threadFactory = standards_.getExecContent().getInfos().getThreadFactory();
         thread = new ThreadStruct(threadFactory.newThread(), threadFactory.newAtomicBoolean(),_state);
-        currentDir = standards_.getExecutingOptions().getBaseFiles();
-        zipFact = standards_.getInfos().getZipFact();
+        currentDir = standards_.getExecContent().getExecutingOptions().getBaseFiles();
+        zipFact = standards_.getExecContent().getInfos().getZipFact();
     }
 
     public StringList getArgs() {
@@ -82,7 +82,7 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     public ExecutingOptions getExecutingOptions() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingOptions();
+        return ((LgNamesWithNewAliases) getStandards()).getExecContent().getExecutingOptions();
     }
 
     @Override
@@ -94,11 +94,11 @@ public class RunnableContextEl extends ContextEl implements Locking {
     }
 
     boolean stopped() {
-        return ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().get() || isCurrentThreadEnded();
+        return ((LgNamesWithNewAliases) getStandards()).getExecContent().getExecutingOptions().getInterrupt().get() || isCurrentThreadEnded();
     }
 
     public void interrupt() {
-        ((LgNamesWithNewAliases) getStandards()).getExecutingOptions().getInterrupt().set(true);
+        ((LgNamesWithNewAliases) getStandards()).getExecContent().getExecutingOptions().getInterrupt().set(true);
     }
 
     public AbstractZipFact getZipFact() {

@@ -30,7 +30,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
-        assertFalse(call(new FctFileZipText(stds_.getCustAliases(),""),null,ctx_,null,two(new StringStruct(""),NullStruct.NULL_VALUE),st_));
+        assertFalse(call(new FctFileZipText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,two(new StringStruct(""),NullStruct.NULL_VALUE),st_));
         
     }
     @Test
@@ -46,7 +46,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipText(stds_.getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
         
     }
     @Test
@@ -62,7 +62,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipText(stds_.getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
         
     }
     @Test
@@ -74,7 +74,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
-        assertFalse(call(new FctFileZipBin(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct(""),NullStruct.NULL_VALUE),st_));
+        assertFalse(call(new FctFileZipBin(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(new StringStruct(""),NullStruct.NULL_VALUE),st_));
         
     }
     @Test
@@ -90,7 +90,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipBin(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipBin(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
         
     }
     @Test
@@ -114,7 +114,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipBin(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipBin(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
         
     }
     @Test
@@ -138,7 +138,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        Struct out_ = call(new FctFileZipBinArray(stds_.getCustAliases()), null, ctx_, null, one(ent_), st_);
+        Struct out_ = call(new FctFileZipBinArray(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(ent_), st_);
         assertEq(27,((ArrayStruct)out_).getLength());
     }
     @Test
@@ -162,7 +162,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        Struct out_ = call(new FctFileZipBinArray(stds_.getCustAliases()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
+        Struct out_ = call(new FctFileZipBinArray(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
         assertEq(8,((ArrayStruct)out_).getLength());
     }
     @Test
@@ -174,7 +174,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
-        assertSame(NullStruct.NULL_VALUE,call(new FctFileZippedText(stds_.getCustAliases(),""),null,ctx_,null,one(new StringStruct("")),st_));
+        assertSame(NullStruct.NULL_VALUE,call(new FctFileZippedText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,one(new StringStruct("")),st_));
         
     }
     @Test
@@ -190,10 +190,10 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipText(stds_.getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
 
 
-        Struct zip_ = call(new FctFileZippedText(stds_.getCustAliases(), ""), null, ctx_, null, one(new StringStruct("zip")), st_);
+        Struct zip_ = call(new FctFileZippedText(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(new StringStruct("zip")), st_);
         assertEq(1, ((ArrayStruct)zip_).getLength());
         Struct elt_ = ((ArrayStruct) zip_).get(0);
         assertEq("file.txt",call(new FctEntryTextName(),null,ctx_,elt_,null,st_));
@@ -214,10 +214,10 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipText(stds_.getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
 
 
-        Struct zip_ = call(new FctFileZippedText(stds_.getCustAliases(), ""), null, ctx_, null, one(new StringStruct("zip")), st_);
+        Struct zip_ = call(new FctFileZippedText(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(new StringStruct("zip")), st_);
         assertEq(1, ((ArrayStruct)zip_).getLength());
         Struct elt_ = ((ArrayStruct) zip_).get(0);
         assertEq("file.txt",call(new FctEntryTextName(),null,ctx_,elt_,null,st_));
@@ -242,7 +242,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipBin(stds_.getCustAliases()),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipBin(stds_.getExecContent().getCustAliases()),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
 
 
 
@@ -252,7 +252,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
 
 
 
-        Struct zip_ = call(new FctFileZippedText(stds_.getCustAliases(), ""), null, ctx_, null, one(new StringStruct("zip")), st_);
+        Struct zip_ = call(new FctFileZippedText(stds_.getExecContent().getCustAliases(), ""), null, ctx_, null, one(new StringStruct("zip")), st_);
         assertEq(1, ((ArrayStruct)zip_).getLength());
         Struct elt_ = ((ArrayStruct) zip_).get(0);
         assertEq("file.txt",call(new FctEntryTextName(),null,ctx_,elt_,null,st_));
@@ -268,7 +268,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         StackCall st_ = stack(ctx_);
         memoryFileSystem(stds_,pr_);
 
-        assertSame(NullStruct.NULL_VALUE,call(new FctFileZippedBin(stds_.getCustAliases()),null,ctx_,null,one(new StringStruct("")),st_));
+        assertSame(NullStruct.NULL_VALUE,call(new FctFileZippedBin(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(new StringStruct("")),st_));
         
     }
     @Test
@@ -284,10 +284,10 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipText(stds_.getCustAliases(), ""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipText(stds_.getExecContent().getCustAliases(), ""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
 
 
-        Struct zip_ = call(new FctFileZippedBin(stds_.getCustAliases()), null, ctx_, null, one(new StringStruct("zip")), st_);
+        Struct zip_ = call(new FctFileZippedBin(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(new StringStruct("zip")), st_);
         assertEq(1, ((ArrayStruct)zip_).getLength());
         Struct elt_ = ((ArrayStruct) zip_).get(0);
         assertEq("file.txt",call(new FctEntryBinaryName(),null,ctx_,elt_,null,st_));
@@ -309,10 +309,10 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        assertTrue(call(new FctFileZipText(stds_.getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
+        assertTrue(call(new FctFileZipText(stds_.getExecContent().getCustAliases(),""),null,ctx_,null,two(new StringStruct("zip"),ent_),st_));
 
 
-        Struct zip_ = call(new FctFileZippedBin(stds_.getCustAliases()), null, ctx_, null, one(new StringStruct("zip")), st_);
+        Struct zip_ = call(new FctFileZippedBin(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(new StringStruct("zip")), st_);
         assertEq(1, ((ArrayStruct)zip_).getLength());
         Struct elt_ = ((ArrayStruct) zip_).get(0);
         assertEq("file.txt",call(new FctEntryBinaryName(),null,ctx_,elt_,null,st_));
@@ -344,8 +344,8 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        Struct in_ = call(new FctFileZipBinArray(stds_.getCustAliases()), null, ctx_, null, one(ent_), st_);
-        Struct arr_ = call(new FctFileZippedBinArray(stds_.getCustAliases()), null, ctx_, null, one(in_), st_);
+        Struct in_ = call(new FctFileZipBinArray(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(ent_), st_);
+        Struct arr_ = call(new FctFileZippedBinArray(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(in_), st_);
         assertEq(1,((ArrayStruct)arr_).getLength());
         Struct elt_ = ((ArrayStruct) arr_).get(0);
         assertEq("file.txt",call(new FctEntryBinaryName(),null,ctx_,elt_,null,st_));
@@ -376,7 +376,7 @@ public final class ZipBinStructUtilTest extends EquallableElUtUtil {
         ent_.set(0,NullStruct.NULL_VALUE);
         ent_.set(1,e_);
 
-        call(new FctFileZipBinArray(stds_.getCustAliases()), null, ctx_, null, one(ent_), st_);
-        assertSame(NullStruct.NULL_VALUE,call(new FctFileZippedBinArray(stds_.getCustAliases()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_));
+        call(new FctFileZipBinArray(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(ent_), st_);
+        assertSame(NullStruct.NULL_VALUE,call(new FctFileZippedBinArray(stds_.getExecContent().getCustAliases()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_));
     }
 }

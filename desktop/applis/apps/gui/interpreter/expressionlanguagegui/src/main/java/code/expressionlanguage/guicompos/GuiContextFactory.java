@@ -29,8 +29,8 @@ public final class GuiContextFactory {
 //            _undefinedLgNames.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
-        _undefinedLgNames.setExecutingOptions(_exec);
-        _undefinedLgNames.updateTranslations(_currentElements.getTranslations(),_currentElements.getLanguage());
+        _undefinedLgNames.getExecContent().setExecutingOptions(_exec);
+        _undefinedLgNames.getExecContent().updateTranslations(_currentElements.getTranslations(),_currentElements.getLanguage());
         _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements,_exec.getListGenerator());
         return build(_options, _exec, mess_, kwl_, _undefinedLgNames, _files);
     }
@@ -38,11 +38,11 @@ public final class GuiContextFactory {
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getCustAliases());
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames,fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
-        ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }

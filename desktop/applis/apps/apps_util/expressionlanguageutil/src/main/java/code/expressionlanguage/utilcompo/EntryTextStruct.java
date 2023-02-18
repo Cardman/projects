@@ -36,7 +36,7 @@ public final class EntryTextStruct extends WithoutParentIdStruct implements Stru
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryText();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasEntryText();
     }
 
 

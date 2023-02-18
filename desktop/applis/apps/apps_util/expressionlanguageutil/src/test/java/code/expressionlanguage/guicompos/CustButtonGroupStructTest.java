@@ -41,7 +41,7 @@ public final class CustButtonGroupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        call(new FctButtonGroup(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_);
+        call(new FctButtonGroup(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }
@@ -53,9 +53,9 @@ public final class CustButtonGroupStructTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        Struct a_ = call(new FctButtonGroup(stds_.getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
+        Struct a_ = call(new FctButtonGroup(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks()), null, ctx_, null, null, st_);
         call(new FctButtonGroupAdd(),null,ctx_,a_,one(NullStruct.NULL_VALUE),st_);
-        call(new FctButtonGroupAdd(),null,ctx_,a_,one(call(new FctRadio0(stds_.getCustAliases(), stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_)),st_);
+        call(new FctButtonGroupAdd(),null,ctx_,a_,one(call(new FctRadio0(stds_.getExecContent().getCustAliases(), stds_.getGuiExecutingBlocks(),""),null,ctx_,null,null,st_)),st_);
         assertFalse(st_.isFailInit());
         assertTrue(st_.calls());
     }

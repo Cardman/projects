@@ -46,7 +46,7 @@ public final class EntryMapStringStruct extends WithoutParentIdStruct implements
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasEntryStringObject();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasEntryStringObject();
     }
 
 }

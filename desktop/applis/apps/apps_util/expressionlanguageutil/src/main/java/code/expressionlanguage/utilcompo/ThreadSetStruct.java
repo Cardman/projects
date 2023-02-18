@@ -20,7 +20,7 @@ public final class ThreadSetStruct extends WithoutParentIdStruct {
         for (Struct s: elementSet.values()) {
             instantKeys_.add(s);
         }
-        String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThread();
+        String thClass_ = ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasThread();
         int len_ = instantKeys_.size();
         ArrayStruct arr_ = new ArrayStruct(len_,StringExpUtil.getPrettyArrayType(thClass_));
         for (int i = 0; i < len_; i++) {
@@ -50,7 +50,7 @@ public final class ThreadSetStruct extends WithoutParentIdStruct {
     }
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThreadSet();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasThreadSet();
     }
 
 }

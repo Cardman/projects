@@ -20,8 +20,8 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
         Options opt_ = new Options();
-        stds_.getCustAliases().setAliasExecutorService("");
-        assertEq(stds_.getCustAliases().getAliasExecutorService(),new ExecutorServiceStruct(pr_.getThreadFactory()).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+        stds_.getExecContent().getCustAliases().setAliasExecutorService("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasExecutorService(),new ExecutorServiceStruct(pr_.getThreadFactory()).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
     @Test
     public void futureStruct() {
@@ -30,16 +30,16 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ExecutorServiceStruct essOne_ = new ExecutorServiceStruct(pr_.getThreadFactory(),2);
         ArgumentListCall list_ = one(new MockRunnableStruct(""));
-        stds_.getCustAliases().setAliasFuture("");
-        assertEq(stds_.getCustAliases().getAliasFuture(),call(new FctExecutorServiceSubmit0(),null,null,essOne_, list_,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+        stds_.getExecContent().getCustAliases().setAliasFuture("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctExecutorServiceSubmit0(),null,null,essOne_, list_,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
     @Test
     public void strMap() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
         Options opt_ = new Options();
-        stds_.getCustAliases().setAliasTableStringObject("");
-        assertEq(stds_.getCustAliases().getAliasTableStringObject(),call(new FctTastr(new MockInterceptor()),null,null,null, null,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+        stds_.getExecContent().getCustAliases().setAliasTableStringObject("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasTableStringObject(),call(new FctTastr(new MockInterceptor()),null,null,null, null,null).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
     @Test
     public void key() {
@@ -53,16 +53,16 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         call(new FctTastrPut(),null,ctx_,m_,two(new StringStruct(""), value_),st_);
         ArrayStruct pairs_ = (ArrayStruct) call(new FctTastrPairs(), null, ctx_, m_, null, st_);
         Struct entry_ = pairs_.get(0);
-        stds_.getCustAliases().setAliasEntryStringObject("");
-        assertEq(stds_.getCustAliases().getAliasEntryStringObject(),entry_.getClassName(ctx_));
+        stds_.getExecContent().getCustAliases().setAliasEntryStringObject("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasEntryStringObject(),entry_.getClassName(ctx_));
     }
     @Test
     public void scheduledExecutorServiceStruct() {
         MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(0, new long[1], new String[]{"/"}));
         LgNamesGui stds_ = newLgNamesGuiSampleCl(pr_, null);
         Options opt_ = new Options();
-        stds_.getCustAliases().setAliasScheduledExecutorService("");
-        assertEq(stds_.getCustAliases().getAliasScheduledExecutorService(),new ScheduledExecutorServiceStruct(pr_.getThreadFactory()).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
+        stds_.getExecContent().getCustAliases().setAliasScheduledExecutorService("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasScheduledExecutorService(),new ScheduledExecutorServiceStruct(pr_.getThreadFactory()).getClassName(stds_.newContext(opt_, getForwards(stds_, opt_))));
     }
     @Test
     public void thread() {
@@ -71,8 +71,8 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        stds_.getCustAliases().setAliasThread("");
-        assertEq(stds_.getCustAliases().getAliasThread(),call(new FctThread(stds_.getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+        stds_.getExecContent().getCustAliases().setAliasThread("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasThread(),call(new FctThread(stds_.getExecContent().getCustAliases()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
     }
     @Test
     public void threadSet() {
@@ -81,8 +81,8 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        stds_.getCustAliases().setAliasThreadSet("");
-        assertEq(stds_.getCustAliases().getAliasThreadSet(),call(new FctThreadSet(new MockInterceptor()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+        stds_.getExecContent().getCustAliases().setAliasThreadSet("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasThreadSet(),call(new FctThreadSet(new MockInterceptor()),null,ctx_,null,one(NullStruct.NULL_VALUE),st_).getClassName(ctx_));
     }
     @Test
     public void entryText() {
@@ -91,8 +91,8 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        stds_.getCustAliases().setAliasEntryText("");
-        assertEq(stds_.getCustAliases().getAliasEntryText(),call(new FctEntryText(),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+        stds_.getExecContent().getCustAliases().setAliasEntryText("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasEntryText(),call(new FctEntryText(),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_).getClassName(ctx_));
     }
     @Test
     public void entryBinary() {
@@ -101,8 +101,8 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        stds_.getCustAliases().setAliasEntryBinary("");
-        assertEq(stds_.getCustAliases().getAliasEntryBinary(),call(new FctEntryBinary(),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_).getClassName(ctx_));
+        stds_.getExecContent().getCustAliases().setAliasEntryBinary("");
+        assertEq(stds_.getExecContent().getCustAliases().getAliasEntryBinary(),call(new FctEntryBinary(),null,ctx_,null,two(NullStruct.NULL_VALUE,NullStruct.NULL_VALUE),st_).getClassName(ctx_));
     }
     @Test
     public void color() {
@@ -143,7 +143,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
-        assertEq("_",call(new FctImageLabel0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks(),"_"),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq("_",call(new FctImageLabel0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks(),"_"),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void render() {
@@ -154,7 +154,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasRender("");
-        assertEq(stds_.getGuiAliases().getAliasRender(),call(new FctRender(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasRender(),call(new FctRender(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void dims() {
@@ -176,7 +176,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasTreeNode("");
-        assertEq(stds_.getGuiAliases().getAliasTreeNode(),call(new FctTreeNode0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasTreeNode(),call(new FctTreeNode0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void buttonGroup() {
@@ -187,7 +187,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasButtonGroup("");
-        assertEq(stds_.getGuiAliases().getAliasButtonGroup(),call(new FctButtonGroup(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasButtonGroup(),call(new FctButtonGroup(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void menu1() {
@@ -198,7 +198,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasMenuItem("");
-        assertEq(stds_.getGuiAliases().getAliasMenuItem(),call(new FctMenuItem0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasMenuItem(),call(new FctMenuItem0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void menu2() {
@@ -209,7 +209,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasMenuItemCheck("");
-        assertEq(stds_.getGuiAliases().getAliasMenuItemCheck(),call(new FctMenuItemCheck0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasMenuItemCheck(),call(new FctMenuItemCheck0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void menu3() {
@@ -220,7 +220,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasMenu("");
-        assertEq(stds_.getGuiAliases().getAliasMenu(),call(new FctMenu0(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasMenu(),call(new FctMenu0(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void menu4() {
@@ -231,7 +231,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasMenuBar("");
-        assertEq(stds_.getGuiAliases().getAliasMenuBar(),call(new FctMenuBar(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasMenuBar(),call(new FctMenuBar(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void window1() {
@@ -242,7 +242,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasDialog("");
-        assertEq(stds_.getGuiAliases().getAliasDialog(),call(new FctDialog(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasDialog(),call(new FctDialog(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void window2() {
@@ -253,7 +253,7 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasFrame("");
-        assertEq(stds_.getGuiAliases().getAliasFrame(),call(new FctFrame(stds_.getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasFrame(),call(new FctFrame(stds_.getExecContent().getCustAliases(),stds_.getGuiExecutingBlocks()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
     @Test
     public void windowSet() {
@@ -264,6 +264,6 @@ public final class AddonClassesTest extends EquallableElUtUtil {
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         StackCall st_ = stack(ctx_);
         stds_.getGuiAliases().setAliasWindowSet("");
-        assertEq(stds_.getGuiAliases().getAliasWindowSet(),call(new FctWindowSet(stds_.getCustAliases()),null,ctx_,null,null,st_).getClassName(ctx_));
+        assertEq(stds_.getGuiAliases().getAliasWindowSet(),call(new FctWindowSet(stds_.getExecContent().getCustAliases()),null,ctx_,null,null,st_).getClassName(ctx_));
     }
 }

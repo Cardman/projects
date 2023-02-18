@@ -53,7 +53,7 @@ public final class ThreadStruct extends WithoutParentIdStruct {
 
     @Override
     public String getClassName(ContextEl _contextEl) {
-        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getCustAliases().getAliasThread();
+        return ((LgNamesWithNewAliases)_contextEl.getStandards()).getExecContent().getCustAliases().getAliasThread();
     }
 
 }
