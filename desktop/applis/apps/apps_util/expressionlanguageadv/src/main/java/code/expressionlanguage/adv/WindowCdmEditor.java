@@ -427,6 +427,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         } else {
             commonFrame.getFrames().getFileCoreStream().newFile(currentFolder+"/src").mkdirs();
         }
+        lines_.add("tabWidth="+tabWidth);
         StreamFolderFile.makeParent(execConf,commonFrame.getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(execConf, StringUtil.join(lines_,'\n'), frs_.getStreams());
         return new ManageOptions(commonFrame.getFrames().getLanguages(), lines_, factory, commonFrame.getFrames().getThreadFactory());
