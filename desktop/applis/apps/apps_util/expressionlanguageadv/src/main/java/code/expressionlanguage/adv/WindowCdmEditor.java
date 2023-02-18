@@ -51,6 +51,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsMenuItem create;
     private final AbsPlainButton chooseFolder;
     private final AbsPlainButton createFile;
+    private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
     private final IdList<WindowCdmEditor> ides;
     private String document;
@@ -96,6 +97,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         panel = _list.getCompoFactory().newPageBox();
         chooseFolder = commonFrame.getFrames().getCompoFactory().newPlainButton("folder");
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
+        chosenFolder = commonFrame.getFrames().getCompoFactory().newPlainLabel(":");
         srcFolder = commonFrame.getFrames().getCompoFactory().newTextField(32);
         createFile = commonFrame.getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
@@ -125,12 +127,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         Document doc_ = DocumentBuilder.parseSax(contentConf_);
         document = contentConf_;
         execConf = retrievePath(doc_);
+        commonFrame.setTitle(execConf);
         String flatConf_ = StreamTextFile.contentsOfFile(execConf, frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
         if (linesFiles_.size() < 2) {
             currentFolder = "";
             panel.removeAll();
             panel.add(chooseFolder);
+            panel.add(chosenFolder);
             panel.add(srcFolder);
             panel.add(createFile);
             createFile.setEnabled(false);
@@ -145,6 +149,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public void folder(String _folderName) {
         currentFolder = _folderName;
+        chosenFolder.setText(_folderName);
         createFile.setEnabled(true);
     }
     public void saveConf(String _fileName) {
