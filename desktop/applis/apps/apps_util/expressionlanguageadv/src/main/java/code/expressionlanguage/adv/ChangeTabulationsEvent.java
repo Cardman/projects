@@ -14,7 +14,7 @@ public final class ChangeTabulationsEvent implements AbsActionListener {
     public void action() {
         outputDialogTabs = new OutputDialogTab(windowCdmEditor);
         outputDialogTabs.update();
-        windowCdmEditor.afterChangingTabulations(outputDialogTabs.getValid());
+        windowCdmEditor.afterChangingSyntaxPreferences(outputDialogTabs.getValid());
     }
 
     public OutputDialogTab getOutputDialogTabs() {

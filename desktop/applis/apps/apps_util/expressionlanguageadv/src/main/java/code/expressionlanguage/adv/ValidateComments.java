@@ -14,14 +14,15 @@ public final class ValidateComments implements AbsActionListener {
 
     @Override
     public void action() {
-        output.getResult().getComments().clear();
+        output.getComments().clear();
         int len_ = comments.size();
         for (int i = 0; i < len_; i++) {
             EditCommentRow e_ = comments.get(i);
             e_.updateComment();
-            output.getResult().getComments().add(e_.getComment());
+            output.getComments().add(e_.getComment());
         }
-        output.getResult().getValid().set(true);
+        output.getWindowCdmEditor().updateComments(output.getComments());
+        output.getValid().set(true);
         output.getWindowCdmEditor().getDialogComments().setVisible(false);
     }
 }

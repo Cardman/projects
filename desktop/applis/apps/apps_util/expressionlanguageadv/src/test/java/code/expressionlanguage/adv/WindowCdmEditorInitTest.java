@@ -206,7 +206,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(newFile(w_,chooseConf_).exists());
         CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
         dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
-        w_.saveComments(dels_);
+        saveComments(w_,dels_);
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         WindowCdmEditor w2_ =windowLoadDefInit(w_);
         w2_.updateCommentsInit(new StringList());
@@ -230,7 +230,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(newFile(w_,chooseConf_).exists());
         CustList<CommentDelimiters> dels_ = new CustList<CommentDelimiters>();
         dels_.add(new CommentDelimiters("\\*",new StringList("*\\")));
-        w_.saveComments(dels_);
+        saveComments(w_,dels_);
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         newFile(w_,getTempDefConf(w_)).renameTo(newFile(w_,"/editor/conf.xml"));
         assertTrue(newFile(w_,"/editor/conf.xml").exists());
@@ -253,7 +253,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
         assertTrue(newFile(w_,chooseConf_).exists());
-        w_.saveComments(new CustList<CommentDelimiters>());
+        saveComments(w_,new CustList<CommentDelimiters>());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         newFile(w_,getTempDefConf(w_)).renameTo(newFile(w_,"/editor/conf.xml"));
         assertTrue(newFile(w_,"/editor/conf.xml").exists());
@@ -274,7 +274,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
         assertTrue(newFile(w_,chooseConf_).exists());
-        w_.saveComments(new CustList<CommentDelimiters>());
+        saveComments(w_,new CustList<CommentDelimiters>());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         newFile(w_,getTempDefConf(w_)).renameTo(newFile(w_,"/editor/conf.xml"));
         Document doc_ = DocumentBuilder.newXmlDocument();
@@ -314,7 +314,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
         assertTrue(newFile(w_,chooseConf_).exists());
-        ManageOptions res_ = w_.saveComments(new CustList<CommentDelimiters>());
+        ManageOptions res_ = saveComments(w_,new CustList<CommentDelimiters>());
         assertEq("other_src",res_.getEx().getSrcFolder());
     }
     @Test
@@ -327,7 +327,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
         assertTrue(newFile(w_,chooseConf_).exists());
-        w_.saveComments(new CustList<CommentDelimiters>());
+        saveComments(w_,new CustList<CommentDelimiters>());
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         Document doc_ = DocumentBuilder.newXmlDocument();
         Element elt_ = doc_.createElement(WindowCdmEditor.ROOT_CONF);

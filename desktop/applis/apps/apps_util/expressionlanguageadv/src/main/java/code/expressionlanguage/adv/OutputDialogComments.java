@@ -5,11 +5,13 @@ import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 import code.gui.AbsScrollPane;
 import code.gui.initialize.AbstractProgramInfos;
+import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 
 public final class OutputDialogComments {
     private final WindowCdmEditor windowCdmEditor;
-    private final OutputDialogCommentsResult result;
+    private final CustList<CommentDelimiters> comments;
+    private final AbstractAtomicBoolean valid;
     private CustList<EditCommentRow> commentsRows = new CustList<EditCommentRow>();
     private AbsPlainButton add;
     private AbsPlainButton rem;
@@ -18,15 +20,16 @@ public final class OutputDialogComments {
     public OutputDialogComments(WindowCdmEditor _w) {
         windowCdmEditor = _w;
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
-        result = new OutputDialogCommentsResult( new CustList<CommentDelimiters>(_w.getComments()),factories_.getThreadFactory().newAtomicBoolean());
+        comments = new CustList<CommentDelimiters>(_w.getComments());
+        valid = factories_.getThreadFactory().newAtomicBoolean();
     }
     public void update() {
-        int len_ = result.getComments().size();
+        int len_ = comments.size();
         AbstractProgramInfos factories_ = windowCdmEditor.getCommonFrame().getFrames();
         commentsRows = new CustList<EditCommentRow>();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
         for (int i = 0; i < len_; i++) {
-            EditCommentRow ed_ = new EditCommentRow(factories_, result.getComments().get(i), i);
+            EditCommentRow ed_ = new EditCommentRow(factories_, comments.get(i), i);
             commentsRows.add(ed_);
             dels_.add(ed_.getLine());
         }
@@ -50,8 +53,12 @@ public final class OutputDialogComments {
         windowCdmEditor.getDialogComments().setVisible(true);
     }
 
-    public OutputDialogCommentsResult getResult() {
-        return result;
+    public AbstractAtomicBoolean getValid() {
+        return valid;
+    }
+
+    public CustList<CommentDelimiters> getComments() {
+        return comments;
     }
 
     public WindowCdmEditor getWindowCdmEditor() {

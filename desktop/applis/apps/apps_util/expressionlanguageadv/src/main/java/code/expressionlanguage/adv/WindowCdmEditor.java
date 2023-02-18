@@ -150,7 +150,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public void saveConf(String _fileName) {
         execConf = _fileName;
         updateDoc();
-        ManageOptions opts_ = saveComments(comments);
+        updateComments(comments);
+        ManageOptions opts_ = saveConf();
         initEnv(opts_);
     }
 
@@ -378,15 +379,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return execConf;
     }
 
-    public void afterChangingComments(OutputDialogCommentsResult _res) {
-        if (!_res.getValid().get()) {
-            return;
-        }
-        saveComments(_res.getComments());
-        updateCurrentTab();
-    }
-
-    public void afterChangingTabulations(AbstractAtomicBoolean _valid) {
+    public void afterChangingSyntaxPreferences(AbstractAtomicBoolean _valid) {
         if (!_valid.get()) {
             return;
         }
@@ -407,13 +400,12 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         new TabValueChanged(this).stateChanged();
     }
 
-    public ManageOptions saveComments(CustList<CommentDelimiters> _comm) {
+    public void updateComments(CustList<CommentDelimiters> _comm) {
         CommentsUtil.checkAndUpdateComments(_comm, comments);
         comments = _comm;
-        return saveConf();
     }
 
-    private ManageOptions saveConf() {
+    public ManageOptions saveConf() {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         StringList lines_ = new StringList();
         lines_.add(currentFolder);

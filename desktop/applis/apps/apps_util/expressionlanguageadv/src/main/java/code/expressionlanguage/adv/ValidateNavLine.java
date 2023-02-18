@@ -11,13 +11,9 @@ public final class ValidateNavLine implements AbsActionListener {
 
     @Override
     public void action() {
-        output.getResult().setCol(output.getCol().getValue());
-        output.getResult().setRow(output.getRow().getValue());
-        output.getResult().setIndex(output.getTab().index(output.getResult().getRow(), output.getResult().getCol()));
-        if (output.getResult().getIndex() < 0) {
-            return;
-        }
-        output.getResult().getValid().set(true);
+        int index_ = output.getIndex();
+        output.getTab().setNavigateIndex(index_);
+        output.getValid().set(true);
         output.getWindowCdmEditor().getDialogNavigLine().setVisible(false);
     }
 }

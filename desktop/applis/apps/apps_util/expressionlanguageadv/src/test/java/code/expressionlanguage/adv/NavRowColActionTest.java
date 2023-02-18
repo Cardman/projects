@@ -12,12 +12,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(1);
         o_.getCol().setValue(1);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(0,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(0,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -26,12 +26,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(1);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(6,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(6,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -40,12 +40,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(5);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(7,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(7,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -54,12 +54,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(1);
         o_.getCol().setValue(5);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(4,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(4,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -68,23 +68,23 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(3);
         o_.getCol().setValue(1);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertFalse(o_.getVal().isEnabled());
     }
     @Test
     public void action6() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(1);
         o_.getCol().setValue(6);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(5,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(5,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -93,12 +93,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(5);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(10,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(10,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -107,12 +107,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(6);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(11,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(11,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -121,12 +121,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(1);
         o_.getCol().setValue(1);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(0,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(0,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -135,23 +135,24 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
-        o_.getRow().setValue(1);
-        o_.getCol().setValue(1);
+        
+        o_.getRow().setValue(3);
+        o_.getCol().setValue(3);
         ((MockPlainButton)o_.getCancel()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertEq(0,tabEditor(w_).getCenter().getSelectionStart());
+        assertEq(0,tabEditor(w_).getCenter().getSelectionEnd());
     }
     @Test
     public void action11() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(6);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(8,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(8,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -160,12 +161,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nw\torld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(5);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(8,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(8,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -174,12 +175,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(9);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(11,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(11,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -188,12 +189,12 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(10);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getResult().getValid().get());
-        tabEditor(w_).goToRowCol(o_.getResult());
+        assertTrue(o_.getVal().isEnabled());
+        tabEditor(w_).goToRowCol(o_.getValid());
         assertEq(12,tabEditor(w_).getCenter().getSelectionStart());
         assertEq(12,tabEditor(w_).getCenter().getSelectionEnd());
     }
@@ -202,32 +203,32 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\nworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(7);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertFalse(o_.getVal().isEnabled());
     }
     @Test
     public void action16() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(1);
         o_.getCol().setValue(7);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertFalse(o_.getVal().isEnabled());
     }
     @Test
     public void action17() {
         WindowCdmEditor w_=newWindowLoadDef();
         tabEditor(w_).getCenter().setText("hello\n\tworld");
         OutputDialogNavLine o_=navigateInsideTab(w_);
-        assertEq(-1,o_.getResult().getIndex());
+        
         o_.getRow().setValue(2);
         o_.getCol().setValue(11);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertFalse(o_.getResult().getValid().get());
+        assertFalse(o_.getVal().isEnabled());
     }
 }
