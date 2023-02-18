@@ -19,7 +19,6 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init1() {
         WindowCdmEditor w_=newWindowLoadDef();
         assertTrue(w_.getCommonFrame().isVisible());
-        assertEq(1,w_.getIdes().size());
     }
     @Test
     public void init2() {
@@ -352,7 +351,6 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDef();
         w_.getCommonFrame().getWindowListenersDef().get(0).windowClosing();
         assertFalse(w_.getCommonFrame().isVisible());
-        assertEq(0,w_.getIdes().size());
     }
     @Test
     public void quit2() {

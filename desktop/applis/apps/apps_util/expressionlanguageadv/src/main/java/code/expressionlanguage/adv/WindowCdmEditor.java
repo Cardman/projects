@@ -33,6 +33,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public static final String NODE_PATH = "1";
     public static final String DEF_CONF = "0";
     public static final String ROOT_CONF = "_";
+    public static final String CDM_EDITOR = "cdm_editor";
     private final CdmFactory factory;
     private final ConfirmDialogTextAbs confirmDialogText;
     private final FileSaveDialogAbs fileSaveDialogInt;
@@ -53,7 +54,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsPlainButton createFile;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
-    private final IdList<WindowCdmEditor> ides;
     private String document;
     private String usedLg = "";
     private String execConf = "";
@@ -65,7 +65,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
     private AbsTabbedPane editors;
 
-    public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact, IdList<WindowCdmEditor> _opened) {
+    public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
@@ -107,8 +107,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame.pack();
         commonFrame.setVisible(true);
         commonFrame.addWindowListener(new QuittingEvent(this));
-        ides = _opened;
-        _opened.add(this);
     }
 
     public static String getTempFolder(AbstractProgramInfos _tmpUserFolderSl) {
@@ -528,7 +526,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     @Override
     public String getApplicationName() {
-        return "";
+        return CDM_EDITOR;
     }
 
     public StringMap<String> getMessages() {
@@ -551,8 +549,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     @Override
     public void quit() {
         commonFrame.setVisible(false);
-        ides.removeObj(this);
         GuiBaseUtil.tryExit(commonFrame);
+        commonFrame.getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
     }
 
     @Override
@@ -575,7 +573,4 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         this.tabWidth = _t;
     }
 
-    public IdList<WindowCdmEditor> getIdes() {
-        return ides;
-    }
 }

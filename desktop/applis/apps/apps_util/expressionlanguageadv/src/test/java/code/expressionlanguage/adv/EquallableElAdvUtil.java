@@ -16,7 +16,6 @@ import code.stream.core.AbstractTextFact;
 import code.stream.core.AbstractZipFact;
 import code.threads.ThState;
 import code.util.CustList;
-import code.util.IdList;
 import code.util.StringList;
 import code.util.core.StringUtil;
 import org.junit.Assert;
@@ -54,10 +53,6 @@ public abstract class EquallableElAdvUtil {
 
     public static void assertFalse(boolean _value) {
         Assert.assertFalse(_value);
-    }
-
-    public static WindowCdmEditor window(AbstractProgramInfos _pr) {
-        return window(_pr,new IdList<WindowCdmEditor>());
     }
 
     public static WindowCdmEditor windowLoadDef(AbstractProgramInfos _pr) {
@@ -117,9 +112,10 @@ public abstract class EquallableElAdvUtil {
         return window(_pr);
     }
 
-    public static WindowCdmEditor window(AbstractProgramInfos _pr, IdList<WindowCdmEditor> _opened) {
+    public static WindowCdmEditor window(AbstractProgramInfos _pr) {
         CdmFactory fact_ = new CdmFactory(_pr, new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct());
-        WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_, _opened);
+        _pr.getCounts().addEntry(WindowCdmEditor.CDM_EDITOR,_pr.getThreadFactory().newAtomicInteger());
+        WindowCdmEditor w_ = new WindowCdmEditor("en", _pr,fact_);
 //        w_.getTabEditor().getWholeWord().setSelected(false);
         return w_;
     }
