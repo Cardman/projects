@@ -8,20 +8,16 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.CustList;
 
 public final class OutputDialogComments {
-    private final WindowCdmEditor windowCdmEditor;
     private final CustList<CommentDelimiters> comments;
-    private CustList<EditCommentRow> commentsRows = new CustList<EditCommentRow>();
-    private AbsPlainButton add;
-    private AbsPlainButton rem;
-    private AbsPlainButton val;
-    private AbsPlainButton cancel;
+    private final CustList<EditCommentRow> commentsRows;
+    private final AbsPlainButton add;
+    private final AbsPlainButton rem;
+    private final AbsPlainButton val;
+    private final AbsPlainButton cancel;
     public OutputDialogComments(WindowCdmEditor _w) {
-        windowCdmEditor = _w;
         comments = new CustList<CommentDelimiters>(_w.getComments());
-    }
-    public void update() {
         int len_ = comments.size();
-        AbstractProgramInfos factories_ = windowCdmEditor.getCommonFrame().getFrames();
+        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         commentsRows = new CustList<EditCommentRow>();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
         for (int i = 0; i < len_; i++) {
@@ -33,28 +29,24 @@ public final class OutputDialogComments {
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         all_.add(sc_);
         add = factories_.getCompoFactory().newPlainButton("+");
-        add.addActionListener(new AddCommentRow(commentsRows,dels_,windowCdmEditor));
+        add.addActionListener(new AddCommentRow(commentsRows,dels_,_w));
         all_.add(add);
         rem = factories_.getCompoFactory().newPlainButton("-");
-        rem.addActionListener(new RemoveCommentRow(commentsRows,dels_,windowCdmEditor));
+        rem.addActionListener(new RemoveCommentRow(commentsRows,dels_,_w));
         all_.add(rem);
         val = factories_.getCompoFactory().newPlainButton("OK");
-        val.addActionListener(new ValidateComments(this,commentsRows));
+        val.addActionListener(new ValidateComments(this,commentsRows, _w));
         all_.add(val);
         cancel = factories_.getCompoFactory().newPlainButton("KO");
-        cancel.addActionListener(new CancelBasic(windowCdmEditor.getDialogComments()));
+        cancel.addActionListener(new CancelBasic(_w.getDialogComments()));
         all_.add(cancel);
-        windowCdmEditor.getDialogComments().setContentPane(all_);
-        windowCdmEditor.getDialogComments().pack();
-        windowCdmEditor.getDialogComments().setVisible(true);
+        _w.getDialogComments().setContentPane(all_);
+        _w.getDialogComments().pack();
+        _w.getDialogComments().setVisible(true);
     }
 
     public CustList<CommentDelimiters> getComments() {
         return comments;
-    }
-
-    public WindowCdmEditor getWindowCdmEditor() {
-        return windowCdmEditor;
     }
 
     public AbsPlainButton getAdd() {

@@ -12,7 +12,6 @@ public final class NavRowColAction implements AbsActionListener {
     @Override
     public void action() {
         outputDialogNavLine = new OutputDialogNavLine(current);
-        outputDialogNavLine.update();
     }
 
     public OutputDialogNavLine getOutputDialogNavLine() {

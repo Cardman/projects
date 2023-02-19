@@ -13,7 +13,6 @@ public final class ChangeCommentsEvent implements AbsActionListener {
     @Override
     public void action() {
         outputDialogComments = new OutputDialogComments(windowCdmEditor);
-        outputDialogComments.update();
     }
 
     public OutputDialogComments getOutputDialogComments() {

@@ -6,15 +6,17 @@ import code.util.CustList;
 public final class ValidateComments implements AbsActionListener {
     private final OutputDialogComments output;
     private final CustList<EditCommentRow> comments;
+    private final WindowCdmEditor windowCdmEditor;
 
-    public ValidateComments(OutputDialogComments _w, CustList<EditCommentRow> _com) {
+    public ValidateComments(OutputDialogComments _w, CustList<EditCommentRow> _com, WindowCdmEditor _ed) {
         this.output = _w;
         this.comments = _com;
+        windowCdmEditor = _ed;
     }
 
     @Override
     public void action() {
-        output.getWindowCdmEditor().getDialogComments().setVisible(false);
+        windowCdmEditor.getDialogComments().setVisible(false);
         output.getComments().clear();
         int len_ = comments.size();
         for (int i = 0; i < len_; i++) {
@@ -22,7 +24,7 @@ public final class ValidateComments implements AbsActionListener {
             e_.updateComment();
             output.getComments().add(e_.getComment());
         }
-        output.getWindowCdmEditor().updateComments(output.getComments());
-        output.getWindowCdmEditor().afterChangingSyntaxPreferences();
+        windowCdmEditor.updateComments(output.getComments());
+        windowCdmEditor.afterChangingSyntaxPreferences();
     }
 }

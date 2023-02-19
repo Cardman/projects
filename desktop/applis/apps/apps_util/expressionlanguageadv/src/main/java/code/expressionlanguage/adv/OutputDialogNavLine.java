@@ -7,19 +7,16 @@ import code.gui.initialize.AbstractProgramInfos;
 
 public final class OutputDialogNavLine {
     private final TabEditor tab;
-    private final WindowCdmEditor windowCdmEditor;
     private int index=-1;
-    private AbsPlainButton val;
-    private AbsPlainButton cancel;
-    private AbsSpinner row;
-    private AbsSpinner col;
+    private final AbsPlainButton val;
+    private final AbsPlainButton cancel;
+    private final AbsSpinner row;
+    private final AbsSpinner col;
 
     public OutputDialogNavLine(TabEditor _w) {
         tab = _w;
-        windowCdmEditor = _w.getWindowEditor();
-    }
-    public void update() {
-        AbstractProgramInfos factories_ = windowCdmEditor.getCommonFrame().getFrames();
+        WindowCdmEditor mainFr_ = _w.getWindowEditor();
+        AbstractProgramInfos factories_ = mainFr_.getCommonFrame().getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         row = factories_.getCompoFactory().newSpinner(1, 1, Integer.MAX_VALUE, 1);
         row.addChangeListener(new RowColStateChangedEvent(this));
@@ -28,14 +25,14 @@ public final class OutputDialogNavLine {
         col.addChangeListener(new RowColStateChangedEvent(this));
         all_.add(col);
         val = factories_.getCompoFactory().newPlainButton("OK");
-        val.addActionListener(new ValidateNavLine(this));
+        val.addActionListener(new ValidateNavLine(this, mainFr_));
         all_.add(val);
         cancel = factories_.getCompoFactory().newPlainButton("KO");
-        cancel.addActionListener(new CancelBasic(windowCdmEditor.getDialogNavigLine()));
+        cancel.addActionListener(new CancelBasic(mainFr_.getDialogNavigLine()));
         all_.add(cancel);
-        windowCdmEditor.getDialogNavigLine().setContentPane(all_);
-        windowCdmEditor.getDialogNavigLine().pack();
-        windowCdmEditor.getDialogNavigLine().setVisible(true);
+        mainFr_.getDialogNavigLine().setContentPane(all_);
+        mainFr_.getDialogNavigLine().pack();
+        mainFr_.getDialogNavigLine().setVisible(true);
     }
 
     public TabEditor getTab() {
@@ -48,10 +45,6 @@ public final class OutputDialogNavLine {
 
     public AbsSpinner getRow() {
         return row;
-    }
-
-    public WindowCdmEditor getWindowCdmEditor() {
-        return windowCdmEditor;
     }
 
     public AbsPlainButton getCancel() {

@@ -13,7 +13,6 @@ public final class ChangeTabulationsEvent implements AbsActionListener {
     @Override
     public void action() {
         outputDialogTabs = new OutputDialogTab(windowCdmEditor);
-        outputDialogTabs.update();
     }
 
     public OutputDialogTab getOutputDialogTabs() {
