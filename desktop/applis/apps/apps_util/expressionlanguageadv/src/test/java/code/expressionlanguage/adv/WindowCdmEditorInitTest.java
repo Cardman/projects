@@ -135,30 +135,26 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void refreshTree1() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject(),new KeyActionEvent(false,false,false),GuiConstants.VK_F5);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
     }
     @Test
     public void refreshTree2() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject(),new KeyActionEvent(true,true,false),GuiConstants.VK_F5);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
     }
     @Test
     public void refreshTree3() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject(),new KeyActionEvent(true,false,true),GuiConstants.VK_F5);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
     }
     @Test
     public void refreshTree4() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject(),new KeyActionEvent(true,false,false),-1);
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
     }
     @Test
     public void refreshTree5() {
         WindowCdmEditor w_ = windowLoadDefTwiceRefresh(newMockProgramInfosInitConfNoDeepProject(),new KeyActionEvent(true,false,false),GuiConstants.VK_F5);
-        assertEq(1,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
-        assertEq("under/",((AbstractMutableTreeNode)w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()).getUserObject());
-        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
-        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
         ((MockCustComponent)w_.getFolderSystem().getTree()).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
         assertEq(2,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));

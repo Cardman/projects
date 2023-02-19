@@ -237,6 +237,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 return false;
             }
         }
+        refresh(str_);
         return true;
     }
 
@@ -308,7 +309,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             editors.selectIndex(tabs.getLastIndex());
         }
         applyTreeChangeSelected(false);
-        refresh(str_);
     }
 
     void refresh(String _str) {
