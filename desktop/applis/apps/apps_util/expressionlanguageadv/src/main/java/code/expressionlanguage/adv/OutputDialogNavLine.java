@@ -4,12 +4,10 @@ import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 import code.gui.AbsSpinner;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractAtomicBoolean;
 
 public final class OutputDialogNavLine {
     private final TabEditor tab;
     private final WindowCdmEditor windowCdmEditor;
-    private final AbstractAtomicBoolean valid;
     private int index=-1;
     private AbsPlainButton val;
     private AbsPlainButton cancel;
@@ -19,8 +17,6 @@ public final class OutputDialogNavLine {
     public OutputDialogNavLine(TabEditor _w) {
         tab = _w;
         windowCdmEditor = _w.getWindowEditor();
-        AbstractProgramInfos factories_ = windowCdmEditor.getCommonFrame().getFrames();
-        valid = factories_.getThreadFactory().newAtomicBoolean();
     }
     public void update() {
         AbstractProgramInfos factories_ = windowCdmEditor.getCommonFrame().getFrames();
@@ -40,10 +36,6 @@ public final class OutputDialogNavLine {
         windowCdmEditor.getDialogNavigLine().setContentPane(all_);
         windowCdmEditor.getDialogNavigLine().pack();
         windowCdmEditor.getDialogNavigLine().setVisible(true);
-    }
-
-    public AbstractAtomicBoolean getValid() {
-        return valid;
     }
 
     public TabEditor getTab() {

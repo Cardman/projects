@@ -14,6 +14,7 @@ public final class ValidateComments implements AbsActionListener {
 
     @Override
     public void action() {
+        output.getWindowCdmEditor().getDialogComments().setVisible(false);
         output.getComments().clear();
         int len_ = comments.size();
         for (int i = 0; i < len_; i++) {
@@ -22,7 +23,6 @@ public final class ValidateComments implements AbsActionListener {
             output.getComments().add(e_.getComment());
         }
         output.getWindowCdmEditor().updateComments(output.getComments());
-        output.getValid().set(true);
-        output.getWindowCdmEditor().getDialogComments().setVisible(false);
+        output.getWindowCdmEditor().afterChangingSyntaxPreferences();
     }
 }

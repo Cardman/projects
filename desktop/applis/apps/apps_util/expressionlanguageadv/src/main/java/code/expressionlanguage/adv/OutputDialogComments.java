@@ -5,13 +5,11 @@ import code.gui.AbsPanel;
 import code.gui.AbsPlainButton;
 import code.gui.AbsScrollPane;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractAtomicBoolean;
 import code.util.CustList;
 
 public final class OutputDialogComments {
     private final WindowCdmEditor windowCdmEditor;
     private final CustList<CommentDelimiters> comments;
-    private final AbstractAtomicBoolean valid;
     private CustList<EditCommentRow> commentsRows = new CustList<EditCommentRow>();
     private AbsPlainButton add;
     private AbsPlainButton rem;
@@ -19,9 +17,7 @@ public final class OutputDialogComments {
     private AbsPlainButton cancel;
     public OutputDialogComments(WindowCdmEditor _w) {
         windowCdmEditor = _w;
-        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         comments = new CustList<CommentDelimiters>(_w.getComments());
-        valid = factories_.getThreadFactory().newAtomicBoolean();
     }
     public void update() {
         int len_ = comments.size();
@@ -51,10 +47,6 @@ public final class OutputDialogComments {
         windowCdmEditor.getDialogComments().setContentPane(all_);
         windowCdmEditor.getDialogComments().pack();
         windowCdmEditor.getDialogComments().setVisible(true);
-    }
-
-    public AbstractAtomicBoolean getValid() {
-        return valid;
     }
 
     public CustList<CommentDelimiters> getComments() {

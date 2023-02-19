@@ -23,7 +23,6 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
-import code.threads.AbstractAtomicBoolean;
 import code.util.*;
 import code.util.core.StringUtil;
 
@@ -412,10 +411,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return execConf;
     }
 
-    public void afterChangingSyntaxPreferences(AbstractAtomicBoolean _valid) {
-        if (!_valid.get()) {
-            return;
-        }
+    public void afterChangingSyntaxPreferences() {
         saveConf();
         updateCurrentTab();
     }

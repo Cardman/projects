@@ -5,7 +5,6 @@ import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
-import code.threads.AbstractAtomicBoolean;
 import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.StringList;
@@ -121,10 +120,7 @@ public final class TabEditor {
         panel.add(navModifPanel);
     }
 
-    public void goToRowCol(AbstractAtomicBoolean _valid) {
-        if (!_valid.get()) {
-            return;
-        }
+    public void afterValidate() {
         center.select(navigateIndex,navigateIndex);
         navigateIndex=-1;
     }

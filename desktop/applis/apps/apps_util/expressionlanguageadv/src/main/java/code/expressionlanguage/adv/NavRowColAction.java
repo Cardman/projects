@@ -13,7 +13,6 @@ public final class NavRowColAction implements AbsActionListener {
     public void action() {
         outputDialogNavLine = new OutputDialogNavLine(current);
         outputDialogNavLine.update();
-        current.goToRowCol(outputDialogNavLine.getValid());
     }
 
     public OutputDialogNavLine getOutputDialogNavLine() {

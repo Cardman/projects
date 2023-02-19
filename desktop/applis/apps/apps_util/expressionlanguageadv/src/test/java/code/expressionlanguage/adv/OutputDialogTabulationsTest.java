@@ -10,8 +10,6 @@ public final class OutputDialogTabulationsTest extends EquallableElAdvUtil {
         OutputDialogTab o_ = tabulations(w_);
         o_.getTabulation().setValue(8);
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
-        assertTrue(o_.getValid().get());
-        w_.afterChangingSyntaxPreferences(o_.getValid());
         assertEq(8,w_.getTabWidth());
     }
 
@@ -21,8 +19,6 @@ public final class OutputDialogTabulationsTest extends EquallableElAdvUtil {
         OutputDialogTab o_ = tabulations(w_);
         o_.getTabulation().setValue(8);
         ((MockPlainButton)o_.getCancel()).getActionListeners().get(0).action();
-        assertFalse(o_.getValid().get());
-        w_.afterChangingSyntaxPreferences(o_.getValid());
         assertEq(4,w_.getTabWidth());
     }
 }
