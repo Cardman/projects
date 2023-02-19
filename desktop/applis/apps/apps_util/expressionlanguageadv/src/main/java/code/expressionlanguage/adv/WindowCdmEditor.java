@@ -168,6 +168,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         refreshList(acc_);
         folderSystem.select(folderSystem.getRoot());
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
+        folderSystem.getTree().addKeyListener(new KeyTreeListener(this));
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
@@ -184,7 +185,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             openedFiles.add(src_.get(i));
             String name_ = fullPath_.substring(fullPath_.lastIndexOf('/')+1);
             TabEditor te_ = new TabEditor(this,fullPath_);
-            te_.getCenter().setText(dec_);
+            te_.getCenter().setText(StringUtil.replace(dec_,"\r",""));
             tabs.add(te_);
             editors.addIntTab(name_, te_.getPanel(),fullPath_);
         }
@@ -229,16 +230,13 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 String name_ = str_.substring(str_.lastIndexOf('/')+1);
                 TabEditor te_ = new TabEditor(this,str_);
                 String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
-                te_.getCenter().setText(dec_);
+                te_.getCenter().setText(StringUtil.replace(dec_,"\r",""));
                 tabs.add(te_);
                 editors.addIntTab(name_, te_.getPanel(), str_);
                 getEditors().selectIndex(tabs.getLastIndex());
                 return false;
             }
         }
-        folderSystem.removeAllChildren();
-        refreshList(str_);
-        MutableTreeNodeUtil.reload(folderSystem);
         return true;
     }
 
@@ -289,12 +287,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
-            applyTreeChangeSelected(false);
             return;
         }
         String elt_ = str_+_ans.getTypedText();
         if (frs_.getFileCoreStream().newFile(elt_).exists() || !elt_.startsWith(currentFolder+StreamTextFile.SEPARATEUR+currentFolderSrc+StreamTextFile.SEPARATEUR)) {
-            applyTreeChangeSelected(false);
             return;
         }
         if (elt_.endsWith("/")) {
@@ -309,8 +305,16 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             TabEditor te_ = new TabEditor(this,elt_);
             tabs.add(te_);
             editors.addIntTab(name_, te_.getPanel(), elt_);
+            editors.selectIndex(tabs.getLastIndex());
         }
         applyTreeChangeSelected(false);
+        refresh(str_);
+    }
+
+    void refresh(String _str) {
+        folderSystem.removeAllChildren();
+        refreshList(_str);
+        MutableTreeNodeUtil.reload(folderSystem);
     }
 
     public void updateDoc() {

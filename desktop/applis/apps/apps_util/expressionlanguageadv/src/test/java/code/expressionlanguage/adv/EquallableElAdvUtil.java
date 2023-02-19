@@ -76,12 +76,47 @@ public abstract class EquallableElAdvUtil {
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
         AbsTreeGui tr_ = w_.getFolderSystem();
+//        tr_.select(tr_.getRoot().getFirstChild());
+//        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+//        ((MockCustComponent)tr_.getTree()).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
         tr_.select(tr_.getRoot().getFirstChild());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         tr_.select(tr_.getRoot().getFirstChild());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        return w_;
+    }
+
+    public static WindowCdmEditor windowLoadDefTwiceOtherPlace(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockCustComponent)tr_.getTree()).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        return w_;
+    }
+
+    public static WindowCdmEditor windowLoadDefTwiceRefresh(AbstractProgramInfos _pr, KeyActionEvent _modifier, int _keyValue) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
+        ((MockCustComponent)tr_.getTree()).getKeyPressListeners().get(0).keyPressed(_modifier,(char)0,_keyValue);
         return w_;
     }
     public static WindowCdmEditor windowLoadDefNoTab(AbstractProgramInfos _pr) {
@@ -185,6 +220,20 @@ public abstract class EquallableElAdvUtil {
         lines_.add("en");
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        return pr_;
+    }
+    public static MockProgramInfos newMockProgramInfosInitConfNoDeepProject() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
+        StreamTextFile.saveTextFile("/project/sources/src/under/file1", "",pr_.getStreams());
+        StreamTextFile.saveTextFile("/project/sources/src/under/file2", "",pr_.getStreams());
         return pr_;
     }
     public static MockProgramInfos newMockProgramInfosInitConfNoDirConfSave(String _folder, String _conf) {

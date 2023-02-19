@@ -336,7 +336,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventStruct)ev_).keyPressed(new KeyActionEvent(0),'0',0);
         ((EventStruct)ev_).keyReleased(new KeyActionEvent(0),'0',0);
         ((EventStruct)ev_).keyTyped(new KeyActionEvent(0),'0');
-        ((EventStruct)ev_).valueChanged(new MutableTreeNodeCore());
+        ((EventStruct)ev_).valueChanged(new MockMutableTreeNode(""));
         ((EventStruct)ev_).valueChanged(0,0);
         ((EventStruct)ev_).valueChanged(new SelectionInfo(0,0,true));
         ((EventStruct)ev_).stateChanged();
@@ -398,7 +398,7 @@ public final class EventStructTest extends EquallableElUtUtil {
         ((EventFunctionalInstance)ev_).keyPressed(new KeyActionEvent(0),'0',0);
         ((EventFunctionalInstance)ev_).keyReleased(new KeyActionEvent(0),'0',0);
         ((EventFunctionalInstance)ev_).keyTyped(new KeyActionEvent(0),'0');
-        ((EventFunctionalInstance)ev_).valueChanged(new MutableTreeNodeCore());
+        ((EventFunctionalInstance)ev_).valueChanged(new MockMutableTreeNode(""));
         ((EventFunctionalInstance)ev_).valueChanged(0,0);
         ((EventFunctionalInstance)ev_).valueChanged(new SelectionInfo(0,0,true));
         ((EventFunctionalInstance)ev_).stateChanged();

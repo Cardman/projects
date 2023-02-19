@@ -60,6 +60,7 @@ public final class DefMutableTreeNode extends MutableTreeNodeNav implements Abst
     @Override
     public int removeAllChildren() {
         int nb_ = MutableTreeNodeCoreUtil.getChildCount(this);
+        MutableTreeNodeCoreUtil.removeAllChildren(this);
         node.removeAllChildren();
         return nb_;
     }
