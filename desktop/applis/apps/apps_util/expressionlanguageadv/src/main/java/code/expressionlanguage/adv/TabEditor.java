@@ -37,7 +37,6 @@ public final class TabEditor {
     private final AbsEnabledAction redo;
     private final AbstractBaseExecutorService taskManager;
     private boolean enabledSyntax = true;
-    private int navigateIndex = -1;
     private int currentPart = -1;
     private int currentText = -1;
     private String fullPath;
@@ -120,9 +119,8 @@ public final class TabEditor {
         panel.add(navModifPanel);
     }
 
-    public void afterValidate() {
-        center.select(navigateIndex,navigateIndex);
-        navigateIndex=-1;
+    public void afterValidate(int _dest) {
+        center.select(_dest,_dest);
     }
     public int index(int _row, int _col) {
         int adjRow_ = _row - 1;
@@ -316,7 +314,4 @@ public final class TabEditor {
         return fullPath;
     }
 
-    public void setNavigateIndex(int _n) {
-        this.navigateIndex = _n;
-    }
 }

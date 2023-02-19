@@ -13,7 +13,6 @@ public final class ValidateNavLine implements AbsActionListener {
     public void action() {
         output.getWindowCdmEditor().getDialogNavigLine().setVisible(false);
         int index_ = output.getIndex();
-        output.getTab().setNavigateIndex(index_);
-        output.getTab().afterValidate();
+        output.getTab().afterValidate(index_);
     }
 }
