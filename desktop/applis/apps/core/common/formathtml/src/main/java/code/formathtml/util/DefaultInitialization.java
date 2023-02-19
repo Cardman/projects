@@ -19,6 +19,7 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.StringStruct;
 import code.formathtml.DualNavigationContext;
@@ -40,6 +41,7 @@ public final class DefaultInitialization {
     private final String classDbName;
 
     private final String methodName;
+    private LoggableLgNames log;
     private ContextEl context;
     private String keyWordDigit = "";
 
@@ -52,12 +54,17 @@ public final class DefaultInitialization {
         classDbName = _clName;
         methodName = _methodName;
     }
+
+    public void setLog(LoggableLgNames _l) {
+        this.log = _l;
+    }
+
     public String execute(Navigation _nav) {
         String content_ = fileNames.getVal(fileName);
         if (content_ == null) {
             return "";
         }
-        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(stds);
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(stds,log);
         AbstractFileBuilder fileBuilder_;
         fileBuilder_ = stds.newFileBuilder();
         DualAnalyzedContext du_ = _nav.loadConfiguration(content_, lgCode, stds, fileBuilder_, def_);

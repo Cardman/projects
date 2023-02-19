@@ -549,7 +549,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         InitializationLgNamesRender.basicStandards(lgNames_);
         lgNames_.getContent().getMathRef().setAliasMath("java.lang.$math");
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = new Forwards(lgNames_, lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases()), opt_);
+        Forwards forwards_ = fwd(lgNames_, BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases()), opt_);
         page_.setLogErr(forwards_);
         ReadConfiguration.loadContext(lgNames_,page_,forwards_,new KeyWords(),new AnalysisMessages(),new RendKeyWords());
         assertTrue(page_.isEmptyStdError());
@@ -561,6 +561,9 @@ public abstract class CommonRender extends EquallableRenderUtil {
         FileBlock file_ = new FileBlock(0, false, "", new AdvFileEscapedCalc(new IntTreeMap<Integer>()));
         file_.metrics("");
         return new DualNavigationContext(nav_,new DualAnalyzedContext(forwards_,page_,lgNames_,dual_, file_));
+    }
+    public static Forwards fwd(BeanCustLgNames _lgNames, BeanFileBuilder _builder, Options _opt) {
+        return new Forwards(_lgNames,new RendLoggableSample(),_builder,_opt);
     }
 
     protected static Options ops(String[] _types) {

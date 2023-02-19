@@ -33,7 +33,6 @@ import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
-import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
 import code.formathtml.*;
@@ -59,7 +58,7 @@ import code.sml.*;
 import code.util.*;
 import code.util.core.StringUtil;
 
-public abstract class BeanCustLgNames extends BeanLgNames implements LoggableLgNames, WithPageInfos {
+public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInfos {
 
     private static final String REF_TAG = "#";
 

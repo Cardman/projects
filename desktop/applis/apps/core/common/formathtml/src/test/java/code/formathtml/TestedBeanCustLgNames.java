@@ -21,11 +21,6 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     }
 
     @Override
-    public void logIssue(String _info, ReportedMessages _rep) {
-        _rep.notAllEmptyErrors();
-    }
-
-    @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
         return new TestedContextEl(new CommonExecutionInfos(new TestedRenderInterceptorStdCaller(),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new DefaultInitializer()));
     }

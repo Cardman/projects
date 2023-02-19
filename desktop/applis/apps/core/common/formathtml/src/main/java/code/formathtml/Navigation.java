@@ -51,13 +51,13 @@ public final class Navigation {
             context_.setKo(true);
             return new DualAnalyzedContext(null,page_,_lgNames, context_, _file);
         }
-        return innerLoad(_lgCode, _lgNames, _fileBuilder, _confLoad, _doc, _file);
+        return innerLoad(_lgCode, _fileBuilder, _confLoad, _doc, _file);
     }
 
-    public DualAnalyzedContext innerLoad(String _lgCode, BeanCustLgNames _lgNames, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc, FileBlock _file) {
+    public DualAnalyzedContext innerLoad(String _lgCode, AbstractFileBuilder _fileBuilder, DefaultConfigurationLoader _confLoad, Document _doc, FileBlock _file) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         session = new Configuration();
-        DualAnalyzedContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_,_lgNames, _file);
+        DualAnalyzedContext ctx_ = _confLoad.load(session, _lgCode, _doc, _fileBuilder, page_, _file);
         if (!ctx_.getContext().isKo()) {
             session.init(ctx_.getContext());
         }

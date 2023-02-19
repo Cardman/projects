@@ -95,7 +95,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards fwd_ = new Forwards(lgName_,lgName_, fileBuilder_, opts_);
+        Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
@@ -117,7 +117,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
-        Forwards fwd_ = new Forwards(lgName_,lgName_, fileBuilder_, opts_);
+        Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
@@ -135,7 +135,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards fwd_ = new Forwards(lgName_,lgName_, null, opts_);
+        Forwards fwd_ = fwd(lgName_, null, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
@@ -152,7 +152,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Options opts_ = new Options();
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards fwd_ = new Forwards(lgName_,lgName_, null, opts_);
+        Forwards fwd_ = fwd(lgName_, null, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);

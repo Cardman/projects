@@ -1531,7 +1531,7 @@ public final class RenderInitNavTest extends CommonRender {
         int tabWidth_ = 4;
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         BeanFileBuilder fileBuilder_ = BeanFileBuilder.newInstance(lgNames_.getContent(), lgNames_.getBeanAliases());
-        Forwards fwd_ = new Forwards(lgNames_,lgNames_, fileBuilder_, opt_);
+        Forwards fwd_ = fwd(lgNames_, fileBuilder_, opt_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
         ContextFactory.validatedStds(fwd_, a_, kw_, new CustList<CommentDelimiters>(), opt_, lgNames_.getContent(), page_);
@@ -1565,7 +1565,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
-        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames);
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames,new RendLoggableSample());
         return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), def_);
     }
     private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
@@ -1592,13 +1592,16 @@ public final class RenderInitNavTest extends CommonRender {
         files_.addEntry("conf_cl.txt","my_file");
         files_.addEntry("my_file", _brCode);
         files_.addEntry("page.html", _page);
-        return new DefaultInitialization(stds_,new DefSymbolFactory(),"", cn_, files_, _clName, _methodName);
+        DefaultInitialization de_ = new DefaultInitialization(stds_, new DefSymbolFactory(), "", cn_, files_, _clName, _methodName);
+        de_.setLog(new RendLoggableSample());
+        return de_;
     }
 
     private static String initDbKoConf() {
         BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
         basicStandards(stds_);
         DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"","conf.xml",new StringMap<String>(),"","");
+        de_.setLog(new RendLoggableSample());
         return de_.execute(new Navigation());
     }
 
@@ -1609,6 +1612,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry(cn_," ");
         DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"",cn_,files_,"","");
+        de_.setLog(new RendLoggableSample());
         return de_.execute(new Navigation());
     }
 }

@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.blocks.FileBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LoggableLgNames;
 import code.formathtml.Configuration;
 import code.formathtml.ReadConfiguration;
 import code.sml.Document;
@@ -16,18 +17,20 @@ public final class DefaultConfigurationLoader {
     private static final String FIELD = "field";
     private static final String VALUE = "value";
     private final BeanCustLgNames stds;
+    private final LoggableLgNames log;
 
-    public DefaultConfigurationLoader(BeanCustLgNames _stds) {
+    public DefaultConfigurationLoader(BeanCustLgNames _stds, LoggableLgNames _loggable) {
         this.stds = _stds;
+        log = _loggable;
     }
 
-    public DualAnalyzedContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page, BeanCustLgNames _lgNames, FileBlock _file) {
+    public DualAnalyzedContext load(Configuration _configuration, String _lgCode, Document _document, AbstractFileBuilder _fileBuilder, AnalyzedPageEl _page, FileBlock _file) {
         DualConfigurationContext d_ = new DualConfigurationContext();
         d_.setFileBuilder(_fileBuilder);
-        return specificLoad(_configuration,_lgCode,_document, _page, _lgNames, d_, _file);
+        return specificLoad(_configuration,_lgCode,_document, _page, d_, _file);
     }
 
-    public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, BeanCustLgNames _stds, DualConfigurationContext _context, FileBlock _file) {
+    public DualAnalyzedContext specificLoad(Configuration _configuration, String _lgCode, Document _document, AnalyzedPageEl _page, DualConfigurationContext _context, FileBlock _file) {
         update(_configuration,_document, _context);
 
         boolean ok_ = false;
@@ -38,7 +41,7 @@ public final class DefaultConfigurationLoader {
             }
         }
         Options options_ = _context.getOptions();
-        Forwards forwards_ = new Forwards(_stds, _stds, _context.getFileBuilder(), options_);
+        Forwards forwards_ = new Forwards(stds, log, _context.getFileBuilder(), options_);
         for (Element c: _document.getDocumentElement().getChildElements()) {
             if (specific(_configuration,_context,c)) {
                 continue;
@@ -49,7 +52,7 @@ public final class DefaultConfigurationLoader {
             }
         }
         _context.setKo(!ok_);
-        return new DualAnalyzedContext(forwards_,_page,_stds,_context, _file);
+        return new DualAnalyzedContext(forwards_,_page,stds,_context, _file);
     }
     private static boolean specific(Configuration _configuration, DualConfigurationContext _context, Element _c) {
         String fieldName_ = _c.getAttribute(FIELD);

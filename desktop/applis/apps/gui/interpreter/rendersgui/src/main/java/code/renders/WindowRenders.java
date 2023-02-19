@@ -169,6 +169,7 @@ public final class WindowRenders extends GroupFrame {
             lgCode_ = "";
         }
         DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_), lgCode_, confRel_, zipFiles_, clName_, mName_);
+        ini_.setLog(lgNames_.getExecContent());
         session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));
     }
     private static Navigation nav() {

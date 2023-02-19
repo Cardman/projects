@@ -2,16 +2,16 @@ package code.renders.utilcompo;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ParseLinesArgUtil;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
-import code.expressionlanguage.stds.LoggableLgNames;
 import code.expressionlanguage.structs.AbstractFunctionalInstance;
 import code.expressionlanguage.structs.LambdaStruct;
 import code.expressionlanguage.structs.StringStruct;
@@ -28,7 +28,7 @@ import code.util.StringList;
 import code.util.StringMap;
 import code.util.core.StringUtil;
 
-public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases, LoggableLgNames {
+public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNamesWithNewAliases {
     private final LgNamesUtilsContent execContent;
     private final StringMap<String> properties = MessCdmRenderGr.ms();
     public LgNamesRenderUtils(FileInfos _infos,AbstractInterceptor _inter) {
@@ -39,11 +39,6 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public LgNamesUtilsContent getExecContent() {
         return execContent;
-    }
-
-    @Override
-    public void logIssue(String _info, ReportedMessages _rep) {
-        execContent.getInfos().tryLogIssue(_info);
     }
 
     @Override

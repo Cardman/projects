@@ -21,8 +21,9 @@ public final class LgNamesUtilsContent implements LoggableLgNames {
         infos = _infos;
     }
     @Override
-    public void logIssue(String _info, ReportedMessages _rep) {
+    public String logIssue(String _info, ReportedMessages _rep) {
         getInfos().tryLogIssue(_info);
+        return _info;
     }
     public void forwardAndClear(LgNamesContent _content, Classes _classes) {
         getExecutingBlocks().forwardAndClear(_content, getCustAliases(),_classes);
