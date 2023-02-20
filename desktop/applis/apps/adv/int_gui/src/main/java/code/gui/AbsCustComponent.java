@@ -4,6 +4,7 @@ import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
+import code.util.StringMap;
 
 public interface AbsCustComponent {
     boolean isAutoscrolls();
@@ -30,6 +31,11 @@ public interface AbsCustComponent {
     CustList<AbsMouseMotionListener> getMouseMotionListeners();
     CustList<AbsMouseWheelListener> getMouseWheelListeners();
     CustList<AbsKeyListener> getKeyListeners();
+    void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b);
+
+    StringMap<AbsEnabledAction> getActionsMap();
+
+
     void requestFocus();
     boolean isVisible();
     void setVisible(boolean _b);

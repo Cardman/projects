@@ -6,6 +6,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.IdList;
+import code.util.StringMap;
 import code.util.core.NumberUtil;
 
 public abstract class MockCustComponent implements AbsCustComponent {
@@ -42,6 +43,7 @@ public abstract class MockCustComponent implements AbsCustComponent {
     private final IdList<AbsKeyListener> keyListeners = new IdList<AbsKeyListener>();
     private final IdList<AbsKeyListenerPress> keyPressListeners = new IdList<AbsKeyListenerPress>();
     private final IdList<AbsKeyListenerReleased> keyReleasedListeners = new IdList<AbsKeyListenerReleased>();
+    private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
     @Override
     public boolean isAutoscrolls() {
         return autoscrolls;
@@ -191,6 +193,16 @@ public abstract class MockCustComponent implements AbsCustComponent {
     @Override
     public CustList<AbsKeyListener> getKeyListeners() {
         return keyListeners;
+    }
+
+    @Override
+    public void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b) {
+        actions.put(_a+","+_b,_action);
+    }
+
+    @Override
+    public StringMap<AbsEnabledAction> getActionsMap() {
+        return actions;
     }
 
     @Override

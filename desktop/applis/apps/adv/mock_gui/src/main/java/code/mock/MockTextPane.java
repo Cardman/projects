@@ -2,26 +2,14 @@ package code.mock;
 
 import code.gui.AbsAttrSet;
 import code.gui.AbsTextPane;
-import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.StringMap;
 
 public final class MockTextPane extends MockTxtComponent implements AbsTextPane {
-    private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
     private final StringMap<CustList<AbsAttrSet>> attrSets = new StringMap<CustList<AbsAttrSet>>();
     private AbsAttrSet paragraph = new MockAttrSet();
 
-
-    @Override
-    public void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b) {
-        actions.put(_a+","+_b,_action);
-    }
-
-    @Override
-    public StringMap<AbsEnabledAction> getActionsMap() {
-        return actions;
-    }
 
     @Override
     public void setFontSize(int _size) {

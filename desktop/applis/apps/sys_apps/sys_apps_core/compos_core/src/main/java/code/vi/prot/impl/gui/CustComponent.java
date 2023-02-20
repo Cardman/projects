@@ -7,6 +7,7 @@ import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.util.CustList;
 import code.util.IdMap;
+import code.util.StringMap;
 import code.vi.prot.impl.DefImage;
 import code.vi.prot.impl.gui.events.*;
 
@@ -21,6 +22,7 @@ public abstract class CustComponent implements AbsCustComponent {
     private final IdMap<AbsMouseListener, WrMouseListener> mapMouse = new IdMap<AbsMouseListener, WrMouseListener>();
     private final IdMap<AbsMouseMotionListener, WrMouseMotionListener> mapMouseMotion = new IdMap<AbsMouseMotionListener, WrMouseMotionListener>();
     private final IdMap<AbsMouseWheelListener, WrMouseWheelListener> mapMouseWheel = new IdMap<AbsMouseWheelListener, WrMouseWheelListener>();
+    private final StringMap<AbsEnabledAction> actions = new StringMap<AbsEnabledAction>();
     private final CustList<AbsCustComponent> children = new CustList<AbsCustComponent>();
     private int backGroundValue;
     private int foreGroundValue;
@@ -133,6 +135,19 @@ public abstract class CustComponent implements AbsCustComponent {
         WrKeyListener wr_ = mapKey.getVal(_l);
         getNatComponent().removeKeyListener(wr_);
         mapKey.removeKey(_l);
+    }
+
+    @Override
+    public void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b) {
+        WrAbstractAction w_ = (WrAbstractAction)_action;
+        getNatComponent().getActionMap().put(_a+","+_b,w_);
+        getNatComponent().getInputMap(JComponent.WHEN_FOCUSED).put(KeyStroke.getKeyStroke(_a,_b),_a+","+_b);
+        actions.put(_a+","+_b,w_);
+    }
+
+    @Override
+    public StringMap<AbsEnabledAction> getActionsMap() {
+        return actions;
     }
 
     public CustList<AbsMouseListener> getMouseListeners() {
