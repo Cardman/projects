@@ -392,7 +392,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertEq(15,clip_.getMicrosecondLength());
         sound_.restore();
         assertFalse(sound_.isActive());
-        sound_.recordSongInFile("");
+//        sound_.recordSongInFile("");
         pr_.getThreadFactory().sleep(1);
         mf_.dispatchExit();
         mf_.setVisible(false);

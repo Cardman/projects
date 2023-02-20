@@ -214,7 +214,7 @@ public abstract class ProgramInfos extends ProgramInfosBase implements AbstractP
 
     @Override
     public AbsSoundRecord newSoundPattern() {
-        return new SoundRecord(getStreams());
+        return new SoundRecord();
     }
 
     @Override

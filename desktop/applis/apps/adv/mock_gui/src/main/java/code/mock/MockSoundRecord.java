@@ -36,11 +36,11 @@ public final class MockSoundRecord implements AbsSoundRecord {
     public byte[] recordSong() {
         return convert();
     }
-
-    @Override
-    public byte[] recordSongInFile(String _file) {
-        return convert();
-    }
+//
+//    @Override
+//    public byte[] recordSongInFile(String _file) {
+//        return convert();
+//    }
 
     private byte[] convert() {
         int size_ = bytes.size();

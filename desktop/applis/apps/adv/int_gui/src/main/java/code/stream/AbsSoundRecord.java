@@ -8,7 +8,7 @@ public interface AbsSoundRecord {
     void restore();
     boolean isActive();
     byte[] recordSong();
-    byte[] recordSongInFile(String _file);
+//    byte[] recordSongInFile(String _file);
     void stop();
     AbstractAtomicBoolean getState();
 

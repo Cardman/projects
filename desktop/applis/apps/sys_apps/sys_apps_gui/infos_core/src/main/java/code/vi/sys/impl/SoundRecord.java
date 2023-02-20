@@ -4,16 +4,12 @@ import code.gui.GuiBaseUtil;
 import code.maths.litteralcom.MathExpUtil;
 import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
-import code.stream.StreamBinaryFile;
-import code.stream.core.TechStreams;
 import code.threads.AbstractAtomicBoolean;
 import code.vi.prot.impl.DefAtomicBoolean;
-import code.vi.prot.impl.DefaultFile;
 
 import javax.sound.sampled.*;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 
 public final class SoundRecord implements AbsSoundRecord {
     private AudioInputStream audioInputStream;
@@ -22,7 +18,6 @@ public final class SoundRecord implements AbsSoundRecord {
     private TargetDataLine currentLine;
     private DataLine.Info candidateInfo;
     private DataLine.Info currentInfo;
-    private final TechStreams str;
     private final AbstractAtomicBoolean state = new DefAtomicBoolean(false);
     private ByteArrayOutputStream out =new ByteArrayOutputStream();
     private int frameSizeInBytes;
@@ -30,10 +25,6 @@ public final class SoundRecord implements AbsSoundRecord {
     private byte[] data = new byte[0];
     private int numBytesRead;
     private long duration;
-
-    public SoundRecord(TechStreams _streams) {
-        str = _streams;
-    }
 
     @Override
     public boolean supported(long _sampleRate, int _sampleSize, int _channels, boolean _signed, boolean _bigEndian) {
@@ -88,16 +79,16 @@ public final class SoundRecord implements AbsSoundRecord {
             return new byte[0];
         }
     }
-    @Override
-    public byte[] recordSongInFile(String _file) {
-        try {
-            currentLine = line();
-            return rec(_file);
-        } catch (Exception e) {
-            currentLine = null;
-            return new byte[0];
-        }
-    }
+//    @Override
+//    public byte[] recordSongInFile(String _file) {
+//        try {
+//            currentLine = line();
+//            return rec(_file);
+//        } catch (Exception e) {
+//            currentLine = null;
+//            return new byte[0];
+//        }
+//    }
     private TargetDataLine line() {
         try {
             currentLine = (TargetDataLine)AudioSystem.getLine(currentInfo);
@@ -113,23 +104,23 @@ public final class SoundRecord implements AbsSoundRecord {
             return null;
         }
     }
-    private byte[] rec(String _file) {
-        byte[] w_ = new byte[0];
-        try {
-            // start capturing
-            AudioInputStream aisFile_ = new AudioInputStream(currentLine);
-            // start recording
-            File out_ = DefaultFile.newFile(_file);
-            DefaultFile def_ = new DefaultFile(_file);
-            AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, out_);
-            aisFile_.close();
-            w_ =  StreamBinaryFile.loadFile(_file,str).getBytes();
-            def_.delete();
-            return w_;
-        } catch (Exception e) {
-            return w_;
-        }
-    }
+//    private byte[] rec(String _file) {
+//        byte[] w_ = new byte[0];
+//        try {
+//            // start capturing
+//            AudioInputStream aisFile_ = new AudioInputStream(currentLine);
+//            // start recording
+//            File out_ = DefaultFile.newFile(_file);
+//            DefaultFile def_ = new DefaultFile(_file);
+//            AudioSystem.write(aisFile_, AudioFileFormat.Type.WAVE, out_);
+//            aisFile_.close();
+//            w_ =  StreamBinaryFile.loadFile(_file,str).getBytes();
+//            def_.delete();
+//            return w_;
+//        } catch (Exception e) {
+//            return w_;
+//        }
+//    }
 
     @Override
     public void stop() {
