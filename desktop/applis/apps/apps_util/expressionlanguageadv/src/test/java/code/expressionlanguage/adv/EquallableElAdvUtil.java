@@ -154,7 +154,16 @@ public abstract class EquallableElAdvUtil {
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         return w_;
     }
-
+    public static WindowCdmEditor windowLoadDefNoTabQuick(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild());
+        return w_;
+    }
     public static WindowCdmEditor windowLoadDefInit(WindowCdmEditor _first) {
         AbstractProgramInfos pr_ = _first.getCommonFrame().getFrames();
         pr_.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
@@ -373,6 +382,10 @@ public abstract class EquallableElAdvUtil {
 
     protected static void refresh(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F5,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    protected static void rename(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();

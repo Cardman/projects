@@ -314,4 +314,7 @@ public final class TabEditor {
         return fullPath;
     }
 
+    public void setFullPath(String _f) {
+        this.fullPath = _f;
+    }
 }

@@ -172,6 +172,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         refreshList(folderSystem.selectEvt(),acc_);
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
         folderSystem.registerKeyboardAction(frs_.getCompoFactory().wrap(new RefreshTreeAction(this)), GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
+        folderSystem.registerKeyboardAction(frs_.getCompoFactory().wrap(new RenameTreeAction(this)), GuiConstants.VK_F6, GuiConstants.CTRL_DOWN_MASK);
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
@@ -233,7 +234,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 return false;
             }
             if (!commonFrame.getFrames().getFileCoreStream().newFile(str_).exists()) {
-                removeIfOpened(str_);
+                closeIfOpened(str_);
             }
         }
         refresh(sel_,str_);
@@ -338,15 +339,46 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 }
                 break;
             }
-            removeIfOpened(candidate_);
+            closeIfOpened(candidate_);
             adj_ = (AbstractMutableTreeNode) adj_.getParent();
         }
-        adj_.removeAllChildren();
-        refreshList(adj_,adjPath_);
+        refParent(adj_, adjPath_);
+    }
+
+    void rename(TextAnswerValue _ans, AbstractMutableTreeNode _sel,String _str) {
+        if (_ans.getAnswer() != GuiConstants.YES_OPTION) {
+            return;
+        }
+        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) _sel.getParent();
+        String dest_ = buildPath(par_)+_ans.getTypedText();
+        if (!frs_.getFileCoreStream().newFile(_str).renameTo(frs_.getFileCoreStream().newFile(dest_))){
+            return;
+        }
+        int opened_ = indexOpened(_str);
+        String parentPath_ = dest_.substring(0,dest_.lastIndexOf('/')+1);
+        String name_ = dest_.substring(dest_.lastIndexOf('/')+1);
+        if (opened_ > -1) {
+            getEditors().setTitle(opened_,name_);
+            getEditors().setToolTipAt(opened_,dest_);
+            getTabs().get(opened_).setFullPath(dest_);
+        }
+        par_.remove(_sel);
+        refParent(par_,parentPath_);
+        for (AbstractMutableTreeNodeCore c: MutableTreeNodeCoreUtil.children(par_)) {
+            if (StringUtil.quickEq(name_,((AbstractMutableTreeNode)c).getUserObject())) {
+                folderSystem.select(c);
+            }
+        }
+    }
+
+    private void refParent(AbstractMutableTreeNode _parent, String _parentPath) {
+        _parent.removeAllChildren();
+        refreshList(_parent, _parentPath);
         MutableTreeNodeUtil.reload(folderSystem);
     }
 
-    private void removeIfOpened(String _path) {
+    private void closeIfOpened(String _path) {
         int opened_ = indexOpened(_path);
         if (opened_ > -1) {
             getEditors().selectIndex(opened_);
