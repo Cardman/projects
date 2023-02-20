@@ -63,7 +63,6 @@ public abstract class EquallableElAdvUtil {
         w_.updateCommentsInit(new StringList());
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         w_.getTabs().get(0).getWholeWord().setSelected(false);
         return w_;
@@ -76,14 +75,9 @@ public abstract class EquallableElAdvUtil {
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
         AbsTreeGui tr_ = w_.getFolderSystem();
-//        tr_.select(tr_.getRoot().getFirstChild());
-//        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
-//        ((MockCustComponent)tr_.getTree()).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         return w_;
     }
@@ -96,13 +90,10 @@ public abstract class EquallableElAdvUtil {
         w_.updateCommentsInit(new StringList());
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockCustComponent)tr_).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         return w_;
     }
@@ -116,11 +107,8 @@ public abstract class EquallableElAdvUtil {
         w_.updateCommentsInit(new StringList());
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         tr_.select(tr_.getRoot().getFirstChild().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         refresh(w_);
         saveTextFile("/project/sources/src/under/file1", "",w_);
         saveTextFile("/project/sources/src/under/file2", "",w_);
@@ -163,7 +151,6 @@ public abstract class EquallableElAdvUtil {
         w_.updateCommentsInit(new StringList());
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
-        tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
         return w_;
     }
