@@ -1,5 +1,6 @@
 package code.mock;
 
+import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.util.Ints;
 
@@ -100,5 +101,17 @@ public final class MockSoundRecord implements AbsSoundRecord {
     @Override
     public long millis() {
         return out.size();
+    }
+
+    public Ints getBytes() {
+        return bytes;
+    }
+
+    @Override
+    public AbsPlayBack build() {
+        if (out.isEmpty()) {
+            return null;
+        }
+        return new MockPlayBack(this);
     }
 }

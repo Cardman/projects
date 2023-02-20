@@ -435,4 +435,63 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         m_.getState().set(false);
         assertFalse(m_.getState().get());
     }
+    @Test
+    public void c19(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1));
+        m_.writeBytes();
+        AbsPlayBack p_ = m_.build();
+        p_.getState().set(true);
+        assertTrue(p_.getState().get());
+        assertEq(1,p_.readBytes());
+        p_.writeBytes();
+    }
+    @Test
+    public void c20(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1));
+        m_.writeBytes();
+        AbsPlayBack p_ = m_.build();
+        p_.getState().set(true);
+        assertTrue(p_.getState().get());
+        p_.readBytes();
+        assertEq(-1,p_.readBytes());
+        p_.writeBytes();
+    }
+    @Test
+    public void c21(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1));
+        m_.getState().set(true);
+        m_.build();
+        assertTrue(m_.getState().get());
+    }
+    @Test
+    public void c22(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4));
+        m_.writeBytes();
+        AbsPlayBack p_ = m_.build();
+        assertFalse(p_.prepare());
+    }
+    @Test
+    public void c23(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4,5,6,7,8));
+        m_.writeBytes();
+        AbsPlayBack p_ = m_.build();
+        assertTrue(p_.prepare());
+    }
+    @Test
+    public void c24(){
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16));
+        m_.writeBytes();
+        AbsPlayBack p_ = m_.build();
+        assertTrue(p_.prepare());
+        p_.remainPrep();
+        p_.remain();
+        p_.drain();
+        p_.finish();
+    }
 }

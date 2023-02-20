@@ -241,4 +241,36 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.recordSong(m_);
         assertEq(4, m_.millis());
     }
+    @Test
+    public void playBack1() {
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4));
+        m_.getState().set(true);
+        GuiBaseUtil.recordSong(m_);
+        assertFalse(GuiBaseUtil.launch(m_));
+    }
+    @Test
+    public void playBack2() {
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4,5,6,7,8));
+        m_.getState().set(true);
+        GuiBaseUtil.recordSong(m_);
+        assertTrue(GuiBaseUtil.launch(m_));
+    }
+    @Test
+    public void playBack3() {
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16));
+        m_.getState().set(true);
+        GuiBaseUtil.recordSong(m_);
+        assertTrue(GuiBaseUtil.launch(m_));
+    }
+    @Test
+    public void playBack14() {
+        MockSoundRecord m_ = new MockSoundRecord();
+        m_.append(NumberUtil.wrapIntArray());
+        m_.getState().set(true);
+        GuiBaseUtil.recordSong(m_);
+        assertFalse(GuiBaseUtil.launch(m_));
+    }
 }

@@ -17,4 +17,5 @@ public interface AbsSoundRecord {
     void writeBytes();
 
     long millis();
+    AbsPlayBack build();
 }

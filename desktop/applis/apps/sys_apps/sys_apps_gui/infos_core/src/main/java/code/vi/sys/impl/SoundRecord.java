@@ -2,6 +2,7 @@ package code.vi.sys.impl;
 
 import code.gui.GuiBaseUtil;
 import code.maths.litteralcom.MathExpUtil;
+import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.stream.StreamBinaryFile;
 import code.stream.core.TechStreams;
@@ -15,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 
 public final class SoundRecord implements AbsSoundRecord {
+    private AudioInputStream audioInputStream;
     private AudioFormat candidateFormat;
     private AudioFormat currentFormat;
     private TargetDataLine currentLine;
@@ -73,13 +75,13 @@ public final class SoundRecord implements AbsSoundRecord {
             out.flush();
             out.close();
             byte[] bs_ = out.toByteArray();
-            AudioInputStream ais_ = new AudioInputStream(new ByteArrayInputStream(bs_), currentFormat, bs_.length / frameSizeInBytes);
-            duration = (long) ((ais_.getFrameLength() * 1000) / currentFormat.getFrameRate());
-            ais_.reset();
+            audioInputStream = new AudioInputStream(new ByteArrayInputStream(bs_), currentFormat, bs_.length / frameSizeInBytes);
+            duration = (long) ((audioInputStream.getFrameLength() * 1000) / currentFormat.getFrameRate());
+            audioInputStream.reset();
             ByteArrayOutputStream out_ = new ByteArrayOutputStream();
-            AudioSystem.write(ais_, AudioFileFormat.Type.WAVE, out_);
+            AudioSystem.write(audioInputStream, AudioFileFormat.Type.WAVE, out_);
             byte[] bytes_ = out_.toByteArray();
-            ais_.close();
+            audioInputStream.close();
             return bytes_;
         } catch (Exception e) {
             currentLine = null;
@@ -156,5 +158,16 @@ public final class SoundRecord implements AbsSoundRecord {
     @Override
     public long millis() {
         return duration;
+    }
+
+    @Override
+    public AbsPlayBack build() {
+        try {
+            SoundPlayBack s_ = new SoundPlayBack(audioInputStream, currentFormat);
+            audioInputStream.reset();
+            return s_;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

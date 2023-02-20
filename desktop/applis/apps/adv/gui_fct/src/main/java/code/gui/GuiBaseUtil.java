@@ -7,6 +7,7 @@ import code.gui.images.AbstractImageFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.gui.initialize.AbstractProgramInfos;
 import code.sml.util.ResourcesMessagesUtil;
+import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.threads.AbstractDate;
 import code.threads.AbstractDateFactory;
@@ -238,5 +239,28 @@ public final class GuiBaseUtil {
             }
             _rec.writeBytes();
         }
+    }
+    public static boolean launch(AbsSoundRecord _rec) {
+        AbsPlayBack pl_ = _rec.build();
+        if (pl_ == null) {
+            return false;
+        }
+        if (!pl_.prepare()) {
+            return false;
+        }
+        while (pl_.getState().get()) {
+            if (pl_.readBytes() == -1) {
+                break;
+            }
+            pl_.remainPrep();
+            while (pl_.remain() > 0) {
+                pl_.writeBytes();
+            }
+        }
+        if (pl_.getState().get()) {
+            pl_.drain();
+        }
+        pl_.finish();
+        return true;
     }
 }
