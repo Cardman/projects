@@ -10,6 +10,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
+import code.gui.events.AbsEnabledAction;
 import code.gui.events.QuittingEvent;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
@@ -66,6 +67,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final StringList openedFiles = new StringList();
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
     private AbsTabbedPane editors;
+    private AbsEnabledAction refreshNode;
+    private AbsEnabledAction renameNode;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
@@ -171,8 +174,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.select(folderSystem.getRoot());
         refreshList(folderSystem.selectEvt(),acc_);
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
-        folderSystem.registerKeyboardAction(frs_.getCompoFactory().wrap(new RefreshTreeAction(this)), GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
-        folderSystem.registerKeyboardAction(frs_.getCompoFactory().wrap(new RenameTreeAction(this)), GuiConstants.VK_F6, GuiConstants.CTRL_DOWN_MASK);
+        refreshNode = frs_.getCompoFactory().wrap(new RefreshTreeAction(this));
+        folderSystem.registerKeyboardAction(refreshNode, GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
+        renameNode = frs_.getCompoFactory().wrap(new RenameTreeAction(this));
+        folderSystem.registerKeyboardAction(renameNode, GuiConstants.VK_F6, GuiConstants.CTRL_DOWN_MASK);
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
@@ -210,8 +215,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public boolean applyTreeChangeSelected(boolean _treeEvent) {
         AbstractMutableTreeNode sel_ = folderSystem.selectEvt();
         if (sel_ == null) {
+            changeEnable(false);
             return false;
         }
+        changeEnable(true);
         String str_ = buildPath(sel_);
         if (_treeEvent && str_.startsWith(currentFolder+StreamTextFile.SEPARATEUR+currentFolderSrc+StreamTextFile.SEPARATEUR)) {
             BytesInfo content_ = StreamBinaryFile.loadFile(str_, commonFrame.getFrames().getStreams());
@@ -239,6 +246,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
         refresh(sel_,str_);
         return true;
+    }
+    private void changeEnable(boolean _en) {
+        renameNode.setEnabled(_en);
+        refreshNode.setEnabled(_en);
     }
 
     private int indexOpened(String _str) {

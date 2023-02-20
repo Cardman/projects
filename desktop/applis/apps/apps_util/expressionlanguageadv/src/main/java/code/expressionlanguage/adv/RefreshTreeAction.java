@@ -12,9 +12,6 @@ public final class RefreshTreeAction implements AbsActionListener {
     @Override
     public void action() {
         AbstractMutableTreeNode sel_ = editor.getFolderSystem().selectEvt();
-        if (sel_ == null) {
-            return;
-        }
         String str_ = WindowCdmEditor.buildPath(sel_);
         editor.refresh(sel_,str_);
     }

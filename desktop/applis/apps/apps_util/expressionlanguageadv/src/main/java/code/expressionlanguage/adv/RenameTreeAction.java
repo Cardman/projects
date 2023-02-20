@@ -13,9 +13,6 @@ public final class RenameTreeAction implements AbsActionListener {
     @Override
     public void action() {
         AbstractMutableTreeNode sel_ = editor.getFolderSystem().selectEvt();
-        if (sel_ == null) {
-            return;
-        }
         String str_ = WindowCdmEditor.buildPath(sel_);
         String lg_ = editor.getCommonFrame().getLanguageKey();
         TextAnswerValue confirmDialog_ = editor.getConfirmDialogText().input(editor.getCommonFrame(), "", str_, "", lg_);
