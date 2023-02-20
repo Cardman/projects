@@ -328,7 +328,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         s_.add("6");
         MockTreeGui t_ = new MockTreeGui(r_);
         t_.select(r_);
-        assertSame(r_,t_.getSelected());
+        assertSame(r_,t_.selectEvt());
         t_.reloadRoot();
         assertTrue(r_.isAccessible());
         assertTrue(((MockMutableTreeNode)f_).isAccessible());
@@ -355,7 +355,8 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     public void t27() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
         MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
-        tree_.getTreeSelectionListeners().first().valueChanged(tree_.getSelected().getChildAt(0));
+        tree_.select(tree_.getRoot());
+        tree_.getTreeSelectionListeners().first().valueChanged(tree_.selectEvt().getChildAt(0));
         AbsPlainLabel lab_ = (AbsPlainLabel)  mock_.getContentPane().getComponent(1);
         assertEq("0/1",lab_.getText());
         assertNotNull(tree_.getTree());
@@ -364,7 +365,8 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     public void t28() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
         MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
-        tree_.getTreeSelectionListeners().first().valueChanged(tree_.getSelected().getChildAt(0));
+        tree_.select(tree_.getRoot());
+        tree_.getTreeSelectionListeners().first().valueChanged(tree_.selectEvt().getChildAt(0));
         tree_.removeTreeSelectionListener(tree_.getTreeSelectionListeners().first());
         assertEq(0,tree_.getTreeSelectionListeners().size());
     }
@@ -372,10 +374,11 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     public void t29() {
         MockCommonFrameTreeSample mock_ = new MockCommonFrameTreeSample(init());
         MockTreeGui tree_ = (MockTreeGui) mock_.getContentPane().getComponent(0);
-        AbstractMutableTreeNode root_ = tree_.getSelected();
+        tree_.select(tree_.getRoot());
+        AbstractMutableTreeNode root_ = tree_.selectEvt();
         tree_.select(root_.getChildAt(0));
         tree_.getTreeSelectionListeners().first().valueChanged(root_.getChildAt(0));
-        tree_.removeFromParent();
+        tree_.selectEvt().removeFromParent();
         assertNull(root_.getChildAt(0));
     }
     @Test
@@ -387,17 +390,15 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         AbstractMutableTreeNode s_ = r_.add("2");
         s_.add("4");
         s_.add("6");
-        MockTreeGui t_ = new MockTreeGui(r_);
-        t_.removeAllChildren();
+        r_.removeAllChildren();
         assertNull(r_.getChildAt(0));
     }
     @Test
     public void t31() {
         MockMutableTreeNode r_ = new MockMutableTreeNode("0");
-        MockTreeGui t_ = new MockTreeGui(r_);
-        t_.add("1");
-        t_.add("2");
-        t_.removeAllChildren();
+        r_.add("1");
+        r_.add("2");
+        r_.removeAllChildren();
         assertNull(r_.getChildAt(0));
     }
 }

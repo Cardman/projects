@@ -165,8 +165,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         AbstractMutableTreeNode default_ = frs_.getCompoFactory().newMutableTreeNode(acc_+"/");
         folderSystem = frs_.getCompoFactory().newTreeGui(default_);
-        refreshList(acc_);
         folderSystem.select(folderSystem.getRoot());
+        refreshList(folderSystem.selectEvt(),acc_);
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
         folderSystem.getTree().addKeyListener(new KeyTreeListener(this));
         tabs.clear();
@@ -237,11 +237,11 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 return false;
             }
         }
-        refresh(str_);
+        refresh(sel_,str_);
         return true;
     }
 
-    private void refreshList(String _folderToVisit) {
+    private void refreshList(AbstractMutableTreeNode _sel,String _folderToVisit) {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         FileListInfo files_ = PathsUtil.abs(frs_.getFileCoreStream().newFile(_folderToVisit),frs_.getFileCoreStream());
         CustList<AbstractFile> currentFolders_ = new CustList<AbstractFile>();
@@ -259,10 +259,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
         currentFiles_.sortElts(new FileNameComparator());
         for (AbstractFile f : currentFolders_) {
-            folderSystem.add(f.getName()+"/");
+            _sel.add(f.getName()+"/");
         }
         for (AbstractFile f : currentFiles_) {
-            folderSystem.add(f.getName());
+            _sel.add(f.getName());
         }
     }
     static String buildPath(AbstractMutableTreeNode _treePath) {
@@ -311,9 +311,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         applyTreeChangeSelected(false);
     }
 
-    void refresh(String _str) {
-        folderSystem.removeAllChildren();
-        refreshList(_str);
+    void refresh(AbstractMutableTreeNode _sel,String _str) {
+        _sel.removeAllChildren();
+        refreshList(_sel,_str);
         MutableTreeNodeUtil.reload(folderSystem);
     }
 

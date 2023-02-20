@@ -7,7 +7,6 @@ public interface AbsTreeGui {
     void reload(AbstractMutableTreeNodeCore _node);
     void reloadRoot();
     AbstractMutableTreeNode getRoot();
-    AbstractMutableTreeNode getSelected();
     AbstractMutableTreeNode selectEvt();
 
     boolean isRootVisible();
@@ -20,9 +19,4 @@ public interface AbsTreeGui {
     int removeTreeSelectionListener(AbsShortListTree _sel);
     CustList<AbsShortListTree> getTreeSelectionListeners();
 
-    void removeFromParent();
-
-    void removeAllChildren();
-
-    void add(String _info);
 }

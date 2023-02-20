@@ -177,8 +177,8 @@ public abstract class FileDialog implements ChangeableTitle {
             currentFiles_.sortElts(new FileNameComparator());
             CustList<AbstractFile> filesList_ = new CustList<AbstractFile>();
             folderSystem = programInfos.getCompoFactory().newTreeGui(default_);
-            refreshList(filesList_, currentFiles_);
             folderSystem.select(folderSystem.getRoot());
+            refreshList(folderSystem.selectEvt(),filesList_, currentFiles_);
         } else {
             AbstractMutableTreeNode default_ = programInfos.getCompoFactory().newMutableTreeNode(EMPTY_STRING);
             for (String f: StreamFolderFile.listRootsAbPath(programInfos.getFileCoreStream())) {
@@ -255,25 +255,25 @@ public abstract class FileDialog implements ChangeableTitle {
         setTitle(currentTitle);
         AbstractFile currentFolder_ = programInfos.getFileCoreStream().newFile(str_.toString());
         if (!currentFolder_.exists()) {
-            folderSystem.removeFromParent();
+            sel_.removeFromParent();
             return;
         }
-        folderSystem.removeAllChildren();
+        sel_.removeAllChildren();
         CustList<AbstractFile> files_ = new CustList<AbstractFile>();
         FileListInfo filesArray_ = PathsUtil.abs(currentFolder_,programInfos.getFileCoreStream());
         CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>(filesArray_.getNames());
         currentFiles_.sortElts(new FileNameComparator());
-        refreshList(files_, currentFiles_);
+        refreshList(sel_,files_, currentFiles_);
         MutableTreeNodeUtil.reload(folderSystem);
     }
 
-    private void refreshList(CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
+    private void refreshList(AbstractMutableTreeNode _sel,CustList<AbstractFile> _files, CustList<AbstractFile> _currentFiles) {
         for (AbstractFile f : _currentFiles) {
             if (f.isDirectory()) {
                 if (StringUtil.contains(excludedFolders, StringUtil.replaceBackSlash(f.getAbsolutePath()))) {
                     continue;
                 }
-                folderSystem.add(f.getName());
+                _sel.add(f.getName());
             } else {
                 if (f.getName().endsWith(extension)) {
                     _files.add(f);

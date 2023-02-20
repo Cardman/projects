@@ -11,12 +11,10 @@ public final class TreeGui implements AbsTreeGui {
     private final TreeComponent tree;
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
-    private AbstractMutableTreeNode selected;
     private final AbstractMutableTreeNode root;
     private final IdMap<AbsShortListTree,DefTreeSelectionListener> list = new IdMap<AbsShortListTree, DefTreeSelectionListener>();
 
     public TreeGui(AbstractMutableTreeNode _t) {
-        selected = _t;
         root = _t;
         model = new DefaultTreeModel(convert(_t));
         tree = new TreeComponent(new JTree(model));
@@ -44,8 +42,7 @@ public final class TreeGui implements AbsTreeGui {
 
     public AbstractMutableTreeNode selectEvt() {
         TreePath selectionPath_ = getSelectionPath();
-        selected = selectedEvt(selectionPath_);
-        return selected;
+        return selectedEvt(selectionPath_);
     }
     public static DefMutableTreeNode selected(AbstractMutableTreeNode _root,TreePath _path) {
         try {
@@ -58,17 +55,7 @@ public final class TreeGui implements AbsTreeGui {
     public AbstractMutableTreeNode selectedEvt(TreePath _path) {
         return selected(root,_path);
     }
-    public AbstractMutableTreeNode getSelected() {
-        return selected;
-    }
 
-    public void removeFromParent() {
-        selected.removeFromParent();
-    }
-
-    public void removeAllChildren() {
-        selected.removeAllChildren();
-    }
     private TreePath getSelectionPath() {
         return tree.getSelectionPath();
     }
@@ -122,11 +109,6 @@ public final class TreeGui implements AbsTreeGui {
 
     private void setSelectionModel() {
         selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
-    }
-
-    @Override
-    public void add(String _info) {
-        selected.add(new DefMutableTreeNode(_info));
     }
 
 }

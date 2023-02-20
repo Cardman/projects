@@ -7,12 +7,10 @@ import code.util.IdList;
 public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     private final MockTreeComponent tree;
     private final AbstractMutableTreeNode root;
-    private AbstractMutableTreeNode selected;
     private final IdList<AbsShortListTree> list = new IdList<AbsShortListTree>();
 
     public MockTreeGui(AbstractMutableTreeNode _t) {
         root = _t;
-        selected = _t;
         tree = new MockTreeComponent();
     }
 
@@ -74,21 +72,15 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         }
         return tp_;
     }
-    @Override
-    public AbstractMutableTreeNode getSelected() {
-        return selected;
-    }
 
     @Override
     public AbstractMutableTreeNode selectEvt() {
         MockTreePath path_ = tree.getSelectionPath();
         CustList<MockMutableTreeNode> p_ = path_.getPath();
         if (!p_.isEmpty()) {
-            selected = p_.last();
-        } else {
-            selected = null;
+            return p_.last();
         }
-        return selected;
+        return null;
     }
 
     @Override
@@ -125,18 +117,4 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         return list;
     }
 
-    @Override
-    public void removeFromParent() {
-        selected.removeFromParent();
-    }
-
-    @Override
-    public void removeAllChildren() {
-        selected.removeAllChildren();
-    }
-
-    @Override
-    public void add(String _info) {
-        selected.add(new MockMutableTreeNode(_info));
-    }
 }

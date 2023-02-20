@@ -20,7 +20,7 @@ public final class KeyTreeListener implements AbsKeyListenerPress {
                 return;
             }
             String str_ = WindowCdmEditor.buildPath(sel_);
-            editor.refresh(str_);
+            editor.refresh(sel_,str_);
         }
     }
 }
