@@ -7,8 +7,8 @@ import code.util.IdMap;
 import javax.swing.*;
 import javax.swing.tree.*;
 
-public final class TreeGui implements AbsTreeGui {
-    private final TreeComponent tree;
+public final class TreeGui extends CustComponent implements AbsTreeGui {
+    private final JTree tree;
     private final DefaultTreeModel model;
     private final DefaultTreeSelectionModel selectionModel;
     private final AbstractMutableTreeNode root;
@@ -17,7 +17,7 @@ public final class TreeGui implements AbsTreeGui {
     public TreeGui(AbstractMutableTreeNode _t) {
         root = _t;
         model = new DefaultTreeModel(convert(_t));
-        tree = new TreeComponent(new JTree(model));
+        tree = new JTree(model);
         selectionModel = new DefaultTreeSelectionModel();
         tree.setSelectionModel(selectionModel);
         setSelectionModel();
@@ -103,7 +103,8 @@ public final class TreeGui implements AbsTreeGui {
         return new TreePath(model.getPathToRoot(_node));
     }
 
-    public AbsCustComponent getTree() {
+    @Override
+    public JComponent getNatComponent() {
         return tree;
     }
 

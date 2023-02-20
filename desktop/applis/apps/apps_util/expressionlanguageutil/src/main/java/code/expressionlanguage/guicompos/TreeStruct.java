@@ -40,6 +40,6 @@ public final class TreeStruct extends CustComponentStruct {
 
     @Override
     protected AbsCustComponent getComponent() {
-        return tree.getTree();
+        return tree;
     }
 }

@@ -97,7 +97,7 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
-        ((MockCustComponent)tr_.getTree()).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
+        ((MockCustComponent)tr_).getKeyPressListeners().get(0).keyPressed(new KeyActionEvent(true,false,false),(char)0,GuiConstants.VK_F5);
         tr_.select(tr_.getRoot().getFirstChild());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
@@ -356,7 +356,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     protected static void refresh(WindowCdmEditor _w) {
-        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem().getTree(), GuiConstants.VK_F5,GuiConstants.CTRL_DOWN_MASK)).action();
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F5,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();

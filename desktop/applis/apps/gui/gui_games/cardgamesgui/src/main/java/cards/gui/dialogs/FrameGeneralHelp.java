@@ -167,7 +167,7 @@ public final class FrameGeneralHelp extends ChildFrame {
 //        search.setTextAndSize(messages.getVal(SEARCH_LABEL));
         if (wasNull_) {
             separateur = _w.getCompoFactory().newHorizontalSplitPane(
-                    _w.getCompoFactory().newAbsScrollPane(arbre_.getTree()), editor.getScroll());
+                    _w.getCompoFactory().newAbsScrollPane(arbre_), editor.getScroll());
             separateur.setPreferredSize(new MetaDimension(600, 550));
             separateur.setDividerLocation(150);
             container_.add(separateur);
@@ -175,7 +175,7 @@ public final class FrameGeneralHelp extends ChildFrame {
             container_.add(search);
             setContentPane(container_);
         } else {
-            separateur.setLeftComponent(_w.getCompoFactory().newAbsScrollPane(arbre_.getTree()));
+            separateur.setLeftComponent(_w.getCompoFactory().newAbsScrollPane(arbre_));
             container_.add(separateur);
             container_.add(field);
             container_.add(search);

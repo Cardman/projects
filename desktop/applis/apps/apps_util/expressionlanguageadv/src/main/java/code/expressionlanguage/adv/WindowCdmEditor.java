@@ -171,7 +171,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.select(folderSystem.getRoot());
         refreshList(folderSystem.selectEvt(),acc_);
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
-        folderSystem.getTree().registerKeyboardAction(frs_.getCompoFactory().wrap(new RefreshTreeAction(this)), GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
+        folderSystem.registerKeyboardAction(frs_.getCompoFactory().wrap(new RefreshTreeAction(this)), GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
@@ -193,7 +193,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             editors.addIntTab(name_, te_.getPanel(),fullPath_);
         }
         create.setEnabled(true);
-        panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem.getTree()), editors));
+        panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();
         currentFolder = acc_;

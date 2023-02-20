@@ -1,17 +1,20 @@
 package code.mock;
 
-import code.gui.*;
+import code.gui.AbsShortListTree;
+import code.gui.AbsTreeGui;
+import code.gui.AbstractMutableTreeNode;
+import code.gui.AbstractMutableTreeNodeCore;
 import code.util.CustList;
 import code.util.IdList;
 
 public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
-    private final MockTreeComponent tree;
+    private boolean rootVisible;
+    private MockTreePath selectionPath = new MockTreePath();
     private final AbstractMutableTreeNode root;
     private final IdList<AbsShortListTree> list = new IdList<AbsShortListTree>();
 
     public MockTreeGui(AbstractMutableTreeNode _t) {
         root = _t;
-        tree = new MockTreeComponent();
     }
 
     @Override
@@ -21,7 +24,7 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public void select(AbstractMutableTreeNodeCore _m) {
-        tree.setSelectionPath(getTreePath((MockMutableTreeNode) _m));
+        setSelectionPath(getTreePath((MockMutableTreeNode) _m));
     }
 
     @Override
@@ -75,7 +78,7 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public AbstractMutableTreeNode selectEvt() {
-        MockTreePath path_ = tree.getSelectionPath();
+        MockTreePath path_ = getSelectionPath();
         CustList<MockMutableTreeNode> p_ = path_.getPath();
         if (!p_.isEmpty()) {
             return p_.last();
@@ -85,30 +88,23 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public boolean isRootVisible() {
-        return tree.isRootVisible();
+        return rootVisible;
     }
 
     @Override
     public void setRootVisible(boolean _b) {
-        tree.setRootVisible(_b);
-    }
-
-    @Override
-    public AbsCustComponent getTree() {
-        return tree;
+        rootVisible = _b;
     }
 
     @Override
     public void addTreeSelectionListener(AbsShortListTree _l) {
         list.add(_l);
-        tree.addTreeSelectionListener(_l);
     }
 
     @Override
     public int removeTreeSelectionListener(AbsShortListTree _l) {
         int index_ = list.indexOfObj(_l);
         list.removeObj(_l);
-        tree.removeTreeSelectionListener(_l);
         return index_;
     }
 
@@ -117,4 +113,11 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         return list;
     }
 
+    public MockTreePath getSelectionPath() {
+        return selectionPath;
+    }
+
+    public void setSelectionPath(MockTreePath _treePath) {
+        selectionPath = _treePath;
+    }
 }

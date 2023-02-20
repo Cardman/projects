@@ -359,7 +359,6 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         tree_.getTreeSelectionListeners().first().valueChanged(tree_.selectEvt().getChildAt(0));
         AbsPlainLabel lab_ = (AbsPlainLabel)  mock_.getContentPane().getComponent(1);
         assertEq("0/1",lab_.getText());
-        assertNotNull(tree_.getTree());
     }
     @Test
     public void t28() {
