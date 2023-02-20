@@ -107,7 +107,7 @@ public abstract class EquallableElAdvUtil {
         return w_;
     }
 
-    public static WindowCdmEditor windowLoadDefTwiceRefresh(AbstractProgramInfos _pr, KeyActionEvent _modifier, int _keyValue) {
+    public static WindowCdmEditor windowLoadDefTwiceRefresh(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);
         update((MockProgramInfos) _pr);
@@ -121,7 +121,7 @@ public abstract class EquallableElAdvUtil {
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         tr_.select(tr_.getRoot().getFirstChild().getFirstChild());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
-        ((MockCustComponent)tr_.getTree()).getKeyPressListeners().get(0).keyPressed(_modifier,(char)0,_keyValue);
+        refresh(w_);
         saveTextFile("/project/sources/src/under/file1", "",w_);
         saveTextFile("/project/sources/src/under/file2", "",w_);
         return w_;
@@ -353,6 +353,10 @@ public abstract class EquallableElAdvUtil {
     }
     protected void redo(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    protected static void refresh(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem().getTree(), GuiConstants.VK_F5,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();

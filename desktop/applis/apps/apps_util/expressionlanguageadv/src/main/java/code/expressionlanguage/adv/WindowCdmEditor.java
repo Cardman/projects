@@ -23,7 +23,10 @@ import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.stream.*;
 import code.stream.comparators.FileNameComparator;
-import code.util.*;
+import code.util.CustList;
+import code.util.EntryCust;
+import code.util.StringList;
+import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class WindowCdmEditor implements AbsGroupFrame {
@@ -168,7 +171,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.select(folderSystem.getRoot());
         refreshList(folderSystem.selectEvt(),acc_);
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
-        folderSystem.getTree().addKeyListener(new KeyTreeListener(this));
+        folderSystem.getTree().registerKeyboardAction(frs_.getCompoFactory().wrap(new RefreshTreeAction(this)), GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();

@@ -219,7 +219,7 @@ public final class GuiBaseUtil {
         return _txt.getActionsMap().getKeys();
     }
 
-    public static AbsEnabledAction getAction(AbsTextPane _txt,int _a, int _b) {
+    public static AbsEnabledAction getAction(AbsCustComponent _txt,int _a, int _b) {
         return _txt.getActionsMap().getVal(buildKey(_a, _b));
     }
 
