@@ -55,6 +55,7 @@ import code.stream.AbstractFileCoreStream;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.stream.core.TechStreams;
+import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractThread;
 //import code.util.CustList;
 //import code.util.IdMap;
@@ -229,7 +230,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //    private AbstractThread preparedPkNetThread;
 //    private AbstractThread preparedDiffThread;
 //    private AbstractThread preparedProgThread;
-    private AbstractThread exporting;
+//    private AbstractThread exporting;
 //    private KeyPadListener keyPadListener;
 
 //    private ForwardingJavaCompiler compiling;
@@ -255,9 +256,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //    private final DialogServerAiki dialogServer;
     private final AikiFactory aikiFactory;
     private final WindowAikiCore core = new WindowAikiCore();
+    private final AbstractBaseExecutorService expThread;
 
     public WindowAiki(String _lg, AbstractProgramInfos _list, AikiFactory _aikiFactory) {
         super(_lg, _list);
+        expThread = _list.getThreadFactory().newExecutorService();
         selectEgg = new SelectEgg(_list);
         selectPokemon = new SelectPokemon(_list);
         selectHealedMove = new SelectHealedMove(_list);
@@ -654,9 +657,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         MenuItemUtils.setEnabledMenu(dataGame,true);
         MenuItemUtils.setEnabledMenu(core.getGameLoad(),true);
         MenuItemUtils.setEnabledMenu(core.getGameSave(),false);
-        if (exporting != null && exporting.isAlive()) {
-            return;
-        }
+//        if (exporting != null && exporting.isAlive()) {
+//            return;
+//        }
         if (loadingConf == null) {
             return;
         }
@@ -664,8 +667,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         if (!def_.okPath(StreamFolderFile.getRelativeRootPath(loadingConf.getExport(), getFileCoreStream()),'/','\\')) {
             loadingConf.setExport("");
         }
-        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
-        exporting.start();
+        expThread.submit(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
+//        exporting = getThreadFactory().newThread(new ExportRomThread(facade,loadingConf,getThreadFactory(), getFileCoreStream(),getStreams()));
+//        exporting.start();
     }
 
     public void afterLoadGame() {

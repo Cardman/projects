@@ -15,11 +15,12 @@ public final class ThreadSearchingFile implements Runnable {
 //    private Cursor cursor;
 
     private final AbstractFile folder;
-
-    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup, AbstractFile _folder) {
+    private final AbsPlainButton searchButton;
+    public ThreadSearchingFile(FileOpenDialog _dialog, CustList<AbstractFile> _backup, AbstractFile _folder, AbsPlainButton _but) {
         dialog = _dialog;
         backup = _backup;
         folder = _folder;
+        searchButton =_but;
 //        cursor = dialog.getCursor();
 //        dialog.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
     }
@@ -38,6 +39,7 @@ public final class ThreadSearchingFile implements Runnable {
             CustList<AbstractFile> next_;
             next_ = new CustList<AbstractFile>();
             if (!keep(current_,next_,fc_)) {
+                searchButton.setEnabled(true);
                 return;
             }
             if (next_.isEmpty()) {
@@ -46,6 +48,7 @@ public final class ThreadSearchingFile implements Runnable {
             current_ = next_;
         }
         dialog.setKeepSearching(false);
+        searchButton.setEnabled(true);
 //        dialog.setCursor(cursor);
 //        CustComponent.invokeLater(new AfterSearchingFile(dialog, cursor, true, results_));
     }

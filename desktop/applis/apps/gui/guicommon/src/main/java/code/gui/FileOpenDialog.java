@@ -36,7 +36,6 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private StringMap<String> messages;
 
-    private ThreadSearchingFile info;
     private AbstractThread thread;
 
     private final AbstractAtomicBoolean keepSearching;
@@ -47,9 +46,11 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 
     private AbsPlainLabel foundFiles = getCompoFactory().newPlainLabel("");
     private AbsCommonFrame frame;
+    private final AbstractAtomicBoolean enabledSearch;
 
     public FileOpenDialog(AbstractAtomicBoolean _keepSearching, AbstractAtomicBoolean _showNewResults, AbstractProgramInfos _frameFact){
         super(_frameFact);
+        enabledSearch = _frameFact.getThreadFactory().newAtomicBoolean(true);
         getAbsDialog().setAccessFile(DIALOG_ACCESS);
         keepSearching = _keepSearching;
         showNewResults = _showNewResults;
@@ -77,7 +78,8 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         AbsPlainLabel label_;
         label_ = getCompoFactory().newPlainLabel(messages.getVal(TYPE_TEXT));
         AbsPlainButton search_ = getCompoFactory().newPlainButton(messages.getVal(SEARCH));
-        search_.addActionListener(new SearchingEvent(this));
+        search_.addActionListener(new SearchingEvent(this,search_));
+        search_.setEnabled(enabledSearch.get());
         searchingPanel.removeAll();
         AbsPanel panel_ = getCompoFactory().newLineBox();
         panel_.add(label_);
@@ -99,7 +101,7 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
         pack();
     }
 
-    public void searchFile() {
+    public void searchFile(AbsPlainButton _but) {
         AbstractFile currentFolder_ = getProgramInfos().getFileCoreStream().newFile(getCurrentFolder());
         if (!currentFolder_.exists()) {
             AbstractMutableTreeNode sel_ = getFolderSystem().selectEvt();
@@ -109,15 +111,12 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
             sel_.removeFromParent();
             return;
         }
-        if (thread != null && thread.isAlive()) {
-            return;
-        }
         CustList<AbstractFile> backup_ = new CustList<AbstractFile>(getFiles());
         init(getCurrentFolder(), getExtension());
         getFileModel().clear();
+        _but.setEnabled(false);
         setKeepSearching(true);
-        info = new ThreadSearchingFile(this, backup_, currentFolder_);
-        thread = getProgramInfos().getThreadFactory().newThread(info);
+        thread = getProgramInfos().getThreadFactory().newThread(new ThreadSearchingFile(this, backup_, currentFolder_,_but));
         thread.start();
 //        setKeepSearching(true);
 //        Cursor cursor_ = getCursor();
@@ -158,6 +157,10 @@ public final class FileOpenDialog extends FileDialog implements SingleFileSelect
 //        getFileModel().setupFiles(results_,getCurrentFolder(), getExtension());
 //        setCursor(cursor_);
 //        setKeepSearching(false);
+    }
+
+    public AbstractThread getThread() {
+        return thread;
     }
 
     @Override
