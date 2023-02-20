@@ -376,7 +376,6 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         tree_.select(tree_.getRoot());
         AbstractMutableTreeNode root_ = tree_.selectEvt();
         tree_.select(root_.getChildAt(0));
-        tree_.getTreeSelectionListeners().first().valueChanged(root_.getChildAt(0));
         tree_.selectEvt().removeFromParent();
         assertNull(root_.getChildAt(0));
     }

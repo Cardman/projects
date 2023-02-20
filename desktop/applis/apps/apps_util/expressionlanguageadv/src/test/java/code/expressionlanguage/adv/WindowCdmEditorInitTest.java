@@ -152,6 +152,52 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild()));
     }
     @Test
+    public void refreshTreeDelete() {
+        WindowCdmEditor w_ = windowLoadDefTwiceRefreshDelete(newMockProgramInfosInitConfNoDeepProject());
+        assertEq(1,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        refresh(w_);
+        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+    }
+    @Test
+    public void refreshTreeDeleteExceptRoot() {
+        WindowCdmEditor w_ = windowLoadDefTwiceRefreshDeleteExceptRoot(newMockProgramInfosInitConfNoDeepProject());
+        assertEq(1,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot().getFirstChild()));
+        refresh(w_);
+        assertEq(0,MutableTreeNodeCoreUtil.getChildCount(w_.getFolderSystem().getRoot()));
+    }
+    @Test
+    public void refreshTreeDeleteEdited1() {
+        WindowCdmEditor w_ = windowLoadDefTwice(newMockProgramInfosInitConfNoArr(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"),new TextAnswerValue(GuiConstants.YES_OPTION,"file2.txt")));
+        w_.getEditors().selectIndex(0);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+        refresh(w_);
+        assertEq(1,w_.getTabs().size());
+        assertEq(1,w_.getEditors().getComponentCount());
+        assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
+        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+    }
+    @Test
+    public void refreshTreeDeleteEdited2() {
+        WindowCdmEditor w_ = windowLoadDefTwice(newMockProgramInfosInitConfNoArr(new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"),new TextAnswerValue(GuiConstants.YES_OPTION,"file2.txt")));
+        w_.getEditors().selectIndex(0);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").delete();
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        assertEq(1,w_.getTabs().size());
+        assertEq(1,w_.getEditors().getComponentCount());
+        assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
+        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+    }
+    @Test
     public void reload() {
         WindowCdmEditor w_ = windowLoadDef(newMockProgramInfosInitConfTab());
         assertEq("TEXT",tabSelect(w_).getCenter().getText());

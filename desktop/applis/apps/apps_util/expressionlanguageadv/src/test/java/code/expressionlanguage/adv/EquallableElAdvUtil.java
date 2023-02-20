@@ -126,6 +126,35 @@ public abstract class EquallableElAdvUtil {
         saveTextFile("/project/sources/src/under/file2", "",w_);
         return w_;
     }
+    public static WindowCdmEditor windowLoadDefTwiceRefreshDelete(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot());
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.select(tr_.getRoot().getFirstChild().getFirstChild());
+        _pr.getFileCoreStream().newFile("/project/sources/src/under/").delete();
+        return w_;
+    }
+    public static WindowCdmEditor windowLoadDefTwiceRefreshDeleteExceptRoot(AbstractProgramInfos _pr) {
+        _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
+        _pr.setLanguage(FileInfos.EN);
+        update((MockProgramInfos) _pr);
+        WindowCdmEditor w_ = window(_pr);
+        _pr.getFileCoreStream().newFile("/project/sources/src/under/").mkdirs();
+        w_.updateCommentsInit(new StringList());
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot());
+        tr_.select(tr_.getRoot().getFirstChild());
+        tr_.select(tr_.getRoot().getFirstChild().getFirstChild());
+        _pr.getFileCoreStream().newFile("/project/sources/src/under/").delete();
+        _pr.getFileCoreStream().newFile("/project/sources/src/").delete();
+        return w_;
+    }
     public static WindowCdmEditor windowLoadDefNoTab(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);

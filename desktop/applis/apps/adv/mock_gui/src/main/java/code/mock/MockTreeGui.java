@@ -25,6 +25,9 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     @Override
     public void select(AbstractMutableTreeNodeCore _m) {
         setSelectionPath(getTreePath((MockMutableTreeNode) _m));
+        for (AbsShortListTree l: getTreeSelectionListeners()) {
+            l.valueChanged(_m);
+        }
     }
 
     @Override

@@ -215,14 +215,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         if (_treeEvent && str_.startsWith(currentFolder+StreamTextFile.SEPARATEUR+currentFolderSrc+StreamTextFile.SEPARATEUR)) {
             BytesInfo content_ = StreamBinaryFile.loadFile(str_, commonFrame.getFrames().getStreams());
             if (!content_.isNul()) {
-                int opened_ = -1;
-                int s_ = getTabs().size();
-                for (int i = 0; i < s_; i++) {
-                    if (StringUtil.quickEq(getTabs().get(i).getFullPath(),str_)) {
-                        opened_ = i;
-                        break;
-                    }
-                }
+                int opened_ = indexOpened(str_);
                 if (opened_ > -1) {
                     getEditors().selectIndex(opened_);
                     return false;
@@ -239,9 +232,24 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 getEditors().selectIndex(tabs.getLastIndex());
                 return false;
             }
+            if (!commonFrame.getFrames().getFileCoreStream().newFile(str_).exists()) {
+                removeIfOpened(str_);
+            }
         }
         refresh(sel_,str_);
         return true;
+    }
+
+    private int indexOpened(String _str) {
+        int opened_ = -1;
+        int s_ = getTabs().size();
+        for (int i = 0; i < s_; i++) {
+            if (StringUtil.quickEq(getTabs().get(i).getFullPath(), _str)) {
+                opened_ = i;
+                break;
+            }
+        }
+        return opened_;
     }
 
     private void refreshList(AbstractMutableTreeNode _sel,String _folderToVisit) {
@@ -315,9 +323,35 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     }
 
     void refresh(AbstractMutableTreeNode _sel,String _str) {
-        _sel.removeAllChildren();
-        refreshList(_sel,_str);
+        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractMutableTreeNode r_ = folderSystem.getRoot();
+        AbstractMutableTreeNode adj_ = _sel;
+        String adjPath_ = _str;
+        while (adj_ != r_) {
+            String candidate_ = buildPath(adj_);
+            AbstractFile file_ = frs_.getFileCoreStream().newFile(candidate_);
+            if (file_.exists()) {
+                adjPath_ = candidate_;
+                if (adj_ != _sel) {
+                    folderSystem.select(adj_);
+                    return;
+                }
+                break;
+            }
+            removeIfOpened(candidate_);
+            adj_ = (AbstractMutableTreeNode) adj_.getParent();
+        }
+        adj_.removeAllChildren();
+        refreshList(adj_,adjPath_);
         MutableTreeNodeUtil.reload(folderSystem);
+    }
+
+    private void removeIfOpened(String _path) {
+        int opened_ = indexOpened(_path);
+        if (opened_ > -1) {
+            getEditors().selectIndex(opened_);
+            new CloseTabEditorEvent(getTabs().get(opened_)).action();
+        }
     }
 
     public void updateDoc() {
