@@ -20,14 +20,21 @@ public final class EditorCaretListener implements AbsCaretListener {
         FileMetrics m_ = fb_.getMetrics(tabEditor.getWindowEditor().getTabWidth());
         int i_ = tabEditor.getCenter().getCaretPosition();
         String selected_ = StringUtil.nullToEmpty(tabEditor.getCenter().getSelectedText());
-        tabEditor.getLabel().setText(formatLci(m_,i_,selected_));
+        tabEditor.getLabel().setText(formatLciReal(m_,i_, tabEditor.getUseFeed().length(),selected_));
     }
-    static String formatLci(FileMetrics _metrics, int _index, String _selected) {
+    static String formatLciReal(FileMetrics _metrics, int _index, int _len, String _selected) {
         int l_ = _metrics.getRowFile(_index);
         int c_ = _metrics.getColFile(_index,l_);
+        int realOff_ = _index + (_len - 1) * (l_-1);
         if (_selected.isEmpty()) {
-            return ":"+l_+","+c_+","+_index;
+            if (_index == realOff_) {
+                return ":"+l_+","+c_+","+_index;
+            }
+            return ":"+l_+","+c_+","+_index+","+ realOff_;
         }
-        return ":"+l_+","+c_+","+_index+":"+_selected.length();
+        if (_index == realOff_) {
+            return ":"+l_+","+c_+","+_index+":"+_selected.length();
+        }
+        return ":"+l_+","+c_+","+_index+","+ realOff_ +":"+_selected.length();
     }
 }

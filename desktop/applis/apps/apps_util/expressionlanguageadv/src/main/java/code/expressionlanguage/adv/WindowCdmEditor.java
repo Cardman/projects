@@ -193,7 +193,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
             openedFiles.add(src_.get(i));
             String name_ = fullPath_.substring(fullPath_.lastIndexOf('/')+1);
-            TabEditor te_ = new TabEditor(this,fullPath_);
+            TabEditor te_ = new TabEditor(this,fullPath_,lineSeparator(dec_));
             te_.getCenter().setText(StringUtil.replace(dec_,"\r",""));
             tabs.add(te_);
             editors.addIntTab(name_, te_.getPanel(),fullPath_);
@@ -232,8 +232,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 openedFiles.add(rel_);
                 updateDoc();
                 String name_ = str_.substring(str_.lastIndexOf('/')+1);
-                TabEditor te_ = new TabEditor(this,str_);
                 String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
+                TabEditor te_ = new TabEditor(this,str_,lineSeparator(dec_));
                 te_.getCenter().setText(StringUtil.replace(dec_,"\r",""));
                 tabs.add(te_);
                 editors.addIntTab(name_, te_.getPanel(), str_);
@@ -246,6 +246,19 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
         refresh(sel_,str_);
         return true;
+    }
+    static String lineSeparator(String _content) {
+        int len_ = _content.length();
+        for (int i = 0; i < len_; i++) {
+            char cur_ = _content.charAt(i);
+            if (cur_ == '\r') {
+                if (i + 1 < _content.length() && _content.charAt(i+1) == '\n') {
+                    return "\r\n";
+                }
+                return "\r";
+            }
+        }
+        return "\n";
     }
     private void changeEnable(boolean _en) {
         renameNode.setEnabled(_en);
@@ -326,7 +339,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             openedFiles.add(rel_);
             updateDoc();
             String name_ = elt_.substring(elt_.lastIndexOf('/')+1);
-            TabEditor te_ = new TabEditor(this,elt_);
+            TabEditor te_ = new TabEditor(this,elt_,"\n");
             tabs.add(te_);
             editors.addIntTab(name_, te_.getPanel(), elt_);
             editors.selectIndex(tabs.getLastIndex());
@@ -619,9 +632,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     public AbsDialog getDialogTabulations() {
         return dialogTabulations;
     }
-    //    public TabEditor getTabEditor() {
-//        return tabEditor;
-//    }
 
     public CustList<TabEditor> getTabs() {
         return tabs;

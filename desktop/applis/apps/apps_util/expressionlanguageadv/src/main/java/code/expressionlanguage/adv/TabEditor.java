@@ -40,8 +40,10 @@ public final class TabEditor {
     private int currentPart = -1;
     private int currentText = -1;
     private String fullPath;
+    private final String useFeed;
 
-    public TabEditor(WindowCdmEditor _editor, String _fullPath) {
+    public TabEditor(WindowCdmEditor _editor, String _fullPath, String _lr) {
+        useFeed = _lr;
         fullPath = _fullPath;
         windowEditor = _editor;
         commonFrame = _editor.getCommonFrame();
@@ -180,6 +182,10 @@ public final class TabEditor {
         getLabelOcc().setText((n_+1)+"/"+getParts().size());
         prevOcc.setEnabled(!getParts().isEmpty());
         nextOcc.setEnabled(!getParts().isEmpty());
+    }
+
+    public String getUseFeed() {
+        return useFeed;
     }
 
     public AbsPlainLabel getLabelOcc() {
