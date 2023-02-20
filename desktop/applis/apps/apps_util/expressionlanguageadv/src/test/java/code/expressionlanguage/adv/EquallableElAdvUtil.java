@@ -254,6 +254,18 @@ public abstract class EquallableElAdvUtil {
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
     }
+    public static MockProgramInfos newMockProgramInfosInitConfNoArrRem(int... _ans) {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), _ans, new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt"),new TextAnswerValue(GuiConstants.YES_OPTION,"file2.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        return pr_;
+    }
     public static MockProgramInfos newMockProgramInfosInitConfNoDeepProject() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[0]), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
@@ -386,6 +398,10 @@ public abstract class EquallableElAdvUtil {
 
     protected static void rename(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    protected static void remove(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_DELETE,0)).action();
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();

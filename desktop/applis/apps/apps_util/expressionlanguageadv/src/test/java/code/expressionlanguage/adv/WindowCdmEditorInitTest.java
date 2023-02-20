@@ -289,6 +289,66 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq("TEXT2",contentsOfFile("/project/sources/src/file2.txt", w_));
     }
     @Test
+    public void delete1() {
+        WindowCdmEditor w_ = windowLoadDefTwice(newMockProgramInfosInitConfNoArrRem(GuiConstants.YES_OPTION));
+        w_.getEditors().selectIndex(0);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+        remove(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        assertEq(1,w_.getTabs().size());
+        assertEq(1,w_.getEditors().getComponentCount());
+        assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
+        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+    }
+    @Test
+    public void delete2() {
+        WindowCdmEditor w_ = windowLoadDefTwice(newMockProgramInfosInitConfNoArrRem(GuiConstants.YES_OPTION));
+        w_.getEditors().selectIndex(0);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        closeTab(w_);
+        assertEq(1,w_.getTabs().size());
+        assertEq(1,w_.getEditors().getComponentCount());
+        remove(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        assertEq(1,w_.getTabs().size());
+        assertEq(1,w_.getEditors().getComponentCount());
+        assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
+        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file2.txt").exists());
+    }
+    @Test
+    public void delete3() {
+        WindowCdmEditor w_ = windowLoadDefTwice(newMockProgramInfosInitConfNoArrRem(GuiConstants.YES_OPTION));
+        w_.getEditors().selectIndex(0);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild());
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+        remove(w_);
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+    }
+    @Test
+    public void delete4() {
+        WindowCdmEditor w_ = windowLoadDefTwice(newMockProgramInfosInitConfNoArrRem(GuiConstants.NO_OPTION));
+        w_.getEditors().selectIndex(0);
+        tabSelect(w_).getCenter().setText("TEXT");
+        saveSelected(w_);
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild());
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+        w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
+        remove(w_);
+        assertEq(2,w_.getTabs().size());
+        assertEq(2,w_.getEditors().getComponentCount());
+    }
+    @Test
     public void reload() {
         WindowCdmEditor w_ = windowLoadDef(newMockProgramInfosInitConfTab());
         assertEq("TEXT",tabSelect(w_).getCenter().getText());

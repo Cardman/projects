@@ -60,6 +60,7 @@ public final class GuiConstants {
     public static final int VK_F4 = 115;
     public static final int VK_F5 = 116;
     public static final int VK_F6 = 117;
+    public static final int VK_DELETE = 127;
     public static final int VK_UP = 38;
     public static final int VK_DOWN = 40;
     public static final int VK_LEFT = 37;

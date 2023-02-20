@@ -41,6 +41,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final ConfirmDialogTextAbs confirmDialogText;
     private final FileSaveDialogAbs fileSaveDialogInt;
     private final AbsMenuItem tabulationsMenu;
+    private final ConfirmDialogAnsAbs confirmDialogAns;
     private AbsTreeGui folderSystem;
     private final AbsDialog dialogComments;
     private final AbsDialog dialogNavigLine;
@@ -69,9 +70,11 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private AbsTabbedPane editors;
     private AbsEnabledAction refreshNode;
     private AbsEnabledAction renameNode;
+    private AbsEnabledAction removeNode;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
+        confirmDialogAns = _list.getConfirmDialogAns();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
@@ -178,6 +181,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.registerKeyboardAction(refreshNode, GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
         renameNode = frs_.getCompoFactory().wrap(new RenameTreeAction(this));
         folderSystem.registerKeyboardAction(renameNode, GuiConstants.VK_F6, GuiConstants.CTRL_DOWN_MASK);
+        removeNode = frs_.getCompoFactory().wrap(new RemoveTreeAction(this));
+        folderSystem.registerKeyboardAction(removeNode, GuiConstants.VK_DELETE, 0);
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
@@ -263,6 +268,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private void changeEnable(boolean _en) {
         renameNode.setEnabled(_en);
         refreshNode.setEnabled(_en);
+        removeNode.setEnabled(_en);
     }
 
     private int indexOpened(String _str) {
@@ -396,6 +402,24 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
     }
 
+    void remove(int _ans, AbstractMutableTreeNode _sel,String _str) {
+        if (_ans != GuiConstants.YES_OPTION) {
+            return;
+        }
+        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) _sel.getParent();
+        if (!frs_.getFileCoreStream().newFile(_str).delete()){
+            return;
+        }
+        int opened_ = indexOpened(_str);
+        if (opened_ > -1) {
+            getEditors().remove(opened_);
+            getTabs().remove(opened_);
+        }
+        par_.remove(_sel);
+        folderSystem.select(par_);
+    }
+
     private void refParent(AbstractMutableTreeNode _parent, String _parentPath) {
         _parent.removeAllChildren();
         refreshList(_parent, _parentPath);
@@ -494,6 +518,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public FolderOpenDialogAbs getFolderOpenDialogInt() {
         return folderOpenDialogInt;
+    }
+
+    public ConfirmDialogAnsAbs getConfirmDialogAns() {
+        return confirmDialogAns;
     }
 
     public ConfirmDialogTextAbs getConfirmDialogText() {
