@@ -11,6 +11,7 @@ public final class SoundPlayBack implements AbsPlayBack {
     private final AudioFormat currentFormat;
     private AudioInputStream playbackInputStream;
     private final AbstractAtomicBoolean state = new DefAtomicBoolean(false);
+    private final AbstractAtomicBoolean ok = new DefAtomicBoolean(true);
     private SourceDataLine line;
     private int numBytesRead;
     private int numBytesRemaining;
@@ -34,6 +35,7 @@ public final class SoundPlayBack implements AbsPlayBack {
             state.set(true);
             return true;
         } catch (Exception e) {
+            ok.set(false);
             return false;
         }
     }
@@ -45,6 +47,7 @@ public final class SoundPlayBack implements AbsPlayBack {
             numBytesRead = r_;
             return r_;
         } catch (Exception e) {
+            ok.set(false);
             return -1;
         }
     }
@@ -67,6 +70,11 @@ public final class SoundPlayBack implements AbsPlayBack {
     @Override
     public AbstractAtomicBoolean getState() {
         return state;
+    }
+
+    @Override
+    public AbstractAtomicBoolean getOk() {
+        return ok;
     }
 
     @Override

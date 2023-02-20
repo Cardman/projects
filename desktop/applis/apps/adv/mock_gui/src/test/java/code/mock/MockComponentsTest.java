@@ -473,6 +473,7 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         m_.writeBytes();
         AbsPlayBack p_ = m_.build();
         assertFalse(p_.prepare());
+        assertFalse(p_.getOk().get());
     }
     @Test
     public void c23(){
@@ -493,5 +494,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         p_.remain();
         p_.drain();
         p_.finish();
+        assertTrue(p_.getOk().get());
     }
 }

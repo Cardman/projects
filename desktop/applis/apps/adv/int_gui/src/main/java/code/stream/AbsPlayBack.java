@@ -8,6 +8,7 @@ public interface AbsPlayBack {
     void remainPrep();
     int remain();
     AbstractAtomicBoolean getState();
+    AbstractAtomicBoolean getOk();
     void writeBytes();
     boolean drain();
     boolean finish();

@@ -6,6 +6,7 @@ import code.util.Ints;
 
 public final class MockPlayBack implements AbsPlayBack {
     private final AbstractAtomicBoolean state = new MockAtomicBoolean(false);
+    private final AbstractAtomicBoolean ok = new MockAtomicBoolean(true);
     private int numBytesRead;
     private int numBytesRemaining;
     private int indexRead = -1;
@@ -16,6 +17,7 @@ public final class MockPlayBack implements AbsPlayBack {
     @Override
     public boolean prepare() {
         getState().set(bytes.size() > 8);
+        ok.set(bytes.size() > 4);
         return bytes.size() > 4;
     }
 
@@ -45,6 +47,11 @@ public final class MockPlayBack implements AbsPlayBack {
     @Override
     public AbstractAtomicBoolean getState() {
         return state;
+    }
+
+    @Override
+    public AbstractAtomicBoolean getOk() {
+        return ok;
     }
 
     @Override

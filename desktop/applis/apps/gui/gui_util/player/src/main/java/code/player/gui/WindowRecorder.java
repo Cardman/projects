@@ -15,6 +15,7 @@ public final class WindowRecorder extends GroupFrame {
     private final AbsTextField fileSave;
     private final AbsPlainButton recordSong;
     private final AbsPlainButton stopSong;
+    private final AbsPlainButton playSong;
     private final AbsPlainLabel status = getCompoFactory().newPlainLabel("");
     private final AbsSoundRecord soundRecord;
     public WindowRecorder(String _lg, AbstractProgramInfos _list) {
@@ -65,6 +66,7 @@ public final class WindowRecorder extends GroupFrame {
         alignTopLeft(buttons_);
         recordSong = _list.getCompoFactory().newPlainButton("record");
         stopSong = _list.getCompoFactory().newPlainButton("stop");
+        playSong = _list.getCompoFactory().newPlainButton("play");
         setState();
         recordSong.addActionListener(new RecordingSongAction(this));
         stopSong.addActionListener(new StopRecordingSongAction(this));
@@ -74,6 +76,8 @@ public final class WindowRecorder extends GroupFrame {
         container_.add(buttons_);
         alignTopLeft(status);
         container_.add(status);
+        playSong.addActionListener(new PlayingSongAction(this));
+        container_.add(playSong);
         setContentPane(container_);
         pack();
         setVisible(true);
@@ -122,6 +126,7 @@ public final class WindowRecorder extends GroupFrame {
     }
     public void tryRecord(String _file) {
         recordSong.setEnabled(false);
+        playSong.setEnabled(false);
         stopSong.setEnabled(true);
         byte[] bytes_ = soundRecord.recordSong();
         setTitle("recorder "+soundRecord.millis()+" ms");
@@ -141,9 +146,18 @@ public final class WindowRecorder extends GroupFrame {
         soundRecord.stop();
         setState();
         status.setText("");
+        playSong.setEnabled(true);
         pack();
     }
     public void setState(){
+        recordSong.setEnabled(okRecord());
+        stopSong.setEnabled(okStop());
+        playSong.setEnabled(false);
+    }
+    public void play() {
+        recordSong.setEnabled(false);
+        stopSong.setEnabled(false);
+        GuiBaseUtil.launch(soundRecord);
         recordSong.setEnabled(okRecord());
         stopSong.setEnabled(okStop());
     }
