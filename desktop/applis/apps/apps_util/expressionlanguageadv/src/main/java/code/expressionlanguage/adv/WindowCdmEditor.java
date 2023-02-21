@@ -195,13 +195,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             if (content_.isNul()) {
                 continue;
             }
-            String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
             openedFiles.add(src_.get(i));
-            String name_ = fullPath_.substring(fullPath_.lastIndexOf('/')+1);
-            TabEditor te_ = new TabEditor(this,fullPath_,lineSeparator(dec_));
-            te_.getCenter().setText(StringUtil.replace(dec_,"\r",""));
-            tabs.add(te_);
-            editors.addIntTab(name_, te_.getPanel(),fullPath_);
+            addTab(fullPath_,content_);
         }
         create.setEnabled(true);
         panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
@@ -236,12 +231,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                 String rel_ = str_.substring(currentFolder.length() + currentFolderSrc.length() + 2);
                 openedFiles.add(rel_);
                 updateDoc();
-                String name_ = str_.substring(str_.lastIndexOf('/')+1);
-                String dec_ = StringUtil.nullToEmpty(StringUtil.decode(content_.getBytes()));
-                TabEditor te_ = new TabEditor(this,str_,lineSeparator(dec_));
-                te_.getCenter().setText(StringUtil.replace(dec_,"\r",""));
-                tabs.add(te_);
-                editors.addIntTab(name_, te_.getPanel(), str_);
+                addTab(str_,content_);
                 getEditors().selectIndex(tabs.getLastIndex());
                 return false;
             }
@@ -251,6 +241,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         }
         refresh(sel_,str_);
         return true;
+    }
+    private void addTab(String _path, BytesInfo _content) {
+        String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
+        String name_ = _path.substring(_path.lastIndexOf('/')+1);
+        TabEditor te_ = new TabEditor(this,_path,lineSeparator(dec_));
+        te_.getCenter().setText(StringUtil.replace(StringUtil.replace(dec_,"\r\n","\n"),"\r","\n"));
+        tabs.add(te_);
+        editors.addIntTab(name_, te_.getPanel(), _path);
     }
     static String lineSeparator(String _content) {
         int len_ = _content.length();
