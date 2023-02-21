@@ -342,10 +342,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             String rel_ = elt_.substring(currentFolder.length() + currentFolderSrc.length() + 2);
             openedFiles.add(rel_);
             updateDoc();
-            String name_ = elt_.substring(elt_.lastIndexOf('/')+1);
-            TabEditor te_ = new TabEditor(this,elt_,"\n");
-            tabs.add(te_);
-            editors.addIntTab(name_, te_.getPanel(), elt_);
+            addTab(elt_,new BytesInfo(new byte[0],false));
             editors.selectIndex(tabs.getLastIndex());
         }
         applyTreeChangeSelected(false);
