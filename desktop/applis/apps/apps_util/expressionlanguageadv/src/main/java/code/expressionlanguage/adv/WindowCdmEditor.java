@@ -75,6 +75,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private AbsEnabledAction refreshNode;
     private AbsEnabledAction renameNode;
     private AbsEnabledAction removeNode;
+    private AbsEnabledAction createSystem;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
@@ -97,6 +98,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         file_.addMenuItem(chooseFile);
         create = commonFrame.getFrames().getCompoFactory().newMenuItem("new");
         create.addActionListener(new AddNewTreeFileNode(this));
+        create.setAccelerator(GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
         create.setEnabled(false);
         file_.addMenuItem(create);
         AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
@@ -200,6 +202,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         folderSystem.registerKeyboardAction(renameNode, GuiConstants.VK_F6, GuiConstants.CTRL_DOWN_MASK);
         removeNode = frs_.getCompoFactory().wrap(new RemoveTreeAction(this));
         folderSystem.registerKeyboardAction(removeNode, GuiConstants.VK_DELETE, 0);
+        createSystem = frs_.getCompoFactory().wrap(new AddNewTreeFileNode(this));
+        folderSystem.registerKeyboardAction(createSystem,GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
         tabs.clear();
         openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
@@ -284,6 +288,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         renameNode.setEnabled(_en);
         refreshNode.setEnabled(_en);
         removeNode.setEnabled(_en);
+        createSystem.setEnabled(_en);
     }
 
     private int indexOpened(String _str) {
