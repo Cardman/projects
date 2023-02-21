@@ -162,8 +162,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertFalse(i_.isEnabled());
         assertEq("_",i_.getText());
         assertNull(i_.getParentMenu());
-        i_.setAccelerator(' ');
-        i_.setAccelerator("");
         i_.setAccelerator(0,0);
         i_.addActionListener((AbsActionListener) null);
         i_.addActionListener((AbsAdvActionListener) null);
@@ -184,8 +182,6 @@ public final class MockComponentsTest extends EquallableMockGuiUtil {
         assertFalse(i_.isEnabled());
         assertEq("_",i_.getText());
         assertNull(i_.getParentMenu());
-        i_.setAccelerator(' ');
-        i_.setAccelerator("");
         i_.setAccelerator(0,0);
         i_.addActionListener((AbsActionListener) null);
         i_.addActionListener((AbsAdvActionListener) null);

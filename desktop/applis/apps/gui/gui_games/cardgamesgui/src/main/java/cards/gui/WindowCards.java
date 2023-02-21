@@ -330,12 +330,6 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 
 //    private static final String NOT_CONNECTED = "notConnected";
 
-    private static final String F_ONE = "F1";
-    private static final String F_TWO = "F2";
-    private static final String F_THREE = "F3";
-//    private static final String F_FOUR = "F4";
-//    private static final String F_FIVE = "F5";
-//    private static final String F_SIX = "F6";
     private static final String EMPTY_STRING = "";
     private static final String LAST_SAVED_GAME = "lastSavedGame";
 
@@ -1191,7 +1185,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         file.addSeparator();
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
-        exit.setAccelerator((char) GuiConstants.VK_ESCAPE);
+        exit.setAccelerator(GuiConstants.VK_ESCAPE,0);
         file.addMenuItem(exit);
         getJMenuBar().add(file);
     }
@@ -1362,17 +1356,18 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         dans les jeux non solitaires"*/
         AbsMenuItem sousMenu_;
         consulting=getCompoFactory().newMenuItem(getMessages().getVal(CST_CONSULTING));
-        consulting.setAccelerator(F_ONE);
+        consulting.setAccelerator(GuiConstants.VK_F1,0);
         consulting.addActionListener(new ConsultEvent(this));
         deal.addMenuItem(consulting);
         /* Partie/Pause Permet de mettre le jeu en pause*/
         pause=getCompoFactory().newCheckBoxMenuItem(getMessages().getVal(CST_PAUSE));
-        pause.setAccelerator(CST_PAUSE);
+        pause.setAccelerator(GuiConstants.VK_DELETE,0);
+//        pause.setAccelerator(CST_PAUSE);
         pause.addActionListener(new PauseEvent(this));
         deal.addMenuItem(pause);
         /* Partie/Pause Permet d avoir de l aide*/
         helpGame=getCompoFactory().newMenuItem(getMessages().getVal(HELP_GAME));
-        helpGame.setAccelerator(F_TWO);
+        helpGame.setAccelerator(GuiConstants.VK_F2,0);
         helpGame.addActionListener(new DisplayHelpGameEvent(this));
         deal.addMenuItem(helpGame);
         tricksHands=getCompoFactory().newMenuItem(getMessages().getVal(CST_TRICKS_HANDS));
@@ -1844,7 +1839,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
         generalHelp=getCompoFactory().newMenuItem(getMessages().getVal(CST_GENERAL_HELP));
         MenuItemUtils.setEnabledMenu(generalHelp,false);
         generalHelp.addActionListener(new DisplayHelpEvent(this));
-        generalHelp.setAccelerator(F_THREE);
+        generalHelp.setAccelerator(GuiConstants.VK_F3,0);
         help.addMenuItem(generalHelp);
         getJMenuBar().add(help);
 

@@ -31,9 +31,6 @@ public final class WindowCardsCore {
     static final String CST_LANGUAGE = "language";
 
     static final String CST_DISPLAYING = "displaying";
-    private static final String F_FOUR = "F4";
-    private static final String F_FIVE = "F5";
-    private static final String F_SIX = "F6";
 
     private static final char LINE_RETURN = '\n';
     private ContainerGame containerGame;
@@ -244,11 +241,11 @@ public final class WindowCardsCore {
         String lg_ = _cards.getLanguageKey();
         timing= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_TIMING));
         timing.addActionListener(new ManageSoftEvent(_cards, CST_TIMING));
-        timing.setAccelerator(F_FOUR);
+        timing.setAccelerator(GuiConstants.VK_F4,0);
         parameters.addMenuItem(timing);
         interact= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_INTERACT));
         interact.addActionListener(new ManageSoftEvent(_cards, CST_INTERACT));
-        interact.setAccelerator(F_FIVE);
+        interact.setAccelerator(GuiConstants.VK_F5,0);
         parameters.addMenuItem(interact);
         language= _inst.getCompoFactory().newMenuItem(_inst.getMessages().getVal(CST_LANGUAGE));
         language.addActionListener(new ManageLanguageEventCards(_cards));
@@ -256,7 +253,7 @@ public final class WindowCardsCore {
 //            language.setAccelerator(KeyStroke.getKeyStroke(F_SIX));
 //            parameters.add(language);
 //        }
-        language.setAccelerator(F_SIX);
+        language.setAccelerator(GuiConstants.VK_F6,0);
         parameters.addMenuItem(language);
         /* Partie/Editer "Permet d'editer n'importe quelle partie de cartes et accessible n'importe quand"*/
         displaying= _inst.getCompoFactory().newMenu(_inst.getMessages().getVal(CST_DISPLAYING));

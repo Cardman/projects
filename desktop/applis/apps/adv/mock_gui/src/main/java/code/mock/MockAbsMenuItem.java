@@ -12,19 +12,10 @@ public abstract class MockAbsMenuItem extends MockEnabledMenu implements AbsMenu
     protected MockAbsMenuItem(String _s) {
         super(_s);
     }
-    @Override
-    public void setAccelerator(char _c) {
-        setEnabled(isEnabled());
-    }
-
-    @Override
-    public void setAccelerator(String _s) {
-        setAccelerator(' ');
-    }
 
     @Override
     public void setAccelerator(int _a, int _b) {
-        setAccelerator(' ');
+        setEnabled(isEnabled());
     }
 
     @Override

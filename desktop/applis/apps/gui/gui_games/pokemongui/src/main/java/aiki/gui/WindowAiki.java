@@ -126,10 +126,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 
 //    private static final String EXCLUDED = "jdk";
 
-    private static final String F_ONE = "F1";
-    private static final String F_TWO = "F2";
-    private static final String F_THREE = "F3";
-
 //    private static final String LOG_FILE = LaunchingPokemon.getTempFolderSl()+"errors_compiling.txt";
 
 //    private static final String CLASS_FILES_EXT = DataBase.CLASS_FILES_EXT;
@@ -749,7 +745,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         file.addMenuItem(params);
         file.addSeparator();
         quit = getCompoFactory().newMenuItem();
-        quit.setAccelerator((char) GuiConstants.VK_ESCAPE);
+        quit.setAccelerator(GuiConstants.VK_ESCAPE,0);
         quit.addActionListener(new QuitEvent(this));
         file.addMenuItem(quit);
         bar_.add(file);
@@ -778,12 +774,12 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //            }
 //        });
         dataWeb = getCompoFactory().newMenuItem();
-        dataWeb.setAccelerator(F_ONE);
+        dataWeb.setAccelerator(GuiConstants.VK_F1,0);
         dataWeb.addActionListener(new ShowDataWebEvent(this));
         dataGame.addMenuItem(dataWeb);
         dataBattle = getCompoFactory().newMenuItem();
         MenuItemUtils.setEnabledMenu(dataBattle,false);
-        dataBattle.setAccelerator(F_TWO);
+        dataBattle.setAccelerator(GuiConstants.VK_F2,0);
         dataBattle.addActionListener(new ShowDataFightEvent(this));
         dataGame.addMenuItem(dataBattle);
         newGame = getCompoFactory().newMenuItem();
@@ -793,7 +789,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         difficulty = getCompoFactory().newMenuItem();
         MenuItemUtils.setEnabledMenu(difficulty,false);
         difficulty.addActionListener(new ManageDifficultyEvent(this));
-        difficulty.setAccelerator(F_THREE);
+        difficulty.setAccelerator(GuiConstants.VK_F3,0);
         dataGame.addMenuItem(difficulty);
         bar_.add(dataGame);
         setJMenuBar(bar_);

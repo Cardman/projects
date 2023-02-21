@@ -81,14 +81,6 @@ public abstract class AbsMenuItemImpl extends CustComponent implements AbsMenuIt
         mapAdvAction.addEntry(_pauseEvent,wr_);
     }
 
-    public void setAccelerator(char _a) {
-        menu.setAccelerator(KeyStroke.getKeyStroke(_a));
-    }
-
-    public void setAccelerator(String _a) {
-        menu.setAccelerator(KeyStroke.getKeyStroke(_a));
-    }
-
     public void setAccelerator(int _a, int _b) {
         menu.setAccelerator(KeyStroke.getKeyStroke(_a, _b));
     }

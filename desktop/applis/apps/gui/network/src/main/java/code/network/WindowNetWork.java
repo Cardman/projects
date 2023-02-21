@@ -1378,7 +1378,7 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         file.addSeparator();
         exit=getCompoFactory().newMenuItem(getMessages().getVal(CST_EXIT));
         exit.addActionListener(new QuitEvent(this));
-        exit.setAccelerator((char) GuiConstants.VK_ESCAPE);
+        exit.setAccelerator(GuiConstants.VK_ESCAPE,0);
         file.addMenuItem(exit);
         getJMenuBar().add(file);
     }
