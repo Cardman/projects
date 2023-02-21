@@ -40,12 +40,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final CdmFactory factory;
     private final ConfirmDialogTextAbs confirmDialogText;
     private final FileSaveDialogAbs fileSaveDialogInt;
+    private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
     private final ConfirmDialogAnsAbs confirmDialogAns;
     private AbsTreeGui folderSystem;
     private final AbsDialog dialogComments;
     private final AbsDialog dialogNavigLine;
     private final AbsDialog dialogTabulations;
+    private final AbsDialog dialogLanguage;
     private final AbsMenuItem commentsMenu;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
@@ -58,8 +60,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsPlainButton createFile;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
+    private final GraphicComboGrInt chosenLanguage;
     private String document;
-    private String usedLg = "";
+    private String usedLg;
     private String execConf = "";
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private String currentFolder = "";
@@ -83,6 +86,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         dialogComments = _list.getFrameFactory().newDialog();
         dialogNavigLine = _list.getFrameFactory().newDialog();
         dialogTabulations = _list.getFrameFactory().newDialog();
+        dialogLanguage = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
@@ -96,6 +100,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         file_.addMenuItem(create);
         AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
         bar_.add(menu_);
+        languageMenu = _list.getCompoFactory().newMenuItem("language");
+        languageMenu.addActionListener(new ChangeLanguageEvent(this));
+        menu_.addMenuItem(languageMenu);
         tabulationsMenu = _list.getCompoFactory().newMenuItem("tabulations");
         tabulationsMenu.addActionListener(new ChangeTabulationsEvent(this));
         menu_.addMenuItem(tabulationsMenu);
@@ -107,6 +114,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
         chosenFolder = commonFrame.getFrames().getCompoFactory().newPlainLabel(":");
         srcFolder = commonFrame.getFrames().getCompoFactory().newTextField(32);
+        StringList lgs_ = new StringList(_list.getTranslations().getMapping().getKeys());
+        lgs_.add("");
+        usedLg = _lg;
+        chosenLanguage = commonFrame.getFrames().getGeneComboBox().createCombo(commonFrame.getFrames().getImageFactory(), lgs_, -1, commonFrame.getFrames().getCompoFactory());
         createFile = commonFrame.getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
         editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
@@ -142,6 +153,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             panel.add(chooseFolder);
             panel.add(chosenFolder);
             panel.add(srcFolder);
+            StringList lgs_ = new StringList(commonFrame.getFrames().getTranslations().getMapping().getKeys());
+            lgs_.add("");
+            chosenLanguage.selectItem(StringUtil.indexOf(lgs_,commonFrame.getLanguageKey()));
+            panel.add(chosenLanguage.self());
             panel.add(createFile);
             createFile.setEnabled(false);
             commonFrame.setContentPane(panel);
@@ -160,6 +175,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     }
     public void saveConf(String _fileName) {
         execConf = _fileName;
+        usedLg = StringUtil.nullToEmpty(chosenLanguage.getSelectedItem());
         updateDoc();
         updateComments(comments);
         ManageOptions opts_ = saveConf();
@@ -564,7 +580,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         StringList lines_ = new StringList();
         lines_.add(currentFolder);
-        lines_.add(commonFrame.getLanguageKey());
+        lines_.add(StringUtil.nullToEmpty(usedLg));
         if (!comments.isEmpty()) {
             lines_.add("comments="+ParseLinesArgUtil.buildCommentsLine(comments));
         }
@@ -598,6 +614,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 //        elt_.appendChild(eltSub_);
         doc_.appendChild(elt_);
         return doc_.export();
+    }
+
+    public void setUsedLg(String _u) {
+        this.usedLg = _u;
     }
 
     public String getUsedLg() {
@@ -644,6 +664,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return tabulationsMenu;
     }
 
+    public AbsMenuItem getLanguageMenu() {
+        return languageMenu;
+    }
+
     public AbsDialog getDialogComments() {
         return dialogComments;
     }
@@ -654,6 +678,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public AbsDialog getDialogTabulations() {
         return dialogTabulations;
+    }
+
+    public AbsDialog getDialogLanguage() {
+        return dialogLanguage;
     }
 
     public CustList<TabEditor> getTabs() {

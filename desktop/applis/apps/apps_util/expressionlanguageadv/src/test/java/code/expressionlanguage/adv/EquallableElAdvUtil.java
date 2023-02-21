@@ -420,4 +420,10 @@ public abstract class EquallableElAdvUtil {
         return ev_.getOutputDialogTabs();
     }
 
+    protected static OutputDialogLanguage language(WindowCdmEditor _w) {
+        ChangeLanguageEvent ev_ = (ChangeLanguageEvent) ((MockMenuItem) _w.getLanguageMenu()).getActionListeners().get(0);
+        ev_.action();
+        return ev_.getOutputDialogLanguage();
+    }
+
 }
