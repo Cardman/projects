@@ -28,6 +28,7 @@ import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 
 public final class WindowCdmEditor implements AbsGroupFrame {
@@ -262,7 +263,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
         TabEditor te_ = new TabEditor(this,_path,lineSeparator(dec_));
-        te_.getCenter().setText(StringUtil.replace(StringUtil.replace(dec_,"\r\n","\n"),"\r","\n"));
+        te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
         tabs.add(te_);
         editors.addIntTab(name_, te_.getPanel(), _path);
     }
