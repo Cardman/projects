@@ -57,6 +57,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsPanel panel;
     private final AbsMenuItem chooseFile;
     private final AbsMenuItem create;
+    private final AbsMenuItem delete;
     private final AbsPlainButton chooseFolder;
     private final AbsPlainButton createFile;
     private final AbsPlainLabel chosenFolder;
@@ -101,6 +102,11 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         create.setAccelerator(GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
         create.setEnabled(false);
         file_.addMenuItem(create);
+        delete = commonFrame.getFrames().getCompoFactory().newMenuItem("delete");
+        delete.addActionListener(new RemoveTreeAction(this));
+        delete.setAccelerator(GuiConstants.VK_DELETE,0);
+        delete.setEnabled(false);
+        file_.addMenuItem(delete);
         AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
         bar_.add(menu_);
         languageMenu = _list.getCompoFactory().newMenuItem("language");
@@ -219,7 +225,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             openedFiles.add(src_.get(i));
             addTab(fullPath_,content_);
         }
-        create.setEnabled(true);
         panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();
@@ -249,9 +254,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
                     getEditors().selectIndex(opened_);
                     return false;
                 }
-                String rel_ = str_.substring(currentFolder.length() + currentFolderSrc.length() + 2);
-                openedFiles.add(rel_);
-                updateDoc();
+                notifyDoc(str_);
                 addTab(str_,content_);
                 getEditors().selectIndex(tabs.getLastIndex());
                 return false;
@@ -263,6 +266,13 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         refresh(sel_,str_);
         return true;
     }
+
+    private void notifyDoc(String _path) {
+        String rel_ = _path.substring(currentFolder.length() + currentFolderSrc.length() + 2);
+        openedFiles.add(rel_);
+        updateDoc();
+    }
+
     private void addTab(String _path, BytesInfo _content) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
@@ -289,6 +299,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         refreshNode.setEnabled(_en);
         removeNode.setEnabled(_en);
         createSystem.setEnabled(_en);
+        create.setEnabled(_en);
+        delete.setEnabled(_en);
     }
 
     private int indexOpened(String _str) {
@@ -361,9 +373,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         } else {
             StreamFolderFile.makeParent(elt_,frs_.getFileCoreStream());
             StreamTextFile.saveTextFile(elt_,"",frs_.getStreams());
-            String rel_ = elt_.substring(currentFolder.length() + currentFolderSrc.length() + 2);
-            openedFiles.add(rel_);
-            updateDoc();
+            notifyDoc(elt_);
             addTab(elt_,new BytesInfo(new byte[0],false));
             editors.selectIndex(tabs.getLastIndex());
         }
