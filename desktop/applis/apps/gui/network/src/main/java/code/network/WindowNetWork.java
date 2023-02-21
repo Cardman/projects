@@ -2174,16 +2174,16 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
         threadEmission = _threadEmission;
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        if (!netg.getContainerGame().isSimple()) {
-            return false;
-        }
-//        if (!helpFrames.isEmpty()) {
-//            return !helpFrames.first().isVisible();
+//    @Override
+//    public boolean canChangeLanguage() {
+//        if (!netg.getContainerGame().isSimple()) {
+//            return false;
 //        }
-        return true;
-    }
+////        if (!helpFrames.isEmpty()) {
+////            return !helpFrames.first().isVisible();
+////        }
+//        return true;
+//    }
 
     @Override
     public void changeLanguage(String _language) {

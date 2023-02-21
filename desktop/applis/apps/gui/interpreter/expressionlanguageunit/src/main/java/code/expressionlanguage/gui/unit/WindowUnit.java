@@ -22,7 +22,6 @@ import code.scripts.messages.gui.MessCdmUnitGr;
 import code.sml.util.ResourcesMessagesUtil;
 import code.threads.AbstractBaseExecutorService;
 import code.threads.AbstractFuture;
-import code.threads.AbstractThread;
 import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.ints.UniformingString;
@@ -184,14 +183,14 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         return LaunchingAppUnitTests.getMainWindowClass();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
 
     @Override
     public void changeLanguage(String _language) {
-        //
+        setLanguageKey(_language);
     }
 
     public void process(TestableFrame _mainWindow) {

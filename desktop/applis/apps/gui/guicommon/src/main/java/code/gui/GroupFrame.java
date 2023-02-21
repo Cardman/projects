@@ -259,17 +259,17 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         this.messages = _messages;
     }
 
-    public boolean canChangeLanguageAll() {
-        return false;
-//        boolean canChange_ = true;
-//        for (GroupFrame g: frames.getFrames()) {
-//            if (!g.canChangeLanguage()) {
-//                canChange_ = false;
-//                break;
-//            }
-//        }
-//        return canChange_;
-    }
+//    public boolean canChangeLanguageAll() {
+//        return false;
+////        boolean canChange_ = true;
+////        for (GroupFrame g: frames.getFrames()) {
+////            if (!g.canChangeLanguage()) {
+////                canChange_ = false;
+////                break;
+////            }
+////        }
+////        return canChange_;
+//    }
 
     public AbstractGenerator getGenerator() {
         return getFrames().getGenerator();

@@ -692,6 +692,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     }
     @Override
     public void changeLanguage(String _language) {
+        commonFrame.setLanguageKey(_language);
         setMessages(getMessages());
     }
 
@@ -707,10 +708,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame.getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
     public CustList<CommentDelimiters> getComments() {
         return comments;
     }

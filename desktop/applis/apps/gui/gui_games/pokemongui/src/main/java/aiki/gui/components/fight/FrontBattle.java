@@ -1315,9 +1315,9 @@ public final class FrontBattle extends AbsMetaLabelPk {
         battle.display();
     }
 
-    public boolean isAliveThread() {
-        return battle.isAliveThread();
-    }
+//    public boolean isAliveThread() {
+//        return battle.isAliveThread();
+//    }
 
     public boolean isEnabledChangeLanguage() {
         return battle.isEnabledChangeLanguage();

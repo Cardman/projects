@@ -572,7 +572,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void quit2() {
         AbsGroupFrame w_ =newWindowLoadDef();
-        w_.canChangeLanguage();
+//        w_.canChangeLanguage();
         w_.getApplicationName();
         w_.changeLanguage("");
         w_.dispatchExit();

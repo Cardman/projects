@@ -198,14 +198,14 @@ public final class GuiBaseUtil {
         return false;
     }
 
-    public static boolean canChangeLanguageAll(AbstractProgramInfos _list) {
-        for (AbsGroupFrame g: _list.getFrames()) {
-            if (!g.canChangeLanguage()) {
-                return false;
-            }
-        }
-        return true;
-    }
+//    public static boolean canChangeLanguageAll(AbstractProgramInfos _list) {
+//        for (AbsGroupFrame g: _list.getFrames()) {
+//            if (!g.canChangeLanguage()) {
+//                return false;
+//            }
+//        }
+//        return true;
+//    }
 
     public static void changeStaticLanguage(String _language, AbstractProgramInfos _list, StringMap<String> _res) {
         _list.getFrames().first().setMessages(group(_language, _res));

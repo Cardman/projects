@@ -108,10 +108,10 @@ public final class WindowRecorder extends GroupFrame {
         return "recorder";
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
 
     @Override
     public void changeLanguage(String _language) {

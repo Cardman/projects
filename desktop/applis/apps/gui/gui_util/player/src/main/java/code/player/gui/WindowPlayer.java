@@ -614,10 +614,10 @@ public final class WindowPlayer extends GroupFrame implements LineShortListenabl
         basicDispose();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return true;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return true;
+//    }
 
     @Override
     public void changeLanguage(String _language) {

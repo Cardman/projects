@@ -171,14 +171,14 @@ public final class WindowConverter extends GroupFrame {
     public void dispose() {
         basicDispose();
     }
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
 
     @Override
     public void changeLanguage(String _language) {
-        //
+        setLanguageKey(_language);
     }
 
     @Override

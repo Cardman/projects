@@ -1532,9 +1532,9 @@ public class Battle extends ChildFrame {
         frontBattle.drawAnimationFightIniInst();
     }
 
-    public boolean isAliveThread() {
-        return roundThreadLau != null && roundThreadLau.isAlive();
-    }
+//    public boolean isAliveThread() {
+//        return roundThreadLau != null && roundThreadLau.isAlive();
+//    }
 
     public boolean isKeepAnimation() {
         return frontBattle.isKeepAnimation();

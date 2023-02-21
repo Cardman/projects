@@ -12,5 +12,5 @@ public interface AbsGroupFrame {
     void dispatchExit();
 
     void quit();
-    boolean canChangeLanguage();
+//    boolean canChangeLanguage();
 }

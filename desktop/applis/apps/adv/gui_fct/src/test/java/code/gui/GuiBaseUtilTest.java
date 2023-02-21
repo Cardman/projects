@@ -186,30 +186,30 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         GuiBaseUtil.showDialogError(0, fr_.getCommonFrame());
         assertFalse(GuiBaseUtil.tryToReopen("_",pr_));
     }
-    @Test
-    public void canChangeLanguageAll1() {
-        MockProgramInfosSecSample pr_ = init();
-        MockSampleFrame fr_ = new MockSampleFrame(pr_);
-        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
-        fr_.getCommonFrame().setVisible(true);
-        fr_.setChangeable(true);
-        StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
-        GuiBaseUtil.choose("",pr_,fr_,m_);
-        assertTrue(GuiBaseUtil.canChangeLanguageAll(pr_));
-    }
-    @Test
-    public void canChangeLanguageAll2() {
-        MockProgramInfosSecSample pr_ = init();
-        MockSampleFrame fr_ = new MockSampleFrame(pr_);
-        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
-        fr_.getCommonFrame().setVisible(true);
-        fr_.setChangeable(false);
-        StringMap<String> m_ = new StringMap<String>();
-        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
-        GuiBaseUtil.choose("",pr_,fr_,m_);
-        assertFalse(GuiBaseUtil.canChangeLanguageAll(pr_));
-    }
+//    @Test
+//    public void canChangeLanguageAll1() {
+//        MockProgramInfosSecSample pr_ = init();
+//        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+//        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+//        fr_.getCommonFrame().setVisible(true);
+//        fr_.setChangeable(true);
+//        StringMap<String> m_ = new StringMap<String>();
+//        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+//        GuiBaseUtil.choose("",pr_,fr_,m_);
+//        assertTrue(GuiBaseUtil.canChangeLanguageAll(pr_));
+//    }
+//    @Test
+//    public void canChangeLanguageAll2() {
+//        MockProgramInfosSecSample pr_ = init();
+//        MockSampleFrame fr_ = new MockSampleFrame(pr_);
+//        fr_.getCommonFrame().addWindowListener(new CrossClosingDialogListEvent(null,null));
+//        fr_.getCommonFrame().setVisible(true);
+//        fr_.setChangeable(false);
+//        StringMap<String> m_ = new StringMap<String>();
+//        m_.addEntry(ResourcesMessagesUtil.getPropertiesPath(GuiConstants.FOLDER_MESSAGES_GUI, "", GuiBaseUtil.ACCESS),"");
+//        GuiBaseUtil.choose("",pr_,fr_,m_);
+//        assertFalse(GuiBaseUtil.canChangeLanguageAll(pr_));
+//    }
     @Test
     public void eventQuit() {
         MockSampleFrame m_ = new MockSampleFrame(init());

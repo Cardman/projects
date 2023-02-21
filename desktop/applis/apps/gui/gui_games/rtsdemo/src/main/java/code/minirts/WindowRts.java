@@ -278,14 +278,14 @@ public final class WindowRts extends GroupFrame {
         return LaunchingDemo.getMainWindowClass();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return true;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return true;
+//    }
 
     @Override
     public void changeLanguage(String _language) {
-        //
+        setLanguageKey(_language);
     }
 
     public String getNoteFile() {

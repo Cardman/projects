@@ -70,10 +70,10 @@ public final class LanguageFrame extends GroupFrame implements SetterLanguage {
         return langue;
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
 
     @Override
     public void changeLanguage(String _language) {

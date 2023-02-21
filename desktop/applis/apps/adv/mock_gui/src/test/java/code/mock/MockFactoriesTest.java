@@ -153,10 +153,10 @@ public final class MockFactoriesTest extends EquallableMockGuiUtil {
     @Test
     public void t9() {
         MockSampleFrame fr_ = new MockSampleFrame(init());
-        fr_.setChangeable(true);
-        assertTrue(fr_.canChangeLanguage());
-        fr_.setChangeable(false);
-        assertFalse(fr_.canChangeLanguage());
+//        fr_.setChangeable(true);
+//        assertTrue(fr_.canChangeLanguage());
+//        fr_.setChangeable(false);
+//        assertFalse(fr_.canChangeLanguage());
         fr_.quit();
         assertFalse(fr_.getCommonFrame().isVisible());
     }

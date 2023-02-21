@@ -8,7 +8,7 @@ import code.util.StringMap;
 public final class MockSampleFrame implements AbsGroupFrame {
     private final AbsCommonFrame frame;
     private StringMap<String> messages = new StringMap<String>();
-    private boolean changeable;
+//    private boolean changeable;
 
     public MockSampleFrame(AbstractProgramInfos _fr) {
         frame = new MockCommonFrameTreeSample(_fr);
@@ -56,12 +56,12 @@ public final class MockSampleFrame implements AbsGroupFrame {
         messages = _first.getMessages();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return changeable;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return changeable;
+//    }
 
-    public void setChangeable(boolean _ch) {
-        this.changeable = _ch;
-    }
+//    public void setChangeable(boolean _ch) {
+//        this.changeable = _ch;
+//    }
 }

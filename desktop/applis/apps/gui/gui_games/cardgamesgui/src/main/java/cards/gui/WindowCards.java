@@ -1996,16 +1996,16 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
 //        threadEmission = _threadEmission;
 //    }
 
-    @Override
-    public boolean canChangeLanguage() {
-        if (!core.getContainerGame().isSimple()) {
-            return false;
-        }
-        if (!helpFrames.isEmpty()) {
-            return !helpFrames.first().isVisible();
-        }
-        return true;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        if (!core.getContainerGame().isSimple()) {
+//            return false;
+//        }
+//        if (!helpFrames.isEmpty()) {
+//            return !helpFrames.first().isVisible();
+//        }
+//        return true;
+//    }
 
     @Override
     public void changeLanguage(String _language) {

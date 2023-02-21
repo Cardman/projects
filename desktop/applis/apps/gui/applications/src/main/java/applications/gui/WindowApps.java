@@ -155,23 +155,29 @@ public final class WindowApps extends GroupFrame {
         writeCoords();
         nativeExit();
     }
-    @Override
-    public boolean canChangeLanguage() {
-        return true;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return true;
+//    }
     @Override
     public void changeLanguage(String _language) {
-        if (canChangeLanguageAll()) {
-            setLanguageKey(_language);
-            SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
-            for (AbsGroupFrame g: getFrames().getFrames()) {
-                g.changeLanguage(_language);
-            }
-            selectLangagueButton(_language);
-        } else {
-            selectLangagueButton(getLanguageKey());
-            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
+        setLanguageKey(_language);
+        SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
+        for (AbsGroupFrame g: getFrames().getFrames()) {
+            g.changeLanguage(_language);
         }
+        selectLangagueButton(_language);
+//        if (canChangeLanguageAll()) {
+//            setLanguageKey(_language);
+//            SoftApplicationCore.saveLanguage(LaunchingApplications.getTempFolder(getFrames()), _language,getStreams());
+//            for (AbsGroupFrame g: getFrames().getFrames()) {
+//                g.changeLanguage(_language);
+//            }
+//            selectLangagueButton(_language);
+//        } else {
+//            selectLangagueButton(getLanguageKey());
+//            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
+//        }
     }
 
     private void selectLangagueButton(String _language) {

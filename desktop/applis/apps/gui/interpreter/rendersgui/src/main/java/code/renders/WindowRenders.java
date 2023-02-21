@@ -188,13 +188,13 @@ public final class WindowRenders extends GroupFrame {
         return LaunchingRenders.getMainWindowClass();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
 
     @Override
     public void changeLanguage(String _language) {
-        //
+        setLanguageKey(_language);
     }
 }

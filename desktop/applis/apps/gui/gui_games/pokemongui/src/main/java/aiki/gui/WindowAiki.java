@@ -930,10 +930,10 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
     }
 
     public void manageLanguage() {
-        if (!canChangeLanguageAll()) {
-            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
-            return;
-        }
+//        if (!canChangeLanguageAll()) {
+//            GuiBaseUtil.showDialogError(GuiConstants.ERROR_MESSAGE, this.getCommonFrame());
+//            return;
+//        }
         LanguageDialog.setLanguageDialog(this,this, messages.getVal(CST_LANGUAGE));
         String langue_ = LanguageDialog.getStaticLanguage(getLanguageDialog());
         LanguageDialog.changeLanguage(langue_,getFrames(),LaunchingPokemon.getTempFolder(getFrames()));
@@ -965,23 +965,23 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         DialogDifficulty.setDialogDifficulty(this, messages.getVal(TITLE_DIFFICULTY), facade, preparedDiffTask);
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        if (!inBattle) {
-            if (isPaintingScene()) {
-                return false;
-            }
-            return scenePanel.isMenusVisible();
-        } else {
-            if (battle != null) {
-                if (isAliveThread()) {
-                    return false;
-                }
-                return battle.isEnabledChangeLanguage();
-            }
-        }
-        return true;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        if (!inBattle) {
+//            if (isPaintingScene()) {
+//                return false;
+//            }
+//            return scenePanel.isMenusVisible();
+//        } else {
+//            if (battle != null) {
+//                if (isAliveThread()) {
+//                    return false;
+//                }
+//                return battle.isEnabledChangeLanguage();
+//            }
+//        }
+//        return true;
+//    }
 
     @Override
     public void changeLanguage(String _language) {
@@ -1361,6 +1361,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         }
     }
 
+    public FightIntroThread getFightIntroThread() {
+        return fightIntroThread;
+    }
+
+    public AbstractThread getFightIntroThreadLau() {
+        return fightIntroThreadLau;
+    }
+
     public void setComments() {
         battle.setComments();
     }
@@ -1410,9 +1418,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //        return startThread;
 //    }
 
-    public boolean isAliveThread() {
-        return battle.isAliveThread() || fightIntroThreadLau != null && fightIntroThreadLau.isAlive();
-    }
+//    public boolean isAliveThread() {
+//        return battle.isAliveThread() || fightIntroThreadLau != null && fightIntroThreadLau.isAlive();
+//    }
 
     public boolean isClickButtonsPad() {
         if (loadingConf == null) {

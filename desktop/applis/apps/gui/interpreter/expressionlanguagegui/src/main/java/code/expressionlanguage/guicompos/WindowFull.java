@@ -152,14 +152,14 @@ public final class WindowFull extends GroupFrame {
         return LaunchingFull.getMainWindowClass();
     }
 
-    @Override
-    public boolean canChangeLanguage() {
-        return false;
-    }
+//    @Override
+//    public boolean canChangeLanguage() {
+//        return false;
+//    }
 
     @Override
     public void changeLanguage(String _language) {
-        //
+        setLanguageKey(_language);
     }
 
 //    public GuiInterpreterElements getCurrentElements() {
