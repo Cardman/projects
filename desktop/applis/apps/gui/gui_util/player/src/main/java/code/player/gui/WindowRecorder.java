@@ -3,6 +3,7 @@ package code.player.gui;
 import code.gui.*;
 import code.gui.events.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.stream.AbsPlayBack;
 import code.stream.AbsSoundRecord;
 import code.stream.StreamBinaryFile;
 
@@ -18,6 +19,9 @@ public final class WindowRecorder extends GroupFrame {
     private final AbsPlainButton playSong;
     private final AbsPlainLabel status = getCompoFactory().newPlainLabel("");
     private final AbsSoundRecord soundRecord;
+    private AbsPlayBack playBack;
+    private boolean built;
+
     public WindowRecorder(String _lg, AbstractProgramInfos _list) {
         super(_lg, _list);
         setTitle("recorder");
@@ -142,24 +146,32 @@ public final class WindowRecorder extends GroupFrame {
         pack();
     }
     public void stop() {
-        soundRecord.getState().set(false);
-        soundRecord.stop();
+        if (playBack != null) {
+            playBack.getState().set(false);
+        } else {
+            soundRecord.getState().set(false);
+            soundRecord.stop();
+            built = true;
+        }
         setState();
+        playBack = null;
         status.setText("");
-        playSong.setEnabled(true);
         pack();
     }
     public void setState(){
         recordSong.setEnabled(okRecord());
         stopSong.setEnabled(okStop());
-        playSong.setEnabled(false);
+        playSong.setEnabled(okPlay());
     }
     public void play() {
+        playSong.setEnabled(false);
         recordSong.setEnabled(false);
-        stopSong.setEnabled(false);
-        GuiBaseUtil.launch(soundRecord);
-        recordSong.setEnabled(okRecord());
-        stopSong.setEnabled(okStop());
+        stopSong.setEnabled(true);
+        pack();
+        playBack = soundRecord.build();
+        GuiBaseUtil.launch(playBack);
+        playBack = null;
+        setState();
     }
     public boolean okRecord(){
         boolean supported_ = soundRecord.supported(rate.getValue(), size.getValue(),
@@ -176,6 +188,9 @@ public final class WindowRecorder extends GroupFrame {
         return true;
     }
     public boolean okStop(){
-        return soundRecord.isActive();
+        return playBack != null||soundRecord.isActive();
+    }
+    public boolean okPlay(){
+        return built&&playBack == null;
     }
 }

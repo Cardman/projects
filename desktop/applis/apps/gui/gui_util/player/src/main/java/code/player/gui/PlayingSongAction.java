@@ -10,6 +10,6 @@ public final class PlayingSongAction implements AbsActionListener {
     }
     @Override
     public void action() {
-        windowRecorder.play();
+        windowRecorder.getFrames().getThreadFactory().newStartedThread(new PlayingSong(windowRecorder));
     }
 }

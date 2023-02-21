@@ -240,27 +240,26 @@ public final class GuiBaseUtil {
             _rec.writeBytes();
         }
     }
-    public static boolean launch(AbsSoundRecord _rec) {
-        AbsPlayBack pl_ = _rec.build();
-        if (pl_ == null) {
+    public static boolean launch(AbsPlayBack _rec) {
+        if (_rec == null) {
             return false;
         }
-        if (!pl_.prepare()) {
+        if (!_rec.prepare()) {
             return false;
         }
-        while (pl_.getState().get()) {
-            if (pl_.readBytes() == -1) {
+        while (_rec.getState().get()) {
+            if (_rec.readBytes() == -1) {
                 break;
             }
-            pl_.remainPrep();
-            while (pl_.remain() > 0) {
-                pl_.writeBytes();
+            _rec.remainPrep();
+            while (_rec.remain() > 0) {
+                _rec.writeBytes();
             }
         }
-        if (pl_.getState().get()) {
-            pl_.drain();
+        if (_rec.getState().get()) {
+            _rec.drain();
         }
-        pl_.finish();
+        _rec.finish();
         return true;
     }
 }

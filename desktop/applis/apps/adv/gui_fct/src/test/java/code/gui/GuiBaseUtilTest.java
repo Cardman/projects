@@ -247,7 +247,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         m_.append(NumberUtil.wrapIntArray(1,2,3,4));
         m_.getState().set(true);
         GuiBaseUtil.recordSong(m_);
-        assertFalse(GuiBaseUtil.launch(m_));
+        assertFalse(launch(m_));
     }
     @Test
     public void playBack2() {
@@ -255,7 +255,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         m_.append(NumberUtil.wrapIntArray(1,2,3,4,5,6,7,8));
         m_.getState().set(true);
         GuiBaseUtil.recordSong(m_);
-        assertTrue(GuiBaseUtil.launch(m_));
+        assertTrue(launch(m_));
     }
     @Test
     public void playBack3() {
@@ -263,7 +263,7 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         m_.append(NumberUtil.wrapIntArray(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16));
         m_.getState().set(true);
         GuiBaseUtil.recordSong(m_);
-        assertTrue(GuiBaseUtil.launch(m_));
+        assertTrue(launch(m_));
     }
     @Test
     public void playBack14() {
@@ -271,6 +271,9 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         m_.append(NumberUtil.wrapIntArray());
         m_.getState().set(true);
         GuiBaseUtil.recordSong(m_);
-        assertFalse(GuiBaseUtil.launch(m_));
+        assertFalse(launch(m_));
+    }
+    private boolean launch(MockSoundRecord _pl) {
+        return GuiBaseUtil.launch(_pl.build());
     }
 }
