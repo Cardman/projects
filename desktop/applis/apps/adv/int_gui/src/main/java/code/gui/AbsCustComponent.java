@@ -32,6 +32,7 @@ public interface AbsCustComponent {
     CustList<AbsMouseWheelListener> getMouseWheelListeners();
     CustList<AbsKeyListener> getKeyListeners();
     void registerKeyboardAction(AbsEnabledAction _action, int _a, int _b);
+    void unregisterKeyboardAction(int _a, int _b);
 
     StringMap<AbsEnabledAction> getActionsMap();
 

@@ -204,6 +204,10 @@ public abstract class EquallableElAdvUtil {
         MockProgramInfos pr_ = newMockProgramInfosInitConf();
         return windowLoadDef(pr_);
     }
+    public static WindowCdmEditor newWindowLoadDefMessages() {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfMessages();
+        return windowLoadDef(pr_);
+    }
     public static MockProgramInfos newMockProgramInfosInitConf() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
@@ -212,6 +216,19 @@ public abstract class EquallableElAdvUtil {
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
         lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        return pr_;
+    }
+    public static MockProgramInfos newMockProgramInfosInitConfMessages() {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        lines_.add("messages=VoidType=void\\u0020type?");
         StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
         pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
         return pr_;
@@ -414,6 +431,11 @@ public abstract class EquallableElAdvUtil {
         return ev_.getOutputDialogComments();
     }
 
+    protected static OutputDialogMessages messages(WindowCdmEditor _w) {
+        ChangeMessagesEvent ev_ = (ChangeMessagesEvent) ((MockMenuItem) _w.getMessagesMenu()).getActionListeners().get(0);
+        ev_.action();
+        return ev_.getOutputDialogMessages();
+    }
     protected static OutputDialogTab tabulations(WindowCdmEditor _w) {
         ChangeTabulationsEvent ev_ = (ChangeTabulationsEvent) ((MockMenuItem) _w.getTabulationsMenu()).getActionListeners().get(0);
         ev_.action();

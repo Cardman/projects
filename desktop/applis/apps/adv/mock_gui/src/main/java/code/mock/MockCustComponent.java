@@ -201,6 +201,11 @@ public abstract class MockCustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void unregisterKeyboardAction(int _a, int _b) {
+        actions.removeKey(_a+","+_b);
+    }
+
+    @Override
     public StringMap<AbsEnabledAction> getActionsMap() {
         return actions;
     }

@@ -134,4 +134,12 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         assertEq(5,t_.getSelectionEnd());
         assertEq(1, t_.getAutoCompleteListeners().size());
     }
+    @Test
+    public void f13() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.setFontSize(12);
+        t_.registerKeyboardAction(new MockAdvAbstractAction(new MockAdvAction(0,new MockWithAdvActionSample())),0,0);
+        t_.unregisterKeyboardAction(0,0);
+        assertEq(0, t_.getActionsMap().size());
+    }
 }

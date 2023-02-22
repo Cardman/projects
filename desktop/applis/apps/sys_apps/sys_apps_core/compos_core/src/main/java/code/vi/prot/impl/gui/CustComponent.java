@@ -146,6 +146,13 @@ public abstract class CustComponent implements AbsCustComponent {
     }
 
     @Override
+    public void unregisterKeyboardAction(int _a, int _b) {
+        getNatComponent().getActionMap().remove(_a+","+_b);
+        getNatComponent().getInputMap(JComponent.WHEN_FOCUSED).remove(KeyStroke.getKeyStroke(_a,_b));
+        actions.removeKey(_a+","+_b);
+    }
+
+    @Override
     public StringMap<AbsEnabledAction> getActionsMap() {
         return actions;
     }

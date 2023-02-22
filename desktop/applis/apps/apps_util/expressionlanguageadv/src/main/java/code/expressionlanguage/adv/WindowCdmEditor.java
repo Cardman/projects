@@ -49,7 +49,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsDialog dialogNavigLine;
     private final AbsDialog dialogTabulations;
     private final AbsDialog dialogLanguage;
+    private final AbsDialog dialogAliases;
     private final AbsMenuItem commentsMenu;
+    private final AbsMenuItem messagesMenu;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private StringMap<String> messages;
@@ -67,6 +69,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private String usedLg;
     private String execConf = "";
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
+    private StringMap<String> lgMessages = new StringMap<String>();
     private String currentFolder = "";
     private String currentFolderSrc = "";
     private int tabWidth = 4;
@@ -90,6 +93,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         dialogNavigLine = _list.getFrameFactory().newDialog();
         dialogTabulations = _list.getFrameFactory().newDialog();
         dialogLanguage = _list.getFrameFactory().newDialog();
+        dialogAliases = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
@@ -118,6 +122,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commentsMenu = _list.getCompoFactory().newMenuItem("comments");
         commentsMenu.addActionListener(new ChangeCommentsEvent(this));
         menu_.addMenuItem(commentsMenu);
+        messagesMenu = _list.getCompoFactory().newMenuItem("messages");
+        messagesMenu.addActionListener(new ChangeMessagesEvent(this));
+        menu_.addMenuItem(messagesMenu);
         panel = _list.getCompoFactory().newPageBox();
         chooseFolder = commonFrame.getFrames().getCompoFactory().newPlainButton("folder");
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
@@ -229,6 +236,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame.setContentPane(panel);
         commonFrame.pack();
         currentFolder = acc_;
+        lgMessages = _linesFiles.getEx().getMessages();
         usedLg = _linesFiles.getLanguage();
         Options opt_ = _linesFiles.getOptions();
         tabWidth = opt_.getTabWidth();
@@ -607,6 +615,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
             commonFrame.getFrames().getFileCoreStream().newFile(currentFolder+"/src").mkdirs();
         }
         lines_.add("tabWidth="+tabWidth);
+        if (!lgMessages.isEmpty()) {
+            lines_.add("messages="+ParseLinesArgUtil.buildMapLine(lgMessages));
+        }
         StreamFolderFile.makeParent(execConf,commonFrame.getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(execConf, StringUtil.join(lines_,'\n'), frs_.getStreams());
         return new ManageOptions(commonFrame.getFrames().getLanguages(), lines_, factory, commonFrame.getFrames().getThreadFactory());
@@ -676,6 +687,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return commentsMenu;
     }
 
+    public AbsMenuItem getMessagesMenu() {
+        return messagesMenu;
+    }
+
     public AbsMenuItem getTabulationsMenu() {
         return tabulationsMenu;
     }
@@ -698,6 +713,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public AbsDialog getDialogLanguage() {
         return dialogLanguage;
+    }
+
+    public AbsDialog getDialogAliases() {
+        return dialogAliases;
     }
 
     public CustList<TabEditor> getTabs() {
@@ -753,6 +772,14 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 //    }
     public CustList<CommentDelimiters> getComments() {
         return comments;
+    }
+
+    public StringMap<String> getLgMessages() {
+        return lgMessages;
+    }
+
+    public void setLgMessages(StringMap<String> _lgMessages) {
+        this.lgMessages = _lgMessages;
     }
 
     public void setComments(CustList<CommentDelimiters> _c) {
