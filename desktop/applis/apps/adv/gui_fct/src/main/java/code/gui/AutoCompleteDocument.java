@@ -1,15 +1,18 @@
 package code.gui;
 
-import code.gui.events.AbsAutoCompleteListener;
-import code.gui.events.AbsKeyListenerPress;
+import code.gui.events.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.NumberUtil;
 import code.util.core.StringUtil;
 
-public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsKeyListenerPress {
+public final class AutoCompleteDocument implements AbsAutoCompleteListener {
 
+    private final AbsEnabledAction upAction;
+    private final AbsEnabledAction downAction;
+    private final AbsEnabledAction enterAction;
+    private final AbsEnabledAction escapeAction;
     private boolean wholeString = true;
 
     private final StringList dictionary = new StringList();
@@ -18,36 +21,34 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
 
     private final AbsGraphicList<String> list;
 
-    private final AbsTextField textField;
+    private final AbsTxtComponent textField;
     private final AbstractProgramInfos abs;
 
-    public AutoCompleteDocument(AbsTextField _field, StringList _aDictionary, AbstractProgramInfos _abs) {
+    public AutoCompleteDocument(AbsTxtComponent _field, StringList _aDictionary, AbstractProgramInfos _abs) {
         textField = _field;
         dictionary.addAllElts(_aDictionary);
         popup = _abs.getCompoFactory().newAbsPopupMenu();
         popup.setFocusable(false);
+        popup.setVisible(false);
         abs = _abs;
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
         popup.add(_abs.getCompoFactory().newAbsScrollPane(comp_.self()));
-        init();
-    }
-
-    private void init() {
         textField.addAutoComplete(this);
-        textField.addKeyListener(this);
+        upAction = _abs.getCompoFactory().wrap(new AutoCompleteUpEvent(this));
+        textField.registerKeyboardAction(upAction,GuiConstants.VK_UP,0);
+        downAction = _abs.getCompoFactory().wrap(new AutoCompleteDownEvent(this));
+        textField.registerKeyboardAction(downAction,GuiConstants.VK_DOWN,0);
+        enterAction = _abs.getCompoFactory().wrap(new AutoCompleteEnterEvent(this));
+        textField.registerKeyboardAction(enterAction,GuiConstants.VK_ENTER,0);
+        escapeAction = _abs.getCompoFactory().wrap(new AutoCompleteEscapeEvent(this));
+        textField.registerKeyboardAction(escapeAction,GuiConstants.VK_ESCAPE,0);
     }
 
     /**
      * Displays autocomplete popup at the correct location.
      */
     void showAutocompletePopup(){
-        if (skip()) {
-            return;
-        }
-        if (list.getList().isEmpty()) {
-            return;
-        }
         int height_ = textField.getHeight();
         popup.show(textField,0, height_);
     }
@@ -55,41 +56,39 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
     /**
      * Closes autocomplete popup.
      */
-    void hideAutocompletePopup(){
+    public void hideAutocompletePopup(){
         popup.setVisible(false);
     }
 
-    @Override
-    public void keyPressed(AbsCtrlKeyState _e, char _keyChar, int _keyCode) {
-        if (skip()) {
+    public void enterEvent() {
+        Ints ind_ = list.getSelectedIndexes();
+        if (ind_.isEmpty()) {
             return;
         }
-        if (_keyCode == GuiConstants.VK_UP) {
-            int index_ = list.getSelectedIndex();
-            if (index_ > 0) {
-                list.clearAllRange();
-                list.setSelectedIndice(index_ - 1);
-            }
-        } else if (_keyCode == GuiConstants.VK_DOWN) {
-            int index_ = list.getSelectedIndex();
-            if (index_ != -1 && list.getList().size() > index_ + 1) {
-                list.clearAllRange();
-                list.setSelectedIndice(index_ + 1);
-            }
-        } else if (_keyCode == GuiConstants.VK_ENTER) {
-            Ints ind_ = list.getSelectedIndexes();
-            if (ind_.isEmpty()) {
-                return;
-            }
-            String text_ = list.get(ind_.first());
-            textField.setText(text_);
-            textField.setCaretPosition(text_.length());
-        } else {
-            if (_keyCode == GuiConstants.VK_ESCAPE) {
-                hideAutocompletePopup();
-            }
+        String text_ = list.get(ind_.first());
+        textField.setText(text_);
+        textField.setCaretPosition(text_.length());
+        list.clear();
+        list.setSelectedIndice(-1);
+        hideAutocompletePopup();
+    }
+
+    public void downEvent() {
+        int index_ = list.getSelectedIndex();
+        if (index_ != -1 && list.getList().size() > index_ + 1) {
+            list.clearAllRange();
+            list.setSelectedIndice(index_ + 1);
         }
     }
+
+    public void upEvent() {
+        int index_ = list.getSelectedIndex();
+        if (index_ > 0) {
+            list.clearAllRange();
+            list.setSelectedIndice(index_ - 1);
+        }
+    }
+
     @Override
     public void insertUpdate(){
         documentChangedEvent();
@@ -105,20 +104,11 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         documentChangedEvent();
     }
 
-//    @Override
-//    public void keyTyped(AbsCtrlKeyState _keyState, char _keyChar) {
-//        // Do nothing
-//    }
-//
-//    @Override
-//    public void keyReleased(AbsCtrlKeyState _keyState, char _keyChar, int _keyCode) {
-//        // Do nothing
-//    }
     private void documentChangedEvent() {
-        if (skip()) {
+        if (!wholeString) {
             return;
         }
-        GuiBaseUtil.invokeLater(new DocumentChanged(this), abs);
+        abs.getCompoFactory().invokeNow(new DocumentChanged(this));
     }
     void documentChanged() {
         // Updating results list
@@ -158,11 +148,23 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener, AbsK
         dictionary.addAllElts(_dictionary);
     }
 
-    private boolean skip() {
-        return !wholeString;
+    public AbsGraphicList<String> getList() {
+        return list;
+    }
+
+    public AbsTxtComponent getTextField() {
+        return textField;
+    }
+
+    public AbsPopupMenu getPopup() {
+        return popup;
     }
 
     public void setMode(boolean _wholeString) {
         wholeString = _wholeString;
+        upAction.setEnabled(_wholeString);
+        downAction.setEnabled(_wholeString);
+        enterAction.setEnabled(_wholeString);
+        escapeAction.setEnabled(_wholeString);
     }
 }

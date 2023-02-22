@@ -2,7 +2,7 @@ package code.gui;
 
 final class DocumentChanged implements Runnable {
 
-    private AutoCompleteDocument autoCompleteDocument;
+    private final AutoCompleteDocument autoCompleteDocument;
     DocumentChanged(AutoCompleteDocument _autoCompleteDocument) {
         autoCompleteDocument = _autoCompleteDocument;
     }
