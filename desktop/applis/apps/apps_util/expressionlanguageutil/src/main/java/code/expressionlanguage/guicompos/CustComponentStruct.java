@@ -6,16 +6,12 @@ import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.AbsCustComponent;
 import code.gui.GuiBaseUtil;
-import code.gui.events.AbsKeyListener;
-import code.gui.events.AbsMouseListener;
-import code.gui.events.AbsMouseMotionListener;
-import code.gui.events.AbsMouseWheelListener;
+import code.gui.events.*;
 import code.gui.images.MetaDimension;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.util.CustList;
-
-
+import code.util.StringMap;
 
 
 public abstract class CustComponentStruct extends WithoutParentIdStruct implements Struct {
@@ -24,6 +20,7 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
     private final CustList<CustComponentStruct> children = new CustList<CustComponentStruct>();
     private final String className;
     private Struct paintEvent = NullStruct.NULL_VALUE;
+    private final StringMap<EnabledActionStruct> actions = new StringMap<EnabledActionStruct>();
 
     protected CustComponentStruct(String _className) {
         className = _className;
@@ -189,6 +186,17 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
         }
 
     }
+    public void registerKeyboardAction(Struct _action, Struct _a, Struct _b) {
+        int first_ = ((NumberStruct) _a).intStruct();
+        int second_ = ((NumberStruct) _b).intStruct();
+        if (_action instanceof EnabledActionStruct) {
+            getVisibleComponent().registerKeyboardAction(((EnabledActionStruct) _action).getController(),first_,second_);
+            actions.put(first_+","+second_,(EnabledActionStruct)_action);
+        } else {
+            getVisibleComponent().unregisterKeyboardAction(first_,second_);
+            actions.removeKey(first_+","+second_);
+        }
+    }
     public void removeMouse(Struct _mouseListener) {
         if (_mouseListener instanceof AbsMouseListener) {
             getVisibleComponent().removeMouseListener((AbsMouseListener) _mouseListener);
@@ -207,6 +215,13 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             getVisibleComponent().removeKeyListener((AbsKeyListener)_l);
         }
 
+    }
+
+    public void unregisterKeyboardAction(Struct _a, Struct _b) {
+        int first_ = ((NumberStruct) _a).intStruct();
+        int second_ = ((NumberStruct) _b).intStruct();
+        getVisibleComponent().unregisterKeyboardAction(first_,second_);
+        actions.removeKey(first_+","+second_);
     }
     public ArrayStruct getMouses(ContextEl _ctx) {
         String aliasMouseListener_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasMouseListener();
@@ -250,6 +265,18 @@ public abstract class CustComponentStruct extends WithoutParentIdStruct implemen
             }
         }
         return nulls(aliasKeyListener_, res_);
+    }
+    public ArrayStruct getCommands(ContextEl _ctx) {
+        String aliasCommand_ = ((LgNamesGui) _ctx.getStandards()).getGuiAliases().getAliasCommand();
+        CustList<Struct> res_ = new CustList<Struct>();
+        int lenBase_ = actions.size();
+        for (int i = 0; i < lenBase_; i++) {
+            CommandStruct c_ = new CommandStruct(aliasCommand_);
+            c_.setBinding(new StringStruct(actions.getKey(i)));
+            c_.setAction(actions.getValue(i));
+            res_.add(c_);
+        }
+        return nulls(aliasCommand_, res_);
     }
 
     public static ArrayStruct nulls(String _cl, CustList<Struct> _ls) {

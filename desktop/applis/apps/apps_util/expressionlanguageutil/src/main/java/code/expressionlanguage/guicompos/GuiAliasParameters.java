@@ -430,6 +430,14 @@ public final class GuiAliasParameters {
     private static final String MENU_ITEM_0_MENU_ITEM_0="MenuItem0MenuItem0";
     private static final String MENU_ITEM_CHECK_0_RADIO_SET_SELECTED_0="MenuItemCheck0RadioSetSelected0";
     private static final String MENU_ITEM_CHECK_0_MENU_ITEM_CHECK_0="MenuItemCheck0MenuItemCheck0";
+    private static final String COMMAND_0_BINDING_0="Command0Binding0";
+    private static final String COMMAND_0_ACTION_0="Command0Action0";
+    private static final String COMPONENT_0_BIND_0="Component0Bind0";
+    private static final String COMPONENT_0_BIND_1="Component0Bind1";
+    private static final String COMPONENT_0_BIND_2="Component0Bind2";
+    private static final String COMPONENT_0_UNBIND_0="Component0Unbind0";
+    private static final String COMPONENT_0_UNBIND_1="Component0Unbind1";
+
 
     private String aliasActionListener0ActionPerformed0;
     private String aliasAction0Wrap0;
@@ -855,6 +863,13 @@ public final class GuiAliasParameters {
     private String aliasMenuItem0MenuItem0;
     private String aliasMenuItemCheck0RadioSetSelected0;
     private String aliasMenuItemCheck0MenuItemCheck0;
+    private String aliasCommand0Binding0;
+    private String aliasCommand0Action0;
+    private String aliasComponent0Bind0;
+    private String aliasComponent0Bind1;
+    private String aliasComponent0Bind2;
+    private String aliasComponent0Unbind0;
+    private String aliasComponent0Unbind1;
     public void build(StringMap<String> _util, StringMap<String> _cust) {
         aliasActionListener0ActionPerformed0=LgNamesContent.get(_util,_cust, ACTION_LISTENER_0_ACTION_PERFORMED_0);
         aliasAction0Wrap0=LgNamesContent.get(_util,_cust, ACTION_0_WRAP_0);
@@ -1279,6 +1294,13 @@ public final class GuiAliasParameters {
         aliasMenuItem0MenuItem0=LgNamesContent.get(_util,_cust, MENU_ITEM_0_MENU_ITEM_0);
         aliasMenuItemCheck0RadioSetSelected0=LgNamesContent.get(_util,_cust, MENU_ITEM_CHECK_0_RADIO_SET_SELECTED_0);
         aliasMenuItemCheck0MenuItemCheck0=LgNamesContent.get(_util,_cust, MENU_ITEM_CHECK_0_MENU_ITEM_CHECK_0);
+        aliasCommand0Binding0=LgNamesContent.get(_util,_cust, COMMAND_0_BINDING_0);
+        aliasCommand0Action0=LgNamesContent.get(_util,_cust, COMMAND_0_ACTION_0);
+        aliasComponent0Bind0=LgNamesContent.get(_util,_cust, COMPONENT_0_BIND_0);
+        aliasComponent0Bind1=LgNamesContent.get(_util,_cust, COMPONENT_0_BIND_1);
+        aliasComponent0Bind2=LgNamesContent.get(_util,_cust, COMPONENT_0_BIND_2);
+        aliasComponent0Unbind0=LgNamesContent.get(_util,_cust, COMPONENT_0_UNBIND_0);
+        aliasComponent0Unbind1=LgNamesContent.get(_util,_cust, COMPONENT_0_UNBIND_1);
     }
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
@@ -1535,6 +1557,10 @@ public final class GuiAliasParameters {
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MENU_ITEM_0_MENU_ITEM_0,aliasMenuItem0MenuItem0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MENU_ITEM_CHECK_0_RADIO_SET_SELECTED_0,aliasMenuItemCheck0RadioSetSelected0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MENU_ITEM_CHECK_0_MENU_ITEM_CHECK_0,aliasMenuItemCheck0MenuItemCheck0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMMAND_0_BINDING_0,aliasCommand0Binding0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMMAND_0_ACTION_0,aliasCommand0Action0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_BIND_0,aliasComponent0Bind0),new KeyValueMemberName(COMPONENT_0_BIND_1,aliasComponent0Bind1),new KeyValueMemberName(COMPONENT_0_BIND_2,aliasComponent0Bind2)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(COMPONENT_0_UNBIND_0,aliasComponent0Unbind0),new KeyValueMemberName(COMPONENT_0_UNBIND_1,aliasComponent0Unbind1)));
         return m_;
     }
 
@@ -3228,5 +3254,33 @@ public final class GuiAliasParameters {
 
     public String getAliasMenuItemCheck0MenuItemCheck0() {
         return aliasMenuItemCheck0MenuItemCheck0;
+    }
+
+    public String getAliasCommand0Binding0() {
+        return aliasCommand0Binding0;
+    }
+
+    public String getAliasCommand0Action0() {
+        return aliasCommand0Action0;
+    }
+
+    public String getAliasComponent0Bind0() {
+        return aliasComponent0Bind0;
+    }
+
+    public String getAliasComponent0Bind1() {
+        return aliasComponent0Bind1;
+    }
+
+    public String getAliasComponent0Bind2() {
+        return aliasComponent0Bind2;
+    }
+
+    public String getAliasComponent0Unbind0() {
+        return aliasComponent0Unbind0;
+    }
+
+    public String getAliasComponent0Unbind1() {
+        return aliasComponent0Unbind1;
     }
 }

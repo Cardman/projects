@@ -593,6 +593,12 @@ public final class GuiAliases {
     private static final String MENU_ITEM = "MenuItem";
     private static final String ABS_MENU = "AbsMenu";
     private static final String MENU_GET = "MenuGet";
+    private static final String COMMAND="Command";
+    private static final String COMMAND_BINDING="CommandBinding";
+    private static final String COMMAND_ACTION="CommandAction";
+    private static final String COMPONENT_BIND="ComponentBind";
+    private static final String COMPONENT_UNBIND="ComponentUnbind";
+    private static final String COMPONENT_COMMANDS="ComponentCommands";
     private String aliasActionListener;
     private String aliasAction;
     private String aliasActionWrap;
@@ -1014,6 +1020,12 @@ public final class GuiAliases {
     private String aliasMenuItemCheck;
     private String aliasMenuItemCheckIsSelected;
     private String aliasMenuItemCheckSetSelected;
+    private String aliasCommand;
+    private String aliasCommandBinding;
+    private String aliasCommandAction;
+    private String aliasComponentBind;
+    private String aliasComponentUnbind;
+    private String aliasComponentCommands;
     private final GuiAliasParameters guiAliasParameters = new GuiAliasParameters();
     private final StringMap<String> propertiesGui = MessCdmGuiGr.ms();
 
@@ -1887,6 +1899,15 @@ public final class GuiAliases {
         params_ = new StringList();
         method_ = new StandardMethod(aliasCompoRelCentVert, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new FctCompoCentVert());
         methods_.add( method_);
+        params_ = new StringList(aliasAction,_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasComponentBind, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL,new StringList(guiAliasParameters.getAliasComponent0Bind0(),guiAliasParameters.getAliasComponent0Bind1(),guiAliasParameters.getAliasComponent0Bind2()), new FctCompoBind());
+        methods_.add( method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger());
+        method_ = new StandardMethod(aliasComponentUnbind, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasComponent0Unbind0(),guiAliasParameters.getAliasComponent0Unbind1()), new FctCompoUnbind());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasComponentCommands, params_, StringExpUtil.getPrettyArrayType(aliasCommand), false, MethodModifier.FINAL, new FctCompoCommands());
+        methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasComponent, std_);
         methods_ = new CustList<StandardMethod>();
@@ -2551,6 +2572,27 @@ public final class GuiAliases {
         methods_.add( method_);
         std_ = stdcl_;
         _content.getStandards().addEntry(aliasAction, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasCommand, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL,new DfCommand(aliasCommand));
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCommandBinding, params_, _content.getCharSeq().getAliasString(), false, MethodModifier.FINAL, new FctCommandBinding0());
+        methods_.add( method_);
+        params_ = new StringList(_content.getCharSeq().getAliasString());
+        method_ = new StandardMethod(aliasCommandBinding, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasCommand0Binding0()),new FctCommandBinding1());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasCommandAction, params_, aliasAction, false, MethodModifier.FINAL, new FctCommandAction0());
+        methods_.add( method_);
+        params_ = new StringList(aliasAction);
+        method_ = new StandardMethod(aliasCommandAction, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasCommand0Action0()), new FctCommandAction1());
+        methods_.add( method_);
+        params_ = new StringList();
+        ctor_ = new StandardConstructor(params_, false, new FctCommand(aliasCommand));
+        constructors_.add(ctor_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasCommand, std_);
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
@@ -3638,6 +3680,12 @@ public final class GuiAliases {
         setAliasMenuItem(LgNamesContent.get(_util, _cust, MENU_ITEM));
         setAliasAbsMenu(LgNamesContent.get(_util, _cust, ABS_MENU));
         setAliasMenuGet(LgNamesContent.get(_util, _cust, MENU_GET));
+        setAliasCommand(LgNamesContent.get(_util, _cust, COMMAND));
+        setAliasCommandBinding(LgNamesContent.get(_util, _cust, COMMAND_BINDING));
+        setAliasCommandAction(LgNamesContent.get(_util, _cust, COMMAND_ACTION));
+        setAliasComponentBind(LgNamesContent.get(_util, _cust, COMPONENT_BIND));
+        setAliasComponentUnbind(LgNamesContent.get(_util, _cust, COMPONENT_UNBIND));
+        setAliasComponentCommands(LgNamesContent.get(_util, _cust, COMPONENT_COMMANDS));
         guiAliasParameters.build(_util, _cust);
     }
 
@@ -3873,6 +3921,10 @@ public final class GuiAliases {
                 new KeyValueMemberName(ABS_MENU_ITEM_ADD_ACTION,getAliasAbsMenuItemAddAction()),
                 new KeyValueMemberName(MENU_ITEM_CHECK_IS_SELECTED,getAliasMenuItemCheckIsSelected()),
                 new KeyValueMemberName(MENU_ITEM_CHECK_SET_SELECTED,getAliasMenuItemCheckSetSelected())
+        ));
+        m_.addEntry(getAliasCommand(),new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(COMMAND_BINDING,getAliasCommandBinding()),
+                new KeyValueMemberName(COMMAND_ACTION,getAliasCommandAction())
         ));
         return m_;
     }
@@ -4137,7 +4189,10 @@ public final class GuiAliases {
                 new KeyValueMemberName(COMP_BOR_LINE,getAliasCompBorLine()),
                 new KeyValueMemberName(COMP_BOR_LOWER,getAliasCompBorLower()),
                 new KeyValueMemberName(COMP_BOR_RAISE,getAliasCompBorRaise()),
-                new KeyValueMemberName(COMP_BOR_TITLE,getAliasCompBorTitle())
+                new KeyValueMemberName(COMP_BOR_TITLE,getAliasCompBorTitle()),
+                new KeyValueMemberName(COMPONENT_BIND,getAliasComponentBind()),
+                new KeyValueMemberName(COMPONENT_UNBIND,getAliasComponentUnbind()),
+                new KeyValueMemberName(COMPONENT_COMMANDS,getAliasComponentCommands())
         );
     }
 
@@ -4290,6 +4345,7 @@ public final class GuiAliases {
         ref_.addEntry(MENU_ITEM_CHECK,getAliasMenuItemCheck());
         ref_.addEntry(SPINNER,getAliasSpinner());
         ref_.addEntry(SLIDER,getAliasSlider());
+        ref_.addEntry(COMMAND,getAliasCommand());
         return ref_;
     }
     private static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
@@ -7630,4 +7686,51 @@ public final class GuiAliases {
         this.aliasMenuItemCheckSetSelected = _v;
     }
 
+    public String getAliasCommand() {
+        return aliasCommand;
+    }
+
+    public void setAliasCommand(String _v) {
+        this.aliasCommand = _v;
+    }
+
+    public String getAliasCommandBinding() {
+        return aliasCommandBinding;
+    }
+
+    public void setAliasCommandBinding(String _v) {
+        this.aliasCommandBinding = _v;
+    }
+
+    public String getAliasCommandAction() {
+        return aliasCommandAction;
+    }
+
+    public void setAliasCommandAction(String _v) {
+        this.aliasCommandAction = _v;
+    }
+
+    public String getAliasComponentBind() {
+        return aliasComponentBind;
+    }
+
+    public void setAliasComponentBind(String _v) {
+        this.aliasComponentBind = _v;
+    }
+
+    public String getAliasComponentUnbind() {
+        return aliasComponentUnbind;
+    }
+
+    public void setAliasComponentUnbind(String _v) {
+        this.aliasComponentUnbind = _v;
+    }
+
+    public String getAliasComponentCommands() {
+        return aliasComponentCommands;
+    }
+
+    public void setAliasComponentCommands(String _v) {
+        this.aliasComponentCommands = _v;
+    }
 }

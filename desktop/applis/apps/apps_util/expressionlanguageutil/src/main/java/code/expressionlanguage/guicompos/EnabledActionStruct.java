@@ -20,6 +20,10 @@ public final class EnabledActionStruct extends WithoutParentIdClassStruct {
         controller.setEnabled(BooleanStruct.isTrue(_str));
     }
 
+    public AbsEnabledAction getController() {
+        return controller;
+    }
+
     public Struct getAction() {
         return action;
     }
