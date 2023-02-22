@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.StringMap;
@@ -16,27 +17,31 @@ public final class OutputDialogMessages {
     private final AutoCompleteDocument auto;
 
     public OutputDialogMessages(WindowCdmEditor _w) {
-        messagesRows = new StringMap<String>(_w.getLgMessages());
+        messagesRows = new StringMap<String>();
         for (String k:new AnalysisMessages().allMessages().getKeys()){
-            if (!messagesRows.contains(k)) {
+            int index_ = _w.getLgMessages().indexOfEntry(k);
+            if (index_ < 0) {
                 messagesRows.put(k,"");
+            } else {
+                messagesRows.put(k,_w.getLgMessages().getValue(index_));
             }
         }
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
-        AbsPanel line_ = factories_.getCompoFactory().newLineBox();
         AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
         value = factories_.getCompoFactory().newTextArea("",1,32);
         auto = new AutoCompleteDocument(keyAuto_, new StringList(new AnalysisMessages().allMessages().getKeys()), factories_, new FeedMessageValue(value, messagesRows));
         value.setLineBorder(GuiConstants.BLACK);
-        line_.add(keyAuto_);
         key = keyAuto_;
-        line_.add(value);
-        dels_.add(line_);
+        dels_.add(keyAuto_);
+        AbsScrollPane inner_ = factories_.getCompoFactory().newAbsScrollPane(value);
+        inner_.setPreferredSize(new MetaDimension(384,48));
+        dels_.add(inner_);
         valPart = factories_.getCompoFactory().newPlainButton("MATCH");
         valPart.addActionListener(new ValidateMessage(keyAuto_,value, messagesRows));
         dels_.add(valPart);
         AbsScrollPane sc_ = factories_.getCompoFactory().newAbsScrollPane(dels_);
+        sc_.setPreferredSize(new MetaDimension(384,128));
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         all_.add(sc_);
         val = factories_.getCompoFactory().newPlainButton("OK");

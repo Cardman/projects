@@ -33,6 +33,7 @@ public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDefMessages();
         OutputDialogMessages o_ = messages(w_);
         assertEq(1,w_.getLgMessages().size());
+        int index_ = new AnalysisMessages().allMessages().indexOfEntry("VoidType");
         o_.getKey().setText("VoidType");
         enter(o_.getAuto());
         assertEq("void type?",o_.getValue().getText());
@@ -41,7 +42,7 @@ public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
         assertEq("void type?",w_.getLgMessages().getValue(0));
         o_.getValue().setText("The type is void!");
         ((MockPlainButton)o_.getValPart()).getActionListeners().get(0).action();
-        assertEq("The type is void!",o_.getMessagesRows().getVal(o_.getKey().getText()));
+        assertEq("The type is void!",o_.getMessagesRows().getValue(index_));
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
 
         assertEq(1,w_.getLgMessages().size());
