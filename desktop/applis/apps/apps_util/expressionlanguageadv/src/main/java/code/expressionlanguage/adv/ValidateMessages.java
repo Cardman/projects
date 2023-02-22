@@ -1,14 +1,13 @@
 package code.expressionlanguage.adv;
 
 import code.gui.events.AbsActionListener;
-import code.util.CustList;
 import code.util.StringMap;
 
 public final class ValidateMessages implements AbsActionListener {
-    private final CustList<EditMessageRow> messages;
+    private final StringMap<String> messages;
     private final WindowCdmEditor windowCdmEditor;
 
-    public ValidateMessages(CustList<EditMessageRow> _m, WindowCdmEditor _ed) {
+    public ValidateMessages(StringMap<String> _m, WindowCdmEditor _ed) {
         this.messages = _m;
         windowCdmEditor = _ed;
     }
@@ -19,12 +18,11 @@ public final class ValidateMessages implements AbsActionListener {
         int len_ = messages.size();
         StringMap<String> messages_ = new StringMap<String>();
         for (int i = 0; i < len_; i++) {
-            EditMessageRow e_ = messages.get(i);
-            String value_ = e_.getContent().getText();
+            String value_ = messages.getValue(i);
             if (value_.isEmpty()) {
                 continue;
             }
-            messages_.addEntry(e_.getKey(), value_);
+            messages_.addEntry(messages.getKey(i), value_);
         }
         windowCdmEditor.setLgMessages(messages_);
         windowCdmEditor.afterChangingSyntaxPreferences();

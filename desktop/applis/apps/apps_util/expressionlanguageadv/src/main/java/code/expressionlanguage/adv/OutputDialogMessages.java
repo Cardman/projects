@@ -1,31 +1,41 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
-import code.gui.AbsScrollPane;
+import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.CustList;
+import code.util.StringList;
+import code.util.StringMap;
 
 public final class OutputDialogMessages {
-    private final CustList<EditMessageRow> messagesRows;
+    private final StringMap<String> messagesRows;
+    private final AbsTextField key;
+    private final AbsTextArea value;
     private final AbsPlainButton val;
+    private final AbsPlainButton valPart;
     private final AbsPlainButton cancel;
+    private final AutoCompleteDocument auto;
+
     public OutputDialogMessages(WindowCdmEditor _w) {
-        messagesRows = new CustList<EditMessageRow>();
+        messagesRows = new StringMap<String>(_w.getLgMessages());
+        for (String k:new AnalysisMessages().allMessages().getKeys()){
+            if (!messagesRows.contains(k)) {
+                messagesRows.put(k,"");
+            }
+        }
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
-        for (String k:new AnalysisMessages().allMessages().getKeys()){
-            EditMessageRow ed_;
-            int index_ = _w.getLgMessages().indexOfEntry(k);
-            if (index_ > -1){
-                ed_ = new EditMessageRow(factories_, k, _w.getLgMessages().getValue(index_));
-            } else {
-                ed_ = new EditMessageRow(factories_, k, "");
-            }
-            messagesRows.add(ed_);
-            dels_.add(ed_.getLine());
-        }
+        AbsPanel line_ = factories_.getCompoFactory().newLineBox();
+        AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
+        value = factories_.getCompoFactory().newTextArea("",1,32);
+        auto = new AutoCompleteDocument(keyAuto_, new StringList(new AnalysisMessages().allMessages().getKeys()), factories_, new FeedMessageValue(value, messagesRows));
+        value.setLineBorder(GuiConstants.BLACK);
+        line_.add(keyAuto_);
+        key = keyAuto_;
+        line_.add(value);
+        dels_.add(line_);
+        valPart = factories_.getCompoFactory().newPlainButton("MATCH");
+        valPart.addActionListener(new ValidateMessage(keyAuto_,value, messagesRows));
+        dels_.add(valPart);
         AbsScrollPane sc_ = factories_.getCompoFactory().newAbsScrollPane(dels_);
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         all_.add(sc_);
@@ -44,11 +54,27 @@ public final class OutputDialogMessages {
         return cancel;
     }
 
-    public CustList<EditMessageRow> getMessagesRows() {
+    public StringMap<String> getMessagesRows() {
         return messagesRows;
     }
 
     public AbsPlainButton getVal() {
         return val;
+    }
+
+    public AbsTextField getKey() {
+        return key;
+    }
+
+    public AbsTextArea getValue() {
+        return value;
+    }
+
+    public AbsPlainButton getValPart() {
+        return valPart;
+    }
+
+    public AutoCompleteDocument getAuto() {
+        return auto;
     }
 }

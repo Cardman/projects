@@ -23,8 +23,13 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
 
     private final AbsTxtComponent textField;
     private final AbstractProgramInfos abs;
+    private final AfterValidateText afterValidateText;
 
     public AutoCompleteDocument(AbsTxtComponent _field, StringList _aDictionary, AbstractProgramInfos _abs) {
+        this(_field,_aDictionary,_abs,new DefValidateText());
+    }
+    public AutoCompleteDocument(AbsTxtComponent _field, StringList _aDictionary, AbstractProgramInfos _abs, AfterValidateText _after) {
+        afterValidateText = _after;
         textField = _field;
         dictionary.addAllElts(_aDictionary);
         popup = _abs.getCompoFactory().newAbsPopupMenu();
@@ -63,14 +68,14 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
     public void enterEvent() {
         Ints ind_ = list.getSelectedIndexes();
         if (ind_.isEmpty()) {
+            afterValidateText.act(textField,textField.getText().trim());
             return;
         }
-        String text_ = list.get(ind_.first());
-        textField.setText(text_);
-        textField.setCaretPosition(text_.length());
+        String text_ = list.get(ind_.first()).trim();
         list.clear();
         list.setSelectedIndice(-1);
         hideAutocompletePopup();
+        afterValidateText.act(textField,text_);
     }
 
     public void downEvent() {
