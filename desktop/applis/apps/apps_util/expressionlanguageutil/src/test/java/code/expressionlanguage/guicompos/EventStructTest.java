@@ -539,7 +539,70 @@ public final class EventStructTest extends EquallableElUtUtil {
         ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
         assertEq("",new DefSpecSelectionCtx(ctx_.getExecutionInfos(),new StringList()).convertStr(new StringStruct("")));
     }
-
+    @Test
+    public void actWrap1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(), new MockFileSet(5, lgs(1), new String[]{"/"}));
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getGuiExecutingBlocks().initApplicationParts(new StringList(),pr_,new CdmFactory(pr_,new MockInterceptor(),new MockAdvGraphicListGenerator(true),new AdvGraphicListGeneratorStruct()));
+        Options opt_ = new Options();
+        ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
+        StackCall st_ = stack(ctx_);
+        Struct e_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(NullStruct.NULL_VALUE), st_);
+        assertSame(NullStruct.NULL_VALUE,e_);
+    }
+    @Test
+    public void actWrap2() {
+        MockProgramInfos pr_ = prs();
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        Struct ae_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
+        assertSame(ev_,call(new FctActionArg(),null,ctx_,ae_,null,st_));
+    }
+    @Test
+    public void enabled1() {
+        MockProgramInfos pr_ = prs();
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        Struct ae_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
+        call(new FctActionEnabled1(),null,ctx_,ae_,one(BooleanStruct.of(true)),st_);
+        assertTrue(call(new FctActionEnabled0(),null,ctx_,ae_,null,st_));
+    }
+    @Test
+    public void enabled2() {
+        MockProgramInfos pr_ = prs();
+        LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        Options opt_ = new Options();
+        opt_.setCovering(true);
+        ExecutingOptions e_ = new ExecutingOptions(pr_.getThreadFactory().newAtomicBoolean());
+        e_.setLightProgramInfos(pr_);
+        StringMap<String> files_ = new StringMap<String>();
+        files_.addEntry("src/sample.txt","public class pkg.Sample{}");
+        ContextEl ctx_ = build(opt_, e_,new AnalysisMessages(),new KeyWords(),stds_, files_).getContext();
+        StackCall st_ = stack(ctx_);
+        ExecRootBlock ex_ = ctx_.getClasses().getClassBody("pkg.Sample");
+        Struct ev_ = ctx_.getInit().processInit(ctx_, NullStruct.NULL_VALUE, new ExecFormattedRootBlock(ex_), "", -1);
+        Struct ae_ = call(new FctActionWrap("", stds_.getGuiExecutingBlocks().getCompoFactory()), null, ctx_, null, one(ev_), st_);
+        call(new FctActionEnabled1(),null,ctx_,ae_,one(BooleanStruct.of(false)),st_);
+        assertFalse(call(new FctActionEnabled0(),null,ctx_,ae_,null,st_));
+    }
     private MockProgramInfos prs() {
         MockProgramInfos prs_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
         update(prs_);

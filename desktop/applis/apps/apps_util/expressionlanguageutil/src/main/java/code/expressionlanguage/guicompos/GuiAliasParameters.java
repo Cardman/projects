@@ -7,6 +7,8 @@ import code.util.StringMap;
 
 public final class GuiAliasParameters {
     private static final String ACTION_LISTENER_0_ACTION_PERFORMED_0="ActionListener0ActionPerformed0";
+    private static final String ACTION_0_WRAP_0="Action0Wrap0";
+    private static final String ACTION_0_ENABLED_0="Action0Enabled0";
     private static final String TREE_LISTENER_0_TREE_LISTENER_VALUE_CHANGED_0="TreeListener0TreeListenerValueChanged0";
     private static final String TABLE_LISTENER_0_TABLE_VALUE_TABLE_CHANGED_0="TableListener0TableValueTableChanged0";
     private static final String TABLE_LISTENER_0_TABLE_VALUE_TABLE_CHANGED_1="TableListener0TableValueTableChanged1";
@@ -430,6 +432,8 @@ public final class GuiAliasParameters {
     private static final String MENU_ITEM_CHECK_0_MENU_ITEM_CHECK_0="MenuItemCheck0MenuItemCheck0";
 
     private String aliasActionListener0ActionPerformed0;
+    private String aliasAction0Wrap0;
+    private String aliasAction0Enabled0;
     private String aliasTreeListener0TreeListenerValueChanged0;
     private String aliasTableListener0TableValueTableChanged0;
     private String aliasTableListener0TableValueTableChanged1;
@@ -853,6 +857,8 @@ public final class GuiAliasParameters {
     private String aliasMenuItemCheck0MenuItemCheck0;
     public void build(StringMap<String> _util, StringMap<String> _cust) {
         aliasActionListener0ActionPerformed0=LgNamesContent.get(_util,_cust, ACTION_LISTENER_0_ACTION_PERFORMED_0);
+        aliasAction0Wrap0=LgNamesContent.get(_util,_cust, ACTION_0_WRAP_0);
+        aliasAction0Enabled0=LgNamesContent.get(_util,_cust, ACTION_0_ENABLED_0);
         aliasTreeListener0TreeListenerValueChanged0=LgNamesContent.get(_util,_cust, TREE_LISTENER_0_TREE_LISTENER_VALUE_CHANGED_0);
         aliasTableListener0TableValueTableChanged0=LgNamesContent.get(_util,_cust, TABLE_LISTENER_0_TABLE_VALUE_TABLE_CHANGED_0);
         aliasTableListener0TableValueTableChanged1=LgNamesContent.get(_util,_cust, TABLE_LISTENER_0_TABLE_VALUE_TABLE_CHANGED_1);
@@ -1277,6 +1283,8 @@ public final class GuiAliasParameters {
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ACTION_LISTENER_0_ACTION_PERFORMED_0,aliasActionListener0ActionPerformed0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ACTION_0_WRAP_0,aliasAction0Wrap0)));
+        m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ACTION_0_ENABLED_0,aliasAction0Enabled0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TREE_LISTENER_0_TREE_LISTENER_VALUE_CHANGED_0,aliasTreeListener0TreeListenerValueChanged0)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(TABLE_LISTENER_0_TABLE_VALUE_TABLE_CHANGED_0,aliasTableListener0TableValueTableChanged0),new KeyValueMemberName(TABLE_LISTENER_0_TABLE_VALUE_TABLE_CHANGED_1,aliasTableListener0TableValueTableChanged1)));
         m_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(MOUSE_LISTENER_0_MOUSE_CLICKED_0,aliasMouseListener0MouseClicked0)));
@@ -1532,6 +1540,14 @@ public final class GuiAliasParameters {
 
     public String getAliasActionListener0ActionPerformed0() {
         return aliasActionListener0ActionPerformed0;
+    }
+
+    public String getAliasAction0Wrap0() {
+        return aliasAction0Wrap0;
+    }
+
+    public String getAliasAction0Enabled0() {
+        return aliasAction0Enabled0;
     }
 
     public String getAliasTreeListener0TreeListenerValueChanged0() {

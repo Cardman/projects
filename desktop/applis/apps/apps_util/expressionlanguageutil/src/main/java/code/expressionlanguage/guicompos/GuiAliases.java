@@ -325,6 +325,10 @@ public final class GuiAliases {
     private static final String ACTION_EVENT_COMMAND = "ActionEventCommand";
     private static final String CHANGE_LISTENER = "ChangeListener";
     private static final String ACTION_LISTENER = "ActionListener";
+    private static final String ACTION = "Action";
+    private static final String ACTION_WRAP = "ActionWrap";
+    private static final String ACTION_ENABLED = "ActionEnabled";
+    private static final String ACTION_ARG = "ActionArg";
     private static final String ACTION_PERFORMED = "ActionPerformed";
     private static final String ADD_CHANGE = "AddChange";
     private static final String STATE_CHANGED = "StateChanged";
@@ -590,6 +594,10 @@ public final class GuiAliases {
     private static final String ABS_MENU = "AbsMenu";
     private static final String MENU_GET = "MenuGet";
     private String aliasActionListener;
+    private String aliasAction;
+    private String aliasActionWrap;
+    private String aliasActionEnabled;
+    private String aliasActionArg;
     private String aliasActionPerformed;
     private String aliasActionEvent;
     private String aliasActionEventIsAlt;
@@ -2528,6 +2536,24 @@ public final class GuiAliases {
         methods_ = new CustList<StandardMethod>();
         constructors_ = new CustList<StandardConstructor>();
         fields_ = new CustList<CstFieldInfo>();
+        stdcl_ = new StandardClass(aliasAction, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.ABSTRACT);
+        params_ = new StringList(aliasActionListener);
+        method_ = new StandardMethod(aliasActionWrap, params_, aliasAction, false, MethodModifier.STATIC,new StringList(guiAliasParameters.getAliasAction0Wrap0()), new FctActionWrap(aliasAction,_guiEx.getCompoFactory()));
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionEnabled, params_, _content.getPrimTypes().getAliasPrimBoolean(), false, MethodModifier.FINAL, new FctActionEnabled0());
+        methods_.add( method_);
+        params_ = new StringList(_content.getPrimTypes().getAliasPrimBoolean());
+        method_ = new StandardMethod(aliasActionEnabled, params_, _content.getCoreNames().getAliasVoid(), false, MethodModifier.FINAL, new StringList(guiAliasParameters.getAliasAction0Enabled0()), new FctActionEnabled1());
+        methods_.add( method_);
+        params_ = new StringList();
+        method_ = new StandardMethod(aliasActionArg, params_, aliasActionListener, false, MethodModifier.FINAL, new FctActionArg());
+        methods_.add( method_);
+        std_ = stdcl_;
+        _content.getStandards().addEntry(aliasAction, std_);
+        methods_ = new CustList<StandardMethod>();
+        constructors_ = new CustList<StandardConstructor>();
+        fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasWindowEvent, fields_, constructors_, methods_, _content.getCoreNames().getAliasObject(), MethodModifier.FINAL);
         params_ = new StringList();
         ctor_ = new StandardConstructor(params_,false, new FctWindowEvent(_cust,_guiEx,aliasWindowEvent));
@@ -3344,6 +3370,10 @@ public final class GuiAliases {
         setAliasActionEventCommand(LgNamesContent.get(_util, _cust, ACTION_EVENT_COMMAND));
         setAliasChangeListener(LgNamesContent.get(_util, _cust, CHANGE_LISTENER));
         setAliasActionListener(LgNamesContent.get(_util, _cust, ACTION_LISTENER));
+        setAliasAction(LgNamesContent.get(_util, _cust, ACTION));
+        setAliasActionWrap(LgNamesContent.get(_util, _cust, ACTION_WRAP));
+        setAliasActionEnabled(LgNamesContent.get(_util, _cust, ACTION_ENABLED));
+        setAliasActionArg(LgNamesContent.get(_util, _cust, ACTION_ARG));
         setAliasActionPerformed(LgNamesContent.get(_util, _cust, ACTION_PERFORMED));
         setAliasAddChange(LgNamesContent.get(_util, _cust, ADD_CHANGE));
         setAliasStateChanged(LgNamesContent.get(_util, _cust, STATE_CHANGED));
@@ -3730,6 +3760,11 @@ public final class GuiAliases {
         );
         m_.addEntry(getAliasActionListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(ACTION_PERFORMED,getAliasActionPerformed()))
+        );
+        m_.addEntry(getAliasAction(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ACTION_WRAP,getAliasActionWrap()),
+                new KeyValueMemberName(ACTION_ENABLED,getAliasActionEnabled()),
+                new KeyValueMemberName(ACTION_ARG,getAliasActionArg()))
         );
         m_.addEntry(getAliasChangeListener(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(STATE_CHANGED,getAliasStateChanged()))
@@ -4240,6 +4275,7 @@ public final class GuiAliases {
         ref_.addEntry(WHEEL_LISTENER,getAliasWheelListener());
         ref_.addEntry(WHEEL_EVENT,getAliasWheelEvent());
         ref_.addEntry(ACTION_LISTENER,getAliasActionListener());
+        ref_.addEntry(ACTION,getAliasAction());
         ref_.addEntry(CHANGE_LISTENER,getAliasChangeListener());
         ref_.addEntry(WINDOW_LISTENER,getAliasWindowListener());
         ref_.addEntry(SCROLL_PANE,getAliasScrollPane());
@@ -4271,6 +4307,38 @@ public final class GuiAliases {
 
     public void setAliasActionListener(String _v) {
         this.aliasActionListener = _v;
+    }
+
+    public String getAliasAction() {
+        return aliasAction;
+    }
+
+    public void setAliasAction(String _v) {
+        this.aliasAction = _v;
+    }
+
+    public String getAliasActionWrap() {
+        return aliasActionWrap;
+    }
+
+    public void setAliasActionWrap(String _v) {
+        this.aliasActionWrap = _v;
+    }
+
+    public String getAliasActionEnabled() {
+        return aliasActionEnabled;
+    }
+
+    public void setAliasActionEnabled(String _v) {
+        this.aliasActionEnabled = _v;
+    }
+
+    public String getAliasActionArg() {
+        return aliasActionArg;
+    }
+
+    public void setAliasActionArg(String _v) {
+        this.aliasActionArg = _v;
     }
 
     public String getAliasActionPerformed() {
