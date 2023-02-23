@@ -5,7 +5,6 @@ import code.gui.initialize.AbstractProgramInfos;
 import code.util.Ints;
 import code.util.StringList;
 import code.util.core.NumberUtil;
-import code.util.core.StringUtil;
 
 public final class AutoCompleteDocument implements AbsAutoCompleteListener {
 
@@ -22,8 +21,8 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
     private final AbsGraphicList<String> list;
 
     private final AbsTxtComponent textField;
-    private final AbstractProgramInfos abs;
     private final AfterValidateText afterValidateText;
+    private boolean applying;
 
     public AutoCompleteDocument(AbsTxtComponent _field, StringList _aDictionary, AbstractProgramInfos _abs) {
         this(_field,_aDictionary,_abs,new DefValidateText());
@@ -35,7 +34,6 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         popup = _abs.getCompoFactory().newAbsPopupMenu();
         popup.setFocusable(false);
         popup.setVisible(false);
-        abs = _abs;
         AbsGraphicList<String> comp_ = _abs.getGeneGraphicList().createStrList(_abs.getImageFactory(),new StringList(), _abs.getCompoFactory());
         list = comp_;
         popup.add(_abs.getCompoFactory().newAbsScrollPane(comp_.self()));
@@ -68,14 +66,15 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
     public void enterEvent() {
         Ints ind_ = list.getSelectedIndexes();
         if (ind_.isEmpty()) {
-            afterValidateText.act(textField,textField.getText().trim());
             return;
         }
         String text_ = list.get(ind_.first()).trim();
         list.clear();
         list.setSelectedIndice(-1);
         hideAutocompletePopup();
+        applying = true;
         afterValidateText.act(textField,text_);
+        applying = false;
     }
 
     public void downEvent() {
@@ -113,23 +112,15 @@ public final class AutoCompleteDocument implements AbsAutoCompleteListener {
         if (!wholeString) {
             return;
         }
-        abs.getCompoFactory().invokeNow(new DocumentChanged(this));
+        documentChanged();
     }
     void documentChanged() {
-        // Updating results list
-        StringList r_ = new StringList();
-        String text_ = textField.getText();
-        String tr_ = text_.trim();
-        if (!tr_.isEmpty()) {
-            for (String s : dictionary) {
-                if (StringUtil.quickEq(s, tr_)) {
-                    continue;
-                }
-                if (s.startsWith(tr_)) {
-                    r_.add(s);
-                }
-            }
+        if (applying) {
+            return;
         }
+        // Updating results list
+        String text_ = textField.getText();
+        StringList r_ = afterValidateText.filter(text_,dictionary);
 
         // Updating list view
         list.clear();

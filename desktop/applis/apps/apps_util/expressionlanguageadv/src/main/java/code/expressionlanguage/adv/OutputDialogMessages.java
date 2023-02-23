@@ -2,50 +2,22 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.gui.*;
-import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
-import code.util.StringList;
+import code.util.CustList;
 import code.util.StringMap;
 
 public final class OutputDialogMessages {
-    private final StringMap<String> messagesRows;
-    private final AbsTextField key;
-    private final AbsTextArea value;
+    private final OutputDialogMapMessagesEdit messages;
     private final AbsPlainButton val;
-    private final AbsPlainButton valPart;
     private final AbsPlainButton cancel;
-    private final AutoCompleteDocument auto;
 
     public OutputDialogMessages(WindowCdmEditor _w) {
-        messagesRows = new StringMap<String>();
-        for (String k:new AnalysisMessages().allMessages().getKeys()){
-            int index_ = _w.getLgMessages().indexOfEntry(k);
-            if (index_ < 0) {
-                messagesRows.put(k,"");
-            } else {
-                messagesRows.put(k,_w.getLgMessages().getValue(index_));
-            }
-        }
+        messages = new OutputDialogMapMessagesEdit(_w,_w.getLgMessages(), new AnalysisMessages().allMessages().getKeys());
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
-        AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
-        AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
-        value = factories_.getCompoFactory().newTextArea("",1,32);
-        auto = new AutoCompleteDocument(keyAuto_, new StringList(new AnalysisMessages().allMessages().getKeys()), factories_, new FeedMessageValue(value, messagesRows));
-        value.setLineBorder(GuiConstants.BLACK);
-        key = keyAuto_;
-        dels_.add(keyAuto_);
-        AbsScrollPane inner_ = factories_.getCompoFactory().newAbsScrollPane(value);
-        inner_.setPreferredSize(new MetaDimension(384,48));
-        dels_.add(inner_);
-        valPart = factories_.getCompoFactory().newPlainButton("MATCH");
-        valPart.addActionListener(new ValidateMessage(keyAuto_,value, messagesRows));
-        dels_.add(valPart);
-        AbsScrollPane sc_ = factories_.getCompoFactory().newAbsScrollPane(dels_);
-        sc_.setPreferredSize(new MetaDimension(384,128));
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
-        all_.add(sc_);
+        all_.add(messages.getScroll());
         val = factories_.getCompoFactory().newPlainButton("OK");
-        val.addActionListener(new ValidateMessages(messagesRows, _w));
+        val.addActionListener(new ValidateMessages(messages.getMessagesRows(), _w));
         all_.add(val);
         cancel = factories_.getCompoFactory().newPlainButton("KO");
         cancel.addActionListener(new CancelBasic(_w.getDialogAliases()));
@@ -55,12 +27,24 @@ public final class OutputDialogMessages {
         _w.getDialogAliases().setVisible(true);
     }
 
+    static StringMap<String> initRows(StringMap<String> _infos, CustList<String> _keys) {
+        StringMap<String> messagesRows_ = new StringMap<String>();
+        for (String k:_keys){
+            int index_ = _infos.indexOfEntry(k);
+            if (index_ < 0) {
+                messagesRows_.addEntry(k,"");
+            } else {
+                messagesRows_.addEntry(k,_infos.getValue(index_));
+            }
+        }
+        return messagesRows_;
+    }
     public AbsPlainButton getCancel() {
         return cancel;
     }
 
     public StringMap<String> getMessagesRows() {
-        return messagesRows;
+        return messages.getMessagesRows();
     }
 
     public AbsPlainButton getVal() {
@@ -68,18 +52,18 @@ public final class OutputDialogMessages {
     }
 
     public AbsTextField getKey() {
-        return key;
+        return messages.getKey();
     }
 
     public AbsTextArea getValue() {
-        return value;
+        return messages.getValue();
     }
 
     public AbsPlainButton getValPart() {
-        return valPart;
+        return messages.getValPart();
     }
 
     public AutoCompleteDocument getAuto() {
-        return auto;
+        return messages.getAuto();
     }
 }

@@ -52,6 +52,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final AbsDialog dialogAliases;
     private final AbsMenuItem commentsMenu;
     private final AbsMenuItem messagesMenu;
+    private final AbsMenuItem aliasesMenu;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private StringMap<String> messages;
@@ -70,6 +71,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private String execConf = "";
     private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
     private StringMap<String> lgMessages = new StringMap<String>();
+    private StringMap<String> lgAliases = new StringMap<String>();
+    private StringMap<String> lgKeyWords = new StringMap<String>();
     private String currentFolder = "";
     private String currentFolderSrc = "";
     private int tabWidth = 4;
@@ -125,6 +128,9 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         messagesMenu = _list.getCompoFactory().newMenuItem("messages");
         messagesMenu.addActionListener(new ChangeMessagesEvent(this));
         menu_.addMenuItem(messagesMenu);
+        aliasesMenu = _list.getCompoFactory().newMenuItem("aliases");
+        aliasesMenu.addActionListener(new ChangeAliasesEvent(this));
+        menu_.addMenuItem(aliasesMenu);
         panel = _list.getCompoFactory().newPageBox();
         chooseFolder = commonFrame.getFrames().getCompoFactory().newPlainButton("folder");
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
@@ -237,6 +243,8 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         commonFrame.pack();
         currentFolder = acc_;
         lgMessages = _linesFiles.getEx().getMessages();
+        lgAliases = _linesFiles.getEx().getAliases();
+        lgKeyWords = _linesFiles.getEx().getKeyWords();
         usedLg = _linesFiles.getLanguage();
         Options opt_ = _linesFiles.getOptions();
         tabWidth = opt_.getTabWidth();
@@ -618,6 +626,12 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         if (!lgMessages.isEmpty()) {
             lines_.add("messages="+ParseLinesArgUtil.buildMapLine(lgMessages));
         }
+        if (!lgKeyWords.isEmpty()) {
+            lines_.add("keyWords="+ParseLinesArgUtil.buildMapLine(lgKeyWords));
+        }
+        if (!lgAliases.isEmpty()) {
+            lines_.add("aliases="+ParseLinesArgUtil.buildMapLine(lgAliases));
+        }
         StreamFolderFile.makeParent(execConf,commonFrame.getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(execConf, StringUtil.join(lines_,'\n'), frs_.getStreams());
         return new ManageOptions(commonFrame.getFrames().getLanguages(), lines_, factory, commonFrame.getFrames().getThreadFactory());
@@ -689,6 +703,10 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public AbsMenuItem getMessagesMenu() {
         return messagesMenu;
+    }
+
+    public AbsMenuItem getAliasesMenu() {
+        return aliasesMenu;
     }
 
     public AbsMenuItem getTabulationsMenu() {
@@ -778,8 +796,24 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         return lgMessages;
     }
 
-    public void setLgMessages(StringMap<String> _lgMessages) {
-        this.lgMessages = _lgMessages;
+    public void setLgMessages(StringMap<String> _l) {
+        this.lgMessages = _l;
+    }
+
+    public StringMap<String> getLgAliases() {
+        return lgAliases;
+    }
+
+    public void setLgAliases(StringMap<String> _l) {
+        this.lgAliases = _l;
+    }
+
+    public StringMap<String> getLgKeyWords() {
+        return lgKeyWords;
+    }
+
+    public void setLgKeyWords(StringMap<String> _l) {
+        this.lgKeyWords = _l;
     }
 
     public void setComments(CustList<CommentDelimiters> _c) {

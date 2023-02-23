@@ -182,6 +182,16 @@ public final class AutoCompleteDocumentTest extends EquallableGuiFctUtil {
         assertEq(0,auto_.getList().size());
         assertFalse(auto_.getPopup().isVisible());
     }
+    @Test
+    public void prop16() {
+        MockProgramInfosSecSample pre_ = init();
+        AbsTextField f_ = pre_.getCompoFactory().newTextField();
+        AutoCompleteDocument auto_ = new AutoCompleteDocument(f_, new StringList("ONE","TWO"), pre_);
+        f_.setText("P");
+        f_.setText("");
+        assertEq(0,auto_.getList().size());
+        assertFalse(auto_.getPopup().isVisible());
+    }
     private void down(AutoCompleteDocument _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getTextField(), GuiConstants.VK_DOWN,0)).action();
     }
