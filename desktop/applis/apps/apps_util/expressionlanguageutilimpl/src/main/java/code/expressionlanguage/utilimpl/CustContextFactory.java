@@ -16,12 +16,14 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
+import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.FieldableStruct;
 import code.expressionlanguage.structs.IntStruct;
 import code.expressionlanguage.structs.Struct;
@@ -50,21 +52,22 @@ public final class CustContextFactory {
     }
 
     private static void preinit(String _lang, Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
-        preinitAliases(_lang, _exec, _mess, _kwl, _aliases);
+        _aliases.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
+        preinitAliases(_lang, _exec, _mess, _kwl, _aliases.getContent(), _aliases.getExecContent().getCustAliases(), _aliases.getGuiAliases());
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
     }
 
-    public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
+    public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesContent _base, CustAliases _util, GuiAliases _gui) {
         if (!_lang.isEmpty()) {
-            _aliases.getExecContent().getCustAliases().messages(_mess, _lang, _exec.getMessages());
-            _aliases.getExecContent().getCustAliases().keyWord(_kwl, _lang, _exec.getKeyWords());
-            _aliases.getExecContent().getCustAliases().otherAlias(_aliases.getContent(), _lang, _exec.getAliases());
-            _aliases.getGuiAliases().otherAliasGui(_aliases.addon(_lang),_exec.getAliases());
+            _util.messages(_mess, _lang, _exec.getMessages());
+            _util.keyWord(_kwl, _lang, _exec.getKeyWords());
+            _util.otherAlias(_base, _lang, _exec.getAliases());
+            _gui.otherAliasGui(LgNamesGui.addon(_lang, _gui),_exec.getAliases());
         } else {
-            _aliases.getExecContent().getCustAliases().messages(_mess, _exec.getMessages(), new StringMap<String>());
-            _aliases.getExecContent().getCustAliases().keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
-            _aliases.getExecContent().getCustAliases().allAlias(_aliases.getContent(), _exec.getAliases(), new StringMap<String>());
-            _aliases.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
+            _util.messages(_mess, _exec.getMessages(), new StringMap<String>());
+            _util.keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
+            _util.allAlias(_base, _exec.getAliases(), new StringMap<String>());
+            _gui.otherAliasGui(_exec.getAliases(),new StringMap<String>());
         }
     }
 
@@ -120,7 +123,6 @@ public final class CustContextFactory {
     }
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));

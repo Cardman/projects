@@ -25,7 +25,6 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.methods.ProcessMethodCommon;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.sample.ElLoggableSample;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -2340,7 +2339,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         page_.setFileBuilder(fileBuilder_);
         page_.setStandards(lgName_.getContent());
-        page_.setLogErr(new ElLoggableSample());
+        page_.setLogErr(new ListLoggableLgNames());
         page_.setCalculator(calculator_);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
@@ -2386,7 +2385,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(lgName_.getContent());
         page_.setFileBuilder(fileBuilder_);
         page_.setStandards(lgName_.getContent());
-        page_.setLogErr(new ElLoggableSample());
+        page_.setLogErr(new ListLoggableLgNames());
         page_.setCalculator(calculator_);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
@@ -2441,7 +2440,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         DefaultFileBuilder fileBuilder_ = DefaultFileBuilder.newInstance(_lgName.getContent());
         page_.setFileBuilder(fileBuilder_);
         page_.setStandards(_lgName.getContent());
-        page_.setLogErr(new ElLoggableSample());
+        page_.setLogErr(new ListLoggableLgNames());
         page_.setCalculator(null);
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());

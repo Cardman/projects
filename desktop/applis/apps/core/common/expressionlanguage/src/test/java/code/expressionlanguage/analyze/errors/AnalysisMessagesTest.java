@@ -15,8 +15,7 @@ import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.sample.ElLoggableSample;
-import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.util.CustList;
 import code.util.core.IndexConstants;
 import org.junit.Test;
@@ -255,7 +254,7 @@ public final class AnalysisMessagesTest extends EquallableElUtil {
         CustLgNames lgName_ = new CustLgNames();
         InitializationLgNames.basicStandards(lgName_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        ElLoggableSample l_ = new ElLoggableSample();
+        ListLoggableLgNames l_ = new ListLoggableLgNames();
         assertEq("",l_.logIssue("",null));
         page_.setLogErr(l_);
         page_.setAnalysisMessages(def_);

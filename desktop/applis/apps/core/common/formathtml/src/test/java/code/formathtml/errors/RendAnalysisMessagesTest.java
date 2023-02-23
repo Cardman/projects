@@ -2,6 +2,7 @@ package code.formathtml.errors;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.formathtml.*;
 import code.formathtml.util.DefaultBeanAliases;
 import code.util.StringMap;
@@ -22,7 +23,7 @@ public final class RendAnalysisMessagesTest extends EquallableRenderUtil {
         TestedBeanCustLgNames lgName_ = new BeanCustLgNamesImpl();
         InitializationLgNamesRender.basicStandards(lgName_);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setLogErr(new RendLoggableSample());
+        page_.setLogErr(new ListLoggableLgNames());
         page_.setAnalysisMessages(new AnalysisMessages());
         AnalysisMessages.validateMessageContents(def_.allMessages(), page_);
         assertTrue(!page_.isEmptyMessageError());

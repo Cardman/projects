@@ -54,11 +54,17 @@ public final class ContextFactory {
         _page.setKeyWords(_definedKw);
         _page.setStandards(_content);
         _page.setCalculator(_fwd.getConstantsCalculator());
-        _page.setFileBuilder(_fwd.getFileBuilder());
+        AbstractFileBuilder builder_ = _fwd.getFileBuilder();
+        _page.setFileBuilder(builder_);
         _page.setResources(_fwd.getResources());
         _page.setStaticFields(_fwd.getStaticFields());
         _page.setTabWidth(_options.getTabWidth());
         _page.setGettingErrors(_options.isGettingErrors());
+        return validate(_definedKw, _page, builder_);
+    }
+
+    public static boolean validate(KeyWords _definedKw, AnalyzedPageEl _page, AbstractFileBuilder _builder) {
+        DefaultAliasGroups defaultAliasGroups_ = _builder.getDefaultAliasGroups();
         StringMap<String> keyWords_ = _definedKw.allKeyWords();
         _definedKw.validateKeyWordContents(keyWords_, _page);
         StringMap<String> escapings_ = _definedKw.allEscapings();
@@ -66,7 +72,6 @@ public final class ContextFactory {
         StringMap<String> nbWords_ = _definedKw.allNbWords(_definedKw.allNbWordsBasic());
         _definedKw.validateNbWordContents(nbWords_, _page);
         _definedKw.validateBinarySeparators(_page);
-        DefaultAliasGroups defaultAliasGroups_ = _fwd.getFileBuilder().getDefaultAliasGroups();
         StringMap<String> prims_ = defaultAliasGroups_.allPrimitives();
         ValidatorStandard.validatePrimitiveContents(prims_, _page);
         ValidatorStandard.validatePrimitiveDuplicates(prims_, _page);

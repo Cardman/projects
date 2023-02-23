@@ -11,6 +11,7 @@ import code.expressionlanguage.exec.InitPhase;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.*;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.errors.RendKeyWords;
 import code.formathtml.exec.ImportingPage;
@@ -563,7 +564,7 @@ public abstract class CommonRender extends EquallableRenderUtil {
         return new DualNavigationContext(nav_,new DualAnalyzedContext(forwards_,page_,lgNames_,dual_, file_));
     }
     public static Forwards fwd(BeanCustLgNames _lgNames, BeanFileBuilder _builder, Options _opt) {
-        return new Forwards(_lgNames,new RendLoggableSample(),_builder,_opt);
+        return new Forwards(_lgNames,new ListLoggableLgNames(),_builder,_opt);
     }
 
     protected static Options ops(String[] _types) {

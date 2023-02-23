@@ -35,8 +35,8 @@ import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.*;
 import code.expressionlanguage.sample.CustLgNames;
-import code.expressionlanguage.sample.ElLoggableSample;
 import code.expressionlanguage.stds.LgNames;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.expressionlanguage.structs.*;
 import code.util.CustList;
 import code.util.StringList;
@@ -915,7 +915,7 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
 
     public static Forwards fwd(CustLgNames _lgName, DefaultFileBuilder _fileBuilder, Options _opt) {
-        return new Forwards(_lgName, new ElLoggableSample(), _fileBuilder, _opt);
+        return new Forwards(_lgName, new ListLoggableLgNames(), _fileBuilder, _opt);
     }
 
     protected static CustLgNames getLgNames() {

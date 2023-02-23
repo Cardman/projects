@@ -22,7 +22,8 @@ public final class GuiContextFactory {
                                                Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files, AbstractLightProgramInfos _currentElements) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        CustContextFactory.preinitAliases(_lang,_exec,mess_,kwl_,_undefinedLgNames);
+        _undefinedLgNames.getExecContent().updateTranslations(_currentElements.getTranslations(),_currentElements.getLanguage());
+        CustContextFactory.preinitAliases(_lang,_exec,mess_,kwl_, _undefinedLgNames.getContent(), _undefinedLgNames.getExecContent().getCustAliases(), _undefinedLgNames.getGuiAliases());
 //        if (!_lang.isEmpty()) {
 //            _undefinedLgNames.getGuiAliases().otherAliasGui(_undefinedLgNames.addon(_lang),_exec.getAliases());
 //        } else {
@@ -30,7 +31,6 @@ public final class GuiContextFactory {
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
         _undefinedLgNames.getExecContent().setExecutingOptions(_exec);
-        _undefinedLgNames.getExecContent().updateTranslations(_currentElements.getTranslations(),_currentElements.getLanguage());
         _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements,_exec.getListGenerator());
         return build(_options, _exec, mess_, kwl_, _undefinedLgNames, _files);
     }

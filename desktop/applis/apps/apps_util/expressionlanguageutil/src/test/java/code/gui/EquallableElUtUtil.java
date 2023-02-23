@@ -665,12 +665,12 @@ public abstract class EquallableElUtUtil {
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getExecContent().getCustAliases().messages(_mess, "en", _exec.getMessages());
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
         _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
-        _definedLgNames.getGuiAliases().otherAliasGui(_definedLgNames.addon("en"),_exec.getAliases());
+        _definedLgNames.getGuiAliases().otherAliasGui(LgNamesGui.addon("en", _definedLgNames.getGuiAliases()),_exec.getAliases());
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
@@ -684,11 +684,11 @@ public abstract class EquallableElUtUtil {
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
+        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         _definedLgNames.getExecContent().getCustAliases().messages(_mess, "en", _exec.getMessages());
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, "en", _exec.getKeyWords());
         _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), "en", _exec.getAliases());
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));

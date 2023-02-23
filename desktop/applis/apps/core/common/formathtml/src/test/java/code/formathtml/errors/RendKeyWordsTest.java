@@ -3,10 +3,10 @@ package code.formathtml.errors;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.options.KeyWords;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.formathtml.BeanCustLgNamesImpl;
 import code.formathtml.EquallableRenderUtil;
 import code.formathtml.InitializationLgNamesRender;
-import code.formathtml.RendLoggableSample;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.DefaultBeanAliases;
 import code.util.StringMap;
@@ -342,7 +342,7 @@ public final class RendKeyWordsTest extends EquallableRenderUtil {
 
     private static AnalyzedPageEl build(KeyWords _kw, BeanCustLgNames _lgName) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setLogErr(new RendLoggableSample());
+        page_.setLogErr(new ListLoggableLgNames());
         page_.setAnalysisMessages(new AnalysisMessages());
         page_.setKeyWords(_kw);
         return page_;

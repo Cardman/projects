@@ -12,6 +12,7 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ValidatorStandard;
+import code.expressionlanguage.stds.ListLoggableLgNames;
 import code.expressionlanguage.structs.NullStruct;
 import code.formathtml.common.AdvFileEscapedCalc;
 import code.formathtml.exec.RendStackCall;
@@ -1565,7 +1566,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {
-        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames,new RendLoggableSample());
+        DefaultConfigurationLoader def_ = new DefaultConfigurationLoader(_lgNames,new ListLoggableLgNames());
         return _n.loadConfiguration(_xmlConf, "", _lgNames, BeanFileBuilder.newInstance(_lgNames.getContent(),_lgNames.getBeanAliases()), def_);
     }
     private static String initDbOkConfCtx(String _xmlConf, String _clName, String _methodName, String _brCode, String _page) {
@@ -1593,7 +1594,7 @@ public final class RenderInitNavTest extends CommonRender {
         files_.addEntry("my_file", _brCode);
         files_.addEntry("page.html", _page);
         DefaultInitialization de_ = new DefaultInitialization(stds_, new DefSymbolFactory(), "", cn_, files_, _clName, _methodName);
-        de_.setLog(new RendLoggableSample());
+        de_.setLog(new ListLoggableLgNames());
         return de_;
     }
 
@@ -1601,7 +1602,7 @@ public final class RenderInitNavTest extends CommonRender {
         BeanCustLgNamesImpl stds_ = new BeanCustLgNamesImpl();
         basicStandards(stds_);
         DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"","conf.xml",new StringMap<String>(),"","");
-        de_.setLog(new RendLoggableSample());
+        de_.setLog(new ListLoggableLgNames());
         return de_.execute(new Navigation());
     }
 
@@ -1612,7 +1613,7 @@ public final class RenderInitNavTest extends CommonRender {
         StringMap<String> files_ = new StringMap<String>();
         files_.addEntry(cn_," ");
         DefaultInitialization de_ = new DefaultInitialization(stds_,new DefSymbolFactory(),"",cn_,files_,"","");
-        de_.setLog(new RendLoggableSample());
+        de_.setLog(new ListLoggableLgNames());
         return de_.execute(new Navigation());
     }
 }

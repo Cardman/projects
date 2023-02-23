@@ -75,9 +75,9 @@ public class LgNamesGui extends LgNamesUtils {
         return new EventFunctionalInstance(_className.getFormatted(), _functional, fs_, (RunnableContextEl) _contextEl, _named);
     }
 
-    public StringMap<String> addon(String _lang) {
+    public static StringMap<String> addon(String _lang, GuiAliases _guiAliases) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/aliases", _lang, "typesgui");
-        String loadedResourcesMessages_ = guiAliases.res(fileName_);
+        String loadedResourcesMessages_ = _guiAliases.res(fileName_);
         return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
     }
 

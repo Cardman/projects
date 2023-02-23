@@ -115,4 +115,35 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq("If",w_.getLgKeyWords().getKey(0));
         assertEq("even",w_.getLgKeyWords().getValue(0));
     }
+    @Test
+    public void errors() {
+        WindowCdmEditor w_=newWindowLoadDefAliasesKeywords();
+        OutputDialogAliases o_ = aliases(w_);
+        assertEq(1,w_.getLgAliases().size());
+        assertEq(1,w_.getLgKeyWords().size());
+        int index_ = StringUtil.indexOf(OutputDialogAliases.aliases(),"Runnable");
+        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(),"If");
+
+        o_.getAliases().getKey().setText("Runnable");
+//        enter(o_.getAliases().getAuto());
+        assertEq("$core.Runner",o_.getAliases().getValue().getText());
+        assertEq("Runnable",w_.getLgAliases().getKey(0));
+        assertEq("$core.Runner",w_.getLgAliases().getValue(0));
+        o_.getAliases().getValue().setText("$core.ToRun");
+        ((MockPlainButton)o_.getAliases().getValPart()).getActionListeners().get(0).action();
+        assertEq("$core.ToRun",o_.getAliases().getMessagesRows().getValue(index_));
+
+        o_.getKeyWords().getKey().setText("If");
+//        enter(o_.getKeyWords().getAuto());
+        assertEq("even",o_.getKeyWords().getValue().getText());
+        assertEq("If",w_.getLgKeyWords().getKey(0));
+        assertEq("even",w_.getLgKeyWords().getValue(0));
+        o_.getKeyWords().getValue().setText(";");
+        ((MockPlainButton)o_.getKeyWords().getValPart()).getActionListeners().get(0).action();
+        assertEq(";",o_.getKeyWords().getMessagesRows().getValue(indexKey_));
+
+        ((MockPlainButton)o_.getCheck()).getActionListeners().get(0).action();
+
+        assertFalse(o_.getErrors().getText().isEmpty());
+    }
 }
