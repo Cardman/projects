@@ -3,18 +3,16 @@ package code.expressionlanguage.adv;
 import code.gui.events.AbsActionListener;
 
 public final class ValidateNavLine implements AbsActionListener {
-    private final OutputDialogNavLine output;
-    private final WindowCdmEditor editor;
+    private final TabEditor output;
 
-    public ValidateNavLine(OutputDialogNavLine _w, WindowCdmEditor _ed) {
+    public ValidateNavLine(TabEditor _w) {
         this.output = _w;
-        editor = _ed;
     }
 
     @Override
     public void action() {
-        editor.getDialogNavigLine().setVisible(false);
         int index_ = output.getIndex();
-        output.getTab().afterValidate(index_);
+        output.afterValidate(index_);
+        output.setIndex(-1);
     }
 }

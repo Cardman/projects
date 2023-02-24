@@ -390,11 +390,6 @@ public abstract class EquallableElAdvUtil {
         invokeAndClear(_w.getCommonFrame().getFrames());
     }
 
-    protected static OutputDialogNavLine navigateInsideTab(WindowCdmEditor _w) {
-        MockAbstractAction ac_ = (MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_G, GuiConstants.CTRL_DOWN_MASK);
-        ac_.action();
-        return ((NavRowColAction)ac_.getActionListener()).getOutputDialogNavLine();
-    }
     protected void changeNow(WindowCdmEditor _w, String _v) {
         tabEditor(_w).getCenter().setText(_v);
         invokeAndClear(_w.getCommonFrame().getFrames());

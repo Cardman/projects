@@ -46,7 +46,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
     private final ConfirmDialogAnsAbs confirmDialogAns;
     private AbsTreeGui folderSystem;
     private final AbsDialog dialogComments;
-    private final AbsDialog dialogNavigLine;
     private final AbsDialog dialogTabulations;
     private final AbsDialog dialogLanguage;
     private final AbsDialog dialogAliases;
@@ -93,7 +92,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         confirmDialogText = _list.getConfirmDialogText();
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         dialogComments = _list.getFrameFactory().newDialog();
-        dialogNavigLine = _list.getFrameFactory().newDialog();
         dialogTabulations = _list.getFrameFactory().newDialog();
         dialogLanguage = _list.getFrameFactory().newDialog();
         dialogAliases = _list.getFrameFactory().newDialog();
@@ -719,10 +717,6 @@ public final class WindowCdmEditor implements AbsGroupFrame {
 
     public AbsDialog getDialogComments() {
         return dialogComments;
-    }
-
-    public AbsDialog getDialogNavigLine() {
-        return dialogNavigLine;
     }
 
     public AbsDialog getDialogTabulations() {

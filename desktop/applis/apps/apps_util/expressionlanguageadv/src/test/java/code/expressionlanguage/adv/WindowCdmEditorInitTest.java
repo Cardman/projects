@@ -28,7 +28,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     @Test
     public void init3() {
         WindowCdmEditor w_=newWindowLoadDef();
-        assertEq(9, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
+        assertEq(8, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
     }
     @Test
     public void init4() {

@@ -41,6 +41,10 @@ public final class TabEditor {
     private int currentText = -1;
     private String fullPath;
     private final String useFeed;
+    private int index=-1;
+    private final AbsSpinner row;
+    private final AbsSpinner col;
+    private final AbsPlainButton val;
 
     public TabEditor(WindowCdmEditor _editor, String _fullPath, String _lr) {
         useFeed = _lr;
@@ -77,6 +81,7 @@ public final class TabEditor {
         navModifPanel = frames_.getCompoFactory().newPageBox();
         navModifPanel.setVisible(false);
         finderPanel = frames_.getCompoFactory().newLineBox();
+        AbsPanel colRowPanel_ = frames_.getCompoFactory().newLineBox();
         finder.addAutoComplete(new FinderTextChange(this));
         finderPanel.add(finder);
         caseSens = frames_.getCompoFactory().newCustCheckBox("Aa");
@@ -87,6 +92,15 @@ public final class TabEditor {
         wholeWord.addActionListener(new ToggleFindOptionEvent(this));
         wholeWord.setSelected(true);
         finderPanel.add(wholeWord);
+        row = frames_.getCompoFactory().newSpinner(1, 1, Integer.MAX_VALUE, 1);
+        col = frames_.getCompoFactory().newSpinner(1, 1, Integer.MAX_VALUE, 1);
+        row.addChangeListener(new RowColStateChangedEvent(this,row,col));
+        colRowPanel_.add(row);
+        col.addChangeListener(new RowColStateChangedEvent(this,row,col));
+        colRowPanel_.add(col);
+        val = frames_.getCompoFactory().newPlainButton("GO");
+        val.addActionListener(new ValidateNavLine(this));
+        colRowPanel_.add(val);
         closeFinder.addActionListener(new ClosePanelAction(this));
         finderPanel.add(labelOcc);
         prevOcc.addActionListener(new ChgSegmentPartEvent(this,-1));
@@ -95,6 +109,7 @@ public final class TabEditor {
         finderPanel.add(nextOcc);
         finderPanel.add(closeFinder);
         navModifPanel.add(finderPanel);
+        navModifPanel.add(colRowPanel_);
         replacerPanel = frames_.getCompoFactory().newLineBox();
         replacerPanel.add(replacer);
         replacerPanel.add(replaceOne);
@@ -112,7 +127,6 @@ public final class TabEditor {
         center.registerKeyboardAction(undo,GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(redo,GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ClearUndoRedoAction(this)),GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
-        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new NavRowColAction(this)),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new CloseTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
@@ -120,10 +134,29 @@ public final class TabEditor {
         panel.add(label);
         panel.add(navModifPanel);
     }
-
     public void afterValidate(int _dest) {
-        center.select(_dest,_dest);
+        center.select(_dest, _dest);
     }
+    public AbsSpinner getRow() {
+        return row;
+    }
+
+    public AbsSpinner getCol() {
+        return col;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int _i) {
+        this.index = _i;
+    }
+
+    public AbsPlainButton getVal() {
+        return val;
+    }
+
     public int index(int _row, int _col) {
         int adjRow_ = _row - 1;
         int adjCol_ = _col - 1;
@@ -156,10 +189,15 @@ public final class TabEditor {
         int j_ = 0;
         int d_ = 0;
         while (d_ < _delta) {
-            if (j_+ _index >= _txt.length()) {
+            int curIndex_ = j_ + _index;
+            if (curIndex_ >= _txt.length()) {
                 return -1;
             }
-            if (_txt.charAt(j_+ _index) == '\t') {
+            char ch_ = _txt.charAt(curIndex_);
+            if (ch_ == '\n') {
+                return -1;
+            }
+            if (ch_ == '\t') {
                 d_ += _tw;
                 d_ -= d_ % _tw;
             } else {
