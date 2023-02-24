@@ -70,13 +70,12 @@ public final class RunningTest implements Runnable {
         ManageOptions manage_ = new ManageOptions(_lgs, linesFiles_,_progressingTests,_infos);
         ExecutingOptions exec_ = manage_.getEx();
         Options opt_ = manage_.getOptions();
-        String lg_ = manage_.getLanguage();
         StringMap<String> list_ = tryGetSrc(archive_, exec_, _infos, result_);
         if (list_ == null) {
             return false;
         }
         opt_.setReadOnly(true);
-        CustContextFactory.executeDefKw(lg_,opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getFactory().getInterceptor()));
+        CustContextFactory.executeDefKw(opt_,exec_,list_,_progressingTests, new LgNamesGui(_infos,_progressingTests.getFactory().getInterceptor()));
         return true;
     }
 

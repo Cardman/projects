@@ -128,9 +128,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         buildMap(styleUnitsPart_, styleUnits_);
         buildMap(styleValuesPart_, styleValues_);
         if (!_lg.isEmpty()) {
-            execContent.getCustAliases().messages(_mess,_lg,mess_);
+            execContent.getCustAliases().messages(_mess, mess_);
             rendMessages(_rMess,_lg,rendMess_);
-            execContent.getCustAliases().keyWord(_kw,_lg,kw_);
+            execContent.getCustAliases().keyWord(_kw, kw_);
             otherAlias(_lg,al_);
             otherTags(_rkw,_lg,tags_);
             otherAttrs(_rkw,_lg,attrs_);
@@ -233,7 +233,7 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         String content_ = properties.getVal(fileName_);
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         getBeanAliases().build(util_, _cust);
-        execContent.getCustAliases().otherAlias(getContent(),_lang,_cust);
+        execContent.getCustAliases().otherAlias(getContent(), _cust);
     }
     private void allAlias(StringMap<String> _util, StringMap<String> _cust) {
         getContent().build(_util, _cust);

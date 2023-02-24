@@ -860,6 +860,7 @@ public final class CustAliases {
     private AbstractInterceptor interceptor;
     private Translations translations;
     private String language = "";
+    private String userLg = "";
 
     public static boolean isEnumType(GeneType _type) {
         return _type instanceof ExecEnumBlock || _type instanceof ExecInnerElementBlock;
@@ -1994,8 +1995,8 @@ public final class CustAliases {
     private static String wrap(String _element) {
         return '{'+_element+'}';
     }
-    public void messages(AnalysisMessages _mess,String _lang, StringMap<String> _cust) {
-        messages(_mess, defMessages(_lang, getTranslations(), getLanguage()),_cust);
+    public void messages(AnalysisMessages _mess, StringMap<String> _cust) {
+        messages(_mess, defMessages(getUserLg(), getTranslations(), getLanguage()),_cust);
     }
     public void messages(AnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
         StringMap<String> keys_ = extractMessagesKeys();
@@ -2003,7 +2004,7 @@ public final class CustAliases {
     }
 
     public StringMap<String> extractMessagesKeys() {
-        TranslationsLg lg_ = lg(getTranslations(), "", getLanguage());
+        TranslationsLg lg_ = lg(getTranslations(), getUserLg(), getLanguage());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
         return LgNamesUtilsContent.extractKeys(com_);
@@ -2015,18 +2016,18 @@ public final class CustAliases {
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
         return LgNamesUtilsContent.extractMap(com_);
     }
-    public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,_lang, FILE_KEYWORDS);
-        String content_ = properties.getVal(fileName_);
+    public void keyWord(KeyWords _kw, StringMap<String> _cust) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,getUserLg(), FILE_KEYWORDS);
+        String content_ = StringUtil.nullToEmpty(properties.getVal(fileName_));
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         keyWord(_kw,util_,_cust);
     }
     public void keyWord(KeyWords _kw,StringMap<String> _util,StringMap<String> _cust) {
         _kw.build(_util, _cust);
     }
-    public void otherAlias(LgNamesContent _content,String _lang, StringMap<String>_cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,_lang, FILE_TYPES);
-        String content_ = properties.getVal(fileName_);
+    public void otherAlias(LgNamesContent _content, StringMap<String> _cust) {
+        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,getUserLg(), FILE_TYPES);
+        String content_ = StringUtil.nullToEmpty(properties.getVal(fileName_));
         StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
         otherAlias(_content,util_,_cust);
     }
@@ -2626,8 +2627,8 @@ public final class CustAliases {
         return date_.format(dateFactory_, YYYY_MM_DD_HH_MM_SS_SSS);
     }
 
-    public CustList<CommentDelimiters> defComments(String _lg) {
-        return defComments(_lg, getTranslations(), getLanguage());
+    public CustList<CommentDelimiters> defComments() {
+        return defComments(getUserLg(), getTranslations(), getLanguage());
     }
 
     public static CustList<CommentDelimiters> defComments(String _lg, Translations _trs, String _language) {
@@ -4350,6 +4351,14 @@ public final class CustAliases {
 
     public void setLanguage(String _lg) {
         this.language = _lg;
+    }
+
+    public String getUserLg() {
+        return userLg;
+    }
+
+    public void setUserLg(String _u) {
+        this.userLg = _u;
     }
 
     static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {

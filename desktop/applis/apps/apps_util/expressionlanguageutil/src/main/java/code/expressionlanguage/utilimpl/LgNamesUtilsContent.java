@@ -53,9 +53,10 @@ public final class LgNamesUtilsContent implements LoggableLgNames {
         this.executingOptions = _executingOptions;
     }
 
-    public void updateTranslations(Translations _trs, String _lg) {
+    public void updateTranslations(Translations _trs, String _lg, String _userLg) {
         custAliases.setTranslations(_trs);
         custAliases.setLanguage(_lg);
+        custAliases.setUserLg(_userLg);
     }
     public static StringMap<String> extractMap(TranslationsFile _file) {
         StringMap<String> m_ = new StringMap<String>();

@@ -36,39 +36,30 @@ import code.util.StringMap;
 
 public final class CustContextFactory {
     private CustContextFactory(){}
-    public static ResultContext buildDefKw(String _lang,
-                                                    Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files) {
+    public static ResultContext buildDefKw(Options _options, ExecutingOptions _exec, LgNamesGui _undefinedLgNames, StringMap<String> _files) {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
-        preinit(_lang, _options, _exec, mess_, kwl_, _undefinedLgNames);
+        preinit(_options, _exec, mess_, kwl_, _undefinedLgNames);
         return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files);
     }
-    public static void executeDefKw(String _lang,
-                                    Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesGui _stds) {
+    public static void executeDefKw(Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesGui _stds) {
         AnalysisMessages mess_ = new AnalysisMessages();
         KeyWords kwl_ = new KeyWords();
-        preinit(_lang, _options, _exec, mess_, kwl_, _stds);
+        preinit(_options, _exec, mess_, kwl_, _stds);
         execute(_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
     }
 
-    private static void preinit(String _lang, Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
-        _aliases.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage());
-        preinitAliases(_lang, _exec, _mess, _kwl, _aliases.getContent(), _aliases.getExecContent().getCustAliases(), _aliases.getGuiAliases());
+    private static void preinit(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
+        _aliases.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),_exec.getLg());
+        preinitAliases(_exec, _mess, _kwl, _aliases.getContent(), _aliases.getExecContent().getCustAliases(), _aliases.getGuiAliases());
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns(), _aliases.getExecContent().getCustAliases().extractMessagesKeys()));
     }
 
-    public static void preinitAliases(String _lang, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesContent _base, CustAliases _util, GuiAliases _gui) {
-        if (!_lang.isEmpty()) {
-            _util.messages(_mess, _lang, _exec.getMessages());
-            _util.keyWord(_kwl, _lang, _exec.getKeyWords());
-            _util.otherAlias(_base, _lang, _exec.getAliases());
-            _gui.otherAliasGui(LgNamesGui.addon(_lang, _gui),_exec.getAliases());
-        } else {
-            _util.messages(_mess, _exec.getMessages(), new StringMap<String>());
-            _util.keyWord(_kwl, _exec.getKeyWords(), new StringMap<String>());
-            _util.allAlias(_base, _exec.getAliases(), new StringMap<String>());
-            _gui.otherAliasGui(_exec.getAliases(),new StringMap<String>());
-        }
+    public static void preinitAliases(ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesContent _base, CustAliases _util, GuiAliases _gui) {
+        _util.messages(_mess, _exec.getMessages());
+        _util.keyWord(_kwl, _exec.getKeyWords());
+        _util.otherAlias(_base, _exec.getAliases());
+        _gui.otherAliasGui(LgNamesGui.addon(_util.getUserLg(), _gui),_exec.getAliases());
     }
 
     public static void execute(Options _options, ExecutingOptions _exec,
@@ -130,7 +121,7 @@ public final class CustContextFactory {
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }

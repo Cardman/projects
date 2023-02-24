@@ -159,15 +159,15 @@ public final class WindowRenders extends GroupFrame {
         LgNamesRenderUtils lgNames_ = new LgNamesRenderUtils(new FileInfos(new DefaultLogger(new RenderIssuer(session),getFileCoreStream(),getStreams()),
                 new DefaultFileSystem(app_, validator_,getFileCoreStream(),getStreams()), new DefaultReporter(interceptor.getProgramInfos(),validator_, app_, false,new TechInfos(getThreadFactory(),getStreams()),getFileCoreStream()), getGenerator(), getStreams().getZipFact(), getThreadFactory()),interceptor.getInterceptor());
         lgNames_.getExecContent().setExecutingOptions(exec_);
-        lgNames_.getExecContent().updateTranslations(getFrames().getTranslations(),getFrames().getLanguage());
-        Navigation n_ = nav();
-        session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
-        session.setLanguage(lg_,lgs_);
-        session.setFiles(zipFiles_);
         String lgCode_ = lgCode.getText();
         if (!StringUtil.contains(Constants.getAvailableLanguages(),lgCode_)){
             lgCode_ = "";
         }
+        lgNames_.getExecContent().updateTranslations(getFrames().getTranslations(),getFrames().getLanguage(),lgCode_);
+        Navigation n_ = nav();
+        session.initNav(n_.getCore(),n_.getSession().getRendKeyWords().group());
+        session.setLanguage(lg_,lgs_);
+        session.setFiles(zipFiles_);
         DefaultInitialization ini_ = new DefaultInitialization(lgNames_, new AdvSymbolFactory(lgNames_), lgCode_, confRel_, zipFiles_, clName_, mName_);
         ini_.setLog(lgNames_.getExecContent());
         session.initializeOnlyConf(new CustRenderAction(ini_,n_,new CustContextCreator(),session,lgNames_), lgNames_, inst(ini_, session,n_));

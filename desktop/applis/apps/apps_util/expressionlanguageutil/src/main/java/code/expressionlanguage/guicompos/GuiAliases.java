@@ -1596,7 +1596,7 @@ public final class GuiAliases {
     }
 
     public String res(String _file) {
-        return propertiesGui.getVal(_file);
+        return StringUtil.nullToEmpty(propertiesGui.getVal(_file));
     }
 
     public void buildOther(LgNamesContent _content, CustAliases _cust, GuiExecutingBlocks _guiEx) {

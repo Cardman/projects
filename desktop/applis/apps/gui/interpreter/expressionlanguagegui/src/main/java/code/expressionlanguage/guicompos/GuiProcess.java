@@ -97,7 +97,7 @@ public final class GuiProcess implements GuiRunnable {
         }
         opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui(fileInfos_, _original.getInterceptor());
-        ResultContext res_ = GuiContextFactory.buildDefKw(lg_, mainArgs_, opt_, exec_, stds_, list_, _infos);
+        ResultContext res_ = GuiContextFactory.buildDefKw(mainArgs_, opt_, exec_, stds_, list_, _infos);
         ContextEl cont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, reportedMessages_, stds_.getExecContent().getInfos());

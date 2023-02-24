@@ -34,8 +34,9 @@ public final class CheckAliases implements AbsActionListener {
         ex_.setKeyWords(ValidateMessages.filterFields(dialog.getKeyWords().getMessagesRows()));
         ex_.setLg(windowCdmEditor.getUsedLg());
         dialog.getCustAliases().setTranslations(windowCdmEditor.getCommonFrame().getFrames().getTranslations());
-        dialog.getCustAliases().setLanguage(windowCdmEditor.getUsedLg());
-        CustContextFactory.preinitAliases(windowCdmEditor.getUsedLg(),ex_,mess_,kwl_,dialog.getLgNamesContent() , dialog.getCustAliases(), dialog.getGuiAliases());
+        dialog.getCustAliases().setLanguage(windowCdmEditor.getCommonFrame().getLanguageKey());
+        dialog.getCustAliases().setUserLg(windowCdmEditor.getUsedLg());
+        CustContextFactory.preinitAliases(ex_,mess_,kwl_,dialog.getLgNamesContent() , dialog.getCustAliases(), dialog.getGuiAliases());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kwl_);
