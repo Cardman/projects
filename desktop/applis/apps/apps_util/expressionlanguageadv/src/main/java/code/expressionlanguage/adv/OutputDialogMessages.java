@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.gui.*;
@@ -32,7 +33,7 @@ public final class OutputDialogMessages {
     }
 
     static CustList<String> keys(WindowCdmEditor _w) {
-        TranslationsLg lg_ = _w.getCommonFrame().getFrames().getTranslations().getMapping().getVal(_w.getCommonFrame().getLanguageKey());
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
         return LgNamesUtilsContent.extractKeys(com_).values();
