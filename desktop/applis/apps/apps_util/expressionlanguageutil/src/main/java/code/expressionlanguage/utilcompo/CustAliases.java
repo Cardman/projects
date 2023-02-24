@@ -24,6 +24,7 @@ import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.*;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.stds.*;
+import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.scripts.messages.gui.MessCdmBaseGr;
 import code.sml.util.*;
 import code.threads.AbstractDate;
@@ -409,7 +410,7 @@ public final class CustAliases {
     public static final String RESOURCES_LG_TESTS_RUN_TXT = "resources_lg/tests/run.txt";
     public static final String RESOURCES_LG_THREADS_FORMATTING_TXT = "resources_lg/threads/formatting.txt";
     public static final String RESOURCES_LG_ALIASES = "resources_lg/aliases";
-    public static final String FILE_MESSAGES = "messages";
+//    public static final String FILE_MESSAGES = "messages";
     public static final String FILE_KEYWORDS = "keywords";
     public static final String FILE_TYPES = "types";
 
@@ -1994,13 +1995,25 @@ public final class CustAliases {
         return '{'+_element+'}';
     }
     public void messages(AnalysisMessages _mess,String _lang, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,_lang, FILE_MESSAGES);
-        String content_ = properties.getVal(fileName_);
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        messages(_mess,util_,_cust);
+        messages(_mess, defMessages(_lang, getTranslations(), getLanguage()),_cust);
     }
     public void messages(AnalysisMessages _mess, StringMap<String> _util, StringMap<String> _cust) {
-        _mess.build(_util, _cust);
+        StringMap<String> keys_ = extractMessagesKeys();
+        _mess.build(_util, _cust, keys_);
+    }
+
+    public StringMap<String> extractMessagesKeys() {
+        TranslationsLg lg_ = lg(getTranslations(), "", getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
+        return LgNamesUtilsContent.extractKeys(com_);
+    }
+
+    public static StringMap<String> defMessages(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
+        return LgNamesUtilsContent.extractMap(com_);
     }
     public void keyWord(KeyWords _kw,String _lang, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,_lang, FILE_KEYWORDS);

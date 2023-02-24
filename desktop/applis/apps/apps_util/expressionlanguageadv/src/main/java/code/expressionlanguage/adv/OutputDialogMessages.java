@@ -1,8 +1,12 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.errors.AnalysisMessages;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringMap;
 
@@ -12,7 +16,7 @@ public final class OutputDialogMessages {
     private final AbsPlainButton cancel;
 
     public OutputDialogMessages(WindowCdmEditor _w) {
-        messages = new OutputDialogMapMessagesEdit(_w,_w.getLgMessages(), new AnalysisMessages().allMessages().getKeys());
+        messages = new OutputDialogMapMessagesEdit(_w,_w.getLgMessages(), keys(_w));
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         all_.add(messages.getScroll());
@@ -25,6 +29,13 @@ public final class OutputDialogMessages {
         _w.getDialogAliases().setContentPane(all_);
         _w.getDialogAliases().pack();
         _w.getDialogAliases().setVisible(true);
+    }
+
+    static CustList<String> keys(WindowCdmEditor _w) {
+        TranslationsLg lg_ = _w.getCommonFrame().getFrames().getTranslations().getMapping().getVal(_w.getCommonFrame().getLanguageKey());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
+        return LgNamesUtilsContent.extractKeys(com_).values();
     }
 
     static StringMap<String> initRows(StringMap<String> _infos, CustList<String> _keys) {

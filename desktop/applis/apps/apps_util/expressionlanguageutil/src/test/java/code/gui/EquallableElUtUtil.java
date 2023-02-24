@@ -273,8 +273,9 @@ public abstract class EquallableElUtUtil {
         return new MockProgramInfos("", "", new MockEventListIncr(_s,new int[0],new String[0],new TextAnswerValue[0]), _set);
     }
     public static void update(MockProgramInfos _pr) {
-        FileInfos.initComments(lg(_pr,FileInfos.EN));
-        FileInfos.initComments(lg(_pr,FileInfos.FR));
+        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
+        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
+        _pr.setLanguage("en");
     }
     public static TranslationsLg lg(MockProgramInfos _pr,String _key) {
         TranslationsLg lg_ = new TranslationsLg();

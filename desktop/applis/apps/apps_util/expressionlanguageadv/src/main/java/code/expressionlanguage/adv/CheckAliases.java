@@ -44,7 +44,7 @@ public final class CheckAliases implements AbsActionListener {
         page_.setLogErr(ls_);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(dialog.getLgNamesContent(), dialog.getGuiAliases(), dialog.getCustAliases());
         page_.setFileBuilder(fileBuilder_);
-        AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
+        AnalysisMessages.validateMessageContents(mess_.allMessages(dialog.getCustAliases().extractMessagesKeys()), page_);
         ContextFactory.validate(kwl_,page_,fileBuilder_);
         errors.setText("");
         for (String e: ls_.getList()) {

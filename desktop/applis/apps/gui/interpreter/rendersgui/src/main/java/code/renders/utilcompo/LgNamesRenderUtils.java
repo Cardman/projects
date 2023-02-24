@@ -261,4 +261,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public AbstractFileBuilder newFileBuilder() {
         return new CustBeanFileBuilder(getContent(), getBeanAliases(), execContent.getCustAliases());
     }
+
+    @Override
+    public StringMap<String> mappingMessages() {
+        return execContent.getCustAliases().extractMessagesKeys();
+    }
 }

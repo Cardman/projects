@@ -29,7 +29,7 @@ public final class GuiContextFactory {
 //        } else {
 //            _undefinedLgNames.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
 //        }
-        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns()));
+        _options.setWarningShow(AnalysisMessages.build(_exec.getWarns(), _undefinedLgNames.getExecContent().getCustAliases().extractMessagesKeys()));
         _undefinedLgNames.getExecContent().setExecutingOptions(_exec);
         _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements,_exec.getListGenerator());
         return build(_options, _exec, mess_, kwl_, _undefinedLgNames, _files);
@@ -41,7 +41,7 @@ public final class GuiContextFactory {
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(),fileBuilder_, _options);
         page_.setLogErr(forwards_);
-        AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
+        AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
         ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(_exec.getLg()), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());

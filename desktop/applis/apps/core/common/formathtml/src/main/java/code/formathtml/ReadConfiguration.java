@@ -32,7 +32,7 @@ public final class ReadConfiguration {
         RendKeyWords rkw_ = _conf.getRendKeyWords();
         _stds.buildAliases(_elt,_lg, rkw_,kw_, _context.getAnalysisMessages(),a_);
         _page.setLogErr(_forwards);
-        AnalysisMessages.validateMessageContents(a_.allMessages(), _page);
+        AnalysisMessages.validateMessageContents(a_.allMessages(_stds.mappingMessages()), _page);
         AnalysisMessages.validateMessageContents(_context.getAnalysisMessages().allMessages(), _page);
         if (!_page.isEmptyMessageError()) {
             return false;

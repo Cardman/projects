@@ -2344,7 +2344,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
-        ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
+        assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(page_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
@@ -2390,7 +2390,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
-        ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_);
+        assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(page_));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
@@ -2493,30 +2493,30 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> cust_ = new StringMap<String>();
         cust_.put("","value");
         AnalysisMessages lgNamesContent_ = new AnalysisMessages();
-        lgNamesContent_.build(def_, cust_);
+        lgNamesContent_.build(def_, cust_, AnalysisMessages.mapping());
         assertEq("",lgNamesContent_.getEmptyPart());
     }
     @Test
     public void getAlias7() {
-        WarningShow built_ = AnalysisMessages.build(new StringList("DeadCodeTernary", "UnusedParamStatic"));
+        WarningShow built_ = AnalysisMessages.build(new StringList("DeadCodeTernary", "UnusedParamStatic"), AnalysisMessages.mapping());
         assertTrue(built_.isTernary());
         assertTrue(built_.isUnusedParameterStaticMethod());
     }
     @Test
     public void getAlias8() {
-        WarningShow built_ = AnalysisMessages.build(new StringList("UnusedParamStatic"));
+        WarningShow built_ = AnalysisMessages.build(new StringList("UnusedParamStatic"), AnalysisMessages.mapping());
         assertTrue(!built_.isTernary());
         assertTrue(built_.isUnusedParameterStaticMethod());
     }
     @Test
     public void getAlias9() {
-        WarningShow built_ = AnalysisMessages.build(new StringList("DeadCodeTernary"));
+        WarningShow built_ = AnalysisMessages.build(new StringList("DeadCodeTernary"), AnalysisMessages.mapping());
         assertTrue(built_.isTernary());
         assertTrue(!built_.isUnusedParameterStaticMethod());
     }
     @Test
     public void getAlias10() {
-        WarningShow built_ = AnalysisMessages.build(new StringList());
+        WarningShow built_ = AnalysisMessages.build(new StringList(), AnalysisMessages.mapping());
         assertTrue(!built_.isTernary());
         assertTrue(!built_.isUnusedParameterStaticMethod());
     }

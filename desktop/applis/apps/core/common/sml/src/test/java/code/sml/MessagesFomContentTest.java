@@ -29,7 +29,7 @@ public final class MessagesFomContentTest extends EquallableRowColUtil {
         TranslationsLg lg_ = new TranslationsLg();
         TranslationsAppli a_ = new TranslationsAppli();
         TranslationsFile f_ = new TranslationsFile();
-        f_.getMapping().addEntry("","");
+        f_.add("","");
         a_.getMapping().addEntry("", f_);
         lg_.getMapping().addEntry("", a_);
         tr_.getMapping().addEntry("", lg_);

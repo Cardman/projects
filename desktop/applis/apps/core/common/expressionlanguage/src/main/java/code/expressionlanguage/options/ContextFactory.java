@@ -31,17 +31,18 @@ public final class ContextFactory {
         return Classes.validateAll(srcFiles_, _page, _forwards);
     }
 
-    public static void validateStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
+    public static boolean validateStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
                                     CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
-        AnalysisMessages.validateMessageContents(_mess.allMessages(), _page);
         if (!_page.isEmptyMessageError()) {
-            return;
+            return false;
         }
         if (validatedStds(_fwd, _mess,_definedKw,_comments,_options, _content, _page)) {
             ParsedArgument.buildCustom(_options,_definedKw);
             _fwd.getGenerator().build();
             ValidatorStandard.setupOverrides(_page);
+            return true;
         }
+        return false;
     }
     public static boolean validatedStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
                                         CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {

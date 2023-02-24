@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.utilimpl.MessCdmLogs;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
 import code.sml.util.TranslationsAppli;
@@ -19,6 +20,7 @@ public final class FileInfos {
     public static final String COMMENTS_V2 = "html";
     public static final String COMM_BEGIN = "1";
     public static final String COMM_END = "2";
+    public static final String MESSAGES = "messages";
 
     private final AbstractLogger logger;
     private final AbstractFileSystem fileSystem;
@@ -45,10 +47,17 @@ public final class FileInfos {
     public static TranslationsAppli getAppliTr(TranslationsLg _lgs) {
         return _lgs.getMapping().getVal(CDM);
     }
+    public static void enTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.en());
+    }
+    public static void frTr(TranslationsAppli _lgs) {
+        _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.fr());
+    }
 
-    public static void initComments(TranslationsLg _lgs) {
+    public static TranslationsAppli initComments(TranslationsLg _lgs) {
         TranslationsAppli a_ = initAppliTr(_lgs);
         appendComments(a_);
+        return a_;
     }
 
     public static void appendComments(TranslationsAppli _a) {

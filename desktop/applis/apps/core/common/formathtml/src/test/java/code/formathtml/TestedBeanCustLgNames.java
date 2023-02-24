@@ -3,12 +3,14 @@ package code.formathtml;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractFileBuilder;
 import code.expressionlanguage.analyze.ReportedMessages;
+import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.Options;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import code.maths.montecarlo.AbstractGenerator;
+import code.util.StringMap;
 
 public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     protected TestedBeanCustLgNames(AbstractGenerator _gene) {
@@ -28,5 +30,10 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     @Override
     public AbstractFileBuilder newFileBuilder() {
         return BeanFileBuilder.newInstance(getContent(),getBeanAliases());
+    }
+
+    @Override
+    public StringMap<String> mappingMessages() {
+        return AnalysisMessages.mapping();
     }
 }

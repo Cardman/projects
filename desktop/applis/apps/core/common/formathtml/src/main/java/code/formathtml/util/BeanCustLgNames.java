@@ -1277,4 +1277,5 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
     public abstract void buildAliases(Element _elt, String _lg, RendKeyWords _rkw, KeyWords _kw, RendAnalysisMessages _rMess, AnalysisMessages _mess);
 
     public abstract AbstractFileBuilder newFileBuilder();
+    public abstract StringMap<String> mappingMessages();
 }

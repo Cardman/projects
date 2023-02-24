@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.mock.MockPlainButton;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
@@ -9,7 +10,7 @@ public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
     public void action1() {
         WindowCdmEditor w_=newWindowLoadDef();
         OutputDialogMessages o_ = messages(w_);
-        int index_ = new AnalysisMessages().allMessages().indexOfEntry("VoidType");
+        int index_ = StringUtil.indexOf(OutputDialogMessages.keys(w_),"VoidType");
         assertEq(0,w_.getLgMessages().size());
         o_.getKey().setText("VoidType");
 //        enter(o_.getAuto());
@@ -29,7 +30,7 @@ public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDefMessages();
         OutputDialogMessages o_ = messages(w_);
         assertEq(1,w_.getLgMessages().size());
-        int index_ = new AnalysisMessages().allMessages().indexOfEntry("VoidType");
+        int index_ = StringUtil.indexOf(OutputDialogMessages.keys(w_),"VoidType");
         o_.getKey().setText("VoidType");
 //        enter(o_.getAuto());
         assertEq("void type?",o_.getValue().getText());
@@ -49,7 +50,7 @@ public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
     public void action3() {
         WindowCdmEditor w_=newWindowLoadDef();
         OutputDialogMessages o_ = messages(w_);
-        int index_ = new AnalysisMessages().allMessages().indexOfEntry("VoidType");
+        int index_ = StringUtil.indexOf(OutputDialogMessages.keys(w_),"VoidType");
         assertEq(0,w_.getLgMessages().size());
         o_.getKey().setText("VoidType");
 //        enter(o_.getAuto());
@@ -74,7 +75,7 @@ public final class OutputDialogMessagesTest extends EquallableElAdvUtil {
     public void action5() {
         WindowCdmEditor w_=newWindowLoadDef();
         OutputDialogMessages o_ = messages(w_);
-        int index_ = new AnalysisMessages().allMessages().indexOfEntry("VoidType");
+        int index_ = StringUtil.indexOf(OutputDialogMessages.keys(w_),"VoidType");
         assertEq(0,w_.getLgMessages().size());
         o_.getKey().setText("VoidType");
         enter(o_.getAuto());

@@ -98,7 +98,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
+        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
         assertTrue(page_.notAllEmptyErrors());
@@ -120,7 +120,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, fileBuilder_, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_);
+        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, lgName_.getContent(), page_));
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyStdError());
     }
@@ -138,7 +138,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, null, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
+        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());
@@ -155,7 +155,7 @@ public final class ClassesTest extends ProcessMethodCommon {
         Forwards fwd_ = fwd(lgName_, null, opts_);
         page_.setLogErr(fwd_);
         AnalysisMessages.validateMessageContents(a_.allMessages(), page_);
-        ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_);
+        assertFalse(ContextFactory.validateStds(fwd_,a_, kw_, new CustList<CommentDelimiters>(), opts_, null, page_));
         Classes.validateAll(new StringMap<String>(), page_, fwd_);
         assertTrue(!page_.isEmptyMessageError());
         assertTrue(page_.notAllEmptyErrors());

@@ -192,8 +192,8 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static void update(MockProgramInfos _pr) {
-        FileInfos.initComments(lg(_pr,FileInfos.EN));
-        FileInfos.initComments(lg(_pr,FileInfos.FR));
+        FileInfos.enTr(FileInfos.initComments(lg(_pr,FileInfos.EN)));
+        FileInfos.frTr(FileInfos.initComments(lg(_pr,FileInfos.FR)));
     }
     public static TranslationsLg lg(MockProgramInfos _pr, String _key) {
         TranslationsLg lg_ = new TranslationsLg();
