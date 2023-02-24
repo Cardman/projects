@@ -249,7 +249,7 @@ public final class WindowCdmEditor implements AbsGroupFrame {
         Options opt_ = _linesFiles.getOptions();
         tabWidth = opt_.getTabWidth();
         CustList<CommentDelimiters> comments_ = opt_.getComments();
-        CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments("", frs_.getTranslations(), frs_.getLanguage()));
+        CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments(usedLg, frs_.getTranslations(), frs_.getLanguage()));
         comments = comments_;
     }
 
