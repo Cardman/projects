@@ -56,15 +56,20 @@ public abstract class EquallableElAdvUtil {
     }
 
     public static WindowCdmEditor windowLoadDef(AbstractProgramInfos _pr) {
+        WindowCdmEditor w_ = updated(_pr);
+        AbsTreeGui tr_ = w_.getFolderSystem();
+        tr_.select(tr_.getRoot().getFirstChild());
+        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTabs().get(0).getWholeWord().setSelected(false);
+        return w_;
+    }
+
+    private static WindowCdmEditor updated(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);
         update((MockProgramInfos) _pr);
         WindowCdmEditor w_ = window(_pr);
         w_.updateCommentsInit(new StringList());
-        AbsTreeGui tr_ = w_.getFolderSystem();
-        tr_.select(tr_.getRoot().getFirstChild());
-        ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        w_.getTabs().get(0).getWholeWord().setSelected(false);
         return w_;
     }
 
@@ -204,6 +209,14 @@ public abstract class EquallableElAdvUtil {
         MockProgramInfos pr_ = newMockProgramInfosInitConf();
         return windowLoadDef(pr_);
     }
+    public static WindowCdmEditor newWindowLoadDefExpFolder(String..._args) {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfExpFolder(_args);
+        return updated(pr_);
+    }
+    public static WindowCdmEditor newWindowLoadDefExpFolderAlready(String _folder, String _sec) {
+        MockProgramInfos pr_ = newMockProgramInfosInitConfExpFolderAlready(_folder, _sec);
+        return updated(pr_);
+    }
     public static WindowCdmEditor newWindowLoadDefMessages() {
         MockProgramInfos pr_ = newMockProgramInfosInitConfMessages();
         return windowLoadDef(pr_);
@@ -216,6 +229,30 @@ public abstract class EquallableElAdvUtil {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        return pr_;
+    }
+    public static MockProgramInfos newMockProgramInfosInitConfExpFolder(String... _folders) {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], _folders, new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,new StringList("file.txt")),pr_.getStreams());
+        StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
+        StringList lines_ = new StringList();
+        lines_.add("/project/sources");
+        lines_.add("en");
+        StreamTextFile.saveTextFile(current_, StringUtil.join(lines_,'\n'),pr_.getStreams());
+        pr_.getFileCoreStream().newFile("/project/sources/src/").mkdirs();
+        return pr_;
+    }
+    public static MockProgramInfos newMockProgramInfosInitConfExpFolderAlready(String _folder, String _sec) {
+        MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
+        String current_ = "/editor/conf.xml";
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,_folder,new StringList("file.txt"),new StringList(_sec)),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
@@ -415,6 +452,9 @@ public abstract class EquallableElAdvUtil {
     }
     protected void closeTab(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+    protected void closeTab(TabEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getCenter(), GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK)).action();
     }
     protected void saveSelected(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabSelect(_w).getCenter(), GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK)).action();

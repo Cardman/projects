@@ -4,15 +4,15 @@ import code.gui.AbstractMutableTreeNode;
 import code.gui.events.AbsActionListener;
 
 public final class RefreshTreeAction implements AbsActionListener {
-    private final WindowCdmEditor editor;
+    private final WindowWithTree editor;
 
-    public RefreshTreeAction(WindowCdmEditor _ed) {
+    public RefreshTreeAction(WindowWithTree _ed) {
         editor = _ed;
     }
     @Override
     public void action() {
-        AbstractMutableTreeNode sel_ = editor.getFolderSystem().selectEvt();
+        AbstractMutableTreeNode sel_ = editor.getTree().selectEvt();
         String str_ = WindowCdmEditor.buildPath(sel_);
-        editor.refresh(sel_,str_);
+        WindowCdmEditor.refresh(editor,sel_,str_);
     }
 }

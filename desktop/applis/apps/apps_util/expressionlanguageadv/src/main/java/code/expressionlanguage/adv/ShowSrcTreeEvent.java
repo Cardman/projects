@@ -5,15 +5,15 @@ import code.gui.AbstractMutableTreeNodeCore;
 
 public class ShowSrcTreeEvent implements AbsShortListTree {
 
-    private final WindowCdmEditor dialog;
+    private final WindowWithTree dialog;
 
-    public ShowSrcTreeEvent(WindowCdmEditor _dialog) {
+    public ShowSrcTreeEvent(WindowWithTree _dialog) {
         dialog = _dialog;
     }
 
     @Override
     public void valueChanged(AbstractMutableTreeNodeCore _e) {
-        dialog.applyTreeChangeSelected(true);
+        WindowCdmEditor.applyTreeChangeSelected(dialog,true);
     }
 
 }

@@ -11,6 +11,7 @@ import code.util.StringList;
 
 public final class TabEditor {
     private final WindowCdmEditor windowEditor;
+    private final WindowWithTree windowSecEditor;
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
     private final AbsTextField finder;
@@ -47,11 +48,12 @@ public final class TabEditor {
     private final AbsSpinner col;
     private final AbsPlainButton val;
 
-    public TabEditor(WindowCdmEditor _editor, String _fullPath, String _lr) {
+    public TabEditor(WindowWithTree _editor, String _fullPath, String _lr) {
         useFeed = _lr;
         fullPath = _fullPath;
-        windowEditor = _editor;
-        commonFrame = _editor.getCommonFrame();
+        windowSecEditor = _editor;
+        windowEditor = _editor.getMainFrame();
+        commonFrame = _editor.getMainFrame().getCommonFrame();
         AbstractProgramInfos frames_ = commonFrame.getFrames();
         taskManager = frames_.getThreadFactory().newExecutorService();
         factories = frames_;
@@ -390,5 +392,9 @@ public final class TabEditor {
 
     public void setFullPath(String _f) {
         this.fullPath = _f;
+    }
+
+    public WindowWithTree getWindowSecEditor() {
+        return windowSecEditor;
     }
 }
