@@ -1,6 +1,8 @@
 package code.vi.prot.impl.gui;
 
+import javax.swing.*;
 import javax.swing.text.JTextComponent;
+import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -14,10 +16,12 @@ public final class FocusKeepEvent implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         component.getCaret().setVisible(true);
+        component.setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 
     @Override
     public void focusLost(FocusEvent e) {
         component.getCaret().setVisible(true);
+        component.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     }
 }
