@@ -15,15 +15,19 @@ public final class TextField extends TxtComponent implements AbsTextField {
 
     public TextField() {
         field = new JTextField();
+        field.addFocusListener(new FocusKeepEvent(field));
     }
     public TextField(int _nbCols) {
         field = new JTextField(_nbCols);
+        field.addFocusListener(new FocusKeepEvent(field));
     }
     public TextField(String _txt) {
         field = new JTextField(_txt);
+        field.addFocusListener(new FocusKeepEvent(field));
     }
     public TextField(String _txt,int _nbCols) {
         field = new JTextField(_txt,_nbCols);
+        field.addFocusListener(new FocusKeepEvent(field));
     }
 
     public void addActionListener(AbsActionListener _l) {

@@ -12,6 +12,7 @@ public final class TextPane extends TxtComponent implements AbsTextPane {
     private final JTextPane pane = new JTextPane();
     public TextPane() {
         pane.getDocument().putProperty(DefaultEditorKit.EndOfLineStringProperty, "\n");
+        pane.addFocusListener(new FocusKeepEvent(pane));
     }
 
     @Override

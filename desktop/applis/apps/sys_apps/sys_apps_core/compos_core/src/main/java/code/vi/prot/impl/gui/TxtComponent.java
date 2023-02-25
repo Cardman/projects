@@ -140,6 +140,8 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
     @Override
     public void setEditable(boolean _ed) {
         getTextComponent().setEditable(_ed);
+        getTextComponent().setFocusable(true);
+        getTextComponent().getCaret().setVisible(true);
     }
     public abstract JTextComponent getTextComponent();
 }
