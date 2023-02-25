@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
+import code.gui.images.MetaDimension;
 import code.mock.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
@@ -29,6 +30,12 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void init3() {
         WindowCdmEditor w_=newWindowLoadDef();
         assertEq(8, GuiBaseUtil.getActions(tabEditor(w_).getCenter()).size());
+        AbsTextPane t_ = w_.getCommonFrame().getFrames().getCompoFactory().newTextPane();
+        t_.setFocusable(true);
+        t_.setVisible(true);
+        t_.setSize(new MetaDimension(1,1));
+        new ClickTextPane(t_).mouseReleased(null,null,null);
+        assertTrue(((MockCustComponent)t_).isAccessible());
     }
     @Test
     public void init4() {

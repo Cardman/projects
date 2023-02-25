@@ -58,6 +58,8 @@ public final class TabEditor {
         label = frames_.getCompoFactory().newPlainLabel(":");
         labelOcc = frames_.getCompoFactory().newPlainLabel("/");
         center = frames_.getCompoFactory().newTextPane();
+        center.setFocusable(true);
+        center.addMouseListener(new ClickTextPane(center));
         center.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
         center.setBackground(GuiConstants.BLACK);
         center.setForeground(GuiConstants.WHITE);
