@@ -295,5 +295,11 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public void setEditable(boolean _ed) {
         this.editable = _ed;
+        visibleCaret();
+    }
+
+    @Override
+    public void visibleCaret() {
+        setEnabled(isEnabled());
     }
 }

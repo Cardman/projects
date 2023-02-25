@@ -57,6 +57,14 @@ public final class GuiBaseUtilTest extends EquallableGuiFctUtil {
         assertTrue(suSuAcc_.get(0) instanceof MockTextArea);
     }
     @Test
+    public void paques() {
+        MockProgramInfosSecSample i_ = init();
+        AbsCommonFrame c_ = i_.getFrameFactory().newCommonFrame("", i_, null);
+        PackingWindowAfter.pack(c_);
+        c_.setVisible(true);
+        assertTrue(c_.isVisible());
+    }
+    @Test
     public void indexOf() {
         assertEq(-1, GuiBaseUtil.indexOf(new CustList<AbsCustComponent>(),null));
     }

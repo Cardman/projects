@@ -42,6 +42,7 @@ public interface AbsTxtComponent extends AbsCustComponent{
     void setEnabled(boolean _enabled);
     boolean isEditable();
     void setEditable(boolean _enabled);
+    void visibleCaret();
     boolean isEnabled();
     int viewToModel(MetaPoint _point);
     MetaRect modelToView(int _index);

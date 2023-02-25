@@ -12,19 +12,19 @@ public final class TextArea extends TxtComponent implements AbsTextArea {
 
     public TextArea() {
         area = new JTextArea();
-        area.addFocusListener(new FocusKeepEvent(area));
+//        area.addFocusListener(new FocusKeepEvent(area));
     }
     public TextArea(int _r,int _c) {
         area = new JTextArea(_r,_c);
-        area.addFocusListener(new FocusKeepEvent(area));
+//        area.addFocusListener(new FocusKeepEvent(area));
     }
     public TextArea(String _txt) {
         area = new JTextArea(_txt);
-        area.addFocusListener(new FocusKeepEvent(area));
+//        area.addFocusListener(new FocusKeepEvent(area));
     }
     public TextArea(String _txt,int _r,int _c) {
         area = new JTextArea(_txt,_r,_c);
-        area.addFocusListener(new FocusKeepEvent(area));
+//        area.addFocusListener(new FocusKeepEvent(area));
     }
 
     public void setTabSize(int _size) {

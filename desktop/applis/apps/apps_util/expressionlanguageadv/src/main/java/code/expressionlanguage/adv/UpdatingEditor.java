@@ -10,6 +10,5 @@ public final class UpdatingEditor implements Runnable {
     public void run() {
         FindAction.updateEditor(tabEditor);
         tabEditor.updateNav();
-        tabEditor.getCommonFrame().pack();
     }
 }

@@ -275,7 +275,7 @@ public abstract class GroupFrame implements AbsGroupFrame,WithDialogs {
         return getFrames().getGenerator();
     }
     public void revalidateFrame() {
-        PackingWindowAfter.pack(this);
+        PackingWindowAfter.pack(this.getCommonFrame());
     }
 
     public AbstractImageFactory getImageFactory(){

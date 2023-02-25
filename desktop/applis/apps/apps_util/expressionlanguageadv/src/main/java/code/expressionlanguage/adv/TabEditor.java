@@ -148,10 +148,11 @@ public final class TabEditor {
     }
     public void afterValidate(int _dest) {
         index = _dest;
-        center.setEditable(true);
+//        center.setEditable(true);
         center.requestFocus();
         center.select(dest, dest);
-        center.setEditable(false);
+        center.visibleCaret();
+//        center.setEditable(false);
         dest = 0;
     }
     public AbsSpinner getRow() {

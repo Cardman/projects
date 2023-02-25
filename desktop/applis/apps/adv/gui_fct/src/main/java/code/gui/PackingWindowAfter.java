@@ -7,8 +7,8 @@ public final class PackingWindowAfter {
     private PackingWindowAfter() {
     }
 
-    public static void pack(AbsGroupFrame _frame) {
-        GuiBaseUtil.invokeLater(new PackThread(_frame.getCommonFrame()), _frame.getCommonFrame().getFrames());
+    public static void pack(AbsCommonFrame _comm) {
+        _comm.getFrames().getCompoFactory().invokeNow(new PackThread(_comm));
     }
 
 }
