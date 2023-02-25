@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.gui.AbsPanel;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
 import code.util.CustList;
 
@@ -31,6 +32,6 @@ public final class RemoveCommentRow implements AbsActionListener {
         for (int i = 0; i < len_; i++) {
             allComments.get(i).setIndex(i);
         }
-        windowCdmEditor.getDialogComments().pack();
+        GuiBaseUtil.recalculate(windowCdmEditor.getDialogComments().getPane());
     }
 }

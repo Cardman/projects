@@ -1,5 +1,7 @@
 package code.expressionlanguage.adv;
 
+import code.gui.GuiBaseUtil;
+
 public final class UpdatingEditorAndSelect implements Runnable {
     private final TabEditor tabEditor;
 
@@ -10,6 +12,6 @@ public final class UpdatingEditorAndSelect implements Runnable {
     public void run() {
         FindAction.updateEditor(tabEditor);
         tabEditor.updateNavSelect();
-        tabEditor.getCommonFrame().pack();
+        GuiBaseUtil.recalculate(tabEditor.getPanel());
     }
 }

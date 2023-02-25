@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.gui.AbsPanel;
+import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
 import code.util.CustList;
 import code.util.StringList;
@@ -22,6 +23,6 @@ public final class AddCommentRow implements AbsActionListener {
         EditCommentRow r_ = new EditCommentRow(windowCdmEditor.getCommonFrame().getFrames(), new CommentDelimiters("", new StringList("")), allComments.size());
         allComments.add(r_);
         cont.add(r_.getLine());
-        windowCdmEditor.getDialogComments().pack();
+        GuiBaseUtil.recalculate(windowCdmEditor.getDialogComments().getPane());
     }
 }
