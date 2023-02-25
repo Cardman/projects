@@ -18,6 +18,6 @@ public final class RowColStateChangedEvent implements AbsChangeListener {
     public void stateChanged() {
         int index_ = tab.index(row.getValue(), col.getValue());
         tab.setIndex(index_);
-        tab.getVal().setEnabled(index_ > -1);
+//        tab.getVal().setEnabled(index_ > -1);
     }
 }

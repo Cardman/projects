@@ -142,4 +142,26 @@ public final class MockTextPaneTest extends EquallableMockGuiUtil {
         t_.unregisterKeyboardAction(0,0);
         assertEq(0, t_.getActionsMap().size());
     }
+    @Test
+    public void f14() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.setEditable(true);
+        t_.append("hello");
+        t_.setSelectionStart(1);
+        t_.setSelectionEnd(4);
+        t_.select(1,4);
+        t_.replaceSelection("fmm");
+        assertEq("hfmmo",t_.getText());
+    }
+    @Test
+    public void f15() {
+        MockTextPane t_ = (MockTextPane) init().getCompoFactory().newTextPane();
+        t_.setEditable(false);
+        t_.append("hello");
+        t_.setSelectionStart(1);
+        t_.setSelectionEnd(4);
+        t_.select(1,4);
+        t_.replaceSelection("fmm");
+        assertEq("hello",t_.getText());
+    }
 }

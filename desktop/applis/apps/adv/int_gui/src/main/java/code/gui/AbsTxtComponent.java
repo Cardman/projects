@@ -40,6 +40,8 @@ public interface AbsTxtComponent extends AbsCustComponent{
 
     String getSelectedText();
     void setEnabled(boolean _enabled);
+    boolean isEditable();
+    void setEditable(boolean _enabled);
     boolean isEnabled();
     int viewToModel(MetaPoint _point);
     MetaRect modelToView(int _index);

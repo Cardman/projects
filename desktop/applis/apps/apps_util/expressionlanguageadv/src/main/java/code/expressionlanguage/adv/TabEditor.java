@@ -42,6 +42,7 @@ public final class TabEditor {
     private String fullPath;
     private final String useFeed;
     private int index=-1;
+    private int dest;
     private final AbsSpinner row;
     private final AbsSpinner col;
     private final AbsPlainButton val;
@@ -133,9 +134,23 @@ public final class TabEditor {
         panel.add(sc_);
         panel.add(label);
         panel.add(navModifPanel);
+//        caseSens.setFocusable(false);
+//        wholeWord.setFocusable(false);
+//        finder.setFocusable(false);
+//        prevOcc.setFocusable(false);
+//        nextOcc.setFocusable(false);
+//        closeFinder.setFocusable(false);
+//        row.setFocusable(false);
+//        col.setFocusable(false);
+//        val.setFocusable(false);
     }
     public void afterValidate(int _dest) {
-        center.select(_dest, _dest);
+        index = _dest;
+        center.setEditable(true);
+        center.requestFocus();
+        center.select(dest, dest);
+        center.setEditable(false);
+        dest = 0;
     }
     public AbsSpinner getRow() {
         return row;
@@ -157,6 +172,9 @@ public final class TabEditor {
         return val;
     }
 
+    public boolean enabled(int _row, int _col) {
+        return index(_row, _col) > -1;
+    }
     public int index(int _row, int _col) {
         int adjRow_ = _row - 1;
         int adjCol_ = _col - 1;
@@ -164,25 +182,34 @@ public final class TabEditor {
         String txt_ = getCenter().getText();
         int index_ = 0;
         int row_ = 0;
-        int scan_ = 0;
         while (index_ >= 0) {
             int next_ = txt_.indexOf('\n',index_);
             if (row_ == adjRow_) {
                 int j_ = tab(tw_, txt_, index_, adjCol_);
                 if (j_ > -1) {
-                    return scan_ + j_;
+                    dest = index_ + j_;
+                    return dest;
                 }
+                dest(next_,txt_);
                 return -1;
             }
             if (next_ < 0) {
                 index_=-1;
             } else {
-                scan_ += next_ + 1 - index_;
                 index_ = next_ + 1;
                 row_++;
             }
         }
+        dest(-1,txt_);
         return -1;
+    }
+
+    private void dest(int _index,String _txt) {
+        if (_index > -1) {
+            dest = _index;
+            return;
+        }
+        dest = _txt.length();
     }
 
     private int tab(int _tw, String _txt, int _index, int _delta) {

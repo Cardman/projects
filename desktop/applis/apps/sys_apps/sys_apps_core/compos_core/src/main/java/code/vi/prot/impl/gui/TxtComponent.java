@@ -132,5 +132,14 @@ public abstract class TxtComponent extends CustComponent implements AbsTxtCompon
         return mapCaret.getKeys();
     }
 
+    @Override
+    public boolean isEditable() {
+        return getTextComponent().isEditable();
+    }
+
+    @Override
+    public void setEditable(boolean _ed) {
+        getTextComponent().setEditable(_ed);
+    }
     public abstract JTextComponent getTextComponent();
 }

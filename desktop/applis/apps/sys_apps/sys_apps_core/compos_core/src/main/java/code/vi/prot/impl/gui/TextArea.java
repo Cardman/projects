@@ -134,16 +134,6 @@ public final class TextArea extends TxtComponent implements AbsTextArea {
     }
 
 
-
-    public boolean isEditable() {
-        return area.isEditable();
-    }
-
-    public void setEditable(boolean _b) {
-        area.setEditable(_b);
-    }
-
-
     public boolean getScrollableTracksViewportHeight() {
         return area.getScrollableTracksViewportHeight();
     }

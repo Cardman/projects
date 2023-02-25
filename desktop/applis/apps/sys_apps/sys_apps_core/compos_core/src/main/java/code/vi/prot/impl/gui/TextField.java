@@ -35,10 +35,6 @@ public final class TextField extends TxtComponent implements AbsTextField {
         field.addActionListener(new WrAdvActionListener(_list));
     }
 
-    public void setEditable(boolean _b) {
-        field.setEditable(_b);
-    }
-
 
     @Override
     public JComponent getNatComponent() {

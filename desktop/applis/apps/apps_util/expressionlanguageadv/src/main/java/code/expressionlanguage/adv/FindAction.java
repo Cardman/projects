@@ -27,6 +27,7 @@ public final class FindAction implements AbsActionListener {
         current.getNavModifPanel().setVisible(true);
         current.getReplacerPanel().setVisible(!readOnly);
         AbsTextPane editor_ = current.getCenter();
+        editor_.setEditable(false);
         AbsTextField finder_ = current.getFinder();
         String s_ = StringUtil.nullToEmpty(editor_.getSelectedText());
         if (!s_.isEmpty()) {

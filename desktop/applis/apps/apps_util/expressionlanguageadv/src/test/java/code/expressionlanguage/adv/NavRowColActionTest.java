@@ -146,10 +146,9 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
     }
     private boolean act(WindowCdmEditor _w, int _row, int _col) {
         TabEditor tab_ = prepare(_w, _row, _col);
-        boolean en_ = tab_.getVal().isEnabled();
-        assertTrue(tab_.getVal().isEnabled());
+        assertTrue(tab_.enabled(_row, _col));
         ((MockPlainButton)tab_.getVal()).getActionListeners().get(0).action();
-        return en_;
+        return true;
     }
 
     private TabEditor prepare(WindowCdmEditor _w, int _row, int _col) {
@@ -167,6 +166,6 @@ public final class NavRowColActionTest extends EquallableElAdvUtil {
 
     private boolean enabled(WindowCdmEditor _w, int _row, int _col) {
         TabEditor tab_ = prepare(_w, _row, _col);
-        return tab_.getVal().isEnabled();
+        return tab_.enabled(_row, _col);
     }
 }

@@ -19,6 +19,7 @@ public final class ReplaceAction implements AbsActionListener {
     @Override
     public void action() {
         current.setEnabledSyntax(false);
+        current.getCenter().setEditable(true);
         AbsTextPane editor_ = current.getCenter();
         AbsTextField replacer_ = current.getReplacer();
         int cur_ = current.getCurrentPart();
@@ -32,6 +33,7 @@ public final class ReplaceAction implements AbsActionListener {
                 editor_.replaceSelection(s_);
             }
         }
+        current.getCenter().setEditable(false);
         current.setEnabledSyntax(true);
         new UpdatingEditorAndSelect(current).run();
     }

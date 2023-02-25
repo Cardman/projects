@@ -19,6 +19,7 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     private int caretColor;
     private int selectionColor;
     private int selectedTextColor;
+    private boolean editable = true;
     private final IdList<AbsCaretListener> listeners = new IdList<AbsCaretListener>();
 
     @Override
@@ -57,6 +58,9 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     }
 
     public void replaceSelection(String _s) {
+        if (this instanceof MockTextPane && !isEditable()) {
+            return;
+        }
         builder.delete(getSelectionStart(),getSelectionEnd());
         applyRemove(getSelectionEnd()-getSelectionStart());
         selectionEnd = getSelectionStart();
@@ -281,5 +285,15 @@ public abstract class MockTxtComponent extends MockInput implements AbsTxtCompon
     @Override
     public CustList<AbsCaretListener> getCaretListeners() {
         return listeners;
+    }
+
+    @Override
+    public boolean isEditable() {
+        return editable;
+    }
+
+    @Override
+    public void setEditable(boolean _ed) {
+        this.editable = _ed;
     }
 }
