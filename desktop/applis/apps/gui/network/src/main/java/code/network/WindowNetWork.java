@@ -2828,4 +2828,12 @@ public final class WindowNetWork extends NetGroupFrame implements WindowCardsInt
     public void setButtonClick(AbsButton _b) {
         this.buttonClick = _b;
     }
+
+    public WindowCardsCore getNetg() {
+        return netg;
+    }
+
+    public WindowAikiCore getAiki() {
+        return aiki;
+    }
 }
