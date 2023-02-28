@@ -957,7 +957,10 @@ public abstract class ProcessMethodCommon extends EquallableElUtil {
     }
     protected static void validatedStds(AnalysisMessages _a, AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, Options _opt, LgNames _lgName) {
         _page.setLogErr(_forwards);
-        ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgName.getContent(), _page);
+        _kw.initSupplDigits();
+//        ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _opt, _lgName.getContent(), _page);
+        ContextFactory.beforeBuild(_forwards,_a,_kw,new CustList<CommentDelimiters>(), _opt,_lgName.getContent(),_page);
+        ContextFactory.build(_forwards,_kw,_opt,_page);
    }
 
     protected static ContextEl getContextEl(StringMap<String> _files, Options _opt, CustLgNames _lgName, KeyWords _kw) {

@@ -37,18 +37,28 @@ public final class ContextFactory {
             return false;
         }
         if (validatedStds(_fwd, _mess,_definedKw,_comments,_options, _content, _page)) {
-            ParsedArgument.buildCustom(_options,_definedKw);
-            _fwd.getGenerator().build();
-            ValidatorStandard.setupOverrides(_page);
+            build(_fwd, _definedKw, _options, _page);
             return true;
         }
         return false;
     }
+
+    public static void build(Forwards _fwd, KeyWords _definedKw, Options _options, AnalyzedPageEl _page) {
+        ParsedArgument.buildCustom(_options, _definedKw);
+        _fwd.getGenerator().build();
+        ValidatorStandard.setupOverrides(_page);
+    }
+
     public static boolean validatedStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
                                         CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
+        AbstractFileBuilder builder_ = beforeBuild(_fwd, _mess, _definedKw, _comments, _options, _content, _page);
+        return validate(_definedKw, _page, builder_);
+    }
+
+    public static AbstractFileBuilder beforeBuild(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw, CustList<CommentDelimiters> _comments, Options _options, LgNamesContent _content, AnalyzedPageEl _page) {
         _page.setOptions(_options);
         CustList<CommentDelimiters> comments_ = _options.getComments();
-        CommentsUtil.checkAndUpdateComments(comments_,_comments);
+        CommentsUtil.checkAndUpdateComments(comments_, _comments);
         _page.setComments(comments_);
         _page.setDefaultAccess(_options.getDefaultAccess());
         _page.setAnalysisMessages(_mess);
@@ -61,7 +71,7 @@ public final class ContextFactory {
         _page.setStaticFields(_fwd.getStaticFields());
         _page.setTabWidth(_options.getTabWidth());
         _page.setGettingErrors(_options.isGettingErrors());
-        return validate(_definedKw, _page, builder_);
+        return builder_;
     }
 
     public static boolean validate(KeyWords _definedKw, AnalyzedPageEl _page, AbstractFileBuilder _builder) {

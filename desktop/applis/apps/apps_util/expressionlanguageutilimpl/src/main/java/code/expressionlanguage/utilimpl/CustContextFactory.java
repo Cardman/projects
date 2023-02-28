@@ -58,6 +58,7 @@ public final class CustContextFactory {
     public static void preinitAliases(ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesContent _base, CustAliases _util, GuiAliases _gui) {
         _util.messages(_mess, _exec.getMessages());
         _util.keyWord(_kwl, _exec.getKeyWords());
+        _kwl.initSupplDigits();
         _util.otherAlias(_base, _exec.getAliases());
         _gui.otherAliasGui(LgNamesGui.addon(_util.getUserLg(), _gui),_exec.getAliases());
     }

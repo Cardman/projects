@@ -381,15 +381,26 @@ public final class KeyWords {
             }
         }
     }
+    public void initSupplDigits() {
+        CustList<String> supplDig_ = supplDig();
+        Ints supplDigMin_ = new Ints();
+        for (String p: supplDig_) {
+            if (p.length() == 1 && StringDataLetterUtil.isLetter(p.charAt(0))) {
+                supplDigMin_.add(NumParsers.toMinCase(p.charAt(0)));
+            }
+        }
+        supplDigMin_.sort();
+        int size_ = supplDigMin_.size();
+        StringBuilder keyWordNbDigBuilder_ = new StringBuilder();
+        for (int i = 0; i < size_; i++) {
+            int va_ = supplDigMin_.get(i);
+            keyWordNbDigBuilder_.append((char)va_);
+        }
+        keyWordNbDig = keyWordNbDigBuilder_.toString();
+    }
     private void validateSupplDigits(AnalyzedPageEl _page) {
         AnalysisMessages a_ = _page.getAnalysisMessages();
-        CustList<String> supplDig_ = new CustList<String>();
-        supplDig_.add(keyWordNbDig0);
-        supplDig_.add(keyWordNbDig1);
-        supplDig_.add(keyWordNbDig2);
-        supplDig_.add(keyWordNbDig3);
-        supplDig_.add(keyWordNbDig4);
-        supplDig_.add(keyWordNbDig5);
+        CustList<String> supplDig_ = supplDig();
         Ints supplDigMin_ = new Ints();
         for (String p: supplDig_) {
             if (p.length() != 1) {
@@ -414,12 +425,17 @@ public final class KeyWords {
                 _page.addStdError(err_);
             }
         }
-        StringBuilder keyWordNbDigBuilder_ = new StringBuilder();
-        for (int i = 0; i < size_; i++) {
-            int va_ = supplDigMin_.get(i);
-            keyWordNbDigBuilder_.append((char)va_);
-        }
-        keyWordNbDig = keyWordNbDigBuilder_.toString();
+    }
+
+    private CustList<String> supplDig() {
+        CustList<String> supplDig_ = new CustList<String>();
+        supplDig_.add(keyWordNbDig0);
+        supplDig_.add(keyWordNbDig1);
+        supplDig_.add(keyWordNbDig2);
+        supplDig_.add(keyWordNbDig3);
+        supplDig_.add(keyWordNbDig4);
+        supplDig_.add(keyWordNbDig5);
+        return supplDig_;
     }
 
     public void validateStartsPrefixesDuplicates(AnalyzedPageEl _page) {

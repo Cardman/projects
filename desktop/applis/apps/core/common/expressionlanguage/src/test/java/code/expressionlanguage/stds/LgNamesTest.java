@@ -1672,6 +1672,7 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
     private static void validateBinarySeparators(KeyWords _kw, AnalyzedPageEl _s) {
+        _kw.initSupplDigits();
         _kw.validateBinarySeparators(_s);
     }
 

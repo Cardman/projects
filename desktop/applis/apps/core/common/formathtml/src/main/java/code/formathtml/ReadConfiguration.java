@@ -37,11 +37,12 @@ public final class ReadConfiguration {
         if (!_page.isEmptyMessageError()) {
             return false;
         }
-        return loadContext(_stds, _page, _forwards, kw_, a_, rkw_);
+        kw_.initSupplDigits();
+        ContextFactory.validateStds(_forwards, a_, kw_, new CustList<CommentDelimiters>(), _forwards.getOptions(), _stds.getContent(), _page);
+        return loadContext(_page, rkw_);
     }
 
-    public static boolean loadContext(BeanCustLgNames _stds, AnalyzedPageEl _page, Forwards _forwards, KeyWords _kw, AnalysisMessages _a, RendKeyWords _rkw) {
-        ContextFactory.validateStds(_forwards, _a, _kw, new CustList<CommentDelimiters>(), _forwards.getOptions(), _stds.getContent(), _page);
+    public static boolean loadContext(AnalyzedPageEl _page, RendKeyWords _rkw) {
         StringMap<String> allTags_ = _rkw.allTags();
         _rkw.validateTagContents(allTags_, _page);
         _rkw.validateDuplicates(allTags_, _page);

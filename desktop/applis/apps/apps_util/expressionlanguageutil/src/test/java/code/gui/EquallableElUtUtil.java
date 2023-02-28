@@ -669,6 +669,7 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),"en");
         _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
+        _definedKw.initSupplDigits();
         _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
         _definedLgNames.getGuiAliases().otherAliasGui(LgNamesGui.addon("en", _definedLgNames.getGuiAliases()),_exec.getAliases());
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
@@ -688,6 +689,7 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),"en");
         _definedLgNames.getExecContent().getCustAliases().messages(_mess, _exec.getMessages());
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
+        _definedKw.initSupplDigits();
         _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
