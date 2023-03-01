@@ -411,7 +411,7 @@ public final class CustAliases {
     public static final String RESOURCES_LG_THREADS_FORMATTING_TXT = "resources_lg/threads/formatting.txt";
     public static final String RESOURCES_LG_ALIASES = "resources_lg/aliases";
 //    public static final String FILE_MESSAGES = "messages";
-    public static final String FILE_KEYWORDS = "keywords";
+//    public static final String FILE_KEYWORDS = "keywords";
     public static final String FILE_TYPES = "types";
 
     private static final String ILLEGAL_THREAD_STATE_EXCEPTION = "IllegalThreadStateException";
