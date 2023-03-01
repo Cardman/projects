@@ -4349,7 +4349,7 @@ public final class GuiAliases {
         return ref_;
     }
     private static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
-        CustList<String> allKeysWords_ = _keyWords.allKeyWords().values();
+        CustList<String> allKeysWords_ = _keyWords.allKeyWordsValues();
         allKeysWords_.addAllElts(_primitiveTypes.getKeys());
         allKeysWords_.add(_coreNames.getAliasVoid());
         for (String p:_args) {

@@ -6,6 +6,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
@@ -35,5 +36,10 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     @Override
     public StringMap<String> mappingMessages() {
         return AnalysisMessages.mapping();
+    }
+
+    @Override
+    public StringMap<String> mappingKeywords() {
+        return KeyWords.mapping();
     }
 }

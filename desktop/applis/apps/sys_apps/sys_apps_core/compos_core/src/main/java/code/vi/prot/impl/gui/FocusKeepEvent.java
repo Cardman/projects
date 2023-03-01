@@ -14,13 +14,13 @@ public final class FocusKeepEvent implements FocusListener {
     }
 
     @Override
-    public void focusGained(FocusEvent e) {
+    public void focusGained(FocusEvent _e) {
         component.getCaret().setVisible(true);
         component.setBorder(BorderFactory.createLineBorder(Color.RED));
     }
 
     @Override
-    public void focusLost(FocusEvent e) {
+    public void focusLost(FocusEvent _e) {
         component.getCaret().setVisible(true);
         component.setBorder(BorderFactory.createLineBorder(Color.GRAY));
     }

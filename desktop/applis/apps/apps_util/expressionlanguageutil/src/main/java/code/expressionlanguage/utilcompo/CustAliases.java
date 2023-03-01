@@ -2016,14 +2016,26 @@ public final class CustAliases {
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
         return LgNamesUtilsContent.extractMap(com_);
     }
+
     public void keyWord(KeyWords _kw, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,getUserLg(), FILE_KEYWORDS);
-        String content_ = StringUtil.nullToEmpty(properties.getVal(fileName_));
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        keyWord(_kw,util_,_cust);
+        keyWord(_kw,defKeywords(getUserLg(), getTranslations(), getLanguage()),_cust);
     }
     public void keyWord(KeyWords _kw,StringMap<String> _util,StringMap<String> _cust) {
-        _kw.build(_util, _cust);
+        StringMap<String> keys_ = extractKeywordsKeys();
+        _kw.build(_util, _cust,keys_);
+    }
+    public StringMap<String> extractKeywordsKeys() {
+        TranslationsLg lg_ = lg(getTranslations(), getUserLg(), getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
+        return LgNamesUtilsContent.extractKeys(com_);
+    }
+
+    public static StringMap<String> defKeywords(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
+        return LgNamesUtilsContent.extractMap(com_);
     }
     public void otherAlias(LgNamesContent _content, StringMap<String> _cust) {
         String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,getUserLg(), FILE_TYPES);
@@ -4362,7 +4374,7 @@ public final class CustAliases {
     }
 
     static String tr(String _var, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
-        CustList<String> allKeysWords_ = _keyWords.allKeyWords().values();
+        CustList<String> allKeysWords_ = _keyWords.allKeyWordsValues();
         allKeysWords_.addAllElts(_primitiveTypes.getKeys());
         allKeysWords_.add(_coreNames.getAliasVoid());
         for (String p:_args) {

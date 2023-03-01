@@ -266,4 +266,9 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     public StringMap<String> mappingMessages() {
         return execContent.getCustAliases().extractMessagesKeys();
     }
+
+    @Override
+    public StringMap<String> mappingKeywords() {
+        return execContent.getCustAliases().extractKeywordsKeys();
+    }
 }

@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.utilimpl.MessCdmKeywords;
 import code.expressionlanguage.utilimpl.MessCdmLogs;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.maths.montecarlo.AbstractGenerator;
@@ -21,6 +22,7 @@ public final class FileInfos {
     public static final String COMM_BEGIN = "1";
     public static final String COMM_END = "2";
     public static final String MESSAGES = "messages";
+    public static final String KEYWORDS = "keywords";
 
     private final AbstractLogger logger;
     private final AbstractFileSystem fileSystem;
@@ -49,9 +51,11 @@ public final class FileInfos {
     }
     public static void enTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.en());
+        _lgs.getMapping().addEntry(KEYWORDS, MessCdmKeywords.en());
     }
     public static void frTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.fr());
+        _lgs.getMapping().addEntry(KEYWORDS, MessCdmKeywords.fr());
     }
 
     public static TranslationsAppli initComments(TranslationsLg _lgs) {

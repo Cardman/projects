@@ -38,6 +38,7 @@ public final class ReadConfiguration {
             return false;
         }
         kw_.initSupplDigits();
+        _page.setMappingKeyWords(_stds.mappingKeywords());
         ContextFactory.validateStds(_forwards, a_, kw_, new CustList<CommentDelimiters>(), _forwards.getOptions(), _stds.getContent(), _page);
         return loadContext(_page, rkw_);
     }

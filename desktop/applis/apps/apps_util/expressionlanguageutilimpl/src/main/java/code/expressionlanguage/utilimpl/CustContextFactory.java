@@ -40,7 +40,7 @@ public final class CustContextFactory {
         KeyWords kwl_ = new KeyWords();
         AnalysisMessages mess_ = new AnalysisMessages();
         preinit(_options, _exec, mess_, kwl_, _undefinedLgNames);
-        return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files);
+        return build(_options, _exec,mess_,kwl_, _undefinedLgNames, _files, new StringList());
     }
     public static void executeDefKw(Options _options, ExecutingOptions _exec, StringMap<String> _files, ProgressingTests _progressingTests, LgNamesGui _stds) {
         AnalysisMessages mess_ = new AnalysisMessages();
@@ -70,7 +70,7 @@ public final class CustContextFactory {
                                ProgressingTests _progressingTests) {
         _progressingTests.init(_exec);
         ResultContext res_ = build(_options, _exec, _mess,_definedKw,
-                _definedLgNames, _files);
+                _definedLgNames, _files, new StringList());
         ContextEl rCont_ = res_.getContext();
         ReportedMessages reportedMessages_ = res_.getReportedMessages();
         FileInfos infos_ = _definedLgNames.getExecContent().getInfos();
@@ -113,11 +113,12 @@ public final class CustContextFactory {
             }
         }
     }
-    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
+    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, StringList _mainArgs) {
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
-        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
+        _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
+        page_.setMappingKeyWords(_definedLgNames.getExecContent().getCustAliases().extractKeywordsKeys());
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);

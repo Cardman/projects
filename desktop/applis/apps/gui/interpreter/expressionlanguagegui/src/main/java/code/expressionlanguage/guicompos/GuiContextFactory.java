@@ -1,15 +1,10 @@
 package code.expressionlanguage.guicompos;
 
-import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.analyze.*;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
-import code.expressionlanguage.fwd.Forwards;
-import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.utilcompo.AdvSymbolFactory;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.gui.initialize.AbstractLightProgramInfos;
 import code.util.StringList;
@@ -30,20 +25,7 @@ public final class GuiContextFactory {
 //            _undefinedLgNames.getGuiAliases().otherAliasGui(_exec.getAliases(),new StringMap<String>());
 //        }
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns(), _undefinedLgNames.getExecContent().getCustAliases().extractMessagesKeys()));
-        _undefinedLgNames.getExecContent().setExecutingOptions(_exec);
-        _undefinedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _currentElements,_exec.getListGenerator());
-        return build(_options, _exec, mess_, kwl_, _undefinedLgNames, _files);
+        return CustContextFactory.build(_options,_exec,mess_,kwl_,_undefinedLgNames,_files,_mainArgs);
     }
 
-    public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files) {
-        AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
-        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(),fileBuilder_, _options);
-        page_.setLogErr(forwards_);
-        AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
-        ContextFactory.validateStds(forwards_, _mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultContext(reportedMessages_, page_.getMessages());
-    }
 }

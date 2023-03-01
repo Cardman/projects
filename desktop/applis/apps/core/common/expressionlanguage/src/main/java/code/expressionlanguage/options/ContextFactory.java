@@ -76,11 +76,11 @@ public final class ContextFactory {
 
     public static boolean validate(KeyWords _definedKw, AnalyzedPageEl _page, AbstractFileBuilder _builder) {
         DefaultAliasGroups defaultAliasGroups_ = _builder.getDefaultAliasGroups();
-        StringMap<String> keyWords_ = _definedKw.allKeyWords();
+        StringMap<String> keyWords_ = _definedKw.allKeyWords(_page.getMappingKeyWords());
         _definedKw.validateKeyWordContents(keyWords_, _page);
-        StringMap<String> escapings_ = _definedKw.allEscapings();
+        StringMap<String> escapings_ = _definedKw.allEscapings(_page.getMappingKeyWords());
         _definedKw.validateEscapingsContents(escapings_, _page);
-        StringMap<String> nbWords_ = _definedKw.allNbWords(_definedKw.allNbWordsBasic());
+        StringMap<String> nbWords_ = _definedKw.allNbWords(_page.getMappingKeyWords(),_definedKw.allNbWordsBasic(_page.getMappingKeyWords()));
         _definedKw.validateNbWordContents(nbWords_, _page);
         _definedKw.validateBinarySeparators(_page);
         StringMap<String> prims_ = defaultAliasGroups_.allPrimitives();
@@ -88,13 +88,13 @@ public final class ContextFactory {
         ValidatorStandard.validatePrimitiveDuplicates(prims_, _page);
         _definedKw.validateKeyWordDuplicates(keyWords_, _page);
         _definedKw.validateEscapingsDuplicates(escapings_, _page);
-        StringMap<String> nbWordsBasic_ = _definedKw.allNbWords(new StringMap<String>());
+        StringMap<String> nbWordsBasic_ = _definedKw.allNbWords(_page.getMappingKeyWords(),new StringMap<String>());
         _definedKw.validateNbWordDuplicates(nbWordsBasic_, _page);
-        StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_definedKw.allNbWordsDec());
+        StringMap<String> nbWordsDec_ = _definedKw.allNbWords(_page.getMappingKeyWords(),_definedKw.allNbWordsDec(_page.getMappingKeyWords()));
         _definedKw.validateNbWordDuplicates(nbWordsDec_, _page);
-        StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_definedKw.allNbWordsBin());
+        StringMap<String> nbWordsBin_ = _definedKw.allNbWords(_page.getMappingKeyWords(),_definedKw.allNbWordsBin(_page.getMappingKeyWords()));
         _definedKw.validateNbWordDuplicates(nbWordsBin_, _page);
-        StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_definedKw.allNbWordsPreBin());
+        StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_page.getMappingKeyWords(),_definedKw.allNbWordsPreBin(_page.getMappingKeyWords()));
         _definedKw.validateNbWordDuplicates(nbWordsPreBin_, _page);
         _definedKw.validateStartsPrefixesDuplicates(_page);
         StringMap<String> refTypes_ = defaultAliasGroups_.allRefTypes();

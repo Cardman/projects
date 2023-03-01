@@ -3,24 +3,22 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.guicompos.GuiAliasGroups;
 import code.expressionlanguage.guicompos.GuiAliases;
-import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.gui.initialize.AbstractProgramInfos;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class OutputDialogAliases {
-    private static final String NB_DIG0 = "NbDig0";
-    private static final String NB_DIG1 = "NbDig1";
-    private static final String NB_DIG2 = "NbDig2";
-    private static final String NB_DIG3 = "NbDig3";
-    private static final String NB_DIG4 = "NbDig4";
-    private static final String NB_DIG5 = "NbDig5";
     private final OutputDialogMapMessagesEdit keyWords;
     private final OutputDialogMapMessagesEdit aliases;
     private final AbsPlainButton check;
@@ -32,7 +30,7 @@ public final class OutputDialogAliases {
     private final LgNamesContent lgNamesContent;
 
     public OutputDialogAliases(WindowCdmEditor _w) {
-        keyWords = new OutputDialogMapMessagesEdit(_w,_w.getLgKeyWords(), keyWords());
+        keyWords = new OutputDialogMapMessagesEdit(_w,_w.getLgKeyWords(), keyWords(_w));
         guiAliases = new GuiAliases();
         custAliases = new CustAliases();
         lgNamesContent = new LgNamesContent();
@@ -62,21 +60,11 @@ public final class OutputDialogAliases {
         _w.getDialogAliases().pack();
         _w.getDialogAliases().setVisible(true);
     }
-    static StringList keyWords() {
-        KeyWords g_ = new KeyWords();
-        StringList keys_ = new StringList();
-        keys_.add(NB_DIG0);
-        keys_.add(NB_DIG1);
-        keys_.add(NB_DIG2);
-        keys_.add(NB_DIG3);
-        keys_.add(NB_DIG4);
-        keys_.add(NB_DIG5);
-        keys_.addAllElts(g_.allKeyWords().getKeys());
-        keys_.addAllElts(g_.allEscapings().getKeys());
-        StringMap<String> nbBasic_ = g_.allNbWordsBasic();
-        keys_.addAllElts(g_.allNbWords(nbBasic_).getKeys());
-        keys_.removeDuplicates();
-        return keys_;
+    static CustList<String> keyWords(WindowCdmEditor _w) {
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
+        return LgNamesUtilsContent.extractKeys(com_).values();
     }
     static StringList aliases() {
         return aliases(new GuiAliases(), new CustAliases(), new LgNamesContent());

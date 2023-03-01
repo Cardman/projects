@@ -2345,6 +2345,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
+        page_.setMappingKeyWords(KeyWords.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(page_));
@@ -2391,6 +2392,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         AnalysisMessages.validateMessageContents(mess_.allMessages(), page_);
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
+        page_.setMappingKeyWords(KeyWords.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(page_));
@@ -2484,7 +2486,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> cust_ = new StringMap<String>();
         cust_.put("","value");
         KeyWords lgNamesContent_ = new KeyWords();
-        lgNamesContent_.build(def_, cust_);
+        lgNamesContent_.build(def_, cust_, KeyWords.mapping());
         assertEq("",lgNamesContent_.getKeyWordVar());
     }
     @Test

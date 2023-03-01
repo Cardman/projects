@@ -28,7 +28,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
     public void action2() {
         WindowCdmEditor w_=newWindowLoadDef();
         OutputDialogAliases o_ = aliases(w_);
-        int index_ = StringUtil.indexOf(OutputDialogAliases.keyWords(),"If");
+        int index_ = StringUtil.indexOf(OutputDialogAliases.keyWords(w_),"If");
         assertEq(0,w_.getLgKeyWords().size());
         o_.getKeyWords().getKey().setText("If");
 //        enter(o_.getKeyWords().getAuto());
@@ -50,7 +50,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq(1,w_.getLgAliases().size());
         assertEq(1,w_.getLgKeyWords().size());
         int index_ = StringUtil.indexOf(OutputDialogAliases.aliases(),"Runnable");
-        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(),"If");
+        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(w_),"If");
 
         o_.getAliases().getKey().setText("Runnable");
 //        enter(o_.getAliases().getAuto());
@@ -86,7 +86,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq(1,w_.getLgAliases().size());
         assertEq(1,w_.getLgKeyWords().size());
         int index_ = StringUtil.indexOf(OutputDialogAliases.aliases(),"Runnable");
-        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(),"If");
+        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(w_),"If");
 
         o_.getAliases().getKey().setText("Runnable");
 //        enter(o_.getAliases().getAuto());
@@ -122,7 +122,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq(1,w_.getLgAliases().size());
         assertEq(1,w_.getLgKeyWords().size());
         int index_ = StringUtil.indexOf(OutputDialogAliases.aliases(),"Runnable");
-        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(),"If");
+        int indexKey_ = StringUtil.indexOf(OutputDialogAliases.keyWords(w_),"If");
 
         o_.getAliases().getKey().setText("Runnable");
 //        enter(o_.getAliases().getAuto());
