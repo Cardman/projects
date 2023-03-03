@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fcts.*;
@@ -9,6 +10,55 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AliasCharSequenceType {
+
+    private static final String CHAR_SEQUENCE = "CharSequence";
+    private static final String INDEX_OF = "IndexOf";
+    private static final String STRING = "String";
+    private static final String STRING_COMPARE = "StringCompare";
+    private static final String STRING_VALUE_OF = "StringValueOf";
+    private static final String IS_EMPTY = "IsEmpty";
+    private static final String TRIM = "Trim";
+    private static final String GET_BYTES = "GetBytes";
+    private static final String CONTAINS = "Contains";
+    private static final String REPLACE = "Replace";
+    private static final String REPLACE_STRING = "ReplaceString";
+    private static final String FORMAT = "Format";
+    private static final String ENDS_WITH = "EndsWith";
+    private static final String CAPACITY = "Capacity";
+    private static final String SPLIT = "Split";
+    private static final String APPEND = "Append";
+    private static final String LENGTH = "Length";
+    private static final String CHAR_AT = "CharAt";
+    private static final String SAME = "Same";
+    private static final String REVERSE = "Reverse";
+    private static final String INSERT = "Insert";
+    private static final String DELETE = "Delete";
+    private static final String CLEAR = "Clear";
+    private static final String SUBSTRING = "Substring";
+    private static final String SET_CHAR_AT = "SetCharAt";
+    private static final String EQUALS_IGNORE_CASE = "EqualsIgnoreCase";
+    private static final String DELETE_CHAR_AT = "DeleteCharAt";
+    private static final String STARTS_WITH = "StartsWith";
+    private static final String LAST_INDEX_OF = "LastIndexOf";
+    private static final String REGION_MATCHES = "RegionMatches";
+    private static final String TO_LOWER_CASE = "ToLowerCase";
+    private static final String STRING_BUILDER = "StringBuilder";
+    private static final String TO_UPPER_CASE = "ToUpperCase";
+    private static final String ENSURE_CAPACITY = "EnsureCapacity";
+    private static final String SET_LENGTH = "SetLength";
+    private static final String TRIM_TO_SIZE = "TrimToSize";
+    private static final String REPLACEMENT = "Replacement";
+    private static final String GET_OLD_STRING = "GetOldString";
+    private static final String GET_NEW_STRING = "GetNewString";
+    private static final String SUB_SEQUENCE = "SubSequence";
+    private static final String COMPARE_TO_IGNORE_CASE = "CompareToIgnoreCase";
+    private static final String TO_CHAR_ARRAY = "ToCharArray";
+    private static final String CHAR_SEQUENCE_TO_STRING = "CharSequenceToString";
+    private static final String CHAR_SEQUENCE_EQUALS = "CharSequenceEquals";
+    private static final String CHAR_SEQUENCE_COMPARE_TO = "CharSequenceCompareTo";
+    private static final String REPLACE_MULTIPLE = "ReplaceMultiple";
+    private static final String SPLIT_STRINGS = "SplitStrings";
+    private static final String SPLIT_CHARS = "SplitChars";
 
     private String aliasCharSequence;
     private String aliasCharSequenceToString;
@@ -62,6 +112,158 @@ public final class AliasCharSequenceType {
     private String aliasGetNewString;
     private final AliasParamCharSequence params = new AliasParamCharSequence();
 
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasCharSequence(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE));
+        setAliasIndexOf(LgNamesContent.get(_util,_cust, INDEX_OF));
+        setAliasString(LgNamesContent.get(_util,_cust, STRING));
+        setAliasStringValueOf(LgNamesContent.get(_util,_cust, STRING_VALUE_OF));
+        setAliasStringCompare(LgNamesContent.get(_util,_cust, STRING_COMPARE));
+        setAliasIsEmpty(LgNamesContent.get(_util,_cust, IS_EMPTY));
+        setAliasTrim(LgNamesContent.get(_util,_cust, TRIM));
+        setAliasGetBytes(LgNamesContent.get(_util,_cust, GET_BYTES));
+        setAliasContains(LgNamesContent.get(_util,_cust, CONTAINS));
+        setAliasReplace(LgNamesContent.get(_util,_cust, REPLACE));
+        setAliasReplaceString(LgNamesContent.get(_util,_cust, REPLACE_STRING));
+        setAliasFormat(LgNamesContent.get(_util,_cust, FORMAT));
+        setAliasEndsWith(LgNamesContent.get(_util,_cust, ENDS_WITH));
+        setAliasCapacity(LgNamesContent.get(_util,_cust, CAPACITY));
+        setAliasSplit(LgNamesContent.get(_util,_cust, SPLIT));
+        setAliasAppend(LgNamesContent.get(_util,_cust, APPEND));
+        setAliasLength(LgNamesContent.get(_util,_cust, LENGTH));
+        setAliasCharAt(LgNamesContent.get(_util,_cust, CHAR_AT));
+        setAliasSame(LgNamesContent.get(_util,_cust, SAME));
+        setAliasReverse(LgNamesContent.get(_util,_cust, REVERSE));
+        setAliasInsert(LgNamesContent.get(_util,_cust, INSERT));
+        setAliasDelete(LgNamesContent.get(_util,_cust, DELETE));
+        setAliasClear(LgNamesContent.get(_util,_cust, CLEAR));
+        setAliasSubstring(LgNamesContent.get(_util,_cust, SUBSTRING));
+        setAliasSetCharAt(LgNamesContent.get(_util,_cust, SET_CHAR_AT));
+        setAliasEqualsIgnoreCase(LgNamesContent.get(_util,_cust, EQUALS_IGNORE_CASE));
+        setAliasDeleteCharAt(LgNamesContent.get(_util,_cust, DELETE_CHAR_AT));
+        setAliasStartsWith(LgNamesContent.get(_util,_cust, STARTS_WITH));
+        setAliasLastIndexOf(LgNamesContent.get(_util,_cust, LAST_INDEX_OF));
+        setAliasRegionMatches(LgNamesContent.get(_util,_cust, REGION_MATCHES));
+        setAliasToLowerCase(LgNamesContent.get(_util,_cust, TO_LOWER_CASE));
+        setAliasStringBuilder(LgNamesContent.get(_util,_cust, STRING_BUILDER));
+        setAliasToUpperCase(LgNamesContent.get(_util,_cust, TO_UPPER_CASE));
+        setAliasEnsureCapacity(LgNamesContent.get(_util,_cust, ENSURE_CAPACITY));
+        setAliasSetLength(LgNamesContent.get(_util,_cust, SET_LENGTH));
+        setAliasTrimToSize(LgNamesContent.get(_util,_cust, TRIM_TO_SIZE));
+        setAliasReplacement(LgNamesContent.get(_util,_cust, REPLACEMENT));
+        setAliasGetOldString(LgNamesContent.get(_util,_cust, GET_OLD_STRING));
+        setAliasGetNewString(LgNamesContent.get(_util,_cust, GET_NEW_STRING));
+        setAliasSubSequence(LgNamesContent.get(_util,_cust, SUB_SEQUENCE));
+        setAliasCompareToIgnoreCase(LgNamesContent.get(_util,_cust, COMPARE_TO_IGNORE_CASE));
+        setAliasToCharArray(LgNamesContent.get(_util,_cust, TO_CHAR_ARRAY));
+        setAliasCharSequenceToString(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE_TO_STRING));
+        setAliasCharSequenceEquals(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE_EQUALS));
+        setAliasCharSequenceCompareTo(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE_COMPARE_TO));
+        setAliasReplaceMultiple(LgNamesContent.get(_util,_cust, REPLACE_MULTIPLE));
+        setAliasSplitStrings(LgNamesContent.get(_util,_cust, SPLIT_STRINGS));
+        setAliasSplitChars(LgNamesContent.get(_util,_cust, SPLIT_CHARS));
+    }
+    public StringMap<String> allRefTypes() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(REPLACEMENT, getAliasReplacement());
+        list_.addEntry(CHAR_SEQUENCE, getAliasCharSequence());
+        list_.addEntry(STRING,getAliasString());
+        list_.addEntry(STRING_BUILDER,getAliasStringBuilder());
+        return list_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(getAliasReplacement(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_NEW_STRING, getAliasGetNewString()),
+                new KeyValueMemberName(GET_OLD_STRING,getAliasGetOldString())));
+        map_.addEntry(getAliasCharSequence(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(CHAR_AT, getAliasCharAt()),
+                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS, getAliasCharSequenceEquals()),
+                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getAliasCharSequenceCompareTo()),
+                new KeyValueMemberName(CONTAINS,getAliasContains()),
+                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
+                new KeyValueMemberName(FORMAT,getAliasFormat()),
+                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
+                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
+                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
+                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
+                new KeyValueMemberName(SPLIT,getAliasSplit()),
+                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
+                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
+                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
+                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
+                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getAliasCharSequenceToString()),
+                new KeyValueMemberName(TRIM,getAliasTrim())));
+        map_.addEntry(getAliasString(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS,getAliasCharSequenceEquals()),
+                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getAliasCharSequenceCompareTo()),
+                new KeyValueMemberName(CHAR_AT, getAliasCharAt()),
+                new KeyValueMemberName(CONTAINS,getAliasContains()),
+                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
+                new KeyValueMemberName(FORMAT,getAliasFormat()),
+                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
+                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
+                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
+                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
+                new KeyValueMemberName(REPLACE_STRING,getAliasReplaceString()),
+                new KeyValueMemberName(SPLIT,getAliasSplit()),
+                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
+                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
+                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
+                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
+                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getAliasCharSequenceToString()),
+                new KeyValueMemberName(TRIM,getAliasTrim()),
+                new KeyValueMemberName(STRING_COMPARE, getAliasStringCompare()),
+                new KeyValueMemberName(COMPARE_TO_IGNORE_CASE,getAliasCompareToIgnoreCase()),
+                new KeyValueMemberName(EQUALS_IGNORE_CASE,getAliasEqualsIgnoreCase()),
+                new KeyValueMemberName(REPLACE_MULTIPLE,getAliasReplaceMultiple()),
+                new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
+                new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase()),
+                new KeyValueMemberName(STRING_VALUE_OF, getAliasStringValueOf())));
+        map_.addEntry(getAliasStringBuilder(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS, getAliasCharSequenceEquals()),
+                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getAliasCharSequenceCompareTo()),
+                new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
+                new KeyValueMemberName(CONTAINS,getAliasContains()),
+                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
+                new KeyValueMemberName(FORMAT,getAliasFormat()),
+                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
+                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
+                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
+                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
+                new KeyValueMemberName(LENGTH,getAliasLength()),
+                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
+                new KeyValueMemberName(REPLACE,getAliasReplace()),
+                new KeyValueMemberName(SPLIT,getAliasSplit()),
+                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
+                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
+                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
+                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
+                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
+                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
+                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getAliasCharSequenceToString()),
+                new KeyValueMemberName(TRIM,getAliasTrim()),
+                new KeyValueMemberName(APPEND,getAliasAppend()),
+                new KeyValueMemberName(CAPACITY,getAliasCapacity()),
+                new KeyValueMemberName(CLEAR,getAliasClear()),
+                new KeyValueMemberName(DELETE,getAliasDelete()),
+                new KeyValueMemberName(DELETE_CHAR_AT,getAliasDeleteCharAt()),
+                new KeyValueMemberName(ENSURE_CAPACITY,getAliasEnsureCapacity()),
+                new KeyValueMemberName(INSERT,getAliasInsert()),
+                new KeyValueMemberName(REVERSE,getAliasReverse()),
+                new KeyValueMemberName(SET_CHAR_AT,getAliasSetCharAt()),
+                new KeyValueMemberName(SET_LENGTH,getAliasSetLength()),
+                new KeyValueMemberName(SAME,getAliasSame()),
+                new KeyValueMemberName(TRIM_TO_SIZE,getAliasTrimToSize())));
+        return map_;
+    }
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
         StringList params_;

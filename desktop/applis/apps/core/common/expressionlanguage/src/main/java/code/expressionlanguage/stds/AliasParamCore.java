@@ -1,27 +1,31 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
+import code.util.CustList;
+import code.util.StringMap;
+
 public final class AliasParamCore {
-    public static final String ERROR_0_CURRENT_STACK_0="Error0CurrentStack0";
-    public static final String ERROR_0_TO_STRING_METHOD_0="Error0ToStringMethod0";
-    public static final String ENUMS_0_NAME_0="Enums0Name0";
-    public static final String ENUMS_0_ORDINAL_0="Enums0Ordinal0";
-    public static final String RANGE_0_RANGE_0="Range0Range0";
-    public static final String RANGE_0_RANGE_1="Range0Range1";
-    public static final String RANGE_1_RANGE_0="Range1Range0";
-    public static final String RANGE_2_RANGE_0="Range2Range0";
-    public static final String RANGE_2_RANGE_1="Range2Range1";
-    public static final String RANGE_2_RANGE_2="Range2Range2";
-    public static final String RANGE_0_UNLIMITED_STEP_0="Range0UnlimitedStep0";
-    public static final String RANGE_0_UNLIMITED_STEP_1="Range0UnlimitedStep1";
-    public static final String OBJECTS_UTIL_0_SAME_REF_0="ObjectsUtil0SameRef0";
-    public static final String OBJECTS_UTIL_0_SAME_REF_1="ObjectsUtil0SameRef1";
-    public static final String OBJECTS_UTIL_0_GET_PARENT_0="ObjectsUtil0GetParent0";
-    public static final String OBJECTS_UTIL_0_SET_PARENT_0="ObjectsUtil0SetParent0";
-    public static final String OBJECTS_UTIL_0_SET_PARENT_1="ObjectsUtil0SetParent1";
-    public static final String OBJECTS_UTIL_0_GET_FCT_0="ObjectsUtil0GetFct0";
-    public static final String STRING_UTIL_0_VALUE_OF_METHOD_0="StringUtil0ValueOfMethod0";
-    public static final String RESOURCES_0_READ_RESOURCES_0="Resources0ReadResources0";
-    public static final String RESOURCES_0_READ_RESOURCES_INDEX_0="Resources0ReadResourcesIndex0";
+    private static final String ERROR_0_CURRENT_STACK_0="Error0CurrentStack0";
+    private static final String ERROR_0_TO_STRING_METHOD_0="Error0ToStringMethod0";
+    private static final String ENUMS_0_NAME_0="Enums0Name0";
+    private static final String ENUMS_0_ORDINAL_0="Enums0Ordinal0";
+    private static final String RANGE_0_RANGE_0="Range0Range0";
+    private static final String RANGE_0_RANGE_1="Range0Range1";
+    private static final String RANGE_1_RANGE_0="Range1Range0";
+    private static final String RANGE_2_RANGE_0="Range2Range0";
+    private static final String RANGE_2_RANGE_1="Range2Range1";
+    private static final String RANGE_2_RANGE_2="Range2Range2";
+    private static final String RANGE_0_UNLIMITED_STEP_0="Range0UnlimitedStep0";
+    private static final String RANGE_0_UNLIMITED_STEP_1="Range0UnlimitedStep1";
+    private static final String OBJECTS_UTIL_0_SAME_REF_0="ObjectsUtil0SameRef0";
+    private static final String OBJECTS_UTIL_0_SAME_REF_1="ObjectsUtil0SameRef1";
+    private static final String OBJECTS_UTIL_0_GET_PARENT_0="ObjectsUtil0GetParent0";
+    private static final String OBJECTS_UTIL_0_SET_PARENT_0="ObjectsUtil0SetParent0";
+    private static final String OBJECTS_UTIL_0_SET_PARENT_1="ObjectsUtil0SetParent1";
+    private static final String OBJECTS_UTIL_0_GET_FCT_0="ObjectsUtil0GetFct0";
+    private static final String STRING_UTIL_0_VALUE_OF_METHOD_0="StringUtil0ValueOfMethod0";
+    private static final String RESOURCES_0_READ_RESOURCES_0="Resources0ReadResources0";
+    private static final String RESOURCES_0_READ_RESOURCES_INDEX_0="Resources0ReadResourcesIndex0";
     private String aliasError0CurrentStack0="a";
     private String aliasError0ToStringMethod0="a";
     private String aliasEnums0Name0="a";
@@ -44,6 +48,48 @@ public final class AliasParamCore {
     private String aliasResources0ReadResources0="a";
     private String aliasResources0ReadResourcesIndex0="a";
 
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasError0CurrentStack0(LgNamesContent.get(_util,_cust, ERROR_0_CURRENT_STACK_0));
+        setAliasError0ToStringMethod0(LgNamesContent.get(_util,_cust, ERROR_0_TO_STRING_METHOD_0));
+        setAliasEnums0Name0(LgNamesContent.get(_util,_cust, ENUMS_0_NAME_0));
+        setAliasEnums0Ordinal0(LgNamesContent.get(_util,_cust, ENUMS_0_ORDINAL_0));
+        setAliasRange0Range0(LgNamesContent.get(_util,_cust, RANGE_0_RANGE_0));
+        setAliasRange0Range1(LgNamesContent.get(_util,_cust, RANGE_0_RANGE_1));
+        setAliasRange0UnlimitedStep0(LgNamesContent.get(_util,_cust, RANGE_0_UNLIMITED_STEP_0));
+        setAliasRange0UnlimitedStep1(LgNamesContent.get(_util,_cust, RANGE_0_UNLIMITED_STEP_1));
+        setAliasRange1Range0(LgNamesContent.get(_util,_cust, RANGE_1_RANGE_0));
+        setAliasRange2Range0(LgNamesContent.get(_util,_cust, RANGE_2_RANGE_0));
+        setAliasRange2Range1(LgNamesContent.get(_util,_cust, RANGE_2_RANGE_1));
+        setAliasRange2Range2(LgNamesContent.get(_util,_cust, RANGE_2_RANGE_2));
+        setAliasObjectsUtil0SameRef0(LgNamesContent.get(_util,_cust, OBJECTS_UTIL_0_SAME_REF_0));
+        setAliasObjectsUtil0SameRef1(LgNamesContent.get(_util,_cust, OBJECTS_UTIL_0_SAME_REF_1));
+        setAliasObjectsUtil0GetParent0(LgNamesContent.get(_util,_cust, OBJECTS_UTIL_0_GET_PARENT_0));
+        setAliasObjectsUtil0SetParent0(LgNamesContent.get(_util,_cust, OBJECTS_UTIL_0_SET_PARENT_0));
+        setAliasObjectsUtil0SetParent1(LgNamesContent.get(_util,_cust, OBJECTS_UTIL_0_SET_PARENT_1));
+        setAliasObjectsUtil0GetFct0(LgNamesContent.get(_util,_cust, OBJECTS_UTIL_0_GET_FCT_0));
+        setAliasStringUtil0ValueOfMethod0(LgNamesContent.get(_util,_cust, STRING_UTIL_0_VALUE_OF_METHOD_0));
+        setAliasResources0ReadResources0(LgNamesContent.get(_util,_cust, RESOURCES_0_READ_RESOURCES_0));
+        setAliasResources0ReadResourcesIndex0(LgNamesContent.get(_util,_cust, RESOURCES_0_READ_RESOURCES_INDEX_0));
+    }
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
+        CustList<CustList<KeyValueMemberName>> map_ = new CustList<CustList<KeyValueMemberName>>();
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ERROR_0_CURRENT_STACK_0, getAliasError0CurrentStack0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ERROR_0_TO_STRING_METHOD_0, getAliasError0ToStringMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ENUMS_0_NAME_0, getAliasEnums0Name0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(ENUMS_0_ORDINAL_0, getAliasEnums0Ordinal0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RANGE_0_UNLIMITED_STEP_0, getAliasRange0UnlimitedStep0()),new KeyValueMemberName(RANGE_0_UNLIMITED_STEP_1, getAliasRange0UnlimitedStep1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RANGE_2_RANGE_0, getAliasRange2Range0()),new KeyValueMemberName(RANGE_2_RANGE_1, getAliasRange2Range1()),new KeyValueMemberName(RANGE_2_RANGE_2, getAliasRange2Range2())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RANGE_0_RANGE_0, getAliasRange0Range0()),new KeyValueMemberName(RANGE_0_RANGE_1, getAliasRange0Range1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RANGE_1_RANGE_0, getAliasRange1Range0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(OBJECTS_UTIL_0_SAME_REF_0, getAliasObjectsUtil0SameRef0()),new KeyValueMemberName(OBJECTS_UTIL_0_SAME_REF_1, getAliasObjectsUtil0SameRef1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(OBJECTS_UTIL_0_GET_PARENT_0, getAliasObjectsUtil0GetParent0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(OBJECTS_UTIL_0_SET_PARENT_0, getAliasObjectsUtil0SetParent0()),new KeyValueMemberName(OBJECTS_UTIL_0_SET_PARENT_1, getAliasObjectsUtil0SetParent1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(OBJECTS_UTIL_0_GET_FCT_0, getAliasObjectsUtil0GetFct0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(STRING_UTIL_0_VALUE_OF_METHOD_0, getAliasStringUtil0ValueOfMethod0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RESOURCES_0_READ_RESOURCES_0, getAliasResources0ReadResources0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(RESOURCES_0_READ_RESOURCES_INDEX_0, getAliasResources0ReadResourcesIndex0())));
+        return map_;
+    }
     public String getAliasError0CurrentStack0() {
         return aliasError0CurrentStack0;
     }

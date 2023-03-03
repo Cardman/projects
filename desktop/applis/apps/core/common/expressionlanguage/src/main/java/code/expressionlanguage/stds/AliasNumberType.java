@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.MethodModifier;
@@ -9,6 +10,66 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AliasNumberType {
+    private static final String FIELD_MAX_VALUE = "MAX_VALUE";
+    private static final String FIELD_MIN_VALUE = "MIN_VALUE";
+    private static final String FIELD_PLUS_INFINITY = "PLUS_INFINITY";
+    private static final String FIELD_MINUS_INFINITY = "MINUS_INFINITY";
+    private static final String FIELD_NAN = "NAN";
+    private static final String EQUALS = "Equals";
+    private static final String LONG = "Long";
+    private static final String SHORT = "Short";
+    private static final String NUMBER = "Number";
+    private static final String PARSE_INT = "ParseInt";
+    private static final String COMPARE = "Compare";
+    private static final String INT_VALUE = "IntValue";
+    private static final String BOOLEAN = "Boolean";
+    private static final String BYTE = "Byte";
+    private static final String FLOAT = "Float";
+    private static final String DOUBLE = "Double";
+    private static final String INTEGER = "Integer";
+    private static final String DIGIT = "Digit";
+    private static final String IS_DIGIT = "IsDigit";
+    private static final String PARSE_FLOAT = "ParseFloat";
+    private static final String TO_STRING_METHOD = "ToStringMethod";
+    private static final String SIGNUM = "Signum";
+    private static final String BIN = "Bin";
+    private static final String OCT = "Oct";
+    private static final String HEX = "Hex";
+    private static final String PARSE_LONG_OR_NULL = "ParseLongOrNull";
+    private static final String PARSE_SHORT_OR_NULL = "ParseShortOrNull";
+    private static final String PARSE_FLOAT_OR_NULL = "ParseFloatOrNull";
+    private static final String PARSE_DOUBLE_OR_NULL = "ParseDoubleOrNull";
+    private static final String BYTE_VALUE = "ByteValue";
+    private static final String CHAR_VALUE = "CharValue";
+    private static final String PARSE_INT_OR_NULL = "ParseIntOrNull";
+    private static final String PARSE_BOOLEAN = "ParseBoolean";
+    private static final String PARSE_SHORT = "ParseShort";
+    private static final String COMPARE_TO = "CompareTo";
+    private static final String CHARACTER = "Character";
+    private static final String PARSE_LONG = "ParseLong";
+    private static final String VALUE_OF_METHOD = "ValueOfMethod";
+    private static final String PARSE_BYTE_OR_NULL = "ParseByteOrNull";
+    private static final String BOOLEAN_VALUE = "BooleanValue";
+    private static final String SHORT_VALUE = "ShortValue";
+    private static final String PARSE_DOUBLE = "ParseDouble";
+    private static final String PARSE_BYTE = "ParseByte";
+    private static final String IS_UPPER_CASE = "IsUpperCase";
+    private static final String IS_WORD_CHAR = "IsWordChar";
+    private static final String IS_WHITESPACE = "IsWhitespace";
+    private static final String IS_LETTER_OR_DIGIT = "IsLetterOrDigit";
+    private static final String FLOAT_VALUE = "FloatValue";
+    private static final String DOUBLE_VALUE = "DoubleValue";
+    private static final String LONG_VALUE = "LongValue";
+    private static final String IS_LOWER_CASE = "IsLowerCase";
+    private static final String FOR_DIGIT = "ForDigit";
+    private static final String IS_SPACE = "IsSpace";
+    private static final String IS_LETTER = "IsLetter";
+    private static final String IS_NAN = "IsNan";
+    private static final String TO_LOWER_CASE_CHAR = "ToLowerCaseChar";
+    private static final String TO_UPPER_CASE_CHAR = "ToUpperCaseChar";
+    private static final String IS_INFINITE = "IsInfinite";
+    private static final String GET_DIRECTIONALITY = "GetDirectionality";
+    private static final String GET_CHAR_TYPE = "GetCharType";
     private String aliasCompareTo;
     private String aliasCompare;
     private String aliasEquals;
@@ -71,6 +132,265 @@ public final class AliasNumberType {
     private String aliasToUpperCaseChar;
     private final AliasParamNumber params = new AliasParamNumber();
 
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasMaxValueField(LgNamesContent.get(_util,_cust, FIELD_MAX_VALUE));
+        setAliasMinValueField(LgNamesContent.get(_util,_cust, FIELD_MIN_VALUE));
+        setAliasPlusInfinityField(LgNamesContent.get(_util,_cust, FIELD_PLUS_INFINITY));
+        setAliasMinusInfinityField(LgNamesContent.get(_util,_cust, FIELD_MINUS_INFINITY));
+        setAliasNanField(LgNamesContent.get(_util,_cust, FIELD_NAN));
+        setAliasEquals(LgNamesContent.get(_util,_cust, EQUALS));
+        setAliasLong(LgNamesContent.get(_util,_cust, LONG));
+        setAliasShort(LgNamesContent.get(_util,_cust, SHORT));
+        setAliasNumber(LgNamesContent.get(_util,_cust, NUMBER));
+        setAliasParseInt(LgNamesContent.get(_util,_cust, PARSE_INT));
+        setAliasCompare(LgNamesContent.get(_util,_cust, COMPARE));
+        setAliasIntValue(LgNamesContent.get(_util,_cust, INT_VALUE));
+        setAliasBoolean(LgNamesContent.get(_util,_cust, BOOLEAN));
+        setAliasByte(LgNamesContent.get(_util,_cust, BYTE));
+        setAliasFloat(LgNamesContent.get(_util,_cust, FLOAT));
+        setAliasDouble(LgNamesContent.get(_util,_cust, DOUBLE));
+        setAliasInteger(LgNamesContent.get(_util,_cust, INTEGER));
+        setAliasDigit(LgNamesContent.get(_util,_cust, DIGIT));
+        setAliasIsDigit(LgNamesContent.get(_util,_cust, IS_DIGIT));
+        setAliasParseFloat(LgNamesContent.get(_util,_cust, PARSE_FLOAT));
+        setAliasToStringMethod(LgNamesContent.get(_util,_cust, TO_STRING_METHOD));
+        setAliasSignum(LgNamesContent.get(_util,_cust, SIGNUM));
+        setAliasToBinString(LgNamesContent.get(_util,_cust, BIN));
+        setAliasToOctString(LgNamesContent.get(_util,_cust, OCT));
+        setAliasToHexString(LgNamesContent.get(_util,_cust, HEX));
+        setAliasParseLongOrNull(LgNamesContent.get(_util,_cust, PARSE_LONG_OR_NULL));
+        setAliasParseShortOrNull(LgNamesContent.get(_util,_cust, PARSE_SHORT_OR_NULL));
+        setAliasParseFloatOrNull(LgNamesContent.get(_util,_cust, PARSE_FLOAT_OR_NULL));
+        setAliasParseDoubleOrNull(LgNamesContent.get(_util,_cust, PARSE_DOUBLE_OR_NULL));
+        setAliasByteValue(LgNamesContent.get(_util,_cust, BYTE_VALUE));
+        setAliasCharValue(LgNamesContent.get(_util,_cust, CHAR_VALUE));
+        setAliasParseIntOrNull(LgNamesContent.get(_util,_cust, PARSE_INT_OR_NULL));
+        setAliasParseBoolean(LgNamesContent.get(_util,_cust, PARSE_BOOLEAN));
+        setAliasParseShort(LgNamesContent.get(_util,_cust, PARSE_SHORT));
+        setAliasCompareTo(LgNamesContent.get(_util,_cust, COMPARE_TO));
+        setAliasCharacter(LgNamesContent.get(_util,_cust, CHARACTER));
+        setAliasParseLong(LgNamesContent.get(_util,_cust, PARSE_LONG));
+        setAliasValueOfMethod(LgNamesContent.get(_util,_cust, VALUE_OF_METHOD));
+        setAliasParseByteOrNull(LgNamesContent.get(_util,_cust, PARSE_BYTE_OR_NULL));
+        setAliasBooleanValue(LgNamesContent.get(_util,_cust, BOOLEAN_VALUE));
+        setAliasShortValue(LgNamesContent.get(_util,_cust, SHORT_VALUE));
+        setAliasParseDouble(LgNamesContent.get(_util,_cust, PARSE_DOUBLE));
+        setAliasParseByte(LgNamesContent.get(_util,_cust, PARSE_BYTE));
+        setAliasIsUpperCase(LgNamesContent.get(_util,_cust, IS_UPPER_CASE));
+        setAliasIsWordChar(LgNamesContent.get(_util,_cust, IS_WORD_CHAR));
+        setAliasIsWhitespace(LgNamesContent.get(_util,_cust, IS_WHITESPACE));
+        setAliasIsLetterOrDigit(LgNamesContent.get(_util,_cust, IS_LETTER_OR_DIGIT));
+        setAliasFloatValue(LgNamesContent.get(_util,_cust, FLOAT_VALUE));
+        setAliasDoubleValue(LgNamesContent.get(_util,_cust, DOUBLE_VALUE));
+        setAliasLongValue(LgNamesContent.get(_util,_cust, LONG_VALUE));
+        setAliasIsLowerCase(LgNamesContent.get(_util,_cust, IS_LOWER_CASE));
+        setAliasForDigit(LgNamesContent.get(_util,_cust, FOR_DIGIT));
+        setAliasIsSpace(LgNamesContent.get(_util,_cust, IS_SPACE));
+        setAliasIsLetter(LgNamesContent.get(_util,_cust, IS_LETTER));
+        setAliasIsNan(LgNamesContent.get(_util,_cust, IS_NAN));
+        setAliasToLowerCaseChar(LgNamesContent.get(_util,_cust, TO_LOWER_CASE_CHAR));
+        setAliasToUpperCaseChar(LgNamesContent.get(_util,_cust, TO_UPPER_CASE_CHAR));
+        setAliasIsInfinite(LgNamesContent.get(_util,_cust, IS_INFINITE));
+        setAliasGetDirectionality(LgNamesContent.get(_util,_cust, GET_DIRECTIONALITY));
+        setAliasGetCharType(LgNamesContent.get(_util,_cust, GET_CHAR_TYPE));
+    }
+    public StringMap<String> allRefTypes() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(BOOLEAN, getAliasBoolean());
+        list_.addEntry(BYTE, getAliasByte());
+        list_.addEntry(CHARACTER, getAliasCharacter());
+        list_.addEntry(DOUBLE, getAliasDouble());
+        list_.addEntry(FLOAT, getAliasFloat());
+        list_.addEntry(INTEGER, getAliasInteger());
+        list_.addEntry(LONG, getAliasLong());
+        list_.addEntry(NUMBER,getAliasNumber());
+        list_.addEntry(SHORT,getAliasShort());
+        return list_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(getAliasDouble(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_PLUS_INFINITY, getAliasPlusInfinityField()),
+                new KeyValueMemberName(FIELD_MINUS_INFINITY, getAliasMinusInfinityField()),
+                new KeyValueMemberName(FIELD_NAN, getAliasNanField()),
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        map_.addEntry(getAliasFloat(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_PLUS_INFINITY, getAliasPlusInfinityField()),
+                new KeyValueMemberName(FIELD_MINUS_INFINITY, getAliasMinusInfinityField()),
+                new KeyValueMemberName(FIELD_NAN, getAliasNanField()),
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        map_.addEntry(getAliasLong(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        map_.addEntry(getAliasInteger(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        map_.addEntry(getAliasCharacter(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        map_.addEntry(getAliasShort(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        map_.addEntry(getAliasByte(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(FIELD_MIN_VALUE, getAliasMinValueField()),
+                new KeyValueMemberName(FIELD_MAX_VALUE, getAliasMaxValueField())));
+        return map_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(getAliasBoolean(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BOOLEAN_VALUE, getAliasBooleanValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(PARSE_BOOLEAN,getAliasParseBoolean()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(VALUE_OF_METHOD,getAliasValueOfMethod())));
+        map_.addEntry(getAliasByte(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(SIGNUM,getAliasSignum()),
+                new KeyValueMemberName(BIN,getAliasToBinString()),
+                new KeyValueMemberName(OCT,getAliasToOctString()),
+                new KeyValueMemberName(HEX,getAliasToHexString()),
+                new KeyValueMemberName(PARSE_BYTE,getAliasParseByte()),
+                new KeyValueMemberName(PARSE_BYTE_OR_NULL,getAliasParseByteOrNull())));
+        map_.addEntry(getAliasCharacter(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(PARSE_INT,getAliasParseInt()),
+                new KeyValueMemberName(PARSE_INT_OR_NULL,getAliasParseIntOrNull()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(CHAR_VALUE,getAliasCharValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DIGIT,getAliasDigit()),
+                new KeyValueMemberName(FOR_DIGIT,getAliasForDigit()),
+                new KeyValueMemberName(GET_CHAR_TYPE,getAliasGetCharType()),
+                new KeyValueMemberName(IS_DIGIT,getAliasIsDigit()),
+                new KeyValueMemberName(GET_DIRECTIONALITY,getAliasGetDirectionality()),
+                new KeyValueMemberName(IS_LETTER,getAliasIsLetter()),
+                new KeyValueMemberName(IS_LETTER_OR_DIGIT,getAliasIsLetterOrDigit()),
+                new KeyValueMemberName(IS_LOWER_CASE,getAliasIsLowerCase()),
+                new KeyValueMemberName(IS_SPACE,getAliasIsSpace()),
+                new KeyValueMemberName(IS_UPPER_CASE, getAliasIsUpperCase()),
+                new KeyValueMemberName(IS_WHITESPACE,getAliasIsWhitespace()),
+                new KeyValueMemberName(IS_WORD_CHAR,getAliasIsWordChar()),
+                new KeyValueMemberName(TO_LOWER_CASE_CHAR,getAliasToLowerCaseChar()),
+                new KeyValueMemberName(TO_STRING_METHOD, getAliasToStringMethod()),
+                new KeyValueMemberName(SIGNUM,getAliasSignum()),
+                new KeyValueMemberName(BIN,getAliasToBinString()),
+                new KeyValueMemberName(OCT,getAliasToOctString()),
+                new KeyValueMemberName(HEX,getAliasToHexString()),
+                new KeyValueMemberName(TO_UPPER_CASE_CHAR,getAliasToUpperCaseChar())));
+        map_.addEntry(getAliasDouble(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(IS_INFINITE,getAliasIsInfinite()),
+                new KeyValueMemberName(IS_NAN,getAliasIsNan()),
+                new KeyValueMemberName(PARSE_DOUBLE,getAliasParseDouble()),
+                new KeyValueMemberName(PARSE_DOUBLE_OR_NULL,getAliasParseDoubleOrNull())));
+        map_.addEntry(getAliasFloat(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(IS_INFINITE,getAliasIsInfinite()),
+                new KeyValueMemberName(IS_NAN,getAliasIsNan()),
+                new KeyValueMemberName(PARSE_FLOAT,getAliasParseFloat()),
+                new KeyValueMemberName(PARSE_FLOAT_OR_NULL,getAliasParseFloatOrNull())));
+        map_.addEntry(getAliasInteger(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(SIGNUM,getAliasSignum()),
+                new KeyValueMemberName(BIN,getAliasToBinString()),
+                new KeyValueMemberName(OCT,getAliasToOctString()),
+                new KeyValueMemberName(HEX,getAliasToHexString()),
+                new KeyValueMemberName(PARSE_INT,getAliasParseInt()),
+                new KeyValueMemberName(PARSE_INT_OR_NULL,getAliasParseIntOrNull())));
+        map_.addEntry(getAliasLong(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(SIGNUM,getAliasSignum()),
+                new KeyValueMemberName(BIN,getAliasToBinString()),
+                new KeyValueMemberName(OCT,getAliasToOctString()),
+                new KeyValueMemberName(HEX,getAliasToHexString()),
+                new KeyValueMemberName(PARSE_LONG,getAliasParseLong()),
+                new KeyValueMemberName(PARSE_LONG_OR_NULL,getAliasParseLongOrNull())));
+        map_.addEntry(getAliasNumber(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod())));
+        map_.addEntry(getAliasShort(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(BYTE_VALUE,getAliasByteValue()),
+                new KeyValueMemberName(COMPARE,getAliasCompare()),
+                new KeyValueMemberName(COMPARE_TO,getAliasCompareTo()),
+                new KeyValueMemberName(DOUBLE_VALUE,getAliasDoubleValue()),
+                new KeyValueMemberName(EQUALS,getAliasEquals()),
+                new KeyValueMemberName(FLOAT_VALUE,getAliasFloatValue()),
+                new KeyValueMemberName(INT_VALUE,getAliasIntValue()),
+                new KeyValueMemberName(LONG_VALUE,getAliasLongValue()),
+                new KeyValueMemberName(SHORT_VALUE,getAliasShortValue()),
+                new KeyValueMemberName(TO_STRING_METHOD,getAliasToStringMethod()),
+                new KeyValueMemberName(SIGNUM,getAliasSignum()),
+                new KeyValueMemberName(BIN,getAliasToBinString()),
+                new KeyValueMemberName(OCT,getAliasToOctString()),
+                new KeyValueMemberName(HEX,getAliasToHexString()),
+                new KeyValueMemberName(PARSE_SHORT,getAliasParseShort()),
+                new KeyValueMemberName(PARSE_SHORT_OR_NULL,getAliasParseShortOrNull())));
+        return map_;
+    }
     public void build(LgNames _lgNames) {
         CustList<CstFieldInfo> fields_;
         StringList params_;

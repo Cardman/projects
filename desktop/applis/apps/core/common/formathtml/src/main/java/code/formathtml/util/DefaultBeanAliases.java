@@ -626,7 +626,7 @@ public final class DefaultBeanAliases {
                         new KeyValueMemberName(MESSAGE_FORMAT,getAliasMessageFormat()),
                         new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
                         new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
-        CustList<KeyValueMemberName> lis_ = LgNamesContent.listAnnot(_reflect);
+        CustList<KeyValueMemberName> lis_ = _reflect.listAnnot();
         lis_.add(new KeyValueMemberName(DOCUMENT_ALL,getAliasDocumentAll()));
         lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_ARRAY,getAliasDocumentBeanArray()));
         lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_NAME,getAliasDocumentBeanName()));

@@ -1,13 +1,47 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class AliasMathType {
+    private static final String MATH = "Math";
+    private static final String MOD = "Mod";
+    private static final String ABS = "Abs";
+    private static final String MAX = "Max";
+    private static final String MIN = "Min";
+    private static final String QUOT = "Quot";
+    private static final String XOR = "Xor";
+    private static final String MULT = "Mult";
+    private static final String RANDOM = "Random";
+    private static final String NATIVE_RANDOM = "NativeRandom";
+    private static final String EVAL = "Eval";
+    private static final String SEED = "Seed";
+    private static final String SEED_SPEC_GENERATOR = "SeedSpecGenerator";
+    private static final String SEED_SPEC_DOUBLE_GENERATOR = "SeedSpecDoubleGenerator";
+    private static final String NEG_BIN = "NegBin";
+    private static final String MINUS = "Minus";
+    private static final String BIN_MOD = "BinMod";
+    private static final String LT = "Lt";
+    private static final String GT = "Gt";
+    private static final String LE = "Le";
+    private static final String GE = "Ge";
+    private static final String AND = "And";
+    private static final String OR = "Or";
+    private static final String PLUS = "Plus";
+    private static final String BIN_QUOT = "BinQuot";
+    private static final String NEG = "Neg";
+    private static final String ROTATE_LEFT = "RotateLeft";
+    private static final String SHIFT_RIGHT = "ShiftRight";
+    private static final String ROTATE_RIGHT = "RotateRight";
+    private static final String BIT_SHIFT_LEFT = "BitShiftLeft";
+    private static final String SHIFT_LEFT = "ShiftLeft";
+    private static final String BIT_SHIFT_RIGHT = "BitShiftRight";
     private String aliasAbs;
     private String aliasMax;
     private String aliasMin;
@@ -41,6 +75,81 @@ public final class AliasMathType {
     private String aliasSeedSpecGenerator;
     private String aliasSeedSpecDoubleGenerator;
     private final AliasParamMath params = new AliasParamMath();
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasMath(LgNamesContent.get(_util,_cust, MATH));
+        setAliasMod(LgNamesContent.get(_util,_cust, MOD));
+        setAliasAbs(LgNamesContent.get(_util,_cust, ABS));
+        setAliasMax(LgNamesContent.get(_util,_cust, MAX));
+        setAliasMin(LgNamesContent.get(_util,_cust, MIN));
+        setAliasQuot(LgNamesContent.get(_util,_cust, QUOT));
+        setAliasXor(LgNamesContent.get(_util,_cust, XOR));
+        setAliasMult(LgNamesContent.get(_util,_cust, MULT));
+        setAliasRandom(LgNamesContent.get(_util,_cust, RANDOM));
+        setAliasNativeRandom(LgNamesContent.get(_util,_cust, NATIVE_RANDOM));
+        setAliasEval(LgNamesContent.get(_util,_cust, EVAL));
+        setAliasSeed(LgNamesContent.get(_util,_cust, SEED));
+        setAliasSeedSpecGenerator(LgNamesContent.get(_util,_cust, SEED_SPEC_GENERATOR));
+        setAliasSeedSpecDoubleGenerator(LgNamesContent.get(_util,_cust, SEED_SPEC_DOUBLE_GENERATOR));
+        setAliasNegBin(LgNamesContent.get(_util,_cust, NEG_BIN));
+        setAliasMinus(LgNamesContent.get(_util,_cust, MINUS));
+        setAliasBinMod(LgNamesContent.get(_util,_cust, BIN_MOD));
+        setAliasLt(LgNamesContent.get(_util,_cust, LT));
+        setAliasGt(LgNamesContent.get(_util,_cust, GT));
+        setAliasLe(LgNamesContent.get(_util,_cust, LE));
+        setAliasGe(LgNamesContent.get(_util,_cust, GE));
+        setAliasAnd(LgNamesContent.get(_util,_cust, AND));
+        setAliasOr(LgNamesContent.get(_util,_cust, OR));
+        setAliasPlus(LgNamesContent.get(_util,_cust, PLUS));
+        setAliasBinQuot(LgNamesContent.get(_util,_cust, BIN_QUOT));
+        setAliasNeg(LgNamesContent.get(_util,_cust, NEG));
+        setAliasRotateLeft(LgNamesContent.get(_util,_cust, ROTATE_LEFT));
+        setAliasShiftRight(LgNamesContent.get(_util,_cust, SHIFT_RIGHT));
+        setAliasRotateRight(LgNamesContent.get(_util,_cust, ROTATE_RIGHT));
+        setAliasBitShiftLeft(LgNamesContent.get(_util,_cust, BIT_SHIFT_LEFT));
+        setAliasShiftLeft(LgNamesContent.get(_util,_cust, SHIFT_LEFT));
+        setAliasBitShiftRight(LgNamesContent.get(_util,_cust, BIT_SHIFT_RIGHT));
+    }
+    public StringMap<String> allRefTypes() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(MATH, getAliasMath());
+        return list_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(getAliasMath(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ABS, getAliasAbs()),
+                new KeyValueMemberName(MAX, getAliasMax()),
+                new KeyValueMemberName(MIN, getAliasMin()),
+                new KeyValueMemberName(MOD,getAliasMod()),
+                new KeyValueMemberName(QUOT,getAliasQuot()),
+                new KeyValueMemberName(BIN_MOD,getAliasBinMod()),
+                new KeyValueMemberName(BIN_QUOT,getAliasBinQuot()),
+                new KeyValueMemberName(PLUS,getAliasPlus()),
+                new KeyValueMemberName(MINUS,getAliasMinus()),
+                new KeyValueMemberName(MULT,getAliasMult()),
+                new KeyValueMemberName(NEG_BIN,getAliasNegBin()),
+                new KeyValueMemberName(NEG,getAliasNeg()),
+                new KeyValueMemberName(AND,getAliasAnd()),
+                new KeyValueMemberName(OR,getAliasOr()),
+                new KeyValueMemberName(XOR,getAliasXor()),
+                new KeyValueMemberName(LE,getAliasLe()),
+                new KeyValueMemberName(GE,getAliasGe()),
+                new KeyValueMemberName(LT,getAliasLt()),
+                new KeyValueMemberName(GT,getAliasGt()),
+                new KeyValueMemberName(SHIFT_LEFT,getAliasShiftLeft()),
+                new KeyValueMemberName(SHIFT_RIGHT,getAliasShiftRight()),
+                new KeyValueMemberName(BIT_SHIFT_LEFT,getAliasBitShiftLeft()),
+                new KeyValueMemberName(BIT_SHIFT_RIGHT,getAliasBitShiftRight()),
+                new KeyValueMemberName(ROTATE_LEFT,getAliasRotateLeft()),
+                new KeyValueMemberName(ROTATE_RIGHT,getAliasRotateRight()),
+                new KeyValueMemberName(RANDOM,getAliasRandom()),
+                new KeyValueMemberName(NATIVE_RANDOM,getAliasNativeRandom()),
+                new KeyValueMemberName(EVAL,getAliasEval()),
+                new KeyValueMemberName(SEED,getAliasSeed()),
+                new KeyValueMemberName(SEED_SPEC_GENERATOR,getAliasSeedSpecGenerator()),
+                new KeyValueMemberName(SEED_SPEC_DOUBLE_GENERATOR,getAliasSeedSpecDoubleGenerator())));
+        return map_;
+    }
     public void build(LgNames _stds) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();

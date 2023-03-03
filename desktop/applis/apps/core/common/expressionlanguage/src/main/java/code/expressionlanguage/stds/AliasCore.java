@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fcts.*;
@@ -10,6 +11,51 @@ import code.util.StringList;
 import code.util.StringMap;
 
 public final class AliasCore {
+    private static final String BAD_ENCODE = "BadEncode";
+    private static final String DIVISION_ZERO = "DivisionZero";
+    private static final String GET_MESSAGE = "GetMessage";
+    private static final String BAD_SIZE = "BadSize";
+    private static final String NULL_PE = "NullPe";
+    private static final String OBJECT = "Object";
+    private static final String CAST_TYPE = "CastType";
+    private static final String STORE = "Store";
+    private static final String ERROR = "Error";
+    private static final String ERROR_CURRENT_STACK = "ErrorCurrentStack";
+    private static final String ERROR_TO_STRING = "ErrorToString";
+    private static final String VOID = "Void";
+    private static final String GET_CAUSE = "GetCause";
+    private static final String BAD_INDEX = "BadIndex";
+    private static final String BAD_ARG_NUMBER = "BadArgNumber";
+    private static final String ABSTRACT_TYPE_ERR = "AbstractTypeErr";
+    private static final String ILLEGAL_TYPE = "IllegalType";
+    private static final String NON_INVOKABLE = "NonInvokable";
+    private static final String ENUMS = "Enums";
+    private static final String NB_FORMAT = "NbFormat";
+    private static final String SOF = "Sof";
+    private static final String ILLEGAL_ARG = "IllegalArg";
+    private static final String ARRAY_LENGTH = "ArrayLength";
+    private static final String CLONE = "Clone";
+    private static final String NAME = "Name";
+    private static final String ORDINAL = "Ordinal";
+    private static final String READ_RESOURCES_NAMES = "ReadResourcesNames";
+    private static final String READ_RESOURCES_NAMES_LENGTH = "ReadResourcesNamesLength";
+    private static final String READ_RESOURCES = "ReadResources";
+    private static final String READ_RESOURCES_INDEX = "ReadResourcesIndex";
+    private static final String RESOURCES = "Resources";
+    private static final String ERROR_INIT_CLASS = "ErrorInitClass";
+    private static final String SAME_REF = "SameRef";
+    private static final String STRING_UTIL = "StringUtil";
+    private static final String STRING_UTIL_VALUE_OF = "StringUtilValueOf";
+    private static final String SET_PARENT = "SetParent";
+    private static final String RANGE = "Range";
+    private static final String RANGE_UPPER = "RangeUpper";
+    private static final String RANGE_LOWER = "RangeLower";
+    private static final String RANGE_STEP = "RangeStep";
+    private static final String RANGE_UNLIMITED = "RangeUnlimited";
+    private static final String RANGE_UNLIMITED_STEP = "RangeUnlimitedStep";
+    private static final String OBJECTS_UTIL = "ObjectsUtil";
+    private static final String GET_PARENT = "GetParent";
+    private static final String GET_FCT = "GetFct";
     private static final String EMPTY_STRING = "";
     private String aliasObject;
 
@@ -62,6 +108,122 @@ public final class AliasCore {
     private String aliasArrayLength;
     private final AliasParamCore params = new AliasParamCore();
 
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasBadEncode(LgNamesContent.get(_util,_cust, BAD_ENCODE));
+        setAliasDivisionZero(LgNamesContent.get(_util,_cust, DIVISION_ZERO));
+        setAliasGetMessage(LgNamesContent.get(_util,_cust, GET_MESSAGE));
+        setAliasBadSize(LgNamesContent.get(_util,_cust, BAD_SIZE));
+        setAliasNullPe(LgNamesContent.get(_util,_cust, NULL_PE));
+        setAliasObject(LgNamesContent.get(_util,_cust, OBJECT));
+        setAliasCastType(LgNamesContent.get(_util,_cust, CAST_TYPE));
+        setAliasStore(LgNamesContent.get(_util,_cust, STORE));
+        setAliasError(LgNamesContent.get(_util,_cust, ERROR));
+        setAliasErrorCurrentStack(LgNamesContent.get(_util,_cust, ERROR_CURRENT_STACK));
+        setAliasErrorToString(LgNamesContent.get(_util,_cust, ERROR_TO_STRING));
+        setAliasVoid(LgNamesContent.get(_util,_cust, VOID));
+        setAliasGetCause(LgNamesContent.get(_util,_cust, GET_CAUSE));
+        setAliasBadIndex(LgNamesContent.get(_util,_cust, BAD_INDEX));
+        setAliasBadArgNumber(LgNamesContent.get(_util,_cust, BAD_ARG_NUMBER));
+        setAliasIllegalType(LgNamesContent.get(_util,_cust, ILLEGAL_TYPE));
+        setAliasAbstractTypeErr(LgNamesContent.get(_util,_cust, ABSTRACT_TYPE_ERR));
+        setAliasNonInvokable(LgNamesContent.get(_util,_cust, NON_INVOKABLE));
+        setAliasEnums(LgNamesContent.get(_util,_cust, ENUMS));
+        setAliasNbFormat(LgNamesContent.get(_util,_cust, NB_FORMAT));
+        setAliasSof(LgNamesContent.get(_util,_cust, SOF));
+        setAliasIllegalArg(LgNamesContent.get(_util,_cust, ILLEGAL_ARG));
+        setAliasClone(LgNamesContent.get(_util,_cust, CLONE));
+        setAliasName(LgNamesContent.get(_util,_cust, NAME));
+        setAliasOrdinal(LgNamesContent.get(_util,_cust, ORDINAL));
+        setAliasReadResourcesNames(LgNamesContent.get(_util,_cust, READ_RESOURCES_NAMES));
+        setAliasReadResourcesNamesLength(LgNamesContent.get(_util,_cust, READ_RESOURCES_NAMES_LENGTH));
+        setAliasReadResources(LgNamesContent.get(_util,_cust, READ_RESOURCES));
+        setAliasReadResourcesIndex(LgNamesContent.get(_util,_cust, READ_RESOURCES_INDEX));
+        setAliasResources(LgNamesContent.get(_util,_cust, RESOURCES));
+        setAliasArrayLength(LgNamesContent.get(_util,_cust,ARRAY_LENGTH));
+        setAliasErrorInitClass(LgNamesContent.get(_util,_cust, ERROR_INIT_CLASS));
+        setAliasSameRef(LgNamesContent.get(_util,_cust, SAME_REF));
+        setAliasStringUtil(LgNamesContent.get(_util,_cust, STRING_UTIL));
+        setAliasStringUtilValueOf(LgNamesContent.get(_util,_cust, STRING_UTIL_VALUE_OF));
+        setAliasSetParent(LgNamesContent.get(_util,_cust, SET_PARENT));
+        setAliasRange(LgNamesContent.get(_util,_cust, RANGE));
+        setAliasRangeUpper(LgNamesContent.get(_util,_cust, RANGE_UPPER));
+        setAliasRangeStep(LgNamesContent.get(_util,_cust, RANGE_STEP));
+        setAliasRangeUnlimitedStep(LgNamesContent.get(_util,_cust, RANGE_UNLIMITED_STEP));
+        setAliasRangeLower(LgNamesContent.get(_util,_cust, RANGE_LOWER));
+        setAliasRangeUnlimited(LgNamesContent.get(_util,_cust, RANGE_UNLIMITED));
+        setAliasObjectsUtil(LgNamesContent.get(_util,_cust, OBJECTS_UTIL));
+        setAliasGetParent(LgNamesContent.get(_util,_cust, GET_PARENT));
+        setAliasGetFct(LgNamesContent.get(_util,_cust, GET_FCT));
+    }
+    public StringMap<String> allPrimitives() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(VOID, getAliasVoid());
+        return list_;
+    }
+    public StringMap<String> allRefTypes() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(RANGE, getAliasRange());
+        list_.addEntry(OBJECTS_UTIL, getAliasObjectsUtil());
+        list_.addEntry(STRING_UTIL, getAliasStringUtil());
+        list_.addEntry(RESOURCES, getAliasResources());
+        list_.addEntry(ERROR_INIT_CLASS, getAliasErrorInitClass());
+        list_.addEntry(ENUMS, getAliasEnums());
+        list_.addEntry(BAD_ENCODE, getAliasBadEncode());
+        list_.addEntry(BAD_INDEX, getAliasBadIndex());
+        list_.addEntry(BAD_ARG_NUMBER, getAliasBadArgNumber());
+        list_.addEntry(ABSTRACT_TYPE_ERR, getAliasAbstractTypeErr());
+        list_.addEntry(ILLEGAL_TYPE, getAliasIllegalType());
+        list_.addEntry(NON_INVOKABLE, getAliasNonInvokable());
+        list_.addEntry(ILLEGAL_ARG, getAliasIllegalArg());
+        list_.addEntry(DIVISION_ZERO, getAliasDivisionZero());
+        list_.addEntry(STORE, getAliasStore());
+        list_.addEntry(CAST_TYPE, getAliasCastType());
+        list_.addEntry(BAD_SIZE, getAliasBadSize());
+        list_.addEntry(SOF, getAliasSof());
+        list_.addEntry(NULL_PE, getAliasNullPe());
+        list_.addEntry(NB_FORMAT, getAliasNbFormat());
+        list_.addEntry(ERROR, getAliasError());
+        list_.addEntry(OBJECT,getAliasObject());
+        return list_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(StringExpUtil.getPrettyArrayType(getAliasObject()), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ARRAY_LENGTH, getAliasArrayLength())));
+        return map_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(StringExpUtil.getPrettyArrayType(getAliasObject()), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(CLONE, getAliasClone())));
+        map_.addEntry(getAliasError(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(ERROR_CURRENT_STACK, getAliasErrorCurrentStack()),
+                new KeyValueMemberName(ERROR_TO_STRING, getAliasErrorToString()),
+                new KeyValueMemberName(GET_MESSAGE, getAliasGetMessage()),
+                new KeyValueMemberName(GET_CAUSE, getAliasGetCause())));
+        map_.addEntry(getAliasRange(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(RANGE_LOWER, getAliasRangeLower()),
+                new KeyValueMemberName(RANGE_UPPER, getAliasRangeUpper()),
+                new KeyValueMemberName(RANGE_STEP, getAliasRangeStep()),
+                new KeyValueMemberName(RANGE_UNLIMITED_STEP, getAliasRangeUnlimitedStep()),
+                new KeyValueMemberName(RANGE_UNLIMITED, getAliasRangeUnlimited())));
+        map_.addEntry(getAliasObjectsUtil(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(SAME_REF, getAliasSameRef()),
+                new KeyValueMemberName(GET_PARENT, getAliasGetParent()),
+                new KeyValueMemberName(SET_PARENT, getAliasSetParent()),
+                new KeyValueMemberName(GET_FCT, getAliasGetFct())));
+        map_.addEntry(getAliasStringUtil(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(STRING_UTIL_VALUE_OF, getAliasStringUtilValueOf())));
+        map_.addEntry(getAliasResources(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(READ_RESOURCES_NAMES, getAliasReadResourcesNames()),
+                new KeyValueMemberName(READ_RESOURCES_NAMES_LENGTH, getAliasReadResourcesNamesLength()),
+                new KeyValueMemberName(READ_RESOURCES, getAliasReadResources()),
+                new KeyValueMemberName(READ_RESOURCES_INDEX, getAliasReadResourcesIndex())));
+        map_.addEntry(getAliasEnums(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(NAME, getAliasName()),
+                new KeyValueMemberName(ORDINAL, getAliasOrdinal())));
+        return map_;
+    }
     public void build(LgNames _lgNames) {
         StringMap<StandardType> standards_ = _lgNames.getStandards();
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();

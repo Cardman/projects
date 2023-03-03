@@ -12,6 +12,14 @@ public final class PrimitiveTypes {
     public static final byte FLOAT_WRAP = 6;
     public static final byte DOUBLE_WRAP = 7;
     public static final byte MAX_WRAP = 8;
+    private static final String PRIM_CHAR = "PrimChar";
+    private static final String PRIM_LONG = "PrimLong";
+    private static final String PRIM_BYTE = "PrimByte";
+    private static final String PRIM_BOOLEAN = "PrimBoolean";
+    private static final String PRIM_SHORT = "PrimShort";
+    private static final String PRIM_FLOAT = "PrimFloat";
+    private static final String PRIM_INTEGER = "PrimInteger";
+    private static final String PRIM_DOUBLE = "PrimDouble";
     private static final String EMPTY_STRING = "";
     private final StringMap<PrimitiveType> primTypes = new StringMap<PrimitiveType>();
     private String aliasPrimBoolean;
@@ -22,7 +30,29 @@ public final class PrimitiveTypes {
     private String aliasPrimLong;
     private String aliasPrimFloat;
     private String aliasPrimDouble;
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasPrimChar(LgNamesContent.get(_util,_cust, PRIM_CHAR));
+        setAliasPrimLong(LgNamesContent.get(_util,_cust, PRIM_LONG));
+        setAliasPrimByte(LgNamesContent.get(_util,_cust, PRIM_BYTE));
+        setAliasPrimBoolean(LgNamesContent.get(_util,_cust, PRIM_BOOLEAN));
+        setAliasPrimShort(LgNamesContent.get(_util,_cust, PRIM_SHORT));
+        setAliasPrimFloat(LgNamesContent.get(_util,_cust, PRIM_FLOAT));
+        setAliasPrimInteger(LgNamesContent.get(_util,_cust, PRIM_INTEGER));
+        setAliasPrimDouble(LgNamesContent.get(_util,_cust, PRIM_DOUBLE));
+    }
 
+    public StringMap<String> allPrimitives() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(PRIM_BOOLEAN, getAliasPrimBoolean());
+        list_.addEntry(PRIM_BYTE, getAliasPrimByte());
+        list_.addEntry(PRIM_SHORT, getAliasPrimShort());
+        list_.addEntry(PRIM_CHAR, getAliasPrimChar());
+        list_.addEntry(PRIM_INTEGER, getAliasPrimInteger());
+        list_.addEntry(PRIM_LONG, getAliasPrimLong());
+        list_.addEntry(PRIM_FLOAT, getAliasPrimFloat());
+        list_.addEntry(PRIM_DOUBLE, getAliasPrimDouble());
+        return list_;
+    }
     public void buildPrimitiveTypes(LgNames _lgNames) {
         primTypes.put(aliasPrimBoolean, new PrimitiveType(aliasPrimBoolean, _lgNames.getContent().getNbAlias().getAliasBoolean(), EMPTY_STRING,false,BOOL_WRAP));
         primTypes.put(aliasPrimChar, new PrimitiveType(aliasPrimChar, _lgNames.getContent().getNbAlias().getAliasCharacter(), aliasPrimInteger,true,CHAR_WRAP));

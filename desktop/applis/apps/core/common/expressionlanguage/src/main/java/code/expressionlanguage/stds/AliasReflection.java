@@ -1,5 +1,6 @@
 package code.expressionlanguage.stds;
 
+import code.expressionlanguage.analyze.errors.KeyValueMemberName;
 import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fcts.*;
@@ -7,8 +8,115 @@ import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
 import code.util.CustList;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class AliasReflection {
+    private static final String GET_TYPE = "GetType";
+    private static final String CALL = "Call";
+    private static final String META_INFO = "MetaInfo";
+    private static final String INSTANCE = "Instance";
+    private static final String FCT = "Fct";
+    private static final String GET_STRING = "GetString";
+    private static final String GET_ANNOTATIONS_PARAMETERS = "GetAnnotationsParameters";
+    private static final String INVOKE_TARGET = "InvokeTarget";
+    private static final String GET_ANNOTATIONS = "GetAnnotations";
+    private static final String GET_ANNOTATIONS_SUPP = "GetAnnotationsSupp";
+    private static final String GET_VARIABLE_OWNER = "GetVariableOwner";
+    private static final String CLASS_NOT_FOUND_ERROR = "ClassNotFoundError";
+    private static final String CLASS_TYPE = "ClassType";
+    private static final String ANNOTATION_TYPE = "AnnotationType";
+    private static final String GET_GENERIC_VARIABLE_OWNER = "GetGenericVariableOwner";
+    private static final String ANNOTATED = "Annotated";
+    private static final String GET_DEFAULT_VALUE = "GetDefaultValue";
+    private static final String MAKE_GENERIC = "MakeGeneric";
+    private static final String GET_ALL_CLASSES = "GetAllClasses";
+    private static final String GET_OPERATORS = "GetOperators";
+    private static final String GET_DECLARED_EXPLICITS = "GetDeclaredExplicits";
+    private static final String GET_DECLARED_IMPLICITS = "GetDeclaredImplicits";
+    private static final String GET_DECLARED_TRUE_OPERATORS = "GetDeclaredTrueOperators";
+    private static final String GET_DECLARED_FALSE_OPERATORS = "GetDeclaredFalseOperators";
+    private static final String GET_DECLARED_METHODS = "GetDeclaredMethods";
+    private static final String GET_DECLARED_STATIC_METHODS = "GetDeclaredStaticMethods";
+    private static final String GET_DECLARED_CONSTRUCTORS = "GetDeclaredConstructors";
+    private static final String GET_DECLARED_FIELDS = "GetDeclaredFields";
+    private static final String GET_DECLARED_ANONYMOUS_TYPES = "GetDeclaredAnonymousTypes";
+    private static final String GET_DECLARED_ANONYMOUS_LAMBDA = "GetDeclaredAnonymousLambda";
+    private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS = "GetDeclaredAnonymousLambdaLocalVars";
+    private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB = "GetDeclaredAnonymousLambdaLocalVarsNb";
+    private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS = "GetDeclaredAnonymousLambdaLoopVars";
+    private static final String GET_DECLARED_LOCAL_TYPES = "GetDeclaredLocalTypes";
+    private static final String GET_DECLARED_BLOCKS = "GetDeclaredBlocks";
+    private static final String GET_DECLARED_SWITCH_METHODS = "GetDeclaredSwitchMethods";
+    private static final String FIELD = "Field";
+    private static final String IS_NORMAL = "IsNormal";
+    private static final String IS_PUBLIC = "IsPublic";
+    private static final String IS_ARRAY = "IsArray";
+    private static final String ARRAY_GET = "ArrayGet";
+    private static final String METHOD = "Method";
+    private static final String GET_FIELD = "GetField";
+    private static final String INVOKE = "Invoke";
+    private static final String IS_ENUM = "IsEnum";
+    private static final String INIT = "Init";
+    private static final String TRY_WRAP = "TryWrap";
+    private static final String FOR_NAME = "ForName";
+    private static final String IS_STATIC = "IsStatic";
+    private static final String IS_STATIC_CALL = "IsStaticCall";
+    private static final String IS_INSTANCE_METHOD = "IsInstanceMethod";
+    private static final String GET_NAME = "GetName";
+    private static final String IS_CLASS = "IsClass";
+    private static final String IS_SPE_CLASS = "IsSpeClass";
+    private static final String IS_SPE_MU_CLASS = "IsSpeMuClass";
+    private static final String SET_FIELD = "SetField";
+    private static final String GET_CLASS = "GetClass";
+    private static final String IS_FINAL = "IsFinal";
+    private static final String ARRAY_SET = "ArraySet";
+    private static final String GET_BOUNDS = "GetBounds";
+    private static final String GET_DECLARING_CLASS = "GetDeclaringClass";
+    private static final String ENUM_VALUE_OF = "EnumValueOf";
+    private static final String ARRAY_NEW_INSTANCE = "ArrayNewInstance";
+    private static final String GET_ENUM_CONSTANTS = "GetEnumConstants";
+    private static final String ARRAY_GET_LENGTH = "ArrayGetLength";
+    private static final String GET_GENERIC_BOUNDS = "GetGenericBounds";
+    private static final String DEFAULT_INSTANCE = "DefaultInstance";
+    private static final String GET_PARAMETER_NAMES = "GetParameterNames";
+    private static final String GET_PRETTY_NAME = "GetPrettyName";
+    private static final String GET_PRETTY_SINGLE_NAME = "GetPrettySingleName";
+    private static final String GET_UPPER_BOUNDS = "GetUpperBounds";
+    private static final String GET_PARAMETER_TYPES = "GetParameterTypes";
+    private static final String GET_GENERIC_RETURN_TYPE = "GetGenericReturnType";
+    private static final String INVOKE_DIRECT = "InvokeDirect";
+    private static final String GET_LOWER_BOUNDS = "GetLowerBounds";
+    private static final String GET_TYPE_PARAMETERS = "GetTypeParameters";
+    private static final String CONSTRUCTOR = "Constructor";
+    private static final String NEW_INSTANCE = "NewInstance";
+    private static final String GET_ENCLOSING_TYPE = "GetEnclosingType";
+    private static final String GET_INTERFACES = "GetInterfaces";
+    private static final String GET_DECLARED_CLASSES = "GetDeclaredClasses";
+    private static final String GET_SUPER_CLASS = "GetSuperClass";
+    private static final String GET_COMPONENT_TYPE = "GetComponentType";
+    private static final String GET_FILE_NAME = "GetFileName";
+    private static final String GET_GENERIC_SUPER_CLASS = "GetGenericSuperClass";
+    private static final String GET_GENERIC_INTERFACES = "GetGenericInterfaces";
+    private static final String IS_ABSTRACT = "IsAbstract";
+    private static final String MAKE_ARRAY = "MakeArray";
+    private static final String IS_INTERFACE = "IsInterface";
+    private static final String MAKE_REF_TYPE = "MakeRefType";
+    private static final String MAKE_WILD_CARD = "MakeWildCard";
+    private static final String IS_TYPE_VARIABLE = "IsTypeVariable";
+    private static final String IS_PRIVATE = "IsPrivate";
+    private static final String IS_VARARGS = "IsVarargs";
+    private static final String IS_INSTANCE = "IsInstance";
+    private static final String GET_RETURN_TYPE = "GetReturnType";
+    private static final String GET_ACTUAL_TYPE_ARGUMENTS = "GetActualTypeArguments";
+    private static final String IS_PROTECTED = "IsProtected";
+    private static final String IS_PRIMITIVE = "IsPrimitive";
+    private static final String IS_REF_TYPE = "IsRefType";
+    private static final String IS_WILD_CARD = "IsWildCard";
+    private static final String IS_ANNOTATION = "IsAnnotation";
+    private static final String GET_GENERIC_TYPE = "GetGenericType";
+    private static final String IS_ASSIGNABLE_FROM = "IsAssignableFrom";
+    private static final String IS_VARIABLE = "IsVariable";
+    private static final String IS_PACKAGE = "IsPackage";
     private String aliasAnnotationType;
     private String aliasAnnotated;
     private String aliasGetDefaultValue;
@@ -118,6 +226,291 @@ public final class AliasReflection {
     private String aliasGetString;
     private final AliasParamReflection params = new AliasParamReflection();
 
+    public void build(StringMap<String> _util, StringMap<String> _cust) {
+        setAliasGetType(LgNamesContent.get(_util,_cust, GET_TYPE));
+        setAliasCall(LgNamesContent.get(_util,_cust, CALL));
+        setAliasMetaInfo(LgNamesContent.get(_util,_cust, META_INFO));
+        setAliasInstance(LgNamesContent.get(_util,_cust, INSTANCE));
+        setAliasFct(LgNamesContent.get(_util,_cust, FCT));
+        setAliasGetString(LgNamesContent.get(_util,_cust, GET_STRING));
+        setAliasGetAnnotationsParameters(LgNamesContent.get(_util,_cust, GET_ANNOTATIONS_PARAMETERS));
+        setAliasInvokeTarget(LgNamesContent.get(_util,_cust, INVOKE_TARGET));
+        setAliasGetAnnotations(LgNamesContent.get(_util,_cust, GET_ANNOTATIONS));
+        setAliasGetAnnotationsSupp(LgNamesContent.get(_util,_cust, GET_ANNOTATIONS_SUPP));
+        setAliasGetVariableOwner(LgNamesContent.get(_util,_cust, GET_VARIABLE_OWNER));
+        setAliasClassNotFoundError(LgNamesContent.get(_util,_cust, CLASS_NOT_FOUND_ERROR));
+        setAliasClassType(LgNamesContent.get(_util,_cust, CLASS_TYPE));
+        setAliasAnnotationType(LgNamesContent.get(_util,_cust, ANNOTATION_TYPE));
+        setAliasGetGenericVariableOwner(LgNamesContent.get(_util,_cust, GET_GENERIC_VARIABLE_OWNER));
+        setAliasAnnotated(LgNamesContent.get(_util,_cust, ANNOTATED));
+        setAliasGetDefaultValue(LgNamesContent.get(_util,_cust, GET_DEFAULT_VALUE));
+        setAliasMakeGeneric(LgNamesContent.get(_util,_cust, MAKE_GENERIC));
+        setAliasGetAllClasses(LgNamesContent.get(_util,_cust, GET_ALL_CLASSES));
+        setAliasGetOperators(LgNamesContent.get(_util,_cust, GET_OPERATORS));
+        setAliasGetDeclaredExplicits(LgNamesContent.get(_util,_cust, GET_DECLARED_EXPLICITS));
+        setAliasGetDeclaredImplicits(LgNamesContent.get(_util,_cust, GET_DECLARED_IMPLICITS));
+        setAliasGetDeclaredTrueOperators(LgNamesContent.get(_util,_cust, GET_DECLARED_TRUE_OPERATORS));
+        setAliasGetDeclaredFalseOperators(LgNamesContent.get(_util,_cust, GET_DECLARED_FALSE_OPERATORS));
+        setAliasGetDeclaredMethods(LgNamesContent.get(_util,_cust, GET_DECLARED_METHODS));
+        setAliasGetDeclaredStaticMethods(LgNamesContent.get(_util,_cust, GET_DECLARED_STATIC_METHODS));
+        setAliasGetDeclaredConstructors(LgNamesContent.get(_util,_cust, GET_DECLARED_CONSTRUCTORS));
+        setAliasGetDeclaredFields(LgNamesContent.get(_util,_cust, GET_DECLARED_FIELDS));
+        setAliasGetDeclaredAnonymousTypes(LgNamesContent.get(_util,_cust, GET_DECLARED_ANONYMOUS_TYPES));
+        setAliasGetDeclaredAnonymousLambda(LgNamesContent.get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA));
+        setAliasGetDeclaredAnonymousLambdaLocalVars(LgNamesContent.get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS));
+        setAliasGetDeclaredAnonymousLambdaLocalVarsNb(LgNamesContent.get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB));
+        setAliasGetDeclaredAnonymousLambdaLoopVars(LgNamesContent.get(_util,_cust, GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS));
+        setAliasGetDeclaredBlocks(LgNamesContent.get(_util,_cust, GET_DECLARED_BLOCKS));
+        setAliasGetDeclaredSwitchMethods(LgNamesContent.get(_util,_cust, GET_DECLARED_SWITCH_METHODS));
+        setAliasGetDeclaredLocalTypes(LgNamesContent.get(_util,_cust, GET_DECLARED_LOCAL_TYPES));
+        setAliasField(LgNamesContent.get(_util,_cust, FIELD));
+        setAliasIsNormal(LgNamesContent.get(_util,_cust, IS_NORMAL));
+        setAliasIsPublic(LgNamesContent.get(_util,_cust, IS_PUBLIC));
+        setAliasIsArray(LgNamesContent.get(_util,_cust, IS_ARRAY));
+        setAliasArrayGet(LgNamesContent.get(_util,_cust, ARRAY_GET));
+        setAliasMethod(LgNamesContent.get(_util,_cust, METHOD));
+        setAliasGetField(LgNamesContent.get(_util,_cust, GET_FIELD));
+        setAliasInvoke(LgNamesContent.get(_util,_cust, INVOKE));
+        setAliasIsEnum(LgNamesContent.get(_util,_cust, IS_ENUM));
+        setAliasInit(LgNamesContent.get(_util,_cust, INIT));
+        setAliasTryWrap(LgNamesContent.get(_util,_cust, TRY_WRAP));
+        setAliasForName(LgNamesContent.get(_util,_cust, FOR_NAME));
+        setAliasIsStatic(LgNamesContent.get(_util,_cust, IS_STATIC));
+        setAliasIsStaticCall(LgNamesContent.get(_util,_cust, IS_STATIC_CALL));
+        setAliasIsInstanceMethod(LgNamesContent.get(_util,_cust, IS_INSTANCE_METHOD));
+        setAliasGetName(LgNamesContent.get(_util,_cust, GET_NAME));
+        setAliasIsClass(LgNamesContent.get(_util,_cust, IS_CLASS));
+        setAliasIsSpecialClass(LgNamesContent.get(_util,_cust, IS_SPE_CLASS));
+        setAliasIsSpecialMuClass(LgNamesContent.get(_util,_cust, IS_SPE_MU_CLASS));
+        setAliasSetField(LgNamesContent.get(_util,_cust, SET_FIELD));
+        setAliasGetClass(LgNamesContent.get(_util,_cust, GET_CLASS));
+        setAliasIsFinal(LgNamesContent.get(_util,_cust, IS_FINAL));
+        setAliasArraySet(LgNamesContent.get(_util,_cust, ARRAY_SET));
+        setAliasGetBounds(LgNamesContent.get(_util,_cust, GET_BOUNDS));
+        setAliasGetDeclaringClass(LgNamesContent.get(_util,_cust, GET_DECLARING_CLASS));
+        setAliasEnumValueOf(LgNamesContent.get(_util,_cust, ENUM_VALUE_OF));
+        setAliasArrayNewInstance(LgNamesContent.get(_util,_cust, ARRAY_NEW_INSTANCE));
+        setAliasGetEnumConstants(LgNamesContent.get(_util,_cust, GET_ENUM_CONSTANTS));
+        setAliasArrayGetLength(LgNamesContent.get(_util,_cust, ARRAY_GET_LENGTH));
+        setAliasGetGenericBounds(LgNamesContent.get(_util,_cust, GET_GENERIC_BOUNDS));
+        setAliasDefaultInstance(LgNamesContent.get(_util,_cust, DEFAULT_INSTANCE));
+        setAliasGetParameterNames(LgNamesContent.get(_util,_cust, GET_PARAMETER_NAMES));
+        setAliasGetPrettyName(LgNamesContent.get(_util,_cust, GET_PRETTY_NAME));
+        setAliasGetPrettySingleName(LgNamesContent.get(_util,_cust, GET_PRETTY_SINGLE_NAME));
+        setAliasGetUpperBounds(LgNamesContent.get(_util,_cust, GET_UPPER_BOUNDS));
+        setAliasGetParameterTypes(LgNamesContent.get(_util,_cust, GET_PARAMETER_TYPES));
+        setAliasGetGenericReturnType(LgNamesContent.get(_util,_cust, GET_GENERIC_RETURN_TYPE));
+        setAliasInvokeDirect(LgNamesContent.get(_util,_cust, INVOKE_DIRECT));
+        setAliasGetLowerBounds(LgNamesContent.get(_util,_cust, GET_LOWER_BOUNDS));
+        setAliasGetTypeParameters(LgNamesContent.get(_util,_cust, GET_TYPE_PARAMETERS));
+        setAliasConstructor(LgNamesContent.get(_util,_cust, CONSTRUCTOR));
+        setAliasNewInstance(LgNamesContent.get(_util,_cust, NEW_INSTANCE));
+        setAliasGetEnclosingType(LgNamesContent.get(_util,_cust, GET_ENCLOSING_TYPE));
+        setAliasGetInterfaces(LgNamesContent.get(_util,_cust, GET_INTERFACES));
+        setAliasGetDeclaredClasses(LgNamesContent.get(_util,_cust, GET_DECLARED_CLASSES));
+        setAliasGetSuperClass(LgNamesContent.get(_util,_cust, GET_SUPER_CLASS));
+        setAliasGetComponentType(LgNamesContent.get(_util,_cust, GET_COMPONENT_TYPE));
+        setAliasGetFileName(LgNamesContent.get(_util,_cust, GET_FILE_NAME));
+        setAliasGetGenericSuperClass(LgNamesContent.get(_util,_cust, GET_GENERIC_SUPER_CLASS));
+        setAliasGetGenericInterfaces(LgNamesContent.get(_util,_cust, GET_GENERIC_INTERFACES));
+        setAliasIsAbstract(LgNamesContent.get(_util,_cust, IS_ABSTRACT));
+        setAliasMakeArray(LgNamesContent.get(_util,_cust, MAKE_ARRAY));
+        setAliasIsInterface(LgNamesContent.get(_util,_cust, IS_INTERFACE));
+        setAliasMakeRef(LgNamesContent.get(_util,_cust, MAKE_REF_TYPE));
+        setAliasMakeWildCard(LgNamesContent.get(_util,_cust, MAKE_WILD_CARD));
+        setAliasIsTypeVariable(LgNamesContent.get(_util,_cust, IS_TYPE_VARIABLE));
+        setAliasIsPrivate(LgNamesContent.get(_util,_cust, IS_PRIVATE));
+        setAliasIsVarargs(LgNamesContent.get(_util,_cust, IS_VARARGS));
+        setAliasIsInstance(LgNamesContent.get(_util,_cust, IS_INSTANCE));
+        setAliasGetReturnType(LgNamesContent.get(_util,_cust, GET_RETURN_TYPE));
+        setAliasGetActualTypeArguments(LgNamesContent.get(_util,_cust, GET_ACTUAL_TYPE_ARGUMENTS));
+        setAliasIsProtected(LgNamesContent.get(_util,_cust, IS_PROTECTED));
+        setAliasIsPrimitive(LgNamesContent.get(_util,_cust, IS_PRIMITIVE));
+        setAliasIsRefType(LgNamesContent.get(_util,_cust, IS_REF_TYPE));
+        setAliasIsWildCard(LgNamesContent.get(_util,_cust, IS_WILD_CARD));
+        setAliasIsAnnotation(LgNamesContent.get(_util,_cust, IS_ANNOTATION));
+        setAliasGetGenericType(LgNamesContent.get(_util,_cust, GET_GENERIC_TYPE));
+        setAliasIsAssignableFrom(LgNamesContent.get(_util,_cust, IS_ASSIGNABLE_FROM));
+        setAliasIsVariable(LgNamesContent.get(_util,_cust, IS_VARIABLE));
+        setAliasIsPackage(LgNamesContent.get(_util,_cust, IS_PACKAGE));
+    }
+    public StringMap<String> allRefTypes() {
+        StringMap<String> list_ = new StringMap<String>();
+        list_.addEntry(ANNOTATED, getAliasAnnotated());
+        list_.addEntry(ANNOTATION_TYPE, getAliasAnnotationType());
+        list_.addEntry(CLASS_TYPE, getAliasClassType());
+        list_.addEntry(CONSTRUCTOR, getAliasConstructor());
+        list_.addEntry(FCT, getAliasFct());
+        list_.addEntry(FIELD, getAliasField());
+        list_.addEntry(METHOD, getAliasMethod());
+        list_.addEntry(CLASS_NOT_FOUND_ERROR, getAliasClassNotFoundError());
+        list_.addEntry(INVOKE_TARGET, getAliasInvokeTarget());
+        return list_;
+    }
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+        StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
+        map_.addEntry(getAliasAnnotated(), listAnnot());
+        map_.addEntry(getAliasAnnotationType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_STRING, getAliasGetString())));
+        map_.addEntry(getAliasClassType(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_ANNOTATIONS, getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS, getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(DEFAULT_INSTANCE, getAliasDefaultInstance()),
+                new KeyValueMemberName(ENUM_VALUE_OF, getAliasEnumValueOf()),
+                new KeyValueMemberName(FOR_NAME, getAliasForName()),
+                new KeyValueMemberName(ARRAY_GET, getAliasArrayGet()),
+                new KeyValueMemberName(GET_ACTUAL_TYPE_ARGUMENTS, getAliasGetActualTypeArguments()),
+                new KeyValueMemberName(GET_ALL_CLASSES, getAliasGetAllClasses()),
+                new KeyValueMemberName(GET_BOUNDS, getAliasGetBounds()),
+                new KeyValueMemberName(GET_CLASS, getAliasGetClass()),
+                new KeyValueMemberName(GET_COMPONENT_TYPE, getAliasGetComponentType()),
+                new KeyValueMemberName(GET_DECLARED_CLASSES, getAliasGetDeclaredClasses()),
+                new KeyValueMemberName(GET_DECLARED_CONSTRUCTORS, getAliasGetDeclaredConstructors()),
+                new KeyValueMemberName(GET_DECLARED_FIELDS, getAliasGetDeclaredFields()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES, getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA, getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getAliasGetDeclaredSwitchMethods()),
+                new KeyValueMemberName(GET_DECLARED_LOCAL_TYPES,getAliasGetDeclaredLocalTypes()),
+                new KeyValueMemberName(GET_DECLARED_BLOCKS,getAliasGetDeclaredBlocks()),
+                new KeyValueMemberName(GET_DECLARED_EXPLICITS,getAliasGetDeclaredExplicits()),
+                new KeyValueMemberName(GET_DECLARED_IMPLICITS,getAliasGetDeclaredImplicits()),
+                new KeyValueMemberName(GET_DECLARED_TRUE_OPERATORS,getAliasGetDeclaredTrueOperators()),
+                new KeyValueMemberName(GET_DECLARED_FALSE_OPERATORS,getAliasGetDeclaredFalseOperators()),
+                new KeyValueMemberName(GET_DECLARED_METHODS,getAliasGetDeclaredMethods()),
+                new KeyValueMemberName(GET_DECLARED_STATIC_METHODS,getAliasGetDeclaredStaticMethods()),
+                new KeyValueMemberName(GET_ENCLOSING_TYPE,getAliasGetEnclosingType()),
+                new KeyValueMemberName(GET_ENUM_CONSTANTS,getAliasGetEnumConstants()),
+                new KeyValueMemberName(GET_GENERIC_BOUNDS,getAliasGetGenericBounds()),
+                new KeyValueMemberName(GET_GENERIC_INTERFACES,getAliasGetGenericInterfaces()),
+                new KeyValueMemberName(GET_GENERIC_SUPER_CLASS,getAliasGetGenericSuperClass()),
+                new KeyValueMemberName(GET_GENERIC_VARIABLE_OWNER,getAliasGetGenericVariableOwner()),
+                new KeyValueMemberName(GET_INTERFACES,getAliasGetInterfaces()),
+                new KeyValueMemberName(ARRAY_GET_LENGTH,getAliasArrayGetLength()),
+                new KeyValueMemberName(GET_LOWER_BOUNDS,getAliasGetLowerBounds()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_OPERATORS,getAliasGetOperators()),
+                new KeyValueMemberName(GET_PRETTY_NAME,getAliasGetPrettyName()),
+                new KeyValueMemberName(GET_PRETTY_SINGLE_NAME,getAliasGetPrettySingleName()),
+                new KeyValueMemberName(GET_SUPER_CLASS,getAliasGetSuperClass()),
+                new KeyValueMemberName(GET_TYPE_PARAMETERS,getAliasGetTypeParameters()),
+                new KeyValueMemberName(GET_UPPER_BOUNDS,getAliasGetUpperBounds()),
+                new KeyValueMemberName(GET_VARIABLE_OWNER,getAliasGetVariableOwner()),
+                new KeyValueMemberName(INIT,getAliasInit()),
+                new KeyValueMemberName(TRY_WRAP,getAliasTryWrap()),
+                new KeyValueMemberName(IS_ABSTRACT,getAliasIsAbstract()),
+                new KeyValueMemberName(IS_ANNOTATION,getAliasIsAnnotation()),
+                new KeyValueMemberName(IS_ARRAY,getAliasIsArray()),
+                new KeyValueMemberName(IS_ASSIGNABLE_FROM,getAliasIsAssignableFrom()),
+                new KeyValueMemberName(IS_SPE_CLASS,getAliasIsSpecialClass()),
+                new KeyValueMemberName(IS_SPE_MU_CLASS,getAliasIsSpecialMuClass()),
+                new KeyValueMemberName(IS_CLASS,getAliasIsClass()),
+                new KeyValueMemberName(IS_ENUM,getAliasIsEnum()),
+                new KeyValueMemberName(IS_FINAL,getAliasIsFinal()),
+                new KeyValueMemberName(IS_TYPE_VARIABLE,getAliasIsTypeVariable()),
+                new KeyValueMemberName(IS_VARIABLE,getAliasIsVariable()),
+                new KeyValueMemberName(IS_INSTANCE,getAliasIsInstance()),
+                new KeyValueMemberName(IS_INTERFACE,getAliasIsInterface()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIMITIVE,getAliasIsPrimitive()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
+                new KeyValueMemberName(IS_REF_TYPE,getAliasIsRefType()),
+                new KeyValueMemberName(IS_WILD_CARD,getAliasIsWildCard()),
+                new KeyValueMemberName(MAKE_ARRAY,getAliasMakeArray()),
+                new KeyValueMemberName(MAKE_GENERIC,getAliasMakeGeneric()),
+                new KeyValueMemberName(MAKE_REF_TYPE,getAliasMakeRef()),
+                new KeyValueMemberName(MAKE_WILD_CARD,getAliasMakeWildCard()),
+                new KeyValueMemberName(ARRAY_NEW_INSTANCE,getAliasArrayNewInstance()),
+                new KeyValueMemberName(ARRAY_SET,getAliasArraySet())));
+        map_.addEntry(getAliasConstructor(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getAliasGetDeclaredSwitchMethods()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getAliasGetGenericReturnType()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_PARAMETER_NAMES,getAliasGetParameterNames()),
+                new KeyValueMemberName(GET_PARAMETER_TYPES,getAliasGetParameterTypes()),
+                new KeyValueMemberName(GET_RETURN_TYPE,getAliasGetReturnType()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs()),
+                new KeyValueMemberName(NEW_INSTANCE,getAliasNewInstance())));
+        map_.addEntry(getAliasFct(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(CALL,getAliasCall()),
+                new KeyValueMemberName(META_INFO,getAliasMetaInfo()),
+                new KeyValueMemberName(INSTANCE,getAliasInstance())));
+        map_.addEntry(getAliasField(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getAliasGetDeclaredSwitchMethods()),
+                new KeyValueMemberName(GET_FIELD,getAliasGetField()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_GENERIC_TYPE,getAliasGetGenericType()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_TYPE,getAliasGetType()),
+                new KeyValueMemberName(IS_FINAL,getAliasIsFinal()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
+                new KeyValueMemberName(SET_FIELD,getAliasSetField())));
+        map_.addEntry(getAliasMethod(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_ANNOTATIONS,getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_SUPP,getAliasGetAnnotationsSupp()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS,getAliasGetAnnotationsParameters()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_TYPES,getAliasGetDeclaredAnonymousTypes()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA,getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS,getAliasGetDeclaredSwitchMethods()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS,getAliasGetDeclaredAnonymousLambdaLocalVars()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB,getAliasGetDeclaredAnonymousLambdaLocalVarsNb()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,getAliasGetDeclaredAnonymousLambdaLoopVars()),
+                new KeyValueMemberName(GET_DECLARING_CLASS,getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_DEFAULT_VALUE,getAliasGetDefaultValue()),
+                new KeyValueMemberName(GET_GENERIC_RETURN_TYPE,getAliasGetGenericReturnType()),
+                new KeyValueMemberName(GET_FILE_NAME,getAliasGetFileName()),
+                new KeyValueMemberName(GET_NAME,getAliasGetName()),
+                new KeyValueMemberName(GET_PARAMETER_NAMES,getAliasGetParameterNames()),
+                new KeyValueMemberName(GET_PARAMETER_TYPES,getAliasGetParameterTypes()),
+                new KeyValueMemberName(GET_RETURN_TYPE,getAliasGetReturnType()),
+                new KeyValueMemberName(INVOKE,getAliasInvoke()),
+                new KeyValueMemberName(INVOKE_DIRECT,getAliasInvokeDirect()),
+                new KeyValueMemberName(IS_ABSTRACT,getAliasIsAbstract()),
+                new KeyValueMemberName(IS_FINAL,getAliasIsFinal()),
+                new KeyValueMemberName(IS_NORMAL,getAliasIsNormal()),
+                new KeyValueMemberName(IS_PACKAGE,getAliasIsPackage()),
+                new KeyValueMemberName(IS_PRIVATE,getAliasIsPrivate()),
+                new KeyValueMemberName(IS_PROTECTED,getAliasIsProtected()),
+                new KeyValueMemberName(IS_PUBLIC,getAliasIsPublic()),
+                new KeyValueMemberName(IS_STATIC,getAliasIsStatic()),
+                new KeyValueMemberName(IS_STATIC_CALL,getAliasIsStaticCall()),
+                new KeyValueMemberName(IS_INSTANCE_METHOD,getAliasIsInstanceMethod()),
+                new KeyValueMemberName(IS_VARARGS,getAliasIsVarargs())));
+        return map_;
+    }
+
+    public CustList<KeyValueMemberName> listAnnot() {
+        return new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(GET_FILE_NAME, getAliasGetFileName()),
+                new KeyValueMemberName(GET_DECLARING_CLASS, getAliasGetDeclaringClass()),
+                new KeyValueMemberName(GET_DECLARED_ANONYMOUS_LAMBDA, getAliasGetDeclaredAnonymousLambda()),
+                new KeyValueMemberName(GET_DECLARED_SWITCH_METHODS, getAliasGetDeclaredSwitchMethods()),
+                new KeyValueMemberName(GET_ANNOTATIONS, getAliasGetAnnotations()),
+                new KeyValueMemberName(GET_ANNOTATIONS_PARAMETERS, getAliasGetAnnotationsParameters()));
+    }
     public void build(LgNames _stds) {
         CustList<StandardMethod> methods_ = new CustList<StandardMethod>();
         CustList<StandardConstructor> constructors_ = new CustList<StandardConstructor>();
