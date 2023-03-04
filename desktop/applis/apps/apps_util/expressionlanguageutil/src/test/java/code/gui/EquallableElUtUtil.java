@@ -95,16 +95,16 @@ public abstract class EquallableElUtUtil {
     public static LgNamesGui newLgNamesGuiSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesGui stds_ = newLgNamesGui(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"");
-        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+//        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
         basicStandards(stds_);
         return stds_;
     }
     public static LgNamesUtils newLgNamesUtSample(AbstractLightProgramInfos _light, AbstractIssuer _issuer) {
         LgNamesUtils stds_ = newLgNamesUt(_light, _issuer, "", "", with(_light, init(), "conf.txt", "content"));
         stds_.getExecContent().setExecutingOptions(new ExecutingOptions(new MockAtomicBoolean()));
-        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"");
-        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>());
+        stds_.getExecContent().updateTranslations(_light.getTranslations(),_light.getLanguage(),"en");
+//        stds_.getExecContent().getCustAliases().build(new StringMap<String>(),new StringMap<String>(),new StringMap<String>());
         basicStandards(stds_);
         return stds_;
     }
@@ -671,11 +671,15 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getExecContent().getCustAliases().keyWord(_definedKw, _exec.getKeyWords());
         _definedKw.initSupplDigits();
         _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
-        _definedLgNames.getGuiAliases().otherAliasGui(LgNamesGui.addon("en", _definedLgNames.getGuiAliases()),_exec.getAliases());
+        StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases());
+        _definedLgNames.getGuiAliases().otherAliasGui(LgNamesGui.addon(_definedLgNames.getExecContent().getCustAliases()),_exec.getAliases(),keys_);
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(new StringList(), _exec.getLightProgramInfos(),_exec.getListGenerator());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
+        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
+        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
+        page_.setMappingAliases(m_);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);
@@ -683,6 +687,7 @@ public abstract class EquallableElUtUtil {
         ContextFactory.beforeBuild(forwards_,_mess,_definedKw,_definedLgNames.getExecContent().getCustAliases().defComments(),_options,_definedLgNames.getContent(),page_);
         ContextFactory.build(forwards_,_definedKw,_options,page_);
 //        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
         return new ResultContext(reportedMessages_, page_.getMessages());
     }
@@ -695,6 +700,9 @@ public abstract class EquallableElUtUtil {
         _definedLgNames.getExecContent().getCustAliases().otherAlias(_definedLgNames.getContent(), _exec.getAliases());
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
+        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
+        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
+        page_.setMappingAliases(m_);
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         CustFileBuilder fileBuilder_ = new CustFileBuilder(_definedLgNames.getContent(), _definedLgNames.getExecContent().getCustAliases(),new CustAliasGroups(_definedLgNames.getExecContent().getCustAliases(), _definedLgNames.getContent()));
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);

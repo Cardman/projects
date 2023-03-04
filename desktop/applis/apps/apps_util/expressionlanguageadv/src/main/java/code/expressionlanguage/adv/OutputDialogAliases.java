@@ -1,7 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.errors.KeyValueMemberName;
-import code.expressionlanguage.guicompos.GuiAliasGroups;
 import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.utilcompo.CustAliases;
@@ -14,9 +12,7 @@ import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
 import code.util.CustList;
-import code.util.EntryCust;
 import code.util.StringList;
-import code.util.StringMap;
 
 public final class OutputDialogAliases {
     private final OutputDialogMapMessagesEdit keyWords;
@@ -34,7 +30,7 @@ public final class OutputDialogAliases {
         guiAliases = new GuiAliases();
         custAliases = new CustAliases();
         lgNamesContent = new LgNamesContent();
-        aliases = new OutputDialogMapMessagesEdit(_w,_w.getLgAliases(), aliases(guiAliases, custAliases, lgNamesContent));
+        aliases = new OutputDialogMapMessagesEdit(_w,_w.getLgAliases(), aliases(_w));
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         AbsTabbedPane tab_ = factories_.getCompoFactory().newAbsTabbedPane();
@@ -66,37 +62,14 @@ public final class OutputDialogAliases {
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
         return LgNamesUtilsContent.extractKeys(com_).values();
     }
-    static StringList aliases() {
-        return aliases(new GuiAliases(), new CustAliases(), new LgNamesContent());
-    }
-    static StringList aliases(GuiAliases _g, CustAliases _c, LgNamesContent _l) {
-        GuiAliasGroups g_ = new GuiAliasGroups(_g, _c, _l);
-        StringList keys_ = new StringList();
-        keys_.addAllElts(g_.allPrimitives().getKeys());
-        keys_.addAllElts(g_.allRefTypes().getKeys());
-        feed(keys_, g_.allTableTypeMethodNames());
-        feed(keys_, g_.allTableTypeFieldNames());
-        feed(keys_, g_.allTableTypeVarTypes());
-        feed(keys_, g_.allMergeTableTypeMethodNames());
-        feed(keys_, g_.allTableTypeMethodParamNames());
-        keys_.removeDuplicates();
-        return keys_;
-    }
-
-    private static void feed(StringList _keys, CustList<CustList<KeyValueMemberName>> _list) {
-        for (CustList<KeyValueMemberName> e: _list) {
-            for (KeyValueMemberName f: e) {
-                _keys.add(f.getKey());
-            }
-        }
-    }
-
-    private static void feed(StringList _keys, StringMap<CustList<KeyValueMemberName>> _map) {
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: _map.entryList()) {
-            for (KeyValueMemberName f: e.getValue()) {
-                _keys.add(f.getKey());
-            }
-        }
+    static StringList aliases(WindowCdmEditor _w) {
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile types_ = app_.getMapping().getVal(FileInfos.TYPES);
+        TranslationsFile typesGui_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
+        StringList v_ = new StringList(LgNamesUtilsContent.extractKeys(types_).values());
+        v_.addAllElts(LgNamesUtilsContent.extractKeys(typesGui_).values());
+        return v_;
     }
 
     public CustAliases getCustAliases() {

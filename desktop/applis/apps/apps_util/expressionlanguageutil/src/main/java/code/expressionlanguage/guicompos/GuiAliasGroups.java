@@ -16,40 +16,38 @@ public class GuiAliasGroups extends CustAliasGroups {
     }
 
     @Override
-    public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
-        CustList<CustList<KeyValueMemberName>> list_ = super.allMergeTableTypeMethodNames();
-        list_.addAllElts(guiAliases.allMergeTableTypeMethodNames(getCustAlias(),getContent()));
-        return list_;
+    public CustList<KeyValueMemberName> allMergeTableTypeMethodNames(StringMap<String> _mapping) {
+        return guiAliases.allMergeTableTypeMethodNames(_mapping,getCustAlias(),getContent());
     }
 
     @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
-        StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: guiAliases.allTableTypeFieldNames().entryList()) {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {
+        StringMap<CustList<KeyValueMemberName>> f_ = super.allTableTypeFieldNames(_mapping);
+        for (EntryCust<String,CustList<KeyValueMemberName>> o: guiAliases.allTableTypeFieldNames(_mapping).entryList()) {
             f_.addEntry(o.getKey(),o.getValue());
         }
         return f_;
     }
 
     @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
-        StringMap<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> o: guiAliases.allTableTypeMethodNames().entryList()) {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping) {
+        StringMap<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodNames(_mapping);
+        for (EntryCust<String,CustList<KeyValueMemberName>> o: guiAliases.allTableTypeMethodNames(_mapping).entryList()) {
             m_.addEntry(o.getKey(),o.getValue());
         }
         return m_;
     }
 
     @Override
-    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
-        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames();
-        m_.addAllElts(guiAliases.allTableTypeMethodParamNames());
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
+        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames(_mapping);
+        m_.addAllElts(guiAliases.allTableTypeMethodParamNames(_mapping));
         return m_;
     }
     @Override
-    public StringMap<String> allRefTypes() {
-        StringMap<String> ref_ =  super.allRefTypes();
-        for (EntryCust<String, String> o: guiAliases.allRefTypes().entryList()) {
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
+        StringMap<String> ref_ =  super.allRefTypes(_mapping);
+        for (EntryCust<String, String> o: guiAliases.allRefTypes(_mapping).entryList()) {
             ref_.addEntry(o.getKey(),o.getValue());
         }
         return ref_;

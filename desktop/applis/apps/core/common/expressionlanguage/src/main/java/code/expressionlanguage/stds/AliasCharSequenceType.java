@@ -5,60 +5,61 @@ import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.common.StringExpUtil;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.MethodModifier;
+import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class AliasCharSequenceType {
 
-    private static final String CHAR_SEQUENCE = "CharSequence";
-    private static final String INDEX_OF = "IndexOf";
-    private static final String STRING = "String";
-    private static final String STRING_COMPARE = "StringCompare";
-    private static final String STRING_VALUE_OF = "StringValueOf";
-    private static final String IS_EMPTY = "IsEmpty";
-    private static final String TRIM = "Trim";
-    private static final String GET_BYTES = "GetBytes";
-    private static final String CONTAINS = "Contains";
-    private static final String REPLACE = "Replace";
-    private static final String REPLACE_STRING = "ReplaceString";
-    private static final String FORMAT = "Format";
-    private static final String ENDS_WITH = "EndsWith";
-    private static final String CAPACITY = "Capacity";
-    private static final String SPLIT = "Split";
-    private static final String APPEND = "Append";
-    private static final String LENGTH = "Length";
-    private static final String CHAR_AT = "CharAt";
-    private static final String SAME = "Same";
-    private static final String REVERSE = "Reverse";
-    private static final String INSERT = "Insert";
-    private static final String DELETE = "Delete";
-    private static final String CLEAR = "Clear";
-    private static final String SUBSTRING = "Substring";
-    private static final String SET_CHAR_AT = "SetCharAt";
-    private static final String EQUALS_IGNORE_CASE = "EqualsIgnoreCase";
-    private static final String DELETE_CHAR_AT = "DeleteCharAt";
-    private static final String STARTS_WITH = "StartsWith";
-    private static final String LAST_INDEX_OF = "LastIndexOf";
-    private static final String REGION_MATCHES = "RegionMatches";
-    private static final String TO_LOWER_CASE = "ToLowerCase";
-    private static final String STRING_BUILDER = "StringBuilder";
-    private static final String TO_UPPER_CASE = "ToUpperCase";
-    private static final String ENSURE_CAPACITY = "EnsureCapacity";
-    private static final String SET_LENGTH = "SetLength";
-    private static final String TRIM_TO_SIZE = "TrimToSize";
-    private static final String REPLACEMENT = "Replacement";
-    private static final String GET_OLD_STRING = "GetOldString";
-    private static final String GET_NEW_STRING = "GetNewString";
-    private static final String SUB_SEQUENCE = "SubSequence";
-    private static final String COMPARE_TO_IGNORE_CASE = "CompareToIgnoreCase";
-    private static final String TO_CHAR_ARRAY = "ToCharArray";
-    private static final String CHAR_SEQUENCE_TO_STRING = "CharSequenceToString";
-    private static final String CHAR_SEQUENCE_EQUALS = "CharSequenceEquals";
-    private static final String CHAR_SEQUENCE_COMPARE_TO = "CharSequenceCompareTo";
-    private static final String REPLACE_MULTIPLE = "ReplaceMultiple";
-    private static final String SPLIT_STRINGS = "SplitStrings";
-    private static final String SPLIT_CHARS = "SplitChars";
+    private static final String REPLACEMENT="125";
+    private static final String CHAR_SEQUENCE="123";
+    private static final String STRING="24";
+    private static final String STRING_BUILDER="124";
+    private static final String GET_NEW_STRING="126";
+    private static final String GET_OLD_STRING="127";
+    private static final String CHAR_AT="128";
+    private static final String CHAR_SEQUENCE_EQUALS="129";
+    private static final String CHAR_SEQUENCE_COMPARE_TO="130";
+    private static final String CONTAINS="131";
+    private static final String ENDS_WITH="132";
+    private static final String FORMAT="133";
+    private static final String GET_BYTES="134";
+    private static final String INDEX_OF="135";
+    private static final String IS_EMPTY="136";
+    private static final String LAST_INDEX_OF="137";
+    private static final String LENGTH="138";
+    private static final String REGION_MATCHES="139";
+    private static final String SPLIT="140";
+    private static final String SPLIT_CHARS="141";
+    private static final String SPLIT_STRINGS="142";
+    private static final String STARTS_WITH="143";
+    private static final String SUB_SEQUENCE="144";
+    private static final String SUBSTRING="145";
+    private static final String TO_CHAR_ARRAY="146";
+    private static final String CHAR_SEQUENCE_TO_STRING="147";
+    private static final String TRIM="148";
+    private static final String REPLACE_STRING="149";
+    private static final String STRING_COMPARE="150";
+    private static final String COMPARE_TO_IGNORE_CASE="151";
+    private static final String EQUALS_IGNORE_CASE="152";
+    private static final String REPLACE_MULTIPLE="153";
+    private static final String TO_LOWER_CASE="154";
+    private static final String TO_UPPER_CASE="155";
+    private static final String STRING_VALUE_OF="156";
+    private static final String REPLACE="157";
+    private static final String APPEND="158";
+    private static final String CAPACITY="159";
+    private static final String CLEAR="160";
+    private static final String DELETE="161";
+    private static final String DELETE_CHAR_AT="162";
+    private static final String ENSURE_CAPACITY="163";
+    private static final String INSERT="164";
+    private static final String REVERSE="165";
+    private static final String SET_CHAR_AT="166";
+    private static final String SET_LENGTH="167";
+    private static final String SAME="168";
+    private static final String TRIM_TO_SIZE="169";
 
     private String aliasCharSequence;
     private String aliasCharSequenceToString;
@@ -112,156 +113,306 @@ public final class AliasCharSequenceType {
     private String aliasGetNewString;
     private final AliasParamCharSequence params = new AliasParamCharSequence();
 
-    public void build(StringMap<String> _util, StringMap<String> _cust) {
-        setAliasCharSequence(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE));
-        setAliasIndexOf(LgNamesContent.get(_util,_cust, INDEX_OF));
-        setAliasString(LgNamesContent.get(_util,_cust, STRING));
-        setAliasStringValueOf(LgNamesContent.get(_util,_cust, STRING_VALUE_OF));
-        setAliasStringCompare(LgNamesContent.get(_util,_cust, STRING_COMPARE));
-        setAliasIsEmpty(LgNamesContent.get(_util,_cust, IS_EMPTY));
-        setAliasTrim(LgNamesContent.get(_util,_cust, TRIM));
-        setAliasGetBytes(LgNamesContent.get(_util,_cust, GET_BYTES));
-        setAliasContains(LgNamesContent.get(_util,_cust, CONTAINS));
-        setAliasReplace(LgNamesContent.get(_util,_cust, REPLACE));
-        setAliasReplaceString(LgNamesContent.get(_util,_cust, REPLACE_STRING));
-        setAliasFormat(LgNamesContent.get(_util,_cust, FORMAT));
-        setAliasEndsWith(LgNamesContent.get(_util,_cust, ENDS_WITH));
-        setAliasCapacity(LgNamesContent.get(_util,_cust, CAPACITY));
-        setAliasSplit(LgNamesContent.get(_util,_cust, SPLIT));
-        setAliasAppend(LgNamesContent.get(_util,_cust, APPEND));
-        setAliasLength(LgNamesContent.get(_util,_cust, LENGTH));
-        setAliasCharAt(LgNamesContent.get(_util,_cust, CHAR_AT));
-        setAliasSame(LgNamesContent.get(_util,_cust, SAME));
-        setAliasReverse(LgNamesContent.get(_util,_cust, REVERSE));
-        setAliasInsert(LgNamesContent.get(_util,_cust, INSERT));
-        setAliasDelete(LgNamesContent.get(_util,_cust, DELETE));
-        setAliasClear(LgNamesContent.get(_util,_cust, CLEAR));
-        setAliasSubstring(LgNamesContent.get(_util,_cust, SUBSTRING));
-        setAliasSetCharAt(LgNamesContent.get(_util,_cust, SET_CHAR_AT));
-        setAliasEqualsIgnoreCase(LgNamesContent.get(_util,_cust, EQUALS_IGNORE_CASE));
-        setAliasDeleteCharAt(LgNamesContent.get(_util,_cust, DELETE_CHAR_AT));
-        setAliasStartsWith(LgNamesContent.get(_util,_cust, STARTS_WITH));
-        setAliasLastIndexOf(LgNamesContent.get(_util,_cust, LAST_INDEX_OF));
-        setAliasRegionMatches(LgNamesContent.get(_util,_cust, REGION_MATCHES));
-        setAliasToLowerCase(LgNamesContent.get(_util,_cust, TO_LOWER_CASE));
-        setAliasStringBuilder(LgNamesContent.get(_util,_cust, STRING_BUILDER));
-        setAliasToUpperCase(LgNamesContent.get(_util,_cust, TO_UPPER_CASE));
-        setAliasEnsureCapacity(LgNamesContent.get(_util,_cust, ENSURE_CAPACITY));
-        setAliasSetLength(LgNamesContent.get(_util,_cust, SET_LENGTH));
-        setAliasTrimToSize(LgNamesContent.get(_util,_cust, TRIM_TO_SIZE));
-        setAliasReplacement(LgNamesContent.get(_util,_cust, REPLACEMENT));
-        setAliasGetOldString(LgNamesContent.get(_util,_cust, GET_OLD_STRING));
-        setAliasGetNewString(LgNamesContent.get(_util,_cust, GET_NEW_STRING));
-        setAliasSubSequence(LgNamesContent.get(_util,_cust, SUB_SEQUENCE));
-        setAliasCompareToIgnoreCase(LgNamesContent.get(_util,_cust, COMPARE_TO_IGNORE_CASE));
-        setAliasToCharArray(LgNamesContent.get(_util,_cust, TO_CHAR_ARRAY));
-        setAliasCharSequenceToString(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE_TO_STRING));
-        setAliasCharSequenceEquals(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE_EQUALS));
-        setAliasCharSequenceCompareTo(LgNamesContent.get(_util,_cust, CHAR_SEQUENCE_COMPARE_TO));
-        setAliasReplaceMultiple(LgNamesContent.get(_util,_cust, REPLACE_MULTIPLE));
-        setAliasSplitStrings(LgNamesContent.get(_util,_cust, SPLIT_STRINGS));
-        setAliasSplitChars(LgNamesContent.get(_util,_cust, SPLIT_CHARS));
+    public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        setAliasCharSequence(LgNamesContent.get(_util,_cust,_mapping.getVal(CHAR_SEQUENCE)));
+        setAliasIndexOf(LgNamesContent.get(_util,_cust,_mapping.getVal(INDEX_OF)));
+        setAliasString(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING)));
+        setAliasStringValueOf(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_VALUE_OF)));
+        setAliasStringCompare(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_COMPARE)));
+        setAliasIsEmpty(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_EMPTY)));
+        setAliasTrim(LgNamesContent.get(_util,_cust,_mapping.getVal(TRIM)));
+        setAliasGetBytes(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_BYTES)));
+        setAliasContains(LgNamesContent.get(_util,_cust,_mapping.getVal(CONTAINS)));
+        setAliasReplace(LgNamesContent.get(_util,_cust,_mapping.getVal(REPLACE)));
+        setAliasReplaceString(LgNamesContent.get(_util,_cust,_mapping.getVal(REPLACE_STRING)));
+        setAliasFormat(LgNamesContent.get(_util,_cust,_mapping.getVal(FORMAT)));
+        setAliasEndsWith(LgNamesContent.get(_util,_cust,_mapping.getVal(ENDS_WITH)));
+        setAliasCapacity(LgNamesContent.get(_util,_cust,_mapping.getVal(CAPACITY)));
+        setAliasSplit(LgNamesContent.get(_util,_cust,_mapping.getVal(SPLIT)));
+        setAliasAppend(LgNamesContent.get(_util,_cust,_mapping.getVal(APPEND)));
+        setAliasLength(LgNamesContent.get(_util,_cust,_mapping.getVal(LENGTH)));
+        setAliasCharAt(LgNamesContent.get(_util,_cust,_mapping.getVal(CHAR_AT)));
+        setAliasSame(LgNamesContent.get(_util,_cust,_mapping.getVal(SAME)));
+        setAliasReverse(LgNamesContent.get(_util,_cust,_mapping.getVal(REVERSE)));
+        setAliasInsert(LgNamesContent.get(_util,_cust,_mapping.getVal(INSERT)));
+        setAliasDelete(LgNamesContent.get(_util,_cust,_mapping.getVal(DELETE)));
+        setAliasClear(LgNamesContent.get(_util,_cust,_mapping.getVal(CLEAR)));
+        setAliasSubstring(LgNamesContent.get(_util,_cust,_mapping.getVal(SUBSTRING)));
+        setAliasSetCharAt(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_CHAR_AT)));
+        setAliasEqualsIgnoreCase(LgNamesContent.get(_util,_cust,_mapping.getVal(EQUALS_IGNORE_CASE)));
+        setAliasDeleteCharAt(LgNamesContent.get(_util,_cust,_mapping.getVal(DELETE_CHAR_AT)));
+        setAliasStartsWith(LgNamesContent.get(_util,_cust,_mapping.getVal(STARTS_WITH)));
+        setAliasLastIndexOf(LgNamesContent.get(_util,_cust,_mapping.getVal(LAST_INDEX_OF)));
+        setAliasRegionMatches(LgNamesContent.get(_util,_cust,_mapping.getVal(REGION_MATCHES)));
+        setAliasToLowerCase(LgNamesContent.get(_util,_cust,_mapping.getVal(TO_LOWER_CASE)));
+        setAliasStringBuilder(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_BUILDER)));
+        setAliasToUpperCase(LgNamesContent.get(_util,_cust,_mapping.getVal(TO_UPPER_CASE)));
+        setAliasEnsureCapacity(LgNamesContent.get(_util,_cust,_mapping.getVal(ENSURE_CAPACITY)));
+        setAliasSetLength(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_LENGTH)));
+        setAliasTrimToSize(LgNamesContent.get(_util,_cust,_mapping.getVal(TRIM_TO_SIZE)));
+        setAliasReplacement(LgNamesContent.get(_util,_cust,_mapping.getVal(REPLACEMENT)));
+        setAliasGetOldString(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_OLD_STRING)));
+        setAliasGetNewString(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_NEW_STRING)));
+        setAliasSubSequence(LgNamesContent.get(_util,_cust,_mapping.getVal(SUB_SEQUENCE)));
+        setAliasCompareToIgnoreCase(LgNamesContent.get(_util,_cust,_mapping.getVal(COMPARE_TO_IGNORE_CASE)));
+        setAliasToCharArray(LgNamesContent.get(_util,_cust,_mapping.getVal(TO_CHAR_ARRAY)));
+        setAliasCharSequenceToString(LgNamesContent.get(_util,_cust,_mapping.getVal(CHAR_SEQUENCE_TO_STRING)));
+        setAliasCharSequenceEquals(LgNamesContent.get(_util,_cust,_mapping.getVal(CHAR_SEQUENCE_EQUALS)));
+        setAliasCharSequenceCompareTo(LgNamesContent.get(_util,_cust,_mapping.getVal(CHAR_SEQUENCE_COMPARE_TO)));
+        setAliasReplaceMultiple(LgNamesContent.get(_util,_cust,_mapping.getVal(REPLACE_MULTIPLE)));
+        setAliasSplitStrings(LgNamesContent.get(_util,_cust,_mapping.getVal(SPLIT_STRINGS)));
+        setAliasSplitChars(LgNamesContent.get(_util,_cust,_mapping.getVal(SPLIT_CHARS)));
     }
-    public StringMap<String> allRefTypes() {
+    public static void en(TranslationsFile _en){
+        _en.add(REPLACEMENT,"Replacement=$core.Replacement");
+        _en.add(CHAR_SEQUENCE,"CharSequence=$core.CharSequence");
+        _en.add(STRING,"String=$core.String");
+        _en.add(STRING_BUILDER,"StringBuilder=$core.StringBuilder");
+        _en.add(GET_NEW_STRING,"GetNewString=getNewString");
+        _en.add(GET_OLD_STRING,"GetOldString=getOldString");
+        _en.add(CHAR_AT,"CharAt=charAt");
+        _en.add(CHAR_SEQUENCE_EQUALS,"CharSequenceEquals=equals");
+        _en.add(CHAR_SEQUENCE_COMPARE_TO,"CharSequenceCompareTo=compareTo");
+        _en.add(CONTAINS,"Contains=contains");
+        _en.add(ENDS_WITH,"EndsWith=endsWith");
+        _en.add(FORMAT,"Format=format");
+        _en.add(GET_BYTES,"GetBytes=getBytes");
+        _en.add(INDEX_OF,"IndexOf=indexOf");
+        _en.add(IS_EMPTY,"IsEmpty=isEmpty");
+        _en.add(LAST_INDEX_OF,"LastIndexOf=lastIndexOf");
+        _en.add(LENGTH,"Length=length");
+        _en.add(REGION_MATCHES,"RegionMatches=regionMatches");
+        _en.add(SPLIT,"Split=split");
+        _en.add(SPLIT_CHARS,"SplitChars=splitChars");
+        _en.add(SPLIT_STRINGS,"SplitStrings=splitStrings");
+        _en.add(STARTS_WITH,"StartsWith=startsWith");
+        _en.add(SUB_SEQUENCE,"SubSequence=subSequence");
+        _en.add(SUBSTRING,"Substring=substring");
+        _en.add(TO_CHAR_ARRAY,"ToCharArray=toCharArray");
+        _en.add(CHAR_SEQUENCE_TO_STRING,"CharSequenceToString=toString");
+        _en.add(TRIM,"Trim=trim");
+        _en.add(REPLACE_STRING,"ReplaceString=replace");
+        _en.add(STRING_COMPARE,"StringCompare=compare");
+        _en.add(COMPARE_TO_IGNORE_CASE,"CompareToIgnoreCase=compareToIgnoreCase");
+        _en.add(EQUALS_IGNORE_CASE,"EqualsIgnoreCase=equalsIgnoreCase");
+        _en.add(REPLACE_MULTIPLE,"ReplaceMultiple=replaceMultiple");
+        _en.add(TO_LOWER_CASE,"ToLowerCase=toLowerCase");
+        _en.add(TO_UPPER_CASE,"ToUpperCase=toUpperCase");
+        _en.add(STRING_VALUE_OF,"StringValueOf=valueOf");
+        _en.add(REPLACE,"Replace=replace");
+        _en.add(APPEND,"Append=append");
+        _en.add(CAPACITY,"Capacity=capacity");
+        _en.add(CLEAR,"Clear=clear");
+        _en.add(DELETE,"Delete=delete");
+        _en.add(DELETE_CHAR_AT,"DeleteCharAt=deleteCharAt");
+        _en.add(ENSURE_CAPACITY,"EnsureCapacity=ensureCapacity");
+        _en.add(INSERT,"Insert=insert");
+        _en.add(REVERSE,"Reverse=reverse");
+        _en.add(SET_CHAR_AT,"SetCharAt=setCharAt");
+        _en.add(SET_LENGTH,"SetLength=setLength");
+        _en.add(SAME,"Same=same");
+        _en.add(TRIM_TO_SIZE,"TrimToSize=trimToSize");
+    }
+    public static void fr(TranslationsFile _fr){
+        _fr.add(REPLACEMENT,"Replacement=$coeur.Remplacement");
+        _fr.add(CHAR_SEQUENCE,"CharSequence=$coeur.SequenceCaractere");
+        _fr.add(STRING,"String=$coeur.Chaine");
+        _fr.add(STRING_BUILDER,"StringBuilder=$coeur.ConstructeurChaine");
+        _fr.add(GET_NEW_STRING,"GetNewString=valChaineApres");
+        _fr.add(GET_OLD_STRING,"GetOldString=valChaineAvant");
+        _fr.add(CHAR_AT,"CharAt=car");
+        _fr.add(CHAR_SEQUENCE_EQUALS,"CharSequenceEquals=egal");
+        _fr.add(CHAR_SEQUENCE_COMPARE_TO,"CharSequenceCompareTo=comparer");
+        _fr.add(CONTAINS,"Contains=contient");
+        _fr.add(ENDS_WITH,"EndsWith=terminePar");
+        _fr.add(FORMAT,"Format=formatter");
+        _fr.add(GET_BYTES,"GetBytes=valOctets");
+        _fr.add(INDEX_OF,"IndexOf=indiceDe");
+        _fr.add(IS_EMPTY,"IsEmpty=estVide");
+        _fr.add(LAST_INDEX_OF,"LastIndexOf=dernierIndiceDe");
+        _fr.add(LENGTH,"Length=longueur");
+        _fr.add(REGION_MATCHES,"RegionMatches=correspondRegions");
+        _fr.add(SPLIT,"Split=separer");
+        _fr.add(SPLIT_CHARS,"SplitChars=separerCaracteres");
+        _fr.add(SPLIT_STRINGS,"SplitStrings=separerChaines");
+        _fr.add(STARTS_WITH,"StartsWith=commencePar");
+        _fr.add(SUB_SEQUENCE,"SubSequence=sousSequence");
+        _fr.add(SUBSTRING,"Substring=sousChaine");
+        _fr.add(TO_CHAR_ARRAY,"ToCharArray=versTableauCaracter");
+        _fr.add(CHAR_SEQUENCE_TO_STRING,"CharSequenceToString=chaine");
+        _fr.add(TRIM,"Trim=trimmer");
+        _fr.add(REPLACE_STRING,"ReplaceString=remplacer");
+        _fr.add(STRING_COMPARE,"StringCompare=compare");
+        _fr.add(COMPARE_TO_IGNORE_CASE,"CompareToIgnoreCase=compareIgnorantCasse");
+        _fr.add(EQUALS_IGNORE_CASE,"EqualsIgnoreCase=egalIgnorantCasse");
+        _fr.add(REPLACE_MULTIPLE,"ReplaceMultiple=remplacerMultiple");
+        _fr.add(TO_LOWER_CASE,"ToLowerCase=versMinuscule");
+        _fr.add(TO_UPPER_CASE,"ToUpperCase=versMajuscule");
+        _fr.add(STRING_VALUE_OF,"StringValueOf=valeurDe");
+        _fr.add(REPLACE,"Replace=remplacer");
+        _fr.add(APPEND,"Append=ajouter");
+        _fr.add(CAPACITY,"Capacity=capacite");
+        _fr.add(CLEAR,"Clear=vider");
+        _fr.add(DELETE,"Delete=supprimer");
+        _fr.add(DELETE_CHAR_AT,"DeleteCharAt=supprimerCaractere");
+        _fr.add(ENSURE_CAPACITY,"EnsureCapacity=assurerCapacite");
+        _fr.add(INSERT,"Insert=inserer");
+        _fr.add(REVERSE,"Reverse=inverser");
+        _fr.add(SET_CHAR_AT,"SetCharAt=majCaractere");
+        _fr.add(SET_LENGTH,"SetLength=majLongueur");
+        _fr.add(SAME,"Same=meme");
+        _fr.add(TRIM_TO_SIZE,"TrimToSize=trimmerTaille");
+    }
+    public static void mapping(StringMap<String> _m){
+        _m.addEntry(REPLACEMENT,"Replacement");
+        _m.addEntry(CHAR_SEQUENCE,"CharSequence");
+        _m.addEntry(STRING,"String");
+        _m.addEntry(STRING_BUILDER,"StringBuilder");
+        _m.addEntry(GET_NEW_STRING,"GetNewString");
+        _m.addEntry(GET_OLD_STRING,"GetOldString");
+        _m.addEntry(CHAR_AT,"CharAt");
+        _m.addEntry(CHAR_SEQUENCE_EQUALS,"CharSequenceEquals");
+        _m.addEntry(CHAR_SEQUENCE_COMPARE_TO,"CharSequenceCompareTo");
+        _m.addEntry(CONTAINS,"Contains");
+        _m.addEntry(ENDS_WITH,"EndsWith");
+        _m.addEntry(FORMAT,"Format");
+        _m.addEntry(GET_BYTES,"GetBytes");
+        _m.addEntry(INDEX_OF,"IndexOf");
+        _m.addEntry(IS_EMPTY,"IsEmpty");
+        _m.addEntry(LAST_INDEX_OF,"LastIndexOf");
+        _m.addEntry(LENGTH,"Length");
+        _m.addEntry(REGION_MATCHES,"RegionMatches");
+        _m.addEntry(SPLIT,"Split");
+        _m.addEntry(SPLIT_CHARS,"SplitChars");
+        _m.addEntry(SPLIT_STRINGS,"SplitStrings");
+        _m.addEntry(STARTS_WITH,"StartsWith");
+        _m.addEntry(SUB_SEQUENCE,"SubSequence");
+        _m.addEntry(SUBSTRING,"Substring");
+        _m.addEntry(TO_CHAR_ARRAY,"ToCharArray");
+        _m.addEntry(CHAR_SEQUENCE_TO_STRING,"CharSequenceToString");
+        _m.addEntry(TRIM,"Trim");
+        _m.addEntry(REPLACE_STRING,"ReplaceString");
+        _m.addEntry(STRING_COMPARE,"StringCompare");
+        _m.addEntry(COMPARE_TO_IGNORE_CASE,"CompareToIgnoreCase");
+        _m.addEntry(EQUALS_IGNORE_CASE,"EqualsIgnoreCase");
+        _m.addEntry(REPLACE_MULTIPLE,"ReplaceMultiple");
+        _m.addEntry(TO_LOWER_CASE,"ToLowerCase");
+        _m.addEntry(TO_UPPER_CASE,"ToUpperCase");
+        _m.addEntry(STRING_VALUE_OF,"StringValueOf");
+        _m.addEntry(REPLACE,"Replace");
+        _m.addEntry(APPEND,"Append");
+        _m.addEntry(CAPACITY,"Capacity");
+        _m.addEntry(CLEAR,"Clear");
+        _m.addEntry(DELETE,"Delete");
+        _m.addEntry(DELETE_CHAR_AT,"DeleteCharAt");
+        _m.addEntry(ENSURE_CAPACITY,"EnsureCapacity");
+        _m.addEntry(INSERT,"Insert");
+        _m.addEntry(REVERSE,"Reverse");
+        _m.addEntry(SET_CHAR_AT,"SetCharAt");
+        _m.addEntry(SET_LENGTH,"SetLength");
+        _m.addEntry(SAME,"Same");
+        _m.addEntry(TRIM_TO_SIZE,"TrimToSize");
+    }
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> list_ = new StringMap<String>();
-        list_.addEntry(REPLACEMENT, getAliasReplacement());
-        list_.addEntry(CHAR_SEQUENCE, getAliasCharSequence());
-        list_.addEntry(STRING,getAliasString());
-        list_.addEntry(STRING_BUILDER,getAliasStringBuilder());
+        list_.addEntry(_mapping.getVal(REPLACEMENT), getAliasReplacement());
+        list_.addEntry(_mapping.getVal(CHAR_SEQUENCE), getAliasCharSequence());
+        list_.addEntry(_mapping.getVal(STRING),getAliasString());
+        list_.addEntry(_mapping.getVal(STRING_BUILDER),getAliasStringBuilder());
         return list_;
     }
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.addEntry(getAliasReplacement(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(GET_NEW_STRING, getAliasGetNewString()),
-                new KeyValueMemberName(GET_OLD_STRING,getAliasGetOldString())));
+                new KeyValueMemberName(_mapping.getVal(GET_NEW_STRING), getAliasGetNewString()),
+                new KeyValueMemberName(_mapping.getVal(GET_OLD_STRING),getAliasGetOldString())));
         map_.addEntry(getAliasCharSequence(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CHAR_AT, getAliasCharAt()),
-                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS, getAliasCharSequenceEquals()),
-                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getAliasCharSequenceCompareTo()),
-                new KeyValueMemberName(CONTAINS,getAliasContains()),
-                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
-                new KeyValueMemberName(FORMAT,getAliasFormat()),
-                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
-                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
-                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
-                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
-                new KeyValueMemberName(LENGTH,getAliasLength()),
-                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
-                new KeyValueMemberName(SPLIT,getAliasSplit()),
-                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
-                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
-                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
-                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
-                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
-                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
-                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getAliasCharSequenceToString()),
-                new KeyValueMemberName(TRIM,getAliasTrim())));
+                new KeyValueMemberName(_mapping.getVal(CHAR_AT), getAliasCharAt()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_EQUALS), getAliasCharSequenceEquals()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_COMPARE_TO), getAliasCharSequenceCompareTo()),
+                new KeyValueMemberName(_mapping.getVal(CONTAINS),getAliasContains()),
+                new KeyValueMemberName(_mapping.getVal(ENDS_WITH),getAliasEndsWith()),
+                new KeyValueMemberName(_mapping.getVal(FORMAT),getAliasFormat()),
+                new KeyValueMemberName(_mapping.getVal(GET_BYTES),getAliasGetBytes()),
+                new KeyValueMemberName(_mapping.getVal(INDEX_OF),getAliasIndexOf()),
+                new KeyValueMemberName(_mapping.getVal(IS_EMPTY),getAliasIsEmpty()),
+                new KeyValueMemberName(_mapping.getVal(LAST_INDEX_OF),getAliasLastIndexOf()),
+                new KeyValueMemberName(_mapping.getVal(LENGTH),getAliasLength()),
+                new KeyValueMemberName(_mapping.getVal(REGION_MATCHES),getAliasRegionMatches()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT),getAliasSplit()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT_CHARS),getAliasSplitChars()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT_STRINGS),getAliasSplitStrings()),
+                new KeyValueMemberName(_mapping.getVal(STARTS_WITH),getAliasStartsWith()),
+                new KeyValueMemberName(_mapping.getVal(SUB_SEQUENCE),getAliasSubSequence()),
+                new KeyValueMemberName(_mapping.getVal(SUBSTRING),getAliasSubstring()),
+                new KeyValueMemberName(_mapping.getVal(TO_CHAR_ARRAY),getAliasToCharArray()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_TO_STRING), getAliasCharSequenceToString()),
+                new KeyValueMemberName(_mapping.getVal(TRIM),getAliasTrim())));
         map_.addEntry(getAliasString(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS,getAliasCharSequenceEquals()),
-                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getAliasCharSequenceCompareTo()),
-                new KeyValueMemberName(CHAR_AT, getAliasCharAt()),
-                new KeyValueMemberName(CONTAINS,getAliasContains()),
-                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
-                new KeyValueMemberName(FORMAT,getAliasFormat()),
-                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
-                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
-                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
-                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
-                new KeyValueMemberName(LENGTH,getAliasLength()),
-                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
-                new KeyValueMemberName(REPLACE_STRING,getAliasReplaceString()),
-                new KeyValueMemberName(SPLIT,getAliasSplit()),
-                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
-                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
-                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
-                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
-                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
-                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
-                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getAliasCharSequenceToString()),
-                new KeyValueMemberName(TRIM,getAliasTrim()),
-                new KeyValueMemberName(STRING_COMPARE, getAliasStringCompare()),
-                new KeyValueMemberName(COMPARE_TO_IGNORE_CASE,getAliasCompareToIgnoreCase()),
-                new KeyValueMemberName(EQUALS_IGNORE_CASE,getAliasEqualsIgnoreCase()),
-                new KeyValueMemberName(REPLACE_MULTIPLE,getAliasReplaceMultiple()),
-                new KeyValueMemberName(TO_LOWER_CASE,getAliasToLowerCase()),
-                new KeyValueMemberName(TO_UPPER_CASE,getAliasToUpperCase()),
-                new KeyValueMemberName(STRING_VALUE_OF, getAliasStringValueOf())));
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_EQUALS),getAliasCharSequenceEquals()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_COMPARE_TO), getAliasCharSequenceCompareTo()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_AT), getAliasCharAt()),
+                new KeyValueMemberName(_mapping.getVal(CONTAINS),getAliasContains()),
+                new KeyValueMemberName(_mapping.getVal(ENDS_WITH),getAliasEndsWith()),
+                new KeyValueMemberName(_mapping.getVal(FORMAT),getAliasFormat()),
+                new KeyValueMemberName(_mapping.getVal(GET_BYTES),getAliasGetBytes()),
+                new KeyValueMemberName(_mapping.getVal(INDEX_OF),getAliasIndexOf()),
+                new KeyValueMemberName(_mapping.getVal(IS_EMPTY),getAliasIsEmpty()),
+                new KeyValueMemberName(_mapping.getVal(LAST_INDEX_OF),getAliasLastIndexOf()),
+                new KeyValueMemberName(_mapping.getVal(LENGTH),getAliasLength()),
+                new KeyValueMemberName(_mapping.getVal(REGION_MATCHES),getAliasRegionMatches()),
+                new KeyValueMemberName(_mapping.getVal(REPLACE_STRING),getAliasReplaceString()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT),getAliasSplit()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT_CHARS),getAliasSplitChars()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT_STRINGS),getAliasSplitStrings()),
+                new KeyValueMemberName(_mapping.getVal(STARTS_WITH),getAliasStartsWith()),
+                new KeyValueMemberName(_mapping.getVal(SUB_SEQUENCE),getAliasSubSequence()),
+                new KeyValueMemberName(_mapping.getVal(SUBSTRING),getAliasSubstring()),
+                new KeyValueMemberName(_mapping.getVal(TO_CHAR_ARRAY),getAliasToCharArray()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_TO_STRING), getAliasCharSequenceToString()),
+                new KeyValueMemberName(_mapping.getVal(TRIM),getAliasTrim()),
+                new KeyValueMemberName(_mapping.getVal(STRING_COMPARE), getAliasStringCompare()),
+                new KeyValueMemberName(_mapping.getVal(COMPARE_TO_IGNORE_CASE),getAliasCompareToIgnoreCase()),
+                new KeyValueMemberName(_mapping.getVal(EQUALS_IGNORE_CASE),getAliasEqualsIgnoreCase()),
+                new KeyValueMemberName(_mapping.getVal(REPLACE_MULTIPLE),getAliasReplaceMultiple()),
+                new KeyValueMemberName(_mapping.getVal(TO_LOWER_CASE),getAliasToLowerCase()),
+                new KeyValueMemberName(_mapping.getVal(TO_UPPER_CASE),getAliasToUpperCase()),
+                new KeyValueMemberName(_mapping.getVal(STRING_VALUE_OF), getAliasStringValueOf())));
         map_.addEntry(getAliasStringBuilder(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CHAR_SEQUENCE_EQUALS, getAliasCharSequenceEquals()),
-                new KeyValueMemberName(CHAR_SEQUENCE_COMPARE_TO, getAliasCharSequenceCompareTo()),
-                new KeyValueMemberName(CHAR_AT,getAliasCharAt()),
-                new KeyValueMemberName(CONTAINS,getAliasContains()),
-                new KeyValueMemberName(ENDS_WITH,getAliasEndsWith()),
-                new KeyValueMemberName(FORMAT,getAliasFormat()),
-                new KeyValueMemberName(GET_BYTES,getAliasGetBytes()),
-                new KeyValueMemberName(INDEX_OF,getAliasIndexOf()),
-                new KeyValueMemberName(IS_EMPTY,getAliasIsEmpty()),
-                new KeyValueMemberName(LAST_INDEX_OF,getAliasLastIndexOf()),
-                new KeyValueMemberName(LENGTH,getAliasLength()),
-                new KeyValueMemberName(REGION_MATCHES,getAliasRegionMatches()),
-                new KeyValueMemberName(REPLACE,getAliasReplace()),
-                new KeyValueMemberName(SPLIT,getAliasSplit()),
-                new KeyValueMemberName(SPLIT_CHARS,getAliasSplitChars()),
-                new KeyValueMemberName(SPLIT_STRINGS,getAliasSplitStrings()),
-                new KeyValueMemberName(STARTS_WITH,getAliasStartsWith()),
-                new KeyValueMemberName(SUB_SEQUENCE,getAliasSubSequence()),
-                new KeyValueMemberName(SUBSTRING,getAliasSubstring()),
-                new KeyValueMemberName(TO_CHAR_ARRAY,getAliasToCharArray()),
-                new KeyValueMemberName(CHAR_SEQUENCE_TO_STRING, getAliasCharSequenceToString()),
-                new KeyValueMemberName(TRIM,getAliasTrim()),
-                new KeyValueMemberName(APPEND,getAliasAppend()),
-                new KeyValueMemberName(CAPACITY,getAliasCapacity()),
-                new KeyValueMemberName(CLEAR,getAliasClear()),
-                new KeyValueMemberName(DELETE,getAliasDelete()),
-                new KeyValueMemberName(DELETE_CHAR_AT,getAliasDeleteCharAt()),
-                new KeyValueMemberName(ENSURE_CAPACITY,getAliasEnsureCapacity()),
-                new KeyValueMemberName(INSERT,getAliasInsert()),
-                new KeyValueMemberName(REVERSE,getAliasReverse()),
-                new KeyValueMemberName(SET_CHAR_AT,getAliasSetCharAt()),
-                new KeyValueMemberName(SET_LENGTH,getAliasSetLength()),
-                new KeyValueMemberName(SAME,getAliasSame()),
-                new KeyValueMemberName(TRIM_TO_SIZE,getAliasTrimToSize())));
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_EQUALS), getAliasCharSequenceEquals()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_COMPARE_TO), getAliasCharSequenceCompareTo()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_AT),getAliasCharAt()),
+                new KeyValueMemberName(_mapping.getVal(CONTAINS),getAliasContains()),
+                new KeyValueMemberName(_mapping.getVal(ENDS_WITH),getAliasEndsWith()),
+                new KeyValueMemberName(_mapping.getVal(FORMAT),getAliasFormat()),
+                new KeyValueMemberName(_mapping.getVal(GET_BYTES),getAliasGetBytes()),
+                new KeyValueMemberName(_mapping.getVal(INDEX_OF),getAliasIndexOf()),
+                new KeyValueMemberName(_mapping.getVal(IS_EMPTY),getAliasIsEmpty()),
+                new KeyValueMemberName(_mapping.getVal(LAST_INDEX_OF),getAliasLastIndexOf()),
+                new KeyValueMemberName(_mapping.getVal(LENGTH),getAliasLength()),
+                new KeyValueMemberName(_mapping.getVal(REGION_MATCHES),getAliasRegionMatches()),
+                new KeyValueMemberName(_mapping.getVal(REPLACE),getAliasReplace()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT),getAliasSplit()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT_CHARS),getAliasSplitChars()),
+                new KeyValueMemberName(_mapping.getVal(SPLIT_STRINGS),getAliasSplitStrings()),
+                new KeyValueMemberName(_mapping.getVal(STARTS_WITH),getAliasStartsWith()),
+                new KeyValueMemberName(_mapping.getVal(SUB_SEQUENCE),getAliasSubSequence()),
+                new KeyValueMemberName(_mapping.getVal(SUBSTRING),getAliasSubstring()),
+                new KeyValueMemberName(_mapping.getVal(TO_CHAR_ARRAY),getAliasToCharArray()),
+                new KeyValueMemberName(_mapping.getVal(CHAR_SEQUENCE_TO_STRING), getAliasCharSequenceToString()),
+                new KeyValueMemberName(_mapping.getVal(TRIM),getAliasTrim()),
+                new KeyValueMemberName(_mapping.getVal(APPEND),getAliasAppend()),
+                new KeyValueMemberName(_mapping.getVal(CAPACITY),getAliasCapacity()),
+                new KeyValueMemberName(_mapping.getVal(CLEAR),getAliasClear()),
+                new KeyValueMemberName(_mapping.getVal(DELETE),getAliasDelete()),
+                new KeyValueMemberName(_mapping.getVal(DELETE_CHAR_AT),getAliasDeleteCharAt()),
+                new KeyValueMemberName(_mapping.getVal(ENSURE_CAPACITY),getAliasEnsureCapacity()),
+                new KeyValueMemberName(_mapping.getVal(INSERT),getAliasInsert()),
+                new KeyValueMemberName(_mapping.getVal(REVERSE),getAliasReverse()),
+                new KeyValueMemberName(_mapping.getVal(SET_CHAR_AT),getAliasSetCharAt()),
+                new KeyValueMemberName(_mapping.getVal(SET_LENGTH),getAliasSetLength()),
+                new KeyValueMemberName(_mapping.getVal(SAME),getAliasSame()),
+                new KeyValueMemberName(_mapping.getVal(TRIM_TO_SIZE),getAliasTrimToSize())));
         return map_;
     }
     public void build(LgNames _lgNames) {

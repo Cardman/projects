@@ -15,8 +15,8 @@ public class BeanAliasGroups extends DefaultAliasGroups {
     }
 
     @Override
-    public StringMap<String> allRefTypes() {
-        StringMap<String> types_ = super.allRefTypes();
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
+        StringMap<String> types_ = super.allRefTypes(_mapping);
         for (EntryCust<String,String> e: beanAliases.allRefTypes().entryList()) {
             types_.addEntry(e.getKey(),e.getValue());
         }
@@ -24,24 +24,24 @@ public class BeanAliasGroups extends DefaultAliasGroups {
     }
 
     @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
-        StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames();
-        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeMethodNames(getContent().getReflect()).entryList()) {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping) {
+        StringMap<CustList<KeyValueMemberName>> methods_ = super.allTableTypeMethodNames(_mapping);
+        for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeMethodNames(getContent().getReflect(),_mapping).entryList()) {
             methods_.addEntry(e.getKey(),e.getValue());
         }
         return methods_;
     }
 
     @Override
-    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
-        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames();
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
+        CustList<CustList<KeyValueMemberName>> m_ = super.allTableTypeMethodParamNames(_mapping);
         m_.addAllElts(beanAliases.allTableTypeMethodParamNames());
         return m_;
     }
 
     @Override
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
-        StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames();
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {
+        StringMap<CustList<KeyValueMemberName>> fields_ = super.allTableTypeFieldNames(_mapping);
         for (EntryCust<String,CustList<KeyValueMemberName>> e: beanAliases.allTableTypeFieldNames().entryList()) {
             fields_.addEntry(e.getKey(),e.getValue());
         }

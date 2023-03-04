@@ -1596,7 +1596,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateMethodsDuplicates(s_, methods_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
+        CustList<KeyValueMemberName> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
         assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
     }
@@ -2258,7 +2258,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         validateParamtersDuplicates(s_, params_);
         validateFieldsDuplicates(s_, fields_);
         validateVarTypesDuplicates(s_, varTypes_);
-        CustList<CustList<KeyValueMemberName>> merge_ = allMergeTableTypeMethodNames(s_);
+        CustList<KeyValueMemberName> merge_ = allMergeTableTypeMethodNames(s_);
         validateMergedDuplicates(s_, merge_);
         assertFalse(s_.getMessages().displayStdErrors(),s_.isEmptyStdError());
         existErrors(s_);
@@ -2308,7 +2308,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         ValidatorStandard.validateFieldsDuplicates(_fields, _s);
     }
 
-    private static void validateMergedDuplicates(AnalyzedPageEl _s, CustList<CustList<KeyValueMemberName>> _merge) {
+    private static void validateMergedDuplicates(AnalyzedPageEl _s, CustList<KeyValueMemberName> _merge) {
         ValidatorStandard.validateMergedDuplicates(_merge, _s);
     }
     @Test
@@ -2346,6 +2346,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
         page_.setMappingKeyWords(KeyWords.mapping());
+        page_.setMappingAliases(LgNamesContent.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(page_));
@@ -2393,6 +2394,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         assertTrue(page_.isEmptyMessageError());
         Forwards forwards_ = fwd(lgName_, fileBuilder_, options_);
         page_.setMappingKeyWords(KeyWords.mapping());
+        page_.setMappingAliases(LgNamesContent.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
         ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
         assertTrue(isEmptyErrors(page_));
@@ -2407,31 +2409,31 @@ public class LgNamesTest extends ProcessMethodCommon {
     }
 
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames();
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodNames(LgNamesContent.mapping());
     }
 
     private static CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames();
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeMethodParamNames(LgNamesContent.mapping());
     }
 
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes();
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeVarTypes(LgNamesContent.mapping());
     }
 
     private static StringMap<String> allPrimitives(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allPrimitives();
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allPrimitives(LgNamesContent.mapping());
     }
 
     private static StringMap<String> allRefTypes(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allRefTypes();
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allRefTypes(LgNamesContent.mapping());
     }
 
-    private static CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames();
+    private static CustList<KeyValueMemberName> allMergeTableTypeMethodNames(AnalyzedPageEl _lgName) {
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allMergeTableTypeMethodNames(LgNamesContent.mapping());
     }
 
     private static StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(AnalyzedPageEl _lgName) {
-        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames();
+        return _lgName.getFileBuilder().getDefaultAliasGroups().allTableTypeFieldNames(LgNamesContent.mapping());
     }
 
 
@@ -2476,7 +2478,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         StringMap<String> cust_ = new StringMap<String>();
         cust_.put("","value");
         LgNamesContent lgNamesContent_ = new LgNamesContent();
-        lgNamesContent_.build(def_, cust_);
+        lgNamesContent_.build(def_, cust_,LgNamesContent.mapping());
         assertEq("",lgNamesContent_.getDefaultPkg());
     }
     @Test

@@ -8,6 +8,7 @@ import code.expressionlanguage.exec.*;
 import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.formathtml.util.BeanCustLgNames;
 import code.formathtml.util.BeanFileBuilder;
 import code.maths.montecarlo.AbstractGenerator;
@@ -41,5 +42,10 @@ public abstract class TestedBeanCustLgNames extends BeanCustLgNames {
     @Override
     public StringMap<String> mappingKeywords() {
         return KeyWords.mapping();
+    }
+
+    @Override
+    public StringMap<String> mappingAliases() {
+        return LgNamesContent.mapping();
     }
 }

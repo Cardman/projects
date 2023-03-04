@@ -33,7 +33,9 @@ import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.sample.CustLgNames;
+import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.structs.*;
+import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -83,6 +85,10 @@ public final class ClassesTest extends ProcessMethodCommon {
         assertSame(NullStruct.NULL_VALUE,NullStruct.defNullValue(null));
         assertSame(NullStruct.NULL_VALUE,NullStruct.defNullValue(NullStruct.DEF_VALUE));
         assertSame(NullStruct.NULL_VALUE,NullStruct.defNullValue(NullStruct.NULL_VALUE));
+        TranslationsFile tr_ = new TranslationsFile();
+        LgNamesContent.en(tr_);
+        LgNamesContent.fr(tr_);
+        assertFalse(tr_.getMapping().isEmpty());
     }
 
     @Test

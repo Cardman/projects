@@ -5,43 +5,44 @@ import code.expressionlanguage.common.CstFieldInfo;
 import code.expressionlanguage.fcts.*;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
+import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class AliasMathType {
-    private static final String MATH = "Math";
-    private static final String MOD = "Mod";
-    private static final String ABS = "Abs";
-    private static final String MAX = "Max";
-    private static final String MIN = "Min";
-    private static final String QUOT = "Quot";
-    private static final String XOR = "Xor";
-    private static final String MULT = "Mult";
-    private static final String RANDOM = "Random";
-    private static final String NATIVE_RANDOM = "NativeRandom";
-    private static final String EVAL = "Eval";
-    private static final String SEED = "Seed";
-    private static final String SEED_SPEC_GENERATOR = "SeedSpecGenerator";
-    private static final String SEED_SPEC_DOUBLE_GENERATOR = "SeedSpecDoubleGenerator";
-    private static final String NEG_BIN = "NegBin";
-    private static final String MINUS = "Minus";
-    private static final String BIN_MOD = "BinMod";
-    private static final String LT = "Lt";
-    private static final String GT = "Gt";
-    private static final String LE = "Le";
-    private static final String GE = "Ge";
-    private static final String AND = "And";
-    private static final String OR = "Or";
-    private static final String PLUS = "Plus";
-    private static final String BIN_QUOT = "BinQuot";
-    private static final String NEG = "Neg";
-    private static final String ROTATE_LEFT = "RotateLeft";
-    private static final String SHIFT_RIGHT = "ShiftRight";
-    private static final String ROTATE_RIGHT = "RotateRight";
-    private static final String BIT_SHIFT_LEFT = "BitShiftLeft";
-    private static final String SHIFT_LEFT = "ShiftLeft";
-    private static final String BIT_SHIFT_RIGHT = "BitShiftRight";
+    private static final String MATH="485";
+    private static final String ABS="486";
+    private static final String MAX="487";
+    private static final String MIN="488";
+    private static final String MOD="489";
+    private static final String QUOT="490";
+    private static final String BIN_MOD="491";
+    private static final String BIN_QUOT="492";
+    private static final String PLUS="493";
+    private static final String MINUS="494";
+    private static final String MULT="495";
+    private static final String NEG_BIN="496";
+    private static final String NEG="497";
+    private static final String AND="498";
+    private static final String OR="499";
+    private static final String XOR="500";
+    private static final String LE="501";
+    private static final String GE="502";
+    private static final String LT="503";
+    private static final String GT="504";
+    private static final String SHIFT_LEFT="505";
+    private static final String SHIFT_RIGHT="506";
+    private static final String BIT_SHIFT_LEFT="507";
+    private static final String BIT_SHIFT_RIGHT="508";
+    private static final String ROTATE_LEFT="509";
+    private static final String ROTATE_RIGHT="510";
+    private static final String RANDOM="511";
+    private static final String NATIVE_RANDOM="512";
+    private static final String EVAL="______1791";
+    private static final String SEED="______1792";
+    private static final String SEED_SPEC_GENERATOR="______1797";
+    private static final String SEED_SPEC_DOUBLE_GENERATOR="______1798";
     private String aliasAbs;
     private String aliasMax;
     private String aliasMin;
@@ -75,79 +76,181 @@ public final class AliasMathType {
     private String aliasSeedSpecGenerator;
     private String aliasSeedSpecDoubleGenerator;
     private final AliasParamMath params = new AliasParamMath();
-    public void build(StringMap<String> _util, StringMap<String> _cust) {
-        setAliasMath(LgNamesContent.get(_util,_cust, MATH));
-        setAliasMod(LgNamesContent.get(_util,_cust, MOD));
-        setAliasAbs(LgNamesContent.get(_util,_cust, ABS));
-        setAliasMax(LgNamesContent.get(_util,_cust, MAX));
-        setAliasMin(LgNamesContent.get(_util,_cust, MIN));
-        setAliasQuot(LgNamesContent.get(_util,_cust, QUOT));
-        setAliasXor(LgNamesContent.get(_util,_cust, XOR));
-        setAliasMult(LgNamesContent.get(_util,_cust, MULT));
-        setAliasRandom(LgNamesContent.get(_util,_cust, RANDOM));
-        setAliasNativeRandom(LgNamesContent.get(_util,_cust, NATIVE_RANDOM));
-        setAliasEval(LgNamesContent.get(_util,_cust, EVAL));
-        setAliasSeed(LgNamesContent.get(_util,_cust, SEED));
-        setAliasSeedSpecGenerator(LgNamesContent.get(_util,_cust, SEED_SPEC_GENERATOR));
-        setAliasSeedSpecDoubleGenerator(LgNamesContent.get(_util,_cust, SEED_SPEC_DOUBLE_GENERATOR));
-        setAliasNegBin(LgNamesContent.get(_util,_cust, NEG_BIN));
-        setAliasMinus(LgNamesContent.get(_util,_cust, MINUS));
-        setAliasBinMod(LgNamesContent.get(_util,_cust, BIN_MOD));
-        setAliasLt(LgNamesContent.get(_util,_cust, LT));
-        setAliasGt(LgNamesContent.get(_util,_cust, GT));
-        setAliasLe(LgNamesContent.get(_util,_cust, LE));
-        setAliasGe(LgNamesContent.get(_util,_cust, GE));
-        setAliasAnd(LgNamesContent.get(_util,_cust, AND));
-        setAliasOr(LgNamesContent.get(_util,_cust, OR));
-        setAliasPlus(LgNamesContent.get(_util,_cust, PLUS));
-        setAliasBinQuot(LgNamesContent.get(_util,_cust, BIN_QUOT));
-        setAliasNeg(LgNamesContent.get(_util,_cust, NEG));
-        setAliasRotateLeft(LgNamesContent.get(_util,_cust, ROTATE_LEFT));
-        setAliasShiftRight(LgNamesContent.get(_util,_cust, SHIFT_RIGHT));
-        setAliasRotateRight(LgNamesContent.get(_util,_cust, ROTATE_RIGHT));
-        setAliasBitShiftLeft(LgNamesContent.get(_util,_cust, BIT_SHIFT_LEFT));
-        setAliasShiftLeft(LgNamesContent.get(_util,_cust, SHIFT_LEFT));
-        setAliasBitShiftRight(LgNamesContent.get(_util,_cust, BIT_SHIFT_RIGHT));
+    public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        setAliasMath(LgNamesContent.get(_util,_cust,_mapping.getVal(MATH)));
+        setAliasMod(LgNamesContent.get(_util,_cust,_mapping.getVal(MOD)));
+        setAliasAbs(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS)));
+        setAliasMax(LgNamesContent.get(_util,_cust,_mapping.getVal(MAX)));
+        setAliasMin(LgNamesContent.get(_util,_cust,_mapping.getVal(MIN)));
+        setAliasQuot(LgNamesContent.get(_util,_cust,_mapping.getVal(QUOT)));
+        setAliasXor(LgNamesContent.get(_util,_cust,_mapping.getVal(XOR)));
+        setAliasMult(LgNamesContent.get(_util,_cust,_mapping.getVal(MULT)));
+        setAliasRandom(LgNamesContent.get(_util,_cust,_mapping.getVal(RANDOM)));
+        setAliasNativeRandom(LgNamesContent.get(_util,_cust,_mapping.getVal(NATIVE_RANDOM)));
+        setAliasEval(LgNamesContent.get(_util,_cust,_mapping.getVal(EVAL)));
+        setAliasSeed(LgNamesContent.get(_util,_cust,_mapping.getVal(SEED)));
+        setAliasSeedSpecGenerator(LgNamesContent.get(_util,_cust,_mapping.getVal(SEED_SPEC_GENERATOR)));
+        setAliasSeedSpecDoubleGenerator(LgNamesContent.get(_util,_cust,_mapping.getVal(SEED_SPEC_DOUBLE_GENERATOR)));
+        setAliasNegBin(LgNamesContent.get(_util,_cust,_mapping.getVal(NEG_BIN)));
+        setAliasMinus(LgNamesContent.get(_util,_cust,_mapping.getVal(MINUS)));
+        setAliasBinMod(LgNamesContent.get(_util,_cust,_mapping.getVal(BIN_MOD)));
+        setAliasLt(LgNamesContent.get(_util,_cust,_mapping.getVal(LT)));
+        setAliasGt(LgNamesContent.get(_util,_cust,_mapping.getVal(GT)));
+        setAliasLe(LgNamesContent.get(_util,_cust,_mapping.getVal(LE)));
+        setAliasGe(LgNamesContent.get(_util,_cust,_mapping.getVal(GE)));
+        setAliasAnd(LgNamesContent.get(_util,_cust,_mapping.getVal(AND)));
+        setAliasOr(LgNamesContent.get(_util,_cust,_mapping.getVal(OR)));
+        setAliasPlus(LgNamesContent.get(_util,_cust,_mapping.getVal(PLUS)));
+        setAliasBinQuot(LgNamesContent.get(_util,_cust,_mapping.getVal(BIN_QUOT)));
+        setAliasNeg(LgNamesContent.get(_util,_cust,_mapping.getVal(NEG)));
+        setAliasRotateLeft(LgNamesContent.get(_util,_cust,_mapping.getVal(ROTATE_LEFT)));
+        setAliasShiftRight(LgNamesContent.get(_util,_cust,_mapping.getVal(SHIFT_RIGHT)));
+        setAliasRotateRight(LgNamesContent.get(_util,_cust,_mapping.getVal(ROTATE_RIGHT)));
+        setAliasBitShiftLeft(LgNamesContent.get(_util,_cust,_mapping.getVal(BIT_SHIFT_LEFT)));
+        setAliasShiftLeft(LgNamesContent.get(_util,_cust,_mapping.getVal(SHIFT_LEFT)));
+        setAliasBitShiftRight(LgNamesContent.get(_util,_cust,_mapping.getVal(BIT_SHIFT_RIGHT)));
     }
-    public StringMap<String> allRefTypes() {
+    public static void en(TranslationsFile _en){
+        _en.add(MATH,"Math=$core.Math");
+        _en.add(ABS,"Abs=abs");
+        _en.add(MAX,"Max=max");
+        _en.add(MIN,"Min=min");
+        _en.add(MOD,"Mod=mod");
+        _en.add(QUOT,"Quot=quot");
+        _en.add(BIN_MOD,"BinMod=binMod");
+        _en.add(BIN_QUOT,"BinQuot=binQuot");
+        _en.add(PLUS,"Plus=plus");
+        _en.add(MINUS,"Minus=minus");
+        _en.add(MULT,"Mult=mult");
+        _en.add(NEG_BIN,"NegBin=negBin");
+        _en.add(NEG,"Neg=neg");
+        _en.add(AND,"And=and");
+        _en.add(OR,"Or=or");
+        _en.add(XOR,"Xor=xor");
+        _en.add(LE,"Le=le");
+        _en.add(GE,"Ge=ge");
+        _en.add(LT,"Lt=lt");
+        _en.add(GT,"Gt=gt");
+        _en.add(SHIFT_LEFT,"ShiftLeft=shiftLeft");
+        _en.add(SHIFT_RIGHT,"ShiftRight=shiftRight");
+        _en.add(BIT_SHIFT_LEFT,"BitShiftLeft=bitShiftLeft");
+        _en.add(BIT_SHIFT_RIGHT,"BitShiftRight=bitShiftRight");
+        _en.add(ROTATE_LEFT,"RotateLeft=rotateLeft");
+        _en.add(ROTATE_RIGHT,"RotateRight=rotateRight");
+        _en.add(RANDOM,"Random=random");
+        _en.add(NATIVE_RANDOM,"NativeRandom=natRandom");
+        _en.add(EVAL,"Eval=eval");
+        _en.add(SEED,"Seed=seed");
+        _en.add(SEED_SPEC_GENERATOR,"SeedSpecGenerator=seedGenerator");
+        _en.add(SEED_SPEC_DOUBLE_GENERATOR,"SeedSpecDoubleGenerator=seedDoubleGenerator");
+    }
+    public static void fr(TranslationsFile _fr){
+        _fr.add(MATH,"Math=$coeur.Math");
+        _fr.add(ABS,"Abs=abs");
+        _fr.add(MAX,"Max=max");
+        _fr.add(MIN,"Min=min");
+        _fr.add(MOD,"Mod=mod");
+        _fr.add(QUOT,"Quot=quot");
+        _fr.add(BIN_MOD,"BinMod=binMod");
+        _fr.add(BIN_QUOT,"BinQuot=binQuot");
+        _fr.add(PLUS,"Plus=plus");
+        _fr.add(MINUS,"Minus=moins");
+        _fr.add(MULT,"Mult=mult");
+        _fr.add(NEG_BIN,"NegBin=negBin");
+        _fr.add(NEG,"Neg=neg");
+        _fr.add(AND,"And=et");
+        _fr.add(OR,"Or=ou");
+        _fr.add(XOR,"Xor=ouExc");
+        _fr.add(LE,"Le=pqe");
+        _fr.add(GE,"Ge=gqe");
+        _fr.add(LT,"Lt=pq");
+        _fr.add(GT,"Gt=gq");
+        _fr.add(SHIFT_LEFT,"ShiftLeft=glisserGauche");
+        _fr.add(SHIFT_RIGHT,"ShiftRight=glisserDroite");
+        _fr.add(BIT_SHIFT_LEFT,"BitShiftLeft=binGlisserGauche");
+        _fr.add(BIT_SHIFT_RIGHT,"BitShiftRight=binGlisserDroite");
+        _fr.add(ROTATE_LEFT,"RotateLeft=rotGauche");
+        _fr.add(ROTATE_RIGHT,"RotateRight=rotDroite");
+        _fr.add(RANDOM,"Random=alea");
+        _fr.add(NATIVE_RANDOM,"NativeRandom=natAlea");
+        _fr.add(EVAL,"Eval=eval");
+        _fr.add(SEED,"Seed=graine");
+        _fr.add(SEED_SPEC_GENERATOR,"SeedSpecGenerator=graineGenerateur");
+        _fr.add(SEED_SPEC_DOUBLE_GENERATOR,"SeedSpecDoubleGenerator=graineGenerateurDec");
+    }
+    public static void mapping(StringMap<String> _m){
+        _m.addEntry(MATH,"Math");
+        _m.addEntry(ABS,"Abs");
+        _m.addEntry(MAX,"Max");
+        _m.addEntry(MIN,"Min");
+        _m.addEntry(MOD,"Mod");
+        _m.addEntry(QUOT,"Quot");
+        _m.addEntry(BIN_MOD,"BinMod");
+        _m.addEntry(BIN_QUOT,"BinQuot");
+        _m.addEntry(PLUS,"Plus");
+        _m.addEntry(MINUS,"Minus");
+        _m.addEntry(MULT,"Mult");
+        _m.addEntry(NEG_BIN,"NegBin");
+        _m.addEntry(NEG,"Neg");
+        _m.addEntry(AND,"And");
+        _m.addEntry(OR,"Or");
+        _m.addEntry(XOR,"Xor");
+        _m.addEntry(LE,"Le");
+        _m.addEntry(GE,"Ge");
+        _m.addEntry(LT,"Lt");
+        _m.addEntry(GT,"Gt");
+        _m.addEntry(SHIFT_LEFT,"ShiftLeft");
+        _m.addEntry(SHIFT_RIGHT,"ShiftRight");
+        _m.addEntry(BIT_SHIFT_LEFT,"BitShiftLeft");
+        _m.addEntry(BIT_SHIFT_RIGHT,"BitShiftRight");
+        _m.addEntry(ROTATE_LEFT,"RotateLeft");
+        _m.addEntry(ROTATE_RIGHT,"RotateRight");
+        _m.addEntry(RANDOM,"Random");
+        _m.addEntry(NATIVE_RANDOM,"NativeRandom");
+        _m.addEntry(EVAL,"Eval");
+        _m.addEntry(SEED,"Seed");
+        _m.addEntry(SEED_SPEC_GENERATOR,"SeedSpecGenerator");
+        _m.addEntry(SEED_SPEC_DOUBLE_GENERATOR,"SeedSpecDoubleGenerator");
+    }
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> list_ = new StringMap<String>();
-        list_.addEntry(MATH, getAliasMath());
+        list_.addEntry(_mapping.getVal(MATH), getAliasMath());
         return list_;
     }
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.addEntry(getAliasMath(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ABS, getAliasAbs()),
-                new KeyValueMemberName(MAX, getAliasMax()),
-                new KeyValueMemberName(MIN, getAliasMin()),
-                new KeyValueMemberName(MOD,getAliasMod()),
-                new KeyValueMemberName(QUOT,getAliasQuot()),
-                new KeyValueMemberName(BIN_MOD,getAliasBinMod()),
-                new KeyValueMemberName(BIN_QUOT,getAliasBinQuot()),
-                new KeyValueMemberName(PLUS,getAliasPlus()),
-                new KeyValueMemberName(MINUS,getAliasMinus()),
-                new KeyValueMemberName(MULT,getAliasMult()),
-                new KeyValueMemberName(NEG_BIN,getAliasNegBin()),
-                new KeyValueMemberName(NEG,getAliasNeg()),
-                new KeyValueMemberName(AND,getAliasAnd()),
-                new KeyValueMemberName(OR,getAliasOr()),
-                new KeyValueMemberName(XOR,getAliasXor()),
-                new KeyValueMemberName(LE,getAliasLe()),
-                new KeyValueMemberName(GE,getAliasGe()),
-                new KeyValueMemberName(LT,getAliasLt()),
-                new KeyValueMemberName(GT,getAliasGt()),
-                new KeyValueMemberName(SHIFT_LEFT,getAliasShiftLeft()),
-                new KeyValueMemberName(SHIFT_RIGHT,getAliasShiftRight()),
-                new KeyValueMemberName(BIT_SHIFT_LEFT,getAliasBitShiftLeft()),
-                new KeyValueMemberName(BIT_SHIFT_RIGHT,getAliasBitShiftRight()),
-                new KeyValueMemberName(ROTATE_LEFT,getAliasRotateLeft()),
-                new KeyValueMemberName(ROTATE_RIGHT,getAliasRotateRight()),
-                new KeyValueMemberName(RANDOM,getAliasRandom()),
-                new KeyValueMemberName(NATIVE_RANDOM,getAliasNativeRandom()),
-                new KeyValueMemberName(EVAL,getAliasEval()),
-                new KeyValueMemberName(SEED,getAliasSeed()),
-                new KeyValueMemberName(SEED_SPEC_GENERATOR,getAliasSeedSpecGenerator()),
-                new KeyValueMemberName(SEED_SPEC_DOUBLE_GENERATOR,getAliasSeedSpecDoubleGenerator())));
+                new KeyValueMemberName(_mapping.getVal(ABS), getAliasAbs()),
+                new KeyValueMemberName(_mapping.getVal(MAX), getAliasMax()),
+                new KeyValueMemberName(_mapping.getVal(MIN), getAliasMin()),
+                new KeyValueMemberName(_mapping.getVal(MOD),getAliasMod()),
+                new KeyValueMemberName(_mapping.getVal(QUOT),getAliasQuot()),
+                new KeyValueMemberName(_mapping.getVal(BIN_MOD),getAliasBinMod()),
+                new KeyValueMemberName(_mapping.getVal(BIN_QUOT),getAliasBinQuot()),
+                new KeyValueMemberName(_mapping.getVal(PLUS),getAliasPlus()),
+                new KeyValueMemberName(_mapping.getVal(MINUS),getAliasMinus()),
+                new KeyValueMemberName(_mapping.getVal(MULT),getAliasMult()),
+                new KeyValueMemberName(_mapping.getVal(NEG_BIN),getAliasNegBin()),
+                new KeyValueMemberName(_mapping.getVal(NEG),getAliasNeg()),
+                new KeyValueMemberName(_mapping.getVal(AND),getAliasAnd()),
+                new KeyValueMemberName(_mapping.getVal(OR),getAliasOr()),
+                new KeyValueMemberName(_mapping.getVal(XOR),getAliasXor()),
+                new KeyValueMemberName(_mapping.getVal(LE),getAliasLe()),
+                new KeyValueMemberName(_mapping.getVal(GE),getAliasGe()),
+                new KeyValueMemberName(_mapping.getVal(LT),getAliasLt()),
+                new KeyValueMemberName(_mapping.getVal(GT),getAliasGt()),
+                new KeyValueMemberName(_mapping.getVal(SHIFT_LEFT),getAliasShiftLeft()),
+                new KeyValueMemberName(_mapping.getVal(SHIFT_RIGHT),getAliasShiftRight()),
+                new KeyValueMemberName(_mapping.getVal(BIT_SHIFT_LEFT),getAliasBitShiftLeft()),
+                new KeyValueMemberName(_mapping.getVal(BIT_SHIFT_RIGHT),getAliasBitShiftRight()),
+                new KeyValueMemberName(_mapping.getVal(ROTATE_LEFT),getAliasRotateLeft()),
+                new KeyValueMemberName(_mapping.getVal(ROTATE_RIGHT),getAliasRotateRight()),
+                new KeyValueMemberName(_mapping.getVal(RANDOM),getAliasRandom()),
+                new KeyValueMemberName(_mapping.getVal(NATIVE_RANDOM),getAliasNativeRandom()),
+                new KeyValueMemberName(_mapping.getVal(EVAL),getAliasEval()),
+                new KeyValueMemberName(_mapping.getVal(SEED),getAliasSeed()),
+                new KeyValueMemberName(_mapping.getVal(SEED_SPEC_GENERATOR),getAliasSeedSpecGenerator()),
+                new KeyValueMemberName(_mapping.getVal(SEED_SPEC_DOUBLE_GENERATOR),getAliasSeedSpecDoubleGenerator())));
         return map_;
     }
     public void build(LgNames _stds) {

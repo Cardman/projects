@@ -8,38 +8,57 @@ import code.expressionlanguage.fcts.FctStackTraceCurrentFull;
 import code.expressionlanguage.fcts.FctStackTraceToStr;
 import code.expressionlanguage.functionid.MethodModifier;
 import code.expressionlanguage.functionid.StdClassModifier;
+import code.sml.util.TranslationsFile;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
 
 public final class AliasStackTraceElementType {
-    private static final String CURRENT_FULL_STACK = "CurrentFullStack";
-    private static final String STACK_TRACE_ELEMENT_TO_STRING = "StackTraceElementToString";
-    private static final String STACK_TRACE_ELEMENT = "StackTraceElement";
-    private static final String CURRENT_STACK = "CurrentStack";
+    private static final String STACK_TRACE_ELEMENT="_________1877";
+    private static final String CURRENT_STACK="_________1878";
+    private static final String CURRENT_FULL_STACK="_________1879";
+    private static final String STACK_TRACE_ELEMENT_TO_STRING="_________1880";
     private String aliasStackTraceElement;
     private String aliasStackTraceElementToString;
 
     private String aliasCurrentStack;
     private String aliasCurrentFullStack;
 
-    public void build(StringMap<String> _util, StringMap<String> _cust) {
-        setAliasCurrentFullStack(LgNamesContent.get(_util,_cust, CURRENT_FULL_STACK));
-        setAliasStackTraceElementToString(LgNamesContent.get(_util,_cust, STACK_TRACE_ELEMENT_TO_STRING));
-        setAliasStackTraceElement(LgNamesContent.get(_util,_cust, STACK_TRACE_ELEMENT));
-        setAliasCurrentStack(LgNamesContent.get(_util,_cust, CURRENT_STACK));
+    public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        setAliasCurrentFullStack(LgNamesContent.get(_util,_cust,_mapping.getVal(CURRENT_FULL_STACK)));
+        setAliasStackTraceElementToString(LgNamesContent.get(_util,_cust,_mapping.getVal(STACK_TRACE_ELEMENT_TO_STRING)));
+        setAliasStackTraceElement(LgNamesContent.get(_util,_cust,_mapping.getVal(STACK_TRACE_ELEMENT)));
+        setAliasCurrentStack(LgNamesContent.get(_util,_cust,_mapping.getVal(CURRENT_STACK)));
     }
-    public StringMap<String> allRefTypes() {
+    public static void en(TranslationsFile _en){
+        _en.add(STACK_TRACE_ELEMENT,"StackTraceElement=$core.Stack");
+        _en.add(CURRENT_STACK,"CurrentStack=current");
+        _en.add(CURRENT_FULL_STACK,"CurrentFullStack=currentFull");
+        _en.add(STACK_TRACE_ELEMENT_TO_STRING,"StackTraceElementToString=toString");
+    }
+    public static void fr(TranslationsFile _fr){
+        _fr.add(STACK_TRACE_ELEMENT,"StackTraceElement=$coeur.Pile");
+        _fr.add(CURRENT_STACK,"CurrentStack=courante");
+        _fr.add(CURRENT_FULL_STACK,"CurrentFullStack=couranteComplete");
+        _fr.add(STACK_TRACE_ELEMENT_TO_STRING,"StackTraceElementToString=chaine");
+    }
+    public static void mapping(StringMap<String> _m){
+        _m.addEntry(STACK_TRACE_ELEMENT,"StackTraceElement");
+        _m.addEntry(CURRENT_STACK,"CurrentStack");
+        _m.addEntry(CURRENT_FULL_STACK,"CurrentFullStack");
+        _m.addEntry(STACK_TRACE_ELEMENT_TO_STRING,"StackTraceElementToString");
+    }
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> list_ = new StringMap<String>();
-        list_.addEntry(STACK_TRACE_ELEMENT, getAliasStackTraceElement());
+        list_.addEntry(_mapping.getVal(STACK_TRACE_ELEMENT), getAliasStackTraceElement());
         return list_;
     }
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> map_ = new StringMap<CustList<KeyValueMemberName>>();
         map_.addEntry(getAliasStackTraceElement(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CURRENT_STACK, getAliasCurrentStack()),
-                new KeyValueMemberName(CURRENT_FULL_STACK,getAliasCurrentFullStack()),
-                new KeyValueMemberName(STACK_TRACE_ELEMENT_TO_STRING, getAliasStackTraceElementToString())));
+                new KeyValueMemberName(_mapping.getVal(CURRENT_STACK), getAliasCurrentStack()),
+                new KeyValueMemberName(_mapping.getVal(CURRENT_FULL_STACK),getAliasCurrentFullStack()),
+                new KeyValueMemberName(_mapping.getVal(STACK_TRACE_ELEMENT_TO_STRING), getAliasStackTraceElementToString())));
         return map_;
     }
     public void build(LgNames _stds) {

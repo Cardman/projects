@@ -1,6 +1,7 @@
 package code.expressionlanguage.utilcompo;
 
 import code.expressionlanguage.filenames.AbstractNameValidating;
+import code.expressionlanguage.guicompos.GuiAliases;
 import code.expressionlanguage.utilimpl.MessCdmKeywords;
 import code.expressionlanguage.utilimpl.MessCdmLogs;
 import code.gui.initialize.AbstractLightProgramInfos;
@@ -23,6 +24,8 @@ public final class FileInfos {
     public static final String COMM_END = "2";
     public static final String MESSAGES = "messages";
     public static final String KEYWORDS = "keywords";
+    public static final String TYPES = "types";
+    public static final String TYPES_GUI = "types_gui";
 
     private final AbstractLogger logger;
     private final AbstractFileSystem fileSystem;
@@ -52,10 +55,14 @@ public final class FileInfos {
     public static void enTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.en());
         _lgs.getMapping().addEntry(KEYWORDS, MessCdmKeywords.en());
+        _lgs.getMapping().addEntry(TYPES, CustAliases.en());
+        _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.en());
     }
     public static void frTr(TranslationsAppli _lgs) {
         _lgs.getMapping().addEntry(MESSAGES, MessCdmLogs.fr());
         _lgs.getMapping().addEntry(KEYWORDS, MessCdmKeywords.fr());
+        _lgs.getMapping().addEntry(TYPES, CustAliases.fr());
+        _lgs.getMapping().addEntry(TYPES_GUI, GuiAliases.fr());
     }
 
     public static TranslationsAppli initComments(TranslationsLg _lgs) {

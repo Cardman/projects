@@ -16,18 +16,6 @@ import code.util.StringMap;
 
 public abstract class LgNames implements BuildableLgNames {
 
-    public static final String ITERATOR = "Iterator";
-    public static final String HAS_NEXT = "HasNext";
-    public static final String NEXT = "Next";
-    public static final String GET_FIRST = "GetFirst";
-    public static final String NEXT_PAIR = "NextPair";
-    public static final String ITERATOR_TABLE = "IteratorTable";
-    public static final String HAS_NEXT_PAIR = "HasNextPair";
-    public static final String GET_SECOND = "GetSecond";
-    public static final String SEED_GET = "SeedGet";
-    public static final String ENUM_NAME = "EnumName";
-    public static final String ENUM_ORDINAL = "EnumOrdinal";
-
     private final LgNamesContent content = new LgNamesContent();
 
     private final AbstractGenerator generator;

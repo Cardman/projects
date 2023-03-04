@@ -83,7 +83,7 @@ public final class ContextFactory {
         StringMap<String> nbWords_ = _definedKw.allNbWords(_page.getMappingKeyWords(),_definedKw.allNbWordsBasic(_page.getMappingKeyWords()));
         _definedKw.validateNbWordContents(nbWords_, _page);
         _definedKw.validateBinarySeparators(_page);
-        StringMap<String> prims_ = defaultAliasGroups_.allPrimitives();
+        StringMap<String> prims_ = defaultAliasGroups_.allPrimitives(_page.getMappingAliases());
         ValidatorStandard.validatePrimitiveContents(prims_, _page);
         ValidatorStandard.validatePrimitiveDuplicates(prims_, _page);
         _definedKw.validateKeyWordDuplicates(keyWords_, _page);
@@ -97,26 +97,26 @@ public final class ContextFactory {
         StringMap<String> nbWordsPreBin_ = _definedKw.allNbWords(_page.getMappingKeyWords(),_definedKw.allNbWordsPreBin(_page.getMappingKeyWords()));
         _definedKw.validateNbWordDuplicates(nbWordsPreBin_, _page);
         _definedKw.validateStartsPrefixesDuplicates(_page);
-        StringMap<String> refTypes_ = defaultAliasGroups_.allRefTypes();
+        StringMap<String> refTypes_ = defaultAliasGroups_.allRefTypes(_page.getMappingAliases());
         ValidatorStandard.validateRefTypeContents(refTypes_, prims_, _page);
         boolean dup_ = ValidatorStandard.validateRefTypeDuplicates(refTypes_, _page);
         if (dup_) {
             return false;
         }
-        StringMap<CustList<KeyValueMemberName>> methods_ = defaultAliasGroups_.allTableTypeMethodNames();
+        StringMap<CustList<KeyValueMemberName>> methods_ = defaultAliasGroups_.allTableTypeMethodNames(_page.getMappingAliases());
         ValidatorStandard.validateMethodsContents(methods_, prims_, _page);
-        CustList<CustList<KeyValueMemberName>> params_ = defaultAliasGroups_.allTableTypeMethodParamNames();
+        CustList<CustList<KeyValueMemberName>> params_ = defaultAliasGroups_.allTableTypeMethodParamNames(_page.getMappingAliases());
         ValidatorStandard.validateParamtersContents(params_, prims_, _page);
-        StringMap<CustList<KeyValueMemberName>> fields_ = defaultAliasGroups_.allTableTypeFieldNames();
+        StringMap<CustList<KeyValueMemberName>> fields_ = defaultAliasGroups_.allTableTypeFieldNames(_page.getMappingAliases());
         ValidatorStandard.validateFieldsContents(fields_, prims_, _page);
-        StringMap<CustList<KeyValueMemberName>> varTypes_ = defaultAliasGroups_.allTableTypeVarTypes();
+        StringMap<CustList<KeyValueMemberName>> varTypes_ = defaultAliasGroups_.allTableTypeVarTypes(_page.getMappingAliases());
         ValidatorStandard.validateVarTypesContents(varTypes_, prims_, _page);
         //duplicates
         ValidatorStandard.validateMethodsDuplicates(methods_, _page);
         ValidatorStandard.validateParamtersDuplicates(params_, _page);
         ValidatorStandard.validateFieldsDuplicates(fields_, _page);
         ValidatorStandard.validateVarTypesDuplicates(varTypes_, _page);
-        CustList<CustList<KeyValueMemberName>> merge_ = defaultAliasGroups_.allMergeTableTypeMethodNames();
+        CustList<KeyValueMemberName> merge_ = defaultAliasGroups_.allMergeTableTypeMethodNames(_page.getMappingAliases());
         ValidatorStandard.validateMergedDuplicates(merge_, _page);
         return _page.isEmptyStdError();
     }

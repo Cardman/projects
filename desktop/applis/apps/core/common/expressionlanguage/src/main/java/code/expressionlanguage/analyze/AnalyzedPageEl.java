@@ -156,6 +156,7 @@ public final class AnalyzedPageEl {
     private Ints currentAnnotDelSwitch = new Ints();
     private AbstractSymbolFactory abstractSymbolFactory;
     private StringMap<String> mappingKeyWords = new StringMap<String>();
+    private StringMap<String> mappingAliases = new StringMap<String>();
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -1321,5 +1322,13 @@ public final class AnalyzedPageEl {
 
     public void setMappingKeyWords(StringMap<String> _m) {
         this.mappingKeyWords = _m;
+    }
+
+    public StringMap<String> getMappingAliases() {
+        return mappingAliases;
+    }
+
+    public void setMappingAliases(StringMap<String> _m) {
+        this.mappingAliases = _m;
     }
 }

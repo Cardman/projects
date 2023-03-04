@@ -118,4 +118,15 @@ public final class RunTest extends EquallableElUtImplUtil {
         assertTrue(bar_.getResults().get(1).isSuccess());
         assertFalse(progTest_.getExec().getInterrupt().get());
     }
+    @Test
+    public void launch7() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
+        MemInputFiles mem_ = new MemInputFiles(StringUtil.encode("__"), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false), new BytesInfo(GuiConstants.nullToEmpty(zipped_), false));
+        FileInfos infos_ = FileInfos.buildMemoryFromFile(pr_, pr_.getGenerator(), pr_.getValidator(), null, mem_, pr_.getZipFact(), pr_.getThreadFactory());
+        AbsCompoFactory compo_ = pr_.getCompoFactory();
+        ProgTestBar bar_ = new ProgTestBar(messages(), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newPlainLabel(""), compo_.newTableGui(), compo_.newTextArea(), compo_.newAbsProgressBar());
+        MemoryProgressingTests progTest_ = new MemoryProgressingTests(new LightTestableFrame(pr_, null,new MockInterceptor(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),mem_, bar_));
+        assertTrue(RunningTest.launchByConfContent(new StringList("en"),";\nen\nerr=",progTest_,infos_));
+    }
 }

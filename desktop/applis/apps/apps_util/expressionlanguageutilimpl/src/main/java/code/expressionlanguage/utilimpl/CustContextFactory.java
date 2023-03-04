@@ -60,7 +60,8 @@ public final class CustContextFactory {
         _util.keyWord(_kwl, _exec.getKeyWords());
         _kwl.initSupplDigits();
         _util.otherAlias(_base, _exec.getAliases());
-        _gui.otherAliasGui(LgNamesGui.addon(_util.getUserLg(), _gui),_exec.getAliases());
+        StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(_util);
+        _gui.otherAliasGui(LgNamesGui.addon(_util),_exec.getAliases(),keys_);
     }
 
     public static void execute(Options _options, ExecutingOptions _exec,
@@ -119,6 +120,9 @@ public final class CustContextFactory {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         page_.setMappingKeyWords(_definedLgNames.getExecContent().getCustAliases().extractKeywordsKeys());
+        StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
+        m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
+        page_.setMappingAliases(m_);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
         Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
         page_.setLogErr(forwards_);

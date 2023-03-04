@@ -17,27 +17,27 @@ public class DefaultAliasGroups {
         return content;
     }
 
-    public StringMap<String> allPrimitives() {
-        return getContent().allPrimitives();
+    public StringMap<String> allPrimitives(StringMap<String> _mapping) {
+        return getContent().allPrimitives(_mapping);
     }
 
-    public StringMap<String> allRefTypes() {
-        return getContent().allRefTypes();
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
+        return getContent().allRefTypes(_mapping);
     }
-    public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames() {
-        return getContent().allMergeTableTypeMethodNames();
+    public CustList<KeyValueMemberName> allMergeTableTypeMethodNames(StringMap<String> _mapping) {
+        return getContent().allMergeTableTypeMethodNames(_mapping);
     }
-    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
-        return getContent().allTableTypeMethodParamNames();
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
+        return getContent().allTableTypeMethodParamNames(_mapping);
     }
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames() {
-        return getContent().allTableTypeMethodNames();
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping) {
+        return getContent().allTableTypeMethodNames(_mapping);
     }
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
-        return getContent().allTableTypeFieldNames();
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {
+        return getContent().allTableTypeFieldNames(_mapping);
     }
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
-        return getContent().allTableTypeVarTypes();
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(StringMap<String> _mapping) {
+        return getContent().allTableTypeVarTypes(_mapping);
     }
 
 }

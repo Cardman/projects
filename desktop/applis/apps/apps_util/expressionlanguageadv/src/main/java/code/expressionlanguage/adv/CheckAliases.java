@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.guicompos.GuiFileBuilder;
+import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.ContextFactory;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.stds.ListLoggableLgNames;
@@ -39,6 +40,9 @@ public final class CheckAliases implements AbsActionListener {
         CustContextFactory.preinitAliases(ex_,mess_,kwl_,dialog.getLgNamesContent() , dialog.getCustAliases(), dialog.getGuiAliases());
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setMappingKeyWords(dialog.getCustAliases().extractKeywordsKeys());
+        StringMap<String> m_ = dialog.getCustAliases().extractAliasesKeys();
+        m_.addAllEntries(LgNamesGui.extractAliasesKeys(dialog.getCustAliases()));
+        page_.setMappingAliases(m_);
         page_.setAnalysisMessages(mess_);
         page_.setKeyWords(kwl_);
         page_.setStandards(dialog.getLgNamesContent());

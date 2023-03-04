@@ -236,9 +236,8 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
         execContent.getCustAliases().otherAlias(getContent(), _cust);
     }
     private void allAlias(StringMap<String> _util, StringMap<String> _cust) {
-        getContent().build(_util, _cust);
         getBeanAliases().build(_util, _cust);
-        execContent.getCustAliases().build(_util,_cust);
+        execContent.getCustAliases().otherAlias(getContent(),_cust);
     }
 
 
@@ -270,5 +269,10 @@ public final class LgNamesRenderUtils extends BeanCustLgNames implements LgNames
     @Override
     public StringMap<String> mappingKeywords() {
         return execContent.getCustAliases().extractKeywordsKeys();
+    }
+
+    @Override
+    public StringMap<String> mappingAliases() {
+        return execContent.getCustAliases().extractAliasesKeys();
     }
 }

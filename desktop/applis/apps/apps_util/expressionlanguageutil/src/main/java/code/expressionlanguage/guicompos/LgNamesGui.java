@@ -4,7 +4,10 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.common.StringExpUtil;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.exec.ClassFieldStruct;
+import code.expressionlanguage.exec.CommonExecutionInfos;
+import code.expressionlanguage.exec.CommonExecutionMetricsInfos;
+import code.expressionlanguage.exec.DefaultLockingClass;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
@@ -19,7 +22,11 @@ import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilimpl.LgNamesUtils;
-import code.sml.util.ResourcesMessagesUtil;
+import code.expressionlanguage.utilimpl.LgNamesUtilsContent;
+import code.sml.util.Translations;
+import code.sml.util.TranslationsAppli;
+import code.sml.util.TranslationsFile;
+import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
@@ -75,12 +82,22 @@ public class LgNamesGui extends LgNamesUtils {
         return new EventFunctionalInstance(_className.getFormatted(), _functional, fs_, (RunnableContextEl) _contextEl, _named);
     }
 
-    public static StringMap<String> addon(String _lang, GuiAliases _guiAliases) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath("resources_lg_gui/aliases", _lang, "typesgui");
-        String loadedResourcesMessages_ = _guiAliases.res(fileName_);
-        return ResourcesMessagesUtil.getMessagesFromContent(loadedResourcesMessages_);
+    public static StringMap<String> addon(CustAliases _cust) {
+        return defAliases(_cust.getUserLg(), _cust.getTranslations(), _cust.getLanguage());
+    }
+    public static StringMap<String> extractAliasesKeys(CustAliases _cust) {
+        TranslationsLg lg_ = CustAliases.lg(_cust.getTranslations(), _cust.getUserLg(), _cust.getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
+        return LgNamesUtilsContent.extractKeys(com_);
     }
 
+    public static StringMap<String> defAliases(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = CustAliases.lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES_GUI);
+        return LgNamesUtilsContent.extractMap(com_);
+    }
     @Override
     public ContextEl newContext(Options _opt,Forwards _options) {
         return new GuiContextEl(null, new CommonExecutionInfos(getExecContent().getCustAliases().getInterceptor().newInterceptorStdCaller(getExecContent().getCustAliases().getAliasConcurrentError()),new CommonExecutionMetricsInfos(_opt.getTabWidth(),_opt.getStack(),_opt.getSeedGene()),this,_options.getClasses(), _options.getCoverage(), new DefaultLockingClass(),new GuiInitializer(getExecContent().getInfos().getThreadFactory().newAtomicLong(), getExecContent().getCustAliases().getInterceptor())), new StringList(getExecContent().getExecutingOptions().getArgs()));

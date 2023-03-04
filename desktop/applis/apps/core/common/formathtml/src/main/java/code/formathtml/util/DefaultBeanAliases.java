@@ -619,14 +619,14 @@ public final class DefaultBeanAliases {
         return types_;
     }
 
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AliasReflection _reflect) {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(AliasReflection _reflect, StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> methods_ = new StringMap<CustList<KeyValueMemberName>>();
         methods_.addEntry(getAliasMessage(),
                 new CustList<KeyValueMemberName>(new KeyValueMemberName(NEW_MESSAGE,getAliasNewMessage()),
                         new KeyValueMemberName(MESSAGE_FORMAT,getAliasMessageFormat()),
                         new KeyValueMemberName(MESSAGE_GET_ARGS,getAliasMessageGetArgs()),
                         new KeyValueMemberName(MESSAGE_SET_ARGS,getAliasMessageSetArgs())));
-        CustList<KeyValueMemberName> lis_ = _reflect.listAnnot();
+        CustList<KeyValueMemberName> lis_ = _reflect.listAnnot(_mapping);
         lis_.add(new KeyValueMemberName(DOCUMENT_ALL,getAliasDocumentAll()));
         lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_ARRAY,getAliasDocumentBeanArray()));
         lis_.add(new KeyValueMemberName(DOCUMENT_BEAN_NAME,getAliasDocumentBeanName()));

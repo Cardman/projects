@@ -239,20 +239,18 @@ public final class ValidatorStandard {
         }
     }
 
-    public static void validateMergedDuplicates(CustList<CustList<KeyValueMemberName>> _methods, AnalyzedPageEl _page){
+    public static void validateMergedDuplicates(CustList<KeyValueMemberName> _methods, AnalyzedPageEl _page){
         AnalysisMessages a_ = _page.getAnalysisMessages();
-        for (CustList<KeyValueMemberName> e: _methods) {
-            StringList keyWords_ = new StringList();
-            for (KeyValueMemberName f: e) {
-                keyWords_.add(f.getValue());
-            }
-            if (keyWords_.hasDuplicates()) {
-                for (KeyValueMemberName f: e) {
-                    String v_ = f.getValue();
-                    StdWordError err_ = new StdWordError();
-                    err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
-                    _page.addStdError(err_);
-                }
+        StringList keyWords_ = new StringList();
+        for (KeyValueMemberName f: _methods) {
+            keyWords_.add(f.getValue());
+        }
+        if (keyWords_.hasDuplicates()) {
+            for (KeyValueMemberName f: _methods) {
+                String v_ = f.getValue();
+                StdWordError err_ = new StdWordError();
+                err_.setMessage(StringUtil.simpleStringsFormat(a_.getDuplicateMergedMethod(),v_,f.getKey()));
+                _page.addStdError(err_);
             }
         }
     }

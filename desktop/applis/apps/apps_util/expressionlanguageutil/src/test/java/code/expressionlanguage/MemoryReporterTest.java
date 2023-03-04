@@ -295,7 +295,7 @@ public final class MemoryReporterTest extends EquallableElUtUtil {
         assertFalse(d_.isEmpty());
         assertTrue(stds_.getExecContent().getInterceptor().newMapStringStruct().isEmpty());
         stds_.getExecContent().getCustAliases().setAliasInfoTestCurrentClass(stds_.getExecContent().getCustAliases().getAliasInfoTestCurrentClass());
-        stds_.getExecContent().getCustAliases().allAlias(stds_.getContent(),new StringMap<String>(),new StringMap<String>());
+        stds_.getExecContent().getCustAliases().otherAlias(stds_.getContent(),new StringMap<String>());
     }
     @Test
     public void cdmFactory() {

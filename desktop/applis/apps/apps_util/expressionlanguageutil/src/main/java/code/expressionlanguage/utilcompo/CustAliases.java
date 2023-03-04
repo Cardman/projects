@@ -36,7 +36,6 @@ import code.util.StringMap;
 import code.util.core.StringUtil;
 
 public final class CustAliases {
-    public static final String RUN = "Run";
     public static final String KW_PUBLIC = "{public}";
     public static final String KW_INTERFACE = "{interface}";
     public static final String KW_ABSTRACT = "{abstract}";
@@ -414,219 +413,213 @@ public final class CustAliases {
 //    public static final String FILE_KEYWORDS = "keywords";
     public static final String FILE_TYPES = "types";
 
-    private static final String ILLEGAL_THREAD_STATE_EXCEPTION = "IllegalThreadStateException";
-    private static final String FILE_GET_LENGTH = "FileGetLength";
-    private static final String ATOMIC_INTEGER = "AtomicInteger";
-    private static final String CURRENT_THREAD = "CurrentThread";
-    private static final String FORMAT_TYPE = "FormatType";
-    private static final String ATOMIC_BOOLEAN = "AtomicBoolean";
-    private static final String SET_ATOMIC = "SetAtomic";
-    private static final String FILE_IS_DIRECTORY = "FileIsDirectory";
-    private static final String FILE_GET_PARENT_PATH = "FileGetParentPath";
-    private static final String ATOMIC_LONG = "AtomicLong";
-    private static final String FILE_ABSOLUTE_PATH = "FileAbsolutePath";
-    private static final String FILE_LAST_MODIF = "FileLastModif";
-    private static final String FILE_GET_NAME = "FileGetName";
-    private static final String GET_ATOMIC = "GetAtomic";
-    private static final String LAZY_SET_ATOMIC = "LazySetAtomic";
-    private static final String COMPARE_AND_SET_ATOMIC = "CompareAndSetAtomic";
-    private static final String GET_AND_ADD_ATOMIC = "GetAndAddAtomic";
-    private static final String ADD_AND_GET_ATOMIC = "AddAndGetAtomic";
-    private static final String GET_AND_INCREMENT_ATOMIC = "GetAndIncrementAtomic";
-    private static final String INCREMENT_AND_GET_ATOMIC = "IncrementAndGetAtomic";
-    private static final String GET_AND_DECREMENT_ATOMIC = "GetAndDecrementAtomic";
-    private static final String DECREMENT_AND_GET_ATOMIC = "DecrementAndGetAtomic";
-    private static final String GET_AND_SET_ATOMIC = "GetAndSetAtomic";
-//    private static final String REENTRANT_LOCK = "ReentrantLock";
-    private static final String JOIN_OTHERS = "JoinOthers";
-    private static final String FILE_IS_FILE = "FileIsFile";
-    private static final String FILE_ROOTS = "FileRoots";
-//    private static final String THREAD_EXIT_HOOK = "ThreadExitHook";
-    private static final String APPEND_TO_FILE = "AppendToFile";
-    private static final String THREAD_CURRENT_TIME = "ThreadCurrentTime";
-    private static final String THREAD_CURRENT_NANO_TIME = "ThreadCurrentNanoTime";
-    private static final String SET_PRIORITY = "SetPriority";
-    private static final String FILE_LIST_FILES = "FileListFiles";
-    private static final String GET_PRIORITY = "GetPriority";
-//    private static final String IS_HELD_BY_CURRENT_THREAD = "IsHeldByCurrentThread";
-    private static final String FILE_LIST_DIRECTORIES = "FileListDirectories";
-    private static final String LENGTH_ITR_TA = "LengthItrTa";
-    private static final String EXECUTED_TEST_ANNOTATIONS = "ExecutedTestAnnotations";
-    private static final String EXECUTED_TEST_ARGS_ANNOT = "ExecutedTestArgsAnnot";
-    private static final String PAIR_VAR_FIRST = "PairVarFirst";
-    private static final String INDEX_ITR_LI = "IndexItrLi";
-    private static final String LIST_ITER_TABLE = "ListIterTable";
-    private static final String DIFFERENCE = "Difference";
-    private static final String ELT_DIFFERENCE = "EltDifference";
-    private static final String INDEX = "Index";
-    private static final String ASSERT_NOT = "AssertNot";
-    private static final String ASSERT_NOT_SAME = "AssertNotSame";
-    private static final String TABLE_VAR_SECOND = "TableVarSecond";
-    private static final String ITER_TA_VAR_FIRST = "IterTaVarFirst";
-    private static final String EXECUTED_TEST_BEFORE = "ExecutedTestBefore";
-    private static final String CUST_ITERATOR_VAR = "CustIteratorVar";
-    private static final String GET_SECOND_TA = "GetSecondTa";
-    private static final String EXECUTED_TEST_TEST = "ExecutedTestTest";
-    private static final String EXECUTED_TEST_METHOD = "ExecutedTestMethod";
-    private static final String EXECUTED_TEST_AFTER = "ExecutedTestAfter";
-    private static final String CUST_ITERATOR = "CustIterator";
-    private static final String LIST_CLEAR = "ListClear";
-    private static final String GET_FIRST_TA = "GetFirstTa";
-    private static final String SET_SECOND_TA = "SetSecondTa";
-    private static final String FILE_MAKE_DIRS = "FileMakeDirs";
-    private static final String FILE_ZIPPED_BIN = "FileZippedBin";
-    private static final String FILE_ZIPPED_BIN_ARRAY = "FileZippedBinArray";
-    private static final String FILE_ZIPPED_TEXT = "FileZippedText";
-    private static final String FILE_ZIP_BIN = "FileZipBin";
-    private static final String FILE_ZIP_BIN_ARRAY = "FileZipBinArray";
-    private static final String FILE_ZIP_TEXT = "FileZipText";
-    private static final String TABLE_STRING_OBJECT = "TableStringObject";
-    private static final String TABLE_CONC_EMPTY = "TableConcEmpty";
-    private static final String TABLE_CONC_SIZE = "TableConcSize";
-    private static final String TABLE_CONC_KEYS = "TableConcKeys";
-    private static final String TABLE_CONC_VALUES = "TableConcValues";
-    private static final String TABLE_CONC_HAS_KEY = "TableConcHasKey";
-    private static final String TABLE_CONC_HAS_VALUE = "TableConcHasValue";
-    private static final String TABLE_CONC_PAIRS = "TableConcPairs";
-    private static final String TABLE_CONC_PUT = "TableConcPut";
-    private static final String TABLE_CONC_PUT_ABS = "TableConcPutAbs";
-    private static final String TABLE_CONC_GET = "TableConcGet";
-    private static final String TABLE_CONC_REMOVE = "TableConcRemove";
-    private static final String TABLE_CONC_REPLACE = "TableConcReplace";
-    private static final String TABLE_CONC_CLEAR = "TableConcClear";
-    private static final String TABLE_CONC_PUT_ALL = "TableConcPutAll";
-    private static final String ENTRY_STRING_OBJECT = "EntryStringObject";
-    private static final String TABLE_ENTRY_KEY = "TableEntryKey";
-    private static final String TABLE_ENTRY_VALUE = "TableEntryValue";
-    private static final String TABLE_ENTRY_OWNER = "TableEntryOwner";
-    private static final String ENTRY_BINARY = "EntryBinary";
-    private static final String ENTRY_TEXT = "EntryText";
-    private static final String ENTRY_NAME = "EntryName";
-    private static final String ENTRY_VALUE = "EntryValue";
-    private static final String ENTRY_TIME = "EntryTime";
-    private static final String FILE_IS_ABSOLUTE = "FileIsAbsolute";
-    private static final String FILE_READ_BIN = "FileReadBin";
-    private static final String FILE_WRITE_BIN = "FileWriteBin";
-    private static final String FILE_DELETE = "FileDelete";
-    private static final String FILE_RENAME = "FileRename";
-    private static final String FILE_DIR = "FileDir";
-    private static final String CUST_ITER_TABLE = "CustIterTable";
-    private static final String TABLE_VAR_FIRST = "TableVarFirst";
-    private static final String SET_SECOND = "SetSecond";
-    private static final String INDEX_ITR_TA = "IndexItrTa";
-    private static final String ITER_TA_VAR_SECOND = "IterTaVarSecond";
-    private static final String LENGTH_ITR_LI = "LengthItrLi";
-    private static final String SET_FIRST_TA = "SetFirstTa";
-    private static final String EXECUTED_TEST = "ExecutedTest";
-    private static final String PARAMETERS = "Parameters";
-    private static final String TEST_EXCEPTION = "TestException";
-    private static final String TEST_NULL_EXCEPTION = "TestNullException";
-    private static final String PAIR_VAR_SECOND = "PairVarSecond";
-    private static final String EXECUTE_EXECUTE = "ExecuteExecute";
-    private static final String EXECUTE_SETUP_NO_EXCEPTION = "ExecuteSetupNoException";
-    private static final String ASSERT_ASSERT = "AssertAssert";
-    private static final String ASSERT_ASSERT_NULL = "AssertAssertNull";
-    private static final String ASSERT_ASSERT_NOT_NULL = "AssertAssertNotNull";
-    private static final String DIFFERENCE_FOUND_NULL = "DifferenceFoundNull";
-    private static final String RESULT_SUCCESS = "ResultSuccess";
-    private static final String INFO_TEST_CURRENT_CLASS = "InfoTestCurrentClass";
-    private static final String EXECUTE_CONVERT = "ExecuteConvert";
-    private static final String CONCURRENT_ERROR = "ConcurrentError";
-    private static final String RESULT_FAIL_MESSAGE = "ResultFailMessage";
-    private static final String ASSERT_ASSERT_TRUE = "AssertAssertTrue";
-    private static final String ASSERT_ASSERT_FALSE = "AssertAssertFalse";
-    private static final String INFO_TEST_CURRENT_METHOD = "InfoTestCurrentMethod";
-    private static final String RESULT_TIME = "ResultTime";
-    private static final String RESULT_PARAMS = "ResultParams";
-    private static final String PARAMETERS_METHOD = "ParametersMethod";
-    private static final String EXECUTE_SETUP_ERROR = "ExecuteSetupError";
-    private static final String ASSERT_ASSERT_SAME = "AssertAssertSame";
-    private static final String DIFFERENCE_FOUND = "DifferenceFound";
-    private static final String DIFFERENCE_FOUND_NOT_TRUE = "DifferenceFoundNotTrue";
-    private static final String PARAMETERS_LOCATION = "ParametersLocation";
-    private static final String INFO_TEST_COUNT = "InfoTestCount";
-    private static final String INFO_TEST_CALLS = "InfoTestCalls";
-    private static final String INFO_TEST_DONE = "InfoTestDone";
-    private static final String INFO_TEST_NB_THREADS = "InfoTestNbThreads";
-    private static final String DIFFERENCE_STACK_DIFF = "DifferenceStackDiff";
-    private static final String EXECUTE_TESTS = "ExecuteTests";
-    private static final String DIFFERENCE_EXPECTED = "DifferenceExpected";
-    private static final String INFO_TEST_CURRENT_PARAMS = "InfoTestCurrentParams";
-    private static final String INFO_TEST_ARGS = "InfoTestArgs";
-    private static final String INFO_TEST_CONTAINER = "InfoTestContainer";
-    private static final String INFO_TEST_EXECUTED = "InfoTestExecuted";
-    private static final String RUNNABLE = "Runnable";
-    private static final String THREAD = "Thread";
-    private static final String THREAD_RUNNABLE = "ThreadRunnable";
-    private static final String THREAD_SET = "ThreadSet";
-    private static final String THREAD_SET_ALL = "ThreadSetAll";
-    private static final String THREAD_SET_ADD = "ThreadSetAdd";
-    private static final String THREAD_SET_CONTAINS = "ThreadSetContains";
-    private static final String THREAD_SET_REMOVE = "ThreadSetRemove";
-    private static final String THREAD_SET_SNAPSHOT = "ThreadSetSnapshot";
-    private static final String THREAD_EQ = "ThreadEq";
-    private static final String START = "Start";
-    private static final String JOIN = "Join";
-    private static final String ARGS = "Args";
-    private static final String INTERRUPT = "Interrupt";
-    private static final String COVERAGE = "Coverage";
-    private static final String LENGTH_LI = "LengthLi";
-    private static final String CUST_PAIR = "CustPair";
-    private static final String LIST_TA = "ListTa";
-    private static final String GET_ID = "GetId";
-    private static final String IS_ALIVE = "IsAlive";
-    private static final String IS_ENDED = "IsEnded";
-    private static final String END = "End";
-    private static final String PRINT = "Print";
-    private static final String LIST_ITR = "ListItr";
-    private static final String REMOVE_LI = "RemoveLi";
-    private static final String ARRAY_LI = "ArrayLi";
-    private static final String FIRST = "First";
-    private static final String SLEEP = "Sleep";
-    private static final String FILE = "File";
-    private static final String READ = "Read";
-    private static final String LIST = "List";
-//    private static final String UNLOCK = "Unlock";
-    private static final String SIZE_LI = "SizeLi";
-    private static final String LIST_VAR = "ListVar";
-    private static final String SECOND = "Second";
-    private static final String ADD_LI = "AddLi";
-//    private static final String YIELD = "Yield";
-    private static final String SET_FIRST = "SetFirst";
-//    private static final String LOCK = "Lock";
-    private static final String WRITE = "Write";
-    private static final String TABLE = "Table";
-    private static final String RESULT = "Result";
-    private static final String ADD_TA = "AddTa";
-    private static final String INFO_TEST = "InfoTest";
-    private static final String REMOVE_TA = "RemoveTa";
-    private static final String BEFORE = "Before";
-    private static final String GET_TA = "GetTa";
-    private static final String TEST = "Test";
-    private static final String ARGS_TEST = "ArgsTest";
-    private static final String ARGS_TEST_ARGS_VALUE = "ArgsTestArgsValue";
-    private static final String EXECUTE = "Execute";
-    private static final String AFTER = "After";
-    private static final String SIZE_TA = "SizeTa";
-    private static final String ASSERT = "Assert";
-    private static final String EXECUTOR_SERVICE_BASE="ExecutorServiceBase";
-    private static final String SCHEDULED_EXECUTOR_SERVICE="ScheduledExecutorService";
-    private static final String EXECUTOR_SERVICE_SCHEDULE_MILLIS="ExecutorServiceScheduleMillis";
-    private static final String EXECUTOR_SERVICE_SCHEDULE_NANOS="ExecutorServiceScheduleNanos";
-    private static final String EXECUTOR_SERVICE="ExecutorService";
-    private static final String EXECUTOR_SERVICE_SHUTDOWN="ExecutorServiceShutdown";
-    private static final String EXECUTOR_SERVICE_EXECUTE ="ExecutorServiceExecute";
-    private static final String EXECUTOR_SERVICE_SUBMIT ="ExecutorServiceSubmit";
-    private static final String RUNNABLE_IMPLICIT_0_RUNNER="RunnableImplicit0Runner";
-    private static final String FUTURE="Future";
-    private static final String FUTURE_WAIT="FutureWait";
-    private static final String FUTURE_CANCEL="FutureCancel";
-    private static final String RATE ="Rate";
-    private static final String LG_INT ="LgInt";
-    private static final String RATE_PARSE ="RateParse";
-    private static final String LG_INT_PARSE ="LgIntParse";
-    private static final String RATE_DEN ="RateDen";
-    private static final String RATE_NUM ="RateNum";
+    private static final String THREAD="3";
+    private static final String THREAD_SET="________1814";
+    private static final String EXECUTOR_SERVICE="____1127";
+    private static final String EXECUTOR_SERVICE_BASE="____1128";
+    private static final String SCHEDULED_EXECUTOR_SERVICE="____1129";
+    private static final String FUTURE="____1122";
+    private static final String ATOMIC_BOOLEAN="____1123";
+    private static final String ATOMIC_INTEGER="____1124";
+    private static final String ATOMIC_LONG="____1125";
+    private static final String RATE="______1781";
+    private static final String LG_INT="______1782";
+    private static final String FILE="652";
+    private static final String ILLEGAL_THREAD_STATE_EXCEPTION="__________1913";
+    private static final String CUST_ITERATOR="731";
+    private static final String LIST="732";
+    private static final String RUNNABLE="____1121";
+    private static final String FORMAT_TYPE="_________1865";
+    private static final String CUST_PAIR="733";
+    private static final String CUST_ITER_TABLE="734";
+    private static final String TABLE="735";
+    private static final String EXECUTE="___________2083";
+    private static final String INFO_TEST="___________2084";
+    private static final String EXECUTED_TEST="___________2085";
+    private static final String RESULT="___________2086";
+    private static final String BEFORE="___________2087";
+    private static final String AFTER="___________2088";
+    private static final String PARAMETERS="___________2089";
+    private static final String TEST="0";
+    private static final String ARGS_TEST="___________2090";
+    private static final String ASSERT="26";
+    private static final String DIFFERENCE="115";
+    private static final String ELT_DIFFERENCE="121";
+    private static final String CONCURRENT_ERROR="__________1881";
+    private static final String ENTRY_BINARY="____1130";
+    private static final String ENTRY_TEXT="____1131";
+    private static final String ENTRY_STRING_OBJECT="____1132";
+    private static final String TABLE_STRING_OBJECT="____1126";
+    private static final String START="________1822";
+    private static final String THREAD_EQ="________1820";
+    private static final String THREAD_RUNNABLE="________1821";
+    private static final String THREAD_CURRENT_TIME="____1133";
+    private static final String THREAD_CURRENT_NANO_TIME="____1134";
+    private static final String IS_ALIVE="________1828";
+    private static final String IS_ENDED="________1829";
+    private static final String END="________1830";
+    private static final String CURRENT_THREAD="________1824";
+    private static final String JOIN="________1823";
+    private static final String INTERRUPT="________1831";
+    private static final String ARGS="________1832";
+    private static final String COVERAGE="________1833";
+    private static final String JOIN_OTHERS="________1836";
+    private static final String GET_ID="________1825";
+    private static final String GET_PRIORITY="________1826";
+    private static final String SET_PRIORITY="________1827";
+    private static final String SLEEP="____1135";
+    private static final String PRINT="5";
+    private static final String EXECUTOR_SERVICE_EXECUTE="____1136";
+    private static final String EXECUTOR_SERVICE_SUBMIT="____1137";
+    private static final String EXECUTOR_SERVICE_SHUTDOWN="____1138";
+    private static final String EXECUTOR_SERVICE_SCHEDULE_MILLIS="____1139";
+    private static final String EXECUTOR_SERVICE_SCHEDULE_NANOS="____1140";
+    private static final String FUTURE_WAIT="____1141";
+    private static final String FUTURE_CANCEL="____1142";
+    private static final String THREAD_SET_ADD="________1815";
+    private static final String THREAD_SET_ALL="________1816";
+    private static final String THREAD_SET_CONTAINS="________1817";
+    private static final String THREAD_SET_REMOVE="________1818";
+    private static final String THREAD_SET_SNAPSHOT="________1819";
+    private static final String RUN="____1143";
+    private static final String GET_ATOMIC="____1144";
+    private static final String SET_ATOMIC="____1145";
+    private static final String COMPARE_AND_SET_ATOMIC="____1146";
+    private static final String GET_AND_SET_ATOMIC="____1147";
+    private static final String LAZY_SET_ATOMIC="____1148";
+    private static final String ADD_AND_GET_ATOMIC="____1149";
+    private static final String GET_AND_ADD_ATOMIC="____1150";
+    private static final String INCREMENT_AND_GET_ATOMIC="____1151";
+    private static final String GET_AND_INCREMENT_ATOMIC="____1152";
+    private static final String DECREMENT_AND_GET_ATOMIC="____1153";
+    private static final String GET_AND_DECREMENT_ATOMIC="____1154";
+    private static final String LG_INT_PARSE="______1783";
+    private static final String RATE_PARSE="______1784";
+    private static final String RATE_NUM="______1785";
+    private static final String RATE_DEN="______1786";
+    private static final String READ="653";
+    private static final String WRITE="654";
+    private static final String APPEND_TO_FILE="655";
+    private static final String FILE_ABSOLUTE_PATH="656";
+    private static final String FILE_GET_LENGTH="657";
+    private static final String FILE_GET_NAME="658";
+    private static final String FILE_GET_PARENT_PATH="659";
+    private static final String FILE_IS_DIRECTORY="660";
+    private static final String FILE_IS_FILE="661";
+    private static final String FILE_ROOTS="662";
+    private static final String FILE_IS_ABSOLUTE="663";
+    private static final String FILE_READ_BIN="664";
+    private static final String FILE_WRITE_BIN="665";
+    private static final String FILE_DELETE="666";
+    private static final String FILE_DIR="667";
+    private static final String FILE_RENAME="668";
+    private static final String FILE_LAST_MODIF="669";
+    private static final String FILE_LIST_DIRECTORIES="670";
+    private static final String FILE_LIST_FILES="671";
+    private static final String FILE_ZIP_BIN="672";
+    private static final String FILE_ZIP_BIN_ARRAY="673";
+    private static final String FILE_ZIP_TEXT="674";
+    private static final String FILE_ZIPPED_BIN="675";
+    private static final String FILE_ZIPPED_BIN_ARRAY="676";
+    private static final String FILE_ZIPPED_TEXT="677";
+    private static final String FILE_MAKE_DIRS="678";
+    private static final String TABLE_CONC_PAIRS="____1155";
+    private static final String TABLE_CONC_EMPTY="____1156";
+    private static final String TABLE_CONC_SIZE="____1157";
+    private static final String TABLE_CONC_KEYS="____1158";
+    private static final String TABLE_CONC_VALUES="____1159";
+    private static final String TABLE_CONC_HAS_KEY="____1160";
+    private static final String TABLE_CONC_HAS_VALUE="____1161";
+    private static final String TABLE_CONC_GET="____1162";
+    private static final String TABLE_CONC_REMOVE="____1163";
+    private static final String TABLE_CONC_PUT="____1164";
+    private static final String TABLE_CONC_PUT_ABS="____1165";
+    private static final String TABLE_CONC_REPLACE="____1166";
+    private static final String TABLE_CONC_CLEAR="____1167";
+    private static final String TABLE_CONC_PUT_ALL="____1168";
+    private static final String TABLE_ENTRY_KEY="____1169";
+    private static final String TABLE_ENTRY_VALUE="____1170";
+    private static final String TABLE_ENTRY_OWNER="____1171";
+    private static final String ENTRY_NAME="____1172";
+    private static final String ENTRY_TIME="____1173";
+    private static final String ENTRY_VALUE="____1174";
+    private static final String ADD_LI="744";
+    private static final String SIZE_LI="745";
+    private static final String REMOVE_LI="746";
+    private static final String LIST_CLEAR="747";
+    private static final String SET_FIRST="748";
+    private static final String SET_SECOND="749";
+    private static final String GET_FIRST_TA="750";
+    private static final String GET_SECOND_TA="751";
+    private static final String SET_FIRST_TA="752";
+    private static final String SET_SECOND_TA="753";
+    private static final String ADD_TA="754";
+    private static final String REMOVE_TA="755";
+    private static final String SIZE_TA="756";
+    private static final String GET_TA="757";
+    private static final String EXECUTE_TESTS="___________2091";
+    private static final String EXECUTE_CONVERT="___________2092";
+    private static final String EXECUTE_SETUP_ERROR="___________2093";
+    private static final String EXECUTE_SETUP_NO_EXCEPTION="___________2094";
+    private static final String EXECUTE_EXECUTE="___________2095";
+    private static final String PARAMETERS_LOCATION="___________2096";
+    private static final String PARAMETERS_METHOD="___________2097";
+    private static final String TEST_EXCEPTION="___________2098";
+    private static final String TEST_NULL_EXCEPTION="___________2099";
+    private static final String ARGS_TEST_ARGS_VALUE="___________2100";
+    private static final String ASSERT_ASSERT="27";
+    private static final String ASSERT_NOT="28";
+    private static final String ASSERT_ASSERT_NOT_NULL="29";
+    private static final String ASSERT_ASSERT_NULL="30";
+    private static final String ASSERT_ASSERT_SAME="31";
+    private static final String ASSERT_NOT_SAME="32";
+    private static final String ASSERT_ASSERT_TRUE="33";
+    private static final String ASSERT_ASSERT_FALSE="34";
+    private static final String DIFFERENCE_EXPECTED="116";
+    private static final String DIFFERENCE_FOUND="117";
+    private static final String DIFFERENCE_FOUND_NOT_TRUE="118";
+    private static final String DIFFERENCE_FOUND_NULL="119";
+    private static final String DIFFERENCE_STACK_DIFF="120";
+    private static final String INDEX="122";
+    private static final String RUNNABLE_IMPLICIT_0_RUNNER="____1226";
+    private static final String INFO_TEST_COUNT="___________2101";
+    private static final String INFO_TEST_CALLS="___________2102";
+    private static final String INFO_TEST_CURRENT_METHOD="___________2103";
+    private static final String INFO_TEST_DONE="___________2104";
+    private static final String INFO_TEST_NB_THREADS="___________2105";
+    private static final String INFO_TEST_ARGS="___________2106";
+    private static final String INFO_TEST_CONTAINER="___________2107";
+    private static final String INFO_TEST_EXECUTED="___________2108";
+    private static final String INFO_TEST_CURRENT_PARAMS="___________2109";
+    private static final String RESULT_FAIL_MESSAGE="___________2110";
+    private static final String RESULT_PARAMS="___________2111";
+    private static final String RESULT_TIME="___________2112";
+    private static final String RESULT_SUCCESS="___________2113";
+    private static final String EXECUTED_TEST_AFTER="___________2114";
+    private static final String EXECUTED_TEST_BEFORE="___________2115";
+    private static final String EXECUTED_TEST_ARGS_ANNOT="___________2116";
+    private static final String EXECUTED_TEST_ANNOTATIONS="___________2117";
+    private static final String EXECUTED_TEST_METHOD="___________2118";
+    private static final String EXECUTED_TEST_TEST="___________2119";
+    private static final String LIST_ITR="758";
+    private static final String LENGTH_ITR_LI="759";
+    private static final String INDEX_ITR_LI="760";
+    private static final String ARRAY_LI="761";
+    private static final String LENGTH_LI="762";
+    private static final String LIST_ITER_TABLE="763";
+    private static final String LENGTH_ITR_TA="764";
+    private static final String INDEX_ITR_TA="765";
+    private static final String FIRST="766";
+    private static final String SECOND="767";
+    private static final String LIST_TA="768";
+    private static final String LIST_VAR="777";
+    private static final String CUST_ITERATOR_VAR="778";
+    private static final String TABLE_VAR_FIRST="779";
+    private static final String TABLE_VAR_SECOND="780";
+    private static final String ITER_TA_VAR_FIRST="781";
+    private static final String ITER_TA_VAR_SECOND="782";
+    private static final String PAIR_VAR_FIRST="783";
+    private static final String PAIR_VAR_SECOND="784";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -2038,537 +2031,959 @@ public final class CustAliases {
         return LgNamesUtilsContent.extractMap(com_);
     }
     public void otherAlias(LgNamesContent _content, StringMap<String> _cust) {
-        String fileName_ = ResourcesMessagesUtil.getPropertiesPath(RESOURCES_LG_ALIASES,getUserLg(), FILE_TYPES);
-        String content_ = StringUtil.nullToEmpty(properties.getVal(fileName_));
-        StringMap<String> util_ = ResourcesMessagesUtil.getMessagesFromContent(content_);
-        otherAlias(_content,util_,_cust);
-    }
-    public void allAlias(LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust) {
-        otherAlias(_content,_util,_cust);
-    }
-    private void otherAlias(LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust) {
-        _content.build(_util, _cust);
-        build(_util,_cust);
-    }
-    public void build(StringMap<String> _util, StringMap<String> _cust) {
-        setAliasIllegalThreadStateException(LgNamesContent.get(_util, _cust, ILLEGAL_THREAD_STATE_EXCEPTION));
-        setAliasFileGetLength(LgNamesContent.get(_util, _cust, FILE_GET_LENGTH));
-        setAliasAtomicInteger(LgNamesContent.get(_util, _cust, ATOMIC_INTEGER));
-        setAliasCurrentThread(LgNamesContent.get(_util, _cust, CURRENT_THREAD));
-        setAliasFormatType(LgNamesContent.get(_util, _cust, FORMAT_TYPE));
-        setAliasAtomicBoolean(LgNamesContent.get(_util, _cust, ATOMIC_BOOLEAN));
-        setAliasSetAtomic(LgNamesContent.get(_util, _cust, SET_ATOMIC));
-        setAliasFileIsDirectory(LgNamesContent.get(_util, _cust, FILE_IS_DIRECTORY));
-        setAliasFileGetParentPath(LgNamesContent.get(_util, _cust, FILE_GET_PARENT_PATH));
-        setAliasAtomicLong(LgNamesContent.get(_util, _cust, ATOMIC_LONG));
-        setAliasFileAbsolutePath(LgNamesContent.get(_util, _cust, FILE_ABSOLUTE_PATH));
-        setAliasFileLastModif(LgNamesContent.get(_util, _cust, FILE_LAST_MODIF));
-        setAliasFileGetName(LgNamesContent.get(_util, _cust, FILE_GET_NAME));
-        setAliasGetAtomic(LgNamesContent.get(_util, _cust, GET_ATOMIC));
-        setAliasLazySetAtomic(LgNamesContent.get(_util, _cust, LAZY_SET_ATOMIC));
-        setAliasCompareAndSetAtomic(LgNamesContent.get(_util, _cust, COMPARE_AND_SET_ATOMIC));
-        setAliasGetAndAddAtomic(LgNamesContent.get(_util, _cust, GET_AND_ADD_ATOMIC));
-        setAliasAddAndGetAtomic(LgNamesContent.get(_util, _cust, ADD_AND_GET_ATOMIC));
-        setAliasGetAndIncrementAtomic(LgNamesContent.get(_util, _cust, GET_AND_INCREMENT_ATOMIC));
-        setAliasIncrementAndGetAtomic(LgNamesContent.get(_util, _cust, INCREMENT_AND_GET_ATOMIC));
-        setAliasGetAndDecrementAtomic(LgNamesContent.get(_util, _cust, GET_AND_DECREMENT_ATOMIC));
-        setAliasDecrementAndGetAtomic(LgNamesContent.get(_util, _cust, DECREMENT_AND_GET_ATOMIC));
-        setAliasGetAndSetAtomic(LgNamesContent.get(_util, _cust, GET_AND_SET_ATOMIC));
-        setAliasLgInt(LgNamesContent.get(_util, _cust, LG_INT));
-        setAliasRate(LgNamesContent.get(_util, _cust, RATE));
-        setAliasRateParse(LgNamesContent.get(_util, _cust, RATE_PARSE));
-        setAliasLgIntParse(LgNamesContent.get(_util, _cust, LG_INT_PARSE));
-        setAliasRateDen(LgNamesContent.get(_util, _cust, RATE_DEN));
-        setAliasRateNum(LgNamesContent.get(_util, _cust, RATE_NUM));
-//        setAliasReentrantLock(LgNamesContent.get(_util, _cust, REENTRANT_LOCK));
-        setAliasJoinOthers(LgNamesContent.get(_util, _cust, JOIN_OTHERS));
-        setAliasFileIsFile(LgNamesContent.get(_util, _cust, FILE_IS_FILE));
-        setAliasFileRoots(LgNamesContent.get(_util, _cust, FILE_ROOTS));
-//        setAliasThreadExitHook(LgNamesContent.get(_util, _cust, THREAD_EXIT_HOOK));
-        setAliasAppendToFile(LgNamesContent.get(_util, _cust, APPEND_TO_FILE));
-        setAliasThreadCurrentTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_TIME));
-        setAliasThreadRunnable(LgNamesContent.get(_util, _cust, THREAD_RUNNABLE));
-        setAliasThreadCurrentNanoTime(LgNamesContent.get(_util, _cust, THREAD_CURRENT_NANO_TIME));
-        setAliasSetPriority(LgNamesContent.get(_util, _cust, SET_PRIORITY));
-        setAliasFileListFiles(LgNamesContent.get(_util, _cust, FILE_LIST_FILES));
-        setAliasGetPriority(LgNamesContent.get(_util, _cust, GET_PRIORITY));
-//        setAliasIsHeldByCurrentThread(LgNamesContent.get(_util, _cust, IS_HELD_BY_CURRENT_THREAD));
-        setAliasFileListDirectories(LgNamesContent.get(_util, _cust, FILE_LIST_DIRECTORIES));
-        setAliasLengthItrTa(LgNamesContent.get(_util, _cust, LENGTH_ITR_TA));
-        setAliasExecutedTestAnnotations(LgNamesContent.get(_util, _cust, EXECUTED_TEST_ANNOTATIONS));
-        setAliasPairVarFirst(LgNamesContent.get(_util, _cust, PAIR_VAR_FIRST));
-        setAliasIndexItrLi(LgNamesContent.get(_util, _cust, INDEX_ITR_LI));
-        setAliasListIterTable(LgNamesContent.get(_util, _cust, LIST_ITER_TABLE));
-        setAliasDifference(LgNamesContent.get(_util, _cust, DIFFERENCE));
-        setAliasEltDifference(LgNamesContent.get(_util, _cust, ELT_DIFFERENCE));
-        setAliasIndex(LgNamesContent.get(_util, _cust, INDEX));
-        setAliasTableVarSecond(LgNamesContent.get(_util, _cust, TABLE_VAR_SECOND));
-        setAliasIterTaVarFirst(LgNamesContent.get(_util, _cust, ITER_TA_VAR_FIRST));
-        setAliasExecutedTestBefore(LgNamesContent.get(_util, _cust, EXECUTED_TEST_BEFORE));
-        setAliasCustIteratorVar(LgNamesContent.get(_util, _cust, CUST_ITERATOR_VAR));
-        setAliasGetSecondTa(LgNamesContent.get(_util, _cust, GET_SECOND_TA));
-        setAliasExecutedTestTest(LgNamesContent.get(_util, _cust, EXECUTED_TEST_TEST));
-        setAliasExecutedTestMethod(LgNamesContent.get(_util, _cust, EXECUTED_TEST_METHOD));
-        setAliasExecutedTestAfter(LgNamesContent.get(_util, _cust, EXECUTED_TEST_AFTER));
-        setAliasCustIterator(LgNamesContent.get(_util, _cust, CUST_ITERATOR));
-        setAliasListClear(LgNamesContent.get(_util, _cust, LIST_CLEAR));
-        setAliasGetFirstTa(LgNamesContent.get(_util, _cust, GET_FIRST_TA));
-        setAliasSetSecondTa(LgNamesContent.get(_util, _cust, SET_SECOND_TA));
-        setAliasFileMakeDirs(LgNamesContent.get(_util, _cust, FILE_MAKE_DIRS));
-        setAliasFileZippedBin(LgNamesContent.get(_util, _cust, FILE_ZIPPED_BIN));
-        setAliasFileZippedBinArray(LgNamesContent.get(_util, _cust, FILE_ZIPPED_BIN_ARRAY));
-        setAliasFileZippedText(LgNamesContent.get(_util, _cust, FILE_ZIPPED_TEXT));
-        setAliasFileZipBin(LgNamesContent.get(_util, _cust, FILE_ZIP_BIN));
-        setAliasFileZipBinArray(LgNamesContent.get(_util, _cust, FILE_ZIP_BIN_ARRAY));
-        setAliasFileZipText(LgNamesContent.get(_util, _cust, FILE_ZIP_TEXT));
-        setAliasTableStringObject(LgNamesContent.get(_util, _cust, TABLE_STRING_OBJECT));
-        setAliasTableConcKeys(LgNamesContent.get(_util, _cust, TABLE_CONC_KEYS));
-        setAliasTableConcValues(LgNamesContent.get(_util, _cust, TABLE_CONC_VALUES));
-        setAliasTableConcHasKey(LgNamesContent.get(_util, _cust, TABLE_CONC_HAS_KEY));
-        setAliasTableConcHasValue(LgNamesContent.get(_util, _cust, TABLE_CONC_HAS_VALUE));
-        setAliasTableConcGet(LgNamesContent.get(_util, _cust, TABLE_CONC_GET));
-        setAliasTableConcClear(LgNamesContent.get(_util, _cust, TABLE_CONC_CLEAR));
-        setAliasTableConcPutAll(LgNamesContent.get(_util, _cust, TABLE_CONC_PUT_ALL));
-        setAliasTableConcPut(LgNamesContent.get(_util, _cust, TABLE_CONC_PUT));
-        setAliasTableConcPutAbs(LgNamesContent.get(_util, _cust, TABLE_CONC_PUT_ABS));
-        setAliasTableConcRemove(LgNamesContent.get(_util, _cust, TABLE_CONC_REMOVE));
-        setAliasTableConcReplace(LgNamesContent.get(_util, _cust, TABLE_CONC_REPLACE));
-        setAliasTableConcPairs(LgNamesContent.get(_util, _cust, TABLE_CONC_PAIRS));
-        setAliasTableConcEmpty(LgNamesContent.get(_util, _cust, TABLE_CONC_EMPTY));
-        setAliasTableConcSize(LgNamesContent.get(_util, _cust, TABLE_CONC_SIZE));
-        setAliasEntryStringObject(LgNamesContent.get(_util, _cust, ENTRY_STRING_OBJECT));
-        setAliasTableEntryKey(LgNamesContent.get(_util, _cust, TABLE_ENTRY_KEY));
-        setAliasTableEntryValue(LgNamesContent.get(_util, _cust, TABLE_ENTRY_VALUE));
-        setAliasTableEntryOwner(LgNamesContent.get(_util, _cust, TABLE_ENTRY_OWNER));
-        setAliasEntryBinary(LgNamesContent.get(_util, _cust, ENTRY_BINARY));
-        setAliasEntryText(LgNamesContent.get(_util, _cust, ENTRY_TEXT));
-        setAliasEntryName(LgNamesContent.get(_util, _cust, ENTRY_NAME));
-        setAliasEntryValue(LgNamesContent.get(_util, _cust, ENTRY_VALUE));
-        setAliasEntryTime(LgNamesContent.get(_util, _cust, ENTRY_TIME));
-        setAliasFileIsAbsolute(LgNamesContent.get(_util, _cust, FILE_IS_ABSOLUTE));
-        setAliasFileReadBin(LgNamesContent.get(_util, _cust, FILE_READ_BIN));
-        setAliasFileWriteBin(LgNamesContent.get(_util, _cust, FILE_WRITE_BIN));
-        setAliasFileDelete(LgNamesContent.get(_util, _cust, FILE_DELETE));
-        setAliasFileDir(LgNamesContent.get(_util, _cust, FILE_DIR));
-        setAliasFileRename(LgNamesContent.get(_util, _cust, FILE_RENAME));
-        setAliasCustIterTable(LgNamesContent.get(_util, _cust, CUST_ITER_TABLE));
-        setAliasTableVarFirst(LgNamesContent.get(_util, _cust, TABLE_VAR_FIRST));
-        setAliasSetSecond(LgNamesContent.get(_util, _cust, SET_SECOND));
-        setAliasIndexItrTa(LgNamesContent.get(_util, _cust, INDEX_ITR_TA));
-        setAliasIterTaVarSecond(LgNamesContent.get(_util, _cust, ITER_TA_VAR_SECOND));
-        setAliasLengthItrLi(LgNamesContent.get(_util, _cust, LENGTH_ITR_LI));
-        setAliasSetFirstTa(LgNamesContent.get(_util, _cust, SET_FIRST_TA));
-        setAliasExecutedTest(LgNamesContent.get(_util, _cust, EXECUTED_TEST));
-        setAliasParameters(LgNamesContent.get(_util, _cust, PARAMETERS));
-        setAliasTestException(LgNamesContent.get(_util, _cust, TEST_EXCEPTION));
-        setAliasTestNullException(LgNamesContent.get(_util, _cust, TEST_NULL_EXCEPTION));
-        setAliasPairVarSecond(LgNamesContent.get(_util, _cust, PAIR_VAR_SECOND));
-        setAliasExecuteExecute(LgNamesContent.get(_util, _cust, EXECUTE_EXECUTE));
-        setAliasExecuteSetupNoException(LgNamesContent.get(_util, _cust, EXECUTE_SETUP_NO_EXCEPTION));
-        setAliasAssertAssert(LgNamesContent.get(_util, _cust, ASSERT_ASSERT));
-        setAliasAssertAssertNull(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_NULL));
-        setAliasAssertAssertNotNull(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_NOT_NULL));
-        setAliasDifferenceFoundNull(LgNamesContent.get(_util, _cust, DIFFERENCE_FOUND_NULL));
-        setAliasResultSuccess(LgNamesContent.get(_util, _cust, RESULT_SUCCESS));
-        setAliasInfoTestCurrentClass(LgNamesContent.get(_util, _cust, INFO_TEST_CURRENT_CLASS));
-        setAliasExecuteConvert(LgNamesContent.get(_util, _cust, EXECUTE_CONVERT));
-        setAliasConcurrentError(LgNamesContent.get(_util, _cust, CONCURRENT_ERROR));
-        setAliasResultFailMessage(LgNamesContent.get(_util, _cust, RESULT_FAIL_MESSAGE));
-        setAliasAssertAssertTrue(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_TRUE));
-        setAliasAssertAssertNot(LgNamesContent.get(_util, _cust, ASSERT_NOT));
-        setAliasAssertAssertNotSame(LgNamesContent.get(_util, _cust, ASSERT_NOT_SAME));
-        setAliasAssertAssertFalse(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_FALSE));
-        setAliasInfoTestCurrentMethod(LgNamesContent.get(_util, _cust, INFO_TEST_CURRENT_METHOD));
-        setAliasResultParams(LgNamesContent.get(_util, _cust, RESULT_PARAMS));
-        setAliasParametersMethod(LgNamesContent.get(_util, _cust, PARAMETERS_METHOD));
-        setAliasExecuteSetupError(LgNamesContent.get(_util, _cust, EXECUTE_SETUP_ERROR));
-        setAliasAssertAssertSame(LgNamesContent.get(_util, _cust, ASSERT_ASSERT_SAME));
-        setAliasDifferenceFound(LgNamesContent.get(_util, _cust, DIFFERENCE_FOUND));
-        setAliasDifferenceFoundNotTrue(LgNamesContent.get(_util, _cust, DIFFERENCE_FOUND_NOT_TRUE));
-        setAliasParametersLocation(LgNamesContent.get(_util, _cust, PARAMETERS_LOCATION));
-        setAliasInfoTestCount(LgNamesContent.get(_util, _cust, INFO_TEST_COUNT));
-        setAliasInfoTestCalls(LgNamesContent.get(_util, _cust, INFO_TEST_CALLS));
-        setAliasResultTime(LgNamesContent.get(_util, _cust, RESULT_TIME));
-        setAliasInfoTestDone(LgNamesContent.get(_util, _cust, INFO_TEST_DONE));
-        setAliasInfoTestNbThreads(LgNamesContent.get(_util, _cust, INFO_TEST_NB_THREADS));
-        setAliasDifferenceStackDiff(LgNamesContent.get(_util, _cust, DIFFERENCE_STACK_DIFF));
-        setAliasExecuteTests(LgNamesContent.get(_util, _cust, EXECUTE_TESTS));
-        setAliasDifferenceExpected(LgNamesContent.get(_util, _cust, DIFFERENCE_EXPECTED));
-        setAliasInfoTestCurrentParams(LgNamesContent.get(_util, _cust, INFO_TEST_CURRENT_PARAMS));
-        setAliasInfoTestArgs(LgNamesContent.get(_util, _cust, INFO_TEST_ARGS));
-        setAliasInfoTestContainer(LgNamesContent.get(_util, _cust, INFO_TEST_CONTAINER));
-        setAliasInfoTestExecuted(LgNamesContent.get(_util, _cust, INFO_TEST_EXECUTED));
-        setAliasRunnable(LgNamesContent.get(_util, _cust, RUNNABLE));
-        setAliasThread(LgNamesContent.get(_util, _cust, THREAD));
-        setAliasThreadSet(LgNamesContent.get(_util, _cust, THREAD_SET));
-        setAliasExecutorServiceBase(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_BASE));
-        setAliasScheduledExecutorService(LgNamesContent.get(_util, _cust, SCHEDULED_EXECUTOR_SERVICE));
-        setAliasExecutorService(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE));
-        setAliasExecutorServiceShutdown(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SHUTDOWN));
-        setAliasExecutorServiceExecute(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_EXECUTE));
-        setAliasExecutorServiceSubmit(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SUBMIT));
-        setAliasExecutorServiceScheduleMillis(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SCHEDULE_MILLIS));
-        setAliasExecutorServiceScheduleNanos(LgNamesContent.get(_util, _cust, EXECUTOR_SERVICE_SCHEDULE_NANOS));
-        setAliasRunnableImplicit0Runner(LgNamesContent.get(_util, _cust, RUNNABLE_IMPLICIT_0_RUNNER));
-        setAliasFuture(LgNamesContent.get(_util, _cust, FUTURE));
-        setAliasFutureWait(LgNamesContent.get(_util, _cust, FUTURE_WAIT));
-        setAliasFutureCancel(LgNamesContent.get(_util, _cust, FUTURE_CANCEL));
-        setAliasThreadSetAll(LgNamesContent.get(_util, _cust, THREAD_SET_ALL));
-        setAliasThreadSetAdd(LgNamesContent.get(_util, _cust, THREAD_SET_ADD));
-        setAliasThreadSetContains(LgNamesContent.get(_util, _cust, THREAD_SET_CONTAINS));
-        setAliasThreadSetRemove(LgNamesContent.get(_util, _cust, THREAD_SET_REMOVE));
-        setAliasThreadSetSnapshot(LgNamesContent.get(_util, _cust, THREAD_SET_SNAPSHOT));
-        setAliasStart(LgNamesContent.get(_util, _cust, START));
-        setAliasThreadEq(LgNamesContent.get(_util, _cust, THREAD_EQ));
-        setAliasJoin(LgNamesContent.get(_util, _cust, JOIN));
-        setAliasInterrupt(LgNamesContent.get(_util, _cust, INTERRUPT));
-        setAliasArgs(LgNamesContent.get(_util, _cust, ARGS));
-        setAliasCoverage(LgNamesContent.get(_util, _cust, COVERAGE));
-        setAliasRun(LgNamesContent.get(_util, _cust, RUN));
-        setAliasLengthLi(LgNamesContent.get(_util, _cust, LENGTH_LI));
-        setAliasCustPair(LgNamesContent.get(_util, _cust, CUST_PAIR));
-        setAliasListTa(LgNamesContent.get(_util, _cust, LIST_TA));
-        setAliasGetId(LgNamesContent.get(_util, _cust, GET_ID));
-        setAliasIsAlive(LgNamesContent.get(_util, _cust, IS_ALIVE));
-        setAliasIsEnded(LgNamesContent.get(_util, _cust, IS_ENDED));
-        setAliasEnd(LgNamesContent.get(_util, _cust, END));
-        setAliasPrint(LgNamesContent.get(_util, _cust, PRINT));
-        setAliasListItr(LgNamesContent.get(_util, _cust, LIST_ITR));
-        setAliasRemoveLi(LgNamesContent.get(_util, _cust, REMOVE_LI));
-        setAliasArrayLi(LgNamesContent.get(_util, _cust, ARRAY_LI));
-        setAliasFirst(LgNamesContent.get(_util, _cust, FIRST));
-        setAliasSleep(LgNamesContent.get(_util, _cust, SLEEP));
-        setAliasFile(LgNamesContent.get(_util, _cust, FILE));
-        setAliasRead(LgNamesContent.get(_util, _cust, READ));
-        setAliasList(LgNamesContent.get(_util, _cust, LIST));
-//        setAliasUnlock(LgNamesContent.get(_util, _cust, UNLOCK));
-        setAliasSizeLi(LgNamesContent.get(_util, _cust, SIZE_LI));
-        setAliasListVar(LgNamesContent.get(_util, _cust, LIST_VAR));
-        setAliasSecond(LgNamesContent.get(_util, _cust, SECOND));
-        setAliasAddLi(LgNamesContent.get(_util, _cust, ADD_LI));
-//        setAliasYield(LgNamesContent.get(_util, _cust, YIELD));
-        setAliasSetFirst(LgNamesContent.get(_util, _cust, SET_FIRST));
-//        setAliasLock(LgNamesContent.get(_util, _cust, LOCK));
-        setAliasWrite(LgNamesContent.get(_util, _cust, WRITE));
-        setAliasTable(LgNamesContent.get(_util, _cust, TABLE));
-        setAliasResult(LgNamesContent.get(_util, _cust, RESULT));
-        setAliasAddTa(LgNamesContent.get(_util, _cust, ADD_TA));
-        setAliasInfoTest(LgNamesContent.get(_util, _cust, INFO_TEST));
-        setAliasRemoveTa(LgNamesContent.get(_util, _cust, REMOVE_TA));
-        setAliasBefore(LgNamesContent.get(_util, _cust, BEFORE));
-        setAliasGetTa(LgNamesContent.get(_util, _cust, GET_TA));
-        setAliasTest(LgNamesContent.get(_util, _cust, TEST));
-        setAliasArgsTest(LgNamesContent.get(_util, _cust, ARGS_TEST));
-        setAliasArgsTestArgsValue(LgNamesContent.get(_util, _cust, ARGS_TEST_ARGS_VALUE));
-        setAliasExecute(LgNamesContent.get(_util, _cust, EXECUTE));
-        setAliasExecutedTestArgsAnnot(LgNamesContent.get(_util, _cust, EXECUTED_TEST_ARGS_ANNOT));
-        setAliasAfter(LgNamesContent.get(_util, _cust, AFTER));
-        setAliasSizeTa(LgNamesContent.get(_util, _cust, SIZE_TA));
-        setAliasAssert(LgNamesContent.get(_util, _cust, ASSERT));
-        custAliasParameters.build(_util,_cust);
+        StringMap<String> keys_ = extractAliasesKeys();
+        StringMap<String> exp_ = defAliases(getUserLg(), getTranslations(), getLanguage());
+        otherAlias(_content,exp_,_cust,keys_);
     }
 
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes() {
+    private void otherAlias(LgNamesContent _content,StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        _content.build(_util, _cust,_mapping);
+        build(_util,_cust,_mapping);
+    }
+    public StringMap<String> extractAliasesKeys() {
+        TranslationsLg lg_ = lg(getTranslations(), getUserLg(), getLanguage());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES);
+        return LgNamesUtilsContent.extractKeys(com_);
+    }
+
+    public static StringMap<String> defAliases(String _lg, Translations _trs, String _language) {
+        TranslationsLg lg_ = lg(_trs, _lg, _language);
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.TYPES);
+        return LgNamesUtilsContent.extractMap(com_);
+    }
+    public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
+        setAliasIllegalThreadStateException(LgNamesContent.get(_util,_cust,_mapping.getVal(ILLEGAL_THREAD_STATE_EXCEPTION)));
+        setAliasFileGetLength(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_GET_LENGTH)));
+        setAliasAtomicInteger(LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_INTEGER)));
+        setAliasCurrentThread(LgNamesContent.get(_util,_cust,_mapping.getVal(CURRENT_THREAD)));
+        setAliasFormatType(LgNamesContent.get(_util,_cust,_mapping.getVal(FORMAT_TYPE)));
+        setAliasAtomicBoolean(LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_BOOLEAN)));
+        setAliasSetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_ATOMIC)));
+        setAliasFileIsDirectory(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_IS_DIRECTORY)));
+        setAliasFileGetParentPath(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_GET_PARENT_PATH)));
+        setAliasAtomicLong(LgNamesContent.get(_util,_cust,_mapping.getVal(ATOMIC_LONG)));
+        setAliasFileAbsolutePath(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ABSOLUTE_PATH)));
+        setAliasFileLastModif(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_LAST_MODIF)));
+        setAliasFileGetName(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_GET_NAME)));
+        setAliasGetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_ATOMIC)));
+        setAliasLazySetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(LAZY_SET_ATOMIC)));
+        setAliasCompareAndSetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(COMPARE_AND_SET_ATOMIC)));
+        setAliasGetAndAddAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_AND_ADD_ATOMIC)));
+        setAliasAddAndGetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_AND_GET_ATOMIC)));
+        setAliasGetAndIncrementAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_AND_INCREMENT_ATOMIC)));
+        setAliasIncrementAndGetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(INCREMENT_AND_GET_ATOMIC)));
+        setAliasGetAndDecrementAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_AND_DECREMENT_ATOMIC)));
+        setAliasDecrementAndGetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(DECREMENT_AND_GET_ATOMIC)));
+        setAliasGetAndSetAtomic(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_AND_SET_ATOMIC)));
+        setAliasLgInt(LgNamesContent.get(_util,_cust,_mapping.getVal(LG_INT)));
+        setAliasRate(LgNamesContent.get(_util,_cust,_mapping.getVal(RATE)));
+        setAliasRateParse(LgNamesContent.get(_util,_cust,_mapping.getVal(RATE_PARSE)));
+        setAliasLgIntParse(LgNamesContent.get(_util,_cust,_mapping.getVal(LG_INT_PARSE)));
+        setAliasRateDen(LgNamesContent.get(_util,_cust,_mapping.getVal(RATE_DEN)));
+        setAliasRateNum(LgNamesContent.get(_util,_cust,_mapping.getVal(RATE_NUM)));
+//        setAliasReentrantLock(LgNamesContent.get(_util,_cust,_mapping.getVal(REENTRANT_LOCK)));
+        setAliasJoinOthers(LgNamesContent.get(_util,_cust,_mapping.getVal(JOIN_OTHERS)));
+        setAliasFileIsFile(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_IS_FILE)));
+        setAliasFileRoots(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ROOTS)));
+//        setAliasThreadExitHook(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_EXIT_HOOK)));
+        setAliasAppendToFile(LgNamesContent.get(_util,_cust,_mapping.getVal(APPEND_TO_FILE)));
+        setAliasThreadCurrentTime(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_CURRENT_TIME)));
+        setAliasThreadRunnable(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_RUNNABLE)));
+        setAliasThreadCurrentNanoTime(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_CURRENT_NANO_TIME)));
+        setAliasSetPriority(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_PRIORITY)));
+        setAliasFileListFiles(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_LIST_FILES)));
+        setAliasGetPriority(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_PRIORITY)));
+//        setAliasIsHeldByCurrentThread(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_HELD_BY_CURRENT_THREAD)));
+        setAliasFileListDirectories(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_LIST_DIRECTORIES)));
+        setAliasLengthItrTa(LgNamesContent.get(_util,_cust,_mapping.getVal(LENGTH_ITR_TA)));
+        setAliasExecutedTestAnnotations(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST_ANNOTATIONS)));
+        setAliasPairVarFirst(LgNamesContent.get(_util,_cust,_mapping.getVal(PAIR_VAR_FIRST)));
+        setAliasIndexItrLi(LgNamesContent.get(_util,_cust,_mapping.getVal(INDEX_ITR_LI)));
+        setAliasListIterTable(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_ITER_TABLE)));
+        setAliasDifference(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE)));
+        setAliasEltDifference(LgNamesContent.get(_util,_cust,_mapping.getVal(ELT_DIFFERENCE)));
+        setAliasIndex(LgNamesContent.get(_util,_cust,_mapping.getVal(INDEX)));
+        setAliasTableVarSecond(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_VAR_SECOND)));
+        setAliasIterTaVarFirst(LgNamesContent.get(_util,_cust,_mapping.getVal(ITER_TA_VAR_FIRST)));
+        setAliasExecutedTestBefore(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST_BEFORE)));
+        setAliasCustIteratorVar(LgNamesContent.get(_util,_cust,_mapping.getVal(CUST_ITERATOR_VAR)));
+        setAliasGetSecondTa(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_SECOND_TA)));
+        setAliasExecutedTestTest(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST_TEST)));
+        setAliasExecutedTestMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST_METHOD)));
+        setAliasExecutedTestAfter(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST_AFTER)));
+        setAliasCustIterator(LgNamesContent.get(_util,_cust,_mapping.getVal(CUST_ITERATOR)));
+        setAliasListClear(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_CLEAR)));
+        setAliasGetFirstTa(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_FIRST_TA)));
+        setAliasSetSecondTa(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_SECOND_TA)));
+        setAliasFileMakeDirs(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_MAKE_DIRS)));
+        setAliasFileZippedBin(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ZIPPED_BIN)));
+        setAliasFileZippedBinArray(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ZIPPED_BIN_ARRAY)));
+        setAliasFileZippedText(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ZIPPED_TEXT)));
+        setAliasFileZipBin(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ZIP_BIN)));
+        setAliasFileZipBinArray(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ZIP_BIN_ARRAY)));
+        setAliasFileZipText(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_ZIP_TEXT)));
+        setAliasTableStringObject(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_STRING_OBJECT)));
+        setAliasTableConcKeys(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_KEYS)));
+        setAliasTableConcValues(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_VALUES)));
+        setAliasTableConcHasKey(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_HAS_KEY)));
+        setAliasTableConcHasValue(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_HAS_VALUE)));
+        setAliasTableConcGet(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_GET)));
+        setAliasTableConcClear(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_CLEAR)));
+        setAliasTableConcPutAll(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_PUT_ALL)));
+        setAliasTableConcPut(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_PUT)));
+        setAliasTableConcPutAbs(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_PUT_ABS)));
+        setAliasTableConcRemove(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_REMOVE)));
+        setAliasTableConcReplace(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_REPLACE)));
+        setAliasTableConcPairs(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_PAIRS)));
+        setAliasTableConcEmpty(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_EMPTY)));
+        setAliasTableConcSize(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_CONC_SIZE)));
+        setAliasEntryStringObject(LgNamesContent.get(_util,_cust,_mapping.getVal(ENTRY_STRING_OBJECT)));
+        setAliasTableEntryKey(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_ENTRY_KEY)));
+        setAliasTableEntryValue(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_ENTRY_VALUE)));
+        setAliasTableEntryOwner(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_ENTRY_OWNER)));
+        setAliasEntryBinary(LgNamesContent.get(_util,_cust,_mapping.getVal(ENTRY_BINARY)));
+        setAliasEntryText(LgNamesContent.get(_util,_cust,_mapping.getVal(ENTRY_TEXT)));
+        setAliasEntryName(LgNamesContent.get(_util,_cust,_mapping.getVal(ENTRY_NAME)));
+        setAliasEntryValue(LgNamesContent.get(_util,_cust,_mapping.getVal(ENTRY_VALUE)));
+        setAliasEntryTime(LgNamesContent.get(_util,_cust,_mapping.getVal(ENTRY_TIME)));
+        setAliasFileIsAbsolute(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_IS_ABSOLUTE)));
+        setAliasFileReadBin(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_READ_BIN)));
+        setAliasFileWriteBin(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_WRITE_BIN)));
+        setAliasFileDelete(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_DELETE)));
+        setAliasFileDir(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_DIR)));
+        setAliasFileRename(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE_RENAME)));
+        setAliasCustIterTable(LgNamesContent.get(_util,_cust,_mapping.getVal(CUST_ITER_TABLE)));
+        setAliasTableVarFirst(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE_VAR_FIRST)));
+        setAliasSetSecond(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_SECOND)));
+        setAliasIndexItrTa(LgNamesContent.get(_util,_cust,_mapping.getVal(INDEX_ITR_TA)));
+        setAliasIterTaVarSecond(LgNamesContent.get(_util,_cust,_mapping.getVal(ITER_TA_VAR_SECOND)));
+        setAliasLengthItrLi(LgNamesContent.get(_util,_cust,_mapping.getVal(LENGTH_ITR_LI)));
+        setAliasSetFirstTa(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_FIRST_TA)));
+        setAliasExecutedTest(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST)));
+        setAliasParameters(LgNamesContent.get(_util,_cust,_mapping.getVal(PARAMETERS)));
+        setAliasTestException(LgNamesContent.get(_util,_cust,_mapping.getVal(TEST_EXCEPTION)));
+        setAliasTestNullException(LgNamesContent.get(_util,_cust,_mapping.getVal(TEST_NULL_EXCEPTION)));
+        setAliasPairVarSecond(LgNamesContent.get(_util,_cust,_mapping.getVal(PAIR_VAR_SECOND)));
+        setAliasExecuteExecute(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_EXECUTE)));
+        setAliasExecuteSetupNoException(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_SETUP_NO_EXCEPTION)));
+        setAliasAssertAssert(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT)));
+        setAliasAssertAssertNull(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT_NULL)));
+        setAliasAssertAssertNotNull(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT_NOT_NULL)));
+        setAliasDifferenceFoundNull(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_FOUND_NULL)));
+        setAliasResultSuccess(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_SUCCESS)));
+//        setAliasInfoTestCurrentClass(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CURRENT_CLASS)));
+        setAliasExecuteConvert(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_CONVERT)));
+        setAliasConcurrentError(LgNamesContent.get(_util,_cust,_mapping.getVal(CONCURRENT_ERROR)));
+        setAliasResultFailMessage(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_FAIL_MESSAGE)));
+        setAliasAssertAssertTrue(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT_TRUE)));
+        setAliasAssertAssertNot(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_NOT)));
+        setAliasAssertAssertNotSame(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_NOT_SAME)));
+        setAliasAssertAssertFalse(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT_FALSE)));
+        setAliasInfoTestCurrentMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CURRENT_METHOD)));
+        setAliasResultParams(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_PARAMS)));
+        setAliasParametersMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(PARAMETERS_METHOD)));
+        setAliasExecuteSetupError(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_SETUP_ERROR)));
+        setAliasAssertAssertSame(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT_ASSERT_SAME)));
+        setAliasDifferenceFound(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_FOUND)));
+        setAliasDifferenceFoundNotTrue(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_FOUND_NOT_TRUE)));
+        setAliasParametersLocation(LgNamesContent.get(_util,_cust,_mapping.getVal(PARAMETERS_LOCATION)));
+        setAliasInfoTestCount(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_COUNT)));
+        setAliasInfoTestCalls(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CALLS)));
+        setAliasResultTime(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT_TIME)));
+        setAliasInfoTestDone(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_DONE)));
+        setAliasInfoTestNbThreads(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_NB_THREADS)));
+        setAliasDifferenceStackDiff(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_STACK_DIFF)));
+        setAliasExecuteTests(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE_TESTS)));
+        setAliasDifferenceExpected(LgNamesContent.get(_util,_cust,_mapping.getVal(DIFFERENCE_EXPECTED)));
+        setAliasInfoTestCurrentParams(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CURRENT_PARAMS)));
+        setAliasInfoTestArgs(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_ARGS)));
+        setAliasInfoTestContainer(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_CONTAINER)));
+        setAliasInfoTestExecuted(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST_EXECUTED)));
+        setAliasRunnable(LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE)));
+        setAliasThread(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD)));
+        setAliasThreadSet(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET)));
+        setAliasExecutorServiceBase(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_BASE)));
+        setAliasScheduledExecutorService(LgNamesContent.get(_util,_cust,_mapping.getVal(SCHEDULED_EXECUTOR_SERVICE)));
+        setAliasExecutorService(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE)));
+        setAliasExecutorServiceShutdown(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN)));
+        setAliasExecutorServiceExecute(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_EXECUTE)));
+        setAliasExecutorServiceSubmit(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SUBMIT)));
+        setAliasExecutorServiceScheduleMillis(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_MILLIS)));
+        setAliasExecutorServiceScheduleNanos(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_NANOS)));
+        setAliasRunnableImplicit0Runner(LgNamesContent.get(_util,_cust,_mapping.getVal(RUNNABLE_IMPLICIT_0_RUNNER)));
+        setAliasFuture(LgNamesContent.get(_util,_cust,_mapping.getVal(FUTURE)));
+        setAliasFutureWait(LgNamesContent.get(_util,_cust,_mapping.getVal(FUTURE_WAIT)));
+        setAliasFutureCancel(LgNamesContent.get(_util,_cust,_mapping.getVal(FUTURE_CANCEL)));
+        setAliasThreadSetAll(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET_ALL)));
+        setAliasThreadSetAdd(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET_ADD)));
+        setAliasThreadSetContains(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET_CONTAINS)));
+        setAliasThreadSetRemove(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET_REMOVE)));
+        setAliasThreadSetSnapshot(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_SET_SNAPSHOT)));
+        setAliasStart(LgNamesContent.get(_util,_cust,_mapping.getVal(START)));
+        setAliasThreadEq(LgNamesContent.get(_util,_cust,_mapping.getVal(THREAD_EQ)));
+        setAliasJoin(LgNamesContent.get(_util,_cust,_mapping.getVal(JOIN)));
+        setAliasInterrupt(LgNamesContent.get(_util,_cust,_mapping.getVal(INTERRUPT)));
+        setAliasArgs(LgNamesContent.get(_util,_cust,_mapping.getVal(ARGS)));
+        setAliasCoverage(LgNamesContent.get(_util,_cust,_mapping.getVal(COVERAGE)));
+        setAliasRun(LgNamesContent.get(_util,_cust,_mapping.getVal(RUN)));
+        setAliasLengthLi(LgNamesContent.get(_util,_cust,_mapping.getVal(LENGTH_LI)));
+        setAliasCustPair(LgNamesContent.get(_util,_cust,_mapping.getVal(CUST_PAIR)));
+        setAliasListTa(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_TA)));
+        setAliasGetId(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_ID)));
+        setAliasIsAlive(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_ALIVE)));
+        setAliasIsEnded(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_ENDED)));
+        setAliasEnd(LgNamesContent.get(_util,_cust,_mapping.getVal(END)));
+        setAliasPrint(LgNamesContent.get(_util,_cust,_mapping.getVal(PRINT)));
+        setAliasListItr(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_ITR)));
+        setAliasRemoveLi(LgNamesContent.get(_util,_cust,_mapping.getVal(REMOVE_LI)));
+        setAliasArrayLi(LgNamesContent.get(_util,_cust,_mapping.getVal(ARRAY_LI)));
+        setAliasFirst(LgNamesContent.get(_util,_cust,_mapping.getVal(FIRST)));
+        setAliasSleep(LgNamesContent.get(_util,_cust,_mapping.getVal(SLEEP)));
+        setAliasFile(LgNamesContent.get(_util,_cust,_mapping.getVal(FILE)));
+        setAliasRead(LgNamesContent.get(_util,_cust,_mapping.getVal(READ)));
+        setAliasList(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST)));
+//        setAliasUnlock(LgNamesContent.get(_util,_cust,_mapping.getVal(UNLOCK)));
+        setAliasSizeLi(LgNamesContent.get(_util,_cust,_mapping.getVal(SIZE_LI)));
+        setAliasListVar(LgNamesContent.get(_util,_cust,_mapping.getVal(LIST_VAR)));
+        setAliasSecond(LgNamesContent.get(_util,_cust,_mapping.getVal(SECOND)));
+        setAliasAddLi(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_LI)));
+//        setAliasYield(LgNamesContent.get(_util,_cust,_mapping.getVal(YIELD)));
+        setAliasSetFirst(LgNamesContent.get(_util,_cust,_mapping.getVal(SET_FIRST)));
+//        setAliasLock(LgNamesContent.get(_util,_cust,_mapping.getVal(LOCK)));
+        setAliasWrite(LgNamesContent.get(_util,_cust,_mapping.getVal(WRITE)));
+        setAliasTable(LgNamesContent.get(_util,_cust,_mapping.getVal(TABLE)));
+        setAliasResult(LgNamesContent.get(_util,_cust,_mapping.getVal(RESULT)));
+        setAliasAddTa(LgNamesContent.get(_util,_cust,_mapping.getVal(ADD_TA)));
+        setAliasInfoTest(LgNamesContent.get(_util,_cust,_mapping.getVal(INFO_TEST)));
+        setAliasRemoveTa(LgNamesContent.get(_util,_cust,_mapping.getVal(REMOVE_TA)));
+        setAliasBefore(LgNamesContent.get(_util,_cust,_mapping.getVal(BEFORE)));
+        setAliasGetTa(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_TA)));
+        setAliasTest(LgNamesContent.get(_util,_cust,_mapping.getVal(TEST)));
+        setAliasArgsTest(LgNamesContent.get(_util,_cust,_mapping.getVal(ARGS_TEST)));
+        setAliasArgsTestArgsValue(LgNamesContent.get(_util,_cust,_mapping.getVal(ARGS_TEST_ARGS_VALUE)));
+        setAliasExecute(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTE)));
+        setAliasExecutedTestArgsAnnot(LgNamesContent.get(_util,_cust,_mapping.getVal(EXECUTED_TEST_ARGS_ANNOT)));
+        setAliasAfter(LgNamesContent.get(_util,_cust,_mapping.getVal(AFTER)));
+        setAliasSizeTa(LgNamesContent.get(_util,_cust,_mapping.getVal(SIZE_TA)));
+        setAliasAssert(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT)));
+        custAliasParameters.build(_util,_cust,_mapping);
+    }
+    public static TranslationsFile en() {
+        TranslationsFile en_ = new TranslationsFile();
+        en(en_);
+        LgNamesContent.en(en_);
+        return en_;
+    }
+    public static void en(TranslationsFile _en){
+        _en.add(THREAD,"Thread=$core.Thread");
+        _en.add(THREAD_SET,"ThreadSet=$core.ThreadSet");
+        _en.add(EXECUTOR_SERVICE,"ExecutorService=$core.ExecutorService");
+        _en.add(EXECUTOR_SERVICE_BASE,"ExecutorServiceBase=$core.ServiceBaseExecution");
+        _en.add(SCHEDULED_EXECUTOR_SERVICE,"ScheduledExecutorService=$core.ServiceScheduledExecution");
+        _en.add(FUTURE,"Future=$core.Future");
+        _en.add(ATOMIC_BOOLEAN,"AtomicBoolean=$core.AtomicBoolean");
+        _en.add(ATOMIC_INTEGER,"AtomicInteger=$core.AtomicInteger");
+        _en.add(ATOMIC_LONG,"AtomicLong=$core.AtomicLong");
+        _en.add(RATE,"Rate=$core.Rate");
+        _en.add(LG_INT,"LgInt=$core.LgInt");
+        _en.add(FILE,"File=$core.File");
+        _en.add(ILLEGAL_THREAD_STATE_EXCEPTION,"IllegalThreadStateException=$core.IllegalThreadState");
+        _en.add(CUST_ITERATOR,"CustIterator=$core.CustIterator");
+        _en.add(LIST,"List=$core.List");
+        _en.add(RUNNABLE,"Runnable=$core.Runnable");
+        _en.add(FORMAT_TYPE,"FormatType=$core.Formatting");
+        _en.add(CUST_PAIR,"CustPair=$core.PairImpl");
+        _en.add(CUST_ITER_TABLE,"CustIterTable=$core.CustIteratorTable");
+        _en.add(TABLE,"Table=$core.Table");
+        _en.add(EXECUTE,"Execute=$core.Execute");
+        _en.add(INFO_TEST,"InfoTest=$core.InfoTest");
+        _en.add(EXECUTED_TEST,"ExecutedTest=$core.ExecutedTest");
+        _en.add(RESULT,"Result=$core.Result");
+        _en.add(BEFORE,"Before=$core.Before");
+        _en.add(AFTER,"After=$core.After");
+        _en.add(PARAMETERS,"Parameters=$core.Parameters");
+        _en.add(TEST,"Test=$core.Test");
+        _en.add(ARGS_TEST,"ArgsTest=$core.ArgsTest");
+        _en.add(ASSERT,"Assert=$core.Assert");
+        _en.add(DIFFERENCE,"Difference=$core.Difference");
+        _en.add(ELT_DIFFERENCE,"EltDifference=$core.EltDifference");
+        _en.add(CONCURRENT_ERROR,"ConcurrentError=$core.ConcurrentError");
+        _en.add(ENTRY_BINARY,"EntryBinary=$core.BinaryEntry");
+        _en.add(ENTRY_TEXT,"EntryText=$core.TextEntry");
+        _en.add(ENTRY_STRING_OBJECT,"EntryStringObject=$core.StringObjectEntry");
+        _en.add(TABLE_STRING_OBJECT,"TableStringObject=$core.StringObjectTable");
+        _en.add(START,"Start=start");
+        _en.add(THREAD_EQ,"ThreadEq=tEq");
+        _en.add(THREAD_RUNNABLE,"ThreadRunnable=runnable");
+        _en.add(THREAD_CURRENT_TIME,"ThreadCurrentTime=currentTime");
+        _en.add(THREAD_CURRENT_NANO_TIME,"ThreadCurrentNanoTime=currentTimeNanos");
+        _en.add(IS_ALIVE,"IsAlive=isAlive");
+        _en.add(IS_ENDED,"IsEnded=isEnded");
+        _en.add(END,"End=end");
+        _en.add(CURRENT_THREAD,"CurrentThread=currentThread");
+        _en.add(JOIN,"Join=join");
+        _en.add(INTERRUPT,"Interrupt=interrupt");
+        _en.add(ARGS,"Args=args");
+        _en.add(COVERAGE,"Coverage=coverage");
+        _en.add(JOIN_OTHERS,"JoinOthers=joinOthers");
+        _en.add(GET_ID,"GetId=getId");
+        _en.add(GET_PRIORITY,"GetPriority=getPriority");
+        _en.add(SET_PRIORITY,"SetPriority=setPriority");
+        _en.add(SLEEP,"Sleep=sleep");
+        _en.add(PRINT,"Print=print");
+        _en.add(EXECUTOR_SERVICE_EXECUTE,"ExecutorServiceExecute=execute");
+        _en.add(EXECUTOR_SERVICE_SUBMIT,"ExecutorServiceSubmit=submit");
+        _en.add(EXECUTOR_SERVICE_SHUTDOWN,"ExecutorServiceShutdown=shutdown");
+        _en.add(EXECUTOR_SERVICE_SCHEDULE_MILLIS,"ExecutorServiceScheduleMillis=scheduleMillis");
+        _en.add(EXECUTOR_SERVICE_SCHEDULE_NANOS,"ExecutorServiceScheduleNanos=scheduleNanos");
+        _en.add(FUTURE_WAIT,"FutureWait=wait");
+        _en.add(FUTURE_CANCEL,"FutureCancel=cancel");
+        _en.add(THREAD_SET_ADD,"ThreadSetAdd=add");
+        _en.add(THREAD_SET_ALL,"ThreadSetAll=all");
+        _en.add(THREAD_SET_CONTAINS,"ThreadSetContains=contains");
+        _en.add(THREAD_SET_REMOVE,"ThreadSetRemove=remove");
+        _en.add(THREAD_SET_SNAPSHOT,"ThreadSetSnapshot=snapshot");
+        _en.add(RUN,"Run=run");
+        _en.add(GET_ATOMIC,"GetAtomic=getValue");
+        _en.add(SET_ATOMIC,"SetAtomic=setValue");
+        _en.add(COMPARE_AND_SET_ATOMIC,"CompareAndSetAtomic=compareAndSet");
+        _en.add(GET_AND_SET_ATOMIC,"GetAndSetAtomic=getAndSet");
+        _en.add(LAZY_SET_ATOMIC,"LazySetAtomic=lazySet");
+        _en.add(ADD_AND_GET_ATOMIC,"AddAndGetAtomic=addAndGet");
+        _en.add(GET_AND_ADD_ATOMIC,"GetAndAddAtomic=getAndAdd");
+        _en.add(INCREMENT_AND_GET_ATOMIC,"IncrementAndGetAtomic=incrementAndGet");
+        _en.add(GET_AND_INCREMENT_ATOMIC,"GetAndIncrementAtomic=getAndIncrement");
+        _en.add(DECREMENT_AND_GET_ATOMIC,"DecrementAndGetAtomic=decrementAndGet");
+        _en.add(GET_AND_DECREMENT_ATOMIC,"GetAndDecrementAtomic=getAndDecrement");
+        _en.add(LG_INT_PARSE,"LgIntParse=parseLgInt");
+        _en.add(RATE_PARSE,"RateParse=parseRate");
+        _en.add(RATE_NUM,"RateNum=num");
+        _en.add(RATE_DEN,"RateDen=den");
+        _en.add(READ,"Read=read");
+        _en.add(WRITE,"Write=write");
+        _en.add(APPEND_TO_FILE,"AppendToFile=appendToFile");
+        _en.add(FILE_ABSOLUTE_PATH,"FileAbsolutePath=absolute");
+        _en.add(FILE_GET_LENGTH,"FileGetLength=length");
+        _en.add(FILE_GET_NAME,"FileGetName=name");
+        _en.add(FILE_GET_PARENT_PATH,"FileGetParentPath=parentPath");
+        _en.add(FILE_IS_DIRECTORY,"FileIsDirectory=isDirectory");
+        _en.add(FILE_IS_FILE,"FileIsFile=isFile");
+        _en.add(FILE_ROOTS,"FileRoots=roots");
+        _en.add(FILE_IS_ABSOLUTE,"FileIsAbsolute=isAbsolute");
+        _en.add(FILE_READ_BIN,"FileReadBin=readBin");
+        _en.add(FILE_WRITE_BIN,"FileWriteBin=writeBin");
+        _en.add(FILE_DELETE,"FileDelete=delete");
+        _en.add(FILE_DIR,"FileDir=dir");
+        _en.add(FILE_RENAME,"FileRename=renameTo");
+        _en.add(FILE_LAST_MODIF,"FileLastModif=lastModification");
+        _en.add(FILE_LIST_DIRECTORIES,"FileListDirectories=directories");
+        _en.add(FILE_LIST_FILES,"FileListFiles=files");
+        _en.add(FILE_ZIP_BIN,"FileZipBin=zipBinary");
+        _en.add(FILE_ZIP_BIN_ARRAY,"FileZipBinArray=zipBinaryArray");
+        _en.add(FILE_ZIP_TEXT,"FileZipText=zipText");
+        _en.add(FILE_ZIPPED_BIN,"FileZippedBin=zippedBinary");
+        _en.add(FILE_ZIPPED_BIN_ARRAY,"FileZippedBinArray=zippedBinaryArray");
+        _en.add(FILE_ZIPPED_TEXT,"FileZippedText=zippedText");
+        _en.add(FILE_MAKE_DIRS,"FileMakeDirs=makeDirectories");
+        _en.add(TABLE_CONC_PAIRS,"TableConcPairs=pairs");
+        _en.add(TABLE_CONC_EMPTY,"TableConcEmpty=emp");
+        _en.add(TABLE_CONC_SIZE,"TableConcSize=size");
+        _en.add(TABLE_CONC_KEYS,"TableConcKeys=keys");
+        _en.add(TABLE_CONC_VALUES,"TableConcValues=values");
+        _en.add(TABLE_CONC_HAS_KEY,"TableConcHasKey=hasKey");
+        _en.add(TABLE_CONC_HAS_VALUE,"TableConcHasValue=hasValue");
+        _en.add(TABLE_CONC_GET,"TableConcGet=get");
+        _en.add(TABLE_CONC_REMOVE,"TableConcRemove=remove");
+        _en.add(TABLE_CONC_PUT,"TableConcPut=put");
+        _en.add(TABLE_CONC_PUT_ABS,"TableConcPutAbs=putAbs");
+        _en.add(TABLE_CONC_REPLACE,"TableConcReplace=replace");
+        _en.add(TABLE_CONC_CLEAR,"TableConcClear=clear");
+        _en.add(TABLE_CONC_PUT_ALL,"TableConcPutAll=putAll");
+        _en.add(TABLE_ENTRY_KEY,"TableEntryKey=key");
+        _en.add(TABLE_ENTRY_VALUE,"TableEntryValue=value");
+        _en.add(TABLE_ENTRY_OWNER,"TableEntryOwner=owner");
+        _en.add(ENTRY_NAME,"EntryName=name");
+        _en.add(ENTRY_TIME,"EntryTime=time");
+        _en.add(ENTRY_VALUE,"EntryValue=value");
+        _en.add(ADD_LI,"AddLi=add");
+        _en.add(SIZE_LI,"SizeLi=size");
+        _en.add(REMOVE_LI,"RemoveLi=remove");
+        _en.add(LIST_CLEAR,"ListClear=clear");
+        _en.add(SET_FIRST,"SetFirst=setFirst");
+        _en.add(SET_SECOND,"SetSecond=setSecond");
+        _en.add(GET_FIRST_TA,"GetFirstTa=getFirst");
+        _en.add(GET_SECOND_TA,"GetSecondTa=getSecond");
+        _en.add(SET_FIRST_TA,"SetFirstTa=setFirst");
+        _en.add(SET_SECOND_TA,"SetSecondTa=setSecond");
+        _en.add(ADD_TA,"AddTa=add");
+        _en.add(REMOVE_TA,"RemoveTa=remove");
+        _en.add(SIZE_TA,"SizeTa=size");
+        _en.add(GET_TA,"GetTa=get");
+        _en.add(EXECUTE_TESTS,"ExecuteTests=tests");
+        _en.add(EXECUTE_CONVERT,"ExecuteConvert=convert");
+        _en.add(EXECUTE_SETUP_ERROR,"ExecuteSetupError=setupError");
+        _en.add(EXECUTE_SETUP_NO_EXCEPTION,"ExecuteSetupNoException=setupNoException");
+        _en.add(EXECUTE_EXECUTE,"ExecuteExecute=execute");
+        _en.add(PARAMETERS_LOCATION,"ParametersLocation=location");
+        _en.add(PARAMETERS_METHOD,"ParametersMethod=method");
+        _en.add(TEST_EXCEPTION,"TestException=exception");
+        _en.add(TEST_NULL_EXCEPTION,"TestNullException=nullException");
+        _en.add(ARGS_TEST_ARGS_VALUE,"ArgsTestArgsValue=argsValue");
+        _en.add(ASSERT_ASSERT,"AssertAssert=assert");
+        _en.add(ASSERT_NOT,"AssertNot=assertNot");
+        _en.add(ASSERT_ASSERT_NOT_NULL,"AssertAssertNotNull=assertNotNull");
+        _en.add(ASSERT_ASSERT_NULL,"AssertAssertNull=assertNull");
+        _en.add(ASSERT_ASSERT_SAME,"AssertAssertSame=assertSame");
+        _en.add(ASSERT_NOT_SAME,"AssertNotSame=assertNotSame");
+        _en.add(ASSERT_ASSERT_TRUE,"AssertAssertTrue=assertTrue");
+        _en.add(ASSERT_ASSERT_FALSE,"AssertAssertFalse=assertFalse");
+        _en.add(DIFFERENCE_EXPECTED,"DifferenceExpected=expected");
+        _en.add(DIFFERENCE_FOUND,"DifferenceFound=found");
+        _en.add(DIFFERENCE_FOUND_NOT_TRUE,"DifferenceFoundNotTrue=foundNotTrue");
+        _en.add(DIFFERENCE_FOUND_NULL,"DifferenceFoundNull=foundNull");
+        _en.add(DIFFERENCE_STACK_DIFF,"DifferenceStackDiff=stackDiff");
+        _en.add(INDEX,"Index=index");
+        _en.add(RUNNABLE_IMPLICIT_0_RUNNER,"RunnableImplicit0Runner=runner");
+        _en.add(INFO_TEST_COUNT,"InfoTestCount=count");
+        _en.add(INFO_TEST_CALLS,"InfoTestCalls=calls");
+        _en.add(INFO_TEST_CURRENT_METHOD,"InfoTestCurrentMethod=currentMethod");
+        _en.add(INFO_TEST_DONE,"InfoTestDone=done");
+        _en.add(INFO_TEST_NB_THREADS,"InfoTestNbThreads=nbThreads");
+        _en.add(INFO_TEST_ARGS,"InfoTestArgs=args");
+        _en.add(INFO_TEST_CONTAINER,"InfoTestContainer=container");
+        _en.add(INFO_TEST_EXECUTED,"InfoTestExecuted=executed");
+        _en.add(INFO_TEST_CURRENT_PARAMS,"InfoTestCurrentParams=currentParams");
+        _en.add(RESULT_FAIL_MESSAGE,"ResultFailMessage=failMessage");
+        _en.add(RESULT_PARAMS,"ResultParams=params");
+        _en.add(RESULT_TIME,"ResultTime=duration");
+        _en.add(RESULT_SUCCESS,"ResultSuccess=success");
+        _en.add(EXECUTED_TEST_AFTER,"ExecutedTestAfter=after");
+        _en.add(EXECUTED_TEST_BEFORE,"ExecutedTestBefore=before");
+        _en.add(EXECUTED_TEST_ARGS_ANNOT,"ExecutedTestArgsAnnot=args");
+        _en.add(EXECUTED_TEST_ANNOTATIONS,"ExecutedTestAnnotations=annotations");
+        _en.add(EXECUTED_TEST_METHOD,"ExecutedTestMethod=method");
+        _en.add(EXECUTED_TEST_TEST,"ExecutedTestTest=test");
+        _en.add(LIST_ITR,"ListItr=list");
+        _en.add(LENGTH_ITR_LI,"LengthItrLi=length");
+        _en.add(INDEX_ITR_LI,"IndexItrLi=index");
+        _en.add(ARRAY_LI,"ArrayLi=array");
+        _en.add(LENGTH_LI,"LengthLi=length");
+        _en.add(LIST_ITER_TABLE,"ListIterTable=list");
+        _en.add(LENGTH_ITR_TA,"LengthItrTa=length");
+        _en.add(INDEX_ITR_TA,"IndexItrTa=index");
+        _en.add(FIRST,"First=first");
+        _en.add(SECOND,"Second=second");
+        _en.add(LIST_TA,"ListTa=list");
+        _en.add(LIST_VAR,"ListVar=T");
+        _en.add(CUST_ITERATOR_VAR,"CustIteratorVar=T");
+        _en.add(TABLE_VAR_FIRST,"TableVarFirst=T");
+        _en.add(TABLE_VAR_SECOND,"TableVarSecond=U");
+        _en.add(ITER_TA_VAR_FIRST,"IterTaVarFirst=T");
+        _en.add(ITER_TA_VAR_SECOND,"IterTaVarSecond=U");
+        _en.add(PAIR_VAR_FIRST,"PairVarFirst=T");
+        _en.add(PAIR_VAR_SECOND,"PairVarSecond=U");
+        CustAliasParameters.en(_en);
+    }
+    public static TranslationsFile fr() {
+        TranslationsFile fr_ = new TranslationsFile();
+        fr(fr_);
+        LgNamesContent.fr(fr_);
+        return fr_;
+    }
+    public static void fr(TranslationsFile _fr){
+        _fr.add(THREAD,"Thread=$coeur.Tache");
+        _fr.add(THREAD_SET,"ThreadSet=$coeur.EnsTache");
+        _fr.add(EXECUTOR_SERVICE,"ExecutorService=$coeur.ServiceExecution");
+        _fr.add(EXECUTOR_SERVICE_BASE,"ExecutorServiceBase=$coeur.ServiceBaseExecution");
+        _fr.add(SCHEDULED_EXECUTOR_SERVICE,"ScheduledExecutorService=$coeur.ServiceProgrammeExecution");
+        _fr.add(FUTURE,"Future=$coeur.Future");
+        _fr.add(ATOMIC_BOOLEAN,"AtomicBoolean=$coeur.AtomicBooleen");
+        _fr.add(ATOMIC_INTEGER,"AtomicInteger=$coeur.AtomicEntier4");
+        _fr.add(ATOMIC_LONG,"AtomicLong=$coeur.AtomicEntier8");
+        _fr.add(RATE,"Rate=$coeur.Taux");
+        _fr.add(LG_INT,"LgInt=$coeur.LgEnt");
+        _fr.add(FILE,"File=$coeur.Fichier");
+        _fr.add(ILLEGAL_THREAD_STATE_EXCEPTION,"IllegalThreadStateException=$coeur.IllegalEtatTache");
+        _fr.add(CUST_ITERATOR,"CustIterator=$coeur.CustIterateur");
+        _fr.add(LIST,"List=$coeur.Liste");
+        _fr.add(RUNNABLE,"Runnable=$coeur.Executable");
+        _fr.add(FORMAT_TYPE,"FormatType=$coeur.Formattage");
+        _fr.add(CUST_PAIR,"CustPair=$coeur.PaireImpl");
+        _fr.add(CUST_ITER_TABLE,"CustIterTable=$coeur.CustIterateurTable");
+        _fr.add(TABLE,"Table=$coeur.Table");
+        _fr.add(EXECUTE,"Execute=$coeur.Executer");
+        _fr.add(INFO_TEST,"InfoTest=$coeur.InfoTest");
+        _fr.add(EXECUTED_TEST,"ExecutedTest=$coeur.TestExecute");
+        _fr.add(RESULT,"Result=$coeur.Resultat");
+        _fr.add(BEFORE,"Before=$coeur.Avant");
+        _fr.add(AFTER,"After=$coeur.Apres");
+        _fr.add(PARAMETERS,"Parameters=$coeur.Parametres");
+        _fr.add(TEST,"Test=$coeur.Test");
+        _fr.add(ARGS_TEST,"ArgsTest=$coeur.ArgsTest");
+        _fr.add(ASSERT,"Assert=$coeur.Assertion");
+        _fr.add(DIFFERENCE,"Difference=$coeur.Difference");
+        _fr.add(ELT_DIFFERENCE,"EltDifference=$coeur.EltDifference");
+        _fr.add(CONCURRENT_ERROR,"ConcurrentError=$coeur.ErreurConcurrentielle");
+        _fr.add(ENTRY_BINARY,"EntryBinary=$coeur.EltArchBinaire");
+        _fr.add(ENTRY_TEXT,"EntryText=$coeur.EltArchTexte");
+        _fr.add(ENTRY_STRING_OBJECT,"EntryStringObject=$coeur.EltChaineObjet");
+        _fr.add(TABLE_STRING_OBJECT,"TableStringObject=$coeur.TableChaineObjet");
+        _fr.add(START,"Start=demarrer");
+        _fr.add(THREAD_EQ,"ThreadEq=tEq");
+        _fr.add(THREAD_RUNNABLE,"ThreadRunnable=executable");
+        _fr.add(THREAD_CURRENT_TIME,"ThreadCurrentTime=instant");
+        _fr.add(THREAD_CURRENT_NANO_TIME,"ThreadCurrentNanoTime=instantNanos");
+        _fr.add(IS_ALIVE,"IsAlive=estActif");
+        _fr.add(IS_ENDED,"IsEnded=estFini");
+        _fr.add(END,"End=finir");
+        _fr.add(CURRENT_THREAD,"CurrentThread=tacheCourante");
+        _fr.add(JOIN,"Join=attendre");
+        _fr.add(INTERRUPT,"Interrupt=interrompre");
+        _fr.add(ARGS,"Args=args");
+        _fr.add(COVERAGE,"Coverage=couverture");
+        _fr.add(JOIN_OTHERS,"JoinOthers=attendreAutres");
+        _fr.add(GET_ID,"GetId=valId");
+        _fr.add(GET_PRIORITY,"GetPriority=valPriorite");
+        _fr.add(SET_PRIORITY,"SetPriority=majPriorite");
+        _fr.add(SLEEP,"Sleep=dormir");
+        _fr.add(PRINT,"Print=afficher");
+        _fr.add(EXECUTOR_SERVICE_EXECUTE,"ExecutorServiceExecute=exec");
+        _fr.add(EXECUTOR_SERVICE_SUBMIT,"ExecutorServiceSubmit=soumettre");
+        _fr.add(EXECUTOR_SERVICE_SHUTDOWN,"ExecutorServiceShutdown=fermer");
+        _fr.add(EXECUTOR_SERVICE_SCHEDULE_MILLIS,"ExecutorServiceScheduleMillis=programmeMillis");
+        _fr.add(EXECUTOR_SERVICE_SCHEDULE_NANOS,"ExecutorServiceScheduleNanos=programmeNanos");
+        _fr.add(FUTURE_WAIT,"FutureWait=attendre");
+        _fr.add(FUTURE_CANCEL,"FutureCancel=annuler");
+        _fr.add(THREAD_SET_ADD,"ThreadSetAdd=ajout");
+        _fr.add(THREAD_SET_ALL,"ThreadSetAll=tous");
+        _fr.add(THREAD_SET_CONTAINS,"ThreadSetContains=contient");
+        _fr.add(THREAD_SET_REMOVE,"ThreadSetRemove=suppr");
+        _fr.add(THREAD_SET_SNAPSHOT,"ThreadSetSnapshot=tab");
+        _fr.add(RUN,"Run=executer");
+        _fr.add(GET_ATOMIC,"GetAtomic=valeur");
+        _fr.add(SET_ATOMIC,"SetAtomic=majValeur");
+        _fr.add(COMPARE_AND_SET_ATOMIC,"CompareAndSetAtomic=compareEtMaj");
+        _fr.add(GET_AND_SET_ATOMIC,"GetAndSetAtomic=obtEtMaj");
+        _fr.add(LAZY_SET_ATOMIC,"LazySetAtomic=tardMaj");
+        _fr.add(ADD_AND_GET_ATOMIC,"AddAndGetAtomic=ajEtObt");
+        _fr.add(GET_AND_ADD_ATOMIC,"GetAndAddAtomic=obtEtAj");
+        _fr.add(INCREMENT_AND_GET_ATOMIC,"IncrementAndGetAtomic=incrEtObt");
+        _fr.add(GET_AND_INCREMENT_ATOMIC,"GetAndIncrementAtomic=obtEtIncr");
+        _fr.add(DECREMENT_AND_GET_ATOMIC,"DecrementAndGetAtomic=decrEtObt");
+        _fr.add(GET_AND_DECREMENT_ATOMIC,"GetAndDecrementAtomic=obtEtDecr");
+        _fr.add(LG_INT_PARSE,"LgIntParse=parseLgEnt");
+        _fr.add(RATE_PARSE,"RateParse=parseTaux");
+        _fr.add(RATE_NUM,"RateNum=num");
+        _fr.add(RATE_DEN,"RateDen=den");
+        _fr.add(READ,"Read=lire");
+        _fr.add(WRITE,"Write=ecrire");
+        _fr.add(APPEND_TO_FILE,"AppendToFile=ajouterFinFichier");
+        _fr.add(FILE_ABSOLUTE_PATH,"FileAbsolutePath=absolu");
+        _fr.add(FILE_GET_LENGTH,"FileGetLength=lg");
+        _fr.add(FILE_GET_NAME,"FileGetName=nom");
+        _fr.add(FILE_GET_PARENT_PATH,"FileGetParentPath=chParent");
+        _fr.add(FILE_IS_DIRECTORY,"FileIsDirectory=estDossier");
+        _fr.add(FILE_IS_FILE,"FileIsFile=estFichier");
+        _fr.add(FILE_ROOTS,"FileRoots=racines");
+        _fr.add(FILE_IS_ABSOLUTE,"FileIsAbsolute=estAbsolu");
+        _fr.add(FILE_READ_BIN,"FileReadBin=lireBin");
+        _fr.add(FILE_WRITE_BIN,"FileWriteBin=ecrireBin");
+        _fr.add(FILE_DELETE,"FileDelete=suppr");
+        _fr.add(FILE_DIR,"FileDir=dos");
+        _fr.add(FILE_RENAME,"FileRename=renommer");
+        _fr.add(FILE_LAST_MODIF,"FileLastModif=derModification");
+        _fr.add(FILE_LIST_DIRECTORIES,"FileListDirectories=dossiers");
+        _fr.add(FILE_LIST_FILES,"FileListFiles=fichiers");
+        _fr.add(FILE_ZIP_BIN,"FileZipBin=archBin");
+        _fr.add(FILE_ZIP_BIN_ARRAY,"FileZipBinArray=archBinTab");
+        _fr.add(FILE_ZIP_TEXT,"FileZipText=archTexte");
+        _fr.add(FILE_ZIPPED_BIN,"FileZippedBin=archiveBin");
+        _fr.add(FILE_ZIPPED_BIN_ARRAY,"FileZippedBinArray=archiveBinTab");
+        _fr.add(FILE_ZIPPED_TEXT,"FileZippedText=archiveTexte");
+        _fr.add(FILE_MAKE_DIRS,"FileMakeDirs=acheminerDossiers");
+        _fr.add(TABLE_CONC_PAIRS,"TableConcPairs=paires");
+        _fr.add(TABLE_CONC_EMPTY,"TableConcEmpty=vi");
+        _fr.add(TABLE_CONC_SIZE,"TableConcSize=taille");
+        _fr.add(TABLE_CONC_KEYS,"TableConcKeys=cles");
+        _fr.add(TABLE_CONC_VALUES,"TableConcValues=valeurs");
+        _fr.add(TABLE_CONC_HAS_KEY,"TableConcHasKey=aCle");
+        _fr.add(TABLE_CONC_HAS_VALUE,"TableConcHasValue=aValeur");
+        _fr.add(TABLE_CONC_GET,"TableConcGet=val");
+        _fr.add(TABLE_CONC_REMOVE,"TableConcRemove=suppr");
+        _fr.add(TABLE_CONC_PUT,"TableConcPut=mettre");
+        _fr.add(TABLE_CONC_PUT_ABS,"TableConcPutAbs=mettreAbs");
+        _fr.add(TABLE_CONC_REPLACE,"TableConcReplace=remplacer");
+        _fr.add(TABLE_CONC_CLEAR,"TableConcClear=vider");
+        _fr.add(TABLE_CONC_PUT_ALL,"TableConcPutAll=mettreTout");
+        _fr.add(TABLE_ENTRY_KEY,"TableEntryKey=cle");
+        _fr.add(TABLE_ENTRY_VALUE,"TableEntryValue=valeur");
+        _fr.add(TABLE_ENTRY_OWNER,"TableEntryOwner=poss");
+        _fr.add(ENTRY_NAME,"EntryName=nom");
+        _fr.add(ENTRY_TIME,"EntryTime=temps");
+        _fr.add(ENTRY_VALUE,"EntryValue=valeur");
+        _fr.add(ADD_LI,"AddLi=ajouter");
+        _fr.add(SIZE_LI,"SizeLi=taille");
+        _fr.add(REMOVE_LI,"RemoveLi=supprimer");
+        _fr.add(LIST_CLEAR,"ListClear=toutSuppr");
+        _fr.add(SET_FIRST,"SetFirst=majPremier");
+        _fr.add(SET_SECOND,"SetSecond=majDeuxieme");
+        _fr.add(GET_FIRST_TA,"GetFirstTa=valPremier");
+        _fr.add(GET_SECOND_TA,"GetSecondTa=valDeuxieme");
+        _fr.add(SET_FIRST_TA,"SetFirstTa=majPremier");
+        _fr.add(SET_SECOND_TA,"SetSecondTa=majDeuxieme");
+        _fr.add(ADD_TA,"AddTa=ajouter");
+        _fr.add(REMOVE_TA,"RemoveTa=supprimer");
+        _fr.add(SIZE_TA,"SizeTa=taille");
+        _fr.add(GET_TA,"GetTa=val");
+        _fr.add(EXECUTE_TESTS,"ExecuteTests=tests");
+        _fr.add(EXECUTE_CONVERT,"ExecuteConvert=convertier");
+        _fr.add(EXECUTE_SETUP_ERROR,"ExecuteSetupError=majErreur");
+        _fr.add(EXECUTE_SETUP_NO_EXCEPTION,"ExecuteSetupNoException=majSansException");
+        _fr.add(EXECUTE_EXECUTE,"ExecuteExecute=executer");
+        _fr.add(PARAMETERS_LOCATION,"ParametersLocation=location");
+        _fr.add(PARAMETERS_METHOD,"ParametersMethod=methode");
+        _fr.add(TEST_EXCEPTION,"TestException=exception");
+        _fr.add(TEST_NULL_EXCEPTION,"TestNullException=nulleException");
+        _fr.add(ARGS_TEST_ARGS_VALUE,"ArgsTestArgsValue=argsValeur");
+        _fr.add(ASSERT_ASSERT,"AssertAssert=assert");
+        _fr.add(ASSERT_NOT,"AssertNot=assertNon");
+        _fr.add(ASSERT_ASSERT_NOT_NULL,"AssertAssertNotNull=assertNonNul");
+        _fr.add(ASSERT_ASSERT_NULL,"AssertAssertNull=assertNul");
+        _fr.add(ASSERT_ASSERT_SAME,"AssertAssertSame=assertMeme");
+        _fr.add(ASSERT_NOT_SAME,"AssertNotSame=assertNonMeme");
+        _fr.add(ASSERT_ASSERT_TRUE,"AssertAssertTrue=assertVrai");
+        _fr.add(ASSERT_ASSERT_FALSE,"AssertAssertFalse=assertFaux");
+        _fr.add(DIFFERENCE_EXPECTED,"DifferenceExpected=attendu");
+        _fr.add(DIFFERENCE_FOUND,"DifferenceFound=trouve");
+        _fr.add(DIFFERENCE_FOUND_NOT_TRUE,"DifferenceFoundNotTrue=trouvePasVrai");
+        _fr.add(DIFFERENCE_FOUND_NULL,"DifferenceFoundNull=trouveNull");
+        _fr.add(DIFFERENCE_STACK_DIFF,"DifferenceStackDiff=pileDiff");
+        _fr.add(INDEX,"Index=indice");
+        _fr.add(RUNNABLE_IMPLICIT_0_RUNNER,"RunnableImplicit0Runner=exec");
+        _fr.add(INFO_TEST_COUNT,"InfoTestCount=nb");
+        _fr.add(INFO_TEST_CALLS,"InfoTestCalls=appels");
+        _fr.add(INFO_TEST_CURRENT_METHOD,"InfoTestCurrentMethod=methodCourante");
+        _fr.add(INFO_TEST_DONE,"InfoTestDone=fait");
+        _fr.add(INFO_TEST_NB_THREADS,"InfoTestNbThreads=nbTaches");
+        _fr.add(INFO_TEST_ARGS,"InfoTestArgs=args");
+        _fr.add(INFO_TEST_CONTAINER,"InfoTestContainer=conteneur");
+        _fr.add(INFO_TEST_EXECUTED,"InfoTestExecuted=execute");
+        _fr.add(INFO_TEST_CURRENT_PARAMS,"InfoTestCurrentParams=paramsCourants");
+        _fr.add(RESULT_FAIL_MESSAGE,"ResultFailMessage=messageErreur");
+        _fr.add(RESULT_PARAMS,"ResultParams=params");
+        _fr.add(RESULT_TIME,"ResultTime=duree");
+        _fr.add(RESULT_SUCCESS,"ResultSuccess=succes");
+        _fr.add(EXECUTED_TEST_AFTER,"ExecutedTestAfter=apres");
+        _fr.add(EXECUTED_TEST_BEFORE,"ExecutedTestBefore=avant");
+        _fr.add(EXECUTED_TEST_ARGS_ANNOT,"ExecutedTestArgsAnnot=args");
+        _fr.add(EXECUTED_TEST_ANNOTATIONS,"ExecutedTestAnnotations=annotations");
+        _fr.add(EXECUTED_TEST_METHOD,"ExecutedTestMethod=methode");
+        _fr.add(EXECUTED_TEST_TEST,"ExecutedTestTest=test");
+        _fr.add(LIST_ITR,"ListItr=liste");
+        _fr.add(LENGTH_ITR_LI,"LengthItrLi=longueur");
+        _fr.add(INDEX_ITR_LI,"IndexItrLi=indice");
+        _fr.add(ARRAY_LI,"ArrayLi=tableau");
+        _fr.add(LENGTH_LI,"LengthLi=longueur");
+        _fr.add(LIST_ITER_TABLE,"ListIterTable=liste");
+        _fr.add(LENGTH_ITR_TA,"LengthItrTa=longueur");
+        _fr.add(INDEX_ITR_TA,"IndexItrTa=indice");
+        _fr.add(FIRST,"First=premier");
+        _fr.add(SECOND,"Second=deuxieme");
+        _fr.add(LIST_TA,"ListTa=liste");
+        _fr.add(LIST_VAR,"ListVar=T");
+        _fr.add(CUST_ITERATOR_VAR,"CustIteratorVar=T");
+        _fr.add(TABLE_VAR_FIRST,"TableVarFirst=T");
+        _fr.add(TABLE_VAR_SECOND,"TableVarSecond=U");
+        _fr.add(ITER_TA_VAR_FIRST,"IterTaVarFirst=T");
+        _fr.add(ITER_TA_VAR_SECOND,"IterTaVarSecond=U");
+        _fr.add(PAIR_VAR_FIRST,"PairVarFirst=T");
+        _fr.add(PAIR_VAR_SECOND,"PairVarSecond=U");
+        CustAliasParameters.fr(_fr);
+    }
+
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeVarTypes(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> t_ = new StringMap<CustList<KeyValueMemberName>>();
         t_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_VAR,getAliasListVar())));
+                new KeyValueMemberName(_mapping.getVal(LIST_VAR),getAliasListVar())));
         t_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(CUST_ITERATOR_VAR,getAliasCustIteratorVar())));
+                new KeyValueMemberName(_mapping.getVal(CUST_ITERATOR_VAR),getAliasCustIteratorVar())));
         t_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(TABLE_VAR_FIRST,getAliasTableVarFirst()),
-                new KeyValueMemberName(TABLE_VAR_SECOND,getAliasTableVarSecond())));
+                new KeyValueMemberName(_mapping.getVal(TABLE_VAR_FIRST),getAliasTableVarFirst()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_VAR_SECOND),getAliasTableVarSecond())));
         t_.addEntry(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ITER_TA_VAR_FIRST,getAliasIterTaVarFirst()),
-                new KeyValueMemberName(ITER_TA_VAR_SECOND,getAliasIterTaVarSecond())));
+                new KeyValueMemberName(_mapping.getVal(ITER_TA_VAR_FIRST),getAliasIterTaVarFirst()),
+                new KeyValueMemberName(_mapping.getVal(ITER_TA_VAR_SECOND),getAliasIterTaVarSecond())));
         t_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(PAIR_VAR_FIRST,getAliasPairVarFirst()),
-                new KeyValueMemberName(PAIR_VAR_SECOND,getAliasPairVarSecond())));
+                new KeyValueMemberName(_mapping.getVal(PAIR_VAR_FIRST),getAliasPairVarFirst()),
+                new KeyValueMemberName(_mapping.getVal(PAIR_VAR_SECOND),getAliasPairVarSecond())));
         return t_;
     }
 
-    public CustList<CustList<KeyValueMemberName>> allMergeTableTypeMethodNames(LgNamesContent _content) {
-        CustList<CustList<KeyValueMemberName>> list_ = new CustList<CustList<KeyValueMemberName>>();
-        list_.add(new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LgNames.ITERATOR,_content.getPredefTypes().getAliasIterator()),
-                new KeyValueMemberName(LgNames.HAS_NEXT,_content.getPredefTypes().getAliasHasNext()),
-                new KeyValueMemberName(LgNames.NEXT,_content.getPredefTypes().getAliasNext()),
-                new KeyValueMemberName(LgNames.ITERATOR_TABLE,_content.getPredefTypes().getAliasIteratorTable()),
-                new KeyValueMemberName(LgNames.HAS_NEXT_PAIR,_content.getPredefTypes().getAliasHasNextPair()),
-                new KeyValueMemberName(LgNames.NEXT_PAIR,_content.getPredefTypes().getAliasNextPair()),
-                new KeyValueMemberName(LgNames.GET_FIRST,_content.getPredefTypes().getAliasGetFirst()),
-                new KeyValueMemberName(LgNames.GET_SECOND,_content.getPredefTypes().getAliasGetSecond()),
-                new KeyValueMemberName(LgNames.ENUM_ORDINAL,_content.getPredefTypes().getAliasEnumOrdinal()),
-                new KeyValueMemberName(LgNames.ENUM_NAME,_content.getPredefTypes().getAliasEnumName()),
-                new KeyValueMemberName(LgNames.SEED_GET,_content.getPredefTypes().getAliasSeedGet()),
-                new KeyValueMemberName(RUN,getAliasRun())
-        ));
+    public CustList<KeyValueMemberName> allMergeTableTypeMethodNames(StringMap<String> _mapping, LgNamesContent _content) {
+        CustList<KeyValueMemberName> list_ = new CustList<KeyValueMemberName>();
+        list_.addAllElts(_content.getPredefTypes().allMergeTableTypeMethodNames(_mapping));
+        list_.add(new KeyValueMemberName(_mapping.getVal(RUN),getAliasRun()));
         return list_;
     }
 
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames() {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeFieldNames(StringMap<String> _mapping) {
         StringMap<CustList<KeyValueMemberName>> f_ = new StringMap<CustList<KeyValueMemberName>>();
         f_.addEntry(getAliasDifference(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(DIFFERENCE_EXPECTED,getAliasDifferenceExpected()),
-                new KeyValueMemberName(DIFFERENCE_FOUND,getAliasDifferenceFound()),
-                new KeyValueMemberName(DIFFERENCE_FOUND_NOT_TRUE,getAliasDifferenceFoundNotTrue()),
-                new KeyValueMemberName(DIFFERENCE_FOUND_NULL,getAliasDifferenceFoundNull()),
-                new KeyValueMemberName(DIFFERENCE_STACK_DIFF,getAliasDifferenceStackDiff())
+                new KeyValueMemberName(_mapping.getVal(DIFFERENCE_EXPECTED),getAliasDifferenceExpected()),
+                new KeyValueMemberName(_mapping.getVal(DIFFERENCE_FOUND),getAliasDifferenceFound()),
+                new KeyValueMemberName(_mapping.getVal(DIFFERENCE_FOUND_NOT_TRUE),getAliasDifferenceFoundNotTrue()),
+                new KeyValueMemberName(_mapping.getVal(DIFFERENCE_FOUND_NULL),getAliasDifferenceFoundNull()),
+                new KeyValueMemberName(_mapping.getVal(DIFFERENCE_STACK_DIFF),getAliasDifferenceStackDiff())
         ));
         f_.addEntry(getAliasEltDifference(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(INDEX,getAliasIndex())
+                new KeyValueMemberName(_mapping.getVal(INDEX),getAliasIndex())
         ));
         f_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(RUNNABLE_IMPLICIT_0_RUNNER,getAliasRunnableImplicit0Runner())
+                new KeyValueMemberName(_mapping.getVal(RUNNABLE_IMPLICIT_0_RUNNER),getAliasRunnableImplicit0Runner())
         ));
         f_.addEntry(getAliasInfoTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(INFO_TEST_COUNT,getAliasInfoTestCount()),
-                new KeyValueMemberName(INFO_TEST_CALLS,getAliasInfoTestCalls()),
-                new KeyValueMemberName(INFO_TEST_CURRENT_METHOD,getAliasInfoTestCurrentMethod()),
-                new KeyValueMemberName(INFO_TEST_DONE,getAliasInfoTestDone()),
-                new KeyValueMemberName(INFO_TEST_NB_THREADS,getAliasInfoTestNbThreads()),
-                new KeyValueMemberName(INFO_TEST_ARGS,getAliasInfoTestArgs()),
-                new KeyValueMemberName(INFO_TEST_CONTAINER,getAliasInfoTestContainer()),
-                new KeyValueMemberName(INFO_TEST_EXECUTED,getAliasInfoTestExecuted()),
-                new KeyValueMemberName(INFO_TEST_CURRENT_PARAMS,getAliasInfoTestCurrentParams())
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_COUNT),getAliasInfoTestCount()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_CALLS),getAliasInfoTestCalls()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_CURRENT_METHOD),getAliasInfoTestCurrentMethod()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_DONE),getAliasInfoTestDone()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_NB_THREADS),getAliasInfoTestNbThreads()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_ARGS),getAliasInfoTestArgs()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_CONTAINER),getAliasInfoTestContainer()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_EXECUTED),getAliasInfoTestExecuted()),
+                new KeyValueMemberName(_mapping.getVal(INFO_TEST_CURRENT_PARAMS),getAliasInfoTestCurrentParams())
         ));
         f_.addEntry(getAliasResult(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(RESULT_FAIL_MESSAGE,getAliasResultFailMessage()),
-                new KeyValueMemberName(RESULT_PARAMS,getAliasResultParams()),
-                new KeyValueMemberName(RESULT_TIME,getAliasResultTime()),
-                new KeyValueMemberName(RESULT_SUCCESS,getAliasResultSuccess())
+                new KeyValueMemberName(_mapping.getVal(RESULT_FAIL_MESSAGE),getAliasResultFailMessage()),
+                new KeyValueMemberName(_mapping.getVal(RESULT_PARAMS),getAliasResultParams()),
+                new KeyValueMemberName(_mapping.getVal(RESULT_TIME),getAliasResultTime()),
+                new KeyValueMemberName(_mapping.getVal(RESULT_SUCCESS),getAliasResultSuccess())
         ));
         f_.addEntry(getAliasExecutedTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(EXECUTED_TEST_AFTER,getAliasExecutedTestAfter()),
-                new KeyValueMemberName(EXECUTED_TEST_BEFORE,getAliasExecutedTestBefore()),
-                new KeyValueMemberName(EXECUTED_TEST_ARGS_ANNOT,getAliasExecutedTestArgsAnnot()),
-                new KeyValueMemberName(EXECUTED_TEST_ANNOTATIONS,getAliasExecutedTestAnnotations()),
-                new KeyValueMemberName(EXECUTED_TEST_METHOD,getAliasExecutedTestMethod()),
-                new KeyValueMemberName(EXECUTED_TEST_TEST,getAliasExecutedTestTest())
+                new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_AFTER),getAliasExecutedTestAfter()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_BEFORE),getAliasExecutedTestBefore()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_ARGS_ANNOT),getAliasExecutedTestArgsAnnot()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_ANNOTATIONS),getAliasExecutedTestAnnotations()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_METHOD),getAliasExecutedTestMethod()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTED_TEST_TEST),getAliasExecutedTestTest())
         ));
         f_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_ITR,getAliasListItr()),
-                new KeyValueMemberName(LENGTH_ITR_LI,getAliasLengthItrLi()),
-                new KeyValueMemberName(INDEX_ITR_LI,getAliasIndexItrLi())
+                new KeyValueMemberName(_mapping.getVal(LIST_ITR),getAliasListItr()),
+                new KeyValueMemberName(_mapping.getVal(LENGTH_ITR_LI),getAliasLengthItrLi()),
+                new KeyValueMemberName(_mapping.getVal(INDEX_ITR_LI),getAliasIndexItrLi())
         ));
         f_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ARRAY_LI,getAliasArrayLi()),
-                new KeyValueMemberName(LENGTH_LI,getAliasLengthLi())
+                new KeyValueMemberName(_mapping.getVal(ARRAY_LI),getAliasArrayLi()),
+                new KeyValueMemberName(_mapping.getVal(LENGTH_LI),getAliasLengthLi())
         ));
         f_.addEntry(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_ITER_TABLE,getAliasListIterTable()),
-                new KeyValueMemberName(LENGTH_ITR_TA,getAliasLengthItrTa()),
-                new KeyValueMemberName(INDEX_ITR_TA,getAliasIndexItrTa())
+                new KeyValueMemberName(_mapping.getVal(LIST_ITER_TABLE),getAliasListIterTable()),
+                new KeyValueMemberName(_mapping.getVal(LENGTH_ITR_TA),getAliasLengthItrTa()),
+                new KeyValueMemberName(_mapping.getVal(INDEX_ITR_TA),getAliasIndexItrTa())
         ));
         f_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FIRST,getAliasFirst()),
-                new KeyValueMemberName(SECOND,getAliasSecond())
+                new KeyValueMemberName(_mapping.getVal(FIRST),getAliasFirst()),
+                new KeyValueMemberName(_mapping.getVal(SECOND),getAliasSecond())
         ));
         f_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LIST_TA,getAliasListTa())
+                new KeyValueMemberName(_mapping.getVal(LIST_TA),getAliasListTa())
         ));
         return f_;
     }
 
-    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames() {
+    public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> m_ = new CustList<CustList<KeyValueMemberName>>();
-        m_.addAllElts(custAliasParameters.allTableTypeMethodParamNames());
+        m_.addAllElts(custAliasParameters.allTableTypeMethodParamNames(_mapping));
         return m_;
     }
 
-    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(LgNamesContent _content) {
+    public StringMap<CustList<KeyValueMemberName>> allTableTypeMethodNames(StringMap<String> _mapping, StringMap<CustList<KeyValueMemberName>> _methods, LgNamesContent _content) {
         StringMap<CustList<KeyValueMemberName>> m_ = new StringMap<CustList<KeyValueMemberName>>();
         m_.addEntry(getAliasThread(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(START,getAliasStart()),
-                new KeyValueMemberName(THREAD_EQ,getAliasThreadEq()),
-                new KeyValueMemberName(THREAD_RUNNABLE,getAliasThreadRunnable()),
-                new KeyValueMemberName(THREAD_CURRENT_TIME,getAliasThreadCurrentTime()),
-                new KeyValueMemberName(THREAD_CURRENT_NANO_TIME,getAliasThreadCurrentNanoTime()),
-                new KeyValueMemberName(IS_ALIVE,getAliasIsAlive()),
-                new KeyValueMemberName(IS_ENDED,getAliasIsEnded()),
-                new KeyValueMemberName(END,getAliasEnd()),
-                new KeyValueMemberName(CURRENT_THREAD,getAliasCurrentThread()),
-                new KeyValueMemberName(JOIN,getAliasJoin()),
-                new KeyValueMemberName(INTERRUPT,getAliasInterrupt()),
-                new KeyValueMemberName(ARGS,getAliasArgs()),
-                new KeyValueMemberName(COVERAGE,getAliasCoverage()),
-                new KeyValueMemberName(JOIN_OTHERS,getAliasJoinOthers()),
-                new KeyValueMemberName(GET_ID,getAliasGetId()),
-                new KeyValueMemberName(GET_PRIORITY,getAliasGetPriority()),
-                new KeyValueMemberName(SET_PRIORITY,getAliasSetPriority()),
-                new KeyValueMemberName(SLEEP,getAliasSleep()),
-                new KeyValueMemberName(PRINT,getAliasPrint())));
-//                new KeyValueMemberName(YIELD,getAliasYield()),
-//                new KeyValueMemberName(THREAD_EXIT_HOOK,getAliasThreadExitHook())));
+                new KeyValueMemberName(_mapping.getVal(START),getAliasStart()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_EQ),getAliasThreadEq()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_RUNNABLE),getAliasThreadRunnable()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_CURRENT_TIME),getAliasThreadCurrentTime()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_CURRENT_NANO_TIME),getAliasThreadCurrentNanoTime()),
+                new KeyValueMemberName(_mapping.getVal(IS_ALIVE),getAliasIsAlive()),
+                new KeyValueMemberName(_mapping.getVal(IS_ENDED),getAliasIsEnded()),
+                new KeyValueMemberName(_mapping.getVal(END),getAliasEnd()),
+                new KeyValueMemberName(_mapping.getVal(CURRENT_THREAD),getAliasCurrentThread()),
+                new KeyValueMemberName(_mapping.getVal(JOIN),getAliasJoin()),
+                new KeyValueMemberName(_mapping.getVal(INTERRUPT),getAliasInterrupt()),
+                new KeyValueMemberName(_mapping.getVal(ARGS),getAliasArgs()),
+                new KeyValueMemberName(_mapping.getVal(COVERAGE),getAliasCoverage()),
+                new KeyValueMemberName(_mapping.getVal(JOIN_OTHERS),getAliasJoinOthers()),
+                new KeyValueMemberName(_mapping.getVal(GET_ID),getAliasGetId()),
+                new KeyValueMemberName(_mapping.getVal(GET_PRIORITY),getAliasGetPriority()),
+                new KeyValueMemberName(_mapping.getVal(SET_PRIORITY),getAliasSetPriority()),
+                new KeyValueMemberName(_mapping.getVal(SLEEP),getAliasSleep()),
+                new KeyValueMemberName(_mapping.getVal(PRINT),getAliasPrint())));
+//                new KeyValueMemberName(_mapping.getVal(YIELD),getAliasYield()),
+//                new KeyValueMemberName(_mapping.getVal(THREAD_EXIT_HOOK),getAliasThreadExitHook())));
 
         m_.addEntry(getAliasExecutorService(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(EXECUTOR_SERVICE_EXECUTE, getAliasExecutorServiceExecute()),
-                new KeyValueMemberName(EXECUTOR_SERVICE_SUBMIT, getAliasExecutorServiceSubmit()),
-                new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_EXECUTE), getAliasExecutorServiceExecute()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SUBMIT), getAliasExecutorServiceSubmit()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN),getAliasExecutorServiceShutdown())));
         m_.addEntry(getAliasScheduledExecutorService(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(EXECUTOR_SERVICE_SCHEDULE_MILLIS, getAliasExecutorServiceScheduleMillis()),
-                new KeyValueMemberName(EXECUTOR_SERVICE_SCHEDULE_NANOS, getAliasExecutorServiceScheduleNanos()),
-                new KeyValueMemberName(EXECUTOR_SERVICE_SHUTDOWN,getAliasExecutorServiceShutdown())));
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_MILLIS), getAliasExecutorServiceScheduleMillis()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SCHEDULE_NANOS), getAliasExecutorServiceScheduleNanos()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTOR_SERVICE_SHUTDOWN),getAliasExecutorServiceShutdown())));
         m_.addEntry(getAliasFuture(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(FUTURE_WAIT, getAliasFutureWait()),
-                new KeyValueMemberName(FUTURE_CANCEL, getAliasFutureCancel())));
+                new KeyValueMemberName(_mapping.getVal(FUTURE_WAIT), getAliasFutureWait()),
+                new KeyValueMemberName(_mapping.getVal(FUTURE_CANCEL), getAliasFutureCancel())));
         m_.addEntry(getAliasThreadSet(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(THREAD_SET_ADD,getAliasThreadSetAdd()),
-                new KeyValueMemberName(THREAD_SET_ALL,getAliasThreadSetAll()),
-                new KeyValueMemberName(THREAD_SET_CONTAINS,getAliasThreadSetContains()),
-                new KeyValueMemberName(THREAD_SET_REMOVE,getAliasThreadSetRemove()),
-                new KeyValueMemberName(THREAD_SET_SNAPSHOT,getAliasThreadSetSnapshot())));
+                new KeyValueMemberName(_mapping.getVal(THREAD_SET_ADD),getAliasThreadSetAdd()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_SET_ALL),getAliasThreadSetAll()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_SET_CONTAINS),getAliasThreadSetContains()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_SET_REMOVE),getAliasThreadSetRemove()),
+                new KeyValueMemberName(_mapping.getVal(THREAD_SET_SNAPSHOT),getAliasThreadSetSnapshot())));
 //        m_.addEntry(getAliasReentrantLock(), new CustList<KeyValueMemberName>(
-//                new KeyValueMemberName(LOCK,getAliasLock()),
-//                new KeyValueMemberName(UNLOCK,getAliasUnlock()),
-//                new KeyValueMemberName(IS_HELD_BY_CURRENT_THREAD,getAliasIsHeldByCurrentThread())));
+//                new KeyValueMemberName(_mapping.getVal(LOCK),getAliasLock()),
+//                new KeyValueMemberName(_mapping.getVal(UNLOCK),getAliasUnlock()),
+//                new KeyValueMemberName(_mapping.getVal(IS_HELD_BY_CURRENT_THREAD),getAliasIsHeldByCurrentThread())));
         m_.addEntry(getAliasRunnable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(RUN,getAliasRun())));
+                new KeyValueMemberName(_mapping.getVal(RUN),getAliasRun())));
         m_.addEntry(getAliasFormatType(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(PRINT,getAliasPrint())));
+                new KeyValueMemberName(_mapping.getVal(PRINT),getAliasPrint())));
         m_.addEntry(getAliasAtomicBoolean(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
-                new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
-                new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
-                new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
-                new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic())));
+                new KeyValueMemberName(_mapping.getVal(GET_ATOMIC),getAliasGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(SET_ATOMIC),getAliasSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(COMPARE_AND_SET_ATOMIC),getAliasCompareAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_SET_ATOMIC),getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(LAZY_SET_ATOMIC),getAliasLazySetAtomic())));
         m_.addEntry(getAliasAtomicInteger(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
-                new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
-                new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
-                new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
-                new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic()),
-                new KeyValueMemberName(ADD_AND_GET_ATOMIC,getAliasAddAndGetAtomic()),
-                new KeyValueMemberName(GET_AND_ADD_ATOMIC,getAliasGetAndAddAtomic()),
-                new KeyValueMemberName(INCREMENT_AND_GET_ATOMIC,getAliasIncrementAndGetAtomic()),
-                new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
-                new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
-                new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
+                new KeyValueMemberName(_mapping.getVal(GET_ATOMIC),getAliasGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(SET_ATOMIC),getAliasSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(COMPARE_AND_SET_ATOMIC),getAliasCompareAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_SET_ATOMIC),getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(LAZY_SET_ATOMIC),getAliasLazySetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(ADD_AND_GET_ATOMIC),getAliasAddAndGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_ADD_ATOMIC),getAliasGetAndAddAtomic()),
+                new KeyValueMemberName(_mapping.getVal(INCREMENT_AND_GET_ATOMIC),getAliasIncrementAndGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_INCREMENT_ATOMIC),getAliasGetAndIncrementAtomic()),
+                new KeyValueMemberName(_mapping.getVal(DECREMENT_AND_GET_ATOMIC),getAliasDecrementAndGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_DECREMENT_ATOMIC),getAliasGetAndDecrementAtomic())));
         m_.addEntry(getAliasAtomicLong(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(GET_ATOMIC,getAliasGetAtomic()),
-                new KeyValueMemberName(SET_ATOMIC,getAliasSetAtomic()),
-                new KeyValueMemberName(COMPARE_AND_SET_ATOMIC,getAliasCompareAndSetAtomic()),
-                new KeyValueMemberName(GET_AND_SET_ATOMIC,getAliasGetAndSetAtomic()),
-                new KeyValueMemberName(LAZY_SET_ATOMIC,getAliasLazySetAtomic()),
-                new KeyValueMemberName(ADD_AND_GET_ATOMIC,getAliasAddAndGetAtomic()),
-                new KeyValueMemberName(GET_AND_ADD_ATOMIC,getAliasGetAndAddAtomic()),
-                new KeyValueMemberName(INCREMENT_AND_GET_ATOMIC,getAliasIncrementAndGetAtomic()),
-                new KeyValueMemberName(GET_AND_INCREMENT_ATOMIC,getAliasGetAndIncrementAtomic()),
-                new KeyValueMemberName(DECREMENT_AND_GET_ATOMIC,getAliasDecrementAndGetAtomic()),
-                new KeyValueMemberName(GET_AND_DECREMENT_ATOMIC,getAliasGetAndDecrementAtomic())));
+                new KeyValueMemberName(_mapping.getVal(GET_ATOMIC),getAliasGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(SET_ATOMIC),getAliasSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(COMPARE_AND_SET_ATOMIC),getAliasCompareAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_SET_ATOMIC),getAliasGetAndSetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(LAZY_SET_ATOMIC),getAliasLazySetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(ADD_AND_GET_ATOMIC),getAliasAddAndGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_ADD_ATOMIC),getAliasGetAndAddAtomic()),
+                new KeyValueMemberName(_mapping.getVal(INCREMENT_AND_GET_ATOMIC),getAliasIncrementAndGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_INCREMENT_ATOMIC),getAliasGetAndIncrementAtomic()),
+                new KeyValueMemberName(_mapping.getVal(DECREMENT_AND_GET_ATOMIC),getAliasDecrementAndGetAtomic()),
+                new KeyValueMemberName(_mapping.getVal(GET_AND_DECREMENT_ATOMIC),getAliasGetAndDecrementAtomic())));
         m_.addEntry(getAliasLgInt(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LG_INT_PARSE,getAliasLgIntParse()),
-                new KeyValueMemberName(RATE_PARSE,getAliasRateParse()),
-                new KeyValueMemberName(RATE_NUM,getAliasRateNum()),
-                new KeyValueMemberName(RATE_DEN,getAliasRateDen())));
+                new KeyValueMemberName(_mapping.getVal(LG_INT_PARSE),getAliasLgIntParse()),
+                new KeyValueMemberName(_mapping.getVal(RATE_PARSE),getAliasRateParse()),
+                new KeyValueMemberName(_mapping.getVal(RATE_NUM),getAliasRateNum()),
+                new KeyValueMemberName(_mapping.getVal(RATE_DEN),getAliasRateDen())));
         m_.addEntry(getAliasFile(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(READ,getAliasRead()),
-                new KeyValueMemberName(WRITE,getAliasWrite()),
-                new KeyValueMemberName(APPEND_TO_FILE,getAliasAppendToFile()),
-                new KeyValueMemberName(FILE_ABSOLUTE_PATH,getAliasFileAbsolutePath()),
-                new KeyValueMemberName(FILE_GET_LENGTH,getAliasFileGetLength()),
-                new KeyValueMemberName(FILE_GET_NAME,getAliasFileGetName()),
-                new KeyValueMemberName(FILE_GET_PARENT_PATH,getAliasFileGetParentPath()),
-                new KeyValueMemberName(FILE_IS_DIRECTORY,getAliasFileIsDirectory()),
-                new KeyValueMemberName(FILE_IS_FILE,getAliasFileIsFile()),
-                new KeyValueMemberName(FILE_ROOTS,getAliasFileRoots()),
-                new KeyValueMemberName(FILE_IS_ABSOLUTE,getAliasFileIsAbsolute()),
-                new KeyValueMemberName(FILE_READ_BIN,getAliasFileReadBin()),
-                new KeyValueMemberName(FILE_WRITE_BIN,getAliasFileWriteBin()),
-                new KeyValueMemberName(FILE_DELETE,getAliasFileDelete()),
-                new KeyValueMemberName(FILE_DIR,getAliasFileDir()),
-                new KeyValueMemberName(FILE_RENAME,getAliasFileRename()),
-                new KeyValueMemberName(FILE_LAST_MODIF,getAliasFileLastModif()),
-                new KeyValueMemberName(FILE_LIST_DIRECTORIES,getAliasFileListDirectories()),
-                new KeyValueMemberName(FILE_LIST_FILES,getAliasFileListFiles()),
-                new KeyValueMemberName(FILE_ZIP_BIN,getAliasFileZipBin()),
-                new KeyValueMemberName(FILE_ZIP_BIN_ARRAY,getAliasFileZipBinArray()),
-                new KeyValueMemberName(FILE_ZIP_TEXT,getAliasFileZipText()),
-                new KeyValueMemberName(FILE_ZIPPED_BIN,getAliasFileZippedBin()),
-                new KeyValueMemberName(FILE_ZIPPED_BIN_ARRAY,getAliasFileZippedBinArray()),
-                new KeyValueMemberName(FILE_ZIPPED_TEXT,getAliasFileZippedText()),
-                new KeyValueMemberName(FILE_MAKE_DIRS,getAliasFileMakeDirs())));
+                new KeyValueMemberName(_mapping.getVal(READ),getAliasRead()),
+                new KeyValueMemberName(_mapping.getVal(WRITE),getAliasWrite()),
+                new KeyValueMemberName(_mapping.getVal(APPEND_TO_FILE),getAliasAppendToFile()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ABSOLUTE_PATH),getAliasFileAbsolutePath()),
+                new KeyValueMemberName(_mapping.getVal(FILE_GET_LENGTH),getAliasFileGetLength()),
+                new KeyValueMemberName(_mapping.getVal(FILE_GET_NAME),getAliasFileGetName()),
+                new KeyValueMemberName(_mapping.getVal(FILE_GET_PARENT_PATH),getAliasFileGetParentPath()),
+                new KeyValueMemberName(_mapping.getVal(FILE_IS_DIRECTORY),getAliasFileIsDirectory()),
+                new KeyValueMemberName(_mapping.getVal(FILE_IS_FILE),getAliasFileIsFile()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ROOTS),getAliasFileRoots()),
+                new KeyValueMemberName(_mapping.getVal(FILE_IS_ABSOLUTE),getAliasFileIsAbsolute()),
+                new KeyValueMemberName(_mapping.getVal(FILE_READ_BIN),getAliasFileReadBin()),
+                new KeyValueMemberName(_mapping.getVal(FILE_WRITE_BIN),getAliasFileWriteBin()),
+                new KeyValueMemberName(_mapping.getVal(FILE_DELETE),getAliasFileDelete()),
+                new KeyValueMemberName(_mapping.getVal(FILE_DIR),getAliasFileDir()),
+                new KeyValueMemberName(_mapping.getVal(FILE_RENAME),getAliasFileRename()),
+                new KeyValueMemberName(_mapping.getVal(FILE_LAST_MODIF),getAliasFileLastModif()),
+                new KeyValueMemberName(_mapping.getVal(FILE_LIST_DIRECTORIES),getAliasFileListDirectories()),
+                new KeyValueMemberName(_mapping.getVal(FILE_LIST_FILES),getAliasFileListFiles()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ZIP_BIN),getAliasFileZipBin()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ZIP_BIN_ARRAY),getAliasFileZipBinArray()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ZIP_TEXT),getAliasFileZipText()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ZIPPED_BIN),getAliasFileZippedBin()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ZIPPED_BIN_ARRAY),getAliasFileZippedBinArray()),
+                new KeyValueMemberName(_mapping.getVal(FILE_ZIPPED_TEXT),getAliasFileZippedText()),
+                new KeyValueMemberName(_mapping.getVal(FILE_MAKE_DIRS),getAliasFileMakeDirs())));
         m_.addEntry(getAliasTableStringObject(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(TABLE_CONC_PAIRS,getAliasTableConcPairs()),
-                new KeyValueMemberName(TABLE_CONC_EMPTY,getAliasTableConcEmpty()),
-                new KeyValueMemberName(TABLE_CONC_SIZE,getAliasTableConcSize()),
-                new KeyValueMemberName(TABLE_CONC_KEYS,getAliasTableConcKeys()),
-                new KeyValueMemberName(TABLE_CONC_VALUES,getAliasTableConcValues()),
-                new KeyValueMemberName(TABLE_CONC_HAS_KEY,getAliasTableConcHasKey()),
-                new KeyValueMemberName(TABLE_CONC_HAS_VALUE,getAliasTableConcHasValue()),
-                new KeyValueMemberName(TABLE_CONC_GET,getAliasTableConcGet()),
-                new KeyValueMemberName(TABLE_CONC_REMOVE,getAliasTableConcRemove()),
-                new KeyValueMemberName(TABLE_CONC_PUT,getAliasTableConcPut()),
-                new KeyValueMemberName(TABLE_CONC_PUT_ABS,getAliasTableConcPutAbs()),
-                new KeyValueMemberName(TABLE_CONC_REPLACE,getAliasTableConcReplace()),
-                new KeyValueMemberName(TABLE_CONC_CLEAR,getAliasTableConcClear()),
-                new KeyValueMemberName(TABLE_CONC_PUT_ALL,getAliasTableConcPutAll())));
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_PAIRS),getAliasTableConcPairs()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_EMPTY),getAliasTableConcEmpty()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_SIZE),getAliasTableConcSize()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_KEYS),getAliasTableConcKeys()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_VALUES),getAliasTableConcValues()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_HAS_KEY),getAliasTableConcHasKey()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_HAS_VALUE),getAliasTableConcHasValue()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_GET),getAliasTableConcGet()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_REMOVE),getAliasTableConcRemove()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_PUT),getAliasTableConcPut()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_PUT_ABS),getAliasTableConcPutAbs()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_REPLACE),getAliasTableConcReplace()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_CLEAR),getAliasTableConcClear()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_CONC_PUT_ALL),getAliasTableConcPutAll())));
         m_.addEntry(getAliasEntryStringObject(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(TABLE_ENTRY_KEY,getAliasTableEntryKey()),
-                new KeyValueMemberName(TABLE_ENTRY_VALUE,getAliasTableEntryValue()),
-                new KeyValueMemberName(TABLE_ENTRY_OWNER,getAliasTableEntryOwner())));
+                new KeyValueMemberName(_mapping.getVal(TABLE_ENTRY_KEY),getAliasTableEntryKey()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_ENTRY_VALUE),getAliasTableEntryValue()),
+                new KeyValueMemberName(_mapping.getVal(TABLE_ENTRY_OWNER),getAliasTableEntryOwner())));
         m_.addEntry(getAliasEntryBinary(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
-                new KeyValueMemberName(ENTRY_TIME,getAliasEntryTime()),
-                new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
+                new KeyValueMemberName(_mapping.getVal(ENTRY_NAME),getAliasEntryName()),
+                new KeyValueMemberName(_mapping.getVal(ENTRY_TIME),getAliasEntryTime()),
+                new KeyValueMemberName(_mapping.getVal(ENTRY_VALUE),getAliasEntryValue())));
         m_.addEntry(getAliasEntryText(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ENTRY_NAME,getAliasEntryName()),
-                new KeyValueMemberName(ENTRY_TIME,getAliasEntryTime()),
-                new KeyValueMemberName(ENTRY_VALUE,getAliasEntryValue())));
-        m_.addEntry(getAliasCustIterator(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LgNames.NEXT,_content.getPredefTypes().getAliasNext()),
-                new KeyValueMemberName(LgNames.HAS_NEXT,_content.getPredefTypes().getAliasHasNext())));
-        m_.addEntry(getAliasList(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ADD_LI,getAliasAddLi()),
-                new KeyValueMemberName(SIZE_LI,getAliasSizeLi()),
-                new KeyValueMemberName(REMOVE_LI,getAliasRemoveLi()),
-                new KeyValueMemberName(LgNames.ITERATOR,_content.getPredefTypes().getAliasIterator()),
-                new KeyValueMemberName(LIST_CLEAR,getAliasListClear())));
-        m_.addEntry(getAliasCustPair(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LgNames.GET_FIRST,_content.getPredefTypes().getAliasGetFirst()),
-                new KeyValueMemberName(SET_FIRST,getAliasSetFirst()),
-                new KeyValueMemberName(LgNames.GET_SECOND,_content.getPredefTypes().getAliasGetSecond()),
-                new KeyValueMemberName(SET_SECOND,getAliasSetSecond())));
-        m_.addEntry(getAliasCustIterTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(LgNames.NEXT_PAIR,_content.getPredefTypes().getAliasNextPair()),
-                new KeyValueMemberName(LgNames.HAS_NEXT_PAIR,_content.getPredefTypes().getAliasHasNextPair())));
-        m_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(GET_FIRST_TA,getAliasGetFirstTa()),
-                new KeyValueMemberName(GET_SECOND_TA,getAliasGetSecondTa()),
-                new KeyValueMemberName(SET_FIRST_TA,getAliasSetFirstTa()),
-                new KeyValueMemberName(SET_SECOND_TA,getAliasSetSecondTa()),
-                new KeyValueMemberName(ADD_TA,getAliasAddTa()),
-                new KeyValueMemberName(REMOVE_TA,getAliasRemoveTa()),
-                new KeyValueMemberName(SIZE_TA,getAliasSizeTa()),
-                new KeyValueMemberName(GET_TA,getAliasGetTa()),
-                new KeyValueMemberName(LgNames.ITERATOR_TABLE,_content.getPredefTypes().getAliasIteratorTable())
+                new KeyValueMemberName(_mapping.getVal(ENTRY_NAME),getAliasEntryName()),
+                new KeyValueMemberName(_mapping.getVal(ENTRY_TIME),getAliasEntryTime()),
+                new KeyValueMemberName(_mapping.getVal(ENTRY_VALUE),getAliasEntryValue())));
+        m_.addEntry(getAliasCustIterator(), _methods.getVal(_content.getPredefTypes().getAliasIteratorType()));
+        m_.addEntry(getAliasList(), merge(_methods,_content.getPredefTypes().getAliasIterable(),
+                new KeyValueMemberName(_mapping.getVal(ADD_LI),getAliasAddLi()),
+                new KeyValueMemberName(_mapping.getVal(SIZE_LI),getAliasSizeLi()),
+                new KeyValueMemberName(_mapping.getVal(REMOVE_LI),getAliasRemoveLi()),
+                new KeyValueMemberName(_mapping.getVal(LIST_CLEAR),getAliasListClear())));
+        m_.addEntry(getAliasCustPair(), merge(_methods,_content.getPredefTypes().getAliasPairType(),
+                new KeyValueMemberName(_mapping.getVal(SET_FIRST),getAliasSetFirst()),
+                new KeyValueMemberName(_mapping.getVal(SET_SECOND),getAliasSetSecond())));
+        m_.addEntry(getAliasCustIterTable(), _methods.getVal(_content.getPredefTypes().getAliasIteratorTableType()));
+        m_.addEntry(getAliasTable(), merge(_methods,_content.getPredefTypes().getAliasIterableTable(),
+                new KeyValueMemberName(_mapping.getVal(GET_FIRST_TA),getAliasGetFirstTa()),
+                new KeyValueMemberName(_mapping.getVal(GET_SECOND_TA),getAliasGetSecondTa()),
+                new KeyValueMemberName(_mapping.getVal(SET_FIRST_TA),getAliasSetFirstTa()),
+                new KeyValueMemberName(_mapping.getVal(SET_SECOND_TA),getAliasSetSecondTa()),
+                new KeyValueMemberName(_mapping.getVal(ADD_TA),getAliasAddTa()),
+                new KeyValueMemberName(_mapping.getVal(REMOVE_TA),getAliasRemoveTa()),
+                new KeyValueMemberName(_mapping.getVal(SIZE_TA),getAliasSizeTa()),
+                new KeyValueMemberName(_mapping.getVal(GET_TA),getAliasGetTa())
         ));
         m_.addEntry(getAliasExecute(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(EXECUTE_TESTS,getAliasExecuteTests()),
-                new KeyValueMemberName(EXECUTE_CONVERT,getAliasExecuteConvert()),
-                new KeyValueMemberName(EXECUTE_SETUP_ERROR,getAliasExecuteSetupError()),
-                new KeyValueMemberName(EXECUTE_SETUP_NO_EXCEPTION,getAliasExecuteSetupNoException()),
-                new KeyValueMemberName(EXECUTE_EXECUTE,getAliasExecuteExecute())
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_TESTS),getAliasExecuteTests()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_CONVERT),getAliasExecuteConvert()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_SETUP_ERROR),getAliasExecuteSetupError()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_SETUP_NO_EXCEPTION),getAliasExecuteSetupNoException()),
+                new KeyValueMemberName(_mapping.getVal(EXECUTE_EXECUTE),getAliasExecuteExecute())
         ));
         m_.addEntry(getAliasParameters(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(PARAMETERS_LOCATION,getAliasParametersLocation()),
-                new KeyValueMemberName(PARAMETERS_METHOD,getAliasParametersMethod())
+                new KeyValueMemberName(_mapping.getVal(PARAMETERS_LOCATION),getAliasParametersLocation()),
+                new KeyValueMemberName(_mapping.getVal(PARAMETERS_METHOD),getAliasParametersMethod())
         ));
         m_.addEntry(getAliasTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(TEST_EXCEPTION,getAliasTestException()),
-                new KeyValueMemberName(TEST_NULL_EXCEPTION,getAliasTestNullException())
+                new KeyValueMemberName(_mapping.getVal(TEST_EXCEPTION),getAliasTestException()),
+                new KeyValueMemberName(_mapping.getVal(TEST_NULL_EXCEPTION),getAliasTestNullException())
         ));
         m_.addEntry(getAliasArgsTest(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ARGS_TEST_ARGS_VALUE,getAliasArgsTestArgsValue())
+                new KeyValueMemberName(_mapping.getVal(ARGS_TEST_ARGS_VALUE),getAliasArgsTestArgsValue())
         ));
         m_.addEntry(getAliasAssert(), new CustList<KeyValueMemberName>(
-                new KeyValueMemberName(ASSERT_ASSERT,getAliasAssertAssert()),
-                new KeyValueMemberName(ASSERT_NOT,getAliasAssertAssertNot()),
-                new KeyValueMemberName(ASSERT_ASSERT_NOT_NULL,getAliasAssertAssertNotNull()),
-                new KeyValueMemberName(ASSERT_ASSERT_NULL,getAliasAssertAssertNull()),
-                new KeyValueMemberName(ASSERT_ASSERT_SAME,getAliasAssertAssertSame()),
-                new KeyValueMemberName(ASSERT_NOT_SAME,getAliasAssertAssertNotSame()),
-                new KeyValueMemberName(ASSERT_ASSERT_TRUE,getAliasAssertAssertTrue()),
-                new KeyValueMemberName(ASSERT_ASSERT_FALSE,getAliasAssertAssertFalse())
+                new KeyValueMemberName(_mapping.getVal(ASSERT_ASSERT),getAliasAssertAssert()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_NOT),getAliasAssertAssertNot()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_ASSERT_NOT_NULL),getAliasAssertAssertNotNull()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_ASSERT_NULL),getAliasAssertAssertNull()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_ASSERT_SAME),getAliasAssertAssertSame()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_NOT_SAME),getAliasAssertAssertNotSame()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_ASSERT_TRUE),getAliasAssertAssertTrue()),
+                new KeyValueMemberName(_mapping.getVal(ASSERT_ASSERT_FALSE),getAliasAssertAssertFalse())
         ));
         m_.addEntry(getAliasDifference(), new CustList<KeyValueMemberName>(
         ));
@@ -2576,47 +2991,54 @@ public final class CustAliases {
         ));
         return m_;
     }
+    public static CustList<KeyValueMemberName> merge(StringMap<CustList<KeyValueMemberName>> _methods, String _key, KeyValueMemberName..._values) {
+        CustList<KeyValueMemberName> list_ = new CustList<KeyValueMemberName>(_methods.getVal(_key));
+        for (KeyValueMemberName k: _values) {
+            list_.add(k);
+        }
+        return list_;
+    }
 
-    public StringMap<String> allRefTypes() {
+    public StringMap<String> allRefTypes(StringMap<String> _mapping) {
         StringMap<String> ref_ = new StringMap<String>();
-        ref_.addEntry(THREAD,getAliasThread());
-        ref_.addEntry(THREAD_SET,getAliasThreadSet());
-        ref_.addEntry(EXECUTOR_SERVICE,getAliasExecutorService());
-        ref_.addEntry(EXECUTOR_SERVICE_BASE,getAliasExecutorServiceBase());
-        ref_.addEntry(SCHEDULED_EXECUTOR_SERVICE,getAliasScheduledExecutorService());
-        ref_.addEntry(FUTURE,getAliasFuture());
-//        ref_.addEntry(REENTRANT_LOCK,getAliasReentrantLock());
-        ref_.addEntry(ATOMIC_BOOLEAN,getAliasAtomicBoolean());
-        ref_.addEntry(ATOMIC_INTEGER,getAliasAtomicInteger());
-        ref_.addEntry(ATOMIC_LONG,getAliasAtomicLong());
-        ref_.addEntry(RATE,getAliasRate());
-        ref_.addEntry(LG_INT,getAliasLgInt());
-        ref_.addEntry(FILE,getAliasFile());
-        ref_.addEntry(ILLEGAL_THREAD_STATE_EXCEPTION,getAliasIllegalThreadStateException());
-        ref_.addEntry(CUST_ITERATOR,getAliasCustIterator());
-        ref_.addEntry(LIST,getAliasList());
-        ref_.addEntry(RUNNABLE,getAliasRunnable());
-        ref_.addEntry(FORMAT_TYPE,getAliasFormatType());
-        ref_.addEntry(CUST_PAIR,getAliasCustPair());
-        ref_.addEntry(CUST_ITER_TABLE,getAliasCustIterTable());
-        ref_.addEntry(TABLE,getAliasTable());
-        ref_.addEntry(EXECUTE,getAliasExecute());
-        ref_.addEntry(INFO_TEST,getAliasInfoTest());
-        ref_.addEntry(EXECUTED_TEST,getAliasExecutedTest());
-        ref_.addEntry(RESULT,getAliasResult());
-        ref_.addEntry(BEFORE,getAliasBefore());
-        ref_.addEntry(AFTER,getAliasAfter());
-        ref_.addEntry(PARAMETERS,getAliasParameters());
-        ref_.addEntry(TEST,getAliasTest());
-        ref_.addEntry(ARGS_TEST,getAliasArgsTest());
-        ref_.addEntry(ASSERT,getAliasAssert());
-        ref_.addEntry(DIFFERENCE,getAliasDifference());
-        ref_.addEntry(ELT_DIFFERENCE,getAliasEltDifference());
-        ref_.addEntry(CONCURRENT_ERROR,getAliasConcurrentError());
-        ref_.addEntry(ENTRY_BINARY,getAliasEntryBinary());
-        ref_.addEntry(ENTRY_TEXT,getAliasEntryText());
-        ref_.addEntry(ENTRY_STRING_OBJECT,getAliasEntryStringObject());
-        ref_.addEntry(TABLE_STRING_OBJECT,getAliasTableStringObject());
+        ref_.addEntry(_mapping.getVal(THREAD),getAliasThread());
+        ref_.addEntry(_mapping.getVal(THREAD_SET),getAliasThreadSet());
+        ref_.addEntry(_mapping.getVal(EXECUTOR_SERVICE),getAliasExecutorService());
+        ref_.addEntry(_mapping.getVal(EXECUTOR_SERVICE_BASE),getAliasExecutorServiceBase());
+        ref_.addEntry(_mapping.getVal(SCHEDULED_EXECUTOR_SERVICE),getAliasScheduledExecutorService());
+        ref_.addEntry(_mapping.getVal(FUTURE),getAliasFuture());
+//        ref_.addEntry(_mapping.getVal(REENTRANT_LOCK),getAliasReentrantLock());
+        ref_.addEntry(_mapping.getVal(ATOMIC_BOOLEAN),getAliasAtomicBoolean());
+        ref_.addEntry(_mapping.getVal(ATOMIC_INTEGER),getAliasAtomicInteger());
+        ref_.addEntry(_mapping.getVal(ATOMIC_LONG),getAliasAtomicLong());
+        ref_.addEntry(_mapping.getVal(RATE),getAliasRate());
+        ref_.addEntry(_mapping.getVal(LG_INT),getAliasLgInt());
+        ref_.addEntry(_mapping.getVal(FILE),getAliasFile());
+        ref_.addEntry(_mapping.getVal(ILLEGAL_THREAD_STATE_EXCEPTION),getAliasIllegalThreadStateException());
+        ref_.addEntry(_mapping.getVal(CUST_ITERATOR),getAliasCustIterator());
+        ref_.addEntry(_mapping.getVal(LIST),getAliasList());
+        ref_.addEntry(_mapping.getVal(RUNNABLE),getAliasRunnable());
+        ref_.addEntry(_mapping.getVal(FORMAT_TYPE),getAliasFormatType());
+        ref_.addEntry(_mapping.getVal(CUST_PAIR),getAliasCustPair());
+        ref_.addEntry(_mapping.getVal(CUST_ITER_TABLE),getAliasCustIterTable());
+        ref_.addEntry(_mapping.getVal(TABLE),getAliasTable());
+        ref_.addEntry(_mapping.getVal(EXECUTE),getAliasExecute());
+        ref_.addEntry(_mapping.getVal(INFO_TEST),getAliasInfoTest());
+        ref_.addEntry(_mapping.getVal(EXECUTED_TEST),getAliasExecutedTest());
+        ref_.addEntry(_mapping.getVal(RESULT),getAliasResult());
+        ref_.addEntry(_mapping.getVal(BEFORE),getAliasBefore());
+        ref_.addEntry(_mapping.getVal(AFTER),getAliasAfter());
+        ref_.addEntry(_mapping.getVal(PARAMETERS),getAliasParameters());
+        ref_.addEntry(_mapping.getVal(TEST),getAliasTest());
+        ref_.addEntry(_mapping.getVal(ARGS_TEST),getAliasArgsTest());
+        ref_.addEntry(_mapping.getVal(ASSERT),getAliasAssert());
+        ref_.addEntry(_mapping.getVal(DIFFERENCE),getAliasDifference());
+        ref_.addEntry(_mapping.getVal(ELT_DIFFERENCE),getAliasEltDifference());
+        ref_.addEntry(_mapping.getVal(CONCURRENT_ERROR),getAliasConcurrentError());
+        ref_.addEntry(_mapping.getVal(ENTRY_BINARY),getAliasEntryBinary());
+        ref_.addEntry(_mapping.getVal(ENTRY_TEXT),getAliasEntryText());
+        ref_.addEntry(_mapping.getVal(ENTRY_STRING_OBJECT),getAliasEntryStringObject());
+        ref_.addEntry(_mapping.getVal(TABLE_STRING_OBJECT),getAliasTableStringObject());
         return ref_;
     }
 

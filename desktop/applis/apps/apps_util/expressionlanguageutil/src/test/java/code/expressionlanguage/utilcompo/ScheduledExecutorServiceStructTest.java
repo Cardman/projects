@@ -36,6 +36,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         MockRunnableStruct s_ = new MockRunnableStruct("");
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getExecContent().getCustAliases().setAliasFuture("_");
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorMillis0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
@@ -48,6 +49,7 @@ public final class ScheduledExecutorServiceStructTest extends EquallableElUtUtil
         MockRunnableStruct s_ = new MockRunnableStruct("");
         ArgumentListCall list_ = three(s_,new IntStruct(1),new IntStruct(1));
         LgNamesGui stds_ = newLgNamesGuiSample(pr_, null);
+        stds_.getExecContent().getCustAliases().setAliasFuture("_");
         Options opt_ = new Options();
         ContextEl ctx_ = stds_.newContext(opt_, getForwards(stds_, opt_));
         assertEq(stds_.getExecContent().getCustAliases().getAliasFuture(),call(new FctScheduledExecutorNanos0(),null,ctx_,essOne_, list_,null).getClassName(ctx_));
