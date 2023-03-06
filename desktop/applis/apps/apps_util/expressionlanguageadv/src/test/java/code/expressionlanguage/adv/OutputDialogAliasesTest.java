@@ -1,6 +1,8 @@
 package code.expressionlanguage.adv;
 
 import code.mock.MockPlainButton;
+import code.mock.MockTextArea;
+import code.mock.MockTextField;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -16,6 +18,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq("",o_.getAliases().getValue().getText());
         o_.getAliases().getValue().setText("$core.Runner");
         ((MockPlainButton)o_.getAliases().getValPart()).getActionListeners().get(0).action();
+        assertEq("$core.Runner",o_.getAliases().getValPartLabel().getText());
         assertEq("Runnable",o_.getAliases().getMessagesRows().getKey(index_));
         assertEq("$core.Runner",o_.getAliases().getMessagesRows().getValue(index_));
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
@@ -114,6 +117,26 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         assertEq(1,w_.getLgKeyWords().size());
         assertEq("If",w_.getLgKeyWords().getKey(0));
         assertEq("even",w_.getLgKeyWords().getValue(0));
+    }
+    @Test
+    public void action5() {
+        WindowCdmEditor w_=newWindowLoadDef();
+        w_.getSoftParams().setDirectMatchKeyValue(true);
+        OutputDialogAliases o_ = aliases(w_);
+        int index_ = StringUtil.indexOf(OutputDialogAliases.aliases(w_),"Runnable");
+        assertEq(0,w_.getLgAliases().size());
+        o_.getAliases().getKey().setText("Runnable");
+
+        assertEq("",o_.getAliases().getValue().getText());
+        o_.getAliases().getValue().setText("$core.Runner");
+        assertEq("Runnable",o_.getAliases().getMessagesRows().getKey(index_));
+        assertEq("$core.Runner",o_.getAliases().getMessagesRows().getValue(index_));
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+
+        assertEq(1,w_.getLgAliases().size());
+        assertEq("Runnable",w_.getLgAliases().getKey(0));
+        assertEq("$core.Runner",w_.getLgAliases().getValue(0));
+        ((MockTextArea)o_.getAliases().getValue()).getAutoCompleteListeners().get(0).changedUpdate();
     }
     @Test
     public void errors() {

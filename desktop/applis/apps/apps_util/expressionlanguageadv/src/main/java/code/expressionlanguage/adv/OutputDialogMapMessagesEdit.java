@@ -12,6 +12,7 @@ public final class OutputDialogMapMessagesEdit {
     private final AbsTextField key;
     private final AbsTextArea value;
     private final AbsPlainButton valPart;
+    private final AbsPlainLabel valPartLabel;
     private final AutoCompleteDocument auto;
     private final AbsScrollPane scroll;
 
@@ -21,7 +22,9 @@ public final class OutputDialogMapMessagesEdit {
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
         AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
         value = factories_.getCompoFactory().newTextArea("",1,32);
-        auto = new AutoCompleteDocument(keyAuto_, new StringList(_keys), factories_, new FeedMessageValue(value, messagesRows));
+        valPartLabel = factories_.getCompoFactory().newPlainLabel("");
+        value.addAutoComplete(new DirectValidateKeyValueEvent(new ValidateMessage(_w.getSoftParams(),keyAuto_, value, messagesRows,valPartLabel,false)));
+        auto = new AutoCompleteDocument(keyAuto_, new StringList(_keys), factories_, new FeedMessageValue(value, messagesRows, valPartLabel));
         value.setLineBorder(GuiConstants.BLACK);
         key = keyAuto_;
         dels_.add(keyAuto_);
@@ -29,8 +32,11 @@ public final class OutputDialogMapMessagesEdit {
         inner_.setPreferredSize(new MetaDimension(384,48));
         dels_.add(inner_);
         valPart = factories_.getCompoFactory().newPlainButton("MATCH");
-        valPart.addActionListener(new ValidateMessage(keyAuto_,value, messagesRows));
+        valPart.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+        valPart.addActionListener(new ValidateMessage(_w.getSoftParams(),keyAuto_, value, messagesRows,valPartLabel,true));
         dels_.add(valPart);
+        valPartLabel.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+        dels_.add(valPartLabel);
         AbsScrollPane sc_ = factories_.getCompoFactory().newAbsScrollPane(dels_);
         sc_.setPreferredSize(new MetaDimension(384,128));
         scroll = sc_;
@@ -53,6 +59,10 @@ public final class OutputDialogMapMessagesEdit {
 
     public AbsPlainButton getValPart() {
         return valPart;
+    }
+
+    public AbsPlainLabel getValPartLabel() {
+        return valPartLabel;
     }
 
     public AutoCompleteDocument getAuto() {

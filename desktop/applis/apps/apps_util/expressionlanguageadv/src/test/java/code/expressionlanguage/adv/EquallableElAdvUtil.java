@@ -252,7 +252,12 @@ public abstract class EquallableElAdvUtil {
     public static MockProgramInfos newMockProgramInfosInitConfExpFolderAlready(String _folder, String _sec) {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
-        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(current_,_folder,new StringList("file.txt"),new StringList(_sec)),pr_.getStreams());
+        CdmParameterSoftModel c_ = new CdmParameterSoftModel();
+        c_.setExecConf(current_);
+        c_.setFolderExpression(_folder);
+        c_.getOpenedFiles().add("file.txt");
+        c_.getOpenedFilesToInit().add(_sec);
+        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(c_),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
         lines_.add("/project/sources");
@@ -509,6 +514,12 @@ public abstract class EquallableElAdvUtil {
         ChangeLanguageEvent ev_ = (ChangeLanguageEvent) ((MockMenuItem) _w.getLanguageMenu()).getActionListeners().get(0);
         ev_.action();
         return ev_.getOutputDialogLanguage();
+    }
+
+    protected static CdmParameterSoftDialog softParams(WindowCdmEditor _w) {
+        CdmParameterSoftEvent ev_ = (CdmParameterSoftEvent) ((MockMenuItem) _w.getSoftParamsMenu()).getActionListeners().get(0);
+        ev_.action();
+        return ev_.getParameterSoftDialog();
     }
 
 }
