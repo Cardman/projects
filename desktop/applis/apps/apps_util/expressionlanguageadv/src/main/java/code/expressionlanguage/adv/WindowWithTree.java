@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.utilcompo.ThreadSetStruct;
 import code.gui.AbsTabbedPane;
 import code.gui.AbsTreeGui;
 import code.util.CustList;
