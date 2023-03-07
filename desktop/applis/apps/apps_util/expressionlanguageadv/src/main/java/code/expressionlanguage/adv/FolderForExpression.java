@@ -1,11 +1,10 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.utilcompo.MemoryFileSystem;
 import code.gui.events.AbsActionListener;
-import code.util.core.StringUtil;
 
 public final class FolderForExpression implements AbsActionListener {
     private final WindowCdmEditor windowCdmEditor;
+    private OutputDialogExpresion dialogExpresion;
 
     public FolderForExpression(WindowCdmEditor _w) {
         this.windowCdmEditor = _w;
@@ -17,10 +16,10 @@ public final class FolderForExpression implements AbsActionListener {
             windowCdmEditor.folderExp(f_);
             return;
         }
-        String fileName_ = StringUtil.nullToEmpty(windowCdmEditor.getFolderOpenDialogInt().input(windowCdmEditor.getCommonFrame(), windowCdmEditor.getCommonFrame().getLanguageKey(), true));
-        if (fileName_.isEmpty()) {
-            return;
-        }
-        windowCdmEditor.folderExp(MemoryFileSystem.skipLastSep(fileName_));
+        dialogExpresion = new OutputDialogExpresion(windowCdmEditor);
+    }
+
+    public OutputDialogExpresion getDialogExpresion() {
+        return dialogExpresion;
     }
 }

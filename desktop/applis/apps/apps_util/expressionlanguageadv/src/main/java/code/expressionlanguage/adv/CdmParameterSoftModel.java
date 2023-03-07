@@ -6,6 +6,7 @@ public final class CdmParameterSoftModel {
     private boolean directMatchKeyValue;
     private String execConf = "";
     private String folderExpression = "";
+    private StringList lines = new StringList();
     private final StringList openedFiles = new StringList();
     private final StringList openedFilesToInit = new StringList();
 
@@ -40,4 +41,13 @@ public final class CdmParameterSoftModel {
     public StringList getOpenedFilesToInit() {
         return openedFilesToInit;
     }
+
+    public StringList getLines() {
+        return lines;
+    }
+
+    public void setLines(StringList _lines) {
+        this.lines = _lines;
+    }
+
 }

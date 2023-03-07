@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.initialize.AbstractProgramInfos;
@@ -18,6 +19,7 @@ public final class WindowExpressionEditor implements WindowWithTree {
     private AbsTreeGui folderSystem;
     private AbsTabbedPane editors;
     private AbsEnabledAction refreshNode;
+    private ManageOptions manageOptions;
 //    private AbsEnabledAction renameNode;
 //    private AbsEnabledAction removeNode;
 //    private AbsEnabledAction createSystem;
@@ -33,6 +35,7 @@ public final class WindowExpressionEditor implements WindowWithTree {
             commonFrame.setVisible(true);
             return;
         }
+        manageOptions = new ManageOptions(commonFrame.getFrames().getLanguages(), mainFrame.getSoftParams().getLines(), mainFrame.getFactory(), commonFrame.getFrames().getThreadFactory());
         String acc_ = mainFrame.getFolderExpression();
         panel.removeAll();
         AbstractProgramInfos frs_ = commonFrame.getFrames();
@@ -100,5 +103,9 @@ public final class WindowExpressionEditor implements WindowWithTree {
     @Override
     public void removeObj(String _rel) {
         mainFrame.getOpenedFilesToInit().removeObj(_rel);
+    }
+
+    public ManageOptions getManageOptions() {
+        return manageOptions;
     }
 }

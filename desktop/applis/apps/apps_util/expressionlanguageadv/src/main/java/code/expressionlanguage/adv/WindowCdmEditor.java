@@ -53,6 +53,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private final AbsDialog dialogLanguage;
     private final AbsDialog dialogAliases;
     private final AbsDialog dialogSoft;
+    private final AbsDialog dialogFolderExpression;
     private final AbsMenuItem commentsMenu;
     private final AbsMenuItem messagesMenu;
     private final AbsMenuItem aliasesMenu;
@@ -102,6 +103,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         dialogLanguage = _list.getFrameFactory().newDialog();
         dialogAliases = _list.getFrameFactory().newDialog();
         dialogSoft = _list.getFrameFactory().newDialog();
+        dialogFolderExpression = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
@@ -183,7 +185,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
         Document doc_ = DocumentBuilder.parseSax(contentConf_);
-        CdmParameterSoftModel params_ = allParams(doc_);
+        CdmParameterSoftModel params_ = allParams(doc_, commonFrame.getLanguageKey());
         if (params_ != null) {
             softParams = params_;
         } else {
@@ -577,33 +579,37 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public static String getTempDefConf(AbstractProgramInfos _tmpUserFolderSl) {
         return getTempFolder(_tmpUserFolderSl)+"/"+DEF_CONF;
     }
-    private static CdmParameterSoftModel allParams(Document _doc) {
+    private static CdmParameterSoftModel allParams(Document _doc, String _lgKey) {
         if (_doc == null || !StringUtil.quickEq(ROOT_CONF, _doc.getDocumentElement().getTagName())) {
             return null;
         }
         CdmParameterSoftModel cdm_ = new CdmParameterSoftModel();
         cdm_.setExecConf(_doc.getDocumentElement().getAttribute(NODE_PATH));
-        cdm_.setFolderExpression(_doc.getDocumentElement().getAttribute(NODE_EXP_PATH));
+        String accExp_ = _doc.getDocumentElement().getAttribute(NODE_EXP_PATH);
+        StringList lines_ = new StringList();
+        lines_.add(accExp_);
+        cdm_.setFolderExpression(accExp_);
         cdm_.setDirectMatchKeyValue(_doc.getDocumentElement().hasAttribute(NODE_DIRECT_MATCH_KEY_VALUE));
-        ElementList chs_ = _doc.getDocumentElement().getChildElements();
-        int len_ = chs_.getLength();
-        for (int i = 0; i < len_; i++) {
-            Element c_ = chs_.item(i);
-            String relPath_ = c_.getAttribute(NODE_FILES);
-            if (!relPath_.isEmpty()) {
-                cdm_.getOpenedFiles().add(relPath_);
-            }
+        feedList(_doc, NODE_FILES, cdm_.getOpenedFiles());
+        feedList(_doc, NODE_EXP_FILES, cdm_.getOpenedFilesToInit());
+        feedList(_doc, NODE_EXP_PATH, lines_);
+        if (lines_.size() == 1) {
+            lines_.add(_lgKey);
         }
+        cdm_.setLines(lines_);
+        return cdm_;
+    }
+
+    private static void feedList(Document _doc, String _name, StringList _dest) {
         ElementList chsExp_ = _doc.getDocumentElement().getChildElements();
         int lenExp_ = chsExp_.getLength();
         for (int i = 0; i < lenExp_; i++) {
             Element c_ = chsExp_.item(i);
-            String relPath_ = c_.getAttribute(NODE_EXP_FILES);
+            String relPath_ = c_.getAttribute(_name);
             if (!relPath_.isEmpty()) {
-                cdm_.getOpenedFilesToInit().add(relPath_);
+                _dest.add(relPath_);
             }
         }
-        return cdm_;
     }
 
     public FileOpenDialogAbs getFileOpenDialogInt() {
@@ -722,21 +728,22 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         if (_params.isDirectMatchKeyValue()) {
             elt_.setAttribute(NODE_DIRECT_MATCH_KEY_VALUE,"");
         }
-        for (String o: _params.getOpenedFiles()) {
-            Element e_ = doc_.createElement(ROOT_CONF);
-            e_.setAttribute(NODE_FILES,o);
-            elt_.appendChild(e_);
-        }
-        for (String o: _params.getOpenedFilesToInit()) {
-            Element e_ = doc_.createElement(ROOT_CONF);
-            e_.setAttribute(NODE_EXP_FILES,o);
-            elt_.appendChild(e_);
-        }
+        append(doc_, elt_, NODE_FILES, _params.getOpenedFiles());
+        append(doc_, elt_, NODE_EXP_FILES, _params.getOpenedFilesToInit());
+        append(doc_, elt_, NODE_EXP_PATH, _params.getLines().mid(1));
 //        Element eltSub_ = doc_.createElement(NODE_PATH);
 //        eltSub_.appendChild(doc_.createTextNode(_conf));
 //        elt_.appendChild(eltSub_);
         doc_.appendChild(elt_);
         return doc_.export();
+    }
+
+    public static void append(Document _doc, Element _elt, String _name, CustList<String> _list) {
+        for (String o: _list) {
+            Element e_ = _doc.createElement(ROOT_CONF);
+            e_.setAttribute(_name,o);
+            _elt.appendChild(e_);
+        }
     }
 
     public CdmParameterSoftModel getSoftParams() {
@@ -846,6 +853,10 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return dialogSoft;
     }
 
+    public AbsDialog getDialogFolderExpression() {
+        return dialogFolderExpression;
+    }
+
     public CustList<TabEditor> getTabs() {
         return tabs;
     }
@@ -953,5 +964,9 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     @Override
     public void removeObj(String _rel) {
         softParams.getOpenedFiles().removeObj(_rel);
+    }
+
+    public CdmFactory getFactory() {
+        return factory;
     }
 }

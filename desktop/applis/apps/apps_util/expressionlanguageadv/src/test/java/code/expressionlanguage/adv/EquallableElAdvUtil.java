@@ -256,6 +256,7 @@ public abstract class EquallableElAdvUtil {
         c_.setFolderExpression(_folder);
         c_.getOpenedFiles().add("file.txt");
         c_.getOpenedFilesToInit().add(_sec);
+        c_.setLines(new StringList(_folder,"en"));
         StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(pr_),WindowCdmEditor.buildDefConfFile(c_),pr_.getStreams());
         StreamFolderFile.makeParent(current_,pr_.getFileCoreStream());
         StringList lines_ = new StringList();
