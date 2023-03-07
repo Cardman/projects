@@ -73,7 +73,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tr_.select(tr_.getRoot());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/folder/").isDirectory());
+        assertTrue(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/folder/").isDirectory());
     }
     @Test
     public void fileExist() {
@@ -125,7 +125,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         closeTab(w_);
         assertEq(0,w_.getTabs().size());
         assertEq(0,w_.getEditors().getComponentCount());
-        assertEq(0,w_.getOpenedFiles().size());
+        assertEq(1,w_.getOpenedFiles().size());
     }
     @Test
     public void twoFiles() {

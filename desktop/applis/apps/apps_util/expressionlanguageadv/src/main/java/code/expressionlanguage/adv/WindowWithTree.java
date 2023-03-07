@@ -1,8 +1,10 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilcompo.ThreadSetStruct;
 import code.gui.AbsTabbedPane;
 import code.gui.AbsTreeGui;
 import code.util.CustList;
+import code.util.StringList;
 
 public interface WindowWithTree {
     AbsTreeGui getTree();
@@ -14,4 +16,6 @@ public interface WindowWithTree {
     WindowCdmEditor getMainFrame();
 
     void removeObj(String _rel);
+
+    StringList openedFiles();
 }

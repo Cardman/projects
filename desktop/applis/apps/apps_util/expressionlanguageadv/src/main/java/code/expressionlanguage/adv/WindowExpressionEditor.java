@@ -105,6 +105,11 @@ public final class WindowExpressionEditor implements WindowWithTree {
         mainFrame.getOpenedFilesToInit().removeObj(_rel);
     }
 
+    @Override
+    public StringList openedFiles() {
+        return mainFrame.getOpenedFilesToInit();
+    }
+
     public ManageOptions getManageOptions() {
         return manageOptions;
     }

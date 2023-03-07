@@ -302,7 +302,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         }
         _instance.changeEnable(true);
         String str_ = buildPath(sel_);
-        if (_treeEvent && str_.startsWith(_instance.pathToSrc())) {
+        if (_treeEvent) {
             BytesInfo content_ = StreamBinaryFile.loadFile(str_, frs_.getStreams());
             if (!content_.isNul()) {
                 int opened_ = indexOpened(_instance,str_);
@@ -329,7 +329,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
     public static void notifyDoc(WindowWithTree _instance,String _path) {
         String rel_ = _path.substring(_instance.pathToSrc().length());
-        _instance.getMainFrame().getOpenedFilesToInit().add(rel_);
+        _instance.openedFiles().add(rel_);
         _instance.getMainFrame().updateDoc();
     }
 
@@ -430,7 +430,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             return;
         }
         String elt_ = str_+_ans.getTypedText();
-        if (frs_.getFileCoreStream().newFile(elt_).exists() || !elt_.startsWith(pathToSrc())) {
+        if (frs_.getFileCoreStream().newFile(elt_).exists()) {
             return;
         }
         if (elt_.endsWith("/")) {
@@ -793,12 +793,16 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public String pathToSrc() {
         ManageOptions m_ = getManageOptions();
         String acc_ = m_.getEx().getAccess();
-        String srcFolderRel_ = m_.getEx().getSrcFolder();
-        return acc_+StreamTextFile.SEPARATEUR+srcFolderRel_+StreamTextFile.SEPARATEUR;
+        return acc_+StreamTextFile.SEPARATEUR;
     }
 
     public StringList getOpenedFiles() {
         return softParams.getOpenedFiles();
+    }
+
+    @Override
+    public StringList openedFiles() {
+        return getOpenedFiles();
     }
 
     public StringList getOpenedFilesToInit() {
