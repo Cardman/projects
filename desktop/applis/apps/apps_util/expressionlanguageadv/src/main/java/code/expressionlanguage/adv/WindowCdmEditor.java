@@ -665,33 +665,43 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
 
     public void saveConf() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        StringList lines_ = new StringList();
+        String lines_ = fileConf(manageOptions);
         String currentFolder_ = manageOptions.getEx().getAccess();
-        lines_.add(currentFolder_);
-        lines_.add(StringUtil.nullToEmpty(manageOptions.getEx().getLg()));
-        CustList<CommentDelimiters> comments_ = manageOptions.getOptions().getComments();
-        if (!comments_.isEmpty()) {
-            lines_.add("comments="+ParseLinesArgUtil.buildCommentsLine(comments_));
-        }
+        AbstractProgramInfos frs_ = commonFrame.getFrames();
         if (!manageOptions.getEx().getSrcFolder().isEmpty()) {
-            lines_.add("src="+manageOptions.getEx().getSrcFolder());
             commonFrame.getFrames().getFileCoreStream().newFile(currentFolder_+"/"+manageOptions.getEx().getSrcFolder()).mkdirs();
         } else {
             commonFrame.getFrames().getFileCoreStream().newFile(currentFolder_+"/src").mkdirs();
         }
-        lines_.add("tabWidth="+manageOptions.getOptions().getTabWidth());
-        if (!manageOptions.getEx().getMessages().isEmpty()) {
-            lines_.add("messages="+ParseLinesArgUtil.buildMapLine(manageOptions.getEx().getMessages()));
-        }
-        if (!manageOptions.getEx().getKeyWords().isEmpty()) {
-            lines_.add("keyWords="+ParseLinesArgUtil.buildMapLine(manageOptions.getEx().getKeyWords()));
-        }
-        if (!manageOptions.getEx().getAliases().isEmpty()) {
-            lines_.add("aliases="+ParseLinesArgUtil.buildMapLine(manageOptions.getEx().getAliases()));
-        }
         StreamFolderFile.makeParent(softParams.getExecConf(),commonFrame.getFrames().getFileCoreStream());
-        StreamTextFile.saveTextFile(softParams.getExecConf(), StringUtil.join(lines_,'\n'), frs_.getStreams());
+        StreamTextFile.saveTextFile(softParams.getExecConf(), lines_, frs_.getStreams());
+    }
+
+    static String fileConf(ManageOptions _manage) {
+        return StringUtil.join(linesConf(_manage),'\n');
+    }
+    static StringList linesConf(ManageOptions _manage) {
+        StringList lines_ = new StringList();
+        lines_.add(_manage.getEx().getAccess());
+        lines_.add(StringUtil.nullToEmpty(_manage.getEx().getLg()));
+        CustList<CommentDelimiters> comments_ = _manage.getOptions().getComments();
+        if (!comments_.isEmpty()) {
+            lines_.add("comments="+ParseLinesArgUtil.buildCommentsLine(comments_));
+        }
+        if (!_manage.getEx().getSrcFolder().isEmpty()) {
+            lines_.add("src="+ _manage.getEx().getSrcFolder());
+        }
+        lines_.add("tabWidth="+ _manage.getOptions().getTabWidth());
+        if (!_manage.getEx().getMessages().isEmpty()) {
+            lines_.add("messages="+ParseLinesArgUtil.buildMapLine(_manage.getEx().getMessages()));
+        }
+        if (!_manage.getEx().getKeyWords().isEmpty()) {
+            lines_.add("keyWords="+ParseLinesArgUtil.buildMapLine(_manage.getEx().getKeyWords()));
+        }
+        if (!_manage.getEx().getAliases().isEmpty()) {
+            lines_.add("aliases="+ParseLinesArgUtil.buildMapLine(_manage.getEx().getAliases()));
+        }
+        return lines_;
     }
 
     private String buildDefConfFile() {
