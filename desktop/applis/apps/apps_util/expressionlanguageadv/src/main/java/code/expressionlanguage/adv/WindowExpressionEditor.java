@@ -14,7 +14,6 @@ public final class WindowExpressionEditor implements WindowWithTree {
     private final WindowCdmEditor mainFrame;
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
-    private final StringList openedFiles = new StringList();
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
     private AbsTreeGui folderSystem;
     private AbsTabbedPane editors;
@@ -47,23 +46,22 @@ public final class WindowExpressionEditor implements WindowWithTree {
         refreshNode = frs_.getCompoFactory().wrap(new RefreshTreeAction(this));
         folderSystem.registerKeyboardAction(refreshNode, GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
         tabs.clear();
-        openedFiles.clear();
         editors = frs_.getCompoFactory().newAbsTabbedPane();
         editors.addChangeListener(new TabValueChanged(this));
-        openedFiles.addAllElts(mainFrame.getOpenedFilesToInit());
-        int len_ = openedFiles.size();
+        StringList src_ = mainFrame.getOpenedFilesToInit();
+        int len_ = src_.size();
         StringList existing_ = new StringList();
         for (int i = 0; i < len_; i++) {
-            String fullPath_ = pathToSrc()+openedFiles.get(i);
+            String fullPath_ = pathToSrc()+src_.get(i);
             BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, commonFrame.getFrames().getStreams());
             if (content_.isNul()) {
                 continue;
             }
-            existing_.add(openedFiles.get(i));
+            existing_.add(src_.get(i));
             WindowCdmEditor.addTab(this,fullPath_,content_);
         }
-        mainFrame.getOpenedFilesToInit().clear();
-        mainFrame.getOpenedFilesToInit().addAllElts(existing_);
+        src_.clear();
+        src_.addAllElts(existing_);
         panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();
