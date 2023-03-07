@@ -72,13 +72,13 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private final AbsTextField srcFolder;
     private final GraphicComboGrInt chosenLanguage;
     private CdmParameterSoftModel softParams;
-    private String usedLg;
-    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
-    private StringMap<String> lgMessages = new StringMap<String>();
-    private StringMap<String> lgAliases = new StringMap<String>();
-    private StringMap<String> lgKeyWords = new StringMap<String>();
-    private String currentFolder = "";
-    private int tabWidth = 4;
+//    private String usedLg;
+//    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
+//    private StringMap<String> lgMessages = new StringMap<String>();
+//    private StringMap<String> lgAliases = new StringMap<String>();
+//    private StringMap<String> lgKeyWords = new StringMap<String>();
+//    private String currentFolder = "";
+//    private int tabWidth = 4;
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
     private AbsTabbedPane editors;
     private AbsEnabledAction refreshNode;
@@ -150,7 +150,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         srcFolder = commonFrame.getFrames().getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(_list.getTranslations().getMapping().getKeys());
         lgs_.add("");
-        usedLg = _lg;
         chosenLanguage = commonFrame.getFrames().getGeneComboBox().createCombo(commonFrame.getFrames().getImageFactory(), lgs_, -1, commonFrame.getFrames().getCompoFactory());
         createFile = commonFrame.getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
@@ -195,7 +194,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
         if (linesFiles_.size() < 2) {
             chgManagement(false);
-            currentFolder = "";
             panel.removeAll();
             panel.add(chooseFolder);
             panel.add(chosenFolder);
@@ -209,7 +207,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             commonFrame.setContentPane(panel);
             commonFrame.pack();
             StringList def_ = new StringList();
-            def_.add(currentFolder);
+            def_.add("");
             def_.add(commonFrame.getLanguageKey());
             manageOptions = manage(def_);
             return;
@@ -221,7 +219,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
 
     public void folder(String _folderName) {
-        currentFolder = _folderName;
+        manageOptions.getEx().setAccess(_folderName);
         chosenFolder.setText(_folderName);
         createFile.setEnabled(true);
     }
@@ -239,10 +237,12 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public void saveConf(String _fileName) {
         softParams = new CdmParameterSoftModel();
         softParams.setExecConf(_fileName);
-        usedLg = StringUtil.nullToEmpty(chosenLanguage.getSelectedItem());
+        manageOptions.getEx().setSrcFolder(srcFolder.getText());
+//        usedLg = StringUtil.nullToEmpty(chosenLanguage.getSelectedItem());
+        manageOptions.getEx().setLg(StringUtil.nullToEmpty(chosenLanguage.getSelectedItem()));
         updateDoc();
-        updateComments(comments);
-        manageOptions = saveConf();
+        updateComments(manageOptions.getOptions().getComments());
+        saveConf();
         initEnv();
     }
 
@@ -279,16 +279,16 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();
-        currentFolder = acc_;
-        lgMessages = manageOptions.getEx().getMessages();
-        lgAliases = manageOptions.getEx().getAliases();
-        lgKeyWords = manageOptions.getEx().getKeyWords();
-        usedLg = manageOptions.getLanguage();
+//        currentFolder = acc_;
+//        lgMessages = manageOptions.getEx().getMessages();
+//        lgAliases = manageOptions.getEx().getAliases();
+//        lgKeyWords = manageOptions.getEx().getKeyWords();
+//        usedLg = manageOptions.getEx().getLg();
         Options opt_ = manageOptions.getOptions();
-        tabWidth = opt_.getTabWidth();
+//        tabWidth = opt_.getTabWidth();
         CustList<CommentDelimiters> comments_ = opt_.getComments();
-        CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments(usedLg, frs_.getTranslations(), frs_.getLanguage()));
-        comments = comments_;
+        CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments(manageOptions.getEx().getLg(), frs_.getTranslations(), frs_.getLanguage()));
+//        comments = comments_;
     }
 
     public static boolean applyTreeChangeSelected(WindowWithTree _instance,boolean _treeEvent) {
@@ -653,43 +653,45 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
 
     public void updateComments(CustList<CommentDelimiters> _comm) {
-        CommentsUtil.checkAndUpdateComments(_comm, comments);
+        CommentsUtil.checkAndUpdateComments(_comm, manageOptions.getOptions().getComments());
         for (CommentDelimiters c: _comm) {
             if (c.getEnd().get(0).trim().isEmpty()) {
                 c.getEnd().clear();
                 c.getEnd().add("\n");
             }
         }
-        comments = _comm;
+        manageOptions.getOptions().getComments().clear();
+        manageOptions.getOptions().getComments().addAllElts(_comm);
     }
 
-    public ManageOptions saveConf() {
+    public void saveConf() {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         StringList lines_ = new StringList();
-        lines_.add(currentFolder);
-        lines_.add(StringUtil.nullToEmpty(usedLg));
-        if (!comments.isEmpty()) {
-            lines_.add("comments="+ParseLinesArgUtil.buildCommentsLine(comments));
+        String currentFolder_ = manageOptions.getEx().getAccess();
+        lines_.add(currentFolder_);
+        lines_.add(StringUtil.nullToEmpty(manageOptions.getEx().getLg()));
+        CustList<CommentDelimiters> comments_ = manageOptions.getOptions().getComments();
+        if (!comments_.isEmpty()) {
+            lines_.add("comments="+ParseLinesArgUtil.buildCommentsLine(comments_));
         }
-        if (!srcFolder.getText().isEmpty()) {
-            lines_.add("src="+srcFolder.getText());
-            commonFrame.getFrames().getFileCoreStream().newFile(currentFolder+"/"+srcFolder.getText()).mkdirs();
+        if (!manageOptions.getEx().getSrcFolder().isEmpty()) {
+            lines_.add("src="+manageOptions.getEx().getSrcFolder());
+            commonFrame.getFrames().getFileCoreStream().newFile(currentFolder_+"/"+manageOptions.getEx().getSrcFolder()).mkdirs();
         } else {
-            commonFrame.getFrames().getFileCoreStream().newFile(currentFolder+"/src").mkdirs();
+            commonFrame.getFrames().getFileCoreStream().newFile(currentFolder_+"/src").mkdirs();
         }
-        lines_.add("tabWidth="+tabWidth);
-        if (!lgMessages.isEmpty()) {
-            lines_.add("messages="+ParseLinesArgUtil.buildMapLine(lgMessages));
+        lines_.add("tabWidth="+manageOptions.getOptions().getTabWidth());
+        if (!manageOptions.getEx().getMessages().isEmpty()) {
+            lines_.add("messages="+ParseLinesArgUtil.buildMapLine(manageOptions.getEx().getMessages()));
         }
-        if (!lgKeyWords.isEmpty()) {
-            lines_.add("keyWords="+ParseLinesArgUtil.buildMapLine(lgKeyWords));
+        if (!manageOptions.getEx().getKeyWords().isEmpty()) {
+            lines_.add("keyWords="+ParseLinesArgUtil.buildMapLine(manageOptions.getEx().getKeyWords()));
         }
-        if (!lgAliases.isEmpty()) {
-            lines_.add("aliases="+ParseLinesArgUtil.buildMapLine(lgAliases));
+        if (!manageOptions.getEx().getAliases().isEmpty()) {
+            lines_.add("aliases="+ParseLinesArgUtil.buildMapLine(manageOptions.getEx().getAliases()));
         }
         StreamFolderFile.makeParent(softParams.getExecConf(),commonFrame.getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(softParams.getExecConf(), StringUtil.join(lines_,'\n'), frs_.getStreams());
-        return new ManageOptions(commonFrame.getFrames().getLanguages(), lines_, factory, commonFrame.getFrames().getThreadFactory());
     }
 
     private String buildDefConfFile() {
@@ -736,11 +738,11 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
 
     public void setUsedLg(String _u) {
-        this.usedLg = _u;
+        this.manageOptions.getEx().setLg(_u);
     }
 
     public String getUsedLg() {
-        return usedLg;
+        return manageOptions.getEx().getLg();
     }
 
     public AbsMenuItem getChooseFile() {
@@ -764,7 +766,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
 
     public String getCurrentFolder() {
-        return currentFolder;
+        return manageOptions.getEx().getAccess();
     }
 
     public ManageOptions getManageOptions() {
@@ -898,43 +900,44 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 //        return false;
 //    }
     public CustList<CommentDelimiters> getComments() {
-        return comments;
+        return manageOptions.getOptions().getComments();
     }
 
     public StringMap<String> getLgMessages() {
-        return lgMessages;
+        return manageOptions.getEx().getMessages();
     }
 
     public void setLgMessages(StringMap<String> _l) {
-        this.lgMessages = _l;
+        this.manageOptions.getEx().setMessages(_l);
     }
 
     public StringMap<String> getLgAliases() {
-        return lgAliases;
+        return manageOptions.getEx().getAliases();
     }
 
     public void setLgAliases(StringMap<String> _l) {
-        this.lgAliases = _l;
+        this.manageOptions.getEx().setAliases(_l);
     }
 
     public StringMap<String> getLgKeyWords() {
-        return lgKeyWords;
+        return manageOptions.getEx().getKeyWords();
     }
 
     public void setLgKeyWords(StringMap<String> _l) {
-        this.lgKeyWords = _l;
+        this.manageOptions.getEx().setKeyWords(_l);
     }
 
     public void setComments(CustList<CommentDelimiters> _c) {
-        this.comments = _c;
+        manageOptions.getOptions().getComments().clear();
+        manageOptions.getOptions().getComments().addAllElts(_c);
     }
 
     public int getTabWidth() {
-        return tabWidth;
+        return manageOptions.getOptions().getTabWidth();
     }
 
     public void setTabWidth(int _t) {
-        this.tabWidth = _t;
+        this.manageOptions.getOptions().setTabWidth(_t);
     }
 
     @Override

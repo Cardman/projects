@@ -2,7 +2,6 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
@@ -367,9 +366,9 @@ public abstract class EquallableElAdvUtil {
         return pr_;
     }
 
-    public static ManageOptions saveComments(WindowCdmEditor _editor,CustList<CommentDelimiters> _comm) {
+    public static void saveComments(WindowCdmEditor _editor, CustList<CommentDelimiters> _comm) {
         _editor.updateComments(_comm);
-        return _editor.saveConf();
+        _editor.saveConf();
     }
     public static String contentsOfFile(String _nomFichier, WindowCdmEditor _tech) {
         return StreamTextFile.contentsOfFile(_nomFichier,_tech.getCommonFrame().getFrames().getFileCoreStream(),_tech.getCommonFrame().getFrames().getStreams());

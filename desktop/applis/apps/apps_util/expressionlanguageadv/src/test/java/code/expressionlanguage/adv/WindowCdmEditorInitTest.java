@@ -537,8 +537,8 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertTrue(((MockPlainButton)w_.getCreateFile()).isDeepAccessible());
         ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
         assertTrue(newFile(w_,chooseConf_).exists());
-        ManageOptions res_ = saveComments(w_,new CustList<CommentDelimiters>());
-        assertEq("other_src",res_.getEx().getSrcFolder());
+        saveComments(w_,new CustList<CommentDelimiters>());
+        assertEq("other_src",w_.getManageOptions().getEx().getSrcFolder());
     }
     @Test
     public void fileConf13() {
