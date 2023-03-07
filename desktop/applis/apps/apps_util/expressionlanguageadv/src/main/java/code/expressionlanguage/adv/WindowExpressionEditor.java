@@ -52,14 +52,18 @@ public final class WindowExpressionEditor implements WindowWithTree {
         editors.addChangeListener(new TabValueChanged(this));
         openedFiles.addAllElts(mainFrame.getOpenedFilesToInit());
         int len_ = openedFiles.size();
+        StringList existing_ = new StringList();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc()+openedFiles.get(i);
             BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, commonFrame.getFrames().getStreams());
             if (content_.isNul()) {
                 continue;
             }
+            existing_.add(openedFiles.get(i));
             WindowCdmEditor.addTab(this,fullPath_,content_);
         }
+        mainFrame.getOpenedFilesToInit().clear();
+        mainFrame.getOpenedFilesToInit().addAllElts(existing_);
         panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();

@@ -125,7 +125,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         closeTab(w_);
         assertEq(0,w_.getTabs().size());
         assertEq(0,w_.getEditors().getComponentCount());
-        assertEq(1,w_.getOpenedFiles().size());
+        assertEq(0,w_.getOpenedFiles().size());
     }
     @Test
     public void twoFiles() {

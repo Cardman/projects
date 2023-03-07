@@ -270,14 +270,18 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         editors.addChangeListener(new TabValueChanged(this));
         StringList src_ = softParams.getOpenedFiles();
         int len_ = src_.size();
+        StringList existing_ = new StringList();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc()+src_.get(i);
             BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, commonFrame.getFrames().getStreams());
             if (content_.isNul()) {
                 continue;
             }
+            existing_.add(src_.get(i));
             addTab(this,fullPath_,content_);
         }
+        softParams.getOpenedFiles().clear();
+        softParams.getOpenedFiles().addAllElts(existing_);
         panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();
