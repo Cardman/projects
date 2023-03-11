@@ -20,4 +20,13 @@ public final class CdmParameterSoftDialogTest extends EquallableElAdvUtil {
         ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
         assertFalse(w_.getSoftParams().isDirectMatchKeyValue());
     }
+    @Test
+    public void action3() {
+        WindowCdmEditor w_=newWindowLoadDef();
+        aliases(w_);
+        CdmParameterSoftDialog o_ = softParams(w_);
+        o_.getCheck().setSelected(false);
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+        assertFalse(w_.getSoftParams().isDirectMatchKeyValue());
+    }
 }

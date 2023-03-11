@@ -3,6 +3,7 @@ package code.expressionlanguage.adv;
 import code.mock.MockPlainButton;
 import code.mock.MockTextArea;
 import code.mock.MockTextField;
+import code.mock.MockWindow;
 import code.util.core.StringUtil;
 import org.junit.Test;
 
@@ -109,7 +110,7 @@ public final class OutputDialogAliasesTest extends EquallableElAdvUtil {
         ((MockPlainButton)o_.getKeyWords().getValPart()).getActionListeners().get(0).action();
         assertEq("tough",o_.getKeyWords().getMessagesRows().getValue(indexKey_));
 
-        ((MockPlainButton)o_.getCancel()).getActionListeners().get(0).action();
+        ((MockWindow)o_.getFrame()).getWindowListenersDef().get(0).windowClosing();
 
         assertEq(1,w_.getLgAliases().size());
         assertEq("Runnable",w_.getLgAliases().getKey(0));

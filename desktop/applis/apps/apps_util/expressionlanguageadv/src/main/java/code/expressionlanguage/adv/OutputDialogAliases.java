@@ -14,18 +14,24 @@ import code.sml.util.TranslationsLg;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class OutputDialogAliases {
+public final class OutputDialogAliases implements WithFrame{
+    private final OutputDialogMapMessagesEdit messages;
     private final OutputDialogMapMessagesEdit keyWords;
     private final OutputDialogMapMessagesEdit aliases;
     private final AbsPlainButton check;
     private final AbsPlainButton val;
-    private final AbsPlainButton cancel;
     private final AbsTextArea errors;
     private final GuiAliases guiAliases;
     private final CustAliases custAliases;
     private final LgNamesContent lgNamesContent;
 
-    public OutputDialogAliases(WindowCdmEditor _w) {
+    private final AbsCommonFrame frame;
+    private final AbsMenuItem associated;
+
+    public OutputDialogAliases(WindowCdmEditor _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+        frame = _fr;
+        associated = _c;
+        messages = new OutputDialogMapMessagesEdit(_w,_w.getLgMessages(), keysMessages(_w));
         keyWords = new OutputDialogMapMessagesEdit(_w,_w.getLgKeyWords(), keyWords(_w));
         guiAliases = new GuiAliases();
         custAliases = new CustAliases();
@@ -34,6 +40,7 @@ public final class OutputDialogAliases {
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         AbsTabbedPane tab_ = factories_.getCompoFactory().newAbsTabbedPane();
+        tab_.add("messages",messages.getScroll());
         tab_.add("key words",keyWords.getScroll());
         tab_.add("aliases",aliases.getScroll());
         all_.add(tab_);
@@ -46,16 +53,26 @@ public final class OutputDialogAliases {
         check.addActionListener(new CheckAliases(this, _w,errors));
         buttons_.add(check);
         val = factories_.getCompoFactory().newPlainButton("OK");
-        val.addActionListener(new ValidateAliases(aliases.getMessagesRows(), keyWords.getMessagesRows(), _w));
+        val.addActionListener(new ValidateAliases(messages.getMessagesRows(),aliases.getMessagesRows(), keyWords.getMessagesRows(), _w));
         buttons_.add(val);
-        cancel = factories_.getCompoFactory().newPlainButton("KO");
-        cancel.addActionListener(new CancelBasic(_w.getDialogAliases()));
-        buttons_.add(cancel);
         all_.add(buttons_);
-        _w.getDialogAliases().setContentPane(all_);
-        _w.getDialogAliases().pack();
-        _w.getDialogAliases().setVisible(true);
+        frame.setContentPane(all_);
+        frame.pack();
+        frame.setVisible(true);
+        associated.setEnabled(false);
     }
+    public void reinit(WindowCdmEditor _w) {
+        resetGui(_w);
+        frame.setVisible(true);
+        associated.setEnabled(false);
+    }
+
+    public void resetGui(WindowCdmEditor _w) {
+        messages.reinit(_w);
+        keyWords.reinit(_w);
+        aliases.reinit(_w);
+    }
+
     static CustList<String> keyWords(WindowCdmEditor _w) {
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
@@ -70,6 +87,23 @@ public final class OutputDialogAliases {
         StringList v_ = new StringList(LgNamesUtilsContent.extractKeys(types_).values());
         v_.addAllElts(LgNamesUtilsContent.extractKeys(typesGui_).values());
         return v_;
+    }
+
+    static CustList<String> keysMessages(WindowCdmEditor _w) {
+        TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
+        TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
+        TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);
+        return LgNamesUtilsContent.extractKeys(com_).values();
+    }
+
+    @Override
+    public AbsCommonFrame getFrame() {
+        return frame;
+    }
+
+    @Override
+    public AbsMenuItem getMenu() {
+        return associated;
     }
 
     public CustAliases getCustAliases() {
@@ -92,8 +126,8 @@ public final class OutputDialogAliases {
         return lgNamesContent;
     }
 
-    public AbsPlainButton getCancel() {
-        return cancel;
+    public OutputDialogMapMessagesEdit getMessages() {
+        return messages;
     }
 
     public OutputDialogMapMessagesEdit getAliases() {

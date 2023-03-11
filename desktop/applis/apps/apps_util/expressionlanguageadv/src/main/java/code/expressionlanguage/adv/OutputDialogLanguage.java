@@ -1,18 +1,19 @@
 package code.expressionlanguage.adv;
 
-import code.gui.AbsPanel;
-import code.gui.AbsPlainButton;
-import code.gui.GraphicComboGrInt;
+import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 import code.util.core.StringUtil;
 
-public final class OutputDialogLanguage {
+public final class OutputDialogLanguage implements WithFrame {
     private final AbsPlainButton val;
-    private final AbsPlainButton cancel;
     private final GraphicComboGrInt chosenLanguage;
+    private final AbsCommonFrame frame;
+    private final AbsMenuItem associated;
 
-    public OutputDialogLanguage(WindowCdmEditor _w) {
+    public OutputDialogLanguage(WindowCdmEditor _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+        frame = _fr;
+        associated = _c;
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel all_ = factories_.getCompoFactory().newPageBox();
         StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
@@ -22,22 +23,32 @@ public final class OutputDialogLanguage {
         val = factories_.getCompoFactory().newPlainButton("OK");
         val.addActionListener(new ValidateUsedLanguage(chosenLanguage,_w));
         all_.add(val);
-        cancel = factories_.getCompoFactory().newPlainButton("KO");
-        cancel.addActionListener(new CancelBasic(_w.getDialogLanguage()));
-        all_.add(cancel);
-        _w.getDialogLanguage().setContentPane(all_);
-        _w.getDialogLanguage().pack();
-        _w.getDialogLanguage().setVisible(true);
+        frame.setContentPane(all_);
+        frame.pack();
+        frame.setVisible(true);
+        associated.setEnabled(false);
     }
 
+    public void reinit(WindowCdmEditor _w) {
+        AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
+        StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
+        lgs_.add("");
+        chosenLanguage.selectItem(StringUtil.indexOf(lgs_,_w.getUsedLg()));
+        frame.setVisible(true);
+        associated.setEnabled(false);
+    }
     public GraphicComboGrInt getChosenLanguage() {
         return chosenLanguage;
     }
-    public AbsPlainButton getCancel() {
-        return cancel;
+
+    public AbsCommonFrame getFrame() {
+        return frame;
     }
 
-
+    @Override
+    public AbsMenuItem getMenu() {
+        return associated;
+    }
     public AbsPlainButton getVal() {
         return val;
     }

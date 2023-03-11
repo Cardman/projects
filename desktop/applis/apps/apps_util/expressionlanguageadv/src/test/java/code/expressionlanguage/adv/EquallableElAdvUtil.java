@@ -490,30 +490,30 @@ public abstract class EquallableElAdvUtil {
     protected static OutputDialogComments comments(WindowCdmEditor _w) {
         ChangeCommentsEvent ev_ = (ChangeCommentsEvent) ((MockMenuItem) _w.getCommentsMenu()).getActionListeners().get(0);
         ev_.action();
-        return ev_.getOutputDialogComments();
+        return _w.getCommentsFrames().last();
     }
 
-    protected static OutputDialogMessages messages(WindowCdmEditor _w) {
-        ChangeMessagesEvent ev_ = (ChangeMessagesEvent) ((MockMenuItem) _w.getMessagesMenu()).getActionListeners().get(0);
+    protected static OutputDialogAliases messages(WindowCdmEditor _w) {
+        ChangeAliasesEvent ev_ = (ChangeAliasesEvent) ((MockMenuItem) _w.getAliasesMenu()).getActionListeners().get(0);
         ev_.action();
-        return ev_.getOutputDialogMessages();
+        return _w.getAliasesFrames().last();
     }
 
     protected static OutputDialogAliases aliases(WindowCdmEditor _w) {
         ChangeAliasesEvent ev_ = (ChangeAliasesEvent) ((MockMenuItem) _w.getAliasesMenu()).getActionListeners().get(0);
         ev_.action();
-        return ev_.getOutputDialogAliases();
+        return _w.getAliasesFrames().last();
     }
     protected static OutputDialogTab tabulations(WindowCdmEditor _w) {
         ChangeTabulationsEvent ev_ = (ChangeTabulationsEvent) ((MockMenuItem) _w.getTabulationsMenu()).getActionListeners().get(0);
         ev_.action();
-        return ev_.getOutputDialogTabs();
+        return _w.getTabulationsFrames().last();
     }
 
     protected static OutputDialogLanguage language(WindowCdmEditor _w) {
         ChangeLanguageEvent ev_ = (ChangeLanguageEvent) ((MockMenuItem) _w.getLanguageMenu()).getActionListeners().get(0);
         ev_.action();
-        return ev_.getOutputDialogLanguage();
+        return _w.getLanguageFrames().last();
     }
 
     protected static CdmParameterSoftDialog softParams(WindowCdmEditor _w) {

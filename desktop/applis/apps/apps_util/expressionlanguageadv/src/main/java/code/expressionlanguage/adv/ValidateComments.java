@@ -16,7 +16,6 @@ public final class ValidateComments implements AbsActionListener {
 
     @Override
     public void action() {
-        windowCdmEditor.getDialogComments().setVisible(false);
         output.getComments().clear();
         int len_ = comments.size();
         for (int i = 0; i < len_; i++) {

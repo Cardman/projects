@@ -48,14 +48,13 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private final AbsMenuItem tabulationsMenu;
     private final ConfirmDialogAnsAbs confirmDialogAns;
     private AbsTreeGui folderSystem;
-    private final AbsDialog dialogComments;
-    private final AbsDialog dialogTabulations;
-    private final AbsDialog dialogLanguage;
-    private final AbsDialog dialogAliases;
+    private final CustList<OutputDialogComments> commentsFrames = new CustList<OutputDialogComments>();
+    private final CustList<OutputDialogTab> tabulationsFrames = new CustList<OutputDialogTab>();
+    private final CustList<OutputDialogLanguage> languageFrames = new CustList<OutputDialogLanguage>();
+    private final CustList<OutputDialogAliases> aliasesFrames = new CustList<OutputDialogAliases>();
     private final AbsDialog dialogSoft;
     private final AbsDialog dialogFolderExpression;
     private final AbsMenuItem commentsMenu;
-    private final AbsMenuItem messagesMenu;
     private final AbsMenuItem aliasesMenu;
     private final AbsMenuItem folderExpressionMenu;
     private final AbsMenuItem softParamsMenu;
@@ -88,6 +87,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private AbsEnabledAction createSystem;
     private ManageOptions manageOptions;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
+    private final CustList<WithFrame> subssubs = new CustList<WithFrame>();
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
@@ -98,10 +98,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
         confirmDialogText = _list.getConfirmDialogText();
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
-        dialogComments = _list.getFrameFactory().newDialog();
-        dialogTabulations = _list.getFrameFactory().newDialog();
-        dialogLanguage = _list.getFrameFactory().newDialog();
-        dialogAliases = _list.getFrameFactory().newDialog();
         dialogSoft = _list.getFrameFactory().newDialog();
         dialogFolderExpression = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
@@ -124,19 +120,16 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
         bar_.add(menu_);
         languageMenu = _list.getCompoFactory().newMenuItem("language");
-        languageMenu.addActionListener(new ChangeLanguageEvent(this));
+        languageMenu.addActionListener(new ChangeLanguageEvent(this,languageMenu));
         menu_.addMenuItem(languageMenu);
         tabulationsMenu = _list.getCompoFactory().newMenuItem("tabulations");
-        tabulationsMenu.addActionListener(new ChangeTabulationsEvent(this));
+        tabulationsMenu.addActionListener(new ChangeTabulationsEvent(this, tabulationsMenu));
         menu_.addMenuItem(tabulationsMenu);
         commentsMenu = _list.getCompoFactory().newMenuItem("comments");
-        commentsMenu.addActionListener(new ChangeCommentsEvent(this));
+        commentsMenu.addActionListener(new ChangeCommentsEvent(this, commentsMenu));
         menu_.addMenuItem(commentsMenu);
-        messagesMenu = _list.getCompoFactory().newMenuItem("messages");
-        messagesMenu.addActionListener(new ChangeMessagesEvent(this));
-        menu_.addMenuItem(messagesMenu);
         aliasesMenu = _list.getCompoFactory().newMenuItem("aliases");
-        aliasesMenu.addActionListener(new ChangeAliasesEvent(this));
+        aliasesMenu.addActionListener(new ChangeAliasesEvent(this,aliasesMenu));
         menu_.addMenuItem(aliasesMenu);
         folderExpressionMenu = _list.getCompoFactory().newMenuItem("folder exp");
         folderExpressionMenu.addActionListener(new FolderForExpression(this));
@@ -166,7 +159,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private void chgManagement(boolean _en) {
         tabulationsMenu.setEnabled(_en);
         commentsMenu.setEnabled(_en);
-        messagesMenu.setEnabled(_en);
         aliasesMenu.setEnabled(_en);
         folderExpressionMenu.setEnabled(_en);
     }
@@ -231,10 +223,11 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         updateDoc();
         boolean add_ = false;
         if (expressionEditors.isEmpty()) {
-            expressionEditors.add(new WindowExpressionEditor(this));
+            expressionEditors.add(new WindowExpressionEditor(this,folderExpressionMenu));
             add_ = true;
         }
         expressionEditors.last().updateEnv(add_);
+        subs().add(expressionEditors.last());
     }
     public void saveConf(String _fileName) {
         softParams = new CdmParameterSoftModel();
@@ -817,10 +810,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return commentsMenu;
     }
 
-    public AbsMenuItem getMessagesMenu() {
-        return messagesMenu;
-    }
-
     public AbsMenuItem getAliasesMenu() {
         return aliasesMenu;
     }
@@ -841,20 +830,24 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return folderExpressionMenu;
     }
 
-    public AbsDialog getDialogComments() {
-        return dialogComments;
+    public CustList<OutputDialogComments> getCommentsFrames() {
+        return commentsFrames;
     }
 
-    public AbsDialog getDialogTabulations() {
-        return dialogTabulations;
+    public CustList<OutputDialogTab> getTabulationsFrames() {
+        return tabulationsFrames;
     }
 
-    public AbsDialog getDialogLanguage() {
-        return dialogLanguage;
+    public CustList<OutputDialogLanguage> getLanguageFrames() {
+        return languageFrames;
     }
 
-    public AbsDialog getDialogAliases() {
-        return dialogAliases;
+    public CustList<WithFrame> subs() {
+        return subssubs;
+    }
+
+    public CustList<OutputDialogAliases> getAliasesFrames() {
+        return aliasesFrames;
     }
 
     public AbsDialog getDialogSoft() {
@@ -912,12 +905,17 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
     @Override
     public void quit() {
-        commonFrame.setVisible(false);
-        for (WindowExpressionEditor w: getExpressionEditors()) {
-            w.getCommonFrame().setVisible(false);
-        }
+        closeAll();
         GuiBaseUtil.tryExit(commonFrame);
         commonFrame.getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
+    }
+
+    public void closeAll() {
+        commonFrame.setVisible(false);
+        for (WithFrame w: subs()) {
+            w.getFrame().setVisible(false);
+            w.getMenu().setEnabled(true);
+        }
     }
 
     public CustList<WindowExpressionEditor> getExpressionEditors() {

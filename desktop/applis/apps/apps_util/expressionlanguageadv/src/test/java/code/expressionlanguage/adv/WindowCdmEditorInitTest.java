@@ -585,4 +585,17 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.dispatchExit();
         assertFalse(w_.getCommonFrame().isVisible());
     }
+    @Test
+    public void closeMain() {
+        WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
+        ((MockMenuItem)w_.getLanguageMenu()).getActionListeners().get(0).action();
+        ((MockMenuItem)w_.getAliasesMenu()).getActionListeners().get(0).action();
+        ((MockMenuItem)w_.getCommentsMenu()).getActionListeners().get(0).action();
+        ((MockMenuItem)w_.getTabulationsMenu()).getActionListeners().get(0).action();
+        w_.quit();
+        assertFalse(w_.getLanguageFrames().get(0).getFrame().isVisible());
+        assertFalse(w_.getAliasesFrames().get(0).getFrame().isVisible());
+        assertFalse(w_.getCommentsFrames().get(0).getFrame().isVisible());
+        assertFalse(w_.getTabulationsFrames().get(0).getFrame().isVisible());
+    }
 }

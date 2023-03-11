@@ -1,5 +1,6 @@
 package code.expressionlanguage.adv;
 
+import code.gui.AbsCommonFrame;
 import code.gui.AbsPanel;
 import code.gui.GuiBaseUtil;
 import code.gui.events.AbsActionListener;
@@ -8,12 +9,12 @@ import code.util.CustList;
 public final class RemoveCommentRow implements AbsActionListener {
     private final CustList<EditCommentRow> allComments;
     private final AbsPanel cont;
-    private final WindowCdmEditor windowCdmEditor;
+    private final AbsCommonFrame frame;
 
-    public RemoveCommentRow(CustList<EditCommentRow> _all, AbsPanel _container, WindowCdmEditor _window) {
+    public RemoveCommentRow(CustList<EditCommentRow> _all, AbsPanel _container, AbsCommonFrame _fr) {
         this.allComments = _all;
         this.cont = _container;
-        this.windowCdmEditor = _window;
+        frame = _fr;
     }
 
     @Override
@@ -32,6 +33,6 @@ public final class RemoveCommentRow implements AbsActionListener {
         for (int i = 0; i < len_; i++) {
             allComments.get(i).setIndex(i);
         }
-        GuiBaseUtil.recalculate(windowCdmEditor.getDialogComments().getPane());
+        GuiBaseUtil.recalculate(frame.getPane());
     }
 }

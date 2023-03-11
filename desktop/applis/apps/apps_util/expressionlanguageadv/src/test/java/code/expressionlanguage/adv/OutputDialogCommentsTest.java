@@ -1,6 +1,7 @@
 package code.expressionlanguage.adv;
 
 import code.mock.MockPlainButton;
+import code.mock.MockWindow;
 import code.util.StringList;
 import org.junit.Test;
 
@@ -101,7 +102,7 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
         o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
         o_.getCommentsRows().get(0).getEndArea().setText("*\\");
-        ((MockPlainButton)o_.getCancel()).getActionListeners().get(0).action();
+        ((MockWindow)o_.getFrame()).getWindowListenersDef().get(0).windowClosing();
         assertEq(0,w_.getComments().size());
     }
     @Test
@@ -139,5 +140,29 @@ public final class OutputDialogCommentsTest extends EquallableElAdvUtil {
         assertEq(1,w_.getComments().size());
         assertEq("\\*",w_.getComments().get(0).getBegin());
         assertEq("\n",w_.getComments().get(0).getEnd().get(0));
+    }
+    @Test
+    public void action9() {
+        String chooseConf_ = "/editor/conf.txt";
+        WindowCdmEditor w_ =windowLoadDefInit(newMockProgramInfosInitConfNoFolder("/folder/sources/", chooseConf_));
+        w_.updateCommentsInit(new StringList());
+        ((MockPlainButton)w_.getChooseFolder()).getActionListeners().get(0).action();
+        ((MockPlainButton)w_.getCreateFile()).getActionListeners().get(0).action();
+        OutputDialogComments o_ = comments(w_);
+        assertEq(0,o_.getComments().size());
+        ((MockPlainButton)o_.getAdd()).getActionListeners().get(0).action();
+        o_.getCommentsRows().get(0).getBeginArea().setText("\\*");
+        o_.getCommentsRows().get(0).getEndArea().setText("");
+        ((MockPlainButton)o_.getVal()).getActionListeners().get(0).action();
+
+        assertEq(1,w_.getComments().size());
+        assertEq("\\*",w_.getComments().get(0).getBegin());
+        assertEq("\n",w_.getComments().get(0).getEnd().get(0));
+        ((MockWindow)o_.getFrame()).getWindowListenersDef().get(0).windowClosing();
+        assertEq(1,w_.getComments().size());
+        assertEq("\\*",w_.getComments().get(0).getBegin());
+        assertEq("\n",w_.getComments().get(0).getEnd().get(0));
+        OutputDialogComments o2_ = comments(w_);
+        assertEq(1,o2_.getComments().size());
     }
 }

@@ -31,8 +31,8 @@ public final class CheckAliases implements AbsActionListener {
         KeyWords kwl_ = new KeyWords();
         ExecutingOptions ex_ = new ExecutingOptions(windowCdmEditor.getCommonFrame().getFrames().getThreadFactory().newAtomicBoolean());
         ex_.setMessages(messages_);
-        ex_.setAliases(ValidateMessages.filterFields(dialog.getAliases().getMessagesRows()));
-        ex_.setKeyWords(ValidateMessages.filterFields(dialog.getKeyWords().getMessagesRows()));
+        ex_.setAliases(ValidateAliases.filterFields(dialog.getAliases().getMessagesRows()));
+        ex_.setKeyWords(ValidateAliases.filterFields(dialog.getKeyWords().getMessagesRows()));
         ex_.setLg(windowCdmEditor.getUsedLg());
         dialog.getCustAliases().setTranslations(windowCdmEditor.getCommonFrame().getFrames().getTranslations());
         dialog.getCustAliases().setLanguage(windowCdmEditor.getCommonFrame().getLanguageKey());

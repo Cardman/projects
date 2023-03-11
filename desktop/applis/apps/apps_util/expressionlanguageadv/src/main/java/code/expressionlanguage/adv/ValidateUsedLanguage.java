@@ -15,7 +15,6 @@ public final class ValidateUsedLanguage implements AbsActionListener {
 
     @Override
     public void action() {
-        output.getDialogLanguage().setVisible(false);
         output.setUsedLg(StringUtil.nullToEmpty(value.getSelectedItem()));
         output.afterChangingSyntaxPreferences();
     }

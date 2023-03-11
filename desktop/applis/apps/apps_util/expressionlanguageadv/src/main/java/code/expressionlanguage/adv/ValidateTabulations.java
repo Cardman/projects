@@ -14,7 +14,6 @@ public final class ValidateTabulations implements AbsActionListener {
 
     @Override
     public void action() {
-        output.getDialogTabulations().setVisible(false);
         output.setTabWidth(value.getValue());
         output.afterChangingSyntaxPreferences();
     }

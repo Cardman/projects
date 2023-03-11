@@ -17,13 +17,13 @@ public final class OutputDialogMapMessagesEdit {
     private final AbsScrollPane scroll;
 
     public OutputDialogMapMessagesEdit(WindowCdmEditor _w, StringMap<String> _map, CustList<String> _keys) {
-        messagesRows = OutputDialogMessages.initRows(_map, _keys);
+        messagesRows = initRows(_map, _keys);
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
         AbsTextField keyAuto_ = factories_.getCompoFactory().newTextField(32);
         value = factories_.getCompoFactory().newTextArea("",1,32);
         valPartLabel = factories_.getCompoFactory().newPlainLabel("");
-        value.addAutoComplete(new DirectValidateKeyValueEvent(new ValidateMessage(_w.getSoftParams(),keyAuto_, value, messagesRows,valPartLabel,false)));
+        value.addAutoComplete(new DirectValidateKeyValueEvent(new ValidateMessage(_w,keyAuto_, value, messagesRows,valPartLabel,false)));
         auto = new AutoCompleteDocument(keyAuto_, new StringList(_keys), factories_, new FeedMessageValue(value, messagesRows, valPartLabel));
         value.setLineBorder(GuiConstants.BLACK);
         key = keyAuto_;
@@ -33,13 +33,30 @@ public final class OutputDialogMapMessagesEdit {
         dels_.add(inner_);
         valPart = factories_.getCompoFactory().newPlainButton("MATCH");
         valPart.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
-        valPart.addActionListener(new ValidateMessage(_w.getSoftParams(),keyAuto_, value, messagesRows,valPartLabel,true));
+        valPart.addActionListener(new ValidateMessage(_w,keyAuto_, value, messagesRows,valPartLabel,true));
         dels_.add(valPart);
         valPartLabel.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
         dels_.add(valPartLabel);
         AbsScrollPane sc_ = factories_.getCompoFactory().newAbsScrollPane(dels_);
         sc_.setPreferredSize(new MetaDimension(384,128));
         scroll = sc_;
+    }
+    public void reinit(WindowCdmEditor _w) {
+        valPart.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+        valPartLabel.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+    }
+
+    static StringMap<String> initRows(StringMap<String> _infos, CustList<String> _keys) {
+        StringMap<String> messagesRows_ = new StringMap<String>();
+        for (String k:_keys){
+            int index_ = _infos.indexOfEntry(k);
+            if (index_ < 0) {
+                messagesRows_.addEntry(k,"");
+            } else {
+                messagesRows_.addEntry(k,_infos.getValue(index_));
+            }
+        }
+        return messagesRows_;
     }
 
     public StringMap<String> getMessagesRows() {

@@ -10,7 +10,7 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class WindowExpressionEditor implements WindowWithTree {
+public final class WindowExpressionEditor implements WindowWithTree,WithFrame {
     private final WindowCdmEditor mainFrame;
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
@@ -19,17 +19,21 @@ public final class WindowExpressionEditor implements WindowWithTree {
     private AbsTabbedPane editors;
     private AbsEnabledAction refreshNode;
     private ManageOptions manageOptions;
+    private final AbsMenuItem folderExpressionMenu;
 //    private AbsEnabledAction renameNode;
 //    private AbsEnabledAction removeNode;
 //    private AbsEnabledAction createSystem;
-    public WindowExpressionEditor(WindowCdmEditor _parent) {
+    public WindowExpressionEditor(WindowCdmEditor _parent, AbsMenuItem _menu) {
+        folderExpressionMenu = _menu;
         mainFrame = _parent;
         AbstractProgramInfos frames_ = _parent.getCommonFrame().getFrames();
         commonFrame = frames_.getFrameFactory().newCommonFrame(_parent.getCommonFrame().getLanguageKey(), frames_, null);
+        commonFrame.addWindowListener(new CloseFrame(commonFrame,folderExpressionMenu));
         panel = frames_.getCompoFactory().newPageBox();
         editors = frames_.getCompoFactory().newAbsTabbedPane();
     }
     public void updateEnv(boolean _first) {
+        folderExpressionMenu.setEnabled(false);
         if (!_first) {
             commonFrame.setVisible(true);
             return;
@@ -68,10 +72,15 @@ public final class WindowExpressionEditor implements WindowWithTree {
         commonFrame.setVisible(true);
     }
 
-    public AbsCommonFrame getCommonFrame() {
+    @Override
+    public AbsCommonFrame getFrame() {
         return commonFrame;
     }
 
+    @Override
+    public AbsMenuItem getMenu() {
+        return folderExpressionMenu;
+    }
     @Override
     public AbsTreeGui getTree() {
         return folderSystem;

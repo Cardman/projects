@@ -80,17 +80,17 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         w_.quit();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
-        assertFalse(s_.getCommonFrame().isVisible());
+        assertFalse(s_.getFrame().isVisible());
     }
     @Test
     public void closeSec() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
         w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
-        w_.getExpressionEditors().get(0).getCommonFrame().setVisible(false);
+        w_.getExpressionEditors().get(0).getFrame().setVisible(false);
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
-        assertTrue(s_.getCommonFrame().isVisible());
+        assertTrue(s_.getFrame().isVisible());
     }
     @Test
     public void initNo() {
