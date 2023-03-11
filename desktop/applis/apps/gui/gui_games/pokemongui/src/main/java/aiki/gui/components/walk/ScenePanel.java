@@ -311,6 +311,8 @@ public class ScenePanel {
         paintingScene = _window.getThreadFactory().newAtomicBoolean();
         facade = _facade;
         window = _window;
+        fish = window.getCompoFactory().newPlainButton();
+        fish.addActionListener(new FishingEvent(this));
         AbsPanel panelHoriz_ = compoFactory.newLineBox();
         initMenu();
         panelHoriz_.add(panelMenu);
@@ -355,9 +357,9 @@ public class ScenePanel {
         items.setText(messages.getVal(CST_ITEMS));
         tm.setText(messages.getVal(CST_TM));
         //        difficulty.setText(messages.getVal(DIFFICULTY));
-        if (fish != null) {
+//        if (fish != null) {
             fish.setText(messages.getVal(CST_FISH));
-        }
+//        }
         seeBoxes.setText(messages.getVal(SEE_POKEMON));
         seeEggs.setText(messages.getVal(SEE_EGG));
         host.setText(messages.getVal(SEE_HOSTED));
@@ -429,9 +431,9 @@ public class ScenePanel {
         sceneInteract.add(placeName, GuiConstants.BORDER_LAYOUT_NORTH);
         sceneInteract.add(scene.getPaintableLabel(), GuiConstants.BORDER_LAYOUT_CENTER);
         initInteraction();
-        if (fish != null) {
+//        if (fish != null) {
             enableIfPossibleFishing();
-        }
+//        }
         sceneInteract.add(interaction, GuiConstants.BORDER_LAYOUT_SOUTH);
         buttonInteract.setEnabled(facade.getInterfaceType() != InterfaceType.RIEN);
         if (wasNull_) {
@@ -977,9 +979,9 @@ public class ScenePanel {
     }
 
     private void disableFishing() {
-        if (fish == null) {
-            return;
-        }
+//        if (fish == null) {
+//            return;
+//        }
         fish.setEnabled(false);
     }
 
@@ -1431,9 +1433,9 @@ public class ScenePanel {
     }
 
     private void enableIfPossibleFishing() {
-        if (fish == null) {
-            return;
-        }
+//        if (fish == null) {
+//            return;
+//        }
         fish.setEnabled(facade.isFishArea());
     }
 

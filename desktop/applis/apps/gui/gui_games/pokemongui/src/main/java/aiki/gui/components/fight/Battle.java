@@ -30,7 +30,6 @@ import aiki.gui.components.fight.events.RoundAllThrowersEvent;
 import aiki.gui.components.fight.events.RoundWhileKoPlayerEvent;
 import aiki.gui.components.fight.events.SelectHealingItemEvent;
 import aiki.gui.components.fight.events.SendSubstitutesEvent;
-import aiki.gui.components.fight.events.ShowFightDataEvent;
 import aiki.gui.components.fight.events.ValidateCaughtPokemonNicknameEvent;
 import aiki.gui.dialogs.FrameHtmlData;
 import aiki.gui.dialogs.SelectHealingItem;
@@ -194,7 +193,7 @@ public class Battle extends ChildFrame {
 
     private AbsPlainLabel webLabel;
 
-    private AbsPlainButton web;
+//    private AbsPlainButton web;
 
     private AbsPlainButton cancelCatch;
 
@@ -289,9 +288,9 @@ public class Battle extends ChildFrame {
         if (webLabel != null) {
             webLabel.setText(messages.getVal(FIGHT_DATA_MESSAGE));
         }
-        if (web != null) {
-            web.setText(messages.getVal(DATA_FIGHT));
-        }
+//        if (web != null) {
+//            web.setText(messages.getVal(DATA_FIGHT));
+//        }
         if (catchBall != null) {
             catchBall.setText(messages.getVal(CATCH_PK));
         }
@@ -388,7 +387,7 @@ public class Battle extends ChildFrame {
             lower.add(commentsRoundScroll);
         } else if (facade.getFight().getState() == FightState.ATTAQUES) {
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             addBalls();
             addCatching();
             validateActions = window.getCompoFactory().newPlainButton();
@@ -422,7 +421,7 @@ public class Battle extends ChildFrame {
         } else if (facade.getFight().getState() == FightState.SURNOM) {
             //nicknameLabel = window.getCompoFactory().newPlainButton();
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
             AbsPlainButton ok_ = window.getCompoFactory().newPlainButton(WindowAiki.OK);
@@ -435,7 +434,7 @@ public class Battle extends ChildFrame {
         } else if (facade.getFight().getState() == FightState.CAPTURE_KO) {
             //nicknameLabel = window.getCompoFactory().newPlainButton();
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             fleeWeb.add(nicknameLabel);
             fleeWeb.add(nickname);
             addBalls();
@@ -452,7 +451,7 @@ public class Battle extends ChildFrame {
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.APPRENDRE_EVOLUER) {
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
             validateActions.addActionListener(new LearnAndEvolveEvent(this));
             fleeWeb.add(validateActions);
@@ -510,7 +509,7 @@ public class Battle extends ChildFrame {
             lower.add(comments_);
             //actionsBattle.add(new JScrollPane(lower));
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
             validateActions.addActionListener(new SendSubstitutesEvent(this));
             fleeWeb.add(validateActions);
@@ -520,7 +519,7 @@ public class Battle extends ChildFrame {
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else if (facade.getFight().getState() == FightState.SWITCH_APRES_ATTAQUE) {
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
             validateActions.addActionListener(new RoundAllThrowersEvent(this));
             fleeWeb.add(validateActions);
@@ -546,7 +545,7 @@ public class Battle extends ChildFrame {
 //            actionsBattle.setRightComponent(new JScrollPane(lower));
         } else {
             fleeWeb.add(webLabel);
-            fleeWeb.add(web);
+//            fleeWeb.add(web);
             validateActions = window.getCompoFactory().newPlainButton();
             validateActions.addActionListener(new RoundWhileKoPlayerEvent(this));
             fleeWeb.add(validateActions);
@@ -855,10 +854,10 @@ public class Battle extends ChildFrame {
             flee = window.getCompoFactory().newPlainButton();
             flee.addActionListener(new FleeEvent(this));
         }
-        if (web == null) {
-            web = window.getCompoFactory().newPlainButton();
-            web.addActionListener(new ShowFightDataEvent(this));
-        }
+//        if (web == null) {
+//            web = window.getCompoFactory().newPlainButton();
+//            web.addActionListener(new ShowFightDataEvent(this));
+//        }
         if (webLabel == null) {
             webLabel = window.getCompoFactory().newPlainLabel("");
         }
@@ -1012,28 +1011,26 @@ public class Battle extends ChildFrame {
     }
 
     public void showFightData() {
-        if (!enabledClicked) {
-            return;
-        }
+//        if (!enabledClicked) {
+//            return;
+//        }
 //        AbstractThread fightThread_ = window.getPreparedFightThread();
         PreparedRenderedPages fightTask_ = window.getPreparedFightTask();
 //        if (fightThread_ == null || fightThread_.isAlive() || fightTask_ == null) {
 //            return;
 //        }
         if (!htmlDialogs.isEmpty()) {
-            if (!htmlDialogs.first().isVisible()) {
-                if (htmlDialogs.first().getSession().isProcessing()) {
-                    return;
-                }
-                reinitWebFight(fightTask_);
-                htmlDialogs.first().setVisible(true);
+            if (htmlDialogs.first().getSession().isProcessing()) {
+                return;
             }
+            reinitWebFight(fightTask_);
+            htmlDialogs.first().setVisible(true);
             return;
         }
         RenderedPage session_;
         session_ = new RenderedPage(getFrames().getCompoFactory().newAbsScrollPane(), window.getFrames(),new FixCharacterCaseConverter());
         session_.setProcess(window.getVideoLoading().getVideo(window.getGenerator(),window.getFileCoreStream(),window.getFrames()));
-        FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_);
+        FrameHtmlData dialog_ = new FrameHtmlData(window, messages.getVal(TITLE), session_, window.getDataBattle());
         dialog_.initSessionLg(facade,fightTask_,facade.getLanguage());
         htmlDialogs.add(dialog_);
     }

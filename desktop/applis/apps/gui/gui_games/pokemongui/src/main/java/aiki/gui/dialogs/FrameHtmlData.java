@@ -34,8 +34,9 @@ public final class FrameHtmlData extends ChildFrame {
     private final AbsPlainButton search;
 
     private final ProgressingWebDialog dialog;
+    private final AbsMenuItem menuItem;
 
-    public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session) {
+    public FrameHtmlData(WindowAiki _parent, String _title, RenderedPage _session, AbsMenuItem _m) {
         super(_parent.getLanguageKey(),_parent);
         setAccessFile(DIALOG_ACCESS);
         messages = WindowAiki.getMessagesFromLocaleClass(Resources.MESSAGES_FOLDER, _parent.getLanguageKey(), getAccessFile());
@@ -63,6 +64,8 @@ public final class FrameHtmlData extends ChildFrame {
         addWindowListener(new ClosingChildFrameEvent(this));
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
         pack();
+        menuItem = _m;
+        menuItem.setEnabled(false);
     }
 
     public static void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
@@ -95,10 +98,12 @@ public final class FrameHtmlData extends ChildFrame {
     @Override
     public void closeWindow() {
         setVisible(false);
+        menuItem.setEnabled(true);
     }
 
     public void initSessionLg(FacadeGame _dataBase, PreparedRenderedPages _pre, String _lg) {
         setVisible(true);
+        menuItem.setEnabled(false);
         ((PokemonStandards)_pre.getBeanNatLgNames()).setDataBase(_dataBase);
         initializeOnlyConf(_pre, _lg,((PokemonStandards)_pre.getBeanNatLgNames()), session);
     }

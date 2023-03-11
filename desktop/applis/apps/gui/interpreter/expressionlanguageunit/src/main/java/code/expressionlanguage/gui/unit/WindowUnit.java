@@ -175,6 +175,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
             stop();
             th.attendre();
         }
+        filesFrame.setVisible(false);
+        simpleFrame.setEnabled(true);
         basicDispose();
     }
 
@@ -204,9 +206,8 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
         th = exec.submit(r_);
     }
     public void open() {
-        if (!filesFrame.isVisible()) {
-            filesFrame.setVisible(true);
-        }
+        filesFrame .setVisible(true);
+        simpleFrame.setEnabled(false);
     }
     public void selectFile(TestableFrame _mainWindow) {
         String fichier_ = selectedFile();
@@ -281,5 +282,9 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
 
     public void setResults(ContextEl _ctx, Argument _res, LgNamesWithNewAliases _evolved) {
         commonExecution.setResults(_ctx, _res, _evolved);
+    }
+
+    public AbsMenuItem getSimpleFrame() {
+        return simpleFrame;
     }
 }

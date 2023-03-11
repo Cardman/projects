@@ -624,6 +624,7 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     @Override
     public void quit() {
         basicDispose();
+        closeOpened();
         /*if (containerGame instanceof ContainerMulti) {
             if (!getMultiStop().isEnabled()) {
                 return;
@@ -668,11 +669,16 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     public void dispose() {
         changerNombreDePartiesEnQuittant();
         ecrireCoordonnees();
+        closeOpened();
+        basicDispose();
+    }
+
+    private void closeOpened() {
         if (!helpFrames.isEmpty()) {
 //            helpFrames.first().dispose();
             helpFrames.first().setVisible(false);
+            generalHelp.setEnabled(true);
         }
-        basicDispose();
     }
 
     private int saving() {
@@ -1848,16 +1854,14 @@ public final class WindowCards extends GroupFrame implements WindowCardsInt {
     public void displayHelp() {
         //On indique a l utilisatteur comment utiliser le logiciel et jouer aux cartes
         if (!helpFrames.isEmpty()) {
-            if (!helpFrames.first().isVisible()) {
-                helpFrames.first().setTitle(getMessages().getVal(CST_GENERAL_HELP));
-                helpFrames.first().initialize(this);
-            }
+            helpFrames.first().setTitle(getMessages().getVal(CST_GENERAL_HELP));
+            helpFrames.first().initialize(this);
             return;
         }
 //        if (helpInitializerThread == null || helpInitializerThread.isAlive() || helpInitializerTask == null) {
 //            return;
 //        }
-        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this);
+        FrameGeneralHelp aide_=new FrameGeneralHelp(getMessages().getVal(CST_GENERAL_HELP),this,generalHelp);
         aide_.initialize(this);
         helpFrames.add(aide_);
     }

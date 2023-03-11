@@ -38,13 +38,13 @@ public class KeyPadListener implements AbsKeyListenerPress {
 //            window.showDataWeb();
 //            return;
 //        }
-        if (_keyCode == GuiConstants.VK_F2) {
-            if (!window.isInBattle()) {
-                return;
-            }
-            window.showFightData();
-            return;
-        }
+//        if (_keyCode == GuiConstants.VK_F2) {
+//            if (!window.isInBattle()) {
+//                return;
+//            }
+//            window.showFightData();
+//            return;
+//        }
         if (!window.isEnabledKeyPad()) {
             return;
         }

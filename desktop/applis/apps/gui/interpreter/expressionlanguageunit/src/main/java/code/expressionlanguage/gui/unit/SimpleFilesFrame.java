@@ -161,6 +161,7 @@ public final class SimpleFilesFrame extends ChildFrame implements TestableFrame 
     @Override
     public void closeWindow() {
         setVisible(false);
+        parent.getSimpleFrame().setEnabled(true);
     }
 
 //    @Override

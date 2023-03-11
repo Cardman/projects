@@ -56,15 +56,18 @@ public final class FrameGeneralHelp extends ChildFrame {
 
     private AbsSplitPane separateur;
     private AbsPlainButton search;
+    private final AbsMenuItem menuItem;
 
-    public FrameGeneralHelp(String _titre, WindowCards _fenetre) {
+    public FrameGeneralHelp(String _titre, WindowCards _fenetre, AbsMenuItem _menu) {
         super(_fenetre.getLanguageKey(),_fenetre);
         setAccessFile(DIALOG_ACCESS);
         setDialogIcon(_fenetre.getCommonFrame());
         setTitle(_titre);
 //        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 //        setDefaultCloseOperation(GuiConstants.DO_NOTHING_ON_CLOSE);
+        menuItem = _menu;
         addWindowListener(new ClosingChildFrameEvent(this));
+        menuItem.setEnabled(false);
         //window = _fenetre;
     }
 
@@ -98,6 +101,7 @@ public final class FrameGeneralHelp extends ChildFrame {
     @Override
     public void closeWindow() {
         setVisible(false);
+        menuItem.setEnabled(true);
 //        editor.clearSession();
     }
 

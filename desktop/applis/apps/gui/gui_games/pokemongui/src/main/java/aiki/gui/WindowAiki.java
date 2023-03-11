@@ -352,6 +352,14 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         if (b_ != null) {
             b_.setEnabled(true);
         }
+        if (!htmlDialogs.isEmpty()) {
+            htmlDialogs.get(0).closeWindow();
+            dataWeb.setEnabled(true);
+        }
+        if (!battle.getHtmlDialogs().isEmpty()) {
+            battle.getHtmlDialogs().get(0).closeWindow();
+            dataBattle.setEnabled(true);
+        }
         basicDispose();
 //        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
 //            QuitAiki quit_ = new QuitAiki();
@@ -1005,9 +1013,6 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 
     //EDT (mouse event, key event, ...) can not happen at the same time
     public void showDataWeb() {
-        if (!dataWeb.isEnabled()) {
-            return;
-        }
 //        if (preparedDataWebThread == null || preparedDataWebThread.isAlive() || preparedDataWebTask == null) {
 //            return;
 //        }
@@ -1015,13 +1020,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //            return;
 //        }
         if (!htmlDialogs.isEmpty()) {
-            if (!htmlDialogs.first().isVisible()) {
-                if (htmlDialogs.first().getSession().isProcessing()) {
-                    return;
-                }
-                reinitWebData();
-                htmlDialogs.first().setVisible(true);
+            if (htmlDialogs.first().getSession().isProcessing()) {
+                return;
             }
+            reinitWebData();
+            htmlDialogs.first().setVisible(true);
             return;
         }
 
@@ -1029,7 +1032,7 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         RenderedPage session_;
         session_ = new RenderedPage(getCompoFactory().newAbsScrollPane(), getFrames(),new FixCharacterCaseConverter());
         session_.setProcess(videoLoading.getVideo(getGenerator(),getFileCoreStream(),getFrames()));
-        FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_);
+        FrameHtmlData dialog_ = new FrameHtmlData(this, messages.getVal(TITLE_WEB), session_, dataWeb);
 //        dialog_.initSession(facade.getData().getWebFiles(), successfulCompile, Resources.CONFIG_DATA, Resources.ACCESS_TO_DEFAULT_DATA);
         dialog_.initSessionLg(facade,preparedDataWebTask,facade.getLanguage());
         htmlDialogs.add(dialog_);
@@ -1478,6 +1481,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //    }
 
     public void showFightData() {
+        if (!inBattle) {
+            getFrames().getMessageDialogAbs().input(getCommonFrame(), "", messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+            dataBattle.setEnabled(false);
+            return;
+        }
         battle.showFightData();
     }
 
@@ -1770,5 +1778,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 
     public FrontBattle getBattle() {
         return battle;
+    }
+
+    public AbsMenuItem getDataBattle() {
+        return dataBattle;
     }
 }
