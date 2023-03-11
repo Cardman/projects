@@ -358,7 +358,8 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         }
         if (!battle.getHtmlDialogs().isEmpty()) {
             battle.getHtmlDialogs().get(0).closeWindow();
-            dataBattle.setEnabled(true);
+            battle.getBattle().closeWindow();
+            dataBattle.setEnabled(inBattle);
         }
         basicDispose();
 //        if (indexInGame != IndexConstants.INDEX_NOT_FOUND_ELT) {
@@ -1481,11 +1482,11 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
 //    }
 
     public void showFightData() {
-        if (!inBattle) {
-            getFrames().getMessageDialogAbs().input(getCommonFrame(), "", messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
-            dataBattle.setEnabled(false);
-            return;
-        }
+//        if (!inBattle) {
+//            getFrames().getMessageDialogAbs().input(getCommonFrame(), "", messages.getVal(ERROR_LOADING), getLanguageKey(), GuiConstants.ERROR_MESSAGE);
+//            dataBattle.setEnabled(false);
+//            return;
+//        }
         battle.showFightData();
     }
 
