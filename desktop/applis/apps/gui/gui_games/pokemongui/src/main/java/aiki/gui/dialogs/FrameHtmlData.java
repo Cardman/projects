@@ -70,6 +70,7 @@ public final class FrameHtmlData extends ChildFrame {
 
     public static void initializeOnlyConf(PreparedAnalyzed _prepared, String _lg, BeanNatCommonLgNamesForm _stds, RenderedPage _cur) {
         NatNavigation n_ = _prepared.getNavigation();
+        n_.setLanguage(_lg);
         coreInfos(_cur, n_);
         _cur.getNavCore().setLanguage(_lg);
         _cur.setStandards(_stds);
@@ -82,6 +83,7 @@ public final class FrameHtmlData extends ChildFrame {
         AbsScrollPane ascenseur_=_pr.getCompoFactory().newAbsScrollPane();
         RenderedPage r_ = new RenderedPage(ascenseur_, _pr,new FixCharacterCaseConverter());
         NatNavigation n_ = _prepared.getNavigation();
+        n_.setLanguage(_lg);
         coreInfos(r_, n_);
         r_.getNavCore().setLanguage(_lg);
         r_.setStandards(_stds);
