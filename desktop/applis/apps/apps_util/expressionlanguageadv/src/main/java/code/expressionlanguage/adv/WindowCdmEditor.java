@@ -967,11 +967,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         this.manageOptions.getOptions().setTabWidth(_t);
     }
 
-    @Override
-    public void removeObj(String _rel) {
-        softParams.getOpenedFiles().removeObj(_rel);
-    }
-
     public CdmFactory getFactory() {
         return factory;
     }

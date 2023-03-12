@@ -14,7 +14,5 @@ public interface WindowWithTree {
 
     WindowCdmEditor getMainFrame();
 
-    void removeObj(String _rel);
-
     StringList openedFiles();
 }

@@ -112,11 +112,6 @@ public final class WindowExpressionEditor implements WindowWithTree,WithFrame {
     }
 
     @Override
-    public void removeObj(String _rel) {
-        mainFrame.getOpenedFilesToInit().removeObj(_rel);
-    }
-
-    @Override
     public StringList openedFiles() {
         return mainFrame.getOpenedFilesToInit();
     }

@@ -14,7 +14,7 @@ public final class CloseTabEditorEvent implements AbsActionListener {
     @Override
     public void action() {
         String rel_ = tabEditor.getFullPath().substring(tabEditor.getWindowSecEditor().pathToSrc().length());
-        tabEditor.getWindowSecEditor().removeObj(rel_);
+        tabEditor.getWindowSecEditor().openedFiles().removeObj(rel_);
         AbsTabbedPane editor_ = tabEditor.getWindowSecEditor().getEditors();
         int index_ = editor_.getSelectedIndex();
         editor_.remove(index_);
