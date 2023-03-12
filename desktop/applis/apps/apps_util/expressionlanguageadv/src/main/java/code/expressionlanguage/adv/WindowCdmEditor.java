@@ -176,7 +176,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
     public void updateEnv(String _fileConf) {
         closeAllSubs();
-        expressionEditors.clear();
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
         Document doc_ = DocumentBuilder.parseSax(contentConf_);
@@ -934,6 +933,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             w.closeWindows();
             w.getMenu().setEnabled(editing);
         }
+        expressionEditors.clear();
     }
 
     public CustList<WindowExpressionEditor> getExpressionEditors() {
