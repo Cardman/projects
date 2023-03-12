@@ -993,11 +993,13 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
         setLanguageKey(_language);
         facade.setLanguage(_language);
         initMessages();
-        if (inBattle) {
-            battle.setMessages();
-        } else {
-            scenePanel.setMessages();
-        }
+        battle.setMessages();
+        scenePanel.setMessages();
+//        if (inBattle) {
+//            battle.setMessages();
+//        } else {
+//            scenePanel.setMessages();
+//        }
         pack();
         for (FrameHtmlData f: htmlDialogs) {
             f.setTitle(messages.getVal(TITLE_WEB));
