@@ -23,7 +23,6 @@ public final class ChangeLanguageEvent implements AbsActionListener {
             frame_.addWindowListener(new CloseFrame(frame_,languageMenu));
             OutputDialogLanguage w_ = new OutputDialogLanguage(windowCdmEditor, frame_, languageMenu);
             windowCdmEditor.getLanguageFrames().add(w_);
-            windowCdmEditor.subs().add(w_);
         } else {
             windowCdmEditor.getLanguageFrames().last().reinit(windowCdmEditor);
         }

@@ -87,7 +87,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private AbsEnabledAction createSystem;
     private ManageOptions manageOptions;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
-    private final CustList<WithFrame> subssubs = new CustList<WithFrame>();
+    private boolean editing;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
@@ -157,6 +157,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
 
     private void chgManagement(boolean _en) {
+        editing = _en;
         tabulationsMenu.setEnabled(_en);
         commentsMenu.setEnabled(_en);
         aliasesMenu.setEnabled(_en);
@@ -227,7 +228,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             add_ = true;
         }
         expressionEditors.last().updateEnv(add_);
-        subs().add(expressionEditors.last());
     }
     public void saveConf(String _fileName) {
         softParams = new CdmParameterSoftModel();
@@ -842,10 +842,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return languageFrames;
     }
 
-    public CustList<WithFrame> subs() {
-        return subssubs;
-    }
-
     public CustList<OutputDialogAliases> getAliasesFrames() {
         return aliasesFrames;
     }
@@ -912,9 +908,25 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
     public void closeAll() {
         commonFrame.setVisible(false);
-        for (WithFrame w: subs()) {
+        for (OutputDialogLanguage w: getLanguageFrames()) {
             w.getFrame().setVisible(false);
             w.getMenu().setEnabled(true);
+        }
+        for (OutputDialogTab w: getTabulationsFrames()) {
+            w.getFrame().setVisible(false);
+            w.getMenu().setEnabled(editing);
+        }
+        for (OutputDialogAliases w: getAliasesFrames()) {
+            w.getFrame().setVisible(false);
+            w.getMenu().setEnabled(editing);
+        }
+        for (OutputDialogComments w: getCommentsFrames()) {
+            w.getFrame().setVisible(false);
+            w.getMenu().setEnabled(editing);
+        }
+        for (WindowExpressionEditor w: getExpressionEditors()) {
+            w.closeWindows();
+            w.getMenu().setEnabled(editing);
         }
     }
 

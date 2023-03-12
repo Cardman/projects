@@ -23,7 +23,6 @@ public final class ChangeAliasesEvent implements AbsActionListener {
             frame_.addWindowListener(new CloseFrame(frame_,aliasesMenu));
             OutputDialogAliases w_ = new OutputDialogAliases(windowCdmEditor, frame_, aliasesMenu);
             windowCdmEditor.getAliasesFrames().add(w_);
-            windowCdmEditor.subs().add(w_);
         } else {
             windowCdmEditor.getAliasesFrames().last().reinit(windowCdmEditor);
         }

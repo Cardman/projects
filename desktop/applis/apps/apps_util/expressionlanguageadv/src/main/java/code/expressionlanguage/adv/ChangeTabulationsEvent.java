@@ -22,7 +22,6 @@ public final class ChangeTabulationsEvent implements AbsActionListener {
             frame_.addWindowListener(new CloseFrame(frame_,tabulationsMenu));
             OutputDialogTab w_ = new OutputDialogTab(windowCdmEditor, frame_, tabulationsMenu);
             windowCdmEditor.getTabulationsFrames().add(w_);
-            windowCdmEditor.subs().add(w_);
         } else {
             windowCdmEditor.getTabulationsFrames().last().reinit(windowCdmEditor);
         }

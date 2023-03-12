@@ -22,7 +22,6 @@ public final class ChangeCommentsEvent implements AbsActionListener {
             frame_.addWindowListener(new CloseFrame(frame_,commentsMenu));
             OutputDialogComments w_ = new OutputDialogComments(windowCdmEditor, frame_, commentsMenu);
             windowCdmEditor.getCommentsFrames().add(w_);
-            windowCdmEditor.subs().add(w_);
         } else {
             windowCdmEditor.getCommentsFrames().last().reinit(windowCdmEditor);
         }

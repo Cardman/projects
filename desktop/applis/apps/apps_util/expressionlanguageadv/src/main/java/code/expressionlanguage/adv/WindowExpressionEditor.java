@@ -119,4 +119,8 @@ public final class WindowExpressionEditor implements WindowWithTree,WithFrame {
     public ManageOptions getManageOptions() {
         return manageOptions;
     }
+
+    public void closeWindows() {
+        getFrame().setVisible(false);
+    }
 }
