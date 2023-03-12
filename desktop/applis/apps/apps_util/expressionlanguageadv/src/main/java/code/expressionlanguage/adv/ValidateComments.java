@@ -6,9 +6,9 @@ import code.util.CustList;
 public final class ValidateComments implements AbsActionListener {
     private final OutputDialogComments output;
     private final CustList<EditCommentRow> comments;
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
 
-    public ValidateComments(OutputDialogComments _w, CustList<EditCommentRow> _com, WindowCdmEditor _ed) {
+    public ValidateComments(OutputDialogComments _w, CustList<EditCommentRow> _com, WindowWithTreeImpl _ed) {
         this.output = _w;
         this.comments = _com;
         windowCdmEditor = _ed;

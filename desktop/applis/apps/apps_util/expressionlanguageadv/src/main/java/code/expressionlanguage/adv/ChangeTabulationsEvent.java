@@ -6,9 +6,9 @@ import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeTabulationsEvent implements AbsActionListener {
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
     private final AbsMenuItem tabulationsMenu;
-    public ChangeTabulationsEvent(WindowCdmEditor _w, AbsMenuItem _m) {
+    public ChangeTabulationsEvent(WindowWithTreeImpl _w, AbsMenuItem _m) {
         this.windowCdmEditor = _w;
         tabulationsMenu = _m;
     }

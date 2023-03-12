@@ -3,9 +3,9 @@ package code.expressionlanguage.adv;
 import code.gui.events.AbsActionListener;
 
 public final class CloseTreeDialog implements AbsActionListener {
-    private final WindowCdmEditor editor;
+    private final WindowWithTreeImpl editor;
 
-    public CloseTreeDialog(WindowCdmEditor _ed) {
+    public CloseTreeDialog(WindowWithTreeImpl _ed) {
         editor = _ed;
     }
     @Override

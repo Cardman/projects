@@ -6,10 +6,10 @@ import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeLanguageEvent implements AbsActionListener {
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
     private final AbsMenuItem languageMenu;
 
-    public ChangeLanguageEvent(WindowCdmEditor _w, AbsMenuItem _m) {
+    public ChangeLanguageEvent(WindowWithTreeImpl _w, AbsMenuItem _m) {
         this.windowCdmEditor = _w;
         languageMenu = _m;
     }

@@ -11,7 +11,7 @@ public final class OutputDialogLanguage implements WithFrame {
     private final AbsCommonFrame frame;
     private final AbsMenuItem associated;
 
-    public OutputDialogLanguage(WindowCdmEditor _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    public OutputDialogLanguage(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
         frame = _fr;
         associated = _c;
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
@@ -29,7 +29,7 @@ public final class OutputDialogLanguage implements WithFrame {
         associated.setEnabled(false);
     }
 
-    public void reinit(WindowCdmEditor _w) {
+    public void reinit(WindowWithTreeImpl _w) {
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         StringList lgs_ = new StringList(factories_.getTranslations().getMapping().getKeys());
         lgs_.add("");

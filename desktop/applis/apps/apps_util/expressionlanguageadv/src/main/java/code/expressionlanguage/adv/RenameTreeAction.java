@@ -4,9 +4,9 @@ import code.gui.AbstractMutableTreeNode;
 import code.gui.events.AbsActionListener;
 
 public final class RenameTreeAction implements AbsActionListener {
-    private final WindowCdmEditor editor;
+    private final WindowWithTreeImpl editor;
 
-    public RenameTreeAction(WindowCdmEditor _ed) {
+    public RenameTreeAction(WindowWithTreeImpl _ed) {
         editor = _ed;
     }
     @Override

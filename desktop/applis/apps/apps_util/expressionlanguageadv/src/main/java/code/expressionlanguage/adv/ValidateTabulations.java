@@ -5,9 +5,9 @@ import code.gui.events.AbsActionListener;
 
 public final class ValidateTabulations implements AbsActionListener {
     private final AbsSpinner value;
-    private final WindowCdmEditor output;
+    private final WindowWithTreeImpl output;
 
-    public ValidateTabulations(AbsSpinner _value, WindowCdmEditor _w) {
+    public ValidateTabulations(AbsSpinner _value, WindowWithTreeImpl _w) {
         value = _value;
         this.output = _w;
     }

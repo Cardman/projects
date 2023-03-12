@@ -3,9 +3,9 @@ package code.expressionlanguage.adv;
 import code.gui.events.AbsActionListener;
 
 public final class ValidateRemoveTree implements AbsActionListener {
-    private final WindowCdmEditor editor;
+    private final WindowWithTreeImpl editor;
 
-    public ValidateRemoveTree(WindowCdmEditor _ed) {
+    public ValidateRemoveTree(WindowWithTreeImpl _ed) {
         editor = _ed;
     }
     @Override

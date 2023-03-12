@@ -3,9 +3,9 @@ package code.expressionlanguage.adv;
 import code.gui.events.AbsActionListener;
 
 public final class ValidateFileFolderTree implements AbsActionListener {
-    private final WindowCdmEditor editor;
+    private final WindowWithTreeImpl editor;
 
-    public ValidateFileFolderTree(WindowCdmEditor _ed) {
+    public ValidateFileFolderTree(WindowWithTreeImpl _ed) {
         editor = _ed;
     }
     @Override

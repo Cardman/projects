@@ -15,10 +15,10 @@ import code.util.StringMap;
 
 public final class CheckAliases implements AbsActionListener {
     private final OutputDialogAliases dialog;
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
     private final AbsTextArea errors;
 
-    public CheckAliases(OutputDialogAliases _dial, WindowCdmEditor _ed, AbsTextArea _errs) {
+    public CheckAliases(OutputDialogAliases _dial, WindowWithTreeImpl _ed, AbsTextArea _errs) {
         dialog = _dial;
         windowCdmEditor = _ed;
         errors = _errs;

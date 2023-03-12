@@ -11,10 +11,10 @@ import code.util.StringList;
 public final class AddCommentRow implements AbsActionListener {
     private final CustList<EditCommentRow> allComments;
     private final AbsPanel cont;
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
     private final AbsCommonFrame frame;
 
-    public AddCommentRow(CustList<EditCommentRow> _all, AbsPanel _container, WindowCdmEditor _window, AbsCommonFrame _fr) {
+    public AddCommentRow(CustList<EditCommentRow> _all, AbsPanel _container, WindowWithTreeImpl _window, AbsCommonFrame _fr) {
         this.allComments = _all;
         this.cont = _container;
         this.windowCdmEditor = _window;

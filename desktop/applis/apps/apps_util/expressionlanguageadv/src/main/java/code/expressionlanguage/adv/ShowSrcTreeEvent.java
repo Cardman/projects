@@ -3,17 +3,17 @@ package code.expressionlanguage.adv;
 import code.gui.AbsShortListTree;
 import code.gui.AbstractMutableTreeNodeCore;
 
-public class ShowSrcTreeEvent implements AbsShortListTree {
+public final class ShowSrcTreeEvent implements AbsShortListTree {
 
-    private final WindowWithTree dialog;
+    private final WindowWithTreeImpl dialog;
 
-    public ShowSrcTreeEvent(WindowWithTree _dialog) {
+    public ShowSrcTreeEvent(WindowWithTreeImpl _dialog) {
         dialog = _dialog;
     }
 
     @Override
     public void valueChanged(AbstractMutableTreeNodeCore _e) {
-        if (dialog instanceof WindowCdmEditor && ((WindowCdmEditor)dialog).getSelectedNode() != null) {
+        if (dialog.getSelectedNode() != null) {
             return;
         }
         WindowCdmEditor.applyTreeChangeSelected(dialog,true);

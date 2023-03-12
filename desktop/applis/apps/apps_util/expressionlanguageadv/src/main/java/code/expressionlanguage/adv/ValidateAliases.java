@@ -7,9 +7,9 @@ public final class ValidateAliases implements AbsActionListener {
     private final StringMap<String> messages;
     private final StringMap<String> aliases;
     private final StringMap<String> keyWords;
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
 
-    public ValidateAliases(StringMap<String> _m, StringMap<String> _a, StringMap<String> _k, WindowCdmEditor _ed) {
+    public ValidateAliases(StringMap<String> _m, StringMap<String> _a, StringMap<String> _k, WindowWithTreeImpl _ed) {
         this.messages = _m;
         this.aliases = _a;
         keyWords = _k;

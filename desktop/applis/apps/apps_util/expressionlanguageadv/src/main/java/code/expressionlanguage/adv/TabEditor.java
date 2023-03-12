@@ -11,7 +11,7 @@ import code.util.StringList;
 
 public final class TabEditor {
     private final WindowCdmEditor windowEditor;
-    private final WindowWithTree windowSecEditor;
+    private final WindowWithTreeImpl windowSecEditor;
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
     private final AbsTextField finder;
@@ -48,7 +48,7 @@ public final class TabEditor {
     private final AbsSpinner col;
     private final AbsPlainButton val;
 
-    public TabEditor(WindowWithTree _editor, String _fullPath, String _lr) {
+    public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _lr) {
         useFeed = _lr;
         fullPath = _fullPath;
         windowSecEditor = _editor;

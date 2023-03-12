@@ -10,9 +10,7 @@ import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
-import code.gui.events.AbsEnabledAction;
 import code.gui.events.QuittingEvent;
-import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.Document;
@@ -32,7 +30,7 @@ import code.util.StringMap;
 import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 
-public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
+public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGroupFrame {
     public static final String TEMP_FOLDER = "10";
     public static final String NODE_FILES = "0";
     public static final String NODE_EXP_FILES = "1";
@@ -42,97 +40,42 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public static final String DEF_CONF = "0";
     public static final String ROOT_CONF = "_";
     public static final String CDM_EDITOR = "cdm_editor";
-    private final CdmFactory factory;
     private final FileSaveDialogAbs fileSaveDialogInt;
-    private final AbsMenuItem languageMenu;
-    private final AbsMenuItem tabulationsMenu;
-    private AbsTreeGui folderSystem;
-    private AbsScrollPane scrollDialog;
-    private AbstractMutableTreeNode selectedNode;
-    private final CustList<OutputDialogComments> commentsFrames = new CustList<OutputDialogComments>();
-    private final CustList<OutputDialogTab> tabulationsFrames = new CustList<OutputDialogTab>();
-    private final CustList<OutputDialogLanguage> languageFrames = new CustList<OutputDialogLanguage>();
-    private final CustList<OutputDialogAliases> aliasesFrames = new CustList<OutputDialogAliases>();
     private final AbsDialog dialogSoft;
     private final AbsDialog dialogFolderExpression;
-    private final AbsMenuItem commentsMenu;
-    private final AbsMenuItem aliasesMenu;
     private final AbsMenuItem folderExpressionMenu;
     private final AbsMenuItem softParamsMenu;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private StringMap<String> messages;
-    private final AbsCommonFrame commonFrame;
-    private final AbsPanel panel;
     private final AbsMenuItem chooseFile;
-    private final AbsMenuItem create;
-    private final AbsMenuItem delete;
     private final AbsPlainButton chooseFolder;
     private final AbsPlainButton createFile;
     private final AbsPlainLabel chosenFolder;
     private final AbsTextField srcFolder;
     private final GraphicComboGrInt chosenLanguage;
     private CdmParameterSoftModel softParams;
-//    private String usedLg;
-//    private CustList<CommentDelimiters> comments = new CustList<CommentDelimiters>();
-//    private StringMap<String> lgMessages = new StringMap<String>();
-//    private StringMap<String> lgAliases = new StringMap<String>();
-//    private StringMap<String> lgKeyWords = new StringMap<String>();
-//    private String currentFolder = "";
-//    private int tabWidth = 4;
-    private final CustList<TabEditor> tabs = new CustList<TabEditor>();
-    private AbsTabbedPane editors;
-    private AbsEnabledAction refreshNode;
-    private AbsEnabledAction renameNode;
-    private AbsEnabledAction removeNode;
-    private AbsEnabledAction createSystem;
-    private ManageOptions manageOptions;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
-    private boolean editing;
-    private AbsTextField targetName;
-    private AbsPlainButton validateDialog;
-    private AbsPlainButton cancelDialog;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
-        factory = _fact;
+        super(_lg, _list, _fact);
         softParams = new CdmParameterSoftModel();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
-        commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         dialogSoft = _list.getFrameFactory().newDialog();
         dialogFolderExpression = _list.getFrameFactory().newDialog();
         GuiBaseUtil.choose(_lg, _list, this, MessGuiGr.ms());
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
-        chooseFile = commonFrame.getFrames().getCompoFactory().newMenuItem("open");
+        chooseFile = getCommonFrame().getFrames().getCompoFactory().newMenuItem("open");
         chooseFile.addActionListener(new ChooseInitialFile(this));
         file_.addMenuItem(chooseFile);
-        create = commonFrame.getFrames().getCompoFactory().newMenuItem("new");
-        create.addActionListener(new AddNewTreeFileNode(this));
-        create.setAccelerator(GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
-        create.setEnabled(false);
-        file_.addMenuItem(create);
-        delete = commonFrame.getFrames().getCompoFactory().newMenuItem("delete");
-        delete.addActionListener(new RemoveTreeAction(this));
-        delete.setAccelerator(GuiConstants.VK_DELETE,0);
-        delete.setEnabled(false);
-        file_.addMenuItem(delete);
-        AbsMenu menu_ = _list.getCompoFactory().newMenu("boss");
+        file_.addMenuItem(getCreate());
+        file_.addMenuItem(getDelete());
+        AbsMenu menu_ = getParameters();
         bar_.add(menu_);
-        languageMenu = _list.getCompoFactory().newMenuItem("language");
-        languageMenu.addActionListener(new ChangeLanguageEvent(this,languageMenu));
-        menu_.addMenuItem(languageMenu);
-        tabulationsMenu = _list.getCompoFactory().newMenuItem("tabulations");
-        tabulationsMenu.addActionListener(new ChangeTabulationsEvent(this, tabulationsMenu));
-        menu_.addMenuItem(tabulationsMenu);
-        commentsMenu = _list.getCompoFactory().newMenuItem("comments");
-        commentsMenu.addActionListener(new ChangeCommentsEvent(this, commentsMenu));
-        menu_.addMenuItem(commentsMenu);
-        aliasesMenu = _list.getCompoFactory().newMenuItem("aliases");
-        aliasesMenu.addActionListener(new ChangeAliasesEvent(this,aliasesMenu));
-        menu_.addMenuItem(aliasesMenu);
         folderExpressionMenu = _list.getCompoFactory().newMenuItem("folder exp");
         folderExpressionMenu.addActionListener(new FolderForExpression(this));
         menu_.addMenuItem(folderExpressionMenu);
@@ -140,29 +83,26 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         softParamsMenu.addActionListener(new CdmParameterSoftEvent(this));
         menu_.addMenuItem(softParamsMenu);
         chgManagement(false);
-        panel = _list.getCompoFactory().newPageBox();
-        chooseFolder = commonFrame.getFrames().getCompoFactory().newPlainButton("folder");
+        chooseFolder = getCommonFrame().getFrames().getCompoFactory().newPlainButton("folder");
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
-        chosenFolder = commonFrame.getFrames().getCompoFactory().newPlainLabel(":");
-        srcFolder = commonFrame.getFrames().getCompoFactory().newTextField(32);
+        chosenFolder = getCommonFrame().getFrames().getCompoFactory().newPlainLabel(":");
+        srcFolder = getCommonFrame().getFrames().getCompoFactory().newTextField(32);
         StringList lgs_ = new StringList(_list.getTranslations().getMapping().getKeys());
         lgs_.add("");
-        chosenLanguage = commonFrame.getFrames().getGeneComboBox().createCombo(commonFrame.getFrames().getImageFactory(), lgs_, -1, commonFrame.getFrames().getCompoFactory());
-        createFile = commonFrame.getFrames().getCompoFactory().newPlainButton("create");
+        chosenLanguage = getCommonFrame().getFrames().getGeneComboBox().createCombo(getCommonFrame().getFrames().getImageFactory(), lgs_, -1, getCommonFrame().getFrames().getCompoFactory());
+        createFile = getCommonFrame().getFrames().getCompoFactory().newPlainButton("create");
         createFile.addActionListener(new CreateInitialFile(this));
-        editors = commonFrame.getFrames().getCompoFactory().newAbsTabbedPane();
-        commonFrame.setContentPane(panel);
-        commonFrame.setJMenuBar(bar_);
-        commonFrame.pack();
-        commonFrame.setVisible(true);
-        commonFrame.addWindowListener(new QuittingEvent(this));
+        setEditors(getCommonFrame().getFrames().getCompoFactory().newAbsTabbedPane());
+        getCommonFrame().setContentPane(getPanel());
+        getCommonFrame().setJMenuBar(bar_);
+        getCommonFrame().pack();
+        getCommonFrame().setVisible(true);
+        getCommonFrame().addWindowListener(new QuittingEvent(this));
     }
 
-    private void chgManagement(boolean _en) {
-        editing = _en;
-        tabulationsMenu.setEnabled(_en);
-        commentsMenu.setEnabled(_en);
-        aliasesMenu.setEnabled(_en);
+    @Override
+    public void chgManagement(boolean _en) {
+        super.chgManagement(_en);
         folderExpressionMenu.setEnabled(_en);
     }
 
@@ -174,50 +114,50 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             updateEnv(_files.first());
             return;
         }
-        updateEnv(getTempDefConf(commonFrame.getFrames()));
+        updateEnv(getTempDefConf(getCommonFrame().getFrames()));
     }
     public void updateEnv(String _fileConf) {
         closeAllSubs();
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
         Document doc_ = DocumentBuilder.parseSax(contentConf_);
-        CdmParameterSoftModel params_ = allParams(doc_, commonFrame.getLanguageKey());
+        CdmParameterSoftModel params_ = allParams(doc_, getCommonFrame().getLanguageKey());
         if (params_ != null) {
             softParams = params_;
         } else {
             softParams = new CdmParameterSoftModel();
         }
-        commonFrame.setTitle(softParams.getExecConf());
+        getCommonFrame().setTitle(softParams.getExecConf());
         String flatConf_ = StreamTextFile.contentsOfFile(softParams.getExecConf(), frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
         if (linesFiles_.size() < 2) {
             chgManagement(false);
-            panel.removeAll();
-            panel.add(chooseFolder);
-            panel.add(chosenFolder);
-            panel.add(srcFolder);
-            StringList lgs_ = new StringList(commonFrame.getFrames().getTranslations().getMapping().getKeys());
+            getPanel().removeAll();
+            getPanel().add(chooseFolder);
+            getPanel().add(chosenFolder);
+            getPanel().add(srcFolder);
+            StringList lgs_ = new StringList(getCommonFrame().getFrames().getTranslations().getMapping().getKeys());
             lgs_.add("");
-            chosenLanguage.selectItem(StringUtil.indexOf(lgs_,commonFrame.getLanguageKey()));
-            panel.add(chosenLanguage.self());
-            panel.add(createFile);
+            chosenLanguage.selectItem(StringUtil.indexOf(lgs_, getCommonFrame().getLanguageKey()));
+            getPanel().add(chosenLanguage.self());
+            getPanel().add(createFile);
             createFile.setEnabled(false);
-            commonFrame.setContentPane(panel);
-            commonFrame.pack();
+            getCommonFrame().setContentPane(getPanel());
+            getCommonFrame().pack();
             StringList def_ = new StringList();
             def_.add("");
-            def_.add(commonFrame.getLanguageKey());
-            manageOptions = manage(def_);
+            def_.add(getCommonFrame().getLanguageKey());
+            setManageOptions(manage(def_));
             return;
         }
         chgManagement(true);
-        manageOptions = manage(linesFiles_);
+        setManageOptions(manage(linesFiles_));
         initEnv();
     }
 
 
     public void folder(String _folderName) {
-        manageOptions.getEx().setAccess(_folderName);
+        getManageOptions().getEx().setAccess(_folderName);
         chosenFolder.setText(_folderName);
         createFile.setEnabled(true);
     }
@@ -235,41 +175,29 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public void saveConf(String _fileName) {
         softParams = new CdmParameterSoftModel();
         softParams.setExecConf(_fileName);
-        manageOptions.getEx().setSrcFolder(srcFolder.getText());
+        getManageOptions().getEx().setSrcFolder(srcFolder.getText());
 //        usedLg = StringUtil.nullToEmpty(chosenLanguage.getSelectedItem());
-        manageOptions.getEx().setLg(StringUtil.nullToEmpty(chosenLanguage.getSelectedItem()));
+        getManageOptions().getEx().setLg(StringUtil.nullToEmpty(chosenLanguage.getSelectedItem()));
         updateDoc();
-        updateComments(manageOptions.getOptions().getComments());
+        updateComments(getManageOptions().getOptions().getComments());
         saveConf();
         initEnv();
     }
 
     private void initEnv() {
-        String acc_ = manageOptions.getEx().getAccess();
-        panel.removeAll();
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        AbstractMutableTreeNode default_ = frs_.getCompoFactory().newMutableTreeNode(acc_+"/");
-        folderSystem = frs_.getCompoFactory().newTreeGui(default_);
-        folderSystem.select(folderSystem.getRoot());
-        refreshList(folderSystem.selectEvt(),acc_, commonFrame.getFrames());
-        folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
-        refreshNode = frs_.getCompoFactory().wrap(new RefreshTreeAction(this));
-        folderSystem.registerKeyboardAction(refreshNode, GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
-        renameNode = frs_.getCompoFactory().wrap(new RenameTreeAction(this));
-        folderSystem.registerKeyboardAction(renameNode, GuiConstants.VK_F6, GuiConstants.CTRL_DOWN_MASK);
-        removeNode = frs_.getCompoFactory().wrap(new RemoveTreeAction(this));
-        folderSystem.registerKeyboardAction(removeNode, GuiConstants.VK_DELETE, 0);
-        createSystem = frs_.getCompoFactory().wrap(new AddNewTreeFileNode(this));
-        folderSystem.registerKeyboardAction(createSystem,GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
-        tabs.clear();
-        editors = frs_.getCompoFactory().newAbsTabbedPane();
-        editors.addChangeListener(new TabValueChanged(this));
+        String acc_ = getManageOptions().getEx().getAccess();
+        getPanel().removeAll();
+        initTree(acc_);
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        getTabs().clear();
+        setEditors(frs_.getCompoFactory().newAbsTabbedPane());
+        getEditors().addChangeListener(new TabValueChanged(this));
         StringList src_ = softParams.getOpenedFiles();
         int len_ = src_.size();
         StringList existing_ = new StringList();
         for (int i = 0; i < len_; i++) {
             String fullPath_ = pathToSrc()+src_.get(i);
-            BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, commonFrame.getFrames().getStreams());
+            BytesInfo content_ = StreamBinaryFile.loadFile(fullPath_, getCommonFrame().getFrames().getStreams());
             if (content_.isNul()) {
                 continue;
             }
@@ -278,24 +206,22 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         }
         softParams.getOpenedFiles().clear();
         softParams.getOpenedFiles().addAllElts(existing_);
-        scrollDialog = frs_.getCompoFactory().newAbsScrollPane();
-        scrollDialog.setVisible(false);
-        panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem),scrollDialog), editors));
-        commonFrame.setContentPane(panel);
-        commonFrame.pack();
+        endTree();
+        getCommonFrame().setContentPane(getPanel());
+        getCommonFrame().pack();
 //        currentFolder = acc_;
 //        lgMessages = manageOptions.getEx().getMessages();
 //        lgAliases = manageOptions.getEx().getAliases();
 //        lgKeyWords = manageOptions.getEx().getKeyWords();
 //        usedLg = manageOptions.getEx().getLg();
-        Options opt_ = manageOptions.getOptions();
+        Options opt_ = getManageOptions().getOptions();
 //        tabWidth = opt_.getTabWidth();
         CustList<CommentDelimiters> comments_ = opt_.getComments();
-        CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments(manageOptions.getEx().getLg(), frs_.getTranslations(), frs_.getLanguage()));
+        CommentsUtil.checkAndUpdateComments(comments_, CustAliases.defComments(getManageOptions().getEx().getLg(), frs_.getTranslations(), frs_.getLanguage()));
 //        comments = comments_;
     }
 
-    public static boolean applyTreeChangeSelected(WindowWithTree _instance,boolean _treeEvent) {
+    public static boolean applyTreeChangeSelected(WindowWithTreeImpl _instance,boolean _treeEvent) {
         AbstractProgramInfos frs_ = _instance.getMainFrame().getCommonFrame().getFrames();
         AbstractMutableTreeNode sel_ = _instance.getTree().selectEvt();
         _instance.changeEnable(sel_);
@@ -324,17 +250,13 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return true;
     }
 
-    public void notifyDoc(String _path) {
-        notifyDoc(this,_path);
-    }
-
     public static void notifyDoc(WindowWithTree _instance,String _path) {
         String rel_ = _path.substring(_instance.pathToSrc().length());
         _instance.openedFiles().add(rel_);
         _instance.getMainFrame().updateDoc();
     }
 
-    static void addTab(WindowWithTree _tr,String _path, BytesInfo _content) {
+    static void addTab(WindowWithTreeImpl _tr,String _path, BytesInfo _content) {
         String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
         String name_ = _path.substring(_path.lastIndexOf('/')+1);
         TabEditor te_ = new TabEditor(_tr,_path,lineSeparator(dec_));
@@ -366,14 +288,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         changeEnable(_en != null);
     }
 
-    public void changeEnable(boolean _en) {
-        renameNode.setEnabled(_en);
-        refreshNode.setEnabled(_en);
-        removeNode.setEnabled(_en);
-        createSystem.setEnabled(_en);
-        create.setEnabled(_en);
-        delete.setEnabled(_en);
-    }
 
     static int indexOpened(WindowWithTree _tr,String _str) {
         int opened_ = -1;
@@ -420,49 +334,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         StringUtil.removeObj(pathFull_, "");
         return StringUtil.join(pathFull_,"");
     }
-    void showFileOrFolder() {
-        changeEnable(false);
-        scrollDialog.setVisible(true);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbsCompoFactory c_ = frs_.getCompoFactory();
-        AbsPanel panel_ = c_.newPageBox();
-        targetName = c_.newTextField();
-        panel_.add(targetName);
-        validateDialog = c_.newPlainButton("OK");
-        validateDialog.addActionListener(new ValidateFileFolderTree(this));
-        panel_.add(validateDialog);
-        cancelDialog = c_.newPlainButton("x");
-        cancelDialog.addActionListener(new CloseTreeDialog(this));
-        panel_.add(cancelDialog);
-        scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
-    }
-
-    public void fileOrFolder() {
-        String str_ = buildPath(selectedNode);
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
-        if (!currentFolder_.isDirectory()) {
-            clearTreeDialog();
-            return;
-        }
-        String elt_ = str_+targetName.getText();
-        if (frs_.getFileCoreStream().newFile(elt_).exists()) {
-            clearTreeDialog();
-            return;
-        }
-        if (elt_.endsWith("/")) {
-            frs_.getFileCoreStream().newFile(elt_).mkdirs();
-        } else {
-            StreamFolderFile.makeParent(elt_,frs_.getFileCoreStream());
-            StreamTextFile.saveTextFile(elt_,"",frs_.getStreams());
-            notifyDoc(elt_);
-            addTab(this,elt_,new BytesInfo(new byte[0],false));
-            editors.selectIndex(tabs.getLastIndex());
-        }
-        applyTreeChangeSelected(this,false);
-        clearTreeDialog();
-    }
 
     static void refresh(WindowWithTree _tr,AbstractMutableTreeNode _sel,String _str) {
         AbstractProgramInfos frs_ = _tr.getMainFrame().getCommonFrame().getFrames();
@@ -486,94 +357,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         refParent(_tr,adj_, adjPath_);
     }
 
-    void showRenaming() {
-        changeEnable(false);
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
-        scrollDialog.setVisible(true);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbsCompoFactory c_ = frs_.getCompoFactory();
-        AbsPanel panel_ = c_.newPageBox();
-        targetName = c_.newTextField();
-        panel_.add(c_.newPlainLabel(str_));
-        panel_.add(targetName);
-        validateDialog = c_.newPlainButton("OK");
-        validateDialog.addActionListener(new ValidateRenameTree(this));
-        panel_.add(validateDialog);
-        cancelDialog = c_.newPlainButton("x");
-        cancelDialog.addActionListener(new CloseTreeDialog(this));
-        panel_.add(cancelDialog);
-        scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
-    }
-
-    void renameValidate() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
-        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
-        String dest_ = buildPath(par_)+targetName.getText();
-        if (!frs_.getFileCoreStream().newFile(str_).renameTo(frs_.getFileCoreStream().newFile(dest_))){
-            clearTreeDialog();
-            return;
-        }
-        int opened_ = indexOpened(this,str_);
-        String parentPath_ = dest_.substring(0,dest_.lastIndexOf('/')+1);
-        String name_ = dest_.substring(dest_.lastIndexOf('/')+1);
-        if (opened_ > -1) {
-            getEditors().setTitle(opened_,name_);
-            getEditors().setToolTipAt(opened_,dest_);
-            getTabs().get(opened_).setFullPath(dest_);
-        }
-        par_.remove(selectedNode);
-        refParent(this,par_,parentPath_);
-        for (AbstractMutableTreeNodeCore c: MutableTreeNodeCoreUtil.children(par_)) {
-            if (StringUtil.quickEq(name_,((AbstractMutableTreeNode)c).getUserObject())) {
-                folderSystem.select(c);
-            }
-        }
-        clearTreeDialog();
-    }
-
-    void showRemoving() {
-        changeEnable(false);
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
-        scrollDialog.setVisible(true);
-        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
-        AbsCompoFactory c_ = frs_.getCompoFactory();
-        AbsPanel panel_ = c_.newPageBox();
-        panel_.add(c_.newPlainLabel(str_));
-        validateDialog = c_.newPlainButton("OK");
-        validateDialog.addActionListener(new ValidateRemoveTree(this));
-        panel_.add(validateDialog);
-        cancelDialog = c_.newPlainButton("x");
-        cancelDialog.addActionListener(new CloseTreeDialog(this));
-        panel_.add(cancelDialog);
-        scrollDialog.setViewportView(panel_);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
-    }
-    void removeValidate() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
-        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
-        if (!frs_.getFileCoreStream().newFile(str_).delete()){
-            clearTreeDialog();
-            return;
-        }
-        int opened_ = indexOpened(this,str_);
-        if (opened_ > -1) {
-            getEditors().remove(opened_);
-            getTabs().remove(opened_);
-        }
-        par_.remove(selectedNode);
-        folderSystem.select(par_);
-        clearTreeDialog();
-    }
-
-    void clearTreeDialog() {
-        setSelectedNode(null);
-        scrollDialog.setVisible(false);
-        GuiBaseUtil.recalculate(commonFrame.getPane());
-        changeEnable(getTree().selectEvt());
-    }
 
     static void refParent(WindowWithTree _tr,AbstractMutableTreeNode _parent, String _parentPath) {
         _parent.removeAllChildren();
@@ -589,15 +372,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         }
     }
 
-    public void updateDoc() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String contentConf_ = buildDefConfFile();
-        StreamTextFile.saveTextFile(getTempDefConf(frs_), contentConf_, frs_.getStreams());
-    }
-
-    private ManageOptions manage(StringList _linesFiles) {
-        return new ManageOptions(commonFrame.getFrames().getLanguages(), _linesFiles, factory, commonFrame.getFrames().getThreadFactory());
-    }
 
     public static void updateComments(Translations _trs) {
         for (EntryCust<String, TranslationsLg> e: _trs.getMapping().entryList()) {
@@ -695,46 +469,16 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return softParams.getExecConf();
     }
 
-    public void afterChangingSyntaxPreferences() {
-        saveConf();
-        updateCurrentTab();
-    }
-
-    public void updateCurrentTab() {
-        int ind_ = editors.getSelectedIndex();
-        if (!tabs.isValidIndex(ind_)) {
-            return;
-        }
-        stateChangeTab();
-        DocumentTextChange.updateEditorText(tabs.get(ind_));
-    }
-
-    private void stateChangeTab() {
-        new TabValueChanged(this).stateChanged();
-    }
-
-    public void updateComments(CustList<CommentDelimiters> _comm) {
-        CommentsUtil.checkAndUpdateComments(_comm, manageOptions.getOptions().getComments());
-        for (CommentDelimiters c: _comm) {
-            if (c.getEnd().get(0).trim().isEmpty()) {
-                c.getEnd().clear();
-                c.getEnd().add("\n");
-            }
-        }
-        manageOptions.getOptions().getComments().clear();
-        manageOptions.getOptions().getComments().addAllElts(_comm);
-    }
-
     public void saveConf() {
-        String lines_ = fileConf(manageOptions);
-        String currentFolder_ = manageOptions.getEx().getAccess();
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        if (!manageOptions.getEx().getSrcFolder().isEmpty()) {
-            commonFrame.getFrames().getFileCoreStream().newFile(currentFolder_+"/"+manageOptions.getEx().getSrcFolder()).mkdirs();
+        String lines_ = fileConf(getManageOptions());
+        String currentFolder_ = getManageOptions().getEx().getAccess();
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        if (!getManageOptions().getEx().getSrcFolder().isEmpty()) {
+            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+"/"+ getManageOptions().getEx().getSrcFolder()).mkdirs();
         } else {
-            commonFrame.getFrames().getFileCoreStream().newFile(currentFolder_+"/src").mkdirs();
+            getCommonFrame().getFrames().getFileCoreStream().newFile(currentFolder_+"/src").mkdirs();
         }
-        StreamFolderFile.makeParent(softParams.getExecConf(),commonFrame.getFrames().getFileCoreStream());
+        StreamFolderFile.makeParent(softParams.getExecConf(), getCommonFrame().getFrames().getFileCoreStream());
         StreamTextFile.saveTextFile(softParams.getExecConf(), lines_, frs_.getStreams());
     }
 
@@ -765,7 +509,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return lines_;
     }
 
-    private String buildDefConfFile() {
+    public String buildDefConfFile() {
         return buildDefConfFile(softParams);
     }
 
@@ -809,24 +553,9 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return softParams.getFolderExpression();
     }
 
-    public void setUsedLg(String _u) {
-        this.manageOptions.getEx().setLg(_u);
-    }
-
-    public String getUsedLg() {
-        return manageOptions.getEx().getLg();
-    }
 
     public AbsMenuItem getChooseFile() {
         return chooseFile;
-    }
-
-    public AbsMenuItem getCreate() {
-        return create;
-    }
-
-    public AbsTreeGui getFolderSystem() {
-        return folderSystem;
     }
 
     public AbsPlainButton getChooseFolder() {
@@ -837,13 +566,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return createFile;
     }
 
-    public String getCurrentFolder() {
-        return manageOptions.getEx().getAccess();
-    }
-
-    public ManageOptions getManageOptions() {
-        return manageOptions;
-    }
 
     public String pathToSrc() {
         ManageOptions m_ = getManageOptions();
@@ -863,23 +585,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public StringList getOpenedFilesToInit() {
         return softParams.getOpenedFilesToInit();
     }
-
-    public AbsMenuItem getCommentsMenu() {
-        return commentsMenu;
-    }
-
-    public AbsMenuItem getAliasesMenu() {
-        return aliasesMenu;
-    }
-
-    public AbsMenuItem getTabulationsMenu() {
-        return tabulationsMenu;
-    }
-
-    public AbsMenuItem getLanguageMenu() {
-        return languageMenu;
-    }
-
     public AbsMenuItem getSoftParamsMenu() {
         return softParamsMenu;
     }
@@ -887,23 +592,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public AbsMenuItem getFolderExpressionMenu() {
         return folderExpressionMenu;
     }
-
-    public CustList<OutputDialogComments> getCommentsFrames() {
-        return commentsFrames;
-    }
-
-    public CustList<OutputDialogTab> getTabulationsFrames() {
-        return tabulationsFrames;
-    }
-
-    public CustList<OutputDialogLanguage> getLanguageFrames() {
-        return languageFrames;
-    }
-
-    public CustList<OutputDialogAliases> getAliasesFrames() {
-        return aliasesFrames;
-    }
-
     public AbsDialog getDialogSoft() {
         return dialogSoft;
     }
@@ -912,26 +600,9 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return dialogFolderExpression;
     }
 
-    public CustList<TabEditor> getTabs() {
-        return tabs;
-    }
-
-    public AbsTabbedPane getEditors() {
-        return editors;
-    }
-
     @Override
     public WindowCdmEditor getMainFrame() {
         return this;
-    }
-
-    @Override
-    public AbsCommonFrame getCommonFrame() {
-        return commonFrame;
-    }
-
-    public AbsPanel getPanel() {
-        return panel;
     }
 
     @Override
@@ -948,47 +619,32 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     }
     @Override
     public void changeLanguage(String _language) {
-        commonFrame.setLanguageKey(_language);
+        getCommonFrame().setLanguageKey(_language);
         setMessages(getMessages());
     }
 
     @Override
     public void dispatchExit() {
-        commonFrame.dispatchExit();
+        getCommonFrame().dispatchExit();
     }
 
     @Override
     public void quit() {
         closeAll();
-        GuiBaseUtil.tryExit(commonFrame);
-        commonFrame.getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
+        GuiBaseUtil.tryExit(getCommonFrame());
+        getCommonFrame().getFrames().getCounts().getVal(getApplicationName()).decrementAndGet();
     }
 
     public void closeAll() {
-        commonFrame.setVisible(false);
+        getCommonFrame().setVisible(false);
         closeAllSubs();
     }
 
     private void closeAllSubs() {
-        for (OutputDialogLanguage w: getLanguageFrames()) {
-            w.getFrame().setVisible(false);
-            w.getMenu().setEnabled(true);
-        }
-        for (OutputDialogTab w: getTabulationsFrames()) {
-            w.getFrame().setVisible(false);
-            w.getMenu().setEnabled(editing);
-        }
-        for (OutputDialogAliases w: getAliasesFrames()) {
-            w.getFrame().setVisible(false);
-            w.getMenu().setEnabled(editing);
-        }
-        for (OutputDialogComments w: getCommentsFrames()) {
-            w.getFrame().setVisible(false);
-            w.getMenu().setEnabled(editing);
-        }
+        closeSecs();
         for (WindowExpressionEditor w: getExpressionEditors()) {
             w.closeWindows();
-            w.getMenu().setEnabled(editing);
+            w.getMenu().setEnabled(isEditing());
         }
         expressionEditors.clear();
     }
@@ -1001,72 +657,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 //    public boolean canChangeLanguage() {
 //        return false;
 //    }
-    public CustList<CommentDelimiters> getComments() {
-        return manageOptions.getOptions().getComments();
-    }
 
-    public StringMap<String> getLgMessages() {
-        return manageOptions.getEx().getMessages();
-    }
 
-    public void setLgMessages(StringMap<String> _l) {
-        this.manageOptions.getEx().setMessages(_l);
-    }
-
-    public StringMap<String> getLgAliases() {
-        return manageOptions.getEx().getAliases();
-    }
-
-    public void setLgAliases(StringMap<String> _l) {
-        this.manageOptions.getEx().setAliases(_l);
-    }
-
-    public StringMap<String> getLgKeyWords() {
-        return manageOptions.getEx().getKeyWords();
-    }
-
-    public void setLgKeyWords(StringMap<String> _l) {
-        this.manageOptions.getEx().setKeyWords(_l);
-    }
-
-    public void setComments(CustList<CommentDelimiters> _c) {
-        manageOptions.getOptions().getComments().clear();
-        manageOptions.getOptions().getComments().addAllElts(_c);
-    }
-
-    public int getTabWidth() {
-        return manageOptions.getOptions().getTabWidth();
-    }
-
-    public void setTabWidth(int _t) {
-        this.manageOptions.getOptions().setTabWidth(_t);
-    }
-
-    public CdmFactory getFactory() {
-        return factory;
-    }
-
-    public AbstractMutableTreeNode getSelectedNode() {
-        return selectedNode;
-    }
-
-    public void setSelectedNode(AbstractMutableTreeNode _s) {
-        this.selectedNode = _s;
-    }
-
-    public AbsPlainButton getValidateDialog() {
-        return validateDialog;
-    }
-
-    public AbsPlainButton getCancelDialog() {
-        return cancelDialog;
-    }
-
-    public AbsTextField getTargetName() {
-        return targetName;
-    }
-
-    public AbsScrollPane getScrollDialog() {
-        return scrollDialog;
-    }
 }

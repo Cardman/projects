@@ -28,7 +28,7 @@ public final class OutputDialogAliases implements WithFrame{
     private final AbsCommonFrame frame;
     private final AbsMenuItem associated;
 
-    public OutputDialogAliases(WindowCdmEditor _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    public OutputDialogAliases(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
         frame = _fr;
         associated = _c;
         messages = new OutputDialogMapMessagesEdit(_w,_w.getLgMessages(), keysMessages(_w));
@@ -61,25 +61,25 @@ public final class OutputDialogAliases implements WithFrame{
         frame.setVisible(true);
         associated.setEnabled(false);
     }
-    public void reinit(WindowCdmEditor _w) {
+    public void reinit(WindowWithTreeImpl _w) {
         resetGui(_w);
         frame.setVisible(true);
         associated.setEnabled(false);
     }
 
-    public void resetGui(WindowCdmEditor _w) {
+    public void resetGui(WindowWithTreeImpl _w) {
         messages.reinit(_w);
         keyWords.reinit(_w);
         aliases.reinit(_w);
     }
 
-    static CustList<String> keyWords(WindowCdmEditor _w) {
+    static CustList<String> keyWords(WindowWithTreeImpl _w) {
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.KEYWORDS);
         return LgNamesUtilsContent.extractKeys(com_).values();
     }
-    static StringList aliases(WindowCdmEditor _w) {
+    static StringList aliases(WindowWithTreeImpl _w) {
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile types_ = app_.getMapping().getVal(FileInfos.TYPES);
@@ -89,7 +89,7 @@ public final class OutputDialogAliases implements WithFrame{
         return v_;
     }
 
-    static CustList<String> keysMessages(WindowCdmEditor _w) {
+    static CustList<String> keysMessages(WindowWithTreeImpl _w) {
         TranslationsLg lg_ = CustAliases.lg(_w.getCommonFrame().getFrames().getTranslations(), _w.getUsedLg(), _w.getCommonFrame().getLanguageKey());
         TranslationsAppli app_ = FileInfos.getAppliTr(lg_);
         TranslationsFile com_ = app_.getMapping().getVal(FileInfos.MESSAGES);

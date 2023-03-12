@@ -6,9 +6,9 @@ import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeCommentsEvent implements AbsActionListener {
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
     private final AbsMenuItem commentsMenu;
-    public ChangeCommentsEvent(WindowCdmEditor _w, AbsMenuItem _c) {
+    public ChangeCommentsEvent(WindowWithTreeImpl _w, AbsMenuItem _c) {
         this.windowCdmEditor = _w;
         commentsMenu = _c;
     }

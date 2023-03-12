@@ -9,7 +9,7 @@ public final class OutputDialogTab implements WithFrame{
     private final AbsCommonFrame frame;
     private final AbsMenuItem associated;
 
-    public OutputDialogTab(WindowCdmEditor _w,AbsCommonFrame _fr, AbsMenuItem _c) {
+    public OutputDialogTab(WindowWithTreeImpl _w,AbsCommonFrame _fr, AbsMenuItem _c) {
         frame = _fr;
         associated = _c;
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
@@ -24,7 +24,7 @@ public final class OutputDialogTab implements WithFrame{
         frame.setVisible(true);
         associated.setEnabled(false);
     }
-    public void reinit(WindowCdmEditor _w) {
+    public void reinit(WindowWithTreeImpl _w) {
         tabulation.setValue(_w.getTabWidth());
         frame.setVisible(true);
         associated.setEnabled(false);

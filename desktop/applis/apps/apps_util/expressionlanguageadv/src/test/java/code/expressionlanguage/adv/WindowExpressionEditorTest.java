@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
+import code.mock.MockWindow;
 import code.stream.StreamTextFile;
 import code.util.CustList;
 import org.junit.Test;
@@ -81,7 +82,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         CustList<WindowExpressionEditor> exp_ = new CustList<WindowExpressionEditor>(w_.getExpressionEditors());
         w_.quit();
-        assertFalse(exp_.get(0).getFrame().isVisible());
+        assertFalse(exp_.get(0).getCommonFrame().isVisible());
         assertTrue(w_.getExpressionEditors().isEmpty());
     }
     @Test
@@ -89,10 +90,10 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
         w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
-        w_.getExpressionEditors().get(0).getFrame().setVisible(false);
+        ((MockWindow)w_.getExpressionEditors().get(0).getCommonFrame()).getWindowListenersDef().get(0).windowClosing();
         ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
-        assertTrue(s_.getFrame().isVisible());
+        assertTrue(s_.getCommonFrame().isVisible());
     }
     @Test
     public void initNo() {

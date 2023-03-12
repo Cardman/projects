@@ -6,9 +6,9 @@ import code.util.core.StringUtil;
 
 public final class ValidateUsedLanguage implements AbsActionListener {
     private final GraphicComboGrInt value;
-    private final WindowCdmEditor output;
+    private final WindowWithTreeImpl output;
 
-    public ValidateUsedLanguage(GraphicComboGrInt _value, WindowCdmEditor _w) {
+    public ValidateUsedLanguage(GraphicComboGrInt _value, WindowWithTreeImpl _w) {
         value = _value;
         this.output = _w;
     }

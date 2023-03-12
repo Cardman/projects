@@ -6,10 +6,10 @@ import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 
 public final class ChangeAliasesEvent implements AbsActionListener {
-    private final WindowCdmEditor windowCdmEditor;
+    private final WindowWithTreeImpl windowCdmEditor;
     private final AbsMenuItem aliasesMenu;
 
-    public ChangeAliasesEvent(WindowCdmEditor _w, AbsMenuItem _m) {
+    public ChangeAliasesEvent(WindowWithTreeImpl _w, AbsMenuItem _m) {
         this.windowCdmEditor = _w;
         aliasesMenu = _m;
     }

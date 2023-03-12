@@ -4,9 +4,9 @@ import code.gui.AbstractMutableTreeNode;
 import code.gui.events.AbsActionListener;
 
 public final class RemoveTreeAction implements AbsActionListener {
-    private final WindowCdmEditor editor;
+    private final WindowWithTreeImpl editor;
 
-    public RemoveTreeAction(WindowCdmEditor _ed) {
+    public RemoveTreeAction(WindowWithTreeImpl _ed) {
         editor = _ed;
     }
     @Override

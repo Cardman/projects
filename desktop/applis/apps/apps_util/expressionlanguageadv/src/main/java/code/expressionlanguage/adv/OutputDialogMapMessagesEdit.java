@@ -16,7 +16,7 @@ public final class OutputDialogMapMessagesEdit {
     private final AutoCompleteDocument auto;
     private final AbsScrollPane scroll;
 
-    public OutputDialogMapMessagesEdit(WindowCdmEditor _w, StringMap<String> _map, CustList<String> _keys) {
+    public OutputDialogMapMessagesEdit(WindowWithTreeImpl _w, StringMap<String> _map, CustList<String> _keys) {
         messagesRows = initRows(_map, _keys);
         AbstractProgramInfos factories_ = _w.getCommonFrame().getFrames();
         AbsPanel dels_ = factories_.getCompoFactory().newPageBox();
@@ -32,18 +32,18 @@ public final class OutputDialogMapMessagesEdit {
         inner_.setPreferredSize(new MetaDimension(384,48));
         dels_.add(inner_);
         valPart = factories_.getCompoFactory().newPlainButton("MATCH");
-        valPart.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+        valPart.setVisible(!_w.getMainFrame().getSoftParams().isDirectMatchKeyValue());
         valPart.addActionListener(new ValidateMessage(_w,keyAuto_, value, messagesRows,valPartLabel,true));
         dels_.add(valPart);
-        valPartLabel.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+        valPartLabel.setVisible(!_w.getMainFrame().getSoftParams().isDirectMatchKeyValue());
         dels_.add(valPartLabel);
         AbsScrollPane sc_ = factories_.getCompoFactory().newAbsScrollPane(dels_);
         sc_.setPreferredSize(new MetaDimension(384,128));
         scroll = sc_;
     }
-    public void reinit(WindowCdmEditor _w) {
-        valPart.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
-        valPartLabel.setVisible(!_w.getSoftParams().isDirectMatchKeyValue());
+    public void reinit(WindowWithTreeImpl _w) {
+        valPart.setVisible(!_w.getMainFrame().getSoftParams().isDirectMatchKeyValue());
+        valPartLabel.setVisible(!_w.getMainFrame().getSoftParams().isDirectMatchKeyValue());
     }
 
     static StringMap<String> initRows(StringMap<String> _infos, CustList<String> _keys) {
