@@ -175,6 +175,8 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         updateEnv(getTempDefConf(commonFrame.getFrames()));
     }
     public void updateEnv(String _fileConf) {
+        closeAllSubs();
+        expressionEditors.clear();
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
         Document doc_ = DocumentBuilder.parseSax(contentConf_);
@@ -908,6 +910,10 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
     public void closeAll() {
         commonFrame.setVisible(false);
+        closeAllSubs();
+    }
+
+    private void closeAllSubs() {
         for (OutputDialogLanguage w: getLanguageFrames()) {
             w.getFrame().setVisible(false);
             w.getMenu().setEnabled(true);
