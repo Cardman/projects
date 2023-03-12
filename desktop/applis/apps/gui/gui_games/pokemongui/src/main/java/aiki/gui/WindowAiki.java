@@ -356,9 +356,9 @@ public final class WindowAiki extends GroupFrame implements WindowAikiInt {
             htmlDialogs.get(0).closeWindow();
             dataWeb.setEnabled(true);
         }
+        battle.getBattle().closeWindow();
         if (!battle.getHtmlDialogs().isEmpty()) {
             battle.getHtmlDialogs().get(0).closeWindow();
-            battle.getBattle().closeWindow();
             dataBattle.setEnabled(inBattle);
         }
         basicDispose();
