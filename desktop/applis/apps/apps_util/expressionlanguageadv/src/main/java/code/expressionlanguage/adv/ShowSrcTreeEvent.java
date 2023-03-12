@@ -13,6 +13,9 @@ public class ShowSrcTreeEvent implements AbsShortListTree {
 
     @Override
     public void valueChanged(AbstractMutableTreeNodeCore _e) {
+        if (dialog instanceof WindowCdmEditor && ((WindowCdmEditor)dialog).getSelectedNode() != null) {
+            return;
+        }
         WindowCdmEditor.applyTreeChangeSelected(dialog,true);
     }
 

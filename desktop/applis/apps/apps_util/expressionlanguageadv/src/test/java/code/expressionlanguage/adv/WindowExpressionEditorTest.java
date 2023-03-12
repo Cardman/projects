@@ -103,4 +103,14 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
         assertEq(0,w_.getExpressionEditors().size());
     }
+    @Test
+    public void noSelect() {
+        WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");
+        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+        s_.getTree().select(null);
+        assertEq(1,s_.getTabs().size());
+    }
 }

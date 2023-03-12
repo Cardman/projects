@@ -10,7 +10,7 @@ import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
 
-public final class WindowExpressionEditor implements WindowWithTree,WithFrame {
+public final class WindowExpressionEditor implements WindowWithTree {
     private final WindowCdmEditor mainFrame;
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
@@ -72,12 +72,10 @@ public final class WindowExpressionEditor implements WindowWithTree,WithFrame {
         commonFrame.setVisible(true);
     }
 
-    @Override
     public AbsCommonFrame getFrame() {
         return commonFrame;
     }
 
-    @Override
     public AbsMenuItem getMenu() {
         return folderExpressionMenu;
     }
@@ -86,6 +84,10 @@ public final class WindowExpressionEditor implements WindowWithTree,WithFrame {
         return folderSystem;
     }
 
+    @Override
+    public void changeEnable(AbstractMutableTreeNode _en) {
+        changeEnable(_en != null);
+    }
     @Override
     public void changeEnable(boolean _en) {
         refreshNode.setEnabled(_en);

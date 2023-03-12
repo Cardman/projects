@@ -12,6 +12,7 @@ import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.events.QuittingEvent;
+import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
 import code.scripts.messages.gui.MessGuiGr;
 import code.sml.Document;
@@ -42,12 +43,12 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public static final String ROOT_CONF = "_";
     public static final String CDM_EDITOR = "cdm_editor";
     private final CdmFactory factory;
-    private final ConfirmDialogTextAbs confirmDialogText;
     private final FileSaveDialogAbs fileSaveDialogInt;
     private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
-    private final ConfirmDialogAnsAbs confirmDialogAns;
     private AbsTreeGui folderSystem;
+    private AbsScrollPane scrollDialog;
+    private AbstractMutableTreeNode selectedNode;
     private final CustList<OutputDialogComments> commentsFrames = new CustList<OutputDialogComments>();
     private final CustList<OutputDialogTab> tabulationsFrames = new CustList<OutputDialogTab>();
     private final CustList<OutputDialogLanguage> languageFrames = new CustList<OutputDialogLanguage>();
@@ -88,15 +89,16 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     private ManageOptions manageOptions;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
     private boolean editing;
+    private AbsTextField targetName;
+    private AbsPlainButton validateDialog;
+    private AbsPlainButton cancelDialog;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         factory = _fact;
         softParams = new CdmParameterSoftModel();
-        confirmDialogAns = _list.getConfirmDialogAns();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
         folderOpenDialogInt = _list.getFolderOpenDialogInt();
-        confirmDialogText = _list.getConfirmDialogText();
         commonFrame = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
         dialogSoft = _list.getFrameFactory().newDialog();
         dialogFolderExpression = _list.getFrameFactory().newDialog();
@@ -276,7 +278,9 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         }
         softParams.getOpenedFiles().clear();
         softParams.getOpenedFiles().addAllElts(existing_);
-        panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem), editors));
+        scrollDialog = frs_.getCompoFactory().newAbsScrollPane();
+        scrollDialog.setVisible(false);
+        panel.add(frs_.getCompoFactory().newHorizontalSplitPane(frs_.getCompoFactory().newVerticalSplitPane(frs_.getCompoFactory().newAbsScrollPane(folderSystem),scrollDialog), editors));
         commonFrame.setContentPane(panel);
         commonFrame.pack();
 //        currentFolder = acc_;
@@ -294,11 +298,10 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
     public static boolean applyTreeChangeSelected(WindowWithTree _instance,boolean _treeEvent) {
         AbstractProgramInfos frs_ = _instance.getMainFrame().getCommonFrame().getFrames();
         AbstractMutableTreeNode sel_ = _instance.getTree().selectEvt();
+        _instance.changeEnable(sel_);
         if (sel_ == null) {
-            _instance.changeEnable(false);
             return false;
         }
-        _instance.changeEnable(true);
         String str_ = buildPath(sel_);
         if (_treeEvent) {
             BytesInfo content_ = StreamBinaryFile.loadFile(str_, frs_.getStreams());
@@ -358,6 +361,11 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         return getFolderSystem();
     }
 
+    @Override
+    public void changeEnable(AbstractMutableTreeNode _en) {
+        changeEnable(_en != null);
+    }
+
     public void changeEnable(boolean _en) {
         renameNode.setEnabled(_en);
         refreshNode.setEnabled(_en);
@@ -412,23 +420,35 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         StringUtil.removeObj(pathFull_, "");
         return StringUtil.join(pathFull_,"");
     }
+    void showFileOrFolder() {
+        changeEnable(false);
+        scrollDialog.setVisible(true);
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbsCompoFactory c_ = frs_.getCompoFactory();
+        AbsPanel panel_ = c_.newPageBox();
+        targetName = c_.newTextField();
+        panel_.add(targetName);
+        validateDialog = c_.newPlainButton("OK");
+        validateDialog.addActionListener(new ValidateFileFolderTree(this));
+        panel_.add(validateDialog);
+        cancelDialog = c_.newPlainButton("x");
+        cancelDialog.addActionListener(new CloseTreeDialog(this));
+        panel_.add(cancelDialog);
+        scrollDialog.setViewportView(panel_);
+        GuiBaseUtil.recalculate(commonFrame.getPane());
+    }
 
-    public void fileOrFolder(TextAnswerValue _ans) {
-        if (_ans.getAnswer() != GuiConstants.YES_OPTION) {
-            return;
-        }
-        AbstractMutableTreeNode sel_ = folderSystem.selectEvt();
-        if (sel_ == null) {
-            return;
-        }
-        String str_ = buildPath(sel_);
+    public void fileOrFolder() {
+        String str_ = buildPath(selectedNode);
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
+            clearTreeDialog();
             return;
         }
-        String elt_ = str_+_ans.getTypedText();
+        String elt_ = str_+targetName.getText();
         if (frs_.getFileCoreStream().newFile(elt_).exists()) {
+            clearTreeDialog();
             return;
         }
         if (elt_.endsWith("/")) {
@@ -441,6 +461,7 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             editors.selectIndex(tabs.getLastIndex());
         }
         applyTreeChangeSelected(this,false);
+        clearTreeDialog();
     }
 
     static void refresh(WindowWithTree _tr,AbstractMutableTreeNode _sel,String _str) {
@@ -465,17 +486,36 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
         refParent(_tr,adj_, adjPath_);
     }
 
-    void rename(TextAnswerValue _ans, AbstractMutableTreeNode _sel,String _str) {
-        if (_ans.getAnswer() != GuiConstants.YES_OPTION) {
-            return;
-        }
+    void showRenaming() {
+        changeEnable(false);
+        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        scrollDialog.setVisible(true);
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbsCompoFactory c_ = frs_.getCompoFactory();
+        AbsPanel panel_ = c_.newPageBox();
+        targetName = c_.newTextField();
+        panel_.add(c_.newPlainLabel(str_));
+        panel_.add(targetName);
+        validateDialog = c_.newPlainButton("OK");
+        validateDialog.addActionListener(new ValidateRenameTree(this));
+        panel_.add(validateDialog);
+        cancelDialog = c_.newPlainButton("x");
+        cancelDialog.addActionListener(new CloseTreeDialog(this));
+        panel_.add(cancelDialog);
+        scrollDialog.setViewportView(panel_);
+        GuiBaseUtil.recalculate(commonFrame.getPane());
+    }
+
+    void renameValidate() {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
-        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) _sel.getParent();
-        String dest_ = buildPath(par_)+_ans.getTypedText();
-        if (!frs_.getFileCoreStream().newFile(_str).renameTo(frs_.getFileCoreStream().newFile(dest_))){
+        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
+        String dest_ = buildPath(par_)+targetName.getText();
+        if (!frs_.getFileCoreStream().newFile(str_).renameTo(frs_.getFileCoreStream().newFile(dest_))){
+            clearTreeDialog();
             return;
         }
-        int opened_ = indexOpened(this,_str);
+        int opened_ = indexOpened(this,str_);
         String parentPath_ = dest_.substring(0,dest_.lastIndexOf('/')+1);
         String name_ = dest_.substring(dest_.lastIndexOf('/')+1);
         if (opened_ > -1) {
@@ -483,31 +523,56 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
             getEditors().setToolTipAt(opened_,dest_);
             getTabs().get(opened_).setFullPath(dest_);
         }
-        par_.remove(_sel);
+        par_.remove(selectedNode);
         refParent(this,par_,parentPath_);
         for (AbstractMutableTreeNodeCore c: MutableTreeNodeCoreUtil.children(par_)) {
             if (StringUtil.quickEq(name_,((AbstractMutableTreeNode)c).getUserObject())) {
                 folderSystem.select(c);
             }
         }
+        clearTreeDialog();
     }
 
-    void remove(int _ans, AbstractMutableTreeNode _sel,String _str) {
-        if (_ans != GuiConstants.YES_OPTION) {
-            return;
-        }
+    void showRemoving() {
+        changeEnable(false);
+        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        scrollDialog.setVisible(true);
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbsCompoFactory c_ = frs_.getCompoFactory();
+        AbsPanel panel_ = c_.newPageBox();
+        panel_.add(c_.newPlainLabel(str_));
+        validateDialog = c_.newPlainButton("OK");
+        validateDialog.addActionListener(new ValidateRemoveTree(this));
+        panel_.add(validateDialog);
+        cancelDialog = c_.newPlainButton("x");
+        cancelDialog.addActionListener(new CloseTreeDialog(this));
+        panel_.add(cancelDialog);
+        scrollDialog.setViewportView(panel_);
+        GuiBaseUtil.recalculate(commonFrame.getPane());
+    }
+    void removeValidate() {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
-        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) _sel.getParent();
-        if (!frs_.getFileCoreStream().newFile(_str).delete()){
+        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
+        if (!frs_.getFileCoreStream().newFile(str_).delete()){
+            clearTreeDialog();
             return;
         }
-        int opened_ = indexOpened(this,_str);
+        int opened_ = indexOpened(this,str_);
         if (opened_ > -1) {
             getEditors().remove(opened_);
             getTabs().remove(opened_);
         }
-        par_.remove(_sel);
+        par_.remove(selectedNode);
         folderSystem.select(par_);
+        clearTreeDialog();
+    }
+
+    void clearTreeDialog() {
+        setSelectedNode(null);
+        scrollDialog.setVisible(false);
+        GuiBaseUtil.recalculate(commonFrame.getPane());
+        changeEnable(getTree().selectEvt());
     }
 
     static void refParent(WindowWithTree _tr,AbstractMutableTreeNode _parent, String _parentPath) {
@@ -620,14 +685,6 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
     public FolderOpenDialogAbs getFolderOpenDialogInt() {
         return folderOpenDialogInt;
-    }
-
-    public ConfirmDialogAnsAbs getConfirmDialogAns() {
-        return confirmDialogAns;
-    }
-
-    public ConfirmDialogTextAbs getConfirmDialogText() {
-        return confirmDialogText;
     }
 
     public AbsTextField getSrcFolder() {
@@ -987,5 +1044,29 @@ public final class WindowCdmEditor implements AbsGroupFrame,WindowWithTree {
 
     public CdmFactory getFactory() {
         return factory;
+    }
+
+    public AbstractMutableTreeNode getSelectedNode() {
+        return selectedNode;
+    }
+
+    public void setSelectedNode(AbstractMutableTreeNode _s) {
+        this.selectedNode = _s;
+    }
+
+    public AbsPlainButton getValidateDialog() {
+        return validateDialog;
+    }
+
+    public AbsPlainButton getCancelDialog() {
+        return cancelDialog;
+    }
+
+    public AbsTextField getTargetName() {
+        return targetName;
+    }
+
+    public AbsScrollPane getScrollDialog() {
+        return scrollDialog;
     }
 }

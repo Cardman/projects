@@ -59,6 +59,8 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         w_.getTabs().get(0).getWholeWord().setSelected(false);
         return w_;
     }
@@ -81,8 +83,12 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         return w_;
     }
 
@@ -156,6 +162,8 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         return w_;
     }
     public static WindowCdmEditor windowLoadDefNoTabQuick(AbstractProgramInfos _pr) {
@@ -475,12 +483,29 @@ public abstract class EquallableElAdvUtil {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F5,GuiConstants.CTRL_DOWN_MASK)).action();
     }
 
-    protected static void rename(WindowCdmEditor _w) {
+    protected static void rename(WindowCdmEditor _w, String _dest) {
+        attemptRename(_w);
+        _w.getTargetName().setText(_dest);
+        ((MockPlainButton)_w.getValidateDialog()).getActionListeners().get(0).action();
+    }
+
+    protected static void attemptRename(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK)).action();
+    }
+
+    protected static void renameCancel(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_F6,GuiConstants.CTRL_DOWN_MASK)).action();
+        ((MockPlainButton)_w.getCancelDialog()).getActionListeners().get(0).action();
     }
 
     protected static void remove(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_DELETE,0)).action();
+        ((MockPlainButton)_w.getValidateDialog()).getActionListeners().get(0).action();
+    }
+
+    protected static void removeCancel(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(_w.getFolderSystem(), GuiConstants.VK_DELETE,0)).action();
+        ((MockPlainButton)_w.getCancelDialog()).getActionListeners().get(0).action();
     }
     protected void clearEdit(WindowCdmEditor _w) {
         ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_Z,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK)).action();

@@ -73,6 +73,8 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tr_.select(tr_.getRoot());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTargetName().setText("folder/");
+        ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         assertTrue(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/folder/").isDirectory());
     }
     @Test
@@ -90,6 +92,8 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         tr_.select(tr_.getRoot().getFirstChild().getNextSibling());
         tr_.getTreeSelectionListeners().get(0).valueChanged(null);
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
+        w_.getTargetName().setText("file.txt");
+        ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/file.txt").exists());
     }
     @Test
@@ -227,7 +231,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         saveTextFile("/project/sources/src/file.txt","TEXT",w_);
         refresh(w_);
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
-        rename(w_);
+        rename(w_,"file3.txt");
         assertEq("/project/sources/src/file3.txt",tabSelect(w_).getFullPath());
         assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file3.txt", w_));
@@ -239,7 +243,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         refresh(w_);
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         closeTab(w_);
-        rename(w_);
+        rename(w_,"file3.txt");
         assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file3.txt", w_));
     }
@@ -252,7 +256,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
-        rename(w_);
+        rename(w_,"file3.txt");
         assertEq("/project/sources/src/file3.txt",tabSelect(w_).getFullPath());
         assertFalse(w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/project/sources/src/file.txt").exists());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file3.txt", w_));
@@ -267,7 +271,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
-        rename(w_);
+        rename(w_,"file.txt");
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
         assertEq("TEXT2",contentsOfFile("/project/sources/src/file2.txt", w_));
     }
@@ -280,7 +284,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild());
-        rename(w_);
+        renameCancel(w_);
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
         assertEq("TEXT2",contentsOfFile("/project/sources/src/file2.txt", w_));
     }
@@ -291,7 +295,8 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         saveTextFile("/project/sources/src/file2.txt","TEXT2",w_);
         refresh(w_);
         w_.getFolderSystem().select(null);
-        rename(w_);
+        attemptRename(w_);
+        assertFalse(w_.getScrollDialog().isVisible());
         assertEq("TEXT",contentsOfFile("/project/sources/src/file.txt", w_));
         assertEq("TEXT2",contentsOfFile("/project/sources/src/file2.txt", w_));
     }
@@ -351,7 +356,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         assertEq(2,w_.getTabs().size());
         assertEq(2,w_.getEditors().getComponentCount());
         w_.getFolderSystem().select(w_.getFolderSystem().getRoot().getFirstChild().getFirstChild().getNextSibling());
-        remove(w_);
+        removeCancel(w_);
         assertEq(2,w_.getTabs().size());
         assertEq(2,w_.getEditors().getComponentCount());
     }

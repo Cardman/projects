@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.gui.TextAnswerValue;
 import code.gui.events.AbsActionListener;
 
 public final class AddNewTreeFileNode implements AbsActionListener {
@@ -12,8 +11,7 @@ public final class AddNewTreeFileNode implements AbsActionListener {
 
     @Override
     public void action() {
-        String lg_ = editor.getCommonFrame().getLanguageKey();
-        TextAnswerValue confirmDialog_ = editor.getConfirmDialogText().input(editor.getCommonFrame(), "", "", "", lg_);
-        editor.fileOrFolder(confirmDialog_);
+        editor.setSelectedNode(editor.getTree().selectEvt());
+        editor.showFileOrFolder();
     }
 }
