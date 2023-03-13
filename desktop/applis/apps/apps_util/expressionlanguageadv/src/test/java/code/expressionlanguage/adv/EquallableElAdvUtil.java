@@ -59,7 +59,7 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        w_.getTargetName().setText("file.txt");
         ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         w_.getTabs().get(0).getWholeWord().setSelected(false);
         return w_;
@@ -87,11 +87,11 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        w_.getTargetName().setText("file.txt");
         ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        w_.getTargetName().setText("file2.txt");
         ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         return w_;
     }
@@ -166,7 +166,7 @@ public abstract class EquallableElAdvUtil {
         AbsTreeGui tr_ = w_.getFolderSystem();
         tr_.select(tr_.getRoot().getFirstChild());
         ((MockMenuItem)w_.getCreate()).getActionListeners().get(0).action();
-        w_.getTargetName().setText(_pr.getConfirmDialogText().input(null, "", "", "", "").getTypedText());
+        w_.getTargetName().setText("folder/");
         ((MockPlainButton)w_.getValidateDialog()).getActionListeners().get(0).action();
         return w_;
     }
