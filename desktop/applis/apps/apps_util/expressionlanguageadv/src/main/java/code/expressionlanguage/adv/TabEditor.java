@@ -10,7 +10,6 @@ import code.util.CustList;
 import code.util.StringList;
 
 public final class TabEditor {
-    private final WindowCdmEditor windowEditor;
     private final WindowWithTreeImpl windowSecEditor;
     private final AbstractProgramInfos factories;
     private final AbsTextPane center;
@@ -52,8 +51,7 @@ public final class TabEditor {
         useFeed = _lr;
         fullPath = _fullPath;
         windowSecEditor = _editor;
-        windowEditor = _editor.getMainFrame();
-        commonFrame = _editor.getMainFrame().getCommonFrame();
+        commonFrame = _editor.getCommonFrame();
         AbstractProgramInfos frames_ = commonFrame.getFrames();
         taskManager = frames_.getThreadFactory().newExecutorService();
         factories = frames_;
@@ -183,7 +181,7 @@ public final class TabEditor {
     public int index(int _row, int _col) {
         int adjRow_ = _row - 1;
         int adjCol_ = _col - 1;
-        int tw_ = windowEditor.getTabWidth();
+        int tw_ = windowSecEditor.getTabWidth();
         String txt_ = getCenter().getText();
         int index_ = 0;
         int row_ = 0;
@@ -260,10 +258,6 @@ public final class TabEditor {
 
     public AbsPlainLabel getLabelOcc() {
         return labelOcc;
-    }
-
-    public WindowCdmEditor getWindowEditor() {
-        return windowEditor;
     }
 
     public AbsPlainLabel getLabel() {
@@ -394,7 +388,7 @@ public final class TabEditor {
         this.fullPath = _f;
     }
 
-    public WindowWithTree getWindowSecEditor() {
+    public WindowWithTreeImpl getWindowSecEditor() {
         return windowSecEditor;
     }
 }

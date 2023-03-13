@@ -8,9 +8,9 @@ import code.gui.initialize.AbsCompoFactory;
 
 public final class TabValueChanged implements AbsChangeListener {
     public static final int TABS = 1024;
-    private final WindowWithTree window;
+    private final WindowWithTreeImpl window;
 
-    public TabValueChanged(WindowWithTree _w) {
+    public TabValueChanged(WindowWithTreeImpl _w) {
         this.window = _w;
     }
 
@@ -23,7 +23,7 @@ public final class TabValueChanged implements AbsChangeListener {
         TabEditor tab_ = window.getTabs().get(inde_);
         AbsTextPane c_ = tab_.getCenter();
         int chWi_ = c_.stringWidth(c_.getMetaFont(),"#");
-        int tabWidth_ = chWi_ * window.getMainFrame().getTabWidth();
+        int tabWidth_ = chWi_ * window.getTabWidth();
         AbsCompoFactory compo_ = tab_.getCommonFrame().getFrames().getCompoFactory();
         AbsTabStops tabs_ = compo_.newAbsTabStops(TABS);
         for (int j = 0; j < tabs_.getLength(); j++) {

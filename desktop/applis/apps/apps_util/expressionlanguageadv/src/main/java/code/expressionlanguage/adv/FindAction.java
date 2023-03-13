@@ -71,7 +71,7 @@ public final class FindAction implements AbsActionListener {
     }
 
     private static void syntax(TabEditor _tab, String _text) {
-        StringComment sc_ = new StringComment(_text, _tab.getWindowEditor().getComments());
+        StringComment sc_ = new StringComment(_text, _tab.getWindowSecEditor().getComments());
         CustList<SegmentColorPart> segText_ = sc_.getSegmentColorParts();
         int partCount_ = segText_.size();
         for (int i = 0; i < partCount_; i++) {
