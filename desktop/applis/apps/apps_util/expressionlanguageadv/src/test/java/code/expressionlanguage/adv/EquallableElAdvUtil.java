@@ -66,12 +66,16 @@ public abstract class EquallableElAdvUtil {
     }
 
     private static WindowCdmEditor updated(AbstractProgramInfos _pr) {
+        WindowCdmEditor w_ = quickCreate(_pr);
+        w_.updateCommentsInit(new StringList());
+        return w_;
+    }
+
+    public static WindowCdmEditor quickCreate(AbstractProgramInfos _pr) {
         _pr.setLanguages(new StringList(FileInfos.EN,FileInfos.FR));
         _pr.setLanguage(FileInfos.EN);
         update((MockProgramInfos) _pr);
-        WindowCdmEditor w_ = window(_pr);
-        w_.updateCommentsInit(new StringList());
-        return w_;
+        return window(_pr);
     }
 
     public static WindowCdmEditor windowLoadDefTwice(AbstractProgramInfos _pr) {

@@ -128,7 +128,7 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         ((MockMenuItem)w_.getExpressionEditors().get(0).getLanguageMenu()).getActionListeners().get(0).action();
         w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().selectItem(StringUtil.indexOf(w_.getCommonFrame().getFrames().getLanguages(),"fr"));
         ((MockPlainButton)w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getVal()).getActionListeners().get(0).action();
-        WindowCdmEditor w2_=newWindowLoadDefExpFolder("/folder/exp");
+        WindowCdmEditor w2_=quickCreate(newMockProgramInfosInitConfExpFolder("/folder/exp"));
         String name_ = w_.getConfGlobal();
         String name2_ = w_.getExecConf();
         StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
