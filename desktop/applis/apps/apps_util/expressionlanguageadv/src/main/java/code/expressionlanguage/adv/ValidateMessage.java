@@ -25,7 +25,7 @@ public final class ValidateMessage implements AbsActionListener {
 
     @Override
     public void action() {
-        if (softModel.getMainFrame().getSoftParams().isDirectMatchKeyValue() || always) {
+        if (softModel.softParams().isDirectMatchKeyValue() || always) {
             messages.set(key.getText(), value.getText());
             curValue.setText(value.getText());
         }

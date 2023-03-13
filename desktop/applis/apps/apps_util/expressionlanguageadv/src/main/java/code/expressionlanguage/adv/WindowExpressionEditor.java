@@ -53,7 +53,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
                 continue;
             }
             existing_.add(src_.get(i));
-            WindowCdmEditor.addTab(this,fullPath_,content_);
+            WindowWithTreeImpl.addTab(this,fullPath_,content_);
         }
         src_.clear();
         src_.addAllElts(existing_);
@@ -65,9 +65,8 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
 
     @Override
     public void saveConf() {
-        WindowCdmEditor m_ = getMainFrame();
-        m_.getSoftParams().setLines(WindowCdmEditor.linesConf(getManageOptions()));
-        updateDoc(m_);
+        softParams().setLines(WindowCdmEditor.linesConf(getManageOptions()));
+        updateDoc();
     }
 
     public AbsMenuItem getMenu() {

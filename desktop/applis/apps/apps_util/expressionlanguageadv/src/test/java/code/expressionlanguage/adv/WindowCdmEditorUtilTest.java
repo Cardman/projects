@@ -5,18 +5,18 @@ import org.junit.Test;
 public final class WindowCdmEditorUtilTest extends EquallableElAdvUtil {
     @Test
     public void lineSeparator1() {
-        assertEq("\r\n",WindowCdmEditor.lineSeparator("a\r\nb"));
+        assertEq("\r\n", WindowWithTreeImpl.lineSeparator("a\r\nb"));
     }
     @Test
     public void lineSeparator2() {
-        assertEq("\r",WindowCdmEditor.lineSeparator("a\rb"));
+        assertEq("\r", WindowWithTreeImpl.lineSeparator("a\rb"));
     }
     @Test
     public void lineSeparator3() {
-        assertEq("\n",WindowCdmEditor.lineSeparator("a\nb"));
+        assertEq("\n", WindowWithTreeImpl.lineSeparator("a\nb"));
     }
     @Test
     public void lineSeparator4() {
-        assertEq("\r",WindowCdmEditor.lineSeparator("a\r"));
+        assertEq("\r", WindowWithTreeImpl.lineSeparator("a\r"));
     }
 }

@@ -16,7 +16,7 @@ public final class ShowSrcTreeEvent implements AbsShortListTree {
         if (dialog.getSelectedNode() != null) {
             return;
         }
-        WindowCdmEditor.applyTreeChangeSelected(dialog,true);
+        dialog.applyTreeChangeSelected(true);
     }
 
 }

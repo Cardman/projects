@@ -2,21 +2,21 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.options.CommentsUtil;
+import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.initialize.AbsCompoFactory;
 import code.gui.initialize.AbstractProgramInfos;
-import code.stream.AbstractFile;
-import code.stream.BytesInfo;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
+import code.stream.*;
+import code.stream.comparators.FileNameComparator;
 import code.util.CustList;
 import code.util.StringList;
 import code.util.StringMap;
+import code.util.core.DefaultUniformingString;
 import code.util.core.StringUtil;
 
-public abstract class WindowWithTreeImpl implements WindowWithTree {
+public abstract class WindowWithTreeImpl {
     private final CdmFactory factory;
     private final AbsMenuItem languageMenu;
     private final AbsMenuItem tabulationsMenu;
@@ -86,12 +86,153 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
         commonFrame.setVisible(true);
     }
 
+    public boolean applyTreeChangeSelected(boolean _treeEvent) {
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractMutableTreeNode sel_ = getTree().selectEvt();
+        changeEnable(sel_);
+        if (sel_ == null) {
+            return false;
+        }
+        String str_ = buildPath(sel_);
+        if (_treeEvent) {
+            BytesInfo content_ = StreamBinaryFile.loadFile(str_, frs_.getStreams());
+            if (!content_.isNul()) {
+                int opened_ = indexOpened(str_);
+                if (opened_ > -1) {
+                    getEditors().selectIndex(opened_);
+                    return false;
+                }
+                notifyDoc(str_);
+                addTab(this,str_,content_);
+                getEditors().selectIndex(getTabs().getLastIndex());
+                return false;
+            }
+            if (!frs_.getFileCoreStream().newFile(str_).exists()) {
+                closeIfOpened(str_);
+            }
+        }
+        refresh(sel_,str_);
+        return true;
+    }
+
+    public void notifyDoc(String _path) {
+        String rel_ = _path.substring(pathToSrc().length());
+        openedFiles().add(rel_);
+        updateDoc();
+    }
+
+    static void addTab(WindowWithTreeImpl _tr, String _path, BytesInfo _content) {
+        String dec_ = StringUtil.nullToEmpty(StringUtil.decode(_content.getBytes()));
+        String name_ = _path.substring(_path.lastIndexOf('/')+1);
+        TabEditor te_ = new TabEditor(_tr,_path,lineSeparator(dec_));
+        te_.getCenter().setText(new DefaultUniformingString().apply(dec_));
+        _tr.getTabs().add(te_);
+        _tr.getEditors().addIntTab(name_, te_.getPanel(), _path);
+    }
+
+    static String lineSeparator(String _content) {
+        int len_ = _content.length();
+        for (int i = 0; i < len_; i++) {
+            char cur_ = _content.charAt(i);
+            if (cur_ == '\r') {
+                if (i + 1 < _content.length() && _content.charAt(i+1) == '\n') {
+                    return "\r\n";
+                }
+                return "\r";
+            }
+        }
+        return "\n";
+    }
+
+    int indexOpened(String _str) {
+        int opened_ = -1;
+        int s_ = getTabs().size();
+        for (int i = 0; i < s_; i++) {
+            if (StringUtil.quickEq(getTabs().get(i).getFullPath(), _str)) {
+                opened_ = i;
+                break;
+            }
+        }
+        return opened_;
+    }
+
+    static void refreshList(AbstractMutableTreeNode _sel, String _folderToVisit, AbstractProgramInfos _factories) {
+        FileListInfo files_ = PathsUtil.abs(_factories.getFileCoreStream().newFile(_folderToVisit), _factories.getFileCoreStream());
+        CustList<AbstractFile> currentFolders_ = new CustList<AbstractFile>();
+        CustList<AbstractFile> currentFiles_ = new CustList<AbstractFile>();
+        for (AbstractFile f : files_.getNames()) {
+            if (DefaultFileSystem.dir(f)) {
+                currentFolders_.add(f);
+            }
+        }
+        currentFolders_.sortElts(new FileNameComparator());
+        for (AbstractFile f : files_.getNames()) {
+            if (DefaultFileSystem.file(f)) {
+                currentFiles_.add(f);
+            }
+        }
+        currentFiles_.sortElts(new FileNameComparator());
+        for (AbstractFile f : currentFolders_) {
+            _sel.add(f.getName()+"/");
+        }
+        for (AbstractFile f : currentFiles_) {
+            _sel.add(f.getName());
+        }
+    }
+
+    static String buildPath(AbstractMutableTreeNode _treePath) {
+        StringList pathFull_ = new StringList();
+        AbstractMutableTreeNode current_ = _treePath;
+        while (current_ != null) {
+            pathFull_.add(0,current_.getUserObject());
+            current_ = (AbstractMutableTreeNode) current_.getParent();
+        }
+        StringUtil.removeObj(pathFull_, "");
+        return StringUtil.join(pathFull_,"");
+    }
+
+    void refresh(AbstractMutableTreeNode _sel, String _str) {
+        AbstractProgramInfos frs_ = getCommonFrame().getFrames();
+        AbstractMutableTreeNode r_ = getTree().getRoot();
+        AbstractMutableTreeNode adj_ = _sel;
+        String adjPath_ = _str;
+        while (adj_ != r_) {
+            String candidate_ = buildPath(adj_);
+            AbstractFile file_ = frs_.getFileCoreStream().newFile(candidate_);
+            if (file_.exists()) {
+                adjPath_ = candidate_;
+                if (adj_ != _sel) {
+                    getTree().select(adj_);
+                    return;
+                }
+                break;
+            }
+            closeIfOpened(candidate_);
+            adj_ = (AbstractMutableTreeNode) adj_.getParent();
+        }
+        refParent(adj_, adjPath_);
+    }
+
+    void refParent(AbstractMutableTreeNode _parent, String _parentPath) {
+        _parent.removeAllChildren();
+        refreshList(_parent, _parentPath, getCommonFrame().getFrames());
+        MutableTreeNodeUtil.reload(getTree());
+    }
+
+    void closeIfOpened(String _path) {
+        int opened_ = indexOpened(_path);
+        if (opened_ > -1) {
+            getEditors().selectIndex(opened_);
+            new CloseTabEditorEvent(getTabs().get(opened_)).action();
+        }
+    }
+
     public void initTree(String _acc) {
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbstractMutableTreeNode default_ = frs_.getCompoFactory().newMutableTreeNode(_acc+"/");
         folderSystem = frs_.getCompoFactory().newTreeGui(default_);
         folderSystem.select(folderSystem.getRoot());
-        WindowCdmEditor.refreshList(folderSystem.selectEvt(),_acc, getCommonFrame().getFrames());
+        refreshList(folderSystem.selectEvt(),_acc, getCommonFrame().getFrames());
         folderSystem.addTreeSelectionListener(new ShowSrcTreeEvent(this));
         refreshNode = frs_.getCompoFactory().wrap(new RefreshTreeAction(this));
         folderSystem.registerKeyboardAction(refreshNode, GuiConstants.VK_F5, GuiConstants.CTRL_DOWN_MASK);
@@ -136,7 +277,7 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     }
 
     public void fileOrFolder() {
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        String str_ = buildPath(selectedNode);
         AbstractProgramInfos frs_ = commonFrame.getFrames();
         AbstractFile currentFolder_ = frs_.getFileCoreStream().newFile(str_);
         if (!currentFolder_.isDirectory()) {
@@ -153,14 +294,17 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
         } else {
             StreamFolderFile.makeParent(elt_,frs_.getFileCoreStream());
             StreamTextFile.saveTextFile(elt_,"",frs_.getStreams());
-            WindowCdmEditor.notifyDoc(this,elt_);
-            WindowCdmEditor.addTab(this,elt_,new BytesInfo(new byte[0],false));
+            notifyDoc(elt_);
+            addTab(this,elt_,new BytesInfo(new byte[0],false));
             editors.selectIndex(tabs.getLastIndex());
         }
-        WindowCdmEditor.applyTreeChangeSelected(this,false);
+        applyTreeChangeSelected(false);
         clearTreeDialog();
     }
 
+    public CdmParameterSoftModel softParams() {
+        return getMainFrame().getSoftParams();
+    }
     public void updateDoc() {
         updateDoc(getMainFrame());
     }
@@ -173,7 +317,7 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
 
     void showRenaming() {
         changeEnable(false);
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        String str_ = buildPath(selectedNode);
         scrollDialog.setVisible(true);
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
@@ -193,14 +337,14 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
 
     void renameValidate() {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        String str_ = buildPath(selectedNode);
         AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
-        String dest_ = WindowCdmEditor.buildPath(par_)+targetName.getText();
+        String dest_ = buildPath(par_)+targetName.getText();
         if (!frs_.getFileCoreStream().newFile(str_).renameTo(frs_.getFileCoreStream().newFile(dest_))){
             clearTreeDialog();
             return;
         }
-        int opened_ = WindowCdmEditor.indexOpened(this,str_);
+        int opened_ = indexOpened(str_);
         String parentPath_ = dest_.substring(0,dest_.lastIndexOf('/')+1);
         String name_ = dest_.substring(dest_.lastIndexOf('/')+1);
         if (opened_ > -1) {
@@ -209,7 +353,7 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
             getTabs().get(opened_).setFullPath(dest_);
         }
         par_.remove(selectedNode);
-        WindowCdmEditor.refParent(this,par_,parentPath_);
+        refParent(par_,parentPath_);
         for (AbstractMutableTreeNodeCore c: MutableTreeNodeCoreUtil.children(par_)) {
             if (StringUtil.quickEq(name_,((AbstractMutableTreeNode)c).getUserObject())) {
                 folderSystem.select(c);
@@ -220,7 +364,7 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
 
     void showRemoving() {
         changeEnable(false);
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        String str_ = buildPath(selectedNode);
         scrollDialog.setVisible(true);
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         AbsCompoFactory c_ = frs_.getCompoFactory();
@@ -237,13 +381,13 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     }
     void removeValidate() {
         AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String str_ = WindowCdmEditor.buildPath(selectedNode);
+        String str_ = buildPath(selectedNode);
         AbstractMutableTreeNode par_ = (AbstractMutableTreeNode) selectedNode.getParent();
         if (!frs_.getFileCoreStream().newFile(str_).delete()){
             clearTreeDialog();
             return;
         }
-        int opened_ = WindowCdmEditor.indexOpened(this,str_);
+        int opened_ = indexOpened(str_);
         if (opened_ > -1) {
             getEditors().remove(opened_);
             getTabs().remove(opened_);
@@ -492,5 +636,12 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     public AbsPanel getPanel() {
         return panel;
     }
+    public abstract AbsTreeGui getTree();
+    public abstract void changeEnable(AbstractMutableTreeNode _en);
+    public abstract String pathToSrc();
+
+    public abstract WindowCdmEditor getMainFrame();
+
+    public abstract StringList openedFiles();
     public abstract void saveConf();
 }

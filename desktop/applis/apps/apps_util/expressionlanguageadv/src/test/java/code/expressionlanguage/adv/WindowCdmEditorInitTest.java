@@ -569,7 +569,7 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
     public void noSelectTree() {
         WindowCdmEditor w_=newWindowLoadDef();
         w_.getFolderSystem().select(null);
-        assertFalse(WindowCdmEditor.applyTreeChangeSelected(w_,true));
+        assertFalse(w_.applyTreeChangeSelected(true));
     }
     @Test
     public void quit1() {
