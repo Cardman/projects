@@ -56,6 +56,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final GraphicComboGrInt chosenLanguage;
     private CdmParameterSoftModel softParams;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
+    private String confGlobal="";
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_lg, _list, _fact);
@@ -117,6 +118,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         updateEnv(getTempDefConf(getCommonFrame().getFrames()));
     }
     public void updateEnv(String _fileConf) {
+        confGlobal = _fileConf;
         closeAllSubs();
         AbstractProgramInfos frs_ = getCommonFrame().getFrames();
         String contentConf_ = StringUtil.nullToEmpty(StreamTextFile.contentsOfFile(_fileConf, frs_.getFileCoreStream(), frs_.getStreams()));
@@ -653,7 +655,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         return expressionEditors;
     }
 
-//    @Override
+    public String getConfGlobal() {
+        return confGlobal;
+    }
+    //    @Override
 //    public boolean canChangeLanguage() {
 //        return false;
 //    }

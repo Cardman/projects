@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.initialize.AbstractProgramInfos;
 import code.stream.BytesInfo;
@@ -35,7 +34,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
             return;
         }
         chgManagement(true);
-        setManageOptions(new ManageOptions(getCommonFrame().getFrames().getLanguages(), mainFrame.getSoftParams().getLines(), mainFrame.getFactory(), getCommonFrame().getFrames().getThreadFactory()));
+        setManageOptions(manage(mainFrame.getSoftParams().getLines()));
         String acc_ = mainFrame.getFolderExpression();
         getPanel().removeAll();
         initTree(acc_);
@@ -61,6 +60,13 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         getCommonFrame().setContentPane(getPanel());
         getCommonFrame().pack();
         getCommonFrame().setVisible(true);
+    }
+
+    @Override
+    public void saveConf() {
+        WindowCdmEditor m_ = getMainFrame();
+        m_.getSoftParams().setLines(WindowCdmEditor.linesConf(getManageOptions()));
+        updateDoc(m_);
     }
 
     public AbsMenuItem getMenu() {

@@ -158,10 +158,15 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     }
 
     public void updateDoc() {
-        AbstractProgramInfos frs_ = commonFrame.getFrames();
-        String contentConf_ = getMainFrame().buildDefConfFile();
-        StreamTextFile.saveTextFile(WindowCdmEditor.getTempDefConf(frs_), contentConf_, frs_.getStreams());
+        updateDoc(getMainFrame());
     }
+
+    static void updateDoc(WindowCdmEditor _m) {
+        AbstractProgramInfos frs_ = _m.getCommonFrame().getFrames();
+        String contentConf_ = _m.buildDefConfFile();
+        StreamTextFile.saveTextFile(_m.getConfGlobal(), contentConf_, frs_.getStreams());
+    }
+
     void showRenaming() {
         changeEnable(false);
         String str_ = WindowCdmEditor.buildPath(selectedNode);
@@ -252,7 +257,7 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     }
 
     public void afterChangingSyntaxPreferences() {
-        getMainFrame().saveConf();
+        saveConf();
         updateCurrentTab();
     }
 
@@ -470,4 +475,5 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     public AbsPanel getPanel() {
         return panel;
     }
+    public abstract void saveConf();
 }

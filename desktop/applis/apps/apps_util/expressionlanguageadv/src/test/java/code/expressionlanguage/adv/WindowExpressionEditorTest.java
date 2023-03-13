@@ -1,10 +1,12 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.mock.MockMenuItem;
 import code.mock.MockPlainButton;
 import code.mock.MockWindow;
 import code.stream.StreamTextFile;
 import code.util.CustList;
+import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
@@ -113,5 +115,26 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
         WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
         s_.getTree().select(null);
         assertEq(1,s_.getTabs().size());
+    }
+    @Test
+    public void lg() {
+        WindowCdmEditor w_=newWindowLoadDefExpFolder("/folder/exp");
+        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
+        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
+        assertEq("/folder/exp",((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getFolderExp());
+        ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
+        ((MockMenuItem)w_.getExpressionEditors().get(0).getLanguageMenu()).getActionListeners().get(0).action();
+        w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getChosenLanguage().selectItem(StringUtil.indexOf(w_.getCommonFrame().getFrames().getLanguages(),"fr"));
+        ((MockPlainButton)w_.getExpressionEditors().get(0).getLanguageFrames().get(0).getVal()).getActionListeners().get(0).action();
+        WindowCdmEditor w2_=newWindowLoadDefExpFolder("/folder/exp");
+        String name_ = w_.getConfGlobal();
+        String name2_ = w_.getExecConf();
+        StreamTextFile.saveTextFile(name_,StreamTextFile.contentsOfFile(name_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
+        StreamTextFile.saveTextFile(name2_,StreamTextFile.contentsOfFile(name2_,w_.getCommonFrame().getFrames().getFileCoreStream(),w_.getCommonFrame().getFrames().getStreams()),w2_.getCommonFrame().getFrames().getStreams());
+        w2_.updateEnv(name_);
+        assertEq("fr",w2_.manage(w2_.getSoftParams().getLines()).getEx().getLg());
+        assertEq("en",w2_.manage(ExecutingOptions.lines(StreamTextFile.contentsOfFile(w2_.getExecConf(),w2_.getCommonFrame().getFrames().getFileCoreStream(),w2_.getCommonFrame().getFrames().getStreams()))).getEx().getLg());
     }
 }
