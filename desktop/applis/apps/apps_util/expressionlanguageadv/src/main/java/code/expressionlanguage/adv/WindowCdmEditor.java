@@ -73,6 +73,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         chooseFile = getCommonFrame().getFrames().getCompoFactory().newMenuItem("open");
         chooseFile.addActionListener(new ChooseInitialFile(this));
         file_.addMenuItem(chooseFile);
+        file_.addMenuItem(getSrcMenu());
         file_.addMenuItem(getCreate());
         file_.addMenuItem(getDelete());
         AbsMenu menu_ = getParameters();

@@ -236,6 +236,15 @@ public abstract class EquallableElAdvUtil {
         MockProgramInfos pr_ = newMockProgramInfosInitConfAliasesKeywords();
         return windowLoadDef(pr_);
     }
+
+    public static WindowExpressionEditor geneSec(WindowCdmEditor _w) {
+        _w.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
+        StreamTextFile.saveTextFile("/folder/exp/file.txt","", _w.getCommonFrame().getFrames().getStreams());
+        ((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0).action();
+        ((MockPlainButton)((FolderForExpression)((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
+        ((MockPlainButton)((FolderForExpression)((MockMenuItem) _w.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
+        return _w.getExpressionEditors().get(0);
+    }
     public static MockProgramInfos newMockProgramInfosInitConf() {
         MockProgramInfos pr_ = new MockProgramInfos("", "", new MockEventListIncr(new CustomSeedGene(dbs(0.75)), new int[0], new String[0], new TextAnswerValue[]{new TextAnswerValue(GuiConstants.YES_OPTION,"file.txt")}), new MockFileSet(0, new long[1], new String[]{"/"}));
         String current_ = "/editor/conf.xml";
@@ -533,6 +542,13 @@ public abstract class EquallableElAdvUtil {
         ev_.action();
         return _w.getAliasesFrames().last();
     }
+
+    protected static OutputDialogSrc srcFolder(WindowWithTreeImpl _w) {
+        ChangeSrcEvent ev_ = (ChangeSrcEvent) ((MockMenuItem) _w.getSrcMenu()).getActionListeners().get(0);
+        ev_.action();
+        return _w.getSrcFrames().last();
+    }
+
     protected static OutputDialogTab tabulations(WindowCdmEditor _w) {
         ChangeTabulationsEvent ev_ = (ChangeTabulationsEvent) ((MockMenuItem) _w.getTabulationsMenu()).getActionListeners().get(0);
         ev_.action();

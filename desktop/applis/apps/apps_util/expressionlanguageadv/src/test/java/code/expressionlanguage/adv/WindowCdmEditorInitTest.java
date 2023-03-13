@@ -1,18 +1,14 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
-import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
 import code.gui.images.MetaDimension;
 import code.mock.*;
 import code.sml.Document;
 import code.sml.DocumentBuilder;
 import code.sml.Element;
-import code.stream.StreamFolderFile;
-import code.stream.StreamTextFile;
 import code.util.CustList;
 import code.util.StringList;
-import code.util.core.StringUtil;
 import org.junit.Test;
 
 public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
@@ -597,10 +593,12 @@ public final class WindowCdmEditorInitTest extends EquallableElAdvUtil {
         ((MockMenuItem)w_.getAliasesMenu()).getActionListeners().get(0).action();
         ((MockMenuItem)w_.getCommentsMenu()).getActionListeners().get(0).action();
         ((MockMenuItem)w_.getTabulationsMenu()).getActionListeners().get(0).action();
+        ((MockMenuItem)w_.getSrcMenu()).getActionListeners().get(0).action();
         w_.quit();
         assertFalse(w_.getLanguageFrames().get(0).getFrame().isVisible());
         assertFalse(w_.getAliasesFrames().get(0).getFrame().isVisible());
         assertFalse(w_.getCommentsFrames().get(0).getFrame().isVisible());
         assertFalse(w_.getTabulationsFrames().get(0).getFrame().isVisible());
+        assertFalse(w_.getSrcFrames().get(0).getFrame().isVisible());
     }
 }

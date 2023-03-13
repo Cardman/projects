@@ -24,16 +24,12 @@ public final class WindowExpressionEditorTest extends EquallableElAdvUtil {
     @Test
     public void init2() {
         WindowCdmEditor w_=newWindowLoadDefExpFolder("/folder/exp");
-        w_.getCommonFrame().getFrames().getFileCoreStream().newFile("/folder/exp").mkdirs();
-        StreamTextFile.saveTextFile("/folder/exp/file.txt","",w_.getCommonFrame().getFrames().getStreams());
-        ((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0).action();
-        ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getChooseFolder()).getActionListeners().get(0).action();
-        ((MockPlainButton)((FolderForExpression)((MockMenuItem)w_.getFolderExpressionMenu()).getActionListeners().get(0)).getDialogExpresion().getCreateEnv()).getActionListeners().get(0).action();
-        WindowExpressionEditor s_ = w_.getExpressionEditors().get(0);
+        WindowExpressionEditor s_ = geneSec(w_);
         s_.getTree().select(s_.getTree().getRoot());
         s_.getTree().select(s_.getTree().getRoot().getFirstChild());
         assertEq(1,s_.getTabs().size());
     }
+
     @Test
     public void init3() {
         WindowCdmEditor w_=newWindowLoadDefExpFolderAlready("/folder/exp","file.txt");

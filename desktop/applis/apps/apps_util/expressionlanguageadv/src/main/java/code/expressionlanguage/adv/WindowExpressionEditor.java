@@ -19,6 +19,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
         AbsMenuBar bar_ = frames_.getCompoFactory().newMenuBar();
         AbsMenu file_ = frames_.getCompoFactory().newMenu("file");
         bar_.add(file_);
+        file_.addMenuItem(getSrcMenu());
         file_.addMenuItem(getCreate());
         file_.addMenuItem(getDelete());
         AbsMenu menu_ = getParameters();

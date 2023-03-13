@@ -28,10 +28,12 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     private final CustList<OutputDialogTab> tabulationsFrames = new CustList<OutputDialogTab>();
     private final CustList<OutputDialogLanguage> languageFrames = new CustList<OutputDialogLanguage>();
     private final CustList<OutputDialogAliases> aliasesFrames = new CustList<OutputDialogAliases>();
+    private final CustList<OutputDialogSrc> srcFrames = new CustList<OutputDialogSrc>();
     private final AbsMenuItem commentsMenu;
     private final AbsMenuItem aliasesMenu;
     private final AbsCommonFrame commonFrame;
     private final AbsPanel panel;
+    private final AbsMenuItem srcMenu;
     private final AbsMenuItem create;
     private final AbsMenuItem delete;
     private final CustList<TabEditor> tabs = new CustList<TabEditor>();
@@ -51,6 +53,8 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
         AbsMenuBar bar_ = _list.getCompoFactory().newMenuBar();
         AbsMenu file_ = _list.getCompoFactory().newMenu("file");
         bar_.add(file_);
+        srcMenu = commonFrame.getFrames().getCompoFactory().newMenuItem("inputs output conf");
+        srcMenu.addActionListener(new ChangeSrcEvent(this, srcMenu));
         create = commonFrame.getFrames().getCompoFactory().newMenuItem("new");
         create.addActionListener(new AddNewTreeFileNode(this));
         create.setAccelerator(GuiConstants.VK_N,GuiConstants.CTRL_DOWN_MASK);
@@ -299,6 +303,10 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
             w.getFrame().setVisible(false);
             w.getMenu().setEnabled(isEditing());
         }
+        for (OutputDialogSrc w: getSrcFrames()) {
+            w.getFrame().setVisible(false);
+            w.getMenu().setEnabled(isEditing());
+        }
         for (OutputDialogComments w: getCommentsFrames()) {
             w.getFrame().setVisible(false);
             w.getMenu().setEnabled(isEditing());
@@ -306,6 +314,7 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     }
     public void chgManagement(boolean _en) {
         editing = _en;
+        srcMenu.setEnabled(_en);
         tabulationsMenu.setEnabled(_en);
         commentsMenu.setEnabled(_en);
         aliasesMenu.setEnabled(_en);
@@ -359,6 +368,10 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
 
     public CustList<OutputDialogAliases> getAliasesFrames() {
         return aliasesFrames;
+    }
+
+    public CustList<OutputDialogSrc> getSrcFrames() {
+        return srcFrames;
     }
 
     public CdmFactory getFactory() {
@@ -451,6 +464,10 @@ public abstract class WindowWithTreeImpl implements WindowWithTree {
     public void setComments(CustList<CommentDelimiters> _c) {
         manageOptions.getOptions().getComments().clear();
         manageOptions.getOptions().getComments().addAllElts(_c);
+    }
+
+    public AbsMenuItem getSrcMenu() {
+        return srcMenu;
     }
 
     public int getTabWidth() {
