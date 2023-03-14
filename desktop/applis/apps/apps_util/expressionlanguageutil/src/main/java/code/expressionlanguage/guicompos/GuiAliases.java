@@ -243,7 +243,7 @@ public final class GuiAliases {
     private static final String ADD_WINDOW_LISTENER="_____1269";
     private static final String REMOVE_WINDOW_LISTENER="_____1270";
     private static final String GET_WINDOW_LISTENERS="_____1271";
-    private static final String DISPOSE="___________2135Window=___________2136";
+    private static final String DISPOSE="___________2135";
     private static final String WINDOW_TYPE_RELATIVE="__919";
     private static final String IS_VISIBLE="__920";
     private static final String SET_VISIBLE="__921";

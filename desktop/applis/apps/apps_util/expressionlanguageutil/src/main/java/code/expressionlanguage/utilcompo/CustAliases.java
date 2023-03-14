@@ -408,10 +408,10 @@ public final class CustAliases {
     public static final String RESOURCES_LG_COLLECTIONS_TABLE_TXT = "resources_lg/collections/table.txt";
     public static final String RESOURCES_LG_TESTS_RUN_TXT = "resources_lg/tests/run.txt";
     public static final String RESOURCES_LG_THREADS_FORMATTING_TXT = "resources_lg/threads/formatting.txt";
-    public static final String RESOURCES_LG_ALIASES = "resources_lg/aliases";
+//    public static final String RESOURCES_LG_ALIASES = "resources_lg/aliases";
 //    public static final String FILE_MESSAGES = "messages";
 //    public static final String FILE_KEYWORDS = "keywords";
-    public static final String FILE_TYPES = "types";
+//    public static final String FILE_TYPES = "types";
 
     private static final String THREAD="3";
     private static final String THREAD_SET="________1814";
@@ -620,6 +620,10 @@ public final class CustAliases {
     private static final String ITER_TA_VAR_SECOND="782";
     private static final String PAIR_VAR_FIRST="783";
     private static final String PAIR_VAR_SECOND="784";
+    private static final String ABS_STRING_VIEW="____________2136";
+    private static final String ABS_STRING_VIEW_INDEX="____________2137";
+    private static final String ABS_STRING_REPLACER="____________2140";
+    private static final String ABS_STRING_REPLACER_REPLACE="____________2141";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -843,6 +847,11 @@ public final class CustAliases {
     private String aliasRateParse;
     private String aliasRateDen;
     private String aliasRateNum;
+
+    private String aliasAbsStringView;
+    private String aliasAbsStringViewIndex;
+    private String aliasAbsStringReplacer;
+    private String aliasAbsStringReplacerReplace;
 
     private String aliasConcurrentError;
     private final StringMap<String> properties = MessCdmBaseGr.ms();
@@ -1980,6 +1989,8 @@ public final class CustAliases {
         map_.put(METHOD_FORMAT,charSeq_.getAliasFormat());
         content_ = StringUtil.formatQuote(content_, map_);
         stds_.put(aliasFormatType, content_);
+        stds_.put(aliasAbsStringView,buildStringView(_keyWords, _content));
+        stds_.put(aliasAbsStringReplacer,buildStringReplacer(_keyWords, _content));
         return stds_;
     }
     private static void placeHolder(StringMap<String> _map, String _va, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
@@ -1988,6 +1999,21 @@ public final class CustAliases {
     private static String wrap(String _element) {
         return '{'+_element+'}';
     }
+
+    private String buildStringView(KeyWords _keyWords, LgNamesContent _content) {
+        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringView+"{";
+        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasAbsStringViewIndex+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringView0Index0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringView0Index1()+");";
+        result_+="}";
+        return result_;
+    }
+
+    private String buildStringReplacer(KeyWords _keyWords, LgNamesContent _content) {
+        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringReplacer+":"+aliasAbsStringView+"{";
+        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getCharSeq().getAliasString()+" "+aliasAbsStringReplacerReplace+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace1()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace2()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace3()+");";
+        result_+="}";
+        return result_;
+    }
+
     public void messages(AnalysisMessages _mess, StringMap<String> _cust) {
         messages(_mess, defMessages(getUserLg(), getTranslations(), getLanguage()),_cust);
     }
@@ -2268,6 +2294,10 @@ public final class CustAliases {
         setAliasAfter(LgNamesContent.get(_util,_cust,_mapping.getVal(AFTER)));
         setAliasSizeTa(LgNamesContent.get(_util,_cust,_mapping.getVal(SIZE_TA)));
         setAliasAssert(LgNamesContent.get(_util,_cust,_mapping.getVal(ASSERT)));
+        setAliasAbsStringView(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_VIEW)));
+        setAliasAbsStringViewIndex(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_VIEW_INDEX)));
+        setAliasAbsStringReplacer(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_REPLACER)));
+        setAliasAbsStringReplacerReplace(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_REPLACER_REPLACE)));
         custAliasParameters.build(_util,_cust,_mapping);
     }
     public static TranslationsFile en() {
@@ -2484,6 +2514,10 @@ public final class CustAliases {
         _en.add(ITER_TA_VAR_SECOND,"IterTaVarSecond=U");
         _en.add(PAIR_VAR_FIRST,"PairVarFirst=T");
         _en.add(PAIR_VAR_SECOND,"PairVarSecond=U");
+        _en.add(ABS_STRING_VIEW,"AbsStringView=$core.AbsStringView");
+        _en.add(ABS_STRING_VIEW_INDEX,"AbsStringViewIndex=index");
+        _en.add(ABS_STRING_REPLACER,"AbsStringReplacer=$core.AbsStringReplacer");
+        _en.add(ABS_STRING_REPLACER_REPLACE,"AbsStringReplacerReplace=replace");
         CustAliasParameters.en(_en);
     }
     public static TranslationsFile fr() {
@@ -2700,6 +2734,10 @@ public final class CustAliases {
         _fr.add(ITER_TA_VAR_SECOND,"IterTaVarSecond=U");
         _fr.add(PAIR_VAR_FIRST,"PairVarFirst=T");
         _fr.add(PAIR_VAR_SECOND,"PairVarSecond=U");
+        _fr.add(ABS_STRING_VIEW,"AbsStringView=$coeur.AbsChaineVue");
+        _fr.add(ABS_STRING_VIEW_INDEX,"AbsStringViewIndex=indice");
+        _fr.add(ABS_STRING_REPLACER,"AbsStringReplacer=$coeur.AbsChaineRemplacement");
+        _fr.add(ABS_STRING_REPLACER_REPLACE,"AbsStringReplacerReplace=remplace");
         CustAliasParameters.fr(_fr);
     }
 
@@ -2989,6 +3027,12 @@ public final class CustAliases {
         ));
         m_.addEntry(getAliasEltDifference(), new CustList<KeyValueMemberName>(
         ));
+        m_.addEntry(getAliasAbsStringView(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_STRING_VIEW_INDEX),getAliasAbsStringViewIndex())
+        ));
+        m_.addEntry(getAliasAbsStringReplacer(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(ABS_STRING_REPLACER),getAliasAbsStringReplacerReplace())
+        ));
         return m_;
     }
     public static CustList<KeyValueMemberName> merge(StringMap<CustList<KeyValueMemberName>> _methods, String _key, KeyValueMemberName..._values) {
@@ -3039,6 +3083,8 @@ public final class CustAliases {
         ref_.addEntry(_mapping.getVal(ENTRY_TEXT),getAliasEntryText());
         ref_.addEntry(_mapping.getVal(ENTRY_STRING_OBJECT),getAliasEntryStringObject());
         ref_.addEntry(_mapping.getVal(TABLE_STRING_OBJECT),getAliasTableStringObject());
+        ref_.addEntry(_mapping.getVal(ABS_STRING_VIEW),getAliasAbsStringView());
+        ref_.addEntry(_mapping.getVal(ABS_STRING_REPLACER),getAliasAbsStringReplacer());
         return ref_;
     }
 
@@ -4753,6 +4799,38 @@ public final class CustAliases {
 
     public void setAliasConcurrentError(String _aliasConcurrentError) {
         aliasConcurrentError = _aliasConcurrentError;
+    }
+
+    public String getAliasAbsStringView() {
+        return aliasAbsStringView;
+    }
+
+    public void setAliasAbsStringView(String _v) {
+        this.aliasAbsStringView = _v;
+    }
+
+    public String getAliasAbsStringViewIndex() {
+        return aliasAbsStringViewIndex;
+    }
+
+    public void setAliasAbsStringViewIndex(String _v) {
+        this.aliasAbsStringViewIndex = _v;
+    }
+
+    public String getAliasAbsStringReplacer() {
+        return aliasAbsStringReplacer;
+    }
+
+    public void setAliasAbsStringReplacer(String _v) {
+        this.aliasAbsStringReplacer = _v;
+    }
+
+    public String getAliasAbsStringReplacerReplace() {
+        return aliasAbsStringReplacerReplace;
+    }
+
+    public void setAliasAbsStringReplacerReplace(String _v) {
+        this.aliasAbsStringReplacerReplace = _v;
     }
 
     public FileInfos getInfos() {
