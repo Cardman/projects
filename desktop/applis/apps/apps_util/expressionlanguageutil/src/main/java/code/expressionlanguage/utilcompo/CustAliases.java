@@ -2023,7 +2023,7 @@ public final class CustAliases {
     }
 
     private String buildStringSegment(KeyWords _keyWords, LgNamesContent _content) {
-        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordClass()+" "+aliasStringSegment+"{\n";
+        String result_ = _keyWords.getKeyWordPublic()+" @"+_keyWords.getKeyWordInterface()+" "+aliasStringSegment+"{\n";
         result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentBegin+";\n";
         result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentEnd+";\n";
         result_+="}";
