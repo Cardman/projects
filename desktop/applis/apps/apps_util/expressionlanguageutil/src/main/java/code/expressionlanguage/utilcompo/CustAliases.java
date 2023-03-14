@@ -624,6 +624,9 @@ public final class CustAliases {
     private static final String ABS_STRING_VIEW_INDEX="____________2137";
     private static final String ABS_STRING_REPLACER="____________2140";
     private static final String ABS_STRING_REPLACER_REPLACE="____________2141";
+    private static final String STRING_SEGMENT="____________2146";
+    private static final String STRING_SEGMENT_BEGIN="____________2147";
+    private static final String STRING_SEGMENT_END="____________2148";
     private String aliasRunnable;
     private String aliasThreadSet;
     private String aliasThreadSetAll;
@@ -852,6 +855,10 @@ public final class CustAliases {
     private String aliasAbsStringViewIndex;
     private String aliasAbsStringReplacer;
     private String aliasAbsStringReplacerReplace;
+
+    private String aliasStringSegment;
+    private String aliasStringSegmentBegin;
+    private String aliasStringSegmentEnd;
 
     private String aliasConcurrentError;
     private final StringMap<String> properties = MessCdmBaseGr.ms();
@@ -1991,6 +1998,7 @@ public final class CustAliases {
         stds_.put(aliasFormatType, content_);
         stds_.put(aliasAbsStringView,buildStringView(_keyWords, _content));
         stds_.put(aliasAbsStringReplacer,buildStringReplacer(_keyWords, _content));
+        stds_.put(aliasStringSegment,buildStringSegment(_keyWords, _content));
         return stds_;
     }
     private static void placeHolder(StringMap<String> _map, String _va, KeyWords _keyWords, StringMap<PrimitiveType> _primitiveTypes, AliasCore _coreNames, String... _args) {
@@ -2002,7 +2010,7 @@ public final class CustAliases {
 
     private String buildStringView(KeyWords _keyWords, LgNamesContent _content) {
         String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringView+"{";
-        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasAbsStringViewIndex+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringView0Index0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringView0Index1()+");";
+        result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+aliasStringSegment+" "+aliasAbsStringViewIndex+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringView0Index0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringView0Index1()+");";
         result_+="}";
         return result_;
     }
@@ -2010,6 +2018,14 @@ public final class CustAliases {
     private String buildStringReplacer(KeyWords _keyWords, LgNamesContent _content) {
         String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordInterface()+" "+aliasAbsStringReplacer+":"+aliasAbsStringView+"{";
         result_+=_keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordAbstract()+" "+_content.getCharSeq().getAliasString()+" "+aliasAbsStringReplacerReplace+"("+_content.getCharSeq().getAliasString()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace0()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace1()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace2()+","+_content.getPrimTypes().getAliasPrimInteger()+" "+custAliasParameters.getAliasAbsStringReplacer0Replace3()+");";
+        result_+="}";
+        return result_;
+    }
+
+    private String buildStringSegment(KeyWords _keyWords, LgNamesContent _content) {
+        String result_ = _keyWords.getKeyWordPublic()+" "+_keyWords.getKeyWordClass()+" "+aliasStringSegment+"{\n";
+        result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentBegin+";\n";
+        result_+=_keyWords.getKeyWordPublic()+" "+_content.getPrimTypes().getAliasPrimInteger()+" "+aliasStringSegmentEnd+";\n";
         result_+="}";
         return result_;
     }
@@ -2298,6 +2314,9 @@ public final class CustAliases {
         setAliasAbsStringViewIndex(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_VIEW_INDEX)));
         setAliasAbsStringReplacer(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_REPLACER)));
         setAliasAbsStringReplacerReplace(LgNamesContent.get(_util,_cust,_mapping.getVal(ABS_STRING_REPLACER_REPLACE)));
+        setAliasStringSegment(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_SEGMENT)));
+        setAliasStringSegmentBegin(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_SEGMENT_BEGIN)));
+        setAliasStringSegmentEnd(LgNamesContent.get(_util,_cust,_mapping.getVal(STRING_SEGMENT_END)));
         custAliasParameters.build(_util,_cust,_mapping);
     }
     public static TranslationsFile en() {
@@ -2518,6 +2537,9 @@ public final class CustAliases {
         _en.add(ABS_STRING_VIEW_INDEX,"AbsStringViewIndex=index");
         _en.add(ABS_STRING_REPLACER,"AbsStringReplacer=$core.AbsStringReplacer");
         _en.add(ABS_STRING_REPLACER_REPLACE,"AbsStringReplacerReplace=replace");
+        _en.add(STRING_SEGMENT,"StringSegment=$core.StringSegment");
+        _en.add(STRING_SEGMENT_BEGIN,"StringSegmentBegin=begin");
+        _en.add(STRING_SEGMENT_END,"StringSegmentEnd=end");
         CustAliasParameters.en(_en);
     }
     public static TranslationsFile fr() {
@@ -2738,6 +2760,9 @@ public final class CustAliases {
         _fr.add(ABS_STRING_VIEW_INDEX,"AbsStringViewIndex=indice");
         _fr.add(ABS_STRING_REPLACER,"AbsStringReplacer=$coeur.AbsChaineRemplacement");
         _fr.add(ABS_STRING_REPLACER_REPLACE,"AbsStringReplacerReplace=remplace");
+        _fr.add(STRING_SEGMENT,"StringSegment=$coeur.ChaineSegment");
+        _fr.add(STRING_SEGMENT_BEGIN,"StringSegmentBegin=debut");
+        _fr.add(STRING_SEGMENT_END,"StringSegmentEnd=fin");
         CustAliasParameters.fr(_fr);
     }
 
@@ -2826,6 +2851,10 @@ public final class CustAliases {
         ));
         f_.addEntry(getAliasTable(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(LIST_TA),getAliasListTa())
+        ));
+        f_.addEntry(getAliasStringSegment(), new CustList<KeyValueMemberName>(
+                new KeyValueMemberName(_mapping.getVal(STRING_SEGMENT_BEGIN),getAliasStringSegmentBegin()),
+                new KeyValueMemberName(_mapping.getVal(STRING_SEGMENT_END),getAliasStringSegmentEnd())
         ));
         return f_;
     }
@@ -3085,6 +3114,7 @@ public final class CustAliases {
         ref_.addEntry(_mapping.getVal(TABLE_STRING_OBJECT),getAliasTableStringObject());
         ref_.addEntry(_mapping.getVal(ABS_STRING_VIEW),getAliasAbsStringView());
         ref_.addEntry(_mapping.getVal(ABS_STRING_REPLACER),getAliasAbsStringReplacer());
+        ref_.addEntry(_mapping.getVal(STRING_SEGMENT),getAliasStringSegment());
         return ref_;
     }
 
@@ -4831,6 +4861,30 @@ public final class CustAliases {
 
     public void setAliasAbsStringReplacerReplace(String _v) {
         this.aliasAbsStringReplacerReplace = _v;
+    }
+
+    public String getAliasStringSegment() {
+        return aliasStringSegment;
+    }
+
+    public void setAliasStringSegment(String _v) {
+        this.aliasStringSegment = _v;
+    }
+
+    public String getAliasStringSegmentBegin() {
+        return aliasStringSegmentBegin;
+    }
+
+    public void setAliasStringSegmentBegin(String _v) {
+        this.aliasStringSegmentBegin = _v;
+    }
+
+    public String getAliasStringSegmentEnd() {
+        return aliasStringSegmentEnd;
+    }
+
+    public void setAliasStringSegmentEnd(String _v) {
+        this.aliasStringSegmentEnd = _v;
     }
 
     public FileInfos getInfos() {
