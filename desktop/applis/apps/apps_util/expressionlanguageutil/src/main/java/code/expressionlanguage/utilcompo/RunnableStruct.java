@@ -26,15 +26,15 @@ public final class RunnableStruct extends LaunchableStruct {
         invoke(this,r_, ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunnableType(), ((LgNamesWithNewAliases) r_.getStandards()).getExecContent().getExecutingBlocks().getRunMethod(), new ArgumentListCall());
     }
 
-    public static void invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList) {
+    public static Struct invoke(Struct _instance, RunnableContextEl _r, ExecRootBlock _rootBlock, ExecNamedFunctionBlock _method, ArgumentListCall _argList) {
         String base_ = StringExpUtil.getIdFromAllTypes(_instance.getClassName(_r));
         ExecOverrideInfo mId_ = _rootBlock.getRedirections().getVal(_method,base_);
         if (mId_ == null) {
             _r.getCustInit().removeThreadFromList(_r);
-            return;
+            return NullStruct.NULL_VALUE;
         }
         Argument arg_ = new Argument(_instance);
-        RunnableStruct.invoke(arg_, mId_.getClassName(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList);
+        return ArgumentListCall.toStr(Argument.getNullableValue(RunnableStruct.invoke(arg_, mId_.getClassName(), _r, mId_.getPair(), StackCall.newInstance(InitPhase.NOTHING,_r), _argList)));
     }
     public static Argument invoke(Struct _global, ExecFormattedRootBlock _class, RunnableContextEl _cont, ExecTypeFunction _pair, StackCall _stackCall, ArgumentListCall _argList) {
         return invoke(new Argument(_global),_class,_cont,_pair,_stackCall,_argList);
