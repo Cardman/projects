@@ -5,11 +5,13 @@ import code.expressionlanguage.analyze.files.SegmentType;
 import code.expressionlanguage.analyze.files.StringComment;
 import code.expressionlanguage.common.NumParsers;
 import code.expressionlanguage.common.StringDataUtil;
+import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.AbsAttrSet;
 import code.gui.AbsTextField;
 import code.gui.AbsTextPane;
 import code.gui.GuiConstants;
 import code.gui.events.AbsActionListener;
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.core.StringUtil;
 
@@ -26,6 +28,7 @@ public final class FindAction implements AbsActionListener {
     public void action() {
         current.getNavModifPanel().setVisible(true);
         current.getReplacerPanel().setVisible(!readOnly);
+        current.getWindowSecEditor().getCommonFrame().pack();
         AbsTextPane editor_ = current.getCenter();
 //        editor_.setEditable(false);
         AbsTextField finder_ = current.getFinder();
@@ -39,23 +42,13 @@ public final class FindAction implements AbsActionListener {
 
     static void updateEditor(TabEditor _tab) {
         String find_ = StringUtil.nullToEmpty(_tab.getFinder().getText());
-        _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new ClearCharacterAttributes(_tab.getCenter()));
+        updateEditorStyle(_tab);
         String t_ = _tab.getCenter().getText();
-        syntax(_tab, t_);
-        _tab.getParts().clear();
         int index_ = 0;
         while (index_ >= 0) {
             index_ = segment(t_,find_,index_, _tab.getCaseSens().isSelected(), _tab.getWholeWord().isSelected(), _tab.getParts());
         }
-        int count_ = _tab.getParts().size();
-        for (int i = 0; i < count_; i++) {
-            SegmentFindPart seg_ = _tab.getParts().get(i);
-            AbsAttrSet as_ = _tab.getFactories().getCompoFactory().newAttrSet();
-            as_.addBackground(GuiConstants.GREEN);
-            as_.addForeground(GuiConstants.WHITE);
-            as_.addFontSize(12);
-            _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new SetCharacterAttributes(_tab.getCenter(), seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_));
-        }
+        int count_ = colors(_tab.getParts(), _tab.getFactories().getCompoFactory(), _tab.getCenter());
         _tab.setCurrentPart(partIndex(_tab.getCenter().getSelectionStart(), _tab.getParts()));
         _tab.getReplaceOne().setEnabled(count_ > 0);
         _tab.getReplaceAll().setEnabled(count_ > 0);
@@ -63,27 +56,40 @@ public final class FindAction implements AbsActionListener {
         _tab.getReplacePrevious().setEnabled(count_ > 0);
     }
 
+    static int colors(CustList<SegmentFindPart> _parts, AbsCompoFactory _compos, AbsTextPane _area) {
+        int count_ = _parts.size();
+        for (int i = 0; i < count_; i++) {
+            SegmentFindPart seg_ = _parts.get(i);
+            AbsAttrSet as_ = _compos.newAttrSet();
+            as_.addBackground(GuiConstants.GREEN);
+            as_.addForeground(GuiConstants.WHITE);
+            as_.addFontSize(12);
+            _compos.invokeNow(new SetCharacterAttributes(_area, seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_));
+        }
+        return count_;
+    }
+
     static void updateEditorStyle(TabEditor _tab) {
-        _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new ClearCharacterAttributes(_tab.getCenter()));
-        String t_ = _tab.getCenter().getText();
-        syntax(_tab,t_);
+        _tab.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(_tab.getCenter()));
+        syntax(_tab.getWindowSecEditor().getManageOptions(), _tab.getFactories().getCompoFactory(), _tab.getCenter());
         _tab.getParts().clear();
     }
 
-    private static void syntax(TabEditor _tab, String _text) {
-        StringComment sc_ = new StringComment(_text, _tab.getWindowSecEditor().getComments());
+    static void syntax(ManageOptions _manage, AbsCompoFactory _compos, AbsTextPane _area) {
+        String text_ = _area.getText();
+        StringComment sc_ = new StringComment(text_, _manage.getOptions().getComments());
         CustList<SegmentColorPart> segText_ = sc_.getSegmentColorParts();
         int partCount_ = segText_.size();
         for (int i = 0; i < partCount_; i++) {
             SegmentColorPart seg_ = segText_.get(i);
-            AbsAttrSet as_ = _tab.getFactories().getCompoFactory().newAttrSet();
+            AbsAttrSet as_ = _compos.newAttrSet();
             if (seg_.getType() == SegmentType.STRING) {
                 as_.addForeground(GuiConstants.GREEN);
             } else {
                 as_.addForeground(GuiConstants.GRAY);
             }
             as_.addFontSize(12);
-            _tab.getCommonFrame().getFrames().getCompoFactory().invokeNow(new SetCharacterAttributes(_tab.getCenter(), seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_));
+            _compos.invokeNow(new SetCharacterAttributes(_area, seg_.getBegin(), seg_.getEnd() - seg_.getBegin(),as_));
         }
     }
     static int partIndex(int _begin, CustList<SegmentFindPart> _parts) {

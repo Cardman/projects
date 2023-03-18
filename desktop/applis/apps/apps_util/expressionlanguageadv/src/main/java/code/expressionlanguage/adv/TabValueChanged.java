@@ -24,7 +24,7 @@ public final class TabValueChanged implements AbsChangeListener {
         AbsTextPane c_ = tab_.getCenter();
         int chWi_ = c_.stringWidth(c_.getMetaFont(),"#");
         int tabWidth_ = chWi_ * window.getTabWidth();
-        AbsCompoFactory compo_ = tab_.getCommonFrame().getFrames().getCompoFactory();
+        AbsCompoFactory compo_ = tab_.getFactories().getCompoFactory();
         AbsTabStops tabs_ = compo_.newAbsTabStops(TABS);
         for (int j = 0; j < tabs_.getLength(); j++) {
             tabs_.setTab(j, compo_.newAbsTabStop((j + 1) * tabWidth_));

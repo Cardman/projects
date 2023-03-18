@@ -15,6 +15,11 @@ public final class ChangeSoftParamsEvent implements AbsActionListener {
         window.getDialogSoft().setVisible(false);
         window.getSoftParams().setDirectMatchKeyValue(parameterSoftDialog.getCheck().isSelected());
         window.updateDoc();
+        for (WindowExpressionEditor s: window.getExpressionEditors()) {
+            for (OutputDialogAliases a: s.getAliasesFrames()) {
+                a.resetGui(window);
+            }
+        }
         for (OutputDialogAliases a: window.getAliasesFrames()) {
             a.resetGui(window);
         }

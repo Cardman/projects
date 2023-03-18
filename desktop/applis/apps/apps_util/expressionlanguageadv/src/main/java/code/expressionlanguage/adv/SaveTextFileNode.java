@@ -14,6 +14,6 @@ public final class SaveTextFileNode implements AbsActionListener {
     @Override
     public void action() {
         byte[] enc_ = StringUtil.encode(editor.getCenter().getText());
-        StreamBinaryFile.writeFile(editor.getFullPath(),enc_,editor.getCommonFrame().getFrames().getStreams());
+        StreamBinaryFile.writeFile(editor.getFullPath(),enc_,editor.getFactories().getStreams());
     }
 }

@@ -1,8 +1,11 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.analyze.files.CommentDelimiters;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilimpl.ManageOptions;
 import code.gui.*;
+import code.gui.events.AbsActionListener;
 import code.gui.initialize.AbstractProgramInfos;
 import code.maths.montecarlo.CustomSeedGene;
 import code.mock.*;
@@ -215,6 +218,69 @@ public abstract class EquallableElAdvUtil {
         TranslationsLg lg_ = new TranslationsLg();
         _pr.getTranslations().getMapping().addEntry(_key, lg_);
         return lg_;
+    }
+
+    protected static void analyze(WindowCdmEditor _w) {
+        AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
+        ev_.action();
+    }
+
+    protected static void analyzeStatus(WindowCdmEditor _w) {
+        AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenuSt()).getActionListeners().get(0);
+        ev_.action();
+    }
+    public static void refreshClasses(WindowCdmEditor _w) {
+        ((MockAbstractAction) GuiBaseUtil.getAction(tabEditor(_w).getCenter(), GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK)).action();
+        ((MockPlainButton)tabEditor(_w).getRefreshExpression()).getActionListeners().get(0).action();
+    }
+    public static void findExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getFindingExpression()).getActionListeners().get(0).action();
+    }
+    public static void findStop(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getFindingExpressionCancel()).getActionListeners().get(0).action();
+    }
+    public static void closeExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getCloseExpression()).getActionListeners().get(0).action();
+    }
+    public static void previousExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getPrevOccExp()).getActionListeners().get(0).action();
+    }
+    public static void nextExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getNextOccExp()).getActionListeners().get(0).action();
+    }
+    public static void replAllExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getReplaceAllExp()).getActionListeners().get(0).action();
+    }
+    public static void replOneExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getReplaceOneExp()).getActionListeners().get(0).action();
+    }
+    public static void replNextExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getReplaceNextExp()).getActionListeners().get(0).action();
+    }
+    public static void replPreviousExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getReplacePreviousExp()).getActionListeners().get(0).action();
+    }
+    public static void applyExp(WindowCdmEditor _w) {
+        ((MockPlainButton)tabEditor(_w).getApplyExp()).getActionListeners().get(0).action();
+    }
+    public static WindowCdmEditor newWindowLoadDefExpWorkspace(String _expSrc) {
+        return newWindowLoadDefExpWorkspace("src",_expSrc);
+    }
+    public static WindowCdmEditor newWindowLoadDefExpWorkspace(String _srcFolder,String _expSrc) {
+        MockProgramInfos pr_ = newMockProgramInfosInitConf();
+        pr_.getFileCoreStream().newFile("/project/sources/exp/src/").mkdirs();
+        StreamTextFile.saveTextFile("/project/sources/exp/src/file_exp.txt",_expSrc,pr_.getStreams());
+        WindowCdmEditor w_ = windowLoadDef(pr_);
+        ManageOptions copy_ = w_.manage(w_.getSoftParams().getLines());
+        copy_.getEx().setAccess("/project/sources/exp/");
+        copy_.getEx().setSrcFolder(_srcFolder);
+        w_.getSoftParams().setLines(WindowCdmEditor.linesConf(copy_));
+        return w_;
+    }
+
+    protected static void selectClass(WindowCdmEditor _w) {
+        SelectClassEvent ev_ = (SelectClassEvent) ((MockPlainButton) tabEditor(_w).getSelectExpressionClass()).getActionListeners().get(0);
+        ev_.action();
     }
     public static WindowCdmEditor newWindowLoadDef() {
         MockProgramInfos pr_ = newMockProgramInfosInitConf();
@@ -538,6 +604,12 @@ public abstract class EquallableElAdvUtil {
     }
 
     protected static OutputDialogAliases aliases(WindowCdmEditor _w) {
+        ChangeAliasesEvent ev_ = (ChangeAliasesEvent) ((MockMenuItem) _w.getAliasesMenu()).getActionListeners().get(0);
+        ev_.action();
+        return _w.getAliasesFrames().last();
+    }
+
+    protected static OutputDialogAliases aliases(WindowWithTreeImpl _w) {
         ChangeAliasesEvent ev_ = (ChangeAliasesEvent) ((MockMenuItem) _w.getAliasesMenu()).getActionListeners().get(0);
         ev_.action();
         return _w.getAliasesFrames().last();

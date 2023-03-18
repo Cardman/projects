@@ -19,8 +19,9 @@ public final class CloseTabEditorEvent implements AbsActionListener {
         int index_ = editor_.getSelectedIndex();
         editor_.remove(index_);
         tabEditor.getWindowSecEditor().getTabs().remove(index_);
-        GuiBaseUtil.recalculate(tabEditor.getCommonFrame().getPane());
+        GuiBaseUtil.recalculate(tabEditor.getWindowSecEditor().getCommonFrame().getPane());
         tabEditor.getWindowSecEditor().updateDoc();
         tabEditor.getTaskManager().shutdown();
+        tabEditor.getTaskManagerExp().shutdown();
     }
 }

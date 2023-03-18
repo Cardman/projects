@@ -1,5 +1,15 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.exec.blocks.ExecClassBlock;
+import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
+import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
@@ -7,7 +17,9 @@ import code.gui.images.MetaFont;
 import code.gui.initialize.AbstractProgramInfos;
 import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
+import code.util.EntryCust;
 import code.util.StringList;
+import code.util.StringMap;
 
 public final class TabEditor {
     private final WindowWithTreeImpl windowSecEditor;
@@ -24,20 +36,41 @@ public final class TabEditor {
     private final AbsPlainButton replaceAll;
     private final AbsPlainButton replacePrevious;
     private final AbsPlainButton replaceNext;
+    private final AbsPlainButton replaceOneExp;
+    private final AbsPlainButton replaceAllExp;
+    private final AbsPlainButton replacePreviousExp;
+    private final AbsPlainButton replaceNextExp;
+    private final AbsPlainButton applyExp;
+    private final AbsTextPane preview;
     private final AbsPanel navModifPanel;
     private final AbsPanel finderPanel;
     private final AbsPanel replacerPanel;
+    private final AbsPlainButton refreshExpression;
+    private final AbsPlainLabel lastBuild;
+    private final AbsTextField finderExpClasses;
+    private final AbsPlainButton selectExpressionClass;
+    private final AbsPlainButton findingExpression;
+    private final AbsPlainButton findingExpressionCancel;
+    private final AbsPlainButton closeExpression;
+    private final AbsPlainButton prevOccExp;
+    private final AbsPlainButton nextOccExp;
     private final AbsPanel panel;
     private final CustList<SegmentFindPart> parts = new CustList<SegmentFindPart>();
-    private final AbsCommonFrame commonFrame;
+    private final CustList<SegmentFindPart> partsExp = new CustList<SegmentFindPart>();
     private final AbsPlainLabel label;
     private final AbsPlainLabel labelOcc;
+    private final AbsPlainLabel labelOccExp;
     private final StringList texts = new StringList();
     private final AbsEnabledAction undo;
     private final AbsEnabledAction redo;
     private final AbstractBaseExecutorService taskManager;
+    private final AbstractBaseExecutorService taskManagerExp;
+    private final AutoCompleteDocument completeClasses;
+    private final AbsPanel expSpli;
+    private final AbsSplitPane mainSplitter;
     private boolean enabledSyntax = true;
     private int currentPart = -1;
+    private int currentPartExp = -1;
     private int currentText = -1;
     private String fullPath;
     private final String useFeed;
@@ -46,17 +79,26 @@ public final class TabEditor {
     private final AbsSpinner row;
     private final AbsSpinner col;
     private final AbsPlainButton val;
+    private ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
+    private String usedType = "";
+    private ExecOverrideInfo targetMethodView;
+    private ExecOverrideInfo targetMethodReplace;
+    private RunnableContextEl action;
+    private Struct instance = NullStruct.NULL_VALUE;
+    private final StringMap<ExecOverrideInfo> dico = new StringMap<ExecOverrideInfo>();
+    private final StringMap<ExecOverrideInfo> dicoRepl = new StringMap<ExecOverrideInfo>();
 
     public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _lr) {
         useFeed = _lr;
         fullPath = _fullPath;
         windowSecEditor = _editor;
-        commonFrame = _editor.getCommonFrame();
-        AbstractProgramInfos frames_ = commonFrame.getFrames();
+        AbstractProgramInfos frames_ = _editor.getCommonFrame().getFrames();
         taskManager = frames_.getThreadFactory().newExecutorService();
+        taskManagerExp = frames_.getThreadFactory().newExecutorService();
         factories = frames_;
         label = frames_.getCompoFactory().newPlainLabel(":");
         labelOcc = frames_.getCompoFactory().newPlainLabel("/");
+        labelOccExp = frames_.getCompoFactory().newPlainLabel("/");
         center = frames_.getCompoFactory().newTextPane();
         center.setFocusable(true);
         center.addMouseListener(new ClickTextPane(center));
@@ -66,13 +108,22 @@ public final class TabEditor {
         center.setCaretColor(GuiConstants.WHITE);
         center.addCaretListener(new EditorCaretListener(this));
         center.addAutoComplete(new DocumentTextChange(this));
-        AbsScrollPane sc_ = frames_.getCompoFactory().newAbsScrollPane(center);
-        sc_.setPreferredSize(new MetaDimension(512,512));
         finder = frames_.getCompoFactory().newTextField();
         replacer = frames_.getCompoFactory().newTextField();
         prevOcc = frames_.getCompoFactory().newPlainButton("<-");
         nextOcc = frames_.getCompoFactory().newPlainButton("->");
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
+        finderExpClasses = frames_.getCompoFactory().newTextField();
+        completeClasses = new AutoCompleteDocument(finderExpClasses, new StringList(), frames_,new FeedExpressionClassValue());
+        finderExpClasses.addAutoComplete(completeClasses);
+        refreshExpression = frames_.getCompoFactory().newPlainButton("refresh");
+        lastBuild = frames_.getCompoFactory().newPlainLabel(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS);
+        selectExpressionClass = frames_.getCompoFactory().newPlainButton("reset");
+        findingExpression = frames_.getCompoFactory().newPlainButton("find");
+        findingExpressionCancel = frames_.getCompoFactory().newPlainButton("cancel");
+        prevOccExp = frames_.getCompoFactory().newPlainButton("<-");
+        nextOccExp = frames_.getCompoFactory().newPlainButton("->");
+        closeExpression = frames_.getCompoFactory().newPlainButton("x");
         replaceOne = frames_.getCompoFactory().newPlainButton("1");
         replaceOne.addActionListener(new ReplaceAction(this,false,false));
         replaceAll = frames_.getCompoFactory().newPlainButton("*");
@@ -120,10 +171,74 @@ public final class TabEditor {
         replacerPanel.add(replacePrevious);
         replacerPanel.add(replaceNext);
         navModifPanel.add(replacerPanel);
+        AbsPanel expressionPanel_ = frames_.getCompoFactory().newPageBox();
+        refreshExpression.addActionListener(new RefreshExpressionEvent(this));
+        AbsPanel finderClass_ = frames_.getCompoFactory().newLineBox();
+        finderClass_.add(refreshExpression);
+        finderClass_.add(lastBuild);
+        finderClass_.add(finderExpClasses);
+        selectExpressionClass.addActionListener(new SelectClassEvent(this));
+        selectExpressionClass.setEnabled(false);
+        finderClass_.add(selectExpressionClass);
+        expressionPanel_.add(finderClass_);
+        AbsPanel expressionFind_ = frames_.getCompoFactory().newLineBox();
+        findingExpression.setEnabled(false);
+        findingExpression.addActionListener(new FindExpressionEvent(this));
+        expressionFind_.add(findingExpression);
+        findingExpressionCancel.setEnabled(false);
+        findingExpressionCancel.addActionListener(new FindExpressionStop(this));
+        expressionFind_.add(findingExpressionCancel);
+        expressionPanel_.add(expressionFind_);
+        AbsPanel expressionNav_ = frames_.getCompoFactory().newLineBox();
+        expressionNav_.add(labelOccExp);
+        prevOccExp.addActionListener(new ChgSegmentPartExpEvent(this,-1));
+        prevOccExp.setEnabled(false);
+        expressionNav_.add(prevOccExp);
+        nextOccExp.addActionListener(new ChgSegmentPartExpEvent(this,1));
+        nextOccExp.setEnabled(false);
+        expressionNav_.add(nextOccExp);
+        expressionPanel_.add(expressionNav_);
+        AbsPanel expressionRepl_ = frames_.getCompoFactory().newLineBox();
+        replaceOneExp = frames_.getCompoFactory().newPlainButton("1");
+        replaceOneExp.addActionListener(new ReplaceExpressionAction(this,false,false));
+        replaceOneExp.setEnabled(false);
+        expressionRepl_.add(replaceOneExp);
+        replaceAllExp = frames_.getCompoFactory().newPlainButton("*");
+        replaceAllExp.addActionListener(new ReplaceExpressionAction(this,true,true));
+        replaceAllExp.setEnabled(false);
+        expressionRepl_.add(replaceAllExp);
+        replacePreviousExp = frames_.getCompoFactory().newPlainButton("<-");
+        replacePreviousExp.addActionListener(new ReplaceExpressionAction(this,true,false));
+        replacePreviousExp.setEnabled(false);
+        expressionRepl_.add(replacePreviousExp);
+        replaceNextExp = frames_.getCompoFactory().newPlainButton("->");
+        replaceNextExp.addActionListener(new ReplaceExpressionAction(this,false,true));
+        replaceNextExp.setEnabled(false);
+        expressionRepl_.add(replaceNextExp);
+        expressionPanel_.add(expressionRepl_);
+        AbsPanel applRepl_ = frames_.getCompoFactory().newLineBox();
+        applyExp = frames_.getCompoFactory().newPlainButton("apply");
+        applyExp.addActionListener(new ReplaceExpressionApply(this));
+        applyExp.setEnabled(false);
+        applRepl_.add(applyExp);
+        preview = frames_.getCompoFactory().newTextPane();
+        preview.setEditable(false);
+        preview.setFont(new MetaFont(GuiConstants.MONOSPACED,GuiConstants.fontStyle(false,false),12));
+        preview.setBackground(GuiConstants.BLACK);
+        preview.setForeground(GuiConstants.WHITE);
+        preview.setCaretColor(GuiConstants.WHITE);
+        closeExpression.addActionListener(new ClosePanelExpressionAction(this));
+        applRepl_.add(closeExpression);
+        expressionPanel_.add(applRepl_);
+        expSpli = frames_.getCompoFactory().newPageBox();
+        expSpli.add(expressionPanel_);
+        expSpli.add(frames_.getCompoFactory().newAbsScrollPane(preview));
+        expSpli.setVisible(false);
         undo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, -1));
         redo = frames_.getCompoFactory().wrap(new UndoRedoAction(this, 1));
         undo.setEnabled(false);
         redo.setEnabled(false);
+        center.registerKeyboardAction(frames_.getCompoFactory().wrap(new ExpressionAction(this)),GuiConstants.VK_G,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this, true)),GuiConstants.VK_F,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new FindAction(this, false)),GuiConstants.VK_R,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new StoreUndoRedoAction(this)),GuiConstants.VK_Y,GuiConstants.CTRL_DOWN_MASK+GuiConstants.SHIFT_DOWN_MASK);
@@ -133,9 +248,14 @@ public final class TabEditor {
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new SaveTextFileNode(this)),GuiConstants.VK_S,GuiConstants.CTRL_DOWN_MASK);
         center.registerKeyboardAction(frames_.getCompoFactory().wrap(new CloseTabEditorEvent(this)),GuiConstants.VK_K,GuiConstants.CTRL_DOWN_MASK);
         panel = frames_.getCompoFactory().newPageBox();
-        panel.add(sc_);
-        panel.add(label);
-        panel.add(navModifPanel);
+        AbsPanel upp_ = frames_.getCompoFactory().newPageBox();
+        AbsScrollPane scCenter_ = frames_.getCompoFactory().newAbsScrollPane(center);
+        scCenter_.setPreferredSize(new MetaDimension(512,512));
+        upp_.add(scCenter_);
+        upp_.add(label);
+        upp_.add(navModifPanel);
+        mainSplitter = frames_.getCompoFactory().newVerticalSplitPane(upp_, expSpli);
+        panel.add(mainSplitter);
 //        caseSens.setFocusable(false);
 //        wholeWord.setFocusable(false);
 //        finder.setFocusable(false);
@@ -245,13 +365,104 @@ public final class TabEditor {
         }
         updateNav();
     }
+
+    public void updateNavSelectExp() {
+        if (getPartsExp().isValidIndex(getCurrentPartExp())) {
+            SegmentFindPart s_ = getPartsExp().get(getCurrentPartExp());
+            getPreview().select(s_.getBegin(),s_.getEnd());
+        }
+        updateNavExp();
+    }
+
     public void updateNav() {
         int n_ = getCurrentPart();
         getLabelOcc().setText((n_+1)+"/"+getParts().size());
         prevOcc.setEnabled(!getParts().isEmpty());
         nextOcc.setEnabled(!getParts().isEmpty());
     }
+    public void updateNavExp() {
+        int n_ = getCurrentPartExp();
+        labelOccExp.setText((n_+1)+"/"+getPartsExp().size());
+        prevOccExp.setEnabled(!getPartsExp().isEmpty());
+        nextOccExp.setEnabled(!getPartsExp().isEmpty());
+    }
+    public void enableExp(boolean _en) {
+        findingExpression.setEnabled(_en);
+        enableExpRepl(_en);
+    }
 
+    public void enableExpRepl(boolean _en) {
+        replaceOneExp.setEnabled(_en);
+        replaceAllExp.setEnabled(_en);
+        replaceNextExp.setEnabled(_en);
+        replacePreviousExp.setEnabled(_en);
+    }
+
+    public void refresh() {
+        enableExp(false);
+        findingExpressionCancel.setEnabled(false);
+        applyExp.setEnabled(false);
+        prevOccExp.setEnabled(false);
+        nextOccExp.setEnabled(false);
+        setResultContext(windowSecEditor.getMainFrame().getResultContext());
+        ResultContextViewReplacer vr_ = getResultContext();
+        lastBuild.setText(vr_.getLastBuilt());
+        ResultContext res_ = vr_.getResultContext();
+        if (res_ == null) {
+            selectExpressionClass.setEnabled(false);
+            completeClasses.setDictionary(new StringList());
+            dico.clear();
+            dicoRepl.clear();
+            return;
+        }
+        ContextEl ctx_ = res_.getContext();
+        selectExpressionClass.setEnabled(true);
+        ExecRootBlock typeView_ = vr_.getViewType();
+        ExecNamedFunctionBlock methodView_ = vr_.getViewMethod();
+        ExecRootBlock typeRepl_ = vr_.getReplaceType();
+        ExecNamedFunctionBlock methodRepl_ = vr_.getReplaceMethod();
+        dico.clear();
+        dicoRepl.clear();
+        StringList dict_ = new StringList();
+        for (EntryCust<String, ExecRootBlock> e: ctx_.getClasses().getClassesBodies().entryList()) {
+            ExecRootBlock type_ = e.getValue();
+            String name_ = e.getKey();
+            ExecOverrideInfo ov_ = isValid(name_, type_, typeView_, methodView_);
+            if (ov_ != null) {
+                dict_.add(name_);
+                dico.addEntry(name_,ov_);
+            }
+            ExecOverrideInfo ovRep_ = isValid(name_, type_, typeRepl_, methodRepl_);
+            if (ovRep_ != null) {
+                dicoRepl.addEntry(name_,ovRep_);
+            }
+        }
+        completeClasses.setDictionary(dict_);
+    }
+    private static ExecOverrideInfo isValid(String _k, ExecRootBlock _type, ExecRootBlock _look, ExecNamedFunctionBlock _method) {
+        if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType()) {
+            return null;
+        }
+        return _look.getRedirections().getVal(_method,_k);
+    }
+
+    public void usedType(String _u) {
+        usedTypeReplace(_u);
+        setUsedType(_u);
+        targetMethodView = dico.getVal(_u);
+    }
+
+    public StringMap<ExecOverrideInfo> getDico() {
+        return dico;
+    }
+
+    public StringMap<ExecOverrideInfo> getDicoRepl() {
+        return dicoRepl;
+    }
+
+    public void usedTypeReplace(String _u) {
+        targetMethodReplace = dicoRepl.getVal(_u);
+    }
     public String getUseFeed() {
         return useFeed;
     }
@@ -262,10 +473,6 @@ public final class TabEditor {
 
     public AbsPlainLabel getLabel() {
         return label;
-    }
-
-    public AbsCommonFrame getCommonFrame() {
-        return commonFrame;
     }
 
     public AbstractProgramInfos getFactories() {
@@ -316,6 +523,22 @@ public final class TabEditor {
         return replaceNext;
     }
 
+    public AbsPlainButton getReplaceOneExp() {
+        return replaceOneExp;
+    }
+
+    public AbsPlainButton getReplaceAllExp() {
+        return replaceAllExp;
+    }
+
+    public AbsPlainButton getReplacePreviousExp() {
+        return replacePreviousExp;
+    }
+
+    public AbsPlainButton getReplaceNextExp() {
+        return replaceNextExp;
+    }
+
     public AbsTextField getReplacer() {
         return replacer;
     }
@@ -336,12 +559,44 @@ public final class TabEditor {
         return nextOcc;
     }
 
+    public AbsPlainButton getRefreshExpression() {
+        return refreshExpression;
+    }
+
+    public AbsTextField getFinderExpClasses() {
+        return finderExpClasses;
+    }
+
+    public AbsPlainButton getFindingExpression() {
+        return findingExpression;
+    }
+
+    public AbsPlainButton getFindingExpressionCancel() {
+        return findingExpressionCancel;
+    }
+
+    public AbsPlainButton getCloseExpression() {
+        return closeExpression;
+    }
+
+    public AbsSplitPane getMainSplitter() {
+        return mainSplitter;
+    }
+
     public AbstractBaseExecutorService getTaskManager() {
         return taskManager;
     }
 
+    public AbstractBaseExecutorService getTaskManagerExp() {
+        return taskManagerExp;
+    }
+
     public CustList<SegmentFindPart> getParts() {
         return parts;
+    }
+
+    public CustList<SegmentFindPart> getPartsExp() {
+        return partsExp;
     }
 
     public StringList getTexts() {
@@ -354,6 +609,14 @@ public final class TabEditor {
 
     public void setCurrentPart(int _c) {
         this.currentPart = _c;
+    }
+
+    public int getCurrentPartExp() {
+        return currentPartExp;
+    }
+
+    public void setCurrentPartExp(int _c) {
+        this.currentPartExp = _c;
     }
 
     public int getCurrentText() {
@@ -390,5 +653,73 @@ public final class TabEditor {
 
     public WindowWithTreeImpl getWindowSecEditor() {
         return windowSecEditor;
+    }
+
+    public ExecOverrideInfo getTargetMethodView() {
+        return targetMethodView;
+    }
+
+    public ExecOverrideInfo getTargetMethodReplace() {
+        return targetMethodReplace;
+    }
+
+    public ResultContextViewReplacer getResultContext() {
+        return resultContext;
+    }
+
+    public void setResultContext(ResultContextViewReplacer _r) {
+        this.resultContext = _r;
+    }
+
+    public AbsPlainButton getSelectExpressionClass() {
+        return selectExpressionClass;
+    }
+
+    public AutoCompleteDocument getCompleteClasses() {
+        return completeClasses;
+    }
+
+    public AbsPanel getExpSpli() {
+        return expSpli;
+    }
+
+    public String getUsedType() {
+        return usedType;
+    }
+
+    public void setUsedType(String _u) {
+        this.usedType = _u;
+    }
+
+    public Struct getInstance() {
+        return instance;
+    }
+
+    public void setInstance(Struct _i) {
+        this.instance = _i;
+    }
+
+    public AbsTextPane getPreview() {
+        return preview;
+    }
+
+    public AbsPlainButton getApplyExp() {
+        return applyExp;
+    }
+
+    public AbsPlainButton getPrevOccExp() {
+        return prevOccExp;
+    }
+
+    public AbsPlainButton getNextOccExp() {
+        return nextOccExp;
+    }
+
+    public RunnableContextEl getAction() {
+        return action;
+    }
+
+    public void setAction(RunnableContextEl _act) {
+        this.action = _act;
     }
 }

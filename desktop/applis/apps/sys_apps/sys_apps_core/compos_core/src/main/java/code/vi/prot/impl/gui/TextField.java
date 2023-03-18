@@ -8,6 +8,7 @@ import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
+import java.awt.*;
 
 public final class TextField extends TxtComponent implements AbsTextField {
 
@@ -15,18 +16,22 @@ public final class TextField extends TxtComponent implements AbsTextField {
 
     public TextField() {
         field = new JTextField();
+        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getPreferredSize().height));
 //        field.addFocusListener(new FocusKeepEvent(field));
     }
     public TextField(int _nbCols) {
         field = new JTextField(_nbCols);
+        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getPreferredSize().height));
 //        field.addFocusListener(new FocusKeepEvent(field));
     }
     public TextField(String _txt) {
         field = new JTextField(_txt);
+        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getPreferredSize().height));
 //        field.addFocusListener(new FocusKeepEvent(field));
     }
     public TextField(String _txt,int _nbCols) {
         field = new JTextField(_txt,_nbCols);
+        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, field.getPreferredSize().height));
 //        field.addFocusListener(new FocusKeepEvent(field));
     }
 

@@ -20,7 +20,11 @@ import code.sml.util.Translations;
 import code.sml.util.TranslationsAppli;
 import code.sml.util.TranslationsFile;
 import code.sml.util.TranslationsLg;
-import code.stream.*;
+import code.stream.BytesInfo;
+import code.stream.StreamBinaryFile;
+import code.stream.StreamFolderFile;
+import code.stream.StreamTextFile;
+import code.threads.AbstractBaseExecutorService;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -42,6 +46,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsDialog dialogFolderExpression;
     private final AbsMenuItem folderExpressionMenu;
     private final AbsMenuItem softParamsMenu;
+    private final AbsMenuItem analyzeMenu;
+    private final AbsMenuItem analyzeMenuSt;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private StringMap<String> messages;
@@ -54,9 +60,19 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private CdmParameterSoftModel softParams;
     private final CustList<WindowExpressionEditor> expressionEditors = new CustList<WindowExpressionEditor>();
     private String confGlobal="";
+    private final ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
+    private final AbstractBaseExecutorService service;
+    private final AbsCommonFrame statusAnalyze;
+    private final AbsTextArea statusAnalyzeArea;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_lg, _list, _fact);
+        service = _list.getThreadFactory().newExecutorService();
+        statusAnalyze = _list.getFrameFactory().newCommonFrame(_lg, _list, null);
+        statusAnalyzeArea = _list.getCompoFactory().newTextArea();
+        statusAnalyzeArea.setEditable(false);
+        statusAnalyze.setContentPane(_list.getCompoFactory().newAbsScrollPane(statusAnalyzeArea));
+        statusAnalyze.pack();
         softParams = new CdmParameterSoftModel();
         fileOpenDialogInt = _list.getFileOpenDialogInt();
         fileSaveDialogInt = _list.getFileSaveDialogInt();
@@ -81,6 +97,14 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         softParamsMenu = _list.getCompoFactory().newMenuItem("soft conf");
         softParamsMenu.addActionListener(new CdmParameterSoftEvent(this));
         menu_.addMenuItem(softParamsMenu);
+        AbsMenu run_ = _list.getCompoFactory().newMenu("run");
+        analyzeMenu = _list.getCompoFactory().newMenuItem("analyze");
+        analyzeMenu.addActionListener(new AnalyzeExpressionEvent(this));
+        run_.addMenuItem(analyzeMenu);
+        analyzeMenuSt = _list.getCompoFactory().newMenuItem("status");
+        analyzeMenuSt.addActionListener(new ShowAnalyzeStatusEvent(this));
+        run_.addMenuItem(analyzeMenuSt);
+        bar_.add(run_);
         chgManagement(false);
         chooseFolder = getCommonFrame().getFrames().getCompoFactory().newPlainButton("folder");
         chooseFolder.addActionListener(new ChooseInitialFolder(this));
@@ -496,6 +520,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void closeAll() {
         getCommonFrame().setVisible(false);
+        statusAnalyze.setVisible(false);
         closeAllSubs();
     }
 
@@ -520,5 +545,27 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 //        return false;
 //    }
 
+    public AbsMenuItem getAnalyzeMenu() {
+        return analyzeMenu;
+    }
 
+    public AbsMenuItem getAnalyzeMenuSt() {
+        return analyzeMenuSt;
+    }
+
+    public ResultContextViewReplacer getResultContext() {
+        return resultContext;
+    }
+
+    public AbsCommonFrame getStatusAnalyze() {
+        return statusAnalyze;
+    }
+
+    public AbsTextArea getStatusAnalyzeArea() {
+        return statusAnalyzeArea;
+    }
+
+    public AbstractBaseExecutorService getService() {
+        return service;
+    }
 }

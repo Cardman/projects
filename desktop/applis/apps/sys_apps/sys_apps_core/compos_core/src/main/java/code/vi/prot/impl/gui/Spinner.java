@@ -5,6 +5,7 @@ import code.gui.events.AbsChangeListener;
 import code.vi.prot.impl.gui.events.WrChangeListener;
 
 import javax.swing.*;
+import java.awt.*;
 
 public final class Spinner extends CustComponent implements AbsSpinner {
 
@@ -20,6 +21,7 @@ public final class Spinner extends CustComponent implements AbsSpinner {
         step = _step;
         sp = new JSpinner();
         mod(_value, _min, _max, _step);
+        sp.setMaximumSize(new Dimension(Integer.MAX_VALUE, sp.getPreferredSize().height));
     }
 
     public void defValues() {

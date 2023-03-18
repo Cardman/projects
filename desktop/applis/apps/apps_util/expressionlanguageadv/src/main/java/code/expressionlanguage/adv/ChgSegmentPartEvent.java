@@ -13,14 +13,18 @@ public final class ChgSegmentPartEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        int n_ = editor.getCurrentPart()+diff;
-        if (n_ < 0) {
-            editor.setCurrentPart(editor.getParts().getLastIndex());
-        } else if (n_ >= editor.getParts().size()) {
-            editor.setCurrentPart(0);
-        } else {
-            editor.setCurrentPart(n_);
-        }
+        partUpdate(editor, diff);
         editor.updateNavSelect();
+    }
+
+    static void partUpdate(TabEditor _e, int _d) {
+        int n_ = _e.getCurrentPart()+ _d;
+        if (n_ < 0) {
+            _e.setCurrentPart(_e.getParts().getLastIndex());
+        } else if (n_ >= _e.getParts().size()) {
+            _e.setCurrentPart(0);
+        } else {
+            _e.setCurrentPart(n_);
+        }
     }
 }
