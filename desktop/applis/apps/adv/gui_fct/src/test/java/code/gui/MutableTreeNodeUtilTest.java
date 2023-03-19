@@ -3,6 +3,8 @@ package code.gui;
 import code.gui.events.MockProgramInfosSecSample;
 import code.gui.initialize.AbsCompoFactory;
 import code.mock.MockMutableTreeNode;
+import code.mock.MockTreePath;
+import code.util.CustList;
 import code.util.Ints;
 import org.junit.Test;
 
@@ -43,5 +45,33 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
         MutableTreeNodeUtil.reload(t_);
         assertFalse(((MockMutableTreeNode)r_).isAccessible());
         assertTrue(((MockMutableTreeNode)ch_).isAccessible());
+    }
+    @Test
+    public void list1() {
+        MockProgramInfosSecSample init_ = init();
+        AbsCompoFactory c_ = init_.getCompoFactory();
+        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        r_.add(ch_);
+        AbsTreeGui tr_ = c_.newTreeGui(r_);
+        AbsTreePaths e_ = tr_.emptyList();
+        e_.add(new MockTreePath(ch_));
+        CustList<AbstractMutableTreeNode> nodes_ = MutableTreeNodeUtil.list(e_);
+        assertEq(1,nodes_.size());
+        assertSame(ch_,nodes_.get(0));
+    }
+    @Test
+    public void list2() {
+        MockProgramInfosSecSample init_ = init();
+        AbsCompoFactory c_ = init_.getCompoFactory();
+        AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
+        AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
+        r_.add(ch_);
+        AbsTreeGui tr_ = c_.newTreeGui(r_);
+        CustList<AbstractMutableTreeNode> e_ = new CustList<AbstractMutableTreeNode>();
+        e_.add(ch_);
+        AbsTreePaths nodes_ = MutableTreeNodeUtil.list(tr_,e_);
+        assertEq(1,nodes_.getLength());
+        assertSame(ch_,nodes_.elt(0).data());
     }
 }

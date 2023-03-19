@@ -10,17 +10,16 @@ import javax.swing.tree.*;
 public final class TreeGui extends CustComponent implements AbsTreeGui {
     private final JTree tree;
     private final DefaultTreeModel model;
-    private final DefaultTreeSelectionModel selectionModel;
     private final AbstractMutableTreeNode root;
     private final IdMap<AbsShortListTree,DefTreeSelectionListener> list = new IdMap<AbsShortListTree, DefTreeSelectionListener>();
 
-    public TreeGui(AbstractMutableTreeNode _t) {
+    public TreeGui(AbstractMutableTreeNode _t, int _select) {
         root = _t;
         model = new DefaultTreeModel(convert(_t));
         tree = new JTree(model);
-        selectionModel = new DefaultTreeSelectionModel();
-        tree.setSelectionModel(selectionModel);
-        setSelectionModel();
+        DefaultTreeSelectionModel sel_ = new DefaultTreeSelectionModel();
+        tree.setSelectionModel(sel_);
+        sel_.setSelectionMode(_select);
     }
 
     public static MutableTreeNode convert(AbstractMutableTreeNodeCore _t) {
@@ -44,6 +43,17 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         TreePath selectionPath_ = getSelectionPath();
         return selectedEvt(selectionPath_);
     }
+
+    @Override
+    public AbstractMutableTreeNode translate(AbsTreePath _tr) {
+        return TreeGui.selected(root,((DefTreePath)_tr).getReal());
+    }
+
+    @Override
+    public AbsTreePath translate(AbstractMutableTreeNode _tr) {
+        return new DefTreePath(_tr, getTreePath(convert(_tr)));
+    }
+
     public static DefMutableTreeNode selected(AbstractMutableTreeNode _root,TreePath _path) {
         try {
             DefMutableTreeNode res_ = DefMutableTreeNode.build((DefaultMutableTreeNode) _path.getLastPathComponent());
@@ -54,6 +64,20 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     }
     public AbstractMutableTreeNode selectedEvt(TreePath _path) {
         return selected(root,_path);
+    }
+
+    @Override
+    public AbsTreePaths selectedPaths() {
+        try {
+            return new DefTreePaths(tree.getSelectionPaths(),root);
+        } catch (Exception e) {
+            return new DefTreePaths(new TreePath[0],root);
+        }
+    }
+
+    @Override
+    public void selectedPaths(AbsTreePaths _p) {
+        tree.setSelectionPaths(((DefTreePaths)_p).getNodes());
     }
 
     private TreePath getSelectionPath() {
@@ -108,8 +132,8 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         return tree;
     }
 
-    private void setSelectionModel() {
-        selectionModel.setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
+    @Override
+    public AbsTreePaths emptyList() {
+        return new DefTreePaths(new TreePath[0],root);
     }
-
 }

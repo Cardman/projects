@@ -1,6 +1,7 @@
 package code.mock;
 
 import code.gui.*;
+import code.util.CustList;
 import org.junit.Test;
 
 public final class MockTreeGuiTest extends EquallableMockGuiUtil {
@@ -398,5 +399,24 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
         r_.add("2");
         r_.removeAllChildren();
         assertNull(r_.getChildAt(0));
+    }
+    @Test
+    public void t32() {
+        MockTreeGui tr_ = new MockTreeGui(new MockMutableTreeNode("0"));
+        assertEq(0,tr_.emptyList().getLength());
+        CustList<AbsTreePath> paths_ = new CustList<AbsTreePath>();
+        paths_.add(new MockTreePath(tr_.getRoot()));
+        tr_.selectedPaths(new MockTreePaths(paths_));
+        assertEq(1,tr_.selectedPaths().getLength());
+        assertSame(tr_.getRoot(),tr_.translate(new MockTreePath(tr_.getRoot())));
+        assertSame(tr_.getRoot(),tr_.translate(tr_.translate(tr_.getRoot())));
+    }
+    @Test
+    public void t33() {
+        MockTreeGui tr_ = new MockTreeGui(new MockMutableTreeNode("0"));
+        assertEq(0,tr_.emptyList().getLength());
+        CustList<AbsTreePath> paths_ = new CustList<AbsTreePath>();
+        tr_.selectedPaths(new MockTreePaths(paths_));
+        assertSame(null,tr_.selectEvt());
     }
 }

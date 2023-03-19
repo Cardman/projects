@@ -13,12 +13,18 @@ import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
+import javax.swing.tree.TreeSelectionModel;
 
 public final class DefCompoFactory implements AbsCompoFactory {
     private final PlainLabel label = new PlainLabel("");
     @Override
     public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
-        return new TreeGui(_node);
+        return newTreeGui(_node, TreeSelectionModel.SINGLE_TREE_SELECTION);
+    }
+
+    @Override
+    public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select) {
+        return new TreeGui(_node,_select);
     }
 
     @Override

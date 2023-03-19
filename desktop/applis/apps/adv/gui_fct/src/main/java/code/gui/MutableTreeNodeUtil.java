@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.util.CustList;
 import code.util.Ints;
 
 public final class MutableTreeNodeUtil {
@@ -12,6 +13,22 @@ public final class MutableTreeNodeUtil {
         } else {
             _abs.reloadRoot();
         }
+    }
+    public static CustList<AbstractMutableTreeNode> list(AbsTreePaths _paths) {
+        int len_ = _paths.getLength();
+        CustList<AbstractMutableTreeNode> ls_ = new CustList<AbstractMutableTreeNode>();
+        for (int i = 0; i < len_; i++) {
+            ls_.add(_paths.elt(i).data());
+        }
+        return ls_;
+    }
+    public static AbsTreePaths list(AbsTreeGui _root, CustList<AbstractMutableTreeNode> _paths) {
+        int len_ = _paths.size();
+        AbsTreePaths ls_ = _root.emptyList();
+        for (int i = 0; i < len_; i++) {
+            ls_.add(_root.translate(_paths.get(i)));
+        }
+        return ls_;
     }
     public static Ints getIndexes(AbstractMutableTreeNode _current) {
         AbstractMutableTreeNode parent_ = _current;

@@ -29,7 +29,12 @@ public final class MockCommonFrameTreeSample extends MockAbsCommonFrame implemen
         MockTreeGui m_ = (MockTreeGui) getContentPane().getComponent(0);
         m_.selectEvt();
         AbsPlainLabel lab_ = (AbsPlainLabel) getContentPane().getComponent(1);
-        CustList<MockMutableTreeNode> path_ = MockTreeGui.getTreePath((MockMutableTreeNode) _node).getPath();
+        MockMutableTreeNode curr_ = (MockMutableTreeNode) _node;
+        CustList<MockMutableTreeNode> path_ = new CustList<MockMutableTreeNode>();
+        while (curr_ != null) {
+            path_.add(0, curr_);
+            curr_ = (MockMutableTreeNode) curr_.getParent();
+        }
         CustList<String> ls_ = new CustList<String>();
         for (MockMutableTreeNode m : path_) {
             ls_.add(m.getUserObject());

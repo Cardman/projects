@@ -9,6 +9,7 @@ import code.gui.images.MetaFont;
 
 public interface AbsCompoFactory {
     AbsTreeGui newTreeGui(AbstractMutableTreeNode _node);
+    AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select);
 
     AbstractMutableTreeNode newMutableTreeNode(String _name);
 

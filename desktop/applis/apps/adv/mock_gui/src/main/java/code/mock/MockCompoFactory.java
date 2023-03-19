@@ -12,6 +12,11 @@ public final class MockCompoFactory implements AbsCompoFactory {
     private final CustList<Runnable> later = new CustList<Runnable>();
     @Override
     public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
+        return newTreeGui(_node,1);
+    }
+
+    @Override
+    public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select) {
         return new MockTreeGui(_node);
     }
 

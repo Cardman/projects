@@ -1,15 +1,12 @@
 package code.mock;
 
-import code.gui.AbsShortListTree;
-import code.gui.AbsTreeGui;
-import code.gui.AbstractMutableTreeNode;
-import code.gui.AbstractMutableTreeNodeCore;
+import code.gui.*;
 import code.util.CustList;
 import code.util.IdList;
 
 public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     private boolean rootVisible;
-    private MockTreePath selectionPath = new MockTreePath();
+    private AbsTreePaths selectionPaths = new MockTreePaths(new CustList<AbsTreePath>());
     private final AbstractMutableTreeNode root;
     private final IdList<AbsShortListTree> list = new IdList<AbsShortListTree>();
 
@@ -24,7 +21,7 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
 
     @Override
     public void select(AbstractMutableTreeNodeCore _m) {
-        setSelectionPath(getTreePath((MockMutableTreeNode) _m));
+        selectedPaths(new MockTreePaths(new CustList<AbsTreePath>(getTreePath((MockMutableTreeNode) _m))));
         for (AbsShortListTree l: getTreeSelectionListeners()) {
             l.valueChanged(_m);
         }
@@ -70,23 +67,26 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
     }
 
     static MockTreePath getTreePath(MockMutableTreeNode _node) {
-        MockTreePath tp_ = new MockTreePath();
-        MockMutableTreeNode cur_ = _node;
-        while (cur_ != null) {
-            tp_.getPath().add(0,cur_);
-            cur_ = (MockMutableTreeNode) cur_.getParent();
-        }
-        return tp_;
+        return new MockTreePath(_node);
     }
 
     @Override
     public AbstractMutableTreeNode selectEvt() {
-        MockTreePath path_ = getSelectionPath();
-        CustList<MockMutableTreeNode> p_ = path_.getPath();
-        if (!p_.isEmpty()) {
-            return p_.last();
+        AbsTreePaths s_ = selectedPaths();
+        if (s_.getLength() == 1) {
+            return s_.elt(0).data();
         }
         return null;
+    }
+
+    @Override
+    public AbstractMutableTreeNode translate(AbsTreePath _tr) {
+        return _tr.data();
+    }
+
+    @Override
+    public AbsTreePath translate(AbstractMutableTreeNode _tr) {
+        return new MockTreePath(_tr);
     }
 
     @Override
@@ -116,11 +116,18 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         return list;
     }
 
-    public MockTreePath getSelectionPath() {
-        return selectionPath;
+    @Override
+    public AbsTreePaths selectedPaths() {
+        return selectionPaths;
     }
 
-    public void setSelectionPath(MockTreePath _treePath) {
-        selectionPath = _treePath;
+    @Override
+    public void selectedPaths(AbsTreePaths _p) {
+        this.selectionPaths = _p;
+    }
+
+    @Override
+    public AbsTreePaths emptyList() {
+        return new MockTreePaths(new CustList<AbsTreePath>());
     }
 }

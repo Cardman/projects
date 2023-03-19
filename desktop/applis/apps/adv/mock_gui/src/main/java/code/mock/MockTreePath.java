@@ -1,11 +1,17 @@
 package code.mock;
 
-import code.util.CustList;
+import code.gui.AbsTreePath;
+import code.gui.AbstractMutableTreeNode;
 
-public final class MockTreePath {
-    private final CustList<MockMutableTreeNode> path = new CustList<MockMutableTreeNode>();
+public final class MockTreePath implements AbsTreePath {
+    private final AbstractMutableTreeNode elt;
 
-    public CustList<MockMutableTreeNode> getPath() {
-        return path;
+    public MockTreePath(AbstractMutableTreeNode _e) {
+        this.elt = _e;
+    }
+
+    @Override
+    public AbstractMutableTreeNode data() {
+        return elt;
     }
 }
