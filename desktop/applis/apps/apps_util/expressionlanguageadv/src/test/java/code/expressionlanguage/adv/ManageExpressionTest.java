@@ -439,4 +439,39 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         closeExp(w_);
         assertEq(0,tabEditor(w_).getPartsExp().size());
     }
+    @Test
+    public void replacePreviousSegments() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){int n = t.indexOf('C',i);if(n>0&&t.charAt(n-1)!=','&&t.charAt(n-1)!=' '){n=t.indexOf('C',n+1);}if(n==0){return new(begin:0,end:1);}if(n>0&&(t.charAt(n-1)==','||t.charAt(n-1)==' ')){return new(begin:n-1,end:n+1);}return null;}public String replace(String t, int i, int b, int e){var pref = t.startsWith(\",\",b)?\";\":t.startsWith(\" \",b)?\"__\":\"\";return i%3==0?pref+\"one\":i%3==1?pref+\"two\":pref+\"three\";}}");
+        tabEditor(w_).getCenter().setText("C t,C t C t;C t,C t C t");
+        analyze(w_);
+        assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
+        refreshClasses(w_);
+        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        assertEq(1, d_.size());
+        assertTrue(d_.contains("pkg.ExClass"));
+        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        assertEq(1, r_.size());
+        assertTrue(r_.contains("pkg.ExClass"));
+        tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
+        tabEditor(w_).getFinderExpClasses().setText("p");
+        tabEditor(w_).getCompleteClasses().enterEvent();
+        assertEq("pkg.ExClass",tabEditor(w_).getFinderExpClasses().getText());
+        tabEditor(w_).getFinderExpClasses().setText("?");
+        selectClass(w_);
+        assertFalse(tabEditor(w_).getFindingExpression().isEnabled());
+        tabEditor(w_).getFinderExpClasses().setText("p");
+        tabEditor(w_).getCompleteClasses().enterEvent();
+        selectClass(w_);
+        assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
+        findExp(w_);
+        assertEq(5,tabEditor(w_).getPartsExp().size());
+        nextExp(w_);
+        nextExp(w_);
+        nextExp(w_);
+        replPreviousExp(w_);
+        assertEq("one t;two t__three t;C t;one t C t",tabEditor(w_).getPreview().getText());
+        assertEq(1,tabEditor(w_).getPartsExp().size());
+        assertEq(30,tabEditor(w_).getPartsExp().get(0).getBegin());
+        assertEq(32,tabEditor(w_).getPartsExp().get(0).getEnd());
+    }
 }
