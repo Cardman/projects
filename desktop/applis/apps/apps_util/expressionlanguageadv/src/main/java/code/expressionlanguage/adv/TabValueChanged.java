@@ -32,6 +32,8 @@ public final class TabValueChanged implements AbsChangeListener {
         AbsAttrSet as_ = compo_.newAttrSet();
         as_.addTabs(tabs_);
         c_.setParagraphAttributes(as_);
+        tab_.getPreview().setParagraphAttributes(as_);
         DocumentTextChange.updateEditorText(tab_);
+        FindExpressionTask.updatedSegColorsBase(tab_);
     }
 }

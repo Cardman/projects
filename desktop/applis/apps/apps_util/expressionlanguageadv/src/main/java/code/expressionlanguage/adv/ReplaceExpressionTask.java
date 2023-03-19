@@ -78,14 +78,8 @@ public final class ReplaceExpressionTask implements Runnable {
         }
         current.getPreview().setText(copy_.toString());
         current.getPreview().select(selAfter_.getBegin(),selAfter_.getEnd());
-        current.getFindingExpression().setEnabled(true);
-        current.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(current.getPreview()));
-        FindAction.syntax(current.getWindowSecEditor().getManageOptions(), current.getFactories().getCompoFactory(), current.getPreview());
-        int count_ = FindAction.colors(rev_, current.getFactories().getCompoFactory(), current.getPreview());
+        FindExpressionTask.updatedSegColorsAndNav(current);
         current.getApplyExp().setEnabled(true);
-        current.setCurrentPartExp(FindAction.partIndex(current.getPreview().getSelectionStart(), rev_));
-        current.updateNavSelectExp();
-        current.enableExpRepl(count_ > 0);
     }
 
 }

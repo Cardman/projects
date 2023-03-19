@@ -72,12 +72,20 @@ public final class FindExpressionTask implements Runnable {
         editor.getPartsExp().clear();
         editor.getPartsExp().addAllElts(found_);
         editor.setInstance(infoStruct_);
-        editor.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(editor.getPreview()));
-        FindAction.syntax(editor.getWindowSecEditor().getManageOptions(), editor.getFactories().getCompoFactory(), editor.getPreview());
-        int count_ = FindAction.colors(editor.getPartsExp(), editor.getFactories().getCompoFactory(), editor.getPreview());
-        editor.getFindingExpression().setEnabled(true);
-        editor.setCurrentPartExp(FindAction.partIndex(editor.getPreview().getSelectionStart(), editor.getPartsExp()));
-        editor.updateNavSelectExp();
-        editor.enableExpRepl(editor.getTargetMethodReplace() != null&&count_ > 0);
+        updatedSegColorsAndNav(editor);
+    }
+
+    static void updatedSegColorsAndNav(TabEditor _editor) {
+        int count_ = updatedSegColorsBase(_editor);
+        _editor.setCurrentPartExp(FindAction.partIndex(_editor.getPreview().getSelectionStart(), _editor.getPartsExp()));
+        _editor.enableExpRepl(_editor.getTargetMethodReplace() != null&&count_ > 0);
+        _editor.updateNavSelectExp();
+        _editor.getFindingExpression().setEnabled(true);
+    }
+
+    static int updatedSegColorsBase(TabEditor _editor) {
+        _editor.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(_editor.getPreview()));
+        FindAction.syntax(_editor.getWindowSecEditor().getManageOptions(), _editor.getFactories().getCompoFactory(), _editor.getPreview());
+        return FindAction.colors(_editor.getPartsExp(), _editor.getFactories().getCompoFactory(), _editor.getPreview());
     }
 }

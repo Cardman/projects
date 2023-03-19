@@ -416,6 +416,7 @@ public abstract class WindowWithTreeImpl {
         }
         stateChangeTab();
         DocumentTextChange.updateEditorText(tabs.get(ind_));
+        FindExpressionTask.updatedSegColorsBase(tabs.get(ind_));
     }
 
     private void stateChangeTab() {
