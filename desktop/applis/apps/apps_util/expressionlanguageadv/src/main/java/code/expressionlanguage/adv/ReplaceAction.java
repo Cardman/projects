@@ -18,23 +18,26 @@ public final class ReplaceAction implements AbsActionListener {
 
     @Override
     public void action() {
-        current.setEnabledSyntax(false);
-//        current.getCenter().setEditable(true);
         AbsTextPane editor_ = current.getCenter();
         AbsTextField replacer_ = current.getReplacer();
         int cur_ = current.getCurrentPart();
         String s_ = replacer_.getText();
+        StringBuilder copy_ = new StringBuilder(editor_.getText());
         CustList<SegmentFindPart> rev_ = current.getParts();
+        SegmentFindPart selAfter_ = new SegmentFindPart(0,0);
         int size_ = rev_.size() - 1;
         for (int i = size_; i >= 0; i--) {
             if (i < cur_ && previousReplace || i > cur_ && nextReplace || i == cur_) {
                 SegmentFindPart seg_ = rev_.get(i);
-                editor_.select(seg_.getBegin(),seg_.getEnd());
-                editor_.replaceSelection(s_);
+                copy_.replace(seg_.getBegin(),seg_.getEnd(),s_);
+                int diff_ = s_.length()-(seg_.getEnd() - seg_.getBegin());
+                selAfter_ = new SegmentFindPart(seg_.getBegin()+diff_,seg_.getEnd()+diff_);
             }
         }
-//        current.getCenter().setEditable(false);
+        current.setEnabledSyntax(false);
+        editor_.setText(copy_.toString());
         current.setEnabledSyntax(true);
+        editor_.select(selAfter_.getBegin(),selAfter_.getEnd());
         new UpdatingEditorAndSelect(current).run();
     }
 

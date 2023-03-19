@@ -45,6 +45,7 @@ public final class ReplaceExpressionTask implements Runnable {
         Ints toDelete_ = new Ints();
         int from_ = cur_;
         int diff_ = 0;
+        SegmentFindPart selAfter_ = new SegmentFindPart(0,0);
         for (int i = lastIndex_; i >= 0; i--) {
             if (i < cur_ && previousReplace || i > cur_ && nextReplace || i == cur_) {
                 SegmentFindPart seg_ = rev_.get(i);
@@ -64,6 +65,7 @@ public final class ReplaceExpressionTask implements Runnable {
                 toDelete_.add(i);
                 diff_ += str_.getInstance().length()-(seg_.getEnd() - seg_.getBegin());
                 from_= NumberUtil.max(i,cur_);
+                selAfter_ = new SegmentFindPart(seg_.getBegin()+diff_,seg_.getEnd()+diff_);
             }
         }
         for (int i = from_ + 1; i <= lastIndex_; i++) {
@@ -75,6 +77,7 @@ public final class ReplaceExpressionTask implements Runnable {
             rev_.remove(toDelete_.get(i));
         }
         current.getPreview().setText(copy_.toString());
+        current.getPreview().select(selAfter_.getBegin(),selAfter_.getEnd());
         current.getFindingExpression().setEnabled(true);
         current.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(current.getPreview()));
         FindAction.syntax(current.getWindowSecEditor().getManageOptions(), current.getFactories().getCompoFactory(), current.getPreview());
