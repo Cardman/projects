@@ -12,9 +12,7 @@ public final class SelectClassEvent implements AbsActionListener {
     @Override
     public void action() {
         String text_ = editor.getCenter().getText();
-        editor.getPreview().setEditable(true);
         editor.getPreview().setText(text_);
-        editor.getPreview().setEditable(false);
         editor.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(editor.getPreview()));
         FindAction.syntax(editor.getWindowSecEditor().getManageOptions(), editor.getFactories().getCompoFactory(), editor.getPreview());
         editor.usedType(editor.getFinderExpClasses().getText());

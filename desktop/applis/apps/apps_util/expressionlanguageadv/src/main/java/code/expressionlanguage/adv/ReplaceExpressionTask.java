@@ -74,9 +74,7 @@ public final class ReplaceExpressionTask implements Runnable {
         for (int i = 0; i < d_; i++) {
             rev_.remove(toDelete_.get(i));
         }
-        current.getPreview().setEditable(true);
         current.getPreview().setText(copy_.toString());
-        current.getPreview().setEditable(false);
         current.getFindingExpression().setEnabled(true);
         current.getFactories().getCompoFactory().invokeNow(new ClearCharacterAttributes(current.getPreview()));
         FindAction.syntax(current.getWindowSecEditor().getManageOptions(), current.getFactories().getCompoFactory(), current.getPreview());
