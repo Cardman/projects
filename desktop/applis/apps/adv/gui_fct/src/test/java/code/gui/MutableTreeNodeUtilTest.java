@@ -53,10 +53,10 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
         AbstractMutableTreeNode r_ = c_.newMutableTreeNode("0");
         AbstractMutableTreeNode ch_ = c_.newMutableTreeNode("1");
         r_.add(ch_);
-        AbsTreeGui tr_ = c_.newTreeGui(r_);
-        AbsTreePaths e_ = tr_.emptyList();
+        c_.newTreeGui(r_);
+        AbsTreePaths e_ = init_.getCompoFactory().emptyList();
         e_.add(new MockTreePath(ch_));
-        CustList<AbstractMutableTreeNode> nodes_ = MutableTreeNodeUtil.list(e_);
+        CustList<AbstractMutableTreeNode> nodes_ = MutableTreeNodeUtil.list(r_,e_);
         assertEq(1,nodes_.size());
         assertSame(ch_,nodes_.get(0));
     }
@@ -70,7 +70,7 @@ public final class MutableTreeNodeUtilTest extends EquallableGuiFctUtil {
         AbsTreeGui tr_ = c_.newTreeGui(r_);
         CustList<AbstractMutableTreeNode> e_ = new CustList<AbstractMutableTreeNode>();
         e_.add(ch_);
-        AbsTreePaths nodes_ = MutableTreeNodeUtil.list(tr_,e_);
+        AbsTreePaths nodes_ = MutableTreeNodeUtil.list(init_.getCompoFactory(),tr_,e_);
         assertEq(1,nodes_.getLength());
         assertSame(ch_,nodes_.elt(0).data());
     }

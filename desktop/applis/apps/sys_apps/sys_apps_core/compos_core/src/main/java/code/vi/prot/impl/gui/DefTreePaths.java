@@ -9,11 +9,11 @@ import javax.swing.tree.TreePath;
 
 public final class DefTreePaths implements AbsTreePaths {
     private final CustList<TreePath> nodes;
-    private final AbstractMutableTreeNode root;
+    private final CustList<AbstractMutableTreeNode> nodesTree;
 
-    public DefTreePaths(TreePath[] _n, AbstractMutableTreeNode _r) {
+    public DefTreePaths(TreePath[] _n, CustList<AbstractMutableTreeNode> _t) {
         this.nodes = new CustList<TreePath>(_n);
-        this.root = _r;
+        nodesTree = _t;
     }
     @Override
     public int getLength() {
@@ -23,16 +23,19 @@ public final class DefTreePaths implements AbsTreePaths {
     @Override
     public void add(AbsTreePath _path) {
         nodes.add(((DefTreePath)_path).getReal());
+        nodesTree.add(_path.data());
     }
 
     @Override
     public void remove(int _path) {
         nodes.remove(_path);
+        nodesTree.remove(_path);
     }
 
     @Override
     public void set(int _index, AbsTreePath _path) {
         nodes.set(_index,((DefTreePath)_path).getReal());
+        nodesTree.set(_index,_path.data());
     }
 
     public TreePath[] getNodes() {
@@ -42,6 +45,12 @@ public final class DefTreePaths implements AbsTreePaths {
     @Override
     public AbsTreePath elt(int _index) {
         TreePath tr_ = nodes.get(_index);
-        return new DefTreePath(TreeGui.selected(root,tr_),tr_);
+        return new DefTreePath(nodesTree.get(_index),tr_);
+    }
+
+    @Override
+    public AbsTreePath elt(AbstractMutableTreeNode _root, int _index) {
+        TreePath tr_ = nodes.get(_index);
+        return new DefTreePath(TreeGui.selected(_root,tr_),tr_);
     }
 }

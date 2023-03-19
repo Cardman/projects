@@ -8,6 +8,7 @@ import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 
 public interface AbsCompoFactory {
+    AbsTreePaths emptyList();
     AbsTreeGui newTreeGui(AbstractMutableTreeNode _node);
     AbsTreeGui newTreeGui(AbstractMutableTreeNode _node, int _select);
 

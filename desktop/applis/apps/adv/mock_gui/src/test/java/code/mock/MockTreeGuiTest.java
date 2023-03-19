@@ -403,7 +403,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t32() {
         MockTreeGui tr_ = new MockTreeGui(new MockMutableTreeNode("0"));
-        assertEq(0,tr_.emptyList().getLength());
+        assertEq(0,init().getCompoFactory().emptyList().getLength());
         CustList<AbsTreePath> paths_ = new CustList<AbsTreePath>();
         paths_.add(new MockTreePath(tr_.getRoot()));
         tr_.selectedPaths(new MockTreePaths(paths_));
@@ -414,7 +414,7 @@ public final class MockTreeGuiTest extends EquallableMockGuiUtil {
     @Test
     public void t33() {
         MockTreeGui tr_ = new MockTreeGui(new MockMutableTreeNode("0"));
-        assertEq(0,tr_.emptyList().getLength());
+        assertEq(0,init().getCompoFactory().emptyList().getLength());
         CustList<AbsTreePath> paths_ = new CustList<AbsTreePath>();
         tr_.selectedPaths(new MockTreePaths(paths_));
         assertSame(null,tr_.selectEvt());

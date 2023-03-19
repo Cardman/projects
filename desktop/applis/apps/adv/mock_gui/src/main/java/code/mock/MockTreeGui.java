@@ -126,8 +126,4 @@ public final class MockTreeGui extends MockCustComponent implements AbsTreeGui {
         this.selectionPaths = _p;
     }
 
-    @Override
-    public AbsTreePaths emptyList() {
-        return new MockTreePaths(new CustList<AbsTreePath>());
-    }
 }

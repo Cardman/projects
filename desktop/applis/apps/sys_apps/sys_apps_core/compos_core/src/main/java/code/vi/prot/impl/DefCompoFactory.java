@@ -7,16 +7,24 @@ import code.gui.events.AbsEnabledAction;
 import code.gui.images.AbstractImage;
 import code.gui.images.MetaFont;
 import code.gui.initialize.AbsCompoFactory;
+import code.util.CustList;
 import code.vi.prot.impl.gui.*;
 import code.vi.prot.impl.gui.events.WrAbstractAction;
 import code.vi.prot.impl.gui.events.WrActionListener;
 import code.vi.prot.impl.gui.events.WrAdvActionListener;
 
 import javax.swing.*;
+import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
 
 public final class DefCompoFactory implements AbsCompoFactory {
     private final PlainLabel label = new PlainLabel("");
+
+    @Override
+    public AbsTreePaths emptyList() {
+        return new DefTreePaths(new TreePath[0],new CustList<AbstractMutableTreeNode>());
+    }
+
     @Override
     public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
         return newTreeGui(_node, TreeSelectionModel.SINGLE_TREE_SELECTION);

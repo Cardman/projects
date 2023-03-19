@@ -69,9 +69,10 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
     @Override
     public AbsTreePaths selectedPaths() {
         try {
-            return new DefTreePaths(tree.getSelectionPaths(),root);
+            TreePath[] sel_ = tree.getSelectionPaths();
+            return new DefTreePaths(sel_, MutableTreeNodeUtil.list(root,new DefTreePaths(sel_,new CustList<AbstractMutableTreeNode>())));
         } catch (Exception e) {
-            return new DefTreePaths(new TreePath[0],root);
+            return new DefTreePaths(new TreePath[0],new CustList<AbstractMutableTreeNode>());
         }
     }
 
@@ -132,8 +133,4 @@ public final class TreeGui extends CustComponent implements AbsTreeGui {
         return tree;
     }
 
-    @Override
-    public AbsTreePaths emptyList() {
-        return new DefTreePaths(new TreePath[0],root);
-    }
 }

@@ -1,5 +1,6 @@
 package code.gui;
 
+import code.gui.initialize.AbsCompoFactory;
 import code.util.CustList;
 import code.util.Ints;
 
@@ -14,17 +15,17 @@ public final class MutableTreeNodeUtil {
             _abs.reloadRoot();
         }
     }
-    public static CustList<AbstractMutableTreeNode> list(AbsTreePaths _paths) {
+    public static CustList<AbstractMutableTreeNode> list(AbstractMutableTreeNode _root,AbsTreePaths _paths) {
         int len_ = _paths.getLength();
         CustList<AbstractMutableTreeNode> ls_ = new CustList<AbstractMutableTreeNode>();
         for (int i = 0; i < len_; i++) {
-            ls_.add(_paths.elt(i).data());
+            ls_.add(_paths.elt(_root,i).data());
         }
         return ls_;
     }
-    public static AbsTreePaths list(AbsTreeGui _root, CustList<AbstractMutableTreeNode> _paths) {
+    public static AbsTreePaths list(AbsCompoFactory _compo, AbsTreeGui _root, CustList<AbstractMutableTreeNode> _paths) {
         int len_ = _paths.size();
-        AbsTreePaths ls_ = _root.emptyList();
+        AbsTreePaths ls_ = _compo.emptyList();
         for (int i = 0; i < len_; i++) {
             ls_.add(_root.translate(_paths.get(i)));
         }

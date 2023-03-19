@@ -10,6 +10,12 @@ import code.util.CustList;
 
 public final class MockCompoFactory implements AbsCompoFactory {
     private final CustList<Runnable> later = new CustList<Runnable>();
+
+    @Override
+    public AbsTreePaths emptyList() {
+        return new MockTreePaths(new CustList<AbsTreePath>());
+    }
+
     @Override
     public AbsTreeGui newTreeGui(AbstractMutableTreeNode _node) {
         return newTreeGui(_node,1);
