@@ -20,7 +20,7 @@ public final class ResultContextViewReplacer {
     private String aliasStringSegment="";
     private String aliasStringSegmentBegin="";
     private String aliasStringSegmentEnd="";
-    private String lastBuilt=CustAliases.YYYY_MM_DD_HH_MM_SS_SSS;
+    private String lastBuilt=CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH;
 
     public void update(CustAliases _aliases, LgNamesContent _content, ResultContext _result, AbstractProgramInfos _frames) {
         resultContext = _result;

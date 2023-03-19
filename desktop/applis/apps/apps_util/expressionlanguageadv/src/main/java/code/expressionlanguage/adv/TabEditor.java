@@ -117,7 +117,7 @@ public final class TabEditor {
         completeClasses = new AutoCompleteDocument(finderExpClasses, new StringList(), frames_,new FeedExpressionClassValue());
         finderExpClasses.addAutoComplete(completeClasses);
         refreshExpression = frames_.getCompoFactory().newPlainButton("refresh");
-        lastBuild = frames_.getCompoFactory().newPlainLabel(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS);
+        lastBuild = frames_.getCompoFactory().newPlainLabel(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH);
         selectExpressionClass = frames_.getCompoFactory().newPlainButton("reset");
         findingExpression = frames_.getCompoFactory().newPlainButton("find");
         findingExpressionCancel = frames_.getCompoFactory().newPlainButton("cancel");

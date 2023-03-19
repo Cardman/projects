@@ -401,6 +401,7 @@ public final class CustAliases {
     public static final String PARAM_164 = "fo3";
 
     public static final String YYYY_MM_DD_HH_MM_SS_SSS = "yyyy_MM_dd_HH_mm_ss_SSS";
+    public static final String YYYY_MM_DD_HH_MM_SS_SSS_DASH = "----_--_--_--_--_--_---";
     public static final String OTHERS = "...";
 
     public static final String RESOURCES_LG_THREADS_RUNNABLE_TXT = "resources_lg/threads/runnable.txt";

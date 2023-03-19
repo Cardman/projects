@@ -20,7 +20,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     public void failSrcFile() {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "");
         analyze(w_);
-        assertEq(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS,w_.getResultContext().getLastBuilt());
+        assertEq(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH,w_.getResultContext().getLastBuilt());
         refreshClasses(w_);
         assertEq(0,tabEditor(w_).getDico().size());
     }
