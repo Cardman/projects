@@ -508,4 +508,31 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertEq(34,tabEditor(w_).getPartsExp().get(0).getBegin());
         assertEq(35,tabEditor(w_).getPartsExp().get(0).getEnd());
     }
+    @Test
+    public void badParam() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass<T>:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        tabEditor(w_).getCenter().setText("C t C t");
+        analyze(w_);
+        assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
+        refreshClasses(w_);
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
+        assertEq(1, d_.size());
+        assertTrue(d_.contains("pkg.ExClass"));
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        assertEq(1, r_.size());
+        assertTrue(r_.contains("pkg.ExClass"));
+        tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
+        tabEditor(w_).getFinderExpClasses().setText("p");
+        tabEditor(w_).getCompleteClasses().enterEvent();
+        assertEq("pkg.ExClass",tabEditor(w_).getFinderExpClasses().getText());
+        tabEditor(w_).getFinderExpClasses().setText("?");
+        selectClass(w_);
+        assertFalse(tabEditor(w_).getFindingExpression().isEnabled());
+        tabEditor(w_).getFinderExpClasses().setText("p");
+        tabEditor(w_).getCompleteClasses().enterEvent();
+        selectClass(w_);
+        assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
+        findExp(w_);
+        assertTrue(tabEditor(w_).getFindingExpressionCancel().isEnabled());
+    }
 }

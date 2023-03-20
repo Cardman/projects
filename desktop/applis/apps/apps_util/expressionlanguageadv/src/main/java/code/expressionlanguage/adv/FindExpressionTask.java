@@ -40,7 +40,11 @@ public final class FindExpressionTask implements Runnable {
         String text_ = editor.getPreview().getText();
         ExecConstructorOverrideInfo info_ = editor.getTargetMethodView();
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),empty_),rInit_, StackCall.newInstance(InitPhase.NOTHING,rInit_)).getValue());
+        StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rInit_);
+        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),empty_),rInit_, first_).getValue());
+        if (rInit_.callsOrException(first_)) {
+            return;
+        }
         CustList<SegmentFindPart> found_ = new CustList<SegmentFindPart>();
         ExecOverrideInfo targetMethod_ = info_.getOverrideInfo();
         int currentIndex_ = 0;
