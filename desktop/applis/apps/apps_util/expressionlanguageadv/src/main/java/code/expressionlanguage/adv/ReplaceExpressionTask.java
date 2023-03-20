@@ -34,7 +34,7 @@ public final class ReplaceExpressionTask implements Runnable {
     @Override
     public void run() {
         AbsTextPane editor_ = current.getPreview();
-        ExecOverrideInfo targetMethod_ = current.getTargetMethodReplace();
+        ExecOverrideInfo targetMethod_ = current.getTargetMethodReplace().getOverrideInfo();
         String text_ = editor_.getText();
         StringBuilder copy_ = new StringBuilder(text_);
         Struct instance_ = current.getInstance();

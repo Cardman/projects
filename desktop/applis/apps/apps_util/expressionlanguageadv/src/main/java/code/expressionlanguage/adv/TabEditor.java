@@ -4,8 +4,11 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.blocks.ExecClassBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.structs.ClassMetaInfo;
+import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 import code.expressionlanguage.utilcompo.CustAliases;
@@ -80,13 +83,12 @@ public final class TabEditor {
     private final AbsSpinner col;
     private final AbsPlainButton val;
     private ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
-    private String usedType = "";
-    private ExecOverrideInfo targetMethodView;
-    private ExecOverrideInfo targetMethodReplace;
+    private ExecConstructorOverrideInfo targetMethodView;
+    private ExecConstructorOverrideInfo targetMethodReplace;
     private RunnableContextEl action;
     private Struct instance = NullStruct.NULL_VALUE;
-    private final StringMap<ExecOverrideInfo> dico = new StringMap<ExecOverrideInfo>();
-    private final StringMap<ExecOverrideInfo> dicoRepl = new StringMap<ExecOverrideInfo>();
+    private final StringMap<ExecConstructorOverrideInfo> dico = new StringMap<ExecConstructorOverrideInfo>();
+    private final StringMap<ExecConstructorOverrideInfo> dicoRepl = new StringMap<ExecConstructorOverrideInfo>();
 
     public TabEditor(WindowWithTreeImpl _editor, String _fullPath, String _lr) {
         useFeed = _lr;
@@ -427,36 +429,43 @@ public final class TabEditor {
         for (EntryCust<String, ExecRootBlock> e: ctx_.getClasses().getClassesBodies().entryList()) {
             ExecRootBlock type_ = e.getValue();
             String name_ = e.getKey();
-            ExecOverrideInfo ov_ = isValid(name_, type_, typeView_, methodView_);
+            ExecConstructorOverrideInfo ov_ = isValid(name_, type_, ctx_, typeView_, methodView_);
             if (ov_ != null) {
                 dict_.add(name_);
                 dico.addEntry(name_,ov_);
             }
-            ExecOverrideInfo ovRep_ = isValid(name_, type_, typeRepl_, methodRepl_);
+            ExecConstructorOverrideInfo ovRep_ = isValid(name_, type_, ctx_, typeRepl_, methodRepl_);
             if (ovRep_ != null) {
                 dicoRepl.addEntry(name_,ovRep_);
             }
         }
         completeClasses.setDictionary(dict_);
     }
-    private static ExecOverrideInfo isValid(String _k, ExecRootBlock _type, ExecRootBlock _look, ExecNamedFunctionBlock _method) {
-        if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType()) {
+    private static ExecConstructorOverrideInfo isValid(String _k, ExecRootBlock _type, ContextEl _ctx, ExecRootBlock _look, ExecNamedFunctionBlock _method) {
+        if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType() || !_type.withoutInstance()) {
             return null;
         }
-        return _look.getRedirections().getVal(_method,_k);
+        for (ConstructorMetaInfo c: new ClassMetaInfo(new ExecFormattedRootBlock(_type), _ctx).getConstructorsInfos()) {
+            if (c.getFid().getParametersTypesLength() == 0) {
+                ExecOverrideInfo o_ = _look.getRedirections().getVal(_method, _k);
+                if (o_ != null) {
+                    return new ExecConstructorOverrideInfo(c,o_);
+                }
+            }
+        }
+        return null;
     }
 
     public void usedType(String _u) {
         usedTypeReplace(_u);
-        setUsedType(_u);
         targetMethodView = dico.getVal(_u);
     }
 
-    public StringMap<ExecOverrideInfo> getDico() {
+    public StringMap<ExecConstructorOverrideInfo> getDico() {
         return dico;
     }
 
-    public StringMap<ExecOverrideInfo> getDicoRepl() {
+    public StringMap<ExecConstructorOverrideInfo> getDicoRepl() {
         return dicoRepl;
     }
 
@@ -655,11 +664,11 @@ public final class TabEditor {
         return windowSecEditor;
     }
 
-    public ExecOverrideInfo getTargetMethodView() {
+    public ExecConstructorOverrideInfo getTargetMethodView() {
         return targetMethodView;
     }
 
-    public ExecOverrideInfo getTargetMethodReplace() {
+    public ExecConstructorOverrideInfo getTargetMethodReplace() {
         return targetMethodReplace;
     }
 
@@ -681,14 +690,6 @@ public final class TabEditor {
 
     public AbsPanel getExpSpli() {
         return expSpli;
-    }
-
-    public String getUsedType() {
-        return usedType;
-    }
-
-    public void setUsedType(String _u) {
-        this.usedType = _u;
     }
 
     public Struct getInstance() {

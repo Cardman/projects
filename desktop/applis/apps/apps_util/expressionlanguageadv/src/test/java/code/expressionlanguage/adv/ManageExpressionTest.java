@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.util.StringMap;
@@ -26,7 +25,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void refresh() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass{public ExClass(){}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass{public ExClass(){}public class Inner{}public static class StInner{public StInner(ExClass p){}}}");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
@@ -38,24 +37,24 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
     }
     @Test
     public void refreshAllExp() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -90,15 +89,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceOne() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -126,15 +125,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replacePreviousNext1() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -163,15 +162,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replacePreviousNext2() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -202,15 +201,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replacePreviousNext3() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -238,15 +237,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceNo() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -268,15 +267,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceNoImpl() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringView{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringView{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(0, r_.size());
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
         tabEditor(w_).getFinderExpClasses().setText("p");
@@ -296,15 +295,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceNoOcc() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('c',i)>-1?new(begin:t.indexOf('c',i),end:t.indexOf('c',i)+1):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('c',i)>-1?new(begin:t.indexOf('c',i),end:t.indexOf('c',i)+1):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -325,15 +324,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceBadOcc1() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i)-1,end:t.indexOf('C',i)):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i)-1,end:t.indexOf('C',i)):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -354,15 +353,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceBadOcc2() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)):null;}public String replace(String t, int i, int b, int e){Thread.currentThread().interrupt();return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -383,15 +382,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void replaceBadOcc3() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){Thread.currentThread().interrupt();return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){Thread.currentThread().interrupt();return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -412,15 +411,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void findStop() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public ExClass(ExClass p){}public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass:AbsStringReplacer{public StringSegment index(String t,int i){return t.indexOf('C',i)>-1?new(begin:t.indexOf('C',i),end:t.indexOf('C',i)+1):null;}public String replace(String t, int i, int b, int e){return \"c\";}}");
         tabEditor(w_).getCenter().setText("C t C t");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -446,10 +445,10 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
@@ -481,10 +480,10 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
-        StringMap<ExecOverrideInfo> d_ = tabEditor(w_).getDico();
+        StringMap<ExecConstructorOverrideInfo> d_ = tabEditor(w_).getDico();
         assertEq(1, d_.size());
         assertTrue(d_.contains("pkg.ExClass"));
-        StringMap<ExecOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
+        StringMap<ExecConstructorOverrideInfo> r_ = tabEditor(w_).getDicoRepl();
         assertEq(1, r_.size());
         assertTrue(r_.contains("pkg.ExClass"));
         tabEditor(w_).getFinderExpClasses().setText("pkg.ExClass");
