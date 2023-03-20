@@ -55,7 +55,7 @@ public final class FindExpressionTask implements Runnable {
             StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, rInit_);
             Parameters parameters_ = ExecTemplates.wrapAndCall(targetMethod_.getPair(), targetMethod_.getClassName(), new Argument(infoStruct_), rInit_, stCall_, new ArgumentListCall(ls_));
             Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(new Argument(infoStruct_), targetMethod_.getClassName(), targetMethod_.getPair(), parameters_),rInit_,stCall_).getValue());
-            if (rInit_.getExecutingOptions().getInterrupt().get()) {
+            if (rInit_.callsOrException(stCall_)) {
                 return;
             }
             if (!(re_ instanceof FieldableStruct)) {

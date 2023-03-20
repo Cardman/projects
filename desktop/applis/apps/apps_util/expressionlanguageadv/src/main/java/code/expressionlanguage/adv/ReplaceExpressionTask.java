@@ -57,7 +57,7 @@ public final class ReplaceExpressionTask implements Runnable {
                 StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, act_);
                 Parameters parameters_ = ExecTemplates.wrapAndCall(targetMethod_.getPair(), targetMethod_.getClassName(), new Argument(instance_), act_, stCall_, new ArgumentListCall(ls_));
                 Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(new Argument(instance_), targetMethod_.getClassName(), targetMethod_.getPair(), parameters_),act_,stCall_).getValue());
-                if (act_.getExecutingOptions().getInterrupt().get()) {
+                if (act_.callsOrException(stCall_)) {
                     return;
                 }
                 StringStruct str_ = NumParsers.getString(re_);
