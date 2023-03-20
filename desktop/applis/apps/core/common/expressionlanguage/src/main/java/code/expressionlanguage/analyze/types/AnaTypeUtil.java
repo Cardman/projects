@@ -207,14 +207,14 @@ public final class AnaTypeUtil {
     }
 
     public static void checkInterfaces(AnalyzedPageEl _page) {
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             recordType(_page, c);
         }
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
 //            ExecRootBlock type_ = _page.getMapTypes().getVal(c);
             staticInitType(_page, c);
         }
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setCurrentFile(c.getFile());
             if (c instanceof RecordBlock) {
                 ins(_page, c);

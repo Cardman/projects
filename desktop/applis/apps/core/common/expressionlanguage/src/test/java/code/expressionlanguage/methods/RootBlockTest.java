@@ -1816,6 +1816,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         validateIds(page_);
         assertTrue( isEmptyErrors(page_));
         validateOverridingInherit(page_);
+        page_.setCustomAna(true);
         postValidation(page_,forwards_);
         return isEmptyErrors(page_);
     }

@@ -83,6 +83,7 @@ public final class AnalyzedPageEl {
     private final IdMap<OperatorBlock,AnalyzingEl> resultsAnaOperator = new IdMap<OperatorBlock,AnalyzingEl>();
     private final CustList<RootBlock> outerTypes = new CustList<RootBlock>();
     private final CustList<RootBlock> foundTypes = new CustList<RootBlock>();
+    private final CustList<RootBlock> allGroupFoundTypes = new CustList<RootBlock>();
     private CustList<IntermediaryResults> nextResults = new CustList<IntermediaryResults>();
     private final NatStringTreeMap<RootBlock> sorted = new NatStringTreeMap<RootBlock>();
     private final CustList<RootBlock> allFoundTypes = new CustList<RootBlock>();
@@ -157,6 +158,8 @@ public final class AnalyzedPageEl {
     private AbstractSymbolFactory abstractSymbolFactory;
     private StringMap<String> mappingKeyWords = new StringMap<String>();
     private StringMap<String> mappingAliases = new StringMap<String>();
+    private int countFiles;
+    private boolean customAna;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
         AnalyzedPageEl page_ = new AnalyzedPageEl();
@@ -826,6 +829,10 @@ public final class AnalyzedPageEl {
         return foundTypes;
     }
 
+    public CustList<RootBlock> getAllGroupFoundTypes() {
+        return allGroupFoundTypes;
+    }
+
     public CustList<RootBlock> getAllFoundTypes() {
         return allFoundTypes;
     }
@@ -1330,5 +1337,21 @@ public final class AnalyzedPageEl {
 
     public void setMappingAliases(StringMap<String> _m) {
         this.mappingAliases = _m;
+    }
+
+    public void setCountFiles(int _c) {
+        this.countFiles = _c;
+    }
+
+    public int getCountFiles() {
+        return countFiles;
+    }
+
+    public boolean isCustomAna() {
+        return customAna;
+    }
+
+    public void setCustomAna(boolean _c) {
+        this.customAna = _c;
     }
 }

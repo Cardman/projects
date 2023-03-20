@@ -52,7 +52,7 @@ public final class ClassesUtil {
         } else {
             validateSimFinals(_page);
         }
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             globalType(_page, c);
             _page.setImporting(c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -69,7 +69,7 @@ public final class ClassesUtil {
         validateOverridingInherit(_page);
         AnaTypeUtil.checkInterfaces(_page);
         warnings(_page);
-        for (RootBlock e: _page.getAllFoundTypes()) {
+        for (RootBlock e: _page.getAllGroupFoundTypes()) {
             ClassMethodIdReturn resDyn_ = tryGetDeclaredToString(e, _page);
             if (resDyn_ != null) {
                 _page.getToStr().addEntry(e,resDyn_);
@@ -84,7 +84,7 @@ public final class ClassesUtil {
     }
 
     private static void customOverrides(AnalyzedPageEl _page) {
-        for (RootBlock e: _page.getAllFoundTypes()) {
+        for (RootBlock e: _page.getAllGroupFoundTypes()) {
             globalType(_page, e);
             _page.setImporting(e);
             _page.setImportingAcces(new TypeAccessor(e.getFullName()));
@@ -104,7 +104,7 @@ public final class ClassesUtil {
         if (!_page.isDisplayUnusedParameterStaticMethod()) {
             return;
         }
-        for (RootBlock r: _page.getAllFoundTypes()) {
+        for (RootBlock r: _page.getAllGroupFoundTypes()) {
             for (NamedCalledFunctionBlock o: r.getOverridableBlocks()) {
                 if (o.isUsedRefMethod() || o.getKind() != MethodKind.STD_METHOD
                         || MethodId.getKind(o.getModifier()) == MethodAccessKind.INSTANCE) {
@@ -127,6 +127,9 @@ public final class ClassesUtil {
     }
 
     private static void checkImpls(AnalyzedPageEl _page) {
+        if (!_page.isCustomAna()) {
+            return;
+        }
         IdMap<NamedCalledFunctionBlock, StringMap<GeneStringOverridable>> anaRed_ = anaRed(_page);
         for (RootBlock r: _page.getAllFoundTypes()) {
             loopImpsType(_page, anaRed_, r);
@@ -278,8 +281,38 @@ public final class ClassesUtil {
         mloc_.formatWithoutParams();
         return mloc_;
     }
+    public static void buildCoreBracesBodies(AnalyzedPageEl _page) {
+        _page.setCustomAna(false);
+        StringMap<String> files_ = _page.buildFiles();
+        buildFilesBodies(files_,true, _page);
+        parseFiles(_page);
+        validateInheritingClasses(_page);
+        validateIds(_page);
+        validateEl(_page);
+        processAnonymous(_page);
+        postValidation(_page);
+    }
     public static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
-        tryBuildAllBracedClassesBodies(_files, _page);
+        buildCoreBracesBodies(_page);
+        _page.setCustomAna(true);
+        _page.setCurrentFct(null);
+        _page.setAnnotAnalysis(false);
+        _page.setAssignedStaticFields(false);
+        _page.setAssignedFields(false);
+        _page.setSortNbOperators(false);
+        _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
+        _page.getFoundTypes().clear();
+        _page.getOuterTypes().clear();
+        _page.getAllGroupFoundTypes().clear();
+        StringMap<FileBlock> prd_ = new StringMap<FileBlock>(_page.getFilesBodies());
+        _page.setCountFiles(prd_.size());
+        _page.getFilesBodies().clear();
+        buildFilesBodies(_files,false, _page);
+        parseFiles(_page);
+        prd_.addAllEntries(_page.getFilesBodies());
+        _page.setCountFiles(prd_.size());
+        _page.getFilesBodies().clear();
+        _page.getFilesBodies().addAllEntries(prd_);
         validateInheritingClasses(_page);
         validateIdsOperators(_page);
         validateIds(_page);
@@ -454,6 +487,9 @@ public final class ClassesUtil {
             AnalyzingEl a_ = _page.getAnalysisAss();
             a_.setVariableIssue(_page.isVariableIssue());
             _page.getResultsMethod().addEntry(e,a_);
+            _page.getCache().getLocalVariables().clear();
+            _page.getCache().getLoopVariables().clear();
+            _page.getMappingLocal().clear();
         }
         for (SwitchMethodBlock e: _s.getSwitchMethods()) {
             _page.setupFctChars(e);
@@ -467,6 +503,9 @@ public final class ClassesUtil {
             AnalyzingEl a_ = _page.getAnalysisAss();
             a_.setVariableIssue(_page.isVariableIssue());
             _page.getResultsSwMethod().addEntry(e,a_);
+            _page.getCache().getLocalVariables().clear();
+            _page.getCache().getLoopVariables().clear();
+            _page.getMappingLocal().clear();
         }
         _page.setAnnotAnalysis(true);
         for (NamedCalledFunctionBlock e: _s.getAnonymousFunctions()) {
@@ -635,6 +674,7 @@ public final class ClassesUtil {
             _root.addErrorBlock(b_.getBuiltError());
         }
         _page.getFoundTypes().add(_root);
+        _page.getAllGroupFoundTypes().add(_root);
         _page.getAllFoundTypes().add(_root);
         _page.getSorted().put(_root.getFullName(), _root);
         if (ok_) {
@@ -783,7 +823,7 @@ public final class ClassesUtil {
             String content_ = f.getValue();
             FileBlock fileBlock_ = new FileBlock(0,_predefined, file_, new DefaultFileEscapedCalc());
             _page.setCurrentFile(fileBlock_);
-            fileBlock_.setNumberFile(_page.getFilesBodies().size());
+            fileBlock_.setNumberFile(_page.getFilesBodies().size()+_page.getCountFiles());
             _page.putFileBlock(file_, fileBlock_);
             fileBlock_.processLinesTabsWithError(content_, _page);
         }
@@ -1904,16 +1944,16 @@ public final class ClassesUtil {
     }
 
     public static void validateOverridingInherit(AnalyzedPageEl _page) {
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setCurrentFile(c.getFile());
             c.setupBasicOverrides(_page);
         }
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setCurrentFile(c.getFile());
             c.checkCompatibility(_page);
             c.checkImplements(_page);
         }
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setCurrentFile(c.getFile());
             c.checkCompatibilityBounds(_page);
         }
@@ -2249,12 +2289,12 @@ public final class ClassesUtil {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
         _page.setAssignedStaticFields(false);
         _page.setAssignedFields(false);
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             checkFinalsStaticFields(_page, assVars_, c);
 
         }
         _page.setAssignedStaticFields(true);
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             checkFinalsInstanceFields(_page, assVars_, c);
         }
         _page.setAssignedFields(true);
@@ -2265,7 +2305,7 @@ public final class ClassesUtil {
         StringMap<AssignmentBefore> b_ = assVars_.getFinalVariablesGlobal().getFieldsRootBefore();
         b_.clear();
 
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setImporting(c);
             globalType(_page,c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2565,7 +2605,7 @@ public final class ClassesUtil {
         AssignedVariablesBlock assVars_ = new AssignedVariablesBlock();
         _page.setAssignedStaticFields(false);
         _page.setAssignedFields(false);
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             initAssignements(_page, c);
             CustList<AbsBk> bl_ = getDirectChildren(c);
             for (AbsBk b: bl_) {
@@ -2574,7 +2614,7 @@ public final class ClassesUtil {
             }
         }
         _page.setAssignedStaticFields(true);
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setImporting(c);
             globalType(_page,c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
@@ -2594,7 +2634,7 @@ public final class ClassesUtil {
         }
         _page.setAssignedFields(true);
 
-        for (RootBlock c: _page.getAllFoundTypes()) {
+        for (RootBlock c: _page.getAllGroupFoundTypes()) {
             _page.setImporting(c);
             globalType(_page,c);
             _page.setImportingAcces(new TypeAccessor(c.getFullName()));
