@@ -445,12 +445,13 @@ public final class TabEditor {
         if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType() || !_type.withoutInstance()) {
             return null;
         }
+        ExecOverrideInfo o_ = _look.getRedirections().getVal(_method, _k);
+        if (o_ == null) {
+            return null;
+        }
         for (ConstructorMetaInfo c: new ClassMetaInfo(new ExecFormattedRootBlock(_type), _ctx).getConstructorsInfos()) {
             if (c.getFid().getParametersTypesLength() == 0) {
-                ExecOverrideInfo o_ = _look.getRedirections().getVal(_method, _k);
-                if (o_ != null) {
-                    return new ExecConstructorOverrideInfo(c,o_);
-                }
+                return new ExecConstructorOverrideInfo(c,o_);
             }
         }
         return null;

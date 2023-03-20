@@ -25,7 +25,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
     }
     @Test
     public void refresh() {
-        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass{public ExClass(){}public class Inner{}public static class StInner{public StInner(ExClass p){}}}");
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "public class pkg.ExClass{public ExClass(){}public class Inner{}public static class StInner:AbsStringView{public StInner(ExClass p){}public StringSegment index(String t,int i){return null;}}}");
         analyze(w_);
         assertTrue(w_.getResultContext().getResultContext().getReportedMessages().isAllEmptyErrors());
         refreshClasses(w_);
