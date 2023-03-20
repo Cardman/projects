@@ -6,7 +6,6 @@ import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
@@ -409,7 +408,7 @@ public final class TabEditor {
         setResultContext(windowSecEditor.getMainFrame().getResultContext());
         ResultContextViewReplacer vr_ = getResultContext();
         lastBuild.setText(vr_.getLastBuilt());
-        ResultContext res_ = vr_.getResultContext();
+        RunnableContextEl res_ = vr_.getResultContext();
         if (res_ == null) {
             selectExpressionClass.setEnabled(false);
             completeClasses.setDictionary(new StringList());
@@ -417,7 +416,6 @@ public final class TabEditor {
             dicoRepl.clear();
             return;
         }
-        ContextEl ctx_ = res_.getContext();
         selectExpressionClass.setEnabled(true);
         ExecRootBlock typeView_ = vr_.getViewType();
         ExecNamedFunctionBlock methodView_ = vr_.getViewMethod();
@@ -426,15 +424,15 @@ public final class TabEditor {
         dico.clear();
         dicoRepl.clear();
         StringList dict_ = new StringList();
-        for (EntryCust<String, ExecRootBlock> e: ctx_.getClasses().getClassesBodies().entryList()) {
+        for (EntryCust<String, ExecRootBlock> e: res_.getClasses().getClassesBodies().entryList()) {
             ExecRootBlock type_ = e.getValue();
             String name_ = e.getKey();
-            ExecConstructorOverrideInfo ov_ = isValid(name_, type_, ctx_, typeView_, methodView_);
+            ExecConstructorOverrideInfo ov_ = isValid(name_, type_, res_, typeView_, methodView_);
             if (ov_ != null) {
                 dict_.add(name_);
                 dico.addEntry(name_,ov_);
             }
-            ExecConstructorOverrideInfo ovRep_ = isValid(name_, type_, ctx_, typeRepl_, methodRepl_);
+            ExecConstructorOverrideInfo ovRep_ = isValid(name_, type_, res_, typeRepl_, methodRepl_);
             if (ovRep_ != null) {
                 dicoRepl.addEntry(name_,ovRep_);
             }

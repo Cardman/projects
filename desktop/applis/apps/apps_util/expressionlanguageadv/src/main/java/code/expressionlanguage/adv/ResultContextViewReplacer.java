@@ -1,18 +1,20 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.functionid.MethodId;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.stds.LgNamesContent;
 import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.gui.initialize.AbstractProgramInfos;
 import code.util.StringList;
 
 public final class ResultContextViewReplacer {
-    private ResultContext resultContext;
+    private RunnableContextEl resultContext;
+    private ReportedMessages reportedMessages = new ReportedMessages();
     private ExecRootBlock viewType;
     private ExecNamedFunctionBlock viewMethod;
     private ExecRootBlock replaceType;
@@ -22,13 +24,13 @@ public final class ResultContextViewReplacer {
     private String aliasStringSegmentEnd="";
     private String lastBuilt=CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH;
 
-    public void update(CustAliases _aliases, LgNamesContent _content, ResultContext _result, AbstractProgramInfos _frames) {
+    public void update(CustAliases _aliases, LgNamesContent _content, RunnableContextEl _result, AbstractProgramInfos _frames) {
         resultContext = _result;
-        viewType = _result.getContext().getClasses().getClassBody(_aliases.getAliasAbsStringView());
+        viewType = _result.getClasses().getClassBody(_aliases.getAliasAbsStringView());
         MethodId index_ = new MethodId(MethodAccessKind.INSTANCE,
                 _aliases.getAliasAbsStringViewIndex(),new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger()));
         viewMethod = ExecClassesUtil.getMethodBodiesById(viewType,index_).first();
-        replaceType = _result.getContext().getClasses().getClassBody(_aliases.getAliasAbsStringReplacer());
+        replaceType = _result.getClasses().getClassBody(_aliases.getAliasAbsStringReplacer());
         MethodId replace_ = new MethodId(MethodAccessKind.INSTANCE,
                 _aliases.getAliasAbsStringReplacerReplace(),new StringList(_content.getCharSeq().getAliasString(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger(),_content.getPrimTypes().getAliasPrimInteger()));
         replaceMethod = ExecClassesUtil.getMethodBodiesById(replaceType,replace_).first();
@@ -38,8 +40,16 @@ public final class ResultContextViewReplacer {
         lastBuilt = CustAliases.getDateTimeText(_frames.getThreadFactory());
     }
 
-    public ResultContext getResultContext() {
+    public RunnableContextEl getResultContext() {
         return resultContext;
+    }
+
+    public ReportedMessages getReportedMessages() {
+        return reportedMessages;
+    }
+
+    public void setReportedMessages(ReportedMessages _rep) {
+        this.reportedMessages = _rep;
     }
 
     public ExecNamedFunctionBlock getReplaceMethod() {

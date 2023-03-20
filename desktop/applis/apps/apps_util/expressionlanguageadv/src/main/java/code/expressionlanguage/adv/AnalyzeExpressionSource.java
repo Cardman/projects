@@ -1,5 +1,7 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.filenames.AbstractNameValidating;
 import code.expressionlanguage.gui.unit.UnitIssuer;
 import code.expressionlanguage.guicompos.LgNamesGui;
@@ -7,6 +9,7 @@ import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
+import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.TechInfos;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
@@ -47,10 +50,13 @@ public final class AnalyzeExpressionSource implements Runnable {
         opt_.setReadOnly(true);
         LgNamesGui stds_ = new LgNamesGui(file_, mainFrame.getFactory().getInterceptor());
         ResultContext r_ = CustContextFactory.buildDefKw(opt_, exec_, stds_, list_);
-        CustContextFactory.reportErrors(opt_, exec_, r_.getReportedMessages(), file_);
-        if (r_.getContext() != null) {
-            mainFrame.getResultContext().update(stds_.getExecContent().getCustAliases(), stds_.getContent(),r_,frames_);
+        ReportedMessages rep_ = r_.getReportedMessages();
+        CustContextFactory.reportErrors(opt_, exec_, rep_, file_);
+        ContextEl c_ = r_.getContext();
+        if (c_ instanceof RunnableContextEl) {
+            mainFrame.getResultContext().update(stds_.getExecContent().getCustAliases(), stds_.getContent(),(RunnableContextEl)c_,frames_);
         }
+        mainFrame.getResultContext().setReportedMessages(rep_);
         mainFrame.getStatusAnalyzeArea().append("-----");
     }
 

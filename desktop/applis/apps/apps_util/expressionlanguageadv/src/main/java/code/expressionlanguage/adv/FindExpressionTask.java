@@ -15,7 +15,6 @@ import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.guicompos.GuiContextEl;
-import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilcompo.RunnableStruct;
@@ -31,8 +30,7 @@ public final class FindExpressionTask implements Runnable {
     @Override
     public void run() {
         ResultContextViewReplacer vr_ = editor.getResultContext();
-        ResultContext res_ = vr_.getResultContext();
-        RunnableContextEl rCont_ = (RunnableContextEl) res_.getContext();
+        RunnableContextEl rCont_ = vr_.getResultContext();
         RunnableContextEl rInit_ = new GuiContextEl(NullStruct.NULL_VALUE, rCont_.getExecutionInfos(), rCont_.getArgs());
         RunnableStruct.setupThread(rInit_);
         editor.setAction(rInit_);
