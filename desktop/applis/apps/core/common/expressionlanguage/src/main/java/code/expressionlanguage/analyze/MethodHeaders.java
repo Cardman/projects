@@ -18,8 +18,25 @@ public final class MethodHeaders {
     private final StringMap<CustList<MethodHeaderInfo>> trues = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringMap<CustList<MethodHeaderInfo>> falses = new StringMap<CustList<MethodHeaderInfo>>();
     private final StringList typesWithInnerOperators = new StringList();
-    private StringList packagesFound = new StringList();
-    private StringList basePackagesFound = new StringList();
+    private final StringList packagesFound = new StringList();
+    private final StringList basePackagesFound = new StringList();
+    public static void addFromTo(MethodHeaders _headers, MethodHeaders _dest) {
+        _dest.basePackagesFound.addAllElts(_headers.basePackagesFound);
+        _dest.packagesFound.addAllElts(_headers.packagesFound);
+        _dest.typesWithInnerOperators.addAllElts(_headers.typesWithInnerOperators);
+        _dest.falses.addAllEntries(_headers.falses);
+        _dest.trues.addAllEntries(_headers.trues);
+        _dest.unary.addAllEntries(_headers.unary);
+        _dest.binaryAll.addAllEntries(_headers.binaryAll);
+        _dest.binaryFirst.addAllEntries(_headers.binaryFirst);
+        _dest.binarySecond.addAllEntries(_headers.binarySecond);
+        _dest.explicitCastMethods.addAllEntries(_headers.explicitCastMethods);
+        _dest.explicitIdCastMethods.addAllEntries(_headers.explicitIdCastMethods);
+        _dest.explicitFromCastMethods.addAllEntries(_headers.explicitFromCastMethods);
+        _dest.implicitCastMethods.addAllEntries(_headers.implicitCastMethods);
+        _dest.implicitIdCastMethods.addAllEntries(_headers.implicitIdCastMethods);
+        _dest.implicitFromCastMethods.addAllEntries(_headers.implicitFromCastMethods);
+    }
 
     public StringMap<CustList<MethodHeaderInfo>> getUnary() {
         return unary;

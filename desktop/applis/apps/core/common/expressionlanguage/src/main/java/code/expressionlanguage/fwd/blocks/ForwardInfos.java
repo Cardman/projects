@@ -40,7 +40,7 @@ public final class ForwardInfos {
         _forwards.setAliasBoolean(_page.getAliasBoolean());
         _forwards.setAliasPrimBoolean(_page.getAliasPrimBoolean());
         CustList<ExecFileBlock> files_ = new CustList<ExecFileBlock>();
-        for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
+        for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
             FileBlock content_ = f.getValue();
             ExecFileBlock exFile_ = new ExecFileBlock(content_.getMetricsCore(), content_.getFileName(),content_.getFileEscapedCalc());
             coverage_.putFile(content_);

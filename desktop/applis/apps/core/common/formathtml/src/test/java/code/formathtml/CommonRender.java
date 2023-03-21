@@ -154,7 +154,19 @@ public abstract class CommonRender extends EquallableRenderUtil {
         all_.addEntry(du_.getFilesConfName(), StringUtil.join(_files.getKeys(),"\n"));
         _dualNav.getNavigation().setFiles(all_);
         setFirst("page1.html", _dualNav.getNavigation().getSession());
-        return dual_.getStds().setupAll(_dualNav);
+        return dual_.getStds().setupAll(_dualNav).getContext();
+    }
+
+    protected static AnalyzedPageEl anaErr(StringMap<String> _files, StringMap<String> _rend, DualNavigationContext _dualNav) {
+        DualAnalyzedContext dual_ = _dualNav.getDualAnalyzedContext();
+        DualConfigurationContext du_ = dual_.getContext();
+        du_.feedRenders(_rend,"page");
+        StringMap<String> all_ = filRend(new StringMap<String>(_files), _rend);
+        du_.setFilesConfName("hello");
+        all_.addEntry(du_.getFilesConfName(), StringUtil.join(_files.getKeys(),"\n"));
+        _dualNav.getNavigation().setFiles(all_);
+        setFirst("page1.html", _dualNav.getNavigation().getSession());
+        return dual_.getStds().setupAll(_dualNav).getPageEl();
     }
 
     private static Options newOptions() {
@@ -218,12 +230,12 @@ public abstract class CommonRender extends EquallableRenderUtil {
     protected static boolean hasCommErr(String _html, StringMap<String> _filesThree) {
         DualNavigationContext a_ = buildNav();
 
-        extracted5(_html, _filesThree, a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = extracted5(_html, _filesThree, a_);
+        return notAllEmptyErrors(cop_);
     }
 
-    private static void extracted5(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
-        ana(_filesThree, oneFile(_html), _a);
+    private static AnalyzedPageEl extracted5(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
+        return anaErr(_filesThree, oneFile(_html), _a);
     }
 
     protected static boolean hasErr(String _folder, String _relative, String _html, StringMap<String> _filesThree, StringMap<String> _files) {
@@ -231,20 +243,20 @@ public abstract class CommonRender extends EquallableRenderUtil {
         
 
         setup(_folder, _relative, _filesThree, a_);
-        ana(_files, filRend(oneFile(_html),_filesThree), a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl c_ = anaErr(_files, filRend(oneFile(_html), _filesThree), a_);
+        return notAllEmptyErrors(c_);
     }
 
     protected static boolean hasErr(String _folder, String _relative, String _html, StringMap<String> _filesThree) {
         DualNavigationContext a_ = buildNav();
         
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
-        extracted8(_html, _filesThree, a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = extracted8(_html, _filesThree, a_);
+        return notAllEmptyErrors(cop_);
     }
 
-    private static void extracted8(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
-        ana(_filesThree, oneFile(_html), _a);
+    private static AnalyzedPageEl extracted8(String _html, StringMap<String> _filesThree, DualNavigationContext _a) {
+        return anaErr(_filesThree, oneFile(_html), _a);
     }
 
 
@@ -304,35 +316,35 @@ public abstract class CommonRender extends EquallableRenderUtil {
         setup(_folder, _relative, _filesThree, a_);
 //        StringMap<String> files_ = oneFile(_html);
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
-        ana(_filesSec, filRend(oneFile(_html),_filesThree), a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = anaErr(_filesSec, filRend(oneFile(_html),_filesThree), a_);
+        return notAllEmptyErrors(cop_);
     }
 
     protected static boolean hasErrOneBean(String _html, StringMap<String> _filesSec) {
         DualNavigationContext a_ = buildNav();
 
-        extracted10(_html, _filesSec, a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = extracted10(_html, _filesSec, a_);
+        return notAllEmptyErrors(cop_);
     }
 
-    private static void extracted10(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
+    private static AnalyzedPageEl extracted10(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
         StringMap<String> files_ = oneFile(_html);
         newSampleBean("pkg.BeanOne", "bean_one", _a.getNavigation().getSession());
-        ana(_filesSec, files_, _a);
+        return anaErr(_filesSec, files_, _a);
     }
 
     protected static boolean hasErrOneBean2(String _folder, String _relative, String _html, StringMap<String> _filesSec) {
         DualNavigationContext a_ = buildNav();
         
         setup(_folder, _relative, a_.getDualAnalyzedContext().getContext());
-        extracted11(_html, _filesSec, a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = extracted11(_html, _filesSec, a_);
+        return notAllEmptyErrors(cop_);
     }
 
-    private static void extracted11(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
+    private static AnalyzedPageEl extracted11(String _html, StringMap<String> _filesSec, DualNavigationContext _a) {
         StringMap<String> files_ = oneFile(_html);
         newSampleBean("pkg.BeanOne", "bean_one", _a.getNavigation().getSession());
-        ana(_filesSec, files_, _a);
+        return anaErr(_filesSec, files_, _a);
     }
 
     protected static String getAncOneBean(String _folder, String _relative, String _html, StringMap<String> _filesThree, StringMap<String> _filesSec) {
@@ -400,8 +412,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         i_.setScope(_scope);
         i_.setClassName(_className);
         addBeanInfo(nav_, i_, "bean_one");
-        ana(_filesSec,_filesThree,a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = anaErr(_filesSec,_filesThree,a_);
+        return notAllEmptyErrors(cop_);
     }
 
     protected static DualNavigationContext getContextVal(String _folder, String _relative, String _scope, String _className) {
@@ -666,8 +678,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         Navigation nav_ = a_.getNavigation();
 
         a_.getDualAnalyzedContext().getContext().getRenderFiles().add("page1.html");
-        ana(_filesSec,_filesThree,a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = anaErr(_filesSec,_filesThree,a_);
+        return notAllEmptyErrors(cop_);
     }
 
     protected static boolean getStdNavigation6(String _locale, String _folder, String _relative, StringMap<String> _filesThree, StringMap<String> _filesSec) {
@@ -684,8 +696,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         i_.setScope("page");
         i_.setClassName("pkg.BeanOne");
         addBeanInfo(nav_, i_, "bean_one");
-        ana(_filesSec,_filesThree,a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = anaErr(_filesSec,_filesThree,a_);
+        return notAllEmptyErrors(cop_);
     }
 
     private static void addVal(Navigation _nav, String _valId, String _class) {
@@ -865,8 +877,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanThree", "bean_three", a_.getNavigation().getSession());
-        ana(_filesSec, files_, a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = anaErr(_filesSec, files_, a_);
+        return notAllEmptyErrors(cop_);
     }
 
     protected static boolean hasErrTwoPagesTwo(String _folder, String _relative, String _html, String _htmlTwo, StringMap<String> _filesSec) {
@@ -876,8 +888,8 @@ public abstract class CommonRender extends EquallableRenderUtil {
         StringMap<String> files_ = twoFiles(oneFile(_html), "page2.html", _htmlTwo);
         newSampleBean("pkg.BeanOne", "bean_one", a_.getNavigation().getSession());
         newSampleBean("pkg.BeanTwo", "bean_two", a_.getNavigation().getSession());
-        ana(_filesSec, files_, a_);
-        return notAllEmptyErrors(a_);
+        AnalyzedPageEl cop_ = anaErr(_filesSec, files_, a_);
+        return notAllEmptyErrors(cop_);
     }
 
     protected static void addBeanInfo(Navigation _nav, BeanInfo _i, String _bean) {

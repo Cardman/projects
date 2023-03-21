@@ -32,6 +32,7 @@ import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.fwd.opers.*;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.options.ValidatorStandard;
 import code.expressionlanguage.stds.PrimitiveTypes;
 import code.expressionlanguage.structs.*;
@@ -445,7 +446,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return ValidatorStandard.tr(_list);
     }
 
-    public ContextEl setupAll(DualNavigationContext _dual) {
+    public ResultContext setupAll(DualNavigationContext _dual) {
         Navigation nav_ = _dual.getNavigation();
         Configuration session_ = nav_.getSession();
         navigation = session_.getNavigation();
@@ -456,28 +457,30 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         AnalyzedPageEl page_ = ana_.getAnalyzed();
         Forwards forwards_ = ana_.getForwards();
         DualConfigurationContext confCont_ = ana_.getContext();
-        setupRendClasses(files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
+        AnalyzedPageEl copy_ = setupRendClasses(files_, page_, confCont_.getFilesConfName(), confCont_.getAddedResources(), confCont_.getRenderFiles());
         AnalyzingDoc analyzingDoc_ = new AnalyzingDoc();
         analyzingDoc_.setContent(this);
         FileBlock blockConf_ = ana_.getBlock();
-        session_.initInstancesPattern(page_, analyzingDoc_,blockConf_);
+        session_.initInstancesPattern(copy_, analyzingDoc_,blockConf_);
         preInitBeans(session_);
         analyzingDoc_.setRendAnalysisMessages(confCont_.getAnalysisMessages());
         analyzingDoc_.setLanguages(languages_);
         session_.setCurrentLanguage(language_);
-        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, page_, confCont_, blockConf_);
-        Classes.postValidate(page_);
-        if (page_.notAllEmptyErrors()) {
-            return null;
+        StringMap<AnaRendDocumentBlock> d_ = session_.analyzedRenders(files_, analyzingDoc_, copy_, confCont_, blockConf_);
+        Classes.postValidate(copy_);
+        if (copy_.notAllEmptyErrors()) {
+            return new ResultContext(copy_,forwards_, copy_.getMessages());
         }
-        ForwardInfos.generalForward(page_, forwards_);
+        ForwardInfos.generalForward(copy_, forwards_);
         StringMap<RendDocumentBlock> renders_ = new StringMap<RendDocumentBlock>();
         rendExecutingBlocks.setRendDocumentBlock(RendForwardInfos.buildExec(analyzingDoc_, d_, forwards_, session_, renders_));
         rendExecutingBlocks.getRenders().addAllEntries(renders_);
         Options options_ = forwards_.getOptions();
         ContextEl context_ = forwardAndClear(forwards_);
         ExecClassesUtil.tryInitStaticlyTypes(context_, options_);
-        return context_;
+        ResultContext res_ = new ResultContext(copy_, forwards_, copy_.getMessages());
+        res_.setContext(context_);
+        return res_;
     }
 
     public ContextEl forwardAndClear(Forwards _forward) {
@@ -487,7 +490,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         return ctx_;
     }
 
-    private static void setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added, StringList _render) {
+    private static AnalyzedPageEl setupRendClasses(StringMap<String> _files, AnalyzedPageEl _page, String _filesConfName, StringList _added, StringList _render) {
         StringList content_ = new StringList();
         for (EntryCust<String, String> e: _files.entryList()) {
             if (StringUtil.quickEq(e.getKey(), _filesConfName)) {
@@ -515,7 +518,9 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
         //!classFiles_.isEmpty()
         _page.addResources(resFiles_);
-        ClassesUtil.buildAllBracesBodies(classFiles_, _page);
+        AnalyzedPageEl copy_ = ClassesUtil.buildAllBracesBodies(classFiles_, _page);
+        copy_.setCustomAna(true);
+        return copy_;
     }
 
     public void preInitBeans(Configuration _conf) {

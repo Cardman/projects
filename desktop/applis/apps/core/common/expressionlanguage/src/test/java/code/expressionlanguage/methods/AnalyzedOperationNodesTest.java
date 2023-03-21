@@ -3434,8 +3434,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kwl_,page_);
-        buildAllBracesBodies(files_, page_);
-        assertTrue(!isEmptyErrors(page_));
+        AnalyzedPageEl a_ = buildAllBracesBodies(files_, page_);
+        assertTrue(!isEmptyErrors(a_));
     }
 
 
@@ -4631,9 +4631,9 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         getForwards(opt_,lgName_,kw_,page_);
-        validateWithoutInit(_files, page_);
-        assertTrue( isEmptyErrors(page_));
-        return page_;
+        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
+        assertTrue( isEmptyErrors(a_));
+        return a_;
     }
 
     private static ClassMethodIdVarArg getClassMethodId(AbsFctOperation _fct) {
@@ -4644,8 +4644,8 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         return new ConstructorIdVarArg(_fct.getFormattedType().getFormatted(),_fct.getInstancingCommonContent().getConstId(),_fct.getNaturalVararg());
     }
 
-    private static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _cont) {
-        ClassesUtil.buildAllBracesBodies(_files, _cont);
+    private static AnalyzedPageEl buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _cont) {
+        return ClassesUtil.buildAllBracesBodies(_files, _cont);
     }
 
 }

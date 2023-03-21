@@ -2348,14 +2348,14 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setMappingKeyWords(KeyWords.mapping());
         page_.setMappingAliases(LgNamesContent.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
-        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
-        assertTrue(isEmptyErrors(page_));
+        ResultContext ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
+        assertTrue(isEmptyErrors(ctx_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
-        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
-        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_, stackCall_).getValue();
+        ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
+        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }
@@ -2396,14 +2396,14 @@ public class LgNamesTest extends ProcessMethodCommon {
         page_.setMappingKeyWords(KeyWords.mapping());
         page_.setMappingAliases(LgNamesContent.mapping());
         assertTrue(ContextFactory.validateStds(forwards_,page_.getAnalysisMessages(), kw_, new CustList<CommentDelimiters>(), options_, lgName_.getContent(), page_));
-        ContextEl ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
-        assertTrue(isEmptyErrors(page_));
+        ResultContext ctx_ = ContextFactory.addResourcesAndValidate(all_, "src", page_, forwards_);
+        assertTrue(isEmptyErrors(ctx_.getPageEl()));
         MethodId fct_ = new MethodId(MethodAccessKind.STATIC, "exmeth",new StringList());
         Argument argGlLoc_ = new Argument();
-        ExecRootBlock classBody_ = ctx_.getClasses().getClassBody("pkg.Ex");
-        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_, "pkg.Ex", fct_).first();
-        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_);
-        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_, stackCall_).getValue();
+        ExecRootBlock classBody_ = ctx_.getContext().getClasses().getClassBody("pkg.Ex");
+        ExecOverridableBlock method_ = getDeepMethodBodiesById(ctx_.getContext(), "pkg.Ex", fct_).first();
+        StackCall stackCall_ = StackCall.newInstance(InitPhase.NOTHING,ctx_.getContext());
+        Argument ret_ = ProcessMethod.calculate(new CustomFoundMethod(argGlLoc_, new ExecFormattedRootBlock(classBody_, "pkg.Ex"), new ExecTypeFunction(classBody_, method_), new Parameters()), ctx_.getContext(), stackCall_).getValue();
         assertNull(stackCall_.getCallingState());
         assertEq(2, getNumber(ret_));
     }

@@ -18,6 +18,7 @@ import code.expressionlanguage.fwd.Forwards;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.fwd.blocks.ForwardInfos;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
@@ -67,16 +68,23 @@ public final class Classes {
 	}
 
     /**Resources are possibly added before analyzing file types*/
-    public static ContextEl validateAll(StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
-        validateWithoutInit(_files, _page);
-        if (_page.notAllEmptyErrors()) {
+    public static ResultContext validateAll(StringMap<String> _files, AnalyzedPageEl _page, Forwards _forwards) {
+        AnalyzedPageEl fwd_ = validateWithoutInit(_files, _page);
+        if (fwd_.notAllEmptyErrors()) {
             //all errors are logged here
-            return null;
+            return new ResultContext(fwd_,_forwards, fwd_.getMessages());
         }
-        ForwardInfos.generalForward(_page,_forwards);
-        ContextEl ctx_ = _forwards.generate();
+        ResultContext res_ = new ResultContext(fwd_, _forwards, fwd_.getMessages());
+        res_.forwardGenerate();
+        return res_;
+    }
+    public static ContextEl forwardGenerate(ResultContext _res) {
+        AnalyzedPageEl fwd_ = _res.getPageEl();
+        Forwards f_ = _res.getForwards();
+        ForwardInfos.generalForward(fwd_,f_);
+        ContextEl ctx_ = f_.generate();
         forwardAndClear(ctx_);
-        Options options_ = _forwards.getOptions();
+        Options options_ = f_.getOptions();
         ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
         return ctx_;
     }
@@ -85,13 +93,15 @@ public final class Classes {
         _context.forwardAndClear();
     }
 
-    public static void validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {
+    public static AnalyzedPageEl validateWithoutInit(StringMap<String> _files, AnalyzedPageEl _page) {
         if (_page.notAllEmptyErrors()) {
             //all standards errors are logged here
-            return;
+            return _page;
         }
-        ClassesUtil.buildAllBracesBodies(_files, _page);
-        postValidate(_page);
+        AnalyzedPageEl copy_ = ClassesUtil.buildAllBracesBodies(_files, _page);
+        copy_.setCustomAna(true);
+        postValidate(copy_);
+        return copy_;
     }
 
     public static void postValidate(AnalyzedPageEl _page) {
@@ -107,7 +117,7 @@ public final class Classes {
                 String fullName_ = e.getKey().getFullName();
                 _page.getRandCodeOwners().add(fullName_);
             }
-            for (EntryCust<String, FileBlock> f: _page.getFilesBodies().entryList()) {
+            for (EntryCust<String, FileBlock> f: _page.getPreviousFilesBodies().entryList()) {
                 FileBlock content_ = f.getValue();
                 _page.getErrors().putFile(content_, _page);
             }

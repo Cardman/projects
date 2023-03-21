@@ -291,91 +291,86 @@ public final class ClassesUtil {
         validateEl(_page);
         processAnonymous(_page);
         postValidation(_page);
+        _page.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
+        _page.getFilesBodies().clear();
     }
-    public static void buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
+    public static AnalyzedPageEl buildAllBracesBodies(StringMap<String> _files, AnalyzedPageEl _page) {
         buildCoreBracesBodies(_page);
-        _page.setCustomAna(true);
-        _page.setCurrentFct(null);
-        _page.setAnnotAnalysis(false);
-        _page.setAssignedStaticFields(false);
-        _page.setAssignedFields(false);
-        _page.setSortNbOperators(false);
-        _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
-        _page.getFoundTypes().clear();
-        _page.getOuterTypes().clear();
-        _page.getAllGroupFoundTypes().clear();
-        StringMap<FileBlock> prd_ = new StringMap<FileBlock>(_page.getFilesBodies());
-        _page.setCountFiles(prd_.size());
-        _page.getFilesBodies().clear();
-        buildFilesBodies(_files,false, _page);
-        parseFiles(_page);
-        prd_.addAllEntries(_page.getFilesBodies());
-        _page.setCountFiles(prd_.size());
-        _page.getFilesBodies().clear();
-        _page.getFilesBodies().addAllEntries(prd_);
-        validateInheritingClasses(_page);
-        validateIdsOperators(_page);
-        validateIds(_page);
-        validateEl(_page);
-        _page.getSortedOperators().addAllElts(_page.getAllOperators());
-        _page.getSortedOperators().sortElts(new AnaOperatorCmp());
-        CustList<OperatorBlock> sortedOperators_ = getOperatorBlocks(_page);
+        return buildUserCode(_files, _page);
+    }
+
+    public static AnalyzedPageEl buildUserCode(StringMap<String> _files, AnalyzedPageEl _page) {
+        AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_page);
+        copy_.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
+        copy_.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
+        buildFilesBodies(_files,false, copy_);
+        parseFiles(copy_);
+        copy_.getPreviousFilesBodies().addAllEntries(copy_.getFilesBodies());
+        copy_.getFilesBodies().clear();
+        validateInheritingClasses(copy_);
+        validateIdsOperators(copy_);
+        validateIds(copy_);
+        validateEl(copy_);
+        copy_.getSortedOperators().addAllElts(copy_.getAllOperators());
+        copy_.getSortedOperators().sortElts(new AnaOperatorCmp());
+        CustList<OperatorBlock> sortedOperators_ = getOperatorBlocks(copy_);
         for (OperatorBlock o: sortedOperators_) {
-            nbTypesOpers(_page, o);
+            nbTypesOpers(copy_, o);
         }
-        _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
-        _page.getFoundTypes().clear();
-        StringList basePkgFound_ = _page.getBasePackagesFound();
-        StringList pkgFound_ = _page.getPackagesFound();
-        for (OperatorBlock o: _page.getAllOperators()) {
-            processType(basePkgFound_,pkgFound_,o,_page);
+        copy_.getPrevFoundTypes().addAllElts(copy_.getFoundTypes());
+        copy_.getFoundTypes().clear();
+        StringList basePkgFound_ = copy_.getBasePackagesFound();
+        StringList pkgFound_ = copy_.getPackagesFound();
+        for (OperatorBlock o: copy_.getAllOperators()) {
+            processType(basePkgFound_,pkgFound_,o,copy_);
         }
-        processMapping(_page);
-        validateInheritingClasses(_page);
-        validateIds(_page);
-        validateEl(_page);
-        _page.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
-        _page.getFoundTypes().clear();
+        processMapping(copy_);
+        validateInheritingClasses(copy_);
+        validateIds(copy_);
+        validateEl(copy_);
+        copy_.getPrevFoundTypes().addAllElts(copy_.getFoundTypes());
+        copy_.getFoundTypes().clear();
         CustList<BracedBlock> brBl_ = new CustList<BracedBlock>();
-        for (OperatorBlock c: _page.getAllOperators()) {
+        for (OperatorBlock c: copy_.getAllOperators()) {
             brBl_.add(c);
         }
-        procBadIndexes(_page, brBl_);
-        globalType(_page);
-        for (OperatorBlock o: _page.getAllOperators()) {
-            _page.setImporting(o);
-            _page.setImportingAcces(new OperatorAccessor());
-            _page.setImportingTypes(o);
-            _page.setCurrentPkg(_page.getDefaultPkg());
-            _page.setCurrentFile(o.getFile());
+        procBadIndexes(copy_, brBl_);
+        globalType(copy_);
+        for (OperatorBlock o: copy_.getAllOperators()) {
+            copy_.setImporting(o);
+            copy_.setImportingAcces(new OperatorAccessor());
+            copy_.setImportingTypes(o);
+            copy_.setCurrentPkg(copy_.getDefaultPkg());
+            copy_.setCurrentFile(o.getFile());
             StringList params_ = o.getParametersNames();
             StringList types_ = o.getImportedParametersTypes();
-            prepareParams(_page,o.getParametersNamesOffset(),o.getParamErrors(), params_, o.getParametersRef(), types_, o.isVarargs());
-            _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(o.getRefMappings());
-            o.buildFctInstructionsReadOnly(_page);
-            AnalyzingEl a_ = _page.getAnalysisAss();
-            a_.setVariableIssue(_page.isVariableIssue());
-            _page.getResultsAnaOperator().addEntry(o,a_);
+            prepareParams(copy_,o.getParametersNamesOffset(),o.getParamErrors(), params_, o.getParametersRef(), types_, o.isVarargs());
+            copy_.getMappingLocal().clear();
+            copy_.getMappingLocal().putAllMap(o.getRefMappings());
+            o.buildFctInstructionsReadOnly(copy_);
+            AnalyzingEl a_ = copy_.getAnalysisAss();
+            a_.setVariableIssue(copy_.isVariableIssue());
+            copy_.getResultsAnaOperator().addEntry(o,a_);
         }
-        _page.setAnnotAnalysis(true);
-        globalType(_page);
-        _page.setCurrentFct(null);
-        for (OperatorBlock o: _page.getAllOperators()) {
-            _page.setCurrentPkg(_page.getDefaultPkg());
-            _page.setCurrentFile(o.getFile());
-            _page.setImporting(o);
-            _page.setImportingAcces(new OperatorAccessor());
-            _page.setImportingTypes(o);
-            _page.setCurrentBlock(o);
-            _page.getMappingLocal().clear();
-            _page.getMappingLocal().putAllMap(o.getRefMappings());
-            o.buildAnnotations(_page);
-            o.buildAnnotationsParameters(_page);
+        copy_.setAnnotAnalysis(true);
+        globalType(copy_);
+        copy_.setCurrentFct(null);
+        for (OperatorBlock o: copy_.getAllOperators()) {
+            copy_.setCurrentPkg(copy_.getDefaultPkg());
+            copy_.setCurrentFile(o.getFile());
+            copy_.setImporting(o);
+            copy_.setImportingAcces(new OperatorAccessor());
+            copy_.setImportingTypes(o);
+            copy_.setCurrentBlock(o);
+            copy_.getMappingLocal().clear();
+            copy_.getMappingLocal().putAllMap(o.getRefMappings());
+            o.buildAnnotations(copy_);
+            o.buildAnnotationsParameters(copy_);
         }
-        _page.setAnnotAnalysis(false);
+        copy_.setAnnotAnalysis(false);
 
-        processAnonymous(_page);
+        processAnonymous(copy_);
+        return copy_;
     }
 
     private static void nbTypesOpers(AnalyzedPageEl _page, OperatorBlock _o) {
@@ -541,6 +536,7 @@ public final class ClassesUtil {
         buildFilesBodies(files_,true, _page);
         buildFilesBodies(_files,false, _page);
         parseFiles(_page);
+        _page.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
     }
 
     private static void processBracedClass(boolean _add, RootBlock _root, AnalyzedPageEl _page) {
@@ -823,7 +819,7 @@ public final class ClassesUtil {
             String content_ = f.getValue();
             FileBlock fileBlock_ = new FileBlock(0,_predefined, file_, new DefaultFileEscapedCalc());
             _page.setCurrentFile(fileBlock_);
-            fileBlock_.setNumberFile(_page.getFilesBodies().size()+_page.getCountFiles());
+            fileBlock_.setNumberFile(_page.getFilesBodies().size()+_page.getPreviousFilesBodies().size());
             _page.putFileBlock(file_, fileBlock_);
             fileBlock_.processLinesTabsWithError(content_, _page);
         }

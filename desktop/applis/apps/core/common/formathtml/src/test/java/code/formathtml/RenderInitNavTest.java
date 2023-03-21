@@ -1548,7 +1548,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static ContextEl setupRendClassesInitStdMess(DualNavigationContext _a, Navigation _n) {
-        return _a.getDualAnalyzedContext().getStds().setupAll(_a);
+        return _a.getDualAnalyzedContext().getStds().setupAll(_a).getContext();
     }
 
     private void init(ContextEl _ctx,DualNavigationContext _a, Navigation _n) {
@@ -1562,7 +1562,7 @@ public final class RenderInitNavTest extends CommonRender {
     }
 
     private static ContextEl setupRendClassesInit(Navigation _nav, BeanCustLgNames _stds, DualAnalyzedContext _dual) {
-        return _stds.setupAll(new DualNavigationContext(_nav, _dual));
+        return _stds.setupAll(new DualNavigationContext(_nav, _dual)).getContext();
     }
 
     private static DualAnalyzedContext loadConfiguration(BeanCustLgNames _lgNames, String _xmlConf, Navigation _n) {

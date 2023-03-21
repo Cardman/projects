@@ -151,6 +151,8 @@ public final class Configuration {
         for (AnaRendDocumentBlock v : _d.values()) {
             v.initMetrics(_analyzingDoc,_page,_beansInfosBefore);
         }
+        _page.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
+        _page.getFilesBodies().clear();
         _page.setNextResults(RendSplitExpressionUtil.getNextResults(_analyzingDoc,_page,_d.values()));
         for (AnaRendDocumentBlock v : _d.values()) {
             v.buildFctInstructions(_analyzingDoc, _page);

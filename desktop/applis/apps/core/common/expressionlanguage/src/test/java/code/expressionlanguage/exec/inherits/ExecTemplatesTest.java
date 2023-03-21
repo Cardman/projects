@@ -1361,9 +1361,9 @@ public final class ExecTemplatesTest extends ProcessMethodCommon {
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
-        validateWithoutInit(_files,page_);
-        assertTrue(isEmptyErrors(page_));
-        generalForward(page_,forwards_);
+        AnalyzedPageEl a_ = validateWithoutInit(_files, page_);
+        assertTrue(isEmptyErrors(a_));
+        generalForward(a_,forwards_);
         return forwardAndClear(forwards_);
     }
 

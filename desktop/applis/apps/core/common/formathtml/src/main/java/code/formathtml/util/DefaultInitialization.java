@@ -74,7 +74,7 @@ public final class DefaultInitialization {
         keyWordDigit = du_.getAnalyzed().getKeyWords().getKeyWordNbDig();
         du_.getAnalyzed().setAbstractSymbolFactory(symbolFactory);
         _nav.setFiles(fileNames);
-        ContextEl ctx_ = stds.setupAll(new DualNavigationContext(_nav, du_));
+        ContextEl ctx_ = stds.setupAll(new DualNavigationContext(_nav, du_)).getContext();
         if (ctx_ == null) {
             return "";
         }

@@ -688,8 +688,7 @@ public abstract class EquallableElUtUtil {
         ContextFactory.build(forwards_,_definedKw,_options,page_);
 //        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultContext(reportedMessages_, page_.getMessages());
+        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
     }
 
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesUtils _definedLgNames, StringMap<String> _files) {
@@ -709,7 +708,6 @@ public abstract class EquallableElUtUtil {
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultContext(reportedMessages_, page_.getMessages());
+        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
     }
 }

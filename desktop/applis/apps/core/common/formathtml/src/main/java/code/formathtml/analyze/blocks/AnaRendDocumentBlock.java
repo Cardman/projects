@@ -59,7 +59,7 @@ public final class AnaRendDocumentBlock extends AnaRendParentBlock implements Ac
     public void initMetrics(AnalyzingDoc _anaDoc, AnalyzedPageEl _page, StringMap<BeanInfo> _beansInfosBefore) {
         String alias_ = StringUtil.concat(_anaDoc.getPrefix(), _anaDoc.getRendKeyWords().getAttrAlias());
         imports = StringUtil.splitChar(elt.getAttribute(alias_),';');
-        fileBlock.setNumberFile(_page.getFilesBodies().size());
+        fileBlock.setNumberFile(_page.getPreviousFilesBodies().size()+_page.getFilesBodies().size());
         _page.putFileBlock(fileName, fileBlock);
         fileBlock.checkErrors(_page);
         int o_ = getAttributeDelimiter(alias_);

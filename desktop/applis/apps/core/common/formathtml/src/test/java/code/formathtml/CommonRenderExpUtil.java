@@ -24,6 +24,7 @@ import code.formathtml.analyze.RenderAnalysis;
 import code.formathtml.exec.ImportingPage;
 import code.formathtml.exec.opers.RendDynOperationNode;
 import code.formathtml.fwd.RendForwardInfos;
+import code.formathtml.util.DualAnalyzedContext;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringMap;
@@ -51,9 +52,10 @@ public abstract class CommonRenderExpUtil extends CommonRender {
     protected static DualNavigationContext getConfigurationQuick(StringMap<String> _files,String... _types) {
         Configuration conf_ = EquallableRenderUtil.newConfiguration();
         DualNavigationContext a_ = buildNav(conf_,_types);
-        Classes.validateWithoutInit(_files, a_.getDualAnalyzedContext().getAnalyzed());
-        assertTrue(isEmptyErrors(a_));
-        return a_;
+        DualAnalyzedContext f_ = a_.getDualAnalyzedContext();
+        AnalyzedPageEl copy_ = Classes.validateWithoutInit(_files, f_.getAnalyzed());
+        assertTrue(isEmptyErrors(copy_));
+        return new DualNavigationContext(a_.getNavigation(),new DualAnalyzedContext(f_.getForwards(),copy_,f_.getStds(),f_.getContext(),f_.getBlock()));
     }
 
     protected static void setupAnalyzing(DualNavigationContext _analyzing) {

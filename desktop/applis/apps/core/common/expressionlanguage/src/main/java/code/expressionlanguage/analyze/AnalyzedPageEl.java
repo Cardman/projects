@@ -135,6 +135,7 @@ public final class AnalyzedPageEl {
     private final CustList<AnonymousLambdaOperation> allAnonymousLambda = new CustList<AnonymousLambdaOperation>();
     private final CustList<SwitchOperation> allSwitchMethods = new CustList<SwitchOperation>();
     private final StringMap<FileBlock> filesBodies = new StringMap<FileBlock>();
+    private final StringMap<FileBlock> previousFilesBodies = new StringMap<FileBlock>();
     private FileBlock refFileName;
     private final StringMap<ToStringMethodHeader> toStringMethods = new StringMap<ToStringMethodHeader>();
     private final StringMap<ToStringMethodHeader> randCodeMethods = new StringMap<ToStringMethodHeader>();
@@ -158,7 +159,6 @@ public final class AnalyzedPageEl {
     private AbstractSymbolFactory abstractSymbolFactory;
     private StringMap<String> mappingKeyWords = new StringMap<String>();
     private StringMap<String> mappingAliases = new StringMap<String>();
-    private int countFiles;
     private boolean customAna;
 
     public static AnalyzedPageEl setInnerAnalyzing() {
@@ -168,6 +168,45 @@ public final class AnalyzedPageEl {
         page_.setLocalizer(new DefaultLocalizer(page_));
         page_.setAbstractSymbolFactory(new DefSymbolFactory());
         return page_;
+    }
+    public static AnalyzedPageEl copy(AnalyzedPageEl _original) {
+        AnalyzedPageEl copy_ = setInnerAnalyzing();
+        copy_.abstractSymbolFactory= _original.abstractSymbolFactory;
+        copy_.mappingKeyWords= _original.mappingKeyWords;
+        copy_.mappingAliases= _original.mappingAliases;
+        copy_.logErr= _original.logErr;
+        copy_.options= _original.options;
+        copy_.comments= _original.comments;
+        copy_.defaultAccess = _original.defaultAccess;
+        copy_.analysisMessages = _original.analysisMessages;
+        copy_.keyWords = _original.keyWords;
+        copy_.content = _original.content;
+        copy_.calculator = _original.calculator;
+        copy_.fileBuilder = _original.fileBuilder;
+        copy_.resources = _original.resources;
+        copy_.staticFields = _original.staticFields;
+        copy_.tabWidth = _original.tabWidth;
+        copy_.gettingErrors = _original.gettingErrors;
+        MethodHeaders.addFromTo(_original.headers, copy_.headers);
+        copy_.countAnonTypes = _original.countAnonTypes;
+        copy_.countOperators = _original.countOperators;
+        copy_.countInnerEltTypes = _original.countInnerEltTypes;
+        copy_.countTypes = _original.countTypes;
+        copy_.sorted.putAllMap(_original.sorted);
+        copy_.allFoundTypes.addAllElts(_original.allFoundTypes);
+        copy_.allOperators.addAllElts(_original.allOperators);
+        copy_.sortedOperators.addAllElts(_original.sortedOperators);
+        copy_.refFoundTypes.addAllElts(_original.refFoundTypes);
+        copy_.toStr.addAllEntries(_original.toStr);
+        copy_.randCodes.addAllEntries(_original.randCodes);
+        copy_.counts.addAllEntries(_original.counts);
+        copy_.countsAnon.addAllEntries(_original.countsAnon);
+        copy_.allAnonymousLambda.addAllElts(_original.allAnonymousLambda);
+        copy_.allSwitchMethods.addAllElts(_original.allSwitchMethods);
+        copy_.classMetaInfos.addAllElts(_original.classMetaInfos);
+        copy_.prevFoundTypes.addAllElts(_original.prevFoundTypes);
+        copy_.previousFilesBodies.addAllEntries(_original.previousFilesBodies);
+        return copy_;
     }
 
     public static CustList<RootBlock> customTypes(CustList<RootBlock> _foundTypes) {
@@ -1339,12 +1378,8 @@ public final class AnalyzedPageEl {
         this.mappingAliases = _m;
     }
 
-    public void setCountFiles(int _c) {
-        this.countFiles = _c;
-    }
-
-    public int getCountFiles() {
-        return countFiles;
+    public StringMap<FileBlock> getPreviousFilesBodies() {
+        return previousFilesBodies;
     }
 
     public boolean isCustomAna() {

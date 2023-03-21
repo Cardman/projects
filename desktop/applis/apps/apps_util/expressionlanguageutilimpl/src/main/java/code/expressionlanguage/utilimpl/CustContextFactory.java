@@ -124,11 +124,14 @@ public final class CustContextFactory {
         m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
         page_.setMappingAliases(m_);
         GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
-        Forwards forwards_ = new Forwards(_definedLgNames, _definedLgNames.getExecContent(), fileBuilder_, _options);
+        Forwards forwards_ = fwd(_options, _definedLgNames, fileBuilder_);
         page_.setLogErr(forwards_);
         AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
         ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        ContextEl reportedMessages_ = ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
-        return new ResultContext(reportedMessages_, page_.getMessages());
+        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+    }
+
+    public static Forwards fwd(Options _options, LgNamesWithNewAliases _definedLgNames, AbstractFileBuilder _builder) {
+        return new Forwards(_definedLgNames, _definedLgNames.getExecContent(), _builder, _options);
     }
 }
