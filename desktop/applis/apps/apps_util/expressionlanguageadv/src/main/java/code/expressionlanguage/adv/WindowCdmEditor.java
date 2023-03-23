@@ -67,6 +67,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsCommonFrame statusAnalyze;
     private final AbsTextArea statusAnalyzeArea;
     private ResultContext baseResult;
+    private ManageOptions baseManageOptions;
     private AbstractFuture future;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
@@ -588,6 +589,14 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     public void setBaseResult(ResultContext _b) {
         this.baseResult = _b;
     }
+
+    public ManageOptions getBaseManageOptions() {
+        return baseManageOptions;
+    }
+    public void setBaseManageOptions(ManageOptions _b) {
+        this.baseManageOptions = _b;
+    }
+
 
     public AbstractFuture getFuture() {
         return future;

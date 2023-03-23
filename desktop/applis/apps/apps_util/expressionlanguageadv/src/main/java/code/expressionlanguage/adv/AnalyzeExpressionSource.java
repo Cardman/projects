@@ -9,6 +9,7 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilimpl.CustContextFactory;
+import code.expressionlanguage.utilimpl.ManageOptions;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -22,7 +23,7 @@ public final class AnalyzeExpressionSource implements Runnable {
     @Override
     public void run() {
         mainFrame.getStatusAnalyzeArea().setText("");
-        ResultContext r_ = nextValidate(mainFrame.getBaseResult());
+        ResultContext r_ = nextValidate(mainFrame.getBaseResult(),mainFrame.getBaseManageOptions());
         if (!r_.getPageEl().isCustomAna()) {
             mainFrame.getStatusAnalyzeArea().append("KO");
             return;
@@ -43,11 +44,14 @@ public final class AnalyzeExpressionSource implements Runnable {
         mainFrame.getStatusAnalyzeArea().append("-----");
     }
 
-    public static ResultContext nextValidate(ResultContext _base) {
+    public static ResultContext nextValidate(ResultContext _base, ManageOptions _manage) {
         LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
         ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
         FileInfos file_ = lg_.getExecContent().getInfos();
-        return RunningTest.nextValidate(_base, lg_, exec_, file_);
+        ManageOptions m_ = new ManageOptions(exec_.getLgs(), WindowCdmEditor.linesConf(_manage), exec_.getListGenerator(), exec_.getLightProgramInfos().getThreadFactory());
+        m_.getEx().setLightProgramInfos(exec_.getLightProgramInfos());
+        m_.getEx().setListGenerator(exec_.getListGenerator());
+        return RunningTest.nextValidate(_base, lg_, m_.getEx(), file_);
     }
 
 }
