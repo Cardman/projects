@@ -86,12 +86,17 @@ public final class MemoryReporter implements AbstractReporter {
     }
     @Override
     public String conf(String _fileConfOrContent) {
-        return tryDecode(conf);
+        return tryDecode(getConf());
     }
     @Override
     public String confTxt(String _fileConfOrContent) {
-        return tryDecode(conf);
+        return tryDecode(getConf());
     }
+
+    public byte[] getConf() {
+        return conf;
+    }
+
     public static String tryDecode(byte[] _content) {
         if (_content == null) {
             return null;
