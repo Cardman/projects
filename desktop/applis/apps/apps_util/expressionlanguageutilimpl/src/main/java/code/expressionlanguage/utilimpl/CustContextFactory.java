@@ -3,6 +3,7 @@ package code.expressionlanguage.utilimpl;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.*;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.errors.AnalysisMessages;
 import code.expressionlanguage.common.ClassField;
 import code.expressionlanguage.exec.InitPhase;
@@ -49,7 +50,7 @@ public final class CustContextFactory {
         execute(_options,_exec,mess_,kwl_, _stds,_files,_progressingTests);
     }
 
-    private static void preinit(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
+    public static void preinit(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _kwl, LgNamesGui _aliases) {
         _aliases.getExecContent().updateTranslations(_exec.getLightProgramInfos().getTranslations(),_exec.getLightProgramInfos().getLanguage(),_exec.getLg());
         preinitAliases(_exec, _mess, _kwl, _aliases.getContent(), _aliases.getExecContent().getCustAliases(), _aliases.getGuiAliases());
         _options.setWarningShow(AnalysisMessages.build(_exec.getWarns(), _aliases.getExecContent().getCustAliases().extractMessagesKeys()));
@@ -115,20 +116,49 @@ public final class CustContextFactory {
         }
     }
     public static ResultContext build(Options _options, ExecutingOptions _exec, AnalysisMessages _mess, KeyWords _definedKw, LgNamesGui _definedLgNames, StringMap<String> _files, StringList _mainArgs) {
+        parts(_exec, _definedLgNames, _mainArgs);
+        AnalyzedPageEl page_ = mapping(_definedLgNames);
+        Forwards forwards_ = builder(_options, _definedLgNames, page_);
+        AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
+        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
+        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+    }
+
+    public static ResultContext stds(FileInfos _file, ExecutingOptions _ex, Options _opts, AnalysisMessages _mess, KeyWords _kwl) {
+        _opts.setReadOnly(true);
+        LgNamesGui stds_ = new LgNamesGui(_file, _ex.getListGenerator().getInterceptor());
+        CustContextFactory.preinit(_opts, _ex, _mess, _kwl, stds_);
+        CustContextFactory.parts(_ex,stds_,new StringList());
+        AnalyzedPageEl page_ = CustContextFactory.mapping(stds_);
+        Forwards forwards_ = CustContextFactory.builder(_opts, stds_, page_);
+        AnalysisMessages.validateMessageContents(_mess.allMessages(stds_.getExecContent().getCustAliases().extractMessagesKeys()), page_);
+        ContextFactory.validateStds(forwards_, _mess, _kwl, stds_.getExecContent().getCustAliases().defComments(), _opts, stds_.getContent(), page_);
+        if (page_.notAllEmptyErrors()) {
+            return new ResultContext(page_, forwards_, page_.getMessages());
+        }
+        ClassesUtil.buildCoreBracesBodies(page_);
+        return new ResultContext(page_, forwards_, page_.getMessages());
+    }
+    public static void parts(ExecutingOptions _exec, LgNamesGui _definedLgNames, StringList _mainArgs) {
         _definedLgNames.getExecContent().setExecutingOptions(_exec);
         _definedLgNames.getGuiExecutingBlocks().initApplicationParts(_mainArgs, _exec.getLightProgramInfos(),_exec.getListGenerator());
+    }
+
+    public static Forwards builder(Options _options, LgNamesGui _definedLgNames, AnalyzedPageEl _page) {
+        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
+        Forwards forwards_ = fwd(_options, _definedLgNames, fileBuilder_);
+        _page.setLogErr(forwards_);
+        return forwards_;
+    }
+
+    public static AnalyzedPageEl mapping(LgNamesGui _definedLgNames) {
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
         page_.setAbstractSymbolFactory(new AdvSymbolFactory(_definedLgNames));
         page_.setMappingKeyWords(_definedLgNames.getExecContent().getCustAliases().extractKeywordsKeys());
         StringMap<String> m_ = _definedLgNames.getExecContent().getCustAliases().extractAliasesKeys();
         m_.addAllEntries(LgNamesGui.extractAliasesKeys(_definedLgNames.getExecContent().getCustAliases()));
         page_.setMappingAliases(m_);
-        GuiFileBuilder fileBuilder_ = new GuiFileBuilder(_definedLgNames.getContent(), _definedLgNames.getGuiAliases(), _definedLgNames.getExecContent().getCustAliases());
-        Forwards forwards_ = fwd(_options, _definedLgNames, fileBuilder_);
-        page_.setLogErr(forwards_);
-        AnalysisMessages.validateMessageContents(_mess.allMessages(_definedLgNames.getExecContent().getCustAliases().extractMessagesKeys()), page_);
-        ContextFactory.validateStds(forwards_,_mess, _definedKw, _definedLgNames.getExecContent().getCustAliases().defComments(), _options, _definedLgNames.getContent(), page_);
-        return ContextFactory.addResourcesAndValidate(_files, _exec.getSrcFolder(), page_, forwards_);
+        return page_;
     }
 
     public static Forwards fwd(Options _options, LgNamesWithNewAliases _definedLgNames, AbstractFileBuilder _builder) {
