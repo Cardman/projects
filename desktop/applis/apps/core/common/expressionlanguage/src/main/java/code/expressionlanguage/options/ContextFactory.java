@@ -18,6 +18,12 @@ public final class ContextFactory {
     private ContextFactory(){}
 
     public static ResultContext addResourcesAndValidate(StringMap<String> _files, String _folder, AnalyzedPageEl _page, Forwards _forwards) {
+        StringMap<String> srcFiles_ = filter(_files, _folder);
+        _page.addResources(_files);
+        return Classes.validateAll(srcFiles_, _page, _forwards);
+    }
+
+    public static StringMap<String> filter(StringMap<String> _files, String _folder) {
         StringMap<String> srcFiles_ = new StringMap<String>();
         String pref_ = StringUtil.concat(_folder,"/");
         for (EntryCust<String, String> e: _files.entryList()) {
@@ -26,8 +32,7 @@ public final class ContextFactory {
         	}
         	srcFiles_.addEntry(e.getKey(), e.getValue());
         }
-        _page.addResources(_files);
-        return Classes.validateAll(srcFiles_, _page, _forwards);
+        return srcFiles_;
     }
 
     public static boolean validateStds(Forwards _fwd, AnalysisMessages _mess, KeyWords _definedKw,
