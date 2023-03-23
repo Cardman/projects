@@ -156,7 +156,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         } else {
             softParams = new CdmParameterSoftModel();
         }
-        future = getService().submitLater(new PreAnalyzeExpressionSource(this));
+        trySubmit();
         getCommonFrame().setTitle(softParams.getExecConf());
         String flatConf_ = StreamTextFile.contentsOfFile(softParams.getExecConf(), frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
@@ -183,6 +183,12 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         chgManagement(true);
         setManageOptions(manage(linesFiles_));
         initEnv();
+    }
+
+    public void trySubmit() {
+        if (softParams.getLines().size() > 1) {
+            setFuture(getService().submitLater(new PreAnalyzeExpressionSource(this)));
+        }
     }
 
 
