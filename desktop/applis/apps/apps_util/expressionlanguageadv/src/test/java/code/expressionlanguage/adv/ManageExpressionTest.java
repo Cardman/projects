@@ -302,6 +302,9 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertEq(3,tabEditor(w_).getPartsExp().size());
         assertEq(0,tabEditor(w_).getCurrentPartExp());
         assertFalse(tabEditor(w_).getReplaceOneExp().isEnabled());
+        TabEditor t_ = tabEditor(w_);
+        closeTab(t_);
+        assertTrue(t_.getAction().getExecutingOptions().getInterrupt().get());
     }
     @Test
     public void replaceNoOcc() {
