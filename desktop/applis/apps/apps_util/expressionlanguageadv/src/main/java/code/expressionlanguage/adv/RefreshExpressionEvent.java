@@ -11,6 +11,6 @@ public final class RefreshExpressionEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        editor.refresh();
+        editor.getTaskManagerExp().submit(new RefreshExpressionTask(editor));
     }
 }

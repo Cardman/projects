@@ -29,6 +29,7 @@ public final class FindExpressionTask implements Runnable {
     }
     @Override
     public void run() {
+        editor.getFindingExpression().setEnabled(false);
         ResultContextViewReplacer vr_ = editor.getResultContext();
         RunnableContextEl rCont_ = vr_.getResultContext();
         RunnableContextEl rInit_ = new GuiContextEl(NullStruct.NULL_VALUE, rCont_.getExecutionInfos(), rCont_.getArgs());

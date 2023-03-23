@@ -13,18 +13,7 @@ public final class ChgSegmentPartExpEvent implements AbsActionListener {
 
     @Override
     public void action() {
-        partUpdate(editor, diff);
-        editor.updateNavSelectExp();
+        editor.getTaskManagerExp().submit(new ChgSegmentPartExpTask(editor,diff));
     }
 
-    static void partUpdate(TabEditor _e, int _d) {
-        int n_ = _e.getCurrentPartExp()+ _d;
-        if (n_ < 0) {
-            _e.setCurrentPartExp(_e.getPartsExp().getLastIndex());
-        } else if (n_ >= _e.getPartsExp().size()) {
-            _e.setCurrentPartExp(0);
-        } else {
-            _e.setCurrentPartExp(n_);
-        }
-    }
 }

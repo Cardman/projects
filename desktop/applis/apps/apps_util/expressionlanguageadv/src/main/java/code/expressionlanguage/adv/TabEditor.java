@@ -116,7 +116,6 @@ public final class TabEditor {
         closeFinder = frames_.getCompoFactory().newPlainButton("x");
         finderExpClasses = frames_.getCompoFactory().newTextField();
         completeClasses = new AutoCompleteDocument(finderExpClasses, new StringList(), frames_,new FeedExpressionClassValue());
-        finderExpClasses.addAutoComplete(completeClasses);
         refreshExpression = frames_.getCompoFactory().newPlainButton("refresh");
         lastBuild = frames_.getCompoFactory().newPlainLabel(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH);
         selectExpressionClass = frames_.getCompoFactory().newPlainButton("reset");
@@ -401,6 +400,7 @@ public final class TabEditor {
 
     public void refresh() {
         enableExp(false);
+        finderExpClasses.setEnabled(false);
         findingExpressionCancel.setEnabled(false);
         applyExp.setEnabled(false);
         prevOccExp.setEnabled(false);
@@ -438,6 +438,7 @@ public final class TabEditor {
             }
         }
         completeClasses.setDictionary(dict_);
+        finderExpClasses.setEnabled(true);
     }
     private static ExecConstructorOverrideInfo isValid(String _k, ExecRootBlock _type, ContextEl _ctx, ExecRootBlock _look, ExecNamedFunctionBlock _method) {
         if (!(_type instanceof ExecClassBlock) || ((ExecClassBlock)_type).isAbstractType() || !_type.withoutInstance()) {

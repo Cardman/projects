@@ -33,6 +33,9 @@ public final class ReplaceExpressionTask implements Runnable {
 
     @Override
     public void run() {
+        current.enableExp(false);
+        current.getPrevOccExp().setEnabled(false);
+        current.getNextOccExp().setEnabled(false);
         AbsTextPane editor_ = current.getPreview();
         ExecOverrideInfo targetMethod_ = current.getTargetMethodReplace().getOverrideInfo();
         String text_ = editor_.getText();
