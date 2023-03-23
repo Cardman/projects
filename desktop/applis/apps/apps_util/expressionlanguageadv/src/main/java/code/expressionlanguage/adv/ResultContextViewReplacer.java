@@ -24,7 +24,7 @@ public final class ResultContextViewReplacer {
     private String aliasStringSegmentEnd="";
     private String lastBuilt=CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH;
 
-    public void update(CustAliases _aliases, LgNamesContent _content, RunnableContextEl _result, AbstractProgramInfos _frames) {
+    public String update(CustAliases _aliases, LgNamesContent _content, RunnableContextEl _result, AbstractProgramInfos _frames) {
         resultContext = _result;
         viewType = _result.getClasses().getClassBody(_aliases.getAliasAbsStringView());
         MethodId index_ = new MethodId(MethodAccessKind.INSTANCE,
@@ -38,6 +38,7 @@ public final class ResultContextViewReplacer {
         aliasStringSegmentBegin = _aliases.getAliasStringSegmentBegin();
         aliasStringSegmentEnd = _aliases.getAliasStringSegmentEnd();
         lastBuilt = CustAliases.getDateTimeText(_frames.getThreadFactory());
+        return lastBuilt;
     }
 
     public RunnableContextEl getResultContext() {

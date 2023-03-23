@@ -6,10 +6,7 @@ import code.expressionlanguage.gui.unit.UnitIssuer;
 import code.expressionlanguage.options.KeyWords;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
-import code.expressionlanguage.utilcompo.AbstractIssuer;
-import code.expressionlanguage.utilcompo.ExecutingOptions;
-import code.expressionlanguage.utilcompo.FileInfos;
-import code.expressionlanguage.utilcompo.TechInfos;
+import code.expressionlanguage.utilcompo.*;
 import code.expressionlanguage.utilfiles.DefaultFileSystem;
 import code.expressionlanguage.utilfiles.DefaultLogger;
 import code.expressionlanguage.utilfiles.DefaultReporter;
@@ -35,7 +32,7 @@ public final class PreAnalyzeExpressionSource implements Runnable {
             mainFrame.setBaseResult(res_);
             mainFrame.setBaseManageOptions(mainFrame.manage(mainFrame.getSoftParams().getLines()));
         }
-        mainFrame.getStatusAnalyzeArea().append("-----");
+        mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory()));
     }
 
     public static ResultContext baseValidate(WindowCdmEditor _window) {

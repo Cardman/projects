@@ -12,7 +12,7 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         WindowCdmEditor w_ = newWindowLoadDefExpWorkspace("src//double", "");
         analyze(w_);
         analyzeStatus(w_);
-        assertEq("KO",w_.getStatusAnalyzeArea().getText());
+        assertEq("KO\n0",w_.getStatusAnalyzeArea().getText());
         refreshClasses(w_);
         assertEq(0,tabEditor(w_).getDico().size());
     }

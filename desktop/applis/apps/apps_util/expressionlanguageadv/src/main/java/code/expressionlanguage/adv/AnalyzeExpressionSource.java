@@ -5,6 +5,7 @@ import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
+import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
@@ -23,12 +24,13 @@ public final class AnalyzeExpressionSource implements Runnable {
     @Override
     public void run() {
         mainFrame.getStatusAnalyzeArea().setText("");
+        AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
         ResultContext r_ = nextValidate(mainFrame.getBaseResult(),mainFrame.getBaseManageOptions());
         if (!r_.getPageEl().isCustomAna()) {
-            mainFrame.getStatusAnalyzeArea().append("KO");
+            mainFrame.getStatusAnalyzeArea().append("KO\n");
+            mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
             return;
         }
-        AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
         LgNamesGui stds_ = (LgNamesGui) r_.getForwards().getGenerator();
         ExecutingOptions exec_ = stds_.getExecContent().getExecutingOptions();
         Options opt_ = r_.getForwards().getOptions();
@@ -38,10 +40,11 @@ public final class AnalyzeExpressionSource implements Runnable {
         CustContextFactory.reportErrors(opt_, exec_, rep_, file_);
         ContextEl c_ = r_.getContext();
         if (c_ instanceof RunnableContextEl) {
-            mainFrame.getResultContext().update(stds_.getExecContent().getCustAliases(), stds_.getContent(),(RunnableContextEl)c_,frames_);
+            mainFrame.getStatusAnalyzeArea().append(mainFrame.getResultContext().update(stds_.getExecContent().getCustAliases(), stds_.getContent(),(RunnableContextEl)c_,frames_));
+        } else {
+            mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
         }
         mainFrame.getResultContext().setReportedMessages(rep_);
-        mainFrame.getStatusAnalyzeArea().append("-----");
     }
 
     public static ResultContext nextValidate(ResultContext _base, ManageOptions _manage) {
