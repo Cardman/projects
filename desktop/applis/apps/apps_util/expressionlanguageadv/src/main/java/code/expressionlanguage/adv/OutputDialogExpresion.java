@@ -64,6 +64,7 @@ public final class OutputDialogExpresion {
             def_.add("src="+ srcFolder.getText());
         }
         owner.getSoftParams().setLines(def_);
+        owner.setFuture(owner.getService().submitLater(new PreAnalyzeExpressionSource(owner)));
         WindowWithTreeImpl.updateDoc(owner);
         owner.folderExp(folderExp);
     }

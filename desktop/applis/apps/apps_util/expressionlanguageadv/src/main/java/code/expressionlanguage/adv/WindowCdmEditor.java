@@ -4,6 +4,7 @@ import code.expressionlanguage.analyze.files.CommentDelimiters;
 import code.expressionlanguage.common.ParseLinesArgUtil;
 import code.expressionlanguage.options.CommentsUtil;
 import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
@@ -25,6 +26,7 @@ import code.stream.StreamBinaryFile;
 import code.stream.StreamFolderFile;
 import code.stream.StreamTextFile;
 import code.threads.AbstractBaseExecutorService;
+import code.threads.AbstractFuture;
 import code.util.CustList;
 import code.util.EntryCust;
 import code.util.StringList;
@@ -64,6 +66,8 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbstractBaseExecutorService service;
     private final AbsCommonFrame statusAnalyze;
     private final AbsTextArea statusAnalyzeArea;
+    private ResultContext baseResult;
+    private AbstractFuture future;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
         super(_lg, _list, _fact);
@@ -100,6 +104,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         AbsMenu run_ = _list.getCompoFactory().newMenu("run");
         analyzeMenu = _list.getCompoFactory().newMenuItem("analyze");
         analyzeMenu.addActionListener(new AnalyzeExpressionEvent(this));
+        analyzeMenu.setEnabled(false);
         run_.addMenuItem(analyzeMenu);
         analyzeMenuSt = _list.getCompoFactory().newMenuItem("status");
         analyzeMenuSt.addActionListener(new ShowAnalyzeStatusEvent(this));
@@ -151,6 +156,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         } else {
             softParams = new CdmParameterSoftModel();
         }
+        future = getService().submitLater(new PreAnalyzeExpressionSource(this));
         getCommonFrame().setTitle(softParams.getExecConf());
         String flatConf_ = StreamTextFile.contentsOfFile(softParams.getExecConf(), frs_.getFileCoreStream(), frs_.getStreams());
         StringList linesFiles_ = ExecutingOptions.lines(StringUtil.nullToEmpty(flatConf_));
@@ -567,5 +573,21 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public AbstractBaseExecutorService getService() {
         return service;
+    }
+
+    public ResultContext getBaseResult() {
+        return baseResult;
+    }
+
+    public void setBaseResult(ResultContext _b) {
+        this.baseResult = _b;
+    }
+
+    public AbstractFuture getFuture() {
+        return future;
+    }
+
+    public void setFuture(AbstractFuture _f) {
+        this.future = _f;
     }
 }

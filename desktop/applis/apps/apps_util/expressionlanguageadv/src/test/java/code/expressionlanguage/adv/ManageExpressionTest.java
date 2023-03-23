@@ -2,6 +2,7 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.utilcompo.CustAliases;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
 
@@ -14,6 +15,15 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertEq("KO",w_.getStatusAnalyzeArea().getText());
         refreshClasses(w_);
         assertEq(0,tabEditor(w_).getDico().size());
+    }
+    @Test
+    public void failConf() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace( "");
+        StringList ls_ = new StringList(w_.getSoftParams().getLines());
+        ls_.add("keyWords=If=;");
+        w_.getSoftParams().setLines(ls_);
+        w_.getFuture().attendre();
+        assertFalse(w_.getAnalyzeMenu().isEnabled());
     }
     @Test
     public void failSrcFile() {

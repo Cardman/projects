@@ -221,6 +221,7 @@ public abstract class EquallableElAdvUtil {
     }
 
     protected static void analyze(WindowCdmEditor _w) {
+        _w.getFuture().attendre();
         AbsActionListener ev_ = ((MockMenuItem) _w.getAnalyzeMenu()).getActionListeners().get(0);
         ev_.action();
     }

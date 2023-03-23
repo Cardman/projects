@@ -2,25 +2,15 @@ package code.expressionlanguage.adv;
 
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.ReportedMessages;
-import code.expressionlanguage.filenames.AbstractNameValidating;
-import code.expressionlanguage.gui.unit.UnitIssuer;
 import code.expressionlanguage.guicompos.LgNamesGui;
 import code.expressionlanguage.options.Options;
 import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.expressionlanguage.utilcompo.TechInfos;
-import code.expressionlanguage.utilfiles.DefaultFileSystem;
-import code.expressionlanguage.utilfiles.DefaultLogger;
-import code.expressionlanguage.utilfiles.DefaultReporter;
 import code.expressionlanguage.utilimpl.CustContextFactory;
-import code.expressionlanguage.utilimpl.ManageOptions;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.initialize.AbstractProgramInfos;
-import code.stream.core.ReadFiles;
-import code.util.StringMap;
-import code.util.core.DefaultUniformingString;
 
 public final class AnalyzeExpressionSource implements Runnable {
     private final WindowCdmEditor mainFrame;
@@ -32,24 +22,17 @@ public final class AnalyzeExpressionSource implements Runnable {
     @Override
     public void run() {
         mainFrame.getStatusAnalyzeArea().setText("");
-        ManageOptions manage_ = mainFrame.manage(mainFrame.getSoftParams().getLines());
-        AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
-        ExecutingOptions exec_ = manage_.getEx();
-        Options opt_ = manage_.getOptions();
-        String archive_ = exec_.getAccess();
-        AbstractNameValidating validator_ = frames_.getValidator();
-        DefaultUniformingString un_ = new DefaultUniformingString();
-        FileInfos file_ = new FileInfos(new DefaultLogger(new UnitIssuer(mainFrame.getStatusAnalyzeArea()),frames_.getFileCoreStream(),frames_.getStreams()),
-                new DefaultFileSystem(un_,validator_,frames_.getFileCoreStream(),frames_.getStreams()), new DefaultReporter(mainFrame.getFactory().getProgramInfos(),validator_, un_, false,new TechInfos(frames_.getThreadFactory(),frames_.getStreams()),frames_.getFileCoreStream()), frames_.getGenerator(), frames_.getStreams().getZipFact(), frames_.getThreadFactory());
-        ReadFiles result_ = file_.getReporter().getFiles(archive_);
-        StringMap<String> list_ = RunningTest.tryGetSrc(archive_, exec_, file_, result_);
-        if (list_ == null) {
+        ResultContext r_ = nextValidate(mainFrame.getBaseResult());
+        if (!r_.getPageEl().isCustomAna()) {
             mainFrame.getStatusAnalyzeArea().append("KO");
             return;
         }
+        AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
+        LgNamesGui stds_ = (LgNamesGui) r_.getForwards().getGenerator();
+        ExecutingOptions exec_ = stds_.getExecContent().getExecutingOptions();
+        Options opt_ = r_.getForwards().getOptions();
+        FileInfos file_ =stds_.getExecContent().getInfos();
         opt_.setReadOnly(true);
-        LgNamesGui stds_ = new LgNamesGui(file_, mainFrame.getFactory().getInterceptor());
-        ResultContext r_ = CustContextFactory.buildDefKw(opt_, exec_, stds_, list_);
         ReportedMessages rep_ = r_.getReportedMessages();
         CustContextFactory.reportErrors(opt_, exec_, rep_, file_);
         ContextEl c_ = r_.getContext();
@@ -58,6 +41,13 @@ public final class AnalyzeExpressionSource implements Runnable {
         }
         mainFrame.getResultContext().setReportedMessages(rep_);
         mainFrame.getStatusAnalyzeArea().append("-----");
+    }
+
+    public static ResultContext nextValidate(ResultContext _base) {
+        LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
+        ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
+        FileInfos file_ = lg_.getExecContent().getInfos();
+        return RunningTest.nextValidate(_base, lg_, exec_, file_);
     }
 
 }

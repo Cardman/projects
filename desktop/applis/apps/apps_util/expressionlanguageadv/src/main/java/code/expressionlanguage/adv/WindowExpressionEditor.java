@@ -66,6 +66,7 @@ public final class WindowExpressionEditor extends WindowWithTreeImpl {
     @Override
     public void saveConf() {
         softParams().setLines(WindowCdmEditor.linesConf(getManageOptions()));
+        mainFrame.setFuture(mainFrame.getService().submitLater(new PreAnalyzeExpressionSource(mainFrame)));
         updateDoc();
     }
 
