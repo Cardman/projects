@@ -121,4 +121,27 @@ public final class MockNetworkTest extends EquallableMockGuiUtil {
         assertTrue(a_.isIpSix(0));
         assertTrue(a_.isLoopbackAddress(0));
     }
+    @Test
+    public void n13() {
+        AbstractBaseExecutorService s_ = init().getThreadFactory().newExecutorService();
+        MockRunnable r_ = new MockRunnable();
+        AbstractFuture f_ = s_.submitLater(r_);
+        assertFalse(r_.isStarted());
+        assertFalse(f_.attendre());
+        assertTrue(r_.isStarted());
+        assertFalse(f_.cancel(false));
+        assertFalse(f_.cancel(true));
+    }
+    @Test
+    public void n14() {
+        AbstractBaseExecutorService s_ = init().getThreadFactory().newExecutorService();
+        s_.shutdown();
+        MockRunnable r_ = new MockRunnable();
+        AbstractFuture f_ = s_.submitLater(r_);
+        assertFalse(r_.isStarted());
+        assertTrue(f_.attendre());
+        assertFalse(r_.isStarted());
+        assertTrue(f_.cancel(false));
+        assertTrue(f_.cancel(true));
+    }
 }

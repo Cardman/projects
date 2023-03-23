@@ -22,4 +22,9 @@ public final class MockBaseExecutorService implements AbstractBaseExecutorServic
         }
         return new MockFuture(cancel);
     }
+
+    @Override
+    public AbstractFuture submitLater(Runnable _command) {
+        return new MockLaterFuture(_command,cancel);
+    }
 }

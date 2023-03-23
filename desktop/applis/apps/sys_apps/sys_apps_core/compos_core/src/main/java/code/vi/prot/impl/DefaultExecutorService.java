@@ -27,6 +27,11 @@ public final class DefaultExecutorService implements AbstractBaseExecutorService
     }
 
     @Override
+    public AbstractFuture submitLater(Runnable _command) {
+        return submit(_command);
+    }
+
+    @Override
     public AbstractFuture submit(Runnable _command) {
         return new DefaultFuture(timer.submit(_command));
     }
