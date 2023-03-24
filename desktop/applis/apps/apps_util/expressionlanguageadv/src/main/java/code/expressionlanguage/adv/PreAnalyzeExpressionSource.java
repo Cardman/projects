@@ -30,7 +30,6 @@ public final class PreAnalyzeExpressionSource implements Runnable {
         if (!res_.getPageEl().notAllEmptyErrors()) {
             mainFrame.getAnalyzeMenu().setEnabled(true);
             mainFrame.setBaseResult(res_);
-            mainFrame.setBaseManageOptions(mainFrame.manage(mainFrame.getSoftParams().getLines()));
         }
         mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(mainFrame.getCommonFrame().getFrames().getThreadFactory()));
     }

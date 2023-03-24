@@ -10,7 +10,6 @@ import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.FileInfos;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
 import code.expressionlanguage.utilimpl.CustContextFactory;
-import code.expressionlanguage.utilimpl.ManageOptions;
 import code.expressionlanguage.utilimpl.RunningTest;
 import code.gui.initialize.AbstractProgramInfos;
 
@@ -25,7 +24,7 @@ public final class AnalyzeExpressionSource implements Runnable {
     public void run() {
         mainFrame.getStatusAnalyzeArea().setText("");
         AbstractProgramInfos frames_ = mainFrame.getCommonFrame().getFrames();
-        ResultContext r_ = nextValidate(mainFrame.getBaseResult(),mainFrame.getBaseManageOptions());
+        ResultContext r_ = nextValidate(mainFrame.getBaseResult());
         if (!r_.getPageEl().isCustomAna()) {
             mainFrame.getStatusAnalyzeArea().append("KO\n");
             mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
@@ -47,14 +46,11 @@ public final class AnalyzeExpressionSource implements Runnable {
         mainFrame.getResultContext().setReportedMessages(rep_);
     }
 
-    public static ResultContext nextValidate(ResultContext _base, ManageOptions _manage) {
+    public static ResultContext nextValidate(ResultContext _base) {
         LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
         ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
         FileInfos file_ = lg_.getExecContent().getInfos();
-        ManageOptions m_ = new ManageOptions(exec_.getLgs(), WindowCdmEditor.linesConf(_manage), exec_.getListGenerator(), exec_.getLightProgramInfos().getThreadFactory());
-        m_.getEx().setLightProgramInfos(exec_.getLightProgramInfos());
-        m_.getEx().setListGenerator(exec_.getListGenerator());
-        return RunningTest.nextValidate(_base, lg_, m_.getEx(), file_);
+        return RunningTest.nextValidate(_base, lg_, exec_, file_);
     }
 
 }

@@ -94,9 +94,15 @@ public final class DefaultReporter implements AbstractReporter {
         if (!nameValidating.okPath(_exec.getMainThread(),'/','\\')) {
             return true;
         }
+        String coverFolderBk_ = _exec.getCoverFolder();
+        _exec.setCoverFolder(MemoryFileSystem.skipLastSep(coverFolderBk_));
+        String errorsFolderBk_ = _exec.getErrorsFolder();
+        _exec.setErrorsFolder(MemoryFileSystem.skipLastSep(errorsFolderBk_));
         for (String f: list(_exec)) {
             String normal_ = StringUtil.replaceBackSlash(f);
             if (!nameValidating.okPath(normal_,'/','\\')) {
+                _exec.setCoverFolder(coverFolderBk_);
+                _exec.setErrorsFolder(errorsFolderBk_);
                 return true;
             }
             int index_ = normal_.indexOf('/');
