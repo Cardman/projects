@@ -29,10 +29,6 @@ public final class ConstructorIdVarArg {
         return constructorId.isVararg();
     }
 
-    public boolean isStaticMethod() {
-        return constructorId.isStaticMethod();
-    }
-
     public int getNaturalVararg() {
         return naturalVararg;
     }

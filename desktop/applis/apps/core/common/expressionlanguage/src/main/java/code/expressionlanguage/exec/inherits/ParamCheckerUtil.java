@@ -38,7 +38,8 @@ public final class ParamCheckerUtil {
     public static ArgumentWrapper instancePrepareStd(ContextEl _conf, StandardConstructor _ctor, ConstructorId _constId,
                                                      ArgumentListCall _arguments, StackCall _stackCall) {
         CustList<Argument> args_ = _arguments.getArguments();
-        if (ExecTemplates.okArgsSet(_constId, args_, _conf, _stackCall) != null) {
+        ExecTemplates.checkParams(_conf, "", _constId, null, args_, _stackCall);
+        if (_conf.callsOrException(_stackCall)) {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         StdCaller caller_ = StandardType.caller(_ctor, null);

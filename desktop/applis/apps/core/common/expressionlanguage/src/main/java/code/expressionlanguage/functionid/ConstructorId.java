@@ -71,6 +71,6 @@ public final class ConstructorId extends AbsractIdentifiableCommon {
 
     @Override
     public boolean isStaticMethod() {
-        return false;
+        return true;
     }
 }

@@ -1683,7 +1683,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("$int", id_.getParametersType(0));
         assertTrue(id_.isVararg());
         assertEq(0, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl193FailTest() {
@@ -1718,7 +1718,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("$int", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl195Test() {
@@ -1740,7 +1740,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl196Test() {
@@ -1762,7 +1762,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner<java.lang.String>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl197Test() {
@@ -1784,7 +1784,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl198Test() {
@@ -1806,7 +1806,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner<java.lang.String>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl199Test() {
@@ -1826,7 +1826,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<#T>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl200Test() {
@@ -1848,7 +1848,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl201Test() {
@@ -1868,7 +1868,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("[java.lang.String", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl202Test() {
@@ -1888,7 +1888,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<?>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl203Test() {
@@ -1908,7 +1908,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<?java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl204Test() {
@@ -1928,7 +1928,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<!java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl205Test() {
@@ -1948,7 +1948,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("java.lang.$Fct<$void>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl206Test() {
@@ -1968,7 +1968,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<!java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl207Test() {
@@ -1988,7 +1988,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<!java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl208Test() {
@@ -2008,7 +2008,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<!java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl209Test() {
@@ -2028,7 +2028,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<!java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
 
     @Test
@@ -2049,7 +2049,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo<!java.lang.Number>", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl211Test() {
@@ -2376,7 +2376,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
 
     @Test
@@ -2399,7 +2399,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl226Test() {
@@ -2423,7 +2423,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl227Test() {
@@ -2447,7 +2447,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
     @Test
     public void processEl228Test() {
@@ -2471,7 +2471,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
 
     @Test
@@ -2496,7 +2496,7 @@ public final class AnalyzedOperationNodesTest extends ProcessMethodCommon {
         assertEq("pkg.ExTwo..Inner", id_.getParametersType(0));
         assertTrue(!id_.isVararg());
         assertEq(-1, id_.getNaturalVararg());
-        assertTrue(!id_.isStaticMethod());
+
     }
 
     @Test
