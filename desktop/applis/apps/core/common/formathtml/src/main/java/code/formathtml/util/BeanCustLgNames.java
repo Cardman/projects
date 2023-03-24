@@ -518,9 +518,7 @@ public abstract class BeanCustLgNames extends BeanLgNames implements WithPageInf
         }
         //!classFiles_.isEmpty()
         _page.addResources(resFiles_);
-        AnalyzedPageEl copy_ = ClassesUtil.buildAllBracesBodies(classFiles_, _page);
-        copy_.setCustomAna(true);
-        return copy_;
+        return ClassesUtil.buildAllBracesBodies(classFiles_, _page);
     }
 
     public void preInitBeans(Configuration _conf) {

@@ -164,7 +164,6 @@ public final class RunningTest implements Runnable {
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base.getPageEl());
         copy_.addResources(list_);
         AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
-        resultAna_.setCustomAna(true);
         Classes.postValidate(resultAna_);
         Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
         ResultContext res_ = new ResultContext(resultAna_, forwards_, resultAna_.getMessages());

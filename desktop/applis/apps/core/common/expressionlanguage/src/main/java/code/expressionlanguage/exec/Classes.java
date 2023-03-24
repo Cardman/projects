@@ -99,13 +99,13 @@ public final class Classes {
             return _page;
         }
         AnalyzedPageEl copy_ = ClassesUtil.buildAllBracesBodies(_files, _page);
-        copy_.setCustomAna(true);
         postValidate(copy_);
         return copy_;
     }
 
     public static void postValidate(AnalyzedPageEl _page) {
-        ClassesUtil.postValidation(_page);
+        _page.setCustomAna(true);
+        ClassesUtil.checkImpls(_page);
         if (_page.isGettingErrors()) {
             _page.getToStringOwners().add(_page.getAliasObject());
             _page.getRandCodeOwners().add(_page.getAliasObject());

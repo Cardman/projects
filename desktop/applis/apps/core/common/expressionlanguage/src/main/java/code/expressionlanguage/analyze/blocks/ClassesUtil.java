@@ -126,7 +126,7 @@ public final class ClassesUtil {
         }
     }
 
-    private static void checkImpls(AnalyzedPageEl _page) {
+    public static void checkImpls(AnalyzedPageEl _page) {
         if (!_page.isCustomAna()) {
             return;
         }
@@ -301,6 +301,7 @@ public final class ClassesUtil {
 
     public static AnalyzedPageEl buildUserCode(StringMap<String> _files, AnalyzedPageEl _page) {
         AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_page);
+        copy_.setCustomAna(false);
         copy_.getPrevFoundTypes().addAllElts(_page.getFoundTypes());
         copy_.getPreviousFilesBodies().addAllEntries(_page.getFilesBodies());
         buildFilesBodies(_files,false, copy_);
@@ -370,6 +371,7 @@ public final class ClassesUtil {
         copy_.setAnnotAnalysis(false);
 
         processAnonymous(copy_);
+        postValidation(copy_);
         return copy_;
     }
 
@@ -837,6 +839,11 @@ public final class ClassesUtil {
             _page.setCurrentFile(block_);
             FileResolver.parseFile(block_, file_, _page);
         }
+        for (EntryCust<String,FileBlock> f: files_.entryList()) {
+            FileBlock value_ = f.getValue();
+            fetchOuterTypesCountOpers(_page, value_);
+        }
+        _page.setNextResults(SplitExpressionUtil.getNextResults(_page));
         trySortNbOpers(_page);
         StringList basePkgFound_ = _page.getBasePackagesFound();
         StringList pkgFound_ = _page.getPackagesFound();
@@ -846,11 +853,6 @@ public final class ClassesUtil {
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
             basePkgFound_.addAllElts(f.getValue().getAllBasePackages());
         }
-        for (EntryCust<String,FileBlock> f: files_.entryList()) {
-            FileBlock value_ = f.getValue();
-            fetchOuterTypesCountOpers(_page, value_);
-        }
-        _page.setNextResults(SplitExpressionUtil.getNextResults(_page));
         for (EntryCust<String,FileBlock> f: files_.entryList()) {
             FileBlock value_ = f.getValue();
             fetchByFile(basePkgFound_, pkgFound_, value_, _page);

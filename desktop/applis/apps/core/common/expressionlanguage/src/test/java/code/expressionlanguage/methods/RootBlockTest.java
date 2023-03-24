@@ -1,6 +1,7 @@
 package code.expressionlanguage.methods;
 
 import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.analyze.blocks.ClassesUtil;
 import code.expressionlanguage.analyze.blocks.RootBlock;
 import code.expressionlanguage.analyze.inherits.OverridesTypeUtil;
 import code.expressionlanguage.analyze.types.AnaTypeUtil;
@@ -1808,7 +1809,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         KeyWords kw_ = new KeyWords();
         setOpts(opt_,IndexConstants.INDEX_NOT_FOUND_ELT);
         AnalyzedPageEl page_ = AnalyzedPageEl.setInnerAnalyzing();
-        Forwards forwards_ = getForwards(opt_,lgName_,kw_,page_);
+        getForwards(opt_,lgName_,kw_,page_);
         parseCustomFiles(_files, page_);
         assertTrue( isEmptyErrors(page_));
         validateInheritingClasses(page_);
@@ -1817,7 +1818,7 @@ public final class RootBlockTest extends ProcessMethodCommon {
         assertTrue( isEmptyErrors(page_));
         validateOverridingInherit(page_);
         page_.setCustomAna(true);
-        postValidation(page_,forwards_);
+        ClassesUtil.postValidation(page_);
         return isEmptyErrors(page_);
     }
 
