@@ -1,7 +1,11 @@
 package code.expressionlanguage.adv;
 
+import code.expressionlanguage.guicompos.LgNamesGui;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.utilcompo.CustAliases;
+import code.expressionlanguage.utilcompo.ExecutingOptions;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.mock.MockMenuItem;
 import code.util.StringList;
 import code.util.StringMap;
 import org.junit.Test;
@@ -547,5 +551,16 @@ public final class ManageExpressionTest extends EquallableElAdvUtil {
         assertTrue(tabEditor(w_).getFindingExpression().isEnabled());
         findExp(w_);
         assertTrue(tabEditor(w_).getFindingExpressionCancel().isEnabled());
+    }
+    @Test
+    public void cancelAnalyze() {
+        WindowCdmEditor w_ = newWindowLoadDefExpWorkspace("src//double", "");
+        w_.getFuture().attendre();
+        ResultContext base_ = w_.getBaseResult();
+        LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
+        w_.setAnalyzeEx(lg_.getExecContent().getExecutingOptions());
+        ((MockMenuItem)w_.getAnalyzeMenuCancel()).getActionListeners().get(0).action();
+        new AnalyzeExpressionSource(w_).end(base_);
+        assertEq(0,tabEditor(w_).getDico().size());
     }
 }

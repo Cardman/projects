@@ -50,6 +50,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsMenuItem softParamsMenu;
     private final AbsMenuItem analyzeMenu;
     private final AbsMenuItem analyzeMenuSt;
+    private final AbsMenuItem analyzeMenuCancel;
     private final FileOpenDialogAbs fileOpenDialogInt;
     private final FolderOpenDialogAbs folderOpenDialogInt;
     private StringMap<String> messages;
@@ -67,6 +68,7 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
     private final AbsCommonFrame statusAnalyze;
     private final AbsTextArea statusAnalyzeArea;
     private ResultContext baseResult;
+    private ExecutingOptions analyzeEx;
     private AbstractFuture future;
 
     public WindowCdmEditor(String _lg, AbstractProgramInfos _list, CdmFactory _fact) {
@@ -109,6 +111,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         analyzeMenuSt = _list.getCompoFactory().newMenuItem("status");
         analyzeMenuSt.addActionListener(new ShowAnalyzeStatusEvent(this));
         run_.addMenuItem(analyzeMenuSt);
+        analyzeMenuCancel = _list.getCompoFactory().newMenuItem("cancel analyze");
+        analyzeMenuCancel.addActionListener(new CancelAnalyzeExpressionEvent(this));
+        analyzeMenuCancel.setEnabled(false);
+        run_.addMenuItem(analyzeMenuCancel);
         bar_.add(run_);
         chgManagement(false);
         chooseFolder = getCommonFrame().getFrames().getCompoFactory().newPlainButton("folder");
@@ -565,6 +571,10 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
         return analyzeMenuSt;
     }
 
+    public AbsMenuItem getAnalyzeMenuCancel() {
+        return analyzeMenuCancel;
+    }
+
     public ResultContextViewReplacer getResultContext() {
         return resultContext;
     }
@@ -596,5 +606,13 @@ public final class WindowCdmEditor extends WindowWithTreeImpl implements AbsGrou
 
     public void setFuture(AbstractFuture _f) {
         this.future = _f;
+    }
+
+    public ExecutingOptions getAnalyzeEx() {
+        return analyzeEx;
+    }
+
+    public void setAnalyzeEx(ExecutingOptions _a) {
+        this.analyzeEx = _a;
     }
 }

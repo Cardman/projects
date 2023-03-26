@@ -60,6 +60,10 @@ public final class CustContextFactory {
         _util.messages(_mess, _exec.getMessages());
         _util.keyWord(_kwl, _exec.getKeyWords());
         _kwl.initSupplDigits();
+        aliases(_exec, _base, _util, _gui);
+    }
+
+    public static void aliases(ExecutingOptions _exec, LgNamesContent _base, CustAliases _util, GuiAliases _gui) {
         _util.otherAlias(_base, _exec.getAliases());
         StringMap<String> keys_ = LgNamesGui.extractAliasesKeys(_util);
         _gui.otherAliasGui(LgNamesGui.addon(_util),_exec.getAliases(),keys_);
