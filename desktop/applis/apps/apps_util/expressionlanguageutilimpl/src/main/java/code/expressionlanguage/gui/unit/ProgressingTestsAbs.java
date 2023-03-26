@@ -11,6 +11,7 @@ import code.stream.BytesInfo;
 public abstract class ProgressingTestsAbs implements ProgressingTests {
     private final TestableFrame mainWindow;
     private ExecutingOptions exec;
+    private RunnableContextEl context;
 
     protected ProgressingTestsAbs(TestableFrame _mainWindow) {
         this.mainWindow = _mainWindow;
@@ -49,6 +50,16 @@ public abstract class ProgressingTestsAbs implements ProgressingTests {
         AbstractLogger logger_ = _evolved.getExecContent().getInfos().getLogger();
         AbstractFileSystem fileSystem_ = _evolved.getExecContent().getInfos().getFileSystem();
         return _evolved.getExecContent().getInfos().getReporter().export(executingOptions_, fileSystem_, logger_);
+    }
+
+    @Override
+    public RunnableContextEl ctx() {
+        return context;
+    }
+
+    @Override
+    public void ctx(RunnableContextEl _ctx) {
+        context = _ctx;
     }
 
     @Override

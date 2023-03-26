@@ -310,6 +310,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("src="));
         assertEq(srcFolder_,exec_.getSrcFolder());
         assertTrue(opt_.isCovering());
+        assertTrue(exec_.isCovering());
         assertTrue(opt_.isGettingErrors());
     }
     @Test
@@ -321,6 +322,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("src=0"));
         assertEq("0",exec_.getSrcFolder());
         assertTrue(opt_.isCovering());
+        assertTrue(exec_.isCovering());
         assertTrue(opt_.isGettingErrors());
     }
     @Test
@@ -333,6 +335,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("cover="));
         assertEq(coverFolder_,exec_.getCoverFolder());
         assertTrue(opt_.isCovering());
+        assertTrue(exec_.isCovering());
     }
     @Test
     public void setupOptionals27() {
@@ -343,6 +346,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("cover=0"));
         assertEq("0",exec_.getCoverFolder());
         assertTrue(opt_.isCovering());
+        assertTrue(exec_.isCovering());
     }
     @Test
     public void setupOptionals28() {
@@ -392,6 +396,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines("src=0/"));
         assertEq("0",exec_.getSrcFolder());
         assertTrue(opt_.isCovering());
+        assertTrue(exec_.isCovering());
         assertTrue(opt_.isGettingErrors());
     }
     @Test
@@ -402,6 +407,7 @@ public final class ExecutingOptionsTest extends EquallableElUtUtil {
         Options opt_ = new Options();
         ExecutingOptions.setupOptionals(0,opt_,exec_, lines());
         assertFalse(opt_.isCovering());
+        assertFalse(exec_.isCovering());
         assertFalse(opt_.isGettingErrors());
         assertFalse(opt_.isDisplayImplicit());
         assertFalse(exec_.isHasArg());

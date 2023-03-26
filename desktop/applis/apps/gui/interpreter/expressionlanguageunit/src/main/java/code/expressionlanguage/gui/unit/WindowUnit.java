@@ -166,6 +166,11 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
                 if (exec_ != null) {
                     exec_.getInterrupt().set(true);
                 }
+                RunnableContextEl c_ = progressingTests_.ctx();
+                if (c_ != null) {
+                    c_.getExecutingOptions().getInterrupt().set(true);
+                    c_.getThread().getThread().stopJoinSleep();
+                }
             }
         }
     }
@@ -173,7 +178,6 @@ public final class WindowUnit extends GroupFrame implements TestableFrame {
     public void quit() {
         if (th != null) {
             stop();
-            th.attendre();
         }
         filesFrame.setVisible(false);
         simpleFrame.setEnabled(true);

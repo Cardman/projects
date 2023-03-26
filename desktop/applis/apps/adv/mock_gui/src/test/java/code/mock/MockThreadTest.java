@@ -92,6 +92,7 @@ public final class MockThreadTest extends EquallableMockGuiUtil {
         MockThread th_ = new MockThread(new MockRunnable(), true, new MockAtomicLong());
         th_.setInterrupted(true);
         assertTrue(th_.isInterrupted());
+        th_.stopJoinSleep();
     }
     @Test
     public void t16() {

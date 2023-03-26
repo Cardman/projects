@@ -11,4 +11,5 @@ public interface AbstractThread {
     Runnable getRunnable();
     boolean isInterrupted();
     void setInterrupted(boolean _interrupted);
+    void stopJoinSleep();
 }

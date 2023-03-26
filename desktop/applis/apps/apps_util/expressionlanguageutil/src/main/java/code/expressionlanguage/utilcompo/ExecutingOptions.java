@@ -221,6 +221,7 @@ public final class ExecutingOptions {
     private static void extractSrc(Options _options, ExecutingOptions _exec, String _l) {
         if (_l.startsWith("src=")) {
             _options.setCovering(true);
+            _exec.setCovering(true);
             _options.setGettingErrors(true);
             String output_ = _l.substring("src=".length());
             if (!output_.isEmpty()) {
@@ -249,6 +250,7 @@ public final class ExecutingOptions {
     private static void extractCover(Options _options, ExecutingOptions _exec, String _l) {
         if (_l.startsWith("cover=")) {
             _options.setCovering(true);
+            _exec.setCovering(true);
             String output_ = _l.substring("cover=".length());
             if (!output_.isEmpty()) {
                 _exec.setCoverFolder(StringUtil.replaceBackSlash(output_));

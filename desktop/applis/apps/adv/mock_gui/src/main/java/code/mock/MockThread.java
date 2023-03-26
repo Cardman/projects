@@ -90,4 +90,9 @@ public final class MockThread implements AbstractThread {
     public void setInterrupted(boolean _b) {
         interrupted = _b;
     }
+
+    @Override
+    public void stopJoinSleep() {
+        invoked = true;
+    }
 }

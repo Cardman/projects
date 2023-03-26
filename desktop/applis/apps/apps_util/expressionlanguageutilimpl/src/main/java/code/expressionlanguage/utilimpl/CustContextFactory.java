@@ -81,7 +81,8 @@ public final class CustContextFactory {
             _progressingTests.showErrors(reportedMessages_,_options,_exec,infos_);
             return;
         }
-        _progressingTests.showWarnings((RunnableContextEl) rCont_,reportedMessages_,_options,_exec,infos_);
+        _progressingTests.ctx((RunnableContextEl) rCont_);
+        _progressingTests.showWarnings(_progressingTests.ctx(),reportedMessages_,_options,_exec,infos_);
         infos_.tryLogIssue("OK");
         String infoTest_ = _definedLgNames.getExecContent().getCustAliases().getAliasInfoTest();
         ExecFormattedRootBlock className_ = ExecFormattedRootBlock.build(infoTest_, rCont_.getClasses());

@@ -17,4 +17,6 @@ public interface ProgressingTests {
     ExecutingOptions getExec();
     void init(ExecutingOptions _exec);
     BytesInfo getExportedReport();
+    RunnableContextEl ctx();
+    void ctx(RunnableContextEl _ctx);
 }

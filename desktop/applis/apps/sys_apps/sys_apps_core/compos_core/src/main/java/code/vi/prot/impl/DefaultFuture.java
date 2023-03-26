@@ -20,7 +20,7 @@ public final class DefaultFuture implements AbstractFuture {
             future.get();
             return true;
         } catch (Exception e) {
-            DefaultThread.newThread(null).interrupt();
+            Thread.currentThread().interrupt();
             return false;
         }
     }

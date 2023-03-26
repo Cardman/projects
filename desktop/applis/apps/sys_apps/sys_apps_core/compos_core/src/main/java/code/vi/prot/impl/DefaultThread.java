@@ -23,7 +23,7 @@ final class DefaultThread implements AbstractThread {
             Thread.sleep(_time);
             return true;
         } catch (Exception e) {
-            newThread(null).interrupt();
+            Thread.currentThread().interrupt();
             return false;
         }
     }
@@ -34,7 +34,7 @@ final class DefaultThread implements AbstractThread {
             _thread.join();
             return ThState.of(alive_);
         } catch (Exception e) {
-            newThread(null).interrupt();
+            Thread.currentThread().interrupt();
             return ThState.INTERRUPTED;
         }
     }
@@ -96,5 +96,10 @@ final class DefaultThread implements AbstractThread {
     @Override
     public void setInterrupted(boolean _interrupted) {
         this.interrupted = _interrupted;
+    }
+
+    @Override
+    public void stopJoinSleep() {
+        thread.interrupt();
     }
 }
