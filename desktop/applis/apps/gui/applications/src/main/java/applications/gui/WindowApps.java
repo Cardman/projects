@@ -20,7 +20,6 @@ import code.renders.LaunchingRenders;
 import code.threads.AbstractAtomicInteger;
 import code.util.CustList;
 import code.util.consts.Constants;
-import code.util.core.IndexConstants;
 import code.util.core.StringUtil;
 
 
@@ -143,15 +142,15 @@ public final class WindowApps extends GroupFrame {
     }
     @Override
     public void quit() {
-        int nb_ = IndexConstants.SIZE_EMPTY;
-        for (AbstractAtomicInteger a: getFrames().getCounts().values()) {
-            if (a.get() > 0) {
-                nb_++;
-            }
-        }
-        if (nb_ > IndexConstants.SIZE_EMPTY) {
-            return;
-        }
+//        int nb_ = IndexConstants.SIZE_EMPTY;
+//        for (AbstractAtomicInteger a: getFrames().getCounts().values()) {
+//            if (a.get() > 0) {
+//                nb_++;
+//            }
+//        }
+//        if (nb_ > IndexConstants.SIZE_EMPTY) {
+//            return;
+//        }
         writeCoords();
         nativeExit();
     }
