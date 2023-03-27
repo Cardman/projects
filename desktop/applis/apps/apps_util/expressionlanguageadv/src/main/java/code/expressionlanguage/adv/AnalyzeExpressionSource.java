@@ -36,6 +36,7 @@ public final class AnalyzeExpressionSource implements Runnable {
             mainFrame.getAnalyzeMenu().setEnabled(true);
             return;
         }
+        mainFrame.getStatusAnalyzeArea().append(CustAliases.getDateTimeText(frames_.getThreadFactory()));
         mainFrame.setUserResult(resUser_);
         mainFrame.getAnalyzeMenu().setEnabled(true);
     }
