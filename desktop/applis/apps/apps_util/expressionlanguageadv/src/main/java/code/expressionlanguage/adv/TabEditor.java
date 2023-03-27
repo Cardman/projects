@@ -1,17 +1,25 @@
 package code.expressionlanguage.adv;
 
 import code.expressionlanguage.ContextEl;
+import code.expressionlanguage.analyze.AnalyzedPageEl;
+import code.expressionlanguage.exec.Classes;
+import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecClassBlock;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
+import code.expressionlanguage.fwd.Forwards;
+import code.expressionlanguage.fwd.blocks.ForwardInfos;
+import code.expressionlanguage.guicompos.LgNamesGui;
+import code.expressionlanguage.options.Options;
+import code.expressionlanguage.options.ResultContext;
 import code.expressionlanguage.structs.ClassMetaInfo;
 import code.expressionlanguage.structs.ConstructorMetaInfo;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.expressionlanguage.utilcompo.CustAliases;
-import code.expressionlanguage.utilcompo.RunnableContextEl;
+import code.expressionlanguage.utilcompo.*;
+import code.expressionlanguage.utilimpl.CustContextFactory;
 import code.gui.*;
 import code.gui.events.AbsEnabledAction;
 import code.gui.images.MetaDimension;
@@ -81,7 +89,7 @@ public final class TabEditor {
     private final AbsSpinner row;
     private final AbsSpinner col;
     private final AbsPlainButton val;
-    private ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
+    private final ResultContextViewReplacer resultContext = new ResultContextViewReplacer();
     private ExecConstructorOverrideInfo targetMethodView;
     private ExecConstructorOverrideInfo targetMethodReplace;
     private RunnableContextEl action;
@@ -405,17 +413,56 @@ public final class TabEditor {
         applyExp.setEnabled(false);
         prevOccExp.setEnabled(false);
         nextOccExp.setEnabled(false);
-        setResultContext(windowSecEditor.getMainFrame().getResultContext());
-        ResultContextViewReplacer vr_ = getResultContext();
-        lastBuild.setText(vr_.getLastBuilt());
-        RunnableContextEl res_ = vr_.getResultContext();
-        if (res_ == null) {
+        ResultContext userResult_ = windowSecEditor.getMainFrame().getUserResult();
+        if (userResult_ == null) {
+            lastBuild.setText(CustAliases.YYYY_MM_DD_HH_MM_SS_SSS_DASH);
             selectExpressionClass.setEnabled(false);
             completeClasses.setDictionary(new StringList());
             dico.clear();
             dicoRepl.clear();
             return;
         }
+        ResultContext base_ = windowSecEditor.getMainFrame().getBaseResult();
+        LgNamesGui lg_ = (LgNamesGui) base_.getForwards().getGenerator();
+        FileInfos fileInfos_ = lg_.getExecContent().getInfos();
+        ExecutingOptions ex_ = new ExecutingOptions(windowSecEditor.getMainFrame().getCommonFrame().getFrames().getThreadFactory().newAtomicBoolean());
+        ex_.setLightProgramInfos(lg_.getExecContent().getExecutingOptions().getLightProgramInfos());
+        ex_.setListGenerator(lg_.getExecContent().getExecutingOptions().getListGenerator());
+        ex_.setFileSystemParameterizing(lg_.getExecContent().getExecutingOptions().getFileSystemParameterizing());
+        ex_.setAliases(lg_.getExecContent().getExecutingOptions().getAliases());
+        ex_.setLg(lg_.getExecContent().getExecutingOptions().getLg());
+        ex_.setCovering(lg_.getExecContent().getExecutingOptions().isCovering());
+        ex_.setCoverFolder(lg_.getExecContent().getExecutingOptions().getCoverFolder());
+        ex_.setOutputFolder(lg_.getExecContent().getExecutingOptions().getOutputFolder());
+        ex_.setOutput(lg_.getExecContent().getExecutingOptions().getOutput());
+        ex_.setOutputZip(lg_.getExecContent().getExecutingOptions().getOutputZip());
+        ex_.setMainThread(lg_.getExecContent().getExecutingOptions().getMainThread());
+        ex_.setFiles(lg_.getExecContent().getExecutingOptions().getFiles());
+        ex_.setLogFolder(lg_.getExecContent().getExecutingOptions().getLogFolder());
+        ex_.setBaseFiles(lg_.getExecContent().getExecutingOptions().getBaseFiles());
+        ex_.getLgs().addAllElts(lg_.getExecContent().getExecutingOptions().getLgs());
+        LgNamesGui lgCopy_ = new LgNamesGui(fileInfos_,windowSecEditor.getMainFrame().getFactory().getInterceptor());
+        lgCopy_.getContent().getStandards().addAllEntries(lg_.getContent().getStandards());
+        lgCopy_.getContent().getPrimTypes().getPrimitiveTypes().addAllEntries(lg_.getContent().getPrimTypes().getPrimitiveTypes());
+        lgCopy_.getExecContent().updateTranslations(ex_.getLightProgramInfos().getTranslations(),ex_.getLightProgramInfos().getLanguage(),ex_.getLg());
+        CustContextFactory.parts(ex_,lgCopy_,new StringList());
+        CustContextFactory.aliases(ex_,lgCopy_.getContent(), lgCopy_.getExecContent().getCustAliases(), lgCopy_.getGuiAliases());
+        Forwards forwards_ = CustContextFactory.fwd(userResult_.getForwards().getOptions(), lgCopy_, userResult_.getForwards().getFileBuilder());
+        ResultContext copy_ = new ResultContext(userResult_.getPageEl(),forwards_,userResult_.getReportedMessages());
+        AnalyzedPageEl fwd_ = copy_.getPageEl();
+        Forwards f_ = copy_.getForwards();
+        ForwardInfos.generalForward(fwd_,f_);
+        ContextEl ctx_ = f_.generate();
+        RunnableContextEl res_ = (RunnableContextEl) ctx_;
+        setAction(res_);
+        getFindingExpressionCancel().setEnabled(true);
+        Classes.forwardAndClear(ctx_);
+        Options options_ = f_.getOptions();
+        RunnableStruct.setupThread(res_);
+        ExecClassesUtil.tryInitStaticlyTypes(ctx_, options_);
+        AbstractProgramInfos frames_ = windowSecEditor.getMainFrame().getCommonFrame().getFrames();
+        ResultContextViewReplacer vr_ = getResultContext();
+        lastBuild.setText(vr_.update(lgCopy_.getExecContent().getCustAliases(), lgCopy_.getContent(),getAction(),frames_));
         selectExpressionClass.setEnabled(true);
         ExecRootBlock typeView_ = vr_.getViewType();
         ExecNamedFunctionBlock methodView_ = vr_.getViewMethod();
@@ -674,10 +721,6 @@ public final class TabEditor {
 
     public ResultContextViewReplacer getResultContext() {
         return resultContext;
-    }
-
-    public void setResultContext(ResultContextViewReplacer _r) {
-        this.resultContext = _r;
     }
 
     public AbsPlainButton getSelectExpressionClass() {

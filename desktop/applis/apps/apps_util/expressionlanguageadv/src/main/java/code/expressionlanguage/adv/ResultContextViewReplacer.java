@@ -1,6 +1,5 @@
 package code.expressionlanguage.adv;
 
-import code.expressionlanguage.analyze.ReportedMessages;
 import code.expressionlanguage.exec.ExecClassesUtil;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecRootBlock;
@@ -14,7 +13,6 @@ import code.util.StringList;
 
 public final class ResultContextViewReplacer {
     private RunnableContextEl resultContext;
-    private ReportedMessages reportedMessages = new ReportedMessages();
     private ExecRootBlock viewType;
     private ExecNamedFunctionBlock viewMethod;
     private ExecRootBlock replaceType;
@@ -43,14 +41,6 @@ public final class ResultContextViewReplacer {
 
     public RunnableContextEl getResultContext() {
         return resultContext;
-    }
-
-    public ReportedMessages getReportedMessages() {
-        return reportedMessages;
-    }
-
-    public void setReportedMessages(ReportedMessages _rep) {
-        this.reportedMessages = _rep;
     }
 
     public ExecNamedFunctionBlock getReplaceMethod() {

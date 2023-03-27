@@ -146,6 +146,18 @@ public final class RunningTest implements Runnable {
         return nextValidate(_base, lg_, exec_, file_);
     }
 
+    public static ResultContext nextValidateMemoQuick(ResultContext _base, MemInputFiles _input, AbstractIssuer _issuer) {
+        if (_base.getPageEl().notAllEmptyErrors()) {
+            return _base;
+        }
+        LgNamesGui lg_ = (LgNamesGui) _base.getForwards().getGenerator();
+        ExecutingOptions exec_ = lg_.getExecContent().getExecutingOptions();
+        MemoryReporter m_ = (MemoryReporter) lg_.getExecContent().getInfos().getReporter();
+        MemInputFiles src_ = new MemInputFiles(m_.getConf(),_input.getSrc(),_input.getFiles());
+        FileInfos file_ = fileInfos(exec_.getLightProgramInfos(), _issuer, src_);
+        return nextValidateQuick(_base, lg_, exec_, file_);
+    }
+
     private static FileInfos fileInfos(AbstractLightProgramInfos _frames, AbstractIssuer _issuer, MemInputFiles _input) {
         AbstractNameValidating validator_ = _frames.getValidator();
         return FileInfos.buildMemoryFromFile(_frames, _frames.getGenerator(),
@@ -172,6 +184,22 @@ public final class RunningTest implements Runnable {
         }
         res_.forwardGenerate();
         return res_;
+    }
+
+    public static ResultContext nextValidateQuick(ResultContext _base, LgNamesGui _lg, ExecutingOptions _exec, FileInfos _file) {
+        String archive_ = _exec.getAccess();
+        ReadFiles result_ = _file.getReporter().getFiles(archive_);
+        StringMap<String> list_ = RunningTest.tryGetSrc(archive_, _exec, _file, result_);
+        if (list_ == null) {
+            return _base;
+        }
+        StringMap<String> srcFiles_ = ContextFactory.filter(list_, _exec.getSrcFolder());
+        AnalyzedPageEl copy_ = AnalyzedPageEl.copy(_base.getPageEl());
+        copy_.addResources(list_);
+        AnalyzedPageEl resultAna_ = ClassesUtil.buildUserCode(srcFiles_, copy_);
+        Classes.postValidate(resultAna_);
+        Forwards forwards_ = CustContextFactory.fwd(_base.getForwards().getOptions(), _lg, _base.getForwards().getFileBuilder());
+        return new ResultContext(resultAna_, forwards_, resultAna_.getMessages());
     }
     public static StringMap<String> tryGetSrc(String _archive, ExecutingOptions _exec, FileInfos _infos,ReadFiles _results) {
         AbstractReporter reporter_ = _infos.getReporter();

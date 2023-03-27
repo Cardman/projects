@@ -172,4 +172,35 @@ public final class RunTest extends EquallableElUtImplUtil {
         assertTrue(res_.getPageEl().isCustomAna());
         assertFalse(res_.getPageEl().notAllEmptyErrors());
     }
+    @Test
+    public void splitMemoQuick1() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", new StringList("keyWords=If=;"), new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),null,null);
+        assertTrue(res_.getPageEl().notAllEmptyErrors());
+    }
+    @Test
+    public void splitMemoQuick2() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        StringList lines_ = new StringList("","en","out=//");
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(new byte[0],false),new BytesInfo(new byte[0],false)),null);
+        assertFalse(res_.getPageEl().isCustomAna());
+    }
+    @Test
+    public void splitMemoQuick3() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        StringList lines_ = new StringList("","en");
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt",""));
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        assertTrue(res_.getPageEl().isCustomAna());
+        assertTrue(res_.getPageEl().notAllEmptyErrors());
+    }
+    @Test
+    public void splitMemoQuick4() {
+        MockProgramInfos pr_ = newMockProgramInfos(new CustomSeedGene(dbs(0.75)), new MockFileSet(2, lgs(1), new String[]{"/"}));
+        StringList lines_ = new StringList("","en");
+        byte[] zipped_ = pr_.getZipFact().zipBinFiles(with(pr_,  with(pr_,with(pr_,with(pr_, init(), "conf.txt", "content"),"src/"),"src/folder/"),"src/folder/file.txt","public class pkg.Sample{}"));
+        ResultContext res_ = RunningTest.nextValidateMemoQuick(RunningTest.baseValidateMemo("en", lines_, new MockInterceptor(), pr_.light(), new MockAdvGraphicListGenerator(true), new AdvGraphicListGeneratorStruct(),null),new MemInputFiles(new byte[0],new BytesInfo(zipped_,false),new BytesInfo(new byte[0],false)),null);
+        assertTrue(res_.getPageEl().isCustomAna());
+        assertFalse(res_.getPageEl().notAllEmptyErrors());
+    }
 }

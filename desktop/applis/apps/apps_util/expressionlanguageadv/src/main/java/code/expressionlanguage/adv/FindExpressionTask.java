@@ -14,10 +14,8 @@ import code.expressionlanguage.exec.inherits.ExecTemplates;
 import code.expressionlanguage.exec.inherits.Parameters;
 import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
-import code.expressionlanguage.guicompos.GuiContextEl;
 import code.expressionlanguage.structs.*;
 import code.expressionlanguage.utilcompo.RunnableContextEl;
-import code.expressionlanguage.utilcompo.RunnableStruct;
 import code.util.CustList;
 import code.util.core.NumberUtil;
 
@@ -31,17 +29,13 @@ public final class FindExpressionTask implements Runnable {
     public void run() {
         editor.getFindingExpression().setEnabled(false);
         ResultContextViewReplacer vr_ = editor.getResultContext();
-        RunnableContextEl rCont_ = vr_.getResultContext();
-        RunnableContextEl rInit_ = new GuiContextEl(NullStruct.NULL_VALUE, rCont_.getExecutionInfos(), rCont_.getArgs());
-        RunnableStruct.setupThread(rInit_);
-        editor.setAction(rInit_);
-        editor.getFindingExpressionCancel().setEnabled(true);
+        RunnableContextEl rCont_ = editor.getAction();
         String text_ = editor.getPreview().getText();
         ExecConstructorOverrideInfo info_ = editor.getTargetMethodView();
         ArrayStruct empty_ = new ArrayStruct(0, StringExpUtil.getPrettyArrayType(rCont_.getStandards().getCoreNames().getAliasObject()));
-        StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rInit_);
-        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),empty_),rInit_, first_).getValue());
-        if (rInit_.callsOrException(first_)) {
+        StackCall first_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
+        Struct infoStruct_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomReflectConstructor(info_.getMetaInfo(),empty_),rCont_, first_).getValue());
+        if (rCont_.callsOrException(first_)) {
             return;
         }
         CustList<SegmentFindPart> found_ = new CustList<SegmentFindPart>();
@@ -51,10 +45,10 @@ public final class FindExpressionTask implements Runnable {
             CustList<ArgumentWrapper> ls_ = new CustList<ArgumentWrapper>();
             ls_.add(new ArgumentWrapper(new StringStruct(text_)));
             ls_.add(new ArgumentWrapper(new IntStruct(currentIndex_)));
-            StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, rInit_);
-            Parameters parameters_ = ExecTemplates.wrapAndCall(targetMethod_.getPair(), targetMethod_.getClassName(), new Argument(infoStruct_), rInit_, stCall_, new ArgumentListCall(ls_));
-            Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(new Argument(infoStruct_), targetMethod_.getClassName(), targetMethod_.getPair(), parameters_),rInit_,stCall_).getValue());
-            if (rInit_.callsOrException(stCall_)) {
+            StackCall stCall_ = StackCall.newInstance(InitPhase.NOTHING, rCont_);
+            Parameters parameters_ = ExecTemplates.wrapAndCall(targetMethod_.getPair(), targetMethod_.getClassName(), new Argument(infoStruct_), rCont_, stCall_, new ArgumentListCall(ls_));
+            Struct re_ = ArgumentListCall.toStr(ProcessMethod.calculate(new CustomFoundMethod(new Argument(infoStruct_), targetMethod_.getClassName(), targetMethod_.getPair(), parameters_),rCont_,stCall_).getValue());
+            if (rCont_.callsOrException(stCall_)) {
                 return;
             }
             if (!(re_ instanceof FieldableStruct)) {
