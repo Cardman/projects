@@ -3,8 +3,10 @@ package code.expressionlanguage.exec.variables;
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.StackCall;
+import code.expressionlanguage.exec.inherits.ExecArrayTemplates;
 import code.expressionlanguage.exec.inherits.ExecVariableTemplates;
 import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.IntStruct;
 
 public final class ReflectVariableWrapper extends AbstractVariableWrapper {
 
@@ -23,7 +25,7 @@ public final class ReflectVariableWrapper extends AbstractVariableWrapper {
     @Override
     public void setValue(StackCall _stack, ContextEl _conf, Argument _right) {
         if (ExecVariableTemplates.checkSet(_conf,getLocal(),_right, _stack)&&array.isValid(ind)){
-            array.set(ind, _right.getStruct());
+            ExecArrayTemplates.setElement(array,new IntStruct(ind),_right.getStruct(),_conf,_stack);
         }
     }
 
