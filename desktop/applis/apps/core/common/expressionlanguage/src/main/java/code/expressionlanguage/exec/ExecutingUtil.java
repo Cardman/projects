@@ -270,7 +270,7 @@ public final class ExecutingUtil {
             CustomReflectConstructor c_ = (CustomReflectConstructor) _ref;
             Argument args_ = c_.getArgument();
             ConstructorMetaInfo metaInfo_ = c_.getGl();
-            pageLoc_ = new ReflectConstructorPageEl(args_, metaInfo_);
+            pageLoc_ = new ReflectConstructorPageEl(args_, metaInfo_,c_.isRef());
         } else if (_ref instanceof CustomReflectRecordConstructor) {
             CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
             CustList<Argument> args_ = c_.getArguments();
@@ -329,22 +329,23 @@ public final class ExecutingUtil {
         AbstractPageEl refMet_;
         Argument instance_ = _ref.getInstance();
         Argument array_ = _ref.getArray();
+        boolean ref_ = _ref.isRef();
         if (reflect_ == ReflectingType.METHOD) {
-            refMet_ = new PolymorphRefectMethodPageEl(instance_,array_, metaInfo_);
+            refMet_ = new PolymorphRefectMethodPageEl(instance_,array_, metaInfo_, ref_);
         } else if (reflect_ == ReflectingType.DIRECT) {
-            refMet_ = new DirectRefectMethodPageEl(instance_,array_, metaInfo_);
+            refMet_ = new DirectRefectMethodPageEl(instance_,array_, metaInfo_, ref_);
         } else if (reflect_ == ReflectingType.STATIC_CALL) {
-            refMet_ = new StaticCallMethodPageEl(instance_,array_, metaInfo_);
+            refMet_ = new StaticCallMethodPageEl(instance_,array_, metaInfo_, ref_);
         } else if (cast(reflect_)) {
-            refMet_ = reflectCast(reflect_, metaInfo_, instance_, array_);
+            refMet_ = reflectCast(reflect_, metaInfo_, instance_, array_, ref_);
         } else if (reflect_ == ReflectingType.STD_FCT) {
-            refMet_ = new DirectStdRefectMethodPageEl(instance_,array_, metaInfo_);
+            refMet_ = new DirectStdRefectMethodPageEl(instance_,array_, metaInfo_, ref_);
         } else if (reflect_ == ReflectingType.CLONE_FCT) {
-            refMet_ = new DirectCloneRefectMethodPageEl(instance_,array_, metaInfo_);
+            refMet_ = new DirectCloneRefectMethodPageEl(instance_,array_, metaInfo_, ref_);
         } else if (reflect_ == ReflectingType.ENUM_METHODS) {
-            refMet_ = new DirectEnumMethods(instance_,array_, metaInfo_);
+            refMet_ = new DirectEnumMethods(instance_,array_, metaInfo_, ref_);
         } else {
-            refMet_ = new DirectAnnotationRefectMethodPageEl(instance_,array_, metaInfo_);
+            refMet_ = new DirectAnnotationRefectMethodPageEl(instance_,array_, metaInfo_, ref_);
         }
         pageLoc_ = refMet_;
         return pageLoc_;
@@ -389,13 +390,13 @@ public final class ExecutingUtil {
         return pageLoc_;
     }
 
-    private static AbstractRefectMethodPageEl reflectCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, Argument _array) {
+    private static AbstractRefectMethodPageEl reflectCast(ReflectingType _reflect, MethodMetaInfo _metaInfo, Argument _instance, Argument _array, boolean _refer) {
         AbstractRefectMethodPageEl refMet_;
         String className_ = _metaInfo.getFormatted().getFormatted();
         if (direct(_reflect == ReflectingType.CAST_DIRECT, _metaInfo.getPair(), className_)) {
-            refMet_ = new CastDirectRefectMethodPageEl(_instance, _array, _metaInfo);
+            refMet_ = new CastDirectRefectMethodPageEl(_instance, _array, _metaInfo, _refer);
         } else {
-            refMet_ = new CastIndirectRefectMethodPageEl(_instance, _array, _metaInfo);
+            refMet_ = new CastIndirectRefectMethodPageEl(_instance, _array, _metaInfo, _refer);
         }
         return refMet_;
     }

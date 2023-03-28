@@ -16,12 +16,8 @@ import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.exec.util.ExecOverrideInfo;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.AbstractFunctionalInstance;
-import code.expressionlanguage.structs.DoubleStruct;
-import code.expressionlanguage.structs.NullStruct;
-import code.expressionlanguage.structs.Struct;
+import code.expressionlanguage.structs.*;
 import code.maths.montecarlo.AbstractGenerator;
-import code.util.CustList;
 
 public final class FctMathRandom0 extends FctMath {
     @Override
@@ -33,7 +29,6 @@ public final class FctMathRandom0 extends FctMath {
         Struct seedSpec_ = _stackCall.getSeedSpecDoubleGenerator();
         Argument argSeedSpec_ = new Argument(seedSpec_);
         ExecTypeFunction p_ = new ExecTypeFunction((ExecRootBlock)null,null);
-        CustList<Argument> argsToPass_ = new CustList<Argument>();
         ExecFormattedRootBlock cl_ = ExecFormattedRootBlock.defValue();
         if (matchNotNull(_cont, seedSpec_, lgNames_.getContent().getPredefTypes().getAliasSeedDoubleGenerator())) {
             String argClassName_ = seedSpec_.getClassName(_cont);
@@ -46,7 +41,7 @@ public final class FctMathRandom0 extends FctMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seedSpec_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seedSpec_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seedSpec_).getFunctional());
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
+                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),false,_cont, _stackCall).getStruct());
             }
             _stackCall.setCallingState(new CustomFoundMethod(argSeedSpec_,cl_, p_, new Parameters()));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
@@ -64,7 +59,7 @@ public final class FctMathRandom0 extends FctMath {
             ExecOverridableBlock meth_ = (ExecOverridableBlock)p_.getFct();
             if (seed_ instanceof AbstractFunctionalInstance && ((AbstractFunctionalInstance)seed_).getNamed() == meth_) {
                 Argument fct_ = new Argument(((AbstractFunctionalInstance)seed_).getFunctional());
-                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,argsToPass_,_cont, _stackCall).getStruct());
+                return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(fct_,new ArrayStruct(0,""),false,_cont, _stackCall).getStruct());
             }
             _stackCall.setCallingState(new CustomFoundMethod(argSeed_,cl_, p_, new Parameters()));
             return new ArgumentWrapper(NullStruct.NULL_VALUE);

@@ -2,6 +2,7 @@ package code.expressionlanguage.structs;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.common.NumParsers;
+import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.util.CollCapacity;
 import code.util.CustList;
 import code.util.core.StringUtil;
@@ -48,5 +49,13 @@ public final class ArrayStruct extends AbArrayStruct {
             args_.add(Argument.getNull(a));
         }
         return args_;
+    }
+    public static ArrayStruct instance(String _cl, CustList<Argument> _args) {
+        int len_ = _args.size();
+        ArrayStruct copy_ = new ArrayStruct(len_, _cl);
+        for (int i = 0; i < len_; i++) {
+            copy_.set(i, ArgumentListCall.toStr(_args.get(i)));
+        }
+        return copy_;
     }
 }

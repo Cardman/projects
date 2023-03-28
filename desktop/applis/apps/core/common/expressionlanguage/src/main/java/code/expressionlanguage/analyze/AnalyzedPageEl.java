@@ -278,6 +278,9 @@ public final class AnalyzedPageEl {
     public String getAliasInstance() {
         return content.getReflect().getAliasInstance();
     }
+    public boolean matchCall(String _method) {
+        return StringUtil.quickEq(getAliasCall(),_method)||StringUtil.quickEq(content.getReflect().getAliasCallRef(),_method);
+    }
     public String getAliasCall() {
         return content.getReflect().getAliasCall();
     }

@@ -9,23 +9,25 @@ import code.expressionlanguage.exec.util.Cache;
 import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
 import code.expressionlanguage.functionid.MethodAccessKind;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
-import code.util.CustList;
+import code.expressionlanguage.structs.ArrayStruct;
 
 public final class ReflectMethodParamChecker extends AbstractFormatParamChecker {
     private final ExecTypeFunction pair;
     private final ExecNamedFunctionBlock method;
 
-    private final CustList<Argument> argsList;
+    private final ArrayStruct argsList;
     private final Argument right;
     private final ArgumentListCall args = new ArgumentListCall();
+    private final boolean re;
     public ReflectMethodParamChecker(ExecTypeFunction _pair,
-                                                CustList<Argument> _args, Argument _right,
-                                                MethodAccessKind _kind) {
+                                     ArrayStruct _args, Argument _right,
+                                     MethodAccessKind _kind, boolean _r) {
         super(_kind);
         argsList = _args;
         right = _right;
         this.pair = _pair;
         this.method = _pair.getFct();
+        re = _r;
     }
 
 
@@ -36,7 +38,7 @@ public final class ReflectMethodParamChecker extends AbstractFormatParamChecker 
 
     @Override
     public Parameters check(ExecFormattedRootBlock _classFormat, Cache _cache, ContextEl _conf, StackCall _stackCall) {
-        ExecTemplates.wrapAndCallDirect(args,pair,argsList,right,_classFormat);
+        ExecTemplates.wrapAndCallDirect(args,pair,argsList,right,_classFormat,re,0);
         return getParameters(_classFormat, _cache, _conf, _stackCall,method,args);
     }
 

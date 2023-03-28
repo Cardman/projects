@@ -26,12 +26,13 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
     private final ConstructorMetaInfo metaInfo;
 
     private final Argument argument;
-
-    public ReflectConstructorPageEl(Argument _argument, ConstructorMetaInfo _metaInfo) {
+    private final boolean ref;
+    public ReflectConstructorPageEl(Argument _argument, ConstructorMetaInfo _metaInfo, boolean _refer) {
         super(false);
         argument = _argument;
         metaInfo = _metaInfo;
         setGlobalArgumentStruct(_metaInfo);
+        ref = _refer;
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
@@ -61,31 +62,30 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
                     return false;
                 }
                 previous_ = Argument.createVoid();
-            } else {
-                if (args_.size() != 1 + mid_.getParametersTypesLength()) {
-                    String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
-                    _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypesLength()).toString(), null_, _stack)));
-                    return false;
-                }
-                previous_ = args_.first();
-                args_ = args_.mid(1);
+                return callPhase(_context, _stack, (ArrayStruct)struct_, previous_,0);
             }
-            return callPhase(_context, _stack, args_, previous_);
+            if (args_.size() != 1 + mid_.getParametersTypesLength()) {
+                String null_ = stds_.getContent().getCoreNames().getAliasBadArgNumber();
+                _stack.setCallingState(new CustomFoundExc(new ErrorStruct(_context, ExecTemplates.countDiff(args_.size(), 1 + mid_.getParametersTypesLength()).toString(), null_, _stack)));
+                return false;
+            }
+            previous_ = args_.first();
+            return callPhase(_context, _stack, (ArrayStruct)struct_, previous_,1);
         }
         return true;
     }
 
-    private boolean callPhase(ContextEl _context, StackCall _stack, CustList<Argument> _args, Argument _previous) {
+    private boolean callPhase(ContextEl _context, StackCall _stack, ArrayStruct _args, Argument _previous, int _delta) {
         ExecFormattedRootBlock res_ = metaInfo.getFormatted();
         ConstructorId mid_ = metaInfo.getRealId();
         Argument arg_ = Argument.createVoid();
         ExecTypeFunction pair_ = metaInfo.getPair();
         ExecRootBlock execSuperClass_ = pair_.getType();
         if (execSuperClass_ != null) {
-            arg_ = new ReflectInstanceParamChecker(pair_, _args, "", -1).checkParams(res_, _previous, null, _context, _stack);
+            arg_ = new ReflectInstanceParamChecker(pair_, _args, "", -1,_delta,ref).checkParams(res_, _previous, null, _context, _stack);
         }
         if (metaInfo.getStandardType() != null) {
-            ArgumentListCall l_ = ArgumentListCall.wrapCall(_args);
+            ArgumentListCall l_ = ArgumentListCall.wrapCall(_args.listArgs());
             arg_ = ParamCheckerUtil.instancePrepareStd(_context, metaInfo.getStandardConstructor(), mid_, l_, _stack).getValue();
         }
         return end(_context, _stack, arg_);

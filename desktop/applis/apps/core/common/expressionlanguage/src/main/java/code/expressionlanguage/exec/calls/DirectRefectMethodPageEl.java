@@ -8,22 +8,22 @@ import code.expressionlanguage.exec.blocks.ExecMemberCallingsBlock;
 import code.expressionlanguage.exec.inherits.AbstractParamChecker;
 import code.expressionlanguage.exec.inherits.ReflectMethodParamChecker;
 import code.expressionlanguage.exec.inherits.SwitchParamChecker;
+import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.MethodMetaInfo;
-import code.util.CustList;
 
 public final class DirectRefectMethodPageEl extends AbstractRefectMethodPageEl {
 
-    public DirectRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo) {
-        super(_instance,_array, _metaInfo, new DefInitPreparerAbs(_metaInfo));
+    public DirectRefectMethodPageEl(Argument _instance, Argument _array, MethodMetaInfo _metaInfo, boolean _refer) {
+        super(_instance,_array, _metaInfo, new DefInitPreparerAbs(_metaInfo), _refer);
     }
 
-    Argument prepare(ContextEl _context, CustList<Argument> _args, Argument _right, StackCall _stack) {
+    Argument prepare(ContextEl _context, ArrayStruct _args, Argument _right, StackCall _stack) {
         ExecMemberCallingsBlock callee_ = getCallee();
         AbstractParamChecker ab_;
         if (callee_ instanceof ExecAbstractSwitchMethod) {
-            ab_ = new SwitchParamChecker((ExecAbstractSwitchMethod) callee_, _args,getAccessKind());
+            ab_ = new SwitchParamChecker((ExecAbstractSwitchMethod) callee_, _args.listArgs(),getAccessKind());
         } else {
-            ab_ = new ReflectMethodParamChecker(getPair(), _args, _right, getAccessKind());
+            ab_ = new ReflectMethodParamChecker(getPair(), _args, _right, getAccessKind(), isRef());
         }
         return ab_.checkParams(getClassName(), getInstance(), getMetaInfo().getCache(), _context, _stack);
     }

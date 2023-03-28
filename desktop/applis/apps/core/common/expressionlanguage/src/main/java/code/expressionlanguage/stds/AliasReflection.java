@@ -101,7 +101,9 @@ public final class AliasReflection {
     private static final String GET_RETURN_TYPE="__________1990";
     private static final String IS_VARARGS="__________1991";
     private static final String NEW_INSTANCE="__________1992";
+    private static final String NEW_INSTANCE_REF="__________1992_";
     private static final String CALL="823";
+    private static final String CALL_REF="823_";
     private static final String META_INFO="__________1993";
     private static final String INSTANCE="__________1994";
     private static final String GET_FIELD="__________1995";
@@ -114,7 +116,9 @@ public final class AliasReflection {
     private static final String GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS="__________2002";
     private static final String GET_DEFAULT_VALUE="__________2003";
     private static final String INVOKE="__________2004";
+    private static final String INVOKE_REF="__________2004_";
     private static final String INVOKE_DIRECT="__________2005";
+    private static final String INVOKE_DIRECT_REF="__________2005_";
     private static final String IS_NORMAL="__________2006";
     private static final String IS_STATIC_CALL="__________2007";
     private static final String IS_INSTANCE_METHOD="__________2008";
@@ -126,6 +130,7 @@ public final class AliasReflection {
     private String aliasGetAnnotationsParameters;
     private String aliasFct;
     private String aliasCall;
+    private String aliasCallRef;
     private String aliasMetaInfo;
     private String aliasInstance;
     private String aliasClassType;
@@ -208,7 +213,10 @@ public final class AliasReflection {
     private String aliasMethod;
     private String aliasInvoke;
     private String aliasInvokeDirect;
+    private String aliasInvokeRef;
+    private String aliasInvokeDirectRef;
     private String aliasNewInstance;
+    private String aliasNewInstanceRef;
     private String aliasIsAbstract;
     private String aliasGetFileName;
     private String aliasGetName;
@@ -230,6 +238,7 @@ public final class AliasReflection {
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         setAliasGetType(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_TYPE)));
         setAliasCall(LgNamesContent.get(_util,_cust,_mapping.getVal(CALL)));
+        setAliasCallRef(LgNamesContent.get(_util,_cust,_mapping.getVal(CALL_REF)));
         setAliasMetaInfo(LgNamesContent.get(_util,_cust,_mapping.getVal(META_INFO)));
         setAliasInstance(LgNamesContent.get(_util,_cust,_mapping.getVal(INSTANCE)));
         setAliasFct(LgNamesContent.get(_util,_cust,_mapping.getVal(FCT)));
@@ -272,6 +281,7 @@ public final class AliasReflection {
         setAliasMethod(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD)));
         setAliasGetField(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_FIELD)));
         setAliasInvoke(LgNamesContent.get(_util,_cust,_mapping.getVal(INVOKE)));
+        setAliasInvokeRef(LgNamesContent.get(_util,_cust,_mapping.getVal(INVOKE_REF)));
         setAliasIsEnum(LgNamesContent.get(_util,_cust,_mapping.getVal(IS_ENUM)));
         setAliasInit(LgNamesContent.get(_util,_cust,_mapping.getVal(INIT)));
         setAliasTryWrap(LgNamesContent.get(_util,_cust,_mapping.getVal(TRY_WRAP)));
@@ -302,10 +312,12 @@ public final class AliasReflection {
         setAliasGetParameterTypes(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_PARAMETER_TYPES)));
         setAliasGetGenericReturnType(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_GENERIC_RETURN_TYPE)));
         setAliasInvokeDirect(LgNamesContent.get(_util,_cust,_mapping.getVal(INVOKE_DIRECT)));
+        setAliasInvokeDirectRef(LgNamesContent.get(_util,_cust,_mapping.getVal(INVOKE_DIRECT_REF)));
         setAliasGetLowerBounds(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_LOWER_BOUNDS)));
         setAliasGetTypeParameters(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_TYPE_PARAMETERS)));
         setAliasConstructor(LgNamesContent.get(_util,_cust,_mapping.getVal(CONSTRUCTOR)));
         setAliasNewInstance(LgNamesContent.get(_util,_cust,_mapping.getVal(NEW_INSTANCE)));
+        setAliasNewInstanceRef(LgNamesContent.get(_util,_cust,_mapping.getVal(NEW_INSTANCE_REF)));
         setAliasGetEnclosingType(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_ENCLOSING_TYPE)));
         setAliasGetInterfaces(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_INTERFACES)));
         setAliasGetDeclaredClasses(LgNamesContent.get(_util,_cust,_mapping.getVal(GET_DECLARED_CLASSES)));
@@ -425,7 +437,9 @@ public final class AliasReflection {
         _en.add(GET_RETURN_TYPE,"GetReturnType=getReturnType");
         _en.add(IS_VARARGS,"IsVarargs=isVarargs");
         _en.add(NEW_INSTANCE,"NewInstance=newInstance");
+        _en.add(NEW_INSTANCE_REF,"NewInstanceRef=newInstanceRef");
         _en.add(CALL,"Call=call");
+        _en.add(CALL_REF,"CallRef=callRef");
         _en.add(META_INFO,"MetaInfo=metaInfo");
         _en.add(INSTANCE,"Instance=instance");
         _en.add(GET_FIELD,"GetField=get");
@@ -438,7 +452,9 @@ public final class AliasReflection {
         _en.add(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,"GetDeclaredAnonymousLambdaLoopVars=getDeclaredAnonymousLambdaLoopVars");
         _en.add(GET_DEFAULT_VALUE,"GetDefaultValue=getDefaultValue");
         _en.add(INVOKE,"Invoke=invoke");
+        _en.add(INVOKE_REF,"InvokeRef=invokeRef");
         _en.add(INVOKE_DIRECT,"InvokeDirect=invokeDirect");
+        _en.add(INVOKE_DIRECT_REF,"InvokeDirectRef=invokeDirectRef");
         _en.add(IS_NORMAL,"IsNormal=isNormal");
         _en.add(IS_STATIC_CALL,"IsStaticCall=isStaticCall");
         _en.add(IS_INSTANCE_METHOD,"IsInstanceMethod=isInstanceMethod");
@@ -533,7 +549,9 @@ public final class AliasReflection {
         _fr.add(GET_RETURN_TYPE,"GetReturnType=valTypeRetour");
         _fr.add(IS_VARARGS,"IsVarargs=estVarargs");
         _fr.add(NEW_INSTANCE,"NewInstance=nouvelleInstance");
+        _fr.add(NEW_INSTANCE_REF,"NewInstanceRef=nouvelleInstanceRef");
         _fr.add(CALL,"Call=appeler");
+        _fr.add(CALL_REF,"CallRef=appelerRef");
         _fr.add(META_INFO,"MetaInfo=metaInfo");
         _fr.add(INSTANCE,"Instance=instance");
         _fr.add(GET_FIELD,"GetField=obtenir");
@@ -546,7 +564,9 @@ public final class AliasReflection {
         _fr.add(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,"GetDeclaredAnonymousLambdaLoopVars=valBoucleVarsLambdaAnonymesDeclares");
         _fr.add(GET_DEFAULT_VALUE,"GetDefaultValue=valDefValeur");
         _fr.add(INVOKE,"Invoke=invoque");
+        _fr.add(INVOKE_REF,"InvokeRef=invoqueRef");
         _fr.add(INVOKE_DIRECT,"InvokeDirect=invoqueDirect");
+        _fr.add(INVOKE_DIRECT_REF,"InvokeDirectRef=invoqueDirectRef");
         _fr.add(IS_NORMAL,"IsNormal=estNormal");
         _fr.add(IS_STATIC_CALL,"IsStaticCall=estStaticAppel");
         _fr.add(IS_INSTANCE_METHOD,"IsInstanceMethod=estMethInstance");
@@ -641,7 +661,9 @@ public final class AliasReflection {
         _m.addEntry(GET_RETURN_TYPE,"GetReturnType");
         _m.addEntry(IS_VARARGS,"IsVarargs");
         _m.addEntry(NEW_INSTANCE,"NewInstance");
+        _m.addEntry(NEW_INSTANCE_REF,"NewInstanceRef=nouvelleInstanceRef");
         _m.addEntry(CALL,"Call");
+        _m.addEntry(CALL_REF,"CallRef");
         _m.addEntry(META_INFO,"MetaInfo");
         _m.addEntry(INSTANCE,"Instance");
         _m.addEntry(GET_FIELD,"GetField");
@@ -654,7 +676,9 @@ public final class AliasReflection {
         _m.addEntry(GET_DECLARED_ANONYMOUS_LAMBDA_LOOP_VARS,"GetDeclaredAnonymousLambdaLoopVars");
         _m.addEntry(GET_DEFAULT_VALUE,"GetDefaultValue");
         _m.addEntry(INVOKE,"Invoke");
+        _m.addEntry(INVOKE_REF,"InvokeRef");
         _m.addEntry(INVOKE_DIRECT,"InvokeDirect");
+        _m.addEntry(INVOKE_DIRECT_REF,"InvokeDirectRef");
         _m.addEntry(IS_NORMAL,"IsNormal");
         _m.addEntry(IS_STATIC_CALL,"IsStaticCall");
         _m.addEntry(IS_INSTANCE_METHOD,"IsInstanceMethod");
@@ -769,9 +793,11 @@ public final class AliasReflection {
                 new KeyValueMemberName(_mapping.getVal(IS_PROTECTED),getAliasIsProtected()),
                 new KeyValueMemberName(_mapping.getVal(IS_PUBLIC),getAliasIsPublic()),
                 new KeyValueMemberName(_mapping.getVal(IS_VARARGS),getAliasIsVarargs()),
-                new KeyValueMemberName(_mapping.getVal(NEW_INSTANCE),getAliasNewInstance())));
+                new KeyValueMemberName(_mapping.getVal(NEW_INSTANCE),getAliasNewInstance()),
+                new KeyValueMemberName(_mapping.getVal(NEW_INSTANCE_REF),getAliasNewInstanceRef())));
         map_.addEntry(getAliasFct(), new CustList<KeyValueMemberName>(
                 new KeyValueMemberName(_mapping.getVal(CALL),getAliasCall()),
+                new KeyValueMemberName(_mapping.getVal(CALL_REF),getAliasCallRef()),
                 new KeyValueMemberName(_mapping.getVal(META_INFO),getAliasMetaInfo()),
                 new KeyValueMemberName(_mapping.getVal(INSTANCE),getAliasInstance())));
         map_.addEntry(getAliasField(), new CustList<KeyValueMemberName>(
@@ -813,6 +839,8 @@ public final class AliasReflection {
                 new KeyValueMemberName(_mapping.getVal(GET_RETURN_TYPE),getAliasGetReturnType()),
                 new KeyValueMemberName(_mapping.getVal(INVOKE),getAliasInvoke()),
                 new KeyValueMemberName(_mapping.getVal(INVOKE_DIRECT),getAliasInvokeDirect()),
+                new KeyValueMemberName(_mapping.getVal(INVOKE_REF),getAliasInvokeRef()),
+                new KeyValueMemberName(_mapping.getVal(INVOKE_DIRECT_REF),getAliasInvokeDirectRef()),
                 new KeyValueMemberName(_mapping.getVal(IS_ABSTRACT),getAliasIsAbstract()),
                 new KeyValueMemberName(_mapping.getVal(IS_FINAL),getAliasIsFinal()),
                 new KeyValueMemberName(_mapping.getVal(IS_NORMAL),getAliasIsNormal()),
@@ -850,7 +878,10 @@ public final class AliasReflection {
         String aliasEnum_ = _stds.getContent().getPredefTypes().getAliasEnumType();
         StandardClass stdcl_ = new StandardClass(aliasFct, fields_, constructors_, methods_, aliasObject_, StdClassModifier.ABSTRACT);
         StringList params_ = new StringList(aliasObject_);
-        StandardMethod method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0Call0()), new FctLambdaCall());
+        StandardMethod method_ = new StandardMethod(aliasCall, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0Call0()), new FctLambdaCall(false));
+        methods_.add( method_);
+        params_ = new StringList(aliasObject_);
+        method_ = new StandardMethod(aliasCallRef, params_, aliasObject_, true, MethodModifier.FINAL, new StringList(params.getAliasFct0CallRef0()), new FctLambdaCall(true));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasMetaInfo, params_, aliasAnnotated, false, MethodModifier.FINAL, new FctLambdaMetaInfo());
@@ -1085,7 +1116,10 @@ public final class AliasReflection {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasConstructor, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfCtor());
         params_ = new StringList(aliasObject_);
-        method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstance0()),new FctConstructorNewInstance());
+        method_ = new StandardMethod(aliasNewInstance, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstance0()),new FctConstructorNewInstance(false));
+        methods_.add( method_);
+        params_ = new StringList(StringExpUtil.getPrettyArrayType(aliasObject_));
+        method_ = new StandardMethod(aliasNewInstanceRef, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasConstructor0NewInstanceRef0()),new FctConstructorNewInstance(true));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasGetParameterTypes, params_, StringExpUtil.getPrettyArrayType(aliasClassType), false, MethodModifier.FINAL, new FctCallerGetParameterTypes());
@@ -1146,10 +1180,16 @@ public final class AliasReflection {
         fields_ = new CustList<CstFieldInfo>();
         stdcl_ = new StandardClass(aliasMethod, fields_, constructors_, methods_, aliasAnnotated, StdClassModifier.ABSTRACT, new DfMethod());
         params_ = new StringList(aliasObject_,aliasObject_);
-        method_ = new StandardMethod(aliasInvoke, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0Invoke0(),params.getAliasMethod0Invoke1()),new FctMethodInvoke(false));
+        method_ = new StandardMethod(aliasInvoke, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0Invoke0(),params.getAliasMethod0Invoke1()),new FctMethodInvoke(false, false));
         methods_.add( method_);
         params_ = new StringList(aliasObject_,aliasObject_);
-        method_ = new StandardMethod(aliasInvokeDirect, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0InvokeDirect0(),params.getAliasMethod0InvokeDirect1()),new FctMethodInvoke(true));
+        method_ = new StandardMethod(aliasInvokeDirect, params_, aliasObject_, true, MethodModifier.FINAL,new StringList(params.getAliasMethod0InvokeDirect0(),params.getAliasMethod0InvokeDirect1()),new FctMethodInvoke(true, false));
+        methods_.add( method_);
+        params_ = new StringList(aliasObject_,StringExpUtil.getPrettyArrayType(aliasObject_));
+        method_ = new StandardMethod(aliasInvokeRef, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasMethod0InvokeRef0(),params.getAliasMethod0InvokeRef1()),new FctMethodInvoke(false, true));
+        methods_.add( method_);
+        params_ = new StringList(aliasObject_,StringExpUtil.getPrettyArrayType(aliasObject_));
+        method_ = new StandardMethod(aliasInvokeDirectRef, params_, aliasObject_, false, MethodModifier.FINAL,new StringList(params.getAliasMethod0InvokeDirectRef0(),params.getAliasMethod0InvokeDirectRef1()),new FctMethodInvoke(true, true));
         methods_.add( method_);
         params_ = new StringList();
         method_ = new StandardMethod(aliasIsAbstract, params_, aliasPrimBoolean_, false, MethodModifier.FINAL, new FctMethodIsAbstract());
@@ -1326,6 +1366,14 @@ public final class AliasReflection {
     }
     public void setAliasCall(String _aliasCall) {
         aliasCall = _aliasCall;
+    }
+
+    public String getAliasCallRef() {
+        return aliasCallRef;
+    }
+
+    public void setAliasCallRef(String _v) {
+        this.aliasCallRef = _v;
     }
 
     public String getAliasInstance() {
@@ -2004,6 +2052,30 @@ public final class AliasReflection {
     }
     public void setAliasGetString(String _aliasGetString) {
         aliasGetString = _aliasGetString;
+    }
+
+    public String getAliasInvokeRef() {
+        return aliasInvokeRef;
+    }
+
+    public void setAliasInvokeRef(String _v) {
+        this.aliasInvokeRef = _v;
+    }
+
+    public String getAliasInvokeDirectRef() {
+        return aliasInvokeDirectRef;
+    }
+
+    public void setAliasInvokeDirectRef(String _v) {
+        this.aliasInvokeDirectRef = _v;
+    }
+
+    public String getAliasNewInstanceRef() {
+        return aliasNewInstanceRef;
+    }
+
+    public void setAliasNewInstanceRef(String _v) {
+        this.aliasNewInstanceRef = _v;
     }
 
     public AliasParamReflection getParams() {

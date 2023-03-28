@@ -1,7 +1,6 @@
 package code.expressionlanguage.stds;
 
 import code.expressionlanguage.Argument;
-import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.analyze.AbstractConstantsCalculator;
 import code.expressionlanguage.analyze.AnalyzedPageEl;
 import code.expressionlanguage.analyze.DefaultConstantsCalculator;
@@ -2150,6 +2149,7 @@ public class LgNamesTest extends ProcessMethodCommon {
 
 
         lgName_.getReflect().getParams().setAliasFct0Call0("");
+        lgName_.getReflect().getParams().setAliasFct0CallRef0("");
         lgName_.getReflect().getParams().setAliasClassType0GetClass0("");
         lgName_.getReflect().getParams().setAliasClassType0ForName0("");
         lgName_.getReflect().getParams().setAliasClassType0ForName1("");
@@ -2188,6 +2188,7 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasClassType0ArraySet1("");
         lgName_.getReflect().getParams().setAliasClassType0ArraySet2("");
         lgName_.getReflect().getParams().setAliasConstructor0NewInstance0("");
+        lgName_.getReflect().getParams().setAliasConstructor0NewInstanceRef0("");
         lgName_.getReflect().getParams().setAliasField0GetField0("");
         lgName_.getReflect().getParams().setAliasField0SetField0("");
         lgName_.getReflect().getParams().setAliasField0SetField1("");
@@ -2195,6 +2196,10 @@ public class LgNamesTest extends ProcessMethodCommon {
         lgName_.getReflect().getParams().setAliasMethod0Invoke1("");
         lgName_.getReflect().getParams().setAliasMethod0InvokeDirect0("");
         lgName_.getReflect().getParams().setAliasMethod0InvokeDirect1("");
+        lgName_.getReflect().getParams().setAliasMethod0InvokeRef0("");
+        lgName_.getReflect().getParams().setAliasMethod0InvokeRef1("");
+        lgName_.getReflect().getParams().setAliasMethod0InvokeDirectRef0("");
+        lgName_.getReflect().getParams().setAliasMethod0InvokeDirectRef1("");
         lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0("");
         lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars0("");
         lgName_.getReflect().getParams().setAliasMethod0GetDeclaredAnonymousLambdaLocalVars1("");

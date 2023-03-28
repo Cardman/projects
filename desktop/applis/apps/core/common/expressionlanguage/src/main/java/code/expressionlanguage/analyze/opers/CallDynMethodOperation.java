@@ -63,7 +63,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         MethodId id_ = _e.getId();
         MethodInfo m_;
         String name_ = id_.getName();
-        if (!StringUtil.quickEq(name_, _page.getAliasCall())) {
+        if (!_page.matchCall(name_)) {
             m_ = OperationNode.getMethodInfo(_e, 0, fct_, _page,id_, new FormattedFilter());
             _methodInfos.add(m_);
             return;
@@ -139,7 +139,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
             setResultClass(new AnaClassArgumentMatching(_page.getAliasObject()));
             return;
         }
-        if (!StringUtil.quickEq(fctName_, _page.getAliasCall())) {
+        if (!_page.matchCall(fctName_)) {
             errLeftValue = true;
             functionalApplyOnly(_page);
         }
@@ -316,7 +316,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         for (StandardMethod e: fctType_.getMethods()) {
             MethodId id_ = e.getId();
             String name_ = id_.getName();
-            if (StringUtil.quickEq(name_, _page.getAliasCall())) {
+            if (_page.matchCall(name_)) {
                 paramNames_ = e.getParametersNames();
             }
         }
@@ -348,7 +348,7 @@ public final class CallDynMethodOperation extends InvokingOperation implements P
         if ((StringUtil.quickEq(fctName, _page.getAliasMetaInfo()) || StringUtil.quickEq(fctName, _page.getAliasInstance())) && mid_.getParametersTypesLength() != 0) {
             functionalApplyOnly(_page);
         }
-        if (StringUtil.quickEq(fctName, _page.getAliasCall())) {
+        if (_page.matchCall(fctName)) {
             if (!mid_.isVararg()) {
                 functionalApplyOnly(_page);
             }

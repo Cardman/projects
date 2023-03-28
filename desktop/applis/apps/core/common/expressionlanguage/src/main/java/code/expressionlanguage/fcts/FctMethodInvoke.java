@@ -20,9 +20,11 @@ import code.util.CustList;
 
 public final class FctMethodInvoke extends FctReflection {
     private final boolean direct;
+    private final boolean ref;
 
-    public FctMethodInvoke(boolean _direct) {
+    public FctMethodInvoke(boolean _direct, boolean _refer) {
         this.direct = _direct;
+        ref = _refer;
     }
 
     @Override
@@ -41,67 +43,67 @@ public final class FctMethodInvoke extends FctReflection {
             return;
         }
         if (_method.getStdCallee() != null) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _method, new Argument(_instance),new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STD_FCT, _method, new Argument(_instance),new Argument(_argsMethod), ref));
             return;
         }
         if (_method.getPairFct() instanceof ExecAnonymousFunctionBlock || _method.getCallee() instanceof ExecAbstractSwitchMethod) {
-            invokeAnon(_stackCall, _method, _instance, _argsMethod);
+            invokeAnon(_stackCall, _method, _instance, _argsMethod, ref);
             return;
         }
         ExecRootBlock e_ = _method.getPairType();
         if (e_ instanceof ExecAnnotationBlock) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _method, new Argument(_instance),new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ANNOT_FCT, _method, new Argument(_instance),new Argument(_argsMethod), ref));
             return;
         }
         afterCheckInvoke(_stackCall, _method, _instance, _argsMethod);
     }
 
-    private static void invokeAnon(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod) {
+    private static void invokeAnon(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod, boolean _refer) {
         if (_method.isStaticCall()) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), new Argument(_argsMethod), _refer));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _method, new Argument(_instance), new Argument(_argsMethod)));
+        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.DIRECT, _method, new Argument(_instance), new Argument(_argsMethod), _refer));
     }
 
     private void afterCheckInvoke(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod) {
         if (!direct) {
             if (_method.getPairFct() != null) {
-                invokeSpec(_stackCall, _method, _instance, _argsMethod, ReflectingType.CAST, ReflectingType.METHOD);
+                invokeSpec(_stackCall, _method, _instance, _argsMethod, ReflectingType.CAST, ReflectingType.METHOD, ref);
                 return;
             }
         } else {
             if (_method.getPairFct() != null) {
-                invokeSpec(_stackCall, _method, _instance, _argsMethod, ReflectingType.CAST_DIRECT, ReflectingType.DIRECT);
+                invokeSpec(_stackCall, _method, _instance, _argsMethod, ReflectingType.CAST_DIRECT, ReflectingType.DIRECT, ref);
                 return;
             }
         }
-        defInvoke(_stackCall, _method, _instance, _argsMethod);
+        defInvoke(_stackCall, _method, _instance, _argsMethod, ref);
     }
 
-    private static void invokeSpec(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod, ReflectingType _cast, ReflectingType _meth) {
+    private static void invokeSpec(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod, ReflectingType _cast, ReflectingType _meth, boolean _refer) {
         if (_method.isExpCast()) {
-            _stackCall.setCallingState(new CustomReflectMethod(_cast, _method, new Argument(_instance), new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(_cast, _method, new Argument(_instance), new Argument(_argsMethod), _refer));
             return;
         }
         if (_method.isStaticCall()) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.STATIC_CALL, _method, new Argument(_instance), new Argument(_argsMethod), _refer));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(_meth, _method, new Argument(_instance), new Argument(_argsMethod)));
+        _stackCall.setCallingState(new CustomReflectMethod(_meth, _method, new Argument(_instance), new Argument(_argsMethod), _refer));
     }
 
-    private static void defInvoke(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod) {
+    private static void defInvoke(StackCall _stackCall, MethodMetaInfo _method, Struct _instance, Struct _argsMethod, boolean _refer) {
         ExecRootBlock e_ = _method.getPairType();
         if (e_ != null) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, _method, new Argument(_instance),new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.ENUM_METHODS, _method, new Argument(_instance),new Argument(_argsMethod), _refer));
             return;
         }
         if (_method.isDirectCast()) {
-            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _method, new Argument(_instance),new Argument(_argsMethod)));
+            _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CAST_DIRECT, _method, new Argument(_instance),new Argument(_argsMethod), _refer));
             return;
         }
-        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _method, new Argument(_instance),new Argument(_argsMethod)));
+        _stackCall.setCallingState(new CustomReflectMethod(ReflectingType.CLONE_FCT, _method, new Argument(_instance),new Argument(_argsMethod), _refer));
     }
 
 }

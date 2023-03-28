@@ -11,9 +11,12 @@ import code.expressionlanguage.exec.util.ArgumentListCall;
 import code.expressionlanguage.structs.ArrayStruct;
 import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
-import code.util.CustList;
 
 public final class FctLambdaCall extends FctReflection {
+    private final boolean ref;
+    public FctLambdaCall(boolean _refer) {
+        ref = _refer;
+    }
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         Argument instance_ = new Argument(_firstArgs.getArgumentWrappers().get(0).getValue().getStruct());
@@ -23,7 +26,6 @@ public final class FctLambdaCall extends FctReflection {
             return new ArgumentWrapper(NullStruct.NULL_VALUE);
         }
         ArrayStruct arr_ = (ArrayStruct) inst_;
-        CustList<Argument> ar_ = arr_.listArgs();
-        return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(new Argument(_instance), ar_, _cont, _stackCall).getStruct());
+        return new ArgumentWrapper(ExecInvokingOperation.prepareCallDynReflect(new Argument(_instance), arr_,ref, _cont, _stackCall).getStruct());
     }
 }

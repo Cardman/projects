@@ -360,6 +360,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getStackElt().setAliasStackTraceElementToString("toString");
         _lgNames.getContent().getReflect().setAliasFct("$core.Fct");
         _lgNames.getContent().getReflect().setAliasCall("call");
+        _lgNames.getContent().getReflect().setAliasCallRef("callRef");
         _lgNames.getContent().getReflect().setAliasMetaInfo("metaInfo");
         _lgNames.getContent().getReflect().setAliasInstance("instance");
         _lgNames.getContent().getReflect().setAliasAnnotationType("$core.Annotation");
@@ -391,8 +392,11 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasField("$core.Field");
         _lgNames.getContent().getReflect().setAliasMethod("$core.Method");
         _lgNames.getContent().getReflect().setAliasInvoke("invoke");
+        _lgNames.getContent().getReflect().setAliasInvokeRef("invokeRef");
         _lgNames.getContent().getReflect().setAliasInvokeDirect("invokeDirect");
+        _lgNames.getContent().getReflect().setAliasInvokeDirectRef("invokeDirectRef");
         _lgNames.getContent().getReflect().setAliasNewInstance("newInstance");
+        _lgNames.getContent().getReflect().setAliasNewInstanceRef("newInstanceRef");
         _lgNames.getContent().getReflect().setAliasIsAbstract("isAbstract");
         _lgNames.getContent().getReflect().setAliasGetFileName("getFileName");
         _lgNames.getContent().getReflect().setAliasGetName("getName");
@@ -710,6 +714,7 @@ public final class KeyWordsMap {
         _lgNames.getContent().getStackElt().setAliasStackTraceElementToString("chaine");
         _lgNames.getContent().getReflect().setAliasFct("$coeur.Fct");
         _lgNames.getContent().getReflect().setAliasCall("appeler");
+        _lgNames.getContent().getReflect().setAliasCallRef("appelerRef");
         _lgNames.getContent().getReflect().setAliasMetaInfo("metaInfo");
         _lgNames.getContent().getReflect().setAliasInstance("instance");
         _lgNames.getContent().getReflect().setAliasAnnotationType("$coeur.Annotation");
@@ -741,8 +746,11 @@ public final class KeyWordsMap {
         _lgNames.getContent().getReflect().setAliasField("$coeur.Champ");
         _lgNames.getContent().getReflect().setAliasMethod("$coeur.Methode");
         _lgNames.getContent().getReflect().setAliasInvoke("invoque");
+        _lgNames.getContent().getReflect().setAliasInvokeRef("invoqueRef");
         _lgNames.getContent().getReflect().setAliasInvokeDirect("invoqueDirect");
+        _lgNames.getContent().getReflect().setAliasInvokeDirectRef("invoqueDirectRef");
         _lgNames.getContent().getReflect().setAliasNewInstance("nouvelleInstance");
+        _lgNames.getContent().getReflect().setAliasNewInstanceRef("nouvelleInstanceRef");
         _lgNames.getContent().getReflect().setAliasIsAbstract("estAbstrait");
         _lgNames.getContent().getReflect().setAliasGetFileName("valNomFichier");
         _lgNames.getContent().getReflect().setAliasGetName("valNom");

@@ -140,17 +140,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         return Argument.createVoid();
     }
 
-    public static Argument prepareCallDynReflect(Argument _previous, CustList<Argument> _values, ContextEl _conf, StackCall _stackCall) {
-        CustList<Argument> values_ = new CustList<Argument>();
-        for (Argument v: _values) {
-            values_.add(Argument.getNullableValue(v));
-        }
-
+    public static Argument prepareCallDynReflect(Argument _previous, ArrayStruct _values, boolean _ref, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         String typeFct_ = ls_.getClassName(_conf);
         StringList parts_ = StringExpUtil.getAllTypes(typeFct_);
         CustList<String> paramsFct_ = parts_.leftMinusOne(parts_.size() - 2);
-        int valuesSize_ = values_.size();
+        int valuesSize_ = _values.getLength();
         if (valuesSize_ != paramsFct_.size()) {
             LgNames lgNames_ = _conf.getStandards();
             String null_ = lgNames_.getContent().getCoreNames().getAliasBadArgNumber();
@@ -158,12 +153,12 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
             return new Argument();
         }
         for (int i = 0; i < valuesSize_; i++) {
-            Argument arg_ = values_.get(i);
+            Struct arg_ = _values.get(i);
             String param_ = paramsFct_.get(i);
             if (param_.startsWith("~")) {
                 param_ = param_.substring(1);
             }
-            if (!ExecInheritsAdv.checkQuick(param_, arg_.getStruct().getClassName(_conf), _conf, _stackCall)) {
+            if (!ExecInheritsAdv.checkQuick(param_, arg_.getClassName(_conf), _conf, _stackCall)) {
                 return new Argument();
             }
         }
@@ -171,17 +166,25 @@ public abstract class ExecInvokingOperation extends ExecMethodOperation implemen
         int i_ = 0;
         for (String c: paramsFct_) {
             if (c.startsWith("~")) {
-                Struct struct_ = values_.get(i_).getStruct();
+                Struct struct_ = _values.get(i_);
                 LocalVariable local_ = LocalVariable.newLocalVariable(struct_, c.substring(1));
-                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
-                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(values_.get(i_),v_));
+                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_,_values,index(_ref,i_));
+                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(new Argument(_values.get(i_)),v_));
             } else {
-                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(values_.get(i_),null));
+                argumentListCall_.getArgumentWrappers().add(new ArgumentWrapper(_values.get(i_)));
             }
             i_++;
         }
         return AbstractParamChecker.prepareCallDyn(_previous,argumentListCall_,_conf, _stackCall);
     }
+
+    public static int index(boolean _r, int _i) {
+        if (_r) {
+            return _i;
+        }
+        return -1;
+    }
+
     public static Argument prepareCallDynNormal(Argument _previous, ArgumentListCall _values, ContextEl _conf, StackCall _stackCall) {
         Struct ls_ = Argument.getNullableValue(_previous).getStruct();
         ArgumentListCall call_ = new ArgumentListCall();

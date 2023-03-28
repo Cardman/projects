@@ -127,13 +127,13 @@ public final class ExecVariableTemplates {
         return trySetArgument(_context,_value,wr_, _stackCall);
     }
 
-    public static Argument checkSet(ContextEl _conf, LocalVariable _loc, Argument _right, StackCall _stackCall) {
+    public static boolean checkSet(ContextEl _conf, LocalVariable _loc, Argument _right, StackCall _stackCall) {
         String formattedClassVar_ = _loc.getClassName();
         if (!ExecInheritsAdv.checkQuick(formattedClassVar_, _right.getStruct().getClassName(_conf), _conf, _stackCall)) {
-            return Argument.createVoid();
+            return false;
         }
         _loc.setStruct(_right.getStruct());
-        return _right;
+        return true;
     }
 
     public static Argument trySetArgument(ContextEl _conf, Argument _res, ArgumentsPair _pair, StackCall _stackCall) {

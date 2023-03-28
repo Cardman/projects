@@ -7,6 +7,7 @@ import code.util.StringMap;
 
 public final class AliasParamReflection {
     private static final String FCT_0_CALL_0="824";
+    private static final String FCT_0_CALL_REF_0="824_";
     private static final String CLASS_TYPE_0_GET_CLASS_0="__________2009";
     private static final String CLASS_TYPE_0_FOR_NAME_0="__________2010";
     private static final String CLASS_TYPE_0_FOR_NAME_1="__________2011";
@@ -45,6 +46,7 @@ public final class AliasParamReflection {
     private static final String CLASS_TYPE_0_ARRAY_SET_1="__________2044";
     private static final String CLASS_TYPE_0_ARRAY_SET_2="__________2045";
     private static final String CONSTRUCTOR_0_NEW_INSTANCE_0="__________2046";
+    private static final String CONSTRUCTOR_0_NEW_INSTANCE_REF_0="__________2046_";
     private static final String FIELD_0_GET_FIELD_0="__________2047";
     private static final String FIELD_0_SET_FIELD_0="__________2048";
     private static final String FIELD_0_SET_FIELD_1="__________2049";
@@ -52,6 +54,10 @@ public final class AliasParamReflection {
     private static final String METHOD_0_INVOKE_1="__________2051";
     private static final String METHOD_0_INVOKE_DIRECT_0="__________2052";
     private static final String METHOD_0_INVOKE_DIRECT_1="__________2053";
+    private static final String METHOD_0_INVOKE_REF_0="__________2050_";
+    private static final String METHOD_0_INVOKE_REF_1="__________2051_";
+    private static final String METHOD_0_INVOKE_DIRECT_REF_0="__________2052_";
+    private static final String METHOD_0_INVOKE_DIRECT_REF_1="__________2053_";
     private static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0="__________2054";
     private static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0="__________2055";
     private static final String METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1="__________2056";
@@ -83,6 +89,7 @@ public final class AliasParamReflection {
     private static final String ANNOTATED_0_GET_DECLARED_SWITCH_METHODS_3="__________2082";
 
     private String aliasFct0Call0="a";
+    private String aliasFct0CallRef0="a";
     private String aliasClassType0GetClass0="a";
     private String aliasClassType0ForName0="a";
     private String aliasClassType0ForName1="b";
@@ -121,6 +128,7 @@ public final class AliasParamReflection {
     private String aliasClassType0ArraySet1="b";
     private String aliasClassType0ArraySet2="c";
     private String aliasConstructor0NewInstance0="a";
+    private String aliasConstructor0NewInstanceRef0="a";
     private String aliasField0GetField0="a";
     private String aliasField0SetField0="a";
     private String aliasField0SetField1="b";
@@ -128,6 +136,10 @@ public final class AliasParamReflection {
     private String aliasMethod0Invoke1="b";
     private String aliasMethod0InvokeDirect0="a";
     private String aliasMethod0InvokeDirect1="b";
+    private String aliasMethod0InvokeRef0="a";
+    private String aliasMethod0InvokeRef1="b";
+    private String aliasMethod0InvokeDirectRef0="a";
+    private String aliasMethod0InvokeDirectRef1="b";
     private String aliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0="a";
     private String aliasMethod0GetDeclaredAnonymousLambdaLocalVars0="a";
     private String aliasMethod0GetDeclaredAnonymousLambdaLocalVars1="b";
@@ -160,6 +172,7 @@ public final class AliasParamReflection {
 
     public void build(StringMap<String> _util, StringMap<String> _cust, StringMap<String> _mapping) {
         setAliasFct0Call0(LgNamesContent.get(_util,_cust,_mapping.getVal(FCT_0_CALL_0)));
+        setAliasFct0CallRef0(LgNamesContent.get(_util,_cust,_mapping.getVal(FCT_0_CALL_REF_0)));
         setAliasClassType0GetClass0(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_GET_CLASS_0)));
         setAliasClassType0ForName0(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_FOR_NAME_0)));
         setAliasClassType0ForName1(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_FOR_NAME_1)));
@@ -198,6 +211,7 @@ public final class AliasParamReflection {
         setAliasClassType0ArraySet1(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_1)));
         setAliasClassType0ArraySet2(LgNamesContent.get(_util,_cust,_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_2)));
         setAliasConstructor0NewInstance0(LgNamesContent.get(_util,_cust,_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_0)));
+        setAliasConstructor0NewInstanceRef0(LgNamesContent.get(_util,_cust,_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_REF_0)));
         setAliasField0GetField0(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_0_GET_FIELD_0)));
         setAliasField0SetField0(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_0_SET_FIELD_0)));
         setAliasField0SetField1(LgNamesContent.get(_util,_cust,_mapping.getVal(FIELD_0_SET_FIELD_1)));
@@ -205,6 +219,10 @@ public final class AliasParamReflection {
         setAliasMethod0Invoke1(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_1)));
         setAliasMethod0InvokeDirect0(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_DIRECT_0)));
         setAliasMethod0InvokeDirect1(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_DIRECT_1)));
+        setAliasMethod0InvokeRef0(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_REF_0)));
+        setAliasMethod0InvokeRef1(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_REF_1)));
+        setAliasMethod0InvokeDirectRef0(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_DIRECT_REF_0)));
+        setAliasMethod0InvokeDirectRef1(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_INVOKE_DIRECT_REF_1)));
         setAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0)));
         setAliasMethod0GetDeclaredAnonymousLambdaLocalVars0(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0)));
         setAliasMethod0GetDeclaredAnonymousLambdaLocalVars1(LgNamesContent.get(_util,_cust,_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1)));
@@ -237,6 +255,7 @@ public final class AliasParamReflection {
     }
     public static void en(TranslationsFile _en){
         _en.add(FCT_0_CALL_0,"Fct0Call0=a");
+        _en.add(FCT_0_CALL_REF_0,"Fct0CallRef0=a");
         _en.add(CLASS_TYPE_0_GET_CLASS_0,"ClassType0GetClass0=a");
         _en.add(CLASS_TYPE_0_FOR_NAME_0,"ClassType0ForName0=a");
         _en.add(CLASS_TYPE_0_FOR_NAME_1,"ClassType0ForName1=b");
@@ -275,6 +294,7 @@ public final class AliasParamReflection {
         _en.add(CLASS_TYPE_0_ARRAY_SET_1,"ClassType0ArraySet1=b");
         _en.add(CLASS_TYPE_0_ARRAY_SET_2,"ClassType0ArraySet2=c");
         _en.add(CONSTRUCTOR_0_NEW_INSTANCE_0,"Constructor0NewInstance0=a");
+        _en.add(CONSTRUCTOR_0_NEW_INSTANCE_REF_0,"Constructor0NewInstanceRef0=a");
         _en.add(FIELD_0_GET_FIELD_0,"Field0GetField0=a");
         _en.add(FIELD_0_SET_FIELD_0,"Field0SetField0=a");
         _en.add(FIELD_0_SET_FIELD_1,"Field0SetField1=b");
@@ -282,6 +302,10 @@ public final class AliasParamReflection {
         _en.add(METHOD_0_INVOKE_1,"Method0Invoke1=b");
         _en.add(METHOD_0_INVOKE_DIRECT_0,"Method0InvokeDirect0=a");
         _en.add(METHOD_0_INVOKE_DIRECT_1,"Method0InvokeDirect1=b");
+        _en.add(METHOD_0_INVOKE_REF_0,"Method0InvokeRef0=a");
+        _en.add(METHOD_0_INVOKE_REF_1,"Method0InvokeRef1=b");
+        _en.add(METHOD_0_INVOKE_DIRECT_REF_0,"Method0InvokeDirectRef0=a");
+        _en.add(METHOD_0_INVOKE_DIRECT_REF_1,"Method0InvokeDirectRef1=b");
         _en.add(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0,"Method0GetDeclaredAnonymousLambdaLocalVarsNb0=a");
         _en.add(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,"Method0GetDeclaredAnonymousLambdaLocalVars0=a");
         _en.add(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1,"Method0GetDeclaredAnonymousLambdaLocalVars1=b");
@@ -314,6 +338,7 @@ public final class AliasParamReflection {
     }
     public static void fr(TranslationsFile _fr){
         _fr.add(FCT_0_CALL_0,"Fct0Call0=a");
+        _fr.add(FCT_0_CALL_REF_0,"Fct0CallRef0=a");
         _fr.add(CLASS_TYPE_0_GET_CLASS_0,"ClassType0GetClass0=a");
         _fr.add(CLASS_TYPE_0_FOR_NAME_0,"ClassType0ForName0=a");
         _fr.add(CLASS_TYPE_0_FOR_NAME_1,"ClassType0ForName1=b");
@@ -352,6 +377,7 @@ public final class AliasParamReflection {
         _fr.add(CLASS_TYPE_0_ARRAY_SET_1,"ClassType0ArraySet1=b");
         _fr.add(CLASS_TYPE_0_ARRAY_SET_2,"ClassType0ArraySet2=c");
         _fr.add(CONSTRUCTOR_0_NEW_INSTANCE_0,"Constructor0NewInstance0=a");
+        _fr.add(CONSTRUCTOR_0_NEW_INSTANCE_REF_0,"Constructor0NewInstanceRef0=a");
         _fr.add(FIELD_0_GET_FIELD_0,"Field0GetField0=a");
         _fr.add(FIELD_0_SET_FIELD_0,"Field0SetField0=a");
         _fr.add(FIELD_0_SET_FIELD_1,"Field0SetField1=b");
@@ -359,6 +385,10 @@ public final class AliasParamReflection {
         _fr.add(METHOD_0_INVOKE_1,"Method0Invoke1=b");
         _fr.add(METHOD_0_INVOKE_DIRECT_0,"Method0InvokeDirect0=a");
         _fr.add(METHOD_0_INVOKE_DIRECT_1,"Method0InvokeDirect1=b");
+        _fr.add(METHOD_0_INVOKE_REF_0,"Method0InvokeRef0=a");
+        _fr.add(METHOD_0_INVOKE_REF_1,"Method0InvokeRef1=b");
+        _fr.add(METHOD_0_INVOKE_DIRECT_REF_0,"Method0InvokeDirectRef0=a");
+        _fr.add(METHOD_0_INVOKE_DIRECT_REF_1,"Method0InvokeDirectRef1=b");
         _fr.add(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0,"Method0GetDeclaredAnonymousLambdaLocalVarsNb0=a");
         _fr.add(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,"Method0GetDeclaredAnonymousLambdaLocalVars0=a");
         _fr.add(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1,"Method0GetDeclaredAnonymousLambdaLocalVars1=b");
@@ -391,6 +421,7 @@ public final class AliasParamReflection {
     }
     public static void mapping(StringMap<String> _m){
         _m.addEntry(FCT_0_CALL_0,"Fct0Call0");
+        _m.addEntry(FCT_0_CALL_REF_0,"Fct0CallRef0");
         _m.addEntry(CLASS_TYPE_0_GET_CLASS_0,"ClassType0GetClass0");
         _m.addEntry(CLASS_TYPE_0_FOR_NAME_0,"ClassType0ForName0");
         _m.addEntry(CLASS_TYPE_0_FOR_NAME_1,"ClassType0ForName1");
@@ -429,6 +460,7 @@ public final class AliasParamReflection {
         _m.addEntry(CLASS_TYPE_0_ARRAY_SET_1,"ClassType0ArraySet1");
         _m.addEntry(CLASS_TYPE_0_ARRAY_SET_2,"ClassType0ArraySet2");
         _m.addEntry(CONSTRUCTOR_0_NEW_INSTANCE_0,"Constructor0NewInstance0");
+        _m.addEntry(CONSTRUCTOR_0_NEW_INSTANCE_REF_0,"Constructor0NewInstanceRef0");
         _m.addEntry(FIELD_0_GET_FIELD_0,"Field0GetField0");
         _m.addEntry(FIELD_0_SET_FIELD_0,"Field0SetField0");
         _m.addEntry(FIELD_0_SET_FIELD_1,"Field0SetField1");
@@ -436,6 +468,10 @@ public final class AliasParamReflection {
         _m.addEntry(METHOD_0_INVOKE_1,"Method0Invoke1");
         _m.addEntry(METHOD_0_INVOKE_DIRECT_0,"Method0InvokeDirect0");
         _m.addEntry(METHOD_0_INVOKE_DIRECT_1,"Method0InvokeDirect1");
+        _m.addEntry(METHOD_0_INVOKE_REF_0,"Method0InvokeRef0");
+        _m.addEntry(METHOD_0_INVOKE_REF_1,"Method0InvokeRef1");
+        _m.addEntry(METHOD_0_INVOKE_DIRECT_REF_0,"Method0InvokeDirectRef0");
+        _m.addEntry(METHOD_0_INVOKE_DIRECT_REF_1,"Method0InvokeDirectRef1");
         _m.addEntry(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0,"Method0GetDeclaredAnonymousLambdaLocalVarsNb0");
         _m.addEntry(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0,"Method0GetDeclaredAnonymousLambdaLocalVars0");
         _m.addEntry(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1,"Method0GetDeclaredAnonymousLambdaLocalVars1");
@@ -469,6 +505,7 @@ public final class AliasParamReflection {
     public CustList<CustList<KeyValueMemberName>> allTableTypeMethodParamNames(StringMap<String> _mapping) {
         CustList<CustList<KeyValueMemberName>> map_ = new CustList<CustList<KeyValueMemberName>>();
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FCT_0_CALL_0), getAliasFct0Call0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FCT_0_CALL_REF_0), getAliasFct0CallRef0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_GET_CLASS_0), getAliasClassType0GetClass0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_FOR_NAME_0), getAliasClassType0ForName0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_FOR_NAME_1), getAliasClassType0ForName1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_1_FOR_NAME_0), getAliasClassType1ForName0())));
@@ -493,10 +530,13 @@ public final class AliasParamReflection {
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_GET_0), getAliasClassType0ArrayGet0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_GET_1), getAliasClassType0ArrayGet1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_0), getAliasClassType0ArraySet0()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_1), getAliasClassType0ArraySet1()),new KeyValueMemberName(_mapping.getVal(CLASS_TYPE_0_ARRAY_SET_2), getAliasClassType0ArraySet2())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_0), getAliasConstructor0NewInstance0())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(CONSTRUCTOR_0_NEW_INSTANCE_REF_0), getAliasConstructor0NewInstanceRef0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FIELD_0_GET_FIELD_0), getAliasField0GetField0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(FIELD_0_SET_FIELD_0), getAliasField0SetField0()),new KeyValueMemberName(_mapping.getVal(FIELD_0_SET_FIELD_1), getAliasField0SetField1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_0), getAliasMethod0Invoke0()),new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_1), getAliasMethod0Invoke1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_DIRECT_0), getAliasMethod0InvokeDirect0()),new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_DIRECT_1), getAliasMethod0InvokeDirect1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_REF_0), getAliasMethod0InvokeRef0()),new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_REF_1), getAliasMethod0InvokeRef1())));
+        map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_DIRECT_REF_0), getAliasMethod0InvokeDirectRef0()),new KeyValueMemberName(_mapping.getVal(METHOD_0_INVOKE_DIRECT_REF_1), getAliasMethod0InvokeDirectRef1())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_NB_0), getAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0), getAliasMethod0GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1), getAliasMethod0GetDeclaredAnonymousLambdaLocalVars1()),new KeyValueMemberName(_mapping.getVal(METHOD_0_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_2), getAliasMethod0GetDeclaredAnonymousLambdaLocalVars2())));
         map_.add(new CustList<KeyValueMemberName>(new KeyValueMemberName(_mapping.getVal(METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_0), getAliasMethod1GetDeclaredAnonymousLambdaLocalVars0()),new KeyValueMemberName(_mapping.getVal(METHOD_1_GET_DECLARED_ANONYMOUS_LAMBDA_LOCAL_VARS_1), getAliasMethod1GetDeclaredAnonymousLambdaLocalVars1())));
@@ -520,6 +560,14 @@ public final class AliasParamReflection {
 
     public void setAliasFct0Call0(String _v) {
         this.aliasFct0Call0 =_v;
+    }
+
+    public String getAliasFct0CallRef0() {
+        return aliasFct0CallRef0;
+    }
+
+    public void setAliasFct0CallRef0(String _v) {
+        this.aliasFct0CallRef0 = _v;
     }
 
     public String getAliasClassType0GetClass0() {
@@ -826,6 +874,14 @@ public final class AliasParamReflection {
         this.aliasConstructor0NewInstance0 =_v;
     }
 
+    public String getAliasConstructor0NewInstanceRef0() {
+        return aliasConstructor0NewInstanceRef0;
+    }
+
+    public void setAliasConstructor0NewInstanceRef0(String _v) {
+        this.aliasConstructor0NewInstanceRef0 = _v;
+    }
+
     public String getAliasField0GetField0() {
         return aliasField0GetField0;
     }
@@ -880,6 +936,38 @@ public final class AliasParamReflection {
 
     public void setAliasMethod0InvokeDirect1(String _v) {
         this.aliasMethod0InvokeDirect1 =_v;
+    }
+
+    public String getAliasMethod0InvokeRef0() {
+        return aliasMethod0InvokeRef0;
+    }
+
+    public void setAliasMethod0InvokeRef0(String _v) {
+        this.aliasMethod0InvokeRef0 = _v;
+    }
+
+    public String getAliasMethod0InvokeRef1() {
+        return aliasMethod0InvokeRef1;
+    }
+
+    public void setAliasMethod0InvokeRef1(String _v) {
+        this.aliasMethod0InvokeRef1 = _v;
+    }
+
+    public String getAliasMethod0InvokeDirectRef0() {
+        return aliasMethod0InvokeDirectRef0;
+    }
+
+    public void setAliasMethod0InvokeDirectRef0(String _v) {
+        this.aliasMethod0InvokeDirectRef0 = _v;
+    }
+
+    public String getAliasMethod0InvokeDirectRef1() {
+        return aliasMethod0InvokeDirectRef1;
+    }
+
+    public void setAliasMethod0InvokeDirectRef1(String _v) {
+        this.aliasMethod0InvokeDirectRef1 = _v;
     }
 
     public String getAliasMethod0GetDeclaredAnonymousLambdaLocalVarsNb0() {

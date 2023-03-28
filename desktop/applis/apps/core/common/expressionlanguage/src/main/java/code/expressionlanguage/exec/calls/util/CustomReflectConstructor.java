@@ -10,11 +10,13 @@ public final class CustomReflectConstructor extends AbstractReflectElement {
     private final ConstructorMetaInfo gl;
 
     private final Argument argument;
+    private final boolean ref;
     public CustomReflectConstructor(ConstructorMetaInfo _gl,
-                                    Struct _struct) {
+                                    Struct _struct, boolean _refer) {
         super(false);
         gl = _gl;
         argument = new Argument(_struct);
+        ref = _refer;
     }
 
     public ConstructorMetaInfo getGl() {
@@ -30,4 +32,7 @@ public final class CustomReflectConstructor extends AbstractReflectElement {
         return argument;
     }
 
+    public boolean isRef() {
+        return ref;
+    }
 }

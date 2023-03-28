@@ -2,8 +2,9 @@ package code.expressionlanguage.exec.inherits;
 
 import code.expressionlanguage.Argument;
 import code.expressionlanguage.ContextEl;
-import code.expressionlanguage.common.*;
-import code.expressionlanguage.exec.*;
+import code.expressionlanguage.common.StringExpUtil;
+import code.expressionlanguage.exec.ArgumentWrapper;
+import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.ExecAbstractSwitchMethod;
 import code.expressionlanguage.exec.blocks.ExecNamedFunctionBlock;
 import code.expressionlanguage.exec.blocks.ExecSwitchInstanceMethod;
@@ -11,14 +12,25 @@ import code.expressionlanguage.exec.calls.PageElContent;
 import code.expressionlanguage.exec.calls.util.CustomFoundExc;
 import code.expressionlanguage.exec.calls.util.CustomFoundMethod;
 import code.expressionlanguage.exec.calls.util.CustomFoundSwitch;
-import code.expressionlanguage.exec.util.*;
-import code.expressionlanguage.exec.variables.*;
+import code.expressionlanguage.exec.opers.ExecInvokingOperation;
+import code.expressionlanguage.exec.util.ArgumentListCall;
+import code.expressionlanguage.exec.util.Cache;
+import code.expressionlanguage.exec.util.ExecFormattedRootBlock;
+import code.expressionlanguage.exec.util.HiddenCache;
+import code.expressionlanguage.exec.variables.AbstractWrapper;
+import code.expressionlanguage.exec.variables.LocalVariable;
+import code.expressionlanguage.exec.variables.ReflectVariableWrapper;
+import code.expressionlanguage.exec.variables.VariableWrapper;
 import code.expressionlanguage.functionid.Identifiable;
 import code.expressionlanguage.functionid.IdentifiableUtil;
 import code.expressionlanguage.fwd.blocks.ExecTypeFunction;
 import code.expressionlanguage.stds.LgNames;
-import code.expressionlanguage.structs.*;
-import code.util.*;
+import code.expressionlanguage.structs.ArrayStruct;
+import code.expressionlanguage.structs.ErrorStruct;
+import code.expressionlanguage.structs.NullStruct;
+import code.expressionlanguage.structs.Struct;
+import code.util.CustList;
+import code.util.StringList;
 import code.util.core.BoolVal;
 import code.util.core.IndexConstants;
 
@@ -250,22 +262,22 @@ public final class ExecTemplates {
         return parametersTypes_;
     }
 
-    public static void wrapAndCallDirect(ArgumentListCall _in,ExecTypeFunction _pair, CustList<Argument> _firstArgs, Argument _right,ExecFormattedRootBlock _classFormat) {
+    public static void wrapAndCallDirect(ArgumentListCall _in,ExecTypeFunction _pair, ArrayStruct _firstArgs, Argument _right,ExecFormattedRootBlock _classFormat, boolean _refer, int _delta) {
         ExecNamedFunctionBlock fct_ = _pair.getFct();
         if (fct_ == null) {
             return;
         }
         int i_ = 0;
         for (String c: fct_.getImportedParametersTypes()) {
+            Struct str_ = _firstArgs.get(i_ + _delta);
             if (fct_.getParametersRef(i_) == BoolVal.TRUE) {
-                Struct struct_ = _firstArgs.get(i_).getStruct();
-                LocalVariable local_ = LocalVariable.newLocalVariable(struct_, varType(c,_classFormat,fct_,i_));
-                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_);
+                LocalVariable local_ = LocalVariable.newLocalVariable(str_, varType(c,_classFormat,fct_,i_));
+                ReflectVariableWrapper v_ = new ReflectVariableWrapper(local_,_firstArgs, ExecInvokingOperation.index(_refer,i_ + _delta));
 //                out_.getWrappers().add(v_);
-                _in.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),v_));
+                _in.getArgumentWrappers().add(new ArgumentWrapper(new Argument(str_),v_));
             } else {
 //                out_.getArguments().add(_firstArgs.get(i_));
-                _in.getArgumentWrappers().add(new ArgumentWrapper(_firstArgs.get(i_),null));
+                _in.getArgumentWrappers().add(new ArgumentWrapper(new Argument(str_),null));
             }
             i_++;
         }

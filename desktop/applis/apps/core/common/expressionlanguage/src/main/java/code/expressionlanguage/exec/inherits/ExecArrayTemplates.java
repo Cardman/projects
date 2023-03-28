@@ -92,7 +92,7 @@ public final class ExecArrayTemplates {
     }
 
     static void trySet(ArrayStruct _arr, int _index, Struct _value) {
-        if (_index < 0 || _index >= _arr.getLength()) {
+        if (!_arr.isValid(_index)) {
             return;
         }
         _arr.set(_index, _value);
@@ -116,7 +116,7 @@ public final class ExecArrayTemplates {
         }
         ArrayStruct arr_ = (ArrayStruct) _struct;
         int index_ = NumParsers.convertToNumber(_index).intStruct();
-        if (index_ < 0 || index_ >= arr_.getLength()) {
+        if (!arr_.isValid(index_)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = getIndexMessage(_index, arr_);
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));
@@ -353,7 +353,7 @@ public final class ExecArrayTemplates {
         }
         ArrayStruct arr_ = (ArrayStruct) _struct;
         int index_ = NumParsers.convertToNumber(_index).intStruct();
-        if (index_ < 0 || index_ >= arr_.getLength()) {
+        if (!arr_.isValid(index_)) {
             String cast_ = stds_.getContent().getCoreNames().getAliasBadIndex();
             StringBuilder mess_ = getIndexMessage(_index, arr_);
             _stackCall.setCallingState(new CustomFoundExc(new ErrorStruct(_conf, mess_.toString(), cast_, _stackCall)));

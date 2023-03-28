@@ -10,12 +10,14 @@ public final class CustomReflectMethod extends CustomAbstractReflectMethod {
 
     private final Argument instance;
     private final Argument array;
+    private final boolean ref;
     public CustomReflectMethod(ReflectingType _reflect, MethodMetaInfo _gl,
-                               Argument _instance, Argument _array) {
+                               Argument _instance, Argument _array, boolean _refer) {
         super(_gl, false);
         reflect = _reflect;
         instance = _instance;
         array = _array;
+        ref = _refer;
     }
 
     public ReflectingType getReflect() {
@@ -30,4 +32,7 @@ public final class CustomReflectMethod extends CustomAbstractReflectMethod {
         return array;
     }
 
+    public boolean isRef() {
+        return ref;
+    }
 }

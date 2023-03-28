@@ -12,6 +12,12 @@ import code.expressionlanguage.structs.NullStruct;
 import code.expressionlanguage.structs.Struct;
 
 public final class FctConstructorNewInstance extends FctReflection {
+
+    private final boolean refer;
+    public FctConstructorNewInstance(boolean _ref) {
+        refer = _ref;
+    }
+
     @Override
     public ArgumentWrapper call(AbstractExiting _exit, ContextEl _cont, Struct _instance, ArgumentListCall _firstArgs, StackCall _stackCall) {
         ConstructorMetaInfo ctor_ = (ConstructorMetaInfo) _instance;
@@ -19,7 +25,7 @@ public final class FctConstructorNewInstance extends FctReflection {
         if (!ctor_.isInvokable()) {
             _stackCall.setCallingState(new CustomFoundExc(getNonInvokableError(_cont,ctor_, _stackCall)));
         } else {
-            _stackCall.setCallingState(new CustomReflectConstructor(ctor_, inst_));
+            _stackCall.setCallingState(new CustomReflectConstructor(ctor_, inst_, refer));
         }
         return new ArgumentWrapper(NullStruct.NULL_VALUE);
     }

@@ -11,6 +11,9 @@ public abstract class AbArrayStruct extends WithoutParentIdStruct {
         instance = new Struct[_len];
     }
 
+    public boolean isValid(int _index) {
+        return _index >= 0 && _index < getLength();
+    }
     public int getLength() {
         return instance.length;
     }
