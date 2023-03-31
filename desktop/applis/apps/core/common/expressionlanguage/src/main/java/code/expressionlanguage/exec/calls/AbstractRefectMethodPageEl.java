@@ -91,6 +91,11 @@ public abstract class AbstractRefectMethodPageEl extends AbstractRefectCommonMet
     }
     abstract Argument prepare(ContextEl _context, ArrayRefState _args, Argument _right, StackCall _stack);
 
+    @Override
+    public int getRef() {
+        return arrRef.getRef();
+    }
+
     public ArrayRefState getArrRef() {
         return arrRef;
     }

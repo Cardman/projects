@@ -15,9 +15,10 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
     private final ExecFormattedRootBlock className;
     private final CustList<Argument> arguments;
     private final CustList<ExecFormattedRootBlock> ints;
+    private final int ref;
 
     public CustomReflectRecordConstructor(Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className,
-                                          CustList<Argument> _arguments, CustList<ExecFormattedRootBlock> _supInts) {
+                                          CustList<Argument> _arguments, CustList<ExecFormattedRootBlock> _supInts, int _r) {
         super(true);
         instance = _instance;
         root = _root;
@@ -25,6 +26,7 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
         className = _className;
         arguments = _arguments;
         ints = _supInts;
+        ref = _r;
     }
 
     public Argument getInstance() {
@@ -54,5 +56,9 @@ public final class CustomReflectRecordConstructor extends AbstractReflectElement
 
     public CustList<ExecFormattedRootBlock> getInts() {
         return ints;
+    }
+
+    public int getRef() {
+        return ref;
     }
 }

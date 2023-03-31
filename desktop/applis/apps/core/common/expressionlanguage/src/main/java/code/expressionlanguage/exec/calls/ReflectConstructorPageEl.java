@@ -93,6 +93,11 @@ public final class ReflectConstructorPageEl extends AbstractReflectConstructorPa
         return metaInfo.getFormatted();
     }
 
+    @Override
+    public int getRef() {
+        return getArrRef().getRef();
+    }
+
     public ArrayRefState getArrRef() {
         return arrRef;
     }

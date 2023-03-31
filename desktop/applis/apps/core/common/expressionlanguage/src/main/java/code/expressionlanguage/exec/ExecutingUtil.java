@@ -273,7 +273,7 @@ public final class ExecutingUtil {
         } else if (_ref instanceof CustomReflectRecordConstructor) {
             CustomReflectRecordConstructor c_ = (CustomReflectRecordConstructor) _ref;
             CustList<Argument> args_ = c_.getArguments();
-            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getInstance(), c_.getRoot(), c_.getNamedFields(),c_.getClassName(), c_.getInts());
+            pageLoc_ = new ReflectRecordConstructorPageEl(args_, c_.getInstance(), c_.getRoot(), c_.getNamedFields(),c_.getClassName(), c_.getInts(), c_.getRef());
         } else if (_ref instanceof CustomReflectGetField) {
             CustomReflectGetField c_ = (CustomReflectGetField) _ref;
             FieldMetaInfo metaInfo_ = c_.getGl();

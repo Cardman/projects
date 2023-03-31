@@ -20,8 +20,9 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     private final ExecFormattedRootBlock className;
 
     private final CustList<Argument> arguments;
+    private final int ref;
 
-    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className, CustList<ExecFormattedRootBlock> _list) {
+    public ReflectRecordConstructorPageEl(CustList<Argument> _arguments, Argument _instance, ExecRootBlock _root, CustList<ExecNamedFieldContent> _namedFields, ExecFormattedRootBlock _className, CustList<ExecFormattedRootBlock> _list, int _r) {
         super(true);
         arguments = _arguments;
         root = _root;
@@ -29,6 +30,7 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
         namedFields = _namedFields;
         className = _className;
         listSup = _list;
+        ref = _r;
     }
 
     public boolean checkCondition(ContextEl _context, StackCall _stack) {
@@ -47,5 +49,10 @@ public final class ReflectRecordConstructorPageEl extends AbstractReflectConstru
     @Override
     protected ExecFormattedRootBlock getFormatted() {
         return className;
+    }
+
+    @Override
+    public int getRef() {
+        return ref;
     }
 }

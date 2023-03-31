@@ -5,7 +5,6 @@ import code.expressionlanguage.ContextEl;
 import code.expressionlanguage.exec.ExpressionLanguage;
 import code.expressionlanguage.exec.StackCall;
 import code.expressionlanguage.exec.blocks.*;
-import code.expressionlanguage.exec.calls.util.ArrayRefState;
 import code.expressionlanguage.exec.calls.util.ReadWrite;
 import code.expressionlanguage.exec.inherits.ExecInherits;
 import code.expressionlanguage.exec.opers.ExecOperationNode;
@@ -94,20 +93,12 @@ public abstract class AbstractPageEl {
 
     public final void forwardTo(AbstractPageEl _page, ContextEl _context, StackCall _stack) {
         _page.receive(wrapper, returnedArgument, _context, _stack);
-        if (_page instanceof AbstractRefectMethodPageEl) {
-            ArrayRefState a_ = ((AbstractRefectMethodPageEl) _page).getArrRef();
-            callRefLater(_context, _stack, a_.getRef());
-        }
-        if (_page instanceof AbstractRefectLambdaMethodPageEl) {
-            int a_ = ((AbstractRefectLambdaMethodPageEl) _page).getRef();
+        if (_page instanceof AbstractRefectCommonMethodPageEl) {
+            int a_ = ((AbstractRefectCommonMethodPageEl) _page).getRef();
             callRefLater(_context, _stack, a_);
         }
-        if (_page instanceof ReflectConstructorPageEl) {
-            ArrayRefState a_ = ((ReflectConstructorPageEl) _page).getArrRef();
-            callRefLater(_context, _stack, a_.getRef());
-        }
-        if (_page instanceof ReflectLambdaConstructorPageEl) {
-            int a_ = ((ReflectLambdaConstructorPageEl) _page).getRef();
+        if (_page instanceof AbstractReflectConstructorPageEl) {
+            int a_ = ((AbstractReflectConstructorPageEl) _page).getRef();
             callRefLater(_context, _stack, a_);
         }
     }

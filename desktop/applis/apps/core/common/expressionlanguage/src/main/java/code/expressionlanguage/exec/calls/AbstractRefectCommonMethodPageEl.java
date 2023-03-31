@@ -137,5 +137,6 @@ public abstract class AbstractRefectCommonMethodPageEl extends AbstractReflectPa
         return true;
     }
     abstract Argument prepareCall(ContextEl _context, StackCall _stack);
+    public abstract int getRef();
 
 }

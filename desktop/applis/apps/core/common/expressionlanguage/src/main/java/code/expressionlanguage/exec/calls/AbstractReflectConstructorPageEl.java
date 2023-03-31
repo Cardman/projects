@@ -69,4 +69,5 @@ public abstract class AbstractReflectConstructorPageEl extends AbstractReflectPa
         return true;
     }
     protected abstract ExecFormattedRootBlock getFormatted();
+    public abstract int getRef();
 }
